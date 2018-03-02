@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BB21F4E4-0775-407A-AEED-B86C875351B2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ScorpionEngine</RootNamespace>
+    <AssemblyName>ScorpionEngine</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MonoGame.Framework, Version=3.4.0.456, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\Assemblies\MonoGame.Framework.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="sfmlnet-audio-2, Version=2.1.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Assemblies\SFML\sfmlnet-audio-2.dll</HintPath>
+    </Reference>
+    <Reference Include="sfmlnet-graphics-2, Version=2.1.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Assemblies\SFML\sfmlnet-graphics-2.dll</HintPath>
+    </Reference>
+    <Reference Include="sfmlnet-window-2, Version=2.1.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Assemblies\SFML\sfmlnet-window-2.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AnchorPoint.cs" />
+    <Compile Include="CollisionManager.cs" />
+    <Compile Include="Content\AtlasManager.cs" />
+    <Compile Include="Content\AtlasSpriteData.cs" />
+    <Compile Include="ContentFactory.cs" />
+    <Compile Include="Content\ContentLoader.cs" />
+    <Compile Include="Content\Enums.cs" />
+    <Compile Include="Content\ExtensionMethods.cs" />
+    <Compile Include="DelayTimer.cs" />
+    <Compile Include="Engine.cs" />
+    <Compile Include="EngineCore.cs" />
+    <Compile Include="EngineTime.cs" />
+    <Compile Include="Input\InputWatcher.cs" />
+    <Compile Include="Input\MouseWatcher.cs" />
+    <Compile Include="QuadGraph.cs" />
+    <Compile Include="Utils\Counter.cs" />
+    <Compile Include="Input\Enums.cs" />
+    <Compile Include="Input\KeyboardWatcher.cs" />
+    <Compile Include="Input\MouseInputState.cs" />
+    <Compile Include="Input\MouseInput.cs" />
+    <Compile Include="Input\MouseEventArgs.cs" />
+    <Compile Include="IUpdatable.cs" />
+    <Compile Include="KeyBehavior.cs" />
+    <Compile Include="Input\KeyboardInput.cs" />
+    <Compile Include="MovementBehavior.cs" />
+    <Compile Include="Objects\ControllableObject.cs" />
+    <Compile Include="Objects\ObjectAnimation.cs" />
+    <Compile Include="Objects\Enums.cs" />
+    <Compile Include="Objects\MovableObject.cs" />
+    <Compile Include="Objects\ObjectPool.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Input\KeyEventArgs.cs" />
+    <Compile Include="EventArguments\OnMovedEventArgs.cs" />
+    <Compile Include="EventArguments\OnUpdateDrawEventArgs.cs" />
+    <Compile Include="EventArguments\OutOfBoundsTriggerEventsArgs.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Objects\GameText.cs" />
+    <Compile Include="Objects\GameObject.cs" />
+    <Compile Include="MethodExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rect.cs" />
+    <Compile Include="GameSound\Song.cs" />
+    <Compile Include="GameSound\SoundEffect.cs" />
+    <Compile Include="Objects\TextObject.cs" />
+    <Compile Include="Content\AtlasData.cs" />
+    <Compile Include="Utils\DebugFont.cs" />
+    <Compile Include="Utils\Enums.cs" />
+    <Compile Include="Utils\ExtensionMethods.cs" />
+    <Compile Include="Utils\DebugDraw.cs" />
+    <Compile Include="Utils\StopWatch.cs" />
+    <Compile Include="Utils\Tools.cs" />
+    <Compile Include="Utils\Tween.cs" />
+    <Compile Include="Vector.cs" />
+    <Compile Include="World.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assemblies\" />
+    <Folder Include="Exceptions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="csfml-audio-2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="csfml-graphics-2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="csfml-window-2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="libsndfile-1.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="openal32.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Input\InputNamespaceDiagram.cd" />
+    <None Include="Engine Diagram.cd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
