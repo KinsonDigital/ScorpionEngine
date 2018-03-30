@@ -28,9 +28,13 @@ namespace ScorpionEngine
         public event EventHandler OnLoadContent;
         #endregion
 
+
+        #region Constructors
         public EngineCore() : base()
         {
         }
+        #endregion
+
 
         #region One Time Run Methods
         /// <summary>
@@ -42,6 +46,7 @@ namespace ScorpionEngine
 
             base.Initialize();
         }
+
 
         /// <summary>
         /// Fires the OnLoadContent event.  Runs content loading code.
@@ -67,6 +72,7 @@ namespace ScorpionEngine
 
             base.Update(gameTime);
         }
+
 
         /// <summary>
         /// Fires the OnDraw event to render the graphics of the game.

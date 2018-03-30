@@ -14,10 +14,12 @@ namespace ScorpionEngine.Utils
         public event EventHandler OnTimeElapsed;
         #endregion
 
+
         #region Fields
         private bool _enabled;
         private int _timeOut;
         #endregion
+
 
         #region Constructors
         /// <summary>
@@ -29,6 +31,7 @@ namespace ScorpionEngine.Utils
             _timeOut = timeOut;
         }
         #endregion
+
 
         #region Props
         /// <summary>
@@ -63,6 +66,7 @@ namespace ScorpionEngine.Utils
         public bool Running { get; private set; }
         #endregion
 
+
         #region Public Methods
         /// <summary>
         /// Starts the stopwatch.
@@ -73,6 +77,7 @@ namespace ScorpionEngine.Utils
             Running = true;
         }
 
+
         /// <summary>
         /// Stops the stopwatch.
         /// </summary>
@@ -82,10 +87,12 @@ namespace ScorpionEngine.Utils
             Running = false;
         } 
 
+
         /// <summary>
         /// Gets or sets the reset mode of the stopwatch.  If set to auto reset, then the stopwatch will automatically be set to 0 and start counting again.
         /// </summary>
         public ResetType ResetMode { get; set; }
+
 
         /// <summary>
         /// Stops the stopwatch and resets the elapsed time back to 0.
@@ -96,6 +103,7 @@ namespace ScorpionEngine.Utils
 
             ElapsedMS = 0;
         } 
+
 
         /// <summary>
         /// Updates the internal time of the stop watch.

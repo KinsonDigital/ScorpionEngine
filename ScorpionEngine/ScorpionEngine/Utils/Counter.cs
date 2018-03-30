@@ -19,10 +19,12 @@ namespace ScorpionEngine.Utils
         public event EventHandler MinReachedWhenDecrementing;
         #endregion
 
+
         #region Fields
         private int _min;
         private int _max;
         #endregion
+
 
         #region Constructors
         /// <summary>
@@ -53,6 +55,7 @@ namespace ScorpionEngine.Utils
             ResetMode = ResetType.Auto;
         }
         #endregion
+
 
         #region Props
         /// <summary>
@@ -107,6 +110,7 @@ namespace ScorpionEngine.Utils
         public CountType CountDirection { get; set; }
         #endregion
 
+
         #region Public Methods
         /// <summary>
         /// Increment or decrement the value by the CountAmount property value in the direction of the CountDirection property.
@@ -149,6 +153,7 @@ namespace ScorpionEngine.Utils
             }
         }
 
+
         /// <summary>
         /// Resets the value back to 0.
         /// </summary>
@@ -166,6 +171,7 @@ namespace ScorpionEngine.Utils
                     throw new ArgumentOutOfRangeException();
             }
         }
+
 
         /// <summary>
         /// Resets the counter to the given value.

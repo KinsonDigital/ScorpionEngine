@@ -13,6 +13,7 @@ namespace ScorpionEngine
         private Vector2 _vector;
         #endregion
 
+
         #region Constructors
         /// <summary>
         /// Initializes a new instance of Position.
@@ -24,6 +25,7 @@ namespace ScorpionEngine
             _vector = new Vector2(x, y);
         }
         #endregion
+
 
         #region Properties
         /// <summary>
@@ -68,6 +70,7 @@ namespace ScorpionEngine
         }
         #endregion
 
+
         #region Public Methods
         /// <summary>
         /// Returns the current vector into a unit vector. The result is a vector one unit in length pointing in the same direction as the original vector.
@@ -81,6 +84,7 @@ namespace ScorpionEngine
         }
         #endregion
 
+
         #region Overloaded Methods
         /// <summary>
         /// Returns the string interpretation of this Vector.
@@ -91,6 +95,7 @@ namespace ScorpionEngine
             return _vector.X.ToString(CultureInfo.InvariantCulture) + "," + _vector.Y.ToString(CultureInfo.InvariantCulture);
         }
         #endregion
+
 
         #region Overloaded Operators
         /// <summary>
@@ -138,6 +143,7 @@ namespace ScorpionEngine
         }
         #endregion
 
+
         #region Static Methods
         /// <summary>
         /// Performs vector addition on value1 and value2/>.
@@ -154,6 +160,7 @@ namespace ScorpionEngine
             return value1;
         }
 
+
         /// <summary>
         /// Returns a new vector of value1 subtracted by value1.
         /// </summary>
@@ -169,6 +176,7 @@ namespace ScorpionEngine
             return value1;
         }
 
+
         /// <summary>
         /// Returns a scalar result of the value1 vector multiplied by value2.  The result is a Dot Product.
         /// </summary>
@@ -183,6 +191,7 @@ namespace ScorpionEngine
             return value1;
         }
 
+
         /// <summary>
         /// Returns a vector of value1 multiplied by value2.  The result is a Cross Product.
         /// </summary>
@@ -195,6 +204,7 @@ namespace ScorpionEngine
             value1.Y *= value2.Y;
             return value1;
         }
+
 
         /// <summary>
         /// Divides the components of the vector by a scalar.
@@ -211,6 +221,7 @@ namespace ScorpionEngine
             return value1;
         }
 
+
         /// <summary>
         /// Divides the components of the vector by a scalar.
         /// </summary>
@@ -226,6 +237,7 @@ namespace ScorpionEngine
             value1.Y *= num;
             return value1;
         }
+
 
         /// <summary>
         /// Returns the given vector as a unit vector. The result is a vector one unit in length pointing in the same direction as the original vector.

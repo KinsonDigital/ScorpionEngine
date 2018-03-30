@@ -24,6 +24,7 @@ namespace ScorpionEngine.Objects
         }
         #endregion
 
+
         #region Properties
         /// <summary>
         /// Gets or sets the text.
@@ -44,7 +45,6 @@ namespace ScorpionEngine.Objects
         /// Gets or sets the backcolor of the text.
         /// </summary>
         public Color Backcolor { get; set; }
-
         #endregion
     }
 }

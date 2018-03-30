@@ -24,8 +24,8 @@ namespace ScorpionEngine
         public static int _prevElapsedTime;
         private SpriteBatch _spriteBatch;//Draws all of the content
         private bool _running;
-//        private DebugViewXNA _debugView;
         #endregion
+
 
         #region Constructors
         /// <summary>
@@ -50,6 +50,7 @@ namespace ScorpionEngine
             SetFPS(_framesPreSecondToMaintain);
         }
         #endregion
+
 
         #region Properties
         /// <summary>
@@ -77,6 +78,7 @@ namespace ScorpionEngine
                 return _running;
             }
         }
+
 
         #region Static Properties
         /// <summary>
@@ -148,6 +150,7 @@ namespace ScorpionEngine
         #endregion
         #endregion
 
+
         #region Game Loop Methods
         /// <summary>
         /// Initializes the engine.
@@ -164,6 +167,7 @@ namespace ScorpionEngine
             _world.OnInit();
         }
 
+
         /// <summary>
         /// Loads all of the content.
         /// </summary>
@@ -171,6 +175,7 @@ namespace ScorpionEngine
         {
             _world.OnLoadContent();
         }
+
 
         /// <summary>
         /// Updates the game world.
@@ -189,6 +194,7 @@ namespace ScorpionEngine
 
             _currentFPS = (1000f/_prevElapsedTime);
         }
+
 
         /// <summary>
         /// Draws the game world.
@@ -349,6 +355,7 @@ namespace ScorpionEngine
         }
         #endregion
 
+
         #region Public Methods
         /// <summary>
         /// Starts the game engine.
@@ -360,6 +367,7 @@ namespace ScorpionEngine
             _engineCore.Run(GameRunBehavior.Synchronous);
         }
 
+
         /// <summary>
         /// Stops the game engine.
         /// </summary>
@@ -367,6 +375,7 @@ namespace ScorpionEngine
         {
             _running = false;
         }
+
 
         /// <summary>
         /// Sets the world in the engine to the given world.
@@ -380,6 +389,7 @@ namespace ScorpionEngine
             _world = world;
         }
 
+
         /// <summary>
         /// Loads a song with the given name.
         /// </summary>
@@ -389,6 +399,7 @@ namespace ScorpionEngine
         {
             return ContentLoader.LoadSong(songName);
         }
+
 
         /// <summary>
         /// Loads a sound effect with the given name.
@@ -400,6 +411,7 @@ namespace ScorpionEngine
             return ContentLoader.LoadSoundEffect(effectName);
         }
 
+
         /// <summary>
         /// Disposes of the engine.
         /// </summary>
@@ -407,7 +419,7 @@ namespace ScorpionEngine
         {
             Dispose(true);
         }
-        #endregion
+
 
         /// <summary>
         /// Sets the frames per second that the engine should run at.
@@ -417,9 +429,8 @@ namespace ScorpionEngine
         {
             _engineCore.TargetElapsedTime = TimeSpan.FromMilliseconds(1000f / value);
         }
-
-        #region Internal Methods
         #endregion
+
 
         #region Protected Methods
         /// <summary>
@@ -435,6 +446,7 @@ namespace ScorpionEngine
         }
         #endregion
 
+
         #region Private Methods
         /// <summary>
         /// Calls the OnInit method.
@@ -444,6 +456,7 @@ namespace ScorpionEngine
             OnInit();
         }
 
+
         /// <summary>
         /// Calls the OnUpdate method.
         /// </summary>
@@ -451,6 +464,7 @@ namespace ScorpionEngine
         {
             OnLoadContent();
         }
+
 
         /// <summary>
         /// Callse the OnUpdate method.
@@ -460,6 +474,7 @@ namespace ScorpionEngine
             OnUpdate(e.EngineTime);
         }
 
+
         /// <summary>
         /// Calls the on draw method.
         /// </summary>
@@ -467,6 +482,7 @@ namespace ScorpionEngine
         {
             OnDraw();
         }
+
 
         /// <summary>
         /// Calculates a new vector that is relative to the given source vector from the given destination vector.
@@ -481,6 +497,7 @@ namespace ScorpionEngine
 
             return objToAdjust;
         }
+
 
         private void SetupDebugView()
         {

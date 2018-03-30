@@ -33,6 +33,7 @@
         public short AngleQuad { get; private set; }
         #endregion
 
+
         #region Public Methods
         /// <summary>
         /// Updates the position of the quad graph and the single point's location in the graph.
@@ -50,6 +51,7 @@
             AngleQuad = CalcAngleQuad();
         }
         #endregion
+
 
         #region Private Methods
         /// <summary>
@@ -72,6 +74,7 @@
 
             return -1;
         }
+
 
         /// <summary>
         /// Returns the quad location form 1 to 4 that the angle is pointing to.

@@ -11,9 +11,9 @@ namespace ScorpionEngine.Utils
     {
         #region Private Members
         private static readonly Dictionary<String, List<Vector2>> circleCache = new Dictionary<string, List<Vector2>>();
-        //private static readonly Dictionary<String, List<Vector2>> arcCache = new Dictionary<string, List<Vector2>>();
         private static Texture2D pixel;
         #endregion
+
 
         #region Private Methods
         private static void CreateThePixel(SpriteBatch spriteBatch)
@@ -21,6 +21,7 @@ namespace ScorpionEngine.Utils
             pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             pixel.SetData(new[] { Color.White });
         }
+
 
         /// <summary>
         /// Draws a list of connecting points
@@ -40,6 +41,7 @@ namespace ScorpionEngine.Utils
                 DrawLine(spriteBatch, points[i - 1] + position, points[i] + position, color, thickness);
             }
         }
+
 
         /// <summary>
         /// Creates a list of vectors that represents a circle
@@ -113,11 +115,10 @@ namespace ScorpionEngine.Utils
 
             return points;
         }
-
         #endregion
 
-        #region FillRectangle
 
+        #region FillRectangle
         /// <summary>
         /// Draws a filled rectangle
         /// </summary>
@@ -224,11 +225,10 @@ namespace ScorpionEngine.Utils
         {
             FillRectangle(spriteBatch, new Vector2(x, y), new Vector2(w, h), color, angle);
         }
-
         #endregion
 
-        #region DrawRectangle
 
+        #region DrawRectangle
         /// <summary>
         /// Draws a rectangle with the thickness provided
         /// </summary>
@@ -286,11 +286,10 @@ namespace ScorpionEngine.Utils
         {
             DrawRectangle(spriteBatch, new Rectangle((int)location.X, (int)location.Y, (int)size.X, (int)size.Y), color, thickness);
         }
-
         #endregion
 
-        #region DrawLine
 
+        #region DrawLine
         /// <summary>
         /// Draws a line from point1 to point2 with an offset
         /// </summary>
@@ -396,11 +395,10 @@ namespace ScorpionEngine.Utils
                 SpriteEffects.None,
                 0);
         }
-
         #endregion
 
-        #region PutPixel
 
+        #region PutPixel
         public static void PutPixel(this SpriteBatch spriteBatch, float x, float y, Color color)
         {
             PutPixel(spriteBatch, new Vector2(x, y), color);
@@ -416,11 +414,10 @@ namespace ScorpionEngine.Utils
 
             spriteBatch.Draw(pixel, position, color);
         }
-
         #endregion
 
-        #region DrawCircle
 
+        #region DrawCircle
         /// <summary>
         /// Draw a circle
         /// </summary>
@@ -479,11 +476,10 @@ namespace ScorpionEngine.Utils
         {
             DrawPoints(spriteBatch, new Vector2(x, y), CreateCircle(radius, sides), color, thickness);
         }
-
         #endregion
 
-        #region DrawArc
 
+        #region DrawArc
         /// <summary>
         /// Draw a arc
         /// </summary>
@@ -517,7 +513,6 @@ namespace ScorpionEngine.Utils
             //List<Vector2> arc = CreateArc2(radius, sides, startingAngle, degrees);
             DrawPoints(spriteBatch, center, arc, color, thickness);
         }
-
         #endregion
     }
 }

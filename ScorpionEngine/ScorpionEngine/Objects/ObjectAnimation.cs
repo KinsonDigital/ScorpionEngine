@@ -17,6 +17,7 @@ namespace ScorpionEngine.Objects
         private bool _looping = true;//True if the animation loops 
         #endregion
 
+
         #region Constructors
         /// <summary>
         /// Creates a new instance of Animation.
@@ -35,6 +36,7 @@ namespace ScorpionEngine.Objects
             _frames = frameBounds;
         }
         #endregion
+
 
         #region Properties
         /// <summary>
@@ -87,6 +89,7 @@ namespace ScorpionEngine.Objects
         }
         #endregion
 
+
         #region Public Methods
         /// <summary>
         /// Plays the animation.
@@ -96,6 +99,7 @@ namespace ScorpionEngine.Objects
             _state = AnimationState.Running;
         }
 
+
         /// <summary>
         /// Pauses the animation.
         /// </summary>
@@ -103,6 +107,7 @@ namespace ScorpionEngine.Objects
         {
             _state = AnimationState.Paused;
         }
+
 
         /// <summary>
         /// Stops the animation.
@@ -112,6 +117,7 @@ namespace ScorpionEngine.Objects
             _state = AnimationState.Stopped;
             _currentFrame = 0;//Set the current frame back to the first frame
         }
+
 
         /// <summary>
         /// Updates the animation.

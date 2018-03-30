@@ -11,8 +11,8 @@ namespace ScorpionEngine
         private Rectangle _rectangle;
         #endregion
 
-        #region Constructors
 
+        #region Constructors
         /// <summary>
         /// Creates a new instance of Rectangle.
         /// </summary>
@@ -24,11 +24,11 @@ namespace ScorpionEngine
         {
             _rectangle = new Rectangle(x, y, width, height);
         }
-
         #endregion
 
+
         #region Properties
-       /// <summary>
+        /// <summary>
        /// Gets an empty version of a Rect instance.
        /// </summary>
         public static Rect Empty
@@ -98,11 +98,10 @@ namespace ScorpionEngine
                 _rectangle.Height = value;
             }
         }
-
         #endregion
 
-        #region Public Methods
 
+        #region Public Methods
         /// <summary>
         /// Determines whether this Rectangle contains the given x,y components.
         /// </summary>
@@ -114,6 +113,7 @@ namespace ScorpionEngine
             return _rectangle.Contains(x, y);
         }
 
+
         /// <summary>
         /// Determines whether this Rectangle entirely contains the given Rectangle.
         /// </summary>
@@ -124,6 +124,7 @@ namespace ScorpionEngine
             return _rectangle.Contains(new Rectangle(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height));
         }
 
+
         /// <summary>
         /// Determines whether this Rectangle entirly contains the given vector.
         /// </summary>
@@ -133,8 +134,8 @@ namespace ScorpionEngine
         {
             return _rectangle.Contains(vector.X, vector.Y);
         }
-
         #endregion
+
 
         #region Overloaded Methods
         /// <summary>

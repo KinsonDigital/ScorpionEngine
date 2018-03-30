@@ -14,6 +14,7 @@ namespace ScorpionEngine.Input
         public MouseInputState State { get; }
         #endregion
 
+
         #region Constructor
         /// <summary>
         /// Creates a new instance of MouseEventArgs.

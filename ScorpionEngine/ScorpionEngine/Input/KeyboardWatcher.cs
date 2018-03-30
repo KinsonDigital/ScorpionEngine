@@ -13,6 +13,7 @@ namespace ScorpionEngine.Input
         private Dictionary<InputKeys, bool> _currentPressedKeys;//Holds the list of comboKeys and there down states
         #endregion
 
+
         #region Constructors
         /// <summary>
         /// Creates an instance of KeyboardWatcher.
@@ -22,6 +23,7 @@ namespace ScorpionEngine.Input
         {
             Init(10, InputKeys.None, null, -1, -1, enabled);
         }
+
 
         /// <summary>
         /// Creates an instance of KeyboardWatcher.
@@ -33,6 +35,7 @@ namespace ScorpionEngine.Input
             Init(-1, InputKeys.None, comboKeys, -1, -1, enabled);
         }
 
+
         /// <summary>
         /// Creates an instance of KeyboardWatcher.
         /// </summary>
@@ -43,6 +46,7 @@ namespace ScorpionEngine.Input
         {
             Init(hitCountMax, key, null, -1, -1, enabled);
         }
+
 
         /// <summary>
         /// Creates an instance of KeyboardWatcher.
@@ -57,6 +61,7 @@ namespace ScorpionEngine.Input
             Init(hitCountMax, key, null, keyDownTimeOut, keyReleaseTimeOut, enabled);
         }
 
+
         /// <summary>
         /// Creates an instance of KeyboardWatcher.
         /// </summary>
@@ -68,6 +73,7 @@ namespace ScorpionEngine.Input
         {
             Init(hitCountMax, key, comboKeys, -1, -1, enabled);
         }
+
 
         /// <summary>
         /// Creates an instance of KeyboardWatcher.
@@ -83,6 +89,7 @@ namespace ScorpionEngine.Input
             Init(hitCountMax, key, comboKeys, keyDownTimeOut, keyReleaseTimeOut, enabled);
         }
         #endregion
+
 
         #region Props
         /// <summary>
@@ -105,6 +112,7 @@ namespace ScorpionEngine.Input
             }
         }
         #endregion
+
 
         #region Public Methods
         /// <summary>
@@ -216,6 +224,7 @@ namespace ScorpionEngine.Input
         }
         #endregion
 
+
         #region Private Methods
         /// <summary>
         /// Initializes the KeyboardWatcher.
@@ -249,6 +258,7 @@ namespace ScorpionEngine.Input
 
             HitCountResetMode = ResetType.Auto;
         }
+
 
         /// <summary>
         /// Creates the list of pressed keys from the given list of keys

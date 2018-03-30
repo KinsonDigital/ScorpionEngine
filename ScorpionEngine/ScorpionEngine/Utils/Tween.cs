@@ -55,7 +55,6 @@ namespace ScorpionEngine.Utils
     /// </example>
     public class Tweener
     {
-        #region Easing Functions
         #region Linear
         /// <summary>
         ///     Easing equation function for a simple linear tweening, with no easing.
@@ -70,6 +69,7 @@ namespace ScorpionEngine.Utils
             return c * t / d + b;
         }
         #endregion
+
 
         #region Expo
         /// <summary>
@@ -86,6 +86,7 @@ namespace ScorpionEngine.Utils
             return Math.Abs(t - d) < 0.0 ? b + c : c * (- Math.Pow(2, - 10 * t / d) + 1) + b;
         }
 
+
         /// <summary>
         ///     Easing equation function for an exponential (2^t) easing in:
         ///     accelerating from zero velocity.
@@ -99,6 +100,7 @@ namespace ScorpionEngine.Utils
         {
             return Math.Abs(t) < 0.0 ? b : c * Math.Pow(2, 10 * (t / d - 1)) + b;
         }
+
 
         /// <summary>
         ///     Easing equation function for an exponential (2^t) easing in/out:
@@ -123,6 +125,7 @@ namespace ScorpionEngine.Utils
             return c / 2 * (- Math.Pow(2, - 10 * --t) + 2) + b;
         }
 
+
         /// <summary>
         ///     Easing equation function for an exponential (2^t) easing out/in:
         ///     deceleration until halfway, then acceleration.
@@ -141,6 +144,7 @@ namespace ScorpionEngine.Utils
         }
         #endregion
 
+
         #region Circular
         /// <summary>
         ///     Easing equation function for a circular (sqrt(1-t^2)) easing out:
@@ -156,6 +160,7 @@ namespace ScorpionEngine.Utils
             return c * Math.Sqrt(1 - (t = t / d - 1) * t) + b;
         }
 
+
         /// <summary>
         ///     Easing equation function for a circular (sqrt(1-t^2)) easing in:
         ///     accelerating from zero velocity.
@@ -169,6 +174,7 @@ namespace ScorpionEngine.Utils
         {
             return - c * (Math.Sqrt(1 - (t /= d) * t) - 1) + b;
         }
+
 
         /// <summary>
         ///     Easing equation function for a circular (sqrt(1-t^2)) easing in/out:
@@ -186,6 +192,7 @@ namespace ScorpionEngine.Utils
 
             return c / 2 * (Math.Sqrt(1 - (t -= 2) * t) + 1) + b;
         }
+
 
         /// <summary>
         ///     Easing equation function for a circular (sqrt(1-t^2)) easing in/out:
@@ -205,6 +212,7 @@ namespace ScorpionEngine.Utils
         }
         #endregion
 
+
         #region Quad
         /// <summary>
         ///     Easing equation function for a quadratic (t^2) easing out:
@@ -220,6 +228,7 @@ namespace ScorpionEngine.Utils
             return - c * (t /= d) * (t - 2) + b;
         }
 
+
         /// <summary>
         ///     Easing equation function for a quadratic (t^2) easing in:
         ///     accelerating from zero velocity.
@@ -233,6 +242,7 @@ namespace ScorpionEngine.Utils
         {
             return c * (t /= d) * t + b;
         }
+
 
         /// <summary>
         ///     Easing equation function for a quadratic (t^2) easing in/out:
@@ -250,6 +260,7 @@ namespace ScorpionEngine.Utils
 
             return - c / 2 * (--t * (t - 2) - 1) + b;
         }
+
 
         /// <summary>
         ///     Easing equation function for a quadratic (t^2) easing out/in:
@@ -269,6 +280,7 @@ namespace ScorpionEngine.Utils
         }
         #endregion
 
+
         #region Sine
         /// <summary>
         ///     Easing equation function for a sinusoidal (sin(t)) easing out:
@@ -284,6 +296,7 @@ namespace ScorpionEngine.Utils
             return c * Math.Sin(t / d * (Math.PI / 2)) + b;
         }
 
+
         /// <summary>
         ///     Easing equation function for a sinusoidal (sin(t)) easing in:
         ///     accelerating from zero velocity.
@@ -297,6 +310,7 @@ namespace ScorpionEngine.Utils
         {
             return - c * Math.Cos(t / d * (Math.PI / 2)) + c + b;
         }
+
 
         /// <summary>
         ///     Easing equation function for a sinusoidal (sin(t)) easing in/out:
@@ -314,6 +328,7 @@ namespace ScorpionEngine.Utils
 
             return - c / 2 * (Math.Cos(Math.PI * --t / 2) - 2) + b;
         }
+
 
         /// <summary>
         ///     Easing equation function for a sinusoidal (sin(t)) easing in/out:
@@ -333,6 +348,7 @@ namespace ScorpionEngine.Utils
         }
         #endregion
 
+
         #region Cubic
         /// <summary>
         ///     Easing equation function for a cubic (t^3) easing out:
@@ -348,6 +364,7 @@ namespace ScorpionEngine.Utils
             return c * ((t = t / d - 1) * t * t + 1) + b;
         }
 
+
         /// <summary>
         ///     Easing equation function for a cubic (t^3) easing in:
         ///     accelerating from zero velocity.
@@ -361,6 +378,7 @@ namespace ScorpionEngine.Utils
         {
             return c * (t /= d) * t * t + b;
         }
+
 
         /// <summary>
         ///     Easing equation function for a cubic (t^3) easing in/out:
@@ -378,6 +396,7 @@ namespace ScorpionEngine.Utils
 
             return c / 2 * ((t -= 2) * t * t + 2) + b;
         }
+
 
         /// <summary>
         ///     Easing equation function for a cubic (t^3) easing out/in:
@@ -397,6 +416,7 @@ namespace ScorpionEngine.Utils
         }
         #endregion
 
+
         #region Quartic
         /// <summary>
         ///     Easing equation function for a quartic (t^4) easing out:
@@ -412,6 +432,7 @@ namespace ScorpionEngine.Utils
             return - c * ((t = t / d - 1) * t * t * t - 1) + b;
         }
 
+
         /// <summary>
         ///     Easing equation function for a quartic (t^4) easing in:
         ///     accelerating from zero velocity.
@@ -425,6 +446,7 @@ namespace ScorpionEngine.Utils
         {
             return c * (t /= d) * t * t * t + b;
         }
+
 
         /// <summary>
         ///     Easing equation function for a quartic (t^4) easing in/out:
@@ -442,6 +464,7 @@ namespace ScorpionEngine.Utils
 
             return - c / 2 * ((t -= 2) * t * t * t - 2) + b;
         }
+
 
         /// <summary>
         ///     Easing equation function for a quartic (t^4) easing out/in:
@@ -461,6 +484,7 @@ namespace ScorpionEngine.Utils
         }
         #endregion
 
+
         #region Quintic
         /// <summary>
         ///     Easing equation function for a quintic (t^5) easing out:
@@ -476,6 +500,7 @@ namespace ScorpionEngine.Utils
             return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
         }
 
+
         /// <summary>
         ///     Easing equation function for a quintic (t^5) easing in:
         ///     accelerating from zero velocity.
@@ -489,6 +514,7 @@ namespace ScorpionEngine.Utils
         {
             return c * (t /= d) * t * t * t * t + b;
         }
+
 
         /// <summary>
         ///     Easing equation function for a quintic (t^5) easing in/out:
@@ -506,6 +532,7 @@ namespace ScorpionEngine.Utils
             return c / 2 * ((t -= 2) * t * t * t * t + 2) + b;
         }
 
+
         /// <summary>
         ///     Easing equation function for a quintic (t^5) easing in/out:
         ///     acceleration until halfway, then deceleration.
@@ -522,6 +549,7 @@ namespace ScorpionEngine.Utils
             return QuintEaseIn(t * 2 - d, b + c / 2, c / 2, d);
         }
         #endregion
+
 
         #region Elastic
         /// <summary>
@@ -544,6 +572,7 @@ namespace ScorpionEngine.Utils
             return c * Math.Pow(2, - 10 * t) * Math.Sin((t * d - s) * (2 * Math.PI) / p) + c + b;
         }
 
+
         /// <summary>
         ///     Easing equation function for an elastic (exponentially decaying sine wave) easing in:
         ///     accelerating from zero velocity.
@@ -563,6 +592,7 @@ namespace ScorpionEngine.Utils
 
             return - (c * Math.Pow(2, 10 * (t -= 1)) * Math.Sin((t * d - s) * (2 * Math.PI) / p)) + b;
         }
+
 
         /// <summary>
         ///     Easing equation function for an elastic (exponentially decaying sine wave) easing in/out:
@@ -586,6 +616,7 @@ namespace ScorpionEngine.Utils
             return c * Math.Pow(2, - 10 * (t -= 1)) * Math.Sin((t * d - s) * (2 * Math.PI) / p) * .5 + c + b;
         }
 
+
         /// <summary>
         ///     Easing equation function for an elastic (exponentially decaying sine wave) easing out/in:
         ///     deceleration until halfway, then acceleration.
@@ -600,6 +631,7 @@ namespace ScorpionEngine.Utils
             return t < d / 2 ? ElasticEaseOut(t * 2, b, c / 2, d) : ElasticEaseIn(t * 2 - d, b + c / 2, c / 2, d);
         }
         #endregion
+
 
         #region Bounce
         /// <summary>
@@ -622,6 +654,7 @@ namespace ScorpionEngine.Utils
             return c * (7.5625 * (t -= 2.625 / 2.75) * t + .984375) + b;
         }
 
+
         /// <summary>
         ///     Easing equation function for a bounce (exponentially decaying parabolic bounce) easing in:
         ///     accelerating from zero velocity.
@@ -635,6 +668,7 @@ namespace ScorpionEngine.Utils
         {
             return c - BounceEaseOut(d - t, 0, c, d) + b;
         }
+
 
         /// <summary>
         ///     Easing equation function for a bounce (exponentially decaying parabolic bounce) easing in/out:
@@ -651,6 +685,7 @@ namespace ScorpionEngine.Utils
                 return BounceEaseIn(t * 2, 0, c, d) * .5 + b;
             return BounceEaseOut(t * 2 - d, 0, c, d) * .5 + c * .5 + b;
         }
+
 
         /// <summary>
         ///     Easing equation function for a bounce (exponentially decaying parabolic bounce) easing out/in:
@@ -669,6 +704,7 @@ namespace ScorpionEngine.Utils
         }
         #endregion
 
+
         #region Back
         /// <summary>
         ///     Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing out:
@@ -684,6 +720,7 @@ namespace ScorpionEngine.Utils
             return c * ((t = t / d - 1) * t * ((1.70158 + 1) * t + 1.70158) + 1) + b;
         }
 
+
         /// <summary>
         ///     Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing in:
         ///     accelerating from zero velocity.
@@ -697,6 +734,7 @@ namespace ScorpionEngine.Utils
         {
             return c * (t /= d) * t * ((1.70158 + 1) * t - 1.70158) + b;
         }
+
 
         /// <summary>
         ///     Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing in/out:
@@ -715,6 +753,7 @@ namespace ScorpionEngine.Utils
             return c / 2 * ((t -= 2) * t * (((s *= 1.525) + 1) * t + s) + 2) + b;
         }
 
+
         /// <summary>
         ///     Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing out/in:
         ///     deceleration until halfway, then acceleration.
@@ -730,7 +769,6 @@ namespace ScorpionEngine.Utils
                 return BackEaseOut(t * 2, b, c / 2, d);
             return BackEaseIn(t * 2 - d, b + c / 2, c / 2, d);
         }
-        #endregion
         #endregion
     }
 }

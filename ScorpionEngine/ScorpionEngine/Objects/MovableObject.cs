@@ -18,6 +18,7 @@ namespace ScorpionEngine.Objects
         public event EventHandler<OnMovedEventArgs> OnMove;
         #endregion
 
+
         #region Fields
         private float _linearAcceleration = 0.1f;//The acceleration of any linear movement
         private float _maxAngularVelocity = 1f;//The maximum angular velocity
@@ -28,6 +29,7 @@ namespace ScorpionEngine.Objects
         private bool _rotationEnabled;
         private readonly Dictionary<Direction, bool> _linearMovementLocks = new Dictionary<Direction, bool>();//Holds the lock states for the 8 linear movements.  True means locked.
         #endregion
+
 
         #region Constructors
         /// <summary>
@@ -42,6 +44,7 @@ namespace ScorpionEngine.Objects
             InitializeObj(Vector.Zero, textureName, polyVertices);
         }
 
+
         /// <summary>
         /// Creates a new instance of MovableObject.
         /// </summary>
@@ -53,6 +56,7 @@ namespace ScorpionEngine.Objects
             : base(location, textureName, polyVertices)
         {
         }
+
 
         /// <summary>
         /// Creates a new instance of MovableObject.
@@ -70,6 +74,7 @@ namespace ScorpionEngine.Objects
 //            InitializeObj(location, textureName);//NOT NEEDED - DELETE
         }
 
+
         /// <summary>
         /// Loads a texture atlas for the movable object to use.
         /// </summary>
@@ -83,6 +88,7 @@ namespace ScorpionEngine.Objects
         {
             throw new NotImplementedException();
         }
+
 
         /// <summary>
         /// Creates a new instance of an movable object.
@@ -103,6 +109,7 @@ namespace ScorpionEngine.Objects
             //Initialize the rest of the movable object
             //            InitializeObj(location, textureAtlasName);//NOT NEEDED - DELETE
         }
+
 
         /// <summary>
         /// Creates a new instance of an movable object.
@@ -125,6 +132,7 @@ namespace ScorpionEngine.Objects
             //            InitializeObj(location, textureAtlasName);//NOT NEEDED - DELETE
         }
         #endregion
+
 
         #region Properties
         /// <summary>
@@ -287,6 +295,7 @@ namespace ScorpionEngine.Objects
         public bool AutoMove { get; set; }
         #endregion
 
+
         #region Public Method
         /// <summary>
         /// Moves the game object to the right.
@@ -297,6 +306,7 @@ namespace ScorpionEngine.Objects
             if (IsFollowing) return;
         }
 
+
         /// <summary>
         /// Moves the game object to the left.
         /// </summary>
@@ -305,6 +315,7 @@ namespace ScorpionEngine.Objects
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
         }
+
 
         /// <summary>
         /// Moves the game object up.
@@ -315,6 +326,7 @@ namespace ScorpionEngine.Objects
             if (IsFollowing) return;
         }
 
+
         /// <summary>
         /// Moves the game object down.
         /// </summary>
@@ -323,6 +335,7 @@ namespace ScorpionEngine.Objects
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
         }
+
 
         /// <summary>
         /// Moves the game object up and to the right.
@@ -333,6 +346,7 @@ namespace ScorpionEngine.Objects
             if (IsFollowing) return;
         }
 
+
         /// <summary>
         /// Moves the game object up and to the left.
         /// </summary>
@@ -341,6 +355,7 @@ namespace ScorpionEngine.Objects
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
         }
+
 
         /// <summary>
         /// Moves the game object down and to the right.
@@ -351,6 +366,7 @@ namespace ScorpionEngine.Objects
             if (IsFollowing) return;
         }
 
+
         /// <summary>
         /// Moves the game object down and to the left.
         /// </summary>
@@ -359,6 +375,7 @@ namespace ScorpionEngine.Objects
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
         } 
+
 
         /// <summary>
         /// Moves the entity at the currently set angle/impulseType.
@@ -369,6 +386,7 @@ namespace ScorpionEngine.Objects
             throw new NotImplementedException();
         }
 
+
         /// <summary>
         /// Rotates the game object clockwise.
         /// </summary>
@@ -377,6 +395,7 @@ namespace ScorpionEngine.Objects
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
         }
+
 
         /// <summary>
         /// Rotates the game object counter clockwise.
@@ -387,6 +406,7 @@ namespace ScorpionEngine.Objects
             if (IsFollowing) return;
         }
 
+
         /// <summary>
         /// Stops the movement of the object.
         /// </summary>
@@ -394,6 +414,7 @@ namespace ScorpionEngine.Objects
         {
             throw new NotImplementedException();
         }
+
 
         /// <summary>
         /// Stops the rotation of the object.
@@ -404,6 +425,7 @@ namespace ScorpionEngine.Objects
             throw new NotImplementedException();
         }
 
+
         /// <summary>
         /// Locks linear movement in the given direction.
         /// </summary>
@@ -413,6 +435,7 @@ namespace ScorpionEngine.Objects
             _linearMovementLocks[direction] = true;
         }
 
+
         /// <summary>
         /// Unlocks the linear movement in the given direction.
         /// </summary>
@@ -421,6 +444,7 @@ namespace ScorpionEngine.Objects
         {
             _linearMovementLocks[direction] = false;
         }
+
 
         /// <summary>
         /// Locks all linear movement.
@@ -434,6 +458,7 @@ namespace ScorpionEngine.Objects
             }
         }
 
+
         /// <summary>
         /// Unlocks all linear movement.
         /// </summary>
@@ -446,6 +471,7 @@ namespace ScorpionEngine.Objects
             }
         }
 
+
         /// <summary>
         /// Gets the given directions speed.
         /// </summary>
@@ -455,6 +481,7 @@ namespace ScorpionEngine.Objects
         {
             return _linearSpeeds[direction];
         }
+
 
         /// <summary>
         /// Sets all of the linear movements to the given speed. DEFAULT: 1
@@ -470,6 +497,7 @@ namespace ScorpionEngine.Objects
         }
         #endregion
 
+
         #region Private Methods
         /// <summary>
         /// Follows the set destination point.
@@ -479,6 +507,7 @@ namespace ScorpionEngine.Objects
             //TODO: Get this feature working
         }
         #endregion
+
 
         #region Game Loop Methods
         /// <summary>
@@ -546,6 +575,7 @@ namespace ScorpionEngine.Objects
             base.OnUpdate(engineTime);
         }
         #endregion
+
 
         #region Overridden Methods
         /// <summary>

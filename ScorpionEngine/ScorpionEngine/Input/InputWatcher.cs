@@ -27,6 +27,7 @@ namespace ScorpionEngine.Input
         public event EventHandler OnInputComboPressed;
         #endregion
 
+
         #region Fields
         protected Counter _counter;//Keeps track of the hit count of an input
         protected bool _curState;//The current state of the set input
@@ -35,6 +36,7 @@ namespace ScorpionEngine.Input
         protected StopWatch _inputDownTimer;//Keeps track of how long the set input has been in the down position
         protected StopWatch _inputReleasedTimer;//Keeps track of how long the set input has been in the up position since it was in the down position
         #endregion
+
 
         #region Props
         /// <summary>
@@ -173,6 +175,7 @@ namespace ScorpionEngine.Input
         }
         #endregion
 
+
         #region Protected Methods
         /// <summary>
         /// Invokes the OnInputHitCountReached event.
@@ -182,6 +185,7 @@ namespace ScorpionEngine.Input
             OnInputHitCountReached?.Invoke(this, new EventArgs());
         }
 
+
         /// <summary>
         /// Invokes the OnInputDownTimeOut event.
         /// </summary>
@@ -190,6 +194,7 @@ namespace ScorpionEngine.Input
             OnInputDownTimeOut?.Invoke(this, new EventArgs());
         }
 
+
         /// <summary>
         /// Invokes the OnInputReleasedTimeOut event.
         /// </summary>
@@ -197,6 +202,7 @@ namespace ScorpionEngine.Input
         {
             OnInputReleasedTimeOut?.Invoke(this, new EventArgs());
         }
+
 
         /// <summary>
         /// Invokes the OnInputComboPressed event.

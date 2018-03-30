@@ -76,7 +76,6 @@
     <Compile Include="EventArguments\OnMovedEventArgs.cs" />
     <Compile Include="EventArguments\OnUpdateDrawEventArgs.cs" />
     <Compile Include="EventArguments\OutOfBoundsTriggerEventsArgs.cs" />
-    <Compile Include="Extensions.cs" />
     <Compile Include="GameSound\Song.cs" />
     <Compile Include="GameSound\SoundEffect.cs" />
     <Compile Include="Input\Enums.cs" />

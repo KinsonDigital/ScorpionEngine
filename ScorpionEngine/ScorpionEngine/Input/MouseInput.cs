@@ -38,10 +38,12 @@ namespace ScorpionEngine.Input
         public event EventHandler<MouseEventArgs> OnMiddleButtonReleased;
         #endregion
 
+
         #region Fields
         private MouseState _currentState;//The current state of the mouse
         private MouseState _previousState;//The previous state of the mouse on the last frame
         #endregion
+
 
         #region Props
         /// <summary>
@@ -59,6 +61,7 @@ namespace ScorpionEngine.Input
         /// </summary>
         public Vector Position => new Vector(X, Y);
         #endregion
+
 
         #region Protected Methods
         /// <summary>
@@ -123,6 +126,7 @@ namespace ScorpionEngine.Input
             //            }
         }
 
+
         /// <summary>
         /// Update the previous state of the mouse.
         /// </summary>
@@ -132,6 +136,7 @@ namespace ScorpionEngine.Input
             _previousState = _currentState;
         }
         #endregion
+
 
         #region Public Methods
         /// <summary>
@@ -144,6 +149,7 @@ namespace ScorpionEngine.Input
             Mouse.SetPosition(x, y);
         }
 
+
         /// <summary>
         /// Sets the position of the mouse.
         /// </summary>
@@ -152,6 +158,7 @@ namespace ScorpionEngine.Input
         {
             SetPosition((int)position.X, (int)position.Y);
         }
+
 
         /// <summary>
         /// Returns true if the given input is in the down position.
@@ -174,6 +181,7 @@ namespace ScorpionEngine.Input
             }
         }
 
+
         /// <summary>
         /// Returns true if the given input is in the up position.
         /// </summary>
@@ -194,6 +202,7 @@ namespace ScorpionEngine.Input
                     throw new ArgumentOutOfRangeException(nameof(input), input, null);
             }
         }
+
 
         /// <summary>
         /// Returns true if the given mouse input has been released from the down position.

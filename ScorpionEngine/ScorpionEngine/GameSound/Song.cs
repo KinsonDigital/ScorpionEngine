@@ -8,18 +8,17 @@ namespace ScorpionEngine.GameSound
     public class Song
     {
         #region Fields
-
         private Music _song;
-
         #endregion
 
-        #region Constructors
 
+        #region Constructors
         public Song(string songName)
         {
             _song = new Music(songName);
         }
         #endregion
+
 
         #region Properties
         /// <summary>
@@ -39,6 +38,7 @@ namespace ScorpionEngine.GameSound
         }
         #endregion
 
+
         #region Public Methods
         /// <summary>
         /// Plays the song.
@@ -48,6 +48,7 @@ namespace ScorpionEngine.GameSound
             _song.Play();
         }
 
+
         /// <summary>
         /// Pauses the song while playing.
         /// </summary>
@@ -56,6 +57,7 @@ namespace ScorpionEngine.GameSound
             _song.Pause();
         }
 
+
         /// <summary>
         /// Stops the song.
         /// </summary>
@@ -63,7 +65,6 @@ namespace ScorpionEngine.GameSound
         {
             _song.Stop();
         }
-
         #endregion
     }
 }

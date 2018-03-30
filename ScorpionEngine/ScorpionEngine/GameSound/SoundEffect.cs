@@ -8,12 +8,11 @@ namespace ScorpionEngine.GameSound
     public class SoundEffect
     {
         #region Fields
-
         private Sound _sound;
         #endregion
 
-        #region Constructors
 
+        #region Constructors
         public SoundEffect(string soundEffectName)
         {
             SoundBuffer buffer = new SoundBuffer(soundEffectName);
@@ -21,6 +20,7 @@ namespace ScorpionEngine.GameSound
             _sound = new Sound(buffer);
         }
         #endregion
+
 
         #region Properties
         /// <summary>
@@ -31,7 +31,6 @@ namespace ScorpionEngine.GameSound
             get { return _sound.Loop; } set { _sound.Loop = value; }
         }
 
-
         /// <summary>
         /// Gets or sets the volume of the sound effect.
         /// </summary>
@@ -41,8 +40,8 @@ namespace ScorpionEngine.GameSound
         }
         #endregion
 
-        #region Public Methods
 
+        #region Public Methods
         /// <summary>
         /// Plays the sound.
         /// </summary>
@@ -51,6 +50,7 @@ namespace ScorpionEngine.GameSound
             _sound.Play();
         }
 
+
         /// <summary>
         /// Pauses the sound.
         /// </summary>
@@ -58,6 +58,7 @@ namespace ScorpionEngine.GameSound
         {
             _sound.Pause();
         }
+
 
         /// <summary>
         /// Stops the sound.

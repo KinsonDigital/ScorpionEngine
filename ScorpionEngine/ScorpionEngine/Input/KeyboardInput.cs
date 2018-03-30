@@ -21,10 +21,12 @@ namespace ScorpionEngine.Input
         public event EventHandler<KeyEventArgs> OnKeyUp;
         #endregion
 
+
         #region Fields
         private KeyboardState _currentState;//The current state of the keyboard to compare to the previous state
         private KeyboardState _previousState;//The previous state of the keyboard to compare to the current state
         #endregion
+
 
         #region Public Methods
         /// <summary>
@@ -50,6 +52,7 @@ namespace ScorpionEngine.Input
             }
         }
 
+
         /// <summary>
         /// Update the previous state of the keyboard.
         /// </summary>
@@ -59,6 +62,7 @@ namespace ScorpionEngine.Input
             _previousState = _currentState;
         }
 
+
         /// <summary>
         /// Returns true if any keys have been pressed.  This means a key was first put into the down position, then released to the up position.
         /// </summary>
@@ -67,6 +71,7 @@ namespace ScorpionEngine.Input
         {
             return _currentState.GetPressedKeys().Length == 0 && _previousState.GetPressedKeys().Length > 0;
         }
+
 
         /// <summary>
         /// Returns true if the given key is in the down position.
@@ -78,6 +83,7 @@ namespace ScorpionEngine.Input
             return _currentState.IsKeyDown((Keys)key);
         }
 
+
         /// <summary>
         /// Returns true if the given key is in the up position.
         /// </summary>
@@ -87,6 +93,7 @@ namespace ScorpionEngine.Input
         {
             return _currentState.IsKeyUp((Keys)key);
         }
+
 
         /// <summary>
         /// Returns true if the given key has been put into the down position then released to the up position.

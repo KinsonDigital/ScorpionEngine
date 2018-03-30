@@ -22,6 +22,7 @@ namespace ScorpionEngine.Utils
             return new Vector(value.X, value.Y);
         }
 
+
         /// <summary>
         /// Converts the given Vector to a Vector2.
         /// </summary>
@@ -31,6 +32,7 @@ namespace ScorpionEngine.Utils
         {
             return new Vector2(value.X, value.Y);
         }
+
 
         /// <summary>
         /// Converts the given Vector array into a Vector2 array.
@@ -51,6 +53,7 @@ namespace ScorpionEngine.Utils
             return returnValue;
         }
 
+
         /// <summary>
         /// Converts the given Vector2 array into a Vector array.
         /// </summary>
@@ -70,6 +73,7 @@ namespace ScorpionEngine.Utils
             return returnValue;
         }
 
+
         /// <summary>
         /// Converts the given Keys array into an InputKeys array.
         /// </summary>
@@ -87,6 +91,7 @@ namespace ScorpionEngine.Utils
 
             return returnArray;
         }
+
 
         /// <summary>
         /// Converts the given MouseState to a MouseInputState.
@@ -108,6 +113,7 @@ namespace ScorpionEngine.Utils
 
             return returnValue;
         }
+
 
         /// <summary>
         /// Converts the given verticies to new verticies that takes a centered origin into account.
@@ -134,6 +140,7 @@ namespace ScorpionEngine.Utils
             return returnValue;
         }
 
+
         /// <summary>
         /// Gets the minimum value of the given enumeration.
         /// </summary>
@@ -146,6 +153,7 @@ namespace ScorpionEngine.Utils
             //Get the smallest item out of all of the values
             return values.Cast<int>().Concat(new[] {int.MaxValue}).Min();
         }
+
 
         /// <summary>
         /// Gets the maximum value of the given enumeration.

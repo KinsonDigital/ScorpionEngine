@@ -18,6 +18,7 @@ namespace ScorpionEngine
         public static event EventHandler OnEntityRemoved;
         #endregion
 
+
         #region Fields
         private static readonly List<int> _idNumbers = new List<int>();//Generated ID numbers that are assigned to game objects.
         private static readonly List<GameObject> _gameObjects = new List<GameObject>();//The list of entites that have been added to the world
@@ -27,6 +28,7 @@ namespace ScorpionEngine
         private static readonly List<SpriteFont> _debugTexts = new List<SpriteFont>();
         private static bool _debugDrawEnabled;
         #endregion
+
 
         #region Constructors
         /// <summary>
@@ -38,6 +40,7 @@ namespace ScorpionEngine
             _anchors = new List<AnchorPoint>();
         }
         #endregion
+
 
         #region Props
         /// <summary>
@@ -62,6 +65,7 @@ namespace ScorpionEngine
             }
         }
 
+
         #region Internal Props
         //TODO: Get this feature working
         /// <summary>
@@ -81,6 +85,7 @@ namespace ScorpionEngine
         #endregion
         #endregion
 
+
         #region Public Methods
         /// <summary>
         /// Draws the debug data.
@@ -91,6 +96,7 @@ namespace ScorpionEngine
 
             
         }
+
 
         /// <summary>
         /// Adds the given obj pool to the world.  Duplicate pool names in a world are not aloud.
@@ -104,6 +110,7 @@ namespace ScorpionEngine
 
             _pools.Add(pool);
         }
+
 
         /// <summary>
         /// Generates a new ID that can be used to assign to a game object.
@@ -120,6 +127,7 @@ namespace ScorpionEngine
         }
         #endregion
 
+
         #region Game Loop Methods
         /// <summary>
         /// Used to be overriden by inherited world classes to initialize objects.
@@ -128,12 +136,14 @@ namespace ScorpionEngine
         {
         }
 
+
         /// <summary>
         /// Used to be overriden  by inherited world classes to load content.
         /// </summary>
         public virtual void OnLoadContent()
         {
         }
+
 
         /// <summary>
         /// Used to be overriden by inhertied world classes to update objects and the game.
@@ -158,6 +168,7 @@ namespace ScorpionEngine
         }
         #endregion
 
+
         #region Public Static Methods
         /// <summary>
         /// Add the given obj to the game world.  GameObjects with the same name not aloud.
@@ -169,6 +180,7 @@ namespace ScorpionEngine
 
             _gameObjects.Add(obj);//Add the new obj to the obj list
         }
+
 
         /// <summary>
         /// Removes the ID that matches the given ID number.
@@ -193,6 +205,7 @@ namespace ScorpionEngine
             }
         }
         #endregion
+
 
         #region Private Methods
         /// <summary>

@@ -13,6 +13,7 @@ namespace ScorpionEngine.Content
             return (item >= 65 && item <= 90 || item >= 97 && item <= 122);
         }
 
+
         /// <summary>
         /// Returns true if the character is a number.
         /// </summary>
@@ -21,6 +22,7 @@ namespace ScorpionEngine.Content
         {
             return (item >= 48 && item <= 57);
         }
+
 
         /// <summary>
         /// Gets the first occurance of any number in the string.
@@ -35,6 +37,7 @@ namespace ScorpionEngine.Content
             return Int32.Parse(number);
         }
 
+
         /// <summary>
         /// Returns true if the string has any number digits in them.
         /// </summary>
@@ -43,6 +46,7 @@ namespace ScorpionEngine.Content
         {
             return item.Any(IsNumber);
         }
+
 
         /// <summary>
         /// Returns true if the string only contains letters.
@@ -60,6 +64,7 @@ namespace ScorpionEngine.Content
             return true;
         }
 
+
         /// <summary>
         /// Returns true if the string only contains numbers.
         /// </summary>
@@ -75,6 +80,7 @@ namespace ScorpionEngine.Content
 
             return true;
         }
+
 
         /// <summary>
         /// Returns true if the string contains only letters and numbers.

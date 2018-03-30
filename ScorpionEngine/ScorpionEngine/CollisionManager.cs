@@ -12,6 +12,7 @@ namespace ScorpionEngine
         private static readonly List<string> _groups = new List<string>();
         #endregion
 
+
         #region Public Methods
         /// <summary>
         /// Adds a group type for collision detection with another group type.
@@ -21,6 +22,7 @@ namespace ScorpionEngine
         {
             _groups.Add(type);
         }
+
 
         /// <summary>
         /// Checks if the two given bounds are colliding.
@@ -32,6 +34,7 @@ namespace ScorpionEngine
         {
             return a.Contains(b);
         }
+
 
         /// <summary>
         /// Checks if the two given objects are colliding.

@@ -10,11 +10,16 @@ namespace ScorpionEngine
     {
         private ContentManager _contentManager;
 
+
+        #region Constructors
         public ContentFactory(ContentManager contentManager)
         {
             _contentManager = contentManager;
         }
+        #endregion
 
+
+        #region Public Methods
         /// <summary>
         /// Creates a new texture using the given path.
         /// </summary>
@@ -24,5 +29,6 @@ namespace ScorpionEngine
         {
             return _contentManager.Load<Texture2D>(assetPathName);
         }
+        #endregion
     }
 }

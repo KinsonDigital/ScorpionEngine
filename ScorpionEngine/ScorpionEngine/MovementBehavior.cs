@@ -20,6 +20,7 @@ namespace ScorpionEngine
         private MovableObject _gameObject;
         #endregion
 
+
         #region Constructors
         /// <summary>
         /// Creates an instance of MovementBehavior.
@@ -55,6 +56,7 @@ namespace ScorpionEngine
         }
         #endregion
 
+
         #region Event Methods
         /// <summary>
         /// Moves the game object to the right.
@@ -64,6 +66,7 @@ namespace ScorpionEngine
             _gameObject.MoveRight();
         }
 
+
         /// <summary>
         /// Moves the game object to the left.
         /// </summary>
@@ -71,6 +74,7 @@ namespace ScorpionEngine
         {
             _gameObject.MoveLeft();
         }
+
 
         /// <summary>
         /// Moves the game object up.
@@ -80,6 +84,7 @@ namespace ScorpionEngine
             _gameObject.MoveUp();
         }
 
+
         /// <summary>
         /// Moves the game object down.
         /// </summary>
@@ -88,6 +93,7 @@ namespace ScorpionEngine
             _gameObject.MoveDown();
         }
 
+
         /// <summary>
         /// Stops the movement of the game object.
         /// </summary>
@@ -95,6 +101,7 @@ namespace ScorpionEngine
         {
         }
         #endregion
+
 
         #region Public Methods
         /// <summary>

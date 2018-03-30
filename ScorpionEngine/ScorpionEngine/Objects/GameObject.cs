@@ -40,6 +40,7 @@ namespace ScorpionEngine.Objects
         public event EventHandler Update;
         #endregion
 
+
         #region Fields
         private int _id = -1;//The id number used by the game engine to perform entity searching
         private int _relativeToID = -1;//The id number of the game object that this object's location is relative to
@@ -62,6 +63,7 @@ namespace ScorpionEngine.Objects
         private Vector _position;
         #endregion
 
+
         #region Constructors
         /// <summary>
         /// Creates a new instance of an entity.
@@ -74,6 +76,7 @@ namespace ScorpionEngine.Objects
             InitializeObj(Vector.Zero, textureName, polyVertices);
         }
 
+
         /// <summary>
         /// Creates a new instance of an entity.
         /// </summary>
@@ -85,6 +88,7 @@ namespace ScorpionEngine.Objects
         {
             InitializeObj(location, textureName, polyVertices);
         }
+
 
         /// <summary>
         /// Loads a texture atlas for the game object to use.
@@ -105,6 +109,7 @@ namespace ScorpionEngine.Objects
             InitializeObj(Vector.Zero, textureAtlasName, polyVertices);
         }
 
+
         /// <summary>
         /// Loads a texture atlas for the game object to use.
         /// </summary>
@@ -123,6 +128,7 @@ namespace ScorpionEngine.Objects
             InitializeObj(location, textureAtlasName, polyVertices);
         }
         #endregion
+
 
         #region Props
         /// <summary>
@@ -285,6 +291,7 @@ namespace ScorpionEngine.Objects
             set { _relativeToID = value; }
         }
 
+
         #region Internal Properties
         /// <summary>
         /// Gets the texture of the game object.
@@ -307,6 +314,7 @@ namespace ScorpionEngine.Objects
         #endregion
         #endregion
 
+
         #region Public Methods
         /// <summary>
         /// Adds a child object to this instance of GameObject.
@@ -320,6 +328,7 @@ namespace ScorpionEngine.Objects
             World.AddGameObj(gameObj);
         }
 
+
         /// <summary>
         /// Adds a child pool to this instance of GameObj.
         /// </summary>
@@ -328,6 +337,7 @@ namespace ScorpionEngine.Objects
         {
             _childPools.Add(pool);
         }
+
 
         /// <summary>
         /// Sets the origin of the GameObject.
@@ -338,6 +348,7 @@ namespace ScorpionEngine.Objects
         {
             _origin = new Vector(x, y);
         }
+
 
         /// <summary>
         /// Sets the origin of the GameObject.
@@ -389,6 +400,7 @@ namespace ScorpionEngine.Objects
             }
         }
 
+
         /// <summary>
         /// Adds a sub location relative to the game object's location. No name duplicates aloud.
         /// </summary>
@@ -398,6 +410,7 @@ namespace ScorpionEngine.Objects
         {
             _subLocations.Add(name, location);
         }
+
 
         /// <summary>
         /// Gets a sub location that is relative to the location of the game object.
@@ -413,6 +426,7 @@ namespace ScorpionEngine.Objects
             return foundVector;
         }
         #endregion
+
 
         #region Game Loop Methods
         /// <summary>
@@ -459,6 +473,7 @@ namespace ScorpionEngine.Objects
         }
         #endregion
 
+
         #region Protected Methods
         /// <summary>
         /// Initializes the GameObject depending on what constructor has been called.
@@ -504,6 +519,7 @@ namespace ScorpionEngine.Objects
             }
         }
 
+
         /// <summary>
         /// Initializes an atlas with the given information.
         /// </summary>
@@ -525,6 +541,7 @@ namespace ScorpionEngine.Objects
         }
         #endregion
 
+
         #region Private Methods
         /// <summary>
         /// Converts the given button to a InputKey.
@@ -535,6 +552,7 @@ namespace ScorpionEngine.Objects
         {
             return (InputKeys) key;
         }
+
 
         /// <summary>
         /// Returns true if the current and previous key states match.

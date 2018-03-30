@@ -8,7 +8,6 @@ namespace ScorpionEngine.EventArguments
     public class OnMovedEventArgs : EventArgs
     {
         #region Properties
-
         /// <summary>
         /// Gets the old position of the entity before it moved.
         /// </summary>
@@ -18,11 +17,10 @@ namespace ScorpionEngine.EventArguments
         /// Gets the new position of the entity after it moved.
         /// </summary>
         public Vector NewPosition { get; set; }
-
         #endregion
 
-        #region Constructor
 
+        #region Constructor
         /// <summary>
         /// Creates a new instance of OnEntityMovedEventArgs.
         /// </summary>
@@ -33,7 +31,6 @@ namespace ScorpionEngine.EventArguments
             OldPosition = oldPos;
             NewPosition = newPos;
         }
-
         #endregion
     }
 }

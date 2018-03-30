@@ -12,8 +12,8 @@ namespace ScorpionEngine
         private GameTime _gameTime;//The game time
         #endregion
 
-        #region Properties
 
+        #region Properties
         /// <summary>
         /// The amount of engine time since the game started.
         /// </summary>
@@ -43,11 +43,10 @@ namespace ScorpionEngine
                 _gameTime.ElapsedGameTime = value;
             }
         }
-
         #endregion
 
-        #region Constructors
 
+        #region Constructors
         /// <summary>
         /// Creates a new instance of EngineTime.
         /// </summary>
@@ -55,6 +54,7 @@ namespace ScorpionEngine
         {
             _gameTime = new GameTime();
         }
+
 
         /// <summary>
         /// Creates a new instance of EngineTime.
@@ -65,7 +65,6 @@ namespace ScorpionEngine
         {
             _gameTime = new GameTime(totalEngineTime, elapsedEngineTime);
         }
-
         #endregion
     }
 

@@ -17,6 +17,7 @@ namespace ScorpionEngine.Objects
         private string _text;
         #endregion
 
+
         #region Constructors
         /// <summary>
         /// Creates a new instance of TextEntity.
@@ -36,8 +37,8 @@ namespace ScorpionEngine.Objects
         }
         #endregion
 
-        #region Properties
 
+        #region Properties
         /// <summary>
         /// Gets or sets the text of this TextEntity.
         /// </summary>
@@ -112,7 +113,6 @@ namespace ScorpionEngine.Objects
                 }
             }
         }
-
         #endregion
     }
 }

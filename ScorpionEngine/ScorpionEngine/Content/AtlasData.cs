@@ -12,6 +12,7 @@ namespace ScorpionEngine.Content
         private readonly List<AtlasSpriteData> _atlasSprites;
         #endregion
 
+
         #region Constructors
         /// <summary>
         /// Loads a texture atlas with the given texture name and atlas data name.
@@ -23,6 +24,7 @@ namespace ScorpionEngine.Content
             _atlasSprites = atlasSubTexutureData;
         }
         #endregion
+
 
         #region Properties
         /// <summary>
@@ -56,6 +58,7 @@ namespace ScorpionEngine.Content
         /// </summary>
         public int Height { get; set; }
         #endregion
+
 
         #region Internal Methods
         /// <summary>
@@ -98,6 +101,7 @@ namespace ScorpionEngine.Content
             return returnItems;
         }
 
+
         /// <summary>
         /// Returns true if a sub texture with the given name exists in the atlas.
         /// </summary>
@@ -108,6 +112,7 @@ namespace ScorpionEngine.Content
             return _atlasSprites.Find(item => item.Name == name) != null;
         }
 
+
         /// <summary>
         /// Returns the bounds of the sub texture with the given name.
         /// </summary>
@@ -117,10 +122,6 @@ namespace ScorpionEngine.Content
         {
             return _atlasSprites.Find(item => item.Name == name).Bounds;
         }
-
-        #endregion
-
-        #region Private Methods
         #endregion
     }
 }

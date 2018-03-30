@@ -11,21 +11,20 @@ namespace ScorpionEngine.Objects
     public abstract class ObjectPool : IEnumerable
     {
         #region Delegates/Events
-
         /// <summary>
         /// Occurs whenever an entity in the entity pool goes out of bounds.
         /// </summary>
         public event EventHandler<OutOfBoundsTriggerEventsArgs> OnOutOfBounds;
-
         #endregion
+
 
         #region Fields
         private readonly List<MovableObject> _objects = new List<MovableObject>();//The pool of objects to manage.
         private Rect _triggerBounds;//The bounds used to trigger the out of bounds trigger
         #endregion
 
-        #region Properties
 
+        #region Properties
         /// <summary>
         /// Gets or sets the name of the entity pool.
         /// </summary>
@@ -73,8 +72,8 @@ namespace ScorpionEngine.Objects
         /// Gets or sets the direction that the entities will move when visible.
         /// </summary>
         public Direction DirectionWhenVisible { get; set; }
-
         #endregion
+
 
         #region Constructors
         /// <summary>
@@ -83,11 +82,10 @@ namespace ScorpionEngine.Objects
         public ObjectPool()
         {
         }
-
         #endregion
 
-        #region Public Methods
 
+        #region Public Methods
         /// <summary>
         /// Adds the given GameObject to the entity pool.
         /// </summary>
@@ -96,8 +94,8 @@ namespace ScorpionEngine.Objects
         {
             _objects.Add(obj);
         }
-
         #endregion
+
 
         #region Game Loop Methods
         /// <summary>
@@ -116,6 +114,7 @@ namespace ScorpionEngine.Objects
             }
         }
 
+
         /// <summary>
         /// Sets bounds for the out of bounds trigger.
         /// </summary>
@@ -125,6 +124,7 @@ namespace ScorpionEngine.Objects
             _triggerBounds = bounds;
         }
 
+
         /// <summary>
         /// Returns an enumerator that iterates through the entity pool.
         /// </summary>
@@ -133,6 +133,7 @@ namespace ScorpionEngine.Objects
         {
             return _objects.GetEnumerator();
         }
+
 
         /// <summary>
         /// Shows all of the entities.
@@ -145,6 +146,7 @@ namespace ScorpionEngine.Objects
             }
         }
 
+
         /// <summary>
         /// Hides all of the entities.
         /// </summary>
@@ -156,6 +158,7 @@ namespace ScorpionEngine.Objects
             }
         }
 
+
         /// <summary>
         /// Applies the given speed to an entity that are of the given description.
         /// </summary>
@@ -165,6 +168,7 @@ namespace ScorpionEngine.Objects
         {
             throw new NotImplementedException();
         }
+
 
         /// <summary>
         /// Applies the given auto rotate setting to entities that are of the given description.
@@ -194,6 +198,7 @@ namespace ScorpionEngine.Objects
             }
         }
 
+
         /// <summary>
         /// Applies the given auto rotate direction to entities that are of the given description.
         /// </summary>
@@ -221,6 +226,7 @@ namespace ScorpionEngine.Objects
                 }
             }
         }
+
 
         /// <summary>
         /// Sets the given auto move setting to entities that fit the given description.
@@ -250,6 +256,7 @@ namespace ScorpionEngine.Objects
             }
         }
 
+
         /// <summary>
         /// Sets the given auto move direction to entities that fit the given description.
         /// </summary>
@@ -278,6 +285,7 @@ namespace ScorpionEngine.Objects
             }
         }
 
+
         /// <summary>
         /// Sets the given angle speed to entities that fit the given description.
         /// </summary>
@@ -288,6 +296,7 @@ namespace ScorpionEngine.Objects
             throw new NotImplementedException();
         }
         #endregion
+
 
         #region Virtual Methods
         /// <summary>

@@ -16,6 +16,7 @@ namespace ScorpionEngine.Content
         private static readonly Dictionary<string, Texture2D> _allAtlasTextures = new Dictionary<string, Texture2D>();//The atlas textures
         #endregion
 
+
         #region Public Methods
         /// <summary>
         /// Adds the given atlas data to the atlas manager and assigns it the given unique textureAtlasID.
@@ -40,6 +41,7 @@ namespace ScorpionEngine.Content
                 _allAtlasTextures.Add(textureAtlasID, texture);//Add the atlas texture
         }
 
+
         /// <summary>
         /// Removes the atlas data and texture that matches the given ID.
         /// </summary>
@@ -51,6 +53,7 @@ namespace ScorpionEngine.Content
             _allAtlasData.Remove(id);
             _allAtlasTextures.Remove(id);
         }
+
 
         /// <summary>
         /// Gets the atlas data that matches the given ID.
@@ -64,6 +67,7 @@ namespace ScorpionEngine.Content
             return _allAtlasData[id];
         }
 
+
         /// <summary>
         /// Gets the atlas texture that matches the given ID.
         /// </summary>
@@ -76,6 +80,7 @@ namespace ScorpionEngine.Content
             return _allAtlasTextures[id];
         }
         #endregion
+
 
         #region Internal Methods
         /// <summary>
@@ -120,6 +125,7 @@ namespace ScorpionEngine.Content
             return dashCount > 1 ? InValidReason.TooManyDashes : InValidReason.ValidFormat;
         }
 
+
         /// <summary>
         /// Returns true if the given sub texture name contains any of the animating structure symbols.
         /// </summary>
@@ -129,6 +135,7 @@ namespace ScorpionEngine.Content
         {
             return (frameName.Contains('[') && frameName.Contains('-') && frameName.Contains(']'));
         }
+
 
         /// <summary>
         /// Extracts the sub texture name from a formatted animating sub texture frame name.
@@ -170,6 +177,7 @@ namespace ScorpionEngine.Content
             return returnValue.ToString();
         }
 
+
         /// <summary>
         /// Extracts the sub texture name from a formatted animating sub texture frame name.
         /// </summary>
@@ -202,6 +210,7 @@ namespace ScorpionEngine.Content
         }
         #endregion
 
+
         #region Private Methods
         /// <summary>
         /// If the given ID does not exist, throw an exception.
@@ -218,6 +227,7 @@ namespace ScorpionEngine.Content
 //            if (_allAtlasData.key.Count(dataKey => dataKey == id) > 1 || _allAtlasTextures.key.Count(key => key == id) > 1)
 //                throw new Exception("The atlas data with the textureAtlasID \"" + id + "\" has already been added to the atlas manager.");
         }
+
 
         /// <summary>
         /// Checks all of the atlas data to see if it is valid.  If not then exceptions will be thrown.
@@ -331,6 +341,7 @@ namespace ScorpionEngine.Content
             }
             #endregion
         }
+
 
         private static int GetIndex(string name)
         {

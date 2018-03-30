@@ -14,6 +14,7 @@ namespace ScorpionEngine.Input
         public InputKeys[] Keys { get; set; }
         #endregion
 
+
         #region Constructor
         /// <summary>
         /// Creates a new instance of KeyEventArgs.

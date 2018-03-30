@@ -23,6 +23,7 @@ namespace ScorpionEngine
         public event EventHandler<Input.KeyEventArgs> KeyUpEvent; 
         #endregion
 
+
         #region Fields
         private InputKeys _key;//The key that is used for the behavior
         private bool _enabled;//True if the key behavior is enabled
@@ -32,6 +33,7 @@ namespace ScorpionEngine
         private KeyboardState _prevKeyState;//The previous key state from the last frame
         private KeyBehaviorType _behaviorType = KeyBehaviorType.OnceOnPress;//The way that the KeyBehavior will behave
         #endregion
+
 
         #region Constructors
         /// <summary>
@@ -43,6 +45,7 @@ namespace ScorpionEngine
             _key = Key;
             _enabled = enabled;
         }
+
 
         /// <summary>
         /// Creates a new key behavior.
@@ -58,6 +61,7 @@ namespace ScorpionEngine
             AlwaysInvokeKeyUpEvent = false;//REMOVE THIS
         }
         #endregion
+
 
         #region Properties
         /// <summary>
@@ -116,6 +120,7 @@ namespace ScorpionEngine
         /// </summary>
         public bool IsPressed => _currentKeyState.IsKeyDown((Keys)_key);
         #endregion
+
 
         #region Public Methods
         /// <summary>

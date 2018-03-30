@@ -15,6 +15,7 @@ namespace ScorpionEngine.EventArguments
         public GameObject TriggerSource { get; private set; }
         #endregion
 
+
         #region Constructors
         /// <summary>
         /// Creates a new instance of OutOfBoundsTriggerEventsArgs.

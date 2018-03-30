@@ -25,6 +25,7 @@ namespace ScorpionEngine.Content
         private static string _contentRootDir = _gamePath + "\\" + "Content";
         #endregion
 
+
         #region Properties
         /// <summary>
         /// Gets the path to the executable game.
@@ -43,6 +44,7 @@ namespace ScorpionEngine.Content
             set { _contentRootDir = value; }
         }
         #endregion
+
 
         #region Public Static Methods
         /// <summary>
@@ -66,6 +68,7 @@ namespace ScorpionEngine.Content
 
             return newTexture;
         }
+
 
         /// <summary>
         /// Loads a font to be drawing with the given text, font settings, forecolor, and backcolor.
@@ -94,6 +97,7 @@ namespace ScorpionEngine.Content
 
             return newFontTexture;
         }
+
 
         /// <summary>
         /// Loads a texture atlas with the given name and the atlas data with the given name.
@@ -164,6 +168,7 @@ namespace ScorpionEngine.Content
             return new AtlasData(atlasSpriteData);
         }
 
+
         /// <summary>
         /// Creates an image with the given text rendered to to the surface with the given font and color settings.
         /// </summary>
@@ -200,6 +205,7 @@ namespace ScorpionEngine.Content
             return img;
         }
 
+
         /// <summary>
         /// Loads a song with the given name.
         /// </summary>
@@ -211,6 +217,7 @@ namespace ScorpionEngine.Content
 
             return new Song(fullPath);
         }
+
 
         /// <summary>
         /// Loads a sound effect with the given name.

@@ -18,6 +18,7 @@ namespace ScorpionEngine.Objects
         private KeyBehavior _stopRotationOnKeyRelease;//Will fire when any key is released
         #endregion
 
+
         #region Constructors
         /// <summary>
         /// Creates a new instance of an game object.
@@ -31,6 +32,7 @@ namespace ScorpionEngine.Objects
             CreateKeyBehaviors();
         }
 
+
         /// <summary>
         /// Creates a new instance of an game object.
         /// </summary>
@@ -43,6 +45,7 @@ namespace ScorpionEngine.Objects
         {
             CreateKeyBehaviors();
         }
+
 
         /// <summary>
         /// Creates a new instance of an game object.
@@ -58,6 +61,7 @@ namespace ScorpionEngine.Objects
             CreateKeyBehaviors();
         }
 
+
         /// <summary>
         /// Creates a new instance of an game object.
         /// </summary>
@@ -71,6 +75,7 @@ namespace ScorpionEngine.Objects
         {
             CreateKeyBehaviors();
         }
+
 
         /// <summary>
         /// Creates a new instance of an game object.
@@ -86,6 +91,7 @@ namespace ScorpionEngine.Objects
         {
             CreateKeyBehaviors();
         }
+
 
         /// <summary>
         /// Creates a new instance of an game object.
@@ -103,6 +109,7 @@ namespace ScorpionEngine.Objects
             CreateKeyBehaviors();
         }
         #endregion
+
 
         #region Properties
         /// <summary>
@@ -170,6 +177,7 @@ namespace ScorpionEngine.Objects
         public bool StopRotationOnKeyRelease { get; set; }
         #endregion
 
+
         #region Public Methods
         /// <summary>
         /// Enables all movement of the game object with keyboard.
@@ -182,6 +190,7 @@ namespace ScorpionEngine.Objects
             MoveDownKey.Enabled = true;
         }
 
+
         /// <summary>
         /// Disables all movement of the game object with keyboard.
         /// </summary>
@@ -193,6 +202,7 @@ namespace ScorpionEngine.Objects
             MoveDownKey.Enabled = false;
         }
 
+
         /// <summary>
         /// Enables rotation of the game object using the set rotation key.
         /// </summary>
@@ -201,6 +211,7 @@ namespace ScorpionEngine.Objects
             _rotateCWKey.Enabled = true;
             _rotateCCWKey.Enabled = true;
         }
+
 
         /// <summary>
         /// Disables rotation of the game object using the set rotation key.
@@ -211,6 +222,7 @@ namespace ScorpionEngine.Objects
             _rotateCCWKey.Enabled = false;
         }
         #endregion
+
 
         #region Game Loop Methods
         /// <summary>
@@ -235,6 +247,7 @@ namespace ScorpionEngine.Objects
         }
         #endregion
 
+
         #region Events
         /// <summary>
         /// Will stop any movement on key release if the StopRotationOnKeyRelease setting is enabled.
@@ -245,6 +258,7 @@ namespace ScorpionEngine.Objects
             if (StopRotationOnKeyRelease) StopRotation();
         }
 
+
         /// <summary>
         /// Will stop any movement on key release if the StopMovementOnKeyRelease setting is enabled.
         /// </summary>
@@ -254,6 +268,7 @@ namespace ScorpionEngine.Objects
             if (StopMovementOnKeyRelease) StopMovement();
         }
 
+
         /// <summary>
         /// Rotates the game object clock wise.
         /// </summary>
@@ -261,6 +276,7 @@ namespace ScorpionEngine.Objects
         {
             RotateCW();
         }
+
 
         /// <summary>
         /// Rotates the game object counter clock wise.
@@ -270,6 +286,7 @@ namespace ScorpionEngine.Objects
             RotateCCW();
         }
 
+
         /// <summary>
         /// Moves the character to the right on the screen.
         /// </summary>
@@ -277,6 +294,7 @@ namespace ScorpionEngine.Objects
         {
             MoveRight();
         }
+
 
         /// <summary>
         /// Moves the character left on the screen.
@@ -286,6 +304,7 @@ namespace ScorpionEngine.Objects
             MoveLeft();
         }
 
+
         /// <summary>
         /// Moves the character up on the screen.
         /// </summary>
@@ -293,6 +312,7 @@ namespace ScorpionEngine.Objects
         {
             MoveUp();
         }
+
 
         /// <summary>
         /// Moves the character down on the screen.
@@ -302,6 +322,7 @@ namespace ScorpionEngine.Objects
             MoveDown();
         }
         #endregion
+
 
         #region Private Methods
         /// <summary>

@@ -13,6 +13,7 @@ namespace ScorpionEngine.Input
         private Dictionary<InputButton, bool> _currentPressedButtons;//Holds the list of combo buttons and there down states
         #endregion
 
+
         #region Constructor
         /// <summary>
         /// Creates an instance of MouseWatcher.
@@ -22,6 +23,7 @@ namespace ScorpionEngine.Input
         {
             Init(10, InputButton.None, null, -1, -1, enabled);
         }
+
 
         /// <summary>
         /// Creates an instance of MouseWatcher.
@@ -33,6 +35,7 @@ namespace ScorpionEngine.Input
             Init(-1, InputButton.None, comboButtons, -1, -1, enabled);
         }
 
+
         /// <summary>
         /// Creates a new instance of MouseWatcher.
         /// </summary>
@@ -43,6 +46,7 @@ namespace ScorpionEngine.Input
         {
             Init(hitCountMax, button, null, -1, -1, enabled);
         }
+
 
         /// <summary>
         /// Creates a new instance of MouseWatcher.
@@ -57,6 +61,7 @@ namespace ScorpionEngine.Input
             Init(hitCountMax, button, null,  buttonDownTimeOut, buttonReleaseTimeOut, enabled);
         }
 
+
         /// <summary>
         /// Creates an instance of MouseWatcher.
         /// </summary>
@@ -68,6 +73,7 @@ namespace ScorpionEngine.Input
         {
             Init(hitCountMax, button, comboButtons, -1, -1, enabled);
         }
+
 
         /// <summary>
         /// Creates an instance of MouseWatcher.
@@ -83,6 +89,7 @@ namespace ScorpionEngine.Input
             Init(hitCountMax, button, comboButtons, buttonDownTimeOut, buttonReleaseTimeOut, enabled);
         }
         #endregion
+
 
         #region Props
         /// <summary>
@@ -102,6 +109,7 @@ namespace ScorpionEngine.Input
         /// </summary>
         public InputButton Button { get; set; }
         #endregion
+
 
         #region Public Methods
         /// <summary>
@@ -217,6 +225,7 @@ namespace ScorpionEngine.Input
         }
         #endregion
 
+
         #region Private Methods
         /// <summary>
         /// Initializes the MouseWatcher settings.
@@ -249,6 +258,7 @@ namespace ScorpionEngine.Input
             ReleasedElapsedResetMode = ResetType.Auto;
             HitCountResetMode = ResetType.Auto;
         }
+
 
         /// <summary>
         /// Creates the list of pressed buttons from the given list of buttons.

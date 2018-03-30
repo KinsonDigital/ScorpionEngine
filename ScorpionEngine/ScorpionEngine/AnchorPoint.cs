@@ -6,7 +6,6 @@
     public class AnchorPoint
     {
         #region Properties
-
         /// <summary>
         /// Gets or sets the source entity ID.
         /// </summary>
@@ -16,11 +15,10 @@
         /// Gets or sets the destination entity ID.
         /// </summary>
         public int DestID { get; set; }
-
         #endregion
 
-        #region Constructors
 
+        #region Constructors
         /// <summary>
         /// Creates an anchor point from the source entity to the destination entity.  The source entity will follow the destination entity.
         /// </summary>
@@ -31,7 +29,6 @@
             SourceID = sourceID;
             DestID = destID;
         }
-
         #endregion
     }
 }

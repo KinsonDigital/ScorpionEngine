@@ -11,12 +11,14 @@ namespace ScorpionEngine.Utils
         private BasicEffect _basicEffect;
         private SpriteBatch _spriteBatch;
 
+
         #region Constructor
         public DebugDraw(GraphicsDevice graphicsDevice, bool enabled = false)
         {
 
         }
         #endregion
+
 
         #region Props
         /// <summary>
@@ -25,11 +27,13 @@ namespace ScorpionEngine.Utils
         public bool Enabled { get; set; }
         #endregion
 
+
         #region Overridden Methods
         public void DrawPolygon(List<Vector2> vertices, int count, Color color)
         {
             throw new NotImplementedException();
         }
+
 
         /// <summary>
         /// Draw all of the solid polygons.
@@ -42,10 +46,12 @@ namespace ScorpionEngine.Utils
             throw new NotImplementedException();
         }
 
+
         public void DrawCircle(Vector2 center, float radius, Color color)
         {
             throw new System.NotImplementedException();
         }
+
 
         /// <summary>
         /// Draws all circles.
@@ -58,6 +64,7 @@ namespace ScorpionEngine.Utils
         {
             throw new NotImplementedException();
         }
+
 
         /// <summary>
         /// Draw any joint segments in the engine.

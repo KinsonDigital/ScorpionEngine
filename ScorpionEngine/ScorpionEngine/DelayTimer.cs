@@ -13,12 +13,14 @@ namespace ScorpionEngine
         private int _delayTime = 1000;//The amount of time to wait until the TimeExpired event is invoked.
         #endregion
 
+
         #region Events
         /// <summary>
         /// Occurs when the set time has expired.
         /// </summary>
         public EventHandler TimeExpired;
         #endregion
+
 
         #region Constructor
         /// <summary>
@@ -31,6 +33,7 @@ namespace ScorpionEngine
             _timer.Change(_delayTime, 0);
         }
         #endregion
+
 
         #region Properites
         /// <summary>
