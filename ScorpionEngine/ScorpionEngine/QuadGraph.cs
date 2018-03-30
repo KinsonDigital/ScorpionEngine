@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ScorpionEngine
+﻿namespace ScorpionEngine
 {
     /// <summary>
     /// Holds and calculates the quad position of a location compared to another location.

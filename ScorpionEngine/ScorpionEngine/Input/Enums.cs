@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ScorpionEngine.Input
+﻿namespace ScorpionEngine.Input
 {
     /// <summary>
     /// Represents the keys on a keyboard.

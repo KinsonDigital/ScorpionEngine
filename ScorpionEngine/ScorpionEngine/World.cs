@@ -2,10 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ScorpionEngine;
 using ScorpionEngine.Objects;
-using ScorpionEngine.Utils;
-using Microsoft.Xna.Framework;
 
 namespace ScorpionEngine
 {
@@ -27,7 +24,8 @@ namespace ScorpionEngine
         private readonly List<ObjectPool> _pools;//The list of obj pools that have been added to the world
         private readonly List<AnchorPoint> _anchors;//The anchor points of the obj
         private readonly Dictionary<int, Texture2D> _backgrounds = new Dictionary<int, Texture2D>();
-        private static readonly List<SpriteFont> _debugTexts = new List<SpriteFont>(); 
+        private static readonly List<SpriteFont> _debugTexts = new List<SpriteFont>();
+        private static bool _debugDrawEnabled;
         #endregion
 
         #region Constructors
@@ -65,6 +63,7 @@ namespace ScorpionEngine
         }
 
         #region Internal Props
+        //TODO: Get this feature working
         /// <summary>
         /// Gets or sets a value indicating if debug drawing is enabled.
         /// </summary>
@@ -72,11 +71,11 @@ namespace ScorpionEngine
         {
             get
             {
-                throw new NotImplementedException();
+                return _debugDrawEnabled;
             }
             set
             {
-                throw new NotImplementedException();
+                _debugDrawEnabled = value;
             }
         }
         #endregion

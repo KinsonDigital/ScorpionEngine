@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Drawing;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ScorpionEngine.Content;
 using ScorpionEngine.Input;
 using ScorpionEngine.Utils;
-using SysColor = System.Drawing.Color;
 // ReSharper disable VirtualMemberCallInContructor
 // ReSharper disable ForCanBeConvertedToForeach
 
@@ -66,6 +64,7 @@ namespace ScorpionEngine.Objects
         private int _atlasSubTextureHeight;//??
         private KeyboardState _currentKeyState;//The keyboard state of the current game loop iteration
         private KeyboardState _prevKeyState;//The previous game loop iteration's keyboard state
+        private Vector _position;
         #endregion
 
         #region Constructors
@@ -208,12 +207,12 @@ namespace ScorpionEngine.Objects
         /// <summary>
         /// Gets the location of the entity in the game world in pixel units.
         /// </summary>
+        //TODO: Get this property/feature working
         public Vector Position
         {
             get
             {
-                //TODO: Set the position of the game object
-                throw new NotImplementedException();
+                return _position;
             }
         }
 

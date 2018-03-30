@@ -1,5 +1,4 @@
 ﻿using System;
-using ScorpionEngine;
 using ScorpionEngine.Objects;
 
 namespace ScorpionEngine.EventArguments

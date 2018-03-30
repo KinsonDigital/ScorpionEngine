@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using Microsoft.Xna.Framework;
-using ScorpionEngine.Objects;
+﻿using ScorpionEngine.Objects;
 using ScorpionEngine.Input;
 
 namespace ScorpionEngine

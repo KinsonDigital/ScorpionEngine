@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Microsoft.Xna.Framework.Input;
 using ScorpionEngine;
 using ScorpionEngine.Objects;
 using ScorpionEngine.Input;

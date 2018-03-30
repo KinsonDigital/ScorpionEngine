@@ -1,11 +1,4 @@
-﻿using System.Linq;
-using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
-using ScorpionEngine.EventArguments;
-using ScorpionEngine.Input;
-using ScorpionEngine.Objects;
-using ScorpionEngine.Utils;
+﻿using ScorpionEngine.Input;
 
 namespace ScorpionEngine.Objects
 {

@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using ScorpionEngine.EventArguments;
 using ScorpionEngine.Utils;
 // ReSharper disable InconsistentNaming
@@ -35,6 +29,8 @@ namespace ScorpionEngine.Objects
         private float _rotationalAcceleration = 1f;//The acceleration of any rotational movement
         private QuadGraph _quadGraph = new QuadGraph();//Used to calculate and keep track of the quad that the Destination point resides in and the quad that the body angle points to
         private Dictionary<Direction, float> _linearSpeeds;//Holds the speeds for all 8 linear movement directions
+        private float _linearDeceleration;
+        private bool _rotationEnabled;
         private readonly Dictionary<Direction, bool> _linearMovementLocks = new Dictionary<Direction, bool>();//Holds the lock states for the 8 linear movements.  True means locked.
         #endregion
 
@@ -155,16 +151,16 @@ namespace ScorpionEngine.Objects
         /// <summary>
         /// Gets or sets a value indicating if rotation should be locked.
         /// </summary>
+        //TODO: Get this property/feature working
         public bool RotationEnabled
         {
             get
             {
-                //TODO: return if the rotation is enabled
-                throw new NotImplementedException();
+                return _rotationEnabled;
             }
             set
             {
-                throw new NotImplementedException();
+                _rotationEnabled = value;
             }
         }
 
@@ -241,11 +237,12 @@ namespace ScorpionEngine.Objects
         {
             get
             {
-                throw new NotImplementedException();
+                return _linearDeceleration;
             }
             set
             {
-                throw new NotImplementedException();
+                //TODO: Get this property working
+                _linearDeceleration = value;
             }
         }
 
@@ -484,8 +481,7 @@ namespace ScorpionEngine.Objects
         /// </summary>
         private void Follow()
         {
-            //TODO: Look into making objects follow other objects
-            throw new NotImplementedException();
+            //TODO: Get this feature working
         }
         #endregion
 

@@ -8,7 +8,7 @@ using ScorpionEngine;
 
 namespace ScorpTestGame
 {
-#if WINDOWS || LINUX
+//#if WINDOWS || LINUX
 
     /// <summary>
     /// The main class.
@@ -39,5 +39,5 @@ namespace ScorpTestGame
         }
     }
 
-#endif
+//#endif
 }

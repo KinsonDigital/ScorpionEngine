@@ -11,7 +11,7 @@
     <RootNamespace>ScorpTestGame</RootNamespace>
     <AssemblyName>ScorpTestGame</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -45,10 +45,6 @@
     <Compile Include="TestGame.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="MonoGame.Framework, Version=3.4.0.456, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Assemblies\MonoGame.Framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -75,10 +71,9 @@
     </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ScorpionEngine\ScorpionEngine.csproj">
-      <Project>{bb21f4e4-0775-407a-aeed-b86c875351b2}</Project>
+      <Project>{91495c38-9695-4905-b5d9-0debb25e1a0f}</Project>
       <Name>ScorpionEngine</Name>
     </ProjectReference>
   </ItemGroup>

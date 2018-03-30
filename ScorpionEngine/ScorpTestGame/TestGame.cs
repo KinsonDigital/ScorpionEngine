@@ -13,7 +13,7 @@ namespace ScorpTestGame
         /// <summary>
         /// Creates a new space shooter game engine.
         /// </summary>
-        public TestGame()
+        public TestGame() : base()
         {
             //Do not set the world in here.  The world has to be set in the OnInit() method so that way
             //the graphics device has been created.  The graphics device will not be created until the

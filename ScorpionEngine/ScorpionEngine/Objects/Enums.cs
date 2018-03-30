@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ScorpionEngine.Objects
+﻿namespace ScorpionEngine.Objects
 {
     /// <summary>
     /// Represents the direction that an animation is running.

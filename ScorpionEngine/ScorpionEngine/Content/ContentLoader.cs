@@ -4,7 +4,6 @@ using System;
 using System.Xml;
 using Microsoft.Xna.Framework.Graphics;
 using ScorpionEngine.GameSound;
-using SFML.Graphics;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Drawing.Drawing2D;

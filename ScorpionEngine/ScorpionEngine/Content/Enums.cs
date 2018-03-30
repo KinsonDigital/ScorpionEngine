@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ScorpionEngine.Content
+﻿namespace ScorpionEngine.Content
 {
     /// <summary>
     /// Represents reasons for an invalid animation meta data formats.

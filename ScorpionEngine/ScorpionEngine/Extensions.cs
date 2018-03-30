@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace ScorpionEngine
+﻿namespace ScorpionEngine
 {
     public static class Extensions
     {

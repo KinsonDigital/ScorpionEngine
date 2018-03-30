@@ -1,17 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Runtime;
 using ScorpionEngine.EventArguments;
+using System;
 
 namespace ScorpionEngine
 {
-    /// <summary>
-    /// The core of the engine. Drives all of the game loop methods.
-    /// </summary>
     public class EngineCore : Game
     {
-        private GraphicsDeviceManager _graphicsDeviceManager;
-
         #region Events
         /// <summary>
         /// Occurs once every frame before the OnDraw event before the OnDraw event is invoked.

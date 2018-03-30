@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using ScorpionEngine.EventArguments;
 using ScorpionEngine.Input;
 using ScorpionEngine.Utils;
-using SFML.Window;
 using Keyboard = Microsoft.Xna.Framework.Input.Keyboard;
 
 namespace ScorpionEngine
