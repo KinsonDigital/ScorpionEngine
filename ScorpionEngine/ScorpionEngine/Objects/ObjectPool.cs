@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using ScorpionEngine.EventArguments;
-// ReSharper disable ForCanBeConvertedToForeach
-
 
 namespace ScorpionEngine.Objects
 {

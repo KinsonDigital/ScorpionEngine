@@ -88,6 +88,8 @@ namespace ScorpionEngine
         internal static void DrawDebugData()
         {
             //TODO: DRAW DEBUG DATA
+
+            
         }
 
         /// <summary>

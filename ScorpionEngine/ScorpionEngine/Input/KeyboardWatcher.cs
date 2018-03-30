@@ -1,12 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable UnusedMember.Local
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable EventNeverSubscribedTo.Global
-// ReSharper disable LoopCanBeConvertedToQuery
-// ReSharper disable LoopCanBePartlyConvertedToQuery
 
 namespace ScorpionEngine.Input
 {

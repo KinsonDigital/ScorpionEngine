@@ -1,6 +1,5 @@
 ﻿using System;
 
-// ReSharper disable UnusedMember.Global
 /**
  * Tweener
  * Animates the value of a double property between two target values using 

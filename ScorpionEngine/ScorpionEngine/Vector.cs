@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using Microsoft.Xna.Framework;
-// ReSharper disable UnusedMember.Global
 
 namespace ScorpionEngine
 {

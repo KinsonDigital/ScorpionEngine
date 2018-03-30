@@ -2,11 +2,6 @@
 using System.Collections.Generic;
 using ScorpionEngine.EventArguments;
 using ScorpionEngine.Utils;
-// ReSharper disable InconsistentNaming
-// ReSharper disable UnusedMember.Global
-// ReSharper disable VirtualMemberCallInContructor
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable MemberCanBePrivate.Global
 
 namespace ScorpionEngine.Objects
 {

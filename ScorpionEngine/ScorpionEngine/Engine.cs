@@ -7,8 +7,6 @@ using ScorpionEngine.GameSound;
 using ScorpionEngine.Objects;
 using MonoRect = Microsoft.Xna.Framework.Rectangle;
 using MonoColor = Microsoft.Xna.Framework.Color;
-// ReSharper disable ForCanBeConvertedToForeach
-// ReSharper disable LoopCanBePartlyConvertedToQuery
 
 namespace ScorpionEngine
 {

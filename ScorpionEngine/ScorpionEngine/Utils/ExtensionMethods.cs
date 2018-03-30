@@ -1,7 +1,4 @@
-﻿// ReSharper disable ForCanBeConvertedToForeach
-// ReSharper disable LoopCanBeConvertedToQuery
-
-namespace ScorpionEngine.Utils
+﻿namespace ScorpionEngine.Utils
 {
     public static class ExtensionMethods
     {

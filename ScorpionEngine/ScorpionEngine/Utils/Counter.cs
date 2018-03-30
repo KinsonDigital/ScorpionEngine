@@ -1,6 +1,4 @@
 ﻿using System;
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable UnusedMember.Global
 
 namespace ScorpionEngine.Utils
 {
@@ -40,7 +38,6 @@ namespace ScorpionEngine.Utils
 
             //Make sure that the min is then the max
             if(min >= max)
-                // ReSharper disable once NotResolvedInText
                 throw new ArgumentOutOfRangeException(@"The min cannot be greater then max and max cannot be less then min.");
 
             //Set the minimum
@@ -73,7 +70,6 @@ namespace ScorpionEngine.Utils
             {
                 //Make sure that the min is then the max
                 if (value >= _max)
-                    // ReSharper disable once NotResolvedInText
                     throw new ArgumentOutOfRangeException(@"The min cannot be greater then max and max cannot be less then min.");
             }
         }
@@ -91,7 +87,6 @@ namespace ScorpionEngine.Utils
             {
                 //Make sure that the min is then the max
                 if (value >= _min)
-                    // ReSharper disable once NotResolvedInText
                     throw new ArgumentOutOfRangeException(@"The min cannot be greater then max and max cannot be less then min.");
             }
         }

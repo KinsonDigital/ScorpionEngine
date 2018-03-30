@@ -7,11 +7,6 @@ using Microsoft.Xna.Framework.Input;
 using ScorpionEngine.Content;
 using ScorpionEngine.Input;
 using ScorpionEngine.Utils;
-// ReSharper disable VirtualMemberCallInContructor
-// ReSharper disable ForCanBeConvertedToForeach
-
-// ReSharper disable NotAccessedField.Global
-// ReSharper disable InconsistentNaming
 
 namespace ScorpionEngine.Objects
 {

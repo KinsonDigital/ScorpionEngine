@@ -1,8 +1,4 @@
 ﻿using System;
-// ReSharper disable UnusedMember.Global
-
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable UnusedAutoPropertyAccessor.Global
 
 namespace ScorpionEngine.Utils
 {

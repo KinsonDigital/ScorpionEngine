@@ -67,6 +67,7 @@
     <Compile Include="Content\Enums.cs" />
     <Compile Include="Content\ExtensionMethods.cs" />
     <Compile Include="Counter.cs" />
+    <Compile Include="Utils\Primitives2D.cs" />
     <Compile Include="DelayTimer.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="EngineCore.cs" />
