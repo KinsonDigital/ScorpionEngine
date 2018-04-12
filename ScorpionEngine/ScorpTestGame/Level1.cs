@@ -56,7 +56,7 @@ namespace ScorpTestGame
             shipVerts = Tools.ConvertForOrigin(shipVerts);
 
             //Create the ship vertices
-            _ship = new ControllableObject(new Vector(100, 400), "Ship", shipVerts)
+            _ship = new ControllableObject(new Vector(0, 0), "Ship", shipVerts)
             {
                 MaxFollowSpeed = 10,
                 MoveAtAngleSpeed = 5f,

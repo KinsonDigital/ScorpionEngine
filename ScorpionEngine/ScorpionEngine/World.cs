@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ScorpionEngine.Objects;
+using ScorpionEngine.Utils;
+using Microsoft.Xna.Framework;
 
 namespace ScorpionEngine
 {
@@ -90,11 +92,16 @@ namespace ScorpionEngine
         /// <summary>
         /// Draws the debug data.
         /// </summary>
-        internal static void DrawDebugData()
+        internal static void DrawDebugData(SpriteBatch spriteBatch)
         {
-            //TODO: DRAW DEBUG DATA
+            //Render the outline of the sprite for each game object graphic.
+            //These will all be rectangles.
+            for (int i = 0; i < _gameObjects.Count; i++)
+            {
+                var size = new Vector2(_gameObjects[i].Texture.Width, _gameObjects[i].Texture.Height);
 
-            
+                spriteBatch.DrawRectangle(Tools.ToVector2(_gameObjects[i].Position), size, Color.Black, 2f);
+            }
         }
 
 

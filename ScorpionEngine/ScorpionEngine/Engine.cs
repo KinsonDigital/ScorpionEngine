@@ -7,6 +7,7 @@ using ScorpionEngine.GameSound;
 using ScorpionEngine.Objects;
 using MonoRect = Microsoft.Xna.Framework.Rectangle;
 using MonoColor = Microsoft.Xna.Framework.Color;
+using ScorpionEngine.Utils;
 
 namespace ScorpionEngine
 {
@@ -217,7 +218,7 @@ namespace ScorpionEngine
             //If debug draw is enabled, draw the debug data and not the graphics.
             if (World.DebugDrawEnabled)
             {
-                World.DrawDebugData();
+                World.DrawDebugData(_spriteBatch);
             }
             else
             {
