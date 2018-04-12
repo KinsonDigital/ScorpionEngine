@@ -160,7 +160,6 @@ namespace ScorpionEngine
             _spriteBatch = new SpriteBatch(_graphicsDeviceManager.GraphicsDevice);
 
             _graphicsDeviceManager.GraphicsDevice.BlendState = BlendState.AlphaBlend;
-            _graphicsDeviceManager.PreferMultiSampling = true;
             _graphicsDeviceManager.ApplyChanges();
 
             //Call the initialize method for the world
