@@ -6,9 +6,14 @@ using ScorpionEngine.Objects;
 using ScorpionEngine.Input;
 using ScorpionEngine.Utils;
 using SysStopWatch = System.Diagnostics.Stopwatch;
+using System.Diagnostics;
 
 namespace ScorpTestGame
 {
+    public class MyShip : ControllableObject
+    {
+    }
+
     /// <summary>
     /// Level 1 of the space shooter game.
     /// </summary>
@@ -29,8 +34,6 @@ namespace ScorpTestGame
         private readonly MouseInput _mouseInput;
 
         private Tweener _tweener = new Tweener();
-        private SysStopWatch _timer = new SysStopWatch();
-        private bool _useTimer = true;
         #endregion
 
         #region Constructors
@@ -44,6 +47,7 @@ namespace ScorpTestGame
             Engine.MouseVisible = true;
 
             _keyboardInput = new ScorpionEngine.Input.KeyboardInput();
+
             _mouseInput = new MouseInput();
             _mouseInput.OnLeftButtonDown += _mouseInput_OnLeftButtonDown;
             _mouseInput.OnLeftButtonReleased += _mouseInput_OnLeftButtonReleased;
@@ -56,11 +60,12 @@ namespace ScorpTestGame
             shipVerts = Tools.ConvertForOrigin(shipVerts);
 
             //Create the ship vertices
-            _ship = new ControllableObject(new Vector(0, 0), "Ship", shipVerts)
+            _ship = new ControllableObject(new Vector(450, 300), "Ship", shipVerts)
             {
+                Angle = 0,
                 MaxFollowSpeed = 10,
-                MoveAtAngleSpeed = 5f,
-                RotateSpeed = 100,
+                Speed = 2f,
+                RotateSpeed = 1,
                 LinearAcceleration = 1f,
                 LinearDeceleration = 0.8f,
                 RotationalAccelerationEnabled = true,
@@ -68,8 +73,6 @@ namespace ScorpTestGame
                 RotationEnabled = true,
                 DestinationPoint = new Vector(300,0)
             };
-
-            _ship.SetAllMaxLinearMovementSpeeds(40);
 
             var rockVerts = new Vector[8];
 
@@ -154,6 +157,9 @@ namespace ScorpTestGame
 
             if (_keyboardInput.IsKeyDown(InputKeys.LeftShift))
             {
+            }
+            else
+            {
                 if (_keyboardInput.IsKeyDown(InputKeys.Right))
                 {
                     _ship.RotateCW();
@@ -162,39 +168,33 @@ namespace ScorpTestGame
                 {
                     _ship.RotateCCW();
                 }
-            }
-            else
-            {
+
+                if (_keyboardInput.IsKeyDown(InputKeys.Space))
+                {
+                    _ship.MoveAtSetAngle();
+                }
+
                 if (_keyboardInput.IsKeyDown(InputKeys.Right))
                 {
-                    if(_useTimer) _timer.Start();
-
-                    _ship.MoveRight();
+                    //_ship.MoveRight();
                 }
 
                 if (_keyboardInput.IsKeyDown(InputKeys.Left))
                 {
-                    _ship.MoveLeft();
+                    //_ship.MoveLeft();
                 }
 
                 if (_keyboardInput.IsKeyDown(InputKeys.Up))
                 {
-                    _ship.MoveUp();
+                    //_ship.MoveUp();
                 }
 
                 if (_keyboardInput.IsKeyDown(InputKeys.Down))
                 {
-                    _ship.MoveDown();
+                    //_ship.MoveDown();
                 }
             }
             #endregion
-
-            if (_ship.Position.X > Engine.WindowWidth)
-            {
-                _timer.Stop();
-                _useTimer = false;
-                Engine.WindowTitle = $"Time Completed: {_timer.Elapsed.TotalSeconds}";
-            }
 
             _keyboardInput.UpdatePreviousState();
             _mouseInput.UpdatePreviousState();

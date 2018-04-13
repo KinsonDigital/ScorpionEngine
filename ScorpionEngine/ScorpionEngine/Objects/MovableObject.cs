@@ -24,10 +24,11 @@ namespace ScorpionEngine.Objects
         private float _maxAngularVelocity = 1f;//The maximum angular velocity
         private float _rotationalAcceleration = 1f;//The acceleration of any rotational movement
         private QuadGraph _quadGraph = new QuadGraph();//Used to calculate and keep track of the quad that the Destination point resides in and the quad that the body angle points to
-        private Dictionary<Direction, float> _linearSpeeds;//Holds the speeds for all 8 linear movement directions
+        private float _speed = 5f;
         private float _linearDeceleration;
         private bool _rotationEnabled;
         private readonly Dictionary<Direction, bool> _linearMovementLocks = new Dictionary<Direction, bool>();//Holds the lock states for the 8 linear movements.  True means locked.
+        private float _angle; //The angle in degrees
         #endregion
 
 
@@ -194,12 +195,31 @@ namespace ScorpionEngine.Objects
                 //TODO: SET THE ANGLE OF THE OBJECT
                 //throw new NotImplementedException();
 
-                return 0f;
+                return _angle;
+            }
+            set
+            {
+                _angle = value;
             }
         }
 
         /// <summary>
-        /// Gets or sets the rotational speed of the object.
+        /// Gets or sets the speed for non linear movement.
+        /// </summary>
+        public float Speed
+        {
+            get
+            {
+                return _speed;
+            }
+            set
+            {
+                _speed = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the rotational speed of the object in degrees.
         /// </summary>
         public float RotateSpeed { get; set; } = 1f;
 
@@ -281,11 +301,6 @@ namespace ScorpionEngine.Objects
         public float MaxFollowSpeed { get; set; } = 1f;
 
         /// <summary>
-        /// Gets or sets the speed of the movable object when moving at its set angle.
-        /// </summary>
-        public float MoveAtAngleSpeed { get; set; }
-
-        /// <summary>
         /// Gets or sets a value indicating if the entity should rotate automatically at the set velocity.
         /// If auto rotate is set to true, manual rotation via keyboard input and RotateCW and RotateCCW will be disabled.
         /// </summary>
@@ -306,6 +321,12 @@ namespace ScorpionEngine.Objects
         {
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
+
+            var previousAngle = _angle;
+
+            _angle = 90;
+            MoveAtSetAngle();
+            _angle = previousAngle;
         }
 
 
@@ -316,6 +337,12 @@ namespace ScorpionEngine.Objects
         {
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
+
+            var previousAngle = _angle;
+
+            _angle = 270;
+            MoveAtSetAngle();
+            _angle = previousAngle;
         }
 
 
@@ -326,6 +353,12 @@ namespace ScorpionEngine.Objects
         {
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
+
+            var previousAngle = _angle;
+
+            _angle = 0;
+            MoveAtSetAngle();
+            _angle = previousAngle;
         }
 
 
@@ -336,6 +369,12 @@ namespace ScorpionEngine.Objects
         {
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
+
+            var previousAngle = _angle;
+
+            _angle = 180;
+            MoveAtSetAngle();
+            _angle = previousAngle;
         }
 
 
@@ -346,6 +385,9 @@ namespace ScorpionEngine.Objects
         {
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
+
+            MoveUp();
+            MoveRight();
         }
 
 
@@ -356,6 +398,9 @@ namespace ScorpionEngine.Objects
         {
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
+
+            MoveUp();
+            MoveLeft();
         }
 
 
@@ -366,6 +411,9 @@ namespace ScorpionEngine.Objects
         {
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
+
+            MoveDown();
+            MoveRight();
         }
 
 
@@ -376,6 +424,9 @@ namespace ScorpionEngine.Objects
         {
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
+
+            MoveDown();
+            MoveLeft();
         } 
 
 
@@ -384,8 +435,10 @@ namespace ScorpionEngine.Objects
         /// </summary>
         public void MoveAtSetAngle()
         {
-            //TODO: Move the object at a particular angle
-            throw new NotImplementedException();
+            var x = Position.X + _speed * (float)Math.Sin(GameMath.ToRadians(_angle));
+            var y = Position.Y - _speed * (float)Math.Cos(GameMath.ToRadians(_angle));
+
+            SetPosition(new Vector(x, y));
         }
 
 
@@ -396,6 +449,8 @@ namespace ScorpionEngine.Objects
         {
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
+
+            _angle += RotateSpeed;
         }
 
 
@@ -406,6 +461,8 @@ namespace ScorpionEngine.Objects
         {
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
+
+            _angle -= RotateSpeed;
         }
 
 
@@ -470,31 +527,6 @@ namespace ScorpionEngine.Objects
             foreach (var item in _linearMovementLocks)
             {
                 _linearMovementLocks[item.Key] = false;
-            }
-        }
-
-
-        /// <summary>
-        /// Gets the given directions speed.
-        /// </summary>
-        /// <param name="direction">The direction of a particular speed.</param>
-        /// <returns></returns>
-        public float GetLinearMovementSpeed(Direction direction)
-        {
-            return _linearSpeeds[direction];
-        }
-
-
-        /// <summary>
-        /// Sets all of the linear movements to the given speed. DEFAULT: 1
-        /// </summary>
-        /// <param name="speed">The speed to set all of the directions to.</param>
-        public void SetAllMaxLinearMovementSpeeds(float speed)
-        {
-            //Set the speed for each direction
-            for (var i = Tools.GetEnumMin(typeof(Direction)); i <= Tools.GetEnumMax(typeof(Direction)); i++)
-            {
-                _linearSpeeds[(Direction)i] = speed;
             }
         }
         #endregion
@@ -592,16 +624,7 @@ namespace ScorpionEngine.Objects
 
             LinearDeceleration = 1f; //Set the default linear deceleration
 
-            //Set all of the 8 linear movement speeds to a default setting of 1
-            _linearSpeeds = new Dictionary<Direction, float>();
-
             var totalDirections = Enum.GetValues(typeof (Direction)).Length;
-
-            //Add all of the directions and speeds.
-            for (var i = Tools.GetEnumMin(typeof (Direction)); i <= totalDirections; i++)
-            {
-                _linearSpeeds.Add((Direction) i, 1f);
-            }
 
             //Add all of the linear locks with a default value of false/unlocked
             for (var i = Tools.GetEnumMin(typeof(Direction)); i <= totalDirections; i++)

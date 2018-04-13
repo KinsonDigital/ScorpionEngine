@@ -275,10 +275,7 @@ namespace ScorpionEngine
 
                 if (texture != null)
                 {
-                    var useAngle = false;
-
-                    //If the object is not a standard object, then that means the object can be moved and angle needs to be taken into account
-                    useAngle = World.GameObjects[i].GetType() != typeof (GameObject);
+                    var angle = GameMath.ToRadians(World.GameObjects[i].GetType() != typeof(GameObject) ? ((MovableObject)World.GameObjects[i]).Angle : 0);
 
                     var origin = new Vector2
                     {
@@ -291,7 +288,7 @@ namespace ScorpionEngine
                             destRect, //Destination Rect
                             srcRect, //Source Rect
                             MonoColor.White, //Tint Color
-                            useAngle ? ((MovableObject)World.GameObjects[i]).Angle : 0, //Angle
+                            angle, //Angle
                             origin,
                             //ConvertUnits.ToDisplayUnits(new Vector2(World.GameObjects[i].Origin.X, World.GameObjects[i].Origin.Y)), //Origin - NOTE: This will need further research and implementation when having custom origins
                             SpriteEffects.None, //Sprite Effects

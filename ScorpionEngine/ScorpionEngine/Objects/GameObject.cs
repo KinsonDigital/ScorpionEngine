@@ -217,6 +217,7 @@ namespace ScorpionEngine.Objects
             }
         }
 
+
         /// <summary>
         /// Gets the width of the entity.
         /// </summary>
@@ -424,6 +425,18 @@ namespace ScorpionEngine.Objects
             _subLocations.TryGetValue(name, out foundVector);
 
             return foundVector;
+        }
+        #endregion
+
+
+        #region Internal Methods
+        /// <summary>
+        /// Sets the position of the <see cref="GameObject"/>.
+        /// </summary>
+        /// <param name="position"></param>
+        internal void SetPosition(Vector position)
+        {
+            _position = position;
         }
         #endregion
 
