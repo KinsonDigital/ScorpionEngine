@@ -100,7 +100,9 @@ namespace ScorpionEngine
             {
                 var size = new Vector2(_gameObjects[i].Texture.Width, _gameObjects[i].Texture.Height);
 
-                spriteBatch.DrawRectangle(Tools.ToVector2(_gameObjects[i].Position), size, Color.Black, 2f);
+                var offsetPosition = new Vector2(_gameObjects[i].Position.X - _gameObjects[i].HalfWidth, _gameObjects[i].Position.Y - _gameObjects[i].HalfHeight);
+
+                spriteBatch.DrawRectangle(offsetPosition, size, Color.Black, 2f);
             }
         }
 
