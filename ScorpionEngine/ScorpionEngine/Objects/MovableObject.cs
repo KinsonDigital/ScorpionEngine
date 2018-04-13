@@ -330,6 +330,8 @@ namespace ScorpionEngine.Objects
         {
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
+
+            SetPosition(new Vector(Position.X, Position.Y - _linearSpeeds[Direction.Up]));
         }
 
 
@@ -340,6 +342,8 @@ namespace ScorpionEngine.Objects
         {
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
+
+            SetPosition(new Vector(Position.X, Position.Y + _linearSpeeds[Direction.Down]));
         }
 
 
