@@ -98,49 +98,96 @@ namespace ScorpionEngine
 
 
         #region Overloaded Operators
+        #region Overloaded Operators
         /// <summary>
-        /// Multplies the two vectors together.
+        /// Subtracts the 2 given vectors.
         /// </summary>
+        /// <param name="vector1">The first vector.</param>
+        /// <param name="vector2">The second vector.</param>
         /// <returns></returns>
-        public static Vector operator *(Vector a, Vector b)
+        public static Vector operator -(Vector vector1, Vector vector2)
         {
-            var result = new Vector2(a.X, a.Y) * new Vector2(b.X, b.Y);
-
-            return new Vector(result.X, result.Y);
+            return new Vector(vector1.X - vector2.X, vector1.Y - vector2.Y);
         }
 
         /// <summary>
-        /// Multplies the two vectors together.
+        /// Adds the 2 given vectors.
         /// </summary>
+        /// <param name="vector1">The first vector.</param>
+        /// <param name="vector2">The second vector.</param>
         /// <returns></returns>
-        public static Vector operator *(Vector a, float b)
+        public static Vector operator +(Vector vector1, Vector vector2)
         {
-            var result = new Vector2(a.X, a.Y) * b;
-
-            return new Vector(result.X, result.Y);
+            return new Vector(vector1.X + vector2.X, vector1.Y + vector2.Y);
         }
 
         /// <summary>
-        /// Adds the components of the two vectors together.
+        /// Adds the given <paramref name="scalar"/> to the X and Y componentes of the given <paramref name="vector"/>.
         /// </summary>
+        /// <param name="vector">The vector to add the scalar to.</param>
+        /// <param name="scalar">The scalar to add the vector to.</param>
         /// <returns></returns>
-        public static Vector operator +(Vector a, Vector b)
+        public static Vector operator +(Vector vector, float scalar)
         {
-            var result = new Vector2(a.X, a.Y) + new Vector2(b.X, b.Y);
-
-            return new Vector(result.X, result.Y);
+            return new Vector(vector.X + scalar, vector.Y + scalar);
         }
 
         /// <summary>
-        /// Subtracts the components of the two vectors together.
+        /// Multiplies the 2 given vectors, returning the Dot product.
         /// </summary>
+        /// <param name="vector1">The first vector.</param>
+        /// <param name="vector2">The second vector.</param>
         /// <returns></returns>
-        public static Vector operator -(Vector a, Vector b)
+        public static float operator *(Vector vector1, Vector vector2)
         {
-            var result = new Vector2(a.X, a.Y) - new Vector2(b.X, b.Y);
-
-            return new Vector(result.X, result.Y);
+            return vector1.X * vector2.X + vector1.Y * vector2.Y;
         }
+
+        /// <summary>
+        /// Multiplies the given vector by the given scalar value.
+        /// </summary>
+        /// <param name="vector">The vector to multiply by the scalar value.</param>
+        /// <param name="scalar">The scalar value to multiply by the vector.</param>
+        /// <returns></returns>
+        public static Vector operator *(Vector vector, float scalar)
+        {
+            return new Vector(vector.X * scalar, vector.Y * scalar);
+        }
+
+        /// <summary>
+        /// Multiplies the given vector by the given scalar value.
+        /// </summary>
+        /// <param name="scalar">The scalar value to multiply by the vector.</param>
+        /// <param name="vector">The vector to multiply by the scalar value.</param>
+        /// <returns></returns>
+        public static Vector operator *(float mult, Vector v)
+        {
+            return new Vector(v.X * mult, v.Y * mult);
+        }
+
+        /// <summary>
+        /// Returns a value indicating if the 2 given <see cref="vector"/>s have the same component values.
+        /// </summary>
+        /// <param name="vector1">The first vector in the comparison.</param>
+        /// <param name="vector2">The second vector in the comparison.</param>
+        /// <returns></returns>
+        public static bool operator ==(Vector vector1, Vector vector2)
+        {
+            return vector1.X == vector2.X && vector1.Y == vector2.Y;
+        }
+
+        /// <summary>
+        /// Returns a value indicating if the 2 given <see cref="vector"/>s have different component values.
+        /// </summary>
+        /// <param name="vector1">The first vector in the comparison.</param>
+        /// <param name="vector2">The second vector in the comparison.</param>
+        /// <returns></returns>
+        public static bool operator !=(Vector vector1, Vector vector2)
+        {
+            return !(vector1 == vector2);
+        }
+        #endregion
+
         #endregion
 
 

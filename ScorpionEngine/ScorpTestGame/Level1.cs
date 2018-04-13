@@ -29,8 +29,6 @@ namespace ScorpTestGame
         private readonly MouseInput _mouseInput;
 
         private Tweener _tweener = new Tweener();
-        private SysStopWatch _timer = new SysStopWatch();
-        private bool _useTimer = true;
         #endregion
 
         #region Constructors
@@ -44,6 +42,7 @@ namespace ScorpTestGame
             Engine.MouseVisible = true;
 
             _keyboardInput = new ScorpionEngine.Input.KeyboardInput();
+
             _mouseInput = new MouseInput();
             _mouseInput.OnLeftButtonDown += _mouseInput_OnLeftButtonDown;
             _mouseInput.OnLeftButtonReleased += _mouseInput_OnLeftButtonReleased;
@@ -56,7 +55,7 @@ namespace ScorpTestGame
             shipVerts = Tools.ConvertForOrigin(shipVerts);
 
             //Create the ship vertices
-            _ship = new ControllableObject(new Vector(0, 0), "Ship", shipVerts)
+            _ship = new ControllableObject(new Vector(450, 300), "Ship", shipVerts)
             {
                 MaxFollowSpeed = 10,
                 MoveAtAngleSpeed = 5f,
@@ -167,8 +166,6 @@ namespace ScorpTestGame
             {
                 if (_keyboardInput.IsKeyDown(InputKeys.Right))
                 {
-                    if(_useTimer) _timer.Start();
-
                     _ship.MoveRight();
                 }
 
@@ -188,13 +185,6 @@ namespace ScorpTestGame
                 }
             }
             #endregion
-
-            if (_ship.Position.X > Engine.WindowWidth)
-            {
-                _timer.Stop();
-                _useTimer = false;
-                Engine.WindowTitle = $"Time Completed: {_timer.Elapsed.TotalSeconds}";
-            }
 
             _keyboardInput.UpdatePreviousState();
             _mouseInput.UpdatePreviousState();
