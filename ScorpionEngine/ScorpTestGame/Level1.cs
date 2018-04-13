@@ -9,6 +9,10 @@ using SysStopWatch = System.Diagnostics.Stopwatch;
 
 namespace ScorpTestGame
 {
+    public class MyShip : ControllableObject
+    {
+    }
+
     /// <summary>
     /// Level 1 of the space shooter game.
     /// </summary>
@@ -68,7 +72,7 @@ namespace ScorpTestGame
                 DestinationPoint = new Vector(300,0)
             };
 
-            _ship.SetAllMaxLinearMovementSpeeds(40);
+            _ship.SetAllLinearMovementSpeeds(5);
 
             var rockVerts = new Vector[8];
 

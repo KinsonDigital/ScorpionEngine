@@ -306,6 +306,8 @@ namespace ScorpionEngine.Objects
         {
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
+
+            SetPosition(new Vector(Position.X + _linearSpeeds[Direction.Right], Position.Y));
         }
 
 
@@ -316,6 +318,8 @@ namespace ScorpionEngine.Objects
         {
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
+
+            SetPosition(new Vector(Position.X - _linearSpeeds[Direction.Left], Position.Y));
         }
 
 
@@ -486,10 +490,21 @@ namespace ScorpionEngine.Objects
 
 
         /// <summary>
+        /// Sets the given <paramref name="speed"/> for the given <paramref name="direction"/>.
+        /// </summary>
+        /// <param name="direction">The direction of the speed to set.</param>
+        /// <param name="speed">The speed to set.</param>
+        public void SetLinearMovementSpeed(Direction direction, float speed)
+        {
+            _linearSpeeds[direction] = speed;
+        }
+
+
+        /// <summary>
         /// Sets all of the linear movements to the given speed. DEFAULT: 1
         /// </summary>
         /// <param name="speed">The speed to set all of the directions to.</param>
-        public void SetAllMaxLinearMovementSpeeds(float speed)
+        public void SetAllLinearMovementSpeeds(float speed)
         {
             //Set the speed for each direction
             for (var i = Tools.GetEnumMin(typeof(Direction)); i <= Tools.GetEnumMax(typeof(Direction)); i++)
