@@ -6,6 +6,7 @@ using ScorpionEngine.Objects;
 using ScorpionEngine.Input;
 using ScorpionEngine.Utils;
 using SysStopWatch = System.Diagnostics.Stopwatch;
+using System.Diagnostics;
 
 namespace ScorpTestGame
 {
@@ -61,9 +62,10 @@ namespace ScorpTestGame
             //Create the ship vertices
             _ship = new ControllableObject(new Vector(450, 300), "Ship", shipVerts)
             {
+                Angle = 0,
                 MaxFollowSpeed = 10,
-                MoveAtAngleSpeed = 5f,
-                RotateSpeed = 100,
+                Speed = 2f,
+                RotateSpeed = 1,
                 LinearAcceleration = 1f,
                 LinearDeceleration = 0.8f,
                 RotationalAccelerationEnabled = true,
@@ -71,8 +73,6 @@ namespace ScorpTestGame
                 RotationEnabled = true,
                 DestinationPoint = new Vector(300,0)
             };
-
-            _ship.SetAllLinearMovementSpeeds(5);
 
             var rockVerts = new Vector[8];
 
@@ -157,6 +157,9 @@ namespace ScorpTestGame
 
             if (_keyboardInput.IsKeyDown(InputKeys.LeftShift))
             {
+            }
+            else
+            {
                 if (_keyboardInput.IsKeyDown(InputKeys.Right))
                 {
                     _ship.RotateCW();
@@ -165,27 +168,30 @@ namespace ScorpTestGame
                 {
                     _ship.RotateCCW();
                 }
-            }
-            else
-            {
+
+                if (_keyboardInput.IsKeyDown(InputKeys.Space))
+                {
+                    _ship.MoveAtSetAngle();
+                }
+
                 if (_keyboardInput.IsKeyDown(InputKeys.Right))
                 {
-                    _ship.MoveRight();
+                    //_ship.MoveRight();
                 }
 
                 if (_keyboardInput.IsKeyDown(InputKeys.Left))
                 {
-                    _ship.MoveLeft();
+                    //_ship.MoveLeft();
                 }
 
                 if (_keyboardInput.IsKeyDown(InputKeys.Up))
                 {
-                    _ship.MoveUp();
+                    //_ship.MoveUp();
                 }
 
                 if (_keyboardInput.IsKeyDown(InputKeys.Down))
                 {
-                    _ship.MoveDown();
+                    //_ship.MoveDown();
                 }
             }
             #endregion
