@@ -367,6 +367,9 @@ namespace ScorpionEngine.Objects
         {
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
+
+            MoveUp();
+            MoveLeft();
         }
 
 
