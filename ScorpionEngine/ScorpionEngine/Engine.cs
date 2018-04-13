@@ -7,6 +7,7 @@ using ScorpionEngine.GameSound;
 using ScorpionEngine.Objects;
 using MonoRect = Microsoft.Xna.Framework.Rectangle;
 using MonoColor = Microsoft.Xna.Framework.Color;
+using ScorpionEngine.Utils;
 
 namespace ScorpionEngine
 {
@@ -160,7 +161,6 @@ namespace ScorpionEngine
             _spriteBatch = new SpriteBatch(_graphicsDeviceManager.GraphicsDevice);
 
             _graphicsDeviceManager.GraphicsDevice.BlendState = BlendState.AlphaBlend;
-            _graphicsDeviceManager.PreferMultiSampling = true;
             _graphicsDeviceManager.ApplyChanges();
 
             //Call the initialize method for the world
@@ -217,139 +217,135 @@ namespace ScorpionEngine
 
             //If debug draw is enabled, draw the debug data and not the graphics.
             if (World.DebugDrawEnabled)
-            {
-                World.DrawDebugData();
-            }
-            else
-            {
-                #region Draw Backgrounds For The World
-                #endregion
+                World.DrawDebugData(_spriteBatch);
 
-                #region Draw GameObjects
-                for (var i = 0; i < World.GameObjects.Count; i++)
-                {
-                    //If the texture of the game object is  null, move to the next object
-                    if(World.GameObjects[i].Texture == null) continue;
+            #region Draw Backgrounds For The World
+            #endregion
+
+            #region Draw GameObjects
+            for (var i = 0; i < World.GameObjects.Count; i++)
+            {
+                //If the texture of the game object is  null, move to the next object
+                if(World.GameObjects[i].Texture == null) continue;
                     
-                    Texture2D texture = null;
-                    var srcRect = MonoRect.Empty;
-                    var destRect = MonoRect.Empty;
+                Texture2D texture = null;
+                var srcRect = MonoRect.Empty;
+                var destRect = MonoRect.Empty;
 
-                    //If the texture source is its own texture or from a texture texture
-                    switch (World.GameObjects[i].GraphicSource)
-                    {
-                        case GraphicContentSource.Standard:
-                            texture = World.GameObjects[i].Texture;
-
-                            //Create a source rectangle that is the same dimensions as the entire texture itself
-                            //This will simply use the entire texture.
-                            srcRect = new MonoRect(0, 0, World.GameObjects[i].Width, World.GameObjects[i].Height);
-
-                            //TODO: Figure out why the sprite is not drawing on top of the debug draw shape
-                            destRect = new MonoRect((int)World.GameObjects[i].Position.X,
-                                                    (int)World.GameObjects[i].Position.Y,
-                                                    World.GameObjects[i].Width,
-                                                    World.GameObjects[i].Height);
-
-                            break;
-                        case GraphicContentSource.Atlas:
-                            throw new NotImplementedException("NEEDS TESTING");
-                            texture = AtlasManager.GetAtlasTexture(World.GameObjects[i].TextureName);
-
-                            //texture = _atlasTextures[World.GameObjects[i].TextureName];
-                            //var subRect = _atlasTextures[World.GameObjects[i].TextureName].SubTextureBounds(World.GameObjects[i].SubTextureName);
-                            var subRect = World.GameObjects[i].TextureSourceBounds;
-                            var newLocation = new Vector(World.GameObjects[i].Origin.X - World.GameObjects[i].Position.X, World.GameObjects[i].Origin.Y - World.GameObjects[i].Position.Y);
-
-                            //rcRect = new MonoRect(subRect.X, subRect.Y, subRect.Width, subRect.Height);
-                            //destRect = new MonoRect((int)destLocation.X, (int)destLocation.Y, srcRect.Width, srcRect.Height);
-
-                            srcRect = new MonoRect(World.GameObjects[i].Animation.CurrentFrameBounds.X,
-                                World.GameObjects[i].Animation.CurrentFrameBounds.Y,
-                                World.GameObjects[i].Animation.CurrentFrameBounds.Width,
-                                World.GameObjects[i].Animation.CurrentFrameBounds.Height);
-
-                            destRect = new MonoRect((int)World.GameObjects[i].Position.X, (int)World.GameObjects[i].Position.Y,
-                                World.GameObjects[i].Animation.CurrentFrameBounds.Width, World.GameObjects[i].Animation.CurrentFrameBounds.Height);
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-
-                    if (texture != null)
-                    {
-                        var useAngle = false;
-
-                        //If the object is not a standard object, then that means the object can be moved and angle needs to be taken into account
-                        useAngle = World.GameObjects[i].GetType() != typeof (GameObject);
-
-                        var origin = new Vector2
-                        {
-                            X = World.GameObjects[i].HalfWidth,
-                            Y = World.GameObjects[i].HalfHeight
-                        };
-
-                        //Draw the texture
-                        _spriteBatch.Draw(texture,//Texture
-                              destRect, //Destination Rect
-                              srcRect, //Source Rect
-                              MonoColor.White, //Tint Color
-                              useAngle ? ((MovableObject)World.GameObjects[i]).Angle : 0, //Angle
-                              origin,
-                              //ConvertUnits.ToDisplayUnits(new Vector2(World.GameObjects[i].Origin.X, World.GameObjects[i].Origin.Y)), //Origin - NOTE: This will need further research and implementation when having custom origins
-                              SpriteEffects.None, //Sprite Effects
-                              0);//Layer Depth ####NOTE: This will need further implementation and use####
-                    }
-                }
-                #endregion
-
-                #region Draw World Entity Pool GameObjects
-                //Draw all of the entities in each pool
-                foreach (var pool in _world.Pools)
+                //If the texture source is its own texture or from a texture texture
+                switch (World.GameObjects[i].GraphicSource)
                 {
-                    foreach (MovableObject gameObject in pool)
-                    {
-                        //Draw each entity that is visible in all of the entity pools
-                        if (! gameObject.Visible) continue;
+                    case GraphicContentSource.Standard:
+                        texture = World.GameObjects[i].Texture;
 
-                        var origin = new Vector2(gameObject.Origin.X, gameObject.Origin.Y);
+                        //Create a source rectangle that is the same dimensions as the entire texture itself
+                        //This will simply use the entire texture.
+                        srcRect = new MonoRect(0, 0, World.GameObjects[i].Width, World.GameObjects[i].Height);
+
+                        //TODO: Figure out why the sprite is not drawing on top of the debug draw shape
+                        destRect = new MonoRect((int)World.GameObjects[i].Position.X,
+                                                (int)World.GameObjects[i].Position.Y,
+                                                World.GameObjects[i].Width,
+                                                World.GameObjects[i].Height);
+
+                        break;
+                    case GraphicContentSource.Atlas:
+                        throw new NotImplementedException("NEEDS TESTING");
+                        texture = AtlasManager.GetAtlasTexture(World.GameObjects[i].TextureName);
+
+                        //texture = _atlasTextures[World.GameObjects[i].TextureName];
+                        //var subRect = _atlasTextures[World.GameObjects[i].TextureName].SubTextureBounds(World.GameObjects[i].SubTextureName);
+                        var subRect = World.GameObjects[i].TextureSourceBounds;
+                        var newLocation = new Vector(World.GameObjects[i].Origin.X - World.GameObjects[i].Position.X, World.GameObjects[i].Origin.Y - World.GameObjects[i].Position.Y);
+
+                        //rcRect = new MonoRect(subRect.X, subRect.Y, subRect.Width, subRect.Height);
+                        //destRect = new MonoRect((int)destLocation.X, (int)destLocation.Y, srcRect.Width, srcRect.Height);
+
+                        srcRect = new MonoRect(World.GameObjects[i].Animation.CurrentFrameBounds.X,
+                            World.GameObjects[i].Animation.CurrentFrameBounds.Y,
+                            World.GameObjects[i].Animation.CurrentFrameBounds.Width,
+                            World.GameObjects[i].Animation.CurrentFrameBounds.Height);
+
+                        destRect = new MonoRect((int)World.GameObjects[i].Position.X, (int)World.GameObjects[i].Position.Y,
+                            World.GameObjects[i].Animation.CurrentFrameBounds.Width, World.GameObjects[i].Animation.CurrentFrameBounds.Height);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
+                if (texture != null)
+                {
+                    var useAngle = false;
+
+                    //If the object is not a standard object, then that means the object can be moved and angle needs to be taken into account
+                    useAngle = World.GameObjects[i].GetType() != typeof (GameObject);
+
+                    var origin = new Vector2
+                    {
+                        X = World.GameObjects[i].HalfWidth,
+                        Y = World.GameObjects[i].HalfHeight
+                    };
+
+                    //Draw the texture
+                    _spriteBatch.Draw(texture,//Texture
+                            destRect, //Destination Rect
+                            srcRect, //Source Rect
+                            MonoColor.White, //Tint Color
+                            useAngle ? ((MovableObject)World.GameObjects[i]).Angle : 0, //Angle
+                            origin,
+                            //ConvertUnits.ToDisplayUnits(new Vector2(World.GameObjects[i].Origin.X, World.GameObjects[i].Origin.Y)), //Origin - NOTE: This will need further research and implementation when having custom origins
+                            SpriteEffects.None, //Sprite Effects
+                            0);//Layer Depth ####NOTE: This will need further implementation and use####
+                }
+            }
+            #endregion
+
+            #region Draw World Entity Pool GameObjects
+            //Draw all of the entities in each pool
+            foreach (var pool in _world.Pools)
+            {
+                foreach (MovableObject gameObject in pool)
+                {
+                    //Draw each entity that is visible in all of the entity pools
+                    if (! gameObject.Visible) continue;
+
+                    var origin = new Vector2(gameObject.Origin.X, gameObject.Origin.Y);
+
+                    //Create the destination rectangle
+                    var destRect = new MonoRect((int) gameObject.Position.X, (int) gameObject.Position.Y, gameObject.Width, gameObject.Height);
+
+                    //Create the source rectangle
+                    var srcRect = new MonoRect(0, 0, gameObject.Width, gameObject.Height);
+
+                    _spriteBatch.Draw(gameObject.Texture, destRect, srcRect, MonoColor.White, MathHelper.ToRadians(gameObject.Angle), origin, SpriteEffects.None, 0);
+                }
+            }
+            #endregion
+
+            #region Draw Each GameObjects Individual Object Pool Objects
+            //For each game object, check for child pools
+            foreach (var gameObj in World.GameObjects)
+            {
+                //For each child pool in each game object
+                foreach (var childPool in gameObj.ChildPools)
+                {
+                    //Draw each child pool object
+                    for (var i = 0; i < childPool.Count; i++)
+                    {
+                        var origin = new Vector2(childPool[i].Origin.X, childPool[i].Origin.Y);
 
                         //Create the destination rectangle
-                        var destRect = new MonoRect((int) gameObject.Position.X, (int) gameObject.Position.Y, gameObject.Width, gameObject.Height);
+                        var destRect = new MonoRect((int) childPool[i].Position.X, (int) childPool[i].Position.Y, childPool[i].Width, childPool[i].Height);
 
                         //Create the source rectangle
-                        var srcRect = new MonoRect(0, 0, gameObject.Width, gameObject.Height);
+                        var srcRect = new MonoRect(0, 0, childPool[i].Width, childPool[i].Height);
 
-                        _spriteBatch.Draw(gameObject.Texture, destRect, srcRect, MonoColor.White, MathHelper.ToRadians(gameObject.Angle), origin, SpriteEffects.None, 0);
+                        //Draw the texture
+                        _spriteBatch.Draw(childPool[i].Texture, destRect, srcRect, MonoColor.White, MathHelper.ToRadians(childPool[i].Angle), origin, SpriteEffects.None, 0);
                     }
                 }
-                #endregion
-
-                #region Draw Each GameObjects Individual Object Pool Objects
-                //For each game object, check for child pools
-                foreach (var gameObj in World.GameObjects)
-                {
-                    //For each child pool in each game object
-                    foreach (var childPool in gameObj.ChildPools)
-                    {
-                        //Draw each child pool object
-                        for (var i = 0; i < childPool.Count; i++)
-                        {
-                            var origin = new Vector2(childPool[i].Origin.X, childPool[i].Origin.Y);
-
-                            //Create the destination rectangle
-                            var destRect = new MonoRect((int) childPool[i].Position.X, (int) childPool[i].Position.Y, childPool[i].Width, childPool[i].Height);
-
-                            //Create the source rectangle
-                            var srcRect = new MonoRect(0, 0, childPool[i].Width, childPool[i].Height);
-
-                            //Draw the texture
-                            _spriteBatch.Draw(childPool[i].Texture, destRect, srcRect, MonoColor.White, MathHelper.ToRadians(childPool[i].Angle), origin, SpriteEffects.None, 0);
-                        }
-                    }
-                }
-                #endregion
             }
+            #endregion
 
             _spriteBatch.End();
         }

@@ -192,7 +192,9 @@ namespace ScorpionEngine.Objects
             get
             {
                 //TODO: SET THE ANGLE OF THE OBJECT
-                throw new NotImplementedException();
+                //throw new NotImplementedException();
+
+                return 0f;
             }
         }
 

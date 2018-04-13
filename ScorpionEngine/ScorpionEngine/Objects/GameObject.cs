@@ -486,6 +486,7 @@ namespace ScorpionEngine.Objects
         {
             _engineTime = new EngineTime();
 
+            _position = location;
             _textureName = textureName;
 
             //TODO: REWORK THIS METHOD.
