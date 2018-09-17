@@ -38,29 +38,22 @@ namespace ScorpionEngine.Objects
         public event EventHandler<KeyEventArgs> OnKeyReleased;
 
         public event EventHandler Update;
+
         #endregion
-
-
         #region Fields
-        private int _id = -1;//The id number used by the game engine to perform entity searching
-        private int _relativeToID = -1;//The id number of the game object that this object's location is relative to
         private bool _visible = true;//True if the entity will be drawn
         protected EngineTime _engineTime;
         private Vector _origin = Vector.Zero;
-        private GraphicContentSource _graphicSource = GraphicContentSource.Standard;//The source that the GameObject will use for its graphic content
         private readonly Dictionary<string, Vector> _subLocations = new Dictionary<string, Vector>();
         private readonly List<GameObject> _childObjects = new List<GameObject>();
         private readonly List<ObjectPool> _childPools = new List<ObjectPool>();
-        private ObjectAnimation _objAnimation = new ObjectAnimation();
         protected Texture2D _texture;
         private Rect _textureBounds;//The bounds of the entire standard texture or the current sub texture of an atlas
-        private string _textureName;
         private string _subTextureName;//??
         private int _atlasSubTextureWidth;//??
         private int _atlasSubTextureHeight;//??
         private KeyboardState _currentKeyState;//The keyboard state of the current game loop iteration
         private KeyboardState _prevKeyState;//The previous game loop iteration's keyboard state
-        private Vector _position;
         #endregion
 
 
@@ -100,7 +93,7 @@ namespace ScorpionEngine.Objects
         /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
         public GameObject(string textureAtlasName, string atlasDataName, string subTextureID, Vector[] polyVertices = null)
         {
-            _graphicSource = GraphicContentSource.Atlas;//Set the graphic source to the atlas
+            GraphicSource = GraphicContentSource.Atlas;//Set the graphic source to the atlas
 
             //Initialize the atlas
             InitializeAtlas(textureAtlasName, atlasDataName, subTextureID);
@@ -139,18 +132,12 @@ namespace ScorpionEngine.Objects
         /// <summary>
         /// The animation of the GameObject.
         /// </summary>
-        public ObjectAnimation Animation
-        {
-            get { return _objAnimation; }
-        }
+        public ObjectAnimation Animation { get; private set; } = new ObjectAnimation();
 
         /// <summary>
         /// The name of the texture.
         /// </summary>
-        public string TextureName
-        {
-            get { return _textureName; }
-        }
+        public string TextureName { get; private set; }
 
         /// <summary>
         /// Gets the child pools of this GameObject.
@@ -163,10 +150,7 @@ namespace ScorpionEngine.Objects
         /// <summary>
         /// Gets the source that the GameObject will use for its graphic content.
         /// </summary>
-        public GraphicContentSource GraphicSource
-        {
-            get { return _graphicSource; }
-        }
+        public GraphicContentSource GraphicSource { get; private set; } = GraphicContentSource.Standard;
 
         /// <summary>
         /// Gets or sets a value indicating if the entity is drawn.
@@ -209,14 +193,7 @@ namespace ScorpionEngine.Objects
         /// Gets the location of the entity in the game world in pixel units.
         /// </summary>
         //TODO: Get this property/feature working
-        public Vector Position
-        {
-            get
-            {
-                return _position;
-            }
-        }
-
+        public Vector Position { get; private set; }
 
         /// <summary>
         /// Gets the width of the entity.
@@ -225,12 +202,12 @@ namespace ScorpionEngine.Objects
         {
             get
             {
-                switch (_graphicSource)
+                switch (GraphicSource)
                 {
                     case GraphicContentSource.Standard:
                         return _texture.Width;
                     case GraphicContentSource.Atlas:
-                        return _objAnimation.CurrentFrameBounds.Width;
+                        return Animation.CurrentFrameBounds.Width;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -246,12 +223,12 @@ namespace ScorpionEngine.Objects
         {
             get
             {
-                switch (_graphicSource)
+                switch (GraphicSource)
                 {
                     case GraphicContentSource.Standard:
                         return _texture.Height;
                     case GraphicContentSource.Atlas:
-                        return _objAnimation.CurrentFrameBounds.Height;
+                        return Animation.CurrentFrameBounds.Height;
                 }
 
                 return - 1;
@@ -277,20 +254,12 @@ namespace ScorpionEngine.Objects
         /// <summary>
         /// Gets the unique ID that has been assigned to this entity.
         /// </summary>
-        public int ID
-        {
-            get { return _id; }
-            set { _id = value; }
-        }
+        public int ID { get; set; } = -1;
 
         /// <summary>
         /// Gets or sets the ID number of the GameObject that this GameObject's location is relative to.
         /// </summary>
-        public int RelativeToID
-        {
-            get { return _relativeToID; }
-            set { _relativeToID = value; }
-        }
+        public int RelativeToID { get; set; } = -1;
 
 
         #region Internal Properties
@@ -310,7 +279,7 @@ namespace ScorpionEngine.Objects
         /// </summary>
         internal Rect TextureSourceBounds
         {
-            get { return _objAnimation.CurrentFrameBounds; }
+            get { return Animation.CurrentFrameBounds; }
         }
         #endregion
         #endregion
@@ -357,7 +326,7 @@ namespace ScorpionEngine.Objects
         /// <param name="type">The preset type of origin to set.</param>
         public void SetOrigin(OriginType type)
         {
-            if (_graphicSource == GraphicContentSource.Standard)
+            if (GraphicSource == GraphicContentSource.Standard)
             {
                 switch (type)
                 {
@@ -378,24 +347,24 @@ namespace ScorpionEngine.Objects
                         break;
                 }
             }
-            else if (_graphicSource == GraphicContentSource.Atlas)
+            else if (GraphicSource == GraphicContentSource.Atlas)
             {
                 switch (type)
                 {
                     case OriginType.Center:
-                        _origin = new Vector(_objAnimation.CurrentFrameBounds.Width / 2f, _objAnimation.CurrentFrameBounds.Height / 2f);
+                        _origin = new Vector(Animation.CurrentFrameBounds.Width / 2f, Animation.CurrentFrameBounds.Height / 2f);
                         break;
                     case OriginType.TopLeft:
                         _origin = Vector.Zero;
                         break;
                     case OriginType.TopRight:
-                        _origin = new Vector(_objAnimation.CurrentFrameBounds.Width, 0.0f);
+                        _origin = new Vector(Animation.CurrentFrameBounds.Width, 0.0f);
                         break;
                     case OriginType.BottomLeft:
-                        _origin = new Vector(0f, _objAnimation.CurrentFrameBounds.Height);
+                        _origin = new Vector(0f, Animation.CurrentFrameBounds.Height);
                         break;
                     case OriginType.BottomRight:
-                        _origin = new Vector(_objAnimation.CurrentFrameBounds.Width, _objAnimation.CurrentFrameBounds.Height);
+                        _origin = new Vector(Animation.CurrentFrameBounds.Width, Animation.CurrentFrameBounds.Height);
                         break;
                 }
             }
@@ -436,7 +405,7 @@ namespace ScorpionEngine.Objects
         /// <param name="position"></param>
         internal void SetPosition(Vector position)
         {
-            _position = position;
+            Position = position;
         }
         #endregion
 
@@ -466,7 +435,7 @@ namespace ScorpionEngine.Objects
                 OnKeyReleased?.Invoke(this, new KeyEventArgs(newlyReleaseKeys.ConvertAll(ConvertKey).ToArray()));
             }
 
-            _objAnimation.Update(engineTime);
+            Animation.Update(engineTime);
 
             //Update all of the child objects
             for (var i = 0; i < _childObjects.Count; i++)
@@ -499,13 +468,13 @@ namespace ScorpionEngine.Objects
         {
             _engineTime = new EngineTime();
 
-            _position = location;
-            _textureName = textureName;
+            Position = location;
+            TextureName = textureName;
 
             //TODO: REWORK THIS METHOD.
             //TODO: SETUP THE PHYSICS OBJECT FOR THE PHYSICS ENGINE.
             //Generate a new ID and assign it to the newly created game object
-            _id = World.GenerateID();
+            ID = World.GenerateID();
 
             if (! string.IsNullOrEmpty(textureName))
             {
@@ -542,7 +511,7 @@ namespace ScorpionEngine.Objects
         /// <param name="subTextureID">The name of the sub texture in the atlas texture that will be rendered for this GameObject.</param>
         private void InitializeAtlas(string textureAtlasName, string atlasDataName, string subTextureID)
         {
-            _graphicSource = GraphicContentSource.Atlas; //Set the graphic source to the atlas
+            GraphicSource = GraphicContentSource.Atlas; //Set the graphic source to the atlas
 
             //Load the atlas depending if it is already loaded or not
             var atlasData = ContentLoader.LoadAtlasData(atlasDataName);
@@ -551,7 +520,7 @@ namespace ScorpionEngine.Objects
             //Load the atlas manager with the data
             AtlasManager.AddAtlasData(textureAtlasName, atlasDataName, atlasTexture, atlasData);
 
-            _objAnimation = new ObjectAnimation(AtlasManager.GetAtlasData(atlasDataName).GetFrames(subTextureID));
+            Animation = new ObjectAnimation(AtlasManager.GetAtlasData(atlasDataName).GetFrames(subTextureID));
         }
         #endregion
 

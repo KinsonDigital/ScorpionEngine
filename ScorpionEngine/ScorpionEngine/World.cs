@@ -23,12 +23,9 @@ namespace ScorpionEngine
 
         #region Fields
         private static readonly List<int> _idNumbers = new List<int>();//Generated ID numbers that are assigned to game objects.
-        private static readonly List<GameObject> _gameObjects = new List<GameObject>();//The list of entites that have been added to the world
         private readonly List<ObjectPool> _pools;//The list of obj pools that have been added to the world
-        private readonly List<AnchorPoint> _anchors;//The anchor points of the obj
         private readonly Dictionary<int, Texture2D> _backgrounds = new Dictionary<int, Texture2D>();
         private static readonly List<SpriteFont> _debugTexts = new List<SpriteFont>();
-        private static bool _debugDrawEnabled;
         #endregion
 
 
@@ -39,7 +36,6 @@ namespace ScorpionEngine
         protected World(Vector gravity)
         {
             _pools = new List<ObjectPool>();
-            _anchors = new List<AnchorPoint>();
         }
         #endregion
 
@@ -48,13 +44,7 @@ namespace ScorpionEngine
         /// <summary>
         /// Gets the list of entities.
         /// </summary>
-        public static List<GameObject> GameObjects
-        {
-            get
-            {
-                return _gameObjects;
-            }
-        }
+        public static List<GameObject> GameObjects { get; } = new List<GameObject>();
 
         /// <summary>
         /// Gets the pools that have been added to the world.
@@ -73,17 +63,7 @@ namespace ScorpionEngine
         /// <summary>
         /// Gets or sets a value indicating if debug drawing is enabled.
         /// </summary>
-        public static bool DebugDrawEnabled
-        {
-            get
-            {
-                return _debugDrawEnabled;
-            }
-            set
-            {
-                _debugDrawEnabled = value;
-            }
-        }
+        public static bool DebugDrawEnabled { get; set; }
         #endregion
         #endregion
 
@@ -96,13 +76,11 @@ namespace ScorpionEngine
         {
             //Render the outline of the sprite for each game object graphic.
             //These will all be rectangles.
-            for (int i = 0; i < _gameObjects.Count; i++)
+            for (int i = 0; i < GameObjects.Count; i++)
             {
-                var size = new Vector2(_gameObjects[i].Texture.Width, _gameObjects[i].Texture.Height);
+                var size = new Vector2(GameObjects[i].Texture.Width, GameObjects[i].Texture.Height);
 
-                var offsetPosition = new Vector2(_gameObjects[i].Position.X - _gameObjects[i].HalfWidth, _gameObjects[i].Position.Y - _gameObjects[i].HalfHeight);
-
-                spriteBatch.DrawRectangle(offsetPosition, size, Color.Black, 2f);
+                var offsetPosition = new Vector2(GameObjects[i].Position.X - GameObjects[i].HalfWidth, GameObjects[i].Position.Y - GameObjects[i].HalfHeight);
             }
         }
 
@@ -162,7 +140,7 @@ namespace ScorpionEngine
         public virtual void OnUpdate(EngineTime engineTime)
         {
             //Call the update method for each obj
-            foreach (var obj in _gameObjects)
+            foreach (var obj in GameObjects)
             {
                 obj.OnUpdate(engineTime);
             }
@@ -187,7 +165,7 @@ namespace ScorpionEngine
             if (obj == null)
                 throw new ArgumentNullException();
 
-            _gameObjects.Add(obj);//Add the new obj to the obj list
+            GameObjects.Add(obj);//Add the new obj to the obj list
         }
 
 
@@ -197,12 +175,12 @@ namespace ScorpionEngine
         /// <param name="id">The id number of the obj to remove.</param>
         public static void RemoveGameObj(int id)
         {
-            for (var i = 0; i < _gameObjects.Count; i++)
+            for (var i = 0; i < GameObjects.Count; i++)
             {
                 //If the id matches
-                if (_gameObjects[i].ID == id)
+                if (GameObjects[i].ID == id)
                 {
-                    _gameObjects.RemoveAt(i);//Remove the obj
+                    GameObjects.RemoveAt(i);//Remove the obj
 
                     //Remove the ID from the id numbers list
                     _idNumbers.Remove(id);
@@ -225,10 +203,10 @@ namespace ScorpionEngine
         private static bool EntityExists(int id)
         {
             //Checks each obj
-            for (var i = 0; i < _gameObjects.Count; i++)
+            for (var i = 0; i < GameObjects.Count; i++)
             {
                 //If the obj's name matches the given name
-                if (_gameObjects[i].ID == id)
+                if (GameObjects[i].ID == id)
                 {
                     return true;
                 }

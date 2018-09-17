@@ -20,29 +20,16 @@ namespace ScorpionEngine.Content
     /// </summary>
     internal static class ContentLoader
     {
-        #region Fields
-        private static readonly string _gamePath = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);//The path to the game
-        private static string _contentRootDir = _gamePath + "\\" + "Content";
-        #endregion
-
-
         #region Properties
         /// <summary>
         /// Gets the path to the executable game.
         /// </summary>
-        public static string GamePath
-        {
-            get { return _gamePath; }
-        }
+        public static string GamePath { get; } = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);
 
         /// <summary>
         /// Gets or sets the root directory for the game's content.
         /// </summary>
-        public static string ContentRootDirectory
-        {
-            get { return _contentRootDir; }
-            set { _contentRootDir = value; }
-        }
+        public static string ContentRootDirectory { get; set; } = GamePath + "\\" + "Content";
         #endregion
 
 
@@ -55,7 +42,7 @@ namespace ScorpionEngine.Content
         /// <returns></returns>
         public static Texture2D LoadTexture(string textureName)
         {
-            var fullPath = _contentRootDir + "\\" + Path.GetDirectoryName(textureName) + "Graphics\\" + Path.GetFileName(textureName) + ".png";
+            var fullPath = ContentRootDirectory + "\\" + Path.GetDirectoryName(textureName) + "Graphics\\" + Path.GetFileName(textureName) + ".png";
 
             var dir = Path.GetDirectoryName(textureName);
 
@@ -107,7 +94,7 @@ namespace ScorpionEngine.Content
         public static AtlasData LoadAtlasData(string atlasDataName)
         {
             var atlasSpriteData = new List<AtlasSpriteData>();
-            var xmlReader = XmlReader.Create(_contentRootDir + "\\" + atlasDataName + ".xml");
+            var xmlReader = XmlReader.Create(ContentRootDirectory + "\\" + atlasDataName + ".xml");
 
             //Keep processing the xml data until it is all read
             while (xmlReader.Read())
@@ -213,7 +200,7 @@ namespace ScorpionEngine.Content
         /// <returns></returns>
         public static Song LoadSong(string songName)
         {
-            var fullPath = _contentRootDir + "\\" + Path.GetDirectoryName(songName) + "\\" + Path.GetFileName(songName) + ".ogg";
+            var fullPath = ContentRootDirectory + "\\" + Path.GetDirectoryName(songName) + "\\" + Path.GetFileName(songName) + ".ogg";
 
             return new Song(fullPath);
         }
@@ -226,7 +213,7 @@ namespace ScorpionEngine.Content
         /// <returns></returns>
         public static SoundEffect LoadSoundEffect(string effectName)
         {
-            var fullPath = _contentRootDir + "\\" + Path.GetDirectoryName(effectName) + "\\" + Path.GetFileName(effectName) + ".wav";
+            var fullPath = ContentRootDirectory + "\\" + Path.GetDirectoryName(effectName) + "\\" + Path.GetFileName(effectName) + ".wav";
 
             return new SoundEffect(fullPath);
         }

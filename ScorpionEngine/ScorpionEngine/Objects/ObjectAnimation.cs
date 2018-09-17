@@ -10,11 +10,8 @@ namespace ScorpionEngine.Objects
         #region Fields
         private int _fps = 10;//The frames per second that the animation will run at
         private int _elapsedTime;//The amount of time elapsed since the last animation frame was changed
-        private AnimationDirection _direction = AnimationDirection.Forward;//The direction that the animation is running
-        private AnimationState _state = AnimationState.Stopped;//The state of the animation
         private int _currentFrame;//The current frame of the animation
         private List<Rect> _frames = new List<Rect>();//The bounds of all the frames of the animation
-        private bool _looping = true;//True if the animation loops 
         #endregion
 
 
@@ -57,19 +54,12 @@ namespace ScorpionEngine.Objects
         /// <summary>
         /// Gets or sets the direction of the animation.
         /// </summary>
-        public AnimationDirection Direction
-        {
-            get { return _direction; }
-            set { _direction = value; }
-        }
+        public AnimationDirection Direction { get; set; } = AnimationDirection.Forward;
 
         /// <summary>
         /// Gets the state of the animation.
         /// </summary>
-        public AnimationState State
-        {
-            get { return _state; }
-        }
+        public AnimationState State { get; private set; } = AnimationState.Stopped;
 
         /// <summary>
         /// Gets the frame bounds of the current frame.
@@ -82,11 +72,7 @@ namespace ScorpionEngine.Objects
         /// <summary>
         /// Gets or sets a value indicating if the animation loops.
         /// </summary>
-        public bool Looping
-        {
-            get { return _looping; }
-            set { _looping = value; }
-        }
+        public bool Looping { get; set; } = true;
         #endregion
 
 
@@ -96,7 +82,7 @@ namespace ScorpionEngine.Objects
         /// </summary>
         public void Play()
         {
-            _state = AnimationState.Running;
+            State = AnimationState.Running;
         }
 
 
@@ -105,7 +91,7 @@ namespace ScorpionEngine.Objects
         /// </summary>
         public void Pause()
         {
-            _state = AnimationState.Paused;
+            State = AnimationState.Paused;
         }
 
 
@@ -114,7 +100,7 @@ namespace ScorpionEngine.Objects
         /// </summary>
         public void Stop()
         {
-            _state = AnimationState.Stopped;
+            State = AnimationState.Stopped;
             _currentFrame = 0;//Set the current frame back to the first frame
         }
 
@@ -125,7 +111,7 @@ namespace ScorpionEngine.Objects
         /// <param name="engineTime">The engine time.</param>
         public void Update(EngineTime engineTime)
         {
-            switch (_state)
+            switch (State)
             {
                 case AnimationState.Running:
                     //Update the elapsed time since the last time the engine loop was called
@@ -137,7 +123,7 @@ namespace ScorpionEngine.Objects
                         _elapsedTime = 0;
 
                         //If the animation is running foward or backward
-                        switch (_direction)
+                        switch (Direction)
                         {
                             case AnimationDirection.Forward:
                                 //If the current frame is NOT the last frame
@@ -145,7 +131,7 @@ namespace ScorpionEngine.Objects
                                 {
                                     _currentFrame += 1;
                                 }
-                                else if(_currentFrame >= _frames.Count - 1 && _looping)//At the last frame, move back to the first frame
+                                else if(_currentFrame >= _frames.Count - 1 && Looping)//At the last frame, move back to the first frame
                                 {
                                     _currentFrame = 0;
                                 }
@@ -156,7 +142,7 @@ namespace ScorpionEngine.Objects
                                 {
                                     _currentFrame -= 1;
                                 }
-                                else if (_currentFrame <= 0 && _looping)//At the last frame, move back to the first frame
+                                else if (_currentFrame <= 0 && Looping)//At the last frame, move back to the first frame
                                 {
                                     _currentFrame = _frames.Count - 1;
                                 }
