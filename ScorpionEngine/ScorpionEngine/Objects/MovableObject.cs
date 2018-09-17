@@ -21,14 +21,7 @@ namespace ScorpionEngine.Objects
 
         #region Fields
         private float _linearAcceleration = 0.1f;//The acceleration of any linear movement
-        private float _maxAngularVelocity = 1f;//The maximum angular velocity
-        private float _rotationalAcceleration = 1f;//The acceleration of any rotational movement
-        private QuadGraph _quadGraph = new QuadGraph();//Used to calculate and keep track of the quad that the Destination point resides in and the quad that the body angle points to
-        private float _speed = 5f;
-        private float _linearDeceleration;
-        private bool _rotationEnabled;
         private readonly Dictionary<Direction, bool> _linearMovementLocks = new Dictionary<Direction, bool>();//Holds the lock states for the 8 linear movements.  True means locked.
-        private float _angle; //The angle in degrees
         #endregion
 
 
@@ -156,17 +149,7 @@ namespace ScorpionEngine.Objects
         /// Gets or sets a value indicating if rotation should be locked.
         /// </summary>
         //TODO: Get this property/feature working
-        public bool RotationEnabled
-        {
-            get
-            {
-                return _rotationEnabled;
-            }
-            set
-            {
-                _rotationEnabled = value;
-            }
-        }
+        public bool RotationEnabled { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating if acceleration will be enabled or disabled for rotation.  When disabled, any rotation of the object
@@ -188,35 +171,12 @@ namespace ScorpionEngine.Objects
         /// <summary>
         /// Gets or sets the angle in degrees.
         /// </summary>
-        public float Angle
-        {
-            get
-            {
-                //TODO: SET THE ANGLE OF THE OBJECT
-                //throw new NotImplementedException();
-
-                return _angle;
-            }
-            set
-            {
-                _angle = value;
-            }
-        }
+        public float Angle { get; set; }
 
         /// <summary>
         /// Gets or sets the speed for non linear movement.
         /// </summary>
-        public float Speed
-        {
-            get
-            {
-                return _speed;
-            }
-            set
-            {
-                _speed = value;
-            }
-        }
+        public float Speed { get; set; } = 5f;
 
         /// <summary>
         /// Gets or sets the rotational speed of the object in degrees.
@@ -258,18 +218,7 @@ namespace ScorpionEngine.Objects
         /// <summary>
         /// Gets or sets the linear deceleration of the object. DEFAULT: 1
         /// </summary>
-        public float LinearDeceleration
-        {
-            get
-            {
-                return _linearDeceleration;
-            }
-            set
-            {
-                //TODO: Get this property working
-                _linearDeceleration = value;
-            }
-        }
+        public float LinearDeceleration { get; set; }
 
         /// <summary>
         /// Gets the speed on the x axis.
@@ -322,11 +271,11 @@ namespace ScorpionEngine.Objects
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
 
-            var previousAngle = _angle;
+            var previousAngle = Angle;
 
-            _angle = 90;
+            Angle = 90;
             MoveAtSetAngle();
-            _angle = previousAngle;
+            Angle = previousAngle;
         }
 
 
@@ -338,11 +287,11 @@ namespace ScorpionEngine.Objects
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
 
-            var previousAngle = _angle;
+            var previousAngle = Angle;
 
-            _angle = 270;
+            Angle = 270;
             MoveAtSetAngle();
-            _angle = previousAngle;
+            Angle = previousAngle;
         }
 
 
@@ -354,11 +303,11 @@ namespace ScorpionEngine.Objects
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
 
-            var previousAngle = _angle;
+            var previousAngle = Angle;
 
-            _angle = 0;
+            Angle = 0;
             MoveAtSetAngle();
-            _angle = previousAngle;
+            Angle = previousAngle;
         }
 
 
@@ -370,11 +319,11 @@ namespace ScorpionEngine.Objects
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
 
-            var previousAngle = _angle;
+            var previousAngle = Angle;
 
-            _angle = 180;
+            Angle = 180;
             MoveAtSetAngle();
-            _angle = previousAngle;
+            Angle = previousAngle;
         }
 
 
@@ -435,8 +384,8 @@ namespace ScorpionEngine.Objects
         /// </summary>
         public void MoveAtSetAngle()
         {
-            var x = Position.X + _speed * (float)Math.Sin(GameMath.ToRadians(_angle));
-            var y = Position.Y - _speed * (float)Math.Cos(GameMath.ToRadians(_angle));
+            var x = Position.X + Speed * (float)Math.Sin(GameMath.ToRadians(Angle));
+            var y = Position.Y - Speed * (float)Math.Cos(GameMath.ToRadians(Angle));
 
             SetPosition(new Vector(x, y));
         }
@@ -450,7 +399,7 @@ namespace ScorpionEngine.Objects
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
 
-            _angle += RotateSpeed;
+            Angle += RotateSpeed;
         }
 
 
@@ -462,7 +411,7 @@ namespace ScorpionEngine.Objects
             //Ignore if IsFollowing is true
             if (IsFollowing) return;
 
-            _angle -= RotateSpeed;
+            Angle -= RotateSpeed;
         }
 
 

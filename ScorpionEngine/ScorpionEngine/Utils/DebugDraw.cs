@@ -7,11 +7,6 @@ namespace ScorpionEngine.Utils
 {
     internal class DebugDraw
     {
-        private GraphicsDevice _graphicsDevice;
-        private BasicEffect _basicEffect;
-        private SpriteBatch _spriteBatch;
-
-
         #region Constructor
         public DebugDraw(GraphicsDevice graphicsDevice, bool enabled = false)
         {

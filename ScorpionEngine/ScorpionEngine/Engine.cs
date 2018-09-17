@@ -21,10 +21,8 @@ namespace ScorpionEngine
         private static World _world;//The one and only game world in the engine
         private static GraphicsDeviceManager _graphicsDeviceManager;//The graphics device
         private static int _framesPreSecondToMaintain = 60;//The set elapsed time for the engine to run at.  This is 60fps
-        private static float _currentFPS;
         public static int _prevElapsedTime;
         private SpriteBatch _spriteBatch;//Draws all of the content
-        private bool _running;
         #endregion
 
 
@@ -72,13 +70,7 @@ namespace ScorpionEngine
         /// <summary>
         /// Gets a value indicating that the game engine is currently running.
         /// </summary>
-        public bool Running
-        {
-            get
-            {
-                return _running;
-            }
-        }
+        public bool Running { get; private set; }
 
 
         #region Static Properties
@@ -117,10 +109,7 @@ namespace ScorpionEngine
         /// <summary>
         /// Gets the FPS that the engine is currently running at.
         /// </summary>
-        public static float CurrentFPS
-        {
-            get { return _currentFPS; }
-        }
+        public static float CurrentFPS { get; private set; }
 
         /// <summary>
         /// Gets or sets the width of the game window.
@@ -185,14 +174,14 @@ namespace ScorpionEngine
         {
             var currentTime = engineTime.ElapsedEngineTime.Milliseconds;
 
-            if (!_running) return;//If the engine has not been started, exit
+            if (!Running) return;//If the engine has not been started, exit
 
             //Call the update method for the currently set game world
             _world?.OnUpdate(engineTime);
 
             _prevElapsedTime = currentTime;
 
-            _currentFPS = (1000f/_prevElapsedTime);
+            CurrentFPS = (1000f/_prevElapsedTime);
         }
 
 
@@ -201,7 +190,7 @@ namespace ScorpionEngine
         /// </summary>
         private void OnDraw()
         {
-            if (!_running) return;//If the engine has not been started, exit
+            if (!Running) return;//If the engine has not been started, exit
 
             //If the game world has not been set, exit
             if (_world == null)
@@ -356,7 +345,7 @@ namespace ScorpionEngine
         public void Start()
         {
             //Check to see if a world object has been assigned to the engine, if not, throw exception
-            _running = true;
+            Running = true;
             _engineCore.Run(GameRunBehavior.Synchronous);
         }
 
@@ -366,7 +355,7 @@ namespace ScorpionEngine
         /// </summary>
         public void Stop()
         {
-            _running = false;
+            Running = false;
         }
 
 

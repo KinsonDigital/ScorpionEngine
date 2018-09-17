@@ -15,23 +15,19 @@ namespace ScorpionEngine
         /// <summary>
         /// Invoked when a key has been pressed.
         /// </summary>
-        public event EventHandler<Input.KeyEventArgs> KeyDownEvent;
+        public event EventHandler<KeyEventArgs> KeyDownEvent;
 
         /// <summary>
         /// Invoked when a key has been released.
         /// </summary>
-        public event EventHandler<Input.KeyEventArgs> KeyUpEvent; 
+        public event EventHandler<KeyEventArgs> KeyUpEvent;
+
+
         #endregion
-
-
         #region Fields
-        private InputKeys _key;//The key that is used for the behavior
-        private bool _enabled;//True if the key behavior is enabled
-        private int _timeDelay;//The engineTime delay in milliseconds
         private int _timeElapsed = 1000;//The engineTime elapsed since last frame
         private KeyboardState _currentKeyState;//The current key state of the current frame
         private KeyboardState _prevKeyState;//The previous key state from the last frame
-        private KeyBehaviorType _behaviorType = KeyBehaviorType.OnceOnPress;//The way that the KeyBehavior will behave
         #endregion
 
 
@@ -42,8 +38,8 @@ namespace ScorpionEngine
         /// <param name="enabled">Set to true to enable the behavior.</param>
         public KeyBehavior(bool enabled = false)
         {
-            _key = Key;
-            _enabled = enabled;
+            Key = Key;
+            Enabled = enabled;
         }
 
 
@@ -54,8 +50,8 @@ namespace ScorpionEngine
         /// <param name="enabled">Set to true to enable the behavior.</param>
         public KeyBehavior(InputKeys key, bool enabled = false)
         {
-            _key = key;
-            _enabled = enabled;
+            Key = key;
+            Enabled = enabled;
 
             AlwaysInvokeKeyDownEvent = false;//REMOVE THIS
             AlwaysInvokeKeyUpEvent = false;//REMOVE THIS
@@ -67,20 +63,12 @@ namespace ScorpionEngine
         /// <summary>
         /// Gets or sets the key for the behavior.
         /// </summary>
-        public InputKeys Key
-        {
-            get { return _key; }
-            set { _key = value; }
-        }
+        public InputKeys Key { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating if the behavior is enabled.  If disabled, the update method will not update the behavior or fire events.
         /// </summary>
-        public bool Enabled
-        {
-            get { return _enabled; }
-            set { _enabled = value; }
-        }
+        public bool Enabled { get; set; }
 
         /// <summary>
         /// Gets or sets the type of behavior of the KeyBehavior.
@@ -88,20 +76,12 @@ namespace ScorpionEngine
         /// OnceOnKeyPress will fire the key only one engineTime when the key is pressed down.
         /// OnceOnKeyRelease will fire the key only one engineTime when the key is released.
         /// </summary>
-        public KeyBehaviorType BehaviorType
-        {
-            get { return _behaviorType; }
-            set { _behaviorType = value; }
-        }
+        public KeyBehaviorType BehaviorType { get; set; } = KeyBehaviorType.OnceOnPress;
 
         /// <summary>
         /// Gets or sets the engineTime delay for a KeyDownEvent or KeyRelease event to be fired.
         /// </summary>
-        public int TimeDelay
-        {
-            get { return _timeDelay; }
-            set { _timeDelay = value; }
-        }
+        public int TimeDelay { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating if the KeyDownEvent should always be invoked.
@@ -118,7 +98,7 @@ namespace ScorpionEngine
         /// <summary>
         /// Returns a value indicating if the key has been released.
         /// </summary>
-        public bool IsPressed => _currentKeyState.IsKeyDown((Keys)_key);
+        public bool IsPressed => _currentKeyState.IsKeyDown((Keys)Key);
         #endregion
 
 
@@ -129,42 +109,42 @@ namespace ScorpionEngine
         /// <param name="engineTime">The game engineTime of the current frame.</param>
         public void Update(EngineTime engineTime)
         {
-            if (!_enabled) return;
+            if (!Enabled) return;
 
             //Get the current keyboard state
             _currentKeyState = Keyboard.GetState();
 
             #region button Behavior Code
             //Invoke the KeyDown or KeyUp events depending on the setup behavior
-            switch (_behaviorType)
+            switch (BehaviorType)
             {
                 case KeyBehaviorType.KeyDownContinuous://Fire the KeyDownEvent as long as the key is being pressed
                     //If any of the assigned key have been pressed
-                    if (_currentKeyState.IsKeyDown((Keys) _key))
-                        KeyDownEvent?.Invoke(this, new Input.KeyEventArgs(new[] { _key }));
+                    if (_currentKeyState.IsKeyDown((Keys) Key))
+                        KeyDownEvent?.Invoke(this, new KeyEventArgs(new[] { Key }));
                     break;
                 case KeyBehaviorType.OnceOnPress://Fire the KeyDownEvent only once after it is pressed
                     //Prevent the KeyDownEvent from being triggered twice if the AlwaysInvokeKeyDownEvent is enabled
                     if (! AlwaysInvokeKeyDownEvent)
                     {
-                        if (_currentKeyState.IsKeyDown((Keys) _key) && ! _prevKeyState.IsKeyDown((Keys) _key))
-                            KeyDownEvent?.Invoke(this, new Input.KeyEventArgs(new[] { _key }));
+                        if (_currentKeyState.IsKeyDown((Keys) Key) && ! _prevKeyState.IsKeyDown((Keys) Key))
+                            KeyDownEvent?.Invoke(this, new KeyEventArgs(new[] { Key }));
                     }
                     break;
                 case KeyBehaviorType.OnceOnRelease:
                     //Prevent the KeyUpEvent from being triggered twice if the AlwaysInvokeKeyUpEvent is enabled
                     if (! AlwaysInvokeKeyUpEvent)
                     {
-                        if (! _currentKeyState.IsKeyDown((Keys) _key) && _prevKeyState.IsKeyDown((Keys) _key))
-                            KeyUpEvent?.Invoke(this, new Input.KeyEventArgs(new[] { _key }));
+                        if (! _currentKeyState.IsKeyDown((Keys) Key) && _prevKeyState.IsKeyDown((Keys) Key))
+                            KeyUpEvent?.Invoke(this, new KeyEventArgs(new[] { Key }));
                     }
                     break;
                 case KeyBehaviorType.OnKeyPressedTimeDelay:
                     //If the engineTime has passed the set delay engineTime, fire the KeyPressedEvent
-                    if (_timeElapsed >= _timeDelay)
+                    if (_timeElapsed >= TimeDelay)
                     {
-                        if (_currentKeyState.IsKeyUp((Keys) _key) && ! _prevKeyState.IsKeyUp((Keys) _key))
-                            KeyUpEvent?.Invoke(this, new Input.KeyEventArgs(new[] { _key }));
+                        if (_currentKeyState.IsKeyUp((Keys) Key) && ! _prevKeyState.IsKeyUp((Keys) Key))
+                            KeyUpEvent?.Invoke(this, new KeyEventArgs(new[] { Key }));
 
                         //Reset the engineTime elapsed
                         _timeElapsed = 0;
@@ -175,10 +155,10 @@ namespace ScorpionEngine
                     _timeElapsed += engineTime.ElapsedEngineTime.Milliseconds;
 
                     //If the engineTime has passed the set delay engineTime, fire the KeyPressedEvent
-                    if (_timeElapsed >= _timeDelay)
+                    if (_timeElapsed >= TimeDelay)
                     {
-                        if (_currentKeyState.IsKeyDown((Keys)_key) && !_prevKeyState.IsKeyDown((Keys)_key))
-                            KeyDownEvent?.Invoke(this, new Input.KeyEventArgs(new[] { _key }));
+                        if (_currentKeyState.IsKeyDown((Keys)Key) && !_prevKeyState.IsKeyDown((Keys)Key))
+                            KeyDownEvent?.Invoke(this, new KeyEventArgs(new[] { Key }));
 
                         //Reset the engineTime elapsed
                         _timeElapsed = 0;
@@ -187,12 +167,12 @@ namespace ScorpionEngine
                 case KeyBehaviorType.OnAnyKeyPress:
                     //If any keys at all have been released
                     if (_currentKeyState.GetPressedKeys().Length > 0)
-                        KeyDownEvent?.Invoke(this, new Input.KeyEventArgs(Tools.ToInputKeys(_currentKeyState.GetPressedKeys())));
+                        KeyDownEvent?.Invoke(this, new KeyEventArgs(Tools.ToInputKeys(_currentKeyState.GetPressedKeys())));
                     break;
                 case KeyBehaviorType.OnAnyKeyRelease:
                     //If there is no keys currently pressed and previous keys were pressed
                     if(_currentKeyState.GetPressedKeys().Length == 0 && _prevKeyState.GetPressedKeys().Length > 0)
-                        KeyUpEvent?.Invoke(this, new Input.KeyEventArgs(Tools.ToInputKeys(_prevKeyState.GetPressedKeys())));
+                        KeyUpEvent?.Invoke(this, new KeyEventArgs(Tools.ToInputKeys(_prevKeyState.GetPressedKeys())));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using ScorpionEngine.Content;
+﻿using ScorpionEngine.Content;
 using SysColor = System.Drawing.Color;
 using SysFont = System.Drawing.Font;
 
@@ -11,9 +10,9 @@ namespace ScorpionEngine.Objects
     public class TextObject : MovableObject
     {
         #region Fields
-        private Color _foreColor = Color.Black;
-        private Color _backColor = Color.FromArgb(0, 0, 0, 0);
-        private Font _font;
+        private SysColor _foreColor = SysColor.Black;
+        private SysColor _backColor = SysColor.FromArgb(0, 0, 0, 0);
+        private SysFont _font;
         private string _text;
         #endregion
 
@@ -62,7 +61,7 @@ namespace ScorpionEngine.Objects
         /// <summary>
         /// Gets or sets the color of the text.
         /// </summary>
-        public Color ForeColor
+        public SysColor ForeColor
         {
             get { return _foreColor; }
             set
@@ -81,7 +80,7 @@ namespace ScorpionEngine.Objects
         /// <summary>
         /// Gets or sets the back color of the text.
         /// </summary>
-        public Color BackColor
+        public SysColor BackColor
         {
             get { return _backColor; }
             set
@@ -100,7 +99,7 @@ namespace ScorpionEngine.Objects
         /// <summary>
         /// Gets or sets the font of the text entity.
         /// </summary>
-        public Font TextFont
+        public SysFont TextFont
         {
             get { return _font; }
             set

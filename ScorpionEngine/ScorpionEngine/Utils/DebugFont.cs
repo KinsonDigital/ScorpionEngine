@@ -5,11 +5,6 @@ namespace ScorpionEngine.Utils
 {
     public class DebugFont
     {
-        #region Fields
-        private SpriteFont _spriteFont;//The spritefont for the engine to draw
-        #endregion
-
-
         #region Constructors
         /// <summary>
         /// Creates a new instance of DebugFont.
@@ -25,10 +20,7 @@ namespace ScorpionEngine.Utils
         /// <summary>
         /// Gets the sprite font for the engine to draw.
         /// </summary>
-        internal SpriteFont Font
-        {
-            get { return _spriteFont; }
-        }
+        internal SpriteFont Font { get; }
         #endregion
     }
 }

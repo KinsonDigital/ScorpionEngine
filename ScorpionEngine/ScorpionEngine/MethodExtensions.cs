@@ -17,7 +17,7 @@ namespace ScorpionEngine
             Color[] colors1D = new Color[texture.Width * texture.Height];
             Color[,] colors2D = new Color[texture.Width, texture.Height];
 
-            texture.GetData<Color>(colors1D);
+            texture.GetData(colors1D);
 
             //Copy the data from the 1 dimensional array of color data to the 2 dimensional array of color data
             for (int x = 0; x < texture.Width; x++)

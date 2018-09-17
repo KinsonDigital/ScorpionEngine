@@ -7,13 +7,8 @@ namespace ScorpionEngine.Objects
     /// </summary>
     public class ControllableObject : MovableObject
     {
+
         #region Fields
-        private KeyBehavior _moveRightKey;//The move right key behavior
-        private KeyBehavior _moveLeftKey;//The move left key behavior
-        private KeyBehavior _moveUpKey;//The move up key behavior
-        private KeyBehavior _moveDownKey;//The move down key behavior
-        private KeyBehavior _rotateCWKey;//Rotate clockwise key behavior
-        private KeyBehavior _rotateCCWKey;//Rotate counter clock wise behavior
         private KeyBehavior _stopMovementOnKeyRelease;//Will fire when any key is released
         private KeyBehavior _stopRotationOnKeyRelease;//Will fire when any key is released
         #endregion
@@ -115,56 +110,32 @@ namespace ScorpionEngine.Objects
         /// <summary>
         /// Gets or sets the move right key behavior.
         /// </summary>
-        public KeyBehavior MoveRightKey
-        {
-            get { return _moveRightKey; }
-            set { _moveRightKey = value; }
-        }
+        public KeyBehavior MoveRightKey { get; set; }
 
         /// <summary>
         /// Gets or sets the move right key behavior.
         /// </summary>
-        public KeyBehavior MoveLeftKey
-        {
-            get { return _moveLeftKey; }
-            set { _moveLeftKey = value; }
-        }
+        public KeyBehavior MoveLeftKey { get; set; }
 
         /// <summary>
         /// Gets or sets the move right key behavior.
         /// </summary>
-        public KeyBehavior MoveUpKey
-        {
-            get { return _moveUpKey; }
-            set { _moveUpKey = value; }
-        }
+        public KeyBehavior MoveUpKey { get; set; }
 
         /// <summary>
         /// Gets or sets the move right key behavior.
         /// </summary>
-        public KeyBehavior MoveDownKey
-        {
-            get { return _moveDownKey; }
-            set { _moveDownKey = value; }
-        }
+        public KeyBehavior MoveDownKey { get; set; }
 
         /// <summary>
         /// Gets or sets the rotate clock wise key behavior.
         /// </summary>
-        public KeyBehavior RotateCwKey
-        {
-            get { return _rotateCWKey; }
-            set { _rotateCWKey = value; }
-        }
+        public KeyBehavior RotateCwKey { get; set; }
 
         /// <summary>
         /// Gets or sets the rotate counter clock wise key behavior.
         /// </summary>
-        public KeyBehavior RotateCcwKey
-        {
-            get { return _rotateCCWKey; }
-            set { _rotateCCWKey = value; }
-        }
+        public KeyBehavior RotateCcwKey { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating if the controllable object should stop movement on key release.
@@ -208,8 +179,8 @@ namespace ScorpionEngine.Objects
         /// </summary>
         public void EnableKeyboardRotation()
         {
-            _rotateCWKey.Enabled = true;
-            _rotateCCWKey.Enabled = true;
+            RotateCwKey.Enabled = true;
+            RotateCcwKey.Enabled = true;
         }
 
 
@@ -218,8 +189,8 @@ namespace ScorpionEngine.Objects
         /// </summary>
         public void DisableKeyboardRotation()
         {
-            _rotateCWKey.Enabled = false;
-            _rotateCCWKey.Enabled = false;
+            RotateCwKey.Enabled = false;
+            RotateCcwKey.Enabled = false;
         }
         #endregion
 
@@ -234,12 +205,12 @@ namespace ScorpionEngine.Objects
             _engineTime = engineTime;
 
             //Update all of the key behaviors
-            _moveRightKey.Update(engineTime);
-            _moveLeftKey.Update(engineTime);
-            _moveUpKey.Update(engineTime);
-            _moveDownKey.Update(engineTime);
-            _rotateCWKey.Update(engineTime);
-            _rotateCCWKey.Update(engineTime);
+            MoveRightKey.Update(engineTime);
+            MoveLeftKey.Update(engineTime);
+            MoveUpKey.Update(engineTime);
+            MoveDownKey.Update(engineTime);
+            RotateCwKey.Update(engineTime);
+            RotateCcwKey.Update(engineTime);
             _stopRotationOnKeyRelease.Update(engineTime);
             _stopMovementOnKeyRelease.Update(engineTime);
 
@@ -330,12 +301,12 @@ namespace ScorpionEngine.Objects
         /// </summary>
         private void CreateKeyBehaviors()
         {
-            _moveRightKey = new KeyBehavior(InputKeys.Right);
-            _moveLeftKey = new KeyBehavior(InputKeys.Left);
-            _moveUpKey = new KeyBehavior(InputKeys.Up);
-            _moveDownKey = new KeyBehavior(InputKeys.Down);
-            _rotateCWKey = new KeyBehavior(InputKeys.D);
-            _rotateCCWKey = new KeyBehavior(InputKeys.A);
+            MoveRightKey = new KeyBehavior(InputKeys.Right);
+            MoveLeftKey = new KeyBehavior(InputKeys.Left);
+            MoveUpKey = new KeyBehavior(InputKeys.Up);
+            MoveDownKey = new KeyBehavior(InputKeys.Down);
+            RotateCwKey = new KeyBehavior(InputKeys.D);
+            RotateCcwKey = new KeyBehavior(InputKeys.A);
 
             _stopMovementOnKeyRelease = new KeyBehavior(true)
             {
@@ -348,14 +319,14 @@ namespace ScorpionEngine.Objects
             };
 
             //Register the movement key down events.
-            _moveRightKey.KeyDownEvent += MoveRightKeyDownEvent;
-            _moveLeftKey.KeyDownEvent += MoveLeftKeyDownEvent;
-            _moveUpKey.KeyDownEvent += MoveUpKeyDownEvent;
-            _moveDownKey.KeyDownEvent += MoveDownKeyDownEvent;
+            MoveRightKey.KeyDownEvent += MoveRightKeyDownEvent;
+            MoveLeftKey.KeyDownEvent += MoveLeftKeyDownEvent;
+            MoveUpKey.KeyDownEvent += MoveUpKeyDownEvent;
+            MoveDownKey.KeyDownEvent += MoveDownKeyDownEvent;
 
             //Register the rotate key down events.
-            _rotateCWKey.KeyDownEvent += RotateCWKeyDownEvent;
-            _rotateCCWKey.KeyDownEvent += RotateCCWKeyDownEvent;
+            RotateCwKey.KeyDownEvent += RotateCWKeyDownEvent;
+            RotateCcwKey.KeyDownEvent += RotateCCWKeyDownEvent;
 
             //Register the any key release key behavior. This will be used for the 
             //stop movement and stop rotation functionality if enabled
