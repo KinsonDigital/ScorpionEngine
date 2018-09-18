@@ -6,9 +6,9 @@ using ScorpionEngine.Core;
 using ScorpionEngine.Events;
 using System;
 
-namespace ScorpTestGame.Mono
+namespace MonoDriver
 {
-    internal class MonoCoreDriver : Game, IEngineEvents
+    internal class MonoCoreDriver : Game
     {
         private GraphicsDeviceManager _graphicsDeviceManager;
         private MonoRenderer _renderer;
@@ -23,7 +23,7 @@ namespace ScorpTestGame.Mono
         /// <summary>
         /// Occurs once every frame after the OnUpdate event has been been invoked.
         /// </summary>
-        public event EventHandler<OnRenderEventArgs<IRenderer>> OnRender;
+        public event EventHandler<OnRenderEventArgs<MonoRenderer, Texture2D>> OnRender;
 
         /// <summary>
         /// Occurs one time during game initialization. This event is fired before the OnLoadContent event is fired. Add initialization code here.
@@ -136,7 +136,7 @@ namespace ScorpTestGame.Mono
         {
             var engineTime = new MonoEngineTime(gameTime.TotalGameTime, gameTime.ElapsedGameTime);
 
-            OnRender?.Invoke(this, new OnRenderEventArgs<IRenderer>(_renderer));
+            OnRender?.Invoke(this, new OnRenderEventArgs<MonoRenderer, Texture2D>(_renderer));
 
             base.Draw(gameTime);
         }

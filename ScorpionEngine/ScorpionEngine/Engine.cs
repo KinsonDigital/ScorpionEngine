@@ -70,12 +70,6 @@ namespace ScorpionEngine
 
             _engineCore.SetFPS(60);
 
-            //Register the game loop events
-            _engineCore.OnInitialize += _engineCore_OnInit;
-            _engineCore.OnLoadContent += _engineCore_OnLoadContent;
-            _engineCore.OnUpdate += _engineCore_OnUpdate;
-            _engineCore.OnRender += _engineCore_OnRender;
-
             _engineCore.Content = contentLoader;
         }
 
@@ -192,42 +186,6 @@ namespace ScorpionEngine
 
 
         #region Private Methods
-        /// <summary>
-        /// Calls the OnInit method.
-        /// </summary>
-        private void _engineCore_OnInit(object sender, EventArgs e)
-        {
-            Init();
-        }
-
-
-        /// <summary>
-        /// Calls the OnUpdate method.
-        /// </summary>
-        private void _engineCore_OnLoadContent(object sender, EventArgs e)
-        {
-            LoadContent();
-        }
-
-
-        /// <summary>
-        /// Callse the OnUpdate method.
-        /// </summary>
-        private void _engineCore_OnUpdate(object sender, OnUpdateEventArgs e)
-        {
-            Update(e.EngineTime);
-        }
-
-
-        /// <summary>
-        /// Calls the on draw method.
-        /// </summary>
-        private void _engineCore_OnRender(object sender, OnRenderEventArgs<IRenderer> e)
-        {
-            Render();
-        }
-
-
         /// <summary>
         /// Calculates a new vector that is relative to the given source vector from the given destination vector.
         /// </summary>

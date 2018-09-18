@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScorpTestGame.Mono
+namespace MonoDriver
 {
     public class MonoRenderer : IRenderer
     {
@@ -23,13 +23,14 @@ namespace ScorpTestGame.Mono
         }
 
 
+        
         public void Render(ITexture texture)
         {
             _graphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
 
-            //_spriteBatch.Draw(texture.GetTexture(), new Rectangle(), Color.White);
+            //_spriteBatch.Draw(texture, new Rectangle(), Color.White);
 
             _spriteBatch.End();
         }

@@ -10,14 +10,14 @@ using ScorpionEngine.Core;
 using ScorpionEngine.Events;
 using ScorpionEngine.Scene;
 
-namespace ScorpTestGame.Mono
+namespace MonoDriver
 {
-    public class MonoEngineCore : IEngineCore, IEngineEvents
+    public class MonoEngineCore : IEngineCore
     {
         private MonoCoreDriver _coreDriver;
 
         public event EventHandler<OnUpdateEventArgs> OnUpdate;
-        public event EventHandler<OnRenderEventArgs<IRenderer>> OnRender;
+        public event EventHandler<OnRenderEventArgs<MonoRenderer, Texture2D>> OnRender;
         public event EventHandler OnInitialize;
         public event EventHandler OnLoadContent;
 
@@ -108,9 +108,8 @@ namespace ScorpTestGame.Mono
         }
 
 
-        private void _coreDriver_OnRender(object sender, OnRenderEventArgs<IRenderer> e)
+        private void _coreDriver_OnRender(object sender, OnRenderEventArgs<MonoRenderer, Texture2D> e)
         {
-            Scene.Render(e.Renderer);
             OnRender?.Invoke(sender, e);
         }
         #endregion

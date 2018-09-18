@@ -1,9 +1,8 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Input;
 using ScorpionEngine.Input;
-using ScorpTestGame.Utils;
 
-namespace ScorpTestGame.Mono
+namespace MonoDriver
 {
     /// <summary>
     /// Used to check the keyboard for input.

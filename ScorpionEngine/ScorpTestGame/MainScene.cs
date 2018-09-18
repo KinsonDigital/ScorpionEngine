@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using MonoDriver;
 using ScorpionEngine.Content;
 using ScorpionEngine.Scene;
-using ScorpTestGame.Mono;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,8 +32,6 @@ namespace ScorpTestGame
 
         public override void Render(IRenderer renderer)
         {
-            renderer.Render(_rectangle);
-
             base.Render(renderer);
         }
     }

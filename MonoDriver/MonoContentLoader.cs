@@ -1,4 +1,5 @@
-﻿using ScorpionEngine.Content;
+﻿using Microsoft.Xna.Framework.Graphics;
+using ScorpionEngine.Content;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScorpTestGame.Mono
+namespace MonoDriver
 {
     public class MonoContentLoader : IContentLoader
     {
@@ -27,15 +28,15 @@ namespace ScorpTestGame.Mono
 
             var dir = Path.GetDirectoryName(textureName);
 
-            ITexture newTexture;
+            MonoTexture newTexture;
 
             using (var fileStream = File.OpenRead(fullPath))
             {
-                //newTexture = new MonoTexture(Texture2D.FromStream(MonoCoreDriver.MonoGraphicsDevice, fileStream));
+                newTexture = new MonoTexture(Texture2D.FromStream(MonoCoreDriver.MonoGraphicsDevice, fileStream));
             }
 
 
-            return null;
+            return newTexture;
         }
     }
 }

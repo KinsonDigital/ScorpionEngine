@@ -2,9 +2,8 @@
 using Microsoft.Xna.Framework.Input;
 using ScorpionEngine;
 using ScorpionEngine.Input;
-using ScorpTestGame.Utils;
 
-namespace ScorpTestGame.Mono
+namespace MonoDriver
 {
     public class MouseInput : IMouse
     {

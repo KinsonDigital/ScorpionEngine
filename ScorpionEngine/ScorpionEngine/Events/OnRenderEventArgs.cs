@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 
 namespace ScorpionEngine.Events
 {
-    public class OnRenderEventArgs<T> : EventArgs //where T : IRenderer
+    public class OnRenderEventArgs<RenderType, TextureType> : EventArgs where RenderType : IRenderer
     {
         #region Constructor
         /// <summary>
         /// Creates a new instance of OnEntityMovedEventArgs.
         /// </summary>
         /// <param name="renderer">The renderer drawing the graphics.</param>
-        public OnRenderEventArgs(T renderer)
+        public OnRenderEventArgs(RenderType renderer)
         {
             Renderer = renderer;
         }
         #endregion
 
 
-        public T Renderer { get; set; }
+        public RenderType Renderer { get; set; }
     }
 }

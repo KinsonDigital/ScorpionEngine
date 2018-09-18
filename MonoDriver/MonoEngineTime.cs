@@ -2,7 +2,7 @@
 using ScorpionEngine.Core;
 using System;
 
-namespace ScorpTestGame.Mono
+namespace MonoDriver
 {
     /// <summary>
     /// A state of the timing of the game engine in values that can be used by variable step(real time) or fixed step(game time).

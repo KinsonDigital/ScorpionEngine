@@ -11,7 +11,7 @@ namespace ScorpionEngine.Core
     /// <summary>
     /// Provides the core of a game engine.
     /// </summary>
-    public interface IEngineCore : IDisposable, IEngineEvents
+    public interface IEngineCore : IDisposable
     {
         #region Props
         int WindowWidth { get; set; }

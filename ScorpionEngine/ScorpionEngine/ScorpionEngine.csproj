@@ -64,7 +64,6 @@
     <Compile Include="Content\ITexture.cs" />
     <Compile Include="Core\IDrawable.cs" />
     <Compile Include="Core\IEngineCore.cs" />
-    <Compile Include="Core\IEngineEvents.cs" />
     <Compile Include="Core\IEngineTiming.cs" />
     <Compile Include="Core\IUpdatable.cs" />
     <Compile Include="Counter.cs" />
