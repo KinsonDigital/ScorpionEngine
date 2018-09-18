@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using ScorpionEngine.EventArguments;
+using ScorpionEngine.Core;
+using ScorpionEngine.Events;
 using ScorpionEngine.Utils;
 
 namespace ScorpionEngine.Objects
@@ -497,7 +498,7 @@ namespace ScorpionEngine.Objects
         /// Updates the moveable object.
         /// </summary>
         /// <param name="engineTime"></param>
-        public override void OnUpdate(EngineTime engineTime)
+        public override void OnUpdate(IEngineTiming engineTime)
         {
             #region Auto Rotation
             //TODO: Needs testing

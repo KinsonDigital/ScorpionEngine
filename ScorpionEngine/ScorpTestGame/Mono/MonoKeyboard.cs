@@ -1,8 +1,9 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Input;
-using ScorpionEngine.Utils;
+using ScorpionEngine.Input;
+using ScorpTestGame.Utils;
 
-namespace ScorpionEngine.Input
+namespace ScorpTestGame.Mono
 {
     /// <summary>
     /// Used to check the keyboard for input.
@@ -103,6 +104,21 @@ namespace ScorpionEngine.Input
         public bool IsKeyPressed(InputKeys key)
         {
             return _currentState.IsKeyUp((Keys) key) && _previousState.IsKeyDown((Keys) key);
+        }
+
+
+
+        //TODO: Add Method Docs
+        public InputKeys[] GetCurrentPressedKeys()
+        {
+            return Tools.ToInputKeys(_currentState.GetPressedKeys());
+        }
+
+
+        //TODO: Add Method Docs
+        public InputKeys[] GetPreviousPressedKeys()
+        {
+            return Tools.ToInputKeys(_previousState.GetPressedKeys());
         }
         #endregion
     }

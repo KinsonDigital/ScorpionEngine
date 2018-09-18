@@ -1,7 +1,7 @@
 ﻿using System;
 using ScorpionEngine.Objects;
 
-namespace ScorpionEngine.EventArguments
+namespace ScorpionEngine.Events
 {
     /// <summary>
     /// Holds information about the entity that went out of bounds.

@@ -1,17 +1,18 @@
-﻿using System;
+﻿using ScorpionEngine.Core;
+using System;
 
-namespace ScorpionEngine.EventArguments
+namespace ScorpionEngine.Events
 {
     /// <summary>
     /// Holds information about the OnUpdate and OnDraw events.
     /// </summary>
-    public class OnUpdateDrawEventArgs : EventArgs
+    public class OnUpdateEventArgs : EventArgs
     {
         #region Properties
         /// <summary>
         /// Holds elapsed time information of when the game loop last ran.
         /// </summary>
-        public EngineTime EngineTime { get; set; }
+        public IEngineTiming EngineTime { get; set; }
         #endregion
 
 
@@ -20,7 +21,7 @@ namespace ScorpionEngine.EventArguments
         /// Creates a new instance of OnUpdateDrawEventArgs.
         /// </summary>
         /// <param name="engineTime">The game engine time.</param>
-        public OnUpdateDrawEventArgs(EngineTime engineTime)
+        public OnUpdateEventArgs(IEngineTiming engineTime)
         {
             EngineTime = engineTime;
         }

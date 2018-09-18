@@ -1,10 +1,12 @@
-﻿namespace ScorpionEngine
+﻿using ScorpionEngine.Core;
+
+namespace ScorpionEngine
 {
     /// <summary>
     /// Makes an object and updatable update for the game engine.
     /// </summary>
-    interface IUpdatable
+    public interface IUpdatable
     {
-        void Update(EngineTime engineTime);
+        void Update(IEngineTiming engineTime);
     }
 }

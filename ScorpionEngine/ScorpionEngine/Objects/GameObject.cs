@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using ScorpionEngine.Content;
+using ScorpionEngine.Core;
 using ScorpionEngine.Input;
-using ScorpionEngine.Utils;
 
 namespace ScorpionEngine.Objects
 {
@@ -42,18 +39,17 @@ namespace ScorpionEngine.Objects
         #endregion
         #region Fields
         private bool _visible = true;//True if the entity will be drawn
-        protected EngineTime _engineTime;
+        protected IEngineTiming _engineTime;
         private Vector _origin = Vector.Zero;
         private readonly Dictionary<string, Vector> _subLocations = new Dictionary<string, Vector>();
         private readonly List<GameObject> _childObjects = new List<GameObject>();
         private readonly List<ObjectPool> _childPools = new List<ObjectPool>();
-        protected Texture2D _texture;
+        protected ITexture _texture;
+        private IKeyboard _keyboard;
         private Rect _textureBounds;//The bounds of the entire standard texture or the current sub texture of an atlas
         private string _subTextureName;//??
         private int _atlasSubTextureWidth;//??
         private int _atlasSubTextureHeight;//??
-        private KeyboardState _currentKeyState;//The keyboard state of the current game loop iteration
-        private KeyboardState _prevKeyState;//The previous game loop iteration's keyboard state
         #endregion
 
 
@@ -266,7 +262,7 @@ namespace ScorpionEngine.Objects
         /// <summary>
         /// Gets the texture of the game object.
         /// </summary>
-        internal Texture2D Texture
+        internal ITexture Texture
         {
             get
             {
@@ -294,8 +290,6 @@ namespace ScorpionEngine.Objects
         {
             _childObjects.Add(gameObj);
 
-            //Load the textureName for the object into the engine to be drawn
-            World.AddGameObj(gameObj);
         }
 
 
@@ -414,23 +408,21 @@ namespace ScorpionEngine.Objects
         /// <summary>
         /// Updates the game object.
         /// </summary>
-        public virtual void OnUpdate(EngineTime engineTime)
+        public virtual void OnUpdate(IEngineTiming engineTime)
         {
             _engineTime = engineTime;
 
-            _currentKeyState = Keyboard.GetState();
-            
             //Get newly pressed keys that are not in the previous key list
-            var newlyPressedKeys = (from newKey in _currentKeyState.GetPressedKeys() where ! _prevKeyState.GetPressedKeys().Contains(newKey) select newKey).ToList();
+            var newlyPressedKeys = (from newKey in _keyboard.GetCurrentPressedKeys() where !_keyboard.GetCurrentPressedKeys().Contains(newKey) select newKey).ToList();
 
-            var newlyReleaseKeys = (from prevKey in _prevKeyState.GetPressedKeys() where ! _currentKeyState.GetPressedKeys().Contains(prevKey) select prevKey).ToList();
+            var newlyReleaseKeys = (from prevKey in _keyboard.GetCurrentPressedKeys() where !_keyboard.GetCurrentPressedKeys().Contains(prevKey) select prevKey).ToList();
 
             //If there are newly pressed keys, invoke the OnKeyPressed event
-            if (_currentKeyState.GetPressedKeys().Length > _prevKeyState.GetPressedKeys().Length && newlyPressedKeys.Count > 0)
+            if (_keyboard.GetCurrentPressedKeys().Length > _keyboard.GetCurrentPressedKeys().Length && newlyPressedKeys.Count > 0)
             {
                 OnKeyPressed?.Invoke(this, new KeyEventArgs(newlyPressedKeys.ConvertAll(ConvertKey).ToArray()));
             }
-            else if (_currentKeyState.GetPressedKeys().Length < _prevKeyState.GetPressedKeys().Length && newlyReleaseKeys.Count > 0) //Look for newly released keys
+            else if (_keyboard.GetCurrentPressedKeys().Length < _keyboard.GetPreviousPressedKeys().Length && newlyReleaseKeys.Count > 0) //Look for newly released keys
             {
                 OnKeyReleased?.Invoke(this, new KeyEventArgs(newlyReleaseKeys.ConvertAll(ConvertKey).ToArray()));
             }
@@ -449,8 +441,6 @@ namespace ScorpionEngine.Objects
                 _childPools[i].OnUpdate(engineTime);
             }
 
-            _prevKeyState = _currentKeyState;
-
             Update?.Invoke(this, new EventArgs());
         }
         #endregion
@@ -466,40 +456,7 @@ namespace ScorpionEngine.Objects
         /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
         protected virtual void InitializeObj(Vector location, string textureName = "", Vector[] polyVertices = null)
         {
-            _engineTime = new EngineTime();
 
-            Position = location;
-            TextureName = textureName;
-
-            //TODO: REWORK THIS METHOD.
-            //TODO: SETUP THE PHYSICS OBJECT FOR THE PHYSICS ENGINE.
-            //Generate a new ID and assign it to the newly created game object
-            ID = World.GenerateID();
-
-            if (! string.IsNullOrEmpty(textureName))
-            {
-                //Load the textureName
-                _texture = ContentLoader.LoadTexture(textureName);
-
-                //Calculate the half width and height
-                HalfWidth = _texture.Width / 2;
-                HalfHeight = _texture.Height / 2;
-            }
-            else//Just create an object based off of the vertices.
-            {
-                //If the vertices are null, then throw an exception. Vertices cannot be null when there is not texture loaded
-                if(polyVertices == null)
-                    throw new ArgumentNullException(nameof(polyVertices), "If no texture is loaded, then there must be vertices to describe the shape of the object.");
-
-                //Holds the incoming vertices as Vector2 type instead of Vector type
-                var convertedVertices = new Vector2[polyVertices.Length];
-
-                //Convert all of the incoming vertices to Vector2 type
-                for (var i = 0; i < polyVertices.Length; i++)
-                {
-                    convertedVertices[i] = Tools.ToVector2(polyVertices[i]);
-                }
-            }
         }
 
 
@@ -511,16 +468,6 @@ namespace ScorpionEngine.Objects
         /// <param name="subTextureID">The name of the sub texture in the atlas texture that will be rendered for this GameObject.</param>
         private void InitializeAtlas(string textureAtlasName, string atlasDataName, string subTextureID)
         {
-            GraphicSource = GraphicContentSource.Atlas; //Set the graphic source to the atlas
-
-            //Load the atlas depending if it is already loaded or not
-            var atlasData = ContentLoader.LoadAtlasData(atlasDataName);
-            var atlasTexture = ContentLoader.LoadTexture(textureAtlasName);
-
-            //Load the atlas manager with the data
-            AtlasManager.AddAtlasData(textureAtlasName, atlasDataName, atlasTexture, atlasData);
-
-            Animation = new ObjectAnimation(AtlasManager.GetAtlasData(atlasDataName).GetFrames(subTextureID));
         }
         #endregion
 
@@ -531,7 +478,7 @@ namespace ScorpionEngine.Objects
         /// </summary>
         /// <param name="key">The key to convert.</param>
         /// <returns></returns>
-        private static InputKeys ConvertKey(Keys key)
+        private static InputKeys ConvertKey(InputKeys key)
         {
             return (InputKeys) key;
         }
@@ -544,7 +491,7 @@ namespace ScorpionEngine.Objects
         private bool CurrentPrevKeysMatch()
         {
             //If the number of current and previous keys are the same, check to make sure that the keys for both are the same or not
-            return _currentKeyState.GetPressedKeys().Length == _prevKeyState.GetPressedKeys().Length && _currentKeyState.GetPressedKeys().All(key => _prevKeyState.GetPressedKeys().Contains(key));
+            return _keyboard.GetCurrentPressedKeys().Length == _keyboard.GetPreviousPressedKeys().Length && _keyboard.GetCurrentPressedKeys().All(key => _keyboard.GetPreviousPressedKeys().Contains(key));
         }
         #endregion
     }

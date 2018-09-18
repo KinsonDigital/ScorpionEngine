@@ -32,7 +32,7 @@ namespace ScorpionEngine.Objects
             _foreColor = foreColor;
             _backColor = backColor;
 
-            _texture = ContentLoader.LoadFontTexture(text, font, foreColor, backColor);
+
         }
         #endregion
 
@@ -45,16 +45,8 @@ namespace ScorpionEngine.Objects
         {
             get { return _text; }
 
-            set 
-            {
-                //If the incoming text is different then the current text
-                var isDiff = (_text != value) ? true : false;
-
-                _text = value; 
-
-                //If the text has changed, recreate the text entity texture
-                if (isDiff)
-                    _texture = ContentLoader.LoadFontTexture(_text, _font, _foreColor, _backColor);
+            set
+            { 
             }
         }
 
@@ -66,14 +58,6 @@ namespace ScorpionEngine.Objects
             get { return _foreColor; }
             set
             {
-                //If the incoming forecolor is different then the current text
-                var isDiff = (_foreColor != value) ? true : false;
-
-                _foreColor = value;
-
-                //If the forecolor has changed, recreate the text entity texture
-                if (isDiff)
-                    _texture = ContentLoader.LoadFontTexture(_text, _font, _foreColor, _backColor);
             }
         }
 
@@ -85,14 +69,6 @@ namespace ScorpionEngine.Objects
             get { return _backColor; }
             set
             {
-                //If the incoming forecolor is different then the current text
-                var isDiff = (_foreColor != value) ? true : false;
-
-                _backColor = value;
-
-                //If the backcolor has changed, recreate the text entity texture
-                if (isDiff)
-                    _texture = ContentLoader.LoadFontTexture(_text, _font, _foreColor, _backColor);
             }
         }
 
@@ -104,12 +80,6 @@ namespace ScorpionEngine.Objects
             get { return _font; }
             set
             {
-                //If the font has changed, recreate the text entity texture
-                if (_font.Equals(value))
-                {
-                    _font = value;
-                    _texture = ContentLoader.LoadFontTexture(_text, _font, _foreColor, _backColor);
-                }
             }
         }
         #endregion

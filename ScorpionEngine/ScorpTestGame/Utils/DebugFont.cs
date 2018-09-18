@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace ScorpionEngine.Utils
+namespace ScorpTestGame.Utils
 {
     public class DebugFont
     {

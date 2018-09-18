@@ -1,10 +1,12 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Input;
-using ScorpionEngine.Utils;
+using ScorpionEngine;
+using ScorpionEngine.Input;
+using ScorpTestGame.Utils;
 
-namespace ScorpionEngine.Input
+namespace ScorpTestGame.Mono
 {
-    public class MouseInput
+    public class MouseInput : IMouse
     {
         #region Events
         /// <summary>

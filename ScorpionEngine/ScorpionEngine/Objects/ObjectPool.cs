@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using ScorpionEngine.EventArguments;
+using ScorpionEngine.Core;
+using ScorpionEngine.Events;
 
 namespace ScorpionEngine.Objects
 {
@@ -302,7 +303,7 @@ namespace ScorpionEngine.Objects
         /// <summary>
         /// Updates the entity pool.
         /// </summary>
-        public virtual void OnUpdate(EngineTime engineTime)
+        public virtual void OnUpdate(IEngineTiming engineTime)
         {
             //Update each entity
             for (var i = 0; i < _objects.Count; i++)
