@@ -8,6 +8,6 @@ namespace ScorpionEngine.Content
 
         int Height { get; set; }
 
-        void GetTexture();
+        T GetTexture<T>() where T : class;
     }
 }

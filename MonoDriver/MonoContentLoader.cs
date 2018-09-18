@@ -11,24 +11,32 @@ namespace MonoDriver
 {
     public class MonoContentLoader : IContentLoader
     {
+        public MonoContentLoader()
+        {
+            ContentRootDirectory = $"{GamePath}\\Content";
+        }
+
+
+        #region Props
         /// <summary>
         /// Gets the path to the executable game.
         /// </summary>
-        public static string GamePath { get; } = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);
+        public string GamePath { get; } = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);
 
         /// <summary>
         /// Gets or sets the root directory for the game's content.
         /// </summary>
-        public static string ContentRootDirectory { get; set; } = GamePath + "\\" + "Content";
-        
-        
-        public ITexture LoadTexture(string textureName)
+        public string ContentRootDirectory { get; set; }
+        #endregion
+
+
+        public T LoadTexture<T>(string textureName) where T : class, ITexture
         {
             var fullPath = ContentRootDirectory + "\\" + Path.GetDirectoryName(textureName) + "Graphics\\" + Path.GetFileName(textureName) + ".png";
 
             var dir = Path.GetDirectoryName(textureName);
 
-            MonoTexture newTexture;
+            ITexture newTexture;
 
             using (var fileStream = File.OpenRead(fullPath))
             {
@@ -36,7 +44,7 @@ namespace MonoDriver
             }
 
 
-            return newTexture;
+            return newTexture as T;
         }
     }
 }

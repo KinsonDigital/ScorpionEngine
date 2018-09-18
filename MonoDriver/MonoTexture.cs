@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using ScorpionEngine.Content;
-using ScorpionEngine.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,30 +10,28 @@ namespace MonoDriver
 {
     public class MonoTexture : ITexture
     {
-        private Texture2D _texture;
-
-
-        public MonoTexture(Texture2D texture)
+        internal MonoTexture(Texture2D texture)
         {
-            _texture = texture;
+            Texture = texture;
         }
-
 
         public int Width
         {
-            get => _texture.Width;
-            set { } 
+            get => Texture.Width;
+            set { }
         }
 
         public int Height
         {
-            get => _texture.Height;
+            get => Texture.Height;
             set { }
         }
 
-        public void GetTexture()
+        internal Texture2D Texture { get; }
+
+        public T GetTexture<T>() where T : class
         {
-            throw new NotImplementedException();
+            return Texture as T;
         }
     }
 }

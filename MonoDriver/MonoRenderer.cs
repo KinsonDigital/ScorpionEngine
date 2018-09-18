@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ScorpionEngine;
 using ScorpionEngine.Content;
 using ScorpionEngine.Core;
 using System;
@@ -24,13 +25,13 @@ namespace MonoDriver
 
 
         
-        public void Render(ITexture texture)
+        public void Render(ITexture texture, Vector position)
         {
             _graphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
 
-            //_spriteBatch.Draw(texture, new Rectangle(), Color.White);
+            _spriteBatch.Draw(texture.GetTexture<Texture2D>(), Tools.ToVector2(position), Color.White);
 
             _spriteBatch.End();
         }

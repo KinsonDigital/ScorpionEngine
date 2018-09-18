@@ -110,6 +110,7 @@ namespace MonoDriver
 
         private void _coreDriver_OnRender(object sender, OnRenderEventArgs<MonoRenderer, Texture2D> e)
         {
+            Scene.Render(e.Renderer);
             OnRender?.Invoke(sender, e);
         }
         #endregion

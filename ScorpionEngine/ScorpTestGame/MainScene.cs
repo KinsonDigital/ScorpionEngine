@@ -1,5 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using MonoDriver;
+﻿using MonoDriver;
+using ScorpionEngine;
 using ScorpionEngine.Content;
 using ScorpionEngine.Scene;
 using System;
@@ -13,7 +13,7 @@ namespace ScorpTestGame
 {
     public class MainScene : GameScene
     {
-        private ITexture _rectangle;
+        private MonoTexture _rectangle;
 
 
         public override void Initialize()
@@ -24,7 +24,7 @@ namespace ScorpTestGame
 
         public override void LoadContent(IContentLoader contentLoader)
         {
-            _rectangle = contentLoader.LoadTexture("Rectangle");
+            _rectangle = contentLoader.LoadTexture<MonoTexture>("Rectangle");
 
             base.LoadContent(contentLoader);
         }
@@ -32,6 +32,8 @@ namespace ScorpTestGame
 
         public override void Render(IRenderer renderer)
         {
+            renderer.Render(_rectangle, new Vector(100, 100));
+
             base.Render(renderer);
         }
     }

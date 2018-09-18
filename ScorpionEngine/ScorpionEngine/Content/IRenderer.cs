@@ -5,6 +5,6 @@ namespace ScorpionEngine.Content
 {
     public interface IRenderer
     {
-        void Render(ITexture texture);
+        void Render(ITexture texture, Vector position);
     }
 }
