@@ -132,7 +132,7 @@ namespace ScorpionEngine.Input
             if (! Enabled) return;
 
             //Update the current state of the keyboard
-            _keyboardInput.UpdateState();
+            _keyboardInput.UpdateCurrentState();
 
             //Update the key down timer to keep track of how much time that the key has been in the down position
             _inputDownTimer.Update(engineTime);

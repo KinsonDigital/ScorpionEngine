@@ -11,7 +11,7 @@ namespace ScorpionEngine.Input
         /// <summary>
         /// Update the current state of the keyboard.
         /// </summary>
-        void UpdateState();
+        void UpdateCurrentState();
 
 
         /// <summary>

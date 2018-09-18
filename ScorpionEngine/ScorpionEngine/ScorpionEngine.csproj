@@ -70,12 +70,16 @@
     <Compile Include="Events\FrameStackFinishedEventArgs.cs" />
     <Compile Include="Events\OnRenderEventArgs.cs" />
     <Compile Include="Events\SceneChangedEventArgs.cs" />
+    <Compile Include="Exceptions\IDAlreadyExistsException.cs" />
+    <Compile Include="Exceptions\IdNotFoundException.cs" />
+    <Compile Include="Exceptions\NameNotFoundException.cs" />
     <Compile Include="Input\IKeyboard.cs" />
     <Compile Include="Input\IMouse.cs" />
     <Compile Include="Scene\Enums.cs" />
     <Compile Include="Scene\GameScene.cs" />
     <Compile Include="Scene\IScene.cs" />
     <Compile Include="Scene\ITimeManager.cs" />
+    <Compile Include="Scene\SceneManager.cs" />
     <Compile Include="Scene\SceneTimeManager.cs" />
     <Compile Include="Utils\GameMath.cs" />
     <Compile Include="DelayTimer.cs" />
@@ -116,7 +120,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\Drivers\" />
-    <Folder Include="Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assemblies\sfmlnet-audio-2.dll" />
