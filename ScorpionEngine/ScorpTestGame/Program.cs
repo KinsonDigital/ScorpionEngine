@@ -24,17 +24,7 @@ namespace ScorpTestGame
             //Create a new game
             using (var game = new TestGame())
             {
-                //Set the source of the game content
-                Engine.ContentRootDir = Environment.CurrentDirectory + "\\Content";
-
-                if (Directory.Exists(Engine.ContentRootDir))
-                {
-                    game.Start(); //Start the game
-                }
-                else//Content directory does not exist, so that means no access to game content.  Notify user and end the game.
-                {
-                    MessageBox.Show("No Content To Load", "Scorpion Engine");
-                }
+                game.Start(); //Start the game
             }
         }
     }

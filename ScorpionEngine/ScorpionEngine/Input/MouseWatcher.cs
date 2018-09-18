@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ScorpionEngine.Core;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ScorpionEngine.Input
@@ -9,7 +10,7 @@ namespace ScorpionEngine.Input
     public class MouseWatcher : InputWatcher, IUpdatable
     {
         #region Fields
-        private MouseInput _mouseInput;
+        private IMouse _mouseInput;
         private Dictionary<InputButton, bool> _currentPressedButtons;//Holds the list of combo buttons and there down states
         #endregion
 
@@ -116,7 +117,7 @@ namespace ScorpionEngine.Input
         /// Update the watcher state.
         /// </summary>
         /// <param name="engineTime">The engine time info.</param>
-        public void Update(EngineTime engineTime)
+        public void Update(IEngineTiming engineTime)
         {
             //If disabled, exit
             if (!Enabled) return;
@@ -238,8 +239,6 @@ namespace ScorpionEngine.Input
         /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
         private void Init(int hitCountMax, InputButton button, List<InputButton> comboButtons,  int buttonDownTimeOut, int buttonReleaseTimeOut, bool enabled = true)
         {
-            _mouseInput = new MouseInput();
-
             Button = button;
 
             //If the combo buttons are null, skip combo button setup

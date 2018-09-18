@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScorpTestGame", "ScorpionEn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScorpionEngine", "ScorpionEngine\ScorpionEngine\ScorpionEngine.csproj", "{91495C38-9695-4905-B5D9-0DEBB25E1A0F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoDriver", "MonoDriver\MonoDriver.csproj", "{ACE87E11-8FAC-4CAA-BF5A-A237FE88BB9E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,14 @@ Global
 		{91495C38-9695-4905-B5D9-0DEBB25E1A0F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{91495C38-9695-4905-B5D9-0DEBB25E1A0F}.Release|x86.ActiveCfg = Release|Any CPU
 		{91495C38-9695-4905-B5D9-0DEBB25E1A0F}.Release|x86.Build.0 = Release|Any CPU
+		{ACE87E11-8FAC-4CAA-BF5A-A237FE88BB9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACE87E11-8FAC-4CAA-BF5A-A237FE88BB9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACE87E11-8FAC-4CAA-BF5A-A237FE88BB9E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{ACE87E11-8FAC-4CAA-BF5A-A237FE88BB9E}.Debug|x86.Build.0 = Debug|Any CPU
+		{ACE87E11-8FAC-4CAA-BF5A-A237FE88BB9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACE87E11-8FAC-4CAA-BF5A-A237FE88BB9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACE87E11-8FAC-4CAA-BF5A-A237FE88BB9E}.Release|x86.ActiveCfg = Release|Any CPU
+		{ACE87E11-8FAC-4CAA-BF5A-A237FE88BB9E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

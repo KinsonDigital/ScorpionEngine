@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScorpionEngine.Core;
+using System;
 
 namespace ScorpionEngine.Utils
 {
@@ -109,7 +110,7 @@ namespace ScorpionEngine.Utils
         /// Updates the internal time of the stop watch.
         /// </summary>
         /// <param name="engineTime">The engine time passed.</param>
-        public void Update(EngineTime engineTime)
+        public void Update(IEngineTiming engineTime)
         {
             //If the stopwatch is enabled, add the amount of time passed to the elapsed value
             if (_enabled)

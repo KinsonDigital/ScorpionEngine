@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
+using ScorpionEngine.Core;
 using System;
 
-namespace ScorpionEngine
+namespace MonoDriver
 {
     /// <summary>
     /// A state of the timing of the game engine in values that can be used by variable step(real time) or fixed step(game time).
     /// </summary>
-    public class EngineTime
+    public class MonoEngineTime : IEngineTiming
     {
         #region Fields
         private GameTime _gameTime;//The game time
@@ -50,7 +51,7 @@ namespace ScorpionEngine
         /// <summary>
         /// Creates a new instance of EngineTime.
         /// </summary>
-        public EngineTime()
+        public MonoEngineTime()
         {
             _gameTime = new GameTime();
         }
@@ -61,7 +62,7 @@ namespace ScorpionEngine
         /// </summary>
         /// <param name="totalEngineTime">The amount of engine time since the game started.</param>
         /// <param name="elapsedEngineTime">The amount of engine time since the last update.</param>
-        public EngineTime(TimeSpan totalEngineTime, TimeSpan elapsedEngineTime)
+        public MonoEngineTime(TimeSpan totalEngineTime, TimeSpan elapsedEngineTime)
         {
             _gameTime = new GameTime(totalEngineTime, elapsedEngineTime);
         }

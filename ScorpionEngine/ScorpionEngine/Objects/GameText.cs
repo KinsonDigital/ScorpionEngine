@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using ScorpionEngine.Input;
+using System.Drawing;
 
 namespace ScorpionEngine.Objects
 {
@@ -15,7 +16,7 @@ namespace ScorpionEngine.Objects
         /// <param name="textFont">The font of the text.</param>
         /// <param name="foreColor">The color of the text.</param>
         /// <param name="backColor">The backcolor of the text to be drawn.</param>
-        public GameText(string text, Font textFont, Color foreColor, Color backColor)
+        public GameText(IKeyboard keyboard, string text, Font textFont, Color foreColor, Color backColor) : base(keyboard)
         {
             Text = text;
             TextFont = textFont;

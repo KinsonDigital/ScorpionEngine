@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ScorpionEngine.Core;
+using System.Collections.Generic;
 
 namespace ScorpionEngine.Objects
 {
@@ -109,7 +110,7 @@ namespace ScorpionEngine.Objects
         /// Updates the animation.
         /// </summary>
         /// <param name="engineTime">The engine time.</param>
-        public void Update(EngineTime engineTime)
+        public void Update(IEngineTiming engineTime)
         {
             switch (State)
             {

@@ -1,17 +1,10 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace ScorpionEngine
+﻿namespace ScorpionEngine
 {
     /// <summary>
     /// Creates a new rectangle.
     /// </summary>
     public struct Rect
     {
-        #region Fields
-        private Rectangle _rectangle;
-        #endregion
-
-
         #region Constructors
         /// <summary>
         /// Creates a new instance of Rectangle.
@@ -22,15 +15,18 @@ namespace ScorpionEngine
         /// <param name="height">The height of the rectangle.</param>
         public Rect(int x, int y, int width, int height)
         {
-            _rectangle = new Rectangle(x, y, width, height);
+            X = x;
+            Y = y;
+            Width = width;
+            Height = height;
         }
         #endregion
 
 
         #region Properties
         /// <summary>
-       /// Gets an empty version of a Rect instance.
-       /// </summary>
+        /// Gets an empty version of a Rect instance.
+        /// </summary>
         public static Rect Empty
         {
             get
@@ -42,62 +38,30 @@ namespace ScorpionEngine
         /// <summary>
         /// Gets the x-component of the rectangle.
         /// </summary>
-        public int X
-        {
-            get
-            {
-                return _rectangle.X;
-            }
-            set
-            {
-                _rectangle.X = value;
-            }
-        }
+        public int X { get; set; }
 
         /// <summary>
         /// Gets the y-component of the rectangle.
         /// </summary>
-        public int Y
-        {
-            get
-            {
-                return _rectangle.Y;
-            }
-            set
-            {
-                _rectangle.Y = value;
-            }
-        }
+        public int Y { get; set; }
 
         /// <summary>
         /// Gets the width of the rectangle.
         /// </summary>
-        public int Width
-        {
-            get
-            {
-                return _rectangle.Width;
-            }
-            set
-            {
-                _rectangle.Width = value;
-            }
-        }
+        public int Width { get; set; }
 
         /// <summary>
         /// Gets the height of the rectangle.
         /// </summary>
-        public int Height
-        {
-            get
-            {
-                return _rectangle.Height;
-            }
-            set
-            {
-                _rectangle.Height = value;
-            }
-        }
+        public int Height { get; set; }
+
+        public int Top => Y;
+
+        public int Right => X + Width;
+
+        public int Bottom => Y + Height;
+
+        public int Left => X;
         #endregion
 
 
@@ -110,7 +74,7 @@ namespace ScorpionEngine
         /// <param name="y">The y-component to check for.</param>
         public bool Contains(int x, int y)
         {
-            return _rectangle.Contains(x, y);
+            return x >= X && x <= Right && y >= Y && y <= Bottom;
         }
 
 
@@ -121,7 +85,10 @@ namespace ScorpionEngine
         /// <returns></returns>
         public bool Contains(Rect rectangle)
         {
-            return _rectangle.Contains(new Rectangle(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height));
+            return Contains(rectangle.Left, rectangle.Top) ||
+                    Contains(rectangle.Right, rectangle.Top) ||
+                    Contains(rectangle.Right, rectangle.Bottom) ||
+                    Contains(rectangle.Left, rectangle.Bottom);
         }
 
 
@@ -132,20 +99,7 @@ namespace ScorpionEngine
         /// <returns></returns>
         public bool Contains(Vector vector)
         {
-            return _rectangle.Contains(vector.X, vector.Y);
-        }
-        #endregion
-
-
-        #region Overloaded Methods
-        /// <summary>
-        /// Converts a xna rectangle to a scorpion engine rectangle.
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public static implicit operator Rect(Rectangle value)
-        {
-            return new Rect(value.X, value.Y, value.Width, value.Height);
+            return Contains((int)vector.X, (int)vector.Y);
         }
         #endregion
     }

@@ -1,4 +1,5 @@
-﻿using ScorpionEngine.Input;
+﻿using ScorpionEngine.Core;
+using ScorpionEngine.Input;
 
 namespace ScorpionEngine.Objects
 {
@@ -7,7 +8,6 @@ namespace ScorpionEngine.Objects
     /// </summary>
     public class ControllableObject : MovableObject
     {
-
         #region Fields
         private KeyBehavior _stopMovementOnKeyRelease;//Will fire when any key is released
         private KeyBehavior _stopRotationOnKeyRelease;//Will fire when any key is released
@@ -21,10 +21,10 @@ namespace ScorpionEngine.Objects
         /// <param name="textureName">The textureName of the game object.</param>
         /// <param name="polyVertices">Optional parameter: The vertices that make up the shape of the game object for the internal physics engine.  If left null, then a default rectanglular 
         /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
-        public ControllableObject(string textureName = "", Vector[] polyVertices = null)
+        public ControllableObject(IKeyboard keyboard, string textureName = "", Vector[] polyVertices = null)
             : base(textureName, polyVertices)
         {
-            CreateKeyBehaviors();
+            CreateKeyBehaviors(keyboard);
         }
 
 
@@ -35,10 +35,10 @@ namespace ScorpionEngine.Objects
         /// <param name="location">Sets the location of the game object in the game world.</param>
         /// <param name="polyVertices">Optional parameter: The vertices that make up the shape of the game object for the internal physics engine.  If left null, then a default rectanglular 
         /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
-        public ControllableObject(Vector location, string textureName, Vector[] polyVertices = null)
+        public ControllableObject(IKeyboard keyboard, Vector location, string textureName, Vector[] polyVertices = null)
             : base(location, textureName, polyVertices)
         {
-            CreateKeyBehaviors();
+            CreateKeyBehaviors(keyboard);
         }
 
 
@@ -50,10 +50,10 @@ namespace ScorpionEngine.Objects
         /// <param name="speed">Sets the velocity of the game object.</param>
         /// <param name="polyVertices">Optional parameter: The vertices that make up the shape of the game object for the internal physics engine.  If left null, then a default rectanglular 
         /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
-        public ControllableObject(Vector location, Vector speed, string textureName, Vector[] polyVertices = null)
+        public ControllableObject(IKeyboard keyboard, Vector location, Vector speed, string textureName, Vector[] polyVertices = null)
             : base(location, speed, textureName, polyVertices)
         {
-            CreateKeyBehaviors();
+            CreateKeyBehaviors(keyboard);
         }
 
 
@@ -65,10 +65,10 @@ namespace ScorpionEngine.Objects
         /// <param name="subTextureID">The name of the sub texture in the atlas texture to render.</param> 
         /// <param name="polyVertices">Optional parameter: The vertices that make up the shape of the game object for the internal physics engine.  If left null, then a default rectanglular 
         /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
-        public ControllableObject(string textureAtlasName, string atlasDataName, string subTextureID, Vector[] polyVertices = null)
+        public ControllableObject(IKeyboard keyboard, string textureAtlasName, string atlasDataName, string subTextureID, Vector[] polyVertices = null)
             :base(textureAtlasName, atlasDataName, subTextureID, polyVertices)
         {
-            CreateKeyBehaviors();
+            CreateKeyBehaviors(keyboard);
         }
 
 
@@ -81,10 +81,10 @@ namespace ScorpionEngine.Objects
         /// <param name="location">Sets the location of the game object in the game world.</param>
         /// <param name="polyVertices">Optional parameter: The vertices that make up the shape of the game object for the internal physics engine.  If left null, then a default rectanglular 
         /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
-        public ControllableObject(Vector location, string textureAtlasName, string atlasDataName, string subTextureID, Vector[] polyVertices = null)
+        public ControllableObject(IKeyboard keyboard, Vector location, string textureAtlasName, string atlasDataName, string subTextureID, Vector[] polyVertices = null)
             : base(location, textureAtlasName, atlasDataName, subTextureID, polyVertices)
         {
-            CreateKeyBehaviors();
+            CreateKeyBehaviors(keyboard);
         }
 
 
@@ -98,10 +98,10 @@ namespace ScorpionEngine.Objects
         /// <param name="velocity">Sets the velocity of the game object.</param>
         /// <param name="polyVertices">Optional parameter: The vertices that make up the shape of the game object for the internal physics engine.  If left null, then a default rectanglular 
         /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
-        public ControllableObject(Vector location, Vector velocity, string textureAtlasName, string atlasDataName, string subTextureID, Vector[] polyVertices = null)
+        public ControllableObject(IKeyboard keyboard, Vector location, Vector velocity, string textureAtlasName, string atlasDataName, string subTextureID, Vector[] polyVertices = null)
             : base(location, velocity, textureAtlasName, atlasDataName, subTextureID, polyVertices)
         {
-            CreateKeyBehaviors();
+            CreateKeyBehaviors(keyboard);
         }
         #endregion
 
@@ -200,7 +200,7 @@ namespace ScorpionEngine.Objects
         /// Updates the game object.
         /// </summary>
         /// <param name="engineTime">The time elapsed since last frame.</param>
-        public override void OnUpdate(EngineTime engineTime)
+        public override void OnUpdate(IEngineTiming engineTime)
         {
             _engineTime = engineTime;
 
@@ -299,21 +299,21 @@ namespace ScorpionEngine.Objects
         /// <summary>
         /// Creates all of the key behaviors.
         /// </summary>
-        private void CreateKeyBehaviors()
+        private void CreateKeyBehaviors(IKeyboard keyboard)
         {
-            MoveRightKey = new KeyBehavior(InputKeys.Right);
-            MoveLeftKey = new KeyBehavior(InputKeys.Left);
-            MoveUpKey = new KeyBehavior(InputKeys.Up);
-            MoveDownKey = new KeyBehavior(InputKeys.Down);
-            RotateCwKey = new KeyBehavior(InputKeys.D);
-            RotateCcwKey = new KeyBehavior(InputKeys.A);
+            MoveRightKey = new KeyBehavior(keyboard, InputKeys.Right);
+            MoveLeftKey = new KeyBehavior(keyboard, InputKeys.Left);
+            MoveUpKey = new KeyBehavior(keyboard, InputKeys.Up);
+            MoveDownKey = new KeyBehavior(keyboard, InputKeys.Down);
+            RotateCwKey = new KeyBehavior(keyboard, InputKeys.D);
+            RotateCcwKey = new KeyBehavior(keyboard, InputKeys.A);
 
-            _stopMovementOnKeyRelease = new KeyBehavior(true)
+            _stopMovementOnKeyRelease = new KeyBehavior(keyboard, true)
             {
                 BehaviorType = KeyBehaviorType.OnAnyKeyRelease
             };
 
-            _stopRotationOnKeyRelease = new KeyBehavior(true)
+            _stopRotationOnKeyRelease = new KeyBehavior(keyboard, true)
             {
                 BehaviorType = KeyBehaviorType.OnAnyKeyRelease
             };

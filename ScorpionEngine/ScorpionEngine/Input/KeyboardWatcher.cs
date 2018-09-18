@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ScorpionEngine.Core;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ScorpionEngine.Input
@@ -6,10 +7,10 @@ namespace ScorpionEngine.Input
     /// <summary>
     /// Watches a specified key and invokes events when 
     /// </summary>
-    public class KeyboardWatcher : InputWatcher, IUpdatable
+    public class KeyboardWatcher<T> : InputWatcher, IUpdatable where T : IKeyboard
     {
         #region Fields
-        private KeyboardInput _keyboardInput;
+        private IKeyboard _keyboardInput;
         private Dictionary<InputKeys, bool> _currentPressedKeys;//Holds the list of comboKeys and there down states
         #endregion
 
@@ -19,8 +20,9 @@ namespace ScorpionEngine.Input
         /// Creates an instance of KeyboardWatcher.
         /// </summary>
         /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        public KeyboardWatcher(bool enabled = true)
+        public KeyboardWatcher(IKeyboard keyboard, bool enabled = true)
         {
+            _keyboardInput = keyboard;
             Init(10, InputKeys.None, null, -1, -1, enabled);
         }
 
@@ -30,8 +32,9 @@ namespace ScorpionEngine.Input
         /// </summary>
         /// <param name="comboKeys">The list of comboKeys to press in combination to invoke the event.</param>
         /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        public KeyboardWatcher(List<InputKeys> comboKeys, bool enabled = true)
+        public KeyboardWatcher(IKeyboard keyboard, List<InputKeys> comboKeys, bool enabled = true)
         {
+            _keyboardInput = keyboard;
             Init(-1, InputKeys.None, comboKeys, -1, -1, enabled);
         }
 
@@ -42,8 +45,9 @@ namespace ScorpionEngine.Input
         /// <param name="hitCountMax">The total amount of times the key will be hit before invoking an event.</param>
         /// <param name="key">The key to watch.</param>
         /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        public KeyboardWatcher(int hitCountMax, InputKeys key, bool enabled = true)
+        public KeyboardWatcher(IKeyboard keyboard, int hitCountMax, InputKeys key, bool enabled = true)
         {
+            _keyboardInput = keyboard;
             Init(hitCountMax, key, null, -1, -1, enabled);
         }
 
@@ -56,8 +60,9 @@ namespace ScorpionEngine.Input
         /// <param name="keyDownTimeOut">Sets the time in milliseconds that the given key should be pressed before the OnKeyDownTimeOut event will be invoked.</param>
         /// <param name="keyReleaseTimeOut">Sets the time in milliseconds that the given key should be released before the OnKeyReleaseTimeout event will be invoked.</param>
         /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        public KeyboardWatcher(int hitCountMax, InputKeys key, int keyDownTimeOut, int keyReleaseTimeOut, bool enabled = true)
+        public KeyboardWatcher(IKeyboard keyboard, int hitCountMax, InputKeys key, int keyDownTimeOut, int keyReleaseTimeOut, bool enabled = true)
         {
+            _keyboardInput = keyboard;
             Init(hitCountMax, key, null, keyDownTimeOut, keyReleaseTimeOut, enabled);
         }
 
@@ -69,8 +74,9 @@ namespace ScorpionEngine.Input
         /// <param name="key">The key to watch.</param>
         /// <param name="comboKeys">The list of comboKeys to press in combination to invoke the event.</param>
         /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        public KeyboardWatcher(int hitCountMax, InputKeys key, List<InputKeys> comboKeys, bool enabled = true)
+        public KeyboardWatcher(IKeyboard keyboard, int hitCountMax, InputKeys key, List<InputKeys> comboKeys, bool enabled = true)
         {
+            _keyboardInput = keyboard;
             Init(hitCountMax, key, comboKeys, -1, -1, enabled);
         }
 
@@ -84,8 +90,9 @@ namespace ScorpionEngine.Input
         /// <param name="keyDownTimeOut">Sets the time in milliseconds that the given key should be pressed before the OnKeyDownTimeOut event will be invoked.</param>
         /// <param name="keyReleaseTimeOut">Sets the time in milliseconds that the given key should be released before the OnKeyReleaseTimeout event will be invoked.</param>
         /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        public KeyboardWatcher(int hitCountMax, InputKeys key, List<InputKeys> comboKeys, int keyDownTimeOut, int keyReleaseTimeOut, bool enabled = true)
+        public KeyboardWatcher(IKeyboard keyboard, int hitCountMax, InputKeys key, List<InputKeys> comboKeys, int keyDownTimeOut, int keyReleaseTimeOut, bool enabled = true)
         {
+            _keyboardInput = keyboard;
             Init(hitCountMax, key, comboKeys, keyDownTimeOut, keyReleaseTimeOut, enabled);
         }
         #endregion
@@ -119,13 +126,13 @@ namespace ScorpionEngine.Input
         /// Update the watcher state.
         /// </summary>
         /// <param name="engineTime">The engine time info.</param>
-        public void Update(EngineTime engineTime)
+        public void Update(IEngineTiming engineTime)
         {
             //If disabled, exit
             if (! Enabled) return;
 
             //Update the current state of the keyboard
-            _keyboardInput.UpdateCurrentState();
+            _keyboardInput.UpdateState();
 
             //Update the key down timer to keep track of how much time that the key has been in the down position
             _inputDownTimer.Update(engineTime);
@@ -237,8 +244,6 @@ namespace ScorpionEngine.Input
         /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
         private void Init(int hitCountMax, InputKeys key, List<InputKeys> comboKeys, int keyDownTimeOut, int keyReleaseTimeOut, bool enabled = true)
         {
-            _keyboardInput = new KeyboardInput();
-
             Key = key;
 
             //If the combo keys are null, skip the combo key setup

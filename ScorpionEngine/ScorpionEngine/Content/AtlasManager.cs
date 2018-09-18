@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace ScorpionEngine.Content
 {
@@ -13,7 +12,7 @@ namespace ScorpionEngine.Content
     {
         #region Fields
         private static readonly Dictionary<string, AtlasData> _allAtlasData = new Dictionary<string, AtlasData>();//The atlas data
-        private static readonly Dictionary<string, Texture2D> _allAtlasTextures = new Dictionary<string, Texture2D>();//The atlas textures
+        private static readonly Dictionary<string, ITexture> _allAtlasTextures = new Dictionary<string, ITexture>();//The atlas textures
         #endregion
 
 
@@ -25,7 +24,7 @@ namespace ScorpionEngine.Content
         /// <param name="atlasDataID">The unique atlas data ID to assign to the given texture.</param>
         /// <param name="texture">The texture to add.</param>
         /// <param name="data">The atlas data to add.</param>
-        public static void AddAtlasData(string textureAtlasID, string atlasDataID,  Texture2D texture, AtlasData data)
+        public static void AddAtlasData(string textureAtlasID, string atlasDataID,  ITexture texture, AtlasData data)
         {
             //todo: possibly do not need this method, id is checked below
             CheckID(textureAtlasID);//See if the atlas has already been added
@@ -73,7 +72,7 @@ namespace ScorpionEngine.Content
         /// </summary>
         /// <param name="id">The textureAtlasID of the atlas texture to get.</param>
         /// <returns></returns>
-        public static Texture2D GetAtlasTexture(string id)
+        public static ITexture GetAtlasTexture(string id)
         {
             CheckID(id);//See if the atlas has already been added
 

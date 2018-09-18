@@ -1,10 +1,11 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Input;
-using ScorpionEngine.Utils;
+using ScorpionEngine;
+using ScorpionEngine.Input;
 
-namespace ScorpionEngine.Input
+namespace MonoDriver
 {
-    public class MouseInput
+    public class MouseInput : IMouse
     {
         #region Events
         /// <summary>

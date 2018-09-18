@@ -1,5 +1,6 @@
 ﻿using ScorpionEngine.Objects;
 using ScorpionEngine.Input;
+using ScorpionEngine.Core;
 
 namespace ScorpionEngine
 {
@@ -9,14 +10,14 @@ namespace ScorpionEngine
     public class MovementBehavior
     {
         #region Fields
-        private readonly KeyBehavior _moveRightKeyOnPress = new KeyBehavior(InputKeys.Right, true);
-        private readonly KeyBehavior _moveLeftKeyOnPress = new KeyBehavior(InputKeys.Left, true);
-        private readonly KeyBehavior _moveUpKeyOnPress = new KeyBehavior(InputKeys.Up, true);
-        private readonly KeyBehavior _moveDownKeyOnPress = new KeyBehavior(InputKeys.Down, true);
-        private readonly KeyBehavior _moveRightKeyOnRelease = new KeyBehavior(InputKeys.Right, true);
-        private readonly KeyBehavior _moveLefttKeyOnRelease = new KeyBehavior(InputKeys.Left, true);
-        private readonly KeyBehavior _moveUpKeyOnRelease = new KeyBehavior(InputKeys.Up, true);
-        private readonly KeyBehavior _moveDownKeyOnRelease = new KeyBehavior(InputKeys.Down, true);
+        private KeyBehavior _moveRightKeyOnPress;
+        private KeyBehavior _moveLeftKeyOnPress;
+        private KeyBehavior _moveUpKeyOnPress;
+        private KeyBehavior _moveDownKeyOnPress;
+        private KeyBehavior _moveRightKeyOnRelease;
+        private KeyBehavior _moveLefttKeyOnRelease;
+        private KeyBehavior _moveUpKeyOnRelease;
+        private KeyBehavior _moveDownKeyOnRelease;
         private MovableObject _gameObject;
         #endregion
 
@@ -26,8 +27,10 @@ namespace ScorpionEngine
         /// Creates an instance of MovementBehavior.
         /// </summary>
         /// <param name="obj">The game object to perform the movement behavior on.</param>
-        public MovementBehavior(MovableObject obj)
+        public MovementBehavior(IKeyboard keyboard, MovableObject obj)
         {
+            CreateBehaviors(keyboard);
+
             _gameObject = obj;
 
             //Setup the move right key behavior
@@ -108,7 +111,7 @@ namespace ScorpionEngine
         /// Updates the key behaviors.
         /// </summary>
         /// <param name="engineTime">The engine time.</param>
-        public void Update(EngineTime engineTime)
+        public void Update(IEngineTiming engineTime)
         {
             _moveRightKeyOnPress.Update(engineTime);
             _moveLeftKeyOnPress.Update(engineTime);
@@ -118,6 +121,21 @@ namespace ScorpionEngine
             _moveLefttKeyOnRelease.Update(engineTime);
             _moveUpKeyOnRelease.Update(engineTime);
             _moveDownKeyOnRelease.Update(engineTime);
+        }
+        #endregion
+
+
+        #region Private Methods
+        private void CreateBehaviors(IKeyboard keyboard)
+        {
+            _moveRightKeyOnPress = new KeyBehavior(keyboard, InputKeys.Right, true);
+            _moveLeftKeyOnPress = new KeyBehavior(keyboard, InputKeys.Left, true);
+            _moveUpKeyOnPress = new KeyBehavior(keyboard, InputKeys.Up, true);
+            _moveDownKeyOnPress = new KeyBehavior(keyboard, InputKeys.Down, true);
+            _moveRightKeyOnRelease = new KeyBehavior(keyboard, InputKeys.Right, true);
+            _moveLefttKeyOnRelease = new KeyBehavior(keyboard, InputKeys.Left, true);
+            _moveUpKeyOnRelease = new KeyBehavior(keyboard, InputKeys.Up, true);
+            _moveDownKeyOnRelease = new KeyBehavior(keyboard, InputKeys.Down, true);
         }
         #endregion
     }
