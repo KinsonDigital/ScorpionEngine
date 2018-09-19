@@ -1,4 +1,6 @@
 ﻿using System;
+using SysColor = System.Drawing.Color;
+using MonoColor = Microsoft.Xna.Framework.Color;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -167,6 +169,16 @@ namespace MonoDriver
 
             //Get the largest item out of all of the values
             return values.Cast<int>().Concat(new[] {0}).Max();
+        }
+
+        public static SysColor ToSysColor(this MonoColor color)
+        {
+            return SysColor.FromArgb(color.A, color.R, color.G, color.B);
+        }
+
+        public static MonoColor ToMonoColor(this SysColor color)
+        {
+            return new MonoColor(color.R, color.G, color.B, color.A);
         }
         #endregion
     }

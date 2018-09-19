@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ScorpionEngine;
 using ScorpionEngine.Content;
@@ -42,12 +43,16 @@ namespace MonoDriver
         {
             _graphicsDeviceManager = new GraphicsDeviceManager(this);
 
+            
             Content.RootDirectory = "Content";
+            DriverContent = Content;
         }
         #endregion
 
 
         #region Props
+        public static ContentManager DriverContent { get; private set; }
+
         public static GraphicsDevice MonoGraphicsDevice { get; set; }
 
         /// <summary>

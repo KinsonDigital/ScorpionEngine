@@ -21,5 +21,8 @@ namespace ScorpionEngine.Content
 
 
         T LoadTexture<T>(string textureName) where T : class, ITexture;
+
+
+        T LoadText<T>(string name, string text) where T : class, IText;
     }
 }

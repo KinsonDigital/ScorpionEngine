@@ -7,7 +7,7 @@ namespace MonoDriver
     /// <summary>
     /// Used to check the keyboard for input.
     /// </summary>
-    public class KeyboardInput
+    public class MonoKeyboard : IKeyboard
     {
         #region Events
         /// <summary>

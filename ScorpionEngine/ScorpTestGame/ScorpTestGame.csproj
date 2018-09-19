@@ -39,7 +39,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="MainScene.cs" />
+    <Compile Include="Scenes\MainScene.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestGame.cs" />
@@ -107,7 +107,8 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(ProjectDir)Assemblies" "$(TargetDir)" /Y</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(ProjectDir)Assemblies" "$(TargetDir)" /Y
+xcopy "$(ProjectDir)Content\bin\Windows\Graphics" "$(TargetDir)Content\Graphics" /Y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

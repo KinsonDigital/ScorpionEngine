@@ -215,3 +215,5 @@ FakesAssemblies/
 **/*.Server/GeneratedArtifacts
 **/*.Server/ModelManifest.xml
 _Pvt_Extensions
+
+ScorpionEngine/ScorpTestGame/Content/SyncToy_1dc1f63c-d39f-4e1d-a6f4-fce409f405d9\.dat

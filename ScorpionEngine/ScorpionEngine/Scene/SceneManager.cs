@@ -34,9 +34,10 @@ namespace ScorpionEngine.Scene
         /// Creates a new instance of <see cref="SceneManager"/>.
         /// <paramref name="contentLoader">The content manager user to load and unload content.</paramref>
         /// </summary>
-        public SceneManager(IContentLoader contentLoader)
+        public SceneManager(IContentLoader contentLoader, IKeyboard keyboard)
         {
             _contentLoader = contentLoader;
+            _keyboard = keyboard;
         }
         #endregion
 

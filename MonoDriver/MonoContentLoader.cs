@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using ScorpionEngine.Content;
 using System;
 using System.Collections.Generic;
@@ -32,19 +33,30 @@ namespace MonoDriver
 
         public T LoadTexture<T>(string textureName) where T : class, ITexture
         {
-            var fullPath = ContentRootDirectory + "\\" + Path.GetDirectoryName(textureName) + "Graphics\\" + Path.GetFileName(textureName) + ".png";
-
-            var dir = Path.GetDirectoryName(textureName);
+            var dir = Path.GetDirectoryName($@"Graphics\{textureName}");
 
             ITexture newTexture;
 
-            using (var fileStream = File.OpenRead(fullPath))
-            {
-                newTexture = new MonoTexture(Texture2D.FromStream(MonoCoreDriver.MonoGraphicsDevice, fileStream));
-            }
+            newTexture = new MonoTexture(MonoCoreDriver.DriverContent.Load<Texture2D>($@"Graphics\{textureName}"));
+
+            //using (var fileStream = File.OpenRead(fullPath))
+            //{
+            //    newTexture = new MonoTexture(Texture2D.FromStream(MonoCoreDriver.MonoGraphicsDevice, fileStream));
+            //}
 
 
             return newTexture as T;
+        }
+
+
+        public T LoadText<T>(string name, string text) where T : class, IText
+        {
+            IText textItem = new MonoText(MonoCoreDriver.DriverContent.Load<SpriteFont>($@"Fonts\{name}"))
+            {
+                Text = text
+            };
+
+            return textItem as T;
         }
     }
 }

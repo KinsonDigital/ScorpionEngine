@@ -4,6 +4,7 @@ using ScorpionEngine;
 using ScorpionEngine.Content;
 using ScorpionEngine.Core;
 using ScorpionEngine.Scene;
+using ScorpTestGame.Scenes;
 
 namespace ScorpTestGame
 {
@@ -15,15 +16,23 @@ namespace ScorpTestGame
         private IEngineCore _engineCore;
         private IScene _mainScene;
         private IContentLoader _contentLoader;
+        private SceneManager _sceneManager;
+
 
         /// <summary>
         /// Creates a new space shooter game engine.
         /// </summary>
         public TestGame()
         {
-            _mainScene = new MainScene();
-            _engineCore = new MonoEngineCore(_mainScene);
             _contentLoader = new MonoContentLoader();
+            var keyboard = new MonoKeyboard();
+
+            _sceneManager = new SceneManager(_contentLoader, keyboard);
+
+            _mainScene = new MainScene();
+            _sceneManager.AddScene(_mainScene);
+
+            _engineCore = new MonoEngineCore(_mainScene);
 
             SetEngineCore(_engineCore, _contentLoader);
 

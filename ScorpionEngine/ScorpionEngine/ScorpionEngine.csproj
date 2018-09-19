@@ -61,6 +61,7 @@
     <Compile Include="Content\ExtensionMethods.cs" />
     <Compile Include="Content\IContentLoader.cs" />
     <Compile Include="Content\IRenderer.cs" />
+    <Compile Include="Content\IText.cs" />
     <Compile Include="Content\ITexture.cs" />
     <Compile Include="Core\IDrawable.cs" />
     <Compile Include="Core\IEngineCore.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Scene\ITimeManager.cs" />
     <Compile Include="Scene\SceneManager.cs" />
     <Compile Include="Scene\SceneTimeManager.cs" />
+    <Compile Include="UI\UIText.cs" />
     <Compile Include="Utils\GameMath.cs" />
     <Compile Include="DelayTimer.cs" />
     <Compile Include="Engine.cs" />
