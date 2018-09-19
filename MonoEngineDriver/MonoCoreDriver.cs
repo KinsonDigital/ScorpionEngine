@@ -7,7 +7,7 @@ using ScorpionEngine.Core;
 using ScorpionEngine.Events;
 using System;
 
-namespace MonoDriver
+namespace MonoEngineDriver
 {
     internal class MonoCoreDriver : Game
     {

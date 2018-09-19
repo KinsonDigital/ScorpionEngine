@@ -1,6 +1,8 @@
-﻿using MonoDriver;
+﻿using MonoEngineDriver;
 using ScorpionEngine;
 using ScorpionEngine.Content;
+using ScorpionEngine.Core;
+using ScorpionEngine.Objects;
 using ScorpionEngine.Scene;
 using System;
 using System.Collections.Generic;
@@ -9,18 +11,34 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VelcroPhysicsDriver;
 
 namespace ScorpTestGame.Scenes
 {
     public class MainScene : GameScene
     {
+        public VelcroWorld _world;
         public MonoText _helloWorld;
-        public MonoTexture _orangeBox;
-        public MonoTexture _grayBox;
+        public MonoTexture _orangeRectTexture;
+        public GameObject _orangeObject;
 
 
         public override void Initialize()
         {
+            _world = new VelcroWorld(new Vector(0, 5));
+
+            _orangeObject = new GameObject();
+
+            var vertices = new Vector[]
+            {
+                new Vector(-50, -25),
+                new Vector(50, -25),
+                new Vector(50, 50),
+                new Vector(-50, 25)
+            };
+
+            _world.AddBody(_orangeObject.PhysicsBody, vertices);
+
             base.Initialize();
         }
 
@@ -28,11 +46,18 @@ namespace ScorpTestGame.Scenes
         public override void LoadContent(IContentLoader contentLoader)
         {
             _helloWorld = contentLoader.LoadText<MonoText>("stats", "hello world");
-            _orangeBox = contentLoader.LoadTexture<MonoTexture>("Rectangle");
-            _grayBox = contentLoader.LoadTexture<MonoTexture>("GrayRectangle");
+            _orangeObject.Texture = contentLoader.LoadTexture<MonoTexture>("Rectangle");
 
 
             base.LoadContent(contentLoader);
+        }
+
+
+        public override void Update(IEngineTiming gameTime)
+        {
+            _world.Update((float)gameTime.ElapsedEngineTime.TotalSeconds);
+
+            base.Update(gameTime);
         }
 
 
@@ -40,10 +65,7 @@ namespace ScorpTestGame.Scenes
         {
             renderer.Clear(Color.CornflowerBlue);
 
-            renderer.Render(_helloWorld, new Vector(10, 10));
-            renderer.Render(_orangeBox, new Vector(100, 100));
-            renderer.Render(_grayBox, new Vector(100, 300));
-
+            renderer.Render(_orangeObject.Texture, new Vector(200, 200));
             base.Render(renderer);
         }
     }

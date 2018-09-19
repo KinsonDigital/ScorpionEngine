@@ -21,8 +21,8 @@ namespace ScorpionEngine.Objects
         /// <param name="textureName">The textureName of the game object.</param>
         /// <param name="polyVertices">Optional parameter: The vertices that make up the shape of the game object for the internal physics engine.  If left null, then a default rectanglular 
         /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
-        public ControllableObject(IKeyboard keyboard, string textureName = "", Vector[] polyVertices = null)
-            : base(textureName, polyVertices)
+        public ControllableObject(Vector[] polyVertices, IKeyboard keyboard)
+            : base(polyVertices)
         {
             CreateKeyBehaviors(keyboard);
         }
@@ -35,71 +35,8 @@ namespace ScorpionEngine.Objects
         /// <param name="location">Sets the location of the game object in the game world.</param>
         /// <param name="polyVertices">Optional parameter: The vertices that make up the shape of the game object for the internal physics engine.  If left null, then a default rectanglular 
         /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
-        public ControllableObject(IKeyboard keyboard, Vector location, string textureName, Vector[] polyVertices = null)
-            : base(location, textureName, polyVertices)
-        {
-            CreateKeyBehaviors(keyboard);
-        }
-
-
-        /// <summary>
-        /// Creates a new instance of an game object.
-        /// </summary>
-        /// <param name="textureName">The textureName of the game object.</param>
-        /// <param name="location">Sets the location of the game object in the game world.</param>
-        /// <param name="speed">Sets the velocity of the game object.</param>
-        /// <param name="polyVertices">Optional parameter: The vertices that make up the shape of the game object for the internal physics engine.  If left null, then a default rectanglular 
-        /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
-        public ControllableObject(IKeyboard keyboard, Vector location, Vector speed, string textureName, Vector[] polyVertices = null)
-            : base(location, speed, textureName, polyVertices)
-        {
-            CreateKeyBehaviors(keyboard);
-        }
-
-
-        /// <summary>
-        /// Creates a new instance of an game object.
-        /// </summary>
-        /// <param name="textureAtlasName">The name of the texture to load.</param>
-        /// <param name="atlasDataName">The name of the atlas data to load.</param>
-        /// <param name="subTextureID">The name of the sub texture in the atlas texture to render.</param> 
-        /// <param name="polyVertices">Optional parameter: The vertices that make up the shape of the game object for the internal physics engine.  If left null, then a default rectanglular 
-        /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
-        public ControllableObject(IKeyboard keyboard, string textureAtlasName, string atlasDataName, string subTextureID, Vector[] polyVertices = null)
-            :base(textureAtlasName, atlasDataName, subTextureID, polyVertices)
-        {
-            CreateKeyBehaviors(keyboard);
-        }
-
-
-        /// <summary>
-        /// Creates a new instance of an game object.
-        /// </summary>
-        /// <param name="textureAtlasName">The name of the texture to load.</param>
-        /// <param name="atlasDataName">The name of the atlas data to load.</param>
-        /// <param name="subTextureID">The name of the sub texture in the atlas texture to render.</param>
-        /// <param name="location">Sets the location of the game object in the game world.</param>
-        /// <param name="polyVertices">Optional parameter: The vertices that make up the shape of the game object for the internal physics engine.  If left null, then a default rectanglular 
-        /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
-        public ControllableObject(IKeyboard keyboard, Vector location, string textureAtlasName, string atlasDataName, string subTextureID, Vector[] polyVertices = null)
-            : base(location, textureAtlasName, atlasDataName, subTextureID, polyVertices)
-        {
-            CreateKeyBehaviors(keyboard);
-        }
-
-
-        /// <summary>
-        /// Creates a new instance of an game object.
-        /// </summary>
-        /// <param name="textureAtlasName">The name of the texture to load.</param>
-        /// <param name="atlasDataName">The name of the atlas data to load.</param>
-        /// <param name="subTextureID">The name of the sub texture in the atlas texture to render.</param>
-        /// <param name="location">Sets the location of the game object in the game world.</param>
-        /// <param name="velocity">Sets the velocity of the game object.</param>
-        /// <param name="polyVertices">Optional parameter: The vertices that make up the shape of the game object for the internal physics engine.  If left null, then a default rectanglular 
-        /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
-        public ControllableObject(IKeyboard keyboard, Vector location, Vector velocity, string textureAtlasName, string atlasDataName, string subTextureID, Vector[] polyVertices = null)
-            : base(location, velocity, textureAtlasName, atlasDataName, subTextureID, polyVertices)
+        public ControllableObject(Vector[] polyVertices, Vector location, IKeyboard keyboard)
+            : base(polyVertices, location)
         {
             CreateKeyBehaviors(keyboard);
         }

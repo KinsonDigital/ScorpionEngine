@@ -43,9 +43,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestGame.cs" />
-    <Compile Include="Utils\DebugDraw.cs" />
-    <Compile Include="Utils\DebugFont.cs" />
-    <Compile Include="Utils\Tools.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -86,9 +83,13 @@
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MonoDriver\MonoDriver.csproj">
+    <ProjectReference Include="..\..\MonoEngineDriver\MonoEngineDriver.csproj">
       <Project>{ace87e11-8fac-4caa-bf5a-a237fe88bb9e}</Project>
-      <Name>MonoDriver</Name>
+      <Name>MonoEngineDriver</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\VelcroPhysicsDriver\VelcroPhysicsDriver.csproj">
+      <Project>{f60b40e1-4239-4329-9825-11925d349f7e}</Project>
+      <Name>VelcroPhysicsDriver</Name>
     </ProjectReference>
     <ProjectReference Include="..\ScorpionEngine\ScorpionEngine.csproj">
       <Project>{91495c38-9695-4905-b5d9-0debb25e1a0f}</Project>

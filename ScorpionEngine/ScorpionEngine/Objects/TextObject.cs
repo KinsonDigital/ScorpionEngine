@@ -25,14 +25,12 @@ namespace ScorpionEngine.Objects
         /// <param name="font">The font of the text.</param>
         /// <param name="foreColor">The color of the text.</param>
         /// <param name="backColor">The color of the background behind the text.</param>
-        public TextObject(string text, SysFont font, SysColor foreColor, SysColor backColor) : base("")
+        public TextObject(string text, SysFont font, SysColor foreColor, SysColor backColor)
         {
             _text = text;
             _font = font;
             _foreColor = foreColor;
             _backColor = backColor;
-
-
         }
         #endregion
 

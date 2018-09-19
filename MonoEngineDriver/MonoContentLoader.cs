@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MonoDriver
+namespace MonoEngineDriver
 {
     public class MonoContentLoader : IContentLoader
     {
@@ -38,12 +38,6 @@ namespace MonoDriver
             ITexture newTexture;
 
             newTexture = new MonoTexture(MonoCoreDriver.DriverContent.Load<Texture2D>($@"Graphics\{textureName}"));
-
-            //using (var fileStream = File.OpenRead(fullPath))
-            //{
-            //    newTexture = new MonoTexture(Texture2D.FromStream(MonoCoreDriver.MonoGraphicsDevice, fileStream));
-            //}
-
 
             return newTexture as T;
         }

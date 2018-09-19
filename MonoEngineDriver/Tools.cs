@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 using ScorpionEngine;
 using ScorpionEngine.Input;
 
-namespace MonoDriver
+namespace MonoEngineDriver
 {
     /// <summary>
     /// Provides basic tools to make things easier internally in the engine.

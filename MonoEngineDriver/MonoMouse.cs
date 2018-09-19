@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Input;
 using ScorpionEngine;
 using ScorpionEngine.Input;
 
-namespace MonoDriver
+namespace MonoEngineDriver
 {
     public class MouseInput : IMouse
     {

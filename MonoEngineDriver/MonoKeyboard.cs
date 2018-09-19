@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using ScorpionEngine.Input;
 
-namespace MonoDriver
+namespace MonoEngineDriver
 {
     /// <summary>
     /// Used to check the keyboard for input.
