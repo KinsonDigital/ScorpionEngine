@@ -112,7 +112,7 @@
     <Content Include="Assemblies\sfmlnet-window-2.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MonoEngineDriver\MonoScorpPlugin.csproj">
+    <ProjectReference Include="..\..\MonoScorpPlugin\MonoScorpPlugin.csproj">
       <Project>{ace87e11-8fac-4caa-bf5a-a237fe88bb9e}</Project>
       <Name>MonoScorpPlugin</Name>
     </ProjectReference>

@@ -87,7 +87,7 @@
       <Project>{3E136A13-190C-4390-9E74-8849022852F6}</Project>
       <Name>ScorpionCore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\MonoEngineDriver\MonoScorpPlugin.csproj">
+    <ProjectReference Include="..\..\MonoScorpPlugin\MonoScorpPlugin.csproj">
       <Project>{ace87e11-8fac-4caa-bf5a-a237fe88bb9e}</Project>
       <Name>MonoScorpPlugin</Name>
     </ProjectReference>
@@ -109,7 +109,14 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Framework.WIndowsDX">
+      <Version>3.6.0.1625</Version>
+    </PackageReference>
+    <PackageReference Include="SharpDX.XInput">
+      <Version>4.2.0</Version>
+    </PackageReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(ProjectDir)Assemblies" "$(TargetDir)" /Y
