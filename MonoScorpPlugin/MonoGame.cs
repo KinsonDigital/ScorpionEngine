@@ -91,7 +91,7 @@ namespace MonoScorpPlugin
         /// </summary>
         protected override void Initialize()
         {
-            MonoGraphicsDevice = GraphicsDevice;
+            MonoRenderer.GraphicsDevice = GraphicsDevice;
             _graphicsDeviceManager.GraphicsDevice.BlendState = BlendState.AlphaBlend;
             _graphicsDeviceManager.ApplyChanges();
 

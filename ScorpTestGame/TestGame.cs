@@ -1,5 +1,6 @@
 ﻿using System;
 using MonoScorpPlugin;
+using ScorpionCore;
 using ScorpionEngine;
 using ScorpionEngine.Config;
 using ScorpionEngine.Content;
@@ -38,6 +39,12 @@ namespace ScorpTestGame
             base.LoadContent();
         }
 
+        public override void Render(IRenderer renderer)
+        {
+            renderer.Clear(100, 149, 237, 255);
+
+            base.Render(renderer);
+        }
 
         //TODO: Override update method
 

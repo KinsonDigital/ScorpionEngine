@@ -11,21 +11,23 @@ namespace MonoScorpPlugin
 {
     public class MonoRenderer : IRenderer
     {
-        private SpriteBatch _spriteBatch;
-        private GraphicsDevice _graphicsDevice;
-
-
-        public MonoRenderer(GraphicsDevice graphicsDevice)
-        {
-            _graphicsDevice = graphicsDevice;
-            _spriteBatch = new SpriteBatch(_graphicsDevice);
-        }
-
+        private static SpriteBatch _spriteBatch;
+        private static GraphicsDevice _graphicsDevice;
 
 
         public void Clear(byte red, byte green, byte blue, byte alpha)
         {
             _graphicsDevice.Clear(new Color(red, green, blue, alpha));
+        }
+
+
+        internal static GraphicsDevice GraphicsDevice
+        {
+            set
+            {
+                _graphicsDevice = value;
+                _spriteBatch = new SpriteBatch(value);
+            }
         }
 
 

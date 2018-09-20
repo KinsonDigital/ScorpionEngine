@@ -16,7 +16,6 @@ namespace ScorpionEngine
         private static IEngineCore _engineCore;
         private static int _prevElapsedTime;
         private IRenderer _renderer;
-        private IContentLoader _contentLoader;
         #endregion
 
 
@@ -26,7 +25,11 @@ namespace ScorpionEngine
         /// </summary>
         public Engine()
         {
-            //_engineCore = DriverLoader.Container.GetInstance<IEngineCore<IRenderer>>();
+            PluginLoader.Init();
+            ContentLoader = PluginLoader.GetContentLoader();
+            _renderer = PluginLoader.GetRenderer();
+
+            _engineCore = PluginLoader.GetEngineCore();
             _engineCore.SetFPS(60);
 
             //_engineCore.Content = DriverLoader.Container.GetInstance<IContentLoader>();
@@ -39,6 +42,8 @@ namespace ScorpionEngine
 
 
         #region Properties
+        public IContentLoader ContentLoader { get; set; }
+
         public IScene Scene { get; private set; }
 
         /// <summary>
@@ -174,7 +179,7 @@ namespace ScorpionEngine
 
         private void _engineCore_OnLoadContent(object sender, EventArgs e)
         {
-            Scene?.LoadContent(_contentLoader);
+            Scene?.LoadContent(ContentLoader);
             LoadContent();
         }
 

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScorpTestGame", "ScorpionEngine\ScorpTestGame\ScorpTestGame.csproj", "{9E3BA7EF-239D-442C-AA09-156D3D5D8109}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScorpTestGame", "ScorpTestGame\ScorpTestGame.csproj", "{9E3BA7EF-239D-442C-AA09-156D3D5D8109}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScorpionEngine", "ScorpionEngine\ScorpionEngine\ScorpionEngine.csproj", "{91495C38-9695-4905-B5D9-0DEBB25E1A0F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScorpionEngine", "ScorpionEngine\ScorpionEngine.csproj", "{91495C38-9695-4905-B5D9-0DEBB25E1A0F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoScorpPlugin", "MonoScorpPlugin\MonoScorpPlugin.csproj", "{ACE87E11-8FAC-4CAA-BF5A-A237FE88BB9E}"
 EndProject

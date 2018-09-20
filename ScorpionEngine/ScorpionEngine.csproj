@@ -32,17 +32,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="sfmlnet-audio-2, Version=2.1.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Assemblies\sfmlnet-audio-2.dll</HintPath>
-    </Reference>
-    <Reference Include="sfmlnet-graphics-2, Version=2.1.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Assemblies\sfmlnet-graphics-2.dll</HintPath>
-    </Reference>
-    <Reference Include="sfmlnet-window-2">
-      <HintPath>Assemblies\sfmlnet-window-2.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -54,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\DriverLoader.cs" />
+    <Compile Include="Config\PluginLoader.cs" />
     <Compile Include="Content\AtlasData.cs" />
     <Compile Include="Content\AtlasManager.cs" />
     <Compile Include="Content\AtlasSpriteData.cs" />
@@ -107,16 +96,11 @@
     <Compile Include="Utils\Tools.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assemblies\sfmlnet-audio-2.dll" />
-    <Content Include="Assemblies\sfmlnet-graphics-2.dll" />
-    <Content Include="Assemblies\sfmlnet-window-2.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\MonoScorpPlugin\MonoScorpPlugin.csproj">
+    <ProjectReference Include="..\MonoScorpPlugin\MonoScorpPlugin.csproj">
       <Project>{ace87e11-8fac-4caa-bf5a-a237fe88bb9e}</Project>
       <Name>MonoScorpPlugin</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ScorpionCore\ScorpionCore.csproj">
+    <ProjectReference Include="..\ScorpionCore\ScorpionCore.csproj">
       <Project>{3e136a13-190c-4390-9e74-8849022852f6}</Project>
       <Name>ScorpionCore</Name>
     </ProjectReference>

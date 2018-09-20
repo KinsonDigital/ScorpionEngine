@@ -48,8 +48,6 @@ namespace MonoScorpPlugin
                 //TODO: Look into if this should change the window width
             }
         }
-
-        public IContentLoader Content { get; set; }
         #endregion
 
 

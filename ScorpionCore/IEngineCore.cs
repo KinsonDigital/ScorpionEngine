@@ -15,8 +15,6 @@ namespace ScorpionCore
         int WindowWidth { get; set; }
 
         int WindowHeight { get; set; }
-
-        IContentLoader Content { get; set; }
         #endregion
 
 
