@@ -1,10 +1,5 @@
-﻿using ScorpionEngine;
-using ScorpionEngine.Physics;
+﻿using ScorpionCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VelcroPhysics.Collision.Shapes;
 using VelcroPhysics.Dynamics;
 using VelcroPhysics.Factories;

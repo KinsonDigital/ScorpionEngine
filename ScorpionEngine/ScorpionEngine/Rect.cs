@@ -1,4 +1,6 @@
-﻿namespace ScorpionEngine
+﻿using ScorpionCore;
+
+namespace ScorpionEngine
 {
     /// <summary>
     /// Creates a new rectangle.

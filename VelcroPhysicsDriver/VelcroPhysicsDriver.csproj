@@ -53,9 +53,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\ScorpionEngine\ScorpionEngine\ScorpionEngine.csproj">
-      <Project>{91495c38-9695-4905-b5d9-0debb25e1a0f}</Project>
-      <Name>ScorpionEngine</Name>
+    <ProjectReference Include="..\ScorpionCore\ScorpionCore.csproj">
+      <Project>{3e136a13-190c-4390-9e74-8849022852f6}</Project>
+      <Name>ScorpionCore</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

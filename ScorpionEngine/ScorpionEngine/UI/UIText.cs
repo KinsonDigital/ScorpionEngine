@@ -1,5 +1,5 @@
-﻿using ScorpionEngine.Content;
-using ScorpionEngine.Core;
+﻿using ScorpionCore;
+using ScorpionEngine.Content;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

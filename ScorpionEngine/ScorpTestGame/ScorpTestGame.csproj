@@ -83,9 +83,13 @@
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MonoEngineDriver\MonoEngineDriver.csproj">
+    <ProjectReference Include="..\..\ScorpionCore\ScorpionCore.csproj">
+      <Project>{3E136A13-190C-4390-9E74-8849022852F6}</Project>
+      <Name>ScorpionCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MonoEngineDriver\MonoScorpPlugin.csproj">
       <Project>{ace87e11-8fac-4caa-bf5a-a237fe88bb9e}</Project>
-      <Name>MonoEngineDriver</Name>
+      <Name>MonoScorpPlugin</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\VelcroPhysicsDriver\VelcroPhysicsDriver.csproj">
       <Project>{f60b40e1-4239-4329-9825-11925d349f7e}</Project>

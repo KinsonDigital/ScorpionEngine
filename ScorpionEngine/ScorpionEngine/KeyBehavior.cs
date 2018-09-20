@@ -1,5 +1,5 @@
 ﻿using System;
-using ScorpionEngine.Core;
+using ScorpionCore;
 using ScorpionEngine.Input;
 
 namespace ScorpionEngine

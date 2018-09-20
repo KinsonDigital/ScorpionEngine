@@ -1,8 +1,8 @@
 ﻿using System;
-using MonoEngineDriver;
+using MonoScorpPlugin;
 using ScorpionEngine;
+using ScorpionEngine.Config;
 using ScorpionEngine.Content;
-using ScorpionEngine.Core;
 using ScorpionEngine.Scene;
 using ScorpTestGame.Scenes;
 
@@ -13,9 +13,6 @@ namespace ScorpTestGame
     /// </summary>
     public class TestGame : Engine
     {
-        private IEngineCore _engineCore;
-        private IScene _mainScene;
-        private IContentLoader _contentLoader;
         private SceneManager _sceneManager;
 
 
@@ -24,18 +21,6 @@ namespace ScorpTestGame
         /// </summary>
         public TestGame()
         {
-            _contentLoader = new MonoContentLoader();
-            var keyboard = new MonoKeyboard();
-
-            _sceneManager = new SceneManager(_contentLoader, keyboard);
-
-            _mainScene = new MainScene();
-            _sceneManager.AddScene(_mainScene);
-
-            _engineCore = new MonoEngineCore(_mainScene);
-
-            SetEngineCore(_engineCore, _contentLoader);
-
             //Do not set the world in here.  The world has to be set in the OnInit() method so that way
             //the graphics device has been created.  The graphics device will not be created until the
             //engine has started up.
@@ -54,17 +39,9 @@ namespace ScorpTestGame
         }
 
 
-        public override void Update(IEngineTiming engineTime)
-        {
-            base.Update(engineTime);
-        }
+        //TODO: Override update method
 
-
-        public override void Render()
-        {
-            base.Render();
-        }
-
+        //TODO: Override render method
 
         //TODO: Another override should go here for unload content
         //This would come from Engine and then from there from IEngineCore

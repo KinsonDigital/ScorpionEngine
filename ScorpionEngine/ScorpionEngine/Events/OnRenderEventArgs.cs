@@ -1,4 +1,5 @@
-﻿using ScorpionEngine.Content;
+﻿using ScorpionCore;
+using ScorpionEngine.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,20 +8,20 @@ using System.Threading.Tasks;
 
 namespace ScorpionEngine.Events
 {
-    public class OnRenderEventArgs<RenderType, TextureType> : EventArgs where RenderType : IRenderer
+    public class OnRenderEventArgs : EventArgs
     {
         #region Constructor
         /// <summary>
         /// Creates a new instance of OnEntityMovedEventArgs.
         /// </summary>
         /// <param name="renderer">The renderer drawing the graphics.</param>
-        public OnRenderEventArgs(RenderType renderer)
+        public OnRenderEventArgs(IRenderer renderer)
         {
             Renderer = renderer;
         }
         #endregion
 
 
-        public RenderType Renderer { get; set; }
+        public IRenderer Renderer { get; set; }
     }
 }

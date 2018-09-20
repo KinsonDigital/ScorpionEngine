@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ScorpionCore;
 using ScorpionEngine.Content;
-using ScorpionEngine.Core;
 using ScorpionEngine.Input;
-using ScorpionEngine.Physics;
 
 namespace ScorpionEngine.Objects
 {

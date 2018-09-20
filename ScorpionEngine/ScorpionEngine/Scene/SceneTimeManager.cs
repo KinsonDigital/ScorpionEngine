@@ -1,4 +1,4 @@
-﻿using ScorpionEngine.Core;
+﻿using ScorpionCore;
 using ScorpionEngine.Events;
 using System;
 using System.Collections.Generic;

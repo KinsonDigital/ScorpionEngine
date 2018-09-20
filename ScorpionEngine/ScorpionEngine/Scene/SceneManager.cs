@@ -1,5 +1,5 @@
-﻿using ScorpionEngine.Content;
-using ScorpionEngine.Core;
+﻿using ScorpionCore;
+using ScorpionEngine.Content;
 using ScorpionEngine.EventArguments;
 using ScorpionEngine.Exceptions;
 using ScorpionEngine.Input;

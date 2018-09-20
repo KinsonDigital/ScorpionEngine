@@ -2,7 +2,8 @@
 using ScorpionEngine.Content;
 using ScorpionEngine.Events;
 using ScorpionEngine.GameSound;
-using ScorpionEngine.Core;
+using ScorpionEngine.Config;
+using ScorpionCore;
 
 namespace ScorpionEngine
 {
@@ -13,8 +14,9 @@ namespace ScorpionEngine
     {
         #region Fields
         private static IEngineCore _engineCore;
-        //private static int _framesPreSecondToMaintain = 60;//The set elapsed time for the engine to run at.  This is 60fps
-        public static int _prevElapsedTime;
+        private static int _prevElapsedTime;
+        private IRenderer _renderer;
+        private IContentLoader _contentLoader;
         #endregion
 
 
@@ -24,11 +26,21 @@ namespace ScorpionEngine
         /// </summary>
         public Engine()
         {
+            //_engineCore = DriverLoader.Container.GetInstance<IEngineCore<IRenderer>>();
+            _engineCore.SetFPS(60);
+
+            //_engineCore.Content = DriverLoader.Container.GetInstance<IContentLoader>();
+            _engineCore.OnInitialize += _engineCore_OnInitialize;
+            _engineCore.OnLoadContent += _engineCore_OnLoadContent;
+            _engineCore.OnUpdate += _engineCore_OnUpdate;
+            _engineCore.OnRender += _engineCore_OnRender;
         }
         #endregion
 
 
         #region Properties
+        public IScene Scene { get; private set; }
+
         /// <summary>
         /// Gets a value indicating that the game engine is currently running.
         /// </summary>
@@ -63,17 +75,6 @@ namespace ScorpionEngine
 
 
         #region Public Methods
-        //TODO: Add method docs
-        public void SetEngineCore(IEngineCore engineCore, IContentLoader contentLoader)
-        {
-            _engineCore = engineCore;
-
-            _engineCore.SetFPS(60);
-
-            _engineCore.Content = contentLoader;
-        }
-
-
         /// <summary>
         /// Starts the game engine.
         /// </summary>
@@ -123,7 +124,7 @@ namespace ScorpionEngine
         /// <summary>
         /// Draws the game world.
         /// </summary>
-        public  virtual void Render()
+        public virtual void Render(IRenderer renderer)
         {
 
         }
@@ -135,28 +136,6 @@ namespace ScorpionEngine
         public void Stop()
         {
             Running = false;
-        }
-
-
-        /// <summary>
-        /// Loads a song with the given name.
-        /// </summary>
-        /// <param name="songName">The name of the song to load.</param>
-        /// <returns></returns>
-        public static Song LoadSong(string songName)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        /// <summary>
-        /// Loads a sound effect with the given name.
-        /// </summary>
-        /// <param name="effectName">The name of the sound effect.</param>
-        /// <returns></returns>
-        public static SoundEffect LoadSoundEffect(string effectName)
-        {
-            throw new NotImplementedException();
         }
 
 
@@ -186,30 +165,29 @@ namespace ScorpionEngine
 
 
         #region Private Methods
-        /// <summary>
-        /// Calculates a new vector that is relative to the given source vector from the given destination vector.
-        /// </summary>
-        /// <param name="src">The source vector to set the destination vector relative to.</param>
-        /// <param name="objToAdjust">The destination vector that will be relative to the source vector.</param>
-        /// <returns></returns>
-        private static Vector CalcRelativeVector(Vector src, Vector objToAdjust)
+        private void _engineCore_OnInitialize(object sender, EventArgs e)
         {
-            objToAdjust = new Vector(src.X + objToAdjust.X, objToAdjust.Y);
-            objToAdjust = new Vector(objToAdjust.X, src.Y + objToAdjust.Y);
-
-            return objToAdjust;
+            Scene?.Initialize();
+            Init();
         }
 
 
-        private void SetupDebugView()
+        private void _engineCore_OnLoadContent(object sender, EventArgs e)
         {
-//            if (World.PhysicsWorld == null || _debugView != null) return;
-//
-//            // create and configure the debug view
-//            _debugView = new DebugViewXNA(World.PhysicsWorld);
-//            _debugView.DefaultShapeColor = MonoColor.White;
-//            _debugView.SleepingShapeColor = MonoColor.LightGray;
-//            _debugView.LoadContent(_graphicsDeviceManager.GraphicsDevice, _engineCore.Content);
+            Scene?.LoadContent(_contentLoader);
+            LoadContent();
+        }
+
+
+        private void _engineCore_OnUpdate(object sender, OnUpdateEventArgs e)
+        {
+            Update(e.EngineTime);
+        }
+
+
+        private void _engineCore_OnRender(object sender, EventArgs e)
+        {
+            Render(_renderer);
         }
         #endregion
     }

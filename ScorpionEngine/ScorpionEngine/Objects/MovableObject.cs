@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using ScorpionCore;
 using ScorpionEngine.Content;
-using ScorpionEngine.Core;
+
 using ScorpionEngine.Events;
 using ScorpionEngine.Utils;
 

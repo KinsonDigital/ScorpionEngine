@@ -1,4 +1,5 @@
-﻿using ScorpionEngine.Core;
+﻿
+using ScorpionCore;
 using System.Collections.Generic;
 
 namespace ScorpionEngine.Objects

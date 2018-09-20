@@ -1,4 +1,6 @@
-﻿namespace ScorpionEngine.Input
+﻿using ScorpionCore;
+
+namespace ScorpionEngine.Input
 {
     /// <summary>
     /// Represents the state of the mouse.
