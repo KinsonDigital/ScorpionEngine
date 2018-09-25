@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScorpionCore
+namespace ScorpionCore.Plugins
 {
-    public interface IKeyboard
+    public interface IKeyboard : IPlugin
     {
         /// <summary>
         /// Update the current state of the keyboard.
@@ -24,7 +24,7 @@ namespace ScorpionCore
         /// Returns true if any keys have been pressed.  This means a key was first put into the down position, then released to the up position.
         /// </summary>
         /// <returns></returns>
-        bool IsAnyKeysPressed();
+        bool AreAnyKeysPressed();
 
 
         /// <summary>
@@ -50,11 +50,13 @@ namespace ScorpionCore
         /// <returns></returns>
         bool IsKeyPressed(InputKeys key);
 
+
         /// <summary>
         /// Returns all of the currently pressed keys on the keyboard.
         /// </summary>
         /// <returns></returns>
         InputKeys[] GetCurrentPressedKeys();
+
 
         /// <summary>
         /// Returns all of the previously pressed keys from the last frame.

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScorpionCore
+namespace ScorpionCore.Plugins
 {
-    public interface IContentLoader
+    public interface IContentLoader : IPlugin
     {
         /// <summary>
         /// Gets the path to the executable game.

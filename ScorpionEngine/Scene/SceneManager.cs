@@ -1,4 +1,5 @@
 ﻿using ScorpionCore;
+using ScorpionCore.Plugins;
 using ScorpionEngine.Content;
 using ScorpionEngine.EventArguments;
 using ScorpionEngine.Exceptions;
@@ -24,17 +25,17 @@ namespace ScorpionEngine.Scene
         #region Private Vars
         private IContentLoader _contentLoader;
         private Dictionary<int, IScene> _scenes = new Dictionary<int, IScene>();//The list of scenes
-        private IKeyboard _keyboard;
+        private Keyboard _keyboard;
         private int _currentSceneId = -1;//The currently enabled scene ID.  This is the scene that is currently active and rendering/updating
         #endregion
 
-
+        //TODO: Look into possibly adding the keyboard internally instead of injecting it via the constructor
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="SceneManager"/>.
         /// <paramref name="contentLoader">The content manager user to load and unload content.</paramref>
         /// </summary>
-        public SceneManager(IContentLoader contentLoader, IKeyboard keyboard)
+        public SceneManager(IContentLoader contentLoader, Keyboard keyboard)
         {
             _contentLoader = contentLoader;
             _keyboard = keyboard;

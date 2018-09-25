@@ -1,6 +1,6 @@
 ﻿//using SFML.Audio;
 
-namespace ScorpionEngine.GameSound
+namespace ScorpionEngine.Sound
 {
     /// <summary>
     /// A short sound effect that can be played for simple sounds such as shooting weapons or footsetps.

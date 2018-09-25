@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using ScorpionCore.Plugins;
 
 namespace MonoScorpPlugin
 {
@@ -38,7 +39,7 @@ namespace MonoScorpPlugin
         public MonoGame()
         {
             _graphicsDeviceManager = new GraphicsDeviceManager(this);
-            
+
             Content.RootDirectory = "Content";
             DriverContent = Content;
         }
@@ -71,7 +72,6 @@ namespace MonoScorpPlugin
 
 
         #region Public Methods
-
         public void Start()
         {
             Run(GameRunBehavior.Synchronous);
@@ -91,7 +91,6 @@ namespace MonoScorpPlugin
         /// </summary>
         protected override void Initialize()
         {
-            MonoRenderer.GraphicsDevice = GraphicsDevice;
             _graphicsDeviceManager.GraphicsDevice.BlendState = BlendState.AlphaBlend;
             _graphicsDeviceManager.ApplyChanges();
 

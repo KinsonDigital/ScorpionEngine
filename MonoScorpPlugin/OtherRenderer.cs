@@ -1,17 +1,16 @@
-﻿using SysColor = System.Drawing.Color;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ScorpionCore;
+using ScorpionCore.Plugins;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ScorpionCore;
-using ScorpionCore.Plugins;
-using System;
 
 namespace MonoScorpPlugin
 {
-    public class MonoRenderer : IRenderer
+    public class OtherRenderer : IRenderer
     {
         private static SpriteBatch _spriteBatch;
         //This will treated as a MonoGame graphics device.
@@ -24,11 +23,21 @@ namespace MonoScorpPlugin
         }
 
 
+        internal static GraphicsDevice GraphicsDevice
+        {
+            set
+            {
+                _graphicsDevice = value;
+                _spriteBatch = new SpriteBatch(value);
+            }
+        }
+
+
         public void Render(ITexture texture, float x, float y)
         {
             _spriteBatch.Begin();
 
-            _spriteBatch.Draw(texture.GetTexture<Texture2D>(), new Vector2(x, y), Color.White);
+            _spriteBatch.Draw(texture.GetTexture<Texture2D>(), new Vector2(x, y), Color.Red);
 
             _spriteBatch.End();
         }
@@ -46,17 +55,17 @@ namespace MonoScorpPlugin
         }
 
 
-        public T GetData<T>() where T : class
-        {
-            return _graphicsDevice as T;
-        }
-
-
         public void InjectData<T>(T data) where T : class
         {
             _graphicsDevice = data;
 
             _spriteBatch = new SpriteBatch(_graphicsDevice as GraphicsDevice);
+        }
+
+
+        public T GetData<T>() where T : class
+        {
+            return _graphicsDevice as T;
         }
     }
 }

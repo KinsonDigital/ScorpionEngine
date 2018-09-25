@@ -1,4 +1,4 @@
-﻿namespace ScorpionCore
+﻿namespace ScorpionCore.Plugins
 {
     public interface IMouse
     {

@@ -1,6 +1,6 @@
 ﻿//using SFML.Audio;
 
-namespace ScorpionEngine.GameSound
+namespace ScorpionEngine.Sound
 {
     /// <summary>
     /// Represents a song that can play by method of streaming from music files.

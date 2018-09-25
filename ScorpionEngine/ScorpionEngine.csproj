@@ -61,7 +61,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\PluginLoader.cs" />
     <Compile Include="Content\AtlasData.cs" />
     <Compile Include="Content\AtlasManager.cs" />
     <Compile Include="Content\AtlasSpriteData.cs" />
@@ -77,6 +76,9 @@
     <Compile Include="Exceptions\IDAlreadyExistsException.cs" />
     <Compile Include="Exceptions\IdNotFoundException.cs" />
     <Compile Include="Exceptions\NameNotFoundException.cs" />
+    <Compile Include="Graphics\Texture.cs" />
+    <Compile Include="Input\Keyboard.cs" />
+    <Compile Include="Input\Mouse.cs" />
     <Compile Include="Scene\GameScene.cs" />
     <Compile Include="Scene\SceneManager.cs" />
     <Compile Include="Scene\SceneTimeManager.cs" />
@@ -87,8 +89,8 @@
     <Compile Include="Engine.cs" />
     <Compile Include="Events\OnMovedEventArgs.cs" />
     <Compile Include="Events\OutOfBoundsTriggerEventsArgs.cs" />
-    <Compile Include="GameSound\Song.cs" />
-    <Compile Include="GameSound\SoundEffect.cs" />
+    <Compile Include="Sound\Song.cs" />
+    <Compile Include="Sound\SoundEffect.cs" />
     <Compile Include="Input\InputWatcher.cs" />
     <Compile Include="Input\KeyboardWatcher.cs" />
     <Compile Include="Input\KeyEventArgs.cs" />
@@ -114,10 +116,6 @@
     <Compile Include="Utils\Tools.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MonoScorpPlugin\MonoScorpPlugin.csproj">
-      <Project>{ace87e11-8fac-4caa-bf5a-a237fe88bb9e}</Project>
-      <Name>MonoScorpPlugin</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ScorpionCore\ScorpionCore.csproj">
       <Project>{3e136a13-190c-4390-9e74-8849022852f6}</Project>
       <Name>ScorpionCore</Name>

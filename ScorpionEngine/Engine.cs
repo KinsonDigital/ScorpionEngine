@@ -1,12 +1,17 @@
 ﻿using System;
 using ScorpionEngine.Content;
 using ScorpionEngine.Events;
-using ScorpionEngine.GameSound;
-using ScorpionEngine.Config;
+using ScorpionEngine.Sound;
 using ScorpionCore;
+using ScorpionCore.Plugins;
 
 namespace ScorpionEngine
 {
+    public interface IWrongPlugin
+    {
+
+    }
+
     /// <summary>
     /// Drives and manages the game.
     /// </summary>
@@ -15,8 +20,8 @@ namespace ScorpionEngine
         #region Fields
         private static IEngineCore _engineCore;
         private static int _prevElapsedTime;
-        private IRenderer _renderer;
         #endregion
+
 
 
         #region Constructors
@@ -25,11 +30,12 @@ namespace ScorpionEngine
         /// </summary>
         public Engine()
         {
-            PluginLoader.Init();
-            ContentLoader = PluginLoader.GetContentLoader();
-            _renderer = PluginLoader.GetRenderer();
+            PluginLoader.LoadPlugin("MonoScorpPlugin");
 
-            _engineCore = PluginLoader.GetEngineCore();
+            //TODO: FUlly test out the methods in PluginLoader
+            ContentLoader = new ContentLoader(PluginLoader.GetPluginByType<IContentLoader>());
+            _engineCore = PluginLoader.GetPluginByType<IEngineCore>();
+
             _engineCore.SetFPS(60);
 
             //_engineCore.Content = DriverLoader.Container.GetInstance<IContentLoader>();
@@ -42,7 +48,7 @@ namespace ScorpionEngine
 
 
         #region Properties
-        public IContentLoader ContentLoader { get; set; }
+        public ContentLoader ContentLoader { get; set; }
 
         public IScene Scene { get; private set; }
 
@@ -94,6 +100,12 @@ namespace ScorpionEngine
         }
 
 
+        public void Stop()
+        {
+            _engineCore.Stop();
+        }
+
+
         /// <summary>
         /// Initializes the engine.
         /// </summary>
@@ -105,7 +117,7 @@ namespace ScorpionEngine
         /// <summary>
         /// Loads all of the content.
         /// </summary>
-        public virtual void LoadContent()
+        public virtual void LoadContent(ContentLoader contentLoader)
         {
         }
 
@@ -134,15 +146,6 @@ namespace ScorpionEngine
 
         }
         
-
-        /// <summary>
-        /// Stops the game engine.
-        /// </summary>
-        public void Stop()
-        {
-            Running = false;
-        }
-
 
         /// <summary>
         /// Disposes of the engine.
@@ -180,7 +183,7 @@ namespace ScorpionEngine
         private void _engineCore_OnLoadContent(object sender, EventArgs e)
         {
             Scene?.LoadContent(ContentLoader);
-            LoadContent();
+            LoadContent(ContentLoader);
         }
 
 
@@ -192,7 +195,7 @@ namespace ScorpionEngine
 
         private void _engineCore_OnRender(object sender, EventArgs e)
         {
-            Render(_renderer);
+            Render(_engineCore.Renderer);
         }
         #endregion
     }

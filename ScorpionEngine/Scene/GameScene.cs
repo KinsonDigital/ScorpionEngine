@@ -1,4 +1,5 @@
 ﻿using ScorpionCore;
+using ScorpionCore.Plugins;
 using ScorpionEngine.Content;
 
 namespace ScorpionEngine.Scene

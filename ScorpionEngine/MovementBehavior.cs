@@ -1,6 +1,7 @@
 ﻿using ScorpionEngine.Objects;
 using ScorpionEngine.Input;
 using ScorpionCore;
+using ScorpionCore.Plugins;
 
 namespace ScorpionEngine
 {
@@ -21,13 +22,13 @@ namespace ScorpionEngine
         private MovableObject _gameObject;
         #endregion
 
-
+        //TODO: Look into possibly adding the keyboard internally instead of injecting it via the constructor
         #region Constructors
         /// <summary>
         /// Creates an instance of MovementBehavior.
         /// </summary>
         /// <param name="obj">The game object to perform the movement behavior on.</param>
-        public MovementBehavior(IKeyboard keyboard, MovableObject obj)
+        public MovementBehavior(Keyboard keyboard, MovableObject obj)
         {
             CreateBehaviors(keyboard);
 
@@ -126,7 +127,7 @@ namespace ScorpionEngine
 
 
         #region Private Methods
-        private void CreateBehaviors(IKeyboard keyboard)
+        private void CreateBehaviors(Keyboard keyboard)
         {
             _moveRightKeyOnPress = new KeyBehavior(keyboard, InputKeys.Right, true);
             _moveLeftKeyOnPress = new KeyBehavior(keyboard, InputKeys.Left, true);

@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using ScorpionCore;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ScorpionCore.Plugins;
 
 namespace MonoScorpPlugin
 {
     public class MonoEngineCore : IEngineCore
     {
         private MonoGame _monoGame;
+        private IRenderer _renderer;
 
         public event EventHandler<OnUpdateEventArgs> OnUpdate;
         public event EventHandler<EventArgs> OnRender;
@@ -22,6 +24,9 @@ namespace MonoScorpPlugin
         public MonoEngineCore()
         {
             _monoGame = new MonoGame();
+
+            //Load the injecter plugin
+            _renderer = PluginLoader.GetPluginByType<IRenderer>();
 
             _monoGame.OnInitialize += _monoGame_OnInitialize;
             _monoGame.OnLoadContent += _monoGame_OnLoadContent;
@@ -48,6 +53,12 @@ namespace MonoScorpPlugin
                 //TODO: Look into if this should change the window width
             }
         }
+
+        public IRenderer Renderer
+        {
+            get => _renderer;
+            set { throw new Exception("This property setter has been purposly setup to not be used."); }
+        }
         #endregion
 
 
@@ -55,6 +66,13 @@ namespace MonoScorpPlugin
         public void Start()
         {
             _monoGame.Start();
+        }
+
+
+        public void Stop()
+        {
+            _monoGame.Dispose();
+            _monoGame.Exit();
         }
 
 
@@ -73,6 +91,9 @@ namespace MonoScorpPlugin
         #region Private Methods
         private void _monoGame_OnInitialize(object sender, EventArgs e)
         {
+            //Inject the graphics device into the renderer
+            _renderer.InjectData(_monoGame.GraphicsDevice);
+
             OnInitialize?.Invoke(sender, e);
         }
 
@@ -94,6 +115,16 @@ namespace MonoScorpPlugin
         private void _monoGame_OnRender(object sender, EventArgs e)
         {
             OnRender?.Invoke(sender, e);
+        }
+
+        public void InjectData<T>(T data) where T : class
+        {
+            throw new NotImplementedException();
+        }
+
+        public T GetData<T>() where T : class
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

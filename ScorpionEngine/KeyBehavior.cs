@@ -1,5 +1,6 @@
 ﻿using System;
 using ScorpionCore;
+using ScorpionCore.Plugins;
 using ScorpionEngine.Input;
 
 namespace ScorpionEngine
@@ -24,7 +25,7 @@ namespace ScorpionEngine
 
         #region Fields
         private int _timeElapsed = 1000;//The engineTime elapsed since last frame
-        private IKeyboard _keyboard;
+        private Keyboard _keyboard;
         #endregion
 
 
@@ -33,7 +34,7 @@ namespace ScorpionEngine
         /// Creates a new key behavior.
         /// </summary>
         /// <param name="enabled">Set to true to enable the behavior.</param>
-        public KeyBehavior(IKeyboard keyboard, bool enabled = false)
+        public KeyBehavior(Keyboard keyboard, bool enabled = false)
         {
             _keyboard = keyboard;
 
@@ -47,7 +48,7 @@ namespace ScorpionEngine
         /// </summary>
         /// <param name="key">The assigned keyboard key of the behavior.</param>
         /// <param name="enabled">Set to true to enable the behavior.</param>
-        public KeyBehavior(IKeyboard keyboard, InputKeys key, bool enabled = false)
+        public KeyBehavior(Keyboard keyboard, InputKeys key, bool enabled = false)
         {
             _keyboard = keyboard;
             Key = key;

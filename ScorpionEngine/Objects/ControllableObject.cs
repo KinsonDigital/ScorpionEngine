@@ -1,5 +1,5 @@
 ﻿using ScorpionCore;
-
+using ScorpionCore.Plugins;
 using ScorpionEngine.Input;
 
 namespace ScorpionEngine.Objects
@@ -15,6 +15,7 @@ namespace ScorpionEngine.Objects
         #endregion
 
 
+        //TODO: Look into possibly adding the keyboard internally instead of injecting it via the constructor
         #region Constructors
         /// <summary>
         /// Creates a new instance of an game object.
@@ -22,7 +23,7 @@ namespace ScorpionEngine.Objects
         /// <param name="textureName">The textureName of the game object.</param>
         /// <param name="polyVertices">Optional parameter: The vertices that make up the shape of the game object for the internal physics engine.  If left null, then a default rectanglular 
         /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
-        public ControllableObject(Vector[] polyVertices, IKeyboard keyboard)
+        public ControllableObject(Vector[] polyVertices, Keyboard keyboard)
             : base(polyVertices)
         {
             CreateKeyBehaviors(keyboard);
@@ -36,7 +37,7 @@ namespace ScorpionEngine.Objects
         /// <param name="location">Sets the location of the game object in the game world.</param>
         /// <param name="polyVertices">Optional parameter: The vertices that make up the shape of the game object for the internal physics engine.  If left null, then a default rectanglular 
         /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
-        public ControllableObject(Vector[] polyVertices, Vector location, IKeyboard keyboard)
+        public ControllableObject(Vector[] polyVertices, Vector location, Keyboard keyboard)
             : base(polyVertices, location)
         {
             CreateKeyBehaviors(keyboard);
@@ -237,7 +238,7 @@ namespace ScorpionEngine.Objects
         /// <summary>
         /// Creates all of the key behaviors.
         /// </summary>
-        private void CreateKeyBehaviors(IKeyboard keyboard)
+        private void CreateKeyBehaviors(Keyboard keyboard)
         {
             MoveRightKey = new KeyBehavior(keyboard, InputKeys.Right);
             MoveLeftKey = new KeyBehavior(keyboard, InputKeys.Left);

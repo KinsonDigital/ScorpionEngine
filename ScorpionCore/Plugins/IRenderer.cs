@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Drawing;
 
-namespace ScorpionCore
+namespace ScorpionCore.Plugins
 {
-    public interface IRenderer
+    public interface IRenderer : IPlugin
     {
         void Clear(byte red, byte green, byte blue, byte alpha);
 

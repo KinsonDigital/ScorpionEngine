@@ -1,4 +1,6 @@
 ﻿using ScorpionCore;
+using ScorpionCore.Plugins;
+using ScorpionEngine.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +13,9 @@ namespace ScorpionEngine.Content
     {
         IContentLoader _internalLoader;
 
-        public ContentLoader()
+        public ContentLoader(IContentLoader contentLoader)
         {
-
+            _internalLoader = contentLoader;
         }
 
 
@@ -26,6 +28,15 @@ namespace ScorpionEngine.Content
             set => _internalLoader.ContentRootDirectory = value;
         }
 
+        public T GetData<T>() where T : class
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InjectData<T>(T data) where T : class
+        {
+            throw new NotImplementedException();
+        }
 
         public T LoadText<T>(string name, string text) where T : class, IText
         {
@@ -33,9 +44,13 @@ namespace ScorpionEngine.Content
         }
 
 
-        public T LoadTexture<T>(string textureName) where T : class, ITexture
+        public T LoadTexture<T>(string textureName) where T: class, ITexture
         {
-            return _internalLoader.LoadTexture<T>(textureName);
+            var loadedTexture = _internalLoader.LoadTexture<ITexture>(textureName);
+            var result = new Texture(loadedTexture);
+
+
+            return result as T;
         }
     }
 }

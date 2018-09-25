@@ -2,7 +2,7 @@
 using System.IO;
 using System;
 using System.Xml;
-using ScorpionEngine.GameSound;
+using ScorpionEngine.Sound;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Drawing.Drawing2D;

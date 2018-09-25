@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ScorpionCore.Plugins;
 
 namespace MonoScorpPlugin
 {
@@ -33,11 +34,10 @@ namespace MonoScorpPlugin
 
         public T LoadTexture<T>(string textureName) where T : class, ITexture
         {
-            var dir = Path.GetDirectoryName($@"Graphics\{textureName}");
-
             ITexture newTexture;
 
-            newTexture = new MonoTexture(MonoGame.DriverContent.Load<Texture2D>($@"Graphics\{textureName}"));
+            newTexture = new MonoTexture(MonoGame.DriverContent.Load<Texture2D>($@"Graphics\{textureName}")) as ITexture;
+
 
             return newTexture as T;
         }
@@ -52,6 +52,16 @@ namespace MonoScorpPlugin
 
             return null;
             //return textItem as T;
+        }
+
+        public void InjectData<T>(T data) where T : class
+        {
+            throw new NotImplementedException();
+        }
+
+        public T GetData<T>() where T : class
+        {
+            throw new NotImplementedException();
         }
     }
 }

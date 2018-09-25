@@ -1,44 +1,12 @@
 ﻿using System;
 using ScorpionCore;
 using Microsoft.Xna.Framework.Input;
+using ScorpionCore.Plugins;
 
 namespace MonoScorpPlugin
 {
-    public class MouseInput : IMouse
+    public class MonoMouse : IMouse
     {
-        #region Events
-        /// <summary>
-        /// Occurs when the left mouse button has been pressed to the down position.
-        /// </summary>
-        public event EventHandler<EventArgs> OnLeftButtonDown;
-
-        /// <summary>
-        /// Occurs when the left mouse button has been released from the down position.
-        /// </summary>
-        public event EventHandler<EventArgs> OnLeftButtonReleased;
-
-        /// <summary>
-        /// Occurs when the right mouse button has been pressed to the down position.
-        /// </summary>
-        public event EventHandler<EventArgs> OnRightButtonDown;
-
-        /// <summary>
-        /// Occurs when the right mouse button has been released from the down position.
-        /// </summary>
-        public event EventHandler<EventArgs> OnRightButtonReleased;
-
-        /// <summary>
-        /// Occurs when the middle mouse button has been pressed to the down position.
-        /// </summary>
-        public event EventHandler<EventArgs> OnMiddleButtonDown;
-
-        /// <summary>
-        /// Occurs when the middle mouse button has been released from the down position.
-        /// </summary>
-        public event EventHandler<EventArgs> OnMiddleButtonReleased;
-        #endregion
-
-
         #region Fields
         private MouseState _currentState;//The current state of the mouse
         private MouseState _previousState;//The previous state of the mouse on the last frame
@@ -71,59 +39,6 @@ namespace MonoScorpPlugin
         {
             //Get the state of the mouse and save it as the current state
             _currentState = Mouse.GetState();
-
-            #region Left Mouse Button
-            //If the left mouse button has been pressed down
-            if (_currentState.LeftButton == ButtonState.Pressed)
-            {
-                //Invoke the OnLeftButtonDown event and send the current state of the mouse
-                OnLeftButtonDown?.Invoke(this, new EventArgs());
-            }
-
-            //If the left mouse button has been released
-            if (_currentState.LeftButton == ButtonState.Released && _previousState.LeftButton == ButtonState.Pressed)
-            {
-                OnLeftButtonReleased?.Invoke(this, new EventArgs());
-            }
-            #endregion
-
-            #region Right Mouse Button
-            //If the right mouse button has been pressed down
-            if (_currentState.RightButton == ButtonState.Pressed)
-            {
-                //Invoke the OnRightButtonDown event and send the current state of the mouse
-                OnRightButtonDown?.Invoke(this, new EventArgs());
-            }
-
-            //If the right mouse button has been released
-            if (_currentState.RightButton == ButtonState.Released && _previousState.RightButton == ButtonState.Pressed)
-            {
-                OnRightButtonReleased?.Invoke(this, new EventArgs());
-            }
-            #endregion
-
-            #region Middle Mouse Button
-            //If the middle mouse button has been pressed down
-            if (_currentState.MiddleButton == ButtonState.Pressed)
-            {
-                //Invoke the OnMiddleButtonDown event and send the current state of the mouse
-                OnMiddleButtonDown?.Invoke(this, new EventArgs());
-            }
-
-            //If the middle mouse button has been released
-            if (_currentState.MiddleButton == ButtonState.Released && _previousState.MiddleButton == ButtonState.Pressed)
-            {
-                OnMiddleButtonReleased?.Invoke(this, new EventArgs());
-            }
-            #endregion
-
-            //            else if ()
-            //            {
-            //                //If any keys have been released, invoke the OnKeyUp event
-
-            //                //Invoke the OnKeyUp event and send the list of keys that are pressed down
-            //                OnRightButtonDown?.Invoke(this, new EventArgs());
-            //            }
         }
 
 

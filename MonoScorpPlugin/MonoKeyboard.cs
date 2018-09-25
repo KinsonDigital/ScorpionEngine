@@ -1,6 +1,7 @@
 ﻿using System;
 using ScorpionCore;
 using Microsoft.Xna.Framework.Input;
+using ScorpionCore.Plugins;
 
 namespace MonoScorpPlugin
 {
@@ -63,11 +64,10 @@ namespace MonoScorpPlugin
         }
 
 
-        /// <summary>
         /// Returns true if any keys have been pressed.  This means a key was first put into the down position, then released to the up position.
         /// </summary>
         /// <returns></returns>
-        public bool IsAnyKeysPressed()
+        public bool AreAnyKeysPressed()
         {
             return _currentState.GetPressedKeys().Length == 0 && _previousState.GetPressedKeys().Length > 0;
         }
@@ -106,18 +106,35 @@ namespace MonoScorpPlugin
         }
 
 
-
-        //TODO: Add Method Docs
+        /// <summary>
+        /// Gets the list of currently pressed keys.
+        /// </summary>
+        /// <returns></returns>
         public InputKeys[] GetCurrentPressedKeys()
         {
             return Tools.ToInputKeys(_currentState.GetPressedKeys());
         }
 
 
-        //TODO: Add Method Docs
+        /// <summary>
+        /// Gets the list of previously pressed keys.
+        /// </summary>
+        /// <returns></returns>
         public InputKeys[] GetPreviousPressedKeys()
         {
             return Tools.ToInputKeys(_previousState.GetPressedKeys());
+        }
+
+
+        public void InjectData<T>(T data) where T : class
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public T GetData<T>() where T : class
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

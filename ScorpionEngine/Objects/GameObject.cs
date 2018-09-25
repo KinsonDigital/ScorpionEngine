@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ScorpionCore;
+using ScorpionCore.Plugins;
 using ScorpionEngine.Content;
 using ScorpionEngine.Input;
 
@@ -43,7 +44,7 @@ namespace ScorpionEngine.Objects
         protected IEngineTiming _engineTime;
         private Vector _origin = Vector.Zero;
         protected ITexture _texture;
-        private IKeyboard _keyboard;
+        private Keyboard _keyboard;
         #endregion
 
 

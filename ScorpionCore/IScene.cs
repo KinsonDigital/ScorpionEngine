@@ -1,4 +1,6 @@
-﻿namespace ScorpionCore
+﻿using ScorpionCore.Plugins;
+
+namespace ScorpionCore
 {
     /// <summary>
     /// Represents a single scene.

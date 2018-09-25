@@ -1,11 +1,10 @@
 ﻿using System;
-using MonoScorpPlugin;
 using ScorpionCore;
+using ScorpionCore.Plugins;
 using ScorpionEngine;
-using ScorpionEngine.Config;
 using ScorpionEngine.Content;
+using ScorpionEngine.Graphics;
 using ScorpionEngine.Scene;
-using ScorpTestGame.Scenes;
 
 namespace ScorpTestGame
 {
@@ -15,6 +14,7 @@ namespace ScorpTestGame
     public class TestGame : Engine
     {
         private SceneManager _sceneManager;
+        private Texture _texture;
 
 
         /// <summary>
@@ -34,21 +34,28 @@ namespace ScorpTestGame
         }
 
 
-        public override void LoadContent()
+        public override void LoadContent(ContentLoader contentLoader)
         {
-            base.LoadContent();
+            _texture = contentLoader.LoadTexture<Texture>("GrayRectangle");
+
+            base.LoadContent(contentLoader);
         }
+
+
+        public override void Update(IEngineTiming engineTime)
+        {
+            base.Update(engineTime);
+        }
+
 
         public override void Render(IRenderer renderer)
         {
             renderer.Clear(100, 149, 237, 255);
 
+            renderer.Render(_texture, 100, 100);
+
             base.Render(renderer);
         }
-
-        //TODO: Override update method
-
-        //TODO: Override render method
 
         //TODO: Another override should go here for unload content
         //This would come from Engine and then from there from IEngineCore
