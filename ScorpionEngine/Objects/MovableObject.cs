@@ -17,7 +17,7 @@ namespace ScorpionEngine.Objects
     /// </summary>
     public class MovableObject : GameObject
     {
-                #region Events
+        #region Events
         /// <summary>
         /// Occurs every time the entity moves.
         /// </summary>

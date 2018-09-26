@@ -17,7 +17,7 @@ namespace ScorpionEngine.Objects
     /// </summary>
     public class GameObject
     {
-        private IPhysicsBody _internalBody;
+        protected IPhysicsBody _internalBody;
 
 
         #region Events
