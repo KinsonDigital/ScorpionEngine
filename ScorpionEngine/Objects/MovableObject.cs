@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using ScorpionCore;
+using ScorpionCore.Plugins;
 using ScorpionEngine.Content;
 
 using ScorpionEngine.Events;
+using ScorpionEngine.Graphics;
+using ScorpionEngine.Physics;
 using ScorpionEngine.Utils;
 
 namespace ScorpionEngine.Objects
@@ -14,7 +17,7 @@ namespace ScorpionEngine.Objects
     /// </summary>
     public class MovableObject : GameObject
     {
-        #region Events
+                #region Events
         /// <summary>
         /// Occurs every time the entity moves.
         /// </summary>
@@ -31,11 +34,10 @@ namespace ScorpionEngine.Objects
         #region Constructors
         public MovableObject()
         {
-
         }
 
 
-        public MovableObject(ITexture texture) : base(texture)
+        public MovableObject(Texture texture) : base(texture)
         {
         }
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ScorpionCore
+namespace ScorpionEngine.Physics
 {
     /// <summary>
     /// Represents a vector in 2D space.
@@ -20,6 +20,7 @@ namespace ScorpionCore
         }
         #endregion
 
+
         #region Props
         /// <summary>
         /// The x position of the <see cref="Vector"/>.
@@ -38,6 +39,7 @@ namespace ScorpionCore
         /// </summary>
         public static Vector Zero => new Vector(0, 0);
         #endregion
+
 
         #region Overloaded Operators
         /// <summary>
@@ -152,6 +154,7 @@ namespace ScorpionCore
             return !(vector1 == vector2);
         }
         #endregion
+
 
         #region Public Methods
         /// <summary>

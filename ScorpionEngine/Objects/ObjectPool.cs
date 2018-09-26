@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using ScorpionCore;
 using ScorpionEngine.Events;
+using ScorpionEngine.Physics;
 
 namespace ScorpionEngine.Objects
 {

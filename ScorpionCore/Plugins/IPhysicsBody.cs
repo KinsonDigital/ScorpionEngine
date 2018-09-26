@@ -5,12 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScorpionCore
+namespace ScorpionCore.Plugins
 {
     //TODO: Add docs
     public interface IPhysicsBody
     {
-        Vector Position { get; set; }
+        float X { get; set; }
+
+        float Y { get; set; }
 
         float Angle { get; set; }
 

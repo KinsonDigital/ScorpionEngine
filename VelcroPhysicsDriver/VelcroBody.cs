@@ -1,14 +1,16 @@
 ﻿using ScorpionCore;
+using ScorpionCore.Plugins;
 using System;
 using VelcroPhysics.Collision.Shapes;
 using VelcroPhysics.Dynamics;
+using VelcroPhysics.Primitives;
 
 namespace VelcroPhysicsDriver
 {
     //TODO: Add docs
     public class VelcroBody : IPhysicsBody
     {
-        public VelcroBody(Vector[] vertices, Vector position, float angle, float density = 1, float friction = 0.2f, float restitution = 0, bool isStatic = false)
+        public VelcroBody(VelVector[] vertices, VelVector position, float angle, float density = 1, float friction = 0.2f, float restitution = 0, bool isStatic = false)
         {
 
         }
@@ -18,18 +20,6 @@ namespace VelcroPhysicsDriver
 
         internal PolygonShape PolyShape { get; set; }
 
-        public Vector Position
-        {
-            get
-            {
-                return PhysicsBody.Position.ToMonoVector().ToPixels();
-            }
-            set
-            {
-                PhysicsBody.Position = value.ToVelcroVector().ToPhysics();
-            }
-        }
-
         public float Angle { get; set; }
 
         public float Density { get; set; }
@@ -37,7 +27,17 @@ namespace VelcroPhysicsDriver
         public float Friction { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public float Restitution { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public float X
+        {
+            get => PhysicsBody.Position.X;
+            set => PhysicsBody.Position = new Vector2(PhysicsBody.Position.X + value, PhysicsBody.Position.Y);
+        }
 
+        public float Y
+        {
+            get => PhysicsBody.Position.Y;
+            set => PhysicsBody.Position = new Vector2(PhysicsBody.Position.X, PhysicsBody.Position.Y + value);
+        }
 
         public void DataSender(Func<dynamic> dataGetter)
         {

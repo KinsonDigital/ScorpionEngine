@@ -115,6 +115,9 @@ xcopy "$(ProjectDir)Content\bin\Windows\Graphics" "$(TargetDir)Content\Graphics"
 
 REM Copy the scorpion plugin to the output folder
 copy "$(SolutionDir)MonoScorpPlugin\bin\Debug\MonoScorpPlugin.dll" "$(TargetDir)MonoScorpPlugin.dll"
-copy "$(SolutionDir)MonoScorpPlugin\bin\Debug\MonoScorpPlugin.pdb" "$(TargetDir)MonoScorpPlugin.pdb"</PostBuildEvent>
+copy "$(SolutionDir)MonoScorpPlugin\bin\Debug\MonoScorpPlugin.pdb" "$(TargetDir)MonoScorpPlugin.pdb"
+
+REM Copy the MonoGame.Framework.dll file to the output directory
+copy "$(SolutionDir)MonoScorpPlugin\bin\Debug\MonoGame.Framework.dll" "$(TargetDir)MonoGame.Framework.dll"</PostBuildEvent>
   </PropertyGroup>
 </Project>

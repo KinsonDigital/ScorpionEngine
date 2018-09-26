@@ -1,6 +1,7 @@
 ﻿using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Input;
+using ScorpionEngine.Physics;
 
 namespace ScorpionEngine.Objects
 {

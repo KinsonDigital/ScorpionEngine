@@ -1,4 +1,5 @@
 ﻿using ScorpionCore;
+using ScorpionCore.Plugins;
 using System;
 using VelcroPhysics.Collision.Shapes;
 using VelcroPhysics.Dynamics;
@@ -12,10 +13,10 @@ namespace VelcroPhysicsDriver
     {
         public static World PhysicsWorld { get; set; }
 
-        public Vector Gravity { get; set; }
+        public IVector Gravity { get; set; }
 
 
-        public VelcroWorld(Vector gravity)
+        public VelcroWorld(IVector gravity)
         {
             PhysicsWorld = new World(gravity.ToVelcroVector());
         }
@@ -28,7 +29,7 @@ namespace VelcroPhysicsDriver
         }
 
 
-        public void AddBody<T>(T body, Vector[] vertices) where T : IPhysicsBody
+        public void AddBody<T>(T body, IVector[] vertices) where T : IPhysicsBody
         {
             var velVertices = new Vertices();
 
@@ -38,7 +39,7 @@ namespace VelcroPhysicsDriver
             }
 
 
-            var physicsBody = BodyFactory.CreatePolygon(PhysicsWorld, velVertices, body.Density, body.Position.ToPhysics().ToVelcroVector(), body.Angle.ToRadians(), BodyType.Dynamic);
+            var physicsBody = BodyFactory.CreatePolygon(PhysicsWorld, velVertices, body.Density, new Vector2(body.X, body.Y).ToPhysics(), body.Angle.ToRadians(), BodyType.Dynamic);
             physicsBody.Friction = body.Friction;
             physicsBody .Restitution = body.Restitution;
             var polyShape = (PolygonShape)physicsBody.FixtureList[0].Shape;

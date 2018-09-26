@@ -134,13 +134,13 @@ namespace ScorpionEngine.Input
             _inputReleasedTimer.Update(engineTime);
 
             //Get the current state of the button
-            _curState = _mouseInput.IsButtonDown(Button);
+            _curState = _mouseInput.IsButtonDown((int)Button);
 
             #region Hit Count Code
             //If the counter is not null
             if (_counter != null)
             {
-                if (_mouseInput.IsButtonPressed(Button))
+                if (_mouseInput.IsButtonPressed((int)Button))
                 {
                     //If the max is reached, invoke the OnInputHitCountReached event and reset it back to 0
                     if (_counter.Value == HitCountMax)
@@ -173,7 +173,7 @@ namespace ScorpionEngine.Input
             }
 
             //Check to see if the button is pressed
-            if (_mouseInput.IsButtonDown(Button))
+            if (_mouseInput.IsButtonDown((int)Button))
             {
                 _inputReleasedTimer.Reset();
 
@@ -212,7 +212,7 @@ namespace ScorpionEngine.Input
                 //Set the state of all of the pressed buttons
                 foreach (var key in buttons)
                 {
-                    _currentPressedButtons[key] = _mouseInput.IsButtonDown(key);
+                    _currentPressedButtons[key] = _mouseInput.IsButtonDown((int)key);
                 }
 
                 //If all of the buttons are pressed down

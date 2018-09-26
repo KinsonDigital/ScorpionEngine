@@ -23,11 +23,6 @@ namespace MonoScorpPlugin
         /// Gets the Y position of the mouse.
         /// </summary>
         public int Y => _currentState.Y;
-
-        /// <summary>
-        /// Gets the position of the mouse.
-        /// </summary>
-        public Vector Position => new Vector(X, Y);
         #endregion
 
 
@@ -66,30 +61,20 @@ namespace MonoScorpPlugin
 
 
         /// <summary>
-        /// Sets the position of the mouse.
-        /// </summary>
-        /// <param name="position">The position to set the mouse to over the game window.</param>
-        public void SetPosition(Vector position)
-        {
-            SetPosition((int)position.X, (int)position.Y);
-        }
-
-
-        /// <summary>
         /// Returns true if the given input is in the down position.
         /// </summary>
         /// <param name="input">The input to check for.</param>
         /// <returns></returns>
-        public bool IsButtonDown(InputButton input)
+        public bool IsButtonDown(int input)
         {
             //Return the down state of the given mouse input
             switch (input)
             {
-                case InputButton.LeftButton:
+                case 1://Left button
                     return _currentState.LeftButton == ButtonState.Pressed;
-                case InputButton.RightButton:
+                case 2://Right button
                     return _currentState.RightButton == ButtonState.Pressed;
-                case InputButton.MiddleButton:
+                case 3://Middle button
                     return _currentState.MiddleButton == ButtonState.Pressed;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(input), input, null);
@@ -102,16 +87,16 @@ namespace MonoScorpPlugin
         /// </summary>
         /// <param name="input">The input to check for.</param>
         /// <returns></returns>
-        public bool IsButtonUp(InputButton input)
+        public bool IsButtonUp(int input)
         {
             //Return the up state of the given mouse input
             switch (input)
             {
-                case InputButton.LeftButton:
+                case 1://Left button
                     return _currentState.LeftButton == ButtonState.Released;
-                case InputButton.RightButton:
+                case 2://Right button
                     return _currentState.RightButton == ButtonState.Released;
-                case InputButton.MiddleButton:
+                case 3://Middle button
                     return _currentState.MiddleButton == ButtonState.Released;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(input), input, null);
@@ -124,20 +109,30 @@ namespace MonoScorpPlugin
         /// </summary>
         /// <param name="input">The mouse input to check for.</param>
         /// <returns></returns>
-        public bool IsButtonPressed(InputButton input)
+        public bool IsButtonPressed(int input)
         {
             //Check the given input to see if it has been released from the down position
             switch (input)
             {
-                case InputButton.LeftButton:
+                case 1://Left button
                     return _currentState.LeftButton == ButtonState.Released && _previousState.LeftButton == ButtonState.Pressed;
-                case InputButton.RightButton:
+                case 2://Right button
                     return _currentState.RightButton == ButtonState.Released && _previousState.RightButton == ButtonState.Pressed;
-                case InputButton.MiddleButton:
+                case 3://Middle button
                     return _currentState.MiddleButton == ButtonState.Released && _previousState.MiddleButton == ButtonState.Pressed;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(input), input, null);
             }
+        }
+
+        public void InjectData<T>(T data) where T : class
+        {
+            throw new NotImplementedException();
+        }
+
+        public T GetData<T>() where T : class
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

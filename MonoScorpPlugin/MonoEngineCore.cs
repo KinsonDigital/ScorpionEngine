@@ -13,10 +13,10 @@ namespace MonoScorpPlugin
     public class MonoEngineCore : IEngineCore
     {
         private MonoGame _monoGame;
-        private IRenderer _renderer;
+        
 
         public event EventHandler<OnUpdateEventArgs> OnUpdate;
-        public event EventHandler<EventArgs> OnRender;
+        public event EventHandler<OnRenderEventArgs> OnRender;
         public event EventHandler OnInitialize;
         public event EventHandler OnLoadContent;
 
@@ -24,9 +24,6 @@ namespace MonoScorpPlugin
         public MonoEngineCore()
         {
             _monoGame = new MonoGame();
-
-            //Load the injecter plugin
-            _renderer = PluginLoader.GetPluginByType<IRenderer>();
 
             _monoGame.OnInitialize += _monoGame_OnInitialize;
             _monoGame.OnLoadContent += _monoGame_OnLoadContent;
@@ -56,8 +53,8 @@ namespace MonoScorpPlugin
 
         public IRenderer Renderer
         {
-            get => _renderer;
-            set { throw new Exception("This property setter has been purposly setup to not be used."); }
+            get => _monoGame.Renderer;
+            set { }
         }
         #endregion
 
@@ -92,7 +89,7 @@ namespace MonoScorpPlugin
         private void _monoGame_OnInitialize(object sender, EventArgs e)
         {
             //Inject the graphics device into the renderer
-            _renderer.InjectData(_monoGame.GraphicsDevice);
+            _monoGame.Renderer.InjectData(_monoGame.GraphicsDevice);
 
             OnInitialize?.Invoke(sender, e);
         }
@@ -112,15 +109,17 @@ namespace MonoScorpPlugin
         }
 
 
-        private void _monoGame_OnRender(object sender, EventArgs e)
+        private void _monoGame_OnRender(object sender, OnRenderEventArgs e)
         {
             OnRender?.Invoke(sender, e);
         }
+
 
         public void InjectData<T>(T data) where T : class
         {
             throw new NotImplementedException();
         }
+
 
         public T GetData<T>() where T : class
         {

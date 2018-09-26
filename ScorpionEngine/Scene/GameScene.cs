@@ -4,8 +4,11 @@ using ScorpionEngine.Content;
 
 namespace ScorpionEngine.Scene
 {
-    public abstract class GameScene : IScene
+    public abstract class GameScene
     {
+        private IScene _scene;
+
+
         #region Props
         /// <summary>
         /// Gets or sets the name of the scene.
@@ -54,7 +57,7 @@ namespace ScorpionEngine.Scene
         /// Loads all content for the scene using the given <see cref="ContentManager"/>.
         /// </summary>
         /// <param name="contentManager">The content manager to use for loading the scene's content.</param>
-        public virtual void LoadContent(IContentLoader contentManager)
+        public virtual void LoadContent(ContentLoader contentManager)
         {
             ContentLoaded = true;
         }
@@ -64,7 +67,7 @@ namespace ScorpionEngine.Scene
         /// Unloads all content for the scene.
         /// </summary>
         /// <param name="contentManager">The content manager to use for loading the scene's content.</param>
-        public virtual void UnloadContent(IContentLoader contentManager)
+        public virtual void UnloadContent(ContentLoader contentManager)
         {
             ContentLoaded = false;
         }

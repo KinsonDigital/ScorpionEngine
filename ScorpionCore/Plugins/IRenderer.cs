@@ -9,6 +9,6 @@ namespace ScorpionCore.Plugins
 
         void Render(ITexture texture, float x, float y);
 
-        void Render(IText texture, float x, float y);
+        void Render(IText text, float x, float y);
     }
 }

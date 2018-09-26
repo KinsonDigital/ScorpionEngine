@@ -5,15 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScorpionCore
+namespace ScorpionCore.Plugins
 {
     public interface IPhysicsWorld
     {
-        Vector Gravity { get; set; }
+        IVector Gravity { get; set; }
 
         void Update(float dt);
 
-        void AddBody<T>(T body, Vector[] vertices) where T : IPhysicsBody;
+        void AddBody<T>(T body, IVector[] vertices) where T : IPhysicsBody;
 
         void RemoveBody();
 

@@ -1,9 +1,10 @@
 ﻿using System;
-using ScorpionCore;
-using ScorpionCore.Plugins;
 using ScorpionEngine;
 using ScorpionEngine.Content;
 using ScorpionEngine.Graphics;
+using ScorpionEngine.Input;
+using ScorpionEngine.Objects;
+using ScorpionEngine.Physics;
 using ScorpionEngine.Scene;
 
 namespace ScorpTestGame
@@ -13,8 +14,13 @@ namespace ScorpTestGame
     /// </summary>
     public class TestGame : Engine
     {
+        private Keyboard _keyboard;
+        private Mouse _mouse;
         private SceneManager _sceneManager;
-        private Texture _texture;
+        private Texture _rectTexture;
+        private MovableObject _rectObject;
+        private int _x = 200;
+        private int _y = 200;
 
 
         /// <summary>
@@ -30,32 +36,74 @@ namespace ScorpTestGame
 
         public override void Init()
         {
+            _keyboard = new Keyboard();
+            _mouse = new Mouse();
+
+            _rectObject = new MovableObject();
+            _rectObject.Position = new Vector(200, 200);
+
             base.Init();
         }
 
 
         public override void LoadContent(ContentLoader contentLoader)
         {
-            _texture = contentLoader.LoadTexture<Texture>("GrayRectangle");
+            _rectTexture = contentLoader.LoadTexture("GrayRectangle");
+
+            _rectObject.Texture = _rectTexture;
 
             base.LoadContent(contentLoader);
         }
 
 
-        public override void Update(IEngineTiming engineTime)
+        public override void Update(EngineTime engineTime)
         {
+            _keyboard.UpdateCurrentState();
+            _mouse.UpdateCurrentState();
+
+            ProcessKeys();
+
+            _keyboard.UpdatePreviousState();
+            _mouse.UpdatePreviousState();
+
             base.Update(engineTime);
         }
 
 
-        public override void Render(IRenderer renderer)
+        public override void Render(Renderer renderer)
         {
             renderer.Clear(100, 149, 237, 255);
 
-            renderer.Render(_texture, 100, 100);
+            _rectObject.Render(renderer);
 
             base.Render(renderer);
         }
+
+
+        private void ProcessKeys()
+        {
+            if (_keyboard.IsKeyDown(InputKeys.Right))
+            {
+            }
+
+            if (_keyboard.IsKeyDown(InputKeys.Left))
+            {
+            }
+
+            if (_mouse.IsButtonPressed(InputButton.LeftButton))
+            {
+            }
+
+            if (_mouse.IsButtonPressed(InputButton.RightButton))
+            {
+            }
+
+            if (_keyboard.IsKeyPressed(InputKeys.End))
+            {
+                _rectObject.Visible = !_rectObject.Visible;
+            }
+        }
+
 
         //TODO: Another override should go here for unload content
         //This would come from Engine and then from there from IEngineCore

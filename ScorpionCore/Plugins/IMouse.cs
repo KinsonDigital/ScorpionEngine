@@ -1,6 +1,6 @@
 ﻿namespace ScorpionCore.Plugins
 {
-    public interface IMouse
+    public interface IMouse : IPlugin
     {
         /// <summary>
         /// Sets the position of the mouse.
@@ -11,18 +11,11 @@
 
 
         /// <summary>
-        /// Sets the position of the mouse.
-        /// </summary>
-        /// <param name="position">The position to set the mouse to over the game window.</param>
-        void SetPosition(Vector position);
-
-
-        /// <summary>
         /// Returns true if the given input is in the down position.
         /// </summary>
         /// <param name="input">The input to check for.</param>
         /// <returns></returns>
-        bool IsButtonDown(InputButton input);
+        bool IsButtonDown(int input);
 
 
         /// <summary>
@@ -30,7 +23,7 @@
         /// </summary>
         /// <param name="input">The input to check for.</param>
         /// <returns></returns>
-        bool IsButtonUp(InputButton input);
+        bool IsButtonUp(int input);
 
 
         /// <summary>
@@ -38,7 +31,7 @@
         /// </summary>
         /// <param name="input">The mouse input to check for.</param>
         /// <returns></returns>
-        bool IsButtonPressed(InputButton input);
+        bool IsButtonPressed(int input);
 
         //TODO: Add method docs
         void UpdateCurrentState();

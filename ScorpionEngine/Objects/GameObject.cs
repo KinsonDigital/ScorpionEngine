@@ -4,16 +4,22 @@ using System.Linq;
 using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Content;
+using ScorpionEngine.Graphics;
 using ScorpionEngine.Input;
+using ScorpionEngine.Physics;
 
 namespace ScorpionEngine.Objects
 {
+    //TODO: Add docs
     /// <summary>
     /// Represents an imovable game object with a texture, and a location.  
     /// Great for static objects that never move such as walls, a tree, etc.
     /// </summary>
     public class GameObject
     {
+        private IPhysicsBody _internalBody;
+
+
         #region Events
         /// <summary>
         /// Fired when the game object is going from hidden to shown.
@@ -43,7 +49,7 @@ namespace ScorpionEngine.Objects
         private bool _visible = true;//True if the entity will be drawn
         protected IEngineTiming _engineTime;
         private Vector _origin = Vector.Zero;
-        protected ITexture _texture;
+        protected Texture _texture;
         private Keyboard _keyboard;
         #endregion
 
@@ -54,12 +60,8 @@ namespace ScorpionEngine.Objects
             CreateBody();
         }
 
-        private void CreateBody()
-        {
-            throw new Exception("Need to implement a DI engine such as AutoFac");
-        }
 
-        public GameObject(ITexture texture)
+        public GameObject(Texture texture)
         {
             _texture = texture;
             CreateBody();
@@ -115,7 +117,7 @@ namespace ScorpionEngine.Objects
 
                 _visible = value;
 
-                //If the game object is going from show to hidden, fire the OnHidden event
+                //If the game object is going from show to hidden, fire the OnHide event
                 if (prevValue && !_visible)
                 {
                     if (OnHide != null)
@@ -140,8 +142,7 @@ namespace ScorpionEngine.Objects
         /// <summary>
         /// Gets the location of the entity in the game world in pixel units.
         /// </summary>
-        //TODO: Get this property/feature working
-        public Vector Position { get; private set; }
+        public Vector Position { get; set; }
 
         /// <summary>
         /// Gets the width of the entity.
@@ -159,8 +160,13 @@ namespace ScorpionEngine.Objects
             get => _texture.Height;
         }
 
+        /// <summary>
+        /// Returns the half width of the <see cref="GameObject"/>.
+        /// </summary>
         public int HalfWidth => Width / 2;
 
+        /// Returns the half height of the <see cref="GameObject"/>.
+        /// </summary>
         public int HalfHeight => Height / 2;
 
         /// <summary>
@@ -171,7 +177,7 @@ namespace ScorpionEngine.Objects
         /// <summary>
         /// Gets the texture of the game object.
         /// </summary>
-        public ITexture Texture
+        public Texture Texture
         {
             get => _texture;
             set => _texture = value;
@@ -207,33 +213,13 @@ namespace ScorpionEngine.Objects
         #endregion
 
 
-        #region Internal Methods
-        /// <summary>
-        /// Sets the position of the <see cref="GameObject"/>.
-        /// </summary>
-        /// <param name="position"></param>
-        internal void SetPosition(Vector position)
-        {
-            Position = position;
-        }
-        #endregion
-
-
-        #region Protected Methods
-
-        /// <summary>
-        /// Initializes an atlas with the given information.
-        /// </summary>
-        /// <param name="textureAtlasName">The name of the atlas texture to load.</param>
-        /// <param name="atlasDataName">The name of the atlas data to load.</param>
-        /// <param name="subTextureID">The name of the sub texture in the atlas texture that will be rendered for this GameObject.</param>
-        private void InitializeAtlas(string textureAtlasName, string atlasDataName, string subTextureID)
-        {
-        }
-        #endregion
-
-
         #region Private Methods
+        private void CreateBody()
+        {
+            _internalBody = PluginLoader.GetPluginByType<IPhysicsBody>();
+        }
+
+
         /// <summary>
         /// Converts the given button to a InputKey.
         /// </summary>
@@ -241,18 +227,18 @@ namespace ScorpionEngine.Objects
         /// <returns></returns>
         private static InputKeys ConvertKey(InputKeys key)
         {
-            return (InputKeys) key;
+            return key;
         }
 
 
         /// <summary>
-        /// Returns true if the current and previous key states match.
+        /// Renders the game object.
         /// </summary>
-        /// <returns></returns>
-        private bool CurrentPrevKeysMatch()
+        /// <param name="renderer">The render used to render the object texture.</param>
+        public void Render(Renderer renderer)
         {
-            //If the number of current and previous keys are the same, check to make sure that the keys for both are the same or not
-            return _keyboard.GetCurrentPressedKeys().Length == _keyboard.GetPreviousPressedKeys().Length && _keyboard.GetCurrentPressedKeys().All(key => _keyboard.GetPreviousPressedKeys().Contains(key));
+            if(_texture != null && Visible)
+                renderer.Render(_texture, Position.X, Position.Y);
         }
         #endregion
     }

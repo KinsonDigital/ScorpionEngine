@@ -21,7 +21,7 @@ namespace MonoScorpPlugin
         /// <summary>
         /// Occurs once every frame after the OnUpdate event has been been invoked.
         /// </summary>
-        public event EventHandler<EventArgs> OnRender;
+        public event EventHandler<OnRenderEventArgs> OnRender;
 
         /// <summary>
         /// Occurs one time during game initialization. This event is fired before the OnLoadContent event is fired. Add initialization code here.
@@ -42,11 +42,18 @@ namespace MonoScorpPlugin
 
             Content.RootDirectory = "Content";
             DriverContent = Content;
+
+            //Load the renderer plugin
+            Renderer = PluginLoader.GetPluginByType<IRenderer>();
         }
         #endregion
 
 
         #region Props
+        public IRenderer Renderer { get; set; }
+
+        public MonoEngineTime EngineTime { get; set; }
+
         public static ContentManager DriverContent { get; private set; }
 
         public static GraphicsDevice MonoGraphicsDevice { get; set; }
@@ -117,9 +124,9 @@ namespace MonoScorpPlugin
         /// <param name="gameTime">The current game time information.</param>
         protected override void Update(GameTime gameTime)
         {
-            var engineTime = new MonoEngineTime(gameTime.TotalGameTime, gameTime.ElapsedGameTime);
+            EngineTime = new MonoEngineTime(gameTime.TotalGameTime, gameTime.ElapsedGameTime);
 
-            OnUpdate?.Invoke(this, new OnUpdateEventArgs(engineTime));
+            OnUpdate?.Invoke(this, new OnUpdateEventArgs(EngineTime));
 
             base.Update(gameTime);
         }
@@ -133,7 +140,7 @@ namespace MonoScorpPlugin
         {
             var engineTime = new MonoEngineTime(gameTime.TotalGameTime, gameTime.ElapsedGameTime);
 
-            OnRender?.Invoke(this, new EventArgs());
+            OnRender?.Invoke(this, new OnRenderEventArgs(Renderer));
 
             base.Draw(gameTime);
         }

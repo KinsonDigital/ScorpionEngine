@@ -170,6 +170,15 @@ namespace ScorpionCore
         /// <returns></returns>
         private static string GetFullPluginName(string subName)
         {
+            var myTypes = _pluginAssembly.GetExportedTypes();
+
+            foreach (var plugin in _pluginAssembly.GetExportedTypes())
+            {
+                if (plugin.Name.Contains(subName))
+                {
+                    var stop = true;
+                }
+            }
             //Get a list of all the exported types that could be a valid plugin
             var possiblePlugins = (from p in _pluginAssembly.GetExportedTypes()
                                    where p.Name.Contains(subName)
