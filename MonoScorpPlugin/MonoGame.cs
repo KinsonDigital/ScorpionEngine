@@ -11,7 +11,6 @@ namespace MonoScorpPlugin
     {
         private GraphicsDeviceManager _graphicsDeviceManager;
 
-
         #region Events
         /// <summary>
         /// Occurs once every frame before the OnDraw event before the OnDraw event is invoked.
@@ -43,8 +42,10 @@ namespace MonoScorpPlugin
             Content.RootDirectory = "Content";
             DriverContent = Content;
 
+            var enginePlugins = PluginLoader.LoadPluginLibrary("MonoScorpPlugin");
+
             //Load the renderer plugin
-            Renderer = PluginLoader.GetPluginByType<IRenderer>();
+            Renderer = enginePlugins.GetPluginByType<IRenderer>();
         }
         #endregion
 

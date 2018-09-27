@@ -25,10 +25,10 @@ namespace ScorpionEngine
         /// </summary>
         public Engine()
         {
-            PluginLoader.LoadPlugin("MonoScorpPlugin");
+            EnginePlugins = PluginLoader.LoadPluginLibrary("MonoScorpPlugin");
 
-            ContentLoader = new ContentLoader(PluginLoader.GetPluginByType<IContentLoader>());
-            _engineCore = PluginLoader.GetPluginByType<IEngineCore>();
+            ContentLoader = new ContentLoader(EnginePlugins.GetPluginByType<IContentLoader>());
+            _engineCore = EnginePlugins.GetPluginByType<IEngineCore>();
 
             _engineCore.SetFPS(60);
 
@@ -41,6 +41,8 @@ namespace ScorpionEngine
 
 
         #region Properties
+        internal static PluginLibrary EnginePlugins { get; private set; }
+
         public ContentLoader ContentLoader { get; set; }
 
         public GameScene Scene { get; private set; }

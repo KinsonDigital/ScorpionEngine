@@ -216,7 +216,7 @@ namespace ScorpionEngine.Objects
         #region Private Methods
         private void CreateBody()
         {
-            _internalBody = PluginLoader.GetPluginByType<IPhysicsBody>();
+            //_internalBody = Engine.EnginePlugins.GetPluginByType<IPhysicsBody>();
         }
 
 
