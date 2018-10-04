@@ -73,7 +73,6 @@
     <Compile Include="MonoRenderer.cs" />
     <Compile Include="MonoText.cs" />
     <Compile Include="MonoTexture.cs" />
-    <Compile Include="OtherRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools.cs" />
   </ItemGroup>

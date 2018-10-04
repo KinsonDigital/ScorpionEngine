@@ -15,8 +15,9 @@ namespace ScorpionCore
         private Assembly _pluginAssembly;
         private Dictionary<string, string> _pluginNames = new Dictionary<string, string>();
         private const string PLUGIN_NAMESPACE = "ScorpionCore.Plugins";
-        private string _pluginAssemblyName;
+        private string[] _validPluginInterfaces;
 
+        public string PluginAssemblyName { get; private set; }
 
         /// <summary>
         /// Creates a new instance of <see cref="PluginLibrary"/>.
@@ -25,16 +26,17 @@ namespace ScorpionCore
         internal PluginLibrary(Assembly pluginAssembly)
         {
             _pluginAssembly = pluginAssembly;
-            _pluginAssemblyName = _pluginAssembly.FullName;
+            PluginAssemblyName = _pluginAssembly.GetName().Name;
 
-            ValidPluginInterfaces = BuildValidPluginInterfaceList();
+            _validPluginInterfaces = GetPluginInterfaces();
+            ValidPlugins = GetValidPlugins();
         }
 
 
         /// <summary>
         /// Gets the list of valid plugin interfaces that exist in the plugin assembly.
         /// </summary>
-        public string[] ValidPluginInterfaces { get; private set; }
+        public PluginInfo[] ValidPlugins { get; private set; }
 
 
         /// <summary>
@@ -44,16 +46,23 @@ namespace ScorpionCore
         /// <returns></returns>
         public T GetPluginByType<T>() where T : class
         {
-            var type = typeof(T).Name;
+            var typeName = typeof(T).Name;
 
             if (IsValidPluginName<T>())
             {
-                var fullName = GetFullPluginName(SanitizeTypeName<T>());
-                var pluginType = _pluginAssembly.GetType(fullName);
+                var foundPlugin = (from pluginInfo in ValidPlugins
+                                where pluginInfo.PluginInterfaceName == typeName
+                                select pluginInfo).FirstOrDefault();
 
-                //TODO: Create custom exception class for this exception
+                var pluginType = _pluginAssembly.GetType(foundPlugin.FullName);
+
                 if (pluginType == null)
-                    throw new PluginNotFoundException(fullName, _pluginAssemblyName);
+                    throw new PluginNotFoundException(foundPlugin.FullName, PluginAssemblyName);
+
+                //Check for a parameter less constructor
+                //If the plugin does not have a valid constructor
+                if (NoValidPluginConstructor(pluginType))
+                    throw new Exception($"The plugin {foundPlugin.Name} does not have a parameterless constructor");
 
                 var plugin = Activator.CreateInstance(pluginType) as T;
 
@@ -62,13 +71,57 @@ namespace ScorpionCore
                     throw new PluginMustImplementInterfaceException(plugin.GetType().Name);
 
                 if (plugin == null)
-                    throw new PluginNotFoundException(fullName, _pluginAssemblyName);
+                    throw new PluginNotFoundException(foundPlugin.FullName, PluginAssemblyName);
 
                 return plugin;
             }
 
 
-            throw new Exception($"The requested plugin with the name '{type}' does not exist.");
+            throw new Exception($"The requested plugin with the name '{typeName}' does not exist.");
+        }
+
+
+        public T GetPluginByType<T>(object[] constructorParams) where T : class
+        {
+            var typeName = typeof(T).Name;
+
+            if (IsValidPluginName<T>())
+            {
+                var foundPlugin = (from pluginInfo in ValidPlugins
+                                   where pluginInfo.PluginInterfaceName == typeName
+                                   select pluginInfo).FirstOrDefault();
+
+                var pluginType = _pluginAssembly.GetType(foundPlugin.FullName);
+
+                if (pluginType == null)
+                    throw new PluginNotFoundException(foundPlugin.FullName, PluginAssemblyName);
+
+                if (!HasValidConstructor(pluginType, constructorParams.Select(c => c.GetType()).ToArray()))
+                    throw new ArgumentException($"Invalid plugin constructor params", nameof(constructorParams));
+
+                //Check for a parameter less constructor
+                //If the plugin does not have a valid constructor
+                if (NoValidPluginConstructor(pluginType))
+                    throw new Exception($"The plugin {foundPlugin.Name} does not have a parameterless constructor");
+
+                var ctors = pluginType.GetConstructors();
+
+                var myParams = ctors[1].GetParameters();
+
+                var plugin = Activator.CreateInstance(pluginType, constructorParams) as T;
+
+                //Check to make sure that the instance implements the IPlugin interface
+                if (!(plugin is IPlugin))
+                    throw new PluginMustImplementInterfaceException(plugin.GetType().Name);
+
+                if (plugin == null)
+                    throw new PluginNotFoundException(foundPlugin.FullName, PluginAssemblyName);
+
+                return plugin;
+            }
+
+
+            throw new Exception($"The requested plugin with the name '{typeName}' does not exist.");
         }
 
 
@@ -80,14 +133,24 @@ namespace ScorpionCore
         /// <returns></returns>
         public T GetPluginByName<T>(string name) where T : class
         {
+            var typeName = typeof(T).Name;
+
             if (IsValidPluginName<T>())
             {
-                var fullName = GetFullPluginName(SanitizeTypeName(name));
-                var pluginType = _pluginAssembly.GetType(fullName);
-                var exceptionMessage = $"The plugin '{fullName}' could not be found in the plugin assembly '{_pluginAssemblyName}.dll' or does not implement from proper plugin interface or the interface {typeof(T).Name} is not a valid plugin interface.";
+                var foundPlugin = (from pluginInfo in ValidPlugins
+                                   where pluginInfo.PluginInterfaceName == typeName &&
+                                        pluginInfo.Name == name
+                                   select pluginInfo).FirstOrDefault();
+
+                var pluginType = _pluginAssembly.GetType(foundPlugin.FullName);
+                var exceptionMessage = $"The plugin '{foundPlugin.FullName}' could not be found in the plugin assembly '{PluginAssemblyName}.dll' or does not implement from proper plugin interface or the interface {typeof(T).Name} is not a valid plugin interface.";
 
                 if (pluginType == null)
                     throw new Exception(exceptionMessage);
+
+                //If the plugin does not have a valid constructor
+                if (NoValidPluginConstructor(pluginType))
+                    throw new Exception("The plugin does not have a parameter constructor");
 
                 var plugin = Activator.CreateInstance(pluginType) as T;
 
@@ -120,7 +183,7 @@ namespace ScorpionCore
             //Get a list of all the possible plugin names that match the given type.
             return (from p in _pluginAssembly.GetExportedTypes()
                     where p.Name.Contains(SanitizeTypeName<T>())
-                    select p.FullName.Replace($"{_pluginAssemblyName}.", "")).ToArray();
+                    select p.FullName.Replace($"{PluginAssemblyName}.", "")).ToArray();
         }
 
 
@@ -143,7 +206,7 @@ namespace ScorpionCore
             //Get a list of all the possible plugin names that match the given type.
             return (from p in _pluginAssembly.GetExportedTypes()
                     where p.Name.Contains(typeName)
-                    select p.FullName.Replace($"{_pluginAssemblyName}.", "")).ToArray();
+                    select p.FullName.Replace($"{PluginAssemblyName}.", "")).ToArray();
         }
 
 
@@ -158,13 +221,6 @@ namespace ScorpionCore
         {
             var myTypes = _pluginAssembly.GetExportedTypes();
 
-            foreach (var plugin in _pluginAssembly.GetExportedTypes())
-            {
-                if (plugin.Name.Contains(subName))
-                {
-                    var stop = true;
-                }
-            }
             //Get a list of all the exported types that could be a valid plugin
             var possiblePlugins = (from p in _pluginAssembly.GetExportedTypes()
                                    where p.Name.Contains(subName)
@@ -183,29 +239,169 @@ namespace ScorpionCore
 
 
         /// <summary>
-        /// Builds a list of valid plugin names.
+        /// Creates a list of valid plugins.
         /// </summary>
         /// <returns></returns>
-        private string[] BuildValidPluginInterfaceList()
+        private PluginInfo[] GetValidPlugins()
         {
             //Return all of the namespace names as long as they are interfaces,
             //have a name that is at least 2 characters, starts with the convention
             //letter I, and is in the plugin interface. Removes the letter 'I' from
             //each plugin name
 
-            var type = (from t in Assembly.GetExecutingAssembly().GetTypes()
-                        where t.Name.Contains("Renderer")
-                        select t).FirstOrDefault();
-
-            return (from t in Assembly.GetExecutingAssembly().GetTypes()
-                    where t.IsInterface &&
-                        t.Name.Length >= 2 &&
-                        t.Name[0] == 'I' &&
-                        t.Namespace == PLUGIN_NAMESPACE && //From the plugin namespace
+            return (from t in _pluginAssembly.GetTypes()
+                    where t.Namespace == PluginAssemblyName && //From the plugin namespace
                         t.GetInterfaces().Any(i => i.Name == nameof(IPlugin)) //Is a plugin
-                    select t.Name).ToArray();
+                    select new PluginInfo()
+                    {
+                        Name = t.Name,
+                        FullName = t.FullName,
+                        PluginInterfaceName = GetValidTypeInterface(t)
+                    }).ToArray();
         }
 
+
+        private bool HasValidConstructor(Type pluginType, Type[] paramTypes)
+        {
+            //If the plugin type has no construcotrs
+            if (pluginType.GetConstructors().Length <= 0)
+                return false;
+
+            var constructors = pluginType.GetConstructors();
+
+            //Get the list of constructors with the proper amount of params
+            var validCtrs = (from c in constructors
+                             where c.GetParameters().Length == paramTypes.Length
+                             select c)
+                            .Where(c =>
+                            {
+                                var ctorParams = c.GetParameters();
+
+                                var allSame = true;
+
+                                for (int i = 0; i < paramTypes.Length; i++)
+                                {
+                                    if(!BothImplementSameInterface(ctorParams[i].ParameterType, paramTypes[i]))
+                                    {
+                                        allSame = false;
+                                        break;
+                                    }
+                                    ////If the required ctor type is an interface, compare
+                                    ////if the incoming param implements that interface. If not,
+                                    ////just compare if the 2 types are the same
+                                    //if (ctorParams[i].ParameterType.IsInterface)
+                                    //{
+                                    //    var paramInterfaces = paramTypes[i].GetInterfaces();
+
+                                    //    var paramInterface = paramInterfaces.Length > 0 ?
+                                    //        paramInterfaces[0] :
+                                    //        throw new Exception($"The param {paramTypes[i].Name} must implement constructor param interface of {ctorParams[i].ParameterType.GetInterfaces()[0].Name}.");
+
+                                    //    if (!ctorParams[i].ParameterType.Equals(paramInterface))
+                                    //        allSame = false;
+                                    //}
+                                    //else
+                                    //{
+                                    //    if (!ctorParams[i].ParameterType.Equals(paramTypes[i]))
+                                    //        allSame = false;
+                                    //}
+                                }
+
+                                return allSame;
+                            }).ToArray();
+                             
+
+            //If there are not constructors that have the required number of params
+            if (validCtrs.Length <= 0)
+                return false;
+
+
+            return true;
+        }
+
+
+        private bool IsSameType(Type typeA, Type typeB)
+        {
+            //First check if both types are not arrays. Return false if they are both not
+            if(typeA.IsArray && typeB.IsArray)
+            {
+                //Get the element type of both params
+                var typeAElementType = typeA.GetElementType();
+                var typeBElementType = typeB.GetElementType();
+
+                //If both element types are the same
+                if(typeAElementType == typeBElementType)
+                {
+                    return true;
+                }
+                else
+                {
+                    //If both array element types implement an interface
+                    return BothImplementSameInterface(typeA, typeB);
+                }
+            }
+
+
+            return false;
+        }
+
+
+        private bool BothImplementInterface(Type typeA, Type typeB)
+        {
+            return typeA.GetInterfaces().Length > 0 && typeB.GetInterfaces().Length > 0;
+        }
+
+
+        private bool BothImplementSameInterface(Type typeA, Type typeB)
+        {
+            if(BothImplementInterface(typeA, typeB))
+            {
+                var typeAInterfaces = (from i in typeA.GetInterfaces() select i.Name).ToArray();
+                var typeBInterfaces = (from i in typeB.GetInterfaces() select i.Name).ToArray();
+
+                return typeAInterfaces.Intersect(typeBInterfaces).Any();
+            }
+
+
+            return false;
+        }
+
+
+        private bool NoValidPluginConstructor(Type pluginType)
+        {
+            var constructors = pluginType.GetConstructors();
+
+            if (constructors.Length <= 0)
+                return true;
+
+            return constructors.All(c => c.GetParameters().Length > 0);
+        }
+
+
+        //TODO: Add docs
+        private string GetValidTypeInterface(Type pluginType)
+        {
+            var interfaces = pluginType.GetInterfaces();
+
+            if (interfaces == null || interfaces.Length <= 0)
+                return "";
+
+            return interfaces.Where(i =>
+            {
+                return _validPluginInterfaces.Contains(i.Name) && i.Name != nameof(IPlugin);
+            }).FirstOrDefault().Name;
+        }
+
+
+        //TODO: Add docs
+        private string[] GetPluginInterfaces()
+        {
+            return (from t in Assembly.GetExecutingAssembly().GetTypes()
+                    where t.Namespace == PLUGIN_NAMESPACE &&
+                        t.GetInterfaces().Any(i => i.Name == nameof(IPlugin))
+                    select t.Name).ToArray();
+        }
+        
 
         /// <summary>
         /// Returns true if the given generic type param <typeparamref name="T"/> is a valid plugin name.
@@ -213,8 +409,6 @@ namespace ScorpionCore
         /// <returns></returns>
         private bool IsValidPluginName<T>()
         {
-            //TODO: Test that the type is of type IPlugin.
-
             var incomingType = typeof(T);
 
             var typeName = incomingType.Name;
@@ -224,12 +418,14 @@ namespace ScorpionCore
                 return false;
 
             //The incoming interface type must start with the letter 'I'
-            if (typeName.Length >= 2 && typeName.Substring(0, 1) != "I")
+            if (typeName.Length <= 2)
                 return false;
+
+            //Check the name against the interface that the type implements
 
 
             //Check to see if the given plugin name exists in the valid plugin interface list.
-            return ValidPluginInterfaces.Any(p => p == typeName);
+            return ValidPlugins.Any(pluginInfo => pluginInfo.PluginInterfaceName == typeName);
         }
 
 
@@ -252,7 +448,7 @@ namespace ScorpionCore
 
 
             //Check to see if the given plugin name exists in the valid plugin interface list.
-            return ValidPluginInterfaces.Any(p => p == typeName);
+            return ValidPlugins.Any(pluginInfo => pluginInfo.Name == typeName);
         }
 
 

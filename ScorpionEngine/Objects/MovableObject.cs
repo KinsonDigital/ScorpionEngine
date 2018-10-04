@@ -32,13 +32,15 @@ namespace ScorpionEngine.Objects
 
 
         #region Constructors
-        public MovableObject()
+        public MovableObject(Vector position) : base(position)
         {
+
         }
 
 
-        public MovableObject(Texture texture) : base(texture)
+        public MovableObject(Texture texture, Vector position) : base(texture, position)
         {
+
         }
 
 
@@ -48,7 +50,7 @@ namespace ScorpionEngine.Objects
         /// <param name="textureName"></param>
         /// <param name="vertices">Optional parameter: The vertices that make up the shape of the game object for the internal physics engine.  If left null, then a default rectanglular 
         /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
-        public MovableObject(Vector[] vertices) : base(vertices)
+        public MovableObject(Vector[] vertices, Vector position) : base(vertices, position)
         {
         }
 
@@ -60,7 +62,7 @@ namespace ScorpionEngine.Objects
         /// <param name="textureName">The name of the texture to load.</param>
         /// <param name="polyVertices">Optional parameter: The vertices that make up the shape of the game object for the internal physics engine.  If left null, then a default rectanglular 
         /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
-        public MovableObject(Vector[] polyVertices, Vector location) : base(polyVertices, location)
+        public MovableObject(Texture texture, Vector[] polyVertices, Vector location) : base(texture, polyVertices, location)
         {
         }
         #endregion

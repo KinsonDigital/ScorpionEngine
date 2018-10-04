@@ -8,8 +8,12 @@ using System.Threading.Tasks;
 namespace ScorpionCore.Plugins
 {
     //TODO: Add docs
-    public interface IPhysicsBody
+    public interface IPhysicsBody : IPlugin
     {
+        float[] XVertices { get; set; }
+
+        float[] YVertices { get; set; }
+
         float X { get; set; }
 
         float Y { get; set; }
@@ -21,7 +25,6 @@ namespace ScorpionCore.Plugins
         float Friction { get; set; }
 
         float Restitution { get; set; }
-
 
         void DataSender(Func<dynamic> dataSender);
     }

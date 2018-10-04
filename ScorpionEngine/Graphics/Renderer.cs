@@ -31,9 +31,12 @@ namespace ScorpionEngine.Graphics
         }
 
 
-        public T GetData<T>() where T : class
+        public T GetData<T>(string dataType) where T : class
         {
-            return _internalRenderer.GetData<T>();
+            //TODO: If rendering stops working, the change to the GetData
+            //interface might be the cause.  Casting the object to type T
+            //might be the issue
+            return _internalRenderer.GetData(dataType) as T;
         }
 
 

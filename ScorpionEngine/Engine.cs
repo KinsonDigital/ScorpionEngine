@@ -4,6 +4,7 @@ using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Graphics;
 using ScorpionEngine.Scene;
+using ScorpionEngine.Physics;
 
 namespace ScorpionEngine
 {
@@ -26,6 +27,9 @@ namespace ScorpionEngine
         public Engine()
         {
             EnginePlugins = PluginLoader.LoadPluginLibrary("MonoScorpPlugin");
+            PhysicsPlugins = PluginLoader.LoadPluginLibrary("VelcroPhysicsPlugin");
+
+            PhysicsWorld = new PhysicsWorld(new Vector(0, 0.5f));
 
             ContentLoader = new ContentLoader(EnginePlugins.GetPluginByType<IContentLoader>());
             _engineCore = EnginePlugins.GetPluginByType<IEngineCore>();
@@ -43,6 +47,10 @@ namespace ScorpionEngine
         #region Properties
         internal static PluginLibrary EnginePlugins { get; private set; }
 
+        internal static PluginLibrary PhysicsPlugins { get; private set; }
+
+        public static PhysicsWorld PhysicsWorld { get; set; }
+
         public ContentLoader ContentLoader { get; set; }
 
         public GameScene Scene { get; private set; }
@@ -50,7 +58,7 @@ namespace ScorpionEngine
         /// <summary>
         /// Gets a value indicating that the game engine is currently running.
         /// </summary>
-        public bool Running { get; private set; }
+        public bool Running => _engineCore.IsRunning();
 
 
         #region Static Properties
@@ -130,6 +138,9 @@ namespace ScorpionEngine
             _prevElapsedTime = currentTime;
 
             CurrentFPS = (1000f / _prevElapsedTime);
+
+            //Update the physics world
+            PhysicsWorld.Update((float)engineTime.ElapsedEngineTime.TotalSeconds);
         }
 
 

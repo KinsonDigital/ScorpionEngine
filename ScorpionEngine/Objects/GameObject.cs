@@ -55,46 +55,46 @@ namespace ScorpionEngine.Objects
 
 
         #region Constructors
-        public GameObject()
+        public GameObject(Vector position, bool usesPhysics = true)
         {
-            CreateBody();
         }
 
 
-        public GameObject(Texture texture)
+        public GameObject(Texture texture, Vector position, bool usesPhysics = true)
         {
             _texture = texture;
-            CreateBody();
+
+            var halfWidth = texture.Width / 2;
+            var halfHeight = texture.Height / 2;
+
+            var vertices = new Vector[4]
+            {
+                new Vector(position.X - halfWidth, position.Y - halfHeight),
+                new Vector(position.X + halfWidth, position.Y - halfHeight),
+                new Vector(position.X + halfWidth, position.Y + halfHeight),
+                new Vector(position.X - halfWidth, position.Y + halfHeight),
+            };
+
+            CreateBody(vertices, position);
         }
 
 
-        /// <summary>
-        /// Creates a new instance of an entity.
-        /// </summary>
-        /// <param name="textureName">The textureName of the entity.</param>
-        /// <param name="polyVertices">Optional parameter: The vertices that make up the shape of the game object for the internal physics engine.  If left null, then a default rectanglular 
-        /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
-        public GameObject(Vector[] polyVertices)
+        public GameObject(Vector[] polyVertices, Vector position, bool usesPhysics = true)
         {
-            CreateBody();
         }
 
 
-        /// <summary>
-        /// Creates a new instance of an entity.
-        /// </summary>
-        /// <param name="textureName">The textureName of the entity.</param>
-        /// <param name="location">Sets the location of the entity in the game world.</param>
-        /// <param name="polyVertices">Optional parameter: The vertices that make up the shape of the game object for the internal physics engine.  If left null, then a default rectanglular 
-        /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
-        public GameObject(Vector[] polyVertices, Vector location)
+        public GameObject(Texture texture, Vector[] polyVertices, Vector position, bool usesPhysics = true)
         {
-            CreateBody();
+            _texture = texture;
+            CreateBody(polyVertices, position);
         }
         #endregion
 
 
         #region Props
+        public bool UsesPhysics { get; private set; }
+
         public IPhysicsBody PhysicsBody { get; set; }
 
         /// <summary>
@@ -136,38 +136,50 @@ namespace ScorpionEngine.Objects
         /// </summary>
         public Rect Bounds
         {
-            get { return new Rect((int)Position.X, (int)Position.Y, Width, Height); }    
+            get { return new Rect((int)Position.X, (int)Position.Y, BoundsWidth, BoundsHeight); }    
         }
 
         /// <summary>
         /// Gets the location of the entity in the game world in pixel units.
         /// </summary>
-        public Vector Position { get; set; }
+        public Vector Position
+        {
+            get => new Vector(_internalBody.X, _internalBody.Y);
+            set
+            {
+                _internalBody.X = value.X;
+                _internalBody.Y = value.Y;
+            }
+        }
 
         /// <summary>
         /// Gets the width of the entity.
         /// </summary>
-        public int Width
+        public int BoundsWidth
         {
-            get => _texture.Width;
+            //TODO: This needs to be redone to return the difference between the
+            //farthest left and farthest right vertices
+            get => -1;
         }
 
         /// <summary>
         /// Gets the height of the entity.
         /// </summary>
-        public int Height
+        public int BoundsHeight
         {
-            get => _texture.Height;
+            //TODO: This needs to be redone to return the difference between the
+            //farthest top and farthest bottom vertices
+            get => -1;
         }
 
         /// <summary>
         /// Returns the half width of the <see cref="GameObject"/>.
         /// </summary>
-        public int HalfWidth => Width / 2;
+        public int BoundsHalfWidth => BoundsWidth / 2;
 
         /// Returns the half height of the <see cref="GameObject"/>.
         /// </summary>
-        public int HalfHeight => Height / 2;
+        public int BoundsHalfHeight => BoundsHeight / 2;
 
         /// <summary>
         /// Gets the unique ID that has been assigned to this entity.
@@ -214,9 +226,12 @@ namespace ScorpionEngine.Objects
 
 
         #region Private Methods
-        private void CreateBody()
+        private void CreateBody(Vector[] vertices, Vector position)
         {
-            //_internalBody = Engine.EnginePlugins.GetPluginByType<IPhysicsBody>();
+            var body = new PhysicsBody(vertices, position);
+
+            Engine.PhysicsWorld.AddBody(body);
+            _internalBody = body.Body;
         }
 
 

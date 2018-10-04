@@ -3,9 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using VelcroPhysics.Primitives;
+using VelcroPhysics.Shared;
 using VelcroVector = VelcroPhysics.Primitives.Vector2;
 
-namespace VelcroPhysicsDriver
+namespace VelcroPhysicsPlugin
 {
     public static class ExtensionMethods
     {
@@ -23,6 +24,12 @@ namespace VelcroPhysicsDriver
         public static float ToPhysics(this float value)
         {
             return value * pixelToUnit;
+        }
+
+        
+        public static float[] ToPixels(this float[] value)
+        {
+            return (from p in value select p.ToPixels()).ToArray();
         }
 
 
@@ -56,9 +63,35 @@ namespace VelcroPhysicsDriver
         }
 
 
-        public static VelcroVector ToVelcroVector(this IVector value)
+        public static Vector2 ToVelcroVector(this IVector value)
+        {
+            return new Vector2(value.X, value.Y);
+        }
+
+
+        public static VelcroVector ToVelcroVector(this Vector2 value)
         {
             return new VelcroVector(value.X, value.Y);
+        }
+
+
+        public static VelcroVector[] ToVelcroVector(this Vector2[] value)
+        {
+            return value.Select(v => v.ToVelcroVector()).ToArray();
+        }
+
+
+        public static VelcroVector[] ToVelcroVectors(this Vertices value)
+        {
+            var result = new List<VelcroVector>();
+
+            foreach (var v in value)
+            {
+                result.Add(v.ToVelcroVector());
+            }
+
+
+            return result.ToArray();
         }
 
 
@@ -72,7 +105,7 @@ namespace VelcroPhysicsDriver
         }
 
 
-        public static VelcroVector ToPixels(this VelcroVector value)
+        public static Vector2 ToPixels(this Vector2 value)
         {
             value.X = ToPixels(value.X);
             value.Y = ToPixels(value.Y);
@@ -105,13 +138,13 @@ namespace VelcroPhysicsDriver
         }
 
 
-        public static List<VelcroVector> ToPixels(this List<VelcroVector> value)
+        public static List<Vector2> ToPixels(this List<Vector2> value)
         {
             return (from v in value select v.ToPixels()).ToList();
         }
 
 
-        public static List<VelcroVector> ToPhysics(this List<VelcroVector> value)
+        public static List<Vector2> ToPhysics(this List<Vector2> value)
         {
             return (from v in value select v.ToPhysics()).ToList();
         }
@@ -123,7 +156,7 @@ namespace VelcroPhysicsDriver
         }
 
 
-        public static string ToString(this VelcroVector value, int round)
+        public static string ToString(this Vector2 value, int round)
         {
             return $"X: {Math.Round(value.X, round).ToString()} - Y: {Math.Round(value.Y, round).ToString()}";
         }

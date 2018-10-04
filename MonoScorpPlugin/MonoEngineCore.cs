@@ -13,7 +13,7 @@ namespace MonoScorpPlugin
     public class MonoEngineCore : IEngineCore
     {
         private MonoGame _monoGame;
-        
+        private bool _isRunning;
 
         public event EventHandler<OnUpdateEventArgs> OnUpdate;
         public event EventHandler<OnRenderEventArgs> OnRender;
@@ -62,6 +62,7 @@ namespace MonoScorpPlugin
         #region Public Methods
         public void Start()
         {
+            _isRunning = true;
             _monoGame.Start();
         }
 
@@ -70,12 +71,19 @@ namespace MonoScorpPlugin
         {
             _monoGame.Dispose();
             _monoGame.Exit();
+            _isRunning = false;
         }
 
 
         public void SetFPS(float value)
         {
             _monoGame.SetFPS(value);
+        }
+
+
+        public bool IsRunning()
+        {
+            return _isRunning;
         }
 
 
@@ -121,7 +129,7 @@ namespace MonoScorpPlugin
         }
 
 
-        public T GetData<T>() where T : class
+        public object GetData(string dataType)
         {
             throw new NotImplementedException();
         }

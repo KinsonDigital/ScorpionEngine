@@ -39,8 +39,8 @@ namespace MonoScorpPlugin
         {
             _graphicsDeviceManager = new GraphicsDeviceManager(this);
 
-            Content.RootDirectory = "Content";
-            DriverContent = Content;
+            base.Content.RootDirectory = "Content";
+            Content = base.Content;
 
             var enginePlugins = PluginLoader.LoadPluginLibrary("MonoScorpPlugin");
 
@@ -55,7 +55,7 @@ namespace MonoScorpPlugin
 
         public MonoEngineTime EngineTime { get; set; }
 
-        public static ContentManager DriverContent { get; private set; }
+        public static ContentManager Content { get; private set; }
 
         public static GraphicsDevice MonoGraphicsDevice { get; set; }
 

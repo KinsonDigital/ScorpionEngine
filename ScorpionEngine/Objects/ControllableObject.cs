@@ -1,5 +1,6 @@
 ﻿using ScorpionCore;
 using ScorpionCore.Plugins;
+using ScorpionEngine.Graphics;
 using ScorpionEngine.Input;
 using ScorpionEngine.Physics;
 
@@ -18,28 +19,25 @@ namespace ScorpionEngine.Objects
 
         //TODO: Look into possibly adding the keyboard internally instead of injecting it via the constructor
         #region Constructors
-        /// <summary>
-        /// Creates a new instance of an game object.
-        /// </summary>
-        /// <param name="textureName">The textureName of the game object.</param>
-        /// <param name="polyVertices">Optional parameter: The vertices that make up the shape of the game object for the internal physics engine.  If left null, then a default rectanglular 
-        /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
-        public ControllableObject(Vector[] polyVertices, Keyboard keyboard)
-            : base(polyVertices)
+        public ControllableObject(Vector position, Keyboard keyboard) : base(position)
         {
             CreateKeyBehaviors(keyboard);
         }
 
 
-        /// <summary>
-        /// Creates a new instance of an game object.
-        /// </summary>
-        /// <param name="textureName">The textureName of the game object.</param>
-        /// <param name="location">Sets the location of the game object in the game world.</param>
-        /// <param name="polyVertices">Optional parameter: The vertices that make up the shape of the game object for the internal physics engine.  If left null, then a default rectanglular 
-        /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
-        public ControllableObject(Vector[] polyVertices, Vector location, Keyboard keyboard)
-            : base(polyVertices, location)
+        public ControllableObject(Texture texture, Vector position, Keyboard keyboard) : base(texture, position)
+        {
+            CreateKeyBehaviors(keyboard);
+        }
+
+
+        public ControllableObject(Vector[] polyVertices, Vector position, Keyboard keyboard) : base(polyVertices, position)
+        {
+            CreateKeyBehaviors(keyboard);
+        }
+
+
+        public ControllableObject(Texture texture, Vector[] polyVertices, Vector position, Keyboard keyboard) : base(texture, polyVertices, position)
         {
             CreateKeyBehaviors(keyboard);
         }

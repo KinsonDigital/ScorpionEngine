@@ -83,6 +83,9 @@
     <Compile Include="Input\Enums.cs" />
     <Compile Include="Input\Keyboard.cs" />
     <Compile Include="Input\Mouse.cs" />
+    <Compile Include="Physics\InternalVector.cs" />
+    <Compile Include="Physics\PhysicsBody.cs" />
+    <Compile Include="Physics\PhysicsWorld.cs" />
     <Compile Include="Physics\Vector.cs" />
     <Compile Include="Scene\GameScene.cs" />
     <Compile Include="Scene\SceneManager.cs" />

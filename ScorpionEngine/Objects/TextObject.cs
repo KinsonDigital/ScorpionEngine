@@ -1,4 +1,5 @@
 ﻿using ScorpionEngine.Content;
+using ScorpionEngine.Physics;
 using SysColor = System.Drawing.Color;
 using SysFont = System.Drawing.Font;
 
@@ -12,7 +13,6 @@ namespace ScorpionEngine.Objects
         #region Fields
         private SysColor _foreColor = SysColor.Black;
         private SysColor _backColor = SysColor.FromArgb(0, 0, 0, 0);
-        private SysFont _font;
         private string _text;
         #endregion
 
@@ -25,10 +25,9 @@ namespace ScorpionEngine.Objects
         /// <param name="font">The font of the text.</param>
         /// <param name="foreColor">The color of the text.</param>
         /// <param name="backColor">The color of the background behind the text.</param>
-        public TextObject(string text, SysFont font, SysColor foreColor, SysColor backColor)
+        public TextObject(string text, SysColor foreColor, SysColor backColor, Vector position) : base(position)
         {
             _text = text;
-            _font = font;
             _foreColor = foreColor;
             _backColor = backColor;
         }
@@ -65,17 +64,6 @@ namespace ScorpionEngine.Objects
         public SysColor BackColor
         {
             get { return _backColor; }
-            set
-            {
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the font of the text entity.
-        /// </summary>
-        public SysFont TextFont
-        {
-            get { return _font; }
             set
             {
             }

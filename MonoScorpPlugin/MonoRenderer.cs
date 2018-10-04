@@ -46,17 +46,17 @@ namespace MonoScorpPlugin
         }
 
 
-        public T GetData<T>() where T : class
-        {
-            return _graphicsDevice as T;
-        }
-
-
         public void InjectData<T>(T data) where T : class
         {
             _graphicsDevice = data;
 
             _spriteBatch = new SpriteBatch(_graphicsDevice as GraphicsDevice);
+        }
+
+
+        public object GetData(string dataType)
+        {
+            throw new NotImplementedException();
         }
     }
 }

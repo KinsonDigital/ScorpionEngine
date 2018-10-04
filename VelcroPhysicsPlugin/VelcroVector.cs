@@ -5,10 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VelcroPhysicsDriver
+namespace VelcroPhysicsPlugin
 {
-    public class VelVector : IVector
+    public class VelcroVector : IVector
     {
+        public VelcroVector(float x, float y)
+        {
+            X = x;
+            Y = y;
+        }
+
+
         public float X { get; set; }
         public float Y { get; set; }
     }

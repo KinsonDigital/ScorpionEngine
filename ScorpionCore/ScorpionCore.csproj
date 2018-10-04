@@ -48,6 +48,7 @@
     <Compile Include="IMouseEvents.cs" />
     <Compile Include="IVector.cs" />
     <Compile Include="OnRenderEventArgs.cs" />
+    <Compile Include="PluginInfo.cs" />
     <Compile Include="PluginLibrary.cs" />
     <Compile Include="Plugins\IContentLoader.cs" />
     <Compile Include="IDrawable.cs" />

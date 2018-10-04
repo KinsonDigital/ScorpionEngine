@@ -130,7 +130,8 @@ namespace MonoScorpPlugin
             throw new NotImplementedException();
         }
 
-        public T GetData<T>() where T : class
+
+        public object GetData(string dataType)
         {
             throw new NotImplementedException();
         }

@@ -36,7 +36,7 @@ namespace MonoScorpPlugin
         {
             ITexture newTexture;
 
-            newTexture = new MonoTexture(MonoGame.DriverContent.Load<Texture2D>($@"Graphics\{textureName}")) as ITexture;
+            newTexture = new MonoTexture(MonoGame.Content.Load<Texture2D>($@"Graphics\{textureName}")) as ITexture;
 
 
             return newTexture as T;
@@ -59,7 +59,7 @@ namespace MonoScorpPlugin
             throw new NotImplementedException();
         }
 
-        public T GetData<T>() where T : class
+        public object GetData(string dataType)
         {
             throw new NotImplementedException();
         }

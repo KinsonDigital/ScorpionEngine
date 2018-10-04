@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
 using ScorpionEngine;
 using ScorpionEngine.Content;
 using ScorpionEngine.Graphics;
@@ -18,7 +22,9 @@ namespace ScorpTestGame
         private Mouse _mouse;
         private SceneManager _sceneManager;
         private Texture _rectTexture;
-        private MovableObject _rectObject;
+        private MovableObject _fallingObject;
+        private GameObject _platformObject;
+        private TextObject _fps;
         private int _x = 200;
         private int _y = 200;
 
@@ -39,8 +45,9 @@ namespace ScorpTestGame
             _keyboard = new Keyboard();
             _mouse = new Mouse();
 
-            _rectObject = new MovableObject();
-            _rectObject.Position = new Vector(200, 200);
+            //TODO: Need to create a regular game engine object and get its internal physics body wired up and working
+
+            
 
             base.Init();
         }
@@ -48,9 +55,18 @@ namespace ScorpTestGame
 
         public override void LoadContent(ContentLoader contentLoader)
         {
-            _rectTexture = contentLoader.LoadTexture("GrayRectangle");
+            _fps = new TextObject("Hello World", Color.Black, Color.Black, new Vector(300, 300));
+            _rectTexture = contentLoader.LoadTexture("GreenRectangle");
 
-            _rectObject.Texture = _rectTexture;
+            var vertices = new Vector[4]
+            {
+                new Vector(0, 0),
+                new Vector(50, 0),
+                new Vector(50, 50),
+                new Vector(0, 50)
+            };
+
+            _fallingObject = new MovableObject(_rectTexture, vertices, new Vector(200, 200));
 
             base.LoadContent(contentLoader);
         }
@@ -66,15 +82,16 @@ namespace ScorpTestGame
             _keyboard.UpdatePreviousState();
             _mouse.UpdatePreviousState();
 
+
             base.Update(engineTime);
         }
 
 
         public override void Render(Renderer renderer)
         {
-            renderer.Clear(100, 149, 237, 255);
+            renderer.Clear(50, 50, 50, 255);
 
-            _rectObject.Render(renderer);
+            _fallingObject.Render(renderer);
 
             base.Render(renderer);
         }
@@ -100,7 +117,7 @@ namespace ScorpTestGame
 
             if (_keyboard.IsKeyPressed(InputKeys.End))
             {
-                _rectObject.Visible = !_rectObject.Visible;
+                _fallingObject.Visible = !_fallingObject.Visible;
             }
         }
 
