@@ -22,7 +22,7 @@ namespace ScorpTestGame
         private Mouse _mouse;
         private SceneManager _sceneManager;
         private Texture _rectTexture;
-        private MovableObject _fallingObject;
+        private DynamicEntity _fallingObject;
         private GameObject _platformObject;
         private TextObject _fps;
         private int _x = 200;
@@ -66,7 +66,7 @@ namespace ScorpTestGame
                 new Vector(0, 50)
             };
 
-            _fallingObject = new MovableObject(_rectTexture, vertices, new Vector(200, 200));
+            _fallingObject = new DynamicEntity(_rectTexture, vertices, new Vector(200, 200));
 
             base.LoadContent(contentLoader);
         }

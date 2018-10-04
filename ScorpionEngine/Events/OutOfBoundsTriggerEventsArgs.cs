@@ -12,7 +12,7 @@ namespace ScorpionEngine.Events
         /// <summary>
         /// Gets the entity that caused the trigger.
         /// </summary>
-        public GameObject TriggerSource { get; private set; }
+        public Entity TriggerSource { get; private set; }
         #endregion
 
 
@@ -21,7 +21,7 @@ namespace ScorpionEngine.Events
         /// Creates a new instance of OutOfBoundsTriggerEventsArgs.
         /// </summary>
         /// <param name="entity">The entity that caused the out of bounds trigger.</param>
-        public OutOfBoundsTriggerEventsArgs(GameObject entity)
+        public OutOfBoundsTriggerEventsArgs(Entity entity)
         {
             TriggerSource = entity;
         }

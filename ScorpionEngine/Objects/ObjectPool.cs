@@ -21,7 +21,7 @@ namespace ScorpionEngine.Objects
 
 
         #region Fields
-        private readonly List<MovableObject> _objects = new List<MovableObject>();//The pool of objects to manage.
+        private readonly List<DynamicEntity> _objects = new List<DynamicEntity>();//The pool of objects to manage.
         private Rect _triggerBounds;//The bounds used to trigger the out of bounds trigger
         #endregion
 
@@ -36,7 +36,7 @@ namespace ScorpionEngine.Objects
         /// Gets or inserts a entity in the entity pool.
         /// </summary>
         /// <returns></returns>
-        public MovableObject this[int index]//Indexer property
+        public DynamicEntity this[int index]//Indexer property
         {
             get
             {
@@ -92,7 +92,7 @@ namespace ScorpionEngine.Objects
         /// Adds the given GameObject to the entity pool.
         /// </summary>
         /// <param name="obj">The GameObject to add.</param>
-        public void AddGameObject(MovableObject obj)
+        public void AddGameObject(DynamicEntity obj)
         {
             _objects.Add(obj);
         }

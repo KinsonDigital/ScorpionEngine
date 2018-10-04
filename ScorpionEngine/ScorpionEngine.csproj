@@ -108,10 +108,10 @@
     <Compile Include="IUpdatable.cs" />
     <Compile Include="KeyBehavior.cs" />
     <Compile Include="MovementBehavior.cs" />
-    <Compile Include="Objects\ControllableObject.cs" />
+    <Compile Include="Objects\ControllableEntity.cs" />
     <Compile Include="Objects\Enums.cs" />
     <Compile Include="Objects\GameObject.cs" />
-    <Compile Include="Objects\MovableObject.cs" />
+    <Compile Include="Objects\DynamicEntity.cs" />
     <Compile Include="Objects\ObjectAnimation.cs" />
     <Compile Include="Objects\ObjectPool.cs" />
     <Compile Include="Objects\TextObject.cs" />

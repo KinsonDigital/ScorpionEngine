@@ -19,7 +19,7 @@ namespace ScorpionEngine
         private KeyBehavior _moveLefttKeyOnRelease;
         private KeyBehavior _moveUpKeyOnRelease;
         private KeyBehavior _moveDownKeyOnRelease;
-        private MovableObject _gameObject;
+        private DynamicEntity _gameObject;
         #endregion
 
         //TODO: Look into possibly adding the keyboard internally instead of injecting it via the constructor
@@ -28,7 +28,7 @@ namespace ScorpionEngine
         /// Creates an instance of MovementBehavior.
         /// </summary>
         /// <param name="obj">The game object to perform the movement behavior on.</param>
-        public MovementBehavior(Keyboard keyboard, MovableObject obj)
+        public MovementBehavior(Keyboard keyboard, DynamicEntity obj)
         {
             CreateBehaviors(keyboard);
 

@@ -9,7 +9,7 @@ namespace ScorpionEngine.Objects
     /// <summary>
     /// Represents a moveable game object that can be controlled via keyboard or mouse input.
     /// </summary>
-    public class ControllableObject : MovableObject
+    public class ControllableEntity : DynamicEntity
     {
         #region Fields
         private KeyBehavior _stopMovementOnKeyRelease;//Will fire when any key is released
@@ -19,25 +19,25 @@ namespace ScorpionEngine.Objects
 
         //TODO: Look into possibly adding the keyboard internally instead of injecting it via the constructor
         #region Constructors
-        public ControllableObject(Vector position, Keyboard keyboard) : base(position)
+        public ControllableEntity(Vector position, Keyboard keyboard) : base(position)
         {
             CreateKeyBehaviors(keyboard);
         }
 
 
-        public ControllableObject(Texture texture, Vector position, Keyboard keyboard) : base(texture, position)
+        public ControllableEntity(Texture texture, Vector position, Keyboard keyboard) : base(texture, position)
         {
             CreateKeyBehaviors(keyboard);
         }
 
 
-        public ControllableObject(Vector[] polyVertices, Vector position, Keyboard keyboard) : base(polyVertices, position)
+        public ControllableEntity(Vector[] polyVertices, Vector position, Keyboard keyboard) : base(polyVertices, position)
         {
             CreateKeyBehaviors(keyboard);
         }
 
 
-        public ControllableObject(Texture texture, Vector[] polyVertices, Vector position, Keyboard keyboard) : base(texture, polyVertices, position)
+        public ControllableEntity(Texture texture, Vector[] polyVertices, Vector position, Keyboard keyboard) : base(texture, polyVertices, position)
         {
             CreateKeyBehaviors(keyboard);
         }

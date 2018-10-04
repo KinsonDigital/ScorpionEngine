@@ -8,7 +8,7 @@ namespace ScorpionEngine.Objects
     /// <summary>
     /// Text that can be drawn to the screen.
     /// </summary>
-    public class TextObject : MovableObject
+    public class TextObject : DynamicEntity
     {
         #region Fields
         private SysColor _foreColor = SysColor.Black;
