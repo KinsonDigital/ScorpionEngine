@@ -82,7 +82,7 @@
     <Content Include="Content\Graphics\BottomWall.png" />
     <Content Include="Content\Graphics\Enemy.png" />
     <Content Include="Content\Graphics\GreenRectangle.png" />
-    <Content Include="Content\Graphics\Rectangle.png" />
+    <Content Include="Content\Graphics\LongRectangle.png" />
     <Content Include="Content\Graphics\Rock.png" />
     <Content Include="Content\Graphics\Ship.png" />
     <Content Include="Content\Sound\SoundEffects\Laser.wav" />

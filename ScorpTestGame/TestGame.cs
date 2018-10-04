@@ -21,9 +21,10 @@ namespace ScorpTestGame
         private Keyboard _keyboard;
         private Mouse _mouse;
         private SceneManager _sceneManager;
-        private Texture _rectTexture;
-        private DynamicEntity _fallingObject;
-        private GameObject _platformObject;
+        private Texture _fallingRectTexture;
+        private DynamicEntity _fallingRect;
+        private Texture _platformTexture;
+        private DynamicEntity _platformRect;
         private TextObject _fps;
         private int _x = 200;
         private int _y = 200;
@@ -44,11 +45,6 @@ namespace ScorpTestGame
         {
             _keyboard = new Keyboard();
             _mouse = new Mouse();
-
-            //TODO: Need to create a regular game engine object and get its internal physics body wired up and working
-
-            
-
             base.Init();
         }
 
@@ -56,17 +52,29 @@ namespace ScorpTestGame
         public override void LoadContent(ContentLoader contentLoader)
         {
             _fps = new TextObject("Hello World", Color.Black, Color.Black, new Vector(300, 300));
-            _rectTexture = contentLoader.LoadTexture("GreenRectangle");
+            _fallingRectTexture = contentLoader.LoadTexture("GreenRectangle");
 
-            var vertices = new Vector[4]
+            var fallingRectVertices = new Vector[4]
             {
-                new Vector(0, 0),
-                new Vector(50, 0),
+                new Vector(-50, -50),
+                new Vector(50, -50),
                 new Vector(50, 50),
-                new Vector(0, 50)
+                new Vector(-50, 50)
             };
 
-            _fallingObject = new DynamicEntity(_rectTexture, vertices, new Vector(200, 200));
+            _fallingRect = new DynamicEntity(_fallingRectTexture, fallingRectVertices, new Vector(200, 200));
+
+            _platformTexture = contentLoader.LoadTexture("LongRectangle");
+
+            var platformVertices = new Vector[4]
+            {
+                new Vector(-100, -100),
+                new Vector(100, -100),
+                new Vector(100, 100),
+                new Vector(-100, 100)
+            };
+
+            _platformRect = new DynamicEntity(_platformTexture, fallingRectVertices, new Vector(200, 400), true);
 
             base.LoadContent(contentLoader);
         }
@@ -82,7 +90,6 @@ namespace ScorpTestGame
             _keyboard.UpdatePreviousState();
             _mouse.UpdatePreviousState();
 
-
             base.Update(engineTime);
         }
 
@@ -91,7 +98,8 @@ namespace ScorpTestGame
         {
             renderer.Clear(50, 50, 50, 255);
 
-            _fallingObject.Render(renderer);
+            _fallingRect.Render(renderer);
+            _platformRect.Render(renderer);
 
             base.Render(renderer);
         }
@@ -117,7 +125,7 @@ namespace ScorpTestGame
 
             if (_keyboard.IsKeyPressed(InputKeys.End))
             {
-                _fallingObject.Visible = !_fallingObject.Visible;
+                _fallingRect.Visible = !_fallingRect.Visible;
             }
         }
 

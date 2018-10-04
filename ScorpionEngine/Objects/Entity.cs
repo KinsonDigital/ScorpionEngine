@@ -15,7 +15,7 @@ namespace ScorpionEngine.Objects
     /// Represents an imovable game object with a texture, and a location.  
     /// Great for static objects that never move such as walls, a tree, etc.
     /// </summary>
-    public class GameObject
+    public abstract class Entity
     {
         protected IPhysicsBody _internalBody;
 
@@ -47,20 +47,20 @@ namespace ScorpionEngine.Objects
 
         #region Fields
         private bool _visible = true;//True if the entity will be drawn
+        protected bool _usesPhysics = true;
         protected IEngineTiming _engineTime;
         private Vector _origin = Vector.Zero;
         protected Texture _texture;
-        private Keyboard _keyboard;
         #endregion
 
 
         #region Constructors
-        public GameObject(Vector position, bool usesPhysics = true)
+        public Entity(Vector position, bool isStaticBody = false)
         {
         }
 
 
-        public GameObject(Texture texture, Vector position, bool usesPhysics = true)
+        public Entity(Texture texture, Vector position, bool isStaticBody = false)
         {
             _texture = texture;
 
@@ -75,19 +75,19 @@ namespace ScorpionEngine.Objects
                 new Vector(position.X - halfWidth, position.Y + halfHeight),
             };
 
-            CreateBody(vertices, position);
+            CreateBody(vertices, position, isStaticBody);
         }
 
 
-        public GameObject(Vector[] polyVertices, Vector position, bool usesPhysics = true)
+        public Entity(Vector[] polyVertices, Vector position, bool isStaticBody = false)
         {
         }
 
 
-        public GameObject(Texture texture, Vector[] polyVertices, Vector position, bool usesPhysics = true)
+        public Entity(Texture texture, Vector[] polyVertices, Vector position, bool isStaticBody = false)
         {
             _texture = texture;
-            CreateBody(polyVertices, position);
+            CreateBody(polyVertices, position, isStaticBody);
         }
         #endregion
 
@@ -173,11 +173,11 @@ namespace ScorpionEngine.Objects
         }
 
         /// <summary>
-        /// Returns the half width of the <see cref="GameObject"/>.
+        /// Returns the half width of the <see cref="Entity"/>.
         /// </summary>
         public int BoundsHalfWidth => BoundsWidth / 2;
 
-        /// Returns the half height of the <see cref="GameObject"/>.
+        /// Returns the half height of the <see cref="Entity"/>.
         /// </summary>
         public int BoundsHalfHeight => BoundsHeight / 2;
 
@@ -194,6 +194,8 @@ namespace ScorpionEngine.Objects
             get => _texture;
             set => _texture = value;
         }
+
+        public bool DebugDrawEnabled { get; set; } = false;
         #endregion
 
 
@@ -205,30 +207,15 @@ namespace ScorpionEngine.Objects
         {
             _engineTime = engineTime;
 
-            //Get newly pressed keys that are not in the previous key list
-            var newlyPressedKeys = (from newKey in _keyboard.GetCurrentPressedKeys() where !_keyboard.GetCurrentPressedKeys().Contains(newKey) select newKey).ToList();
-
-            var newlyReleaseKeys = (from prevKey in _keyboard.GetCurrentPressedKeys() where !_keyboard.GetCurrentPressedKeys().Contains(prevKey) select prevKey).ToList();
-
-            //If there are newly pressed keys, invoke the OnKeyPressed event
-            if (_keyboard.GetCurrentPressedKeys().Length > _keyboard.GetCurrentPressedKeys().Length && newlyPressedKeys.Count > 0)
-            {
-                OnKeyPressed?.Invoke(this, new KeyEventArgs(newlyPressedKeys.ConvertAll(ConvertKey).ToArray()));
-            }
-            else if (_keyboard.GetCurrentPressedKeys().Length < _keyboard.GetPreviousPressedKeys().Length && newlyReleaseKeys.Count > 0) //Look for newly released keys
-            {
-                OnKeyReleased?.Invoke(this, new KeyEventArgs(newlyReleaseKeys.ConvertAll(ConvertKey).ToArray()));
-            }
-
             Update?.Invoke(this, new EventArgs());
         }
         #endregion
 
 
         #region Private Methods
-        private void CreateBody(Vector[] vertices, Vector position)
+        private void CreateBody(Vector[] vertices, Vector position, bool isStatic)
         {
-            var body = new PhysicsBody(vertices, position);
+            var body = new PhysicsBody(vertices, position, isStatic: isStatic);
 
             Engine.PhysicsWorld.AddBody(body);
             _internalBody = body.Body;

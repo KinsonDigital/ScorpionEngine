@@ -49,7 +49,7 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/GreenRectangle.png
 
-#begin Graphics/Rectangle.png
+#begin Graphics/LongRectangle.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -59,7 +59,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Graphics/Rectangle.png
+/build:Graphics/LongRectangle.png
 
 #begin Graphics/Rock.png
 /importer:TextureImporter

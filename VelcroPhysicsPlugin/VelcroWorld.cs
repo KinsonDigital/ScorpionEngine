@@ -51,8 +51,8 @@ namespace VelcroPhysicsPlugin
                 velVertices.Add(new Vector2(xVertices[i], yVertices[i]).ToPhysics());
             }
 
-            var yPosition = float.Parse(body.GetData("x_position").ToString());
-            var xPosition = float.Parse(body.GetData("y_position").ToString());
+            var xPosition = float.Parse(body.GetData("x_position").ToString());
+            var yPosition = float.Parse(body.GetData("y_position").ToString());
             var angle = float.Parse(body.GetData("angle").ToString());
             var density = float.Parse(body.GetData("density").ToString());
             var friction = float.Parse(body.GetData("friction").ToString());

@@ -102,7 +102,7 @@ namespace VelcroPhysicsPlugin
                 if (PolygonBody == null)
                     throw new Exception("Body must be added to a world first");
 
-                PolygonBody.Position = new Vector2(PolygonBody.Position.X + value, PolygonBody.Position.Y);
+                PolygonBody.Position = new Vector2(PolygonBody.Position.X + value, PolygonBody.Position.Y).ToPhysics();
             }
         }
 
@@ -114,7 +114,7 @@ namespace VelcroPhysicsPlugin
                 if (PolygonBody == null)
                     throw new Exception("Body must be added to a world first");
 
-                PolygonBody.Position = new Vector2(PolygonBody.Position.X, PolygonBody.Position.Y + value);
+                PolygonBody.Position = new Vector2(PolygonBody.Position.X, PolygonBody.Position.Y + value).ToPhysics();
             }
         }
 

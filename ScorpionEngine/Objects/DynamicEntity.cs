@@ -15,7 +15,7 @@ namespace ScorpionEngine.Objects
     /// Represents a game object that can be moved around the screen.  
     /// This is just a game object with moving capability added on to it.
     /// </summary>
-    public class DynamicEntity : GameObject
+    public class DynamicEntity : Entity
     {
         #region Events
         /// <summary>
@@ -32,13 +32,13 @@ namespace ScorpionEngine.Objects
 
 
         #region Constructors
-        public DynamicEntity(Vector position) : base(position)
+        public DynamicEntity(Vector position, bool isStaticBody = false) : base(position, isStaticBody)
         {
 
         }
 
 
-        public DynamicEntity(Texture texture, Vector position) : base(texture, position)
+        public DynamicEntity(Texture texture, Vector position, bool isStaticBody = false) : base(texture, position, isStaticBody)
         {
 
         }
@@ -50,7 +50,7 @@ namespace ScorpionEngine.Objects
         /// <param name="textureName"></param>
         /// <param name="vertices">Optional parameter: The vertices that make up the shape of the game object for the internal physics engine.  If left null, then a default rectanglular 
         /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
-        public DynamicEntity(Vector[] vertices, Vector position) : base(vertices, position)
+        public DynamicEntity(Vector[] vertices, Vector position, bool isStaticBody = false) : base(vertices, position, isStaticBody)
         {
         }
 
@@ -62,7 +62,7 @@ namespace ScorpionEngine.Objects
         /// <param name="textureName">The name of the texture to load.</param>
         /// <param name="polyVertices">Optional parameter: The vertices that make up the shape of the game object for the internal physics engine.  If left null, then a default rectanglular 
         /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
-        public DynamicEntity(Texture texture, Vector[] polyVertices, Vector location) : base(texture, polyVertices, location)
+        public DynamicEntity(Texture texture, Vector[] polyVertices, Vector location, bool isStaticBody = false) : base(texture, polyVertices, location, isStaticBody)
         {
         }
         #endregion

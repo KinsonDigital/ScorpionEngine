@@ -29,8 +29,6 @@ namespace ScorpionEngine.Physics
             ctorParams[7] = restitution;
             ctorParams[8] = isStatic;
 
-            //TODO: Need to figure out how to get the vertices into the VelcroBody without using IVector or any
-            //vector that implements IVector.  Maybe int[] array of X and another int[] array of Y?
             Body = Engine.PhysicsPlugins.GetPluginByType<IPhysicsBody>(ctorParams);
         }
 

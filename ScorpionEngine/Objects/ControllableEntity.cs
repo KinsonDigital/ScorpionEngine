@@ -19,25 +19,25 @@ namespace ScorpionEngine.Objects
 
         //TODO: Look into possibly adding the keyboard internally instead of injecting it via the constructor
         #region Constructors
-        public ControllableEntity(Vector position, Keyboard keyboard) : base(position)
+        public ControllableEntity(Vector position, Keyboard keyboard, bool isStaticBody = false) : base(position, isStaticBody)
         {
             CreateKeyBehaviors(keyboard);
         }
 
 
-        public ControllableEntity(Texture texture, Vector position, Keyboard keyboard) : base(texture, position)
+        public ControllableEntity(Texture texture, Vector position, Keyboard keyboard, bool isStaticBody = false) : base(texture, position, isStaticBody)
         {
             CreateKeyBehaviors(keyboard);
         }
 
 
-        public ControllableEntity(Vector[] polyVertices, Vector position, Keyboard keyboard) : base(polyVertices, position)
+        public ControllableEntity(Vector[] polyVertices, Vector position, Keyboard keyboard, bool isStaticBody = false) : base(polyVertices, position, isStaticBody)
         {
             CreateKeyBehaviors(keyboard);
         }
 
 
-        public ControllableEntity(Texture texture, Vector[] polyVertices, Vector position, Keyboard keyboard) : base(texture, polyVertices, position)
+        public ControllableEntity(Texture texture, Vector[] polyVertices, Vector position, Keyboard keyboard, bool isStaticBody = false) : base(texture, polyVertices, position, isStaticBody)
         {
             CreateKeyBehaviors(keyboard);
         }
