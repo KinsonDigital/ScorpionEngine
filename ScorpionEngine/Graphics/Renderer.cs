@@ -10,24 +10,21 @@ namespace ScorpionEngine.Graphics
 {
     public class Renderer
     {
-        private IRenderer _internalRenderer;
-
-
         internal Renderer(IRenderer renderer)
         {
-            _internalRenderer = renderer;
+            InternalRenderer = renderer;
         }
 
 
-        public Renderer()
-        {
+        #region Props
+        internal IRenderer InternalRenderer { get; set; }
+        #endregion
 
-        }
 
-
+        #region Public Methods
         public void Clear(byte red, byte green, byte blue, byte alpha)
         {
-            _internalRenderer.Clear(red, green, blue, alpha);
+            InternalRenderer.Clear(red, green, blue, alpha);
         }
 
 
@@ -36,25 +33,26 @@ namespace ScorpionEngine.Graphics
             //TODO: If rendering stops working, the change to the GetData
             //interface might be the cause.  Casting the object to type T
             //might be the issue
-            return _internalRenderer.GetData(dataType) as T;
+            return InternalRenderer.GetData(dataType) as T;
         }
 
 
         public void InjectData<T>(T data) where T : class
         {
-            _internalRenderer.InjectData<T>(data);
+            InternalRenderer.InjectData<T>(data);
         }
 
 
         public void Render(Texture texture, float x, float y)
         {
-            _internalRenderer.Render(texture, x, y);
+            InternalRenderer.Render(texture, x, y);
         }
 
 
         public void Render(TextItem text, float x, float y)
         {
-            _internalRenderer.Render(text, x, y);
+            InternalRenderer.Render(text, x, y);
         }
+        #endregion
     }
 }

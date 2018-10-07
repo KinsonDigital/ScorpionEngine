@@ -56,25 +56,27 @@ namespace ScorpTestGame
 
             var fallingRectVertices = new Vector[4]
             {
-                new Vector(-50, -50),
-                new Vector(50, -50),
-                new Vector(50, 50),
-                new Vector(-50, 50)
+                new Vector(-50, -25),
+                new Vector(50, -25),
+                new Vector(50, 25),
+                new Vector(-50, 25)
             };
 
             _fallingRect = new DynamicEntity(_fallingRectTexture, fallingRectVertices, new Vector(200, 200));
+            _fallingRect.DebugDrawEnabled = true;
 
             _platformTexture = contentLoader.LoadTexture("LongRectangle");
 
             var platformVertices = new Vector[4]
             {
-                new Vector(-100, -100),
-                new Vector(100, -100),
-                new Vector(100, 100),
-                new Vector(-100, 100)
+                new Vector(-100, -25),
+                new Vector(100, -25),
+                new Vector(100, 25),
+                new Vector(-100, 25)
             };
 
-            _platformRect = new DynamicEntity(_platformTexture, fallingRectVertices, new Vector(200, 400), true);
+            _platformRect = new DynamicEntity(_platformTexture, platformVertices, new Vector(200, 400), true);
+            _platformRect.DebugDrawEnabled = true;
 
             base.LoadContent(contentLoader);
         }

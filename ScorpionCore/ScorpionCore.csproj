@@ -52,6 +52,7 @@
     <Compile Include="PluginLibrary.cs" />
     <Compile Include="Plugins\IContentLoader.cs" />
     <Compile Include="IDrawable.cs" />
+    <Compile Include="Plugins\IDebugDraw.cs" />
     <Compile Include="Plugins\IEngineCore.cs" />
     <Compile Include="IEngineEvents.cs" />
     <Compile Include="IEngineTiming.cs" />

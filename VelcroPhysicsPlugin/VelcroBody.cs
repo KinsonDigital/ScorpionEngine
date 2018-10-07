@@ -51,6 +51,7 @@ namespace VelcroPhysicsPlugin
             get
             {
                 var result = new List<float>();
+                var positionX = PolygonBody.Position.X;//In physics units
 
                 if (PolygonShape == null)
                 {
@@ -59,7 +60,7 @@ namespace VelcroPhysicsPlugin
                 else
                 {
                     var xVertices = (from v in PolygonShape.Vertices.ToVelcroVectors()
-                                    select v.X).ToArray();
+                                    select v.X + positionX).ToArray();
 
                     result.AddRange(xVertices.ToPixels());
                 }
@@ -75,6 +76,7 @@ namespace VelcroPhysicsPlugin
             get
             {
                 var result = new List<float>();
+                var positionY = PolygonBody.Position.Y;//In physics units
 
                 if (PolygonShape == null)
                 {
@@ -83,7 +85,7 @@ namespace VelcroPhysicsPlugin
                 else
                 {
                     var yVertices = (from v in PolygonShape.Vertices.ToVelcroVectors()
-                                     select v.Y).ToArray();
+                                     select v.Y + positionY).ToArray();
 
                     result.AddRange(yVertices.ToPixels());
                 }

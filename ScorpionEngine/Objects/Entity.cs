@@ -51,6 +51,7 @@ namespace ScorpionEngine.Objects
         protected IEngineTiming _engineTime;
         private Vector _origin = Vector.Zero;
         protected Texture _texture;
+        private IDebugDraw _debugDraw;
         #endregion
 
 
@@ -94,8 +95,6 @@ namespace ScorpionEngine.Objects
 
         #region Props
         public bool UsesPhysics { get; private set; }
-
-        public IPhysicsBody PhysicsBody { get; set; }
 
         /// <summary>
         /// Gets the source that the GameObject will use for its graphic content.
@@ -195,7 +194,24 @@ namespace ScorpionEngine.Objects
             set => _texture = value;
         }
 
-        public bool DebugDrawEnabled { get; set; } = false;
+        public bool DebugDrawEnabled
+        {
+            get
+            {
+                return _debugDraw != null;
+            }
+            set
+            {
+                if (value)
+                {
+                    _debugDraw = Engine.EnginePlugins.GetPluginByType<IDebugDraw>();
+                }
+                else
+                {
+                    _debugDraw = null;
+                }
+            }
+        }
         #endregion
 
 
@@ -241,6 +257,12 @@ namespace ScorpionEngine.Objects
         {
             if(_texture != null && Visible)
                 renderer.Render(_texture, Position.X, Position.Y);
+
+            //Render the physics bodies vertices to show its shape for debugging purposes
+            if (DebugDrawEnabled)
+            {
+                _debugDraw.Draw(renderer.InternalRenderer, _internalBody);
+            }
         }
         #endregion
     }
