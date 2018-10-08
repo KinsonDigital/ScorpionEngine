@@ -127,7 +127,7 @@ namespace ScorpionEngine.Input
         /// Update the watcher state.
         /// </summary>
         /// <param name="engineTime">The engine time info.</param>
-        public void Update(IEngineTiming engineTime)
+        public void Update(EngineTime engineTime)
         {
             //If disabled, exit
             if (! Enabled) return;

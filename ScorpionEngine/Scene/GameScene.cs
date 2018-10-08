@@ -1,14 +1,12 @@
 ﻿using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Content;
+using ScorpionEngine.Graphics;
 
 namespace ScorpionEngine.Scene
 {
-    public abstract class GameScene
+    public abstract class GameScene : IScene
     {
-        private IScene _scene;
-
-
         #region Props
         /// <summary>
         /// Gets or sets the name of the scene.
@@ -76,7 +74,7 @@ namespace ScorpionEngine.Scene
         /// <summary>
         /// Updates the game object.
         /// </summary>
-        public virtual void Update(IEngineTiming gameTime)
+        public virtual void Update(EngineTime gameTime)
         {
             TimeManager?.Update(gameTime);
         }
@@ -86,7 +84,7 @@ namespace ScorpionEngine.Scene
         /// Renders the <see cref="GameScene"/>.
         /// </summary>
         /// <param name="renderer">The renderer to use for rendering.</param>
-        public virtual void Render(IRenderer renderer)
+        public virtual void Render(Renderer renderer)
         {
 
         }

@@ -1,11 +1,12 @@
 ﻿using ScorpionCore.Plugins;
+using ScorpionEngine.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScorpionCore
+namespace ScorpionEngine
 {
     /// <summary>
     /// Provides functionality for game content to be rendered to the screen.
@@ -16,6 +17,6 @@ namespace ScorpionCore
         /// Renders things to the screen.
         /// </summary>
         /// <param name="renderer">The rederer to use for rendering.</param>
-        void Render(IRenderer renderer);
+        void Render(Renderer renderer);
     }
 }

@@ -40,28 +40,28 @@ namespace ScorpionEngine
             _engineCore.OnLoadContent += _engineCore_OnLoadContent;
             _engineCore.OnUpdate += _engineCore_OnUpdate;
             _engineCore.OnRender += _engineCore_OnRender;
+
+            SceneManager = new SceneManager(ContentLoader);
         }
         #endregion
 
 
         #region Properties
-        internal static PluginLibrary EnginePlugins { get; private set; }
-
-        internal static PluginLibrary PhysicsPlugins { get; private set; }
+        public SceneManager SceneManager { get; set; }
 
         public static PhysicsWorld PhysicsWorld { get; set; }
 
         public ContentLoader ContentLoader { get; set; }
-
-        public GameScene Scene { get; private set; }
 
         /// <summary>
         /// Gets a value indicating that the game engine is currently running.
         /// </summary>
         public bool Running => _engineCore.IsRunning();
 
+        internal static PluginLibrary EnginePlugins { get; private set; }
 
-        #region Static Properties
+        internal static PluginLibrary PhysicsPlugins { get; private set; }
+
         /// <summary>
         /// Gets the FPS that the engine is currently running at.
         /// </summary>
@@ -84,7 +84,6 @@ namespace ScorpionEngine
             get => _engineCore.WindowHeight;
             set => _engineCore.WindowHeight = value;
         }
-        #endregion
         #endregion
 
 
@@ -181,14 +180,15 @@ namespace ScorpionEngine
         #region Private Methods
         private void _engineCore_OnInitialize(object sender, EventArgs e)
         {
-            Scene?.Initialize();
+            SceneManager.InitializeAllScenes();
             Init();
         }
 
 
         private void _engineCore_OnLoadContent(object sender, EventArgs e)
         {
-            Scene?.LoadContent(ContentLoader);
+
+            SceneManager.LoadCurrentSceneContent();
             LoadContent(ContentLoader);
         }
 
@@ -201,6 +201,8 @@ namespace ScorpionEngine
                 TotalEngineTime = e.EngineTime.TotalEngineTime
             };
 
+            SceneManager.Update(engineTime);
+
             Update(engineTime);
         }
 
@@ -211,7 +213,15 @@ namespace ScorpionEngine
             if (_renderer == null)
                 _renderer = new Renderer(e.Renderer);
 
+            _renderer.Clear(50, 50, 50, 255);
+
+            _renderer.Start();
+
+            SceneManager.Render(_renderer);
+
             Render(_renderer);
+
+            _renderer.End();
         }
         #endregion
     }

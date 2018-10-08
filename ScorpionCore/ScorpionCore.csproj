@@ -51,7 +51,6 @@
     <Compile Include="PluginInfo.cs" />
     <Compile Include="PluginLibrary.cs" />
     <Compile Include="Plugins\IContentLoader.cs" />
-    <Compile Include="IDrawable.cs" />
     <Compile Include="Plugins\IDebugDraw.cs" />
     <Compile Include="Plugins\IEngineCore.cs" />
     <Compile Include="IEngineEvents.cs" />
@@ -62,11 +61,8 @@
     <Compile Include="Plugins\IPhysicsWorld.cs" />
     <Compile Include="Plugins\IPlugin.cs" />
     <Compile Include="Plugins\IRenderer.cs" />
-    <Compile Include="IScene.cs" />
     <Compile Include="IText.cs" />
     <Compile Include="ITexture.cs" />
-    <Compile Include="ITimeManager.cs" />
-    <Compile Include="IUpdatable.cs" />
     <Compile Include="OnUpdateEventArgs.cs" />
     <Compile Include="PluginLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

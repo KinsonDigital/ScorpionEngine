@@ -256,7 +256,7 @@ namespace ScorpionEngine.Objects
         public void Render(Renderer renderer)
         {
             if(_texture != null && Visible)
-                renderer.Render(_texture, Position.X, Position.Y);
+                renderer.Render(_texture, Position.X, Position.Y, _internalBody.Angle);
 
             //Render the physics bodies vertices to show its shape for debugging purposes
             if (DebugDrawEnabled)

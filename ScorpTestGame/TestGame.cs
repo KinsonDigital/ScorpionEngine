@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -18,16 +18,7 @@ namespace ScorpTestGame
     /// </summary>
     public class TestGame : Engine
     {
-        private Keyboard _keyboard;
-        private Mouse _mouse;
-        private SceneManager _sceneManager;
-        private Texture _fallingRectTexture;
-        private DynamicEntity _fallingRect;
-        private Texture _platformTexture;
-        private DynamicEntity _platformRect;
-        private TextObject _fps;
-        private int _x = 200;
-        private int _y = 200;
+        private Level1 _level1;
 
 
         /// <summary>
@@ -43,94 +34,29 @@ namespace ScorpTestGame
 
         public override void Init()
         {
-            _keyboard = new Keyboard();
-            _mouse = new Mouse();
+            _level1 = new Level1();
+            SceneManager.AddScene(_level1);
+
             base.Init();
         }
 
 
         public override void LoadContent(ContentLoader contentLoader)
         {
-            _fps = new TextObject("Hello World", Color.Black, Color.Black, new Vector(300, 300));
-            _fallingRectTexture = contentLoader.LoadTexture("GreenRectangle");
-
-            var fallingRectVertices = new Vector[4]
-            {
-                new Vector(-50, -25),
-                new Vector(50, -25),
-                new Vector(50, 25),
-                new Vector(-50, 25)
-            };
-
-            _fallingRect = new DynamicEntity(_fallingRectTexture, fallingRectVertices, new Vector(200, 200));
-            _fallingRect.DebugDrawEnabled = true;
-
-            _platformTexture = contentLoader.LoadTexture("LongRectangle");
-
-            var platformVertices = new Vector[4]
-            {
-                new Vector(-100, -25),
-                new Vector(100, -25),
-                new Vector(100, 25),
-                new Vector(-100, 25)
-            };
-
-            _platformRect = new DynamicEntity(_platformTexture, platformVertices, new Vector(200, 400), true);
-            _platformRect.DebugDrawEnabled = true;
-
             base.LoadContent(contentLoader);
         }
 
 
         public override void Update(EngineTime engineTime)
         {
-            _keyboard.UpdateCurrentState();
-            _mouse.UpdateCurrentState();
-
-            ProcessKeys();
-
-            _keyboard.UpdatePreviousState();
-            _mouse.UpdatePreviousState();
-
             base.Update(engineTime);
         }
 
 
         public override void Render(Renderer renderer)
         {
-            renderer.Clear(50, 50, 50, 255);
-
-            _fallingRect.Render(renderer);
-            _platformRect.Render(renderer);
-
             base.Render(renderer);
         }
-
-
-        private void ProcessKeys()
-        {
-            if (_keyboard.IsKeyDown(InputKeys.Right))
-            {
-            }
-
-            if (_keyboard.IsKeyDown(InputKeys.Left))
-            {
-            }
-
-            if (_mouse.IsButtonPressed(InputButton.LeftButton))
-            {
-            }
-
-            if (_mouse.IsButtonPressed(InputButton.RightButton))
-            {
-            }
-
-            if (_keyboard.IsKeyPressed(InputKeys.End))
-            {
-                _fallingRect.Visible = !_fallingRect.Visible;
-            }
-        }
-
 
         //TODO: Another override should go here for unload content
         //This would come from Engine and then from there from IEngineCore

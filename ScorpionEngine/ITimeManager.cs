@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScorpionCore
+namespace ScorpionEngine
 {
     /// <summary>
     /// Provides functionality for managing time and state of a system.

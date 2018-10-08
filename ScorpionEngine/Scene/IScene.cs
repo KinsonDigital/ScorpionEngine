@@ -1,6 +1,7 @@
 ﻿using ScorpionCore.Plugins;
+using ScorpionEngine.Content;
 
-namespace ScorpionCore
+namespace ScorpionEngine.Scene
 {
     /// <summary>
     /// Represents a single scene.
@@ -46,13 +47,13 @@ namespace ScorpionCore
         /// Loads all content for the scene using the given <see cref="ContentManager"/>.
         /// </summary>
         /// <param name="contentManager">The content manager to use for loading the scene's content.</param>
-        void LoadContent(IContentLoader contentLoader);
+        void LoadContent(ContentLoader contentLoader);
 
 
         /// <summary>
         /// Unloads all content for the scene using the given <see cref="ContentManager"/>.
         /// </summary>
-        void UnloadContent(IContentLoader contentLoader);
+        void UnloadContent(ContentLoader contentLoader);
         #endregion
     }
 }

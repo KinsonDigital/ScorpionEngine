@@ -43,9 +43,28 @@ namespace ScorpionEngine.Graphics
         }
 
 
+        public void Start()
+        {
+            InternalRenderer.Start();
+        }
+
+
+        public void End()
+        {
+            InternalRenderer.End();
+        }
+
+
         public void Render(Texture texture, float x, float y)
         {
             InternalRenderer.Render(texture, x, y);
+        }
+
+
+        //Angle is in degrees
+        public void Render(Texture texture, float x, float y, float angle)
+        {
+            InternalRenderer.Render(texture, x, y, angle);
         }
 
 

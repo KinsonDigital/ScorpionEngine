@@ -122,7 +122,7 @@ namespace VelcroPhysicsPlugin
 
         public float Angle
         {
-            get => PolygonBody == null ? _tempSettings.Angle : PolygonBody.Rotation;
+            get => PolygonBody == null ? _tempSettings.Angle : PolygonBody.Rotation.ToDegrees();
             set
             {
                 if (PolygonBody == null)
