@@ -15,49 +15,44 @@ namespace ScorpTestGame
 {
     public class Level1 : GameScene
     {
-        private DynamicEntity _fallingRect;
-        private DynamicEntity _platformRect;
-        private Texture _fallingRectTexture;
-        private Texture _platformTexture;
+        private DynamicEntity _ship;
         private Keyboard _keyboard;
         private Mouse _mouse;
 
 
+        public Level1() : base(new Vector(0f, 0f))
+        {
+            
+        }
+
+
         public override void Initialize()
         {
+            _keyboard = new Keyboard();
+
+            var fallingRectVertices = new Vector[3]
+            {
+                new Vector(-0, -21),
+                new Vector(21, 21),
+                new Vector(-21, 21)
+            };
+
+            _ship = new DynamicEntity(fallingRectVertices, new Vector(330, 200))
+            {
+                DebugDrawEnabled = true,
+                MaxLinearSpeed = 0.5f
+            };
+
+            PhysicsWorld.AddEntity(_ship);
+            AddEntity(_ship);
+
             base.Initialize();
         }
 
 
         public override void LoadContent(ContentLoader contentLoader)
         {
-            _fallingRectTexture = contentLoader.LoadTexture("GreenRectangle");
-
-            var fallingRectVertices = new Vector[4]
-            {
-                new Vector(-50, -25),
-                new Vector(50, -25),
-                new Vector(50, 25),
-                new Vector(-50, 25)
-            };
-
-            _fallingRect = new DynamicEntity(_fallingRectTexture, fallingRectVertices, new Vector(330, 200));
-            _fallingRect.DebugDrawEnabled = true;
-
-            _platformTexture = contentLoader.LoadTexture("LongRectangle");
-
-            var platformVertices = new Vector[4]
-            {
-                new Vector(-100, -12.5f),
-                new Vector(100, -12.5f),
-                new Vector(100, 12.5f),
-                new Vector(-100, 12.5f)
-            };
-
-            _platformRect = new DynamicEntity(_platformTexture, platformVertices, new Vector(200, 400), true);
-            _platformRect.DebugDrawEnabled = true;
-
-            ContentLoaded = true;
+            _ship.Texture = contentLoader.LoadTexture("Ship");
 
             base.LoadContent(contentLoader);
         }
@@ -65,14 +60,15 @@ namespace ScorpTestGame
 
         public override void Update(EngineTime engineTime)
         {
+            ProcessKeys();
+
             base.Update(engineTime);
         }
 
 
         public override void Render(Renderer renderer)
         {
-            _fallingRect.Render(renderer);
-            _platformRect.Render(renderer);
+            _ship.Render(renderer);
 
             base.Render(renderer);
         }
@@ -85,29 +81,46 @@ namespace ScorpTestGame
 
 
         #region Private Methods
-
         private void ProcessKeys()
         {
+            _keyboard.UpdateCurrentState();
+
             if (_keyboard.IsKeyDown(InputKeys.Right))
             {
+                _ship.MoveRight(1f);
             }
 
             if (_keyboard.IsKeyDown(InputKeys.Left))
             {
+                _ship.MoveLeft(1f);
             }
 
-            if (_mouse.IsButtonPressed(InputButton.LeftButton))
+            if (_keyboard.IsKeyDown(InputKeys.Up))
             {
+                _ship.MoveUp(1f);
             }
 
-            if (_mouse.IsButtonPressed(InputButton.RightButton))
+            if (_keyboard.IsKeyDown(InputKeys.Down))
             {
+                _ship.MoveDown(1f);
+            }
+
+            if (_keyboard.IsKeyDown(InputKeys.D))
+            {
+                _ship.RotateCW(0.025f);
+            }
+
+            if (_keyboard.IsKeyDown(InputKeys.A))
+            {
+                _ship.RotateCCW(0.025f);
             }
 
             if (_keyboard.IsKeyPressed(InputKeys.End))
             {
-                _fallingRect.Visible = !_fallingRect.Visible;
+                _ship.Visible = !_ship.Visible;
             }
+
+            _keyboard.UpdatePreviousState();
         }
         #endregion
     }

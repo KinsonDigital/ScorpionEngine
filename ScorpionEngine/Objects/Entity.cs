@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ScorpionCore;
 using ScorpionCore.Plugins;
+using ScorpionEngine.Behaviors;
 using ScorpionEngine.Content;
 using ScorpionEngine.Graphics;
 using ScorpionEngine.Input;
@@ -17,9 +18,6 @@ namespace ScorpionEngine.Objects
     /// </summary>
     public abstract class Entity
     {
-        protected IPhysicsBody _internalBody;
-
-
         #region Events
         /// <summary>
         /// Fired when the game object is going from hidden to shown.
@@ -40,24 +38,24 @@ namespace ScorpionEngine.Objects
         /// Occurs when a key has been released.
         /// </summary>
         public event EventHandler<KeyEventArgs> OnKeyReleased;
-
-        public event EventHandler Update;
         #endregion
 
 
         #region Fields
         private bool _visible = true;//True if the entity will be drawn
         protected bool _usesPhysics = true;
-        protected IEngineTiming _engineTime;
+        protected EngineTime _engineTime;
         private Vector _origin = Vector.Zero;
         protected Texture _texture;
         private IDebugDraw _debugDraw;
+        private List<IBehavior> _behaviors = new List<IBehavior>();
         #endregion
 
 
         #region Constructors
         public Entity(Vector position, bool isStaticBody = false)
         {
+            _usesPhysics = false;
         }
 
 
@@ -82,6 +80,7 @@ namespace ScorpionEngine.Objects
 
         public Entity(Vector[] polyVertices, Vector position, bool isStaticBody = false)
         {
+            CreateBody(polyVertices, position, isStaticBody);
         }
 
 
@@ -100,6 +99,9 @@ namespace ScorpionEngine.Objects
         /// Gets the source that the GameObject will use for its graphic content.
         /// </summary>
         public GraphicContentSource GraphicSource { get; private set; } = GraphicContentSource.Standard;
+
+        public IBehavior[] Behaviors => _behaviors.ToArray();
+        
 
         /// <summary>
         /// Gets or sets a value indicating if the entity is drawn.
@@ -143,11 +145,11 @@ namespace ScorpionEngine.Objects
         /// </summary>
         public Vector Position
         {
-            get => new Vector(_internalBody.X, _internalBody.Y);
+            get => new Vector(Body.InternalPhysicsBody.X, Body.InternalPhysicsBody.Y);
             set
             {
-                _internalBody.X = value.X;
-                _internalBody.Y = value.Y;
+                Body.InternalPhysicsBody.X = value.X;
+                Body.InternalPhysicsBody.Y = value.Y;
             }
         }
 
@@ -212,6 +214,8 @@ namespace ScorpionEngine.Objects
                 }
             }
         }
+
+        internal PhysicsBody Body { get; set; }
         #endregion
 
 
@@ -219,22 +223,38 @@ namespace ScorpionEngine.Objects
         /// <summary>
         /// Updates the game object.
         /// </summary>
-        public virtual void OnUpdate(IEngineTiming engineTime)
+        public virtual void OnUpdate(EngineTime engineTime)
         {
             _engineTime = engineTime;
 
-            Update?.Invoke(this, new EventArgs());
+            foreach (var behavior in _behaviors)
+            {
+                behavior.Update(_engineTime);
+            }
         }
+
+
+        public void AddBehavior(IBehavior behavior)
+        {
+            _behaviors.Add(behavior);
+        }
+
+
+        public void RemoveBehavior(IBehavior behavior)
+        {
+            _behaviors.Remove(behavior);
+        }
+
+        //TODO: Add a remove behavior method.
+        //This should have an ID system to signify which behavior is which
+        //using either a name or an integer id.
         #endregion
 
 
         #region Private Methods
         private void CreateBody(Vector[] vertices, Vector position, bool isStatic)
         {
-            var body = new PhysicsBody(vertices, position, isStatic: isStatic);
-
-            Engine.PhysicsWorld.AddBody(body);
-            _internalBody = body.Body;
+            Body = new PhysicsBody(vertices, position, isStatic: isStatic);
         }
 
 
@@ -256,12 +276,12 @@ namespace ScorpionEngine.Objects
         public void Render(Renderer renderer)
         {
             if(_texture != null && Visible)
-                renderer.Render(_texture, Position.X, Position.Y, _internalBody.Angle);
+                renderer.Render(_texture, Position.X, Position.Y, Body.InternalPhysicsBody.Angle);
 
             //Render the physics bodies vertices to show its shape for debugging purposes
             if (DebugDrawEnabled)
             {
-                _debugDraw.Draw(renderer.InternalRenderer, _internalBody);
+                _debugDraw.Draw(renderer.InternalRenderer, Body.InternalPhysicsBody);
             }
         }
         #endregion

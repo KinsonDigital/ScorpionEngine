@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ScorpionCore;
 using ScorpionCore.Plugins;
+using ScorpionEngine.Behaviors;
 using ScorpionEngine.Content;
 
 using ScorpionEngine.Events;
@@ -26,21 +27,29 @@ namespace ScorpionEngine.Objects
 
 
         #region Fields
+        private float _maxLinearSpeed = 2f;
+        private float _maxAngularSpeed = 0.025f;
         private float _linearAcceleration = 0.1f;//The acceleration of any linear movement
         private readonly Dictionary<Direction, bool> _linearMovementLocks = new Dictionary<Direction, bool>();//Holds the lock states for the 8 linear movements.  True means locked.
+        private LimitNumberBehavior _moveRightVelocityMaxBehavior;
+        private LimitNumberBehavior _moveLeftVelocityMaxBehavior;
+        private LimitNumberBehavior _moveDownVelocityMaxBehavior;
+        private LimitNumberBehavior _moveUpVelocityMaxBehavior;
+        private LimitNumberBehavior _rotateCWVelocityMaxBehavior;
+        private LimitNumberBehavior _rotateCCWVelocityMaxBehavior;
         #endregion
 
 
         #region Constructors
         public DynamicEntity(Vector position, bool isStaticBody = false) : base(position, isStaticBody)
         {
-
+            SetupBehaviors();
         }
 
 
         public DynamicEntity(Texture texture, Vector position, bool isStaticBody = false) : base(texture, position, isStaticBody)
         {
-
+            SetupBehaviors();
         }
 
 
@@ -52,6 +61,7 @@ namespace ScorpionEngine.Objects
         /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
         public DynamicEntity(Vector[] vertices, Vector position, bool isStaticBody = false) : base(vertices, position, isStaticBody)
         {
+            SetupBehaviors();
         }
 
 
@@ -64,6 +74,7 @@ namespace ScorpionEngine.Objects
         /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
         public DynamicEntity(Texture texture, Vector[] polyVertices, Vector location, bool isStaticBody = false) : base(texture, polyVertices, location, isStaticBody)
         {
+            SetupBehaviors();
         }
         #endregion
 
@@ -108,9 +119,34 @@ namespace ScorpionEngine.Objects
         public float Angle { get; set; }
 
         /// <summary>
-        /// Gets or sets the speed for non linear movement.
+        /// Gets or sets the speed for linear movement.
         /// </summary>
-        public float Speed { get; set; } = 5f;
+        public float Speed { get; set; } = 1f;
+
+        /// <summary>
+        /// Gets or sets the maximum linear movement speed.  Only positive numbers aloud.
+        /// If a negative number is used, it will be converted to its negated result.
+        /// A value of zero will result in no limitation.
+        /// </summary>
+        public float MaxLinearSpeed
+        {
+            get => _maxLinearSpeed;
+            set
+            {
+                _maxLinearSpeed = value > 0 ? value : value * -1;
+                SetupBehaviors();
+            }
+        }
+
+        public float MaxAngularSpeed
+        {
+            get => _maxAngularSpeed;
+            set
+            {
+                _maxAngularSpeed = value > 0 ? value : value * -1;
+                SetupBehaviors();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the rotational speed of the object in degrees.
@@ -179,11 +215,6 @@ namespace ScorpionEngine.Objects
         }
 
         /// <summary>
-        /// Gets or sets the speed at which the object moves when following the destination point.
-        /// </summary>
-        public float MaxFollowSpeed { get; set; } = 1f;
-
-        /// <summary>
         /// Gets or sets a value indicating if the entity should rotate automatically at the set velocity.
         /// If auto rotate is set to true, manual rotation via keyboard input and RotateCW and RotateCCW will be disabled.
         /// </summary>
@@ -201,7 +232,7 @@ namespace ScorpionEngine.Objects
         /// Updates the moveable object.
         /// </summary>
         /// <param name="engineTime"></param>
-        public override void OnUpdate(IEngineTiming engineTime)
+        public override void OnUpdate(EngineTime engineTime)
         {
             base.OnUpdate(engineTime);
         }
@@ -210,34 +241,36 @@ namespace ScorpionEngine.Objects
         /// <summary>
         /// Moves the game object to the right.
         /// </summary>
-        public void MoveRight()
+        public void MoveRight(float speed)
         {
-
+            Body.InternalPhysicsBody.ApplyLinearImpulse(speed, 0);
         }
 
 
         /// <summary>
         /// Moves the game object to the left.
         /// </summary>
-        public void MoveLeft()
+        public void MoveLeft(float speed)
         {
-
+            Body.InternalPhysicsBody.ApplyLinearImpulse(speed < 0 ? speed : speed * -1, 0);
         }
 
 
         /// <summary>
         /// Moves the game object up.
         /// </summary>
-        public void MoveUp()
+        public void MoveUp(float speed)
         {
+            Body.InternalPhysicsBody.ApplyLinearImpulse(0, speed < 0 ? speed : speed * -1);
         }
 
 
         /// <summary>
         /// Moves the game object down.
         /// </summary>
-        public void MoveDown()
+        public void MoveDown(float speed)
         {
+            Body.InternalPhysicsBody.ApplyLinearImpulse(0, speed);
         }
 
 
@@ -284,18 +317,19 @@ namespace ScorpionEngine.Objects
         /// <summary>
         /// Rotates the game object clockwise.
         /// </summary>
-        public void RotateCW()
+        public void RotateCW(float speed)
         {
-
+            Body.InternalPhysicsBody.ApplyAngularImpulse(speed);
         }
 
 
         /// <summary>
         /// Rotates the game object counter clockwise.
         /// </summary>
-        public void RotateCCW()
+        public void RotateCCW(float speed)
         {
-
+            speed = speed < 0 ? speed : speed * -1;
+            Body.InternalPhysicsBody.ApplyAngularImpulse(speed);
         }
 
 
@@ -315,6 +349,99 @@ namespace ScorpionEngine.Objects
         {
             //TODO: Stop rotation of the object
             throw new NotImplementedException();
+        }
+        #endregion
+
+
+        #region Private Methods
+        /// <summary>
+        /// Sets up all of the behaviors
+        /// </summary>
+        private void SetupBehaviors()
+        {
+            if (_maxLinearSpeed == 0)
+            {
+                foreach (var behavior in Behaviors)
+                {
+                    if (behavior.GetType() == typeof(LimitNumberBehavior))
+                        RemoveBehavior(behavior);
+                }
+
+                _moveRightVelocityMaxBehavior = null;
+                _moveLeftVelocityMaxBehavior = null;
+                _moveUpVelocityMaxBehavior = null;
+                _moveDownVelocityMaxBehavior = null;
+
+                return;
+            }
+
+            _moveRightVelocityMaxBehavior = new LimitNumberBehavior(GetXLinearValue, SetXLinearValue, _maxLinearSpeed);
+            _moveLeftVelocityMaxBehavior = new LimitNumberBehavior(GetXLinearValue, SetXLinearValue, _maxLinearSpeed * -1);
+
+            _moveDownVelocityMaxBehavior = new LimitNumberBehavior(GetYLinearValue, SetYLinearValue, _maxLinearSpeed);
+            _moveUpVelocityMaxBehavior = new LimitNumberBehavior(GetYLinearValue, SetYLinearValue, _maxLinearSpeed * -1);
+
+            _rotateCWVelocityMaxBehavior = new LimitNumberBehavior(GetAngularValue, SetAngularValue, _maxAngularSpeed);
+            _rotateCCWVelocityMaxBehavior = new LimitNumberBehavior(GetAngularValue, SetAngularValue, _maxAngularSpeed * -1);
+
+            AddBehavior(_moveRightVelocityMaxBehavior);
+            AddBehavior(_moveLeftVelocityMaxBehavior);
+            AddBehavior(_moveDownVelocityMaxBehavior);
+            AddBehavior(_moveUpVelocityMaxBehavior);
+            AddBehavior(_rotateCWVelocityMaxBehavior);
+            AddBehavior(_rotateCCWVelocityMaxBehavior);
+        }
+
+
+        /// <summary>
+        /// Gets the current linear velocity of the X component
+        /// </summary>
+        /// <returns></returns>
+        private float GetXLinearValue()
+        {
+            return Body.LinearVelocity.X;
+        }
+
+
+        /// <summary>
+        /// Sets X value of the linear velocity
+        /// </summary>
+        /// <returns></returns>
+        private void SetXLinearValue(float value)
+        {
+            Body.LinearVelocity = new Vector(value, Body.LinearVelocity.Y);
+        }
+
+
+        /// <summary>
+        /// Gets the current linear velocity of the Y component
+        /// </summary>
+        /// <returns></returns>
+        private float GetYLinearValue()
+        {
+            return Body.LinearVelocity.Y;
+        }
+
+
+        /// <summary>
+        /// Sets Y value of the linear velocity
+        /// </summary>
+        /// <returns></returns>
+        private void SetYLinearValue(float value)
+        {
+            Body.LinearVelocity = new Vector(Body.LinearVelocity.X, value);
+        }
+
+
+        private float GetAngularValue()
+        {
+            return Body.AngularVelocity;
+        }
+
+
+        private void SetAngularValue(float value)
+        {
+            Body.AngularVelocity = value;
         }
         #endregion
     }

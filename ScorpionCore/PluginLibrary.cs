@@ -104,10 +104,6 @@ namespace ScorpionCore
                 if (NoValidPluginConstructor(pluginType))
                     throw new Exception($"The plugin {foundPlugin.Name} does not have a parameterless constructor");
 
-                var ctors = pluginType.GetConstructors();
-
-                var myParams = ctors[1].GetParameters();
-
                 var plugin = Activator.CreateInstance(pluginType, constructorParams) as T;
 
                 //Check to make sure that the instance implements the IPlugin interface

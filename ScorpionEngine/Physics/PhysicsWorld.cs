@@ -1,5 +1,6 @@
 ﻿using ScorpionCore;
 using ScorpionCore.Plugins;
+using ScorpionEngine.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,9 +26,15 @@ namespace ScorpionEngine.Physics
         public IVector Gravity { get; set; }
 
 
+        public void AddEntity(Entity entity)
+        {
+            _internalWorld.AddBody(entity.Body.InternalPhysicsBody);
+        }
+
+
         public void AddBody(PhysicsBody body)
         {
-            _internalWorld.AddBody<IPhysicsBody>(body.Body);
+            _internalWorld.AddBody(body.InternalPhysicsBody);
         }
 
 

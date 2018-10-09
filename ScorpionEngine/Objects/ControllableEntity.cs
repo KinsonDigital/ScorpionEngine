@@ -1,5 +1,6 @@
 ﻿using ScorpionCore;
 using ScorpionCore.Plugins;
+using ScorpionEngine.Behaviors;
 using ScorpionEngine.Graphics;
 using ScorpionEngine.Input;
 using ScorpionEngine.Physics;
@@ -12,34 +13,34 @@ namespace ScorpionEngine.Objects
     public class ControllableEntity : DynamicEntity
     {
         #region Fields
+        private MovementBehavior _movementBehavior;
         private KeyBehavior _stopMovementOnKeyRelease;//Will fire when any key is released
         private KeyBehavior _stopRotationOnKeyRelease;//Will fire when any key is released
         #endregion
 
 
-        //TODO: Look into possibly adding the keyboard internally instead of injecting it via the constructor
         #region Constructors
-        public ControllableEntity(Vector position, Keyboard keyboard, bool isStaticBody = false) : base(position, isStaticBody)
+        public ControllableEntity(Vector position,bool isStaticBody = false) : base(position, isStaticBody)
         {
-            CreateKeyBehaviors(keyboard);
+            SetupBehaviors();
         }
 
 
-        public ControllableEntity(Texture texture, Vector position, Keyboard keyboard, bool isStaticBody = false) : base(texture, position, isStaticBody)
+        public ControllableEntity(Texture texture, Vector position,bool isStaticBody = false) : base(texture, position, isStaticBody)
         {
-            CreateKeyBehaviors(keyboard);
+            SetupBehaviors();
         }
 
 
-        public ControllableEntity(Vector[] polyVertices, Vector position, Keyboard keyboard, bool isStaticBody = false) : base(polyVertices, position, isStaticBody)
+        public ControllableEntity(Vector[] polyVertices, Vector position,bool isStaticBody = false) : base(polyVertices, position, isStaticBody)
         {
-            CreateKeyBehaviors(keyboard);
+            SetupBehaviors();
         }
 
 
-        public ControllableEntity(Texture texture, Vector[] polyVertices, Vector position, Keyboard keyboard, bool isStaticBody = false) : base(texture, polyVertices, position, isStaticBody)
+        public ControllableEntity(Texture texture, Vector[] polyVertices, Vector position,bool isStaticBody = false) : base(texture, polyVertices, position, isStaticBody)
         {
-            CreateKeyBehaviors(keyboard);
+            SetupBehaviors();
         }
         #endregion
 
@@ -88,48 +89,6 @@ namespace ScorpionEngine.Objects
 
 
         #region Public Methods
-        /// <summary>
-        /// Enables all movement of the game object with keyboard.
-        /// </summary>
-        public void EnableKeyboardMovement()
-        {
-            MoveLeftKey.Enabled = true;
-            MoveRightKey.Enabled = true;
-            MoveUpKey.Enabled = true;
-            MoveDownKey.Enabled = true;
-        }
-
-
-        /// <summary>
-        /// Disables all movement of the game object with keyboard.
-        /// </summary>
-        public void DisableKeyboardMovement()
-        {
-            MoveLeftKey.Enabled = false;
-            MoveRightKey.Enabled = false;
-            MoveUpKey.Enabled = false;
-            MoveDownKey.Enabled = false;
-        }
-
-
-        /// <summary>
-        /// Enables rotation of the game object using the set rotation key.
-        /// </summary>
-        public void EnableKeyboardRotation()
-        {
-            RotateCwKey.Enabled = true;
-            RotateCcwKey.Enabled = true;
-        }
-
-
-        /// <summary>
-        /// Disables rotation of the game object using the set rotation key.
-        /// </summary>
-        public void DisableKeyboardRotation()
-        {
-            RotateCwKey.Enabled = false;
-            RotateCcwKey.Enabled = false;
-        }
         #endregion
 
 
@@ -138,19 +97,9 @@ namespace ScorpionEngine.Objects
         /// Updates the game object.
         /// </summary>
         /// <param name="engineTime">The time elapsed since last frame.</param>
-        public override void OnUpdate(IEngineTiming engineTime)
+        public override void OnUpdate(EngineTime engineTime)
         {
             _engineTime = engineTime;
-
-            //Update all of the key behaviors
-            MoveRightKey.Update(engineTime);
-            MoveLeftKey.Update(engineTime);
-            MoveUpKey.Update(engineTime);
-            MoveDownKey.Update(engineTime);
-            RotateCwKey.Update(engineTime);
-            RotateCcwKey.Update(engineTime);
-            _stopRotationOnKeyRelease.Update(engineTime);
-            _stopMovementOnKeyRelease.Update(engineTime);
 
             base.OnUpdate(engineTime);
         }
@@ -176,60 +125,6 @@ namespace ScorpionEngine.Objects
             //If the stop movement on key release setting is enabled, stop the movement of the object
             if (StopMovementOnKeyRelease) StopMovement();
         }
-
-
-        /// <summary>
-        /// Rotates the game object clock wise.
-        /// </summary>
-        private void RotateCWKeyDownEvent(object sender, KeyEventArgs e)
-        {
-            RotateCW();
-        }
-
-
-        /// <summary>
-        /// Rotates the game object counter clock wise.
-        /// </summary>
-        private void RotateCCWKeyDownEvent(object sender, KeyEventArgs e)
-        {
-            RotateCCW();
-        }
-
-
-        /// <summary>
-        /// Moves the character to the right on the screen.
-        /// </summary>
-        private void MoveRightKeyDownEvent(object sender, KeyEventArgs e)
-        {
-            MoveRight();
-        }
-
-
-        /// <summary>
-        /// Moves the character left on the screen.
-        /// </summary>
-        private void MoveLeftKeyDownEvent(object sender, KeyEventArgs e)
-        {
-            MoveLeft();
-        }
-
-
-        /// <summary>
-        /// Moves the character up on the screen.
-        /// </summary>
-        private void MoveUpKeyDownEvent(object sender, KeyEventArgs e)
-        {
-            MoveUp();
-        }
-
-
-        /// <summary>
-        /// Moves the character down on the screen.
-        /// </summary>
-        private void MoveDownKeyDownEvent(object sender, KeyEventArgs e)
-        {
-            MoveDown();
-        }
         #endregion
 
 
@@ -237,38 +132,29 @@ namespace ScorpionEngine.Objects
         /// <summary>
         /// Creates all of the key behaviors.
         /// </summary>
-        private void CreateKeyBehaviors(Keyboard keyboard)
+        private void SetupBehaviors()
         {
-            MoveRightKey = new KeyBehavior(keyboard, InputKeys.Right);
-            MoveLeftKey = new KeyBehavior(keyboard, InputKeys.Left);
-            MoveUpKey = new KeyBehavior(keyboard, InputKeys.Up);
-            MoveDownKey = new KeyBehavior(keyboard, InputKeys.Down);
-            RotateCwKey = new KeyBehavior(keyboard, InputKeys.D);
-            RotateCcwKey = new KeyBehavior(keyboard, InputKeys.A);
+            _movementBehavior = new MovementBehavior(this, Speed);
+            AddBehavior(_movementBehavior);
 
-            _stopMovementOnKeyRelease = new KeyBehavior(keyboard, true)
+            //TODO: Look into removing this and adding this to the movement behavior instead
+            _stopMovementOnKeyRelease = new KeyBehavior(true)
             {
                 BehaviorType = KeyBehaviorType.OnAnyKeyRelease
             };
 
-            _stopRotationOnKeyRelease = new KeyBehavior(keyboard, true)
+            //TODO: Look into removing this and adding this to the movement behavior instead
+            _stopRotationOnKeyRelease = new KeyBehavior(true)
             {
                 BehaviorType = KeyBehaviorType.OnAnyKeyRelease
             };
 
-            //Register the movement key down events.
-            MoveRightKey.KeyDownEvent += MoveRightKeyDownEvent;
-            MoveLeftKey.KeyDownEvent += MoveLeftKeyDownEvent;
-            MoveUpKey.KeyDownEvent += MoveUpKeyDownEvent;
-            MoveDownKey.KeyDownEvent += MoveDownKeyDownEvent;
-
-            //Register the rotate key down events.
-            RotateCwKey.KeyDownEvent += RotateCWKeyDownEvent;
-            RotateCcwKey.KeyDownEvent += RotateCCWKeyDownEvent;
 
             //Register the any key release key behavior. This will be used for the 
             //stop movement and stop rotation functionality if enabled
+            //TODO: Look into removing this and adding this to the movement behavior instead
             _stopMovementOnKeyRelease.KeyUpEvent += StopMovementOnKeyReleaseKeyUpEvent;
+            //TODO: Look into removing this and adding this to the movement behavior instead
             _stopRotationOnKeyRelease.KeyUpEvent += StopRotationOnKeyRelease_KeyUpEvent;
         }
         #endregion

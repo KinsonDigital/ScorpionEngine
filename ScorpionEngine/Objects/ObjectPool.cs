@@ -324,12 +324,12 @@ namespace ScorpionEngine.Objects
                     //Checks if the current entity is visible, if so then the entity will be moved
                     if (_objects[i].Visible)
                     {
-                        _objects[i].OnUpdate(engineTime);
+                        //_objects[i].OnUpdate(engineTime);
                     }
                 }
                 else
                 {
-                    _objects[i].OnUpdate(engineTime);
+                    //_objects[i].OnUpdate(engineTime);
                 }
             }
         }

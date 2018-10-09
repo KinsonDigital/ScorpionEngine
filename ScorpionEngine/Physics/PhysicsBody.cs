@@ -29,11 +29,11 @@ namespace ScorpionEngine.Physics
             ctorParams[7] = restitution;
             ctorParams[8] = isStatic;
 
-            Body = Engine.PhysicsPlugins.GetPluginByType<IPhysicsBody>(ctorParams);
+            InternalPhysicsBody = Engine.PhysicsPlugins.GetPluginByType<IPhysicsBody>(ctorParams);
         }
 
 
-        internal IPhysicsBody Body { get; set; }
+        internal IPhysicsBody InternalPhysicsBody { get; set; }
 
         public Vector[] Vertices { get; set; }
 
@@ -48,5 +48,21 @@ namespace ScorpionEngine.Physics
         public float Friction { get; set; }
 
         public float Restitution { get; set; }
+
+        public Vector LinearVelocity
+        {
+            get => new Vector(InternalPhysicsBody.LinearVelocityX, InternalPhysicsBody.LinearVelocityY);
+            set
+            {
+                InternalPhysicsBody.LinearVelocityX = value.X;
+                InternalPhysicsBody.LinearVelocityY = value.Y;
+            }
+        }
+
+        public float AngularVelocity
+        {
+            get => InternalPhysicsBody.AngularVelocity;
+            set => InternalPhysicsBody.AngularVelocity = value;
+        }
     }
 }

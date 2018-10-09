@@ -23,7 +23,7 @@ namespace ScorpionEngine.Objects
         }
 
 
-        public override void OnUpdate(IEngineTiming engineTime)
+        public override void OnUpdate(EngineTime engineTime)
         {
             base.OnUpdate(engineTime);
         }

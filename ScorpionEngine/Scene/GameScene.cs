@@ -2,11 +2,20 @@
 using ScorpionCore.Plugins;
 using ScorpionEngine.Content;
 using ScorpionEngine.Graphics;
+using ScorpionEngine.Objects;
+using ScorpionEngine.Physics;
+using System.Collections.Generic;
 
 namespace ScorpionEngine.Scene
 {
     public abstract class GameScene : IScene
     {
+        public GameScene(Vector gravity)
+        {
+            PhysicsWorld = new PhysicsWorld(gravity);
+        }
+
+
         #region Props
         /// <summary>
         /// Gets or sets the name of the scene.
@@ -38,6 +47,10 @@ namespace ScorpionEngine.Scene
         /// Gets or sets a value indicating if the scene is currently rendering.
         /// </summary>
         public bool RenderingScene { get; set; }
+
+        public List<Entity> Entities { get; } = new List<Entity>();
+
+        public static PhysicsWorld PhysicsWorld { get; set; }
         #endregion
 
 
@@ -74,9 +87,18 @@ namespace ScorpionEngine.Scene
         /// <summary>
         /// Updates the game object.
         /// </summary>
-        public virtual void Update(EngineTime gameTime)
+        public virtual void Update(EngineTime engineTime)
         {
-            TimeManager?.Update(gameTime);
+            TimeManager?.Update(engineTime);
+
+            //Update the physics world
+            PhysicsWorld.Update((float)engineTime.ElapsedEngineTime.TotalSeconds);
+
+            //Update all of the entities
+            foreach (var entity in Entities)
+            {
+                entity.OnUpdate(engineTime);
+            }
         }
 
 
@@ -87,6 +109,12 @@ namespace ScorpionEngine.Scene
         public virtual void Render(Renderer renderer)
         {
 
+        }
+
+
+        public void AddEntity(Entity entity)
+        {
+            Entities.Add(entity);
         }
         #endregion
     }

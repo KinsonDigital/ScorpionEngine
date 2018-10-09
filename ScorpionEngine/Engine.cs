@@ -29,8 +29,6 @@ namespace ScorpionEngine
             EnginePlugins = PluginLoader.LoadPluginLibrary("MonoScorpPlugin");
             PhysicsPlugins = PluginLoader.LoadPluginLibrary("VelcroPhysicsPlugin");
 
-            PhysicsWorld = new PhysicsWorld(new Vector(0, 0.5f));
-
             ContentLoader = new ContentLoader(EnginePlugins.GetPluginByType<IContentLoader>());
             _engineCore = EnginePlugins.GetPluginByType<IEngineCore>();
 
@@ -48,8 +46,6 @@ namespace ScorpionEngine
 
         #region Properties
         public SceneManager SceneManager { get; set; }
-
-        public static PhysicsWorld PhysicsWorld { get; set; }
 
         public ContentLoader ContentLoader { get; set; }
 
@@ -137,9 +133,6 @@ namespace ScorpionEngine
             _prevElapsedTime = currentTime;
 
             CurrentFPS = (1000f / _prevElapsedTime);
-
-            //Update the physics world
-            PhysicsWorld.Update((float)engineTime.ElapsedEngineTime.TotalSeconds);
         }
 
 
@@ -180,16 +173,16 @@ namespace ScorpionEngine
         #region Private Methods
         private void _engineCore_OnInitialize(object sender, EventArgs e)
         {
-            SceneManager.InitializeAllScenes();
             Init();
+            SceneManager.InitializeAllScenes();
         }
 
 
         private void _engineCore_OnLoadContent(object sender, EventArgs e)
         {
 
-            SceneManager.LoadCurrentSceneContent();
             LoadContent(ContentLoader);
+            SceneManager.LoadCurrentSceneContent();
         }
 
 
@@ -201,9 +194,9 @@ namespace ScorpionEngine
                 TotalEngineTime = e.EngineTime.TotalEngineTime
             };
 
-            SceneManager.Update(engineTime);
-
             Update(engineTime);
+
+            SceneManager.Update(engineTime);
         }
 
 
@@ -217,9 +210,9 @@ namespace ScorpionEngine
 
             _renderer.Start();
 
-            SceneManager.Render(_renderer);
-
             Render(_renderer);
+
+            SceneManager.Render(_renderer);
 
             _renderer.End();
         }

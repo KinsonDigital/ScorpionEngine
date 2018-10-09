@@ -161,10 +161,37 @@ namespace VelcroPhysicsPlugin
                 throw new Exception("Cannot set the restitution after the body has been add to the world");
             }
         }
+
+        public float LinearVelocityX
+        {
+            get => PolygonBody.LinearVelocity.X;
+            set
+            {
+                PolygonBody.LinearVelocity = new Vector2(value, PolygonBody.LinearVelocity.Y);
+            }
+        }
+
+        public float LinearVelocityY
+        {
+            get => PolygonBody.LinearVelocity.Y;
+            set
+            {
+                PolygonBody.LinearVelocity = new Vector2(PolygonBody.LinearVelocity.X, value);
+            }
+        }
+
+        public float AngularVelocity
+        {
+            get => PolygonBody.AngularVelocity;
+            set
+            {
+                PolygonBody.AngularVelocity = value;
+            }
+        }
         #endregion
 
 
-        #region Public Methos
+        #region Public Methods
         public void DataSender(Func<dynamic> dataGetter)
         {
             var result = dataGetter();
@@ -207,6 +234,18 @@ namespace VelcroPhysicsPlugin
                 default:
                     return null;
             }
+        }
+
+
+        public void ApplyLinearImpulse(float x, float y)
+        {
+            PolygonBody.ApplyLinearImpulse(new Vector2(x.ToPhysics(), y.ToPhysics()));
+        }
+
+
+        public void ApplyAngularImpulse(float value)
+        {
+            PolygonBody.ApplyAngularImpulse(value.ToPhysics());
         }
         #endregion
     }

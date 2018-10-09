@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\LimitNumberBehavior.cs" />
     <Compile Include="Content\AtlasData.cs" />
     <Compile Include="Content\AtlasManager.cs" />
     <Compile Include="Content\AtlasSpriteData.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Graphics\TextItem.cs" />
     <Compile Include="Graphics\Texture.cs" />
     <Compile Include="IDrawable.cs" />
+    <Compile Include="Behaviors\IBehavior.cs" />
     <Compile Include="Input\Enums.cs" />
     <Compile Include="Input\Keyboard.cs" />
     <Compile Include="Input\Mouse.cs" />
@@ -111,7 +113,7 @@
     <Compile Include="Input\MouseWatcher.cs" />
     <Compile Include="IUpdatable.cs" />
     <Compile Include="KeyBehavior.cs" />
-    <Compile Include="MovementBehavior.cs" />
+    <Compile Include="Behaviors\MovementBehavior.cs" />
     <Compile Include="Objects\ControllableEntity.cs" />
     <Compile Include="Objects\Enums.cs" />
     <Compile Include="Objects\Entity.cs" />

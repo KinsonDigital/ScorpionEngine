@@ -30,7 +30,7 @@ namespace ScorpionEngine.Scene
         private int _currentSceneId = -1;//The currently enabled scene ID.  This is the scene that is currently active and rendering/updating
         #endregion
 
-        //TODO: Look into possibly adding the keyboard internally instead of injecting it via the constructor
+
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="SceneManager"/>.
