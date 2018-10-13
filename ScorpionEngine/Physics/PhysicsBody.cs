@@ -49,6 +49,23 @@ namespace ScorpionEngine.Physics
 
         public float Restitution { get; set; }
 
+        public float LinearAcceleration { get; set; }
+
+        public float LinearDeceleration
+        {
+            get => InternalPhysicsBody.LinearDeceleration;
+            set => InternalPhysicsBody.LinearDeceleration = value;
+        }
+
+        public float AngularAcceleration { get; set; }
+
+        public float AngularDeceleration
+        {
+            get => InternalPhysicsBody.AngularDeceleration;
+            set => InternalPhysicsBody.AngularDeceleration = value;
+        }
+
+
         public Vector LinearVelocity
         {
             get => new Vector(InternalPhysicsBody.LinearVelocityX, InternalPhysicsBody.LinearVelocityY);

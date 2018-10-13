@@ -17,7 +17,6 @@ namespace VelcroPhysicsPlugin
     {
         private PhysicsBodySettings _tempSettings;
 
-
         public VelcroBody()
         {
             //This must be here for the plugin system to work
@@ -45,6 +44,8 @@ namespace VelcroPhysicsPlugin
         internal Body PolygonBody { get; set; }
 
         internal PolygonShape PolygonShape { get; set; }
+
+        public DeferredActions AfterAddedToWorldActions { get; set; } = new DeferredActions();
 
         public float[] XVertices
         {
@@ -120,6 +121,9 @@ namespace VelcroPhysicsPlugin
             }
         }
 
+        /// <summary>
+        /// Gets the angle of the body in degrees.
+        /// </summary>
         public float Angle
         {
             get => PolygonBody == null ? _tempSettings.Angle : PolygonBody.Rotation.ToDegrees();
@@ -180,12 +184,54 @@ namespace VelcroPhysicsPlugin
             }
         }
 
+        public float LinearAcceleration { get; set; }
+
+        public float LinearDeceleration
+        {
+            get => PolygonBody.LinearDamping;
+            set
+            {
+                if (PolygonBody == null)
+                {
+                    AfterAddedToWorldActions.Add(() =>
+                    {
+                        PolygonBody.LinearDamping = value;
+                    });
+                }
+                else
+                {
+                    PolygonBody.LinearDamping = value;
+                }
+            }
+        }
+
         public float AngularVelocity
         {
             get => PolygonBody.AngularVelocity;
             set
             {
                 PolygonBody.AngularVelocity = value;
+            }
+        }
+
+        public float AngularAcceleration { get; set; }
+
+        public float AngularDeceleration
+        {
+            get => PolygonBody.AngularDamping;
+            set
+            {
+                if(PolygonBody == null)
+                {
+                    AfterAddedToWorldActions.Add(() =>
+                    {
+                        PolygonBody.AngularDamping = value;
+                    });
+                }
+                else
+                {
+                    PolygonBody.AngularDamping = value;
+                }
             }
         }
         #endregion
