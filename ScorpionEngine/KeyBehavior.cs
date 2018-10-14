@@ -1,6 +1,7 @@
 ﻿using System;
 using ScorpionCore;
 using ScorpionCore.Plugins;
+using ScorpionEngine.Behaviors;
 using ScorpionEngine.Input;
 
 namespace ScorpionEngine
@@ -8,7 +9,7 @@ namespace ScorpionEngine
     /// <summary>
     /// Represents behavior of a key that can be pressed on the keyboard.
     /// </summary>
-    public class KeyBehavior
+    public class KeyBehavior : IBehavior
     {
         #region Events
         /// <summary>
@@ -33,10 +34,9 @@ namespace ScorpionEngine
         /// <summary>
         /// Creates a new key behavior.
         /// </summary>
-        /// <param name="enabled">Set to true to enable the behavior.</param>
-        public KeyBehavior(Keyboard keyboard, bool enabled = false)
+        public KeyBehavior(bool enabled = false)
         {
-            _keyboard = keyboard;
+            _keyboard = new Keyboard();
 
             Key = Key;
             Enabled = enabled;
@@ -47,10 +47,9 @@ namespace ScorpionEngine
         /// Creates a new key behavior.
         /// </summary>
         /// <param name="key">The assigned keyboard key of the behavior.</param>
-        /// <param name="enabled">Set to true to enable the behavior.</param>
-        public KeyBehavior(Keyboard keyboard, InputKeys key, bool enabled = false)
+        public KeyBehavior(InputKeys key, bool enabled = false)
         {
-            _keyboard = keyboard;
+            _keyboard = new Keyboard();
             Key = key;
             Enabled = enabled;
 
@@ -69,7 +68,7 @@ namespace ScorpionEngine
         /// <summary>
         /// Gets or sets a value indicating if the behavior is enabled.  If disabled, the update method will not update the behavior or fire events.
         /// </summary>
-        public bool Enabled { get; set; }
+        public bool Enabled { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the type of behavior of the KeyBehavior.
@@ -100,6 +99,8 @@ namespace ScorpionEngine
         /// Returns a value indicating if the key has been released.
         /// </summary>
         public bool IsPressed => _keyboard.IsKeyDown(Key);
+
+        public string Name { get; set; } = nameof(KeyBehavior);
         #endregion
 
 
@@ -108,7 +109,7 @@ namespace ScorpionEngine
         /// Updates the key behavior.
         /// </summary>
         /// <param name="engineTime">The game engineTime of the current frame.</param>
-        public void Update(IEngineTiming engineTime)
+        public void Update(EngineTime engineTime)
         {
             if (!Enabled) return;
 

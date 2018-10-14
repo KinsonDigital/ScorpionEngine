@@ -23,6 +23,6 @@ namespace ScorpionCore.Plugins
         /// </summary>
         /// <typeparam name="T">The type of data to get.</typeparam>
         /// <returns></returns>
-        T GetData<T>() where T : class;
+        object GetData(string dataType);
     }
 }

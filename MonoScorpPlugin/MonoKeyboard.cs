@@ -78,7 +78,7 @@ namespace MonoScorpPlugin
         /// </summary>
         /// <param name="key">The key to check for.</param>
         /// <returns></returns>
-        public bool IsKeyDown(InputKeys key)
+        public bool IsKeyDown(int key)
         {
             return _currentState.IsKeyDown((Keys)key);
         }
@@ -89,7 +89,7 @@ namespace MonoScorpPlugin
         /// </summary>
         /// <param name="key">The key to check for.</param>
         /// <returns></returns>
-        public bool IsKeyUp(InputKeys key)
+        public bool IsKeyUp(int key)
         {
             return _currentState.IsKeyUp((Keys)key);
         }
@@ -100,7 +100,7 @@ namespace MonoScorpPlugin
         /// </summary>
         /// <param name="key">The key to check for.</param>
         /// <returns></returns>
-        public bool IsKeyPressed(InputKeys key)
+        public bool IsKeyPressed(int key)
         {
             return _currentState.IsKeyUp((Keys) key) && _previousState.IsKeyDown((Keys) key);
         }
@@ -110,9 +110,9 @@ namespace MonoScorpPlugin
         /// Gets the list of currently pressed keys.
         /// </summary>
         /// <returns></returns>
-        public InputKeys[] GetCurrentPressedKeys()
+        public int[] GetCurrentPressedKeys()
         {
-            return Tools.ToInputKeys(_currentState.GetPressedKeys());
+            return Tools.ToInputKeyCodes(_currentState.GetPressedKeys());
         }
 
 
@@ -120,9 +120,9 @@ namespace MonoScorpPlugin
         /// Gets the list of previously pressed keys.
         /// </summary>
         /// <returns></returns>
-        public InputKeys[] GetPreviousPressedKeys()
+        public int[] GetPreviousPressedKeys()
         {
-            return Tools.ToInputKeys(_previousState.GetPressedKeys());
+            return Tools.ToInputKeyCodes(_previousState.GetPressedKeys());
         }
 
 
@@ -132,7 +132,7 @@ namespace MonoScorpPlugin
         }
 
 
-        public T GetData<T>() where T : class
+        public object GetData(string dataType)
         {
             throw new NotImplementedException();
         }

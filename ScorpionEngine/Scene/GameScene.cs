@@ -1,11 +1,21 @@
 ﻿using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Content;
+using ScorpionEngine.Graphics;
+using ScorpionEngine.Objects;
+using ScorpionEngine.Physics;
+using System.Collections.Generic;
 
 namespace ScorpionEngine.Scene
 {
     public abstract class GameScene : IScene
     {
+        public GameScene(Vector gravity)
+        {
+            PhysicsWorld = new PhysicsWorld(gravity);
+        }
+
+
         #region Props
         /// <summary>
         /// Gets or sets the name of the scene.
@@ -37,6 +47,10 @@ namespace ScorpionEngine.Scene
         /// Gets or sets a value indicating if the scene is currently rendering.
         /// </summary>
         public bool RenderingScene { get; set; }
+
+        public List<Entity> Entities { get; } = new List<Entity>();
+
+        public static PhysicsWorld PhysicsWorld { get; set; }
         #endregion
 
 
@@ -54,7 +68,7 @@ namespace ScorpionEngine.Scene
         /// Loads all content for the scene using the given <see cref="ContentManager"/>.
         /// </summary>
         /// <param name="contentManager">The content manager to use for loading the scene's content.</param>
-        public virtual void LoadContent(IContentLoader contentManager)
+        public virtual void LoadContent(ContentLoader contentManager)
         {
             ContentLoaded = true;
         }
@@ -64,7 +78,7 @@ namespace ScorpionEngine.Scene
         /// Unloads all content for the scene.
         /// </summary>
         /// <param name="contentManager">The content manager to use for loading the scene's content.</param>
-        public virtual void UnloadContent(IContentLoader contentManager)
+        public virtual void UnloadContent(ContentLoader contentManager)
         {
             ContentLoaded = false;
         }
@@ -73,9 +87,18 @@ namespace ScorpionEngine.Scene
         /// <summary>
         /// Updates the game object.
         /// </summary>
-        public virtual void Update(IEngineTiming gameTime)
+        public virtual void Update(EngineTime engineTime)
         {
-            TimeManager?.Update(gameTime);
+            TimeManager?.Update(engineTime);
+
+            //Update the physics world
+            PhysicsWorld.Update((float)engineTime.ElapsedEngineTime.TotalSeconds);
+
+            //Update all of the entities
+            foreach (var entity in Entities)
+            {
+                entity.OnUpdate(engineTime);
+            }
         }
 
 
@@ -83,9 +106,15 @@ namespace ScorpionEngine.Scene
         /// Renders the <see cref="GameScene"/>.
         /// </summary>
         /// <param name="renderer">The renderer to use for rendering.</param>
-        public virtual void Render(IRenderer renderer)
+        public virtual void Render(Renderer renderer)
         {
 
+        }
+
+
+        public void AddEntity(Entity entity)
+        {
+            Entities.Add(entity);
         }
         #endregion
     }

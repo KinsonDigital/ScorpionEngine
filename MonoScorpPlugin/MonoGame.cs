@@ -11,7 +11,6 @@ namespace MonoScorpPlugin
     {
         private GraphicsDeviceManager _graphicsDeviceManager;
 
-
         #region Events
         /// <summary>
         /// Occurs once every frame before the OnDraw event before the OnDraw event is invoked.
@@ -21,7 +20,7 @@ namespace MonoScorpPlugin
         /// <summary>
         /// Occurs once every frame after the OnUpdate event has been been invoked.
         /// </summary>
-        public event EventHandler<EventArgs> OnRender;
+        public event EventHandler<OnRenderEventArgs> OnRender;
 
         /// <summary>
         /// Occurs one time during game initialization. This event is fired before the OnLoadContent event is fired. Add initialization code here.
@@ -40,14 +39,23 @@ namespace MonoScorpPlugin
         {
             _graphicsDeviceManager = new GraphicsDeviceManager(this);
 
-            Content.RootDirectory = "Content";
-            DriverContent = Content;
+            base.Content.RootDirectory = "Content";
+            Content = base.Content;
+
+            var enginePlugins = PluginLoader.LoadPluginLibrary("MonoScorpPlugin");
+
+            //Load the renderer plugin
+            Renderer = enginePlugins.GetPluginByType<IRenderer>();
         }
         #endregion
 
 
         #region Props
-        public static ContentManager DriverContent { get; private set; }
+        public IRenderer Renderer { get; set; }
+
+        public MonoEngineTime EngineTime { get; set; }
+
+        public static ContentManager Content { get; private set; }
 
         public static GraphicsDevice MonoGraphicsDevice { get; set; }
 
@@ -117,9 +125,9 @@ namespace MonoScorpPlugin
         /// <param name="gameTime">The current game time information.</param>
         protected override void Update(GameTime gameTime)
         {
-            var engineTime = new MonoEngineTime(gameTime.TotalGameTime, gameTime.ElapsedGameTime);
+            EngineTime = new MonoEngineTime(gameTime.TotalGameTime, gameTime.ElapsedGameTime);
 
-            OnUpdate?.Invoke(this, new OnUpdateEventArgs(engineTime));
+            OnUpdate?.Invoke(this, new OnUpdateEventArgs(EngineTime));
 
             base.Update(gameTime);
         }
@@ -133,7 +141,7 @@ namespace MonoScorpPlugin
         {
             var engineTime = new MonoEngineTime(gameTime.TotalGameTime, gameTime.ElapsedGameTime);
 
-            OnRender?.Invoke(this, new EventArgs());
+            OnRender?.Invoke(this, new OnRenderEventArgs(Renderer));
 
             base.Draw(gameTime);
         }

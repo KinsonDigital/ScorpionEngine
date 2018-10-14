@@ -61,6 +61,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\Behavior.cs" />
+    <Compile Include="Behaviors\EntityBehaviors.cs" />
+    <Compile Include="Behaviors\LimitNumberBehavior.cs" />
     <Compile Include="Content\AtlasData.cs" />
     <Compile Include="Content\AtlasManager.cs" />
     <Compile Include="Content\AtlasSpriteData.cs" />
@@ -69,6 +72,7 @@
     <Compile Include="Content\Enums.cs" />
     <Compile Include="Content\ExtensionMethods.cs" />
     <Compile Include="Counter.cs" />
+    <Compile Include="EngineTime.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Events\FrameStackFinishedEventArgs.cs" />
     <Compile Include="Events\OnRenderEventArgs.cs" />
@@ -76,10 +80,23 @@
     <Compile Include="Exceptions\IDAlreadyExistsException.cs" />
     <Compile Include="Exceptions\IdNotFoundException.cs" />
     <Compile Include="Exceptions\NameNotFoundException.cs" />
+    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Graphics\Renderer.cs" />
+    <Compile Include="Graphics\TextItem.cs" />
     <Compile Include="Graphics\Texture.cs" />
+    <Compile Include="IDrawable.cs" />
+    <Compile Include="Behaviors\IBehavior.cs" />
+    <Compile Include="Input\Enums.cs" />
     <Compile Include="Input\Keyboard.cs" />
     <Compile Include="Input\Mouse.cs" />
+    <Compile Include="ITimeManager.cs" />
+    <Compile Include="Objects\StaticEntity.cs" />
+    <Compile Include="Physics\InternalVector.cs" />
+    <Compile Include="Physics\PhysicsBody.cs" />
+    <Compile Include="Physics\PhysicsWorld.cs" />
+    <Compile Include="Physics\Vector.cs" />
     <Compile Include="Scene\GameScene.cs" />
+    <Compile Include="Scene\IScene.cs" />
     <Compile Include="Scene\SceneManager.cs" />
     <Compile Include="Scene\SceneTimeManager.cs" />
     <Compile Include="Utils\Tween.cs" />
@@ -99,11 +116,11 @@
     <Compile Include="Input\MouseWatcher.cs" />
     <Compile Include="IUpdatable.cs" />
     <Compile Include="KeyBehavior.cs" />
-    <Compile Include="MovementBehavior.cs" />
-    <Compile Include="Objects\ControllableObject.cs" />
+    <Compile Include="Behaviors\MovementBehavior.cs" />
+    <Compile Include="Objects\ControllableEntity.cs" />
     <Compile Include="Objects\Enums.cs" />
-    <Compile Include="Objects\GameObject.cs" />
-    <Compile Include="Objects\MovableObject.cs" />
+    <Compile Include="Objects\Entity.cs" />
+    <Compile Include="Objects\DynamicEntity.cs" />
     <Compile Include="Objects\ObjectAnimation.cs" />
     <Compile Include="Objects\ObjectPool.cs" />
     <Compile Include="Objects\TextObject.cs" />
@@ -115,15 +132,12 @@
     <Compile Include="Utils\StopWatch.cs" />
     <Compile Include="Utils\Tools.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ScorpionCore\ScorpionCore.csproj">
       <Project>{3e136a13-190c-4390-9e74-8849022852f6}</Project>
       <Name>ScorpionCore</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\" />
-    <Folder Include="Physics\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

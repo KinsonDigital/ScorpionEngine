@@ -11,6 +11,7 @@ namespace ScorpionCore.Plugins
     /// </summary>
     public interface IEngineCore : IDisposable, IEngineEvents, IPlugin
     {
+        //TODO: Add docs to this interface
         #region Props
         int WindowWidth { get; set; }
 
@@ -27,6 +28,7 @@ namespace ScorpionCore.Plugins
 
         void SetFPS(float value);
 
+        bool IsRunning();
         //TODO: Add stop method here
         #endregion
     }

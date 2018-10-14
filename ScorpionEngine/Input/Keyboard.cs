@@ -11,7 +11,7 @@ namespace ScorpionEngine.Input
     /// <summary>
     /// Tracks the state of the keys on keyboard.
     /// </summary>
-    public class Keyboard : IKeyboard
+    public class Keyboard
     {
         private IKeyboard _internalKeyboard;
 
@@ -21,7 +21,7 @@ namespace ScorpionEngine.Input
         /// </summary>
         public Keyboard()
         {
-            _internalKeyboard = PluginLoader.GetPluginByType<IKeyboard>();
+            _internalKeyboard = Engine.EnginePlugins.GetPluginByType<IKeyboard>();
         }
 
 
@@ -31,7 +31,8 @@ namespace ScorpionEngine.Input
         /// <returns></returns>
         public InputKeys[] GetCurrentPressedKeys()
         {
-            return _internalKeyboard.GetCurrentPressedKeys();
+            return (from k in _internalKeyboard.GetCurrentPressedKeys()
+                   select (InputKeys)k).ToArray();
         }
 
 
@@ -41,29 +42,8 @@ namespace ScorpionEngine.Input
         /// <returns></returns>
         public InputKeys[] GetPreviousPressedKeys()
         {
-            return _internalKeyboard.GetPreviousPressedKeys();
-        }
-
-
-        /// <summary>
-        /// Gets any arbitrary data needed for use.
-        /// </summary>
-        /// <typeparam name="T">The type of data to get.</typeparam>
-        /// <returns></returns>
-        public T GetData<T>() where T : class
-        {
-            return _internalKeyboard.GetData<T>();
-        }
-
-
-        /// <summary>
-        /// Inject any arbitrary data into the plugin for use.
-        /// </summary>
-        /// <typeparam name="T">The type of data to inject.</typeparam>
-        /// <param name="data">The data to inject.</param>
-        public void InjectData<T>(T data) where T : class
-        {
-            _internalKeyboard.InjectData<T>(data);
+            return (from k in _internalKeyboard.GetPreviousPressedKeys()
+                    select (InputKeys)k).ToArray();
         }
 
 
@@ -84,7 +64,7 @@ namespace ScorpionEngine.Input
         /// <returns></returns>
         public bool IsKeyDown(InputKeys key)
         {
-            return _internalKeyboard.IsKeyDown(key);
+            return _internalKeyboard.IsKeyDown((int)key);
         }
 
 
@@ -95,7 +75,7 @@ namespace ScorpionEngine.Input
         /// <returns></returns>
         public bool IsKeyUp(InputKeys key)
         {
-            return _internalKeyboard.IsKeyUp(key);
+            return _internalKeyboard.IsKeyUp((int)key);
         }
 
 
@@ -106,7 +86,7 @@ namespace ScorpionEngine.Input
         /// <returns></returns>
         public bool IsKeyPressed(InputKeys key)
         {
-            return _internalKeyboard.IsKeyPressed(key);
+            return _internalKeyboard.IsKeyPressed((int)key);
         }
 
 

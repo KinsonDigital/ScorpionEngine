@@ -4,10 +4,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScorpionEngine", "ScorpionEngine\ScorpionEngine.csproj", "{91495C38-9695-4905-B5D9-0DEBB25E1A0F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{ACE87E11-8FAC-4CAA-BF5A-A237FE88BB9E} = {ACE87E11-8FAC-4CAA-BF5A-A237FE88BB9E}
+		{F60B40E1-4239-4329-9825-11925D349F7E} = {F60B40E1-4239-4329-9825-11925D349F7E}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoScorpPlugin", "MonoScorpPlugin\MonoScorpPlugin.csproj", "{ACE87E11-8FAC-4CAA-BF5A-A237FE88BB9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelcroPhysicsDriver", "VelcroPhysicsDriver\VelcroPhysicsDriver.csproj", "{F60B40E1-4239-4329-9825-11925D349F7E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelcroPhysicsPlugin", "VelcroPhysicsPlugin\VelcroPhysicsPlugin.csproj", "{F60B40E1-4239-4329-9825-11925D349F7E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScorpionCore", "ScorpionCore\ScorpionCore.csproj", "{3E136A13-190C-4390-9E74-8849022852F6}"
 EndProject

@@ -1,17 +1,13 @@
 ﻿using System;
 using ScorpionEngine.Content;
-using ScorpionEngine.Events;
-using ScorpionEngine.Sound;
 using ScorpionCore;
 using ScorpionCore.Plugins;
+using ScorpionEngine.Graphics;
+using ScorpionEngine.Scene;
+using ScorpionEngine.Physics;
 
 namespace ScorpionEngine
 {
-    public interface IWrongPlugin
-    {
-
-    }
-
     /// <summary>
     /// Drives and manages the game.
     /// </summary>
@@ -20,8 +16,8 @@ namespace ScorpionEngine
         #region Fields
         private static IEngineCore _engineCore;
         private static int _prevElapsedTime;
+        private Renderer _renderer;
         #endregion
-
 
 
         #region Constructors
@@ -30,35 +26,38 @@ namespace ScorpionEngine
         /// </summary>
         public Engine()
         {
-            PluginLoader.LoadPlugin("MonoScorpPlugin");
+            EnginePlugins = PluginLoader.LoadPluginLibrary("MonoScorpPlugin");
+            PhysicsPlugins = PluginLoader.LoadPluginLibrary("VelcroPhysicsPlugin");
 
-            //TODO: FUlly test out the methods in PluginLoader
-            ContentLoader = new ContentLoader(PluginLoader.GetPluginByType<IContentLoader>());
-            _engineCore = PluginLoader.GetPluginByType<IEngineCore>();
+            ContentLoader = new ContentLoader(EnginePlugins.GetPluginByType<IContentLoader>());
+            _engineCore = EnginePlugins.GetPluginByType<IEngineCore>();
 
             _engineCore.SetFPS(60);
 
-            //_engineCore.Content = DriverLoader.Container.GetInstance<IContentLoader>();
             _engineCore.OnInitialize += _engineCore_OnInitialize;
             _engineCore.OnLoadContent += _engineCore_OnLoadContent;
             _engineCore.OnUpdate += _engineCore_OnUpdate;
             _engineCore.OnRender += _engineCore_OnRender;
+
+            SceneManager = new SceneManager(ContentLoader);
         }
         #endregion
 
 
         #region Properties
-        public ContentLoader ContentLoader { get; set; }
+        public SceneManager SceneManager { get; set; }
 
-        public IScene Scene { get; private set; }
+        public ContentLoader ContentLoader { get; set; }
 
         /// <summary>
         /// Gets a value indicating that the game engine is currently running.
         /// </summary>
-        public bool Running { get; private set; }
+        public bool Running => _engineCore.IsRunning();
 
+        internal static PluginLibrary EnginePlugins { get; private set; }
 
-        #region Static Properties
+        internal static PluginLibrary PhysicsPlugins { get; private set; }
+
         /// <summary>
         /// Gets the FPS that the engine is currently running at.
         /// </summary>
@@ -81,7 +80,6 @@ namespace ScorpionEngine
             get => _engineCore.WindowHeight;
             set => _engineCore.WindowHeight = value;
         }
-        #endregion
         #endregion
 
 
@@ -126,7 +124,7 @@ namespace ScorpionEngine
         /// Updates the game world.
         /// </summary>
         /// <param name="engineTime">The time passed since last frame and game start.</param>
-        public virtual void Update(IEngineTiming engineTime)
+        public virtual void Update(EngineTime engineTime)
         {
             var currentTime = engineTime.ElapsedEngineTime.Milliseconds;
 
@@ -141,7 +139,7 @@ namespace ScorpionEngine
         /// <summary>
         /// Draws the game world.
         /// </summary>
-        public virtual void Render(IRenderer renderer)
+        public virtual void Render(Renderer renderer)
         {
 
         }
@@ -175,27 +173,48 @@ namespace ScorpionEngine
         #region Private Methods
         private void _engineCore_OnInitialize(object sender, EventArgs e)
         {
-            Scene?.Initialize();
             Init();
+            SceneManager.InitializeAllScenes();
         }
 
 
         private void _engineCore_OnLoadContent(object sender, EventArgs e)
         {
-            Scene?.LoadContent(ContentLoader);
+
             LoadContent(ContentLoader);
+            SceneManager.LoadCurrentSceneContent();
         }
 
 
         private void _engineCore_OnUpdate(object sender, OnUpdateEventArgs e)
         {
-            Update(e.EngineTime);
+            var engineTime = new EngineTime()
+            {
+                ElapsedEngineTime = e.EngineTime.ElapsedEngineTime,
+                TotalEngineTime = e.EngineTime.TotalEngineTime
+            };
+
+            Update(engineTime);
+
+            SceneManager.Update(engineTime);
         }
 
 
-        private void _engineCore_OnRender(object sender, EventArgs e)
+        private void _engineCore_OnRender(object sender, OnRenderEventArgs e)
         {
-            Render(_engineCore.Renderer);
+            //If the renderer has not been created, create one
+            if (_renderer == null)
+                _renderer = new Renderer(e.Renderer);
+
+            _renderer.Clear(50, 50, 50, 255);
+
+            _renderer.Start();
+
+            Render(_renderer);
+
+            SceneManager.Render(_renderer);
+
+            _renderer.End();
         }
         #endregion
     }

@@ -32,7 +32,7 @@ namespace ScorpionCore.Plugins
         /// </summary>
         /// <param name="key">The key to check for.</param>
         /// <returns></returns>
-        bool IsKeyDown(InputKeys key);
+        bool IsKeyDown(int key);
 
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace ScorpionCore.Plugins
         /// </summary>
         /// <param name="key">The key to check for.</param>
         /// <returns></returns>
-        bool IsKeyUp(InputKeys key);
+        bool IsKeyUp(int key);
 
 
         /// <summary>
@@ -48,20 +48,20 @@ namespace ScorpionCore.Plugins
         /// </summary>
         /// <param name="key">The key to check for.</param>
         /// <returns></returns>
-        bool IsKeyPressed(InputKeys key);
+        bool IsKeyPressed(int key);
 
 
         /// <summary>
         /// Returns all of the currently pressed keys on the keyboard.
         /// </summary>
         /// <returns></returns>
-        InputKeys[] GetCurrentPressedKeys();
+        int[] GetCurrentPressedKeys();
 
 
         /// <summary>
         /// Returns all of the previously pressed keys from the last frame.
         /// </summary>
         /// <returns></returns>
-        InputKeys[] GetPreviousPressedKeys();
+        int[] GetPreviousPressedKeys();
     }
 }

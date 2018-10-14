@@ -1,9 +1,14 @@
-﻿using System;
-using ScorpionCore;
-using ScorpionCore.Plugins;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
 using ScorpionEngine;
 using ScorpionEngine.Content;
 using ScorpionEngine.Graphics;
+using ScorpionEngine.Input;
+using ScorpionEngine.Objects;
+using ScorpionEngine.Physics;
 using ScorpionEngine.Scene;
 
 namespace ScorpTestGame
@@ -13,8 +18,7 @@ namespace ScorpTestGame
     /// </summary>
     public class TestGame : Engine
     {
-        private SceneManager _sceneManager;
-        private Texture _texture;
+        private Level1 _level1;
 
 
         /// <summary>
@@ -30,30 +34,27 @@ namespace ScorpTestGame
 
         public override void Init()
         {
+            _level1 = new Level1();
+            SceneManager.AddScene(_level1);
+
             base.Init();
         }
 
 
         public override void LoadContent(ContentLoader contentLoader)
         {
-            _texture = contentLoader.LoadTexture<Texture>("GrayRectangle");
-
             base.LoadContent(contentLoader);
         }
 
 
-        public override void Update(IEngineTiming engineTime)
+        public override void Update(EngineTime engineTime)
         {
             base.Update(engineTime);
         }
 
 
-        public override void Render(IRenderer renderer)
+        public override void Render(Renderer renderer)
         {
-            renderer.Clear(100, 149, 237, 255);
-
-            renderer.Render(_texture, 100, 100);
-
             base.Render(renderer);
         }
 

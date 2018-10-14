@@ -3,6 +3,7 @@ using ScorpionCore.Plugins;
 using ScorpionEngine.Content;
 using ScorpionEngine.EventArguments;
 using ScorpionEngine.Exceptions;
+using ScorpionEngine.Graphics;
 using ScorpionEngine.Input;
 using System;
 using System.Collections.Generic;
@@ -23,22 +24,22 @@ namespace ScorpionEngine.Scene
 
 
         #region Private Vars
-        private IContentLoader _contentLoader;
+        private ContentLoader _contentLoader;
         private Dictionary<int, IScene> _scenes = new Dictionary<int, IScene>();//The list of scenes
         private Keyboard _keyboard;
         private int _currentSceneId = -1;//The currently enabled scene ID.  This is the scene that is currently active and rendering/updating
         #endregion
 
-        //TODO: Look into possibly adding the keyboard internally instead of injecting it via the constructor
+
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="SceneManager"/>.
         /// <paramref name="contentLoader">The content manager user to load and unload content.</paramref>
         /// </summary>
-        public SceneManager(IContentLoader contentLoader, Keyboard keyboard)
+        public SceneManager(ContentLoader contentLoader)
         {
             _contentLoader = contentLoader;
-            _keyboard = keyboard;
+            _keyboard = new Keyboard();
         }
         #endregion
 
@@ -409,7 +410,7 @@ namespace ScorpionEngine.Scene
         /// Manages the <see cref="RunMode"/> settings and updates the currently enabled <see cref="IScene"/>.
         /// </summary>
         /// <param name="gameTime">The frame time information of the last frame.</param>
-        public void Update(IEngineTiming gameTime)
+        public void Update(EngineTime gameTime)
         {
             ProcessKeys();
 
@@ -429,7 +430,7 @@ namespace ScorpionEngine.Scene
         /// Calls the currently enabled <see cref="IScene"/> render method.
         /// </summary>
         /// <param name="renderer">The renderer to use for rendering.</param>
-        public void Render(IRenderer renderer)
+        public void Render(Renderer renderer)
         {
             if (_currentSceneId != -1 && _scenes[_currentSceneId].RenderingScene)
                 _scenes[_currentSceneId].Render(renderer);

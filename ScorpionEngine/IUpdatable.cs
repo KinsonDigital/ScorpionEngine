@@ -7,6 +7,6 @@ namespace ScorpionEngine
     /// </summary>
     public interface IUpdatable
     {
-        void Update(IEngineTiming engineTime);
+        void Update(EngineTime engineTime);
     }
 }

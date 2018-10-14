@@ -15,7 +15,7 @@ namespace ScorpionCore
         /// <summary>
         /// Occurs once every frame after the OnUpdate event has been been invoked.
         /// </summary>
-        event EventHandler<EventArgs> OnRender;
+        event EventHandler<OnRenderEventArgs> OnRender;
 
         /// <summary>
         /// Occurs one time during game initialization. This event is fired before the OnLoadContent event is fired. Add initialization code here.

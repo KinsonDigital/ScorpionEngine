@@ -64,7 +64,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="MonoContentLoader.cs" />
+    <Compile Include="MonoDebugDraw.cs" />
     <Compile Include="MonoGame.cs" />
     <Compile Include="MonoEngineCore.cs" />
     <Compile Include="MonoEngineTime.cs" />
@@ -73,7 +75,7 @@
     <Compile Include="MonoRenderer.cs" />
     <Compile Include="MonoText.cs" />
     <Compile Include="MonoTexture.cs" />
-    <Compile Include="OtherRenderer.cs" />
+    <Compile Include="Primitives2D.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools.cs" />
   </ItemGroup>
@@ -85,7 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.DesktopGL">
-      <Version>3.6.0.1625</Version>
+      <Version>3.7.0.1708</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

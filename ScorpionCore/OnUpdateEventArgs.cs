@@ -3,7 +3,7 @@
 namespace ScorpionCore
 {
     /// <summary>
-    /// Holds information about the OnUpdate and OnDraw events.
+    /// Holds information about the <see cref="IEngineEvents.OnUpdate"/> event.
     /// </summary>
     public class OnUpdateEventArgs : EventArgs
     {
@@ -17,7 +17,7 @@ namespace ScorpionCore
 
         #region Constructors
         /// <summary>
-        /// Creates a new instance of OnUpdateDrawEventArgs.
+        /// Creates a new instance of <see cref="OnUpdateEventArgs"/>.
         /// </summary>
         /// <param name="engineTime">The game engine time.</param>
         public OnUpdateEventArgs(IEngineTiming engineTime)

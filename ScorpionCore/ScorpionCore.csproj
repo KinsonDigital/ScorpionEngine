@@ -42,30 +42,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeferredActions.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\PluginMustImplementInterfaceException.cs" />
     <Compile Include="Exceptions\PluginNotFoundException.cs" />
     <Compile Include="IMouseEvents.cs" />
+    <Compile Include="IVector.cs" />
+    <Compile Include="OnRenderEventArgs.cs" />
+    <Compile Include="PluginInfo.cs" />
+    <Compile Include="PluginLibrary.cs" />
     <Compile Include="Plugins\IContentLoader.cs" />
-    <Compile Include="IDrawable.cs" />
+    <Compile Include="Plugins\IDebugDraw.cs" />
     <Compile Include="Plugins\IEngineCore.cs" />
     <Compile Include="IEngineEvents.cs" />
     <Compile Include="IEngineTiming.cs" />
     <Compile Include="Plugins\IKeyboard.cs" />
     <Compile Include="Plugins\IMouse.cs" />
-    <Compile Include="IPhysicsBody.cs" />
-    <Compile Include="IPhysicsWorld.cs" />
+    <Compile Include="Plugins\IPhysicsBody.cs" />
+    <Compile Include="Plugins\IPhysicsWorld.cs" />
     <Compile Include="Plugins\IPlugin.cs" />
     <Compile Include="Plugins\IRenderer.cs" />
-    <Compile Include="IScene.cs" />
     <Compile Include="IText.cs" />
     <Compile Include="ITexture.cs" />
-    <Compile Include="ITimeManager.cs" />
-    <Compile Include="IUpdatable.cs" />
     <Compile Include="OnUpdateEventArgs.cs" />
     <Compile Include="PluginLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Vector.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -65,7 +65,7 @@ namespace ScorpionEngine.Scene
         /// Updates the <see cref="SceneTimeManager"/>.
         /// </summary>
         /// <param name="gameTime"></param>
-        public void Update(IEngineTiming gameTime)
+        public void Update(EngineTime gameTime)
         {
             //Continous mode
             if (Mode == RunMode.Continuous)
