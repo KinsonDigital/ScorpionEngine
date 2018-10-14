@@ -134,8 +134,8 @@ namespace ScorpionEngine.Objects
         /// </summary>
         private void SetupBehaviors()
         {
-            _movementBehavior = new MovementBehavior(this, Speed);
-            AddBehavior(_movementBehavior);
+            //_movementBehavior = new MovementBehavior(this, Speed);
+            //Behaviors.Add(_movementBehavior);
 
             //TODO: Look into removing this and adding this to the movement behavior instead
             _stopMovementOnKeyRelease = new KeyBehavior(true)

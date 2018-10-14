@@ -61,6 +61,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\Behavior.cs" />
+    <Compile Include="Behaviors\EntityBehaviors.cs" />
     <Compile Include="Behaviors\LimitNumberBehavior.cs" />
     <Compile Include="Content\AtlasData.cs" />
     <Compile Include="Content\AtlasManager.cs" />
@@ -78,6 +80,7 @@
     <Compile Include="Exceptions\IDAlreadyExistsException.cs" />
     <Compile Include="Exceptions\IdNotFoundException.cs" />
     <Compile Include="Exceptions\NameNotFoundException.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Graphics\Renderer.cs" />
     <Compile Include="Graphics\TextItem.cs" />
     <Compile Include="Graphics\Texture.cs" />

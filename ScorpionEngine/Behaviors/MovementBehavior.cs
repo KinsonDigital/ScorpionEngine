@@ -8,7 +8,7 @@ namespace ScorpionEngine.Behaviors
     /// <summary>
     /// Creates a a behavior that controls the left, right, up, and down movement of a movable game object.
     /// </summary>
-    public class MovementBehavior : IBehavior
+    public class MovementBehavior : Behavior
     {
         #region Fields
         private KeyBehavior _moveRightKeyOnPress;
@@ -48,26 +48,22 @@ namespace ScorpionEngine.Behaviors
             //Setup the move down key behavior
             _moveDownKeyOnPress.KeyDownEvent += MoveDownKeyDownOnPressKeyDownEvent;
             _moveDownKeyOnPress.BehaviorType = KeyBehaviorType.KeyDownContinuous;
+
+            SetUpdateAction(UpdateAction);
         }
         #endregion
 
 
-        #region Public Methods
-        /// <summary>
-        /// Updates the key behaviors.
-        /// </summary>
-        /// <param name="engineTime">The engine time.</param>
-        public void Update(EngineTime engineTime)
+        #region Private Methods
+        private void UpdateAction(EngineTime engineTime)
         {
             _moveRightKeyOnPress.Update(engineTime);
             _moveLeftKeyOnPress.Update(engineTime);
             _moveUpKeyOnPress.Update(engineTime);
             _moveDownKeyOnPress.Update(engineTime);
         }
-        #endregion
 
 
-        #region Private Methods
         private void CreateBehaviors()
         {
             _moveRightKeyOnPress = new KeyBehavior(InputKeys.Right, true);

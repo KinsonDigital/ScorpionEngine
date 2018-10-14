@@ -68,7 +68,7 @@ namespace ScorpionEngine
         /// <summary>
         /// Gets or sets a value indicating if the behavior is enabled.  If disabled, the update method will not update the behavior or fire events.
         /// </summary>
-        public bool Enabled { get; set; }
+        public bool Enabled { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the type of behavior of the KeyBehavior.
@@ -99,6 +99,8 @@ namespace ScorpionEngine
         /// Returns a value indicating if the key has been released.
         /// </summary>
         public bool IsPressed => _keyboard.IsKeyDown(Key);
+
+        public string Name { get; set; } = nameof(KeyBehavior);
         #endregion
 
 

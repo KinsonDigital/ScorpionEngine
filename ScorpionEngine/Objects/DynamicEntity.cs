@@ -18,18 +18,8 @@ namespace ScorpionEngine.Objects
     /// </summary>
     public class DynamicEntity : Entity
     {
-        #region Events
-        /// <summary>
-        /// Occurs every time the entity moves.
-        /// </summary>
-        public event EventHandler<OnMovedEventArgs> OnMove;
-        #endregion
-
-
         #region Fields
-        private float _maxLinearSpeed = 2f;
-        private float _maxAngularSpeed = 0.025f;
-        private float _linearAcceleration = 0.1f;//The acceleration of any linear movement
+        private Vector _facingDirection = new Vector(0, -1);
         private readonly Dictionary<Direction, bool> _linearMovementLocks = new Dictionary<Direction, bool>();//Holds the lock states for the 8 linear movements.  True means locked.
         private LimitNumberBehavior _moveRightVelocityMaxBehavior;
         private LimitNumberBehavior _moveLeftVelocityMaxBehavior;
@@ -37,19 +27,20 @@ namespace ScorpionEngine.Objects
         private LimitNumberBehavior _moveUpVelocityMaxBehavior;
         private LimitNumberBehavior _rotateCWVelocityMaxBehavior;
         private LimitNumberBehavior _rotateCCWVelocityMaxBehavior;
+        private bool _stopMovement;
         #endregion
 
 
         #region Constructors
         public DynamicEntity(Vector position, bool isStaticBody = false) : base(position, isStaticBody)
         {
-            SetupBehaviors();
+            SetupMaxLinearBehaviors(1f);
         }
 
 
         public DynamicEntity(Texture texture, Vector position, bool isStaticBody = false) : base(texture, position, isStaticBody)
         {
-            SetupBehaviors();
+            SetupMaxLinearBehaviors(1f);
         }
 
 
@@ -61,7 +52,9 @@ namespace ScorpionEngine.Objects
         /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
         public DynamicEntity(Vector[] vertices, Vector position, bool isStaticBody = false) : base(vertices, position, isStaticBody)
         {
-            SetupBehaviors();
+            SetupMaxLinearBehaviors(1f);
+            AngularDeceleration = 0.5f;
+            LinearDeceleration = 0.6f;
         }
 
 
@@ -74,7 +67,7 @@ namespace ScorpionEngine.Objects
         /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
         public DynamicEntity(Texture texture, Vector[] polyVertices, Vector location, bool isStaticBody = false) : base(texture, polyVertices, location, isStaticBody)
         {
-            SetupBehaviors();
+            SetupMaxLinearBehaviors(1f);
         }
         #endregion
 
@@ -119,32 +112,42 @@ namespace ScorpionEngine.Objects
         public float Angle { get; set; }
 
         /// <summary>
-        /// Gets or sets the speed for linear movement.
-        /// </summary>
-        public float Speed { get; set; } = 1f;
-
-        /// <summary>
-        /// Gets or sets the maximum linear movement speed.  Only positive numbers aloud.
-        /// If a negative number is used, it will be converted to its negated result.
-        /// A value of zero will result in no limitation.
+        /// Gets or sets the maximum linear movement speed. Positive and
+        /// negative values behave the same.
         /// </summary>
         public float MaxLinearSpeed
         {
-            get => _maxLinearSpeed;
+            get => _moveRightVelocityMaxBehavior.LimitValue;
             set
             {
-                _maxLinearSpeed = value > 0 ? value : value * -1;
-                SetupBehaviors();
+                if (_moveRightVelocityMaxBehavior == null)
+                {
+                    SetupMaxLinearBehaviors(value.ForcePositive());
+                }
+                else
+                {
+                    _moveLeftVelocityMaxBehavior.LimitValue = value.ForceNegative();
+                    _moveRightVelocityMaxBehavior.LimitValue = value.ForcePositive();
+                    _moveUpVelocityMaxBehavior.LimitValue = value.ForceNegative();
+                    _moveDownVelocityMaxBehavior.LimitValue = value.ForcePositive();
+                }
             }
         }
 
         public float MaxAngularSpeed
         {
-            get => _maxAngularSpeed;
+            get => _rotateCWVelocityMaxBehavior.LimitValue;
             set
             {
-                _maxAngularSpeed = value > 0 ? value : value * -1;
-                SetupBehaviors();
+                if (_rotateCWVelocityMaxBehavior == null)
+                {
+                    SetupMaxRotationBehaviors(value.ForcePositive());
+                }
+                else
+                {
+                    _rotateCWVelocityMaxBehavior.LimitValue = value.ForcePositive();
+                    _rotateCCWVelocityMaxBehavior.LimitValue = value.ForceNegative();
+                }
             }
         }
 
@@ -152,6 +155,20 @@ namespace ScorpionEngine.Objects
         /// Gets or sets the rotational speed of the object in degrees.
         /// </summary>
         public float RotateSpeed { get; set; } = 1f;
+
+        /// <summary>
+        /// Gets or sets the speed in the X direction. Negative values will move the
+        /// <see cref="DynamicEntity"/> left. Positive values move the <see cref="DynamicEntity"/>
+        /// right.
+        /// </summary>
+        public float SpeedX { get; set; } = 0.25f;
+
+        /// <summary>
+        /// Gets or sets the speed in the Y direction. Negative values will move the
+        /// <see cref="DynamicEntity"/> up. Positive values move the <see cref="DynamicEntity"/>
+        /// down.
+        /// </summary>
+        public float SpeedY { get; set; } = 0.25f;
 
         /// <summary>
         /// Gets or sets the impulseType to auto rotate if AutoRotate is set to true.
@@ -165,53 +182,18 @@ namespace ScorpionEngine.Objects
         public Direction AutoDirection { get; set; } = Direction.Up;
 
         /// <summary>
-        /// Gets or sets the acceleration for linear movement. Greater the number, the faster the object will accelerate up to max speed.
-        /// </summary>
-        public float LinearAcceleration
-        {
-            get
-            {
-                //Multiply the acceleration by 10 to make the number larger.
-                //The value outgoing is set to a larger number to make it less confusing for the user.
-                //This is so the user can use 1 instead of the value 0.1.
-                return _linearAcceleration * 10f;
-            }
-            set
-            {
-                //Divide the incoming value by 10 to turn it back to a floating point number.
-                //The value incoming is set to a larger number to make it less confusing for the user.
-                //This is so the user can use 1 instead of the value 0.1.
-                _linearAcceleration = value / 10f;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the linear deceleration of the object. DEFAULT: 1
         /// </summary>
-        public float LinearDeceleration { get; set; }
-
-        /// <summary>
-        /// Gets the speed on the x axis.
-        /// </summary>
-        public float CurrentSpeedX
+        public float LinearDeceleration
         {
-            get
-            {
-                //TODO: set the speed on the x axis
-                throw new NotImplementedException();
-            }
+            get => Body.InternalPhysicsBody.LinearDeceleration;
+            set => Body.InternalPhysicsBody.LinearDeceleration = value;
         }
 
-        /// <summary>
-        /// Gets the speed on the y axis.
-        /// </summary>
-        public float CurrentSpeedY
+        public float AngularDeceleration
         {
-            get
-            {
-                //TODO: set the speed on the x axis
-                throw new NotImplementedException();
-            }
+            get => Body.InternalPhysicsBody.AngularDeceleration;
+            set => Body.InternalPhysicsBody.AngularDeceleration = value;
         }
 
         /// <summary>
@@ -234,40 +216,78 @@ namespace ScorpionEngine.Objects
         /// <param name="engineTime"></param>
         public override void OnUpdate(EngineTime engineTime)
         {
+            _facingDirection = Tools.RotateAround(new Vector(0, -1), Vector.Zero, Body.InternalPhysicsBody.Angle.ToRadians());
+
+            ProcessMovementStop();
+
             base.OnUpdate(engineTime);
         }
 
 
         /// <summary>
-        /// Moves the game object to the right.
+        /// Moves the <see cref="DynamicEntity"/> to the right using the given speed.
         /// </summary>
+        /// <param name="speed">The speed to move the <see cref="DynamicEntity"/>. Positive and negative numbers behave the same.</param>
         public void MoveRight(float speed)
         {
-            Body.InternalPhysicsBody.ApplyLinearImpulse(speed, 0);
+            Body.InternalPhysicsBody.ApplyLinearImpulse(speed.ForcePositive(), 0);
         }
 
 
         /// <summary>
-        /// Moves the game object to the left.
+        /// Moves the <see cref="DynamicEntity"/> to the right using the <see cref="SpeedX"/> value.
+        /// Behaves the same no matter if <see cref="SpeedX"/> is positive or negative.
         /// </summary>
+        public void MoveRight()
+        {
+            Body.InternalPhysicsBody.ApplyLinearImpulse(SpeedX.ForcePositive(), 0);
+        }
+
+
+        /// <summary>
+        /// Moves the <see cref="DynamicEntity"/> to the left using the given speed.
+        /// </summary>
+        /// <param name="speed">The speed to move the <see cref="DynamicEntity"/>. Positive and negative numbers behave the same.</param>
         public void MoveLeft(float speed)
         {
-            Body.InternalPhysicsBody.ApplyLinearImpulse(speed < 0 ? speed : speed * -1, 0);
+            Body.InternalPhysicsBody.ApplyLinearImpulse(speed.ForceNegative(), 0);
         }
 
 
         /// <summary>
-        /// Moves the game object up.
+        /// Moves the <see cref="DynamicEntity"/> to the left using the <see cref="SpeedX"/> value.
+        /// Behaves the same no matter if <see cref="SpeedX"/> is positive or negative.
         /// </summary>
+        public void MoveLeft()
+        {
+            Body.InternalPhysicsBody.ApplyLinearImpulse(SpeedX.ForceNegative(), 0);
+        }
+
+
+        /// <summary>
+        /// Moves the <see cref="DynamicEntity"/> up using the given speed.
+        /// </summary>
+        /// <param name="speed">The speed to move the <see cref="DynamicEntity"/>. Positive and negative numbers behave the same.</param>
         public void MoveUp(float speed)
         {
-            Body.InternalPhysicsBody.ApplyLinearImpulse(0, speed < 0 ? speed : speed * -1);
+            Body.InternalPhysicsBody.ApplyLinearImpulse(0, speed.ForceNegative());
         }
 
 
         /// <summary>
-        /// Moves the game object down.
+        /// Moves the <see cref="DynamicEntity"/> up using the <see cref="SpeedY"/> value.
+        /// Behaves the same no matter if <see cref="SpeedY"/> is positive or negative.
         /// </summary>
+        public void MoveUp()
+        {
+            Body.InternalPhysicsBody.ApplyLinearImpulse(0, SpeedY.ForceNegative());
+        }
+
+
+        /// <summary>
+        /// Moves the <see cref="DynamicEntity"/> down using the given speed.
+        /// </summary>
+        /// <param name="speed">The speed to move the <see cref="DynamicEntity"/>. Positive and negative numbers behave the same.</param>
         public void MoveDown(float speed)
         {
             Body.InternalPhysicsBody.ApplyLinearImpulse(0, speed);
@@ -275,61 +295,123 @@ namespace ScorpionEngine.Objects
 
 
         /// <summary>
-        /// Moves the game object up and to the right.
+        /// Moves the <see cref="DynamicEntity"/> down using the <see cref="SpeedY"/> value.
+        /// Behaves the same no matter if <see cref="SpeedY"/> is positive or negative.
         /// </summary>
+        public void MoveDown()
+        {
+            Body.InternalPhysicsBody.ApplyLinearImpulse(0, SpeedY.ForcePositive());
+        }
+
+
         public void MoveUpRight()
         {
+            Body.InternalPhysicsBody.ApplyLinearImpulse(SpeedX.ForcePositive(), SpeedY.ForceNegative());
         }
 
 
         /// <summary>
-        /// Moves the game object up and to the left.
+        /// Moves the <see cref="DynamicEntity"/> up and to the right using the given speed.
         /// </summary>
-        public void MoveUpLeft()
+        /// <param name="speed">The speed to move the <see cref="DynamicEntity"/>. Positive and negative numbers behave the same.</param>
+        public void MoveUpRight(float speed)
         {
+            Body.InternalPhysicsBody.ApplyLinearImpulse(speed, speed.ForceNegative());
         }
 
 
         /// <summary>
-        /// Moves the game object down and to the right.
+        /// Moves the <see cref="DynamicEntity"/> up and to the left using the given speed.
         /// </summary>
-        public void MoveDownRight()
+        /// <param name="speed">The speed to move the <see cref="DynamicEntity"/>. Positive and negative numbers behave the same.</param>
+        public void MoveUpLeft(float speed)
         {
+            speed = speed.ForceNegative();
+            Body.InternalPhysicsBody.ApplyLinearImpulse(speed, speed);
         }
 
 
         /// <summary>
-        /// Moves the game object down and to the left.
+        /// Moves the <see cref="DynamicEntity"/> down and to the right using the given speed.
         /// </summary>
-        public void MoveDownLeft()
+        /// <param name="speed">The speed to move the <see cref="DynamicEntity"/>. Positive and negative numbers behave the same.</param>
+        public void MoveDownRight(float speed)
         {
-        } 
-
-
-        /// <summary>
-        /// Moves the entity at the currently set angle/impulseType.
-        /// </summary>
-        public void MoveAtSetAngle()
-        {
+            speed = speed.ForcePositive();
+            Body.InternalPhysicsBody.ApplyLinearImpulse(speed, speed);
         }
 
 
         /// <summary>
-        /// Rotates the game object clockwise.
+        /// Moves the <see cref="DynamicEntity"/> down and to the left using the given speed.
         /// </summary>
+        /// <param name="speed">The speed to move the <see cref="DynamicEntity"/>. Positive and negative numbers behave the same.</param>
+        public void MoveDownLeft(float speed)
+        {
+            Body.InternalPhysicsBody.ApplyLinearImpulse(speed.ForceNegative(), speed.ForcePositive());
+        }
+
+
+        /// <summary>
+        /// Moves the <see cref="DynamicEntity"/> based on the current <see cref="SpeedX"/>
+        /// and <see cref="SpeedY"/> values. Positive and negative values of <see cref="SpeedX"/> and <see cref="SpeedY"/>
+        /// determines the direction of travel on that axis.
+        /// </summary>
+        public void MoveAtSetSpeed()
+        {
+            Body.InternalPhysicsBody.ApplyLinearImpulse(SpeedX, SpeedY);
+        }
+
+
+        /// <summary>
+        /// Moves the <see cref="DynamicEntity"/> at the currently set angle using the given speed.
+        /// </summary>
+        /// <param name="speed">The speed to move the <see cref="DynamicEntity"/>. Positive and negative numbers behave the same.</param>
+        public void MoveAtSetAngle(float speed)
+        {
+            var directionToMove = new Vector(_facingDirection.X, _facingDirection.Y) * speed.ForcePositive();
+
+            Body.InternalPhysicsBody.ApplyLinearImpulse(directionToMove.X, directionToMove.Y);
+        }
+
+
+        /// <summary>
+        /// Rotates the <see cref="DynamicEntity"/> clockwise using the <see cref="RotateSpeed"/> value.
+        /// Behaves the same no matter if the <see cref="RotateSpeed"/> value is positive or negative.
+        /// </summary>
+        public void RotateCW()
+        {
+            Body.InternalPhysicsBody.ApplyAngularImpulse(RotateSpeed.ForcePositive());
+        }
+
+
+        /// <summary>
+        /// Rotates the <see cref="DynamicEntity"/> clockwise using the given speed.
+        /// </summary>
+        /// <param name="speed">The speed to rotate the <see cref="DynamicEntity"/>. Positive and negative values behave the same.</param>
         public void RotateCW(float speed)
         {
-            Body.InternalPhysicsBody.ApplyAngularImpulse(speed);
+            Body.InternalPhysicsBody.ApplyAngularImpulse(speed.ForcePositive());
         }
 
 
         /// <summary>
-        /// Rotates the game object counter clockwise.
+        /// Rotates the <see cref="DynamicEntity"/> counter clockwise using the <see cref="RotateSpeed"/> value.
+        /// Behaves the same no matter if the <see cref="RotateSpeed"/> value is positive or negative.
         /// </summary>
+        public void RotateCCW()
+        {
+            Body.InternalPhysicsBody.ApplyAngularImpulse(RotateSpeed.ForceNegative());
+        }
+
+
+        /// <summary>
+        /// Rotates the <see cref="DynamicEntity"/> counter clockwise using the given speed.
+        /// </summary>
+        /// <param name="speed">The speed to rotate the <see cref="DynamicEntity"/>. Positive and negative values behave the same.</param>
         public void RotateCCW(float speed)
         {
-            speed = speed < 0 ? speed : speed * -1;
-            Body.InternalPhysicsBody.ApplyAngularImpulse(speed);
+            Body.InternalPhysicsBody.ApplyAngularImpulse(speed.ForceNegative());
         }
 
 
@@ -338,7 +420,7 @@ namespace ScorpionEngine.Objects
         /// </summary>
         public void StopMovement()
         {
-            throw new NotImplementedException();
+            _stopMovement = true;
         }
 
 
@@ -347,49 +429,66 @@ namespace ScorpionEngine.Objects
         /// </summary>
         public void StopRotation()
         {
-            //TODO: Stop rotation of the object
-            throw new NotImplementedException();
+            Body.InternalPhysicsBody.AngularVelocity = 0;
+        }
+
+
+        /// <summary>
+        /// Starts process of stopping the movement of the <see cref="DynamicEntity"/> if it has been flagged to stop.
+        /// </summary>
+        private void ProcessMovementStop()
+        {
+            if (_stopMovement)
+            {
+                //If the body is still moving in the Y direction
+                if (Body.InternalPhysicsBody.LinearVelocityY != 0)
+                {
+                    Body.InternalPhysicsBody.ApplyLinearImpulse(Body.InternalPhysicsBody.LinearVelocityX, Body.InternalPhysicsBody.LinearVelocityY * -1);
+                }
+
+                //If the body is still moving in the X direction
+                if (Body.InternalPhysicsBody.LinearVelocityX != 0)
+                {
+                    Body.InternalPhysicsBody.ApplyLinearImpulse(Body.InternalPhysicsBody.LinearVelocityX * -1, Body.InternalPhysicsBody.LinearVelocityY);
+                }
+
+                //If the body has stopped moving, set the flag back to false
+                if (Body.InternalPhysicsBody.LinearVelocityX == 0 && Body.InternalPhysicsBody.LinearVelocityY == 0)
+                    _stopMovement = false;
+            }
         }
         #endregion
 
 
         #region Private Methods
         /// <summary>
-        /// Sets up all of the behaviors
+        /// Sets up all of the max linear behaviors.
         /// </summary>
-        private void SetupBehaviors()
+        private void SetupMaxLinearBehaviors(float maxSpeed)
         {
-            if (_maxLinearSpeed == 0)
-            {
-                foreach (var behavior in Behaviors)
-                {
-                    if (behavior.GetType() == typeof(LimitNumberBehavior))
-                        RemoveBehavior(behavior);
-                }
+            _moveRightVelocityMaxBehavior = new LimitNumberBehavior(GetXLinearValue, SetXLinearValue, maxSpeed);
+            _moveLeftVelocityMaxBehavior = new LimitNumberBehavior(GetXLinearValue, SetXLinearValue, maxSpeed * -1);
 
-                _moveRightVelocityMaxBehavior = null;
-                _moveLeftVelocityMaxBehavior = null;
-                _moveUpVelocityMaxBehavior = null;
-                _moveDownVelocityMaxBehavior = null;
+            _moveDownVelocityMaxBehavior = new LimitNumberBehavior(GetYLinearValue, SetYLinearValue, maxSpeed);
+            _moveUpVelocityMaxBehavior = new LimitNumberBehavior(GetYLinearValue, SetYLinearValue, maxSpeed * -1);
 
-                return;
-            }
+            Behaviors.Add(_moveRightVelocityMaxBehavior);
+            Behaviors.Add(_moveLeftVelocityMaxBehavior);
+            Behaviors.Add(_moveDownVelocityMaxBehavior);
+            Behaviors.Add(_moveUpVelocityMaxBehavior);
+        }
 
-            _moveRightVelocityMaxBehavior = new LimitNumberBehavior(GetXLinearValue, SetXLinearValue, _maxLinearSpeed);
-            _moveLeftVelocityMaxBehavior = new LimitNumberBehavior(GetXLinearValue, SetXLinearValue, _maxLinearSpeed * -1);
 
-            _moveDownVelocityMaxBehavior = new LimitNumberBehavior(GetYLinearValue, SetYLinearValue, _maxLinearSpeed);
-            _moveUpVelocityMaxBehavior = new LimitNumberBehavior(GetYLinearValue, SetYLinearValue, _maxLinearSpeed * -1);
+        /// <summary>
+        /// Sets up all of the max rotataion behaviors.
+        /// </summary>
+        private void SetupMaxRotationBehaviors(float maxSpeed)
+        {
+            _rotateCWVelocityMaxBehavior = new LimitNumberBehavior(GetAngularValue, SetAngularValue, maxSpeed);
+            _rotateCCWVelocityMaxBehavior = new LimitNumberBehavior(GetAngularValue, SetAngularValue, maxSpeed * -1);
 
-            _rotateCWVelocityMaxBehavior = new LimitNumberBehavior(GetAngularValue, SetAngularValue, _maxAngularSpeed);
-            _rotateCCWVelocityMaxBehavior = new LimitNumberBehavior(GetAngularValue, SetAngularValue, _maxAngularSpeed * -1);
-
-            AddBehavior(_moveRightVelocityMaxBehavior);
-            AddBehavior(_moveLeftVelocityMaxBehavior);
-            AddBehavior(_moveDownVelocityMaxBehavior);
-            AddBehavior(_moveUpVelocityMaxBehavior);
-            AddBehavior(_rotateCWVelocityMaxBehavior);
-            AddBehavior(_rotateCCWVelocityMaxBehavior);
+            Behaviors.Add(_rotateCWVelocityMaxBehavior);
+            Behaviors.Add(_rotateCCWVelocityMaxBehavior);
         }
 
 

@@ -31,7 +31,17 @@ namespace ScorpionCore.Plugins
 
         float LinearVelocityY { get; set; }
 
+        float LinearAcceleration { get; set; }
+
+        float LinearDeceleration { get; set; }
+
         float AngularVelocity { get; set; }
+
+        float AngularAcceleration { get; set; }
+
+        float AngularDeceleration { get; set; }
+
+        DeferredActions AfterAddedToWorldActions { get; set; }
         #endregion
 
 
@@ -40,6 +50,7 @@ namespace ScorpionCore.Plugins
 
 
         void ApplyLinearImpulse(float x, float y);
+
 
         void ApplyAngularImpulse(float value);
         #endregion

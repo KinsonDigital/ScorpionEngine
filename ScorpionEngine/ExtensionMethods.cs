@@ -1,32 +1,48 @@
-﻿using ScorpionEngine.Input;
-using ScorpionEngine.Physics;
+﻿using ScorpionEngine.Physics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScorpionEngine.Utils
+namespace ScorpionEngine
 {
-    /// <summary>
-    /// Provides basic tools to make things easier internally in the engine.
-    /// </summary>
-    public static class Tools
+    public static class ExtensionMethods
     {
         private const float PI = 3.1415926535897931f;
 
-        #region Public Methods
-        /// <summary>
-        /// Gets the minimum value of the given enumeration.
-        /// </summary>
-        /// <param name="enumType">The enum to process.</param>
-        /// <returns></returns>
-        public static int GetEnumMin(Type enumType)
-        {
-            var values = Enum.GetValues(enumType);
 
-            //Get the smallest item out of all of the values
-            return values.Cast<int>().Concat(new[] { int.MaxValue }).Min();
+        public static float ToDegrees(this float radians)
+        {
+            return radians * 180.0f / PI;
+        }
+
+
+        public static float ToRadians(this float degrees)
+        {
+            return degrees * PI / 180f;
+        }
+
+
+        /// <summary>
+        /// Sets the value to positive if its negative.
+        /// </summary>
+        /// <param name="value">The value to force.</param>
+        /// <returns></returns>
+        public static float ForcePositive(this float value)
+        {
+            return value < 0 ? value * -1 : value;
+        }
+
+
+        /// <summary>
+        /// Sets the value to negative if its positive.
+        /// </summary>
+        /// <param name="value">The value to force.</param>
+        /// <returns></returns>
+        public static float ForceNegative(this float value)
+        {
+            return value > 0 ? value * -1 : value;
         }
 
 
@@ -37,7 +53,7 @@ namespace ScorpionEngine.Utils
         /// <param name="origin">The vector to rotate the <paramref name="vector"/> around.</param>
         /// <param name="angle">The angle in radians to rotate <paramref name="vector"/>.  Value must be positive.</param>
         /// <returns></returns>
-        public static Vector RotateAround(Vector vector, Vector origin, float angle, bool clockWise = true)
+        public static Vector RotateAround(this Vector vector, Vector origin, float angle, bool clockWise = true)
         {
             angle = clockWise ? angle : angle * -1;
 
@@ -56,18 +72,5 @@ namespace ScorpionEngine.Utils
 
             return new Vector(x, y);
         }
-
-
-        public static float ToDegrees(this float radians)
-        {
-            return radians * 180.0f / PI;
-        }
-
-
-        public static float ToRadians(this float degrees)
-        {
-            return degrees * PI / 180f;
-        }
-        #endregion
     }
 }

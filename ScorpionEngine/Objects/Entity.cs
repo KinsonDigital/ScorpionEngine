@@ -48,7 +48,6 @@ namespace ScorpionEngine.Objects
         private Vector _origin = Vector.Zero;
         protected Texture _texture;
         private IDebugDraw _debugDraw;
-        private List<IBehavior> _behaviors = new List<IBehavior>();
         #endregion
 
 
@@ -100,9 +99,8 @@ namespace ScorpionEngine.Objects
         /// </summary>
         public GraphicContentSource GraphicSource { get; private set; } = GraphicContentSource.Standard;
 
-        public IBehavior[] Behaviors => _behaviors.ToArray();
+        public EntityBehaviors Behaviors { get; set; } = new EntityBehaviors();
         
-
         /// <summary>
         /// Gets or sets a value indicating if the entity is drawn.
         /// </summary>
@@ -227,27 +225,13 @@ namespace ScorpionEngine.Objects
         {
             _engineTime = engineTime;
 
-            foreach (var behavior in _behaviors)
+            var result = Body.AngularDeceleration;
+
+            foreach (IBehavior behavior in Behaviors)
             {
                 behavior.Update(_engineTime);
             }
         }
-
-
-        public void AddBehavior(IBehavior behavior)
-        {
-            _behaviors.Add(behavior);
-        }
-
-
-        public void RemoveBehavior(IBehavior behavior)
-        {
-            _behaviors.Remove(behavior);
-        }
-
-        //TODO: Add a remove behavior method.
-        //This should have an ID system to signify which behavior is which
-        //using either a name or an integer id.
         #endregion
 
 

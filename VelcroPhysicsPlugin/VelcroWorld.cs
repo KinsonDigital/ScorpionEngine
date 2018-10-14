@@ -68,6 +68,9 @@ namespace VelcroPhysicsPlugin
             //not performent.  Need to find a way to send data to the physics body 
             //in a type safe and performant way
             body.DataSender(() => new object[] { physicsBody, polyShape });
+
+            //Execute any deferred actions if any exist
+            body.AfterAddedToWorldActions.ExecuteAll();
         }
 
 

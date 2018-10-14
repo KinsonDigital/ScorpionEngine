@@ -17,6 +17,8 @@ namespace VelcroPhysicsPlugin
     {
         private PhysicsBodySettings _tempSettings;
 
+
+        #region Constructors
         public VelcroBody()
         {
             //This must be here for the plugin system to work
@@ -38,6 +40,7 @@ namespace VelcroPhysicsPlugin
             _tempSettings.Restitution = restitution;
             _tempSettings.IsStatic = isStatic;
         }
+        #endregion
 
 
         #region Props
@@ -60,6 +63,7 @@ namespace VelcroPhysicsPlugin
                 }
                 else
                 {
+                    //This gets the vertices as world vertices
                     var xVertices = (from v in PolygonShape.Vertices.ToVelcroVectors()
                                     select v.X + positionX).ToArray();
 
@@ -85,6 +89,7 @@ namespace VelcroPhysicsPlugin
                 }
                 else
                 {
+                    //This gets the vertices as world vertices
                     var yVertices = (from v in PolygonShape.Vertices.ToVelcroVectors()
                                      select v.Y + positionY).ToArray();
 
@@ -105,7 +110,7 @@ namespace VelcroPhysicsPlugin
                 if (PolygonBody == null)
                     throw new Exception("Body must be added to a world first");
 
-                PolygonBody.Position = new Vector2(PolygonBody.Position.X + value, PolygonBody.Position.Y).ToPhysics();
+                PolygonBody.Position = new Vector2(value.ToPhysics(), PolygonBody.Position.Y);
             }
         }
 
@@ -117,7 +122,7 @@ namespace VelcroPhysicsPlugin
                 if (PolygonBody == null)
                     throw new Exception("Body must be added to a world first");
 
-                PolygonBody.Position = new Vector2(PolygonBody.Position.X, PolygonBody.Position.Y + value).ToPhysics();
+                PolygonBody.Position = new Vector2(PolygonBody.Position.X, value.ToPhysics());
             }
         }
 
@@ -132,7 +137,7 @@ namespace VelcroPhysicsPlugin
                 if (PolygonBody == null)
                     throw new Exception("Body must be added to a world first");
 
-                PolygonBody.Rotation = value;
+                PolygonBody.Rotation = value.ToRadians();
             }
         }
 
@@ -168,69 +173,71 @@ namespace VelcroPhysicsPlugin
 
         public float LinearVelocityX
         {
-            get => PolygonBody.LinearVelocity.X;
+            get => PolygonBody.LinearVelocity.X.ToPixels();
             set
             {
-                PolygonBody.LinearVelocity = new Vector2(value, PolygonBody.LinearVelocity.Y);
+                PolygonBody.LinearVelocity = new Vector2(value.ToPhysics(), PolygonBody.LinearVelocity.Y);
             }
         }
 
         public float LinearVelocityY
         {
-            get => PolygonBody.LinearVelocity.Y;
+            get => PolygonBody.LinearVelocity.Y.ToPixels();
             set
             {
-                PolygonBody.LinearVelocity = new Vector2(PolygonBody.LinearVelocity.X, value);
+                PolygonBody.LinearVelocity = new Vector2(PolygonBody.LinearVelocity.X, value.ToPhysics());
             }
         }
 
+        //TODO: Needs to be implemented
         public float LinearAcceleration { get; set; }
 
         public float LinearDeceleration
         {
-            get => PolygonBody.LinearDamping;
+            get => PolygonBody.LinearDamping.ToPixels();
             set
             {
                 if (PolygonBody == null)
                 {
                     AfterAddedToWorldActions.Add(() =>
                     {
-                        PolygonBody.LinearDamping = value;
+                        PolygonBody.LinearDamping = value.ToPhysics();
                     });
                 }
                 else
                 {
-                    PolygonBody.LinearDamping = value;
+                    PolygonBody.LinearDamping = value.ToPhysics();
                 }
             }
         }
 
         public float AngularVelocity
         {
-            get => PolygonBody.AngularVelocity;
+            get => PolygonBody.AngularVelocity.ToPixels();
             set
             {
-                PolygonBody.AngularVelocity = value;
+                PolygonBody.AngularVelocity = value.ToPhysics();
             }
         }
 
+        //TODO: Needs to be implemented
         public float AngularAcceleration { get; set; }
 
         public float AngularDeceleration
         {
-            get => PolygonBody.AngularDamping;
+            get => PolygonBody.AngularDamping.ToPixels();
             set
             {
                 if(PolygonBody == null)
                 {
                     AfterAddedToWorldActions.Add(() =>
                     {
-                        PolygonBody.AngularDamping = value;
+                        PolygonBody.AngularDamping = value.ToPhysics();
                     });
                 }
                 else
                 {
-                    PolygonBody.AngularDamping = value;
+                    PolygonBody.AngularDamping = value.ToPhysics();
                 }
             }
         }

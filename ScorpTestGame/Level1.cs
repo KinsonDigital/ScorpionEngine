@@ -1,4 +1,4 @@
-﻿using ScorpionEngine;
+using ScorpionEngine;
 using ScorpionEngine.Content;
 using ScorpionEngine.Graphics;
 using ScorpionEngine.Input;
@@ -40,7 +40,9 @@ namespace ScorpTestGame
             _ship = new DynamicEntity(fallingRectVertices, new Vector(330, 200))
             {
                 DebugDrawEnabled = true,
-                MaxLinearSpeed = 0.5f
+                MaxLinearSpeed = 0.5f,
+                MaxAngularSpeed = 0.25f,
+                AngularDeceleration = 0.25f
             };
 
             PhysicsWorld.AddEntity(_ship);
@@ -85,39 +87,39 @@ namespace ScorpTestGame
         {
             _keyboard.UpdateCurrentState();
 
-            if (_keyboard.IsKeyDown(InputKeys.Right))
-            {
-                _ship.MoveRight(1f);
-            }
-
-            if (_keyboard.IsKeyDown(InputKeys.Left))
-            {
-                _ship.MoveLeft(1f);
-            }
-
             if (_keyboard.IsKeyDown(InputKeys.Up))
             {
-                _ship.MoveUp(1f);
+                _ship.MoveUp(4);
             }
 
             if (_keyboard.IsKeyDown(InputKeys.Down))
             {
-                _ship.MoveDown(1f);
+                _ship.MoveDown(4);
+            }
+
+            if (_keyboard.IsKeyDown(InputKeys.Right))
+            {
+                _ship.MoveRight(4);
+            }
+
+            if (_keyboard.IsKeyDown(InputKeys.Left))
+            {
+                _ship.MoveLeft(4);
             }
 
             if (_keyboard.IsKeyDown(InputKeys.D))
             {
-                _ship.RotateCW(0.025f);
+                _ship.RotateCW(0.25f);
             }
 
             if (_keyboard.IsKeyDown(InputKeys.A))
             {
-                _ship.RotateCCW(0.025f);
+                _ship.RotateCCW(0.25f);
             }
 
-            if (_keyboard.IsKeyPressed(InputKeys.End))
+            if (_keyboard.IsKeyDown(InputKeys.End))
             {
-                _ship.Visible = !_ship.Visible;
+                _ship.StopMovement();
             }
 
             _keyboard.UpdatePreviousState();

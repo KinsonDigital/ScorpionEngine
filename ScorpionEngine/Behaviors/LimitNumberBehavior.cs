@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ScorpionEngine.Behaviors
 {
-    public class LimitNumberBehavior : IBehavior
+    public class LimitNumberBehavior : Behavior
     {
         private Func<float> _getValue;
         private Action<float> _setLimit;
-        private float _limitValue;
 
 
+        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="LimitNumberBehavior"/>.
         /// </summary>
@@ -23,22 +23,32 @@ namespace ScorpionEngine.Behaviors
         {
             _getValue = getValue;
             _setLimit = setLimit;
-            _limitValue = limitValue;
+            LimitValue = limitValue;
+            Name = nameof(LimitNumberBehavior);
+            SetUpdateAction(UpdateAction);
         }
+        #endregion
 
 
-        public void Update(EngineTime engineTime)
+        #region Props
+        public float LimitValue { get; set; }
+        #endregion
+
+
+        #region Public Methods
+        public void UpdateAction(EngineTime engineTime)
         {
             var currentValue = _getValue();
 
-            if(_limitValue > 0 && currentValue > _limitValue)
+            if(LimitValue > 0 && currentValue > LimitValue)
             {
-                _setLimit(_limitValue);
+                _setLimit(LimitValue);
             }
-            else if (_limitValue < 0 && currentValue < _limitValue)
+            else if (LimitValue < 0 && currentValue < LimitValue)
             {
-                _setLimit(_limitValue);
+                _setLimit(LimitValue);
             }
         }
+        #endregion
     }
 }

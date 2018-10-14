@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeferredActions.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\PluginMustImplementInterfaceException.cs" />
     <Compile Include="Exceptions\PluginNotFoundException.cs" />
