@@ -39,7 +39,7 @@ namespace ScorpionEngine.Scene
         public SceneManager(ContentLoader contentLoader)
         {
             _contentLoader = contentLoader;
-            _keyboard = new Keyboard();
+            _keyboard = new Keyboard(Engine.EnginePlugins.GetPluginByType<IKeyboard>());
         }
         #endregion
 

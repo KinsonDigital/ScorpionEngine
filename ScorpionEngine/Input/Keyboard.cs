@@ -3,8 +3,11 @@ using ScorpionCore.Plugins;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+
+[assembly: InternalsVisibleTo(assemblyName: "ScorpionEngine.Tests", AllInternalsVisible = true)]
 
 namespace ScorpionEngine.Input
 {
@@ -16,6 +19,13 @@ namespace ScorpionEngine.Input
         private IKeyboard _internalKeyboard;
 
 
+        #region Constructors
+        internal Keyboard(IKeyboard keyboard)
+        {
+            _internalKeyboard = keyboard;
+        }
+
+
         /// <summary>
         /// Creates a new instance of <see cref="Keyboard"/> for tracking keyboard events.
         /// </summary>
@@ -23,6 +33,7 @@ namespace ScorpionEngine.Input
         {
             _internalKeyboard = Engine.EnginePlugins.LoadPlugin<IKeyboard>();
         }
+        #endregion
 
 
         /// <summary>

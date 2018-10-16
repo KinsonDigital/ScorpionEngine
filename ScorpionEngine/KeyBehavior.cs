@@ -34,11 +34,12 @@ namespace ScorpionEngine
         /// <summary>
         /// Creates a new key behavior.
         /// </summary>
-        public KeyBehavior(bool enabled = false)
+        public KeyBehavior(bool enabled = false, Keyboard keyboard = null)
         {
-            _keyboard = new Keyboard();
+            _keyboard = keyboard == null ?
+                new Keyboard(Engine.EnginePlugins.GetPluginByType<IKeyboard>()) :
+                keyboard;
 
-            Key = Key;
             Enabled = enabled;
         }
 
@@ -47,14 +48,14 @@ namespace ScorpionEngine
         /// Creates a new key behavior.
         /// </summary>
         /// <param name="key">The assigned keyboard key of the behavior.</param>
-        public KeyBehavior(InputKeys key, bool enabled = false)
+        public KeyBehavior(InputKeys key, bool enabled = false, Keyboard keyboard = null)
         {
-            _keyboard = new Keyboard();
+            _keyboard = keyboard == null ?
+                new Keyboard(Engine.EnginePlugins.GetPluginByType<IKeyboard>()) :
+                keyboard;
+
             Key = key;
             Enabled = enabled;
-
-            AlwaysInvokeKeyDownEvent = false;//REMOVE THIS
-            AlwaysInvokeKeyUpEvent = false;//REMOVE THIS
         }
         #endregion
 
@@ -126,7 +127,7 @@ namespace ScorpionEngine
                     //Prevent the KeyDownEvent from being triggered twice if the AlwaysInvokeKeyDownEvent is enabled
                     if (! AlwaysInvokeKeyDownEvent)
                     {
-                        if (_keyboard.IsKeyDown(Key) && !_keyboard.IsKeyDown(Key))
+                        if(_keyboard.IsKeyPressed(Key))
                             KeyDownEvent?.Invoke(this, new KeyEventArgs(new[] { Key }));
                     }
                     break;
