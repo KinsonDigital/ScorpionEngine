@@ -59,10 +59,55 @@ namespace ScorpionEngine.Tests
             //Act
             counter.Count();
             counter.Count();
+            counter.Count();
             var actual = counter.Value;
 
             //Assert
             Assert.Equal(expected, actual);
+        }
+
+
+        [Fact]
+        public void Count_WhenResetTypeSetToManualAndMaxReached_DoNotInvokeReset()
+        {
+            //Arrange
+            var expected = 3;
+            var counter = new Counter(0, 2, 1)
+            {
+                ResetMode = ResetType.Manual
+            };
+
+            //Act
+            counter.Count();
+            counter.Count();
+            counter.Count();
+            var actual = counter.Value;
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+
+        [Fact]
+        public void Count_WhenDecrementingAndGreaterThanMin_DoNotInvokedMinReachedEvent()
+        {
+            //Arrange
+            var expectedValue = 1;
+            var expectedMinReached = false;
+            var actualMinReached = false;
+            var counter = new Counter(0, 2, 1, 2)
+            {
+                CountDirection = CountType.Decrement
+            };
+            counter.MinReachedWhenDecrementing += (sender, e) => actualMinReached = true;
+
+            //Act
+            counter.Count();
+            var actualValue = counter.Value;
+
+            //Assert
+            Assert.Equal(expectedValue, actualValue);
+            Assert.Equal(expectedMinReached, actualMinReached);
         }
 
 
@@ -175,6 +220,21 @@ namespace ScorpionEngine.Tests
 
 
         [Fact]
+        public void Min_WhenSettingMinLessThanMax_ProperlySetsValue()
+        {
+            //Arrange
+            var counter = new Counter(1, 4, 1);
+            var expected = 3;
+
+            //Act
+            counter.Min = 3;
+            var actual = counter.Min;
+
+            Assert.Equal(expected, actual);
+        }
+
+
+        [Fact]
         public void Max_WhenSettingMaxLessThanMin_ThrowsException()
         {
             //Arrange
@@ -183,6 +243,21 @@ namespace ScorpionEngine.Tests
             //Act/Assert
             var actual = Assert.Throws<Exception>(() => counter.Max = 0);
             Assert.Equal($"The max value of 0 cannot be less than min value of 1.", actual.Message);
+        }
+
+
+        [Fact]
+        public void Max_WhenSettingMaxMoreThanMin_ProperlySetsValue()
+        {
+            //Arrange
+            var counter = new Counter(1, 4, 1);
+            var expected = 3;
+
+            //Act
+            counter.Max = 3;
+            var actual = counter.Max;
+
+            Assert.Equal(expected, actual);
         }
         #endregion
     }

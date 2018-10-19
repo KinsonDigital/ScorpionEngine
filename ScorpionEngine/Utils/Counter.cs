@@ -46,9 +46,6 @@ namespace ScorpionEngine.Utils
 
             //Set the count amount
             CountAmount = countAmount;
-
-            //Default the reset mode to auto
-            ResetMode = ResetType.Auto;
         }
         #endregion
 
@@ -67,11 +64,11 @@ namespace ScorpionEngine.Utils
             get { return _min; }
             set
             {
-                _min = value;
-
                 //Make sure thataxhe min is then the max
                 if (value > _max)
                     throw new Exception($"The min value of {value} cannot be greater than max value of {_max}.");
+
+                _min = value;
             }
         }
 
@@ -86,11 +83,11 @@ namespace ScorpionEngine.Utils
             }
             set
             {
-                _max = value;
-
                 //Make sure that the min is then the max
                 if (value < _min)
-                    throw new Exception($"The max value of {_max} cannot be less than min value of {_min}.");
+                    throw new Exception($"The max value of {value} cannot be less than min value of {_min}.");
+
+                _max = value;
             }
         }
 
@@ -102,7 +99,7 @@ namespace ScorpionEngine.Utils
         /// <summary>
         /// Gets or sets the reset mode.  If the mode is set to manual, the Reset method is the only way to reset the value back to 0.
         /// </summary>
-        public ResetType ResetMode { get; set; }
+        public ResetType ResetMode { get; set; } = ResetType.Auto;
 
         /// <summary>
         /// Gets or sets the direction to count.
@@ -131,14 +128,15 @@ namespace ScorpionEngine.Utils
                     MaxReachedWhenIncrementing?.Invoke(this, new EventArgs());
 
                     //If the reset mode is set to auto, reset the value
-                    if (ResetMode == ResetType.Auto && Value >= Max)
+                    if (ResetMode == ResetType.Auto && Value > Max)
                         Reset();
                     break;
                 case CountType.Decrement:
                     //Count the value
                     Value -= CountAmount;
 
-                    //If the value is less than or equal the max, invoke the MinReachedWhenDecrementing event and set the value back to 0
+                    //If the value is less than or equal the max,
+                    //invoke the MinReachedWhenDecrementing event and set the value back to 0
                     if (Value > Min) return;
 
                     //Invoke the MinReachedWhenDecrementing event
