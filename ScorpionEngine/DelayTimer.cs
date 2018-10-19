@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 
 namespace ScorpionEngine
@@ -6,6 +7,7 @@ namespace ScorpionEngine
     /// <summary>
     /// Invokes a registered delegate after a set amount of time passes.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class DelayTimer
     {
         #region Fields

@@ -38,10 +38,6 @@ namespace ScorpionEngine
         {
             Value = value;
 
-            //Make sure that the min is then the max
-            if(min >= max)
-                throw new ArgumentOutOfRangeException(@"The min cannot be greater then max and max cannot be less then min.");
-
             //Set the minimum
             _min = min;
 
@@ -71,9 +67,11 @@ namespace ScorpionEngine
             get { return _min; }
             set
             {
-                //Make sure that the min is then the max
+                _min = value;
+
+                //Make sure thataxhe min is then the max
                 if (value >= _max)
-                    throw new ArgumentOutOfRangeException(@"The min cannot be greater then max and max cannot be less then min.");
+                    throw new Exception($"The min value of {value} cannot be greater than max value of {_max}.");
             }
         }
 
@@ -88,9 +86,11 @@ namespace ScorpionEngine
             }
             set
             {
+                _max = value;
+
                 //Make sure that the min is then the max
                 if (value >= _min)
-                    throw new ArgumentOutOfRangeException(@"The min cannot be greater then max and max cannot be less then min.");
+                    throw new Exception($"The max value of {_max} cannot be less than min value of {_min}.");
             }
         }
 
@@ -131,7 +131,7 @@ namespace ScorpionEngine
                     MaxReachedWhenIncrementing?.Invoke(this, new EventArgs());
 
                     //If the reset mode is set to auto, reset the value
-                    if (ResetMode == ResetType.Auto && Value > Max)
+                    if (ResetMode == ResetType.Auto && Value >= Max)
                         Reset();
                     break;
                 case CountType.Decrement:
@@ -149,7 +149,7 @@ namespace ScorpionEngine
                         Reset();
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new Exception($"The {nameof(CountDirection)} is set to an invalid enum value.");
             }
         }
 
@@ -168,7 +168,7 @@ namespace ScorpionEngine
                     Value = Max;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new Exception($"The {nameof(CountDirection)} is set to an invalid enum value.");
             }
         }
         #endregion
