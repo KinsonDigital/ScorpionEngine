@@ -38,10 +38,6 @@ namespace ScorpionEngine.Utils
         {
             Value = value;
 
-            //Make sure that the min is then the max
-            if(min >= max)
-                throw new ArgumentOutOfRangeException(@"The min cannot be greater then max and max cannot be less then min.");
-
             //Set the minimum
             _min = min;
 
@@ -57,7 +53,7 @@ namespace ScorpionEngine.Utils
         #endregion
 
 
-        #region Props
+        #region Properties
         /// <summary>
         /// Gets the current value of the counter.
         /// </summary>
@@ -71,9 +67,11 @@ namespace ScorpionEngine.Utils
             get { return _min; }
             set
             {
-                //Make sure that the min is then the max
-                if (value >= _max)
-                    throw new ArgumentOutOfRangeException(@"The min cannot be greater then max and max cannot be less then min.");
+                _min = value;
+
+                //Make sure thataxhe min is then the max
+                if (value > _max)
+                    throw new Exception($"The min value of {value} cannot be greater than max value of {_max}.");
             }
         }
 
@@ -88,9 +86,11 @@ namespace ScorpionEngine.Utils
             }
             set
             {
+                _max = value;
+
                 //Make sure that the min is then the max
-                if (value >= _min)
-                    throw new ArgumentOutOfRangeException(@"The min cannot be greater then max and max cannot be less then min.");
+                if (value < _min)
+                    throw new Exception($"The max value of {_max} cannot be less than min value of {_min}.");
             }
         }
 
@@ -131,7 +131,7 @@ namespace ScorpionEngine.Utils
                     MaxReachedWhenIncrementing?.Invoke(this, new EventArgs());
 
                     //If the reset mode is set to auto, reset the value
-                    if (ResetMode == ResetType.Auto && Value > Max)
+                    if (ResetMode == ResetType.Auto && Value >= Max)
                         Reset();
                     break;
                 case CountType.Decrement:
@@ -149,7 +149,7 @@ namespace ScorpionEngine.Utils
                         Reset();
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new Exception($"The {nameof(CountDirection)} is set to an invalid enum value.");
             }
         }
 
@@ -162,35 +162,13 @@ namespace ScorpionEngine.Utils
             switch (CountDirection)
             {
                 case CountType.Increment:
-                    Value = Min;
+                   Value = Min;
                     break;
                 case CountType.Decrement:
                     Value = Max;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-
-
-        /// <summary>
-        /// Resets the counter to the given value.
-        /// </summary>
-        /// <param name="value">The value to set the counter at. If value is greater then max, then the value will just be set to the max.</param>
-        public void Reset(int value)
-        {
-            switch (CountDirection)
-            {
-                case CountType.Increment:
-                    //Clamp the value to the min if the incoming value is greater then min
-                    Value = value < Min ? Min : value;
-                    break;
-                case CountType.Decrement:
-                    //Clamp the value to the max if the incoming value is greater then max
-                    Value = value > Max ? Max : value;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new Exception($"The {nameof(CountDirection)} is set to an invalid enum value.");
             }
         }
         #endregion

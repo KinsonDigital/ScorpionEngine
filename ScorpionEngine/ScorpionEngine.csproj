@@ -71,7 +71,7 @@
     <Compile Include="Content\ContentLoader_OLD.cs" />
     <Compile Include="Content\Enums.cs" />
     <Compile Include="Content\ExtensionMethods.cs" />
-    <Compile Include="Counter.cs" />
+    <Compile Include="Utils\Counter.cs" />
     <Compile Include="EngineTime.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Events\FrameStackFinishedEventArgs.cs" />
@@ -101,7 +101,6 @@
     <Compile Include="Scene\SceneTimeManager.cs" />
     <Compile Include="Utils\Tween.cs" />
     <Compile Include="UI\UIText.cs" />
-    <Compile Include="Utils\GameMath.cs" />
     <Compile Include="DelayTimer.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Events\OnMovedEventArgs.cs" />
@@ -126,9 +125,7 @@
     <Compile Include="Objects\TextObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rect.cs" />
-    <Compile Include="Utils\Counter.cs" />
     <Compile Include="Utils\Enums.cs" />
-    <Compile Include="Utils\ExtensionMethods.cs" />
     <Compile Include="Utils\StopWatch.cs" />
     <Compile Include="Utils\Tools.cs" />
   </ItemGroup>

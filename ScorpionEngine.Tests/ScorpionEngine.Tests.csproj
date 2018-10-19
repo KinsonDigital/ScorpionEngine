@@ -46,6 +46,7 @@
     <Compile Include="KeyBehaviorTests.cs" />
     <Compile Include="RectTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StopWatchTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ScorpionCore\ScorpionCore.csproj">
