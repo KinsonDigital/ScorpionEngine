@@ -51,6 +51,8 @@
     <Compile Include="OnRenderEventArgs.cs" />
     <Compile Include="PluginInfo.cs" />
     <Compile Include="PluginLibrary.cs" />
+    <Compile Include="PluginLibraryLoaderNEW.cs" />
+    <Compile Include="PluginLibraryNEW.cs" />
     <Compile Include="Plugins\IContentLoader.cs" />
     <Compile Include="Plugins\IDebugDraw.cs" />
     <Compile Include="Plugins\IEngineCore.cs" />

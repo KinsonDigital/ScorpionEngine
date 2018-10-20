@@ -14,7 +14,7 @@ namespace ScorpionEngine.Content
         IContentLoader _internalLoader;
 
 
-        public ContentLoader(IContentLoader contentLoader)
+        internal ContentLoader(IContentLoader contentLoader)
         {
             _internalLoader = contentLoader;
         }
@@ -28,11 +28,6 @@ namespace ScorpionEngine.Content
             get => _internalLoader.ContentRootDirectory;
             set => _internalLoader.ContentRootDirectory = value;
         }
-
-        //public Text LoadText(string name, string text)
-        //{
-        //    return _internalLoader.LoadText<T>(name, text);
-        //}
 
 
         public Texture LoadTexture(string textureName)
