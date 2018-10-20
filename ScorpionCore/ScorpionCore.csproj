@@ -50,9 +50,8 @@
     <Compile Include="IVector.cs" />
     <Compile Include="OnRenderEventArgs.cs" />
     <Compile Include="PluginInfo.cs" />
+    <Compile Include="PluginLibraryLoader.cs" />
     <Compile Include="PluginLibrary.cs" />
-    <Compile Include="PluginLibraryLoaderNEW.cs" />
-    <Compile Include="PluginLibraryNEW.cs" />
     <Compile Include="Plugins\IContentLoader.cs" />
     <Compile Include="Plugins\IDebugDraw.cs" />
     <Compile Include="Plugins\IEngineCore.cs" />
@@ -67,7 +66,6 @@
     <Compile Include="IText.cs" />
     <Compile Include="ITexture.cs" />
     <Compile Include="OnUpdateEventArgs.cs" />
-    <Compile Include="PluginLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

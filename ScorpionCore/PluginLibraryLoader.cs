@@ -11,7 +11,7 @@ namespace ScorpionCore
     /// <summary>
     /// Loads plugin assemblies for use.
     /// </summary>
-    internal static class PluginLibraryLoaderNEW
+    internal static class PluginLibraryLoader
     {
         /// <summary>
         /// Loads the plugin assembly for use.
