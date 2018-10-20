@@ -11,13 +11,13 @@ namespace ScorpionCore
     /// <summary>
     /// Loads plugin assemblies for use.
     /// </summary>
-    public static class PluginLoader
+    internal static class PluginLibraryLoader
     {
         /// <summary>
         /// Loads the plugin assembly for use.
         /// </summary>
         /// <param name="pluginLibraryName">The name of the plugin assembly.</param>
-        public static PluginLibrary LoadPluginLibrary(string pluginLibraryName)
+        public static Assembly LoadPluginLibrary(string pluginLibraryName)
         {
             var pluginPath = AppDomain.CurrentDomain.BaseDirectory;
 
@@ -30,7 +30,7 @@ namespace ScorpionCore
             var pluginAssembly = Assembly.LoadFrom(pluginAssemblyFileName);
 
 
-            return new PluginLibrary(pluginAssembly);
+            return pluginAssembly;
         }
     }
 }

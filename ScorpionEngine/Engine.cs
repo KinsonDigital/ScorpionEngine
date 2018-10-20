@@ -26,11 +26,15 @@ namespace ScorpionEngine
         /// </summary>
         public Engine()
         {
-            EnginePlugins = PluginLoader.LoadPluginLibrary("MonoScorpPlugin");
-            PhysicsPlugins = PluginLoader.LoadPluginLibrary("VelcroPhysicsPlugin");
+            var pluginLib = new PluginLibrary("MonoScorpPlugin");
 
-            ContentLoader = new ContentLoader(EnginePlugins.GetPluginByType<IContentLoader>());
-            _engineCore = EnginePlugins.GetPluginByType<IEngineCore>();
+            var keyboad = pluginLib.LoadPlugin<IKeyboard>();
+
+            EnginePlugins = new PluginLibrary("MonoScorpPlugin");
+            PhysicsPlugins = new PluginLibrary("VelcroPhysicsPlugin");
+
+            ContentLoader = new ContentLoader(EnginePlugins.LoadPlugin<IContentLoader>());
+            _engineCore = EnginePlugins.LoadPlugin<IEngineCore>();
 
             _engineCore.SetFPS(60);
 

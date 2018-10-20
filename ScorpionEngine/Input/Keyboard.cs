@@ -21,7 +21,7 @@ namespace ScorpionEngine.Input
         /// </summary>
         public Keyboard()
         {
-            _internalKeyboard = Engine.EnginePlugins.GetPluginByType<IKeyboard>();
+            _internalKeyboard = Engine.EnginePlugins.LoadPlugin<IKeyboard>();
         }
 
 

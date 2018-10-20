@@ -42,10 +42,7 @@ namespace MonoScorpPlugin
             base.Content.RootDirectory = "Content";
             Content = base.Content;
 
-            var enginePlugins = PluginLoader.LoadPluginLibrary("MonoScorpPlugin");
-
-            //Load the renderer plugin
-            Renderer = enginePlugins.GetPluginByType<IRenderer>();
+            Renderer = new MonoRenderer();
         }
         #endregion
 

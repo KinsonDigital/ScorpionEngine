@@ -19,7 +19,7 @@ namespace ScorpionEngine.Physics
         {
             object[] ctrParams = new object[] { gravity.X, gravity.Y };
 
-            _internalWorld = Engine.PhysicsPlugins.GetPluginByType<IPhysicsWorld>(ctrParams);
+            _internalWorld = Engine.PhysicsPlugins.LoadPlugin<IPhysicsWorld>(ctrParams);
         }
 
 
