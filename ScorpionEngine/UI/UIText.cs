@@ -20,7 +20,7 @@ namespace ScorpionEngine.UI
         private IText _labelFont;//The font for the label section of the text item
         private IText _valueFont;//The font for the value section of the text item.  This is the dynamic text that gets updated.
         private int _elapsedTime;//The amount of time that has elapsed since the last frame in miliseconds.
-        private bool _updateText = true;//Indicates if the text can be updated.  Only updated if the UpdateFrequency value is >= to the elapsed time
+        private bool _updateText;//Indicates if the text can be updated.  Only updated if the UpdateFrequency value is >= to the elapsed time
         private string _labelText;//The label section of the text item.
         private string _valueText;//The value section of the text item.
         private int _labelWidth;//The width of the label section
@@ -40,8 +40,8 @@ namespace ScorpionEngine.UI
         {
             _labelFont = labelFont;
             _valueFont = valueFont;
-            LabelText = "";
-            ValueText = "";
+            _labelText = "";
+            _valueText = "";
             Position = Vector.Zero;
         }
 
@@ -53,12 +53,12 @@ namespace ScorpionEngine.UI
         /// <param name="valueFont">The font used for the value section of the text item.</param>
         /// <param name="labelText">The text of the label section of the text item.</param>
         /// <param name="valueText">The text of the value section of the text item.</param>
-        public UIText(IText labelFont, IText valueFont, string label = "", string value = "")
+        public UIText(IText labelFont, IText valueFont, string labelText = "", string valueText = "")
         {
             _labelFont = labelFont;
             _valueFont = valueFont;
-            LabelText = label;
-            ValueText = value;
+            _labelText = labelText;
+            _valueText = valueText;
             Position = Vector.Zero;
         }
 
@@ -75,8 +75,8 @@ namespace ScorpionEngine.UI
         {
             _labelFont = labelFont;
             _valueFont = valueFont;
-            LabelText = labelText;
-            ValueText = valueText;
+            _labelText = labelText;
+            _valueText = valueText;
             Position = position;
         }
 
@@ -94,8 +94,8 @@ namespace ScorpionEngine.UI
         {
             _labelFont = labelFont;
             _valueFont = valueFont;
-            LabelText = labelText;
-            ValueText = valueText;
+            _labelText = labelText;
+            _valueText = valueText;
             Position = new Vector(x, y);
         }
         #endregion
@@ -130,8 +130,6 @@ namespace ScorpionEngine.UI
                     _labelText = value;
                     _updateText = false;
 
-                    //TODO: Refactor name of _labelFont to _labelText
-                    //Do the same with _valueFont
                     _labelWidth = _labelFont.Width;
                     _labelHeight = _labelFont.Height;
                 }
@@ -286,17 +284,17 @@ namespace ScorpionEngine.UI
         /// <summary>
         /// Render the text item to the screen.
         /// </summary>
-        /// <param name="spriteBatch">The sprite batch to use to render.</param>
-        public void Render(IRenderer spriteBatch)
+        /// <param name="renderer">The sprite batch to use to render.</param>
+        public void Render(IRenderer renderer)
         {
             //If the item is selected, render the background color
             //if (Selected)
-            //    spriteBatch.FillRectangle(new Rectangle((int)Position.X, (int)Position.Y, Width, Height), SelectedColor);
+            //    renderer.FillRectangle(new Rectangle((int)Position.X, (int)Position.Y, Width, Height), SelectedColor);
 
             //var yPosition = Position.Y + (_labelHeight / 2) - (_valueHeight / 2);
 
-            //spriteBatch.DrawString(_labelFont, $"{LabelText}:", new Vector(Position.X, Position.Y + VerticalLabelOffset), Enabled ? LabelColor : DisabledForecolor);
-            //spriteBatch.DrawString(_valueFont, ValueText, new Vector(Position.X + _labelWidth + SectionSpacing, Position.Y + VerticalValueOffset), Enabled ? ValueColor : DisabledForecolor);
+            //renderer.DrawString(_labelFont, $"{LabelText}:", new Vector(Position.X, Position.Y + VerticalLabelOffset), Enabled ? LabelColor : DisabledForecolor);
+            //renderer.DrawString(_valueFont, ValueText, new Vector(Position.X + _labelWidth + SectionSpacing, Position.Y + VerticalValueOffset), Enabled ? ValueColor : DisabledForecolor);
         }
         #endregion
     }

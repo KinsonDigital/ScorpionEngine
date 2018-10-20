@@ -10,6 +10,7 @@ using ScorpionEngine.Input;
 using ScorpionEngine.Objects;
 using ScorpionEngine.Physics;
 using ScorpionEngine.Scene;
+using ScorpionEngine.UI;
 
 namespace ScorpTestGame
 {

@@ -17,20 +17,6 @@ namespace ScorpionEngine.Utils
 
         #region Public Methods
         /// <summary>
-        /// Gets the minimum value of the given enumeration.
-        /// </summary>
-        /// <param name="enumType">The enum to process.</param>
-        /// <returns></returns>
-        public static int GetEnumMin(Type enumType)
-        {
-            var values = Enum.GetValues(enumType);
-
-            //Get the smallest item out of all of the values
-            return values.Cast<int>().Concat(new[] { int.MaxValue }).Min();
-        }
-
-
-        /// <summary>
         /// Rotates the <paramref name="vector"/> around the <paramref name="rotateOrigin"/> at the given <paramref name="angle"/>.
         /// </summary>
         /// <param name="vector">The vector to rotate.</param>
@@ -55,18 +41,6 @@ namespace ScorpionEngine.Utils
 
 
             return new Vector(x, y);
-        }
-
-
-        public static float ToDegrees(this float radians)
-        {
-            return radians * 180.0f / PI;
-        }
-
-
-        public static float ToRadians(this float degrees)
-        {
-            return degrees * PI / 180f;
         }
         #endregion
     }
