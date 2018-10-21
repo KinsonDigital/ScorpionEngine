@@ -9,21 +9,16 @@ namespace ScorpionEngine.Graphics
 {
     public class GameText
     {
-        #region Constructors
-        public GameText()
-        {
-
-        }
-        #endregion
-
-
         #region Props
         internal IText InternalText { get; set; }
 
         public string Text
         {
             get => InternalText.Text;
-            set => InternalText.Text = value;
+            set
+            {
+                InternalText.Text = value;
+            }
         }
 
         public int Width

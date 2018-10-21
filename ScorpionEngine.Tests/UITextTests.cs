@@ -12,7 +12,7 @@ namespace ScorpionEngine.Tests
 {
     public class UITextTests
     {
-        #region Props
+        #region Prop Tests
         [Fact]
         public void LabelText_WhenSettingValue_UpdateTextIfTimeElapsed()
         {

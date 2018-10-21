@@ -115,7 +115,7 @@ namespace ScorpionEngine.Tests
         #endregion
 
 
-        #region Props
+        #region Prop Tests
         [Fact]
         public void ResetMode_WhenSettingValue_ValueIsSetCorrectly()
         {
