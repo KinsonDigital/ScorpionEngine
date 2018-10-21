@@ -71,6 +71,7 @@
     <Compile Include="Content\ContentLoader_OLD.cs" />
     <Compile Include="Content\Enums.cs" />
     <Compile Include="Content\ExtensionMethods.cs" />
+    <Compile Include="PluginSystem.cs" />
     <Compile Include="Utils\Counter.cs" />
     <Compile Include="EngineTime.cs" />
     <Compile Include="Enums.cs" />
@@ -82,7 +83,7 @@
     <Compile Include="Exceptions\NameNotFoundException.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Graphics\Renderer.cs" />
-    <Compile Include="Graphics\TextItem.cs" />
+    <Compile Include="Graphics\GameText.cs" />
     <Compile Include="Graphics\Texture.cs" />
     <Compile Include="IDrawable.cs" />
     <Compile Include="Behaviors\IBehavior.cs" />

@@ -29,7 +29,7 @@ namespace ScorpionEngine.Physics
             ctorParams[7] = restitution;
             ctorParams[8] = isStatic;
 
-            InternalPhysicsBody = Engine.PhysicsPlugins.LoadPlugin<IPhysicsBody>(ctorParams);
+            InternalPhysicsBody = PluginSystem.PhysicsPlugins.LoadPlugin<IPhysicsBody>(ctorParams);
         }
 
 

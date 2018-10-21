@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using ScorpionCore.Exceptions;
 
-namespace ScorpionCore
+namespace ScorpionCore.Plugins
 {
     /// <summary>
     /// Loads plugin assemblies for use.

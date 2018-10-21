@@ -204,7 +204,7 @@ namespace ScorpionEngine.Objects
             {
                 if (value)
                 {
-                    _debugDraw = Engine.EnginePlugins.LoadPlugin<IDebugDraw>();
+                    _debugDraw = PluginSystem.EnginePlugins.LoadPlugin<IDebugDraw>();
                 }
                 else
                 {

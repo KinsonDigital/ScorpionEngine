@@ -37,7 +37,7 @@ namespace ScorpionEngine
         public KeyBehavior(bool enabled = false, Keyboard keyboard = null)
         {
             _keyboard = keyboard == null ?
-                new Keyboard(Engine.EnginePlugins.LoadPlugin<IKeyboard>()) :
+                new Keyboard(PluginSystem.EnginePlugins.LoadPlugin<IKeyboard>()) :
                 keyboard;
 
             Enabled = enabled;
@@ -51,7 +51,7 @@ namespace ScorpionEngine
         public KeyBehavior(InputKeys key, bool enabled = false, Keyboard keyboard = null)
         {
             _keyboard = keyboard == null ?
-                new Keyboard(Engine.EnginePlugins.LoadPlugin<IKeyboard>()) :
+                new Keyboard(PluginSystem.EnginePlugins.LoadPlugin<IKeyboard>()) :
                 keyboard;
 
             Key = key;

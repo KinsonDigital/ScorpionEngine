@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScorpionCore
+namespace ScorpionCore.Plugins
 {
     public class PluginLibrary
     {
@@ -93,7 +93,8 @@ namespace ScorpionCore
                 return 0;
 
 
-            return concreteType.GetConstructors().Length;
+            //Return total number of public and internal and protected constructors
+            return concreteType.GetConstructors().Length + concreteType.GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance).Length;
         }
 
 

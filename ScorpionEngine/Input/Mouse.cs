@@ -55,7 +55,7 @@ namespace ScorpionEngine.Input
         /// </summary>
         public Mouse()
         {
-            _internalMouse = Engine.EnginePlugins.LoadPlugin<IMouse>();
+            _internalMouse = PluginSystem.EnginePlugins.LoadPlugin<IMouse>();
         }
 
 

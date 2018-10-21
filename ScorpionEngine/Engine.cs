@@ -26,15 +26,10 @@ namespace ScorpionEngine
         /// </summary>
         public Engine()
         {
-            var pluginLib = new PluginLibrary("MonoScorpPlugin");
+            PluginSystem.LoadPlugins();
 
-            var keyboad = pluginLib.LoadPlugin<IKeyboard>();
-
-            EnginePlugins = new PluginLibrary("MonoScorpPlugin");
-            PhysicsPlugins = new PluginLibrary("VelcroPhysicsPlugin");
-
-            ContentLoader = new ContentLoader(EnginePlugins.LoadPlugin<IContentLoader>());
-            _engineCore = EnginePlugins.LoadPlugin<IEngineCore>();
+            ContentLoader = new ContentLoader(PluginSystem.EnginePlugins.LoadPlugin<IContentLoader>());
+            _engineCore = PluginSystem.EnginePlugins.LoadPlugin<IEngineCore>();
 
             _engineCore.SetFPS(60);
 
@@ -57,10 +52,6 @@ namespace ScorpionEngine
         /// Gets a value indicating that the game engine is currently running.
         /// </summary>
         public bool Running => _engineCore.IsRunning();
-
-        internal static PluginLibrary EnginePlugins { get; private set; }
-
-        internal static PluginLibrary PhysicsPlugins { get; private set; }
 
         /// <summary>
         /// Gets the FPS that the engine is currently running at.
