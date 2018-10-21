@@ -31,6 +31,13 @@ namespace ScorpionEngine.UI
 
 
         #region Constructors
+        public UIText(int x, int y)
+        {
+            _labelFont = PluginSystem.EnginePlugins.LoadPlugin<IText>();
+
+        }
+
+
         /// <summary>
         /// Creates a new instance of an <see cref="UIText"/> item.
         /// </summary>
@@ -293,8 +300,8 @@ namespace ScorpionEngine.UI
 
             //var yPosition = Position.Y + (_labelHeight / 2) - (_valueHeight / 2);
 
-            //renderer.DrawString(_labelFont, $"{LabelText}:", new Vector(Position.X, Position.Y + VerticalLabelOffset), Enabled ? LabelColor : DisabledForecolor);
-            //renderer.DrawString(_valueFont, ValueText, new Vector(Position.X + _labelWidth + SectionSpacing, Position.Y + VerticalValueOffset), Enabled ? ValueColor : DisabledForecolor);
+            renderer.Render(_labelFont, Position.X, Position.Y + VerticalLabelOffset);
+            renderer.Render(_valueFont, Position.X + _labelWidth + SectionSpacing, Position.Y + VerticalValueOffset);
         }
         #endregion
     }

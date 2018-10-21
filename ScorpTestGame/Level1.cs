@@ -18,6 +18,7 @@ namespace ScorpTestGame
         private DynamicEntity _ship;
         private Keyboard _keyboard;
         private Mouse _mouse;
+        private GameText _message;
 
 
         public Level1() : base(new Vector(0f, 0f))
@@ -48,6 +49,7 @@ namespace ScorpTestGame
             PhysicsWorld.AddEntity(_ship);
             AddEntity(_ship);
 
+
             base.Initialize();
         }
 
@@ -55,6 +57,8 @@ namespace ScorpTestGame
         public override void LoadContent(ContentLoader contentLoader)
         {
             _ship.Texture = contentLoader.LoadTexture("Ship");
+            _message = contentLoader.LoadText("MyGameText");
+            _message.Text = "Hello World";
 
             base.LoadContent(contentLoader);
         }
@@ -64,6 +68,8 @@ namespace ScorpTestGame
         {
             ProcessKeys();
 
+            _message.Text = $"Ship Location: X: {_ship.Position.X} - {_ship.Position.Y}";
+
             base.Update(engineTime);
         }
 
@@ -71,6 +77,7 @@ namespace ScorpTestGame
         public override void Render(Renderer renderer)
         {
             _ship.Render(renderer);
+            renderer.Render(_message, 100, 100, new GameColor(255, 255, 255, 255));
 
             base.Render(renderer);
         }

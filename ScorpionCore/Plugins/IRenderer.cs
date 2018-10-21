@@ -24,7 +24,6 @@ namespace ScorpionCore.Plugins
         void Render(IText text, float x, float y);
 
 
-        //TODO: Somehow figure out color as to avoid having to use each color component individualy
         void RenderLine(float lineStartX, float lineStartY, float lineStopX, float lineStopY);
     }
 }

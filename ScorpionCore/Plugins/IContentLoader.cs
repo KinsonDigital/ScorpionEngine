@@ -20,9 +20,9 @@ namespace ScorpionCore.Plugins
         string ContentRootDirectory { get; set; }
 
 
-        T LoadTexture<T>(string textureName) where T : class, ITexture;
+        T LoadTexture<T>(string name) where T : class, ITexture;
 
 
-        T LoadText<T>(string name, string text) where T : class, IText;
+        T LoadText<T>(string name) where T : class, IText;
     }
 }

@@ -7,15 +7,13 @@ using System.Threading.Tasks;
 
 namespace ScorpionEngine.Graphics
 {
-    public class Texture : ITexture
+    public class Texture
     {
-        private ITexture _internalTexture;
-
-
         internal Texture(ITexture texture)
         {
-            _internalTexture = texture;
+            InternalTexture = texture;
         }
+
 
         public Texture()
         {
@@ -23,22 +21,25 @@ namespace ScorpionEngine.Graphics
         }
 
 
+        internal ITexture InternalTexture { get; set; }
+
+
         public T GetTexture<T>() where T : class
         {
-            return _internalTexture.GetTexture<T>();
+            return InternalTexture.GetTexture<T>();
         }
 
 
         public int Width
         {
-            get => _internalTexture.Width;
-            set => _internalTexture.Width = value;
+            get => InternalTexture.Width;
+            set => InternalTexture.Width = value;
         }
 
         public int Height
         {
-            get => _internalTexture.Height;
-            set => _internalTexture.Height = value;
+            get => InternalTexture.Height;
+            set => InternalTexture.Height = value;
         }
     }
 }

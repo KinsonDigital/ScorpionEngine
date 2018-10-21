@@ -49,6 +49,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Content\Content.mgcb" />
+    <Content Include="Content\Fonts\MyGameText.spritefont" />
     <None Include="Content\Sound\Music\Eye Embedded.ogg" />
     <None Include="libopenal.1.dylib">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -100,9 +101,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Content\Fonts\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>REM Make sure that a Graphics directory exists
@@ -110,6 +109,9 @@ mkdir "$(TargetDir)Content\Graphics"
 
 REM Copy the graphics content to the bin output folder
 xcopy "$(ProjectDir)Content\bin\Windows\Graphics" "$(TargetDir)Content\Graphics" /Y
+
+REM Copy the Fonts content to the bin output folder
+xcopy "$(ProjectDir)Content\bin\Windows\Fonts" "$(TargetDir)Content\Fonts" /Y
 
 REM Copy the MonoGame Engine plugin to the output folder
 copy "$(SolutionDir)MonoScorpPlugin\bin\Debug\MonoScorpPlugin.dll" "$(TargetDir)MonoScorpPlugin.dll" /Y

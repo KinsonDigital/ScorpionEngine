@@ -38,5 +38,15 @@ namespace ScorpionEngine.Content
 
             return result;
         }
+
+
+        public GameText LoadText(string textName)
+        {
+            var result = new GameText();
+            result.InternalText = _internalLoader.LoadText<IText>(textName);
+
+
+            return result;
+        }
     }
 }

@@ -57,20 +57,37 @@ namespace ScorpionEngine.Graphics
 
         public void Render(Texture texture, float x, float y)
         {
-            InternalRenderer.Render(texture, x, y);
+            InternalRenderer.Render(texture.InternalTexture, x, y);
         }
 
 
         //Angle is in degrees
         public void Render(Texture texture, float x, float y, float angle)
         {
-            InternalRenderer.Render(texture, x, y, angle);
+            InternalRenderer.Render(texture.InternalTexture, x, y, angle);
         }
 
 
-        public void Render(TextItem text, float x, float y)
+        public void Render(GameText text, float x, float y)
         {
-            InternalRenderer.Render(text, x, y);
+            InternalRenderer.Render(text.InternalText, x, y);
+        }
+
+
+        public void Render(GameText text, float x, float y, GameColor color)
+        {
+            //Temporarily hold the original color of the game text
+            var tempColor = text.Color;
+
+            //Set the color to the new requested render color
+            text.Color = color;
+
+            //Render the text.
+            //Internally, the InternalRenderer is going to use the color of the InternalText.
+            InternalRenderer.Render(text.InternalText, x, y);
+
+            //Reset the game text color back to its original color
+            text.Color = tempColor;
         }
         #endregion
     }

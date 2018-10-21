@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScorpionCore.Plugins;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 namespace ScorpionCore
 {
     //TODO: Add docs
-    public interface IText
+    public interface IText : IPlugin
     {
         int Width { get; set; }
 
