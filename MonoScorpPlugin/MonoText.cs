@@ -12,18 +12,6 @@ namespace MonoScorpPlugin
     //TODO: Add method docs
     public class MonoText : IText
     {
-        //public MonoText(string text)
-        //{
-        //    Text = text;
-        //}
-
-
-        //internal MonoText(SpriteFont font)
-        //{
-        //    Font = font;
-        //}
-
-
         #region Props
         public int Width
         {
@@ -67,7 +55,7 @@ namespace MonoScorpPlugin
 
         public void InjectData<T>(T data) where T : class
         {
-            //If the incoming data is not a sprite font, throw an exception
+            //If the incoming data is not a monogame sprite font, throw an exception
             if (data.GetType() != typeof(SpriteFont))
                 throw new Exception($"Data getting injected into {nameof(MonoText)} is not of type {nameof(SpriteFont)}.  Incorrect type is {data.GetType().ToString()}");
 

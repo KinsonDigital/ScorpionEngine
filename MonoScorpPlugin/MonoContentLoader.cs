@@ -34,9 +34,8 @@ namespace MonoScorpPlugin
 
         public T LoadTexture<T>(string name) where T : class, ITexture
         {
-            ITexture newTexture;
-
-            newTexture = new MonoTexture(MonoGame.Content.Load<Texture2D>($@"Graphics\{name}")) as ITexture;
+            ITexture newTexture = new MonoTexture();
+            newTexture.InjectData(MonoGame.Content.Load<Texture2D>($@"Graphics\{name}"));
 
 
             return newTexture as T;
@@ -46,16 +45,18 @@ namespace MonoScorpPlugin
         public T LoadText<T>(string name) where T : class, IText
         {
             IText textItem = new MonoText();
-
             textItem.InjectData(MonoGame.Content.Load<SpriteFont>($@"Fonts\{name}"));
+
 
             return textItem as T;
         }
+
 
         public void InjectData<T>(T data) where T : class
         {
             throw new NotImplementedException();
         }
+
 
         public object GetData(string dataType)
         {

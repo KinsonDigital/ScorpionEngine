@@ -32,8 +32,10 @@ namespace ScorpionEngine.Content
 
         public Texture LoadTexture(string textureName)
         {
-            var loadedTexture = _internalLoader.LoadTexture<ITexture>(textureName);
-            var result = new Texture(loadedTexture);
+            var result = new Texture()
+            {
+                InternalTexture = _internalLoader.LoadTexture<ITexture>(textureName)
+            };
 
 
             return result;
@@ -42,8 +44,10 @@ namespace ScorpionEngine.Content
 
         public GameText LoadText(string textName)
         {
-            var result = new GameText();
-            result.InternalText = _internalLoader.LoadText<IText>(textName);
+            var result = new GameText
+            {
+                InternalText = _internalLoader.LoadText<IText>(textName)
+            };
 
 
             return result;

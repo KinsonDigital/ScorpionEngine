@@ -9,26 +9,8 @@ namespace ScorpionEngine.Graphics
 {
     public class Texture
     {
-        internal Texture(ITexture texture)
-        {
-            InternalTexture = texture;
-        }
-
-
-        public Texture()
-        {
-
-        }
-
-
+        #region Props
         internal ITexture InternalTexture { get; set; }
-
-
-        public T GetTexture<T>() where T : class
-        {
-            return InternalTexture.GetTexture<T>();
-        }
-
 
         public int Width
         {
@@ -41,5 +23,14 @@ namespace ScorpionEngine.Graphics
             get => InternalTexture.Height;
             set => InternalTexture.Height = value;
         }
+        #endregion
+
+
+        #region Public Methods
+        public T GetTexture<T>() where T : class
+        {
+            return InternalTexture.GetTexture<T>();
+        }
+        #endregion
     }
 }
