@@ -5,6 +5,7 @@ using ScorpionEngine.Input;
 using ScorpionEngine.Objects;
 using ScorpionEngine.Physics;
 using ScorpionEngine.Scene;
+using ScorpionEngine.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace ScorpTestGame
         private DynamicEntity _ship;
         private Keyboard _keyboard;
         private Mouse _mouse;
-        private GameText _message;
+        private UIText _shipLocation;
 
 
         public Level1() : base(new Vector(0f, 0f))
@@ -49,7 +50,7 @@ namespace ScorpTestGame
             PhysicsWorld.AddEntity(_ship);
             AddEntity(_ship);
 
-
+            _shipLocation = new UIText();
             base.Initialize();
         }
 
@@ -57,8 +58,17 @@ namespace ScorpTestGame
         public override void LoadContent(ContentLoader contentLoader)
         {
             _ship.Texture = contentLoader.LoadTexture("Ship");
-            _message = contentLoader.LoadText("MyGameText");
-            _message.Text = "Hello World";
+
+            var shipLocationLabelText = contentLoader.LoadText("MyGameText");
+            shipLocationLabelText.Text = "Location";
+            shipLocationLabelText.Color = new GameColor(255, 255, 255, 255);
+
+            var shipLocationValueText = contentLoader.LoadText("MyGameText");
+            shipLocationValueText.Text = "NA";
+            shipLocationValueText.Color = new GameColor(255, 255, 255, 255);
+
+            _shipLocation.LabelText = shipLocationLabelText;
+            _shipLocation.ValueText = shipLocationValueText;
 
             base.LoadContent(contentLoader);
         }
@@ -68,7 +78,7 @@ namespace ScorpTestGame
         {
             ProcessKeys();
 
-            _message.Text = $"Ship Location: X: {_ship.Position.X} - {_ship.Position.Y}";
+            _shipLocation.SetValueText($"X: {_ship.Position.X} - Y: {_ship.Position.Y}");
 
             base.Update(engineTime);
         }
@@ -77,7 +87,6 @@ namespace ScorpTestGame
         public override void Render(Renderer renderer)
         {
             _ship.Render(renderer);
-            renderer.Render(_message, 100, 100, new GameColor(255, 255, 255, 255));
 
             base.Render(renderer);
         }

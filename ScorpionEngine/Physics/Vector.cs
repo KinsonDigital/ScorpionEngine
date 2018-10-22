@@ -166,6 +166,7 @@ namespace ScorpionEngine.Physics
             return X == 0 && Y == 0;
         }
 
+
         /// <summary>
         /// Calculates the cross product of this vector by the given vector.
         /// </summary>
@@ -198,6 +199,7 @@ namespace ScorpionEngine.Physics
             return (float)Math.Sqrt((vector.X * vector.X) + (vector.Y * vector.Y));
         }
 
+
         /// <summary>
         /// Checks if the given object is equal to this vector.
         /// </summary>
@@ -207,7 +209,7 @@ namespace ScorpionEngine.Physics
         {
             var v = (Vector)obj;
 
-            return IsZero();
+            return v.GetHashCode() == GetHashCode();
         }
 
 
@@ -229,6 +231,16 @@ namespace ScorpionEngine.Physics
         public string ToString(int round)
         {
             return $"X: {Math.Round(X, round)}, Y: {Math.Round(Y, round)}";
+        }
+
+
+        public override int GetHashCode()
+        {
+            var hashCode = -621239040;
+            hashCode = hashCode * -1521134295 + X.GetHashCode();
+            hashCode = hashCode * -1521134295 + Y.GetHashCode();
+            hashCode = hashCode * -1521134295 + Length.GetHashCode();
+            return hashCode;
         }
         #endregion
 
