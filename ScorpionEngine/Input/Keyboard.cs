@@ -14,13 +14,10 @@ namespace ScorpionEngine.Input
     /// </summary>
     public class Keyboard
     {
-        private IKeyboard _internalKeyboard;
-
-
         #region Constructors
         internal Keyboard(IKeyboard keyboard)
         {
-            _internalKeyboard = keyboard;
+            InternalKeyboard = keyboard;
         }
 
 
@@ -29,18 +26,24 @@ namespace ScorpionEngine.Input
         /// </summary>
         public Keyboard()
         {
-            _internalKeyboard = PluginSystem.EnginePlugins.LoadPlugin<IKeyboard>();
+            InternalKeyboard = PluginSystem.EnginePlugins.LoadPlugin<IKeyboard>();
         }
         #endregion
 
 
+        #region Props
+        internal IKeyboard InternalKeyboard { get; }
+        #endregion
+
+
+        #region Public Methods
         /// <summary>
         /// Returns all of the currently pressed keys on the keyboard.
         /// </summary>
         /// <returns></returns>
         public InputKeys[] GetCurrentPressedKeys()
         {
-            return (from k in _internalKeyboard.GetCurrentPressedKeys()
+            return (from k in InternalKeyboard.GetCurrentPressedKeys()
                    select (InputKeys)k).ToArray();
         }
 
@@ -51,7 +54,7 @@ namespace ScorpionEngine.Input
         /// <returns></returns>
         public InputKeys[] GetPreviousPressedKeys()
         {
-            return (from k in _internalKeyboard.GetPreviousPressedKeys()
+            return (from k in InternalKeyboard.GetPreviousPressedKeys()
                     select (InputKeys)k).ToArray();
         }
 
@@ -62,7 +65,7 @@ namespace ScorpionEngine.Input
         /// <returns></returns>
         public bool AreAnyKeysPressed()
         {
-            return _internalKeyboard.AreAnyKeysPressed();
+            return InternalKeyboard.AreAnyKeysPressed();
         }
 
 
@@ -73,7 +76,7 @@ namespace ScorpionEngine.Input
         /// <returns></returns>
         public bool IsKeyDown(InputKeys key)
         {
-            return _internalKeyboard.IsKeyDown((int)key);
+            return InternalKeyboard.IsKeyDown((int)key);
         }
 
 
@@ -84,7 +87,7 @@ namespace ScorpionEngine.Input
         /// <returns></returns>
         public bool IsKeyUp(InputKeys key)
         {
-            return _internalKeyboard.IsKeyUp((int)key);
+            return InternalKeyboard.IsKeyUp((int)key);
         }
 
 
@@ -95,7 +98,7 @@ namespace ScorpionEngine.Input
         /// <returns></returns>
         public bool IsKeyPressed(InputKeys key)
         {
-            return _internalKeyboard.IsKeyPressed((int)key);
+            return InternalKeyboard.IsKeyPressed((int)key);
         }
 
 
@@ -104,7 +107,7 @@ namespace ScorpionEngine.Input
         /// </summary>
         public void UpdateCurrentState()
         {
-            _internalKeyboard.UpdateCurrentState();
+            InternalKeyboard.UpdateCurrentState();
         }
 
 
@@ -113,7 +116,8 @@ namespace ScorpionEngine.Input
         /// </summary>
         public void UpdatePreviousState()
         {
-            _internalKeyboard.UpdatePreviousState();
+            InternalKeyboard.UpdatePreviousState();
         }
+        #endregion
     }
 }
