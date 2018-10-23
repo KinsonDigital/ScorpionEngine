@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{EE8A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScorpionEngine.Tests", "ScorpionEngine.Tests\ScorpionEngine.Tests.csproj", "{4357E355-FB3D-4B43-9E89-5718D1FB9389}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScorpionCore.Tests", "ScorpionCore.Tests\ScorpionCore.Tests.csproj", "{6BDE0F14-64A5-4B31-BF8D-0BFCC476E298}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,12 +82,21 @@ Global
 		{4357E355-FB3D-4B43-9E89-5718D1FB9389}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4357E355-FB3D-4B43-9E89-5718D1FB9389}.Release|x86.ActiveCfg = Release|Any CPU
 		{4357E355-FB3D-4B43-9E89-5718D1FB9389}.Release|x86.Build.0 = Release|Any CPU
+		{6BDE0F14-64A5-4B31-BF8D-0BFCC476E298}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BDE0F14-64A5-4B31-BF8D-0BFCC476E298}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BDE0F14-64A5-4B31-BF8D-0BFCC476E298}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6BDE0F14-64A5-4B31-BF8D-0BFCC476E298}.Debug|x86.Build.0 = Debug|Any CPU
+		{6BDE0F14-64A5-4B31-BF8D-0BFCC476E298}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BDE0F14-64A5-4B31-BF8D-0BFCC476E298}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BDE0F14-64A5-4B31-BF8D-0BFCC476E298}.Release|x86.ActiveCfg = Release|Any CPU
+		{6BDE0F14-64A5-4B31-BF8D-0BFCC476E298}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4357E355-FB3D-4B43-9E89-5718D1FB9389} = {EE8A8A20-A4DF-49FA-9456-480274CD7BFA}
+		{6BDE0F14-64A5-4B31-BF8D-0BFCC476E298} = {EE8A8A20-A4DF-49FA-9456-480274CD7BFA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F10604E0-0DA6-44B3-A9BD-8D95EA21E67F}
