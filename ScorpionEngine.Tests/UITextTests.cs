@@ -1,13 +1,10 @@
 ﻿using Moq;
 using ScorpionCore;
+using ScorpionCore.Plugins;
 using ScorpionEngine.Graphics;
 using ScorpionEngine.Physics;
 using ScorpionEngine.UI;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace ScorpionEngine.Tests
@@ -89,7 +86,7 @@ namespace ScorpionEngine.Tests
 
 
         [Fact]
-        public void Height_WhenGettingValue_ValueIsCorrect()
+        public void Height_WhenGettingValueWhileValueTextIsTallest_ValueIsCorrect()
         {
             //Arrange
             var mockValueText = new Mock<IText>();
@@ -107,6 +104,34 @@ namespace ScorpionEngine.Tests
             };
 
             var expected = 20;
+
+            //Act
+            var actual = uiText.Height;
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+
+        [Fact]
+        public void Height_WhenGettingValueWhileLabelTextIsTallest_ValueIsCorrect()
+        {
+            //Arrange
+            var mockValueText = new Mock<IText>();
+            var mockLabelText = new Mock<IText>();
+            mockLabelText.SetupGet(m => m.Height).Returns(30);
+            mockValueText.SetupGet(m => m.Height).Returns(15);
+
+            var labelText = new GameText() { InternalText = mockLabelText.Object };
+            var valueText = new GameText() { InternalText = mockValueText.Object };
+
+            var uiText = new UIText()
+            {
+                LabelText = labelText,
+                ValueText = valueText
+            };
+
+            var expected = 30;
 
             //Act
             var actual = uiText.Height;
@@ -171,6 +196,150 @@ namespace ScorpionEngine.Tests
             //Assert
             Assert.Equal(expected, actual);
         }
+
+
+        [Fact]
+        public void TextItemSize_WhenGettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var mockLabelText = new Mock<IText>();
+            mockLabelText.SetupGet(m => m.Width).Returns(7);
+            mockLabelText.SetupGet(m => m.Height).Returns(44);
+
+            var mockValueText = new Mock<IText>();
+            mockValueText.SetupGet(m => m.Width).Returns(9);
+            mockValueText.SetupGet(m => m.Height).Returns(23);
+
+            var labelText = new GameText() { InternalText = mockLabelText.Object };
+            var valueText = new GameText() { InternalText = mockValueText.Object };
+
+            var uiText = new UIText()
+            {
+                LabelText = labelText,
+                ValueText = valueText,
+                SectionSpacing = 5
+            };
+
+            var expected = new Vector(21, 44);
+
+            //Act
+            var actual = uiText.TextItemSize;
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+
+        [Fact]
+        public void DisabledForecolor_WhenSettingAndGettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var uiText = new UIText();
+            var expected = new GameColor(11, 22, 33, 44);
+
+            //Act
+            uiText.DisabledForecolor = new GameColor(11, 22, 33, 44);
+            var actual = uiText.DisabledForecolor;
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+
+        [Fact]
+        public void Enabled_WhenSettingAndGettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var uiText = new UIText();
+            var expected = false;
+
+            //Act
+            uiText.Enabled = false;
+            var actual = uiText.Enabled;
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+
+        [Fact]
+        public void SelectedColor_WhenSettingAndGettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var uiText = new UIText();
+            var expected = new GameColor(255, 255, 0, 255);
+
+            //Act
+            uiText.SelectedColor = new GameColor(255, 255, 0, 255);
+            var actual = uiText.SelectedColor;
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+
+        [Fact]
+        public void LabelColor_WhenSettingAndGettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var uiText = new UIText();
+            var expected = new GameColor(0, 0, 0, 255);
+
+            //Act
+            uiText.LabelColor = new GameColor(0, 0, 0, 255);
+            var actual = uiText.LabelColor;
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+
+        [Fact]
+        public void ValueColor_WhenSettingAndGettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var uiText = new UIText();
+            var expected = new GameColor(0, 0, 0, 255);
+
+            //Act
+            uiText.ValueColor = new GameColor(0, 0, 0, 255);
+            var actual = uiText.ValueColor;
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+
+        [Fact]
+        public void Name_WhenSettingAndGettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var uiText = new UIText();
+            var expected = "Kinson";
+
+            //Act
+            uiText.Name = "Kinson";
+            var actual = uiText.Name;
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+
+        [Fact]
+        public void Selected_WhenSettingAndGettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var uiText = new UIText();
+            var expected = true;
+
+            //Act
+            uiText.Selected = true;
+            var actual = uiText.Selected;
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
         #endregion
 
 
@@ -209,7 +378,7 @@ namespace ScorpionEngine.Tests
 
 
         [Fact]
-        public void SetLabelText_WhenSettingValue_UpdateTextIfTimeElapsed()
+        public void SetLabelText_WhenSettingValueWhileNotIgnoringUpdateFreq_UpdateTextIfUpdateFreqPassed()
         {
             //Arrange
             var mockLabelText = new Mock<IText>();
@@ -236,7 +405,34 @@ namespace ScorpionEngine.Tests
 
 
         [Fact]
-        public void SetValueText_WhenSettingValue_UpdateTextIfTimeElapsed()
+        public void SetLabelText_WhenSettingValueWhileIgnoringUpdateFreq_UpdateTextIfTimeElapsed()
+        {
+            //Arrange
+            var mockLabelText = new Mock<IText>();
+            mockLabelText.SetupProperty(m => m.Text);
+
+            var labelText = new GameText() { InternalText = mockLabelText.Object };
+            var uiText = new UIText()
+            {
+                //Do not ignore the update frequency or the text will be updated
+                //even if the elapsed time has not been elapsed.
+                IgnoreUpdateFrequency = true,
+                UpdateFrequency = 100
+            };
+            uiText.LabelText = labelText;
+            var expected = "Change Attempted";
+
+            //Act
+            uiText.SetLabelText("Change Attempted");
+            var actual = uiText.LabelText.Text;
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+
+        [Fact]
+        public void SetValueText_WhenSettingValueWhileNotIgnoringUpdateFreq_UpdateTextIfUpdateFreqPassed()
         {
             //Arrange
             var mockValueText = new Mock<IText>();
@@ -247,8 +443,8 @@ namespace ScorpionEngine.Tests
             {
                 //Do not ignore the update frequency or the text will be updated
                 //even if the elapsed time has not been elapsed.
-                IgnoreUpdateFrequency = false,
-                UpdateFrequency = 0
+                IgnoreUpdateFrequency = true,
+                UpdateFrequency = 100
             };
             uiText.ValueText = valueText;
             var expected = "Change Attempted";
@@ -288,6 +484,41 @@ namespace ScorpionEngine.Tests
 
             //Assert
             Assert.Equal(expected, actual);
+        }
+
+
+        [Fact]
+        public void Render_WhenInvoking_InternalRenderGetsProperParamValues()
+        {
+            //Arrange
+            var mockInternalRenderer = new Mock<IRenderer>();
+            var mockLabelText = new Mock<IText>();
+            mockLabelText.SetupGet(m => m.Width).Returns(3);
+
+            var mockValueText = new Mock<IText>();
+            mockValueText.SetupGet(m => m.Width).Returns(3);
+
+            var renderer = new Renderer(mockInternalRenderer.Object);
+            var labelText = new GameText() { InternalText = mockLabelText.Object };
+            var valueText = new GameText() { InternalText = mockValueText.Object };
+
+            var uiText = new UIText()
+            {
+                Position = new Vector(3, 7),
+                SectionSpacing = 4,
+                VerticalValueOffset = 13,
+                VerticalLabelOffset = 9,
+                LabelText = labelText,
+                ValueText = valueText,
+            };
+
+            //Act
+            uiText.Render(renderer);
+
+            //Assert
+            //Verify that each method is being executed as well as the data being entered into them
+            mockInternalRenderer.Verify(m => m.Render(uiText.LabelText.InternalText, 3, 16), Times.Once());
+            mockInternalRenderer.Verify(m => m.Render(uiText.ValueText.InternalText, 10, 20), Times.Once());
         }
         #endregion
     }

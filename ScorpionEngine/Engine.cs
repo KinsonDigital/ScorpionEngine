@@ -200,9 +200,7 @@ namespace ScorpionEngine
 
         private void _engineCore_OnRender(object sender, OnRenderEventArgs e)
         {
-            //If the renderer has not been created, create one
-            if (_renderer == null)
-                _renderer = new Renderer(e.Renderer);
+            _renderer = new Renderer(e.Renderer);
 
             _renderer.Clear(50, 50, 50, 255);
 

@@ -1,14 +1,7 @@
 ﻿using ScorpionCore;
-using ScorpionCore.Plugins;
-using ScorpionEngine.Content;
 using ScorpionEngine.Graphics;
 using ScorpionEngine.Physics;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ScorpionEngine.UI
 {
@@ -71,7 +64,7 @@ namespace ScorpionEngine.UI
         /// <summary>
         /// Gets or sets the selected color of the text item.
         /// </summary>
-        public Color SelectedColor { get; set; } = Color.FromArgb(255, 255, 0, 255);
+        public GameColor SelectedColor { get; set; } = new GameColor(255, 255, 0, 255);
 
         /// <summary>
         /// Gets or sets the name of the text item.
@@ -132,8 +125,10 @@ namespace ScorpionEngine.UI
         {
             get
             {
-                //Return the greatest height
-                return LabelText.Height > ValueText.Height ? LabelText.Height : ValueText.Height;
+                if (LabelText.Height > ValueText.Height)
+                    return LabelText.Height;
+
+                return ValueText.Height;
             }
         }
 
@@ -177,12 +172,12 @@ namespace ScorpionEngine.UI
         /// <summary>
         /// Gets or sets the color of the label section of the text item.
         /// </summary>
-        public Color LabelColor { get; set; } = Color.Black;
+        public GameColor LabelColor { get; set; } = new GameColor(0, 0, 0, 255);
 
         /// <summary>
         /// Gets or sets the color of the value section of the text item.
         /// </summary>
-        public Color ValueColor { get; set; } = Color.Black;
+        public GameColor ValueColor { get; set; } = new GameColor(0, 0, 0, 255);
 
         /// <summary>
         /// Gets or sets a value indicating if the <see cref="UIText"/> item will render in the
@@ -193,7 +188,7 @@ namespace ScorpionEngine.UI
         /// <summary>
         /// Gets or sets the forecolor of the <see cref="UIText"/> item when disabled.
         /// </summary>
-        public Color DisabledForecolor { get; set; } = Color.FromArgb(100, 100, 100);
+        public GameColor DisabledForecolor { get; set; } = new GameColor(100, 100, 100, 255);
         #endregion
 
 
