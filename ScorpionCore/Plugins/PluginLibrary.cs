@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ScorpionCore.Plugins
 {
-    public class PluginLibrary
+    public class PluginLibrary : IPluginLibrary
     {
         private Assembly _pluginAssembly;
         private Container _container;
@@ -20,6 +20,8 @@ namespace ScorpionCore.Plugins
 
         public PluginLibrary(string name)
         {
+            Name = name;
+
             _container = new Container();
 
             //Load the plugin assembly.

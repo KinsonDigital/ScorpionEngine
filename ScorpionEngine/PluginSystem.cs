@@ -5,17 +5,22 @@ namespace ScorpionCore
     internal static class PluginSystem
     {
         #region Props
-        public static PluginLibrary EnginePlugins { get; private set; }
+        public static IPluginLibrary EnginePlugins { get; private set; }
 
-        public static PluginLibrary PhysicsPlugins { get; private set; }
+        public static IPluginLibrary PhysicsPlugins { get; private set; }
         #endregion
 
 
         #region Public Methods
-        public static void LoadPlugins()
+        public static void LoadEnginePluginLibrary(IPluginLibrary library)
         {
-            EnginePlugins = new PluginLibrary("MonoScorpPlugin");
-            PhysicsPlugins = new PluginLibrary("VelcroPhysicsPlugin");
+            EnginePlugins = library;
+        }
+
+
+        public static void LoadPhysicsPluginLibrary(IPluginLibrary library)
+        {
+            PhysicsPlugins = library;
         }
         #endregion
     }

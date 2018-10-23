@@ -29,7 +29,8 @@ namespace ScorpionEngine
         /// </summary>
         public Engine()
         {
-            PluginSystem.LoadPlugins();
+            PluginSystem.LoadEnginePluginLibrary(new PluginLibrary("MonoScorpPlugin"));
+            PluginSystem.LoadPhysicsPluginLibrary(new PluginLibrary("VelcroPhysicsPlugin"));
 
             ContentLoader = new ContentLoader(PluginSystem.EnginePlugins.LoadPlugin<IContentLoader>());
             _engineCore = PluginSystem.EnginePlugins.LoadPlugin<IEngineCore>();
