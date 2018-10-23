@@ -49,6 +49,7 @@
     <Compile Include="GameTextTests.cs" />
     <Compile Include="KeyBehaviorTests.cs" />
     <Compile Include="KeyboardTests.cs" />
+    <Compile Include="MouseTests.cs" />
     <Compile Include="RectTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RendererTests.cs" />
