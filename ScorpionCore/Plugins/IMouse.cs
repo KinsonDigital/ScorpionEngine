@@ -2,6 +2,14 @@
 {
     public interface IMouse : IPlugin
     {
+        #region Props
+        int X { get; set; }
+
+        int Y { get; set; }
+        #endregion
+
+
+        #region Public Methods
         /// <summary>
         /// Sets the position of the mouse.
         /// </summary>
@@ -33,9 +41,12 @@
         /// <returns></returns>
         bool IsButtonPressed(int input);
 
+
         //TODO: Add method docs
         void UpdateCurrentState();
 
+
         void UpdatePreviousState();
+        #endregion
     }
 }

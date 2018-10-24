@@ -12,38 +12,38 @@ namespace ScorpionEngine.Input
     /// <summary>
     /// Tracks the state of the mouse.
     /// </summary>
-    public class Mouse : IMouseEvents
+    public class Mouse
     {
         #region Events
         /// <summary>
         /// Occurs when the left mouse button has been pressed to the down position.
         /// </summary>
-        public event EventHandler<EventArgs> OnLeftButtonDown;
+        public event EventHandler<MouseEventArgs> OnLeftButtonDown;
 
         /// <summary>
         /// Occurs when the left mouse button has been released from the down position.
         /// </summary>
-        public event EventHandler<EventArgs> OnLeftButtonPressed;
+        public event EventHandler<MouseEventArgs> OnLeftButtonPressed;
 
         /// <summary>
         /// Occurs when the right mouse button has been pressed to the down position.
         /// </summary>
-        public event EventHandler<EventArgs> OnRightButtonDown;
+        public event EventHandler<MouseEventArgs> OnRightButtonDown;
 
         /// <summary>
         /// Occurs when the right mouse button has been released from the down position.
         /// </summary>
-        public event EventHandler<EventArgs> OnRightButtonPressed;
+        public event EventHandler<MouseEventArgs> OnRightButtonPressed;
 
         /// <summary>
         /// Occurs when the middle mouse button has been pressed to the down position.
         /// </summary>
-        public event EventHandler<EventArgs> OnMiddleButtonDown;
+        public event EventHandler<MouseEventArgs> OnMiddleButtonDown;
 
         /// <summary>
         /// Occurs when the middle mouse button has been released from the down position.
         /// </summary>
-        public event EventHandler<EventArgs> OnMiddleButtonPressed;
+        public event EventHandler<MouseEventArgs> OnMiddleButtonPressed;
         #endregion
 
 
@@ -136,13 +136,22 @@ namespace ScorpionEngine.Input
             if (InternalMouse.IsButtonDown((int)InputButton.LeftButton))
             {
                 //Invoke the OnLeftButtonDown event and send the current state of the mouse
-                OnLeftButtonDown?.Invoke(this, new EventArgs());
+                OnLeftButtonDown?.Invoke(this, new MouseEventArgs(new MouseInputState()
+                {
+                    LeftButtonDown = true,
+                    X = InternalMouse.X,
+                    Y = InternalMouse.Y
+                }));
             }
 
             //If the left mouse button has been pressed
             if (InternalMouse.IsButtonPressed((int)InputButton.LeftButton))
             {
-                OnLeftButtonPressed?.Invoke(this, new EventArgs());
+                OnLeftButtonPressed?.Invoke(this, new MouseEventArgs(new MouseInputState()
+                {
+                    X = InternalMouse.X,
+                    Y = InternalMouse.Y
+                }));
             }
             #endregion
 
@@ -151,13 +160,22 @@ namespace ScorpionEngine.Input
             if (InternalMouse.IsButtonDown((int)InputButton.RightButton))
             {
                 //Invoke the OnRightButtonDown event and send the current state of the mouse
-                OnRightButtonDown?.Invoke(this, new EventArgs());
+                OnRightButtonDown?.Invoke(this, new MouseEventArgs(new MouseInputState()
+                {
+                    RightButtonDown = true,
+                    X = InternalMouse.X,
+                    Y = InternalMouse.Y
+                }));
             }
 
             //If the right mouse button has been pressed
             if (InternalMouse.IsButtonPressed((int)InputButton.RightButton))
             {
-                OnRightButtonPressed?.Invoke(this, new EventArgs());
+                OnRightButtonPressed?.Invoke(this, new MouseEventArgs(new MouseInputState()
+                {
+                    X = InternalMouse.X,
+                    Y = InternalMouse.Y
+                }));
             }
             #endregion
 
@@ -166,13 +184,22 @@ namespace ScorpionEngine.Input
             if (InternalMouse.IsButtonDown((int)InputButton.MiddleButton))
             {
                 //Invoke the OnMiddleButtonDown event and send the current state of the mouse
-                OnMiddleButtonDown?.Invoke(this, new EventArgs());
+                OnMiddleButtonDown?.Invoke(this, new MouseEventArgs(new MouseInputState()
+                {
+                    MiddleButtonDown = true,
+                    X = InternalMouse.X,
+                    Y = InternalMouse.Y
+                }));
             }
 
             //If the middle mouse button has been pressed
             if (InternalMouse.IsButtonPressed((int)InputButton.MiddleButton))
             {
-                OnMiddleButtonPressed?.Invoke(this, new EventArgs());
+                OnMiddleButtonPressed?.Invoke(this, new MouseEventArgs(new MouseInputState()
+                {
+                    X = InternalMouse.X,
+                    Y = InternalMouse.Y
+                }));
             }
             #endregion
         }

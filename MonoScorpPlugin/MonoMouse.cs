@@ -17,12 +17,20 @@ namespace MonoScorpPlugin
         /// <summary>
         /// Gets the X position of the mouse.
         /// </summary>
-        public int X => _currentState.X;
+        public int X
+        {
+            get => _currentState.X;
+            set => SetPosition(value, _currentState.Y);
+        }
 
         /// <summary>
         /// Gets the Y position of the mouse.
         /// </summary>
-        public int Y => _currentState.Y;
+        public int Y
+        {
+            get => _currentState.Y;
+            set => SetPosition(_currentState.X, value);
+        }
         #endregion
 
 
@@ -124,6 +132,7 @@ namespace MonoScorpPlugin
                     throw new ArgumentOutOfRangeException(nameof(input), input, null);
             }
         }
+
 
         public void InjectData<T>(T data) where T : class
         {

@@ -46,7 +46,6 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\PluginMustImplementInterfaceException.cs" />
     <Compile Include="Exceptions\PluginNotFoundException.cs" />
-    <Compile Include="IMouseEvents.cs" />
     <Compile Include="IVector.cs" />
     <Compile Include="OnRenderEventArgs.cs" />
     <Compile Include="Plugins\IPluginLibrary.cs" />
