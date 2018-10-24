@@ -51,6 +51,7 @@
     <Compile Include="KeyBehaviorTests.cs" />
     <Compile Include="KeyboardTests.cs" />
     <Compile Include="MouseEventArgsTests.cs" />
+    <Compile Include="MouseInputStateTests.cs" />
     <Compile Include="MouseTests.cs" />
     <Compile Include="RectTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
