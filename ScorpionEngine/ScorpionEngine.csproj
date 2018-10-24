@@ -72,6 +72,7 @@
     <Compile Include="Content\Enums.cs" />
     <Compile Include="Content\ExtensionMethods.cs" />
     <Compile Include="Graphics\GameColor.cs" />
+    <Compile Include="Input\IInputWatcher.cs" />
     <Compile Include="PluginSystem.cs" />
     <Compile Include="Utils\Counter.cs" />
     <Compile Include="EngineTime.cs" />
@@ -109,7 +110,6 @@
     <Compile Include="Events\OutOfBoundsTriggerEventsArgs.cs" />
     <Compile Include="Sound\Song.cs" />
     <Compile Include="Sound\SoundEffect.cs" />
-    <Compile Include="Input\InputWatcher.cs" />
     <Compile Include="Input\KeyboardWatcher.cs" />
     <Compile Include="Input\KeyEventArgs.cs" />
     <Compile Include="Input\MouseEventArgs.cs" />

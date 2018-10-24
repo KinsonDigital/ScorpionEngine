@@ -1,5 +1,7 @@
 ﻿using ScorpionCore;
 using ScorpionCore.Plugins;
+using ScorpionEngine.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,11 +10,24 @@ namespace ScorpionEngine.Input
     /// <summary>
     /// Watches a specified key and invokes events for particular states of the keyboard keys.
     /// </summary>
-    public class KeyboardWatcher<T> : InputWatcher, IUpdatable where T : IKeyboard
+    public class KeyboardWatcher : IInputWatcher, IUpdatable
     {
+        #region Public Event Handlers
+        public event EventHandler OnInputComboPressed;
+        public event EventHandler OnInputDownTimeOut;
+        public event EventHandler OnInputHitCountReached;
+        public event EventHandler OnInputReleasedTimeOut;
+        #endregion
+
+
         #region Fields
         private Keyboard _keyboardInput;
         private Dictionary<InputKeys, bool> _currentPressedKeys;//Holds the list of comboKeys and there down states
+        protected Counter _counter;//Keeps track of the hit count of an input
+        protected bool _curState;//The current state of the set input
+        protected bool _prevState;//The previous state of the set input
+        protected StopWatch _inputDownTimer;//Keeps track of how long the set input has been in the down position
+        protected StopWatch _inputReleasedTimer;//Keeps track of how long the set input has been in the up position since it was in the down position
         #endregion
 
 
@@ -21,9 +36,9 @@ namespace ScorpionEngine.Input
         /// Creates an instance of KeyboardWatcher.
         /// </summary>
         /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        public KeyboardWatcher(Keyboard keyboard, bool enabled = true)
+        public KeyboardWatcher(bool enabled = true)
         {
-            _keyboardInput = keyboard;
+            InternalKeyboard = PluginSystem.EnginePlugins.LoadPlugin<IKeyboard>();
             Init(10, InputKeys.None, null, -1, -1, enabled);
         }
 
@@ -33,9 +48,9 @@ namespace ScorpionEngine.Input
         /// </summary>
         /// <param name="comboKeys">The list of comboKeys to press in combination to invoke the event.</param>
         /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        public KeyboardWatcher(Keyboard keyboard, List<InputKeys> comboKeys, bool enabled = true)
+        public KeyboardWatcher(List<InputKeys> comboKeys, bool enabled = true)
         {
-            _keyboardInput = keyboard;
+            InternalKeyboard = PluginSystem.EnginePlugins.LoadPlugin<IKeyboard>();
             Init(-1, InputKeys.None, comboKeys, -1, -1, enabled);
         }
 
@@ -46,9 +61,9 @@ namespace ScorpionEngine.Input
         /// <param name="hitCountMax">The total amount of times the key will be hit before invoking an event.</param>
         /// <param name="key">The key to watch.</param>
         /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        public KeyboardWatcher(Keyboard keyboard, int hitCountMax, InputKeys key, bool enabled = true)
+        public KeyboardWatcher(int hitCountMax, InputKeys key, bool enabled = true)
         {
-            _keyboardInput = keyboard;
+            InternalKeyboard = PluginSystem.EnginePlugins.LoadPlugin<IKeyboard>();
             Init(hitCountMax, key, null, -1, -1, enabled);
         }
 
@@ -61,9 +76,9 @@ namespace ScorpionEngine.Input
         /// <param name="keyDownTimeOut">Sets the time in milliseconds that the given key should be pressed before the OnKeyDownTimeOut event will be invoked.</param>
         /// <param name="keyReleaseTimeOut">Sets the time in milliseconds that the given key should be released before the OnKeyReleaseTimeout event will be invoked.</param>
         /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        public KeyboardWatcher(Keyboard keyboard, int hitCountMax, InputKeys key, int keyDownTimeOut, int keyReleaseTimeOut, bool enabled = true)
+        public KeyboardWatcher(int hitCountMax, InputKeys key, int keyDownTimeOut, int keyReleaseTimeOut, bool enabled = true)
         {
-            _keyboardInput = keyboard;
+            InternalKeyboard = PluginSystem.EnginePlugins.LoadPlugin<IKeyboard>();
             Init(hitCountMax, key, null, keyDownTimeOut, keyReleaseTimeOut, enabled);
         }
 
@@ -75,9 +90,9 @@ namespace ScorpionEngine.Input
         /// <param name="key">The key to watch.</param>
         /// <param name="comboKeys">The list of comboKeys to press in combination to invoke the event.</param>
         /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        public KeyboardWatcher(Keyboard keyboard, int hitCountMax, InputKeys key, List<InputKeys> comboKeys, bool enabled = true)
+        public KeyboardWatcher(int hitCountMax, InputKeys key, List<InputKeys> comboKeys, bool enabled = true)
         {
-            _keyboardInput = keyboard;
+            InternalKeyboard = PluginSystem.EnginePlugins.LoadPlugin<IKeyboard>();
             Init(hitCountMax, key, comboKeys, -1, -1, enabled);
         }
 
@@ -91,15 +106,17 @@ namespace ScorpionEngine.Input
         /// <param name="keyDownTimeOut">Sets the time in milliseconds that the given key should be pressed before the OnKeyDownTimeOut event will be invoked.</param>
         /// <param name="keyReleaseTimeOut">Sets the time in milliseconds that the given key should be released before the OnKeyReleaseTimeout event will be invoked.</param>
         /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        public KeyboardWatcher(Keyboard keyboard, int hitCountMax, InputKeys key, List<InputKeys> comboKeys, int keyDownTimeOut, int keyReleaseTimeOut, bool enabled = true)
+        public KeyboardWatcher(int hitCountMax, InputKeys key, List<InputKeys> comboKeys, int keyDownTimeOut, int keyReleaseTimeOut, bool enabled = true)
         {
-            _keyboardInput = keyboard;
+            InternalKeyboard = PluginSystem.EnginePlugins.LoadPlugin<IKeyboard>();
             Init(hitCountMax, key, comboKeys, keyDownTimeOut, keyReleaseTimeOut, enabled);
         }
         #endregion
 
 
         #region Props
+        internal IKeyboard InternalKeyboard { get; set; }
+
         /// <summary>
         /// Gets or sets the key to watch.
         /// </summary>
@@ -119,6 +136,40 @@ namespace ScorpionEngine.Input
                 CreateCurrentPressedKeys(value?.ToArray());
             }
         }
+
+        public int CurrentHitCount { get; }
+
+        public int CurrentHitCountPercentage { get; }
+
+        public ResetType DownElapsedResetMode { get; set; }
+
+        public bool Enabled { get; set; }
+
+        public int HitCountMax { get; set; }
+
+        public ResetType HitCountResetMode { get; set; }
+
+        public int InputDownElapsedMS { get; }
+
+        public float InputDownElapsedSeconds { get; }
+
+        public int InputDownTimeOut { get; set; }
+
+        public int InputReleasedElapsedMS { get; }
+
+        public float InputReleasedElapsedSeconds { get; }
+
+        public int InputReleasedTimeout { get; set; }
+
+        public ResetType ReleasedElapsedResetMode { get; set; }
+
+        public bool ResetHitCountOnEnable { get; set; }
+
+        public bool ResetHitCountOnInputRelease { get; set; }
+
+        public bool ResetTimeOnEnable { get; set; }
+
+        public bool TimeoutExpired { get; }
         #endregion
 
 
@@ -150,10 +201,10 @@ namespace ScorpionEngine.Input
                 //If the max is reached, invoke the OnButtonHitCountReached event and reset it back to 0
                 if (_counter.Value == HitCountMax)
                 {
-                    InvokeOnInputHitCountReached();
+                    OnInputHitCountReached?.Invoke(this, new EventArgs());
 
                     //If the reset mode is set to auto, reset the hit counter
-                    if(HitCountResetMode == ResetType.Auto)
+                    if (HitCountResetMode == ResetType.Auto)
                         _counter?.Reset();
                 }
                 else
@@ -173,7 +224,7 @@ namespace ScorpionEngine.Input
                     _inputReleasedTimer.Reset();
 
                 //Invoke the event
-                InvokeOnInputReleaseTimeOut();
+                OnInputReleasedTimeOut?.Invoke(this, new EventArgs());
             }
 
             //Check to see if the key is pressed
@@ -191,7 +242,7 @@ namespace ScorpionEngine.Input
                     if (DownElapsedResetMode == ResetType.Auto)
                         _inputDownTimer.Reset();
 
-                    InvokeOnInputDownTimeOut();
+                    OnInputDownTimeOut?.Invoke(this, new EventArgs());
                 }
             }
 
@@ -222,7 +273,7 @@ namespace ScorpionEngine.Input
 
                 //If all of the keys are pressed down
                 if (_currentPressedKeys.All(key => key.Value))
-                    InvokeOnInputComboPressed();
+                    OnInputComboPressed?.Invoke(this, new EventArgs());
             }
             #endregion
 
