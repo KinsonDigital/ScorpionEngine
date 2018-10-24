@@ -23,7 +23,7 @@ namespace ScorpionEngine.Input
         /// <summary>
         /// Occurs when the left mouse button has been released from the down position.
         /// </summary>
-        public event EventHandler<EventArgs> OnLeftButtonReleased;
+        public event EventHandler<EventArgs> OnLeftButtonPressed;
 
         /// <summary>
         /// Occurs when the right mouse button has been pressed to the down position.
@@ -33,7 +33,7 @@ namespace ScorpionEngine.Input
         /// <summary>
         /// Occurs when the right mouse button has been released from the down position.
         /// </summary>
-        public event EventHandler<EventArgs> OnRightButtonReleased;
+        public event EventHandler<EventArgs> OnRightButtonPressed;
 
         /// <summary>
         /// Occurs when the middle mouse button has been pressed to the down position.
@@ -43,7 +43,7 @@ namespace ScorpionEngine.Input
         /// <summary>
         /// Occurs when the middle mouse button has been released from the down position.
         /// </summary>
-        public event EventHandler<EventArgs> OnMiddleButtonReleased;
+        public event EventHandler<EventArgs> OnMiddleButtonPressed;
         #endregion
 
 
@@ -139,10 +139,10 @@ namespace ScorpionEngine.Input
                 OnLeftButtonDown?.Invoke(this, new EventArgs());
             }
 
-            //If the left mouse button has been released
-            if (InternalMouse.IsButtonUp((int)InputButton.LeftButton) && InternalMouse.IsButtonDown((int)InputButton.LeftButton))
+            //If the left mouse button has been pressed
+            if (InternalMouse.IsButtonPressed((int)InputButton.LeftButton))
             {
-                OnLeftButtonReleased?.Invoke(this, new EventArgs());
+                OnLeftButtonPressed?.Invoke(this, new EventArgs());
             }
             #endregion
 
@@ -154,10 +154,10 @@ namespace ScorpionEngine.Input
                 OnRightButtonDown?.Invoke(this, new EventArgs());
             }
 
-            //If the right mouse button has been released
-            if (InternalMouse.IsButtonUp((int)InputButton.RightButton) && InternalMouse.IsButtonDown((int)InputButton.RightButton))
+            //If the right mouse button has been pressed
+            if (InternalMouse.IsButtonPressed((int)InputButton.RightButton))
             {
-                OnRightButtonReleased?.Invoke(this, new EventArgs());
+                OnRightButtonPressed?.Invoke(this, new EventArgs());
             }
             #endregion
 
@@ -169,10 +169,10 @@ namespace ScorpionEngine.Input
                 OnMiddleButtonDown?.Invoke(this, new EventArgs());
             }
 
-            //If the middle mouse button has been released
-            if (InternalMouse.IsButtonUp((int)InputButton.MiddleButton) && InternalMouse.IsButtonDown((int)InputButton.MiddleButton))
+            //If the middle mouse button has been pressed
+            if (InternalMouse.IsButtonPressed((int)InputButton.MiddleButton))
             {
-                OnMiddleButtonReleased?.Invoke(this, new EventArgs());
+                OnMiddleButtonPressed?.Invoke(this, new EventArgs());
             }
             #endregion
         }

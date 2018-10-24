@@ -19,7 +19,7 @@ namespace ScorpionCore
         /// <summary>
         /// Occurs when the left mouse button has been released from the down position.
         /// </summary>
-        event EventHandler<EventArgs> OnLeftButtonReleased;
+        event EventHandler<EventArgs> OnLeftButtonPressed;
 
         /// <summary>
         /// Occurs when the right mouse button has been pressed to the down position.
@@ -29,7 +29,7 @@ namespace ScorpionCore
         /// <summary>
         /// Occurs when the right mouse button has been released from the down position.
         /// </summary>
-        event EventHandler<EventArgs> OnRightButtonReleased;
+        event EventHandler<EventArgs> OnRightButtonPressed;
 
         /// <summary>
         /// Occurs when the middle mouse button has been pressed to the down position.
@@ -39,6 +39,6 @@ namespace ScorpionCore
         /// <summary>
         /// Occurs when the middle mouse button has been released from the down position.
         /// </summary>
-        event EventHandler<EventArgs> OnMiddleButtonReleased;
+        event EventHandler<EventArgs> OnMiddleButtonPressed;
     }
 }
