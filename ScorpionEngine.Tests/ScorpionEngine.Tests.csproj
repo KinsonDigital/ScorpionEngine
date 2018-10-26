@@ -47,8 +47,8 @@
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Fakes\FakeData.cs" />
     <Compile Include="Fakes\FakeTexture.cs" />
-    <Compile Include="GameColorTests.cs" />
-    <Compile Include="GameTextTests.cs" />
+    <Compile Include="Graphics\GameColorTests.cs" />
+    <Compile Include="Graphics\GameTextTests.cs" />
     <Compile Include="Input\MouseWatcherTests.cs" />
     <Compile Include="Input\KeyBehaviorTests.cs" />
     <Compile Include="Input\KeyboardTests.cs" />
@@ -57,9 +57,9 @@
     <Compile Include="Input\MouseTests.cs" />
     <Compile Include="RectTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RendererTests.cs" />
+    <Compile Include="Graphics\RendererTests.cs" />
     <Compile Include="Utils\StopWatchTests.cs" />
-    <Compile Include="TextureTests.cs" />
+    <Compile Include="Graphics\TextureTests.cs" />
     <Compile Include="Utils\ToolsTests.cs" />
     <Compile Include="UITextTests.cs" />
   </ItemGroup>

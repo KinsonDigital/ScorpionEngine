@@ -4,7 +4,7 @@ using ScorpionCore.Plugins;
 using ScorpionEngine.Graphics;
 using Xunit;
 
-namespace ScorpionEngine.Tests
+namespace ScorpionEngine.Tests.Graphics
 {
     public class RendererTests
     {

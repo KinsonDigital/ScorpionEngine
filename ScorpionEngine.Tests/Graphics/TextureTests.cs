@@ -4,7 +4,7 @@ using ScorpionEngine.Graphics;
 using ScorpionEngine.Tests.Fakes;
 using Xunit;
 
-namespace ScorpionEngine.Tests
+namespace ScorpionEngine.Tests.Graphics
 {
     public class TextureTests
     {
