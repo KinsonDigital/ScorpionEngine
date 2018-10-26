@@ -6,7 +6,7 @@ using ScorpionEngine.Physics;
 using System;
 using Xunit;
 
-namespace ScorpionEngine.Tests
+namespace ScorpionEngine.Tests.Input
 {
     public class MouseTests
     {

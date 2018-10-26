@@ -1,13 +1,8 @@
 ﻿using ScorpionEngine.Input;
 using ScorpionEngine.Physics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
-namespace ScorpionEngine.Tests
+namespace ScorpionEngine.Tests.Input
 {
     public class MouseInputStateTests
     {

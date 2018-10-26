@@ -2,7 +2,7 @@
 using ScorpionEngine.Physics;
 using Xunit;
 
-namespace ScorpionEngine.Tests
+namespace ScorpionEngine.Tests.Input
 {
     public class MouseEventArgsTests
     {

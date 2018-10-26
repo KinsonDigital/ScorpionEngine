@@ -1,14 +1,9 @@
 ﻿using Moq;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
-namespace ScorpionEngine.Tests
+namespace ScorpionEngine.Tests.Input
 {
     public class KeyBehaviorTests
     {
