@@ -66,12 +66,10 @@ namespace ScorpionEngine.Tests
 
 
         [Fact]
-        public void Update_WhenInvoking_ResetIfResetTypeIsAuto()
+        public void Update_WhenInvokingWithResetTypeAsAuto_ResetStopWatch()
         {
             //Arrange
-            var stopWatch = new StopWatch(1000)
-            {
-            };
+            var stopWatch = new StopWatch(1000);
             var engineTime = new EngineTime()
             {
                 ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 1001)

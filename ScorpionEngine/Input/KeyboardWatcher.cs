@@ -168,8 +168,6 @@ namespace ScorpionEngine.Input
         public bool ResetHitCountOnInputRelease { get; set; }
 
         public bool ResetTimeOnEnable { get; set; }
-
-        public bool TimeoutExpired { get; }
         #endregion
 
 

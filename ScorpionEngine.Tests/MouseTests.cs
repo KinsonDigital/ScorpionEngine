@@ -159,7 +159,7 @@ namespace ScorpionEngine.Tests
             var mouse = new Mouse(mockMouse.Object);
 
             //Assert
-            AssertExt.NotThrown<NullReferenceException>(() => mouse.UpdateCurrentState());
+            AssertExt.DoesNotThrow<NullReferenceException>(() => mouse.UpdateCurrentState());
         }
 
 
@@ -193,7 +193,7 @@ namespace ScorpionEngine.Tests
             var mouse = new Mouse(mockMouse.Object);
 
             //Assert
-            AssertExt.NotThrown<NullReferenceException>(() => mouse.UpdateCurrentState());
+            AssertExt.DoesNotThrow<NullReferenceException>(() => mouse.UpdateCurrentState());
         }
 
 
@@ -227,7 +227,7 @@ namespace ScorpionEngine.Tests
             var mouse = new Mouse(mockMouse.Object);
 
             //Assert
-            AssertExt.NotThrown<NullReferenceException>(() => mouse.UpdateCurrentState());
+            AssertExt.DoesNotThrow<NullReferenceException>(() => mouse.UpdateCurrentState());
         }
 
 
@@ -261,7 +261,7 @@ namespace ScorpionEngine.Tests
             var mouse = new Mouse(mockMouse.Object);
 
             //Assert
-            AssertExt.NotThrown<NullReferenceException>(() => mouse.UpdateCurrentState());
+            AssertExt.DoesNotThrow<NullReferenceException>(() => mouse.UpdateCurrentState());
         }
 
 
@@ -295,7 +295,7 @@ namespace ScorpionEngine.Tests
             var mouse = new Mouse(mockMouse.Object);
 
             //Assert
-            AssertExt.NotThrown<NullReferenceException>(() => mouse.UpdateCurrentState());
+            AssertExt.DoesNotThrow<NullReferenceException>(() => mouse.UpdateCurrentState());
         }
 
 
@@ -329,7 +329,7 @@ namespace ScorpionEngine.Tests
             var mouse = new Mouse(mockMouse.Object);
 
             //Assert
-            AssertExt.NotThrown<NullReferenceException>(() => mouse.UpdateCurrentState());
+            AssertExt.DoesNotThrow<NullReferenceException>(() => mouse.UpdateCurrentState());
         }
 
 

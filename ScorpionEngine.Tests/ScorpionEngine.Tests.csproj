@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ScorpionEngine.Tests</RootNamespace>
     <AssemblyName>ScorpionEngine.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -44,10 +44,12 @@
   <ItemGroup>
     <Compile Include="CounterTests.cs" />
     <Compile Include="AssertExt.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Fakes\FakeData.cs" />
     <Compile Include="Fakes\FakeTexture.cs" />
     <Compile Include="GameColorTests.cs" />
     <Compile Include="GameTextTests.cs" />
+    <Compile Include="MouseWatcherTests.cs" />
     <Compile Include="KeyBehaviorTests.cs" />
     <Compile Include="KeyboardTests.cs" />
     <Compile Include="MouseEventArgsTests.cs" />

@@ -36,8 +36,6 @@ namespace ScorpionEngine.Input
         bool ResetHitCountOnInputRelease { get; set; }
 
         bool ResetTimeOnEnable { get; set; }
-
-        bool TimeoutExpired { get; }
         #endregion
 
 

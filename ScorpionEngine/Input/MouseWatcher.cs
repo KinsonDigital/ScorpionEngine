@@ -21,12 +21,13 @@ namespace ScorpionEngine.Input
 
 
         #region Fields
+        private IMouse _mouse;
         private Dictionary<InputButton, bool> _currentPressedButtons;//Holds the list of combo buttons and there down states
-        protected StopWatch _inputDownTimer;//Keeps track of how long the set input has been in the down position
-        protected StopWatch _inputReleasedTimer;//Keeps track of how long the set input has been in the up positi
-        protected Counter _counter;//Keeps track of the hit count of an input
-        protected bool _curState;//The current state of the set input
-        protected bool _prevState;//The previous state of the set input
+        private StopWatch _buttonDownTimer;//Keeps track of how long the set input has been in the down position
+        private StopWatch _buttonReleaseTimer;//Keeps track of how long the set input has been in the up position
+        private Counter _counter;//Keeps track of the hit count of an input
+        private bool _curState;//The current state of the set input
+        private bool _prevState;//The previous state of the set input
         #endregion
 
 
@@ -35,87 +36,26 @@ namespace ScorpionEngine.Input
         /// Creates an instance of MouseWatcher.
         /// </summary>
         /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        public MouseWatcher(bool enabled = true)
+        public MouseWatcher(bool enabled)
         {
-            InternalMouse = PluginSystem.EnginePlugins.LoadPlugin<IMouse>();
-            Init(10, InputButton.None, null, -1, -1, enabled);
-        }
+            _mouse = PluginSystem.EnginePlugins.LoadPlugin<IMouse>();
+            Enabled = enabled;
+            ComboButtons = new List<InputButton>();
 
+            //Setup stop watches
+            _counter = new Counter(0, 10, 1);
+            _buttonDownTimer = new StopWatch(1000);
+            _buttonDownTimer.OnTimeElapsed += _buttonDownTimer_OnTimeElapsed;
+            _buttonDownTimer.Start();
 
-        /// <summary>
-        /// Creates an instance of MouseWatcher.
-        /// </summary>
-        /// <param name="comboButtons">The list of combo buttons to press in combination to invoke the event.</param>
-        /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        public MouseWatcher(List<InputButton> comboButtons, bool enabled = true)
-        {
-            InternalMouse = PluginSystem.EnginePlugins.LoadPlugin<IMouse>();
-            Init(-1, InputButton.None, comboButtons, -1, -1, enabled);
-        }
-
-
-        /// <summary>
-        /// Creates a new instance of MouseWatcher.
-        /// </summary>
-        /// <param name="hitCountMax">The total amount of times the button will be hit before invoking an event.</param>
-        /// <param name="button">The button to watch.</param>
-        /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        public MouseWatcher(int hitCountMax, InputButton button, bool enabled = true)
-        {
-            InternalMouse = PluginSystem.EnginePlugins.LoadPlugin<IMouse>();
-            Init(hitCountMax, button, null, -1, -1, enabled);
-        }
-
-
-        /// <summary>
-        /// Creates a new instance of MouseWatcher.
-        /// </summary>
-        /// <param name="hitCountMax">The total amount of times the button will be hit before invoking an event.</param>
-        /// <param name="button">The button to watch.</param>
-        /// <param name="buttonDownTimeOut">The amount of time in milliseconds the button should be in the down position before invoking the OnInputTimeOut event.</param>
-        /// <param name="buttonReleaseTimeOut">Sets the time in milliseconds that the given button should be released before the OnInputReleasedTimeOut event will be invoked.</param>
-        /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        public MouseWatcher(int hitCountMax, InputButton button, int buttonDownTimeOut, int buttonReleaseTimeOut, bool enabled = true)
-        {
-            InternalMouse = PluginSystem.EnginePlugins.LoadPlugin<IMouse>();
-            Init(hitCountMax, button, null,  buttonDownTimeOut, buttonReleaseTimeOut, enabled);
-        }
-
-
-        /// <summary>
-        /// Creates an instance of MouseWatcher.
-        /// </summary>
-        /// <param name="hitCountMax">The total amount of times the button will be hit before invoking an event.</param>
-        /// <param name="button">The button to watch.</param>
-        /// <param name="comboButtons">The list of combo buttons to press in combination to invoke the event.</param>
-        /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        public MouseWatcher(int hitCountMax, InputButton button, List<InputButton> comboButtons, bool enabled = true)
-        {
-            InternalMouse = PluginSystem.EnginePlugins.LoadPlugin<IMouse>();
-            Init(hitCountMax, button, comboButtons, -1, -1, enabled);
-        }
-
-
-        /// <summary>
-        /// Creates an instance of MouseWatcher.
-        /// </summary>
-        /// <param name="hitCountMax">The total amount of times the button will be hit before invoking an event.</param>
-        /// <param name="button">The button to watch.</param>
-        /// <param name="comboButtons">The list of combo buttons to press in combination to invoke the event.</param>
-        /// <param name="buttonDownTimeOut">Sets the time in milliseconds that the given button should be pressed before the OnInputDownTimeOut event will be invoked.</param>
-        /// <param name="buttonReleaseTimeOut">Sets the time in milliseconds that the given button should be released before the OnInputReleaseTimeout event will be invoked.</param>
-        /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        public MouseWatcher(int hitCountMax, InputButton button, List<InputButton> comboButtons, int buttonDownTimeOut, int buttonReleaseTimeOut, bool enabled = true)
-        {
-            InternalMouse = PluginSystem.EnginePlugins.LoadPlugin<IMouse>();
-            Init(hitCountMax, button, comboButtons, buttonDownTimeOut, buttonReleaseTimeOut, enabled);
+            _buttonReleaseTimer = new StopWatch(1000);
+            _buttonReleaseTimer.OnTimeElapsed += _buttonReleasedTimer_OnTimeElapsed;
+            _buttonReleaseTimer.Start();
         }
         #endregion
 
 
         #region Props
-        internal IMouse InternalMouse { get; set; }
-
         /// <summary>
         /// Gets or sets the list of combo buttons.
         /// </summary>
@@ -124,48 +64,58 @@ namespace ScorpionEngine.Input
             get { return _currentPressedButtons.Keys.ToList(); }
             set
             {
-                CreateCurrentPressedButtons(value?.ToArray());
+                CreateCurrentPressedButtons(value);
             }
         }
 
         /// <summary>
         /// Gets or sets the button to watch.
         /// </summary>
-        public InputButton Button { get; set; }
+        public InputButton Button { get; set; } = InputButton.None;
 
-        public int CurrentHitCount { get; }
+        public int CurrentHitCount => _counter.Value;
 
-        public int CurrentHitCountPercentage { get; }
+        public int CurrentHitCountPercentage => (int)(CurrentHitCount / (float)HitCountMax * 100f);
 
-        public ResetType DownElapsedResetMode { get; set; }
+        public ResetType DownElapsedResetMode { get; set; } = ResetType.Auto;
 
         public bool Enabled { get; set; }
 
-        public int HitCountMax { get; set; }
+        public int HitCountMax
+        {
+            get => _counter.Max;
+            set => _counter.Max = value;
+        }
 
-        public ResetType HitCountResetMode { get; set; }
+        public ResetType HitCountResetMode { get; set; } = ResetType.Auto;
 
-        public int InputDownElapsedMS { get; }
+        public int InputDownElapsedMS => _buttonDownTimer.ElapsedMS;
 
-        public float InputDownElapsedSeconds { get; }
+        public float InputDownElapsedSeconds => _buttonReleaseTimer.ElapsedSeconds;
 
-        public int InputDownTimeOut { get; set; }
+        public int InputDownTimeOut
+        {
+            get => _buttonDownTimer.TimeOut;
+            set => _buttonDownTimer.TimeOut = value;
+        }
 
-        public int InputReleasedElapsedMS { get; }
+        public int InputReleasedElapsedMS => _buttonReleaseTimer.ElapsedMS;
 
-        public float InputReleasedElapsedSeconds { get; }
+        public float InputReleasedElapsedSeconds => _buttonReleaseTimer.ElapsedSeconds;
 
-        public int InputReleasedTimeout { get; set; }
+        public int InputReleasedTimeout
+        {
+            get => _buttonReleaseTimer.TimeOut;
+            set => _buttonReleaseTimer.TimeOut = value;
+        }
 
-        public ResetType ReleasedElapsedResetMode { get; set; }
+        public ResetType ReleasedElapsedResetMode { get; set; } = ResetType.Auto;
 
         public bool ResetHitCountOnEnable { get; set; }
 
         public bool ResetHitCountOnInputRelease { get; set; }
 
         public bool ResetTimeOnEnable { get; set; }
-
-        public bool TimeoutExpired { get; }
         #endregion
 
 
@@ -180,83 +130,54 @@ namespace ScorpionEngine.Input
             if (!Enabled) return;
 
             //Update the current state of the mouse
-            InternalMouse.UpdateCurrentState();
+            _mouse.UpdateCurrentState();
 
             //Update the mouse button down timer to keep track of how much time that the button has been in the down position
-            _inputDownTimer.Update(engineTime);
+            _buttonDownTimer.Update(engineTime);
 
             //Update the mouse button release timer to keep track of how much time that the button has been in the
             //up position since its release
-            _inputReleasedTimer.Update(engineTime);
+            _buttonReleaseTimer.Update(engineTime);
 
             //Get the current state of the button
-            _curState = InternalMouse.IsButtonDown((int)Button);
+            _curState = _mouse.IsButtonDown((int)Button);
+
 
             #region Hit Count Code
             //If the counter is not null
-            if (_counter != null)
+            if (_mouse.IsButtonPressed((int)Button))
             {
-                if (InternalMouse.IsButtonPressed((int)Button))
+                //If the max is reached, invoke the OnInputHitCountReached event and reset it back to 0
+                if (_counter != null && _counter.Value == HitCountMax)
                 {
-                    //If the max is reached, invoke the OnInputHitCountReached event and reset it back to 0
-                    if (_counter.Value == HitCountMax)
-                    {
-                        OnInputHitCountReached?.Invoke(this, new EventArgs());
+                    OnInputHitCountReached?.Invoke(this, new EventArgs());
 
-                        //If the reset mode is set to auto, reset the hit counter
-                        if (HitCountResetMode == ResetType.Auto)
-                            _counter?.Reset();
-                    }
-                    else
-                    {
-                        _counter?.Count(); //Increment the current hit count
-                    }
+                    //If the reset mode is set to auto, reset the hit counter
+                    if (HitCountResetMode == ResetType.Auto)
+                        _counter.Reset();
+                }
+                else
+                {
+                    _counter?.Count(); //Increment the current hit count
                 }
             }
             #endregion
+
 
             #region Timing Code
-            //Check to see if the button release buttonDownTimeOut has elapsed, if so invoke the OnInputReleasedTimeOut event
-            if (_inputReleasedTimer.ElapsedMS >= InputReleasedTimeout)
-            {
-                //If the reset mode is set to auto, reset the time elapsed
-                if(ReleasedElapsedResetMode == ResetType.Auto)
-                    //Reset the timer
-                    _inputReleasedTimer.Reset();
+            //As long as the button is down, continue to keep the button release timer reset to 0
+            if (_mouse.IsButtonDown((int)Button))
+                _buttonReleaseTimer.Reset();
 
-                //Invoke the event
-                OnInputReleasedTimeOut?.Invoke(this, new EventArgs());
-            }
-
-            //Check to see if the button is pressed
-            if (InternalMouse.IsButtonDown((int)Button))
-            {
-                _inputReleasedTimer.Reset();
-
-                _inputDownTimer.Start();
-
-                //If the set time in milliseconds has elapsed
-                if (InputDownElapsedMS >= InputDownTimeOut)
-                {
-                    //If the reset mode is set to auto, reset the time elapsed
-                    if (DownElapsedResetMode == ResetType.Auto)
-                        _inputDownTimer.Reset();
-
-                    OnInputDownTimeOut?.Invoke(this, new EventArgs());
-                }
-            }
-
-            //If the current state is up and the previous was down, and the reset on button release is enabled,
-            //then reset the elapsed time
+            //If the button is not pressed down and the button was pressed down last frame,
+            //reset the input down timer and start the button release timer.
             if (!_curState && _prevState)
             {
-                //If the reset mode is set to auto, reset the time elapsed
-                _inputDownTimer.Reset();
-
-                //Start the button release timer
-                _inputReleasedTimer.Start();
+                _buttonDownTimer.Reset();
+                _buttonReleaseTimer.Start();
             }
             #endregion
+
 
             #region Button Combo Code
             //If the button combo list is not null
@@ -266,56 +187,54 @@ namespace ScorpionEngine.Input
                 var buttons = new List<InputButton>(_currentPressedButtons.Keys);
 
                 //Set the state of all of the pressed buttons
-                foreach (var key in buttons)
+                foreach (var button in buttons)
                 {
-                    _currentPressedButtons[key] = InternalMouse.IsButtonDown((int)key);
+                    _currentPressedButtons[button] = _mouse.IsButtonDown((int)button);
                 }
 
                 //If all of the buttons are pressed down
-                if (_currentPressedButtons.All(button => button.Value))
+                if (_currentPressedButtons.Count > 0 && _currentPressedButtons.All(button => button.Value))
                     OnInputComboPressed?.Invoke(this, new EventArgs());
             }
             #endregion
 
-            InternalMouse.UpdatePreviousState();
+            _mouse.UpdatePreviousState();
 
             _prevState = _curState;
         }
         #endregion
 
 
-        #region Private Methods
-        /// <summary>
-        /// Initializes the MouseWatcher settings.
-        /// </summary>
-        /// <param name="hitCountMax">The total amount of times the button will be hit before invoking an event.</param>
-        /// <param name="button">The button to watch.</param>
-        /// <param name="comboButtons">The list of combo buttons to press in combination to invoke the event.</param>
-        /// <param name="buttonDownTimeOut">The amount of time in milliseconds the button should be in the down position before invoking the OnInputTimeOut event.</param>
-        /// <param name="buttonReleaseTimeOut">Sets the time in milliseconds that the given button should be released before the OnInputReleasedTimeOut event will be invoked.</param>
-        /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        private void Init(int hitCountMax, InputButton button, List<InputButton> comboButtons,  int buttonDownTimeOut, int buttonReleaseTimeOut, bool enabled = true)
+        #region Private Event Methods
+        private void _buttonDownTimer_OnTimeElapsed(object sender, EventArgs e)
         {
-            Button = button;
+            if (_mouse.IsButtonDown((int)Button))
+            {
+                //If the reset mode is set to auto, reset the time elapsed
+                if (DownElapsedResetMode == ResetType.Auto)
+                    _buttonDownTimer.Reset();
 
-            //If the combo buttons are null, skip combo button setup
-            if (comboButtons != null)
-                CreateCurrentPressedButtons(comboButtons.ToArray());
-
-            if (hitCountMax > 0) HitCountMax = hitCountMax;
-
-            InputDownTimeOut = buttonDownTimeOut;
-
-            InputReleasedTimeout = buttonReleaseTimeOut;
-
-            Enabled = enabled;
-
-            DownElapsedResetMode = ResetType.Auto;
-            ReleasedElapsedResetMode = ResetType.Auto;
-            HitCountResetMode = ResetType.Auto;
+                OnInputDownTimeOut?.Invoke(this, new EventArgs());
+            }
         }
 
 
+        private void _buttonReleasedTimer_OnTimeElapsed(object sender, EventArgs e)
+        {
+            if (_mouse.IsButtonUp((int)Button))
+            {
+                //If the reset mode is set to auto, reset the time elapsed
+                if (ReleasedElapsedResetMode == ResetType.Auto)
+                    _buttonReleaseTimer.Reset();
+
+                //Invoke the event
+                OnInputReleasedTimeOut?.Invoke(this, new EventArgs());
+            }
+        }
+        #endregion
+
+
+        #region Private Methods
         /// <summary>
         /// Creates the list of pressed buttons from the given list of buttons.
         /// </summary>
