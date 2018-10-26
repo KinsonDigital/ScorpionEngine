@@ -2,7 +2,7 @@
 using ScorpionEngine.Utils;
 using Xunit;
 
-namespace ScorpionEngine.Tests
+namespace ScorpionEngine.Tests.Utils
 {
     public class ToolsTests
     {

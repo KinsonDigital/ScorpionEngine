@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CounterTests.cs" />
+    <Compile Include="Utils\CounterTests.cs" />
     <Compile Include="AssertExt.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Fakes\FakeData.cs" />
@@ -58,9 +58,9 @@
     <Compile Include="RectTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RendererTests.cs" />
-    <Compile Include="StopWatchTests.cs" />
+    <Compile Include="Utils\StopWatchTests.cs" />
     <Compile Include="TextureTests.cs" />
-    <Compile Include="ToolsTests.cs" />
+    <Compile Include="Utils\ToolsTests.cs" />
     <Compile Include="UITextTests.cs" />
   </ItemGroup>
   <ItemGroup>

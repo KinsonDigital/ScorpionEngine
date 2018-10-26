@@ -2,7 +2,7 @@
 using System;
 using Xunit;
 
-namespace ScorpionEngine.Tests
+namespace ScorpionEngine.Tests.Utils
 {
     public class StopWatchTests
     {
