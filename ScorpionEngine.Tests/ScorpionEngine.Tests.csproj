@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Physics\VectorTests.cs" />
     <Compile Include="Utils\CounterTests.cs" />
     <Compile Include="AssertExt.cs" />
     <Compile Include="ExtensionMethods.cs" />
