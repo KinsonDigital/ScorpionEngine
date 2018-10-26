@@ -61,7 +61,7 @@
     <Compile Include="Utils\StopWatchTests.cs" />
     <Compile Include="Graphics\TextureTests.cs" />
     <Compile Include="Utils\ToolsTests.cs" />
-    <Compile Include="UITextTests.cs" />
+    <Compile Include="UI\UITextTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ScorpionCore\ScorpionCore.csproj">

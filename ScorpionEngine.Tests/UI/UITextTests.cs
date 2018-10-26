@@ -7,7 +7,7 @@ using ScorpionEngine.UI;
 using System;
 using Xunit;
 
-namespace ScorpionEngine.Tests
+namespace ScorpionEngine.Tests.UI
 {
     public class UITextTests
     {
