@@ -14,7 +14,9 @@ namespace VelcroPhysicsPlugin
     {
         internal static World PhysicsWorld { get; set; }
 
-        public IVector Gravity { get; set; }
+        public float GravityX { get; set; }
+
+        public float GravityY { get; set; }
 
 
         public VelcroWorld()
@@ -27,7 +29,8 @@ namespace VelcroPhysicsPlugin
         {
             PhysicsWorld = new World(new Vector2(gravityX, gravityY));
 
-            Gravity = new VelcroVector(gravityX, gravityY);
+            GravityX = gravityX;
+            GravityY = gravityY;
         }
 
 

@@ -17,8 +17,6 @@ namespace ScorpionEngine.Tests.Input
             var mockPluginLibrary = new Mock<IPluginLibrary>();
             PluginSystem.LoadEnginePluginLibrary(mockPluginLibrary.Object);
 
-            var result = PluginSystem.EnginePlugins;
-
             //Act
             var keyboard = new Keyboard();
 

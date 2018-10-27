@@ -66,6 +66,12 @@ namespace ScorpionEngine.Input
 
         #region Props
         internal IMouse InternalMouse { get; }
+
+
+        public int X => InternalMouse.X;
+
+
+        public int Y => InternalMouse.Y;
         #endregion
 
 

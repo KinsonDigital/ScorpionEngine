@@ -56,11 +56,11 @@ namespace ScorpionCore.Plugins
 
         public T LoadPlugin<T>(params object[] paramItems) where T : class, IPlugin
         {
-            var foundType = (from p in _concretePluginTypes
-                             where p.GetInterfaces().Any(i => i.Name == typeof(T).Name)
-                             select p).FirstOrDefault();
+            var foundConcreteType = (from p in _concretePluginTypes
+                                     where p.GetInterfaces().Any(i => i.Name == typeof(T).Name)
+                                     select p).FirstOrDefault();
 
-            return Activator.CreateInstance(foundType, paramItems) as T;
+            return Activator.CreateInstance(foundConcreteType, paramItems) as T;
         }
         #endregion
 

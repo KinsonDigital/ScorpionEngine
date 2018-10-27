@@ -1,48 +1,90 @@
 ﻿using Moq;
 using ScorpionCore;
 using ScorpionCore.Plugins;
+using ScorpionEngine.Physics;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ScorpionEngine.Tests
 {
+    [ExcludeFromCodeCoverage]
     public static class Helpers
     {
         /// <summary>
-        /// Sets up the plugin system to pull in the required object by the given generic type of <typeparamref name="T"/>.
+        /// Sets up the plugin system to pull in the required object by the given generic type of <typeparamref name="PluginMock"/>.
         /// </summary>
-        /// <typeparam name="T">The type of mocked plugin to load into the plugin system.  <typeparamref name="T"/> must implement an interface of type <see cref="IPlugin"/>.</typeparam>
-        public static void SetupEnginePluginLib<T>(PluginLibType libType) where T : class, IPlugin
+        /// <typeparam name="PluginMock">The type of mocked plugin to load into the plugin system.  <typeparamref name="PluginMock"/> must implement an interface of type <see cref="IPlugin"/>.</typeparam>
+        public static void SetupPluginLib<PluginMock>(PluginLibType libType) where PluginMock : class, IPlugin
         {
-            var mockMouse = new Mock<T>();
+            var mockMouse = new Mock<PluginMock>();
             var mockPluginLib = new Mock<IPluginLibrary>();
-            mockPluginLib.Setup(m => m.LoadPlugin<T>()).Returns(mockMouse.Object);
+            mockPluginLib.Setup(m => m.LoadPlugin<PluginMock>()).Returns(mockMouse.Object);
 
-            switch (libType)
-            {
-                case PluginLibType.Engine:
-                    PluginSystem.LoadEnginePluginLibrary(mockPluginLib.Object);
-                    break;
-                case PluginLibType.Physics:
-                    PluginSystem.LoadPhysicsPluginLibrary(mockPluginLib.Object);
-                    break;
-                default:
-                    throw new Exception($"Unknown plugin library type of {libType}");
-            }
+            LoadPluginLibrary(mockPluginLib, libType);
         }
 
 
-        public static void SetupEnginePluginLib<T>(Mock<T> mockObject, PluginLibType libType) where T : class, IPlugin
+        public static void SetupPluginLib<PluginMock>(Mock<PluginMock> mockObject, PluginLibType libType) where PluginMock : class, IPlugin
         {
             var mockPluginLib = new Mock<IPluginLibrary>();
-            mockPluginLib.Setup(m => m.LoadPlugin<T>()).Returns(mockObject.Object);
+            mockPluginLib.Setup(m => m.LoadPlugin<PluginMock>()).Returns(() =>
+            {
+                return mockObject.Object;
+            });
 
+
+            LoadPluginLibrary(mockPluginLib, libType);
+        }
+
+
+        public static void SetupPluginLib<PluginMock, Param1>(Mock<PluginMock> pluginMock, PluginLibType libType) where PluginMock : class, IPlugin
+        {
+            var mockPluginLib = new Mock<IPluginLibrary>();
+            mockPluginLib.Setup(m => m.LoadPlugin<PluginMock>(It.IsAny<Param1>())).Returns(() =>
+            {
+                return pluginMock.Object;
+            });
+
+
+            LoadPluginLibrary(mockPluginLib, libType);
+        }
+
+
+        public static void SetupPluginLib<PluginMock, Param1>(Mock<PluginMock> pluginMock, PluginLibType libType, Param1 param) where PluginMock : class, IPlugin
+        {
+            var mockPluginLib = new Mock<IPluginLibrary>();
+            mockPluginLib.Setup(m => m.LoadPlugin<PluginMock>(It.IsAny<Param1>())).Returns(() =>
+            {
+                return pluginMock.Object;
+            });
+
+
+            LoadPluginLibrary(mockPluginLib, libType);
+        }
+
+
+        public static void SetupPluginLib<PluginMock, Param1, Param2>(Mock<PluginMock> pluginMock, PluginLibType libType) where PluginMock : class, IPlugin
+        {
+            var mockPluginLib = new Mock<IPluginLibrary>();
+            mockPluginLib.Setup(m => m.LoadPlugin<PluginMock>(It.IsAny<Param1>(), It.IsAny<Param2>())).Returns(() =>
+            {
+                return pluginMock.Object;
+            });
+
+
+            LoadPluginLibrary(mockPluginLib, libType);
+        }
+
+
+        private static void LoadPluginLibrary<PluginLib>(Mock<PluginLib> pluginLibMock, PluginLibType libType) where PluginLib : class, IPluginLibrary
+        {
             switch (libType)
             {
                 case PluginLibType.Engine:
-                    PluginSystem.LoadEnginePluginLibrary(mockPluginLib.Object);
+                    PluginSystem.LoadEnginePluginLibrary(pluginLibMock.Object);
                     break;
                 case PluginLibType.Physics:
-                    PluginSystem.LoadPhysicsPluginLibrary(mockPluginLib.Object);
+                    PluginSystem.LoadPhysicsPluginLibrary(pluginLibMock.Object);
                     break;
                 default:
                     throw new Exception($"Unknown plugin library type of {libType}");

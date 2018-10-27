@@ -19,34 +19,16 @@ namespace ScorpionEngine.Physics
         {
             object[] ctrParams = new object[] { gravity.X, gravity.Y };
 
-            _internalWorld = PluginSystem.PhysicsPlugins.LoadPlugin<IPhysicsWorld>(ctrParams);
+            _internalWorld = PluginSystem.PhysicsPlugins.LoadPlugin<IPhysicsWorld>(gravity.X, gravity.Y);
         }
 
 
-        public IVector Gravity { get; set; }
+        public Vector Gravity => new Vector(_internalWorld.GravityX, _internalWorld.GravityY);
 
 
         public void AddEntity(Entity entity)
         {
             _internalWorld.AddBody(entity.Body.InternalPhysicsBody);
-        }
-
-
-        public void AddBody(PhysicsBody body)
-        {
-            _internalWorld.AddBody(body.InternalPhysicsBody);
-        }
-
-
-        public void GetBody()
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public void RemoveBody()
-        {
-            throw new NotImplementedException();
         }
 
 

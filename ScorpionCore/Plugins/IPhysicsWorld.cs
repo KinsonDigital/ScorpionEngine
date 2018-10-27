@@ -9,7 +9,9 @@ namespace ScorpionCore.Plugins
 {
     public interface IPhysicsWorld : IPlugin
     {
-        IVector Gravity { get; set; }
+        float GravityX { get; set; }
+
+        float GravityY { get; set; }
 
         void Update(float dt);
 
