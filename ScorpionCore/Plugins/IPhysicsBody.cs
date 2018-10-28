@@ -31,13 +31,9 @@ namespace ScorpionCore.Plugins
 
         float LinearVelocityY { get; set; }
 
-        float LinearAcceleration { get; set; }
-
         float LinearDeceleration { get; set; }
 
         float AngularVelocity { get; set; }
-
-        float AngularAcceleration { get; set; }
 
         float AngularDeceleration { get; set; }
 

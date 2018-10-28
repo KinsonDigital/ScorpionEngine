@@ -53,7 +53,7 @@ namespace ScorpionEngine.Tests
         public static void SetupPluginLib<PluginMock, Param1>(Mock<PluginMock> pluginMock, PluginLibType libType, Param1 param) where PluginMock : class, IPlugin
         {
             var mockPluginLib = new Mock<IPluginLibrary>();
-            mockPluginLib.Setup(m => m.LoadPlugin<PluginMock>(It.IsAny<Param1>())).Returns(() =>
+            mockPluginLib.Setup(m => m.LoadPlugin<PluginMock>(param)).Returns(() =>
             {
                 return pluginMock.Object;
             });
