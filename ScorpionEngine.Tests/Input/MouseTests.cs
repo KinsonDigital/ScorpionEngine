@@ -10,6 +10,47 @@ namespace ScorpionEngine.Tests.Input
 {
     public class MouseTests
     {
+        #region Prop Tests
+        [Fact]
+        public void X_WhenGettingAndSettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var mockMouse = new Mock<IMouse>();
+            mockMouse.SetupGet(m => m.X).Returns(1234);
+
+            var mouse = new Mouse(mockMouse.Object);
+
+            var expected = 1234;
+
+            //Act
+            var actual = mouse.X;
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+
+        [Fact]
+        public void Y_WhenGettingAndSettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var mockMouse = new Mock<IMouse>();
+            mockMouse.SetupGet(m => m.Y).Returns(5678);
+
+            var mouse = new Mouse(mockMouse.Object);
+
+            var expected = 5678;
+
+            //Act
+            var actual = mouse.Y;
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+        #endregion
+
+
+        #region Method Tests
         [Fact]
         public void Ctor_WhenInvoked_InvokesInternalLoadPluginMethod()
         {
@@ -348,5 +389,6 @@ namespace ScorpionEngine.Tests.Input
             //Assert
             mockMouse.Verify(m => m.UpdatePreviousState(), Times.Once());
         }
+        #endregion
     }
 }
