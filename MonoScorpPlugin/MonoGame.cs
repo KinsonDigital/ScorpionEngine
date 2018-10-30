@@ -52,7 +52,7 @@ namespace MonoScorpPlugin
 
         public MonoEngineTime EngineTime { get; set; }
 
-        public static ContentManager Content { get; private set; }
+        public new static ContentManager Content { get; private set; }
 
         public static GraphicsDevice MonoGraphicsDevice { get; set; }
 

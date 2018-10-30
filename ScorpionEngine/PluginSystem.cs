@@ -22,6 +22,13 @@ namespace ScorpionCore
         {
             PhysicsPlugins = library;
         }
+
+
+        public static void ClearPlugins()
+        {
+            EnginePlugins = null;
+            PhysicsPlugins = null;
+        }
         #endregion
     }
 }

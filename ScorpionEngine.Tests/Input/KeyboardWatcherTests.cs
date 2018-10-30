@@ -8,28 +8,28 @@ using Xunit;
 
 namespace ScorpionEngine.Tests.Input
 {
-    public class MouseWatcherTests : IDisposable
+    public class KeyboardWatcherTests : IDisposable
     {
         #region Method Tests
         [Fact]
         public void Ctor_WhenUsingEnabled_CorrectlyPerformSetup()
         {
             //Arrange
-            Helpers.SetupPluginLib<IMouse>(PluginLibType.Engine);
+            Helpers.SetupPluginLib<IKeyboard>(PluginLibType.Engine);
 
-            var mouseWatcher = new MouseWatcher(true);
+            var keyboardWatcher = new KeyboardWatcher(true);
 
-            var expectedComboButtons = new List<InputButton>();
+            var expectedComboButtons = new List<InputKeys>();
             var expectedEnabled = true;
 
             //Act
-            var actualEnabled = mouseWatcher.Enabled;
-            var actualComboButtons = mouseWatcher.ComboButtons;
+            var actualEnabled = keyboardWatcher.Enabled;
+            var actualComboButtons = keyboardWatcher.ComboKeys;
 
             //Assert
             Assert.Equal(expectedEnabled, actualEnabled);
             Assert.Equal(expectedComboButtons, actualComboButtons);
-            AssertExt.IsNullOrZeroField(mouseWatcher, "_mouse");
+            AssertExt.IsNullOrZeroField(keyboardWatcher, "_keyboard");
         }
         #endregion
 
@@ -39,15 +39,15 @@ namespace ScorpionEngine.Tests.Input
         public void Button_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            Helpers.SetupPluginLib<IMouse>(PluginLibType.Engine);
-            var mouseWatcher = new MouseWatcher(true)
+            Helpers.SetupPluginLib<IKeyboard>(PluginLibType.Engine);
+            var keyboardWatcher = new KeyboardWatcher(true)
             {
-                Button = InputButton.LeftButton
+                Key = InputKeys.Left
             };
-            var expected = InputButton.LeftButton;
+            var expected = InputKeys.Left;
 
             //Act
-            var actual = mouseWatcher.Button;
+            var actual = keyboardWatcher.Key;
 
             //Assert
             Assert.Equal(expected, actual);
@@ -58,12 +58,12 @@ namespace ScorpionEngine.Tests.Input
         public void CurrentHitCountPercentage_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var mockMouse = new Mock<IMouse>();
-            mockMouse.Setup(m => m.IsButtonPressed((int)InputButton.LeftButton)).Returns(true);
+            var mockMouse = new Mock<IKeyboard>();
+            mockMouse.Setup(m => m.IsKeyPressed((int)InputKeys.Left)).Returns(true);
             Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
-            var mouseWatcher = new MouseWatcher(true)
+            var keyboardWatcher = new KeyboardWatcher(true)
             {
-                Button = InputButton.LeftButton,
+                Key = InputKeys.Left,
                 HitCountMax = 10
             };
             //This value is meaningless and is only for satisfy the update param
@@ -74,10 +74,10 @@ namespace ScorpionEngine.Tests.Input
             //Act
             for (int i = 0; i < 6; i++)
             {
-                mouseWatcher.Update(engineTime);
+                keyboardWatcher.Update(engineTime);
             }
 
-            var actual = mouseWatcher.CurrentHitCountPercentage;
+            var actual = keyboardWatcher.CurrentHitCountPercentage;
 
             //Assert
             Assert.Equal(expected, actual);
@@ -88,8 +88,8 @@ namespace ScorpionEngine.Tests.Input
         public void DownElapsedResetMode_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            Helpers.SetupPluginLib<IMouse>(PluginLibType.Engine);
-            var mouseWatcher = new MouseWatcher(true)
+            Helpers.SetupPluginLib<IKeyboard>(PluginLibType.Engine);
+            var keyboardWatcher = new KeyboardWatcher(true)
             {
                 DownElapsedResetMode = ResetType.Manual
             };
@@ -97,7 +97,7 @@ namespace ScorpionEngine.Tests.Input
             var expected = ResetType.Manual;
 
             //Act
-            var actual = mouseWatcher.DownElapsedResetMode;
+            var actual = keyboardWatcher.DownElapsedResetMode;
 
             //Assert
             Assert.Equal(expected, actual);
@@ -108,8 +108,8 @@ namespace ScorpionEngine.Tests.Input
         public void HitCountResetMode_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            Helpers.SetupPluginLib<IMouse>(PluginLibType.Engine);
-            var mouseWatcher = new MouseWatcher(true)
+            Helpers.SetupPluginLib<IKeyboard>(PluginLibType.Engine);
+            var keyboardWatcher = new KeyboardWatcher(true)
             {
                 HitCountResetMode = ResetType.Manual
             };
@@ -117,7 +117,7 @@ namespace ScorpionEngine.Tests.Input
             var expected = ResetType.Manual;
 
             //Act
-            var actual = mouseWatcher.HitCountResetMode;
+            var actual = keyboardWatcher.HitCountResetMode;
 
             //Assert
             Assert.Equal(expected, actual);
@@ -128,24 +128,24 @@ namespace ScorpionEngine.Tests.Input
         public void ComboButtons_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            Helpers.SetupPluginLib<IMouse>(PluginLibType.Engine);
-            var mouseWatcher = new MouseWatcher(true)
+            Helpers.SetupPluginLib<IKeyboard>(PluginLibType.Engine);
+            var keyboardWatcher = new KeyboardWatcher(true)
             {
-                ComboButtons = new List<InputButton>()
+                ComboKeys = new List<InputKeys>()
                 {
-                    InputButton.LeftButton,
-                    InputButton.RightButton
+                    InputKeys.Left,
+                    InputKeys.Right
                 }
             };
 
-            var expected = new List<InputButton>()
+            var expected = new List<InputKeys>()
             {
-                InputButton.LeftButton,
-                InputButton.RightButton
+                InputKeys.Left,
+                InputKeys.Right
             };
 
             //Act
-            var actual = mouseWatcher.ComboButtons;
+            var actual = keyboardWatcher.ComboKeys;
 
             //Assert
             Assert.Equal(expected, actual);
@@ -156,14 +156,14 @@ namespace ScorpionEngine.Tests.Input
         public void InputDownElapsedMS_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            Helpers.SetupPluginLib<IMouse>(PluginLibType.Engine);
-            var mouseWatcher = new MouseWatcher(true);
+            Helpers.SetupPluginLib<IKeyboard>(PluginLibType.Engine);
 
+            var keyboardWatcher = new KeyboardWatcher(true);
             var expected = 16;
 
             //Act
-            mouseWatcher.Update(new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) });
-            var actual = mouseWatcher.InputDownElapsedMS;
+            keyboardWatcher.Update(new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) });
+            var actual = keyboardWatcher.InputDownElapsedMS;
 
             //Assert
             Assert.Equal(expected, actual);
@@ -174,17 +174,18 @@ namespace ScorpionEngine.Tests.Input
         public void InputDownElapsedSeconds_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            Helpers.SetupPluginLib<IMouse>(PluginLibType.Engine);
-            var mouseWatcher = new MouseWatcher(true)
+            Helpers.SetupPluginLib<IKeyboard>(PluginLibType.Engine);
+            var keyboardWatcher = new KeyboardWatcher(true)
             {
-                InputReleasedTimeout = 2000
+                InputReleasedTimeout = 2000,
+                InputDownTimeOut = 3000
             };
 
             var expected = 1.234f;
 
             //Act
-            mouseWatcher.Update(new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 1234) });
-            var actual = mouseWatcher.InputDownElapsedSeconds;
+            keyboardWatcher.Update(new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 1234) });
+            var actual = keyboardWatcher.InputDownElapsedSeconds;
 
             //Assert
             Assert.Equal(expected, actual);
@@ -195,14 +196,14 @@ namespace ScorpionEngine.Tests.Input
         public void InputReleasedElapsedMS_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            Helpers.SetupPluginLib<IMouse>(PluginLibType.Engine);
-            var mouseWatcher = new MouseWatcher(true);
+            Helpers.SetupPluginLib<IKeyboard>(PluginLibType.Engine);
+            var keyboardWatcher = new KeyboardWatcher(true);
 
             var expected = 31;
 
             //Act
-            mouseWatcher.Update(new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 31) });
-            var actual = mouseWatcher.InputReleasedElapsedMS;
+            keyboardWatcher.Update(new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 31) });
+            var actual = keyboardWatcher.InputReleasedElapsedMS;
 
             //Assert
             Assert.Equal(expected, actual);
@@ -213,14 +214,14 @@ namespace ScorpionEngine.Tests.Input
         public void InputReleasedElapsedSeconds_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var mockMouse = new Mock<IMouse>();
-            mockMouse.Setup(m => m.IsButtonDown((int)InputButton.MiddleButton)).Returns(false);
+            var mockMouse = new Mock<IKeyboard>();
+            mockMouse.Setup(m => m.IsKeyDown((int)InputKeys.W)).Returns(false);
 
             Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
 
-            var mouseWatcher = new MouseWatcher(true)
+            var keyboardWatcher = new KeyboardWatcher(true)
             {
-                Button = InputButton.MiddleButton,
+                Key = InputKeys.W,
                 HitCountMax = 0,
                 InputReleasedTimeout = 5000
             };
@@ -228,10 +229,10 @@ namespace ScorpionEngine.Tests.Input
             var expected = 4.321;
 
             //Act/Assert
-            mouseWatcher.Update(engineTime);//Run once to get the internal states.
-            mockMouse.Setup(m => m.IsButtonDown((int)InputButton.MiddleButton)).Returns(false);//Return false to simulate that the button is not down
-            //mouseWatcher.Update(engineTime);
-            var actual = Math.Round(mouseWatcher.InputReleasedElapsedSeconds, 3);
+            keyboardWatcher.Update(engineTime);//Run once to get the internal states.
+            mockMouse.Setup(m => m.IsKeyDown((int)InputKeys.W)).Returns(false);//Return false to simulate that the button is not down
+            //keyboardWatcher.Update(engineTime);
+            var actual = Math.Round(keyboardWatcher.InputReleasedElapsedSeconds, 3);
 
             //Assert
             Assert.Equal(expected, actual);
@@ -242,8 +243,8 @@ namespace ScorpionEngine.Tests.Input
         public void InputDownTimeOut_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            Helpers.SetupPluginLib<IMouse>(PluginLibType.Engine);
-            var mouseWatcher = new MouseWatcher(true)
+            Helpers.SetupPluginLib<IKeyboard>(PluginLibType.Engine);
+            var keyboardWatcher = new KeyboardWatcher(true)
             {
                 InputDownTimeOut = 123
             };
@@ -251,7 +252,7 @@ namespace ScorpionEngine.Tests.Input
             var expected = 123;
 
             //Act
-            var actual = mouseWatcher.InputDownTimeOut;
+            var actual = keyboardWatcher.InputDownTimeOut;
 
             //Assert
             Assert.Equal(expected, actual);
@@ -262,8 +263,8 @@ namespace ScorpionEngine.Tests.Input
         public void InputReleasedTimeOut_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            Helpers.SetupPluginLib<IMouse>(PluginLibType.Engine);
-            var mouseWatcher = new MouseWatcher(true)
+            Helpers.SetupPluginLib<IKeyboard>(PluginLibType.Engine);
+            var keyboardWatcher = new KeyboardWatcher(true)
             {
                 InputReleasedTimeout = 456
             };
@@ -271,7 +272,7 @@ namespace ScorpionEngine.Tests.Input
             var expected = 456;
 
             //Act
-            var actual = mouseWatcher.InputReleasedTimeout;
+            var actual = keyboardWatcher.InputReleasedTimeout;
 
             //Assert
             Assert.Equal(expected, actual);
@@ -282,8 +283,8 @@ namespace ScorpionEngine.Tests.Input
         public void ReleasedElapsedResetMode_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            Helpers.SetupPluginLib<IMouse>(PluginLibType.Engine);
-            var mouseWatcher = new MouseWatcher(true)
+            Helpers.SetupPluginLib<IKeyboard>(PluginLibType.Engine);
+            var keyboardWatcher = new KeyboardWatcher(true)
             {
                 ReleasedElapsedResetMode = ResetType.Manual
             };
@@ -291,7 +292,7 @@ namespace ScorpionEngine.Tests.Input
             var expected = ResetType.Manual;
 
             //Act
-            var actual = mouseWatcher.ReleasedElapsedResetMode;
+            var actual = keyboardWatcher.ReleasedElapsedResetMode;
 
             //Assert
             Assert.Equal(expected, actual);
@@ -304,14 +305,14 @@ namespace ScorpionEngine.Tests.Input
         public void Update_WhenInvokingWithNullOnInputHitCountReachedEvent_RunsWithNoNullReferenceExceptions()
         {
             //Arrange
-            var mockMouse = new Mock<IMouse>();
-            mockMouse.Setup(m => m.IsButtonPressed((int)InputButton.LeftButton)).Returns(true);
+            var mockMouse = new Mock<IKeyboard>();
+            mockMouse.Setup(m => m.IsKeyPressed((int)InputKeys.Left)).Returns(true);
 
             Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
 
-            var mouseWatcher = new MouseWatcher(true)
+            var keyboardWatcher = new KeyboardWatcher(true)
             {
-                Button = InputButton.LeftButton,
+                Key = InputKeys.Left,
                 HitCountMax = 0
             };
 
@@ -319,7 +320,7 @@ namespace ScorpionEngine.Tests.Input
             //Act/Assert
             AssertExt.DoesNotThrowNullReference(() =>
             {
-                mouseWatcher.Update(new EngineTime());
+                keyboardWatcher.Update(new EngineTime());
             });
         }
 
@@ -328,23 +329,23 @@ namespace ScorpionEngine.Tests.Input
         public void Update_WhenInvokingWhileCountingWithNullCounter_RunsWithNoNullReferenceExceptions()
         {
             //Arrange
-            var mockMouse = new Mock<IMouse>();
-            mockMouse.Setup(m => m.IsButtonPressed((int)InputButton.LeftButton)).Returns(true);
+            var mockMouse = new Mock<IKeyboard>();
+            mockMouse.Setup(m => m.IsKeyPressed((int)InputKeys.Left)).Returns(true);
 
             Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
 
-            var mouseWatcher = new MouseWatcher(true)
+            var keyboardWatcher = new KeyboardWatcher(true)
             {
-                Button = InputButton.LeftButton,
+                Key = InputKeys.Left,
                 HitCountMax = 0
             };
 
-            mouseWatcher.SetFieldNull("_counter");
+            keyboardWatcher.SetFieldNull("_counter");
 
             //Act/Assert
             AssertExt.DoesNotThrowNullReference(() =>
             {
-                mouseWatcher.Update(new EngineTime());
+                keyboardWatcher.Update(new EngineTime());
             });
         }
 
@@ -353,14 +354,14 @@ namespace ScorpionEngine.Tests.Input
         public void Update_WhenInvokingWithProperButtonState_ResetsDownTimerAndStartsButtonUpTimer()
         {
             //Arrange
-            var mockMouse = new Mock<IMouse>();
-            mockMouse.Setup(m => m.IsButtonDown((int)InputButton.LeftButton)).Returns(true);
+            var mockMouse = new Mock<IKeyboard>();
+            mockMouse.Setup(m => m.IsKeyDown((int)InputKeys.Left)).Returns(true);
 
             Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
 
-            var mouseWatcher = new MouseWatcher(true)
+            var keyboardWatcher = new KeyboardWatcher(true)
             {
-                Button = InputButton.LeftButton,
+                Key = InputKeys.Left,
                 HitCountMax = 0
             };
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 10) };
@@ -368,12 +369,12 @@ namespace ScorpionEngine.Tests.Input
             var expectedUpTimerElapsed = 10;
 
             //Act/Assert
-            mouseWatcher.Update(engineTime);//Run once to get the internal states.
-            mockMouse.Setup(m => m.IsButtonDown((int)InputButton.LeftButton)).Returns(false);//Return false to simulate that the button is not down
-            mouseWatcher.Update(engineTime);//Run update again to set the current and previous states different
-            mouseWatcher.Update(engineTime);
-            var actualDownTimerElapsed = mouseWatcher.InputDownElapsedMS;
-            var actualUpTimerElapsed = mouseWatcher.InputReleasedElapsedMS;
+            keyboardWatcher.Update(engineTime);//Run once to get the internal states.
+            mockMouse.Setup(m => m.IsKeyDown((int)InputKeys.Left)).Returns(false);//Return false to simulate that the button is not down
+            keyboardWatcher.Update(engineTime);//Run update again to set the current and previous states different
+            keyboardWatcher.Update(engineTime);
+            var actualDownTimerElapsed = keyboardWatcher.InputDownElapsedMS;
+            var actualUpTimerElapsed = keyboardWatcher.InputReleasedElapsedMS;
 
             //Assert
             Assert.Equal(expectedDownTimerElapsed, actualDownTimerElapsed);
@@ -385,10 +386,10 @@ namespace ScorpionEngine.Tests.Input
         public void Update_WhenDisabled_DoNotUpdateAnything()
         {
             //Arrange
-            var mockMouse = new Mock<IMouse>();
-            mockMouse.Setup(m => m.IsButtonDown((int)InputButton.LeftButton)).Returns(true);
-            mockMouse.Setup(m => m.IsButtonUp((int)InputButton.LeftButton)).Returns(true);
-            mockMouse.Setup(m => m.IsButtonPressed((int)InputButton.LeftButton)).Returns(true);
+            var mockMouse = new Mock<IKeyboard>();
+            mockMouse.Setup(m => m.IsKeyDown((int)InputKeys.Left)).Returns(true);
+            mockMouse.Setup(m => m.IsKeyUp((int)InputKeys.Left)).Returns(true);
+            mockMouse.Setup(m => m.IsKeyPressed((int)InputKeys.Left)).Returns(true);
 
             Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
 
@@ -403,24 +404,24 @@ namespace ScorpionEngine.Tests.Input
             var actualInputReleasedTimeOutEventInvoked = false;
             var actualInputComboPressedEventInvoked = false;
 
-            var mouseWatcher = new MouseWatcher(false)
+            var keyboardWatcher = new KeyboardWatcher(false)
             {
-                Button = InputButton.LeftButton,
+                Key = InputKeys.Left,
                 HitCountMax = 1
             };
 
             //These events should never be fired.
-            mouseWatcher.OnInputHitCountReached += (sender, e) => actualInputHitCountReachedEventInvoked = true;
-            mouseWatcher.OnInputDownTimeOut += (sender, e) => actualInputDownTimeOutEventInvoked = true;
-            mouseWatcher.OnInputReleasedTimeOut += (sender, e) => actualInputReleasedTimeOutEventInvoked = true;
-            mouseWatcher.OnInputComboPressed += (sender, e) => actualInputComboPressedEventInvoked = true;
+            keyboardWatcher.OnInputHitCountReached += (sender, e) => actualInputHitCountReachedEventInvoked = true;
+            keyboardWatcher.OnInputDownTimeOut += (sender, e) => actualInputDownTimeOutEventInvoked = true;
+            keyboardWatcher.OnInputReleasedTimeOut += (sender, e) => actualInputReleasedTimeOutEventInvoked = true;
+            keyboardWatcher.OnInputComboPressed += (sender, e) => actualInputComboPressedEventInvoked = true;
 
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 2000) };
 
             //Act
-            mouseWatcher.Update(engineTime);
-            mouseWatcher.Update(engineTime);
-            var actualCurrentHitCount = mouseWatcher.CurrentHitCount;
+            keyboardWatcher.Update(engineTime);
+            keyboardWatcher.Update(engineTime);
+            var actualCurrentHitCount = keyboardWatcher.CurrentHitCount;
 
             //Assert
             Assert.Equal(expectedCurrentHitCount, actualCurrentHitCount);
@@ -435,25 +436,25 @@ namespace ScorpionEngine.Tests.Input
         public void Update_WhenUpdating_InvokesHitCountReachedEvent()
         {
             //Arrange
-            var mockMouse = new Mock<IMouse>();
-            mockMouse.Setup(m => m.IsButtonPressed((int)InputButton.LeftButton)).Returns(true);
+            var mockMouse = new Mock<IKeyboard>();
+            mockMouse.Setup(m => m.IsKeyPressed((int)InputKeys.Left)).Returns(true);
             Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
 
             var expected = true;
             var actual = false;
-            var mouseWatcher = new MouseWatcher(true)
+            var keyboardWatcher = new KeyboardWatcher(true)
             {
-                Button = InputButton.LeftButton,
+                Key = InputKeys.Left,
                 HitCountMax = 2
             };
-            mouseWatcher.OnInputHitCountReached += (sender, e) => actual = true;
+            keyboardWatcher.OnInputHitCountReached += (sender, e) => actual = true;
 
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 501) };
 
             //Act
-            mouseWatcher.Update(engineTime);
-            mouseWatcher.Update(engineTime);
-            mouseWatcher.Update(engineTime);
+            keyboardWatcher.Update(engineTime);
+            keyboardWatcher.Update(engineTime);
+            keyboardWatcher.Update(engineTime);
 
             //Assert
             Assert.Equal(expected, actual);
@@ -464,23 +465,24 @@ namespace ScorpionEngine.Tests.Input
         public void Update_WhenUpdating_InvokesInputDownTimeoutEvent()
         {
             //Arrange
-            var mockMouse = new Mock<IMouse>();
-            mockMouse.Setup(m => m.IsButtonDown((int)InputButton.LeftButton)).Returns(true);
+            var mockMouse = new Mock<IKeyboard>();
+            mockMouse.Setup(m => m.IsKeyDown((int)InputKeys.Left)).Returns(true);
             Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
 
             var expected = true;
             var actual = false;
-            var mouseWatcher = new MouseWatcher(true)
+            var keyboardWatcher = new KeyboardWatcher(true)
             {
-                Button = InputButton.LeftButton,
+                Key = InputKeys.Left,
+                InputDownTimeOut = 1000
             };
-            mouseWatcher.OnInputDownTimeOut += (sender, e) => actual = true;
+            keyboardWatcher.OnInputDownTimeOut += (sender, e) => actual = true;
 
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 501) };
 
             //Act
-            mouseWatcher.Update(engineTime);
-            mouseWatcher.Update(engineTime);
+            keyboardWatcher.Update(engineTime);
+            keyboardWatcher.Update(engineTime);
 
             //Assert
             Assert.Equal(expected, actual);
@@ -491,13 +493,13 @@ namespace ScorpionEngine.Tests.Input
         public void Update_WhenUpdatingWithNullInputDownTimeoutEvent_ShouldNotThrowNullRefException()
         {
             //Arrange
-            var mockMouse = new Mock<IMouse>();
-            mockMouse.Setup(m => m.IsButtonDown((int)InputButton.LeftButton)).Returns(true);
+            var mockMouse = new Mock<IKeyboard>();
+            mockMouse.Setup(m => m.IsKeyDown((int)InputKeys.Left)).Returns(true);
             Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
 
-            var mouseWatcher = new MouseWatcher(true)
+            var keyboardWatcher = new KeyboardWatcher(true)
             {
-                Button = InputButton.LeftButton,
+                Key = InputKeys.Left,
             };
 
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 501) };
@@ -505,8 +507,8 @@ namespace ScorpionEngine.Tests.Input
             //Act/Assert
             AssertExt.DoesNotThrow<NullReferenceException>(() =>
             {
-                mouseWatcher.Update(engineTime);
-                mouseWatcher.Update(engineTime);
+                keyboardWatcher.Update(engineTime);
+                keyboardWatcher.Update(engineTime);
             });
         }
 
@@ -515,23 +517,23 @@ namespace ScorpionEngine.Tests.Input
         public void Update_WhenUpdating_InvokesInputReleaseTimeoutEvent()
         {
             //Arrange
-            var mockMouse = new Mock<IMouse>();
-            mockMouse.Setup(m => m.IsButtonUp((int)InputButton.RightButton)).Returns(true);
+            var mockMouse = new Mock<IKeyboard>();
+            mockMouse.Setup(m => m.IsKeyUp((int)InputKeys.Right)).Returns(true);
             Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
 
             var expected = true;
             var actual = false;
-            var mouseWatcher = new MouseWatcher(true)
+            var keyboardWatcher = new KeyboardWatcher(true)
             {
-                Button = InputButton.RightButton,
+                Key = InputKeys.Right,
             };
-            mouseWatcher.OnInputReleasedTimeOut += (sender, e) => actual = true;
+            keyboardWatcher.OnInputReleasedTimeOut += (sender, e) => actual = true;
 
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 501) };
 
             //Act
-            mouseWatcher.Update(engineTime);
-            mouseWatcher.Update(engineTime);
+            keyboardWatcher.Update(engineTime);
+            keyboardWatcher.Update(engineTime);
 
             //Assert
             Assert.Equal(expected, actual);
@@ -542,13 +544,13 @@ namespace ScorpionEngine.Tests.Input
         public void Update_WhenUpdatingWithNullInputReleasedTimeoutEvent_ShouldNotThrowNullRefException()
         {
             //Arrange
-            var mockMouse = new Mock<IMouse>();
-            mockMouse.Setup(m => m.IsButtonUp((int)InputButton.RightButton)).Returns(true);
+            var mockMouse = new Mock<IKeyboard>();
+            mockMouse.Setup(m => m.IsKeyUp((int)InputKeys.Right)).Returns(true);
             Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
 
-            var mouseWatcher = new MouseWatcher(true)
+            var keyboardWatcher = new KeyboardWatcher(true)
             {
-                Button = InputButton.RightButton,
+                Key = InputKeys.Right,
             };
 
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 501) };
@@ -556,8 +558,8 @@ namespace ScorpionEngine.Tests.Input
             //Act/Assert
             AssertExt.DoesNotThrow<NullReferenceException>(() =>
             {
-                mouseWatcher.Update(engineTime);
-                mouseWatcher.Update(engineTime);
+                keyboardWatcher.Update(engineTime);
+                keyboardWatcher.Update(engineTime);
             });
         }
 
@@ -566,26 +568,26 @@ namespace ScorpionEngine.Tests.Input
         public void Update_WhenInvokingWithSetComboButtons_InvokesOnInputComboPressedEvent()
         {
             //Arrange
-            var mockMouse = new Mock<IMouse>();
-            mockMouse.Setup(m => m.IsButtonDown((int)InputButton.LeftButton)).Returns(true);
-            mockMouse.Setup(m => m.IsButtonDown((int)InputButton.RightButton)).Returns(true);
+            var mockMouse = new Mock<IKeyboard>();
+            mockMouse.Setup(m => m.IsKeyDown((int)InputKeys.Left)).Returns(true);
+            mockMouse.Setup(m => m.IsKeyDown((int)InputKeys.Right)).Returns(true);
 
             Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
-            var mouseWatcher = new MouseWatcher(true)
+            var keyboardWatcher = new KeyboardWatcher(true)
             {
-                ComboButtons = new List<InputButton>()
+                ComboKeys = new List<InputKeys>()
                 {
-                    InputButton.LeftButton,
-                    InputButton.RightButton
+                    InputKeys.Left,
+                    InputKeys.Right
                 }
             };
             var expected = true;
             var actual = false;
             
-            mouseWatcher.OnInputComboPressed += new EventHandler((sender, e) => actual = true);
+            keyboardWatcher.OnInputComboPressed += new EventHandler((sender, e) => actual = true);
 
             //Act
-            mouseWatcher.Update(new EngineTime());
+            keyboardWatcher.Update(new EngineTime());
 
             //Assert
             Assert.Equal(expected, actual);
@@ -596,17 +598,17 @@ namespace ScorpionEngine.Tests.Input
         public void Update_WhenInvokingWithNullOnInputComboPressedEvent_DoesNotThrowNullException()
         {
             //Arrange
-            var mockMouse = new Mock<IMouse>();
+            var mockMouse = new Mock<IKeyboard>();
             Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
-            mockMouse.Setup(m => m.IsButtonDown((int)InputButton.LeftButton)).Returns(true);
-            mockMouse.Setup(m => m.IsButtonDown((int)InputButton.RightButton)).Returns(true);
+            mockMouse.Setup(m => m.IsKeyDown((int)InputKeys.Left)).Returns(true);
+            mockMouse.Setup(m => m.IsKeyDown((int)InputKeys.Right)).Returns(true);
 
-            var mouseWatcher = new MouseWatcher(true)
+            var keyboardWatcher = new KeyboardWatcher(true)
             {
-                ComboButtons = new List<InputButton>()
+                ComboKeys = new List<InputKeys>()
                 {
-                    InputButton.LeftButton,
-                    InputButton.RightButton
+                    InputKeys.Left,
+                    InputKeys.Right
                 }
             };
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
@@ -614,9 +616,8 @@ namespace ScorpionEngine.Tests.Input
             //Act
 
             //Assert
-            AssertExt.DoesNotThrowNullReference(() => mouseWatcher.Update(engineTime));
+            AssertExt.DoesNotThrowNullReference(() => keyboardWatcher.Update(engineTime));
         }
-
 
         public void Dispose()
         {

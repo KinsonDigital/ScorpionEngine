@@ -110,12 +110,6 @@ namespace ScorpionEngine.Input
         }
 
         public ResetType ReleasedElapsedResetMode { get; set; } = ResetType.Auto;
-
-        public bool ResetHitCountOnEnable { get; set; }
-
-        public bool ResetHitCountOnInputRelease { get; set; }
-
-        public bool ResetTimeOnEnable { get; set; }
         #endregion
 
 

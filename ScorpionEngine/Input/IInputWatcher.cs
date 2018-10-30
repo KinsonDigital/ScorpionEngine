@@ -30,12 +30,6 @@ namespace ScorpionEngine.Input
         int InputReleasedTimeout { get; set; }
 
         ResetType ReleasedElapsedResetMode { get; set; }
-
-        bool ResetHitCountOnEnable { get; set; }
-
-        bool ResetHitCountOnInputRelease { get; set; }
-
-        bool ResetTimeOnEnable { get; set; }
         #endregion
 
 

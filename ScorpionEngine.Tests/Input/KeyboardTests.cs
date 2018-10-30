@@ -2,12 +2,13 @@
 using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Input;
+using System;
 using System.Linq;
 using Xunit;
 
 namespace ScorpionEngine.Tests.Input
 {
-    public class KeyboardTests
+    public class KeyboardTests  : IDisposable
     {
         #region Method Tests
         [Fact]
@@ -157,6 +158,12 @@ namespace ScorpionEngine.Tests.Input
 
             //Assert
             mockKeyboard.Verify(m => m.UpdatePreviousState(), Times.Once());
+        }
+
+
+        public void Dispose()
+        {
+            PluginSystem.ClearPlugins();
         }
         #endregion
     }

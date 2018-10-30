@@ -10,7 +10,7 @@ using Xunit;
 
 namespace ScorpionEngine.Tests.Physics
 {
-    public class PhysicsWorldTests
+    public class PhysicsWorldTests : IDisposable
     {
         private Mock<IPhysicsBody> _mockPhysicsBody;
 
@@ -101,5 +101,11 @@ namespace ScorpionEngine.Tests.Physics
             PluginSystem.LoadPhysicsPluginLibrary(mockPluginLib.Object);
         }
         #endregion
+
+
+        public void Dispose()
+        {
+            PluginSystem.ClearPlugins();
+        }
     }
 }
