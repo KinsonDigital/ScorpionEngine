@@ -1,4 +1,4 @@
-﻿using ScorpionEngine.Objects;
+﻿using ScorpionEngine.Entities;
 using ScorpionEngine.Physics;
 using System;
 using System.Collections.Generic;

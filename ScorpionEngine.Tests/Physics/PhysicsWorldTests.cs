@@ -2,8 +2,6 @@
 using Moq;
 using ScorpionCore;
 using ScorpionCore.Plugins;
-using ScorpionEngine.Input;
-using ScorpionEngine.Objects;
 using ScorpionEngine.Physics;
 using ScorpionEngine.Tests.Fakes;
 using Xunit;
@@ -45,10 +43,7 @@ namespace ScorpionEngine.Tests.Physics
             SetupPluginSystem();
 
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
-            var body = new PhysicsBody(vertices, Vector.Zero)
-            {
-                InternalPhysicsBody = _mockPhysicsBody.Object
-            };
+            var body = new PhysicsBody(vertices, Vector.Zero);
             var entity = new FakeEntity(Vector.Zero)
             {
                 Body = body

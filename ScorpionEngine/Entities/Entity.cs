@@ -9,7 +9,7 @@ using ScorpionEngine.Graphics;
 using ScorpionEngine.Input;
 using ScorpionEngine.Physics;
 
-namespace ScorpionEngine.Objects
+namespace ScorpionEngine.Entities
 {
     //TODO: Add docs
     /// <summary>

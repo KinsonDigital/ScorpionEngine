@@ -3,7 +3,7 @@ using ScorpionEngine.Physics;
 using SysColor = System.Drawing.Color;
 using SysFont = System.Drawing.Font;
 
-namespace ScorpionEngine.Objects
+namespace ScorpionEngine.Entities
 {
     /// <summary>
     /// Text that can be drawn to the screen.

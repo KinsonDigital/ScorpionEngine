@@ -2,7 +2,7 @@
 using ScorpionCore;
 using System.Collections.Generic;
 
-namespace ScorpionEngine.Objects
+namespace ScorpionEngine.Entities
 {
     /// <summary>
     /// Control animation at a particular frames per second.

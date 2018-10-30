@@ -1,4 +1,4 @@
-﻿using ScorpionEngine.Objects;
+﻿using ScorpionEngine.Entities;
 using ScorpionEngine.Input;
 using ScorpionCore;
 using ScorpionCore.Plugins;

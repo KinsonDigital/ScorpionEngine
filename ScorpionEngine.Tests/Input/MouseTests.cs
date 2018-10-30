@@ -8,7 +8,7 @@ using Xunit;
 
 namespace ScorpionEngine.Tests.Input
 {
-    public class MouseTests
+    public class MouseTests : IDisposable
     {
         #region Prop Tests
         [Fact]
@@ -390,5 +390,11 @@ namespace ScorpionEngine.Tests.Input
             mockMouse.Verify(m => m.UpdatePreviousState(), Times.Once());
         }
         #endregion
+
+
+        public void Dispose()
+        {
+            PluginSystem.ClearPlugins();
+        }
     }
 }

@@ -7,7 +7,7 @@ using ScorpionCore;
 using ScorpionEngine.Graphics;
 using ScorpionEngine.Physics;
 
-namespace ScorpionEngine.Objects
+namespace ScorpionEngine.Entities
 {
     public class StaticEntity : Entity
     {

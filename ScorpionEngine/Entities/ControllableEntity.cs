@@ -5,7 +5,7 @@ using ScorpionEngine.Graphics;
 using ScorpionEngine.Input;
 using ScorpionEngine.Physics;
 
-namespace ScorpionEngine.Objects
+namespace ScorpionEngine.Entities
 {
     /// <summary>
     /// Represents a moveable game object that can be controlled via keyboard or mouse input.

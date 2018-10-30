@@ -10,7 +10,7 @@ using ScorpionEngine.Graphics;
 using ScorpionEngine.Physics;
 using ScorpionEngine.Utils;
 
-namespace ScorpionEngine.Objects
+namespace ScorpionEngine.Entities
 {
     /// <summary>
     /// Represents a game object that can be moved around the screen.  

@@ -2,7 +2,7 @@
 using ScorpionCore.Plugins;
 using ScorpionEngine.Content;
 using ScorpionEngine.Graphics;
-using ScorpionEngine.Objects;
+using ScorpionEngine.Entities;
 using ScorpionEngine.Physics;
 using System.Collections.Generic;
 

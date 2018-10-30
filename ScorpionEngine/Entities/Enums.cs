@@ -1,4 +1,4 @@
-﻿namespace ScorpionEngine.Objects
+﻿namespace ScorpionEngine.Entities
 {
     /// <summary>
     /// Represents the direction that an animation is running.

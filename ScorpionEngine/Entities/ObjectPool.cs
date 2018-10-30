@@ -5,7 +5,7 @@ using ScorpionCore;
 using ScorpionEngine.Events;
 using ScorpionEngine.Physics;
 
-namespace ScorpionEngine.Objects
+namespace ScorpionEngine.Entities
 {
     /// <summary>
     /// Represents a set amount of entities that can be used over and over.

@@ -618,11 +618,12 @@ namespace ScorpionEngine.Tests.Input
             //Assert
             AssertExt.DoesNotThrowNullReference(() => keyboardWatcher.Update(engineTime));
         }
+        #endregion
+
 
         public void Dispose()
         {
             PluginSystem.ClearPlugins();
         }
-        #endregion
     }
 }
