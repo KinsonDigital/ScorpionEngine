@@ -39,7 +39,12 @@ namespace ScorpionEngine.Tests.Input
         public void Button_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            Helpers.SetupPluginLib<IKeyboard>(PluginLibType.Engine);
+            var mockKeyboard = new Mock<IKeyboard>();
+            var mockPluginLib = new Mock<IPluginLibrary>();
+            mockPluginLib.Setup(m => m.LoadPlugin<IKeyboard>()).Returns(mockKeyboard.Object);
+
+            PluginSystem.LoadEnginePluginLibrary(mockPluginLib.Object);
+            
             var keyboardWatcher = new KeyboardWatcher(true)
             {
                 Key = InputKeys.Left
@@ -598,10 +603,17 @@ namespace ScorpionEngine.Tests.Input
         public void Update_WhenInvokingWithNullOnInputComboPressedEvent_DoesNotThrowNullException()
         {
             //Arrange
-            var mockMouse = new Mock<IKeyboard>();
-            Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
-            mockMouse.Setup(m => m.IsKeyDown((int)InputKeys.Left)).Returns(true);
-            mockMouse.Setup(m => m.IsKeyDown((int)InputKeys.Right)).Returns(true);
+            var mockKeyboard = new Mock<IKeyboard>();
+            mockKeyboard.Setup(m => m.IsKeyDown((int)InputKeys.Left)).Returns(true);
+            mockKeyboard.Setup(m => m.IsKeyDown((int)InputKeys.Right)).Returns(true);
+
+            var mockPluginLib = new Mock<IPluginLibrary>();
+            mockPluginLib.Setup(m => m.LoadPlugin<IKeyboard>()).Returns(() =>
+            {
+                return mockKeyboard.Object;
+            });
+
+            PluginSystem.LoadEnginePluginLibrary(mockPluginLib.Object);
 
             var keyboardWatcher = new KeyboardWatcher(true)
             {

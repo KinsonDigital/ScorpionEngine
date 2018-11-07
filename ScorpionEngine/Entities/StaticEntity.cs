@@ -11,12 +11,6 @@ namespace ScorpionEngine.Entities
 {
     public class StaticEntity : Entity
     {
-        public StaticEntity(Vector position) : base(position, true)
-        {
-            _usesPhysics = false;
-        }
-
-
         public StaticEntity(Texture texture, Vector position) : base(texture, position, true)
         {
             _usesPhysics = false;

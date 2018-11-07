@@ -25,7 +25,7 @@ namespace ScorpionEngine.Entities
         /// <param name="font">The font of the text.</param>
         /// <param name="foreColor">The color of the text.</param>
         /// <param name="backColor">The color of the background behind the text.</param>
-        public TextObject(string text, SysColor foreColor, SysColor backColor, Vector position) : base(position)
+        public TextObject(string text, SysColor foreColor, SysColor backColor, Vector position) : base(vertices: null, position: position)
         {
             _text = text;
             _foreColor = foreColor;

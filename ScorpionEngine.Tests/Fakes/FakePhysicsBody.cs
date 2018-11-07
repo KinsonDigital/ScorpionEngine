@@ -1,5 +1,6 @@
 ﻿using ScorpionCore;
 using ScorpionCore.Plugins;
+using ScorpionEngine.Physics;
 using System;
 using System.Diagnostics.CodeAnalysis;
 
@@ -13,6 +14,15 @@ namespace ScorpionEngine.Tests.Fakes
             XVertices = xVertices;
             YVertices = yVertices;
         }
+
+        public FakePhysicsBody(float[] xVertices, float[] yVertices, float x, float y)
+        {
+            XVertices = xVertices;
+            YVertices = yVertices;
+            X = x;
+            Y = y;
+        }
+
 
         public float[] XVertices { get; set; }
         public float[] YVertices { get; set; }

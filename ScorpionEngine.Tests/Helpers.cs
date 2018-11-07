@@ -16,9 +16,9 @@ namespace ScorpionEngine.Tests
         /// <typeparam name="PluginMock">The type of mocked plugin to load into the plugin system.  <typeparamref name="PluginMock"/> must implement an interface of type <see cref="IPlugin"/>.</typeparam>
         public static void SetupPluginLib<PluginMock>(PluginLibType libType) where PluginMock : class, IPlugin
         {
-            var mockMouse = new Mock<PluginMock>();
+            var mock = new Mock<PluginMock>();
             var mockPluginLib = new Mock<IPluginLibrary>();
-            mockPluginLib.Setup(m => m.LoadPlugin<PluginMock>()).Returns(mockMouse.Object);
+            mockPluginLib.Setup(m => m.LoadPlugin<PluginMock>()).Returns(mock.Object);
 
             LoadPluginLibrary(mockPluginLib, libType);
         }

@@ -32,12 +32,6 @@ namespace ScorpionEngine.Entities
 
 
         #region Constructors
-        public DynamicEntity(Vector position, bool isStaticBody = false) : base(position, isStaticBody)
-        {
-            SetupMaxLinearBehaviors(1f);
-        }
-
-
         public DynamicEntity(Texture texture, Vector position, bool isStaticBody = false) : base(texture, position, isStaticBody)
         {
             SetupMaxLinearBehaviors(1f);

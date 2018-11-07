@@ -60,7 +60,15 @@ namespace ScorpionEngine.Tests.Input
             //Arrange
             var mockMouse = new Mock<IMouse>();
             mockMouse.Setup(m => m.IsButtonPressed((int)InputButton.LeftButton)).Returns(true);
-            Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
+
+            var mockPluginLib = new Mock<IPluginLibrary>();
+            mockPluginLib.Setup(m => m.LoadPlugin<IMouse>()).Returns(() =>
+            {
+                return mockMouse.Object;
+            });
+
+            PluginSystem.LoadEnginePluginLibrary(mockPluginLib.Object);
+
             var mouseWatcher = new MouseWatcher(true)
             {
                 Button = InputButton.LeftButton,

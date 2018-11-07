@@ -12,7 +12,7 @@ using Xunit;
 
 namespace ScorpionEngine.Tests.Physics
 {
-    public class PhysicsBodyTests
+    public class PhysicsBodyTests : IDisposable
     {
         #region Prop Tests
         [Fact]
@@ -100,7 +100,13 @@ namespace ScorpionEngine.Tests.Physics
             var mockInternalPhysicsBody = new Mock<IPhysicsBody>();
             mockInternalPhysicsBody.SetupProperty(m => m.Angle);
 
-            Helpers.SetupPluginLib<IPhysicsBody, float, float>(mockInternalPhysicsBody, PluginLibType.Physics);
+            var mockPluginLib = new Mock<IPluginLibrary>();
+            mockPluginLib.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<float>())).Returns(() =>
+            {
+                return mockInternalPhysicsBody.Object;
+            });
+
+            PluginSystem.LoadPhysicsPluginLibrary(mockPluginLib.Object);
 
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
             var body = new PhysicsBody(vertices, Vector.Zero)
@@ -243,7 +249,6 @@ namespace ScorpionEngine.Tests.Physics
         }
 
 
-
         [Fact]
         public void LinearVelocity_WhenGettingAndSettingValue_GetsCorrectValue()
         {
@@ -292,6 +297,12 @@ namespace ScorpionEngine.Tests.Physics
 
             //Assert
             Assert.Equal(expected, actual);
+        }
+
+
+        public void Dispose()
+        {
+            PluginSystem.ClearPlugins();
         }
         #endregion
     }

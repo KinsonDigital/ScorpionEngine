@@ -38,6 +38,9 @@ namespace ScorpionEngine.Physics
             {
                 var result = new List<Vector>();
 
+                if (InternalPhysicsBody.XVertices == null || InternalPhysicsBody.YVertices == null)
+                    return null;
+
                 for (int i = 0; i < InternalPhysicsBody.XVertices.Length; i++)
                 {
                     result.Add(new Vector(InternalPhysicsBody.XVertices[i], InternalPhysicsBody.YVertices[i]));

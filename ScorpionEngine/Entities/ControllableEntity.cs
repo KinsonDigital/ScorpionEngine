@@ -20,12 +20,6 @@ namespace ScorpionEngine.Entities
 
 
         #region Constructors
-        public ControllableEntity(Vector position,bool isStaticBody = false) : base(position, isStaticBody)
-        {
-            SetupBehaviors();
-        }
-
-
         public ControllableEntity(Texture texture, Vector position,bool isStaticBody = false) : base(texture, position, isStaticBody)
         {
             SetupBehaviors();
