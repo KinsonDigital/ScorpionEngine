@@ -3,16 +3,10 @@ using NUnit.Framework;
 using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Behaviors;
-using ScorpionEngine.Factories;
 using ScorpionEngine.Graphics;
 using ScorpionEngine.Physics;
 using ScorpionEngine.Tests.Fakes;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace ScorpionEngine.Tests.Entities

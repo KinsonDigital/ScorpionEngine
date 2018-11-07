@@ -1,16 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
 using ScorpionEngine;
 using ScorpionEngine.Content;
 using ScorpionEngine.Graphics;
-using ScorpionEngine.Input;
-using ScorpionEngine.Entities;
-using ScorpionEngine.Physics;
 using ScorpionEngine.Scene;
-using ScorpionEngine.UI;
 
 namespace ScorpTestGame
 {

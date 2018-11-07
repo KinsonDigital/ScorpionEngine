@@ -1,10 +1,5 @@
-﻿using ScorpionEngine.Input;
-using ScorpionEngine.Physics;
+﻿using ScorpionEngine.Physics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ScorpionEngine.Utils
 {

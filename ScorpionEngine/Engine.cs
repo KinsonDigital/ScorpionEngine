@@ -4,7 +4,6 @@ using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Graphics;
 using ScorpionEngine.Scene;
-using ScorpionEngine.Physics;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo(assemblyName: "ScorpionEngine.Tests", AllInternalsVisible = true)]

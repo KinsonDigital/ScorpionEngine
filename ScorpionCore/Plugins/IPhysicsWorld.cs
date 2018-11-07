@@ -1,11 +1,4 @@
-﻿using ScorpionCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ScorpionCore.Plugins
+﻿namespace ScorpionCore.Plugins
 {
     public interface IPhysicsWorld : IPlugin
     {

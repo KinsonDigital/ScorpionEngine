@@ -1,5 +1,4 @@
-﻿using ScorpionCore;
-using System;
+﻿using System;
 
 namespace ScorpionEngine.Utils
 {

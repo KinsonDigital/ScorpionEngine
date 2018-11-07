@@ -1,5 +1,4 @@
-﻿using ScorpionCore;
-using ScorpionEngine.Physics;
+﻿using ScorpionEngine.Physics;
 
 namespace ScorpionEngine.Input
 {

@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using ScorpionCore;
-using ScorpionCore.Plugins;
+﻿using System.Collections.Generic;
 using ScorpionEngine.Behaviors;
-using ScorpionEngine.Content;
-
-using ScorpionEngine.Events;
 using ScorpionEngine.Graphics;
 using ScorpionEngine.Physics;
 using ScorpionEngine.Utils;

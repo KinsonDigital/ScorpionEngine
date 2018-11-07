@@ -1,6 +1,4 @@
-﻿using ScorpionCore;
-using ScorpionCore.Plugins;
-using ScorpionEngine.Behaviors;
+﻿using ScorpionEngine.Behaviors;
 using ScorpionEngine.Graphics;
 using ScorpionEngine.Input;
 using ScorpionEngine.Physics;

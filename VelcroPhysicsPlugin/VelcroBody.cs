@@ -2,13 +2,10 @@
 using ScorpionCore.Plugins;
 using System;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using VelcroPhysics.Collision.Shapes;
 using VelcroPhysics.Dynamics;
-using VelcroPhysics.Factories;
 using VelcroPhysics.Primitives;
-using VelcroPhysics.Shared;
 
 namespace VelcroPhysicsPlugin
 {

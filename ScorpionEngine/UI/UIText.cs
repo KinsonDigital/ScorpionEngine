@@ -1,7 +1,6 @@
 ﻿using ScorpionCore;
 using ScorpionEngine.Graphics;
 using ScorpionEngine.Physics;
-using System.Drawing;
 
 namespace ScorpionEngine.UI
 {

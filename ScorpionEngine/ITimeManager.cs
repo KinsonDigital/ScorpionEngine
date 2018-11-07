@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ScorpionEngine
+﻿namespace ScorpionEngine
 {
     /// <summary>
     /// Provides functionality for managing time and state of a system.

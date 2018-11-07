@@ -1,5 +1,4 @@
-﻿using ScorpionCore;
-using ScorpionCore.Plugins;
+﻿using ScorpionCore.Plugins;
 using System;
 using System.Collections.Generic;
 using VelcroPhysics.Collision.Shapes;

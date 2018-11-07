@@ -1,10 +1,7 @@
-﻿using ScorpionCore.Plugins;
-using System;
+﻿using System;
 using System.Linq;
 using System.IO;
 using System.Reflection;
-using System.Collections.Generic;
-using ScorpionCore.Exceptions;
 
 namespace ScorpionCore.Plugins
 {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ScorpionEngine.Events
+﻿namespace ScorpionEngine.Events
 {
     /// <summary>
     /// Information about when a complete stack of frames finishes.

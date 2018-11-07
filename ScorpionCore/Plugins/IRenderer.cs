@@ -1,7 +1,4 @@
-﻿using System;
-using System.Drawing;
-
-namespace ScorpionCore.Plugins
+﻿namespace ScorpionCore.Plugins
 {
     public interface IRenderer : IPlugin
     {

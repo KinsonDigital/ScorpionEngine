@@ -4,11 +4,6 @@ using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Physics;
 using ScorpionEngine.Tests.Fakes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace ScorpionEngine.Tests.Physics

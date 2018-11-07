@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Behaviors;
-using ScorpionEngine.Content;
-using ScorpionEngine.Factories;
 using ScorpionEngine.Graphics;
 using ScorpionEngine.Input;
 using ScorpionEngine.Physics;

@@ -1,7 +1,4 @@
-﻿using ScorpionCore;
-using System;
-
-namespace ScorpionEngine.Behaviors
+﻿namespace ScorpionEngine.Behaviors
 {
     public interface IBehavior : IUpdatable
     {

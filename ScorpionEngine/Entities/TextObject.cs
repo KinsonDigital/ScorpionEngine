@@ -1,7 +1,5 @@
-﻿using ScorpionEngine.Content;
-using ScorpionEngine.Physics;
+﻿using ScorpionEngine.Physics;
 using SysColor = System.Drawing.Color;
-using SysFont = System.Drawing.Font;
 
 namespace ScorpionEngine.Entities
 {
