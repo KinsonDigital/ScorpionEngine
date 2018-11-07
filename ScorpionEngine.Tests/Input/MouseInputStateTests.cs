@@ -1,12 +1,13 @@
-﻿using ScorpionEngine.Input;
+﻿using NUnit.Framework;
+using ScorpionEngine.Input;
 using ScorpionEngine.Physics;
-using Xunit;
+
 
 namespace ScorpionEngine.Tests.Input
 {
     public class MouseInputStateTests
     {
-        [Fact]
+        [Test]
         public void Position_WhenSettingAndGettingValue_GetsAndSetsCorrectValue()
         {
             //Arrange
@@ -18,11 +19,11 @@ namespace ScorpionEngine.Tests.Input
             var actual = state.Position;
 
             //Arrange
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void ScrollWheelValue_WhenSettingAndGettingValue_GetsAndSetsCorrectValue()
         {
             //Arrange
@@ -34,11 +35,11 @@ namespace ScorpionEngine.Tests.Input
             var actual = state.ScrollWheelValue;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void X_WhenSettingAndGettingValue_GetsAndSetsCorrectValue()
         {
             //Arrange
@@ -50,11 +51,11 @@ namespace ScorpionEngine.Tests.Input
             var actual = state.X;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Y_WhenSettingAndGettingValue_GetsAndSetsCorrectValue()
         {
             //Arrange
@@ -66,11 +67,11 @@ namespace ScorpionEngine.Tests.Input
             var actual = state.Y;
 
             //Assert
-            Assert.Equal(eYpected, actual);
+            Assert.AreEqual(eYpected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void LeftButtonDown_WhenSettingAndGettingValue_GetsAndSetsCorrectValue()
         {
             //Arrange
@@ -82,11 +83,11 @@ namespace ScorpionEngine.Tests.Input
             var actual = state.LeftButtonDown;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void RightButtonDown_WhenSettingAndGettingValue_GetsAndSetsCorrectValue()
         {
             //Arrange
@@ -98,11 +99,11 @@ namespace ScorpionEngine.Tests.Input
             var actual = state.RightButtonDown;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void MiddleButtonDown_WhenSettingAndGettingValue_GetsAndSetsCorrectValue()
         {
             //Arrange
@@ -114,7 +115,7 @@ namespace ScorpionEngine.Tests.Input
             var actual = state.MiddleButtonDown;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
     }
 }

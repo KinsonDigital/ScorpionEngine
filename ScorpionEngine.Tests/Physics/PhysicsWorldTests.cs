@@ -1,18 +1,19 @@
 ﻿using System;
 using Moq;
+using NUnit.Framework;
 using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Graphics;
 using ScorpionEngine.Physics;
 using ScorpionEngine.Tests.Fakes;
-using Xunit;
+
 
 namespace ScorpionEngine.Tests.Physics
 {
-    public class PhysicsWorldTests : IDisposable
+    public class PhysicsWorldTests
     {
         #region Method Tests
-        [Fact]
+        [Test]
         public void Ctro_WhenInvoking_ReturnsGravity()
         {
             //Arrange
@@ -30,11 +31,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = world.Gravity;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void AddEntity_WhenInvoking_DoesNotThrowNullRefException()
         {
             //Arrange
@@ -74,7 +75,7 @@ namespace ScorpionEngine.Tests.Physics
         }
 
 
-        [Fact]
+        [Test]
         public void Update_WhenInvoking_DoesNotThrowNullRefException()
         {
             //Arrange
@@ -114,7 +115,8 @@ namespace ScorpionEngine.Tests.Physics
         #endregion
 
 
-        public void Dispose()
+        [TearDown]
+        public void TearDown()
         {
             PluginSystem.ClearPlugins();
         }

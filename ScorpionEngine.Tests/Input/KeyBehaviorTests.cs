@@ -1,13 +1,14 @@
 ﻿using Moq;
+using NUnit.Framework;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Input;
-using Xunit;
+
 
 namespace ScorpionEngine.Tests.Input
 {
     public class KeyBehaviorTests
     {
-        [Fact]
+        [Test]
         public void Ctor_SinglePropValue_SetsPropsCorrectly()
         {
             //Arrange
@@ -18,11 +19,11 @@ namespace ScorpionEngine.Tests.Input
             //Act
             var behavior = new KeyBehavior(true, keyboard);
 
-            Assert.Equal(expected, behavior.Enabled);
+            Assert.AreEqual(expected, behavior.Enabled);
         }
 
 
-        [Fact]
+        [Test]
         public void Ctor_TwoPropValues_SetsPropsCorrectly()
         {
             //Arrange
@@ -34,12 +35,12 @@ namespace ScorpionEngine.Tests.Input
             //Act
             var behavior = new KeyBehavior(InputKeys.Right, true, keyboard);
 
-            Assert.Equal(expectedEnabled, behavior.Enabled);
-            Assert.Equal(expectedKey, behavior.Key);
+            Assert.AreEqual(expectedEnabled, behavior.Enabled);
+            Assert.AreEqual(expectedKey, behavior.Key);
         }
 
 
-        [Fact]
+        [Test]
         public void Update_WhenKeyBehaviorIsKeyDownContinous_InvokeKeyDownEvent()
         {
             //Arrange
@@ -60,11 +61,11 @@ namespace ScorpionEngine.Tests.Input
             keyBehavior.Update(new EngineTime());
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Update_WhenKeyBehaviorIsOnceOnPress_InvokeKeyDownEvent()
         {
             //Arrange
@@ -85,7 +86,7 @@ namespace ScorpionEngine.Tests.Input
             keyBehavior.Update(new EngineTime());
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
     }
 }

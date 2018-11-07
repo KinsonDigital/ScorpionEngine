@@ -1,12 +1,13 @@
-﻿using ScorpionEngine.Input;
+﻿using NUnit.Framework;
+using ScorpionEngine.Input;
 using ScorpionEngine.Physics;
-using Xunit;
+
 
 namespace ScorpionEngine.Tests.Input
 {
     public class MouseEventArgsTests
     {
-        [Fact]
+        [Test]
         public void Ctor_WhenInvoking_SetsMouseInputStatePropValue()
         {
             //Arrange
@@ -32,7 +33,7 @@ namespace ScorpionEngine.Tests.Input
             var actual = mouseEventArgs.State;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
     }
 }

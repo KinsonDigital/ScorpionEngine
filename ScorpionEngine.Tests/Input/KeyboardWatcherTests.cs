@@ -1,17 +1,18 @@
 ﻿using Moq;
+using NUnit.Framework;
 using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Input;
 using System;
 using System.Collections.Generic;
-using Xunit;
+
 
 namespace ScorpionEngine.Tests.Input
 {
-    public class KeyboardWatcherTests : IDisposable
+    public class KeyboardWatcherTests
     {
         #region Method Tests
-        [Fact]
+        [Test]
         public void Ctor_WhenUsingEnabled_CorrectlyPerformSetup()
         {
             //Arrange
@@ -27,15 +28,15 @@ namespace ScorpionEngine.Tests.Input
             var actualComboButtons = keyboardWatcher.ComboKeys;
 
             //Assert
-            Assert.Equal(expectedEnabled, actualEnabled);
-            Assert.Equal(expectedComboButtons, actualComboButtons);
+            Assert.AreEqual(expectedEnabled, actualEnabled);
+            Assert.AreEqual(expectedComboButtons, actualComboButtons);
             AssertExt.IsNullOrZeroField(keyboardWatcher, "_keyboard");
         }
         #endregion
 
 
         #region Prop Tests
-        [Fact]
+        [Test]
         public void Button_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -55,11 +56,11 @@ namespace ScorpionEngine.Tests.Input
             var actual = keyboardWatcher.Key;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void CurrentHitCountPercentage_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -85,11 +86,11 @@ namespace ScorpionEngine.Tests.Input
             var actual = keyboardWatcher.CurrentHitCountPercentage;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void DownElapsedResetMode_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -105,11 +106,11 @@ namespace ScorpionEngine.Tests.Input
             var actual = keyboardWatcher.DownElapsedResetMode;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void HitCountResetMode_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -125,11 +126,11 @@ namespace ScorpionEngine.Tests.Input
             var actual = keyboardWatcher.HitCountResetMode;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void ComboButtons_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -153,11 +154,11 @@ namespace ScorpionEngine.Tests.Input
             var actual = keyboardWatcher.ComboKeys;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void InputDownElapsedMS_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -171,11 +172,11 @@ namespace ScorpionEngine.Tests.Input
             var actual = keyboardWatcher.InputDownElapsedMS;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void InputDownElapsedSeconds_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -193,11 +194,11 @@ namespace ScorpionEngine.Tests.Input
             var actual = keyboardWatcher.InputDownElapsedSeconds;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void InputReleasedElapsedMS_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -211,11 +212,11 @@ namespace ScorpionEngine.Tests.Input
             var actual = keyboardWatcher.InputReleasedElapsedMS;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void InputReleasedElapsedSeconds_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -240,11 +241,11 @@ namespace ScorpionEngine.Tests.Input
             var actual = Math.Round(keyboardWatcher.InputReleasedElapsedSeconds, 3);
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void InputDownTimeOut_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -260,11 +261,11 @@ namespace ScorpionEngine.Tests.Input
             var actual = keyboardWatcher.InputDownTimeOut;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void InputReleasedTimeOut_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -280,11 +281,11 @@ namespace ScorpionEngine.Tests.Input
             var actual = keyboardWatcher.InputReleasedTimeout;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void ReleasedElapsedResetMode_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -300,13 +301,13 @@ namespace ScorpionEngine.Tests.Input
             var actual = keyboardWatcher.ReleasedElapsedResetMode;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
         #endregion
 
 
         #region Method Tests
-        [Fact]
+        [Test]
         public void Update_WhenInvokingWithNullOnInputHitCountReachedEvent_RunsWithNoNullReferenceExceptions()
         {
             //Arrange
@@ -330,7 +331,7 @@ namespace ScorpionEngine.Tests.Input
         }
 
 
-        [Fact]
+        [Test]
         public void Update_WhenInvokingWhileCountingWithNullCounter_RunsWithNoNullReferenceExceptions()
         {
             //Arrange
@@ -355,7 +356,7 @@ namespace ScorpionEngine.Tests.Input
         }
 
 
-        [Fact]
+        [Test]
         public void Update_WhenInvokingWithProperButtonState_ResetsDownTimerAndStartsButtonUpTimer()
         {
             //Arrange
@@ -382,12 +383,12 @@ namespace ScorpionEngine.Tests.Input
             var actualUpTimerElapsed = keyboardWatcher.InputReleasedElapsedMS;
 
             //Assert
-            Assert.Equal(expectedDownTimerElapsed, actualDownTimerElapsed);
-            Assert.Equal(expectedUpTimerElapsed, actualUpTimerElapsed);
+            Assert.AreEqual(expectedDownTimerElapsed, actualDownTimerElapsed);
+            Assert.AreEqual(expectedUpTimerElapsed, actualUpTimerElapsed);
         }
 
 
-        [Fact]
+        [Test]
         public void Update_WhenDisabled_DoNotUpdateAnything()
         {
             //Arrange
@@ -429,15 +430,15 @@ namespace ScorpionEngine.Tests.Input
             var actualCurrentHitCount = keyboardWatcher.CurrentHitCount;
 
             //Assert
-            Assert.Equal(expectedCurrentHitCount, actualCurrentHitCount);
-            Assert.Equal(expectedInputHitCountReachedEventInvoked, actualInputHitCountReachedEventInvoked);
-            Assert.Equal(expectedInputDownTimeOutEventInvoked, actualInputDownTimeOutEventInvoked);
-            Assert.Equal(expectedInputReleasedTimeOutEventInvoked, actualInputReleasedTimeOutEventInvoked);
-            Assert.Equal(expectedInputComboPressedEventInvoked, actualInputComboPressedEventInvoked);
+            Assert.AreEqual(expectedCurrentHitCount, actualCurrentHitCount);
+            Assert.AreEqual(expectedInputHitCountReachedEventInvoked, actualInputHitCountReachedEventInvoked);
+            Assert.AreEqual(expectedInputDownTimeOutEventInvoked, actualInputDownTimeOutEventInvoked);
+            Assert.AreEqual(expectedInputReleasedTimeOutEventInvoked, actualInputReleasedTimeOutEventInvoked);
+            Assert.AreEqual(expectedInputComboPressedEventInvoked, actualInputComboPressedEventInvoked);
         }
 
 
-        [Fact]
+        [Test]
         public void Update_WhenUpdating_InvokesHitCountReachedEvent()
         {
             //Arrange
@@ -462,11 +463,11 @@ namespace ScorpionEngine.Tests.Input
             keyboardWatcher.Update(engineTime);
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Update_WhenUpdating_InvokesInputDownTimeoutEvent()
         {
             //Arrange
@@ -490,11 +491,11 @@ namespace ScorpionEngine.Tests.Input
             keyboardWatcher.Update(engineTime);
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Update_WhenUpdatingWithNullInputDownTimeoutEvent_ShouldNotThrowNullRefException()
         {
             //Arrange
@@ -518,7 +519,7 @@ namespace ScorpionEngine.Tests.Input
         }
 
 
-        [Fact]
+        [Test]
         public void Update_WhenUpdating_InvokesInputReleaseTimeoutEvent()
         {
             //Arrange
@@ -541,11 +542,11 @@ namespace ScorpionEngine.Tests.Input
             keyboardWatcher.Update(engineTime);
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Update_WhenUpdatingWithNullInputReleasedTimeoutEvent_ShouldNotThrowNullRefException()
         {
             //Arrange
@@ -569,7 +570,7 @@ namespace ScorpionEngine.Tests.Input
         }
 
 
-        [Fact]
+        [Test]
         public void Update_WhenInvokingWithSetComboButtons_InvokesOnInputComboPressedEvent()
         {
             //Arrange
@@ -595,11 +596,11 @@ namespace ScorpionEngine.Tests.Input
             keyboardWatcher.Update(new EngineTime());
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Update_WhenInvokingWithNullOnInputComboPressedEvent_DoesNotThrowNullException()
         {
             //Arrange
@@ -633,7 +634,8 @@ namespace ScorpionEngine.Tests.Input
         #endregion
 
 
-        public void Dispose()
+        [TearDown]
+        public void TearDown()
         {
             PluginSystem.ClearPlugins();
         }

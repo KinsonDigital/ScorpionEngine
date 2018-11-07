@@ -1,4 +1,5 @@
 ﻿using Moq;
+using NUnit.Framework;
 using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Physics;
@@ -8,14 +9,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xunit;
+
 
 namespace ScorpionEngine.Tests.Physics
 {
-    public class PhysicsBodyTests : IDisposable
+    public class PhysicsBodyTests
     {
         #region Prop Tests
-        [Fact]
+        [Test]
         public void Vertices_WhenGettingAndSettingValue_GetsCorrectValue()
         {
             //Arrange
@@ -39,11 +40,11 @@ namespace ScorpionEngine.Tests.Physics
 
             //Assert
             Assert.NotNull(actualVertices);
-            Assert.Equal(expectedVertices, actualVertices);
+            Assert.AreEqual(expectedVertices, actualVertices);
         }
 
 
-        [Fact]
+        [Test]
         public void X_WhenGettingAndSettingValue_GetsCorrectValue()
         {
             //Arrange
@@ -64,11 +65,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = body.X;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Y_WhenGettingAndSettingValue_GetsCorrectValue()
         {
             //Arrange
@@ -89,11 +90,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = body.Y;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Angle_WhenGettingAndSettingValue_GetsCorrectValue()
         {
             //Arrange
@@ -120,11 +121,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = body.Angle;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Density_WhenGettingAndSettingValue_GetsCorrectValue()
         {
             //Arrange
@@ -145,11 +146,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = body.Density;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Friction_WhenGettingAndSettingValue_GetsCorrectValue()
         {
             //Arrange
@@ -170,11 +171,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = body.Friction;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Restitution_WhenGettingAndSettingValue_GetsCorrectValue()
         {
             //Arrange
@@ -195,11 +196,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = body.Restitution;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void LinearDeceleration_WhenGettingAndSettingValue_GetsCorrectValue()
         {
             //Arrange
@@ -220,11 +221,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = body.LinearDeceleration;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void AngularDeceleration_WhenGettingAndSettingValue_GetsCorrectValue()
         {
             //Arrange
@@ -245,11 +246,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = body.AngularDeceleration;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void LinearVelocity_WhenGettingAndSettingValue_GetsCorrectValue()
         {
             //Arrange
@@ -271,11 +272,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = body.LinearVelocity;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void AngularVelocity_WhenGettingAndSettingValue_GetsCorrectValue()
         {
             //Arrange
@@ -296,11 +297,12 @@ namespace ScorpionEngine.Tests.Physics
             var actual = body.AngularVelocity;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        public void Dispose()
+        [TearDown]
+        public void TearDown()
         {
             PluginSystem.ClearPlugins();
         }

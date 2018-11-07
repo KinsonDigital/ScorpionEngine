@@ -1,14 +1,15 @@
 ﻿using Moq;
+using NUnit.Framework;
 using ScorpionCore;
 using ScorpionEngine.Graphics;
-using Xunit;
+
 
 namespace ScorpionEngine.Tests.Graphics
 {
     public class GameTextTests
     {
         #region Prop Tests
-        [Fact]
+        [Test]
         public void Text_WhenSettingValue_ProperlyReturnsInternalValue()
         {
             //Arrange
@@ -24,11 +25,11 @@ namespace ScorpionEngine.Tests.Graphics
             var actual = gameText.Text;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Text_WhenSettingValue_ProperlySetsInternalValue()
         {
             //Arrange
@@ -45,11 +46,11 @@ namespace ScorpionEngine.Tests.Graphics
             var actual = gameText.Text;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Width_WhenSettingValue_ProperlyReturnsInternalValue()
         {
             //Arrange
@@ -65,11 +66,11 @@ namespace ScorpionEngine.Tests.Graphics
             var actual = gameText.Width;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Width_WhenSettingValue_ProperlySetsInternalValue()
         {
             //Arrange
@@ -86,11 +87,11 @@ namespace ScorpionEngine.Tests.Graphics
             var actual = gameText.Width;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Height_WhenSettingValue_ProperlyReturnsInternalValue()
         {
             //Arrange
@@ -106,11 +107,11 @@ namespace ScorpionEngine.Tests.Graphics
             var actual = gameText.Height;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Height_WhenSettingValue_ProperlySetsInternalValue()
         {
             //Arrange
@@ -127,11 +128,11 @@ namespace ScorpionEngine.Tests.Graphics
             var actual = gameText.Height;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Color_WhenSettingValue_ProperlySetsInternalValue()
         {
             //Arrange
@@ -148,7 +149,7 @@ namespace ScorpionEngine.Tests.Graphics
             var actual = gameText.Color;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
         #endregion
     }

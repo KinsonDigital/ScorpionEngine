@@ -1,13 +1,14 @@
-﻿using ScorpionEngine.Utils;
+﻿using NUnit.Framework;
+using ScorpionEngine.Utils;
 using System;
-using Xunit;
+
 
 namespace ScorpionEngine.Tests.Utils
 {
     public class StopWatchTests
     {
         #region Method Tests
-        [Fact]
+        [Test]
         public void Start_WhenStarting_SetsRunningToTrue()
         {
             //Arrange
@@ -19,11 +20,11 @@ namespace ScorpionEngine.Tests.Utils
             var actual = stopWatch.Running;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Stop_WhenStoping_SetsRunningToFalse()
         {
             //Arrange
@@ -35,11 +36,11 @@ namespace ScorpionEngine.Tests.Utils
             var actual = stopWatch.Running;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Reset_WhenReseting_SetElapsedToZeroAndRunningToFalse()
         {
             //Arrange
@@ -56,12 +57,12 @@ namespace ScorpionEngine.Tests.Utils
             var actualElapsedMS = stopWatch.ElapsedMS;
 
             //Assert
-            Assert.Equal(expectedElapsedMS, actualElapsedMS);
-            Assert.Equal(expectedRunning, actualRunning);
+            Assert.AreEqual(expectedElapsedMS, actualElapsedMS);
+            Assert.AreEqual(expectedRunning, actualRunning);
         }
 
 
-        [Fact]
+        [Test]
         public void Update_WhenInvokingWithResetTypeAsAuto_ResetStopWatch()
         {
             //Arrange
@@ -80,12 +81,12 @@ namespace ScorpionEngine.Tests.Utils
             var actualRunning = stopWatch.Running;
 
             //Assert
-            Assert.Equal(expectedElapsedMS, actualElapsedMS);
-            Assert.Equal(expectedRunning, actualRunning);
+            Assert.AreEqual(expectedElapsedMS, actualElapsedMS);
+            Assert.AreEqual(expectedRunning, actualRunning);
         }
 
 
-        [Fact]
+        [Test]
         public void Update_WhenInvoking_OnTimeElapsedEventInvoked()
         {
             //Arrange
@@ -104,13 +105,13 @@ namespace ScorpionEngine.Tests.Utils
             stopWatch.Update(engineTime);
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
         #endregion
 
 
         #region Prop Tests
-        [Fact]
+        [Test]
         public void ResetMode_WhenSettingValue_ValueIsSetCorrectly()
         {
             //Arrange
@@ -122,11 +123,11 @@ namespace ScorpionEngine.Tests.Utils
             var actual = stopWatch.ResetMode;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void TimeOut_WhenUsingNegativeValue_SetsValueToZero()
         {
             //Arrange
@@ -138,11 +139,11 @@ namespace ScorpionEngine.Tests.Utils
             var actual = stopWatch.TimeOut;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void TimeOut_WhenUsingPositiveValue_SetsValueToIncomingValue()
         {
             //Arrange
@@ -154,11 +155,11 @@ namespace ScorpionEngine.Tests.Utils
             var actual = stopWatch.TimeOut;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void ElapsedSeconds_WhenSettingValue_ConvertsSecondsToMilliseconds()
         {
             //Arrange
@@ -175,7 +176,7 @@ namespace ScorpionEngine.Tests.Utils
             var actual = stopWatch.ElapsedSeconds;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
         #endregion
     }

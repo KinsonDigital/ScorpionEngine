@@ -1,12 +1,13 @@
-﻿using ScorpionEngine.Physics;
+﻿using NUnit.Framework;
+using ScorpionEngine.Physics;
 using ScorpionEngine.Utils;
-using Xunit;
+
 
 namespace ScorpionEngine.Tests.Utils
 {
     public class ToolsTests
     {
-        [Fact]
+        [Test]
         public void RotateAround_WhenInvoked_ReturnsCorrectResult()
         {
             //Arrange
@@ -19,12 +20,12 @@ namespace ScorpionEngine.Tests.Utils
             var actual = Tools.RotateAround(vectorToRotate, origin, angle);
 
             //Assert
-            Assert.Equal(expected.X, actual.X);
-            Assert.Equal(expected.Y, actual.Y);
+            Assert.AreEqual(expected.X, actual.X);
+            Assert.AreEqual(expected.Y, actual.Y);
         }
 
 
-        [Fact]
+        [Test]
         public void RotateAround_WhenInvokedWithClockwiseFalse_ReturnsCorrectResult()
         {
             //Arrange
@@ -37,8 +38,8 @@ namespace ScorpionEngine.Tests.Utils
             var actual = Tools.RotateAround(vectorToRotate, origin, angle, false);
 
             //Assert
-            Assert.Equal(expected.X, actual.X);
-            Assert.Equal(expected.Y, actual.Y);
+            Assert.AreEqual(expected.X, actual.X);
+            Assert.AreEqual(expected.Y, actual.Y);
         }
     }
 }

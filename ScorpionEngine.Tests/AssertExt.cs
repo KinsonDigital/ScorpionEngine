@@ -1,5 +1,6 @@
-﻿using System;
-using Xunit;
+﻿using NUnit.Framework;
+using System;
+
 
 namespace ScorpionEngine.Tests
 {

@@ -1,11 +1,12 @@
-﻿using ScorpionEngine.Physics;
-using Xunit;
+﻿using NUnit.Framework;
+using ScorpionEngine.Physics;
+
 
 namespace ScorpionEngine.Tests
 {
     public class RectTests
     {
-        [Fact]
+        [Test]
         public void Contains_ShouldReturnCorrectValueWithXAndY()
         {
             //Arrange
@@ -16,11 +17,11 @@ namespace ScorpionEngine.Tests
             var actual = rect.Contains(5, 5);
 
             //Assert
-            Assert.Equal(actual, expected);
+            Assert.AreEqual(actual, expected);
         }
 
 
-        [Fact]
+        [Test]
         public void Contains_ShouldReturnCorrectValueWithVector()
         {
             //Arrange
@@ -32,11 +33,11 @@ namespace ScorpionEngine.Tests
             var actual = rect.Contains(vector);
 
             //Assert
-            Assert.Equal(actual, expected);
+            Assert.AreEqual(actual, expected);
         }
 
 
-        [Fact]
+        [Test]
         public void Contains_ShouldReturnCorrectValueWithRect()
         {
             //Arrange
@@ -49,11 +50,11 @@ namespace ScorpionEngine.Tests
             var actual = rectA.Contains(rectB);
 
             //Assert
-            Assert.Equal(actual, expected);
+            Assert.AreEqual(actual, expected);
         }
 
 
-        [Fact]
+        [Test]
         public void Empty_ShouldReturnEmptyRectangle()
         {
             //Act
@@ -61,10 +62,10 @@ namespace ScorpionEngine.Tests
             var actual = Rect.Empty;
 
             //Assert
-            Assert.Equal(actual.X, expected);
-            Assert.Equal(actual.Y, expected);
-            Assert.Equal(actual.Width, expected);
-            Assert.Equal(actual.Height, expected);
+            Assert.AreEqual(actual.X, expected);
+            Assert.AreEqual(actual.Y, expected);
+            Assert.AreEqual(actual.Width, expected);
+            Assert.AreEqual(actual.Height, expected);
         }
     }
 }

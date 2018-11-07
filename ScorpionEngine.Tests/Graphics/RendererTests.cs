@@ -1,14 +1,15 @@
 ﻿using Moq;
+using NUnit.Framework;
 using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Graphics;
-using Xunit;
+
 
 namespace ScorpionEngine.Tests.Graphics
 {
     public class RendererTests
     {
-        [Fact]
+        [Test]
         public void Render_WhenUsingTextureAndXAndY_InternalRenderMethodInvoked()
         {
             //Arrange
@@ -27,7 +28,7 @@ namespace ScorpionEngine.Tests.Graphics
         }
 
 
-        [Fact]
+        [Test]
         public void Render_WhenUsingTextureAndXAndYAndAngle_InternalRenderMethodInvoked()
         {
             //Arrange
@@ -46,7 +47,7 @@ namespace ScorpionEngine.Tests.Graphics
         }
 
 
-        [Fact]
+        [Test]
         public void Render_WhenUsingGameTextAndXAndY_InternalRenderMethodInvoked()
         {
             //Arrange
@@ -65,7 +66,7 @@ namespace ScorpionEngine.Tests.Graphics
         }
 
 
-        [Fact]
+        [Test]
         public void Render_WhenUsingGameTextAndXAndYAndGameColor_InternalRenderMethodInvoked()
         {
             //Arrange
@@ -87,11 +88,11 @@ namespace ScorpionEngine.Tests.Graphics
 
             //Assert
             mockInternalRenderer.Verify(m => m.Render(gameText.InternalText, It.IsAny<float>(), It.IsAny<float>()), Times.Once());
-            Assert.Equal(expectedColor, actualColor);
+            Assert.AreEqual(expectedColor, actualColor);
         }
 
 
-        [Fact]
+        [Test]
         public void Start_WhenInvoking_InvokesInternalRendererStart()
         {
             //Arrange
@@ -106,7 +107,7 @@ namespace ScorpionEngine.Tests.Graphics
         }
 
 
-        [Fact]
+        [Test]
         public void Stop_WhenInvoking_InvokesInternalRendererStart()
         {
             //Arrange
@@ -121,7 +122,7 @@ namespace ScorpionEngine.Tests.Graphics
         }
 
 
-        [Fact]
+        [Test]
         public void Clear_WhenInvoking_InvokesInternalClear()
         {
             //Arrange

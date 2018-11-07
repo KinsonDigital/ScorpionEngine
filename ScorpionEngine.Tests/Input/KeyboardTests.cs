@@ -1,17 +1,18 @@
 ﻿using Moq;
+using NUnit.Framework;
 using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Input;
 using System;
 using System.Linq;
-using Xunit;
+
 
 namespace ScorpionEngine.Tests.Input
 {
-    public class KeyboardTests  : IDisposable
+    public class KeyboardTests
     {
         #region Method Tests
-        [Fact]
+        [Test]
         public void Ctor_WhenInvoking_InvokesPluginLibraryLoadPluginMethod()
         {
             //Arrange
@@ -26,7 +27,7 @@ namespace ScorpionEngine.Tests.Input
         }
 
 
-        [Fact]
+        [Test]
         public void GetCurrentPressedKeys_WhenInvoking_ReturnsCorrectPressedKeys()
         {
             //Arrange
@@ -42,12 +43,12 @@ namespace ScorpionEngine.Tests.Input
             var actual = keyboard.GetCurrentPressedKeys();
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
             mockKeyboard.Verify(m => m.GetCurrentPressedKeys(), Times.Once());
         }
 
 
-        [Fact]
+        [Test]
         public void GetPreviousPressedKeys_WhenInvoking_ReturnsCorrectPressedKeys()
         {
             //Arrange
@@ -63,12 +64,12 @@ namespace ScorpionEngine.Tests.Input
             var actual = keyboard.GetPreviousPressedKeys();
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
             mockKeyboard.Verify(m => m.GetPreviousPressedKeys(), Times.Once());
         }
 
 
-        [Fact]
+        [Test]
         public void AreAnyKeysPressed_WhenInvoking_InternalMethodInvoked()
         {
             //Arrange
@@ -83,7 +84,7 @@ namespace ScorpionEngine.Tests.Input
         }
 
 
-        [Fact]
+        [Test]
         public void IsKeyDown_WhenInvoking_InternalMethodInvoked()
         {
             //Arrange
@@ -99,7 +100,7 @@ namespace ScorpionEngine.Tests.Input
         }
 
 
-        [Fact]
+        [Test]
         public void IsKeyUp_WhenInvoking_InternalMethodInvoked()
         {
             //Arrange
@@ -115,7 +116,7 @@ namespace ScorpionEngine.Tests.Input
         }
 
 
-        [Fact]
+        [Test]
         public void IsKeyPressed_WhenInvoking_InternalMethodInvoked()
         {
             //Arrange
@@ -131,7 +132,7 @@ namespace ScorpionEngine.Tests.Input
         }
 
 
-        [Fact]
+        [Test]
         public void UpdateCurrentState_WhenInvoking_InternalMethodInvoked()
         {
             //Arrange
@@ -146,7 +147,7 @@ namespace ScorpionEngine.Tests.Input
         }
 
 
-        [Fact]
+        [Test]
         public void UpdatePreviousState_WhenInvoking_InternalMethodInvoked()
         {
             //Arrange
@@ -161,7 +162,8 @@ namespace ScorpionEngine.Tests.Input
         }
 
 
-        public void Dispose()
+        [TearDown]
+        public void TearDown()
         {
             PluginSystem.ClearPlugins();
         }

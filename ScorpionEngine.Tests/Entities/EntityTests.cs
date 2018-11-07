@@ -1,4 +1,5 @@
 ﻿using Moq;
+using NUnit.Framework;
 using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Behaviors;
@@ -12,14 +13,15 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xunit;
+
 
 namespace ScorpionEngine.Tests.Entities
 {
-    public class EntityTests : IDisposable
+    [TestFixture]
+    public class EntityTests
     {
         #region Constructor Tests
-        [Fact]
+        [Test]
         public void Ctor_WhenInvokingWithTexture_ProperlySetsUpObject()
         {
             //Arrange
@@ -51,7 +53,7 @@ namespace ScorpionEngine.Tests.Entities
         }
 
 
-        [Fact]
+        [Test]
         public void Ctor_WhenInvokingWithVertices_ProperlySetsUpObject()
         {
             //Arrange
@@ -84,11 +86,11 @@ namespace ScorpionEngine.Tests.Entities
             var actualPosition = fakeEntity.Position;
 
             //Assert
-            Assert.Equal(expectedPosition, actualPosition);
+            Assert.AreEqual(expectedPosition, actualPosition);
         }
 
 
-        [Fact]
+        [Test]
         public void Ctor_WhenInvokingWithTextureAndVertices_ProperlySetsUpObject()
         {
             //Arrange
@@ -130,13 +132,13 @@ namespace ScorpionEngine.Tests.Entities
 
             //Assert
             Assert.NotNull(actualTexture);
-            Assert.Equal(expectedPosition, actualPosition);
+            Assert.AreEqual(expectedPosition, actualPosition);
         }
         #endregion
 
 
         #region Prop Tests
-        [Fact]
+        [Test]
         public void Behaviors_WhenCreatingEntity_PropertyInstantiated()
         {
             //Arrange
@@ -153,7 +155,7 @@ namespace ScorpionEngine.Tests.Entities
         }
 
 
-        [Fact]
+        [Test]
         public void Visible_WhenGettingAndSettingValue_ValueProperlySet()
         {
             //Arrange
@@ -171,11 +173,11 @@ namespace ScorpionEngine.Tests.Entities
             var actual = fakeEntity.Visible;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Visible_WhenSettingValue_InvokesOnHideEvent()
         {
             //Arrange
@@ -195,7 +197,7 @@ namespace ScorpionEngine.Tests.Entities
         }
 
 
-        [Fact]
+        [Test]
         public void Visible_WhenSettingValue_InvokesOnShowEvent()
         {
             //Arrange
@@ -218,7 +220,7 @@ namespace ScorpionEngine.Tests.Entities
         }
 
 
-        [Fact]
+        [Test]
         public void Visible_WhenSettingValueToTrueWhileFales_InvokesOnShowEvent()
         {
             //Arrange
@@ -242,7 +244,7 @@ namespace ScorpionEngine.Tests.Entities
 
 
 
-        [Fact]
+        [Test]
         public void Bounds_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -257,11 +259,11 @@ namespace ScorpionEngine.Tests.Entities
             var actual = fakeEntity.Bounds;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void BoundsWidth_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -276,11 +278,11 @@ namespace ScorpionEngine.Tests.Entities
             var actual = fakeEntity.BoundsWidth;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void BoundsWidth_WhenGettingValueWithNullBody_ReturnsZero()
         {
             //Arrange
@@ -306,11 +308,11 @@ namespace ScorpionEngine.Tests.Entities
             var actual = fakeEntity.BoundsWidth;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void BoundsHeight_WhenGettingValueWithNullBody_ReturnsZero()
         {
             //Arrange
@@ -336,11 +338,11 @@ namespace ScorpionEngine.Tests.Entities
             var actual = fakeEntity.BoundsHeight;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void BoundsHeight_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -355,11 +357,11 @@ namespace ScorpionEngine.Tests.Entities
             var actual = fakeEntity.BoundsHeight;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void BoundsHalfWidth_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -374,11 +376,11 @@ namespace ScorpionEngine.Tests.Entities
             var actual = fakeEntity.BoundsHalfWidth;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void BoundsHalfHeight_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -393,11 +395,11 @@ namespace ScorpionEngine.Tests.Entities
             var actual = fakeEntity.BoundsHalfHeight;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Texture_WhenSettingAndeGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -417,7 +419,7 @@ namespace ScorpionEngine.Tests.Entities
         }
 
 
-        [Fact]
+        [Test]
         public void DebugDrawEnabled_WhenSettingToTrue_ReturnsTrue()
         {
             //Arrange
@@ -451,11 +453,11 @@ namespace ScorpionEngine.Tests.Entities
             var actual = fakeEntity.DebugDrawEnabled;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void DebugDrawEnabled_WhenSettingToFalse_ReturnsFalse()
         {
             //Arrange
@@ -489,11 +491,11 @@ namespace ScorpionEngine.Tests.Entities
             var actual = fakeEntity.DebugDrawEnabled;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Behaviors_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -520,11 +522,11 @@ namespace ScorpionEngine.Tests.Entities
             var actual = fakeEntity.Behaviors;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Position_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -547,13 +549,13 @@ namespace ScorpionEngine.Tests.Entities
             var actual = fakeEntity.Position;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
         #endregion
 
 
         #region Method Tests
-        [Fact]
+        [Test]
         public void OnUpdate_WhenInvoked_UpdatesBehaviors()
         {
             //Arrange
@@ -581,7 +583,7 @@ namespace ScorpionEngine.Tests.Entities
         }
 
 
-        [Fact]
+        [Test]
         public void Render_WhenInvokedWhileVisible_InvokesRenderer()
         {
             //Arrange
@@ -601,7 +603,7 @@ namespace ScorpionEngine.Tests.Entities
         }
 
 
-        [Fact]
+        [Test]
         public void Render_WhenInvokedWhileNotVisible_DoesNotInvokesRenderer()
         {
             //Arrange
@@ -624,7 +626,7 @@ namespace ScorpionEngine.Tests.Entities
         }
 
 
-        [Fact]
+        [Test]
         public void Render_WhenInvokedWhileWithNullTexture_DoesNotInvokesRenderer()
         {
             //Arrange
@@ -646,7 +648,7 @@ namespace ScorpionEngine.Tests.Entities
         }
 
 
-        [Fact]
+        [Test]
         public void Render_WhenInvoked_InvokesDebugDraw()
         {
             //Arrange
@@ -681,7 +683,7 @@ namespace ScorpionEngine.Tests.Entities
         }
 
 
-        [Fact]
+        [Test]
         public void Render_WhenInvokedWithDebugDrawDisabled_DoesNotInvokesDebugDraw()
         {
             //Arrange
@@ -709,12 +711,11 @@ namespace ScorpionEngine.Tests.Entities
         #endregion
 
 
-        #region Public Methods
-        public void Dispose()
+        [TearDown]
+        public void TearDown()
         {
             PluginSystem.ClearPlugins();
         }
-        #endregion
 
 
         #region Private Methods

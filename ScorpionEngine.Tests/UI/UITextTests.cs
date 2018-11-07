@@ -1,18 +1,19 @@
 ﻿using Moq;
+using NUnit.Framework;
 using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Graphics;
 using ScorpionEngine.Physics;
 using ScorpionEngine.UI;
 using System;
-using Xunit;
+
 
 namespace ScorpionEngine.Tests.UI
 {
     public class UITextTests
     {
         #region Prop Tests
-        [Fact]
+        [Test]
         public void LabelText_WhenGettingTextValue_ValueIsCorrect()
         {
             //Arrange
@@ -30,11 +31,11 @@ namespace ScorpionEngine.Tests.UI
             var actual = uiText.LabelText.Text;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void ValueText_WhenGettingTextValue_ValueIsCorrect()
         {
             //Arrange
@@ -52,11 +53,11 @@ namespace ScorpionEngine.Tests.UI
             var actual = uiText.ValueText.Text;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Width_WhenGettingValue_ValueIsCorrect()
         {
             //Arrange
@@ -81,11 +82,11 @@ namespace ScorpionEngine.Tests.UI
             var actual = uiText.Width;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Height_WhenGettingValueWhileValueTextIsTallest_ValueIsCorrect()
         {
             //Arrange
@@ -109,11 +110,11 @@ namespace ScorpionEngine.Tests.UI
             var actual = uiText.Height;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Height_WhenGettingValueWhileLabelTextIsTallest_ValueIsCorrect()
         {
             //Arrange
@@ -137,11 +138,11 @@ namespace ScorpionEngine.Tests.UI
             var actual = uiText.Height;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Right_WhenGettingValue_ValueIsCorrect()
         {
             //Arrange
@@ -166,11 +167,11 @@ namespace ScorpionEngine.Tests.UI
             var actual = uiText.Right;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Bottom_WhenGettingValue_ValueIsCorrect()
         {
             //Arrange
@@ -194,11 +195,11 @@ namespace ScorpionEngine.Tests.UI
             var actual = uiText.Bottom;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void TextItemSize_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -226,11 +227,11 @@ namespace ScorpionEngine.Tests.UI
             var actual = uiText.TextItemSize;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void DisabledForecolor_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -242,11 +243,11 @@ namespace ScorpionEngine.Tests.UI
             var actual = uiText.DisabledForecolor;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Enabled_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -258,11 +259,11 @@ namespace ScorpionEngine.Tests.UI
             var actual = uiText.Enabled;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void SelectedColor_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -274,11 +275,11 @@ namespace ScorpionEngine.Tests.UI
             var actual = uiText.SelectedColor;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void LabelColor_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -290,11 +291,11 @@ namespace ScorpionEngine.Tests.UI
             var actual = uiText.LabelColor;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void ValueColor_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -306,11 +307,11 @@ namespace ScorpionEngine.Tests.UI
             var actual = uiText.ValueColor;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Name_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -322,11 +323,11 @@ namespace ScorpionEngine.Tests.UI
             var actual = uiText.Name;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Selected_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -338,13 +339,13 @@ namespace ScorpionEngine.Tests.UI
             var actual = uiText.Selected;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
         #endregion
 
 
         #region Method Tests
-        [Fact]
+        [Test]
         public void Ctor_WhenUsingPositionParam_SetsPositionProp()
         {
             //Arrange
@@ -355,11 +356,11 @@ namespace ScorpionEngine.Tests.UI
             var actual = uiText.Position;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Ctor_WhenUsingXAndYParams_SetsPositionProp()
         {
             //Arrange
@@ -372,12 +373,12 @@ namespace ScorpionEngine.Tests.UI
             var actualY = uiText.Position.Y;
 
             //Assert
-            Assert.Equal(expectedX, actualX);
-            Assert.Equal(expectedY, actualY);
+            Assert.AreEqual(expectedX, actualX);
+            Assert.AreEqual(expectedY, actualY);
         }
 
 
-        [Fact]
+        [Test]
         public void SetLabelText_WhenSettingValueWhileNotIgnoringUpdateFreq_UpdateTextIfUpdateFreqPassed()
         {
             //Arrange
@@ -400,11 +401,11 @@ namespace ScorpionEngine.Tests.UI
             var actual = uiText.LabelText.Text;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void SetLabelText_WhenSettingValueWhileIgnoringUpdateFreq_UpdateTextIfTimeElapsed()
         {
             //Arrange
@@ -427,11 +428,11 @@ namespace ScorpionEngine.Tests.UI
             var actual = uiText.LabelText.Text;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void SetValueText_WhenSettingValueWhileNotIgnoringUpdateFreq_UpdateTextIfUpdateFreqPassed()
         {
             //Arrange
@@ -454,11 +455,11 @@ namespace ScorpionEngine.Tests.UI
             var actual = uiText.ValueText.Text;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Update_WhenInvoking_UpdatesValueText()
         {
             //Arrange
@@ -483,11 +484,11 @@ namespace ScorpionEngine.Tests.UI
             var actual = uiText.ValueText.Text;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Render_WhenInvoking_InternalRenderGetsProperParamValues()
         {
             //Arrange

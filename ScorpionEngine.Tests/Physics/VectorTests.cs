@@ -1,17 +1,18 @@
-﻿using ScorpionEngine.Physics;
+﻿using NUnit.Framework;
+using ScorpionEngine.Physics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xunit;
+
 
 namespace ScorpionEngine.Tests.Physics
 {
     public class VectorTests
     {
         #region Prop Tests
-        [Fact]
+        [Test]
         public void IsZero_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -21,13 +22,13 @@ namespace ScorpionEngine.Tests.Physics
             var actual = Vector.Zero;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
         #endregion
 
 
         #region Method Tests
-        [Fact]
+        [Test]
         public void IsZero_WhenInvokingWithXAndYZero_ReturnsCorrectValue()
         {
             //Arrange
@@ -38,11 +39,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = vector.IsZero();
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void IsZero_WhenInvokingWithXNotZeroAndYZero_ReturnsCorrectValue()
         {
             //Arrange
@@ -53,11 +54,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = vector.IsZero();
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Cross_UsingSingleVectorParam_ReturnsCorrectValue()
         {
             //Arrange
@@ -69,11 +70,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = vector.Cross(new Vector(3, 5));
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Cross_UsingStaticMethod_ReturnsCorrectValue()
         {
             //Arrange
@@ -86,11 +87,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = Vector.Cross(vectorA, vectorB);
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void GetLength_WhenInvoking_ReturnsCorrectValue()
         {
             //Arrange
@@ -102,11 +103,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = Vector.GetLength(vector);
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Equals_WhenInvoking_ReturnsAsEqual()
         {
             //Arrange
@@ -119,11 +120,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = vectorA == vectorB;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void GetHashCode_WhenInvoking_ReturnsCorrectValue()
         {
             //Arrange
@@ -134,11 +135,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = vector.GetHashCode();
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void ToString_WhenInvoking_ReturnsCorrectValue()
         {
             //Arrange
@@ -149,11 +150,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = vector.ToString();
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void ToString_WhenInvokingWithRoundParam_ReturnsCorrectValue()
         {
             //Arrange
@@ -164,11 +165,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = vector.ToString(2);
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Normalize_WhenInvoking_ReturnsCorrectValue()
         {
             //Arrange
@@ -179,11 +180,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = Vector.Normalize(vector);
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Negate_WhenInvoking_ReturnsCorrectValue()
         {
             //Arrange
@@ -194,13 +195,13 @@ namespace ScorpionEngine.Tests.Physics
             var actual = Vector.Negate(vector);
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
         #endregion
 
 
         #region Overloaded Operator Tests
-        [Fact]
+        [Test]
         public void SubtractOperator_WhenSubtracting2Vectors_ReturnsCorrectValue()
         {
             //Arrange
@@ -213,11 +214,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = vectorA - vectorB;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void SubtractOperator_WhenSubtractingVectorAndScalar_ReturnsCorrectValue()
         {
             //Arrange
@@ -230,11 +231,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = vector - scalar;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void AdditionOperator_WhenAdding2Vectors_ReturnsCorrectValue()
         {
             //Arrange
@@ -247,11 +248,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = vectorA + vectorB;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void AdditionOperator_WhenAddingVectorAndScalar_ReturnsCorrectValue()
         {
             //Arrange
@@ -264,11 +265,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = vector + scalar;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void MultiplicationOperator_WhenMultiplying2Vectors_ReturnsCorrectValue()
         {
             //Arrange
@@ -281,11 +282,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = vectorA * vectorB;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void MultiplicationOperator_WhenMultiplyingVectorAndScalar_ReturnsCorrectValue()
         {
             //Arrange
@@ -298,11 +299,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = vector * scalar;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void MultiplicationOperator_WhenMultiplyingScalarAndVector_ReturnsCorrectValue()
         {
             //Arrange
@@ -315,11 +316,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = scalar * vector;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void DivisionOperator_WhenDividingVectorAndScalar_ReturnsCorrectValue()
         {
             //Arrange
@@ -332,11 +333,11 @@ namespace ScorpionEngine.Tests.Physics
             var actual = vectorA / scalar;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void NotEqualOperator_WhenComparing2UnequalVectors_ReturnsAsNotEqual()
         {
             //Arrange
@@ -349,7 +350,7 @@ namespace ScorpionEngine.Tests.Physics
             var actual = vectorA != vectorB;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
         #endregion
     }

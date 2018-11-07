@@ -1,14 +1,15 @@
 ﻿using Moq;
+using NUnit.Framework;
 using ScorpionCore;
 using ScorpionEngine.Graphics;
 using ScorpionEngine.Tests.Fakes;
-using Xunit;
+
 
 namespace ScorpionEngine.Tests.Graphics
 {
     public class TextureTests
     {
-        [Fact]
+        [Test]
         public void GetTexture_WhenInvoking_ReturnsTexture()
         {
             //Arrange
@@ -24,11 +25,11 @@ namespace ScorpionEngine.Tests.Graphics
             var actual = texture.GetTexture<FakeTexture>();
 
             //Assert
-            Assert.Equal(expected.FakeData, actual.FakeData);
+            Assert.AreEqual(expected.FakeData, actual.FakeData);
         }
 
 
-        [Fact]
+        [Test]
         public void Width_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -44,11 +45,11 @@ namespace ScorpionEngine.Tests.Graphics
             var actual = texture.Width;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Width_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -65,11 +66,11 @@ namespace ScorpionEngine.Tests.Graphics
             var actual = texture.Width;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Height_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -85,11 +86,11 @@ namespace ScorpionEngine.Tests.Graphics
             var actual = texture.Height;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
-        [Fact]
+        [Test]
         public void Height_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -106,7 +107,7 @@ namespace ScorpionEngine.Tests.Graphics
             var actual = texture.Height;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
     }
 }
