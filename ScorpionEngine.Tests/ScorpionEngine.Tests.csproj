@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\DynamicEntityTests.cs" />
     <Compile Include="Entities\EntityTests.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\IdAlreadyExistsExceptionTests.cs" />

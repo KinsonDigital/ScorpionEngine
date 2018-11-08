@@ -570,7 +570,7 @@ namespace ScorpionEngine.Tests.Entities
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
 
             //Act
-            fakeEntity.OnUpdate(engineTime);
+            fakeEntity.Update(engineTime);
 
             //Assert
             mockBehavior.Verify(m => m.Update(It.IsAny<EngineTime>()), Times.Once());

@@ -95,7 +95,7 @@ namespace ScorpionEngine.Scene
             //Update all of the entities
             foreach (var entity in Entities)
             {
-                entity.OnUpdate(engineTime);
+                entity.Update(engineTime);
             }
         }
 

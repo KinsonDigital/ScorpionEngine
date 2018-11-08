@@ -173,122 +173,6 @@ namespace ScorpionEngine.Entities
 
 
         /// <summary>
-        /// Applies the given auto rotate setting to entities that are of the given description.
-        /// </summary>
-        /// <param name="thatAre">The description of the entity that the speed is to be applied to.</param>
-        /// <param name="autoRotate">The auto rotate setting to apply.</param>
-        public void ApplyAutoRotateTo(EntitiesThatAre thatAre, bool autoRotate)
-        {
-            for (var i = 0; i < _objects.Count; i++)
-            {
-                switch (thatAre)
-                {
-                    case EntitiesThatAre.Visible:
-                        if (_objects[i].Visible)
-                            _objects[i].AutoRotate = autoRotate;
-                        break;
-                    case EntitiesThatAre.Hidden:
-                        if (_objects[i].Visible)
-                            _objects[i].AutoRotate = autoRotate;
-                        break;
-                    case EntitiesThatAre.Anything:
-                        _objects[i].AutoRotate = autoRotate;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(thatAre), thatAre, null);
-                }
-            }
-        }
-
-
-        /// <summary>
-        /// Applies the given auto rotate direction to entities that are of the given description.
-        /// </summary>
-        /// <param name="thatAre">The description of the entity that the speed is to be applied to.</param>
-        /// <param name="rotateDirection">The direction to rotate.</param>
-        public void ApplyAutoRotateDirectionTo(EntitiesThatAre thatAre, RotationDirection rotateDirection)
-        {
-            for (var i = 0; i < _objects.Count; i++)
-            {
-                switch (thatAre)
-                {
-                    case EntitiesThatAre.Visible:
-                        if (!_objects[i].Visible)
-                            _objects[i].AutoRotateDirection = rotateDirection;
-                        break;
-                    case EntitiesThatAre.Hidden:
-                        if (_objects[i].Visible)
-                            _objects[i].AutoRotateDirection = rotateDirection;
-                        break;
-                    case EntitiesThatAre.Anything:
-                        _objects[i].AutoRotateDirection = rotateDirection;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(thatAre), thatAre, null);
-                }
-            }
-        }
-
-
-        /// <summary>
-        /// Sets the given auto move setting to entities that fit the given description.
-        /// </summary>
-        /// <param name="thatAre">The description of the entities that the setting applies to.</param>
-        /// <param name="autoMove">The setting to apply.</param>
-        public void ApplyAutoMoveTo(EntitiesThatAre thatAre, bool autoMove)
-        {
-            for (var i = 0; i < _objects.Count; i++)
-            {
-                switch (thatAre)
-                {
-                    case EntitiesThatAre.Visible:
-                        if (!_objects[i].Visible)
-                            _objects[i].AutoMove = autoMove;
-                        break;
-                    case EntitiesThatAre.Hidden:
-                        if (_objects[i].Visible)
-                            _objects[i].AutoMove = autoMove;
-                        break;
-                    case EntitiesThatAre.Anything:
-                        _objects[i].AutoMove = autoMove;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(thatAre), thatAre, null);
-                }
-            }
-        }
-
-
-        /// <summary>
-        /// Sets the given auto move direction to entities that fit the given description.
-        /// </summary>
-        /// <param name="thatAre">The description of the entities that the setting applies to.</param>
-        /// <param name="autoMove">The setting to apply.</param>
-        public void ApplyAutoMoveDirectionTo(EntitiesThatAre thatAre, Direction autoDirection)
-        {
-            for (var i = 0; i < _objects.Count; i++)
-            {
-                switch (thatAre)
-                {
-                    case EntitiesThatAre.Visible:
-                        if (!_objects[i].Visible)
-                            _objects[i].AutoDirection = autoDirection;
-                        break;
-                    case EntitiesThatAre.Hidden:
-                        if (_objects[i].Visible)
-                            _objects[i].AutoDirection = autoDirection;
-                        break;
-                    case EntitiesThatAre.Anything:
-                        _objects[i].AutoDirection = autoDirection;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(thatAre), thatAre, null);
-                }
-            }
-        }
-
-
-        /// <summary>
         /// Sets the given angle speed to entities that fit the given description.
         /// </summary>
         /// <param name="thatAre">The description of the entities that the setting applies to.</param>
@@ -304,7 +188,7 @@ namespace ScorpionEngine.Entities
         /// <summary>
         /// Updates the entity pool.
         /// </summary>
-        public virtual void OnUpdate(IEngineTiming engineTime)
+        public virtual void Update(IEngineTiming engineTime)
         {
             //Update each entity
             for (var i = 0; i < _objects.Count; i++)

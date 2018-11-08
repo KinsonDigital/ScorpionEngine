@@ -89,11 +89,11 @@ namespace ScorpionEngine.Entities
         /// Updates the game object.
         /// </summary>
         /// <param name="engineTime">The time elapsed since last frame.</param>
-        public override void OnUpdate(EngineTime engineTime)
+        public override void Update(EngineTime engineTime)
         {
             _engineTime = engineTime;
 
-            base.OnUpdate(engineTime);
+            base.Update(engineTime);
         }
         #endregion
 

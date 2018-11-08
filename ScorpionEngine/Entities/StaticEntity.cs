@@ -11,9 +11,9 @@ namespace ScorpionEngine.Entities
         }
 
 
-        public override void OnUpdate(EngineTime engineTime)
+        public override void Update(EngineTime engineTime)
         {
-            base.OnUpdate(engineTime);
+            base.Update(engineTime);
         }
     }
 }

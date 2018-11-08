@@ -39,7 +39,7 @@ namespace ScorpTestGame
             {
                 DebugDrawEnabled = true,
                 MaxLinearSpeed = 0.5f,
-                MaxAngularSpeed = 0.25f,
+                MaxRotationSpeed = 0.25f,
                 AngularDeceleration = 0.25f
             };
 

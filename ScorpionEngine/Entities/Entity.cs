@@ -211,7 +211,7 @@ namespace ScorpionEngine.Entities
         /// <summary>
         /// Updates the game object.
         /// </summary>
-        public virtual void OnUpdate(EngineTime engineTime)
+        public virtual void Update(EngineTime engineTime)
         {
             _engineTime = engineTime;
 

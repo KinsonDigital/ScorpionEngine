@@ -29,9 +29,9 @@ namespace ScorpionEngine.Tests.Fakes
             return base.GetHashCode();
         }
 
-        public override void OnUpdate(EngineTime engineTime)
+        public override void Update(EngineTime engineTime)
         {
-            base.OnUpdate(engineTime);
+            base.Update(engineTime);
         }
 
         public override string ToString()

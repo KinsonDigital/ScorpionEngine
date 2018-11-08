@@ -40,12 +40,13 @@ namespace ScorpionEngine.Tests.Fakes
 
         public void ApplyAngularImpulse(float value)
         {
-            throw new NotImplementedException();
+            AngularVelocity += value;
         }
 
         public void ApplyLinearImpulse(float x, float y)
         {
-            throw new NotImplementedException();
+            LinearVelocityX += x;
+            LinearVelocityY += y;
         }
 
         public void DataSender(Func<dynamic> dataSender)
