@@ -124,7 +124,7 @@
     <Compile Include="Entities\DynamicEntity.cs" />
     <Compile Include="Entities\ObjectAnimation.cs" />
     <Compile Include="Entities\ObjectPool.cs" />
-    <Compile Include="Entities\TextObject.cs" />
+    <Compile Include="Entities\TextEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rect.cs" />
     <Compile Include="Utils\Enums.cs" />
