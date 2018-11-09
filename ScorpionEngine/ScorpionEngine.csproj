@@ -71,8 +71,6 @@
     <Compile Include="Content\ContentLoader_OLD.cs" />
     <Compile Include="Content\Enums.cs" />
     <Compile Include="Content\ExtensionMethods.cs" />
-    <Compile Include="Factories\BodyFactory.cs" />
-    <Compile Include="Factories\EntityFactory.cs" />
     <Compile Include="Graphics\GameColor.cs" />
     <Compile Include="Input\IInputWatcher.cs" />
     <Compile Include="PluginSystem.cs" />
