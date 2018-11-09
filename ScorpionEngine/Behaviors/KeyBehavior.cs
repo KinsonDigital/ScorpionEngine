@@ -1,10 +1,9 @@
 ﻿using System;
 using ScorpionCore;
 using ScorpionCore.Plugins;
-using ScorpionEngine.Behaviors;
 using ScorpionEngine.Input;
 
-namespace ScorpionEngine
+namespace ScorpionEngine.Behaviors
 {
     /// <summary>
     /// Represents behavior of a key that can be pressed on the keyboard.
