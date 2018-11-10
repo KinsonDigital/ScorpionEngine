@@ -6,7 +6,7 @@ namespace ScorpionEngine.Entities
     /// <summary>
     /// Text that can be drawn to the screen.
     /// </summary>
-    public class TextObject : DynamicEntity
+    public class TextEntity : DynamicEntity
     {
         #region Fields
         private SysColor _foreColor = SysColor.Black;
@@ -23,7 +23,7 @@ namespace ScorpionEngine.Entities
         /// <param name="font">The font of the text.</param>
         /// <param name="foreColor">The color of the text.</param>
         /// <param name="backColor">The color of the background behind the text.</param>
-        public TextObject(string text, SysColor foreColor, SysColor backColor, Vector position) : base(vertices: null, position: position)
+        public TextEntity(string text, SysColor foreColor, SysColor backColor, Vector position) : base(vertices: null, position: position)
         {
             _text = text;
             _foreColor = foreColor;
