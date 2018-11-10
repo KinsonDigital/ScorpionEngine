@@ -42,12 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\BehaviorTests.cs" />
     <Compile Include="Entities\DynamicEntityTests.cs" />
     <Compile Include="Entities\EntityTests.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\IdAlreadyExistsExceptionTests.cs" />
     <Compile Include="Exceptions\IdNotFoundExceptionTests.cs" />
     <Compile Include="Exceptions\NameNotFoundException.cs" />
+    <Compile Include="Fakes\FakeBehavior.cs" />
     <Compile Include="Fakes\FakeEntity.cs" />
     <Compile Include="Fakes\FakePhysicsBody.cs" />
     <Compile Include="Helpers.cs" />
