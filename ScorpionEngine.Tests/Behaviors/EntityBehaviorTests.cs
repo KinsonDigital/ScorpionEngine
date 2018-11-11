@@ -30,6 +30,59 @@ namespace ScorpionEngine.Tests.Behaviors
             //Assert
             Assert.AreEqual(expected, actual);
         }
+
+
+        [Test]
+        public void IsReadOnly_WhenGettingValue_ReturnsFalse()
+        {
+            //Arrange
+            var behaviors = new EntityBehaviors();
+            var expected = false;
+
+            //Act
+            var actual = behaviors.IsReadOnly;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void SetIndexItem_WhenGettingValue_ReturnsFalse()
+        {
+            //Arrange
+            var behaviors = new EntityBehaviors();
+            var behavior = new FakeBehavior(setupAction: false);
+            var expectedCount = 1;
+            var expectedContains = true;
+
+            //Act
+            behaviors.Add(new FakeBehavior(setupAction: true));
+            behaviors[0] = behavior;
+            var actualCount = behaviors.Count;
+            var actualContains = behaviors.Contains(behavior);
+
+            //Assert
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual(expectedContains, actualContains);
+        }
+
+
+        [Test]
+        public void GetItemByIndex_WhenGettingValue_ReturnsCorrectItem()
+        {
+            //Arrange
+            var behaviors = new EntityBehaviors();
+            var behavior = new FakeBehavior(setupAction: false);
+
+            //Act
+            behaviors.Add(new FakeBehavior(setupAction: true));
+            behaviors.Add(behavior);
+            var actual = behaviors[1];
+
+            //Assert
+            Assert.AreEqual(behavior, actual);
+        }
         #endregion
 
 

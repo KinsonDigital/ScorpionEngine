@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ScorpionEngine.Behaviors
 {
@@ -75,7 +76,7 @@ namespace ScorpionEngine.Behaviors
             _items.RemoveAt(index);
         }
 
-
+        [ExcludeFromCodeCoverage]
         IEnumerator<IBehavior> IEnumerable<IBehavior>.GetEnumerator()
         {
             return _items.GetEnumerator();
