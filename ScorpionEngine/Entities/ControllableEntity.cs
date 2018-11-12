@@ -130,16 +130,16 @@ namespace ScorpionEngine.Entities
             //Behaviors.Add(_movementBehavior);
 
             //TODO: Look into removing this and adding this to the movement behavior instead
-            _stopMovementOnKeyRelease = new KeyBehavior(true)
-            {
-                BehaviorType = KeyBehaviorType.OnAnyKeyRelease
-            };
+            //_stopMovementOnKeyRelease = new KeyBehavior(true)
+            //{
+            //    BehaviorType = KeyBehaviorType.OnAnyKeyRelease
+            //};
 
             //TODO: Look into removing this and adding this to the movement behavior instead
-            _stopRotationOnKeyRelease = new KeyBehavior(true)
-            {
-                BehaviorType = KeyBehaviorType.OnAnyKeyRelease
-            };
+            //_stopRotationOnKeyRelease = new KeyBehavior(true)
+            //{
+            //    BehaviorType = KeyBehaviorType.OnAnyKeyRelease
+            //};
 
 
             //Register the any key release key behavior. This will be used for the 

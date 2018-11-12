@@ -20,11 +20,13 @@ namespace ScorpionEngine.Behaviors
         /// Invoked when a key has been released.
         /// </summary>
         public event EventHandler<KeyEventArgs> KeyUpEvent;
+
+        public event EventHandler<KeyEventArgs> KeyPressEvent;
         #endregion
 
 
         #region Fields
-        private int _timeElapsed = 1000;//The engineTime elapsed since last frame
+        private int _timeElapsed;//The engineTime elapsed since last frame
         private Keyboard _keyboard;
         #endregion
 
@@ -76,12 +78,12 @@ namespace ScorpionEngine.Behaviors
         /// OnceOnKeyPress will fire the key only one engineTime when the key is pressed down.
         /// OnceOnKeyRelease will fire the key only one engineTime when the key is released.
         /// </summary>
-        public KeyBehaviorType BehaviorType { get; set; } = KeyBehaviorType.OnceOnPress;
+        public KeyBehaviorType BehaviorType { get; set; } = KeyBehaviorType.OnceOnDown;
 
         /// <summary>
         /// Gets or sets the engineTime delay for a KeyDownEvent or KeyRelease event to be fired.
         /// </summary>
-        public int TimeDelay { get; set; }
+        public int TimeDelay { get; set; } = 1000;
 
         /// <summary>
         /// Gets or sets a value indicating if the KeyDownEvent should always be invoked.
@@ -96,9 +98,9 @@ namespace ScorpionEngine.Behaviors
         public bool AlwaysInvokeKeyUpEvent { get; }
 
         /// <summary>
-        /// Returns a value indicating if the key has been released.
+        /// Returns a value indicating if the key is currently in the down position.
         /// </summary>
-        public bool IsPressed => _keyboard.IsKeyDown(Key);
+        public bool IsDown => _keyboard.IsKeyDown(Key);
 
         public string Name { get; set; } = nameof(KeyBehavior);
         #endregion
@@ -113,6 +115,10 @@ namespace ScorpionEngine.Behaviors
         {
             if (!Enabled) return;
 
+            _timeElapsed += engineTime.ElapsedEngineTime.Milliseconds;
+
+            _keyboard.UpdateCurrentState();
+
             #region button Behavior Code
             //Invoke the KeyDown or KeyUp events depending on the setup behavior
             switch (BehaviorType)
@@ -122,7 +128,7 @@ namespace ScorpionEngine.Behaviors
                     if (_keyboard.IsKeyDown(Key))
                         KeyDownEvent?.Invoke(this, new KeyEventArgs(new[] { Key }));
                     break;
-                case KeyBehaviorType.OnceOnPress://Fire the KeyDownEvent only once after it is pressed
+                case KeyBehaviorType.OnceOnDown://Fire the KeyDownEvent only once after it is pressed
                     //Prevent the KeyDownEvent from being triggered twice if the AlwaysInvokeKeyDownEvent is enabled
                     if (! AlwaysInvokeKeyDownEvent)
                     {
@@ -134,30 +140,27 @@ namespace ScorpionEngine.Behaviors
                     //Prevent the KeyUpEvent from being triggered twice if the AlwaysInvokeKeyUpEvent is enabled
                     if (! AlwaysInvokeKeyUpEvent)
                     {
-                        if (!_keyboard.IsKeyDown(Key) && _keyboard.IsKeyDown(Key))
+                        if (_keyboard.IsKeyUp(Key))
                             KeyUpEvent?.Invoke(this, new KeyEventArgs(new[] { Key }));
                     }
                     break;
-                case KeyBehaviorType.OnKeyPressedTimeDelay:
-                    //If the engineTime has passed the set delay engineTime, fire the KeyPressedEvent
+                case KeyBehaviorType.OnKeyDownTimeDelay:
+                    //If the engineTime has passed the set delay engineTime, fire the KeyDownEvent
                     if (_timeElapsed >= TimeDelay)
                     {
-                        if (_keyboard.IsKeyUp(Key) && !_keyboard.IsKeyUp(Key))
-                            KeyUpEvent?.Invoke(this, new KeyEventArgs(new[] { Key }));
+                        if (_keyboard.IsKeyDown(Key))
+                            KeyDownEvent?.Invoke(this, new KeyEventArgs(new[] { Key }));
 
                         //Reset the engineTime elapsed
                         _timeElapsed = 0;
                     }
                     break;
                 case KeyBehaviorType.OnKeyReleaseTimeDelay:
-                    //Update the engineTime passed
-                    _timeElapsed += engineTime.ElapsedEngineTime.Milliseconds;
-
                     //If the engineTime has passed the set delay engineTime, fire the KeyPressedEvent
                     if (_timeElapsed >= TimeDelay)
                     {
-                        if (_keyboard.IsKeyDown(Key) && !_keyboard.IsKeyDown(Key))
-                            KeyDownEvent?.Invoke(this, new KeyEventArgs(new[] { Key }));
+                        if (_keyboard.IsKeyUp(Key))
+                            KeyUpEvent?.Invoke(this, new KeyEventArgs(new[] { Key }));
 
                         //Reset the engineTime elapsed
                         _timeElapsed = 0;
@@ -166,17 +169,14 @@ namespace ScorpionEngine.Behaviors
                 case KeyBehaviorType.OnAnyKeyPress:
                     //If any keys at all have been released
                     if (_keyboard.GetCurrentPressedKeys().Length > 0)
-                        KeyDownEvent?.Invoke(this, new KeyEventArgs(_keyboard.GetCurrentPressedKeys()));
-                    break;
-                case KeyBehaviorType.OnAnyKeyRelease:
-                    //If there is no keys currently pressed and previous keys were pressed
-                    if(_keyboard.GetCurrentPressedKeys().Length == 0 && _keyboard.GetPreviousPressedKeys().Length > 0)
-                        KeyUpEvent?.Invoke(this, new KeyEventArgs(_keyboard.GetPreviousPressedKeys()));
+                        KeyPressEvent?.Invoke(this, new KeyEventArgs(_keyboard.GetCurrentPressedKeys()));
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new Exception($"Invalid '{nameof(KeyBehaviorType)}' of value '{(int)BehaviorType}'");
             }
             #endregion
+
+            _keyboard.UpdatePreviousState();
         }
         #endregion
     }
