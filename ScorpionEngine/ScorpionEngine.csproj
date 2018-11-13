@@ -78,7 +78,6 @@
     <Compile Include="EngineTime.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Events\FrameStackFinishedEventArgs.cs" />
-    <Compile Include="Events\OnRenderEventArgs.cs" />
     <Compile Include="Events\SceneChangedEventArgs.cs" />
     <Compile Include="Exceptions\IDAlreadyExistsException.cs" />
     <Compile Include="Exceptions\IdNotFoundException.cs" />
@@ -106,7 +105,6 @@
     <Compile Include="UI\UIText.cs" />
     <Compile Include="DelayTimer.cs" />
     <Compile Include="Engine.cs" />
-    <Compile Include="Events\OnMovedEventArgs.cs" />
     <Compile Include="Events\OutOfBoundsTriggerEventsArgs.cs" />
     <Compile Include="Sound\Song.cs" />
     <Compile Include="Sound\SoundEffect.cs" />
