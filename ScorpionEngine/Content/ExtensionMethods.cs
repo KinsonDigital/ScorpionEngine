@@ -49,40 +49,6 @@ namespace ScorpionEngine.Content
 
 
         /// <summary>
-        /// Returns true if the string only contains letters.
-        /// </summary>
-        /// <returns></returns>
-        public static bool ContainsOnlyLetters(this string item)
-        {
-            for (var i = 0; i < item.Length; i++)
-            {
-                //If any of the characters are not a letter
-                if (!item[i].IsLetter())
-                    return false;
-            }
-
-            return true;
-        }
-
-
-        /// <summary>
-        /// Returns true if the string only contains numbers.
-        /// </summary>
-        /// <returns></returns>
-        public static bool ContainsOnlyNumbers(this string item)
-        {
-            for (var i = 0; i < item.Length; i++)
-            {
-                //If any of the characters are not a letter
-                if (!item[i].IsNumber())
-                    return false;
-            }
-
-            return true;
-        }
-
-
-        /// <summary>
         /// Returns true if the string contains only letters and numbers.
         /// </summary>
         /// <returns></returns>
