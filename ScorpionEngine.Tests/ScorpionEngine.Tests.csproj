@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Behaviors\BehaviorTests.cs" />
     <Compile Include="Behaviors\EntityBehaviorTests.cs" />
+    <Compile Include="Behaviors\LimitNumberBehaviorTests.cs" />
     <Compile Include="Entities\DynamicEntityTests.cs" />
     <Compile Include="Entities\EntityTests.cs" />
     <Compile Include="Enums.cs" />
