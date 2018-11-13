@@ -1,6 +1,7 @@
 ﻿using ScorpionCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 
@@ -9,6 +10,8 @@ namespace ScorpionEngine.Content
     /// <summary>
     /// Manages all of the atlases loaded into the game.
     /// </summary>
+    //TODO: Look into using this later during the building of a test game.
+    [ExcludeFromCodeCoverage]
     internal static class AtlasManager
     {
         #region Fields

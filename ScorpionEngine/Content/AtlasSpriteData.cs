@@ -1,5 +1,9 @@
-﻿namespace ScorpionEngine.Content
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace ScorpionEngine.Content
 {
+    //TODO: Look into using this later during the building of a test game.
+    [ExcludeFromCodeCoverage]
     internal class AtlasSpriteData
     {
         #region Properties

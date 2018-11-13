@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace ScorpionEngine.Content
@@ -6,6 +7,8 @@ namespace ScorpionEngine.Content
     /// <summary>
     /// Holds texture atlas data.
     /// </summary>
+    //TODO: Look into using this later during the building of a test game.
+    [ExcludeFromCodeCoverage]
     internal class AtlasData
     {
         #region Fields
