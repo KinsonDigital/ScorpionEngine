@@ -48,6 +48,7 @@
     <Compile Include="Behaviors\KeyboardMovementBehaviorTests.cs" />
     <Compile Include="Entities\DynamicEntityTests.cs" />
     <Compile Include="Entities\EntityTests.cs" />
+    <Compile Include="Entities\StaticEntityTests.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\IdAlreadyExistsExceptionTests.cs" />
     <Compile Include="Exceptions\IdNotFoundExceptionTests.cs" />

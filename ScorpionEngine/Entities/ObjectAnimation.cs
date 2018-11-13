@@ -1,12 +1,15 @@
 ﻿
 using ScorpionCore;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ScorpionEngine.Entities
 {
     /// <summary>
     /// Control animation at a particular frames per second.
     /// </summary>
+    //TODO: Get this working and setup unit tests.  Wait for when you create a game for testing
+    [ExcludeFromCodeCoverage]
     public class ObjectAnimation
     {
         #region Fields

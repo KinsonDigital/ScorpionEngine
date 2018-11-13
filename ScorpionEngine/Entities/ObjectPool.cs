@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using ScorpionCore;
 using ScorpionEngine.Events;
 using ScorpionEngine.Physics;
@@ -10,6 +11,8 @@ namespace ScorpionEngine.Entities
     /// <summary>
     /// Represents a set amount of entities that can be used over and over.
     /// </summary>
+    //TODO: Get this working and setup unit tests.  Wait for when you create a game for testing
+    [ExcludeFromCodeCoverage]
     public abstract class ObjectPool : IEnumerable
     {
         #region Delegates/Events
