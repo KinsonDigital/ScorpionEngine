@@ -6,15 +6,8 @@ namespace ScorpionEngine.Entities
     /// <summary>
     /// Text that can be drawn to the screen.
     /// </summary>
-    public class TextEntity : DynamicEntity
+    public class TextEntity : Entity
     {
-        #region Fields
-        private SysColor _foreColor = SysColor.Black;
-        private SysColor _backColor = SysColor.FromArgb(0, 0, 0, 0);
-        private string _text;
-        #endregion
-
-
         #region Constructors
         /// <summary>
         /// Creates a new instance of TextEntity.
@@ -23,11 +16,11 @@ namespace ScorpionEngine.Entities
         /// <param name="font">The font of the text.</param>
         /// <param name="foreColor">The color of the text.</param>
         /// <param name="backColor">The color of the background behind the text.</param>
-        public TextEntity(string text, SysColor foreColor, SysColor backColor, Vector position) : base(vertices: null, position: position)
+        public TextEntity(string text, SysColor foreColor, SysColor backColor, Vector position) : base(new Vector[0], position: position)
         {
-            _text = text;
-            _foreColor = foreColor;
-            _backColor = backColor;
+            Text = text;
+            ForeColor = foreColor;
+            BackColor = backColor;
         }
         #endregion
 
@@ -36,36 +29,17 @@ namespace ScorpionEngine.Entities
         /// <summary>
         /// Gets or sets the text of this TextEntity.
         /// </summary>
-        public string Text
-        {
-            get { return _text; }
-
-            set
-            { 
-            }
-        }
+        public string Text { get; set; }
 
         /// <summary>
         /// Gets or sets the color of the text.
         /// </summary>
-        public SysColor ForeColor
-        {
-            get { return _foreColor; }
-            set
-            {
-            }
-        }
+        public SysColor ForeColor { get; set; } = SysColor.Black;
 
         /// <summary>
         /// Gets or sets the back color of the text.
         /// </summary>
-        public SysColor BackColor
-        {
-            get { return _backColor; }
-            set
-            {
-            }
-        }
+        public SysColor BackColor { get; set; } = SysColor.FromArgb(0, 0, 0, 0);
         #endregion
     }
 }

@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,6 +50,7 @@
     <Compile Include="Entities\DynamicEntityTests.cs" />
     <Compile Include="Entities\EntityTests.cs" />
     <Compile Include="Entities\StaticEntityTests.cs" />
+    <Compile Include="Entities\TextEntityTests.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\IdAlreadyExistsExceptionTests.cs" />
     <Compile Include="Exceptions\IdNotFoundExceptionTests.cs" />
