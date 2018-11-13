@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ScorpionEngine.EventArguments
+namespace ScorpionEngine.Events
 {
     /// <summary>
     /// Holds information about the 

@@ -1,7 +1,7 @@
 ﻿using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Content;
-using ScorpionEngine.EventArguments;
+using ScorpionEngine.Events;
 using ScorpionEngine.Exceptions;
 using ScorpionEngine.Graphics;
 using ScorpionEngine.Input;
