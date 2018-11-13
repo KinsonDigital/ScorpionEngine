@@ -28,13 +28,14 @@ namespace ScorpionEngine.Content
         /// Gets the first occurance of any number in the string.
         /// </summary>
         /// <returns></returns>
-        public static int IndexOfNumber(this string item)
+        public static int GetFirstOccurentOfNumber(this string item)
         {
             var number = new string(item.Where(IsNumber).ToArray());
 
             if (string.IsNullOrEmpty(number)) return -1;
 
-            return Int32.Parse(number);
+
+            return int.Parse(number);
         }
 
 
@@ -60,6 +61,7 @@ namespace ScorpionEngine.Content
                 if (!item[i].IsNumber() && !item[i].IsLetter())
                     return false;
             }
+
 
             return true;
         }
