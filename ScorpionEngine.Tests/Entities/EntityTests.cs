@@ -96,7 +96,6 @@ namespace ScorpionEngine.Tests.Entities
             mockTexture.SetupGet(m => m.Width).Returns(100);
             mockTexture.SetupGet(m => m.Height).Returns(50);
 
-
             var mockPluginLib = new Mock<IPluginLibrary>();
             mockPluginLib.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
             {

@@ -117,8 +117,7 @@
     <Compile Include="Input\MouseWatcher.cs" />
     <Compile Include="IUpdatable.cs" />
     <Compile Include="Behaviors\KeyBehavior.cs" />
-    <Compile Include="Behaviors\MovementBehavior.cs" />
-    <Compile Include="Entities\ControllableEntity.cs" />
+    <Compile Include="Behaviors\KeyboardMovementBehavior.cs" />
     <Compile Include="Entities\Enums.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\DynamicEntity.cs" />

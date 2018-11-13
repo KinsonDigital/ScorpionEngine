@@ -161,7 +161,6 @@ namespace ScorpionEngine.Entities
         }
 
 
-
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> to the right using the <see cref="SpeedX"/> value.
         /// Behaves the same no matter if <see cref="SpeedX"/> is positive or negative.

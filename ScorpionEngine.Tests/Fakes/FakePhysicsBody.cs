@@ -45,6 +45,8 @@ namespace ScorpionEngine.Tests.Fakes
 
         public void ApplyLinearImpulse(float x, float y)
         {
+            X = x;
+            Y = y;
             LinearVelocityX += x;
             LinearVelocityY += y;
         }
