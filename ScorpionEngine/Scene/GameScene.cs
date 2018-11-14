@@ -51,6 +51,8 @@ namespace ScorpionEngine.Scene
         public List<Entity> Entities { get; } = new List<Entity>();
 
         public static PhysicsWorld PhysicsWorld { get; set; }
+
+        public int Id { get; set; }
         #endregion
 
 

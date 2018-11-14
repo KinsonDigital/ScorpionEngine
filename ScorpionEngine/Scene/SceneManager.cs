@@ -6,15 +6,17 @@ using ScorpionEngine.Exceptions;
 using ScorpionEngine.Graphics;
 using ScorpionEngine.Input;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace ScorpionEngine.Scene
 {
+    //TODO: Convert this class into an IEnumarable, IList type of class.
     /// <summary>
     /// Manages multiple game scenes.
     /// </summary>
-    public class SceneManager : IUpdatable, IDrawable
+    public class SceneManager : IUpdatable, IDrawable, IEnumerable<IScene>, IList<IScene>
     {
         #region Events
         public event EventHandler<SceneChangedEventArgs> SceneChanged;
@@ -23,7 +25,7 @@ namespace ScorpionEngine.Scene
 
         #region Private Vars
         private ContentLoader _contentLoader;
-        private Dictionary<int, IScene> _scenes = new Dictionary<int, IScene>();//The list of scenes
+        private List<IScene> _scenes = new List<IScene>();//The list of scenes
         private Keyboard _keyboard;
         private int _currentSceneId = -1;//The currently enabled scene ID.  This is the scene that is currently active and rendering/updating
         #endregion
@@ -126,6 +128,27 @@ namespace ScorpionEngine.Scene
         /// moving to the scene.
         /// </summary>
         public bool LoadContentOnSceneChange { get; set; } = true;
+
+        /// <summary>
+        /// Gets the total number of scenes in the <see cref="SceneManager"/>.
+        /// </summary>
+        public int Count => _scenes.Count;
+
+        /// <summary>
+        /// Gets a value indicating if the list of scenes is readonly.
+        /// </summary>
+        public bool IsReadOnly => false;
+        
+        /// <summary>
+        /// Gets or sets the <see cref="IScene"/> at the given index.
+        /// </summary>
+        /// <param name="index">The index/key of the <see cref="IScene"/>.</param>
+        /// <returns></returns>
+        public IScene this[int index]
+        {
+            get => _scenes[index];
+            set => _scenes[index] = value;
+        }
         #endregion
 
 
@@ -150,14 +173,14 @@ namespace ScorpionEngine.Scene
         /// </summary>
         public void LoadAllSceneContent()
         {
-            foreach (var id in _scenes.Keys)
+            foreach (var scene in _scenes)
             {
-                if (_scenes[id].ContentLoaded)
+                if (scene.ContentLoaded)
                     continue;
 
-                _scenes[id].LoadContent(_contentLoader);
+                scene.LoadContent(_contentLoader);
 
-                _scenes[id].ContentLoaded = true;
+                scene.ContentLoaded = true;
             }
         }
 
@@ -203,33 +226,33 @@ namespace ScorpionEngine.Scene
             if (SceneIdExists(id))
                 throw new IdAlreadyExistsException(id);
 
-            var idToUse = id == -1 ? GetNewId() : id;
+            scene.Id = id == -1 ? GetNewId() : id;
 
-            _scenes.Add(idToUse, scene);
+            _scenes.Add(scene);
 
             //If the manager is set to initalize now
             if (InitializeScenesOnAdd)
-                _scenes[idToUse].Initialize();
+                scene.Initialize();
 
             //If the manager is set to active the scene on add
             if (ActivateSceneOnAdd)
             {
                 DeactivateAllScenes();
-                _scenes[idToUse].Active = true;
+                scene.Active = true;
             }
 
             //If the manager is set to set the scene as render on add
             if (SetSceneAsRenderableOnAdd)
             {
                 TurnAllSceneRenderingOff();
-                _scenes[idToUse].IsRenderingScene = true;
+                scene.IsRenderingScene = true;
             }
 
             //If there is only one scene in the manager...set that scene to current scene
-            _currentSceneId = _scenes.Count == 1 ? 0 : idToUse;
+            _currentSceneId = _scenes.Count == 1 ? 0 : scene.Id;
 
 
-            return idToUse;
+            return scene.Id;
         }
 
 
@@ -243,7 +266,9 @@ namespace ScorpionEngine.Scene
             if (!SceneIdExists(id))
                 throw new IdNotFoundException(id);
 
-            _scenes.Remove(id);
+            var foundScene = (from s in _scenes where s.Id == id select s).FirstOrDefault();
+
+            _scenes.Remove(foundScene);
         }
 
 
@@ -320,19 +345,19 @@ namespace ScorpionEngine.Scene
         /// <param name="name">The name of the scene to set.</param>
         public void SetCurrentScene(string name)
         {
-            var foundScene = _scenes.Where(s => s.Value.Name == name).FirstOrDefault();
+            var foundScene = _scenes.Where(s => s.Name == name).FirstOrDefault();
 
             //If no scene was found, throw an exception
-            if (foundScene.Value == null)
+            if (foundScene == null)
                 throw new NameNotFoundException(name);
 
             var previousSceneId = _currentSceneId;
 
-            _currentSceneId = foundScene.Key;
+            _currentSceneId = foundScene.Id;
 
-            ProcessSettingsForPreviousScene(_scenes[previousSceneId]);
+            ProcessSettingsForPreviousScene(foundScene);
 
-            ProcessSettingsForCurrentScene(_scenes[_currentSceneId]);
+            ProcessSettingsForCurrentScene(foundScene);
 
             //Invoke the scene changed event
             SceneChanged?.Invoke(this, new SceneChangedEventArgs(_scenes[previousSceneId].Name, _scenes[_currentSceneId].Name));
@@ -459,12 +484,12 @@ namespace ScorpionEngine.Scene
         /// <returns></returns>
         public T GetScene<T>(string name) where T : class, IScene
         {
-            var foundScene = _scenes.Where(s => s.Value.Name == name).FirstOrDefault();
+            var foundScene = _scenes.Where(s => s.Name == name).FirstOrDefault();
 
-            if (foundScene.Value == null)
+            if (foundScene == null)
                 throw new NameNotFoundException("name");
 
-            return foundScene.Value as T;
+            return foundScene as T;
         }
 
 
@@ -475,7 +500,7 @@ namespace ScorpionEngine.Scene
         {
             foreach (var scene in _scenes)
             {
-                scene.Value.Active = false;
+                scene.Active = false;
             }
         }
 
@@ -576,7 +601,7 @@ namespace ScorpionEngine.Scene
         /// <returns></returns>
         private bool SceneIdExists(int id)
         {
-            return _scenes.Keys.Any(key => key == id);
+            return _scenes.Any(s => s.Id == id);
         }
 
 
@@ -587,7 +612,7 @@ namespace ScorpionEngine.Scene
         /// <returns></returns>
         private bool SceneNameExists(string name)
         {
-            return _scenes.Any(s => s.Value.Name == name);
+            return _scenes.Any(s => s.Name == name);
         }
 
 
@@ -597,7 +622,7 @@ namespace ScorpionEngine.Scene
         /// <returns>The new id number that is free to use.</returns>
         private int GetNewId()
         {
-            var allIdNumbers = _scenes.Keys.ToList().ToArray();
+            var allIdNumbers = (from s in _scenes select s.Id).ToArray();
 
             //Get the largest id number
             var largestId = allIdNumbers.Length <= 0 ? 0 : allIdNumbers.Max();
@@ -626,7 +651,7 @@ namespace ScorpionEngine.Scene
         {
             foreach (var scene in _scenes)
             {
-                scene.Value.IsRenderingScene = false;
+                scene.IsRenderingScene = false;
             }
         }
 
@@ -670,6 +695,122 @@ namespace ScorpionEngine.Scene
             //If the manager is set to deactivate all other scenes
             if (DeactivateOnSceneChange)
                 scene.Active = false;
+        }
+
+
+        /// <summary>
+        /// Returns an enumerator that iterates through the scenes.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator<IScene> GetEnumerator()
+        {
+            return _scenes.GetEnumerator();
+        }
+
+
+        /// <summary>
+        /// Returns an enumerator that iterates through the scenes.
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            var numbers = new List<int>();
+
+            numbers.GetEnumerator();
+            return _scenes.GetEnumerator();
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public int IndexOf(IScene item)
+        {
+            return _scenes.IndexOf(item);
+        }
+
+
+        /// <summary>
+        /// Inserts a new scene at the given index location.  Duplicate scene Id's cannot
+        /// be used and will throw an <see cref="IdAlreadyExistsException"/>.
+        /// </summary>
+        /// <param name="index">The index of where to insert the scene.</param>
+        /// <param name="scene">The scene to add.</param>
+        /// <exception cref="IdAlreadyExistsException">Thrown if the given <see cref="IScene"/> with the <see cref="IScene.Id"/> already has been added to the <see cref="SceneManager"/>.</exception>
+        public void Insert(int index, IScene scene)
+        {
+            if (SceneIdExists(scene.Id))
+                throw new IdAlreadyExistsException(scene.Id);
+
+            _scenes.Insert(index, scene);
+        }
+
+
+        /// <summary>
+        /// Removes the <see cref="IScene"/> that exists at the given <paramref name="index"/>.
+        /// </summary>
+        /// <param name="index">The index location of the <see cref="IScene"/> to remove.</param>
+        public void RemoveAt(int index)
+        {
+            _scenes.RemoveAt(index);
+        }
+
+
+        /// <summary>
+        /// Adds the given <paramref name="scene"/> to the <see cref="SceneManager"/>.
+        /// </summary>
+        /// <param name="scene">The <see cref="IScene"/> to add.</param>
+        public void Add(IScene scene)
+        {
+            if (SceneIdExists(scene.Id))
+                throw new IdAlreadyExistsException(scene.Id);
+
+            _scenes.Add(scene);
+        }
+
+
+        /// <summary>
+        /// Moves all of the <see cref="IScene"/>s from the <see cref="SceneManager"/>.
+        /// </summary>
+        public void Clear()
+        {
+            _scenes.Clear();
+        }
+
+
+        /// <summary>
+        /// Returns true if the given <paramref name="scene"/> already exists in the <see cref="SceneManager"/>.
+        /// </summary>
+        /// <param name="scene">The <see cref="IScene"/> to check for.</param>
+        /// <returns></returns>
+        public bool Contains(IScene scene)
+        {
+            return _scenes.Contains(scene);
+        }
+
+
+        /// <summary>
+        /// Copies the entire list of <see cref="IScene"/>s to a compatible one-dimensional array,
+        /// starting at the specified index of the target array.
+        /// </summary>
+        /// <param name="scenes">The list of scenes to copy the internal <see cref="IScene"/>s to.</param>
+        /// <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
+        public void CopyTo(IScene[] scenes, int arrayIndex)
+        {
+            _scenes.CopyTo(scenes, arrayIndex);
+        }
+
+
+        /// <summary>
+        /// Removes the given <paramref name="scene"/> from the <see cref="SceneManager"/>.
+        /// </summary>
+        /// <param name="scene">The <see cref="IScene"/> to remove.</param>
+        /// <returns></returns>
+        public bool Remove(IScene scene)
+        {
+            return _scenes.Remove(scene);
         }
         #endregion
     }
