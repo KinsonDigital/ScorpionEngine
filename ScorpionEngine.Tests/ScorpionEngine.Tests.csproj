@@ -69,6 +69,7 @@
     <Compile Include="Physics\PhysicsWorldTests.cs" />
     <Compile Include="Physics\VectorTests.cs" />
     <Compile Include="Scene\GameSceneTests.cs" />
+    <Compile Include="Scene\SceneTimeManagerTests.cs" />
     <Compile Include="Utils\CounterTests.cs" />
     <Compile Include="AssertExt.cs" />
     <Compile Include="ExtensionMethods.cs" />
