@@ -31,7 +31,7 @@ namespace ScorpionEngine.Scene
         /// <summary>
         /// Gets or sets a value indicating if the scene is currently rendering.
         /// </summary>
-        bool RenderingScene { get; set; }
+        bool IsRenderingScene { get; set; }
         #endregion
 
 

@@ -19,6 +19,9 @@ namespace ScorpionEngine.Tests.Fakes
         {
         }
 
+        public bool UpdateInvoked { get; set; }
+
+
         public override bool Equals(object obj)
         {
             return base.Equals(obj);
@@ -31,6 +34,8 @@ namespace ScorpionEngine.Tests.Fakes
 
         public override void Update(EngineTime engineTime)
         {
+            UpdateInvoked = true;
+
             base.Update(engineTime);
         }
 

@@ -222,7 +222,7 @@ namespace ScorpionEngine.Scene
             if (SetSceneAsRenderableOnAdd)
             {
                 TurnAllSceneRenderingOff();
-                _scenes[idToUse].RenderingScene = true;
+                _scenes[idToUse].IsRenderingScene = true;
             }
 
             //If there is only one scene in the manager...set that scene to current scene
@@ -430,7 +430,7 @@ namespace ScorpionEngine.Scene
         /// <param name="renderer">The renderer to use for rendering.</param>
         public void Render(Renderer renderer)
         {
-            if (_currentSceneId != -1 && _scenes[_currentSceneId].RenderingScene)
+            if (_currentSceneId != -1 && _scenes[_currentSceneId].IsRenderingScene)
                 _scenes[_currentSceneId].Render(renderer);
         }
 
@@ -626,7 +626,7 @@ namespace ScorpionEngine.Scene
         {
             foreach (var scene in _scenes)
             {
-                scene.Value.RenderingScene = false;
+                scene.Value.IsRenderingScene = false;
             }
         }
 
@@ -653,7 +653,7 @@ namespace ScorpionEngine.Scene
             }
 
             TurnAllSceneRenderingOff();
-            scene.RenderingScene = true;
+            scene.IsRenderingScene = true;
         }
 
 
