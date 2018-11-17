@@ -59,6 +59,7 @@
     <Compile Include="Exceptions\IdAlreadyExistsExceptionTests.cs" />
     <Compile Include="Exceptions\IdNotFoundExceptionTests.cs" />
     <Compile Include="Exceptions\NameNotFoundException.cs" />
+    <Compile Include="ExtensionMethodTests.cs" />
     <Compile Include="Fakes\FakeBehavior.cs" />
     <Compile Include="Fakes\FakeEntity.cs" />
     <Compile Include="Fakes\FakePhysicsBody.cs" />

@@ -8,12 +8,22 @@ namespace ScorpionEngine
         private const float PI = 3.1415926535897931f;
 
 
+        /// <summary>
+        /// Converts the given radians value into degrees.
+        /// </summary>
+        /// <param name="radians">The value to convert.</param>
+        /// <returns></returns>
         public static float ToDegrees(this float radians)
         {
             return radians * 180.0f / PI;
         }
 
 
+        /// <summary>
+        /// Converts the given degrees value into radians.
+        /// </summary>
+        /// <param name="degrees">The value to convert.</param>
+        /// <returns></returns>
         public static float ToRadians(this float degrees)
         {
             return degrees * PI / 180f;

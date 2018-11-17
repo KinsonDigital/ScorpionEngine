@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NUnit.Framework;
+using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
@@ -6,6 +8,7 @@ namespace ScorpionEngine.Tests
 {
     public static class ExtensionMethods
     {
+        [ExcludeFromCodeCoverage]
         public static FieldInfo GetField(this object value, string name)
         {
             var privateFields = (from f in value.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
@@ -18,14 +21,6 @@ namespace ScorpionEngine.Tests
 
 
             return privateFields.FirstOrDefault();
-        }
-
-
-        public static void SetFieldValue<T>(this object fieldContainer, string name, T value)
-        {
-            var foundField = fieldContainer.GetField(name);
-
-            foundField.SetValue(fieldContainer, value);
         }
 
 
