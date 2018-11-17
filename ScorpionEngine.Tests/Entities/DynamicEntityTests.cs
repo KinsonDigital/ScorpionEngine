@@ -8,7 +8,6 @@ using ScorpionEngine.Graphics;
 using ScorpionEngine.Physics;
 using ScorpionEngine.Tests.Fakes;
 using System;
-using System.Collections;
 using System.Linq;
 
 namespace ScorpionEngine.Tests.Entities

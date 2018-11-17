@@ -4,7 +4,6 @@ using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Behaviors;
 using ScorpionEngine.Entities;
-using ScorpionEngine.Graphics;
 using ScorpionEngine.Input;
 using ScorpionEngine.Physics;
 using ScorpionEngine.Tests.Fakes;

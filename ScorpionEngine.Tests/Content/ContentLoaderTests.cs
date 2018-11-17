@@ -3,7 +3,6 @@ using NUnit.Framework;
 using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Content;
-using ScorpionEngine.Graphics;
 
 namespace ScorpionEngine.Tests.Content
 {

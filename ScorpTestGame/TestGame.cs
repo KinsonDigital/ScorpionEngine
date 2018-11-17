@@ -27,7 +27,7 @@ namespace ScorpTestGame
         public override void Init()
         {
             _level1 = new Level1();
-            SceneManager.AddScene(_level1);
+            SceneManager.Add(_level1);
 
             base.Init();
         }
