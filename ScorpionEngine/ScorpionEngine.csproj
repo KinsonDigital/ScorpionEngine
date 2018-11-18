@@ -71,6 +71,7 @@
     <Compile Include="Content\ContentLoader_OLD.cs" />
     <Compile Include="Content\Enums.cs" />
     <Compile Include="Content\ExtensionMethods.cs" />
+    <Compile Include="Exceptions\EntityNotInitializedException.cs" />
     <Compile Include="Graphics\GameColor.cs" />
     <Compile Include="Input\IInputWatcher.cs" />
     <Compile Include="Particles\Particle.cs" />

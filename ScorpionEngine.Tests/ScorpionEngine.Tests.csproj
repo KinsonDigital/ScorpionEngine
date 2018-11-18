@@ -57,6 +57,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Events\FrameStackFinishedEventArgsTests.cs" />
     <Compile Include="Events\SceneChangedEventArgsTests.cs" />
+    <Compile Include="Exceptions\EntityNotInitializedExceptionTests.cs" />
     <Compile Include="Exceptions\IdAlreadyExistsExceptionTests.cs" />
     <Compile Include="Exceptions\IdNotFoundExceptionTests.cs" />
     <Compile Include="Exceptions\NameNotFoundException.cs" />
