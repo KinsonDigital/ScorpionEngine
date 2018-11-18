@@ -723,13 +723,15 @@ namespace ScorpionEngine.Tests.Scene
             var sceneB = mockSceneB.Object;
             sceneB.Id = 200;
 
-            var manager = new SceneManager(_contentLoader);
-
-            //Act
-            manager.Add(sceneA);
-            manager.Add(sceneB);
+            var manager = new SceneManager(_contentLoader)
+            {
+                sceneA,
+                sceneB
+            };
 
             sceneA.LoadContent(_contentLoader);
+
+            //Act
             manager.LoadAllSceneContent();
 
             //Assert
@@ -745,21 +747,21 @@ namespace ScorpionEngine.Tests.Scene
             mockSceneA.SetupProperty(m => m.Id);
             mockSceneA.SetupProperty(m => m.ContentLoaded);
             var sceneA = mockSceneA.Object;
-            sceneA.Id = -1;
+            sceneA.Id = 10;
 
             var mockSceneB = new Mock<IScene>();
             mockSceneB.SetupProperty(m => m.Id);
             mockSceneB.SetupProperty(m => m.ContentLoaded);
             var sceneB = mockSceneB.Object;
-            sceneB.Id = -1;
+            sceneB.Id = 20;
 
             var manager = new SceneManager(_contentLoader);
             var expectedSceneAContentLoaded = false;
             var expectedSceneBContentLoaded = true;
-
-            //Act
             manager.Add(sceneA);
             manager.Add(sceneB);
+
+            //Act
             manager.LoadCurrentSceneContent();
             var actualSceneAContentLoaded = sceneA.ContentLoaded;
             var actualSceneBContentLoaded = sceneB.ContentLoaded;
@@ -1616,6 +1618,7 @@ namespace ScorpionEngine.Tests.Scene
         {
             //Arrange
             var mockScene = new Mock<IScene>();
+            mockScene.SetupGet(m => m.Id).Returns(10);
             mockScene.SetupGet(m => m.IsRenderingScene).Returns(true);
 
             var scene = mockScene.Object;

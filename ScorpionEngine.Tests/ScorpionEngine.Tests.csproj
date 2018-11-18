@@ -49,6 +49,7 @@
     <Compile Include="Behaviors\KeyboardMovementBehaviorTests.cs" />
     <Compile Include="Content\ContentExtensionMethodTests.cs" />
     <Compile Include="Content\ContentLoaderTests.cs" />
+    <Compile Include="EngineTests.cs" />
     <Compile Include="Entities\DynamicEntityTests.cs" />
     <Compile Include="Entities\EntityTests.cs" />
     <Compile Include="Entities\StaticEntityTests.cs" />
@@ -61,6 +62,8 @@
     <Compile Include="Exceptions\NameNotFoundException.cs" />
     <Compile Include="ExtensionMethodTests.cs" />
     <Compile Include="Fakes\FakeBehavior.cs" />
+    <Compile Include="Fakes\FakeEngine.cs" />
+    <Compile Include="Fakes\FakeEngineCore.cs" />
     <Compile Include="Fakes\FakeEntity.cs" />
     <Compile Include="Fakes\FakePhysicsBody.cs" />
     <Compile Include="Fakes\FakeGameScene.cs" />

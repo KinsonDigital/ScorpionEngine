@@ -5,6 +5,7 @@ using ScorpionCore.Plugins;
 using ScorpionEngine.Graphics;
 using ScorpionEngine.Scene;
 using System.Runtime.CompilerServices;
+using System.Diagnostics.CodeAnalysis;
 
 [assembly: InternalsVisibleTo(assemblyName: "ScorpionEngine.Tests", AllInternalsVisible = true)]
 
@@ -24,24 +25,31 @@ namespace ScorpionEngine
 
         #region Constructors
         /// <summary>
+        /// Creates a new instance of <see cref="Engine"/> for the purpose of unit testing.
+        /// <paramref name="enginePluginLib">The plugin library used to mock engine plugins.</paramref>
+        /// <paramref name="physicsPluginLib">The plugin library used to mock physics plugins.</paramref>
+        /// </summary>
+        internal Engine(IPluginLibrary enginePluginLib, IPluginLibrary physicsPluginLib)
+        {
+            PluginSystem.LoadEnginePluginLibrary(enginePluginLib);
+            PluginSystem.LoadPhysicsPluginLibrary(physicsPluginLib);
+
+            //Make sure that the Setup() method is called
+            //This is to make sure that this class is testable for unit testing purposes.
+            Setup();
+        }
+
+
+        /// <summary>
         /// Creates an instance of engine.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         public Engine()
         {
             PluginSystem.LoadEnginePluginLibrary(new PluginLibrary("MonoScorpPlugin"));
             PluginSystem.LoadPhysicsPluginLibrary(new PluginLibrary("VelcroPhysicsPlugin"));
 
-            ContentLoader = new ContentLoader(PluginSystem.EnginePlugins.LoadPlugin<IContentLoader>());
-            _engineCore = PluginSystem.EnginePlugins.LoadPlugin<IEngineCore>();
-
-            _engineCore.SetFPS(60);
-
-            _engineCore.OnInitialize += _engineCore_OnInitialize;
-            _engineCore.OnLoadContent += _engineCore_OnLoadContent;
-            _engineCore.OnUpdate += _engineCore_OnUpdate;
-            _engineCore.OnRender += _engineCore_OnRender;
-
-            SceneManager = new SceneManager(ContentLoader);
+            Setup();
         }
         #endregion
 
@@ -59,7 +67,7 @@ namespace ScorpionEngine
         /// <summary>
         /// Gets the FPS that the engine is currently running at.
         /// </summary>
-        public static float CurrentFPS { get; private set; }
+        public static float CurrentFPS { get; internal set; }
 
         /// <summary>
         /// Gets or sets the width of the game window.
@@ -87,24 +95,20 @@ namespace ScorpionEngine
         /// </summary>
         public void Start()
         {
-            //Check if the engine core has been set.  If not throw an exception
-            if (_engineCore == null)
-                //TODO: Create engine core not set exception.
-                throw new Exception("The engine core has not been set.");
-
-            _engineCore.Start();
+            _engineCore?.Start();
         }
 
 
         public void Stop()
         {
-            _engineCore.Stop();
+            _engineCore?.Stop();
         }
 
 
         /// <summary>
         /// Initializes the engine.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         public virtual void Init()
         {
         }
@@ -113,6 +117,7 @@ namespace ScorpionEngine
         /// <summary>
         /// Loads all of the content.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         public virtual void LoadContent(ContentLoader contentLoader)
         {
         }
@@ -130,18 +135,18 @@ namespace ScorpionEngine
 
             _prevElapsedTime = currentTime;
 
-            CurrentFPS = (1000f / _prevElapsedTime);
+            CurrentFPS = 1000f / _prevElapsedTime;
         }
 
 
         /// <summary>
         /// Draws the game world.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         public virtual void Render(Renderer renderer)
         {
-
         }
-        
+
 
         /// <summary>
         /// Disposes of the engine.
@@ -160,8 +165,6 @@ namespace ScorpionEngine
         /// <param name="disposing">True if the internal engine components should be disposed of.</param>
         private static void Dispose(bool disposing)
         {
-            if (! disposing) return;
-
             if (_engineCore != null)
                 _engineCore.Dispose();
         }
@@ -169,6 +172,25 @@ namespace ScorpionEngine
 
 
         #region Private Methods
+        /// <summary>
+        /// Sets up the engine.
+        /// </summary>
+        private void Setup()
+        {
+            ContentLoader = new ContentLoader(PluginSystem.EnginePlugins.LoadPlugin<IContentLoader>());
+            _engineCore = PluginSystem.EnginePlugins.LoadPlugin<IEngineCore>();
+
+            _engineCore.SetFPS(60);
+
+            _engineCore.OnInitialize += _engineCore_OnInitialize;
+            _engineCore.OnLoadContent += _engineCore_OnLoadContent;
+            _engineCore.OnUpdate += _engineCore_OnUpdate;
+            _engineCore.OnRender += _engineCore_OnRender;
+
+            SceneManager = new SceneManager(ContentLoader);
+        }
+
+
         private void _engineCore_OnInitialize(object sender, EventArgs e)
         {
             Init();
@@ -178,7 +200,6 @@ namespace ScorpionEngine
 
         private void _engineCore_OnLoadContent(object sender, EventArgs e)
         {
-
             LoadContent(ContentLoader);
             SceneManager.LoadCurrentSceneContent();
         }
@@ -200,6 +221,8 @@ namespace ScorpionEngine
 
         private void _engineCore_OnRender(object sender, OnRenderEventArgs e)
         {
+            //TODO: Look into this.  This should not be created every single time
+            //the render method is called. This is not performant.
             _renderer = new Renderer(e.Renderer);
 
             _renderer.Clear(50, 50, 50, 255);

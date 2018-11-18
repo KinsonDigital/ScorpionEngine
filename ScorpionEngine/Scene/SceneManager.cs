@@ -336,11 +336,17 @@ namespace ScorpionEngine.Scene
         /// </summary>
         public void LoadCurrentSceneContent()
         {
-            if (!SceneIdExists(CurrentSceneId))
+            var foundScene = (from s in _scenes
+                              where s.Id == CurrentSceneId
+                              select s).FirstOrDefault();
+
+            if (foundScene is null)
                 throw new IdNotFoundException(CurrentSceneId);
 
-            _scenes[CurrentSceneId].LoadContent(_contentLoader);
-            _scenes[CurrentSceneId].ContentLoaded = true;
+            var currentSceneIndex = _scenes.IndexOf(foundScene);
+
+            _scenes[currentSceneIndex].LoadContent(_contentLoader);
+            _scenes[currentSceneIndex].ContentLoaded = true;
         }
 
 
@@ -575,8 +581,14 @@ namespace ScorpionEngine.Scene
         /// <param name="renderer">The renderer to use for rendering.</param>
         public void Render(Renderer renderer)
         {
-            if (_scenes[CurrentSceneId].IsRenderingScene)
-                _scenes[CurrentSceneId].Render(renderer);
+            var foundScene = (from s in _scenes
+                              where s.Id == CurrentSceneId
+                              select s).FirstOrDefault();
+
+            var foundSceneIndex = _scenes.IndexOf(foundScene);
+
+            if (_scenes[foundSceneIndex].IsRenderingScene)
+                _scenes[foundSceneIndex].Render(renderer);
         }
 
 

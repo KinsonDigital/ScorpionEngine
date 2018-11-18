@@ -6,12 +6,13 @@ using System.Reflection;
 
 namespace ScorpionEngine.Tests
 {
+    [ExcludeFromCodeCoverage]
     public static class ExtensionMethods
     {
         [ExcludeFromCodeCoverage]
         public static FieldInfo GetField(this object value, string name)
         {
-            var privateFields = (from f in value.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
+            var privateFields = (from f in value.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static)
                                  where f.Name == name
                                  select f).ToArray();
 
