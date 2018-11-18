@@ -131,7 +131,7 @@ namespace ScorpionEngine.Tests.Input
 
 
         [Test]
-        public void ComboButtons_WhenSettingValue_ReturnsCorrectValue()
+        public void ComboKeys_WhenSettingWithNonNullValue_ReturnsCorrectValue()
         {
             //Arrange
             Helpers.SetupPluginLib<IKeyboard>(PluginLibType.Engine);

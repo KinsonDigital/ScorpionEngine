@@ -61,14 +61,8 @@ namespace ScorpionEngine.Input
         /// </summary>
         public List<InputKeys> ComboKeys
         {
-            get
-            {
-                return _currentPressedKeys.Keys.ToList();
-            }
-            set
-            {
-                CreateCurrentPressedKeys(value?.ToArray());
-            }
+            get => _currentPressedKeys.Keys.ToList();
+            set => CreateCurrentPressedKeys(value.ToArray());
         }
 
         /// <summary>
