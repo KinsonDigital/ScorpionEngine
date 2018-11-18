@@ -1614,12 +1614,36 @@ namespace ScorpionEngine.Tests.Scene
 
 
         [Test]
-        public void Render_WhenInvokingWithSceneRenderingEnabled_InvokesSceneRenderMethod()
+        public void Render_WhenInvoking_SetsSceneIsRenderingScenePropToFalseAfterManagerRenders()
         {
             //Arrange
             var mockScene = new Mock<IScene>();
             mockScene.SetupGet(m => m.Id).Returns(10);
-            mockScene.SetupGet(m => m.IsRenderingScene).Returns(true);
+            mockScene.SetupProperty(m => m.IsRenderingScene);
+
+            var scene = mockScene.Object;
+            var manager = new SceneManager(_contentLoader)
+            {
+                scene
+            };
+            var expected = false;
+
+            //Act
+            manager.Render(It.IsAny<Renderer>());
+            var actual = scene.IsRenderingScene;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void Render_WhenInvoking_InvokesSceneRenderMethod()
+        {
+            //Arrange
+            var mockScene = new Mock<IScene>();
+            mockScene.SetupGet(m => m.Id).Returns(10);
+            mockScene.SetupProperty(m => m.IsRenderingScene);
 
             var scene = mockScene.Object;
             var manager = new SceneManager(_contentLoader)
@@ -1632,27 +1656,6 @@ namespace ScorpionEngine.Tests.Scene
 
             //Assert
             mockScene.Verify(m => m.Render(It.IsAny<Renderer>()), Times.Once());
-        }
-
-
-        [Test]
-        public void Render_WhenInvokingWithSceneRenderingDisabled_InvokesSceneRenderMethod()
-        {
-            //Arrange
-            var mockScene = new Mock<IScene>();
-            mockScene.SetupGet(m => m.IsRenderingScene).Returns(false);
-
-            var scene = mockScene.Object;
-            var manager = new SceneManager(_contentLoader)
-            {
-                scene
-            };
-
-            //Act
-            manager.Render(It.IsAny<Renderer>());
-
-            //Assert
-            mockScene.Verify(m => m.Render(It.IsAny<Renderer>()), Times.Never());
         }
 
 

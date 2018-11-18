@@ -110,7 +110,6 @@ namespace ScorpionEngine.Scene
         /// <param name="renderer">The renderer to use for rendering.</param>
         public virtual void Render(Renderer renderer)
         {
-            IsRenderingScene = false;
         }
 
         //TODO: Make this class IEnumarable so we get the benefits of generics and IList functionality

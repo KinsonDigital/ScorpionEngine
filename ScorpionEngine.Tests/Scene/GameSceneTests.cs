@@ -239,24 +239,6 @@ namespace ScorpionEngine.Tests.Scene
                 scene.Update(new EngineTime());
             });
         }
-
-
-        [Test]
-        public void Render_WhenInvoking_SetsRenderingSceneToTrue()
-        {
-            //Arrange
-            var scene = new FakeGameScene(Vector.Zero);
-            var mockCoreRenderer = new Mock<IRenderer>();
-            var renderer = new Renderer(mockCoreRenderer.Object);
-            var expected = false;
-
-            //Act
-            scene.Render(renderer);
-            var actual = scene.IsRenderingScene;
-
-            //Assert
-            Assert.AreEqual(expected, actual);
-        }
         #endregion
 
 
