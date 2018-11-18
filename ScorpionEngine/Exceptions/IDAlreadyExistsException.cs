@@ -21,7 +21,7 @@ namespace ScorpionEngine.Exceptions
         /// Creates a new instance of <see cref="IdAlreadyExistsException"/>.
         /// </summary>
         /// <param name="sceneId">The id of the scene that already exists.</param>
-        public IdAlreadyExistsException(int sceneId) : base($"The id {sceneId} already exists.")
+        public IdAlreadyExistsException(int sceneId) : base($"The id '{sceneId}' already exists.")
         {
         }
 

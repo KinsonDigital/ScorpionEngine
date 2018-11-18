@@ -1,5 +1,4 @@
-﻿using ScorpionCore.Plugins;
-using ScorpionEngine.Content;
+﻿using ScorpionEngine.Content;
 
 namespace ScorpionEngine.Scene
 {
@@ -32,7 +31,12 @@ namespace ScorpionEngine.Scene
         /// <summary>
         /// Gets or sets a value indicating if the scene is currently rendering.
         /// </summary>
-        bool RenderingScene { get; set; }
+        bool IsRenderingScene { get; set; }
+
+        /// <summary>
+        /// Gets or sets the id of the scene.
+        /// </summary>
+        int Id { get; set; }
         #endregion
 
 

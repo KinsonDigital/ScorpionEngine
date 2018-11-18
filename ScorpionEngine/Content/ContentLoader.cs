@@ -1,11 +1,6 @@
 ﻿using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ScorpionEngine.Content
 {
@@ -32,8 +27,22 @@ namespace ScorpionEngine.Content
 
         public Texture LoadTexture(string textureName)
         {
-            var loadedTexture = _internalLoader.LoadTexture<ITexture>(textureName);
-            var result = new Texture(loadedTexture);
+            var result = new Texture()
+            {
+                InternalTexture = _internalLoader.LoadTexture<ITexture>(textureName)
+            };
+
+
+            return result;
+        }
+
+
+        public GameText LoadText(string textName)
+        {
+            var result = new GameText
+            {
+                InternalText = _internalLoader.LoadText<IText>(textName)
+            };
 
 
             return result;

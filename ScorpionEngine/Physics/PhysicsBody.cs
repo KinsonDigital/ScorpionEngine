@@ -1,10 +1,7 @@
 ﻿using ScorpionCore;
 using ScorpionCore.Plugins;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ScorpionEngine.Physics
 {
@@ -29,27 +26,67 @@ namespace ScorpionEngine.Physics
             ctorParams[7] = restitution;
             ctorParams[8] = isStatic;
 
-            InternalPhysicsBody = Engine.PhysicsPlugins.LoadPlugin<IPhysicsBody>(ctorParams);
+            InternalPhysicsBody = PluginSystem.PhysicsPlugins.LoadPlugin<IPhysicsBody>(ctorParams);
         }
 
 
         internal IPhysicsBody InternalPhysicsBody { get; set; }
 
-        public Vector[] Vertices { get; set; }
+        public Vector[] Vertices
+        {
+            get
+            {
+                var result = new List<Vector>();
 
-        public float X { get; set; }
+                if (InternalPhysicsBody.XVertices == null || InternalPhysicsBody.YVertices == null)
+                    return null;
 
-        public float Y { get; set; }
+                for (int i = 0; i < InternalPhysicsBody.XVertices.Length; i++)
+                {
+                    result.Add(new Vector(InternalPhysicsBody.XVertices[i], InternalPhysicsBody.YVertices[i]));
+                }
 
-        public float Angle { get; set; }
 
-        public float Density { get; set; }
+                return result.ToArray();
+            }
+        }
 
-        public float Friction { get; set; }
+        public float X
+        {
+            get => InternalPhysicsBody.X;
+            set => InternalPhysicsBody.X = value;
+        }
 
-        public float Restitution { get; set; }
+        public float Y
+        {
+            get => InternalPhysicsBody.Y;
+            set => InternalPhysicsBody.Y = value;
+        }
 
-        public float LinearAcceleration { get; set; }
+        //In Degrees
+        public float Angle
+        {
+            get => InternalPhysicsBody.Angle;
+            set => InternalPhysicsBody.Angle = value;
+        }
+
+        public float Density
+        {
+            get => InternalPhysicsBody.Density;
+            set => InternalPhysicsBody.Density = value;
+        }
+
+        public float Friction
+        {
+            get => InternalPhysicsBody.Friction;
+            set => InternalPhysicsBody.Friction = value;
+        }
+
+        public float Restitution
+        {
+            get => InternalPhysicsBody.Restitution;
+            set => InternalPhysicsBody.Restitution = value;
+        }
 
         public float LinearDeceleration
         {
@@ -57,14 +94,11 @@ namespace ScorpionEngine.Physics
             set => InternalPhysicsBody.LinearDeceleration = value;
         }
 
-        public float AngularAcceleration { get; set; }
-
         public float AngularDeceleration
         {
             get => InternalPhysicsBody.AngularDeceleration;
             set => InternalPhysicsBody.AngularDeceleration = value;
         }
-
 
         public Vector LinearVelocity
         {

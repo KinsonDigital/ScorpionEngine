@@ -1,14 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
 using ScorpionEngine;
 using ScorpionEngine.Content;
 using ScorpionEngine.Graphics;
-using ScorpionEngine.Input;
-using ScorpionEngine.Objects;
-using ScorpionEngine.Physics;
 using ScorpionEngine.Scene;
 
 namespace ScorpTestGame
@@ -35,7 +27,7 @@ namespace ScorpTestGame
         public override void Init()
         {
             _level1 = new Level1();
-            SceneManager.AddScene(_level1);
+            SceneManager.Add(_level1);
 
             base.Init();
         }

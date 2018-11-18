@@ -1,11 +1,14 @@
 ﻿using System;
-using ScorpionEngine.Objects;
+using System.Diagnostics.CodeAnalysis;
+using ScorpionEngine.Entities;
 
 namespace ScorpionEngine.Events
 {
     /// <summary>
     /// Holds information about the entity that went out of bounds.
     /// </summary>
+    //TODO: Get this working and setup unit tests.  Wait for when you create a game for testing
+    [ExcludeFromCodeCoverage]
     public class OutOfBoundsTriggerEventsArgs : EventArgs
     {
         #region Properties

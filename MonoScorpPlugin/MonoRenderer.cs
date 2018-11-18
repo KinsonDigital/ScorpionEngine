@@ -54,22 +54,12 @@ namespace MonoScorpPlugin
             var textureOrigin = new Vector2(texture.Width / 2f, texture.Height / 2f);
             var position = new Vector2(x, y);
 
-            //TODO: The Begin() and End() should be called after ALL sprites have been rendered.
-            //Need to move the usaged of the Begin() and End() to the scene and items will
-            //not be drawn unless they are part of the scene.  Upon adding an Entity to the
-            //scene is when they will be added to the PhysicsWorld side of things.  An array
-            //of entities need to be added to the scene to store ALL of the entitites in that scene
             _spriteBatch.Draw(texture.GetTexture<Texture2D>(), position, srcRect, Color.White, angle.ToRadians(), textureOrigin, 1f, SpriteEffects.None, 0f);
         }
 
 
         public void Render(IText text, float x, float y)
         {
-            //TODO: The Begin() and End() should be called after ALL sprites have been rendered.
-            //Need to move the usaged of the Begin() and End() to the scene and items will
-            //not be drawn unless they are part of the scene.  Upon adding an Entity to the
-            //scene is when they will be added to the PhysicsWorld side of things.  An array
-            //of entities need to be added to the scene to store ALL of the entitites in that scene
             var color = new Color(text.Color[0], text.Color[1], text.Color[2]);
 
             _spriteBatch.DrawString(text.GetText<SpriteFont>(), text.Text, new Vector2(x, y), color);

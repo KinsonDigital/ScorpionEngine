@@ -45,12 +45,12 @@ namespace ScorpionEngine.Physics
         /// <summary>
         /// Subtracts the 2 given vectors.
         /// </summary>
-        /// <param name="vector1">The first vector.</param>
-        /// <param name="vector2">The second vector.</param>
+        /// <param name="vectorA">The first vector.</param>
+        /// <param name="vectorB">The second vector.</param>
         /// <returns></returns>
-        public static Vector operator -(Vector vector1, Vector vector2)
+        public static Vector operator -(Vector vectorA, Vector vectorB)
         {
-            return new Vector(vector1.X - vector2.X, vector1.Y - vector2.Y);
+            return new Vector(vectorA.X - vectorB.X, vectorA.Y - vectorB.Y);
         }
 
         /// <summary>
@@ -67,12 +67,12 @@ namespace ScorpionEngine.Physics
         /// <summary>
         /// Adds the 2 given vectors.
         /// </summary>
-        /// <param name="vector1">The first vector.</param>
-        /// <param name="vector2">The second vector.</param>
+        /// <param name="vectorA">The first vector.</param>
+        /// <param name="vectorB">The second vector.</param>
         /// <returns></returns>
-        public static Vector operator +(Vector vector1, Vector vector2)
+        public static Vector operator +(Vector vectorA, Vector vectorB)
         {
-            return new Vector(vector1.X + vector2.X, vector1.Y + vector2.Y);
+            return new Vector(vectorA.X + vectorB.X, vectorA.Y + vectorB.Y);
         }
 
         /// <summary>
@@ -129,29 +129,30 @@ namespace ScorpionEngine.Physics
             v.X *= factor;
             v.Y *= factor;
 
+
             return v;
         }
 
         /// <summary>
         /// Returns a value indicating if the 2 given <see cref="vector"/>s have the same component values.
         /// </summary>
-        /// <param name="vector1">The first vector in the comparison.</param>
-        /// <param name="vector2">The second vector in the comparison.</param>
+        /// <param name="vectorA">The first vector in the comparison.</param>
+        /// <param name="vectorB">The second vector in the comparison.</param>
         /// <returns></returns>
-        public static bool operator ==(Vector vector1, Vector vector2)
+        public static bool operator ==(Vector vectorA, Vector vectorB)
         {
-            return vector1.X == vector2.X && vector1.Y == vector2.Y;
+            return vectorA.X == vectorB.X && vectorA.Y == vectorB.Y;
         }
 
         /// <summary>
         /// Returns a value indicating if the 2 given <see cref="vector"/>s have different component values.
         /// </summary>
-        /// <param name="vector1">The first vector in the comparison.</param>
-        /// <param name="vector2">The second vector in the comparison.</param>
+        /// <param name="vectorA">The first vector in the comparison.</param>
+        /// <param name="vectorB">The second vector in the comparison.</param>
         /// <returns></returns>
-        public static bool operator !=(Vector vector1, Vector vector2)
+        public static bool operator !=(Vector vectorA, Vector vectorB)
         {
-            return !(vector1 == vector2);
+            return !(vectorA == vectorB);
         }
         #endregion
 
@@ -165,6 +166,7 @@ namespace ScorpionEngine.Physics
         {
             return X == 0 && Y == 0;
         }
+
 
         /// <summary>
         /// Calculates the cross product of this vector by the given vector.
@@ -198,6 +200,7 @@ namespace ScorpionEngine.Physics
             return (float)Math.Sqrt((vector.X * vector.X) + (vector.Y * vector.Y));
         }
 
+
         /// <summary>
         /// Checks if the given object is equal to this vector.
         /// </summary>
@@ -207,7 +210,8 @@ namespace ScorpionEngine.Physics
         {
             var v = (Vector)obj;
 
-            return IsZero();
+
+            return v.GetHashCode() == GetHashCode();
         }
 
 
@@ -230,6 +234,18 @@ namespace ScorpionEngine.Physics
         {
             return $"X: {Math.Round(X, round)}, Y: {Math.Round(Y, round)}";
         }
+
+
+        public override int GetHashCode()
+        {
+            var hashCode = -621239040;
+            hashCode = hashCode * -1521134295 + X.GetHashCode();
+            hashCode = hashCode * -1521134295 + Y.GetHashCode();
+            hashCode = hashCode * -1521134295 + Length.GetHashCode();
+
+
+            return hashCode;
+        }
         #endregion
 
 
@@ -245,6 +261,7 @@ namespace ScorpionEngine.Physics
             //If the value does not exist in the table, just use the Math.sqrt() function
             float val = 1.0f / (float)Math.Sqrt((v.X * v.X) + (v.Y * v.Y));
 
+
             return new Vector(v.X * val, v.Y * val);
         }
 
@@ -259,6 +276,7 @@ namespace ScorpionEngine.Physics
         {
             v.X *= -1;
             v.Y *= -1;
+
 
             return v;
         }

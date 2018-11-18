@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 // ReSharper disable UnusedMember.Global
 /**
@@ -54,6 +55,7 @@ namespace ScorpionEngine.Utils
     ///         </Control.Triggers>
     /// </code>
     /// </example>
+    [ExcludeFromCodeCoverage]
     public class Tweener
     {
         #region Easing Functions

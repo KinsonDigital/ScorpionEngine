@@ -1,5 +1,7 @@
 ﻿using ScorpionCore;
 using ScorpionCore.Plugins;
+using ScorpionEngine.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,11 +10,24 @@ namespace ScorpionEngine.Input
     /// <summary>
     /// Watches a specified key and invokes events for particular states of the keyboard keys.
     /// </summary>
-    public class KeyboardWatcher<T> : InputWatcher, IUpdatable where T : IKeyboard
+    public class KeyboardWatcher : IInputWatcher, IUpdatable
     {
+        #region Public Event Handlers
+        public event EventHandler OnInputComboPressed;
+        public event EventHandler OnInputDownTimeOut;
+        public event EventHandler OnInputHitCountReached;
+        public event EventHandler OnInputReleasedTimeOut;
+        #endregion
+
+
         #region Fields
-        private Keyboard _keyboardInput;
+        private IKeyboard _keyboard;
         private Dictionary<InputKeys, bool> _currentPressedKeys;//Holds the list of comboKeys and there down states
+        protected Counter _counter;//Keeps track of the hit count of an input
+        protected bool _curState;//The current state of the set input
+        protected bool _prevState;//The previous state of the set input
+        protected StopWatch _keyDownTimer;//Keeps track of how long the set input has been in the down position
+        protected StopWatch _keyReleasedTimer;//Keeps track of how long the set input has been in the up position since it was in the down position
         #endregion
 
 
@@ -21,104 +36,77 @@ namespace ScorpionEngine.Input
         /// Creates an instance of KeyboardWatcher.
         /// </summary>
         /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        public KeyboardWatcher(Keyboard keyboard, bool enabled = true)
+        public KeyboardWatcher(bool enabled)
         {
-            _keyboardInput = keyboard;
-            Init(10, InputKeys.None, null, -1, -1, enabled);
-        }
+            _keyboard = PluginSystem.EnginePlugins.LoadPlugin<IKeyboard>();
+            Enabled = enabled;
+            ComboKeys = new List<InputKeys>();
 
+            //Setup stop watches
+            _counter = new Counter(0, 10, 1);
+            _keyDownTimer = new StopWatch(1000);
+            _keyDownTimer.OnTimeElapsed += _keyDownTimer_OnTimeElapsed;
+            _keyDownTimer.Start();
 
-        /// <summary>
-        /// Creates an instance of KeyboardWatcher.
-        /// </summary>
-        /// <param name="comboKeys">The list of comboKeys to press in combination to invoke the event.</param>
-        /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        public KeyboardWatcher(Keyboard keyboard, List<InputKeys> comboKeys, bool enabled = true)
-        {
-            _keyboardInput = keyboard;
-            Init(-1, InputKeys.None, comboKeys, -1, -1, enabled);
-        }
-
-
-        /// <summary>
-        /// Creates an instance of KeyboardWatcher.
-        /// </summary>
-        /// <param name="hitCountMax">The total amount of times the key will be hit before invoking an event.</param>
-        /// <param name="key">The key to watch.</param>
-        /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        public KeyboardWatcher(Keyboard keyboard, int hitCountMax, InputKeys key, bool enabled = true)
-        {
-            _keyboardInput = keyboard;
-            Init(hitCountMax, key, null, -1, -1, enabled);
-        }
-
-
-        /// <summary>
-        /// Creates an instance of KeyboardWatcher.
-        /// </summary>
-        /// <param name="hitCountMax">The total amount of times the key will be hit before invoking an event.</param>
-        /// <param name="key">The key to watch.</param>
-        /// <param name="keyDownTimeOut">Sets the time in milliseconds that the given key should be pressed before the OnKeyDownTimeOut event will be invoked.</param>
-        /// <param name="keyReleaseTimeOut">Sets the time in milliseconds that the given key should be released before the OnKeyReleaseTimeout event will be invoked.</param>
-        /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        public KeyboardWatcher(Keyboard keyboard, int hitCountMax, InputKeys key, int keyDownTimeOut, int keyReleaseTimeOut, bool enabled = true)
-        {
-            _keyboardInput = keyboard;
-            Init(hitCountMax, key, null, keyDownTimeOut, keyReleaseTimeOut, enabled);
-        }
-
-
-        /// <summary>
-        /// Creates an instance of KeyboardWatcher.
-        /// </summary>
-        /// <param name="hitCountMax">The total amount of times the key will be hit before invoking an event.</param>
-        /// <param name="key">The key to watch.</param>
-        /// <param name="comboKeys">The list of comboKeys to press in combination to invoke the event.</param>
-        /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        public KeyboardWatcher(Keyboard keyboard, int hitCountMax, InputKeys key, List<InputKeys> comboKeys, bool enabled = true)
-        {
-            _keyboardInput = keyboard;
-            Init(hitCountMax, key, comboKeys, -1, -1, enabled);
-        }
-
-
-        /// <summary>
-        /// Creates an instance of KeyboardWatcher.
-        /// </summary>
-        /// <param name="hitCountMax">The total amount of times the key will be hit before invoking an event.</param>
-        /// <param name="key">The key to watch.</param>
-        /// <param name="comboKeys">The list of comboKeys to press in combination to invoke the event.</param>
-        /// <param name="keyDownTimeOut">Sets the time in milliseconds that the given key should be pressed before the OnKeyDownTimeOut event will be invoked.</param>
-        /// <param name="keyReleaseTimeOut">Sets the time in milliseconds that the given key should be released before the OnKeyReleaseTimeout event will be invoked.</param>
-        /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        public KeyboardWatcher(Keyboard keyboard, int hitCountMax, InputKeys key, List<InputKeys> comboKeys, int keyDownTimeOut, int keyReleaseTimeOut, bool enabled = true)
-        {
-            _keyboardInput = keyboard;
-            Init(hitCountMax, key, comboKeys, keyDownTimeOut, keyReleaseTimeOut, enabled);
+            _keyReleasedTimer = new StopWatch(1000);
+            _keyReleasedTimer.OnTimeElapsed += _keyUpTimer_OnTimeElapsed;
+            _keyReleasedTimer.Start();
         }
         #endregion
 
 
         #region Props
         /// <summary>
-        /// Gets or sets the key to watch.
-        /// </summary>
-        public InputKeys Key { get; set; }
-
-        /// <summary>
         /// Gets or sets the list of combo keys.
         /// </summary>
         public List<InputKeys> ComboKeys
         {
-            get
-            {
-                return _currentPressedKeys.Keys.ToList();
-            }
-            set
-            {
-                CreateCurrentPressedKeys(value?.ToArray());
-            }
+            get => _currentPressedKeys.Keys.ToList();
+            set => CreateCurrentPressedKeys(value.ToArray());
         }
+
+        /// <summary>
+        /// Gets or sets the key to watch.
+        /// </summary>
+        public InputKeys Key { get; set; } = InputKeys.None;
+
+        public int CurrentHitCount => _counter.Value;
+
+        public int CurrentHitCountPercentage => (int)(CurrentHitCount / (float)HitCountMax * 100f);
+
+        public ResetType DownElapsedResetMode { get; set; } = ResetType.Auto;
+
+        public bool Enabled { get; set; }
+
+        public int HitCountMax
+        {
+            get => _counter.Max;
+            set => _counter.Max = value;
+        }
+
+        public ResetType HitCountResetMode { get; set; } = ResetType.Auto;
+
+        public int InputDownElapsedMS => _keyDownTimer.ElapsedMS;
+
+        public float InputDownElapsedSeconds => _keyDownTimer.ElapsedSeconds;
+
+        public int InputDownTimeOut
+        {
+            get => _keyDownTimer.TimeOut;
+            set => _keyDownTimer.TimeOut = value;
+        }
+
+        public int InputReleasedElapsedMS => _keyReleasedTimer.ElapsedMS;
+
+        public float InputReleasedElapsedSeconds => _keyReleasedTimer.ElapsedSeconds;
+
+        public int InputReleasedTimeout
+        {
+            get => _keyReleasedTimer.TimeOut;
+            set => _keyReleasedTimer.TimeOut = value;
+        }
+
+        public ResetType ReleasedElapsedResetMode { get; set; } = ResetType.Auto;
         #endregion
 
 
@@ -133,28 +121,30 @@ namespace ScorpionEngine.Input
             if (! Enabled) return;
 
             //Update the current state of the keyboard
-            _keyboardInput.UpdateCurrentState();
+            _keyboard.UpdateCurrentState();
 
             //Update the key down timer to keep track of how much time that the key has been in the down position
-            _inputDownTimer.Update(engineTime);
+            _keyDownTimer.Update(engineTime);
 
-            //Update the key release timer to keep track of how much time that the key has been release since it was last pressed
-            _inputReleasedTimer.Update(engineTime);
+            //Update the key release timer to keep track of how much time that the key has been in the
+            //up position since its release
+            _keyReleasedTimer.Update(engineTime);
 
             //Get the current state of the key
-            _curState = _keyboardInput.IsKeyDown(Key);
+            _curState = _keyboard.IsKeyDown((int)Key);
+
 
             #region Hit Count Code
-            if (_keyboardInput.IsKeyPressed(Key))
+            if (_keyboard.IsKeyPressed((int)Key))
             {
                 //If the max is reached, invoke the OnButtonHitCountReached event and reset it back to 0
-                if (_counter.Value == HitCountMax)
+                if (_counter != null && _counter.Value == HitCountMax)
                 {
-                    InvokeOnInputHitCountReached();
+                    OnInputHitCountReached?.Invoke(this, new EventArgs());
 
                     //If the reset mode is set to auto, reset the hit counter
-                    if(HitCountResetMode == ResetType.Auto)
-                        _counter?.Reset();
+                    if (HitCountResetMode == ResetType.Auto)
+                        _counter.Reset();
                 }
                 else
                 {
@@ -163,49 +153,21 @@ namespace ScorpionEngine.Input
             }
             #endregion
 
+
             #region Timing Code
-            //Check to see if the key release timeout has elapsed, if so invoke the OnKeyReleaseTimeOut event
-            if (_inputReleasedTimer.ElapsedMS >= InputReleasedTimeout)
-            {
-                //If the reset mode is set to auto, reset the time elapsed
-                if (ReleasedElapsedResetMode == ResetType.Auto)
-                    //Reset the timer
-                    _inputReleasedTimer.Reset();
+            //As long as the button is down, continue to keep the button release timer reset to 0
+            if (_keyboard.IsKeyDown((int)Key))
+                _keyReleasedTimer.Reset();
 
-                //Invoke the event
-                InvokeOnInputReleaseTimeOut();
-            }
-
-            //Check to see if the key is pressed
-            if (_keyboardInput.IsKeyDown(Key))
-            {
-                //Stop and reset the key release timer
-                _inputReleasedTimer.Reset();
-
-                _inputDownTimer.Start();
-
-                //If the set time in milliseconds has elapsed
-                if (InputDownElapsedMS >= InputDownTimeOut)
-                {
-                    //If the reset mode is set to auto, reset the time elapsed
-                    if (DownElapsedResetMode == ResetType.Auto)
-                        _inputDownTimer.Reset();
-
-                    InvokeOnInputDownTimeOut();
-                }
-            }
-
-            //Reset the elapsed time if the current state is up and the previous was down, and the reset on key release is enabled
+            //If the button is not pressed down and the button was pressed down last frame,
+            //reset the input down timer and start the button release timer.
             if (!_curState && _prevState)
             {
-                //If the reset mode is set to auto, reset the time elapsed
-                if (DownElapsedResetMode == ResetType.Auto)
-                    _inputDownTimer.Reset();
-
-                //Start the key release timer
-                _inputReleasedTimer.Start();
+                _keyDownTimer.Reset();
+                _keyReleasedTimer.Start();
             }
             #endregion
+
 
             #region Key Combo Code
             //If the key combo list is not null
@@ -217,55 +179,52 @@ namespace ScorpionEngine.Input
                 //Set the state of all of the pressed keys
                 foreach (var key in keys)
                 {
-                    _currentPressedKeys[key] = _keyboardInput.IsKeyDown(key);
+                    _currentPressedKeys[key] = _keyboard.IsKeyDown((int)key);
                 }
 
                 //If all of the keys are pressed down
-                if (_currentPressedKeys.All(key => key.Value))
-                    InvokeOnInputComboPressed();
+                if (_currentPressedKeys.Count > 0 && _currentPressedKeys.All(key => key.Value))
+                    OnInputComboPressed?.Invoke(this, new EventArgs());
             }
             #endregion
 
-            _keyboardInput.UpdatePreviousState();
+            _keyboard.UpdatePreviousState();
 
             _prevState = _curState;
         }
         #endregion
 
 
-        #region Private Methods
-        /// <summary>
-        /// Initializes the KeyboardWatcher.
-        /// </summary>
-        /// <param name="hitCountMax">The total amount of times the key will be hit before invoking an event.</param>
-        /// <param name="key">The key to watch.</param>
-        /// <param name="comboKeys">The list of comboKeys to press in combination to invoke the event.</param>
-        /// <param name="keyDownTimeOut">Sets the time in milliseconds that the given key should be pressed before the OnKeyTimout event will be invoked.</param>
-        /// <param name="keyReleaseTimeOut">Sets the time in milliseconds that the given key should be released before the OnKeyReleaseTimeout event will be invoked.</param>
-        /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
-        private void Init(int hitCountMax, InputKeys key, List<InputKeys> comboKeys, int keyDownTimeOut, int keyReleaseTimeOut, bool enabled = true)
+        #region Private Event Methods
+        private void _keyUpTimer_OnTimeElapsed(object sender, EventArgs e)
         {
-            Key = key;
+            if (_keyboard.IsKeyUp((int)Key))
+            {
+                //If the reset mode is set to auto, reset the time elapsed
+                if (DownElapsedResetMode == ResetType.Auto)
+                    _keyReleasedTimer.Reset();
 
-            //If the combo keys are null, skip the combo key setup
-            if (comboKeys != null)
-                CreateCurrentPressedKeys(comboKeys.ToArray());
-
-            if (hitCountMax > 0) HitCountMax = hitCountMax;
-
-            InputDownTimeOut = keyDownTimeOut;
-
-            InputReleasedTimeout = keyReleaseTimeOut;
-
-            Enabled = enabled;
-
-            DownElapsedResetMode = ResetType.Auto;
-            ReleasedElapsedResetMode = ResetType.Auto;
-
-            HitCountResetMode = ResetType.Auto;
+                OnInputReleasedTimeOut?.Invoke(this, new EventArgs());
+            }
         }
 
 
+        private void _keyDownTimer_OnTimeElapsed(object sender, EventArgs e)
+        {
+            if (_keyboard.IsKeyDown((int)Key))
+            {
+                //If the reset mode is set to auto, reset the time elapsed
+                if (ReleasedElapsedResetMode == ResetType.Auto)
+                    _keyDownTimer.Reset();
+
+                //Invoke the event
+                OnInputDownTimeOut?.Invoke(this, new EventArgs());
+            }
+        }
+        #endregion
+
+
+        #region Private Methods
         /// <summary>
         /// Creates the list of pressed keys from the given list of keys
         /// </summary>

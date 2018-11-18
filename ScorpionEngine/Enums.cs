@@ -55,7 +55,7 @@
         /// <summary>
         /// The key press event will be invoked only once on key press.
         /// </summary>
-        OnceOnPress = 2,
+        OnceOnDown = 2,
         /// <summary>
         /// The key release event will be invoked only once on key release.
         /// </summary>
@@ -63,7 +63,7 @@
         /// <summary>
         /// The key press event will fire after a set time delay.
         /// </summary>
-        OnKeyPressedTimeDelay = 4,
+        OnKeyDownTimeDelay = 4,
         /// <summary>
         /// The key release event will fire after a set time delay.
         /// </summary>
@@ -71,11 +71,7 @@
         /// <summary>
         /// The key release event will fire after any key has been released.
         /// </summary>
-        OnAnyKeyPress = 6,
-        /// <summary>
-        /// The key release event will fire after any key has been pressed.
-        /// </summary>
-        OnAnyKeyRelease = 7
+        OnAnyKeyPress = 6
     }
 
     /// <summary>

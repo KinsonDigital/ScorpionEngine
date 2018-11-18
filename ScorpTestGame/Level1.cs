@@ -2,14 +2,11 @@ using ScorpionEngine;
 using ScorpionEngine.Content;
 using ScorpionEngine.Graphics;
 using ScorpionEngine.Input;
-using ScorpionEngine.Objects;
+using ScorpionEngine.Entities;
 using ScorpionEngine.Physics;
 using ScorpionEngine.Scene;
+using ScorpionEngine.UI;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ScorpTestGame
 {
@@ -18,6 +15,7 @@ namespace ScorpTestGame
         private DynamicEntity _ship;
         private Keyboard _keyboard;
         private Mouse _mouse;
+        private UIText _shipLocation;
 
 
         public Level1() : base(new Vector(0f, 0f))
@@ -41,13 +39,14 @@ namespace ScorpTestGame
             {
                 DebugDrawEnabled = true,
                 MaxLinearSpeed = 0.5f,
-                MaxAngularSpeed = 0.25f,
+                MaxRotationSpeed = 0.25f,
                 AngularDeceleration = 0.25f
             };
 
             PhysicsWorld.AddEntity(_ship);
             AddEntity(_ship);
 
+            _shipLocation = new UIText();
             base.Initialize();
         }
 
@@ -56,6 +55,17 @@ namespace ScorpTestGame
         {
             _ship.Texture = contentLoader.LoadTexture("Ship");
 
+            var shipLocationLabelText = contentLoader.LoadText("MyGameText");
+            shipLocationLabelText.Text = "Location";
+            shipLocationLabelText.Color = new GameColor(255, 255, 255, 255);
+
+            var shipLocationValueText = contentLoader.LoadText("MyGameText");
+            shipLocationValueText.Text = "NA";
+            shipLocationValueText.Color = new GameColor(255, 255, 255, 255);
+
+            _shipLocation.LabelText = shipLocationLabelText;
+            _shipLocation.ValueText = shipLocationValueText;
+
             base.LoadContent(contentLoader);
         }
 
@@ -63,6 +73,8 @@ namespace ScorpTestGame
         public override void Update(EngineTime engineTime)
         {
             ProcessKeys();
+
+            _shipLocation.SetValueText($"X: {_ship.Position.X} - Y: {_ship.Position.Y}");
 
             base.Update(engineTime);
         }

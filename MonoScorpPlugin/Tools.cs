@@ -1,10 +1,4 @@
-﻿using System;
-using SysColor = System.Drawing.Color;
-using MonoColor = Microsoft.Xna.Framework.Color;
-using System.Linq;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using ScorpionCore;
+﻿using Microsoft.Xna.Framework.Input;
 
 namespace MonoScorpPlugin
 {

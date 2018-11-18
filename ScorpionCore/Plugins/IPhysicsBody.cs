@@ -1,9 +1,4 @@
-﻿using ScorpionCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace ScorpionCore.Plugins
 {
@@ -31,13 +26,9 @@ namespace ScorpionCore.Plugins
 
         float LinearVelocityY { get; set; }
 
-        float LinearAcceleration { get; set; }
-
         float LinearDeceleration { get; set; }
 
         float AngularVelocity { get; set; }
-
-        float AngularAcceleration { get; set; }
 
         float AngularDeceleration { get; set; }
 

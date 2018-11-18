@@ -1,10 +1,5 @@
-﻿using ScorpionCore;
-using ScorpionEngine.Events;
+﻿using ScorpionEngine.Events;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ScorpionEngine.Scene
 {
@@ -15,7 +10,7 @@ namespace ScorpionEngine.Scene
         #endregion
 
 
-        #region Private Vars
+        #region Fields
         private Action _frameStackCallback;//Invoked after a frame stack has been run
         #endregion
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 namespace ScorpionEngine.Content
 {
@@ -28,13 +27,14 @@ namespace ScorpionEngine.Content
         /// Gets the first occurance of any number in the string.
         /// </summary>
         /// <returns></returns>
-        public static int IndexOfNumber(this string item)
+        public static int GetFirstOccurentOfNumber(this string item)
         {
             var number = new string(item.Where(IsNumber).ToArray());
 
             if (string.IsNullOrEmpty(number)) return -1;
 
-            return Int32.Parse(number);
+
+            return int.Parse(number);
         }
 
 
@@ -45,40 +45,6 @@ namespace ScorpionEngine.Content
         public static bool HasNumbers(this string item)
         {
             return item.Any(IsNumber);
-        }
-
-
-        /// <summary>
-        /// Returns true if the string only contains letters.
-        /// </summary>
-        /// <returns></returns>
-        public static bool ContainsOnlyLetters(this string item)
-        {
-            for (var i = 0; i < item.Length; i++)
-            {
-                //If any of the characters are not a letter
-                if (!item[i].IsLetter())
-                    return false;
-            }
-
-            return true;
-        }
-
-
-        /// <summary>
-        /// Returns true if the string only contains numbers.
-        /// </summary>
-        /// <returns></returns>
-        public static bool ContainsOnlyNumbers(this string item)
-        {
-            for (var i = 0; i < item.Length; i++)
-            {
-                //If any of the characters are not a letter
-                if (!item[i].IsNumber())
-                    return false;
-            }
-
-            return true;
         }
 
 
@@ -94,6 +60,7 @@ namespace ScorpionEngine.Content
                 if (!item[i].IsNumber() && !item[i].IsLetter())
                     return false;
             }
+
 
             return true;
         }

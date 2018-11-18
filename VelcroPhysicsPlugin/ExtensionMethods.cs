@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using VelcroPhysics.Primitives;
 using VelcroPhysics.Shared;
-using VelcroVector = VelcroPhysics.Primitives.Vector2;
 
 namespace VelcroPhysicsPlugin
 {

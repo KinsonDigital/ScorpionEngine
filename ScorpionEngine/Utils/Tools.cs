@@ -1,10 +1,5 @@
-﻿using ScorpionEngine.Input;
-using ScorpionEngine.Physics;
+﻿using ScorpionEngine.Physics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ScorpionEngine.Utils
 {
@@ -16,20 +11,6 @@ namespace ScorpionEngine.Utils
         private const float PI = 3.1415926535897931f;
 
         #region Public Methods
-        /// <summary>
-        /// Gets the minimum value of the given enumeration.
-        /// </summary>
-        /// <param name="enumType">The enum to process.</param>
-        /// <returns></returns>
-        public static int GetEnumMin(Type enumType)
-        {
-            var values = Enum.GetValues(enumType);
-
-            //Get the smallest item out of all of the values
-            return values.Cast<int>().Concat(new[] { int.MaxValue }).Min();
-        }
-
-
         /// <summary>
         /// Rotates the <paramref name="vector"/> around the <paramref name="rotateOrigin"/> at the given <paramref name="angle"/>.
         /// </summary>
@@ -55,18 +36,6 @@ namespace ScorpionEngine.Utils
 
 
             return new Vector(x, y);
-        }
-
-
-        public static float ToDegrees(this float radians)
-        {
-            return radians * 180.0f / PI;
-        }
-
-
-        public static float ToRadians(this float degrees)
-        {
-            return degrees * PI / 180f;
         }
         #endregion
     }

@@ -1,11 +1,6 @@
-﻿using ScorpionEngine.Scene;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
-namespace ScorpionEngine.EventArguments
+namespace ScorpionEngine.Events
 {
     /// <summary>
     /// Holds information about the 

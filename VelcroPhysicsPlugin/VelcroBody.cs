@@ -2,13 +2,10 @@
 using ScorpionCore.Plugins;
 using System;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using VelcroPhysics.Collision.Shapes;
 using VelcroPhysics.Dynamics;
-using VelcroPhysics.Factories;
 using VelcroPhysics.Primitives;
-using VelcroPhysics.Shared;
 
 namespace VelcroPhysicsPlugin
 {
@@ -154,11 +151,7 @@ namespace VelcroPhysicsPlugin
         public float Friction
         {
             get => _tempSettings.Friction;
-            set
-            {
-                //TODO: We might be able to change the friction after its been added, look into this.
-                throw new Exception("Cannot set the fiction after the body has been add to the world");
-            }
+            set => PolygonBody.Friction = value;
         }
 
         public float Restitution
@@ -166,8 +159,19 @@ namespace VelcroPhysicsPlugin
             get => _tempSettings.Restitution;
             set
             {
-                //TODO: We might be able to change the restitution after its been added, look into this.
-                throw new Exception("Cannot set the restitution after the body has been add to the world");
+                if (PolygonBody == null)
+                {
+                    AfterAddedToWorldActions.Add(() =>
+                    {
+                        PolygonBody.Restitution = value;
+                    });
+                }
+                else
+                {
+                    PolygonBody.AngularDamping = value;
+                }
+
+                _tempSettings.Restitution = value;
             }
         }
 
@@ -188,9 +192,6 @@ namespace VelcroPhysicsPlugin
                 PolygonBody.LinearVelocity = new Vector2(PolygonBody.LinearVelocity.X, value.ToPhysics());
             }
         }
-
-        //TODO: Needs to be implemented
-        public float LinearAcceleration { get; set; }
 
         public float LinearDeceleration
         {
@@ -219,9 +220,6 @@ namespace VelcroPhysicsPlugin
                 PolygonBody.AngularVelocity = value.ToPhysics();
             }
         }
-
-        //TODO: Needs to be implemented
-        public float AngularAcceleration { get; set; }
 
         public float AngularDeceleration
         {

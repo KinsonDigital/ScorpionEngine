@@ -1,8 +1,6 @@
-﻿using ScorpionCore;
-using ScorpionCore.Plugins;
-using ScorpionEngine.Content;
+﻿using ScorpionEngine.Content;
 using ScorpionEngine.Graphics;
-using ScorpionEngine.Objects;
+using ScorpionEngine.Entities;
 using ScorpionEngine.Physics;
 using System.Collections.Generic;
 
@@ -10,10 +8,12 @@ namespace ScorpionEngine.Scene
 {
     public abstract class GameScene : IScene
     {
+        #region Constructors
         public GameScene(Vector gravity)
         {
             PhysicsWorld = new PhysicsWorld(gravity);
         }
+        #endregion
 
 
         #region Props
@@ -46,11 +46,13 @@ namespace ScorpionEngine.Scene
         /// <summary>
         /// Gets or sets a value indicating if the scene is currently rendering.
         /// </summary>
-        public bool RenderingScene { get; set; }
+        public bool IsRenderingScene { get; set; }
 
         public List<Entity> Entities { get; } = new List<Entity>();
 
         public static PhysicsWorld PhysicsWorld { get; set; }
+
+        public int Id { get; set; }
         #endregion
 
 
@@ -67,8 +69,8 @@ namespace ScorpionEngine.Scene
         /// <summary>
         /// Loads all content for the scene using the given <see cref="ContentManager"/>.
         /// </summary>
-        /// <param name="contentManager">The content manager to use for loading the scene's content.</param>
-        public virtual void LoadContent(ContentLoader contentManager)
+        /// <param name="contentLoader">The content manager to use for loading the scene's content.</param>
+        public virtual void LoadContent(ContentLoader contentLoader)
         {
             ContentLoaded = true;
         }
@@ -77,8 +79,8 @@ namespace ScorpionEngine.Scene
         /// <summary>
         /// Unloads all content for the scene.
         /// </summary>
-        /// <param name="contentManager">The content manager to use for loading the scene's content.</param>
-        public virtual void UnloadContent(ContentLoader contentManager)
+        /// <param name="contentLoader">The content manager to use for loading the scene's content.</param>
+        public virtual void UnloadContent(ContentLoader contentLoader)
         {
             ContentLoaded = false;
         }
@@ -97,7 +99,7 @@ namespace ScorpionEngine.Scene
             //Update all of the entities
             foreach (var entity in Entities)
             {
-                entity.OnUpdate(engineTime);
+                entity.Update(engineTime);
             }
         }
 
@@ -108,10 +110,11 @@ namespace ScorpionEngine.Scene
         /// <param name="renderer">The renderer to use for rendering.</param>
         public virtual void Render(Renderer renderer)
         {
-
+            IsRenderingScene = false;
         }
 
-
+        //TODO: Make this class IEnumarable so we get the benefits of generics and IList functionality
+        //in the class itself.
         public void AddEntity(Entity entity)
         {
             Entities.Add(entity);

@@ -1,5 +1,4 @@
-﻿using ScorpionCore;
-using System;
+﻿using System;
 
 namespace ScorpionEngine.Utils
 {
@@ -36,7 +35,7 @@ namespace ScorpionEngine.Utils
 
         #region Props
         /// <summary>
-        /// Gets or sets the amount of time before the stopwatch will invoke the OnTimeElapsed event.
+        /// Gets or sets the amount of time in milliseconds before the stopwatch will invoke the OnTimeElapsed event.
         /// NOTE: If a timeout of less then 1 is attempted, timeout will default to 1.
         /// </summary>
         public int TimeOut
@@ -86,13 +85,13 @@ namespace ScorpionEngine.Utils
         {
             _enabled = false;
             Running = false;
-        } 
+        }
 
 
         /// <summary>
         /// Gets or sets the reset mode of the stopwatch.  If set to auto reset, then the stopwatch will automatically be set to 0 and start counting again.
         /// </summary>
-        public ResetType ResetMode { get; set; }
+        public ResetType ResetMode { get; set; } = ResetType.Auto;
 
 
         /// <summary>
@@ -114,7 +113,7 @@ namespace ScorpionEngine.Utils
         {
             //If the stopwatch is enabled, add the amount of time passed to the elapsed value
             if (_enabled)
-                ElapsedMS += engineTime.ElapsedEngineTime.Milliseconds;
+                ElapsedMS += (int)engineTime.ElapsedEngineTime.TotalMilliseconds;
 
             //If the timeout has been reached
             if (ElapsedMS < _timeOut) return;

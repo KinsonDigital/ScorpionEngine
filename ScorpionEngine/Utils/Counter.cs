@@ -38,10 +38,6 @@ namespace ScorpionEngine.Utils
         {
             Value = value;
 
-            //Make sure that the min is then the max
-            if(min >= max)
-                throw new ArgumentOutOfRangeException(@"The min cannot be greater then max and max cannot be less then min.");
-
             //Set the minimum
             _min = min;
 
@@ -50,14 +46,11 @@ namespace ScorpionEngine.Utils
 
             //Set the count amount
             CountAmount = countAmount;
-
-            //Default the reset mode to auto
-            ResetMode = ResetType.Auto;
         }
         #endregion
 
 
-        #region Props
+        #region Properties
         /// <summary>
         /// Gets the current value of the counter.
         /// </summary>
@@ -71,9 +64,11 @@ namespace ScorpionEngine.Utils
             get { return _min; }
             set
             {
-                //Make sure that the min is then the max
-                if (value >= _max)
-                    throw new ArgumentOutOfRangeException(@"The min cannot be greater then max and max cannot be less then min.");
+                //Make sure thataxhe min is then the max
+                if (value > _max)
+                    throw new Exception($"The min value of {value} cannot be greater than max value of {_max}.");
+
+                _min = value;
             }
         }
 
@@ -89,8 +84,10 @@ namespace ScorpionEngine.Utils
             set
             {
                 //Make sure that the min is then the max
-                if (value >= _min)
-                    throw new ArgumentOutOfRangeException(@"The min cannot be greater then max and max cannot be less then min.");
+                if (value < _min)
+                    throw new Exception($"The max value of {value} cannot be less than min value of {_min}.");
+
+                _max = value;
             }
         }
 
@@ -102,7 +99,7 @@ namespace ScorpionEngine.Utils
         /// <summary>
         /// Gets or sets the reset mode.  If the mode is set to manual, the Reset method is the only way to reset the value back to 0.
         /// </summary>
-        public ResetType ResetMode { get; set; }
+        public ResetType ResetMode { get; set; } = ResetType.Auto;
 
         /// <summary>
         /// Gets or sets the direction to count.
@@ -138,7 +135,8 @@ namespace ScorpionEngine.Utils
                     //Count the value
                     Value -= CountAmount;
 
-                    //If the value is less than or equal the max, invoke the MinReachedWhenDecrementing event and set the value back to 0
+                    //If the value is less than or equal the max,
+                    //invoke the MinReachedWhenDecrementing event and set the value back to 0
                     if (Value > Min) return;
 
                     //Invoke the MinReachedWhenDecrementing event
@@ -149,7 +147,7 @@ namespace ScorpionEngine.Utils
                         Reset();
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new Exception($"The {nameof(CountDirection)} is set to an invalid enum value.");
             }
         }
 
@@ -162,35 +160,13 @@ namespace ScorpionEngine.Utils
             switch (CountDirection)
             {
                 case CountType.Increment:
-                    Value = Min;
+                   Value = Min;
                     break;
                 case CountType.Decrement:
                     Value = Max;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-
-
-        /// <summary>
-        /// Resets the counter to the given value.
-        /// </summary>
-        /// <param name="value">The value to set the counter at. If value is greater then max, then the value will just be set to the max.</param>
-        public void Reset(int value)
-        {
-            switch (CountDirection)
-            {
-                case CountType.Increment:
-                    //Clamp the value to the min if the incoming value is greater then min
-                    Value = value < Min ? Min : value;
-                    break;
-                case CountType.Decrement:
-                    //Clamp the value to the max if the incoming value is greater then max
-                    Value = value > Max ? Max : value;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new Exception($"The {nameof(CountDirection)} is set to an invalid enum value.");
             }
         }
         #endregion

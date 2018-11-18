@@ -1,12 +1,7 @@
 ﻿using ScorpionCore;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ScorpionCore.Plugins;
 
 namespace MonoScorpPlugin
@@ -32,32 +27,31 @@ namespace MonoScorpPlugin
         #endregion
 
 
-        public T LoadTexture<T>(string textureName) where T : class, ITexture
+        public T LoadTexture<T>(string name) where T : class, ITexture
         {
-            ITexture newTexture;
-
-            newTexture = new MonoTexture(MonoGame.Content.Load<Texture2D>($@"Graphics\{textureName}")) as ITexture;
+            ITexture newTexture = new MonoTexture();
+            newTexture.InjectData(MonoGame.Content.Load<Texture2D>($@"Graphics\{name}"));
 
 
             return newTexture as T;
         }
 
 
-        public T LoadText<T>(string name, string text) where T : class, IText
+        public T LoadText<T>(string name) where T : class, IText
         {
-            //IText textItem = new MonoText(MonoGame.DriverContent.Load<SpriteFont>($@"Fonts\{name}"))
-            //{
-            //    Text = text
-            //};
+            IText textItem = new MonoText();
+            textItem.InjectData(MonoGame.Content.Load<SpriteFont>($@"Fonts\{name}"));
 
-            return null;
-            //return textItem as T;
+
+            return textItem as T;
         }
+
 
         public void InjectData<T>(T data) where T : class
         {
             throw new NotImplementedException();
         }
+
 
         public object GetData(string dataType)
         {

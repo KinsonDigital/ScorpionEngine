@@ -1,6 +1,8 @@
-﻿namespace ScorpionCore
+﻿using ScorpionCore.Plugins;
+
+namespace ScorpionCore
 {
-    public interface ITexture
+    public interface ITexture : IPlugin
     {
         int Width { get; set; }
 

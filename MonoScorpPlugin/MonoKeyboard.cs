@@ -1,5 +1,4 @@
 ﻿using System;
-using ScorpionCore;
 using Microsoft.Xna.Framework.Input;
 using ScorpionCore.Plugins;
 

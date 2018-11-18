@@ -1,6 +1,7 @@
 ﻿using ScorpionCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 
@@ -9,6 +10,8 @@ namespace ScorpionEngine.Content
     /// <summary>
     /// Manages all of the atlases loaded into the game.
     /// </summary>
+    //TODO: Look into using this later during the building of a test game.
+    [ExcludeFromCodeCoverage]
     internal static class AtlasManager
     {
         #region Fields
@@ -331,7 +334,7 @@ namespace ScorpionEngine.Content
                     throw new Exception("Animating frame sub texture name has no frame index number");
 
                 //If the numbers in the current name is in any of the animating frame names, throw an exception
-                if (animatingFrameNames.Count(item => item.IndexOfNumber() == animatingFrameNames[i].IndexOfNumber()) > 1)
+                if (animatingFrameNames.Count(item => item.GetFirstOccurentOfNumber() == animatingFrameNames[i].GetFirstOccurentOfNumber()) > 1)
                     throw new Exception("Duplicate frame index number within the animating frame group " + animatingFrameNames[i]);
 
                 //If this point is reached, then no errors were found, remove the item from the list to remove duplicate checks
