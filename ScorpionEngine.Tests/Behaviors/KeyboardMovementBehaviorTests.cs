@@ -34,6 +34,7 @@ namespace ScorpionEngine.Tests.Behaviors
             PluginSystem.LoadEnginePluginLibrary(mockEnginePluginLibrary.Object);
 
             var entity = new DynamicEntity(new Vector[0], Vector.Zero);
+            entity.Initialize();
             var behavior = new KeyboardMovementBehavior<DynamicEntity>(entity, 10f);
             var expected = 10;
 
@@ -66,6 +67,7 @@ namespace ScorpionEngine.Tests.Behaviors
             PluginSystem.LoadEnginePluginLibrary(mockEnginePluginLibrary.Object);
 
             var entity = new DynamicEntity(new Vector[0], Vector.Zero);
+            entity.Initialize();
             var behavior = new KeyboardMovementBehavior<DynamicEntity>(entity, 10f);
             var expected = -10;
 
@@ -98,6 +100,7 @@ namespace ScorpionEngine.Tests.Behaviors
             PluginSystem.LoadEnginePluginLibrary(mockEnginePluginLibrary.Object);
 
             var entity = new DynamicEntity(new Vector[0], Vector.Zero);
+            entity.Initialize();
             var behavior = new KeyboardMovementBehavior<DynamicEntity>(entity, 10f);
             var expected = -10;
 
@@ -130,6 +133,7 @@ namespace ScorpionEngine.Tests.Behaviors
             PluginSystem.LoadEnginePluginLibrary(mockEnginePluginLibrary.Object);
 
             var entity = new DynamicEntity(new Vector[0], Vector.Zero);
+            entity.Initialize();
             var behavior = new KeyboardMovementBehavior<DynamicEntity>(entity, 10f);
             var expected = 10;
 

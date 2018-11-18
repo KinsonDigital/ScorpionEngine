@@ -12,7 +12,7 @@ namespace ScorpTestGame.Scenes
 {
     public class Level1 : GameScene
     {
-        private DynamicEntity _ship;
+        private PlayerShip _ship;
         private Keyboard _keyboard;
         private Mouse _mouse;
         private UIText _shipLocation;
@@ -35,15 +35,11 @@ namespace ScorpTestGame.Scenes
                 new Vector(-21, 21)
             };
 
-            _ship = new DynamicEntity(fallingRectVertices, new Vector(330, 200))
-            {
-                DebugDrawEnabled = true,
-                MaxLinearSpeed = 0.5f,
-                MaxRotationSpeed = 0.25f,
-                AngularDeceleration = 0.25f
-            };
+            _ship = new PlayerShip();
 
+            _ship.Initialize();
             PhysicsWorld.AddEntity(_ship);
+
             AddEntity(_ship);
 
             _shipLocation = new UIText();
@@ -53,7 +49,7 @@ namespace ScorpTestGame.Scenes
 
         public override void LoadContent(ContentLoader contentLoader)
         {
-            _ship.Texture = contentLoader.LoadTexture("Ship");
+            _ship.LoadContent(contentLoader);
 
             var shipLocationLabelText = contentLoader.LoadText("MyGameText");
             shipLocationLabelText.Text = "Location";

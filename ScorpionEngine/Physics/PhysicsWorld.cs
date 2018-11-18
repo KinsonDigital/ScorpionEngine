@@ -1,6 +1,7 @@
 ﻿using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Entities;
+using ScorpionEngine.Exceptions;
 
 namespace ScorpionEngine.Physics
 {
@@ -22,7 +23,14 @@ namespace ScorpionEngine.Physics
 
         public void AddEntity(Entity entity)
         {
-            _internalWorld.AddBody(entity.Body.InternalPhysicsBody);
+            //Only add it to the physics world if the entity has been initialized.
+            if (entity.IsInitialized)
+            {
+                _internalWorld.AddBody(entity.Body.InternalPhysicsBody);
+                return;
+            }
+
+            throw new EntityNotInitializedException();
         }
 
 

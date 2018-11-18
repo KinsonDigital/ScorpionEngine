@@ -63,6 +63,7 @@ namespace ScorpionEngine.Tests.Entities
         {
             //Arrange
             var entity = new TextEntity("text", Color.Red, Color.Red, new Vector(11, 22));
+            entity.Initialize();
             var expected = new Vector(11, 22);
 
             //Act

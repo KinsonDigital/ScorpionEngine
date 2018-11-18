@@ -8,13 +8,42 @@ using ScorpionEngine.Physics;
 using ScorpionEngine.Tests.Fakes;
 using System;
 
-
 namespace ScorpionEngine.Tests.Entities
 {
     [TestFixture]
     public class EntityTests
     {
         #region Constructor Tests
+        [Test]
+        public void Ctor_WhenInvokingWithStaticBodyValue_ProperlySetsBodyAsStatic()
+        {
+            //Arrange
+            var fakeEntity = new FakeEntity(true);
+            var expected = true;
+
+            //Act
+            var actual = fakeEntity.IsStatic;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void Ctor_WhenInvokingWithPositionParam_ProperlySetsPositionProperty()
+        {
+            //Arrange
+            var fakeEntity = new FakeEntity(new Vector(11, 22));
+            var expected = new Vector(11, 22);
+
+            //Act
+            var actual = fakeEntity.Position;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
         [Test]
         public void Ctor_WhenInvokingWithTexture_ProperlySetsUpObject()
         {
@@ -246,6 +275,7 @@ namespace ScorpionEngine.Tests.Entities
             var texture = CreateTexture();
 
             var fakeEntity = new FakeEntity(texture, new Vector(111, 222));
+            fakeEntity.Initialize();
             var expected = new Rect(111, 222, 100, 50);
 
             //Act
@@ -265,6 +295,7 @@ namespace ScorpionEngine.Tests.Entities
             var texture = CreateTexture();
 
             var fakeEntity = new FakeEntity(texture, Vector.Zero);
+            fakeEntity.Initialize();
             var expected = 100;
 
             //Act
@@ -295,6 +326,7 @@ namespace ScorpionEngine.Tests.Entities
 
             var texture = CreateTexture();
             var fakeEntity = new FakeEntity(texture, Vector.Zero);
+            fakeEntity.Initialize();
             var expected = 0;
 
             //Act
@@ -322,9 +354,9 @@ namespace ScorpionEngine.Tests.Entities
 
             PluginSystem.LoadPhysicsPluginLibrary(mockPhysicsPluginLib.Object);
 
-
             var texture = CreateTexture();
             var fakeEntity = new FakeEntity(texture, Vector.Zero);
+            fakeEntity.Initialize();
             var expected = 0;
 
             //Act
@@ -344,6 +376,7 @@ namespace ScorpionEngine.Tests.Entities
             var texture = CreateTexture();
 
             var fakeEntity = new FakeEntity(texture, Vector.Zero);
+            fakeEntity.Initialize();
             var expected = 50;
 
             //Act
@@ -363,6 +396,7 @@ namespace ScorpionEngine.Tests.Entities
             var texture = CreateTexture();
 
             var fakeEntity = new FakeEntity(texture, Vector.Zero);
+            fakeEntity.Initialize();
             var expected = 50;
 
             //Act
@@ -382,6 +416,7 @@ namespace ScorpionEngine.Tests.Entities
             var texture = CreateTexture();
 
             var fakeEntity = new FakeEntity(texture, Vector.Zero);
+            fakeEntity.Initialize();
             var expected = 25f;
 
             //Act
@@ -520,7 +555,35 @@ namespace ScorpionEngine.Tests.Entities
 
 
         [Test]
-        public void Position_WhenSettingValue_ReturnsCorrectValue()
+        public void Position_WhenSettingValueAfterInitalized_ReturnsCorrectValue()
+        {
+            //Arrange
+            var mockPhysicsBody = new Mock<IPhysicsBody>();
+            var mockPhysicsPluginLib = new Mock<IPluginLibrary>();
+
+            mockPhysicsPluginLib.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
+            {
+                return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[1], (float)ctorParams[2], (float)ctorParams[3]);
+            });
+
+            PluginSystem.LoadPhysicsPluginLibrary(mockPhysicsPluginLib.Object);
+
+            var texture = CreateTexture();
+            var fakeEntity = new FakeEntity(texture, Vector.Zero);
+            fakeEntity.Initialize();
+            var expected = new Vector(123, 456);
+
+            //Act
+            fakeEntity.Position = new Vector(123, 456);
+            var actual = fakeEntity.Position;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void Position_WhenSettingValueBeforeInitialized_ReturnsCorrectValue()
         {
             //Arrange
             var mockPhysicsBody = new Mock<IPhysicsBody>();
@@ -587,6 +650,7 @@ namespace ScorpionEngine.Tests.Entities
             var texture = CreateTexture();
 
             var fakeEntity = new FakeEntity(texture, Vector.Zero);
+            fakeEntity.Initialize();
 
             //Act
             fakeEntity.Render(renderer);
@@ -667,6 +731,7 @@ namespace ScorpionEngine.Tests.Entities
             {
                 DebugDrawEnabled = true
             };
+            fakeEntity.Initialize();
 
             //Act
             fakeEntity.Render(renderer);
@@ -694,6 +759,7 @@ namespace ScorpionEngine.Tests.Entities
             var texture = CreateTexture();
 
             var fakeEntity = new FakeEntity(texture, Vector.Zero);
+            fakeEntity.Initialize();
 
             //Act
             fakeEntity.Render(renderer);

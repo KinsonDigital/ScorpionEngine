@@ -62,6 +62,8 @@ namespace ScorpionEngine.Scene
         /// </summary>
         public virtual void Initialize()
         {
+            PhysicsWorld.Update(0);
+
             Initialized = true;
         }
 

@@ -29,6 +29,7 @@ namespace ScorpionEngine.Tests.Entities
             var mockTexture = new Mock<ITexture>();
             var texture = new Texture() { InternalTexture = mockTexture.Object };
             var entity = new StaticEntity(texture, new Vector(123, 456));
+            entity.Initialize();
             var expected = new Vector(123, 456);
 
             //Act

@@ -22,11 +22,28 @@ namespace ScorpionEngine.Entities
         private LimitNumberBehavior _rotateCWVelocityMaxBehavior;
         private LimitNumberBehavior _rotateCCWVelocityMaxBehavior;
         private bool _stopMovement;
+        private float _preInitAngle;
+        private float _preInitLinearDeceleration;
+        private float _preInitAngularDeceleration;
         #endregion
 
 
         #region Constructors
-        public DynamicEntity(Texture texture, Vector position, bool isStaticBody = false) : base(texture, position, isStaticBody)
+        public DynamicEntity()
+        {
+            SetupMaxLinearBehaviors(1f);
+            SetupMaxRotationBehaviors(1f);
+        }
+
+
+        public DynamicEntity(Vector position) : base(position)
+        {
+            SetupMaxLinearBehaviors(1f);
+            SetupMaxRotationBehaviors(1f);
+        }
+
+
+        public DynamicEntity(Texture texture, Vector position) : base(texture, position)
         {
             SetupMaxLinearBehaviors(1f);
             SetupMaxRotationBehaviors(1f);
@@ -39,7 +56,7 @@ namespace ScorpionEngine.Entities
         /// <param name="textureName"></param>
         /// <param name="vertices">Optional parameter: The vertices that make up the shape of the game object for the internal physics engine.  If left null, then a default rectanglular 
         /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
-        public DynamicEntity(Vector[] vertices, Vector position, bool isStaticBody = false) : base(vertices, position, isStaticBody)
+        public DynamicEntity(Vector[] vertices, Vector position) : base(vertices, position)
         {
             SetupMaxLinearBehaviors(1f);
             SetupMaxRotationBehaviors(1f);
@@ -49,11 +66,11 @@ namespace ScorpionEngine.Entities
         /// <summary>
         /// Creates a new instance of MovableObject.
         /// </summary>
-        /// <param name="location">The location to draw the object.</param>
+        /// <param name="position">The location to draw the object.</param>
         /// <param name="textureName">The name of the texture to load.</param>
         /// <param name="polyVertices">Optional parameter: The vertices that make up the shape of the game object for the internal physics engine.  If left null, then a default rectanglular 
         /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
-        public DynamicEntity(Texture texture, Vector[] polyVertices, Vector location, bool isStaticBody = false) : base(texture, polyVertices, location, isStaticBody)
+        public DynamicEntity(Texture texture, Vector[] polyVertices, Vector position) : base(texture, polyVertices, position)
         {
             SetupMaxLinearBehaviors(1f);
             SetupMaxRotationBehaviors(1f);
@@ -80,8 +97,18 @@ namespace ScorpionEngine.Entities
         /// </summary>
         public float Angle
         {
-            get => Body.Angle;
-            set => Body.Angle = value;
+            get => IsInitialized ? Body.Angle : _preInitAngle;
+            set
+            {
+                if (IsInitialized)
+                {
+                    Body.Angle = value;
+                }
+                else
+                {
+                    _preInitAngle = value;
+                }
+            }
         }
 
         /// <summary>
@@ -134,19 +161,55 @@ namespace ScorpionEngine.Entities
         /// </summary>
         public float LinearDeceleration
         {
-            get => Body.InternalPhysicsBody.LinearDeceleration;
-            set => Body.InternalPhysicsBody.LinearDeceleration = value;
+            get => IsInitialized ? Body.InternalPhysicsBody.LinearDeceleration : _preInitLinearDeceleration;
+            set
+            {
+                if (IsInitialized)
+                {
+                    Body.InternalPhysicsBody.LinearDeceleration = value;
+                }
+                else
+                {
+                    _preInitLinearDeceleration = value;
+                }
+            }
         }
 
         public float AngularDeceleration
         {
-            get => Body.InternalPhysicsBody.AngularDeceleration;
-            set => Body.InternalPhysicsBody.AngularDeceleration = value;
+            get => IsInitialized ? Body.InternalPhysicsBody.AngularDeceleration : _preInitAngularDeceleration;
+            set
+            {
+                if(IsInitialized)
+                {
+                    Body.InternalPhysicsBody.AngularDeceleration = value;
+                }
+                else
+                {
+                    _preInitAngularDeceleration = value;
+                }
+            }
         }
         #endregion
 
 
         #region Public Method
+        /// <summary>
+        /// Initializes the <see cref="DynamicEntity"/>.
+        /// </summary>
+        public override void Initialize()
+        {
+            if (!IsInitialized)
+            {
+                Angle = _preInitAngle;
+                LinearDeceleration = _preInitLinearDeceleration;
+                AngularDeceleration = _preInitAngularDeceleration;
+
+                base.Initialize();
+            }
+        }
+
+
         /// <summary>
         /// Updates the moveable object.
         /// </summary>
