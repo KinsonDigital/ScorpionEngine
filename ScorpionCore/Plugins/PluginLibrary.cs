@@ -1,11 +1,13 @@
 ﻿using SimpleInjector;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
 namespace ScorpionCore.Plugins
 {
+    [ExcludeFromCodeCoverage]
     public class PluginLibrary : IPluginLibrary
     {
         private Assembly _pluginAssembly;
