@@ -2,6 +2,10 @@
 using System.Linq;
 using System.IO;
 using System.Reflection;
+using ScorpionCore.Exceptions;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo(assemblyName: "ScorpionCore.Tests", AllInternalsVisible = true)]
 
 namespace ScorpionCore.Plugins
 {
@@ -24,7 +28,19 @@ namespace ScorpionCore.Plugins
                 .Where(f => f.Name.ToLower().Contains($"{pluginLibraryName}.dll".ToLower()))
                 .Select(f => f.FullName).ToArray().FirstOrDefault();
 
-            var pluginAssembly = Assembly.LoadFrom(pluginAssemblyFileName);
+            Assembly pluginAssembly;
+
+            try
+            {
+                pluginAssembly = Assembly.LoadFrom(pluginAssemblyFileName);
+            }
+            catch (Exception ex)
+            {
+                if(ex is FileNotFoundException || ex is ArgumentNullException)
+                    throw new PluginNotFoundException(pluginLibraryName, $"{pluginLibraryName}.dll");
+
+                return null;
+            }
 
 
             return pluginAssembly;
