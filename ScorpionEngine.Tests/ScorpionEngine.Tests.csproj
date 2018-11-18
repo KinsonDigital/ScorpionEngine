@@ -69,6 +69,7 @@
     <Compile Include="Fakes\FakeGameScene.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Input\KeyboardWatcherTests.cs" />
+    <Compile Include="Input\KeyEventArgsTests.cs" />
     <Compile Include="Physics\PhysicsBodyTests.cs" />
     <Compile Include="Physics\PhysicsWorldTests.cs" />
     <Compile Include="Physics\VectorTests.cs" />
