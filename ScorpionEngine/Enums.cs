@@ -89,6 +89,13 @@
         Atlas = 2
     }
 
+    public enum MovementType
+    {
+        TwoAxis,
+        FourAxis,
+        AsFacing
+    }
+
     /// <summary>
     /// Represents different directions of movement.
     /// </summary>

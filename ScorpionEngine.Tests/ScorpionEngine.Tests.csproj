@@ -46,7 +46,7 @@
     <Compile Include="Behaviors\BehaviorTests.cs" />
     <Compile Include="Behaviors\EntityBehaviorTests.cs" />
     <Compile Include="Behaviors\LimitNumberBehaviorTests.cs" />
-    <Compile Include="Behaviors\KeyboardMovementBehaviorTests.cs" />
+    <Compile Include="Behaviors\MovementByKeyboardBehaviorTests.cs" />
     <Compile Include="Content\ContentExtensionMethodTests.cs" />
     <Compile Include="Content\ContentLoaderTests.cs" />
     <Compile Include="EngineTests.cs" />
@@ -68,6 +68,7 @@
     <Compile Include="Fakes\FakeEntity.cs" />
     <Compile Include="Fakes\FakePhysicsBody.cs" />
     <Compile Include="Fakes\FakeGameScene.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Input\KeyboardWatcherTests.cs" />
     <Compile Include="Input\KeyEventArgsTests.cs" />

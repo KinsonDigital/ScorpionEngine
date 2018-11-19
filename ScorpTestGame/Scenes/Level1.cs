@@ -95,40 +95,40 @@ namespace ScorpTestGame.Scenes
         {
             _keyboard.UpdateCurrentState();
 
-            if (_keyboard.IsKeyDown(InputKeys.Up))
-            {
-                _ship.MoveUp(4);
-            }
+            //if (_keyboard.IsKeyDown(InputKeys.Up))
+            //{
+            //    _ship.MoveUp(4);
+            //}
 
-            if (_keyboard.IsKeyDown(InputKeys.Down))
-            {
-                _ship.MoveDown(4);
-            }
+            //if (_keyboard.IsKeyDown(InputKeys.Down))
+            //{
+            //    _ship.MoveDown(4);
+            //}
 
-            if (_keyboard.IsKeyDown(InputKeys.Right))
-            {
-                _ship.MoveRight(4);
-            }
+            //if (_keyboard.IsKeyDown(InputKeys.Right))
+            //{
+            //    _ship.MoveRight(4);
+            //}
 
-            if (_keyboard.IsKeyDown(InputKeys.Left))
-            {
-                _ship.MoveLeft(4);
-            }
+            //if (_keyboard.IsKeyDown(InputKeys.Left))
+            //{
+            //    _ship.MoveLeft(4);
+            //}
 
-            if (_keyboard.IsKeyDown(InputKeys.D))
-            {
-                _ship.RotateCW(0.25f);
-            }
+            //if (_keyboard.IsKeyDown(InputKeys.D))
+            //{
+            //    _ship.RotateCW(0.25f);
+            //}
 
-            if (_keyboard.IsKeyDown(InputKeys.A))
-            {
-                _ship.RotateCCW(0.25f);
-            }
+            //if (_keyboard.IsKeyDown(InputKeys.A))
+            //{
+            //    _ship.RotateCCW(0.25f);
+            //}
 
-            if (_keyboard.IsKeyDown(InputKeys.End))
-            {
-                _ship.StopMovement();
-            }
+            //if (_keyboard.IsKeyDown(InputKeys.End))
+            //{
+            //    _ship.StopMovement();
+            //}
 
             _keyboard.UpdatePreviousState();
         }
