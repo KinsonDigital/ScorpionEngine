@@ -194,14 +194,12 @@ namespace ScorpionEngine
         private void _engineCore_OnInitialize(object sender, EventArgs e)
         {
             Init();
-            SceneManager.InitializeAllScenes();
         }
 
 
         private void _engineCore_OnLoadContent(object sender, EventArgs e)
         {
             LoadContent(ContentLoader);
-            SceneManager.LoadCurrentSceneContent();
         }
 
 
@@ -214,8 +212,6 @@ namespace ScorpionEngine
             };
 
             Update(engineTime);
-
-            SceneManager.Update(engineTime);
         }
 
 
@@ -230,8 +226,6 @@ namespace ScorpionEngine
             _renderer.Start();
 
             Render(_renderer);
-
-            SceneManager.Render(_renderer);
 
             _renderer.End();
         }
