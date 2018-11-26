@@ -7,7 +7,7 @@ namespace ScorpTestGame
         [STAThread]
         private static void Main(string[] args)
         {
-            using (var game = new TestGame())
+            using (var game = new MainGame())
             {
                 game.Start();
             }
