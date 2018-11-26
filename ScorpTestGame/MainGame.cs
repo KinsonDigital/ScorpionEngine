@@ -2,32 +2,42 @@ using ScorpionEngine;
 using ScorpionEngine.Content;
 using ScorpionEngine.Graphics;
 using ScorpionEngine.Scene;
+using ScorpTestGame.Scenes;
 
 namespace ScorpTestGame
 {
     /// <summary>
-    /// The engine of the game.
+    /// The main game.
     /// </summary>
-    public class TestGame : Engine
+    public class MainGame : Engine
     {
         private Level1 _level1;
+        private ParticleTestingScene _particleScene;
 
 
+        #region Constructors
         /// <summary>
         /// Creates a new space shooter game engine.
         /// </summary>
-        public TestGame()
+        public MainGame()
         {
             //Do not set the world in here.  The world has to be set in the OnInit() method so that way
             //the graphics device has been created.  The graphics device will not be created until the
             //engine has started up.
         }
+        #endregion
 
 
+        #region Public Methods
         public override void Init()
         {
             _level1 = new Level1();
+            _particleScene = new ParticleTestingScene();
+
             SceneManager.Add(_level1);
+            SceneManager.Add(_particleScene);
+
+            SceneManager.SetCurrentScene(1);
 
             base.Init();
         }
@@ -49,8 +59,6 @@ namespace ScorpTestGame
         {
             base.Render(renderer);
         }
-
-        //TODO: Another override should go here for unload content
-        //This would come from Engine and then from there from IEngineCore
+        #endregion
     }
 }

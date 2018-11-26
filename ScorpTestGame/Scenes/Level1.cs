@@ -8,7 +8,7 @@ using ScorpionEngine.Scene;
 using ScorpionEngine.UI;
 using System;
 
-namespace ScorpTestGame
+namespace ScorpTestGame.Scenes
 {
     public class Level1 : GameScene
     {

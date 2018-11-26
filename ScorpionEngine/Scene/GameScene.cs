@@ -52,7 +52,7 @@ namespace ScorpionEngine.Scene
 
         public static PhysicsWorld PhysicsWorld { get; set; }
 
-        public int Id { get; set; }
+        public int Id { get; set; } = -1;
         #endregion
 
 
