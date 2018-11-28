@@ -227,7 +227,7 @@ namespace ScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            _facingDirection = Tools.RotateAround(new Vector(0, -1), Vector.Zero, Body.InternalPhysicsBody.Angle.ToRadians());
+            _facingDirection = Tools.RotateAround(new Vector(0, -1), Vector.Zero, Body.InternalPhysicsBody.Angle);
 
             ProcessMovementStop();
 

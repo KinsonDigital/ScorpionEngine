@@ -16,11 +16,11 @@ namespace ScorpionEngine.Utils
         /// </summary>
         /// <param name="vector">The vector to rotate.</param>
         /// <param name="origin">The vector to rotate the <paramref name="vector"/> around.</param>
-        /// <param name="angle">The angle in radians to rotate <paramref name="vector"/>.  Value must be positive.</param>
+        /// <param name="angle">The angle in degrees to rotate <paramref name="vector"/>.  Value must be positive.</param>
         /// <returns></returns>
         public static Vector RotateAround(Vector vector, Vector origin, float angle, bool clockWise = true)
         {
-            angle = clockWise ? angle : angle * -1;
+            angle = clockWise ? angle.ToRadians() : angle.ToRadians() * -1;
 
             var cos = (float)Math.Cos(angle);
             var sin = (float)Math.Sin(angle);
