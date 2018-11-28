@@ -28,13 +28,6 @@ namespace ScorpTestGame.Scenes
         {
             _keyboard = new Keyboard();
 
-            var fallingRectVertices = new Vector[3]
-            {
-                new Vector(-0, -21),
-                new Vector(21, 21),
-                new Vector(-21, 21)
-            };
-            
             _ship = new PlayerShip();
 
             _ship.Initialize();

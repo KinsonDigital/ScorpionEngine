@@ -2,8 +2,11 @@
 using ScorpionEngine.Behaviors;
 using ScorpionEngine.Content;
 using ScorpionEngine.Entities;
+using ScorpionEngine.Graphics;
 using ScorpionEngine.Input;
+using ScorpionEngine.Particles;
 using ScorpionEngine.Physics;
+using ScorpionEngine.Utils;
 
 namespace ScorpTestGame
 {
@@ -13,6 +16,8 @@ namespace ScorpTestGame
     public class PlayerShip : DynamicEntity
     {
         private Keyboard _keyboard = new Keyboard();
+        private Vector _thrusterPosition;
+        private ParticleEngine _particleEngine;
 
 
         /// <summary>
@@ -29,6 +34,37 @@ namespace ScorpTestGame
                 new Vector(0, -21),
                 new Vector(21, 21),
                 new Vector(-21, 21)
+            };
+
+            _thrusterPosition = new Vector(Position.X, Position.Y + 22.5f);
+            _thrusterPosition = Tools.RotateAround(_thrusterPosition, Position, Angle);
+
+            var colors = new GameColor[]
+            {
+                new GameColor(255, 216, 0, 255),
+                new GameColor(255, 0, 0, 255),
+                new GameColor(255, 106, 0, 255)
+            };
+
+            _particleEngine = new ParticleEngine(_thrusterPosition)
+            { 
+                UseRandomVelocity = true,
+                TotalParticlesAliveAtOnce = 60,
+                UseTintColorList = false,
+                TintColors = colors,
+                RedMin = 255,
+                RedMax = 255,
+                GreenMin = 132,
+                GreenMax = 209,
+                BlueMin = 0,
+                BlueMax = 0,
+                SizeMin = 0.05f,
+                SizeMax = 0.20f,
+                LifeTimeMax = 700,
+                VelocityXMin = -0.25f,
+                VelocityXMax = 0.25f,
+                VelocityYMin = 0,
+                VelocityYMax = 1f
             };
 
             var movementBehavior = new MoveFowardKeyboardBehavior<PlayerShip>(this, 1f, 0.25f)
@@ -48,20 +84,37 @@ namespace ScorpTestGame
         }
 
 
+        public override void LoadContent(ContentLoader contentLoader)
+        {
+            Texture = contentLoader.LoadTexture("Ship");
+
+            _particleEngine.AddTexture(contentLoader.LoadTexture(@"Particles\ShipThruster"));
+
+            base.LoadContent(contentLoader);
+        }
+
+
         public override void Update(EngineTime engineTime)
         {
             //_keyboard.UpdateCurrentState();
+
+            _thrusterPosition = new Vector(Position.X, Position.Y + 22.5f);
+            _thrusterPosition = Tools.RotateAround(_thrusterPosition, Position, Angle);
+
+            _particleEngine.SpawnLocation = _thrusterPosition;
+            _particleEngine.Update(engineTime);
+
             //_keyboard.UpdatePreviousState();
 
             base.Update(engineTime);
         }
 
 
-        public override void LoadContent(ContentLoader contentLoader)
+        public override void Render(Renderer renderer)
         {
-            Texture = contentLoader.LoadTexture("Ship");
+            _particleEngine.Render(renderer);
 
-            base.LoadContent(contentLoader);
+            base.Render(renderer);
         }
     }
 }

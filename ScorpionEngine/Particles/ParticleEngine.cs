@@ -48,15 +48,15 @@ namespace ScorpionEngine.Particles
         /// <summary>
         /// Gets or sets the list of textures to randomly choose from when spawning new <see cref="Particle"/>s.
         /// </summary>
-        public List<Texture> Textures
-        {
-            get => _textures;
-            set
-            {
-                _textures = value;
-                GenerateAllParticles();
-            }
-        }
+        //public List<Texture> Textures
+        //{
+        //    get => _textures;
+        //    set
+        //    {
+        //        _textures = value;
+        //        GenerateAllParticles();
+        //    }
+        //}
 
         /// <summary>
         /// Gets or sets the total number of <see cref="Particle"/>s that can be alive at once.
@@ -246,6 +246,20 @@ namespace ScorpionEngine.Particles
 
 
         #region Public Methods
+        public void AddTexture(Texture texture)
+        {
+            _textures.Add(texture);
+            GenerateAllParticles();
+        }
+
+
+        public void AddTextures(Texture[] textures)
+        {
+            _textures.AddRange(textures);
+            GenerateAllParticles();
+        }
+
+
         /// <summary>
         /// Updates all of the <see cref="Particle"/>s.
         /// </summary>
@@ -364,7 +378,7 @@ namespace ScorpionEngine.Particles
         /// <returns></returns>
         private Texture GetRandomTexture()
         {
-            return Textures[_random.Next(Textures.Count)];
+            return _textures[_random.Next(_textures.Count)];
         }
 
 
