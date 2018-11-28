@@ -86,6 +86,9 @@
     <Content Include="Content\Graphics\Enemy.png" />
     <Content Include="Content\Graphics\GreenRectangle.png" />
     <Content Include="Content\Graphics\LongRectangle.png" />
+    <Content Include="Content\Graphics\Particles\Circle.png" />
+    <Content Include="Content\Graphics\Particles\ShipThruster.png" />
+    <Content Include="Content\Graphics\Particles\Triangle.png" />
     <Content Include="Content\Graphics\Rock.png" />
     <Content Include="Content\Graphics\Ship.png" />
     <Content Include="Content\Sound\SoundEffects\Laser.wav" />
@@ -106,30 +109,53 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>REM Make sure that a Graphics directory exists
+
 mkdir "$(TargetDir)Content\Graphics"
 
+
+
 REM Copy the graphics content to the bin output folder
-xcopy "$(ProjectDir)Content\bin\Windows\Graphics" "$(TargetDir)Content\Graphics" /Y
+
+xcopy "$(ProjectDir)Content\bin\Windows\Graphics" "$(TargetDir)Content\Graphics" /Y/E
 
 REM Copy the Fonts content to the bin output folder
+
 xcopy "$(ProjectDir)Content\bin\Windows\Fonts" "$(TargetDir)Content\Fonts" /Y
 
+
+
 REM Copy the MonoGame Engine plugin to the output folder
+
 copy "$(SolutionDir)MonoScorpPlugin\bin\Debug\MonoScorpPlugin.dll" "$(TargetDir)MonoScorpPlugin.dll" /Y
+
 copy "$(SolutionDir)MonoScorpPlugin\bin\Debug\MonoScorpPlugin.pdb" "$(TargetDir)MonoScorpPlugin.pdb" /Y
 
+
+
 REM Copy the Velcro Physics Plugin to the output folder
+
 del "$(TargetDir)VelcroPhysicsPlugin.dll" /F /Q
+
 copy "$(SolutionDir)VelcroPhysicsPlugin\bin\Debug\VelcroPhysicsPlugin.dll" "$(TargetDir)VelcroPhysicsPlugin.dll"
+
 copy "$(SolutionDir)VelcroPhysicsPlugin\bin\Debug\VelcroPhysicsPlugin.pdb" "$(TargetDir)VelcroPhysicsPlugin.pdb"
 
+
+
 REM Copy the Main Velcro Physics Library to the output folder
+
 del "$(TargetDir)VelcroPhysics.dll" /F /Q
+
 copy "$(SolutionDir)VelcroPhysicsPlugin\bin\Debug\VelcroPhysics.dll" "$(TargetDir)VelcroPhysics.dll"
+
 copy "$(SolutionDir)VelcroPhysicsPlugin\bin\Debug\VelcroPhysics.pdb" "$(TargetDir)VelcroPhysics.pdb"
 
+
+
 REM Copy the MonoGame.Framework.dll file to the output directory
+
 del  "$(TargetDir)MonoGame.Framework.dll" /F /Q
+
 copy "$(SolutionDir)MonoScorpPlugin\bin\Debug\MonoGame.Framework.dll" "$(TargetDir)MonoGame.Framework.dll"</PostBuildEvent>
   </PropertyGroup>
 </Project>

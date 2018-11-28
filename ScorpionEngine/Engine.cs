@@ -136,6 +136,8 @@ namespace ScorpionEngine
             _prevElapsedTime = currentTime;
 
             CurrentFPS = 1000f / _prevElapsedTime;
+
+            SceneManager.Update(engineTime);
         }
 
 
@@ -145,6 +147,7 @@ namespace ScorpionEngine
         [ExcludeFromCodeCoverage]
         public virtual void Render(Renderer renderer)
         {
+            SceneManager.Render(renderer);
         }
 
 
@@ -194,14 +197,12 @@ namespace ScorpionEngine
         private void _engineCore_OnInitialize(object sender, EventArgs e)
         {
             Init();
-            SceneManager.InitializeAllScenes();
         }
 
 
         private void _engineCore_OnLoadContent(object sender, EventArgs e)
         {
             LoadContent(ContentLoader);
-            SceneManager.LoadCurrentSceneContent();
         }
 
 
@@ -214,8 +215,6 @@ namespace ScorpionEngine
             };
 
             Update(engineTime);
-
-            SceneManager.Update(engineTime);
         }
 
 
@@ -230,8 +229,6 @@ namespace ScorpionEngine
             _renderer.Start();
 
             Render(_renderer);
-
-            SceneManager.Render(_renderer);
 
             _renderer.End();
         }
