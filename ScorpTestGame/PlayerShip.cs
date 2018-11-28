@@ -2,7 +2,6 @@
 using ScorpionEngine.Behaviors;
 using ScorpionEngine.Content;
 using ScorpionEngine.Entities;
-using ScorpionEngine.Graphics;
 using ScorpionEngine.Input;
 using ScorpionEngine.Physics;
 
@@ -13,36 +12,33 @@ namespace ScorpTestGame
     /// </summary>
     public class PlayerShip : DynamicEntity
     {
-        private Keyboard _keyboard;
+        private Keyboard _keyboard = new Keyboard();
 
 
         /// <summary>
         /// Creates a new instance of <see cref="PlayerShip"/>.
         /// </summary>
-        public PlayerShip()
+        public PlayerShip() : base(friction: 0f)
         {
             DebugDrawEnabled = true;
-            MaxLinearSpeed = 0.5f;
-            MaxRotationSpeed = 0.5f;
-            AngularDeceleration = 0.25f;
-            Position = new Vector(330, 200);
+            AngularDeceleration = 100f;
+            Position = new Vector(500, 300);
 
             Vertices = new Vector[3]
             {
-                new Vector(-0, -21),
+                new Vector(0, -21),
                 new Vector(21, 21),
                 new Vector(-21, 21)
             };
 
-            var keyMovementBehavior = new MovementByKeyboardBehavior<PlayerShip>(this, 1f)
+            var movementBehavior = new MoveFowardKeyboardBehavior<PlayerShip>(this, 1f, 0.25f)
             {
-                MoveUpKey = InputKeys.W,
-                MoveDownKey = InputKeys.S,
-                MoveLeftKey = InputKeys.A,
-                MoveRightKey = InputKeys.D
+                MoveFowardKey = InputKeys.Up,
+                RotateCW = InputKeys.Right,
+                RotateCCW = InputKeys.Left
             };
 
-            Behaviors.Add(keyMovementBehavior);
+            Behaviors.Add(movementBehavior);
         }
 
 
@@ -54,6 +50,9 @@ namespace ScorpTestGame
 
         public override void Update(EngineTime engineTime)
         {
+            //_keyboard.UpdateCurrentState();
+            //_keyboard.UpdatePreviousState();
+
             base.Update(engineTime);
         }
 

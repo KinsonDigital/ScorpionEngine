@@ -93,29 +93,6 @@ namespace ScorpionEngine.Tests.Behaviors
 
         #region Prop Tests
         [Test]
-        public void TypeOfMovement_WhenGettingAndSettingValue_CorrectlySetsValue()
-        {
-            //Arrange
-            var mockKeyboard = new Mock<IKeyboard>();
-            var mockEnginPluginLib = new Mock<IPluginLibrary>();
-            mockEnginPluginLib.Setup(m => m.LoadPlugin<IKeyboard>()).Returns(mockKeyboard.Object);
-
-            PluginSystem.LoadEnginePluginLibrary(mockEnginPluginLib.Object);
-
-            var mockEntity = new Mock<DynamicEntity>();
-            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(mockEntity.Object, 1);
-            var expected = MovementType.FourAxis;
-
-            //Act
-            behavior.TypeOfMovement = MovementType.FourAxis;
-            var actual = behavior.TypeOfMovement;
-
-            //Assert
-            Assert.AreEqual(expected, actual);
-        }
-
-
-        [Test]
         public void MoveUpKey_WhenGettingAndSettingValue_CorrectlySetsValue()
         {
             //Arrange

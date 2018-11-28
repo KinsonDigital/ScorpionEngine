@@ -4,6 +4,7 @@ using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Behaviors;
 using ScorpionEngine.Content;
+using ScorpionEngine.Exceptions;
 using ScorpionEngine.Graphics;
 using ScorpionEngine.Input;
 using ScorpionEngine.Physics;
@@ -49,24 +50,27 @@ namespace ScorpionEngine.Entities
         private IDebugDraw _debugDraw;
         private Vector _preInitPosition;
         private Vector[] _preInitVertices;
+        private float _preInitFriction;
         #endregion
 
 
         #region Constructors
-        public Entity(bool isStaticBody = false)
+        public Entity(float friction = 0.2f, bool isStaticBody = false)
         {
             IsStatic = isStaticBody;
+            _preInitFriction = friction;
         }
 
 
-        public Entity(Vector position, bool isStaticBody = false)
+        public Entity(Vector position, float friction = 0.2f, bool isStaticBody = false)
         {
             _preInitPosition = position;
             IsStatic = isStaticBody;
+            _preInitFriction = friction;
         }
 
 
-        public Entity(Texture texture, Vector position, bool isStaticBody = false)
+        public Entity(Texture texture, Vector position, float friction = 0.2f, bool isStaticBody = false)
         {
             _texture = texture;
 
@@ -82,23 +86,26 @@ namespace ScorpionEngine.Entities
             };
             _preInitPosition = position;
             IsStatic = isStaticBody;
+            _preInitFriction = friction;
         }
 
 
-        public Entity(Vector[] polyVertices, Vector position, bool isStaticBody = false)
+        public Entity(Vector[] polyVertices, Vector position, float friction = 0.2f, bool isStaticBody = false)
         {
             _preInitVertices = polyVertices;
             _preInitPosition = position;
             IsStatic = isStaticBody;
+            _preInitFriction = friction;
         }
 
 
-        public Entity(Texture texture, Vector[] polyVertices, Vector position, bool isStaticBody = false)
+        public Entity(Texture texture, Vector[] polyVertices, Vector position, float friction = 0.2f, bool isStaticBody = false)
         {
             _texture = texture;
             _preInitVertices = polyVertices;
             _preInitPosition = position;
             IsStatic = isStaticBody;
+            _preInitFriction = friction;
         }
         #endregion
 
@@ -273,7 +280,7 @@ namespace ScorpionEngine.Entities
         public virtual void Initialize()
         {
             if (_preInitVertices == null)
-                return;
+                throw new MissingVerticesException();
 
             CreateBody(_preInitVertices, _preInitPosition, IsStatic);
             IsInitialized = true;
@@ -304,16 +311,14 @@ namespace ScorpionEngine.Entities
         /// Renders the game object.
         /// </summary>
         /// <param name="renderer">The render used to render the object texture.</param>
-        public void Render(Renderer renderer)
+        public virtual void Render(Renderer renderer)
         {
             if (_texture != null && Visible)
                 renderer.Render(_texture, Position.X, Position.Y, Body.InternalPhysicsBody.Angle);
 
             //Render the physics bodies vertices to show its shape for debugging purposes
             if (DebugDrawEnabled)
-            {
                 _debugDraw.Draw(renderer.InternalRenderer, Body.InternalPhysicsBody);
-            }
         }
         #endregion
 
@@ -321,7 +326,7 @@ namespace ScorpionEngine.Entities
         #region Private Methods
         private void CreateBody(Vector[] vertices, Vector position, bool isStatic)
         {
-            Body = new PhysicsBody(vertices, position, isStatic: isStatic);
+            Body = new PhysicsBody(vertices, position, isStatic: isStatic, friction: _preInitFriction);
         }
         #endregion
     }

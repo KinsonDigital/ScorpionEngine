@@ -13,6 +13,7 @@ namespace ScorpionEngine.UI
         #region Private Vars
         private int _elapsedTime;//The amount of time that has elapsed since the last frame in miliseconds.
         private bool _updateText;//Indicates if the text can be updated.  Only updated if the UpdateFrequency value is >= to the elapsed time
+        private GameText _labelText;
         #endregion
 
 
@@ -73,7 +74,15 @@ namespace ScorpionEngine.UI
         /// <summary>
         /// Gets or sets the label section of the text item.
         /// </summary>
-        public GameText LabelText { get; set; }
+        public GameText LabelText
+        {
+            get => _labelText;
+            set
+            {
+                value.Text += ": ";
+                _labelText = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the information of the stat to display.
@@ -234,12 +243,6 @@ namespace ScorpionEngine.UI
         /// <param name="renderer">The sprite batch to use to render.</param>
         public void Render(Renderer renderer)
         {
-            //If the item is selected, render the background color
-            //if (Selected)
-            //    renderer.FillRectangle(new Rectangle((int)Position.X, (int)Position.Y, Width, Height), SelectedColor);
-
-            //var yPosition = Position.Y + (_labelHeight / 2) - (_valueHeight / 2);
-
             renderer.Render(LabelText, Position.X, Position.Y + VerticalLabelOffset);
             renderer.Render(ValueText, Position.X + LabelText.Width + SectionSpacing, Position.Y + VerticalValueOffset);
         }

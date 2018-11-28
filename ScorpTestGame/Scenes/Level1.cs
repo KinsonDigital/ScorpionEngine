@@ -34,15 +34,14 @@ namespace ScorpTestGame.Scenes
                 new Vector(21, 21),
                 new Vector(-21, 21)
             };
-
+            
             _ship = new PlayerShip();
 
             _ship.Initialize();
-            PhysicsWorld.AddEntity(_ship);
+            _shipLocation = new UIText();
 
             AddEntity(_ship);
 
-            _shipLocation = new UIText();
             base.Initialize();
         }
 
@@ -70,7 +69,7 @@ namespace ScorpTestGame.Scenes
         {
             ProcessKeys();
 
-            _shipLocation.SetValueText($"X: {_ship.Position.X} - Y: {_ship.Position.Y}");
+            _shipLocation.SetValueText($"X: {Math.Round(_ship.Position.X, 2)} - Y: {Math.Round(_ship.Position.Y, 2)}");
 
             base.Update(engineTime);
         }
@@ -79,6 +78,8 @@ namespace ScorpTestGame.Scenes
         public override void Render(Renderer renderer)
         {
             _ship.Render(renderer);
+
+            _shipLocation.Render(renderer);
 
             base.Render(renderer);
         }
@@ -97,7 +98,7 @@ namespace ScorpTestGame.Scenes
 
             //if (_keyboard.IsKeyDown(InputKeys.Up))
             //{
-            //    _ship.MoveUp(4);
+            //    _myEntity.MoveUp(1f);
             //}
 
             //if (_keyboard.IsKeyDown(InputKeys.Down))

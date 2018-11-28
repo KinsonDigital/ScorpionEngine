@@ -119,6 +119,9 @@ REM Copy the graphics content to the bin output folder
 
 xcopy "$(ProjectDir)Content\bin\Windows\Graphics" "$(TargetDir)Content\Graphics" /Y/E
 
+REM Make sure that a Fonts directory exists
+mkdir "$(TargetDir)Content\Fonts"
+
 REM Copy the Fonts content to the bin output folder
 
 xcopy "$(ProjectDir)Content\bin\Windows\Fonts" "$(TargetDir)Content\Fonts" /Y

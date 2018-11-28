@@ -59,7 +59,7 @@ namespace ScorpionEngine.Tests.Entities
             mockTexture.SetupGet(m => m.Height).Returns(50);
 
             var texture = new Texture() { InternalTexture = mockTexture.Object };
-            var fakeEntity = new FakeEntity(texture, Vector.Zero, false);
+            var fakeEntity = new FakeEntity(texture, Vector.Zero);
             var expectedVertices = new Vector[]
             {
                 new Vector(-50, -25),
@@ -105,7 +105,7 @@ namespace ScorpionEngine.Tests.Entities
             var expectedPosition = new Vector(10, 20);
 
             //Act
-            var fakeEntity = new FakeEntity(vertices, position, false);
+            var fakeEntity = new FakeEntity(vertices, position);
             var actualPosition = fakeEntity.Position;
 
             //Assert
@@ -148,7 +148,7 @@ namespace ScorpionEngine.Tests.Entities
             var expectedPosition = new Vector(10, 20);
 
             //Act
-            var fakeEntity = new FakeEntity(texture, vertices, position, false);
+            var fakeEntity = new FakeEntity(texture, vertices, position);
             var actualPosition = fakeEntity.Position;
             var actualTexture = fakeEntity.Texture;
 

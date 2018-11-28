@@ -44,13 +44,6 @@ namespace ScorpionEngine.Behaviors
 
         #region Props
         /// <summary>
-        /// Gets or sets the type of movement that the <see cref="DynamicEntity"/> will perform.
-        /// NOTE: Movement keys will only move the <see cref="DynamicEntity"/> depending on the 
-        /// type of movement setting.
-        /// </summary>
-        public MovementType TypeOfMovement { get; set; } = MovementType.TwoAxis;
-
-        /// <summary>
         /// Gets or sets the keyboard key that will move the <see cref="DynamicEntity"/> up.
         /// </summary>
         public InputKeys MoveUpKey

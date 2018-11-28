@@ -64,6 +64,7 @@
     <Compile Include="Behaviors\Behavior.cs" />
     <Compile Include="Behaviors\EntityBehaviors.cs" />
     <Compile Include="Behaviors\LimitNumberBehavior.cs" />
+    <Compile Include="Behaviors\MoveFowardKeyboardBehavior.cs" />
     <Compile Include="Content\AtlasData.cs" />
     <Compile Include="Content\AtlasManager.cs" />
     <Compile Include="Content\AtlasSpriteData.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Content\Enums.cs" />
     <Compile Include="Content\ExtensionMethods.cs" />
     <Compile Include="Exceptions\EntityNotInitializedException.cs" />
+    <Compile Include="Exceptions\MissingVerticesException.cs" />
     <Compile Include="Graphics\GameColor.cs" />
     <Compile Include="Input\IInputWatcher.cs" />
     <Compile Include="Particles\Particle.cs" />

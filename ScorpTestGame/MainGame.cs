@@ -37,7 +37,7 @@ namespace ScorpTestGame
             SceneManager.Add(_level1);
             SceneManager.Add(_particleScene);
 
-            SceneManager.SetCurrentScene(1);
+            SceneManager.SetCurrentScene(0);
 
             base.Init();
         }
