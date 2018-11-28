@@ -15,7 +15,11 @@
 
 
         //Angle is in degrees
-        void Render(ITexture text, float x, float y, float angle);
+        void Render(ITexture texture, float x, float y, float angle);
+
+
+        //Angle is in degrees
+        void Render(ITexture texture, float x, float y, float angle, float size, byte red, byte green, byte blue, byte alpha);
 
 
         void Render(IText text, float x, float y);

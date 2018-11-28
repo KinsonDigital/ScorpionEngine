@@ -245,7 +245,6 @@ namespace ScorpionEngine.Scene
             if (SetSceneAsRenderableOnAdd)
             {
                 TurnAllSceneRenderingOff();
-                scene.IsRenderingScene = true;
             }
 
             //If there is only one scene in the manager...set that scene to current scene
@@ -558,8 +557,8 @@ namespace ScorpionEngine.Scene
         /// <summary>
         /// Manages the <see cref="RunMode"/> settings and updates the currently enabled <see cref="IScene"/>.
         /// </summary>
-        /// <param name="gameTime">The frame time information of the last frame.</param>
-        public void Update(EngineTime gameTime)
+        /// <param name="engineTime">The frame time information of the last frame.</param>
+        public void Update(EngineTime engineTime)
         {
             ProcessKeys();
 
@@ -569,7 +568,7 @@ namespace ScorpionEngine.Scene
                 //If the scene is active
                 if (_scenes[i].Active || UpdateInactiveScenes)
                 {
-                    _scenes[i].Update(gameTime);
+                    _scenes[i].Update(engineTime);
                 }
             }
         }
@@ -581,14 +580,11 @@ namespace ScorpionEngine.Scene
         /// <param name="renderer">The renderer to use for rendering.</param>
         public void Render(Renderer renderer)
         {
-            var foundScene = (from s in _scenes
-                              where s.Id == CurrentSceneId
-                              select s).FirstOrDefault();
-
-            var foundSceneIndex = _scenes.IndexOf(foundScene);
-
-            if (_scenes[foundSceneIndex].IsRenderingScene)
-                _scenes[foundSceneIndex].Render(renderer);
+            if (!_scenes[CurrentSceneId].IsRenderingScene)
+            {
+                _scenes[CurrentSceneId].IsRenderingScene = true;
+                _scenes[CurrentSceneId].Render(renderer);
+            }
         }
 
 
@@ -796,7 +792,6 @@ namespace ScorpionEngine.Scene
             }
 
             TurnAllSceneRenderingOff();
-            scene.IsRenderingScene = true;
         }
 
 

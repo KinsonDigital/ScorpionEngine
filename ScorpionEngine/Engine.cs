@@ -136,6 +136,8 @@ namespace ScorpionEngine
             _prevElapsedTime = currentTime;
 
             CurrentFPS = 1000f / _prevElapsedTime;
+
+            SceneManager.Update(engineTime);
         }
 
 
@@ -145,6 +147,7 @@ namespace ScorpionEngine
         [ExcludeFromCodeCoverage]
         public virtual void Render(Renderer renderer)
         {
+            SceneManager.Render(renderer);
         }
 
 

@@ -47,6 +47,13 @@ namespace ScorpionEngine.Graphics
         }
 
 
+        //Angle is in degrees
+        public void Render(Texture texture, float x, float y, float angle, float size, GameColor color)
+        {
+            InternalRenderer.Render(texture.InternalTexture, x, y, angle, size, color.Red, color.Green, color.Blue, color.Alpha);
+        }
+
+
         public void Render(GameText text, float x, float y)
         {
             InternalRenderer.Render(text.InternalText, x, y);

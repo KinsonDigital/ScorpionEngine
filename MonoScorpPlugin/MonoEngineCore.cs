@@ -19,6 +19,7 @@ namespace MonoScorpPlugin
         {
             _monoGame = new MonoGame();
 
+            _monoGame.IsMouseVisible = true;
             _monoGame.OnInitialize += _monoGame_OnInitialize;
             _monoGame.OnLoadContent += _monoGame_OnLoadContent;
             _monoGame.OnUpdate += _monoGame_OnUpdate;

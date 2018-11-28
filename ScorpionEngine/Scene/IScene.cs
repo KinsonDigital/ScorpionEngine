@@ -29,7 +29,7 @@ namespace ScorpionEngine.Scene
         bool Active { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating if the scene is currently rendering.
+        /// Gets or sets a value indicating if the scene is currently in the rendering state.
         /// </summary>
         bool IsRenderingScene { get; set; }
 

@@ -73,6 +73,8 @@
     <Compile Include="Content\ExtensionMethods.cs" />
     <Compile Include="Graphics\GameColor.cs" />
     <Compile Include="Input\IInputWatcher.cs" />
+    <Compile Include="Particles\Particle.cs" />
+    <Compile Include="Particles\ParticleEngine.cs" />
     <Compile Include="PluginSystem.cs" />
     <Compile Include="Utils\Counter.cs" />
     <Compile Include="EngineTime.cs" />

@@ -58,6 +58,17 @@ namespace MonoScorpPlugin
         }
 
 
+        //Angle is in degrees
+        public void Render(ITexture texture, float x, float y, float angle, float size, byte red, byte green, byte blue, byte alpha)
+        {
+            var srcRect = new Rectangle(0, 0, texture.Width, texture.Height);
+            var textureOrigin = new Vector2(texture.Width / 2f, texture.Height / 2f);
+            var position = new Vector2(x, y);
+
+            _spriteBatch.Draw(texture.GetTexture<Texture2D>(), position, srcRect, new Color(red, green, blue, alpha), angle.ToRadians(), textureOrigin, size, SpriteEffects.None, 0f);
+        }
+
+
         public void Render(IText text, float x, float y)
         {
             var color = new Color(text.Color[0], text.Color[1], text.Color[2]);
