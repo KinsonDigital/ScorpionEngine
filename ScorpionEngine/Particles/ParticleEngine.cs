@@ -22,6 +22,7 @@ namespace ScorpionEngine.Particles
         private int _spawnRateElapsed = 0;
         private float _angleMin;
         private float _angleMax = 360;
+        private bool _enabled;
         #endregion
 
 
@@ -41,22 +42,30 @@ namespace ScorpionEngine.Particles
 
         #region Props
         /// <summary>
+        /// Gets or sets a value indicating if the engine is enabled or disabled.
+        /// </summary>
+        public bool Enabled
+        {
+            get => _enabled;
+            set
+            {
+                _enabled = value;
+
+                //If the engine is disabled, kill all the particles
+                if(!_enabled)
+                {
+                    for (int i = 0; i < _particles.Count; i++)
+                    {
+                        _particles[i].IsDead = true;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the location on the screen of where to spawn the <see cref="Particle"/>s.
         /// </summary>
         public Vector SpawnLocation { get; set; }
-
-        /// <summary>
-        /// Gets or sets the list of textures to randomly choose from when spawning new <see cref="Particle"/>s.
-        /// </summary>
-        //public List<Texture> Textures
-        //{
-        //    get => _textures;
-        //    set
-        //    {
-        //        _textures = value;
-        //        GenerateAllParticles();
-        //    }
-        //}
 
         /// <summary>
         /// Gets or sets the total number of <see cref="Particle"/>s that can be alive at once.
@@ -266,6 +275,9 @@ namespace ScorpionEngine.Particles
         /// <param name="engineTime">The amount of time that has passed in the <see cref="Engine"/> since the last frame.</param>
         public void Update(EngineTime engineTime)
         {
+            //if (!Enabled)
+            //    return;
+
             _spawnRateElapsed += engineTime.ElapsedEngineTime.Milliseconds;
 
             //If the amount of time to spawn a new particle has passed
@@ -296,6 +308,9 @@ namespace ScorpionEngine.Particles
         /// <param name="renderer">Renders the <see cref="Particle"/>s to the screen.</param>
         public void Render(Renderer renderer)
         {
+            if (!Enabled)
+                return;
+
             foreach (var particle in _particles)
             {
                 particle.Render(renderer);
@@ -324,7 +339,7 @@ namespace ScorpionEngine.Particles
                     _particles[i].TintColor = GetRandomColor();
                     _particles[i].Size = GetRandomSize();
                     _particles[i].LifeTime = GetRandomLifeTime();
-                    _particles[i].IsAlive = true;
+                    _particles[i].IsAlive = Enabled;
                 }
             }
         }
@@ -395,7 +410,7 @@ namespace ScorpionEngine.Particles
                               velYRandomResult);
         }
 
-        
+
         /// <summary>
         /// Returns a random <see cref="Particle.Angle"/> for a spawned <see cref="Particle"/>.
         /// </summary>

@@ -165,7 +165,7 @@ namespace ScorpionEngine.Entities
         public float SpeedY { get; set; } = 0.25f;
 
         /// <summary>
-        /// Gets or sets the linear deceleration of the object. DEFAULT: 1
+        /// Gets or sets the linear deceleration of the object
         /// </summary>
         public float LinearDeceleration
         {
@@ -183,6 +183,9 @@ namespace ScorpionEngine.Entities
             }
         }
 
+        /// <summary>
+        /// Gets or sets the angular deceleration of the <see cref="DynamicEntity"/>.
+        /// </summary>
         public float AngularDeceleration
         {
             get => IsInitialized ? Body.InternalPhysicsBody.AngularDeceleration : _preInitAngularDeceleration;

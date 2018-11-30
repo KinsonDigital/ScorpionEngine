@@ -18,6 +18,7 @@ namespace ScorpTestGame
         private Keyboard _keyboard = new Keyboard();
         private Vector _thrusterPosition;
         private ParticleEngine _particleEngine;
+        private MoveFowardKeyboardBehavior<PlayerShip> _movementBehavior;
 
 
         /// <summary>
@@ -67,14 +68,14 @@ namespace ScorpTestGame
                 VelocityYMax = 1f
             };
 
-            var movementBehavior = new MoveFowardKeyboardBehavior<PlayerShip>(this, 1f, 0.25f)
+            _movementBehavior = new MoveFowardKeyboardBehavior<PlayerShip>(this, 1f, 0.25f)
             {
                 MoveFowardKey = InputKeys.Up,
                 RotateCW = InputKeys.Right,
                 RotateCCW = InputKeys.Left
             };
-
-            Behaviors.Add(movementBehavior);
+            
+            Behaviors.Add(_movementBehavior);
         }
 
 
@@ -96,15 +97,13 @@ namespace ScorpTestGame
 
         public override void Update(EngineTime engineTime)
         {
-            //_keyboard.UpdateCurrentState();
-
+            //Update the spawn position of the thruster particels
             _thrusterPosition = new Vector(Position.X, Position.Y + 22.5f);
             _thrusterPosition = Tools.RotateAround(_thrusterPosition, Position, Angle);
-
             _particleEngine.SpawnLocation = _thrusterPosition;
-            _particleEngine.Update(engineTime);
 
-            //_keyboard.UpdatePreviousState();
+            _particleEngine.Enabled = _movementBehavior.IsMovingForward;
+            _particleEngine.Update(engineTime);
 
             base.Update(engineTime);
         }

@@ -138,7 +138,7 @@ namespace ScorpionEngine.Behaviors
                     break;
                 case KeyBehaviorType.OnceOnRelease:
                     //Prevent the KeyUpEvent from being triggered twice if the AlwaysInvokeKeyUpEvent is enabled
-                    if (! AlwaysInvokeKeyUpEvent)
+                    if (!AlwaysInvokeKeyUpEvent)
                     {
                         if (_keyboard.IsKeyUp(Key))
                             KeyUpEvent?.Invoke(this, new KeyEventArgs(new[] { Key }));
