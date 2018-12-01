@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScorpionEngine.Tests", "Sco
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScorpionCore.Tests", "ScorpionCore.Tests\ScorpionCore.Tests.csproj", "{6BDE0F14-64A5-4B31-BF8D-0BFCC476E298}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParticleMaker", "ParticleMaker\ParticleMaker.csproj", "{103BA683-572C-41D7-A86A-A567F610F1AC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -90,6 +92,12 @@ Global
 		{6BDE0F14-64A5-4B31-BF8D-0BFCC476E298}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6BDE0F14-64A5-4B31-BF8D-0BFCC476E298}.Release|x86.ActiveCfg = Release|Any CPU
 		{6BDE0F14-64A5-4B31-BF8D-0BFCC476E298}.Release|x86.Build.0 = Release|Any CPU
+		{103BA683-572C-41D7-A86A-A567F610F1AC}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{103BA683-572C-41D7-A86A-A567F610F1AC}.Debug|x86.ActiveCfg = Debug|x86
+		{103BA683-572C-41D7-A86A-A567F610F1AC}.Debug|x86.Build.0 = Debug|x86
+		{103BA683-572C-41D7-A86A-A567F610F1AC}.Release|Any CPU.ActiveCfg = Release|x86
+		{103BA683-572C-41D7-A86A-A567F610F1AC}.Release|x86.ActiveCfg = Release|x86
+		{103BA683-572C-41D7-A86A-A567F610F1AC}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
