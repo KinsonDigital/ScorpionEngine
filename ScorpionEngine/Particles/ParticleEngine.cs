@@ -250,7 +250,7 @@ namespace ScorpionEngine.Particles
         /// Gets or sets the maximum Y value for the <see cref="Particle.Velocity"/> when
         /// spawning new <see cref="Particle"/>.
         /// </summary>
-        public float VelocityYMax { get; set; }
+        public float VelocityYMax { get; set; } = 1f;
         #endregion
 
 

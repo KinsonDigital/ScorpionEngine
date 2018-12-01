@@ -244,7 +244,7 @@ namespace ScorpionEngine.Entities
         /// </summary>
         public void MoveRight()
         {
-            Body.InternalPhysicsBody.ApplyLinearImpulse(SpeedX.ForcePositive(), 0);
+            Body.InternalPhysicsBody.ApplyForce(SpeedX.ForcePositive(), 0, Position.X, Position.Y);
         }
 
 
@@ -254,7 +254,7 @@ namespace ScorpionEngine.Entities
         /// <param name="speed">The speed to move the <see cref="DynamicEntity"/>. Positive and negative numbers behave the same.</param>
         public void MoveRight(float speed)
         {
-            Body.InternalPhysicsBody.ApplyLinearImpulse(speed.ForcePositive(), 0);
+            Body.InternalPhysicsBody.ApplyForce(speed.ForcePositive(), 0, Position.X, Position.Y);
         }
 
 
@@ -264,7 +264,7 @@ namespace ScorpionEngine.Entities
         /// </summary>
         public void MoveLeft()
         {
-            Body.InternalPhysicsBody.ApplyLinearImpulse(SpeedX.ForceNegative(), 0);
+            Body.InternalPhysicsBody.ApplyForce(SpeedX.ForceNegative(), 0, Position.X, Position.Y);
         }
 
 
@@ -274,7 +274,7 @@ namespace ScorpionEngine.Entities
         /// <param name="speed">The speed to move the <see cref="DynamicEntity"/>. Positive and negative numbers behave the same.</param>
         public void MoveLeft(float speed)
         {
-            Body.InternalPhysicsBody.ApplyLinearImpulse(speed.ForceNegative(), 0);
+            Body.InternalPhysicsBody.ApplyForce(speed.ForceNegative(), 0, Position.X, Position.Y);
         }
 
 
@@ -284,7 +284,7 @@ namespace ScorpionEngine.Entities
         /// </summary>
         public void MoveUp()
         {
-            Body.InternalPhysicsBody.ApplyLinearImpulse(0, SpeedY.ForceNegative());
+            Body.InternalPhysicsBody.ApplyForce(0, SpeedY.ForceNegative(), Position.X, Position.Y);
         }
 
 
@@ -294,7 +294,7 @@ namespace ScorpionEngine.Entities
         /// <param name="speed">The speed to move the <see cref="DynamicEntity"/>. Positive and negative numbers behave the same.</param>
         public void MoveUp(float speed)
         {
-            Body.InternalPhysicsBody.ApplyLinearImpulse(0, speed.ForceNegative());
+            Body.InternalPhysicsBody.ApplyForce(0, speed.ForceNegative(), Position.X, Position.Y);
         }
 
 
@@ -304,7 +304,7 @@ namespace ScorpionEngine.Entities
         /// </summary>
         public void MoveDown()
         {
-            Body.InternalPhysicsBody.ApplyLinearImpulse(0, SpeedY.ForcePositive());
+            Body.InternalPhysicsBody.ApplyForce(0, SpeedY.ForcePositive(), Position.X, Position.Y);
         }
 
 
@@ -314,13 +314,13 @@ namespace ScorpionEngine.Entities
         /// <param name="speed">The speed to move the <see cref="DynamicEntity"/>. Positive and negative numbers behave the same.</param>
         public void MoveDown(float speed)
         {
-            Body.InternalPhysicsBody.ApplyLinearImpulse(0, speed);
+            Body.InternalPhysicsBody.ApplyForce(0, speed, Position.X, Position.Y);
         }
 
 
         public void MoveUpRight()
         {
-            Body.InternalPhysicsBody.ApplyLinearImpulse(SpeedX.ForcePositive(), SpeedY.ForceNegative());
+            Body.InternalPhysicsBody.ApplyForce(SpeedX.ForcePositive(), SpeedY.ForceNegative(), Position.X, Position.Y);
         }
 
 
@@ -330,7 +330,7 @@ namespace ScorpionEngine.Entities
         /// <param name="speed">The speed to move the <see cref="DynamicEntity"/>. Positive and negative numbers behave the same.</param>
         public void MoveUpRight(float speed)
         {
-            Body.InternalPhysicsBody.ApplyLinearImpulse(speed, speed.ForceNegative());
+            Body.InternalPhysicsBody.ApplyForce(speed, speed.ForceNegative(), Position.X, Position.Y);
         }
 
 
@@ -339,7 +339,7 @@ namespace ScorpionEngine.Entities
         /// </summary>
         public void MoveUpLeft()
         {
-            Body.InternalPhysicsBody.ApplyLinearImpulse(SpeedX.ForceNegative(), SpeedY.ForceNegative());
+            Body.InternalPhysicsBody.ApplyForce(SpeedX.ForceNegative(), SpeedY.ForceNegative(), Position.X, Position.Y);
         }
 
 
@@ -350,7 +350,7 @@ namespace ScorpionEngine.Entities
         public void MoveUpLeft(float speed)
         {
             speed = speed.ForceNegative();
-            Body.InternalPhysicsBody.ApplyLinearImpulse(speed, speed);
+            Body.InternalPhysicsBody.ApplyForce(speed, speed, Position.X, Position.Y);
         }
 
 
@@ -359,7 +359,7 @@ namespace ScorpionEngine.Entities
         /// </summary>
         public void MoveDownRight()
         {
-            Body.InternalPhysicsBody.ApplyLinearImpulse(SpeedX.ForcePositive(), SpeedY.ForcePositive());
+            Body.InternalPhysicsBody.ApplyForce(SpeedX.ForcePositive(), SpeedY.ForcePositive(), Position.X, Position.Y);
         }
 
 
@@ -370,7 +370,7 @@ namespace ScorpionEngine.Entities
         public void MoveDownRight(float speed)
         {
             speed = speed.ForcePositive();
-            Body.InternalPhysicsBody.ApplyLinearImpulse(speed, speed);
+            Body.InternalPhysicsBody.ApplyForce(speed, speed, Position.X, Position.Y);
         }
 
 
@@ -379,7 +379,7 @@ namespace ScorpionEngine.Entities
         /// </summary>
         public void MoveDownLeft()
         {
-            Body.InternalPhysicsBody.ApplyLinearImpulse(SpeedX.ForceNegative(), SpeedY.ForcePositive());
+            Body.InternalPhysicsBody.ApplyForce(SpeedX.ForceNegative(), SpeedY.ForcePositive(), Position.X, Position.Y);
         }
 
 
@@ -389,7 +389,7 @@ namespace ScorpionEngine.Entities
         /// <param name="speed">The speed to move the <see cref="DynamicEntity"/>. Positive and negative numbers behave the same.</param>
         public void MoveDownLeft(float speed)
         {
-            Body.InternalPhysicsBody.ApplyLinearImpulse(speed.ForceNegative(), speed.ForcePositive());
+            Body.InternalPhysicsBody.ApplyForce(speed.ForceNegative(), speed.ForcePositive(), Position.X, Position.Y);
         }
 
 
@@ -400,7 +400,7 @@ namespace ScorpionEngine.Entities
         /// </summary>
         public void MoveAtSetSpeed()
         {
-            Body.InternalPhysicsBody.ApplyLinearImpulse(SpeedX, SpeedY);
+            Body.InternalPhysicsBody.ApplyForce(SpeedX, SpeedY, Position.X, Position.Y);
         }
 
 
@@ -412,7 +412,7 @@ namespace ScorpionEngine.Entities
         {
             var directionToMove = new Vector(_facingDirection.X, _facingDirection.Y) * speed.ForcePositive();
 
-            Body.InternalPhysicsBody.ApplyLinearImpulse(directionToMove.X, directionToMove.Y);
+            Body.InternalPhysicsBody.ApplyForce(directionToMove.X, directionToMove.Y, Position.X, Position.Y);
         }
 
 
@@ -488,13 +488,13 @@ namespace ScorpionEngine.Entities
                 //If the body is still moving in the Y direction
                 if (Body.InternalPhysicsBody.LinearVelocityY != 0)
                 {
-                    Body.InternalPhysicsBody.ApplyLinearImpulse(Body.InternalPhysicsBody.LinearVelocityX, Body.InternalPhysicsBody.LinearVelocityY * -1);
+                    Body.InternalPhysicsBody.ApplyForce(Body.InternalPhysicsBody.LinearVelocityX, Body.InternalPhysicsBody.LinearVelocityY * -1, Position.X, Position.Y);
                 }
 
                 //If the body is still moving in the X direction
                 if (Body.InternalPhysicsBody.LinearVelocityX != 0)
                 {
-                    Body.InternalPhysicsBody.ApplyLinearImpulse(Body.InternalPhysicsBody.LinearVelocityX * -1, Body.InternalPhysicsBody.LinearVelocityY);
+                    Body.InternalPhysicsBody.ApplyForce(Body.InternalPhysicsBody.LinearVelocityX * -1, Body.InternalPhysicsBody.LinearVelocityY, Position.X, Position.Y);
                 }
 
                 //If the body has stopped moving, set the flag back to false

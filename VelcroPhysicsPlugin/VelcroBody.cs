@@ -311,6 +311,12 @@ namespace VelcroPhysicsPlugin
         {
             PolygonBody.ApplyAngularImpulse(value.ToPhysics());
         }
+
+
+        public void ApplyForce(float forceX, float forceY, float worldLocationX, float worldLocationY)
+        {
+            PolygonBody.ApplyForce(new Vector2(forceX.ToPhysics(), forceY.ToPhysics()), new Vector2(worldLocationX.ToPhysics(), worldLocationY.ToPhysics()));
+        }
         #endregion
     }
 }

@@ -61,18 +61,19 @@ namespace ScorpTestGame
                 BlueMax = 0,
                 SizeMin = 0.05f,
                 SizeMax = 0.20f,
-                LifeTimeMax = 700,
-                VelocityXMin = -0.25f,
-                VelocityXMax = 0.25f,
-                VelocityYMin = 0,
-                VelocityYMax = 1f
+                LifeTimeMax = 125,
+                VelocityXMin = -0.5f,
+                VelocityXMax = 0.5f,
+                VelocityYMin = -0.5f,
+                VelocityYMax = 0.5f
             };
 
-            _movementBehavior = new MoveFowardKeyboardBehavior<PlayerShip>(this, 1f, 0.25f)
+            _movementBehavior = new MoveFowardKeyboardBehavior<PlayerShip>(this, 2f, 0.25f)
             {
                 MoveFowardKey = InputKeys.Up,
                 RotateCW = InputKeys.Right,
-                RotateCCW = InputKeys.Left
+                RotateCCW = InputKeys.Left,
+                Enabled = false
             };
             
             Behaviors.Add(_movementBehavior);
@@ -97,15 +98,24 @@ namespace ScorpTestGame
 
         public override void Update(EngineTime engineTime)
         {
+            _keyboard.UpdateCurrentState();
+
             //Update the spawn position of the thruster particels
             _thrusterPosition = new Vector(Position.X, Position.Y + 22.5f);
             _thrusterPosition = Tools.RotateAround(_thrusterPosition, Position, Angle);
-            _particleEngine.SpawnLocation = _thrusterPosition;
+            //_particleEngine.SpawnLocation = _thrusterPosition;//KEEP
 
-            _particleEngine.Enabled = _movementBehavior.IsMovingForward;
+            //TODO: Remove when done
+            _particleEngine.SpawnLocation = new Vector(200, 200);
+
+            //_particleEngine.Enabled = _movementBehavior.IsMovingForward;
             _particleEngine.Update(engineTime);
 
+            _particleEngine.Enabled = _keyboard.IsKeyDown(InputKeys.Up);
+
             base.Update(engineTime);
+
+            _keyboard.UpdatePreviousState();
         }
 
 
