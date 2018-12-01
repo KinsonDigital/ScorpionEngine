@@ -29,10 +29,12 @@ namespace ScorpionEngine
         /// <paramref name="enginePluginLib">The plugin library used to mock engine plugins.</paramref>
         /// <paramref name="physicsPluginLib">The plugin library used to mock physics plugins.</paramref>
         /// </summary>
-        internal Engine(IPluginLibrary enginePluginLib, IPluginLibrary physicsPluginLib)
+        internal Engine(IPluginLibrary enginePluginLib, IPluginLibrary physicsPluginLib, bool loadPhysicsLibrary = true)
         {
             PluginSystem.LoadEnginePluginLibrary(enginePluginLib);
-            PluginSystem.LoadPhysicsPluginLibrary(physicsPluginLib);
+
+            if (loadPhysicsLibrary)
+                PluginSystem.LoadPhysicsPluginLibrary(physicsPluginLib);
 
             //Make sure that the Setup() method is called
             //This is to make sure that this class is testable for unit testing purposes.
@@ -44,10 +46,12 @@ namespace ScorpionEngine
         /// Creates an instance of engine.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        public Engine()
+        public Engine(bool loadPhysicsLibrary = true)
         {
             PluginSystem.LoadEnginePluginLibrary(new PluginLibrary("MonoScorpPlugin"));
-            PluginSystem.LoadPhysicsPluginLibrary(new PluginLibrary("VelcroPhysicsPlugin"));
+
+            if(loadPhysicsLibrary)
+                PluginSystem.LoadPhysicsPluginLibrary(new PluginLibrary("VelcroPhysicsPlugin"));
 
             Setup();
         }

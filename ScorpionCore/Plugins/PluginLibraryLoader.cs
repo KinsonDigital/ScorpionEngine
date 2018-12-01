@@ -39,7 +39,7 @@ namespace ScorpionCore.Plugins
             catch (Exception ex)
             {
                 if(ex is FileNotFoundException || ex is ArgumentNullException)
-                    throw new PluginNotFoundException(pluginLibraryName, $"{pluginLibraryName}.dll");
+                    throw new PluginNotFoundException(pluginLibraryName, $"{pluginLibraryName}");
 
                 return null;
             }
