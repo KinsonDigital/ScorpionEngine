@@ -1,8 +1,6 @@
 ﻿using System;
-using ScorpionEngine.Content;
 using ScorpionCore;
 using ScorpionCore.Plugins;
-
 using ScorpionEngine.Scene;
 using System.Runtime.CompilerServices;
 using System.Diagnostics.CodeAnalysis;

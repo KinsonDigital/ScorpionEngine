@@ -2,7 +2,6 @@
 using ScorpionCore.Content;
 using ScorpionCore.Graphics;
 using ScorpionCore.Plugins;
-using ScorpionEngine.Content;
 using ScorpionEngine.Events;
 using ScorpionEngine.Exceptions;
 using ScorpionEngine.Input;
@@ -240,12 +239,6 @@ namespace ScorpionEngine.Scene
             {
                 DeactivateAllScenes();
                 scene.Active = true;
-            }
-
-            //If the manager is set to set the scene as render on add
-            if (SetSceneAsRenderableOnAdd)
-            {
-                TurnAllSceneRenderingOff();
             }
 
             //If there is only one scene in the manager...set that scene to current scene
@@ -581,10 +574,17 @@ namespace ScorpionEngine.Scene
         /// <param name="renderer">The renderer to use for rendering.</param>
         public void Render(Renderer renderer)
         {
-            if (!_scenes[CurrentSceneId].IsRenderingScene)
+            var foundScene = (from s in _scenes
+                              where s.Id == CurrentSceneId
+                              select s).FirstOrDefault();
+
+            if (foundScene == null)
+                throw new SceneNotFoundException(CurrentSceneId);
+
+            if (!foundScene.IsRenderingScene)
             {
-                _scenes[CurrentSceneId].IsRenderingScene = true;
-                _scenes[CurrentSceneId].Render(renderer);
+                foundScene.IsRenderingScene = true;
+                foundScene.Render(renderer);
             }
         }
 

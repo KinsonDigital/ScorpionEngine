@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
-using ScorpionEngine.Physics;
-
+using ScorpionCore;
 
 namespace ScorpionEngine.Tests.Physics
 {

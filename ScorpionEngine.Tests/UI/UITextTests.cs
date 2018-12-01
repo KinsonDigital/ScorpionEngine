@@ -1,9 +1,8 @@
 ﻿using Moq;
 using NUnit.Framework;
 using ScorpionCore;
+using ScorpionCore.Graphics;
 using ScorpionCore.Plugins;
-using ScorpionEngine.Graphics;
-using ScorpionEngine.Physics;
 using ScorpionEngine.UI;
 using System;
 

@@ -48,7 +48,6 @@
     <Compile Include="Behaviors\LimitNumberBehaviorTests.cs" />
     <Compile Include="Behaviors\MovementByKeyboardBehaviorTests.cs" />
     <Compile Include="Content\ContentExtensionMethodTests.cs" />
-    <Compile Include="Content\ContentLoaderTests.cs" />
     <Compile Include="EngineTests.cs" />
     <Compile Include="Entities\DynamicEntityTests.cs" />
     <Compile Include="Entities\EntityTests.cs" />
@@ -82,9 +81,6 @@
     <Compile Include="AssertExt.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Fakes\FakeData.cs" />
-    <Compile Include="Fakes\FakeTexture.cs" />
-    <Compile Include="Graphics\GameColorTests.cs" />
-    <Compile Include="Graphics\GameTextTests.cs" />
     <Compile Include="Input\MouseWatcherTests.cs" />
     <Compile Include="Input\KeyBehaviorTests.cs" />
     <Compile Include="Input\KeyboardTests.cs" />
@@ -93,9 +89,7 @@
     <Compile Include="Input\MouseTests.cs" />
     <Compile Include="RectTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Graphics\RendererTests.cs" />
     <Compile Include="Utils\StopWatchTests.cs" />
-    <Compile Include="Graphics\TextureTests.cs" />
     <Compile Include="Utils\ToolsTests.cs" />
     <Compile Include="UI\UITextTests.cs" />
   </ItemGroup>

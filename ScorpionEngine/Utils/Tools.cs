@@ -1,5 +1,4 @@
 ﻿using ScorpionCore;
-using ScorpionEngine.Physics;
 using System;
 
 namespace ScorpionEngine.Utils

@@ -1,12 +1,11 @@
 ﻿using Moq;
 using NUnit.Framework;
 using ScorpionCore;
+using ScorpionCore.Graphics;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Exceptions;
-using ScorpionEngine.Graphics;
 using ScorpionEngine.Physics;
 using ScorpionEngine.Tests.Fakes;
-
 
 namespace ScorpionEngine.Tests.Physics
 {

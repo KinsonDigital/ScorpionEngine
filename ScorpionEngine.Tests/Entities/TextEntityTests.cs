@@ -3,7 +3,6 @@ using NUnit.Framework;
 using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Entities;
-using ScorpionEngine.Physics;
 using ScorpionEngine.Tests.Fakes;
 using System.Drawing;
 

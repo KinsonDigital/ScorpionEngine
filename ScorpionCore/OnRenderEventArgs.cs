@@ -1,5 +1,4 @@
-﻿using ScorpionCore.Graphics;
-using ScorpionCore.Plugins;
+﻿using ScorpionCore.Plugins;
 using System;
 
 namespace ScorpionCore

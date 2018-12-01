@@ -1,4 +1,3 @@
-using ScorpionEngine;
 using ScorpionEngine.Input;
 using ScorpionEngine.Scene;
 using ScorpionEngine.UI;

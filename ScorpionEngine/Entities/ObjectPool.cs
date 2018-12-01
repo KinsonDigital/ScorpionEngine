@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using ScorpionCore;
 using ScorpionEngine.Events;
-using ScorpionEngine.Physics;
 
 namespace ScorpionEngine.Entities
 {

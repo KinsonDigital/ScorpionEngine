@@ -1,6 +1,7 @@
-﻿using ScorpionCore.Plugins;
-using ScorpionEngine.Content;
-using ScorpionEngine.Graphics;
+﻿using ScorpionCore;
+using ScorpionCore.Content;
+using ScorpionCore.Graphics;
+using ScorpionCore.Plugins;
 
 namespace ScorpionEngine.Tests.Fakes
 {

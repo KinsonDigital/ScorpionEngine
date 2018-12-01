@@ -1,15 +1,11 @@
 ﻿using Moq;
 using NUnit.Framework;
 using ScorpionCore;
+using ScorpionCore.Content;
 using ScorpionCore.Plugins;
-using ScorpionEngine.Content;
 using ScorpionEngine.Scene;
 using ScorpionEngine.Tests.Fakes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ScorpionEngine.Tests
 {

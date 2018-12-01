@@ -1,6 +1,5 @@
 ﻿using ScorpionCore;
 using ScorpionCore.Graphics;
-using ScorpionEngine.Physics;
 using System;
 using System.Collections.Generic;
 using System.Linq;

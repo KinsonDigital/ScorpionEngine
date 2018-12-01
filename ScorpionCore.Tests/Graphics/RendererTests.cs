@@ -1,11 +1,9 @@
 ﻿using Moq;
 using NUnit.Framework;
-using ScorpionCore;
+using ScorpionCore.Graphics;
 using ScorpionCore.Plugins;
-using ScorpionEngine.Graphics;
 
-
-namespace ScorpionEngine.Tests.Graphics
+namespace ScorpionCore.Tests.Graphics
 {
     public class RendererTests
     {

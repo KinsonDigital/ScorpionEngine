@@ -6,6 +6,7 @@ using ScorpionCore.Exceptions;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo(assemblyName: "ScorpionCore.Tests", AllInternalsVisible = true)]
+[assembly: InternalsVisibleTo(assemblyName: "ScorpionEngine.Tests", AllInternalsVisible = true)]
 [assembly: InternalsVisibleTo(assemblyName: "ScorpionEngine", AllInternalsVisible = true)]
 
 namespace ScorpionCore.Plugins

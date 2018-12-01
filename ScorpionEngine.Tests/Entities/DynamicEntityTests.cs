@@ -1,11 +1,11 @@
 ﻿using Moq;
 using NUnit.Framework;
 using ScorpionCore;
+using ScorpionCore.Graphics;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Behaviors;
 using ScorpionEngine.Entities;
-using ScorpionEngine.Graphics;
-using ScorpionEngine.Physics;
+using ScorpionEngine.Exceptions;
 using ScorpionEngine.Tests.Fakes;
 using System;
 using System.Linq;
@@ -29,40 +29,6 @@ namespace ScorpionEngine.Tests.Entities
 
             //Assert
             Assert.AreEqual(expectedTotalBehaviors, actualTotalBehaviors);
-        }
-
-
-        [Test]
-        public void Ctor_WhenInvokingWithTextureAndPosition_MaxLeftVelocityValueProperlySet()
-        {
-            //Arrange
-            var texture = CreateTexture();
-            var expectedMaxLeftVelocity = -1f;
-
-            //Act
-            var entity = new DynamicEntity(texture, Vector.Zero);
-            var maxLeftBehavior = entity.Behaviors[1] as LimitNumberBehavior;
-            var actualMaxLeftVelocity = maxLeftBehavior.LimitValue;
-
-            //Assert
-            Assert.AreEqual(expectedMaxLeftVelocity, actualMaxLeftVelocity);
-        }
-
-
-        [Test]
-        public void Ctor_WhenInvokingWithTextureAndPosition_MaxUpVelocityValueProperlySet()
-        {
-            //Arrange
-            var texture = CreateTexture();
-            var expectedMaxUpVelocity = -1f;
-
-            //Act
-            var entity = new DynamicEntity(texture, Vector.Zero);
-            var maxLeftBehavior = entity.Behaviors[3] as LimitNumberBehavior;
-            var actualMaxUpVelocity = maxLeftBehavior.LimitValue;
-
-            //Assert
-            Assert.AreEqual(expectedMaxUpVelocity, actualMaxUpVelocity);
         }
 
 
@@ -358,6 +324,31 @@ namespace ScorpionEngine.Tests.Entities
 
 
         #region Method Tests
+        [Test]
+        public void Ctor_WhenInvokingWithNullBody_ThrowsException()
+        {
+            //Arrange
+            var mockPhysicsBody = new Mock<IPhysicsBody>();
+            mockPhysicsBody.Setup(m => m.ApplyAngularImpulse(It.IsAny<float>()));
+            mockPhysicsBody.Setup(m => m.ApplyLinearImpulse(It.IsAny<float>(), It.IsAny<float>()));
+
+            FakePhysicsBody nullPhysicsBody = null;
+
+            var mockPlugin = new Mock<IPluginLibrary>();
+            mockPlugin.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns(nullPhysicsBody);
+
+            PluginSystem.LoadPhysicsPluginLibrary(mockPlugin.Object);
+
+            var entity = new DynamicEntity();
+
+            //Act/Assert
+            Assert.Throws<EntityNotInitializedException>(() =>
+            {
+                entity.Update(It.IsAny<EngineTime>());
+            });
+        }
+
+
         [Test]
         public void Update_WhenInvoking_ShouldHaveEntityStopAfterMovementInXDirection()
         {
@@ -768,7 +759,7 @@ namespace ScorpionEngine.Tests.Entities
                 Angle = 45f
             };
             entity.Initialize();
-            var expected = new Vector(0, -1);
+            var expected = new Vector(0, -40);
 
             //Act
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };

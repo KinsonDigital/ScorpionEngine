@@ -1,11 +1,9 @@
 ﻿using Moq;
 using NUnit.Framework;
-using ScorpionCore;
-using ScorpionEngine.Graphics;
-using ScorpionEngine.Tests.Fakes;
+using ScorpionCore.Graphics;
+using ScorpionCore.Tests.Fakes;
 
-
-namespace ScorpionEngine.Tests.Graphics
+namespace ScorpionCore.Tests.Graphics
 {
     public class TextureTests
     {

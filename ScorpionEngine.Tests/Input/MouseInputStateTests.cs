@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
+using ScorpionCore;
 using ScorpionEngine.Input;
-using ScorpionEngine.Physics;
 
 
 namespace ScorpionEngine.Tests.Input

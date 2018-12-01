@@ -1,7 +1,6 @@
 ﻿using ScorpionCore;
 using ScorpionCore.Content;
 using ScorpionCore.Graphics;
-using ScorpionEngine;
 using ScorpionEngine.Behaviors;
 using ScorpionEngine.Entities;
 using ScorpionEngine.Input;

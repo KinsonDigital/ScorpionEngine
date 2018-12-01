@@ -1,5 +1,5 @@
-﻿using ScorpionEngine.Graphics;
-using ScorpionEngine.Physics;
+﻿using ScorpionCore;
+using ScorpionCore.Graphics;
 using ScorpionEngine.Scene;
 
 namespace ScorpionEngine.Tests.Fakes

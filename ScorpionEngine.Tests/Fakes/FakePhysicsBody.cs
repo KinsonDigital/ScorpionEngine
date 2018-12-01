@@ -45,7 +45,10 @@ namespace ScorpionEngine.Tests.Fakes
 
         public void ApplyForce(float forceX, float forceY, float worldLocationX, float worldLocationY)
         {
-            throw new NotImplementedException();
+            X = forceX;
+            Y = forceY;
+            LinearVelocityX += forceX;
+            LinearVelocityY += forceY;
         }
 
         public void ApplyLinearImpulse(float x, float y)

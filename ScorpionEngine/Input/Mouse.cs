@@ -1,6 +1,5 @@
 ﻿using ScorpionCore;
 using ScorpionCore.Plugins;
-using ScorpionEngine.Physics;
 using System;
 
 namespace ScorpionEngine.Input

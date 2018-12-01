@@ -72,6 +72,7 @@
     <Compile Include="Content\ExtensionMethods.cs" />
     <Compile Include="Exceptions\EntityNotInitializedException.cs" />
     <Compile Include="Exceptions\MissingVerticesException.cs" />
+    <Compile Include="Exceptions\SceneNotFoundException.cs" />
     <Compile Include="Input\IInputWatcher.cs" />
     <Compile Include="Particles\Particle.cs" />
     <Compile Include="Particles\ParticleEngine.cs" />

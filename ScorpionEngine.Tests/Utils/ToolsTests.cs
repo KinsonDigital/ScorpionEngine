@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
-using ScorpionEngine.Physics;
+using ScorpionCore;
 using ScorpionEngine.Utils;
-
 
 namespace ScorpionEngine.Tests.Utils
 {
@@ -13,8 +12,8 @@ namespace ScorpionEngine.Tests.Utils
             //Arrange
             var vectorToRotate = new Vector(0, 0);
             var origin = new Vector(5, 5);
-            var angle = 0.6161012f;
-            var expected = new Vector(3.8086f, -1.969976f);
+            var angle = 13f;
+            var expected = new Vector(1.25290489f, -0.9966054f);
 
             //Act
             var actual = Tools.RotateAround(vectorToRotate, origin, angle);
@@ -31,8 +30,8 @@ namespace ScorpionEngine.Tests.Utils
             //Arrange
             var vectorToRotate = new Vector(0, 0);
             var origin = new Vector(5, 5);
-            var angle = 0.6161012f;
-            var expected = new Vector(-1.969976f, 3.8086f);
+            var angle = 45f;
+            var expected = new Vector(-2.07106781f, 5f);
 
             //Act
             var actual = Tools.RotateAround(vectorToRotate, origin, angle, false);

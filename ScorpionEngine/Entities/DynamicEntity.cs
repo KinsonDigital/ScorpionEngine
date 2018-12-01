@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ScorpionCore;
 using ScorpionCore.Graphics;
 using ScorpionEngine.Behaviors;
 using ScorpionEngine.Exceptions;
-using ScorpionEngine.Physics;
 using ScorpionEngine.Utils;
 
 namespace ScorpionEngine.Entities
@@ -521,8 +519,8 @@ namespace ScorpionEngine.Entities
             _moveUpVelocityMaxBehavior = new LimitNumberBehavior(GetLinearYValue, SetLinearYValue, maxSpeed * -1, nameof(_moveUpVelocityMaxBehavior));
             _moveDownVelocityMaxBehavior = new LimitNumberBehavior(GetLinearYValue, SetLinearYValue, maxSpeed, nameof(_moveDownVelocityMaxBehavior));
 
-            _moveLeftVelocityMaxBehavior = new LimitNumberBehavior(GetLinearXValue, SetLinearXValue, maxSpeed * -1, nameof(_moveLeftVelocityMaxBehavior));
             _moveRightVelocityMaxBehavior = new LimitNumberBehavior(GetLinearXValue, SetLinearXValue, maxSpeed, nameof(_moveRightVelocityMaxBehavior));
+            _moveLeftVelocityMaxBehavior = new LimitNumberBehavior(GetLinearXValue, SetLinearXValue, maxSpeed * -1, nameof(_moveLeftVelocityMaxBehavior));
 
             Behaviors.Add(_moveUpVelocityMaxBehavior);
             Behaviors.Add(_moveDownVelocityMaxBehavior);

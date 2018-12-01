@@ -3,7 +3,6 @@ using NUnit.Framework;
 using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Input;
-using ScorpionEngine.Physics;
 using System;
 
 

@@ -1,10 +1,10 @@
 ﻿using Moq;
 using NUnit.Framework;
 using ScorpionCore;
+using ScorpionCore.Content;
+using ScorpionCore.Graphics;
 using ScorpionCore.Plugins;
-using ScorpionEngine.Content;
 using ScorpionEngine.Exceptions;
-using ScorpionEngine.Graphics;
 using ScorpionEngine.Input;
 using ScorpionEngine.Scene;
 using System;
@@ -416,27 +416,6 @@ namespace ScorpionEngine.Tests.Scene
             //Act
             manager.Add(scene);
             var actual = scene.Active;
-
-            //Assert
-            Assert.AreEqual(expected, actual);
-        }
-
-
-        [Test]
-        public void Add_WhenInvokingWithSetSceneAsRenderableOnAddPropSetToTrue_SetsSceneIsRenderingToTrue()
-        {
-            //Arrange
-            var mockScene = new Mock<IScene>();
-            mockScene.SetupProperty(m => m.IsRenderingScene);
-
-            var scene = mockScene.Object;
-
-            var manager = new SceneManager(_contentLoader);
-            var expected = true;
-
-            //Act
-            manager.Add(scene);
-            var actual = scene.IsRenderingScene;
 
             //Assert
             Assert.AreEqual(expected, actual);
@@ -1614,26 +1593,28 @@ namespace ScorpionEngine.Tests.Scene
 
 
         [Test]
-        public void Render_WhenInvoking_SetsSceneIsRenderingScenePropToFalseAfterManagerRenders()
+        public void Render_WhenInvokingWithInvalidSceneId_ThrowsException()
         {
             //Arrange
             var mockScene = new Mock<IScene>();
-            mockScene.SetupGet(m => m.Id).Returns(10);
-            mockScene.SetupProperty(m => m.IsRenderingScene);
+            mockScene.SetupProperty(m => m.Id);
 
             var scene = mockScene.Object;
+            scene.Id = 10;
+
+            //Act
             var manager = new SceneManager(_contentLoader)
             {
                 scene
             };
-            var expected = false;
-
-            //Act
-            manager.Render(It.IsAny<Renderer>());
-            var actual = scene.IsRenderingScene;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            scene.Id = 20;
+
+            Assert.Throws<SceneNotFoundException>(() =>
+            {
+                manager.Render(It.IsAny<Renderer>());
+            });
         }
 
 

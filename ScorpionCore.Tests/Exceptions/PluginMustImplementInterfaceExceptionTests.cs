@@ -1,11 +1,6 @@
 ﻿using NUnit.Framework;
 using ScorpionCore.Exceptions;
 using ScorpionCore.Plugins;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ScorpionCore.Tests.Exceptions
 {

@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using ScorpionCore;
 using ScorpionEngine.Utils;
 using System;
 

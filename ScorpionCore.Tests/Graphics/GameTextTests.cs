@@ -1,10 +1,8 @@
 ﻿using Moq;
 using NUnit.Framework;
-using ScorpionCore;
-using ScorpionEngine.Graphics;
+using ScorpionCore.Graphics;
 
-
-namespace ScorpionEngine.Tests.Graphics
+namespace ScorpionCore.Tests.Graphics
 {
     public class GameTextTests
     {

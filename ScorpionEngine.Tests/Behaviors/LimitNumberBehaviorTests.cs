@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using ScorpionCore;
 using ScorpionEngine.Behaviors;
 
 namespace ScorpionEngine.Tests.Behaviors
