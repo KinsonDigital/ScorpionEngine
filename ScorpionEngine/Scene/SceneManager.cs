@@ -574,6 +574,9 @@ namespace ScorpionEngine.Scene
         /// <param name="renderer">The renderer to use for rendering.</param>
         public void Render(Renderer renderer)
         {
+            if (_scenes.Count <= 0)
+                return;
+
             var foundScene = (from s in _scenes
                               where s.Id == CurrentSceneId
                               select s).FirstOrDefault();

@@ -82,6 +82,10 @@
       <Project>{91495C38-9695-4905-B5D9-0DEBB25E1A0F}</Project>
       <Name>ScorpionEngine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ScorpionUI\ScorpionUI.csproj">
+      <Project>{EF70DE07-DE6F-40C6-AF90-32E02090592C}</Project>
+      <Name>ScorpionUI</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="x64\SDL2.dll">
