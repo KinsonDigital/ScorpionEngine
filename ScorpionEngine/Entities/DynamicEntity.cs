@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using ScorpionCore;
+using ScorpionCore.Graphics;
 using ScorpionEngine.Behaviors;
 using ScorpionEngine.Exceptions;
-using ScorpionEngine.Graphics;
 using ScorpionEngine.Physics;
 using ScorpionEngine.Utils;
 

@@ -1,4 +1,5 @@
-﻿using ScorpionEngine.Physics;
+﻿using ScorpionCore;
+using ScorpionEngine.Physics;
 using SysColor = System.Drawing.Color;
 
 namespace ScorpionEngine.Entities

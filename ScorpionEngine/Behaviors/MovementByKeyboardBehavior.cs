@@ -1,4 +1,5 @@
-﻿using ScorpionEngine.Entities;
+﻿using ScorpionCore;
+using ScorpionEngine.Entities;
 using ScorpionEngine.Input;
 
 namespace ScorpionEngine.Behaviors

@@ -1,11 +1,10 @@
-﻿using ScorpionEngine;
-using ScorpionEngine.Content;
-using ScorpionEngine.Graphics;
+﻿using ScorpionCore;
+using ScorpionCore.Content;
+using ScorpionCore.Graphics;
+using ScorpionEngine;
 using ScorpionEngine.Input;
 using ScorpionEngine.Particles;
-using ScorpionEngine.Physics;
 using ScorpionEngine.Scene;
-using System.Collections.Generic;
 
 namespace ScorpTestGame.Scenes
 {

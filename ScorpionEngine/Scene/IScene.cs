@@ -1,4 +1,4 @@
-﻿using ScorpionEngine.Content;
+﻿using ScorpionCore.Content;
 
 namespace ScorpionEngine.Scene
 {

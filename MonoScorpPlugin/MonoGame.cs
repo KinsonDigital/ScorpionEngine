@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using ScorpionCore.Plugins;
+using ScorpionCore.Graphics;
 
 namespace MonoScorpPlugin
 {

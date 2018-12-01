@@ -1,9 +1,10 @@
 ﻿using ScorpionCore;
+using ScorpionCore.Content;
+using ScorpionCore.Graphics;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Content;
 using ScorpionEngine.Events;
 using ScorpionEngine.Exceptions;
-using ScorpionEngine.Graphics;
 using ScorpionEngine.Input;
 using System;
 using System.Collections;

@@ -1,4 +1,5 @@
-﻿using ScorpionEngine.Events;
+﻿using ScorpionCore;
+using ScorpionEngine.Events;
 using System;
 
 namespace ScorpionEngine.Scene

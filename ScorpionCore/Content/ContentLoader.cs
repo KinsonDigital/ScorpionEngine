@@ -1,8 +1,7 @@
-﻿using ScorpionCore;
+﻿using ScorpionCore.Graphics;
 using ScorpionCore.Plugins;
-using ScorpionEngine.Graphics;
 
-namespace ScorpionEngine.Content
+namespace ScorpionCore.Content
 {
     public class ContentLoader
     {
@@ -48,4 +47,5 @@ namespace ScorpionEngine.Content
             return result;
         }
     }
+
 }

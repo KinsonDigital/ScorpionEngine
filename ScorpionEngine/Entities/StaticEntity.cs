@@ -1,5 +1,6 @@
-﻿using ScorpionEngine.Graphics;
-using ScorpionEngine.Physics;
+﻿
+using ScorpionCore;
+using ScorpionCore.Graphics;
 
 namespace ScorpionEngine.Entities
 {

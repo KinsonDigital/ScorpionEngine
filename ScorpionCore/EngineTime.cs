@@ -1,8 +1,7 @@
-﻿using ScorpionCore;
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace ScorpionEngine
+namespace ScorpionCore
 {
     //TODO: Add code docs
     [ExcludeFromCodeCoverage]

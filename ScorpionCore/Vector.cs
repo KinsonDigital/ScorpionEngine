@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ScorpionEngine.Physics
+namespace ScorpionCore
 {
     /// <summary>
     /// Represents a vector in 2D space.

@@ -1,5 +1,5 @@
 ﻿using ScorpionCore;
-using ScorpionEngine.Graphics;
+using ScorpionCore.Graphics;
 using ScorpionEngine.Physics;
 
 namespace ScorpionEngine.UI

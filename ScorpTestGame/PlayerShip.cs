@@ -1,11 +1,11 @@
-﻿using ScorpionEngine;
+﻿using ScorpionCore;
+using ScorpionCore.Content;
+using ScorpionCore.Graphics;
+using ScorpionEngine;
 using ScorpionEngine.Behaviors;
-using ScorpionEngine.Content;
 using ScorpionEngine.Entities;
-using ScorpionEngine.Graphics;
 using ScorpionEngine.Input;
 using ScorpionEngine.Particles;
-using ScorpionEngine.Physics;
 using ScorpionEngine.Utils;
 
 namespace ScorpTestGame
