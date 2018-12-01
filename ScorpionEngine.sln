@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScorpionCore.Tests", "Scorp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParticleMaker", "ParticleMaker\ParticleMaker.csproj", "{103BA683-572C-41D7-A86A-A567F610F1AC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScorpionUI", "ScorpionUI\ScorpionUI.csproj", "{EF70DE07-DE6F-40C6-AF90-32E02090592C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -98,6 +100,14 @@ Global
 		{103BA683-572C-41D7-A86A-A567F610F1AC}.Release|Any CPU.ActiveCfg = Release|x86
 		{103BA683-572C-41D7-A86A-A567F610F1AC}.Release|x86.ActiveCfg = Release|x86
 		{103BA683-572C-41D7-A86A-A567F610F1AC}.Release|x86.Build.0 = Release|x86
+		{EF70DE07-DE6F-40C6-AF90-32E02090592C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF70DE07-DE6F-40C6-AF90-32E02090592C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF70DE07-DE6F-40C6-AF90-32E02090592C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EF70DE07-DE6F-40C6-AF90-32E02090592C}.Debug|x86.Build.0 = Debug|Any CPU
+		{EF70DE07-DE6F-40C6-AF90-32E02090592C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF70DE07-DE6F-40C6-AF90-32E02090592C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF70DE07-DE6F-40C6-AF90-32E02090592C}.Release|x86.ActiveCfg = Release|Any CPU
+		{EF70DE07-DE6F-40C6-AF90-32E02090592C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
