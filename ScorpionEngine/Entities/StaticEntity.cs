@@ -5,7 +5,7 @@ namespace ScorpionEngine.Entities
 {
     public class StaticEntity : Entity
     {
-        public StaticEntity(Texture texture, Vector position) : base(texture, position, true)
+        public StaticEntity(Texture texture, Vector position) : base(texture, position, isStaticBody: true)
         {
             _usesPhysics = false;
         }

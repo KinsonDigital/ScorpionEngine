@@ -62,6 +62,8 @@ namespace ScorpionEngine.Scene
         /// </summary>
         public virtual void Initialize()
         {
+            PhysicsWorld.Update(0);
+
             Initialized = true;
         }
 
@@ -93,14 +95,14 @@ namespace ScorpionEngine.Scene
         {
             TimeManager?.Update(engineTime);
 
-            //Update the physics world
-            PhysicsWorld.Update((float)engineTime.ElapsedEngineTime.TotalSeconds);
-
             //Update all of the entities
             foreach (var entity in Entities)
             {
                 entity.Update(engineTime);
             }
+
+            //Update the physics world
+            PhysicsWorld.Update((float)engineTime.ElapsedEngineTime.TotalSeconds);
         }
 
 
@@ -110,13 +112,22 @@ namespace ScorpionEngine.Scene
         /// <param name="renderer">The renderer to use for rendering.</param>
         public virtual void Render(Renderer renderer)
         {
+            foreach (var entity in Entities)
+            {
+                entity.Render(renderer);
+            }
+
             IsRenderingScene = false;
         }
 
+
         //TODO: Make this class IEnumarable so we get the benefits of generics and IList functionality
         //in the class itself.
-        public void AddEntity(Entity entity)
+        public void AddEntity(Entity entity, bool addToPhysics = true)
         {
+            if(addToPhysics)
+                PhysicsWorld.AddEntity(entity);
+
             Entities.Add(entity);
         }
         #endregion

@@ -59,12 +59,12 @@ namespace ScorpTestGame.Scenes
 
         public override void LoadContent(ContentLoader contentLoader)
         {
-            var textures = new List<Texture>()
+            var textures = new Texture[]
             {
                 contentLoader.LoadTexture(@"Particles\ShipThruster")
             };
 
-            _particleEngine.Textures = textures;
+            _particleEngine.AddTextures(textures);
 
             base.LoadContent(contentLoader);
         }

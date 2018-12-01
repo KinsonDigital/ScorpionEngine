@@ -40,5 +40,23 @@ namespace ScorpionEngine.Graphics
             }
         }
         #endregion
+
+
+        public static string operator +(GameText textA, GameText textB)
+        {
+            return $"{textA}{textB}";
+        }
+
+
+        public static string operator +(GameText textA, string textB)
+        {
+            return $"{textA}{textB}";
+        }
+
+
+        public static string operator +(string textA, GameText textB)
+        {
+            return $"{textA}{textB}";
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace MonoScorpPlugin
         #region Props
         public int Width
         {
-            get => (int)Font.MeasureString("").X;
+            get => (int)Font.MeasureString(Text).X;
             set { }
         }
 

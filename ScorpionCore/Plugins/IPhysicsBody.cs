@@ -44,6 +44,9 @@ namespace ScorpionCore.Plugins
 
 
         void ApplyAngularImpulse(float value);
+
+
+        void ApplyForce(float forceX, float forceY, float worldLocationX, float worldLocationY);
         #endregion
     }
 }

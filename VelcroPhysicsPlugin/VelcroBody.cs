@@ -131,10 +131,19 @@ namespace VelcroPhysicsPlugin
             get => PolygonBody == null ? _tempSettings.Angle : PolygonBody.Rotation.ToDegrees();
             set
             {
-                if (PolygonBody == null)
-                    throw new Exception("Body must be added to a world first");
+                if(PolygonBody == null)
+                {
+                    AfterAddedToWorldActions.Add(() =>
+                    {
+                        PolygonBody.Rotation = value.ToRadians();
+                    });
+                }
+                else
+                {
+                    PolygonBody.Rotation = value.ToRadians();
+                }
 
-                PolygonBody.Rotation = value.ToRadians();
+                _tempSettings.Angle = value;//Degrees
             }
         }
 
@@ -168,7 +177,7 @@ namespace VelcroPhysicsPlugin
                 }
                 else
                 {
-                    PolygonBody.AngularDamping = value;
+                    PolygonBody.Restitution = value;
                 }
 
                 _tempSettings.Restitution = value;
@@ -226,7 +235,7 @@ namespace VelcroPhysicsPlugin
             get => PolygonBody.AngularDamping.ToPixels();
             set
             {
-                if(PolygonBody == null)
+                if (PolygonBody == null)
                 {
                     AfterAddedToWorldActions.Add(() =>
                     {
@@ -251,6 +260,7 @@ namespace VelcroPhysicsPlugin
             //exception methods will help with debugging and troubleshooting
             PolygonBody = result[0];
             PolygonShape = result[1];
+            _tempSettings.Friction = result[2];//Friction
         }
 
 
@@ -290,6 +300,9 @@ namespace VelcroPhysicsPlugin
 
         public void ApplyLinearImpulse(float x, float y)
         {
+            //TODO: Remove this
+            var physicsValue = y.ToPhysics();
+
             PolygonBody.ApplyLinearImpulse(new Vector2(x.ToPhysics(), y.ToPhysics()));
         }
 
@@ -297,6 +310,12 @@ namespace VelcroPhysicsPlugin
         public void ApplyAngularImpulse(float value)
         {
             PolygonBody.ApplyAngularImpulse(value.ToPhysics());
+        }
+
+
+        public void ApplyForce(float forceX, float forceY, float worldLocationX, float worldLocationY)
+        {
+            PolygonBody.ApplyForce(new Vector2(forceX.ToPhysics(), forceY.ToPhysics()), new Vector2(worldLocationX.ToPhysics(), worldLocationY.ToPhysics()));
         }
         #endregion
     }

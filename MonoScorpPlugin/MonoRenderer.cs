@@ -32,17 +32,27 @@ namespace MonoScorpPlugin
         }
 
 
+        public void FillCircle(float x, float y, float radius, byte[] color)
+        {
+            //If the color param does not have at least 4 items, throw an exception
+            if (color == null)
+                throw new ArgumentException($"The param '{nameof(color)}' cannot be null");
+
+            if (color.Length < 4)
+                throw new ArgumentException($"The param '{nameof(color)}' must have at lest 4 items.");
+
+            var circleColor = new Color(color[0], color[1], color[2], color[3]);
+
+            _spriteBatch.FillCircle(new Vector2(x, y), radius, (int)radius * 2, circleColor);
+        }
+
+
         public void Render(ITexture texture, float x, float y)
         {
             var srcRect = new Rectangle(0, 0, texture.Width, texture.Height);
             var textureOrigin = new Vector2(texture.Width / 2f, texture.Height / 2f);
             var position = new Vector2(x, y);
 
-            //TODO: The Begin() and End() should be called after ALL sprites have been rendered.
-            //Need to move the usaged of the Begin() and End() to the scene and items will
-            //not be drawn unless they are part of the scene.  Upon adding an Entity to the
-            //scene is when they will be added to the PhysicsWorld side of things.  An array
-            //of entities need to be added to the scene to store ALL of the entitites in that scene
             _spriteBatch.Draw(texture.GetTexture<Texture2D>(), position, srcRect, Color.White, 0, textureOrigin, 1f, SpriteEffects.None, 0f);
         }
 
@@ -93,11 +103,6 @@ namespace MonoScorpPlugin
 
         public void RenderLine(float lineStartX, float lineStartY, float lineStopX, float lineStopY)
         {
-            //TODO: The Begin() and End() should be called after ALL sprites have been rendered.
-            //Need to move the usaged of the Begin() and End() to the scene and items will
-            //not be drawn unless they are part of the scene.  Upon adding an Entity to the
-            //scene is when they will be added to the PhysicsWorld side of things.  An array
-            //of entities need to be added to the scene to store ALL of the entitites in that scene
             _spriteBatch.DrawLine(lineStartX, lineStartY, lineStopX, lineStopY, Color.White);
         }
     }

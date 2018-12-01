@@ -12,7 +12,7 @@ namespace ScorpTestGame.Scenes
 {
     public class Level1 : GameScene
     {
-        private DynamicEntity _ship;
+        private PlayerShip _ship;
         private Keyboard _keyboard;
         private Mouse _mouse;
         private UIText _shipLocation;
@@ -28,32 +28,20 @@ namespace ScorpTestGame.Scenes
         {
             _keyboard = new Keyboard();
 
-            var fallingRectVertices = new Vector[3]
-            {
-                new Vector(-0, -21),
-                new Vector(21, 21),
-                new Vector(-21, 21)
-            };
+            _ship = new PlayerShip();
 
-            _ship = new DynamicEntity(fallingRectVertices, new Vector(330, 200))
-            {
-                DebugDrawEnabled = true,
-                MaxLinearSpeed = 0.5f,
-                MaxRotationSpeed = 0.25f,
-                AngularDeceleration = 0.25f
-            };
+            _ship.Initialize();
+            _shipLocation = new UIText();
 
-            PhysicsWorld.AddEntity(_ship);
             AddEntity(_ship);
 
-            _shipLocation = new UIText();
             base.Initialize();
         }
 
 
         public override void LoadContent(ContentLoader contentLoader)
         {
-            _ship.Texture = contentLoader.LoadTexture("Ship");
+            _ship.LoadContent(contentLoader);
 
             var shipLocationLabelText = contentLoader.LoadText("MyGameText");
             shipLocationLabelText.Text = "Location";
@@ -74,7 +62,7 @@ namespace ScorpTestGame.Scenes
         {
             ProcessKeys();
 
-            _shipLocation.SetValueText($"X: {_ship.Position.X} - Y: {_ship.Position.Y}");
+            _shipLocation.SetValueText($"X: {Math.Round(_ship.Position.X, 2)} - Y: {Math.Round(_ship.Position.Y, 2)}");
 
             base.Update(engineTime);
         }
@@ -83,6 +71,8 @@ namespace ScorpTestGame.Scenes
         public override void Render(Renderer renderer)
         {
             _ship.Render(renderer);
+
+            _shipLocation.Render(renderer);
 
             base.Render(renderer);
         }
@@ -99,40 +89,40 @@ namespace ScorpTestGame.Scenes
         {
             _keyboard.UpdateCurrentState();
 
-            if (_keyboard.IsKeyDown(InputKeys.Up))
-            {
-                _ship.MoveUp(4);
-            }
+            //if (_keyboard.IsKeyDown(InputKeys.Up))
+            //{
+            //    _myEntity.MoveUp(1f);
+            //}
 
-            if (_keyboard.IsKeyDown(InputKeys.Down))
-            {
-                _ship.MoveDown(4);
-            }
+            //if (_keyboard.IsKeyDown(InputKeys.Down))
+            //{
+            //    _ship.MoveDown(4);
+            //}
 
-            if (_keyboard.IsKeyDown(InputKeys.Right))
-            {
-                _ship.MoveRight(4);
-            }
+            //if (_keyboard.IsKeyDown(InputKeys.Right))
+            //{
+            //    _ship.MoveRight(4);
+            //}
 
-            if (_keyboard.IsKeyDown(InputKeys.Left))
-            {
-                _ship.MoveLeft(4);
-            }
+            //if (_keyboard.IsKeyDown(InputKeys.Left))
+            //{
+            //    _ship.MoveLeft(4);
+            //}
 
-            if (_keyboard.IsKeyDown(InputKeys.D))
-            {
-                _ship.RotateCW(0.25f);
-            }
+            //if (_keyboard.IsKeyDown(InputKeys.D))
+            //{
+            //    _ship.RotateCW(0.25f);
+            //}
 
-            if (_keyboard.IsKeyDown(InputKeys.A))
-            {
-                _ship.RotateCCW(0.25f);
-            }
+            //if (_keyboard.IsKeyDown(InputKeys.A))
+            //{
+            //    _ship.RotateCCW(0.25f);
+            //}
 
-            if (_keyboard.IsKeyDown(InputKeys.End))
-            {
-                _ship.StopMovement();
-            }
+            //if (_keyboard.IsKeyDown(InputKeys.End))
+            //{
+            //    _ship.StopMovement();
+            //}
 
             _keyboard.UpdatePreviousState();
         }

@@ -67,9 +67,9 @@ namespace VelcroPhysicsPlugin
             var polyShape = (PolygonShape)physicsBody.FixtureList[0].Shape;
 
             //WARNING: This data sender is not ideal and error prone as well as 
-            //not performent.  Need to find a way to send data to the physics body 
+            //not performant.  Need to find a way to send data to the physics body 
             //in a type safe and performant way
-            body.DataSender(() => new object[] { physicsBody, polyShape });
+            body.DataSender(() => new object[] { physicsBody, polyShape, friction });
 
             //Execute any deferred actions if any exist
             body.AfterAddedToWorldActions.ExecuteAll();

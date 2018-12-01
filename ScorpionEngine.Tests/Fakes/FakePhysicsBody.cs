@@ -43,6 +43,11 @@ namespace ScorpionEngine.Tests.Fakes
             AngularVelocity += value;
         }
 
+        public void ApplyForce(float forceX, float forceY, float worldLocationX, float worldLocationY)
+        {
+            throw new NotImplementedException();
+        }
+
         public void ApplyLinearImpulse(float x, float y)
         {
             X = x;

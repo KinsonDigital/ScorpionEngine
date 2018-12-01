@@ -3,6 +3,8 @@ using System.Linq;
 using ScorpionCore;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Behaviors;
+using ScorpionEngine.Content;
+using ScorpionEngine.Exceptions;
 using ScorpionEngine.Graphics;
 using ScorpionEngine.Input;
 using ScorpionEngine.Physics;
@@ -46,44 +48,71 @@ namespace ScorpionEngine.Entities
         private Vector _origin = Vector.Zero;
         protected Texture _texture;
         private IDebugDraw _debugDraw;
+        private Vector _preInitPosition;
+        private Vector[] _preInitVertices;
+        private float _preInitFriction;
         #endregion
 
 
         #region Constructors
-        public Entity(Texture texture, Vector position, bool isStaticBody = false)
+        public Entity(float friction = 0.2f, bool isStaticBody = false)
+        {
+            IsStatic = isStaticBody;
+            _preInitFriction = friction;
+        }
+
+
+        public Entity(Vector position, float friction = 0.2f, bool isStaticBody = false)
+        {
+            _preInitPosition = position;
+            IsStatic = isStaticBody;
+            _preInitFriction = friction;
+        }
+
+
+        public Entity(Texture texture, Vector position, float friction = 0.2f, bool isStaticBody = false)
         {
             _texture = texture;
 
             var halfWidth = texture.Width / 2;
             var halfHeight = texture.Height / 2;
 
-            var vertices = new Vector[4]
+            _preInitVertices = new Vector[4]
             {
                 new Vector(position.X - halfWidth, position.Y - halfHeight),
                 new Vector(position.X + halfWidth, position.Y - halfHeight),
                 new Vector(position.X + halfWidth, position.Y + halfHeight),
                 new Vector(position.X - halfWidth, position.Y + halfHeight),
             };
-
-            CreateBody(vertices, position, isStaticBody);
+            _preInitPosition = position;
+            IsStatic = isStaticBody;
+            _preInitFriction = friction;
         }
 
 
-        public Entity(Vector[] polyVertices, Vector position, bool isStaticBody = false)
+        public Entity(Vector[] polyVertices, Vector position, float friction = 0.2f, bool isStaticBody = false)
         {
-            CreateBody(polyVertices, position, isStaticBody);
+            _preInitVertices = polyVertices;
+            _preInitPosition = position;
+            IsStatic = isStaticBody;
+            _preInitFriction = friction;
         }
 
 
-        public Entity(Texture texture, Vector[] polyVertices, Vector position, bool isStaticBody = false)
+        public Entity(Texture texture, Vector[] polyVertices, Vector position, float friction = 0.2f, bool isStaticBody = false)
         {
             _texture = texture;
-            CreateBody(polyVertices, position, isStaticBody);
+            _preInitVertices = polyVertices;
+            _preInitPosition = position;
+            IsStatic = isStaticBody;
+            _preInitFriction = friction;
         }
         #endregion
 
 
         #region Props
+        public bool IsStatic { get; private set; }
+
         public EntityBehaviors Behaviors { get; set; } = new EntityBehaviors();
         
         /// <summary>
@@ -128,11 +157,41 @@ namespace ScorpionEngine.Entities
         /// </summary>
         public Vector Position
         {
-            get => new Vector(Body.InternalPhysicsBody.X, Body.InternalPhysicsBody.Y);
+            get => IsInitialized ? 
+                new Vector(Body.InternalPhysicsBody.X, Body.InternalPhysicsBody.Y) :
+                _preInitPosition;
             set
             {
-                Body.InternalPhysicsBody.X = value.X;
-                Body.InternalPhysicsBody.Y = value.Y;
+                if (IsInitialized)
+                {
+                    Body.InternalPhysicsBody.X = value.X;
+                    Body.InternalPhysicsBody.Y = value.Y;
+                }
+                else
+                {
+                    _preInitPosition = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the vertices of the <see cref="Entity"/>.
+        /// Cannot set the vertices if the <see cref="Entity"/> has already been initialized.
+        /// </summary>
+        /// <exception cref="Exception">Thrown when the vertices are trying to be set when the 
+        /// <see cref="Entity"/> has already been initialized.</exception>
+        public Vector[] Vertices
+        {
+            get
+            {
+                return Body.Vertices;
+            }
+            set
+            {
+                if (IsInitialized)
+                    throw new Exception();
+
+                _preInitVertices = value;
             }
         }
 
@@ -204,10 +263,36 @@ namespace ScorpionEngine.Entities
         }
 
         internal PhysicsBody Body { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating if the <see cref="Entity"/> has been initialized.
+        /// </summary>
+        public bool IsInitialized { get; private set; }
+
+        public bool ContentLoaded { get; private set; }
         #endregion
 
 
         #region Public Methods
+        /// <summary>
+        /// Initializes the <see cref="Entity"/>.
+        /// </summary>
+        public virtual void Initialize()
+        {
+            if (_preInitVertices == null)
+                throw new MissingVerticesException();
+
+            CreateBody(_preInitVertices, _preInitPosition, IsStatic);
+            IsInitialized = true;
+        }
+
+
+        public virtual void LoadContent(ContentLoader contentLoader)
+        {
+            ContentLoaded = true;
+        }
+
+
         /// <summary>
         /// Updates the game object.
         /// </summary>
@@ -226,16 +311,14 @@ namespace ScorpionEngine.Entities
         /// Renders the game object.
         /// </summary>
         /// <param name="renderer">The render used to render the object texture.</param>
-        public void Render(Renderer renderer)
+        public virtual void Render(Renderer renderer)
         {
             if (_texture != null && Visible)
                 renderer.Render(_texture, Position.X, Position.Y, Body.InternalPhysicsBody.Angle);
 
             //Render the physics bodies vertices to show its shape for debugging purposes
             if (DebugDrawEnabled)
-            {
                 _debugDraw.Draw(renderer.InternalRenderer, Body.InternalPhysicsBody);
-            }
         }
         #endregion
 
@@ -243,7 +326,7 @@ namespace ScorpionEngine.Entities
         #region Private Methods
         private void CreateBody(Vector[] vertices, Vector position, bool isStatic)
         {
-            Body = new PhysicsBody(vertices, position, isStatic: isStatic);
+            Body = new PhysicsBody(vertices, position, isStatic: isStatic, friction: _preInitFriction);
         }
         #endregion
     }

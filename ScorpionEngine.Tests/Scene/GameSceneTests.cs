@@ -242,17 +242,24 @@ namespace ScorpionEngine.Tests.Scene
 
 
         [Test]
-        public void Render_WhenInvoking_SetsRenderingSceneToTrue()
+        public void Render_WhenInvoking_InvokesAllEntityRenderMethods()
         {
             //Arrange
+            var entityA = new FakeEntity(false);
+            var entityB = new FakeEntity(false);
+
             var scene = new FakeGameScene(Vector.Zero);
+            scene.AddEntity(entityA, false);
+            scene.AddEntity(entityB, false);
+
             var mockCoreRenderer = new Mock<IRenderer>();
             var renderer = new Renderer(mockCoreRenderer.Object);
-            var expected = false;
+
+            var expected = true;
 
             //Act
             scene.Render(renderer);
-            var actual = scene.IsRenderingScene;
+            var actual = entityA.RenderInvoked && entityB.RenderInvoked;
 
             //Assert
             Assert.AreEqual(expected, actual);

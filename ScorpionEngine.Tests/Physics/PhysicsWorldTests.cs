@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using ScorpionCore;
 using ScorpionCore.Plugins;
+using ScorpionEngine.Exceptions;
 using ScorpionEngine.Graphics;
 using ScorpionEngine.Physics;
 using ScorpionEngine.Tests.Fakes;
@@ -64,10 +65,51 @@ namespace ScorpionEngine.Tests.Physics
             {
                 Body = body
             };
+            entity.Initialize();
             var world = new PhysicsWorld(Vector.Zero);
 
             //Act/Assert
             AssertExt.DoesNotThrowNullReference(() =>
+            {
+                world.AddEntity(entity);
+            });
+        }
+
+
+        [Test]
+        public void AddEntity_WhenInvokingWhileNotInitialized_ThrowException()
+        {
+            //Arrange
+            var mockPhysicsWorld = new Mock<IPhysicsWorld>();
+            var mockPhysicsBody = new Mock<IPhysicsBody>();
+            var mockPluginLib = new Mock<IPluginLibrary>();
+
+            //Mock method for creating a physics body
+            mockPluginLib.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns(() =>
+            {
+                return mockPhysicsBody.Object;
+            });
+
+            //Mock method for loading a physics world
+            mockPluginLib.Setup(m => m.LoadPlugin<IPhysicsWorld>(It.IsAny<float>(), It.IsAny<float>())).Returns(() =>
+            {
+                return mockPhysicsWorld.Object;
+            });
+
+            PluginSystem.LoadPhysicsPluginLibrary(mockPluginLib.Object);
+            var mockTexture = new Mock<ITexture>();
+
+            var texture = new Texture() { InternalTexture = mockTexture.Object };
+            var vertices = new Vector[] { Vector.Zero, Vector.Zero };
+            var body = new PhysicsBody(vertices, Vector.Zero);
+            var entity = new FakeEntity(texture: texture, position: Vector.Zero)
+            {
+                Body = body
+            };
+            var world = new PhysicsWorld(Vector.Zero);
+
+            //Act/Assert
+            Assert.Throws<EntityNotInitializedException>(() =>
             {
                 world.AddEntity(entity);
             });

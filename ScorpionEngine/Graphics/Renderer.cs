@@ -1,4 +1,5 @@
 ﻿using ScorpionCore.Plugins;
+using ScorpionEngine.Physics;
 
 namespace ScorpionEngine.Graphics
 {
@@ -31,6 +32,12 @@ namespace ScorpionEngine.Graphics
         public void End()
         {
             InternalRenderer.End();
+        }
+
+
+        public void FillCircle(Vector position, float radius, GameColor color)
+        {
+            InternalRenderer.FillCircle(position.X, position.Y, radius, new byte[] { color.Red, color.Green, color.Blue, color.Alpha });
         }
 
 

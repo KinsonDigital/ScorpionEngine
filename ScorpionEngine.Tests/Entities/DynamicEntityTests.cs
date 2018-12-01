@@ -15,26 +15,6 @@ namespace ScorpionEngine.Tests.Entities
     [TestFixture]
     public class DynamicEntityTests
     {
-        [SetUp]
-        public void Setup()
-        {
-            if (ShouldSkipSetup())
-                return;
-
-            var mockPhysicsBody = new Mock<IPhysicsBody>();
-            mockPhysicsBody.Setup(m => m.ApplyAngularImpulse(It.IsAny<float>()));
-            mockPhysicsBody.Setup(m => m.ApplyLinearImpulse(It.IsAny<float>(), It.IsAny<float>()));
-
-            var mockPlugin = new Mock<IPluginLibrary>();
-            mockPlugin.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
-            {
-                return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[0]);
-            });
-
-            PluginSystem.LoadPhysicsPluginLibrary(mockPlugin.Object);
-        }
-
-
         #region Constructor Tests
         [Test]
         public void Ctor_WhenInvokingWithTextureAndPosition_Creates4Behaviors()
@@ -87,7 +67,37 @@ namespace ScorpionEngine.Tests.Entities
 
 
         [Test]
-        public void Ctor_WhenInvokingWithVerticesAndPosition_Creates4Behaviors()
+        public void Ctor_WhenInvokingWithNoParams_CreatesAllBehaviors()
+        {
+            //Arrange
+            int expectedTotalBehaviors = 6;
+
+            //Act
+            var entity = new DynamicEntity();
+            var actualTotalBehaviors = entity.Behaviors.Count;
+
+            //Assert
+            Assert.AreEqual(expectedTotalBehaviors, actualTotalBehaviors);
+        }
+
+
+        [Test]
+        public void Ctor_WhenInvokingWithPosition_CreatesAllBehaviors()
+        {
+            //Arrange
+            int expectedTotalBehaviors = 6;
+
+            //Act
+            var entity = new DynamicEntity(Vector.Zero);
+            var actualTotalBehaviors = entity.Behaviors.Count;
+
+            //Assert
+            Assert.AreEqual(expectedTotalBehaviors, actualTotalBehaviors);
+        }
+
+
+        [Test]
+        public void Ctor_WhenInvokingWithVerticesAndPosition_CreatesAllBehaviors()
         {
             //Arrange
             var vertices = new Vector[]
@@ -110,7 +120,7 @@ namespace ScorpionEngine.Tests.Entities
 
 
         [Test]
-        public void Ctor_WhenInvokingWithTextureAndVerticesAndPosition_Creates4Behaviors()
+        public void Ctor_WhenInvokingWithTextureAndVerticesAndPosition_CreatesAllBehaviors()
         {
             //Arrange
             var texture = CreateTexture();
@@ -141,6 +151,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             var expected = false;
 
             //Act
@@ -157,6 +168,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             entity.Body.LinearVelocity = new Vector(11, 22);
 
             var expected = true;
@@ -175,6 +187,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             entity.RotateCW();
 
             var expected = true;
@@ -205,7 +218,25 @@ namespace ScorpionEngine.Tests.Entities
 
 
         [Test]
-        public void Angle_WhenGettingAndSettingValue_ReturnsCorrectValue()
+        public void Angle_WhenGettingAndSettingValueAfterInitialize_ReturnsCorrectValue()
+        {
+            //Arrange
+            var texture = CreateTexture();
+            var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
+            var expected = 45.45f;
+
+            //Act
+            entity.Angle = 45.45f;
+            var actual = entity.Angle;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void Angle_WhenGettingAndSettingValueBeforeInitialize_ReturnsCorrectValue()
         {
             //Arrange
             var texture = CreateTexture();
@@ -256,7 +287,25 @@ namespace ScorpionEngine.Tests.Entities
 
 
         [Test]
-        public void LinearDeceleration_WhenGettingAndSettingValue_ReturnsCorrectValue()
+        public void LinearDeceleration_WhenGettingAndSettingValueAfterInitialize_ReturnsCorrectValue()
+        {
+            //Arrange
+            var texture = CreateTexture();
+            var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
+            var expected = 123.456f;
+
+            //Act
+            entity.LinearDeceleration = 123.456f;
+            var actual = entity.LinearDeceleration;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void LinearDeceleration_WhenGettingAndSettingValueBeforeInitialize_ReturnsCorrectValue()
         {
             //Arrange
             var texture = CreateTexture();
@@ -273,7 +322,25 @@ namespace ScorpionEngine.Tests.Entities
 
 
         [Test]
-        public void AngularDeceleration_WhenGettingAndSettingValue_ReturnsCorrectValue()
+        public void AngularDeceleration_WhenGettingAndSettingValueAfterInitialize_ReturnsCorrectValue()
+        {
+            //Arrange
+            var texture = CreateTexture();
+            var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
+            var expected = 123.456f;
+
+            //Act
+            entity.AngularDeceleration = 123.456f;
+            var actual = entity.AngularDeceleration;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void AngularDeceleration_WhenGettingAndSettingValueBeforeInitialize_ReturnsCorrectValue()
         {
             //Arrange
             var texture = CreateTexture();
@@ -297,6 +364,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             var expected = false;
 
             //Act
@@ -318,6 +386,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             var expected = false;
 
             //Act
@@ -344,6 +413,7 @@ namespace ScorpionEngine.Tests.Entities
                 SpeedY = 100,
                 RotateSpeed = 100
             };
+            entity.Initialize();
             var expected = false;
 
             //Act
@@ -367,6 +437,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             var expected = new Vector(123.456f, 0);
 
             //Act
@@ -385,6 +456,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             var expected = new Vector(0.25f, 0);
 
             //Act
@@ -403,6 +475,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             var expected = new Vector(-123.456f, 0);
 
             //Act
@@ -421,6 +494,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             var expected = new Vector(-0.25f, 0);
 
             //Act
@@ -439,6 +513,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             var expected = new Vector(0, -123.456f);
 
             //Act
@@ -457,6 +532,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             var expected = new Vector(0, -0.25f);
 
             //Act
@@ -475,6 +551,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             var expected = new Vector(0, 123.456f);
 
             //Act
@@ -493,6 +570,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             var expected = new Vector(0, 0.25f);
 
             //Act
@@ -511,6 +589,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             var expected = new Vector(-123.456f, 123.456f);
 
             //Act
@@ -529,6 +608,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             var expected = new Vector(-0.25f, 0.25f);
 
             //Act
@@ -547,6 +627,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             var expected = new Vector(-123.456f, -123.456f);
 
             //Act
@@ -565,6 +646,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             var expected = new Vector(-0.25f, -0.25f);
 
             //Act
@@ -583,6 +665,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             var expected = new Vector(123.456f, 123.456f);
 
             //Act
@@ -601,6 +684,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             var expected = new Vector(0.25f, 0.25f);
 
             //Act
@@ -619,6 +703,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             var expected = new Vector(-123.456f, 123.456f);
 
             //Act
@@ -637,6 +722,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             var expected = new Vector(-0.25f, 0.25f);
 
             //Act
@@ -659,6 +745,7 @@ namespace ScorpionEngine.Tests.Entities
                 SpeedX = 123.456f,
                 SpeedY = 456.123f
             };
+            entity.Initialize();
             var expected = new Vector(123.456f, 456.123f);
 
             //Act
@@ -680,6 +767,7 @@ namespace ScorpionEngine.Tests.Entities
             {
                 Angle = 45f
             };
+            entity.Initialize();
             var expected = new Vector(0, -1);
 
             //Act
@@ -700,6 +788,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             var expected = 1f;
 
             //Act
@@ -717,6 +806,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             var expected = 123f;
 
             //Act
@@ -734,6 +824,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             var expected = -1f;
 
             //Act
@@ -751,6 +842,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             var expected = -123f;
 
             //Act
@@ -768,6 +860,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             var expected = Vector.Zero;
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
 
@@ -788,6 +881,7 @@ namespace ScorpionEngine.Tests.Entities
             //Arrange
             var texture = CreateTexture();
             var entity = new DynamicEntity(texture, Vector.Zero);
+            entity.Initialize();
             var expected = 0f;
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
 
@@ -811,6 +905,7 @@ namespace ScorpionEngine.Tests.Entities
             {
                 MaxLinearSpeed = 20f
             };
+            entity.Initialize();
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
             var expected = 20f;
 
@@ -833,6 +928,7 @@ namespace ScorpionEngine.Tests.Entities
             {
                 MaxRotationSpeed = 10
             };
+            entity.Initialize();
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
             var expected = 10f;
 
@@ -843,6 +939,58 @@ namespace ScorpionEngine.Tests.Entities
 
             //Assert
             Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void Initialize_WhenInvokingWhileAlreadyInitialized_MaintainsMaxAngularLimit()
+        {
+            //Arrange
+            var texture = CreateTexture();
+            var entity = new DynamicEntity(texture, Vector.Zero)
+            {
+                MaxRotationSpeed = 10
+            };
+            entity.Initialize();
+            var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
+            var expected = 10f;
+
+            //Act
+            entity.RotateCW(20);
+            entity.Update(engineTime);
+            var actual = entity.Body.AngularVelocity;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+        #endregion
+
+
+        #region Public Methods
+        [SetUp]
+        public void Setup()
+        {
+            if (ShouldSkipSetup())
+                return;
+
+            var mockPhysicsBody = new Mock<IPhysicsBody>();
+            mockPhysicsBody.Setup(m => m.ApplyAngularImpulse(It.IsAny<float>()));
+            mockPhysicsBody.Setup(m => m.ApplyLinearImpulse(It.IsAny<float>(), It.IsAny<float>()));
+
+            var mockPlugin = new Mock<IPluginLibrary>();
+            mockPlugin.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
+            {
+                return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[0]);
+            });
+
+            PluginSystem.LoadPhysicsPluginLibrary(mockPlugin.Object);
+        }
+
+
+        [TearDown]
+        public void TearDown()
+        {
+            PluginSystem.ClearPlugins();
         }
         #endregion
 
@@ -869,12 +1017,5 @@ namespace ScorpionEngine.Tests.Entities
             return skipSetup;
         }
         #endregion
-
-
-        [TearDown]
-        public void TearDown()
-        {
-            PluginSystem.ClearPlugins();
-        }
     }
 }
