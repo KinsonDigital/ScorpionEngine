@@ -1,4 +1,5 @@
-﻿using ScorpionEngine.Graphics;
+﻿using ScorpionCore;
+using ScorpionCore.Graphics;
 using ScorpionEngine.Physics;
 
 namespace ScorpionEngine.Particles

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScorpionCore;
+using System;
 
 namespace ScorpionEngine.Behaviors
 {

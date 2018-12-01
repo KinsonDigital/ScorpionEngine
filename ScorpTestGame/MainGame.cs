@@ -1,6 +1,7 @@
+using ScorpionCore;
+using ScorpionCore.Content;
+using ScorpionCore.Graphics;
 using ScorpionEngine;
-using ScorpionEngine.Content;
-using ScorpionEngine.Graphics;
 using ScorpionEngine.Scene;
 using ScorpTestGame.Scenes;
 

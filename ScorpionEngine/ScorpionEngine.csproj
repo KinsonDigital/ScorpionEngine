@@ -68,19 +68,15 @@
     <Compile Include="Content\AtlasData.cs" />
     <Compile Include="Content\AtlasManager.cs" />
     <Compile Include="Content\AtlasSpriteData.cs" />
-    <Compile Include="Content\ContentLoader.cs" />
-    <Compile Include="Content\ContentLoader_OLD.cs" />
     <Compile Include="Content\Enums.cs" />
     <Compile Include="Content\ExtensionMethods.cs" />
     <Compile Include="Exceptions\EntityNotInitializedException.cs" />
     <Compile Include="Exceptions\MissingVerticesException.cs" />
-    <Compile Include="Graphics\GameColor.cs" />
     <Compile Include="Input\IInputWatcher.cs" />
     <Compile Include="Particles\Particle.cs" />
     <Compile Include="Particles\ParticleEngine.cs" />
     <Compile Include="PluginSystem.cs" />
     <Compile Include="Utils\Counter.cs" />
-    <Compile Include="EngineTime.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Events\FrameStackFinishedEventArgs.cs" />
     <Compile Include="Events\SceneChangedEventArgs.cs" />
@@ -88,9 +84,6 @@
     <Compile Include="Exceptions\IdNotFoundException.cs" />
     <Compile Include="Exceptions\NameNotFoundException.cs" />
     <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="Graphics\Renderer.cs" />
-    <Compile Include="Graphics\GameText.cs" />
-    <Compile Include="Graphics\Texture.cs" />
     <Compile Include="IDrawable.cs" />
     <Compile Include="Behaviors\IBehavior.cs" />
     <Compile Include="Input\Enums.cs" />
@@ -101,7 +94,6 @@
     <Compile Include="Physics\InternalVector.cs" />
     <Compile Include="Physics\PhysicsBody.cs" />
     <Compile Include="Physics\PhysicsWorld.cs" />
-    <Compile Include="Physics\Vector.cs" />
     <Compile Include="Scene\GameScene.cs" />
     <Compile Include="Scene\IScene.cs" />
     <Compile Include="Scene\SceneManager.cs" />
@@ -133,7 +125,9 @@
     <Compile Include="Utils\StopWatch.cs" />
     <Compile Include="Utils\Tools.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Graphics\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ScorpionCore\ScorpionCore.csproj">
       <Project>{3e136a13-190c-4390-9e74-8849022852f6}</Project>

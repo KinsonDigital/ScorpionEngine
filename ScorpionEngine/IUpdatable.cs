@@ -1,4 +1,6 @@
-﻿namespace ScorpionEngine
+﻿using ScorpionCore;
+
+namespace ScorpionEngine
 {
     /// <summary>
     /// Makes an object and updatable update for the game engine.

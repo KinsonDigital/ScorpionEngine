@@ -2,10 +2,12 @@
 using ScorpionEngine.Content;
 using ScorpionCore;
 using ScorpionCore.Plugins;
-using ScorpionEngine.Graphics;
+
 using ScorpionEngine.Scene;
 using System.Runtime.CompilerServices;
 using System.Diagnostics.CodeAnalysis;
+using ScorpionCore.Graphics;
+using ScorpionCore.Content;
 
 [assembly: InternalsVisibleTo(assemblyName: "ScorpionEngine.Tests", AllInternalsVisible = true)]
 

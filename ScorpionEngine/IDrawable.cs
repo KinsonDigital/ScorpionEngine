@@ -1,4 +1,6 @@
-﻿using ScorpionEngine.Graphics;
+﻿
+
+using ScorpionCore.Graphics;
 
 namespace ScorpionEngine
 {

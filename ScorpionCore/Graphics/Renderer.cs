@@ -1,11 +1,10 @@
 ﻿using ScorpionCore.Plugins;
-using ScorpionEngine.Physics;
 
-namespace ScorpionEngine.Graphics
+namespace ScorpionCore.Graphics
 {
     public class Renderer
     {
-        internal Renderer(IRenderer renderer)
+        public Renderer(IRenderer renderer)
         {
             InternalRenderer = renderer;
         }

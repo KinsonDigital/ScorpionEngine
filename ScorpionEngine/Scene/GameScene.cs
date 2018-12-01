@@ -1,5 +1,6 @@
-﻿using ScorpionEngine.Content;
-using ScorpionEngine.Graphics;
+﻿using ScorpionCore;
+using ScorpionCore.Content;
+using ScorpionCore.Graphics;
 using ScorpionEngine.Entities;
 using ScorpionEngine.Physics;
 using System.Collections.Generic;

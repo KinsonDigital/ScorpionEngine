@@ -1,5 +1,6 @@
 ﻿using System;
 using ScorpionCore;
+using ScorpionCore.Graphics;
 using ScorpionCore.Plugins;
 
 namespace MonoScorpPlugin
