@@ -16,7 +16,7 @@ namespace ScorpionEngine.Entities
     /// Represents an imovable game object with a texture, and a location.  
     /// Great for static objects that never move such as walls, a tree, etc.
     /// </summary>
-    public abstract class Entity
+    public abstract class Entity : IUpdatable, IRenderable, IInitialize, IContentLoadable
     {
         #region Events
         /// <summary>

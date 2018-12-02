@@ -1,6 +1,6 @@
 ﻿using ScorpionCore.Graphics;
 
-namespace ScorpionUI
+namespace ScorpionCore
 {
     /// <summary>
     /// Gives the ability to render an object to the screen.

@@ -1,6 +1,4 @@
-﻿using ScorpionCore;
-
-namespace ScorpionUI
+﻿namespace ScorpionCore
 {
     /// <summary>
     /// Provides the ability for an object to be updated.
