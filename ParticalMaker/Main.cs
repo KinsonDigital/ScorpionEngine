@@ -23,7 +23,10 @@ namespace ParticalMaker
 
         public override void Init()
         {
-            _button = new Button();
+            _button = new Button()
+            {
+                Position = new Vector(300, 300)
+            };
 
             base.Init();
         }
@@ -31,6 +34,9 @@ namespace ParticalMaker
 
         public override void LoadContent(ContentLoader contentLoader)
         {
+            _button.MouseOverTexture = contentLoader.LoadTexture($"MouseOverButton");
+            _button.MouseNotOverTexture = contentLoader.LoadTexture($"MouseNotOverButton");
+
             base.LoadContent(contentLoader);
         }
 

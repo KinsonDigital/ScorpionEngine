@@ -21,17 +21,12 @@ namespace ScorpionUI
         /// <summary>
         /// Gets or sets the width of the <see cref="IControl"/>.
         /// </summary>
-        int Width { get; set; }
+        int Width { get; }
 
         /// <summary>
         /// Gets or sets the height of the <see cref="IControl"/>.
         /// </summary>
-        int Height { get; set; }
-
-        /// <summary>
-        /// Gets or sets the <see cref="IBorder"/> of the control.
-        /// </summary>
-        IBorder Border { get; set; }
+        int Height { get; }
         #endregion
     }
 }

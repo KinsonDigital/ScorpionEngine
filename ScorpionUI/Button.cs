@@ -19,22 +19,49 @@ namespace ScorpionUI
         /// <summary>
         /// Gets or sets the width of the <see cref="Button"/>.
         /// </summary>
-        public int Width { get; set; }
+        public int Width
+        {
+            get
+            {
+                if (MouseOverTexture == null || MouseNotOverTexture == null)
+                    return 0;
+
+                return MouseOverTexture.Width > MouseNotOverTexture.Width ?
+                    MouseOverTexture.Width :
+                    MouseNotOverTexture.Width;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the height of the <see cref="Button"/>.
         /// </summary>
-        public int Height { get; set; }
+        public int Height
+        {
+            get
+            {
+                if (MouseOverTexture == null || MouseNotOverTexture == null)
+                    return 0;
+
+                return MouseOverTexture.Height > MouseNotOverTexture.Height ?
+                    MouseOverTexture.Height :
+                    MouseNotOverTexture.Height;
+            }
+        }
 
         /// <summary>
-        /// Gets or sets the texture of the button.
+        /// Gets or sets the texture of the when the mouse is over the <see cref="Button"/>.
         /// </summary>
-        public Texture Texture { get; set; }
+        public Texture MouseOverTexture { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="Border"/> of the control.
+        /// Gets or sets the texture of the when the mouse is not over the <see cref="Button"/>.
         /// </summary>
-        internal IBorder Border { get; set; }
+        public Texture MouseNotOverTexture { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating if the mouse is over the button.
+        /// </summary>
+        public bool IsMouseOver { get; private set; }
         #endregion
 
 
@@ -54,7 +81,15 @@ namespace ScorpionUI
         /// <param name="renderer">Renders the <see cref="Button"/>.</param>
         public void Render(Renderer renderer)
         {
-
+            if (IsMouseOver && MouseOverTexture != null)
+            {
+                renderer.Render(MouseOverTexture, Position.X, Position.Y);
+            }
+            else
+            {
+                if (MouseNotOverTexture != null)
+                    renderer.Render(MouseNotOverTexture, Position.X, Position.Y, 0);
+            }
         }
         #endregion
     }
