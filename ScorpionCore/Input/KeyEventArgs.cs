@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ScorpionEngine.Input
+namespace ScorpionCore.Input
 {
     /// <summary>
     /// Holds information about the keys down event.

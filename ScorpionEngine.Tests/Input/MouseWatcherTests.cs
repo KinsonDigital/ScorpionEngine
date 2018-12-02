@@ -1,6 +1,7 @@
 ﻿using Moq;
 using NUnit.Framework;
 using ScorpionCore;
+using ScorpionCore.Input;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Input;
 using System;

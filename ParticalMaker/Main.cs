@@ -3,11 +3,6 @@ using ScorpionCore.Content;
 using ScorpionCore.Graphics;
 using ScorpionEngine;
 using ScorpionUI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ParticalMaker
 {

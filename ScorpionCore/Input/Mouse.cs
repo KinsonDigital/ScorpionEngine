@@ -1,8 +1,7 @@
-﻿using ScorpionCore;
-using ScorpionCore.Plugins;
+﻿using ScorpionCore.Plugins;
 using System;
 
-namespace ScorpionEngine.Input
+namespace ScorpionCore.Input
 {
     /// <summary>
     /// Tracks the state of the mouse.
@@ -215,4 +214,5 @@ namespace ScorpionEngine.Input
         }
         #endregion
     }
+
 }

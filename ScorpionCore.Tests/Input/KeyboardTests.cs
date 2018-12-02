@@ -1,12 +1,10 @@
 ﻿using Moq;
 using NUnit.Framework;
-using ScorpionCore;
+using ScorpionCore.Input;
 using ScorpionCore.Plugins;
-using ScorpionEngine.Input;
 using System.Linq;
 
-
-namespace ScorpionEngine.Tests.Input
+namespace ScorpionCore.Tests.Input
 {
     public class KeyboardTests
     {
@@ -168,4 +166,5 @@ namespace ScorpionEngine.Tests.Input
         }
         #endregion
     }
+
 }

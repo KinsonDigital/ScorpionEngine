@@ -1,6 +1,4 @@
-﻿using ScorpionCore.Plugins;
-
-namespace ScorpionCore
+﻿namespace ScorpionCore.Plugins
 {
     internal static class PluginSystem
     {

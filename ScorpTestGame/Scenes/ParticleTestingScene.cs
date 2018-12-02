@@ -1,7 +1,7 @@
 ﻿using ScorpionCore;
 using ScorpionCore.Content;
 using ScorpionCore.Graphics;
-using ScorpionEngine.Input;
+using ScorpionCore.Input;
 using ScorpionEngine.Particles;
 using ScorpionEngine.Scene;
 

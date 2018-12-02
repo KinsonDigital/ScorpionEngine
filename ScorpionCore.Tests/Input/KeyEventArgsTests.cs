@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
-using ScorpionEngine.Input;
+using ScorpionCore.Input;
 
-namespace ScorpionEngine.Tests.Input
+namespace ScorpionCore.Tests.Input
 {
     [TestFixture]
     public class KeyEventArgsTests

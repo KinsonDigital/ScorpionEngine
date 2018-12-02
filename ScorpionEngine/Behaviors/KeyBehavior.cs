@@ -1,7 +1,7 @@
 ﻿using System;
 using ScorpionCore;
+using ScorpionCore.Input;
 using ScorpionCore.Plugins;
-using ScorpionEngine.Input;
 
 namespace ScorpionEngine.Behaviors
 {

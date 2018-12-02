@@ -3,10 +3,10 @@ using System.Linq;
 using ScorpionCore;
 using ScorpionCore.Content;
 using ScorpionCore.Graphics;
+using ScorpionCore.Input;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Behaviors;
 using ScorpionEngine.Exceptions;
-using ScorpionEngine.Input;
 using ScorpionEngine.Physics;
 
 namespace ScorpionEngine.Entities

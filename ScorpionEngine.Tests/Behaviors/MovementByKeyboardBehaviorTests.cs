@@ -1,10 +1,10 @@
 ﻿using Moq;
 using NUnit.Framework;
 using ScorpionCore;
+using ScorpionCore.Input;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Behaviors;
 using ScorpionEngine.Entities;
-using ScorpionEngine.Input;
 using ScorpionEngine.Tests.Fakes;
 
 namespace ScorpionEngine.Tests.Behaviors

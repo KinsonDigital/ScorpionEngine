@@ -1,6 +1,6 @@
 ﻿using ScorpionCore;
+using ScorpionCore.Input;
 using ScorpionEngine.Entities;
-using ScorpionEngine.Input;
 
 namespace ScorpionEngine.Behaviors
 {

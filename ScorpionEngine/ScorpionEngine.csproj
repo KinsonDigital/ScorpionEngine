@@ -76,7 +76,6 @@
     <Compile Include="Input\IInputWatcher.cs" />
     <Compile Include="Particles\Particle.cs" />
     <Compile Include="Particles\ParticleEngine.cs" />
-    <Compile Include="PluginSystem.cs" />
     <Compile Include="Utils\Counter.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Events\FrameStackFinishedEventArgs.cs" />
@@ -87,9 +86,6 @@
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="IDrawable.cs" />
     <Compile Include="Behaviors\IBehavior.cs" />
-    <Compile Include="Input\Enums.cs" />
-    <Compile Include="Input\Keyboard.cs" />
-    <Compile Include="Input\Mouse.cs" />
     <Compile Include="ITimeManager.cs" />
     <Compile Include="Entities\StaticEntity.cs" />
     <Compile Include="Physics\InternalVector.cs" />
@@ -107,9 +103,6 @@
     <Compile Include="Sound\Song.cs" />
     <Compile Include="Sound\SoundEffect.cs" />
     <Compile Include="Input\KeyboardWatcher.cs" />
-    <Compile Include="Input\KeyEventArgs.cs" />
-    <Compile Include="Input\MouseEventArgs.cs" />
-    <Compile Include="Input\MouseInputState.cs" />
     <Compile Include="Input\MouseWatcher.cs" />
     <Compile Include="IUpdatable.cs" />
     <Compile Include="Behaviors\KeyBehavior.cs" />

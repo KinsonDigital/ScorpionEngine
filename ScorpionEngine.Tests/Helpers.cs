@@ -1,5 +1,4 @@
 ﻿using Moq;
-using ScorpionCore;
 using ScorpionCore.Plugins;
 using System;
 using System.Diagnostics.CodeAnalysis;

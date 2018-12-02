@@ -1,4 +1,4 @@
-﻿namespace ScorpionEngine.Input
+﻿namespace ScorpionCore.Input
 {
     /// <summary>
     /// Represents the keys on a keyboard.

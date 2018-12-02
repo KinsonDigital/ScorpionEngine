@@ -1,6 +1,4 @@
-﻿using ScorpionCore;
-
-namespace ScorpionEngine.Input
+﻿namespace ScorpionCore.Input
 {
     /// <summary>
     /// Represents the state of the mouse.
@@ -45,7 +43,7 @@ namespace ScorpionEngine.Input
             set
             {
                 X = (int)value.X;
-                Y = (int) value.Y;
+                Y = (int)value.Y;
             }
         }
 

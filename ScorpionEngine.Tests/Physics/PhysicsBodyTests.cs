@@ -5,7 +5,6 @@ using ScorpionCore.Plugins;
 using ScorpionEngine.Physics;
 using ScorpionEngine.Tests.Fakes;
 
-
 namespace ScorpionEngine.Tests.Physics
 {
     public class PhysicsBodyTests

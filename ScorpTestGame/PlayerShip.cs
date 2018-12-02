@@ -1,9 +1,9 @@
 ﻿using ScorpionCore;
 using ScorpionCore.Content;
 using ScorpionCore.Graphics;
+using ScorpionCore.Input;
 using ScorpionEngine.Behaviors;
 using ScorpionEngine.Entities;
-using ScorpionEngine.Input;
 using ScorpionEngine.Particles;
 using ScorpionEngine.Utils;
 

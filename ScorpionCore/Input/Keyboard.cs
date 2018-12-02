@@ -1,8 +1,7 @@
-﻿using ScorpionCore;
-using ScorpionCore.Plugins;
+﻿using ScorpionCore.Plugins;
 using System.Linq;
 
-namespace ScorpionEngine.Input
+namespace ScorpionCore.Input
 {
     /// <summary>
     /// Tracks the state of the keys on keyboard.
@@ -39,7 +38,7 @@ namespace ScorpionEngine.Input
         public InputKeys[] GetCurrentPressedKeys()
         {
             return (from k in InternalKeyboard.GetCurrentPressedKeys()
-                   select (InputKeys)k).ToArray();
+                    select (InputKeys)k).ToArray();
         }
 
 
@@ -115,4 +114,5 @@ namespace ScorpionEngine.Input
         }
         #endregion
     }
+
 }
