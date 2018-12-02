@@ -22,7 +22,8 @@ namespace ParticalMaker
         {
             _button = new Button()
             {
-                Position = new Vector(300, 300)
+                Position = new Vector(300, 300),
+                Text = "Calvin"
             };
 
             _mouse = new Mouse();

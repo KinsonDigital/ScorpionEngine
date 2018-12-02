@@ -69,27 +69,6 @@ namespace ScorpionCore.Tests.Graphics
 
 
         [Test]
-        public void Width_WhenSettingValue_ProperlySetsInternalValue()
-        {
-            //Arrange
-            var mockInternalText = new Mock<IText>();
-            mockInternalText.SetupProperty(m => m.Width, 0);
-            var gameText = new GameText()
-            {
-                InternalText = mockInternalText.Object
-            };
-            var expected = 10;
-
-            //Act
-            gameText.Width = 10;
-            var actual = gameText.Width;
-
-            //Assert
-            Assert.AreEqual(expected, actual);
-        }
-
-
-        [Test]
         public void Height_WhenSettingValue_ProperlyReturnsInternalValue()
         {
             //Arrange
@@ -102,27 +81,6 @@ namespace ScorpionCore.Tests.Graphics
             var expected = 40;
 
             //Act
-            var actual = gameText.Height;
-
-            //Assert
-            Assert.AreEqual(expected, actual);
-        }
-
-
-        [Test]
-        public void Height_WhenSettingValue_ProperlySetsInternalValue()
-        {
-            //Arrange
-            var mockInternalText = new Mock<IText>();
-            mockInternalText.SetupProperty(m => m.Height, 0);
-            var gameText = new GameText()
-            {
-                InternalText = mockInternalText.Object
-            };
-            var expected = 10;
-
-            //Act
-            gameText.Height = 10;
             var actual = gameText.Height;
 
             //Assert

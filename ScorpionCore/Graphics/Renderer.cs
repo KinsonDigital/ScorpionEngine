@@ -81,6 +81,18 @@ namespace ScorpionCore.Graphics
             //Reset the game text color back to its original color
             text.Color = tempColor;
         }
+
+
+        public void Render(GameText text, Vector position)
+        {
+            Render(text, position.X, position.Y);
+        }
+
+
+        public void Render(GameText text, Vector position, GameColor color)
+        {
+            Render(text, position.X, position.Y, color);
+        }
         #endregion
     }
 }

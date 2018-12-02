@@ -1,4 +1,4 @@
-using ScorpionCore;
+﻿using ScorpionCore;
 using ScorpionCore.Content;
 using ScorpionCore.Graphics;
 using ScorpionCore.Input;
@@ -10,6 +10,9 @@ namespace ScorpionUI
         #region Fields
         private Mouse _mouse;
         private Rect _rect;
+        private GameText _buttonText;
+        private string _text = "";
+        private string _cachedText;
         #endregion
 
 
@@ -84,7 +87,11 @@ namespace ScorpionUI
         /// <summary>
         /// Gets or sets the text of the button.
         /// </summary>
-        public GameText Text { get; set; }
+        public string Text
+        {
+            get => _text;
+            set => _text = value;
+        }
         #endregion
 
 
@@ -98,8 +105,8 @@ namespace ScorpionUI
         {
             MouseOverTexture = contentLoader.LoadTexture($"MouseOverButton");
             MouseNotOverTexture = contentLoader.LoadTexture($"MouseNotOverButton");
-            Text = contentLoader.LoadText("Button");
-            Text.Text = "Hello";
+            _buttonText = contentLoader.LoadText("Button");
+            _buttonText.Text = _text;
         }
 
 
@@ -109,11 +116,14 @@ namespace ScorpionUI
         /// <param name="engineTime">The amount of time that has passed in the engine since the last frame.</param>
         public void Update(EngineTime engineTime)
         {
+            if (_buttonText != null && _buttonText.Text != _text)
+                _buttonText.Text = _cachedText;
+
+            _mouse.UpdateCurrentState();
+
             //Update the rect's position
             _rect.X = Position.X;
             _rect.Y = Position.Y;
-
-            _mouse.UpdateCurrentState();
 
             IsMouseOver = _rect.Contains(_mouse.X, _mouse.Y);
 
@@ -136,6 +146,14 @@ namespace ScorpionUI
                 if (MouseNotOverTexture != null)
                     renderer.Render(MouseNotOverTexture, Position.X, Position.Y, 0);
             }
+
+            var textPosition = new Vector()
+            {
+                X = Position.X - _buttonText.Width / 2f,
+                Y = Position.Y - _buttonText.Height / 2f
+            };
+
+            renderer.Render(_buttonText, textPosition, new GameColor(0, 0, 0, 255));
         }
         #endregion
     }

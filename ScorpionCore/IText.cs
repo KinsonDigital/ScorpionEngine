@@ -5,9 +5,9 @@ namespace ScorpionCore
     //TODO: Add docs
     public interface IText : IPlugin
     {
-        int Width { get; set; }
+        int Width { get; }
 
-        int Height { get; set; }
+        int Height { get; }
 
         string Text { get; set; }
 

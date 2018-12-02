@@ -8,17 +8,9 @@ namespace MonoScorpPlugin
     public class MonoText : IText
     {
         #region Props
-        public int Width
-        {
-            get => (int)Font.MeasureString(Text).X;
-            set { }
-        }
+        public int Width => Text == "" ? 0 : (int)Font.MeasureString(Text).X;
 
-        public int Height
-        {
-            get => (int)Font.MeasureString("").X;
-            set { }
-        }
+        public int Height => Text == "" ? 0 : (int)Font.MeasureString(Text).Y;
 
         public string Text { get; set; } = "";
 

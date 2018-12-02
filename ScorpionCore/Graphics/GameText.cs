@@ -17,13 +17,11 @@
         public int Width
         {
             get => InternalText.Width;
-            set => InternalText.Width = value;
         }
 
         public int Height
         {
             get => InternalText.Height;
-            set => InternalText.Height = value;
         }
 
         public GameColor Color
