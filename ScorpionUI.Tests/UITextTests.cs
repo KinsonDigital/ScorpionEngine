@@ -3,11 +3,9 @@ using NUnit.Framework;
 using ScorpionCore;
 using ScorpionCore.Graphics;
 using ScorpionCore.Plugins;
-using ScorpionEngine.UI;
 using System;
 
-
-namespace ScorpionEngine.Tests.UI
+namespace ScorpionUI.Tests
 {
     public class UITextTests
     {

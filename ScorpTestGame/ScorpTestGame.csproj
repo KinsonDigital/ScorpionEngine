@@ -104,6 +104,10 @@
       <Project>{91495c38-9695-4905-b5d9-0debb25e1a0f}</Project>
       <Name>ScorpionEngine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ScorpionUI\ScorpionUI.csproj">
+      <Project>{ef70de07-de6f-40c6-af90-32e02090592c}</Project>
+      <Name>ScorpionUI</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\AtlasData\CharacterAtlasData.xml" />

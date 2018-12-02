@@ -1,10 +1,10 @@
 using ScorpionEngine.Scene;
-using ScorpionEngine.UI;
 using System;
 using ScorpionCore.Graphics;
 using ScorpionCore.Content;
 using ScorpionCore;
 using ScorpionCore.Input;
+using ScorpionUI;
 
 namespace ScorpTestGame.Scenes
 {

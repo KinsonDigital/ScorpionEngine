@@ -1,10 +1,32 @@
 ﻿using ScorpionCore;
 using ScorpionCore.Graphics;
+using ScorpionCore.Input;
 
 namespace ScorpionUI
 {
     public class Button : IControl
     {
+        #region Fields
+        private Mouse _mouse;
+        private Rect _rect;
+        #endregion
+
+
+        #region Constructors
+        public Button()
+        {
+            _mouse = new Mouse();
+            _rect = new Rect()
+            {
+                X = Position.X,
+                Y = Position.Y,
+                Width = Width,
+                Height = Height
+            };
+        }
+        #endregion
+
+
         #region Props
         /// <summary>
         /// Gets or sets the position of the <see cref="Button"/> on the screen.
@@ -57,6 +79,11 @@ namespace ScorpionUI
         /// Gets a value indicating if the mouse is over the button.
         /// </summary>
         public bool IsMouseOver { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the text of the button.
+        /// </summary>
+        public UIText Text { get; set; }
         #endregion
 
 
@@ -67,6 +94,15 @@ namespace ScorpionUI
         /// <param name="engineTime">The amount of time that has passed in the engine since the last frame.</param>
         public void Update(EngineTime engineTime)
         {
+            //Update the rect's position
+            _rect.X = Position.X;
+            _rect.Y = Position.Y;
+
+            _mouse.UpdateCurrentState();
+
+            IsMouseOver = _rect.Contains(_mouse.X, _mouse.Y);
+
+            _mouse.UpdatePreviousState();
         }
 
 

@@ -1,7 +1,7 @@
 ﻿using ScorpionCore;
 using ScorpionCore.Graphics;
 
-namespace ScorpionEngine.UI
+namespace ScorpionUI
 {
     /// <summary>
     /// Represents a single piece of text rendered to a screen.

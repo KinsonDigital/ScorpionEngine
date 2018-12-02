@@ -1,6 +1,7 @@
 ﻿using ScorpionCore;
 using ScorpionCore.Content;
 using ScorpionCore.Graphics;
+using ScorpionCore.Input;
 using ScorpionEngine;
 using ScorpionUI;
 
@@ -9,7 +10,8 @@ namespace ParticalMaker
     public class Main : Engine
     {
         private Button _button;
-
+        private Mouse _mouse;
+        
 
         public Main() : base(false)
         {
@@ -22,6 +24,8 @@ namespace ParticalMaker
             {
                 Position = new Vector(300, 300)
             };
+
+            _mouse = new Mouse();
 
             base.Init();
         }

@@ -96,7 +96,6 @@
     <Compile Include="Scene\SceneManager.cs" />
     <Compile Include="Scene\SceneTimeManager.cs" />
     <Compile Include="Utils\Tween.cs" />
-    <Compile Include="UI\UIText.cs" />
     <Compile Include="DelayTimer.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Events\OutOfBoundsTriggerEventsArgs.cs" />
