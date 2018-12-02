@@ -13,6 +13,13 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Fonts/Button.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Button.spritefont
+
 #begin Graphics/MouseNotOverButton.png
 /importer:TextureImporter
 /processor:TextureProcessor

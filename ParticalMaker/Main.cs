@@ -33,8 +33,7 @@ namespace ParticalMaker
 
         public override void LoadContent(ContentLoader contentLoader)
         {
-            _button.MouseOverTexture = contentLoader.LoadTexture($"MouseOverButton");
-            _button.MouseNotOverTexture = contentLoader.LoadTexture($"MouseNotOverButton");
+            _button.LoadContent(contentLoader);
 
             base.LoadContent(contentLoader);
         }

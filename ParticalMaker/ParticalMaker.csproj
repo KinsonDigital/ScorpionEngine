@@ -72,6 +72,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Content\Content.mgcb" />
+    <None Include="Content\Fonts\Button.spritefont" />
     <None Include="libopenal.1.dylib">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -137,9 +138,17 @@ REM Copy the graphics content to the bin output folder
 xcopy "$(ProjectDir)Content\bin\Windows\Graphics" "$(TargetDir)Content\Graphics" /Y/E
 
 
+REM Make sure that a Fonts directory exists
+mkdir "$(TargetDir)Content\Fonts"
+
+
+REM Copy the Fonts content to the bin output folder
+xcopy "$(ProjectDir)Content\bin\Windows\Fonts" "$(TargetDir)Content\Fonts" /Y
+
+
 REM Copy the MonoGame Engine plugin to the output folder
-copy "$(SolutionDir)MonoScorpPlugin\bin\Debug\MonoScorpPlugin.dll" "$(TargetDir)MonoScorpPlugin.dll" /Y
-copy "$(SolutionDir)MonoScorpPlugin\bin\Debug\MonoScorpPlugin.pdb" "$(TargetDir)MonoScorpPlugin.pdb" /Y
+copy "$(SolutionDir)MonoScorpPlugin\bin\$(PlatformName)\Debug\MonoScorpPlugin.dll" "$(TargetDir)MonoScorpPlugin.dll" /Y
+copy "$(SolutionDir)MonoScorpPlugin\bin\$(PlatformName)\Debug\MonoScorpPlugin.pdb" "$(TargetDir)MonoScorpPlugin.pdb" /Y
 
 
 REM Copy the MonoGame.Framework.dll file to the output directory

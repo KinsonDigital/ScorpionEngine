@@ -1,4 +1,5 @@
-﻿using ScorpionCore;
+using ScorpionCore;
+using ScorpionCore.Content;
 using ScorpionCore.Graphics;
 using ScorpionCore.Input;
 
@@ -83,11 +84,25 @@ namespace ScorpionUI
         /// <summary>
         /// Gets or sets the text of the button.
         /// </summary>
-        public UIText Text { get; set; }
+        public GameText Text { get; set; }
         #endregion
 
 
         #region Public Methods
+        public void Initialize()
+        {
+        }
+
+
+        public void LoadContent(ContentLoader contentLoader)
+        {
+            MouseOverTexture = contentLoader.LoadTexture($"MouseOverButton");
+            MouseNotOverTexture = contentLoader.LoadTexture($"MouseNotOverButton");
+            Text = contentLoader.LoadText("Button");
+            Text.Text = "Hello";
+        }
+
+
         /// <summary>
         /// Updates the <see cref="Button"/>.
         /// </summary>

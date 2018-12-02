@@ -5,7 +5,7 @@ namespace ScorpionUI
     /// <summary>
     /// A user interface object that can be updated and rendered to the screen.
     /// </summary>
-    interface IControl : IUpdatable, IRenderable
+    interface IControl : IUpdatable, IRenderable, IInitialize, IContentLoadable
     {
         #region Props
         /// <summary>
