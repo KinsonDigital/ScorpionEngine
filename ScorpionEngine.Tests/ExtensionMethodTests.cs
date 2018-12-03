@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using ScorpionCore;
+using System;
 
 namespace ScorpionEngine.Tests
 {
@@ -117,6 +118,29 @@ namespace ScorpionEngine.Tests
 
             //Act
             var actual = vector.RotateAround(new Vector(5, 5), 45f, false);
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void Next_WhenInvoking_ReturnsValidValueWithinRange()
+        {
+            //Arrange
+            var random = new Random();
+            var expected = true;
+
+            //Act
+            var actual = true;
+
+            for (int i = 0; i < 1000; i++)
+            {
+                var randomResult = random.Next(1, 10);
+
+                if (randomResult < 1 && randomResult > 10)
+                    actual = false;
+            }
 
             //Assert
             Assert.AreEqual(expected, actual);

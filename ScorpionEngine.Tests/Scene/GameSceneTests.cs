@@ -127,6 +127,22 @@ namespace ScorpionEngine.Tests.Scene
             //Assert
             Assert.AreEqual(expected, actual);
         }
+
+
+        [Test]
+        public void Id_WhenGettingAndSettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var scene = new FakeGameScene(Vector.Zero);
+            var expected = 10;
+
+            //Act
+            scene.Id = 10;
+            var actual = scene.Id;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
         #endregion
 
 
@@ -211,6 +227,7 @@ namespace ScorpionEngine.Tests.Scene
             //Arrange
             var entity = new FakeEntity(new Vector[0], Vector.Zero);
             var scene = new FakeGameScene(Vector.Zero);
+            entity.Initialize();
             scene.AddEntity(entity);
             var expected = true;
 

@@ -1641,6 +1641,27 @@ namespace ScorpionEngine.Tests.Scene
 
 
         [Test]
+        public void Render_WhenInvokingWithNoScenes_DoesNotThrowException()
+        {
+            //Arrange
+            var mockScene = new Mock<IScene>();
+            mockScene.SetupGet(m => m.Id).Returns(10);
+            mockScene.SetupProperty(m => m.IsRenderingScene);
+
+            var scene = mockScene.Object;
+            var manager = new SceneManager(_contentLoader)
+            {
+            };
+
+            //Act/Assert
+            AssertExt.DoesNotThrow<SceneNotFoundException>(() =>
+            {
+                manager.Render(It.IsAny<Renderer>());
+            });
+        }
+
+
+        [Test]
         public void Update_WhenInvokingWithPlayCurrentSceneKeyPressed_UnpausesCurrentScene()
         {
             //Arrange

@@ -13,7 +13,7 @@ namespace ScorpionEngine.Tests.Exceptions
         public void Ctor_WhenInvokingWithNoParams_CorrectlySetsExceptionMessage()
         {
             //Arrange
-            var expected = $"{nameof(Entity)} not initialized.  Must be initialized before being added to a {nameof(PhysicsWorld)}";
+            var expected = $"{nameof(Entity)} not initialized.  Must be initialized before being added to a {nameof(PhysicsWorld)} using {nameof(Entity)}.{nameof(Entity.Initialize)}() method.";
 
             //Act
             var exception = new EntityNotInitializedException();

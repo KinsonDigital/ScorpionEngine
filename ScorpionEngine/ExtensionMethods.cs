@@ -1,5 +1,6 @@
 ﻿using ScorpionCore;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ScorpionEngine
 {
@@ -104,6 +105,7 @@ namespace ScorpionEngine
         /// </summary>
         /// <param name="random">The random instance to use.</param>
         /// <returns></returns>
+        [ExcludeFromCodeCoverage]
         public static bool FlipCoin(this Random random)
         {
             return random.NextDouble() <= 0.5f;

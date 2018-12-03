@@ -4,6 +4,7 @@ using ScorpionCore;
 using ScorpionCore.Graphics;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Behaviors;
+using ScorpionEngine.Exceptions;
 using ScorpionEngine.Tests.Fakes;
 using System;
 
@@ -12,6 +13,7 @@ namespace ScorpionEngine.Tests.Entities
     [TestFixture]
     public class EntityTests
     {
+        private Mock<IDebugDraw> _mockDebugDraw;
         #region Constructor Tests
         [Test]
         public void Ctor_WhenInvokingWithStaticBodyValue_ProperlySetsBodyAsStatic()
@@ -163,8 +165,6 @@ namespace ScorpionEngine.Tests.Entities
         public void Behaviors_WhenCreatingEntity_PropertyInstantiated()
         {
             //Arrange
-            SetupPluginSystem();
-
             var texture = CreateTexture();
             var fakeEntity = new FakeEntity(texture, Vector.Zero);
 
@@ -180,8 +180,6 @@ namespace ScorpionEngine.Tests.Entities
         public void Visible_WhenGettingAndSettingValue_ValueProperlySet()
         {
             //Arrange
-            SetupPluginSystem();
-
             var texture = CreateTexture();
 
             var fakeEntity = new FakeEntity(texture, Vector.Zero)
@@ -202,8 +200,6 @@ namespace ScorpionEngine.Tests.Entities
         public void Visible_WhenSettingValue_InvokesOnHideEvent()
         {
             //Arrange
-            SetupPluginSystem();
-
             var texture = CreateTexture();
 
             var fakeEntity = new FakeEntity(texture, Vector.Zero);
@@ -222,8 +218,6 @@ namespace ScorpionEngine.Tests.Entities
         public void Visible_WhenSettingValue_InvokesOnShowEvent()
         {
             //Arrange
-            SetupPluginSystem();
-
             var texture = CreateTexture();
 
             var fakeEntity = new FakeEntity(texture, Vector.Zero)
@@ -242,11 +236,9 @@ namespace ScorpionEngine.Tests.Entities
 
 
         [Test]
-        public void Visible_WhenSettingValueToTrueWhileFales_InvokesOnShowEvent()
+        public void Visible_WhenGoingFromInvisibleToVisible_InvokesOnShowEvent()
         {
             //Arrange
-            SetupPluginSystem();
-
             var texture = CreateTexture();
 
             var fakeEntity = new FakeEntity(texture, Vector.Zero)
@@ -263,14 +255,32 @@ namespace ScorpionEngine.Tests.Entities
             Assert.True(eventRaised);
         }
 
+
+        [Test]
+        public void Visible_WhenGoingFromInvisibleToVisible_DoesNotInvokesOnShowEvent()
+        {
+            //Arrange
+            var texture = CreateTexture();
+
+            var fakeEntity = new FakeEntity(texture, Vector.Zero)
+            {
+                Visible = true
+            };
+            var eventRaised = false;
+            fakeEntity.OnShow += (sender, e) => { eventRaised = true; };
+
+            //Act
+            fakeEntity.Visible = false;
+
+            //Assert
+            Assert.False(eventRaised);
+        }
 
 
         [Test]
         public void Bounds_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            SetupPluginSystem();
-
             var texture = CreateTexture();
 
             var fakeEntity = new FakeEntity(texture, new Vector(111, 222));
@@ -289,8 +299,6 @@ namespace ScorpionEngine.Tests.Entities
         public void BoundsWidth_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            SetupPluginSystem();
-
             var texture = CreateTexture();
 
             var fakeEntity = new FakeEntity(texture, Vector.Zero);
@@ -370,8 +378,6 @@ namespace ScorpionEngine.Tests.Entities
         public void BoundsHeight_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            SetupPluginSystem();
-
             var texture = CreateTexture();
 
             var fakeEntity = new FakeEntity(texture, Vector.Zero);
@@ -390,8 +396,6 @@ namespace ScorpionEngine.Tests.Entities
         public void BoundsHalfWidth_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            SetupPluginSystem();
-
             var texture = CreateTexture();
 
             var fakeEntity = new FakeEntity(texture, Vector.Zero);
@@ -410,10 +414,8 @@ namespace ScorpionEngine.Tests.Entities
         public void BoundsHalfHeight_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            SetupPluginSystem();
 
             var texture = CreateTexture();
-
             var fakeEntity = new FakeEntity(texture, Vector.Zero);
             fakeEntity.Initialize();
             var expected = 25f;
@@ -430,8 +432,6 @@ namespace ScorpionEngine.Tests.Entities
         public void Texture_WhenSettingAndeGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            SetupPluginSystem();
-
             var texture = CreateTexture();
 
             Vector[] vertices = new[] { Vector.Zero };
@@ -614,16 +614,6 @@ namespace ScorpionEngine.Tests.Entities
         public void OnUpdate_WhenInvoked_UpdatesBehaviors()
         {
             //Arrange
-            var mockPhysicsBody = new Mock<IPhysicsBody>();
-            var mockPhysicsPluginLib = new Mock<IPluginLibrary>();
-
-            mockPhysicsPluginLib.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
-            {
-                return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[1], (float)ctorParams[2], (float)ctorParams[3]);
-            });
-
-            PluginSystem.LoadPhysicsPluginLibrary(mockPhysicsPluginLib.Object);
-
             var mockBehavior = new Mock<IBehavior>();
             var texture = CreateTexture();
             var fakeEntity = new FakeEntity(texture, Vector.Zero);
@@ -642,8 +632,6 @@ namespace ScorpionEngine.Tests.Entities
         public void Render_WhenInvokedWhileVisible_InvokesRenderer()
         {
             //Arrange
-            SetupPluginSystem();
-
             var mockRenderer = new Mock<IRenderer>();
             var renderer = new Renderer(mockRenderer.Object);
             var texture = CreateTexture();
@@ -663,8 +651,6 @@ namespace ScorpionEngine.Tests.Entities
         public void Render_WhenInvokedWhileNotVisible_DoesNotInvokesRenderer()
         {
             //Arrange
-            SetupPluginSystem();
-
             var mockRenderer = new Mock<IRenderer>();
             var renderer = new Renderer(mockRenderer.Object);
             var texture = CreateTexture();
@@ -686,8 +672,6 @@ namespace ScorpionEngine.Tests.Entities
         public void Render_WhenInvokedWhileWithNullTexture_DoesNotInvokesRenderer()
         {
             //Arrange
-            SetupPluginSystem();
-
             var mockRenderer = new Mock<IRenderer>();
             var renderer = new Renderer(mockRenderer.Object);
             var texture = CreateTexture();
@@ -708,21 +692,8 @@ namespace ScorpionEngine.Tests.Entities
         public void Render_WhenInvoked_InvokesDebugDraw()
         {
             //Arrange
-            SetupPluginSystem();
-
             var mockRenderer = new Mock<IRenderer>();
             var renderer = new Renderer(mockRenderer.Object);
-
-            var mockDebugDraw = new Mock<IDebugDraw>();
-            mockDebugDraw.Setup(m => m.Draw(It.IsAny<IRenderer>(), It.IsAny<IPhysicsBody>()));
-
-            var mockEnginePluginLib = new Mock<IPluginLibrary>();
-            mockEnginePluginLib.Setup(m => m.LoadPlugin<IDebugDraw>()).Returns(() =>
-            {
-                return mockDebugDraw.Object;
-            });
-
-            PluginSystem.LoadEnginePluginLibrary(mockEnginePluginLib.Object);
 
             var texture = CreateTexture();
 
@@ -736,7 +707,7 @@ namespace ScorpionEngine.Tests.Entities
             fakeEntity.Render(renderer);
 
             //Assert
-            mockDebugDraw.Verify(m => m.Draw(mockRenderer.Object, It.IsAny<FakePhysicsBody>()), Times.Once());
+            _mockDebugDraw.Verify(m => m.Draw(mockRenderer.Object, It.IsAny<FakePhysicsBody>()), Times.Once());
         }
 
 
@@ -744,15 +715,6 @@ namespace ScorpionEngine.Tests.Entities
         public void Render_WhenInvokedWithDebugDrawDisabled_DoesNotInvokesDebugDraw()
         {
             //Arrange
-            SetupPluginSystem();
-
-            var mockDebugDraw = new Mock<IDebugDraw>();
-
-            var mockEnginePluginLib = new Mock<IPluginLibrary>();
-            //mockEnginePluginLib.Setup(m => m.LoadPlugin<IDebugDraw>()).Returns(() => mockDebugDraw.Object);
-
-            PluginSystem.LoadEnginePluginLibrary(mockEnginePluginLib.Object);
-
             var mockRenderer = new Mock<IRenderer>();
             var renderer = new Renderer(mockRenderer.Object);
             var texture = CreateTexture();
@@ -764,9 +726,47 @@ namespace ScorpionEngine.Tests.Entities
             fakeEntity.Render(renderer);
 
             //Assert
-            mockDebugDraw.Verify(m => m.Draw(mockRenderer.Object, It.IsAny<FakePhysicsBody>()), Times.Never());
+            _mockDebugDraw.Verify(m => m.Draw(mockRenderer.Object, It.IsAny<FakePhysicsBody>()), Times.Never());
+        }
+
+
+        [Test]
+        public void Initialize_WhenInvokingWithNullVertices_ThrowsException()
+        {
+            //Arrange
+            Vector[] nullVertices = null;
+            var entity = new FakeEntity(nullVertices, Vector.Zero);
+
+            //Act/Assert
+            Assert.Throws<MissingVerticesException>(() => entity.Initialize());
         }
         #endregion
+
+
+        #region Public Methods
+        [SetUp]
+        public void Setup()
+        {
+            _mockDebugDraw = new Mock<IDebugDraw>();
+            _mockDebugDraw.Setup(m => m.Draw(It.IsAny<IRenderer>(), It.IsAny<IPhysicsBody>()));
+
+            var mockEnginePluginLib = new Mock<IPluginLibrary>();
+            mockEnginePluginLib.Setup(m => m.LoadPlugin<IDebugDraw>()).Returns(() =>
+            {
+                return _mockDebugDraw.Object;
+            });
+
+            var mockPhysicsBody = new Mock<IPhysicsBody>();
+            var mockPhysicsPluginLib = new Mock<IPluginLibrary>();
+
+            mockPhysicsPluginLib.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
+            {
+                return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[1], (float)ctorParams[2], (float)ctorParams[3]);
+            });
+
+            PluginSystem.LoadEnginePluginLibrary(mockEnginePluginLib.Object);
+            PluginSystem.LoadPhysicsPluginLibrary(mockPhysicsPluginLib.Object);
+        }
 
 
         [TearDown]
@@ -774,6 +774,7 @@ namespace ScorpionEngine.Tests.Entities
         {
             PluginSystem.ClearPlugins();
         }
+        #endregion
 
 
         #region Private Methods
@@ -785,20 +786,6 @@ namespace ScorpionEngine.Tests.Entities
 
 
             return new Texture() { InternalTexture = mockTexture.Object };
-        }
-
-
-        private void SetupPluginSystem()
-        {
-            var mockPhysicsBody = new Mock<IPhysicsBody>();
-            var mockPhysicsPluginLib = new Mock<IPluginLibrary>();
-
-            mockPhysicsPluginLib.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
-            {
-                return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[1], (float)ctorParams[2], (float)ctorParams[3]);
-            });
-
-            PluginSystem.LoadPhysicsPluginLibrary(mockPhysicsPluginLib.Object);
         }
         #endregion
     }

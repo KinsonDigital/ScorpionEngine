@@ -24,7 +24,6 @@ namespace ScorpionEngine.Tests.Fakes
 
         public FakeEntity(Vector[] polyVertices, Vector position) : base(polyVertices, position, isStaticBody: false)
         {
-            Initialize();
         }
 
 
