@@ -64,6 +64,7 @@
     <Compile Include="Behaviors\BehaviorTests.cs" />
     <Compile Include="Behaviors\EntityBehaviorTests.cs" />
     <Compile Include="Behaviors\LimitNumberBehaviorTests.cs" />
+    <Compile Include="Behaviors\MoveFowardKeyboardBehaviorTests.cs" />
     <Compile Include="Behaviors\MovementByKeyboardBehaviorTests.cs" />
     <Compile Include="Content\ContentExtensionMethodTests.cs" />
     <Compile Include="EngineTests.cs" />

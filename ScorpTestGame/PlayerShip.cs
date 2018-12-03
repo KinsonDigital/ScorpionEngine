@@ -70,8 +70,8 @@ namespace ScorpTestGame
             _movementBehavior = new MoveFowardKeyboardBehavior<PlayerShip>(this, 2f, 0.25f)
             {
                 MoveFowardKey = InputKeys.Up,
-                RotateCW = InputKeys.Right,
-                RotateCCW = InputKeys.Left,
+                RotateCWKey = InputKeys.Right,
+                RotateCCWKey = InputKeys.Left,
                 Enabled = false
             };
             

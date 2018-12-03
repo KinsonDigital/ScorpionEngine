@@ -41,6 +41,8 @@ namespace ScorpionEngine.Tests.Fakes
         public void ApplyAngularImpulse(float value)
         {
             AngularVelocity += value;
+
+            Angle = value;
         }
 
         public void ApplyForce(float forceX, float forceY, float worldLocationX, float worldLocationY)

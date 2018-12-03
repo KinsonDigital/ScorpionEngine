@@ -243,6 +243,9 @@ namespace ScorpionEngine.Entities
         /// </summary>
         public void MoveRight()
         {
+            if (Body == null)
+                throw new EntityNotInitializedException();
+
             Body.InternalPhysicsBody.ApplyForce(SpeedX.ForcePositive(), 0, Position.X, Position.Y);
         }
 
@@ -253,6 +256,9 @@ namespace ScorpionEngine.Entities
         /// <param name="speed">The speed to move the <see cref="DynamicEntity"/>. Positive and negative numbers behave the same.</param>
         public void MoveRight(float speed)
         {
+            if (Body == null)
+                throw new EntityNotInitializedException();
+
             Body.InternalPhysicsBody.ApplyForce(speed.ForcePositive(), 0, Position.X, Position.Y);
         }
 
@@ -263,6 +269,9 @@ namespace ScorpionEngine.Entities
         /// </summary>
         public void MoveLeft()
         {
+            if (Body == null)
+                throw new EntityNotInitializedException();
+
             Body.InternalPhysicsBody.ApplyForce(SpeedX.ForceNegative(), 0, Position.X, Position.Y);
         }
 
@@ -273,6 +282,9 @@ namespace ScorpionEngine.Entities
         /// <param name="speed">The speed to move the <see cref="DynamicEntity"/>. Positive and negative numbers behave the same.</param>
         public void MoveLeft(float speed)
         {
+            if (Body == null)
+                throw new EntityNotInitializedException();
+
             Body.InternalPhysicsBody.ApplyForce(speed.ForceNegative(), 0, Position.X, Position.Y);
         }
 
@@ -283,6 +295,9 @@ namespace ScorpionEngine.Entities
         /// </summary>
         public void MoveUp()
         {
+            if (Body == null)
+                throw new EntityNotInitializedException();
+
             Body.InternalPhysicsBody.ApplyForce(0, SpeedY.ForceNegative(), Position.X, Position.Y);
         }
 
@@ -293,6 +308,9 @@ namespace ScorpionEngine.Entities
         /// <param name="speed">The speed to move the <see cref="DynamicEntity"/>. Positive and negative numbers behave the same.</param>
         public void MoveUp(float speed)
         {
+            if (Body == null)
+                throw new EntityNotInitializedException();
+
             Body.InternalPhysicsBody.ApplyForce(0, speed.ForceNegative(), Position.X, Position.Y);
         }
 
@@ -303,6 +321,9 @@ namespace ScorpionEngine.Entities
         /// </summary>
         public void MoveDown()
         {
+            if (Body == null)
+                throw new EntityNotInitializedException();
+
             Body.InternalPhysicsBody.ApplyForce(0, SpeedY.ForcePositive(), Position.X, Position.Y);
         }
 
@@ -313,12 +334,18 @@ namespace ScorpionEngine.Entities
         /// <param name="speed">The speed to move the <see cref="DynamicEntity"/>. Positive and negative numbers behave the same.</param>
         public void MoveDown(float speed)
         {
+            if (Body == null)
+                throw new EntityNotInitializedException();
+
             Body.InternalPhysicsBody.ApplyForce(0, speed, Position.X, Position.Y);
         }
 
 
         public void MoveUpRight()
         {
+            if (Body == null)
+                throw new EntityNotInitializedException();
+
             Body.InternalPhysicsBody.ApplyForce(SpeedX.ForcePositive(), SpeedY.ForceNegative(), Position.X, Position.Y);
         }
 
@@ -329,6 +356,9 @@ namespace ScorpionEngine.Entities
         /// <param name="speed">The speed to move the <see cref="DynamicEntity"/>. Positive and negative numbers behave the same.</param>
         public void MoveUpRight(float speed)
         {
+            if (Body == null)
+                throw new EntityNotInitializedException();
+
             Body.InternalPhysicsBody.ApplyForce(speed, speed.ForceNegative(), Position.X, Position.Y);
         }
 
@@ -338,6 +368,9 @@ namespace ScorpionEngine.Entities
         /// </summary>
         public void MoveUpLeft()
         {
+            if (Body == null)
+                throw new EntityNotInitializedException();
+
             Body.InternalPhysicsBody.ApplyForce(SpeedX.ForceNegative(), SpeedY.ForceNegative(), Position.X, Position.Y);
         }
 
@@ -348,6 +381,9 @@ namespace ScorpionEngine.Entities
         /// <param name="speed">The speed to move the <see cref="DynamicEntity"/>. Positive and negative numbers behave the same.</param>
         public void MoveUpLeft(float speed)
         {
+            if (Body == null)
+                throw new EntityNotInitializedException();
+
             speed = speed.ForceNegative();
             Body.InternalPhysicsBody.ApplyForce(speed, speed, Position.X, Position.Y);
         }
@@ -358,6 +394,9 @@ namespace ScorpionEngine.Entities
         /// </summary>
         public void MoveDownRight()
         {
+            if (Body == null)
+                throw new EntityNotInitializedException();
+
             Body.InternalPhysicsBody.ApplyForce(SpeedX.ForcePositive(), SpeedY.ForcePositive(), Position.X, Position.Y);
         }
 
@@ -368,6 +407,9 @@ namespace ScorpionEngine.Entities
         /// <param name="speed">The speed to move the <see cref="DynamicEntity"/>. Positive and negative numbers behave the same.</param>
         public void MoveDownRight(float speed)
         {
+            if (Body == null)
+                throw new EntityNotInitializedException();
+
             speed = speed.ForcePositive();
             Body.InternalPhysicsBody.ApplyForce(speed, speed, Position.X, Position.Y);
         }
@@ -378,6 +420,9 @@ namespace ScorpionEngine.Entities
         /// </summary>
         public void MoveDownLeft()
         {
+            if (Body == null)
+                throw new EntityNotInitializedException();
+
             Body.InternalPhysicsBody.ApplyForce(SpeedX.ForceNegative(), SpeedY.ForcePositive(), Position.X, Position.Y);
         }
 
@@ -388,6 +433,9 @@ namespace ScorpionEngine.Entities
         /// <param name="speed">The speed to move the <see cref="DynamicEntity"/>. Positive and negative numbers behave the same.</param>
         public void MoveDownLeft(float speed)
         {
+            if (Body == null)
+                throw new EntityNotInitializedException();
+
             Body.InternalPhysicsBody.ApplyForce(speed.ForceNegative(), speed.ForcePositive(), Position.X, Position.Y);
         }
 
@@ -399,6 +447,9 @@ namespace ScorpionEngine.Entities
         /// </summary>
         public void MoveAtSetSpeed()
         {
+            if (Body == null)
+                throw new EntityNotInitializedException();
+
             Body.InternalPhysicsBody.ApplyForce(SpeedX, SpeedY, Position.X, Position.Y);
         }
 
@@ -409,6 +460,9 @@ namespace ScorpionEngine.Entities
         /// <param name="speed">The speed to move the <see cref="DynamicEntity"/>. Positive and negative numbers behave the same.</param>
         public void MoveAtSetAngle(float speed)
         {
+            if (Body == null)
+                throw new EntityNotInitializedException();
+
             var directionToMove = new Vector(_facingDirection.X, _facingDirection.Y) * speed.ForcePositive();
 
             Body.InternalPhysicsBody.ApplyForce(directionToMove.X, directionToMove.Y, Position.X, Position.Y);
@@ -421,7 +475,10 @@ namespace ScorpionEngine.Entities
         /// </summary>
         public void RotateCW()
         {
-            if(RotationEnabled)
+            if (Body == null)
+                throw new EntityNotInitializedException();
+
+            if (RotationEnabled)
                 Body.InternalPhysicsBody.ApplyAngularImpulse(RotateSpeed.ForcePositive());
         }
 
@@ -432,6 +489,9 @@ namespace ScorpionEngine.Entities
         /// <param name="speed">The speed to rotate the <see cref="DynamicEntity"/>. Positive and negative values behave the same.</param>
         public void RotateCW(float speed)
         {
+            if (Body == null)
+                throw new EntityNotInitializedException();
+
             if (RotationEnabled)
                 Body.InternalPhysicsBody.ApplyAngularImpulse(speed.ForcePositive());
         }
@@ -443,6 +503,9 @@ namespace ScorpionEngine.Entities
         /// </summary>
         public void RotateCCW()
         {
+            if (Body == null)
+                throw new EntityNotInitializedException();
+
             if (RotationEnabled)
                 Body.InternalPhysicsBody.ApplyAngularImpulse(RotateSpeed.ForceNegative());
         }
@@ -454,6 +517,9 @@ namespace ScorpionEngine.Entities
         /// <param name="speed">The speed to rotate the <see cref="DynamicEntity"/>. Positive and negative values behave the same.</param>
         public void RotateCCW(float speed)
         {
+            if (Body == null)
+                throw new EntityNotInitializedException();
+
             if (RotationEnabled)
                 Body.InternalPhysicsBody.ApplyAngularImpulse(speed.ForceNegative());
         }
@@ -473,6 +539,9 @@ namespace ScorpionEngine.Entities
         /// </summary>
         public void StopRotation()
         {
+            if (Body == null)
+                throw new EntityNotInitializedException();
+
             Body.InternalPhysicsBody.AngularVelocity = 0;
         }
 

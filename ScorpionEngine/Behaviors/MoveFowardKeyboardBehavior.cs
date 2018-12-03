@@ -58,7 +58,7 @@ namespace ScorpionEngine.Behaviors
         /// <summary>
         /// Gets or sets the keyboard key that will rotate the <see cref="DynamicEntity"/> clockwise.
         /// </summary>
-        public InputKeys RotateCW
+        public InputKeys RotateCWKey
         {
             get => _rotateCWKey;
             set
@@ -71,7 +71,7 @@ namespace ScorpionEngine.Behaviors
         /// <summary>
         /// Gets or sets the keyboard key that will rotate the <see cref="DynamicEntity"/> counter clockwise.
         /// </summary>
-        public InputKeys RotateCCW
+        public InputKeys RotateCCWKey
         {
             get => _rotateCCWKey;
             set

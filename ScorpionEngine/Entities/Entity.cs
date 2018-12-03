@@ -57,6 +57,7 @@ namespace ScorpionEngine.Entities
         #region Constructors
         public Entity(float friction = 0.2f, bool isStaticBody = false)
         {
+            _preInitVertices = new [] { Vector.Zero, Vector.Zero, Vector.Zero };
             IsStatic = isStaticBody;
             _preInitFriction = friction;
         }
@@ -64,6 +65,7 @@ namespace ScorpionEngine.Entities
 
         public Entity(Vector position, float friction = 0.2f, bool isStaticBody = false)
         {
+            _preInitVertices = new[] { Vector.Zero, Vector.Zero, Vector.Zero };
             _preInitPosition = position;
             IsStatic = isStaticBody;
             _preInitFriction = friction;

@@ -324,7 +324,7 @@ namespace ScorpionEngine.Tests.Entities
 
         #region Method Tests
         [Test]
-        public void Ctor_WhenInvokingWithNullBody_ThrowsException()
+        public void Update_WhenInvokingWithNullBody_ThrowsException()
         {
             //Arrange
             var mockPhysicsBody = new Mock<IPhysicsBody>();
