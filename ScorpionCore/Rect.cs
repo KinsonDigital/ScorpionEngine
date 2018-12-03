@@ -3,29 +3,9 @@
     /// <summary>
     /// Represents a 2D rectangle with position and size.
     /// </summary>
-    public class Rect
+    public struct Rect
     {
         #region Constructors
-        /// <summary>
-        /// Creates a new instance of <see cref="Rect"/>.
-        /// </summary>
-        public Rect()
-        {
-        }
-
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Rect"/>.
-        /// </summary>
-        /// <param name="x">The X location of the <see cref="Rect"/>.</param>
-        /// <param name="y">The Y location of the <see cref="Rect"/>.</param>
-        public Rect(float x, float y)
-        {
-            X = x;
-            Y = y;
-        }
-
-
         /// <summary>
         /// Creates a new instance of <see cref="Rect"/>.
         /// </summary>

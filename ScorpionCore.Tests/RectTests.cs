@@ -7,24 +7,6 @@ namespace ScorpionCore.Tests
     {
         #region Constructor Tests
         [Test]
-        public void Ctor_WhenInvokingWithXAndY_SetsXAndYProps()
-        {
-            //Arrange
-            var expectedX = 11.22f;
-            var expectedY = 33.44f;
-
-            //Act
-            var rect = new Rect(11.22f, 33.44f);
-            var actualX = rect.X;
-            var actualY = rect.Y;
-
-            //Assert
-            Assert.AreEqual(expectedX, actualX);
-            Assert.AreEqual(expectedY, actualY);
-        }
-
-
-        [Test]
         public void Ctor_WhenInvokingWithXAndYAndWidthAndHeight_SetsXAndYProps()
         {
             //Arrange
@@ -185,10 +167,10 @@ namespace ScorpionCore.Tests
             //Arrange
             var rect = new Rect()
             {
-                Y = 11.22f,
-                Height = 100f
+                Y = 100f,
+                Height = 50f
             };
-            var expected = 111.22f;
+            var expected = 150f;
 
             //Act
             var actual = rect.Bottom;

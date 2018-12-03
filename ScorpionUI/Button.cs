@@ -9,24 +9,19 @@ namespace ScorpionUI
     {
         #region Fields
         private Mouse _mouse;
-        private Rect _rect;
+        private Rect _rect = new Rect();
         private GameText _buttonText;
         private string _text = "";
-        private string _cachedText;
         #endregion
 
 
         #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="Button"/>.
+        /// </summary>
         public Button()
         {
             _mouse = new Mouse();
-            _rect = new Rect()
-            {
-                X = Position.X,
-                Y = Position.Y,
-                Width = Width,
-                Height = Height
-            };
         }
         #endregion
 
@@ -80,6 +75,12 @@ namespace ScorpionUI
         public Texture MouseNotOverTexture { get; set; }
 
         /// <summary>
+        /// Gets or sets the texture when the left mouse button is
+        /// in the down position over the button.
+        /// </summary>
+        public Texture MouseDownTexture { get; set; }
+
+        /// <summary>
         /// Gets a value indicating if the mouse is over the button.
         /// </summary>
         public bool IsMouseOver { get; private set; }
@@ -116,16 +117,19 @@ namespace ScorpionUI
         /// <param name="engineTime">The amount of time that has passed in the engine since the last frame.</param>
         public void Update(EngineTime engineTime)
         {
-            if (_buttonText != null && _buttonText.Text != _text)
-                _buttonText.Text = _cachedText;
-
             _mouse.UpdateCurrentState();
 
-            //Update the rect's position
-            _rect.X = Position.X;
-            _rect.Y = Position.Y;
+            //Update the game text if the Text property is not the same
+            if (_buttonText.Text != _text)
+                _buttonText.Text = _text;
+
+            _rect.X = Position.X - Width / 2f;
+            _rect.Y = Position.Y - Height / 2f;
+            _rect.Width = Width;
+            _rect.Height = Height;
 
             IsMouseOver = _rect.Contains(_mouse.X, _mouse.Y);
+            _buttonText.Text = IsMouseOver.ToString();
 
             _mouse.UpdatePreviousState();
         }

@@ -23,7 +23,7 @@ namespace ParticalMaker
             _button = new Button()
             {
                 Position = new Vector(300, 300),
-                Text = "Calvin"
+                Text = "Button"
             };
 
             _mouse = new Mouse();
@@ -43,7 +43,6 @@ namespace ParticalMaker
         public override void Update(EngineTime engineTime)
         {
             _button.Update(engineTime);
-
 
             base.Update(engineTime);
         }
