@@ -2,16 +2,21 @@
 using ScorpionCore.Content;
 using ScorpionCore.Graphics;
 using ScorpionCore.Input;
+using System;
 
 namespace ScorpionUI
 {
     public class Button : IControl
     {
+        #region Events
+        public event EventHandler<EventArgs> Click;
+        #endregion
+
+
         #region Fields
         private Mouse _mouse;
         private Rect _rect = new Rect();
-        private GameText _buttonText;
-        private string _text = "";
+        private bool _isMouseDown;
         #endregion
 
 
@@ -88,11 +93,7 @@ namespace ScorpionUI
         /// <summary>
         /// Gets or sets the text of the button.
         /// </summary>
-        public string Text
-        {
-            get => _text;
-            set => _text = value;
-        }
+        public GameText ButtonText { get; set; }
         #endregion
 
 
@@ -104,10 +105,6 @@ namespace ScorpionUI
 
         public void LoadContent(ContentLoader contentLoader)
         {
-            MouseOverTexture = contentLoader.LoadTexture($"MouseOverButton");
-            MouseNotOverTexture = contentLoader.LoadTexture($"MouseNotOverButton");
-            _buttonText = contentLoader.LoadText("Button");
-            _buttonText.Text = _text;
         }
 
 
@@ -117,21 +114,12 @@ namespace ScorpionUI
         /// <param name="engineTime">The amount of time that has passed in the engine since the last frame.</param>
         public void Update(EngineTime engineTime)
         {
-            _mouse.UpdateCurrentState();
-
-            //Update the game text if the Text property is not the same
-            if (_buttonText.Text != _text)
-                _buttonText.Text = _text;
+            ProcessMouse();
 
             _rect.X = Position.X - Width / 2f;
             _rect.Y = Position.Y - Height / 2f;
             _rect.Width = Width;
             _rect.Height = Height;
-
-            IsMouseOver = _rect.Contains(_mouse.X, _mouse.Y);
-            _buttonText.Text = IsMouseOver.ToString();
-
-            _mouse.UpdatePreviousState();
         }
 
 
@@ -141,23 +129,49 @@ namespace ScorpionUI
         /// <param name="renderer">Renders the <see cref="Button"/>.</param>
         public void Render(Renderer renderer)
         {
-            if (IsMouseOver && MouseOverTexture != null)
+            if (_isMouseDown && MouseDownTexture != null)
             {
-                renderer.Render(MouseOverTexture, Position.X, Position.Y);
+                renderer.Render(MouseDownTexture, Position.X, Position.Y);
             }
             else
             {
-                if (MouseNotOverTexture != null)
-                    renderer.Render(MouseNotOverTexture, Position.X, Position.Y, 0);
+                if (IsMouseOver && MouseOverTexture != null)
+                {
+                    renderer.Render(MouseOverTexture, Position.X, Position.Y);
+                }
+                else
+                {
+                    if (MouseNotOverTexture != null)
+                        renderer.Render(MouseNotOverTexture, Position.X, Position.Y, 0);
+                }
+
             }
 
             var textPosition = new Vector()
             {
-                X = Position.X - _buttonText.Width / 2f,
-                Y = Position.Y - _buttonText.Height / 2f
+                X = Position.X - ButtonText.Width / 2f,
+                Y = Position.Y - ButtonText.Height / 2f
             };
 
-            renderer.Render(_buttonText, textPosition, new GameColor(0, 0, 0, 255));
+            if(ButtonText != null)
+                renderer.Render(ButtonText, textPosition, new GameColor(0, 0, 0, 255));
+        }
+        #endregion
+
+
+        #region Private Methods
+        private void ProcessMouse()
+        {
+            _mouse.UpdateCurrentState();
+
+            IsMouseOver = _rect.Contains(_mouse.X, _mouse.Y);
+
+            _isMouseDown = IsMouseOver && _mouse.IsButtonDown(InputButton.LeftButton);
+
+            if (_isMouseDown)
+                Click?.Invoke(this, new EventArgs());
+
+            _mouse.UpdatePreviousState();
         }
         #endregion
     }

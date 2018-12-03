@@ -22,19 +22,29 @@ namespace ParticalMaker
         {
             _button = new Button()
             {
-                Position = new Vector(300, 300),
-                Text = "Button"
+                Position = new Vector(300, 300)
             };
+            _button.Click += _button_Click;
 
             _mouse = new Mouse();
 
             base.Init();
         }
 
+        private void _button_Click(object sender, System.EventArgs e)
+        {
+            _button.ButtonText.Text = "Clicked!";
+        }
 
         public override void LoadContent(ContentLoader contentLoader)
         {
             _button.LoadContent(contentLoader);
+
+            _button.MouseOverTexture = contentLoader.LoadTexture($"MouseOverButton");
+            _button.MouseNotOverTexture = contentLoader.LoadTexture($"MouseNotOverButton");
+            _button.MouseDownTexture = contentLoader.LoadTexture("MouseDownButton");
+            _button.ButtonText = contentLoader.LoadText("Button");
+            _button.ButtonText.Text = "Button";
 
             base.LoadContent(contentLoader);
         }

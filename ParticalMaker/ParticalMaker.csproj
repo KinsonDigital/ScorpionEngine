@@ -110,6 +110,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Graphics\MouseDownButton.png" />
     <Content Include="Content\Graphics\MouseNotOverButton.png" />
     <Content Include="Content\Graphics\MouseOverButton.png" />
     <Content Include="x64\SDL2.dll">
