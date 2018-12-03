@@ -72,7 +72,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Content\Content.mgcb" />
-    <None Include="Content\Fonts\Button.spritefont" />
+    <None Include="Content\Fonts\ControlFont.spritefont" />
     <None Include="libopenal.1.dylib">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -113,6 +113,7 @@
     <Content Include="Content\Graphics\MouseDownButton.png" />
     <Content Include="Content\Graphics\MouseNotOverButton.png" />
     <Content Include="Content\Graphics\MouseOverButton.png" />
+    <Content Include="Content\Graphics\TextBox.png" />
     <Content Include="x64\SDL2.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

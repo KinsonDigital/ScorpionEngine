@@ -10,6 +10,7 @@ namespace ParticalMaker
     public class Main : Engine
     {
         private Button _button;
+        private TextBox _textBox;
         private Mouse _mouse;
         
 
@@ -22,9 +23,16 @@ namespace ParticalMaker
         {
             _button = new Button()
             {
-                Position = new Vector(300, 300)
+                Position = new Vector(200, 200)
             };
+
             _button.Click += _button_Click;
+
+            _textBox = new TextBox()
+            {
+                Position = new Vector(400, 250),
+                FontName = "ControlFont"
+            };
 
             _mouse = new Mouse();
 
@@ -43,8 +51,11 @@ namespace ParticalMaker
             _button.MouseOverTexture = contentLoader.LoadTexture($"MouseOverButton");
             _button.MouseNotOverTexture = contentLoader.LoadTexture($"MouseNotOverButton");
             _button.MouseDownTexture = contentLoader.LoadTexture("MouseDownButton");
-            _button.ButtonText = contentLoader.LoadText("Button");
+            _button.ButtonText = contentLoader.LoadText("ControlFont");
             _button.ButtonText.Text = "Button";
+
+            _textBox.Background = ContentLoader.LoadTexture("TextBox");
+            _textBox.LoadContent(contentLoader);
 
             base.LoadContent(contentLoader);
         }
@@ -53,6 +64,7 @@ namespace ParticalMaker
         public override void Update(EngineTime engineTime)
         {
             _button.Update(engineTime);
+            _textBox.Update(engineTime);
 
             base.Update(engineTime);
         }
@@ -61,6 +73,7 @@ namespace ParticalMaker
         public override void Render(Renderer renderer)
         {
             _button.Render(renderer);
+            _textBox.Render(renderer);
 
             base.Render(renderer);
         }

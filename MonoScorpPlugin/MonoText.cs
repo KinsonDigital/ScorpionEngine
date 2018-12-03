@@ -24,6 +24,8 @@ namespace MonoScorpPlugin
         public byte[] Color { get; set; } = new byte[] { 255, 255, 255, 255 };
 
         internal SpriteFont Font { get; private set; }
+
+
         #endregion
 
 

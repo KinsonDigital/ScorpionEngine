@@ -40,9 +40,23 @@ namespace ScorpionCore.Graphics
         }
 
 
+        public void Line(Vector start, Vector end, GameColor color)
+        {
+            var lineColor = new byte[] { color.Red, color.Green, color.Blue, color.Alpha };
+
+            InternalRenderer.Line(start.X, start.Y, end.X, end.Y, lineColor);
+        }
+
+
         public void Render(Texture texture, float x, float y)
         {
             InternalRenderer.Render(texture.InternalTexture, x, y);
+        }
+
+
+        public void Render(Texture texture, Vector position)
+        {
+            Render(texture, position.X, position.Y);
         }
 
 

@@ -68,7 +68,7 @@ namespace MonoScorpPlugin
         /// <returns></returns>
         public bool AreAnyKeysPressed()
         {
-            return _currentState.GetPressedKeys().Length == 0 && _previousState.GetPressedKeys().Length > 0;
+            return _currentState.GetPressedKeys().Length > 0;
         }
 
 
@@ -111,6 +111,14 @@ namespace MonoScorpPlugin
         /// <returns></returns>
         public int[] GetCurrentPressedKeys()
         {
+            var result = _currentState.GetPressedKeys();
+
+            var isLetterDown = _currentState.IsKeyDown(Keys.F);
+
+            if (isLetterDown)
+            {
+                var stop = true;
+            }
             return Tools.ToInputKeyCodes(_currentState.GetPressedKeys());
         }
 

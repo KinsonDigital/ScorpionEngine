@@ -154,14 +154,14 @@ xcopy "$(ProjectDir)Content\bin\Windows\Fonts" "$(TargetDir)Content\Fonts" /Y
 
 
 REM Copy the MonoGame Engine plugin to the output folder
-copy "$(SolutionDir)MonoScorpPlugin\bin\Debug\MonoScorpPlugin.dll" "$(TargetDir)MonoScorpPlugin.dll" /Y
-copy "$(SolutionDir)MonoScorpPlugin\bin\Debug\MonoScorpPlugin.pdb" "$(TargetDir)MonoScorpPlugin.pdb" /Y
+copy "$(SolutionDir)MonoScorpPlugin\bin\$(PlatformName)\Debug\MonoScorpPlugin.dll" "$(TargetDir)MonoScorpPlugin.dll" /Y
+copy "$(SolutionDir)MonoScorpPlugin\bin\$(PlatformName)\Debug\MonoScorpPlugin.pdb" "$(TargetDir)MonoScorpPlugin.pdb" /Y
 
 
 REM Copy the Velcro Physics Plugin to the output folder
 del "$(TargetDir)VelcroPhysicsPlugin.dll" /F /Q
-copy "$(SolutionDir)VelcroPhysicsPlugin\bin\Debug\VelcroPhysicsPlugin.dll" "$(TargetDir)VelcroPhysicsPlugin.dll"
-copy "$(SolutionDir)VelcroPhysicsPlugin\bin\Debug\VelcroPhysicsPlugin.pdb" "$(TargetDir)VelcroPhysicsPlugin.pdb"
+copy "$(SolutionDir)VelcroPhysicsPlugin\bin\$(PlatformName)\Debug\VelcroPhysicsPlugin.dll" "$(TargetDir)VelcroPhysicsPlugin.dll"
+copy "$(SolutionDir)VelcroPhysicsPlugin\bin\$(PlatformName)\Debug\VelcroPhysicsPlugin.pdb" "$(TargetDir)VelcroPhysicsPlugin.pdb"
 
 
 REM Copy the Main Velcro Physics Library to the output folder

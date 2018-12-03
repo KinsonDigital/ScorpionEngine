@@ -15,6 +15,9 @@
         void FillCircle(float x, float y, float radius, byte[] color);
 
 
+        void Line(float startX, float startY, float endX, float endY, byte[] color);
+
+
         void Render(ITexture texture, float x, float y);
 
 
