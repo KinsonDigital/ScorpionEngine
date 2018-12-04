@@ -186,12 +186,12 @@ namespace ScorpionEngine.Entities
         {
             get
             {
-                return Body.Vertices;
+                return IsInitialized ? Body.Vertices : _preInitVertices;
             }
             set
             {
                 if (IsInitialized)
-                    throw new Exception();
+                    throw new EntityAlreadyInitializedException();
 
                 _preInitVertices = value;
             }

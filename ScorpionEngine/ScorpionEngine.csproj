@@ -70,6 +70,7 @@
     <Compile Include="Content\AtlasSpriteData.cs" />
     <Compile Include="Content\Enums.cs" />
     <Compile Include="Content\ExtensionMethods.cs" />
+    <Compile Include="Exceptions\EntityAlreadyInitializedException.cs" />
     <Compile Include="Exceptions\EntityNotInitializedException.cs" />
     <Compile Include="Exceptions\MissingVerticesException.cs" />
     <Compile Include="Exceptions\SceneNotFoundException.cs" />

@@ -132,14 +132,14 @@ namespace ScorpionEngine.Tests
             var expected = true;
 
             //Act
-            var actual = true;
+            var actual = false;
 
             for (int i = 0; i < 1000; i++)
             {
-                var randomResult = random.Next(1, 10);
+                var randomResult = random.Next(1f, 10f);
 
-                if (randomResult < 1 && randomResult > 10)
-                    actual = false;
+                if (randomResult >= 1 || randomResult <= 10)
+                    actual = true;
             }
 
             //Assert

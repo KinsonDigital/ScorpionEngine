@@ -95,7 +95,6 @@ namespace ScorpionEngine
 
             var randomResult = random.Next(minValueAsInt, maxValueAsInt);
 
-
             return randomResult / 1000f;
         }
 

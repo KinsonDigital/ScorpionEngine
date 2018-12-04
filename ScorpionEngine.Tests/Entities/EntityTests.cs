@@ -1,6 +1,7 @@
 ﻿using Moq;
 using NUnit.Framework;
 using ScorpionCore;
+using ScorpionCore.Content;
 using ScorpionCore.Graphics;
 using ScorpionCore.Plugins;
 using ScorpionEngine.Behaviors;
@@ -13,7 +14,12 @@ namespace ScorpionEngine.Tests.Entities
     [TestFixture]
     public class EntityTests
     {
+        #region Fields
         private Mock<IDebugDraw> _mockDebugDraw;
+        private ContentLoader _contentLoader;
+        #endregion
+
+
         #region Constructor Tests
         [Test]
         public void Ctor_WhenInvokingWithStaticBodyValue_ProperlySetsBodyAsStatic()
@@ -606,6 +612,100 @@ namespace ScorpionEngine.Tests.Entities
             //Assert
             Assert.AreEqual(expected, actual);
         }
+
+
+        [Test]
+        public void Vertices_WhenGettingAndSettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var entity = new FakeEntity(true);
+            var expected = new Vector[]
+            {
+                new Vector(11, 22),
+                new Vector(33, 44),
+                new Vector(55, 66)
+            };
+
+            //Act
+            entity.Vertices = expected;
+            var actual = entity.Vertices;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void Vertices_WhenSettingValueAfterInit_ThrowsException()
+        {
+            //Arrange
+            var entity = new FakeEntity(true);
+            var expected = new Vector[]
+            {
+                new Vector(11, 22),
+                new Vector(33, 44),
+                new Vector(55, 66)
+            };
+            entity.Initialize();
+
+            //Act/Assert
+            Assert.Throws<EntityAlreadyInitializedException>(() => entity.Vertices = expected);
+        }
+
+
+        [Test]
+        public void Vertices_WhenGettingValueBeforeInit_ReturnsCorrectVallue()
+        {
+            //Arrange
+            var vertices = new Vector[]
+            {
+                new Vector(11, 22),
+                new Vector(33, 44),
+                new Vector(55, 66)
+            };
+
+            var entity = new FakeEntity(vertices, Vector.Zero);
+            var expected = new Vector[]
+            {
+                new Vector(11, 22),
+                new Vector(33, 44),
+                new Vector(55, 66)
+            };
+
+            //Act
+            var actual = entity.Vertices;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void Vertices_WhenGettingValueBeforeAfterInit_ReturnsCorrectVallue()
+        {
+            //Arrange
+            var vertices = new Vector[]
+            {
+                new Vector(11, 22),
+                new Vector(33, 44),
+                new Vector(55, 66)
+            };
+
+            var entity = new FakeEntity(vertices, Vector.Zero);
+            var expected = new Vector[]
+            {
+                new Vector(11, 22),
+                new Vector(33, 44),
+                new Vector(55, 66)
+            };
+            entity.Initialize();
+
+            //Act
+            var actual = entity.Vertices;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
         #endregion
 
 
@@ -740,6 +840,22 @@ namespace ScorpionEngine.Tests.Entities
             //Act/Assert
             Assert.Throws<MissingVerticesException>(() => entity.Initialize());
         }
+
+
+        [Test]
+        public void LoadContent_WhenInvoked_SetsContentLoadedPropToTrue()
+        {
+            //Arange
+            var entity = new FakeEntity(true);
+            var expected = true;
+
+            //Act
+            entity.LoadContent(_contentLoader);
+            var actual = entity.ContentLoaded;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
         #endregion
 
 
@@ -758,6 +874,10 @@ namespace ScorpionEngine.Tests.Entities
 
             var mockPhysicsBody = new Mock<IPhysicsBody>();
             var mockPhysicsPluginLib = new Mock<IPluginLibrary>();
+
+            var mockContentLoader = new Mock<IContentLoader>();
+
+            _contentLoader = new ContentLoader(mockContentLoader.Object);
 
             mockPhysicsPluginLib.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
             {

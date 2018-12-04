@@ -565,6 +565,10 @@ namespace ScorpionEngine.Entities
                     Body.InternalPhysicsBody.ApplyForce(Body.InternalPhysicsBody.LinearVelocityX * -1, Body.InternalPhysicsBody.LinearVelocityY, Position.X, Position.Y);
                 }
 
+                //If the body is still rotating
+                if (Body.InternalPhysicsBody.AngularVelocity != 0)
+                    Body.InternalPhysicsBody.ApplyAngularImpulse(Body.InternalPhysicsBody.AngularVelocity * -1);
+
                 //If the body has stopped moving, set the flag back to false
                 if (Body.InternalPhysicsBody.LinearVelocityX == 0 && Body.InternalPhysicsBody.LinearVelocityY == 0 &&
                     Body.AngularVelocity == 0)
