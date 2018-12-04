@@ -7,6 +7,12 @@ namespace ScorpionCore.Tests.Graphics
 {
     public class RendererTests
     {
+        #region Fields
+        private Texture _texture;
+        private GameText _gameText;
+        #endregion
+
+
         #region Method Tests
         [Test]
         public void Render_WhenUsingTextureAndXAndY_InvokesInteralRenderMethod()
@@ -16,14 +22,10 @@ namespace ScorpionCore.Tests.Graphics
             var mockInternalRenderer = new Mock<IRenderer>();
 
             var renderer = new Renderer(mockInternalRenderer.Object);
-            var texture = new Texture()
-            {
-                InternalTexture = mockTexture.Object
-            };
 
             //Assert
-            renderer.Render(texture, It.IsAny<float>(), It.IsAny<float>());
-            mockInternalRenderer.Verify(m => m.Render(texture.InternalTexture, It.IsAny<float>(), It.IsAny<float>()), Times.Once());
+            renderer.Render(_texture, It.IsAny<float>(), It.IsAny<float>());
+            mockInternalRenderer.Verify(m => m.Render(_texture.InternalTexture, It.IsAny<float>(), It.IsAny<float>()), Times.Once());
         }
 
 
@@ -35,14 +37,10 @@ namespace ScorpionCore.Tests.Graphics
             var mockInternalRenderer = new Mock<IRenderer>();
 
             var renderer = new Renderer(mockInternalRenderer.Object);
-            var texture = new Texture()
-            {
-                InternalTexture = mockTexture.Object
-            };
 
             //Assert
-            renderer.Render(texture, It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>());
-            mockInternalRenderer.Verify(m => m.Render(texture.InternalTexture, It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>()), Times.Once());
+            renderer.Render(_texture, It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>());
+            mockInternalRenderer.Verify(m => m.Render(_texture.InternalTexture, It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>()), Times.Once());
         }
 
 
@@ -51,11 +49,11 @@ namespace ScorpionCore.Tests.Graphics
         {
             //Arrange
             var mockInternalRenderer = new Mock<IRenderer>();
-
+           
             var renderer = new Renderer(mockInternalRenderer.Object);
 
             //Act
-            renderer.Render(It.IsAny<Texture>(), It.IsAny<Vector>());
+            renderer.Render(_texture, It.IsAny<Vector>());
 
             //Assert
             mockInternalRenderer.Verify(m => m.Render(It.IsAny<ITexture>(), It.IsAny<float>(), It.IsAny<float>()), Times.Once());
@@ -66,18 +64,12 @@ namespace ScorpionCore.Tests.Graphics
         public void Render_WhenUsingGameTextAndXAndY_InternalRenderMethodInvoked()
         {
             //Arrange
-            var mockText = new Mock<IText>();
             var mockInternalRenderer = new Mock<IRenderer>();
-
             var renderer = new Renderer(mockInternalRenderer.Object);
-            var gameText = new GameText()
-            {
-                InternalText = mockText.Object
-            };
 
             //Assert
-            renderer.Render(gameText, It.IsAny<float>(), It.IsAny<float>());
-            mockInternalRenderer.Verify(m => m.Render(gameText.InternalText, It.IsAny<float>(), It.IsAny<float>()), Times.Once());
+            renderer.Render(_gameText, It.IsAny<float>(), It.IsAny<float>());
+            mockInternalRenderer.Verify(m => m.Render(_gameText.InternalText, It.IsAny<float>(), It.IsAny<float>()), Times.Once());
         }
 
 
@@ -90,20 +82,16 @@ namespace ScorpionCore.Tests.Graphics
             var mockInternalRenderer = new Mock<IRenderer>();
 
             var renderer = new Renderer(mockInternalRenderer.Object);
-            var gameText = new GameText()
-            {
-                InternalText = mockText.Object
-            };
             var gameColor = It.IsAny<GameColor>();
-            var expectedColor = new GameColor(11, 22, 33, 44);
+            var expected = new GameColor(11, 22, 33, 44);
 
             //Act
-            renderer.Render(gameText, It.IsAny<float>(), It.IsAny<float>(), gameColor);
-            var actualColor = gameText.Color;
+            renderer.Render(_gameText, It.IsAny<float>(), It.IsAny<float>(), gameColor);
+            var actual = _gameText.Color;
 
             //Assert
-            mockInternalRenderer.Verify(m => m.Render(gameText.InternalText, It.IsAny<float>(), It.IsAny<float>()), Times.Once());
-            Assert.AreEqual(expectedColor, actualColor);
+            mockInternalRenderer.Verify(m => m.Render(_gameText.InternalText, It.IsAny<float>(), It.IsAny<float>()), Times.Once());
+            Assert.AreEqual(expected, actual);
         }
 
 
@@ -142,18 +130,13 @@ namespace ScorpionCore.Tests.Graphics
         {
             //Arrange
             var mockInternalRenderer = new Mock<IRenderer>();
-
             var renderer = new Renderer(mockInternalRenderer.Object);
-            var red = It.IsAny<byte>();
-            var green = It.IsAny<byte>();
-            var blue = It.IsAny<byte>();
-            var alpha = It.IsAny<byte>();
 
             //Act
-            renderer.Clear(red, green, blue, alpha);
+            renderer.Clear(It.IsAny<byte>(), It.IsAny<byte>(), It.IsAny<byte>(), It.IsAny<byte>());
 
             //Assert
-            mockInternalRenderer.Verify(m => m.Clear(red, green, blue, alpha), Times.Once());
+            mockInternalRenderer.Verify(m => m.Clear(It.IsAny<byte>(), It.IsAny<byte>(), It.IsAny<byte>(), It.IsAny<byte>()), Times.Once());
         }
 
 
@@ -162,7 +145,6 @@ namespace ScorpionCore.Tests.Graphics
         {
             //Arrange
             var mockInternalRenderer = new Mock<IRenderer>();
-
             var renderer = new Renderer(mockInternalRenderer.Object);
 
             //Act
@@ -170,6 +152,34 @@ namespace ScorpionCore.Tests.Graphics
 
             //Assert
             mockInternalRenderer.Verify(m => m.FillCircle(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<byte[]>()), Times.Once());
+        }
+        #endregion
+
+
+        #region Public Methods
+        [SetUp]
+        public void Setup()
+        {
+            var mockTexture = new Mock<ITexture>();
+
+            _texture = new Texture()
+            {
+                InternalTexture = mockTexture.Object
+            };
+
+            var mockText = new Mock<IText>();
+            mockText.SetupGet(m => m.Color).Returns(new byte[] { 11, 22, 33, 44 });
+            _gameText = new GameText()
+            {
+                InternalText = mockText.Object
+            };
+        }
+
+
+        [TearDown]
+        public void TearDown()
+        {
+            _texture = null;
         }
         #endregion
     }
