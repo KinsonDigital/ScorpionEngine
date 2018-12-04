@@ -53,7 +53,6 @@
     <Compile Include="VelcroWorld.cs" />
     <Compile Include="VelcroVector.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ScorpionCore\ScorpionCore.csproj">
       <Project>{3e136a13-190c-4390-9e74-8849022852f6}</Project>
@@ -62,6 +61,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assemblies\VelcroPhysics.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="..\ScorpionCore.DepGraph\Main.layerdiagram">
+      <Link>Main.layerdiagram</Link>
+      <Visible>False</Visible>
+    </AdditionalFiles>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\Microsoft.DependencyValidation.Analyzers.0.9.0\analyzers\dotnet\cs\Microsoft.DependencyValidation.Analyzers.resources.dll" />
+    <Analyzer Include="..\packages\Microsoft.DependencyValidation.Analyzers.0.9.0\analyzers\dotnet\Microsoft.DependencyValidation.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ScorpionCore;
+using ScorpionCore.Graphics;
 using ScorpionCore.Plugins;
 using System;
 

@@ -1,6 +1,6 @@
 ﻿using ScorpionCore.Plugins;
 
-namespace ScorpionCore
+namespace ScorpionCore.Graphics
 {
     public interface ITexture : IPlugin
     {

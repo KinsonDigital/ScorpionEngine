@@ -1,4 +1,6 @@
-﻿namespace ScorpionCore.Plugins
+﻿using ScorpionCore.Graphics;
+
+namespace ScorpionCore.Plugins
 {
     public interface IContentLoader : IPlugin
     {

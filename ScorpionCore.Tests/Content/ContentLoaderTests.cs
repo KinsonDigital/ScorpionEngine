@@ -1,6 +1,7 @@
 ﻿using Moq;
 using NUnit.Framework;
 using ScorpionCore.Content;
+using ScorpionCore.Graphics;
 using ScorpionCore.Plugins;
 
 namespace ScorpionCore.Tests.Content
