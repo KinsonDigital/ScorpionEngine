@@ -136,6 +136,6 @@ copy "$(SolutionDir)MonoScorpPlugin\bin\$(PlatformName)\Debug\MonoScorpPlugin.pd
 
 REM Copy the MonoGame.Framework.dll file to the output directory
 del  "$(TargetDir)MonoGame.Framework.dll" /F /Q
-copy "$(SolutionDir)MonoScorpPlugin\bin\Debug\MonoGame.Framework.dll" "$(TargetDir)MonoGame.Framework.dll"</PostBuildEvent>
+copy "$(SolutionDir)MonoScorpPlugin\bin\$(PlatformName)\Debug\MonoGame.Framework.dll" "$(TargetDir)MonoGame.Framework.dll"</PostBuildEvent>
   </PropertyGroup>
 </Project>
