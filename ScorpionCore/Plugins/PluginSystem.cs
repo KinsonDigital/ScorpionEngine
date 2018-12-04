@@ -1,5 +1,8 @@
-﻿namespace ScorpionCore.Plugins
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace ScorpionCore.Plugins
 {
+    [ExcludeFromCodeCoverage]
     internal static class PluginSystem
     {
         #region Props

@@ -78,7 +78,6 @@
     <Compile Include="Input\MouseTests.cs" />
     <Compile Include="OnRenderEventArgsTests.cs" />
     <Compile Include="OnUpdateEventArgsTests.cs" />
-    <Compile Include="Plugins\PluginLibraryLoaderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RectTests.cs" />
   </ItemGroup>
@@ -101,6 +100,9 @@
       <Project>{3E136A13-190C-4390-9E74-8849022852F6}</Project>
       <Name>ScorpionCore</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Plugins\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

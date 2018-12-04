@@ -7,8 +7,9 @@ namespace ScorpionCore.Tests.Graphics
 {
     public class RendererTests
     {
+        #region Method Tests
         [Test]
-        public void Render_WhenUsingTextureAndXAndY_InternalRenderMethodInvoked()
+        public void Render_WhenUsingTextureAndXAndY_InvokesInteralRenderMethod()
         {
             //Arrange
             var mockTexture = new Mock<ITexture>();
@@ -27,7 +28,7 @@ namespace ScorpionCore.Tests.Graphics
 
 
         [Test]
-        public void Render_WhenUsingTextureAndXAndYAndAngle_InternalRenderMethodInvoked()
+        public void Render_WhenUsingTextureAndXAndYAndAngle_InvokesInteralRenderMethod()
         {
             //Arrange
             var mockTexture = new Mock<ITexture>();
@@ -42,6 +43,22 @@ namespace ScorpionCore.Tests.Graphics
             //Assert
             renderer.Render(texture, It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>());
             mockInternalRenderer.Verify(m => m.Render(texture.InternalTexture, It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>()), Times.Once());
+        }
+
+
+        [Test]
+        public void Render_WhenUsingTextureAndVector_InvokesInteralRenderMethod()
+        {
+            //Arrange
+            var mockInternalRenderer = new Mock<IRenderer>();
+
+            var renderer = new Renderer(mockInternalRenderer.Object);
+
+            //Act
+            renderer.Render(It.IsAny<Texture>(), It.IsAny<Vector>());
+
+            //Assert
+            mockInternalRenderer.Verify(m => m.Render(It.IsAny<ITexture>(), It.IsAny<float>(), It.IsAny<float>()), Times.Once());
         }
 
 
@@ -138,5 +155,22 @@ namespace ScorpionCore.Tests.Graphics
             //Assert
             mockInternalRenderer.Verify(m => m.Clear(red, green, blue, alpha), Times.Once());
         }
+
+
+        [Test]
+        public void FillCircle_WhenInvoking_InvokesInternalFillCircle()
+        {
+            //Arrange
+            var mockInternalRenderer = new Mock<IRenderer>();
+
+            var renderer = new Renderer(mockInternalRenderer.Object);
+
+            //Act
+            renderer.FillCircle(It.IsAny<Vector>(), It.IsAny<float>(), It.IsAny<GameColor>());
+
+            //Assert
+            mockInternalRenderer.Verify(m => m.FillCircle(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<byte[]>()), Times.Once());
+        }
+        #endregion
     }
 }

@@ -108,5 +108,81 @@ namespace ScorpionCore.Tests.Graphics
             Assert.AreEqual(expected, actual);
         }
         #endregion
+
+
+        #region Overloaded Operator Tests
+        [Test]
+        public void AddOperator_WhenAddingTwoObjects_ReturnsCorrectValue()
+        {
+            //Arrange
+            var mockTextA = new Mock<IText>();
+            mockTextA.SetupProperty(m => m.Text);
+
+            var mockTextB = new Mock<IText>();
+            mockTextB.SetupProperty(m => m.Text);
+
+            var textA = new GameText()
+            {
+                InternalText = mockTextA.Object,
+                Text = "Hello "
+            };
+            var textB = new GameText()
+            {
+                InternalText = mockTextB.Object,
+                Text = "World"
+            };
+            var expected = "Hello World";
+
+            //Act
+            var actual = textA + textB;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void AddOperator_WhenAddingObjectAndString_ReturnsCorrectValue()
+        {
+            //Arrange
+            var mockText = new Mock<IText>();
+            mockText.SetupProperty(m => m.Text);
+
+            var textA = new GameText()
+            {
+                InternalText = mockText.Object,
+                Text = "Hello "
+            };
+            var expected = "Hello World";
+
+            //Act
+            var actual = textA + "World";
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void AddOperator_WhenAddingStringAndObject_ReturnsCorrectValue()
+        {
+            //Arrange
+            var mockText = new Mock<IText>();
+            mockText.SetupProperty(m => m.Text);
+
+            var textB = new GameText()
+            {
+                InternalText = mockText.Object,
+                Text = "World"
+            };
+            var expected = "Hello World";
+
+            //Act
+            var actual = "Hello " + textB;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+        #endregion
     }
 }

@@ -38,21 +38,27 @@
         #endregion
 
 
+        /// <summary>
+        /// Concatenates the text of 2 <see cref="GameText"/> objects.
+        /// </summary>
+        /// <param name="textA">The first object.</param>
+        /// <param name="textB">The second object.</param>
+        /// <returns></returns>
         public static string operator +(GameText textA, GameText textB)
         {
-            return $"{textA}{textB}";
+            return $"{textA.Text}{textB.Text}";
         }
 
 
         public static string operator +(GameText textA, string textB)
         {
-            return $"{textA}{textB}";
+            return $"{textA.Text}{textB}";
         }
 
 
         public static string operator +(string textA, GameText textB)
         {
-            return $"{textA}{textB}";
+            return $"{textA}{textB.Text}";
         }
     }
 }

@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using ScorpionCore.Exceptions;
 using System.Runtime.CompilerServices;
+using System.Diagnostics.CodeAnalysis;
 
 [assembly: InternalsVisibleTo(assemblyName: "ScorpionCore.Tests", AllInternalsVisible = true)]
 [assembly: InternalsVisibleTo(assemblyName: "ScorpionEngine.Tests", AllInternalsVisible = true)]
@@ -15,6 +16,7 @@ namespace ScorpionCore.Plugins
     /// <summary>
     /// Loads plugin assemblies for use.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     internal static class PluginLibraryLoader
     {
         /// <summary>
