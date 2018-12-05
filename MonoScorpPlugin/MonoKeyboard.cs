@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 using ScorpionCore.Plugins;
 
@@ -25,6 +26,32 @@ namespace MonoScorpPlugin
         #region Fields
         private KeyboardState _currentState;//The current state of the keyboard to compare to the previous state
         private KeyboardState _previousState;//The previous state of the keyboard to compare to the current state
+        private int[] _letters;//The array of key codes for all the letters on the keyboard
+
+        /// <summary>
+        /// Gets a value indicating if the caps lock key is on.
+        /// </summary>
+        public bool CapsLockOn => _currentState.CapsLock;
+
+        /// <summary>
+        /// Gets a value indicating if the numlock key is on.
+        /// </summary>
+        public bool NumLockOn => _currentState.NumLock;
+        #endregion
+
+
+        #region Constructors
+        public MonoKeyboard()
+        {
+            var letters = new List<int>();
+            
+            for (int i = 65; i <= 90; i++)
+            {
+                letters.Add(i);
+            }
+
+            _letters = letters.ToArray();
+        }
         #endregion
 
 
@@ -63,12 +90,40 @@ namespace MonoScorpPlugin
         }
 
 
+        /// <summary>
+        /// Gets a value indicating if any of the keys are in the down position.
+        /// </summary>
+        /// <returns></returns>
+        public bool AreAnyKeysDown()
+        {
+            return _currentState.GetPressedKeys().Length > 0;
+        }
+
+
         /// Returns true if any keys have been pressed.  This means a key was first put into the down position, then released to the up position.
         /// </summary>
         /// <returns></returns>
         public bool AreAnyKeysPressed()
         {
             return _currentState.GetPressedKeys().Length > 0;
+        }
+
+
+        /// <summary>
+        /// Returns a value indicating if any of the given key codes are being held down.
+        /// </summary>
+        /// <param name="keys">The list of key codes to check.</param>
+        /// <returns></returns>
+        public bool IsAnyKeyDown(int[] keys)
+        {
+            foreach (var key in keys)
+            {
+                if (IsKeyDown(key))
+                    return true;
+            }
+
+
+            return false;
         }
 
 
@@ -101,7 +156,7 @@ namespace MonoScorpPlugin
         /// <returns></returns>
         public bool IsKeyPressed(int key)
         {
-            return _currentState.IsKeyUp((Keys) key) && _previousState.IsKeyDown((Keys) key);
+            return _currentState.IsKeyUp((Keys)key) && _previousState.IsKeyDown((Keys)key);
         }
 
 
@@ -111,14 +166,6 @@ namespace MonoScorpPlugin
         /// <returns></returns>
         public int[] GetCurrentPressedKeys()
         {
-            var result = _currentState.GetPressedKeys();
-
-            var isLetterDown = _currentState.IsKeyDown(Keys.F);
-
-            if (isLetterDown)
-            {
-                var stop = true;
-            }
             return Tools.ToInputKeyCodes(_currentState.GetPressedKeys());
         }
 
@@ -142,6 +189,23 @@ namespace MonoScorpPlugin
         public object GetData(string dataType)
         {
             throw new NotImplementedException();
+        }
+
+
+        /// <summary>
+        /// Returns a value indicating if a letter on the keyboard was pressed.
+        /// </summary>
+        /// <returns></returns>
+        public bool WasLetterPressed()
+        {
+            for (int i = 0; i < _letters.Length; i++)
+            {
+                if (IsKeyPressed(_letters[i]))
+                    return true;
+            }
+
+
+            return false;
         }
         #endregion
     }
