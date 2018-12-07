@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework.Input;
 using ScorpionCore.Plugins;
 
@@ -27,16 +28,13 @@ namespace MonoScorpPlugin
         private KeyboardState _currentState;//The current state of the keyboard to compare to the previous state
         private KeyboardState _previousState;//The previous state of the keyboard to compare to the current state
         private int[] _letters;//The array of key codes for all the letters on the keyboard
-
-        /// <summary>
-        /// Gets a value indicating if the caps lock key is on.
-        /// </summary>
-        public bool CapsLockOn => _currentState.CapsLock;
-
-        /// <summary>
-        /// Gets a value indicating if the numlock key is on.
-        /// </summary>
-        public bool NumLockOn => _currentState.NumLock;
+        private static readonly Keys[] _numpadNumberKeys = new Keys[]
+        {
+            Keys.NumPad0, Keys.NumPad1, Keys.NumPad2,
+            Keys.NumPad3, Keys.NumPad4, Keys.NumPad5,
+            Keys.NumPad6, Keys.NumPad7, Keys.NumPad8,
+            Keys.NumPad9
+        };
         #endregion
 
 
@@ -52,6 +50,19 @@ namespace MonoScorpPlugin
 
             _letters = letters.ToArray();
         }
+        #endregion
+
+
+        #region Props
+        /// <summary>
+        /// Gets a value indicating if the caps lock key is on.
+        /// </summary>
+        public bool CapsLockOn => _currentState.CapsLock;
+
+        /// <summary>
+        /// Gets a value indicating if the numlock key is on.
+        /// </summary>
+        public bool NumLockOn => _currentState.NumLock;
         #endregion
 
 
@@ -100,13 +111,27 @@ namespace MonoScorpPlugin
         }
 
 
+        /// <summary>
+        /// Returns a value indicating if any of the numpad number keys are down.
+        /// </summary>
+        /// <returns></returns>
+        public bool AnyNumpadNumbersKeysDown()
+        {
+            foreach (var key in _numpadNumberKeys)
+            {
+                if (_currentState.IsKeyDown(key))
+                    return true;
+            }
+
+
+            return false;
+        }
+
+
         /// Returns true if any keys have been pressed.  This means a key was first put into the down position, then released to the up position.
         /// </summary>
         /// <returns></returns>
-        public bool AreAnyKeysPressed()
-        {
-            return _currentState.GetPressedKeys().Length > 0;
-        }
+        public bool AreAnyKeysPressed() => _currentState.GetPressedKeys().Length > 0;
 
 
         /// <summary>
@@ -132,10 +157,7 @@ namespace MonoScorpPlugin
         /// </summary>
         /// <param name="key">The key to check for.</param>
         /// <returns></returns>
-        public bool IsKeyDown(int key)
-        {
-            return _currentState.IsKeyDown((Keys)key);
-        }
+        public bool IsKeyDown(int key) => _currentState.IsKeyDown((Keys)key);
 
 
         /// <summary>
@@ -143,10 +165,7 @@ namespace MonoScorpPlugin
         /// </summary>
         /// <param name="key">The key to check for.</param>
         /// <returns></returns>
-        public bool IsKeyUp(int key)
-        {
-            return _currentState.IsKeyUp((Keys)key);
-        }
+        public bool IsKeyUp(int key) => _currentState.IsKeyUp((Keys)key);
 
 
         /// <summary>

@@ -1,102 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using ScorpionCore;
+﻿using ScorpionCore;
 using ScorpionCore.Content;
 using ScorpionCore.Graphics;
 using ScorpionCore.Input;
 
 namespace ScorpionUI
 {
-    //Provides the ability to enter text into a box.
+    /// <summary>
+    /// Provides the ability to enter text into a box.
+    /// </summary>
     public class TextBox : IControl
     {
-        private readonly InputKeys[] _letters = new []
-        {
-            InputKeys.A, InputKeys.B, InputKeys.C, InputKeys.D, InputKeys.E,
-            InputKeys.F, InputKeys.G, InputKeys.H, InputKeys.I, InputKeys.J,
-            InputKeys.K,InputKeys.L, InputKeys.M, InputKeys.N, InputKeys.O,
-            InputKeys.P, InputKeys.Q, InputKeys.R, InputKeys.S, InputKeys.T,
-            InputKeys.U, InputKeys.V, InputKeys.W, InputKeys.X, InputKeys.Y,
-            InputKeys.Z
-        };
-        //Create list of symbol key codes when NOT using any shift key modifiers
-        private static InputKeys[] _noShiftSymbols = new[]
-        {
-            InputKeys.OemSemicolon, InputKeys.OemPlus, InputKeys.OemComma,
-            InputKeys.OemMinus, InputKeys.OemPeriod, InputKeys.OemQuestion,
-            InputKeys.OemTilde, InputKeys.OemOpenBrackets, InputKeys.OemPipe,
-            InputKeys.OemCloseBrackets, InputKeys.OemQuotes, InputKeys.Decimal,
-            InputKeys.Divide, InputKeys.Multiply, InputKeys.Subtract, InputKeys.Add
-        };
-        //Create list of symbol key codes when PRESSING any of the shift key modifiers
-        private static readonly InputKeys[] _withShiftSymbols = new[]
-        {
-            InputKeys.OemPlus, InputKeys.OemComma, InputKeys.OemMinus, InputKeys.OemPeriod,
-            InputKeys.OemQuestion, InputKeys.OemTilde, InputKeys.OemPipe, InputKeys.OemOpenBrackets,
-            InputKeys.OemCloseBrackets, InputKeys.OemQuotes, InputKeys.OemSemicolon,
-            InputKeys.D0, InputKeys.D1, InputKeys.D2, InputKeys.D3, InputKeys.D4,
-            InputKeys.D5, InputKeys.D6, InputKeys.D7, InputKeys.D8, InputKeys.D9,
-            InputKeys.Divide, InputKeys.Multiply, InputKeys.Subtract, InputKeys.Add
-        };
-        //All of the text items to be shown when while NOT pressing
-        //the left or right shift modifier keys
-        private static Dictionary<InputKeys, string> _noShiftModifierSymbolTextItems = new Dictionary<InputKeys, string>()
-        {
-            { InputKeys.OemPlus, "=" },
-            { InputKeys.OemComma, "," },
-            { InputKeys.OemMinus, "-" },
-            { InputKeys.OemPeriod, "." },
-            { InputKeys.OemQuestion, "/" },
-            { InputKeys.OemTilde, "`" },
-            { InputKeys.OemPipe, "\\" },
-            { InputKeys.OemOpenBrackets, "[" },
-            { InputKeys.OemCloseBrackets, "]" },
-            { InputKeys.OemQuotes, "'" },
-            { InputKeys.OemSemicolon, ";" },
-            { InputKeys.Decimal, "." },
-            { InputKeys.Divide, "/" },
-            { InputKeys.Multiply, "*" },
-            { InputKeys.Subtract, "-" },
-            { InputKeys.Add, "+" }
-        };
-        //All of the text items to be shown when while pressing
-        //the left or right shift modifier keys
-        private static Dictionary<InputKeys, string> _withShiftModifierSymbolTextItems = new Dictionary<InputKeys, string>()
-        {
-            { InputKeys.OemPlus, "+" },
-            { InputKeys.OemComma, "<" },
-            { InputKeys.OemMinus, "_" },
-            { InputKeys.OemPeriod, ">" },
-            { InputKeys.OemQuestion, "?" },
-            { InputKeys.OemTilde, "~" },
-            { InputKeys.OemPipe, "|" },
-            { InputKeys.OemOpenBrackets, "{" },
-            { InputKeys.OemCloseBrackets, "}" },
-            { InputKeys.OemQuotes, "\"" },
-            { InputKeys.OemSemicolon, ":" },
-            { InputKeys.D1, "!" },
-            { InputKeys.D2, "@" },
-            { InputKeys.D3, "#" },
-            { InputKeys.D4, "$" },
-            { InputKeys.D5, "%" },
-            { InputKeys.D6, "^" },
-            { InputKeys.D7, "&" },
-            { InputKeys.D8, "*" },
-            { InputKeys.D9, "(" },
-            { InputKeys.D0, ")" },
-            { InputKeys.Divide, "/" },
-            { InputKeys.Multiply, "*" },
-            { InputKeys.Subtract, "-" },
-            { InputKeys.Add, "+" }
-        };
         private Keyboard _keyboard = new Keyboard();
         private GameText _text;
-        private GameText _upToCursorText;
         private Vector _textPosition;
         private int _characterPosition;
         private int _cursorElapsedMilliseconds;
         private bool _cursorVisible;
-        private byte _red;
 
 
         #region Props
@@ -128,7 +47,6 @@ namespace ScorpionUI
         public void LoadContent(ContentLoader contentLoader)
         {
             _text = contentLoader.LoadText(FontName);
-            _upToCursorText = contentLoader.LoadText(FontName);
         }
 
 
@@ -159,7 +77,7 @@ namespace ScorpionUI
 
             //Render the text inside of the textbox
             if (!string.IsNullOrEmpty(_text.Text))
-                renderer.Render(_text, _textPosition, new GameColor(_red, 0, 0, 255));
+                renderer.Render(_text, _textPosition, new GameColor(0, 0, 0, 255));
 
             //Render the blinking cursor
             var lineStart = new Vector(cursorPositionX, Position.Y - (Background.Height / 2) + 3);
@@ -196,9 +114,13 @@ namespace ScorpionUI
                 return;
             }
 
+            var isShiftDown = _keyboard.IsKeyDown(InputKeys.LeftShift) || _keyboard.IsKeyDown(InputKeys.RightShift);
+
+            ///////TODO: Remmove after debugging
+            //////////////////////////////
+            
             //The delete keys. This is the standard one and the numpad one
             if(_keyboard.IsDeleteKeyPressed())
-            //if (_keyboard.IsKeyPressed(InputKeys.Delete) && _characterPosition < _text.Text.Length)
             {
                 _text.Text = _text.Text.Remove(_characterPosition, 1);
             }
@@ -209,10 +131,9 @@ namespace ScorpionUI
                 _text.Text = _text.Text.Remove(_characterPosition, 1);
             }
 
-            var isShiftDown = _keyboard.IsKeyDown(InputKeys.LeftShift) || _keyboard.IsKeyDown(InputKeys.RightShift);
             
             //If a letter is pressed, add it to the textbox
-            if (IsLetterPressed(out InputKeys letter))
+            if (_keyboard.IsLetterPressed(out InputKeys letter))
             {
                 var letterText = "";
 
@@ -231,38 +152,22 @@ namespace ScorpionUI
                 _characterPosition += 1;
             }
 
-            var keys = new List<InputKeys>();
-            for (int i = (int)InputKeys.D0; i <= (int)InputKeys.D9; i++)
+            //If a number was pressed on the keyboard
+            if (_keyboard.IsNumberPressed(out InputKeys number))
             {
-                keys.Add((InputKeys)i);
-            }
+                var character = _keyboard.KeyToChar(number).ToString();
 
-            ///////DEBUGGING
-            if(_keyboard.IsAnyKeyDown(keys.ToArray()))
-            {
-                _red = 255;
-            }
-            
-            if(_keyboard.IsKeyPressed(InputKeys.Space))
-            {
-                _red = 0;
-            }
+                _text.Text = _text.Text.Insert(_characterPosition, character);
 
-            if (_keyboard.AreAnyKeysDown())
-            {
-                var downKeys = _keyboard.GetCurrentPressedKeys();
-
-                if(downKeys[0] == InputKeys.D0)
-                { }
+                _characterPosition += 1;
             }
-            /////////////////
 
             //If a symbol was press on the keyboard
-            if (IsSymbolPressed(isShiftDown, out InputKeys symbol))
+            if (_keyboard.IsSymbolPressed(out InputKeys symbol))
             {
-                var symbolText = isShiftDown ? _withShiftModifierSymbolTextItems[symbol] : _noShiftModifierSymbolTextItems[symbol];
+                var character = _keyboard.KeyToChar(symbol).ToString();
                 
-                _text.Text = _text.Text.Insert(_characterPosition, symbolText);
+                _text.Text = _text.Text.Insert(_characterPosition, character);
 
                 _characterPosition += 1;
             }
@@ -273,67 +178,23 @@ namespace ScorpionUI
 
         private int CalcCursorXPos()
         {
-            //TODO: Remove when finished debugging
-            var subString = _text.Text.Substring(0, _characterPosition);
+            var textTemp = _text.Text;
 
             //Update the text that is from the first letter up to the cursor position
-            _upToCursorText.Text = _text.Text.Substring(0, _characterPosition);
+            _text.Text = _text.Text.Substring(0, _characterPosition);
 
-            return _upToCursorText.Width;
+            var result = _text.Width;
+
+            _text.Text = textTemp;
+
+
+            return result;
         }
 
 
-        private bool IsLetterPressed(out InputKeys letter)
+        private string GetCharactersToFitTextboxWidth()
         {
-            for (int i = 0; i < _letters.Length; i++)
-            {
-                if(_keyboard.IsKeyPressed((InputKeys)_letters[i]))
-                {
-                    letter = (InputKeys)_letters[i];
-                    return true;
-                }
-            }
-
-            letter = InputKeys.None;
-
-
-            return false;
-        }
-
-
-        private bool IsSymbolPressed(bool shiftDown, out InputKeys symbol)
-        {
-            if(shiftDown)
-            {
-                //Check if any symbols have been pressed while pressing the 
-                //left or right shift modifier keys
-                for (int i = 0; i < _withShiftSymbols.Length; i++)
-                {
-                    if (_keyboard.IsKeyPressed(_withShiftSymbols[i]))
-                    {
-                        symbol = _withShiftSymbols[i];
-                        return true;
-                    }
-                }
-            }
-            else
-            {
-                //Check if any symbols have been pressed while NOT pressing the 
-                //left or right shift modifier keys
-                for (int i = 0; i < _noShiftSymbols.Length; i++)
-                {
-                    if (_keyboard.IsKeyPressed(_noShiftSymbols[i]))
-                    {
-                        symbol = _noShiftSymbols[i];
-                        return true;
-                    }
-                }
-            }
-
-            symbol = InputKeys.None;
-
-
-            return false;
+            return "";
         }
         #endregion
     }

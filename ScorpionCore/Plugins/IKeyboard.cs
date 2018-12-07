@@ -43,6 +43,13 @@
 
 
         /// <summary>
+        /// Returns a value indicating if any of the numpad number keys were pressed.
+        /// </summary>
+        /// <returns></returns>
+        bool AnyNumpadNumbersKeysDown();
+
+
+        /// <summary>
         /// Returns a value indicating if any of the given key codes are being held down.
         /// </summary>
         /// <param name="keys">The list of key codes to check.</param>

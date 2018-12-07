@@ -9,6 +9,62 @@ namespace ScorpionCore.Input
     /// </summary>
     public class Keyboard
     {
+        #region Fields
+        private readonly InputKeys[] _lettersKeys = new[]
+        {
+            InputKeys.A, InputKeys.B, InputKeys.C, InputKeys.D, InputKeys.E,
+            InputKeys.F, InputKeys.G, InputKeys.H, InputKeys.I, InputKeys.J,
+            InputKeys.K,InputKeys.L, InputKeys.M, InputKeys.N, InputKeys.O,
+            InputKeys.P, InputKeys.Q, InputKeys.R, InputKeys.S, InputKeys.T,
+            InputKeys.U, InputKeys.V, InputKeys.W, InputKeys.X, InputKeys.Y,
+            InputKeys.Z
+        };
+
+        private static readonly InputKeys[] _numbersKeys = new[]
+        {
+            InputKeys.D0, InputKeys.D1, InputKeys.D2,
+            InputKeys.D3, InputKeys.D4, InputKeys.D5,
+            InputKeys.D6, InputKeys.D7, InputKeys.D8,
+            InputKeys.D9, InputKeys.NumPad0, InputKeys.NumPad0,
+            InputKeys.NumPad0, InputKeys.NumPad1, InputKeys.NumPad2,
+            InputKeys.NumPad3, InputKeys.NumPad4, InputKeys.NumPad5,
+            InputKeys.NumPad6, InputKeys.NumPad7, InputKeys.NumPad8,
+            InputKeys.NumPad9,
+        };
+
+        private static InputKeys[] _symbolKeys = new[]
+        {
+            InputKeys.OemSemicolon, InputKeys.OemPlus, InputKeys.OemComma,
+            InputKeys.OemMinus, InputKeys.OemPeriod, InputKeys.OemQuestion,
+            InputKeys.OemTilde, InputKeys.OemOpenBrackets, InputKeys.OemPipe,
+            InputKeys.OemCloseBrackets, InputKeys.OemQuotes, InputKeys.Decimal,
+            InputKeys.Divide, InputKeys.Multiply, InputKeys.Subtract, InputKeys.Add
+        };
+
+        private static Dictionary<InputKeys, string> _noShiftModifierSymbolTextItems = new Dictionary<InputKeys, string>()
+        {
+            { InputKeys.OemPlus, "=" }, { InputKeys.OemComma, "," }, { InputKeys.OemMinus, "-" },
+            { InputKeys.OemPeriod, "." }, { InputKeys.OemQuestion, "/" }, { InputKeys.OemTilde, "`" },
+            { InputKeys.OemPipe, "\\" }, { InputKeys.OemOpenBrackets, "[" }, { InputKeys.OemCloseBrackets, "]" },
+            { InputKeys.OemQuotes, "'" }, { InputKeys.OemSemicolon, ";" }, { InputKeys.Decimal, "." },
+            { InputKeys.Divide, "/" }, { InputKeys.Multiply, "*" }, { InputKeys.Subtract, "-" },
+            { InputKeys.Add, "+" }
+        };
+
+        private static Dictionary<InputKeys, string> _withShiftModifierSymbolTextItems = new Dictionary<InputKeys, string>()
+        {
+            { InputKeys.OemPlus, "+" }, { InputKeys.OemComma, "<" }, { InputKeys.OemMinus, "_" },
+            { InputKeys.OemPeriod, ">" }, { InputKeys.OemQuestion, "?" }, { InputKeys.OemTilde, "~" },
+            { InputKeys.OemPipe, "|" }, { InputKeys.OemOpenBrackets, "{" }, { InputKeys.OemCloseBrackets, "}" },
+            { InputKeys.OemQuotes, "\"" }, { InputKeys.OemSemicolon, ":" }, { InputKeys.D1, "!" },
+            { InputKeys.D2, "@" }, { InputKeys.D3, "#" }, { InputKeys.D4, "$" }, { InputKeys.D5, "%" },
+            { InputKeys.D6, "^" }, { InputKeys.D7, "&" }, { InputKeys.D8, "*" }, { InputKeys.D9, "(" },
+            { InputKeys.D0, ")" }, { InputKeys.Divide, "/" }, { InputKeys.Multiply, "*" }, { InputKeys.Subtract, "-" },
+            { InputKeys.Add, "+" }
+        };
+        #endregion
+
+
         #region Constructors
         internal Keyboard(IKeyboard keyboard)
         {
@@ -140,12 +196,151 @@ namespace ScorpionCore.Input
 
 
         /// <summary>
+        /// Returns a value indicating if any letter key is pressed.
+        /// </summary>
+        /// <param name="letterKey">The letter key that was pressed if found.</param>
+        /// <returns></returns>
+        public bool IsLetterPressed(out InputKeys letterKey)
+        {
+            for (int i = 0; i < _lettersKeys.Length; i++)
+            {
+                if (InternalKeyboard.IsKeyPressed((int)_lettersKeys[i]))
+                {
+                    letterKey = _lettersKeys[i];
+                    return true;
+                }
+            }
+
+            letterKey = InputKeys.None;
+
+
+            return false;
+        }
+
+
+        /// <summary>
+        /// Returns a value indicating if any number key is pressed.
+        /// </summary>
+        /// <param name="symbolKey">The number key that was pressed if found.</param>
+        /// <returns></returns>
+        public bool IsNumberPressed(out InputKeys numberKey)
+        {
+            if (IsAnyShiftKeyDown())
+            {
+                numberKey = InputKeys.None;
+                return false;
+            }
+
+            for (int i = 0; i < _numbersKeys.Length; i++)
+            {
+                if (InternalKeyboard.IsKeyPressed((int)_numbersKeys[i]))
+                {
+                    numberKey = _numbersKeys[i];
+
+                    return true;
+                }
+            }
+
+            numberKey = InputKeys.None;
+
+
+            return false;
+        }
+
+
+        /// <summary>
+        /// Returns a value indicating if any symbol key is pressed.
+        /// </summary>
+        /// <param name="symbolKey">The symbok key that was pressed if found.</param>
+        /// <returns></returns>
+        public bool IsSymbolPressed(out InputKeys symbolKey)
+        {
+            if (IsAnyShiftKeyDown())
+            {
+                for (int i = 0; i < _numbersKeys.Length; i++)
+                {
+                    if (InternalKeyboard.IsKeyPressed((int)_numbersKeys[i]))
+                    {
+                        symbolKey = _numbersKeys[i];
+                        return true;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < _symbolKeys.Length; i++)
+                {
+                    if (InternalKeyboard.IsKeyPressed((int)_symbolKeys[i]))
+                    {
+                        symbolKey = _symbolKeys[i];
+                        return true;
+                    }
+                }
+            }
+
+            symbolKey = InputKeys.None;
+
+
+            return false;
+        }
+
+
+        /// <summary>
+        /// Returns the character equivalent of the given key if it was
+        /// a letter, number or symbol key.  Tilde(~) will be returned if not
+        /// a letter, number or symbol.
+        /// </summary>
+        /// <param name="key">The key to check.</param>
+        /// <returns></returns>
+        public char KeyToChar(InputKeys key)
+        {
+            if (IsAnyShiftKeyDown())
+            {
+                if (_lettersKeys.Contains(key))
+                {
+                    return key.ToString()[0];
+                }
+                else if (_symbolKeys.Contains(key))
+                {
+                    return _withShiftModifierSymbolTextItems[key][0];
+                }
+                else if (_numbersKeys.Contains(key))
+                {
+                    var keyString = key.ToString();
+
+                    return keyString[keyString.Length - 1];
+                }
+            }
+            else
+            {
+                if(_lettersKeys.Contains(key))
+                {
+                    return key.ToString().ToLower()[0];
+                }
+                else if(_symbolKeys.Contains(key))
+                {
+                    return _noShiftModifierSymbolTextItems[key][0];
+                }
+                else if(_numbersKeys.Contains(key))
+                {
+                    var keyString = key.ToString();
+
+                    return keyString[keyString.Length - 1];
+                }
+            }
+
+
+            return '~';
+        }
+
+
+        /// <summary>
         /// Returns a value indicating if any of the shift keys are being pressed down.
         /// </summary>
         /// <returns></returns>
         public bool IsAnyShiftKeyDown()
         {
-            return IsKeyDown(InputKeys.LeftShift) || IsKeyDown(InputKeys.RightShift);
+            return InternalKeyboard.IsKeyDown((int)InputKeys.LeftShift) || InternalKeyboard.IsKeyDown((int)InputKeys.RightShift);
         }
 
 
@@ -197,5 +392,4 @@ namespace ScorpionCore.Input
         }
         #endregion
     }
-
 }
