@@ -12,10 +12,16 @@ namespace ScorpionUI
     {
         private Keyboard _keyboard = new Keyboard();
         private GameText _text;
+        private string _deferredText;
         private Vector _textPosition;
         private int _characterPosition;
         private int _cursorElapsedMilliseconds;
         private bool _cursorVisible;
+        private const int LEFT_MARGIN = 5;
+        private const int RIGHT_MARGIN = 5;
+        private int _rightSide;
+        private int _leftSide;
+        private DeferredActions _deferredActions = new DeferredActions();
 
 
         #region Props
@@ -28,6 +34,30 @@ namespace ScorpionUI
         public Texture Background { get; set; }
 
         public string FontName { get; set; }
+
+        public string Text
+        {
+            get
+            {
+                return _text == null ? _deferredText : _text.Text;
+            }
+            set
+            {
+                if(_text is null)
+                {
+                    _deferredActions.Add(() =>
+                    {
+                        _text.Text = value;
+                    });
+
+                    _deferredText = value;
+                }
+                else
+                {
+                    _text.Text = value;
+                }
+            }
+        }
         #endregion
 
 
@@ -39,6 +69,24 @@ namespace ScorpionUI
 
 
         #region Public Methods
+        /// <summary>
+        /// Sets the position of the cursor in the textbox.
+        /// </summary>
+        /// <param name="position">The position of the cursor. Anything outside of the text will be set to the min or max.</param>
+        public void SetCursorPosition(int position)
+        {
+            position = position < 0 ? 0 : position;
+            position = position > Text.Length ? Text.Length : position;
+            _characterPosition = position;
+        }
+
+
+        public void SetCursorToEnd()
+        {
+            _characterPosition = Text.Length;
+        }
+
+
         public void Initialize()
         {
         }
@@ -47,11 +95,17 @@ namespace ScorpionUI
         public void LoadContent(ContentLoader contentLoader)
         {
             _text = contentLoader.LoadText(FontName);
+            _deferredActions.ExecuteAll();
         }
 
 
         public void Update(EngineTime engineTime)
         {
+            var halfWidth = Width / 2;
+
+            _leftSide = (int)Position.X - halfWidth + LEFT_MARGIN;
+            _rightSide = (int)Position.X + halfWidth - RIGHT_MARGIN;
+
             ProcessKeys();
 
             _cursorElapsedMilliseconds += engineTime.ElapsedEngineTime.Milliseconds;
@@ -68,20 +122,45 @@ namespace ScorpionUI
         {
             renderer.Render(Background, Position);
 
-            var _cursorX = CalcCursorXPos();
-
             //Update the X position of the text
-            _textPosition = new Vector((Position.X - Width / 2f) + 5f, Position.Y - _text.Height / 2f);
+            _textPosition = new Vector(_leftSide, Position.Y - _text.Height / 2f);
 
-            var cursorPositionX = _textPosition.X - 1 + _cursorX;
+            var cursorPositionX = _leftSide + CalcCursorXPos();
 
             //Render the text inside of the textbox
-            if (!string.IsNullOrEmpty(_text.Text))
-                renderer.Render(_text, _textPosition, new GameColor(0, 0, 0, 255));
+            if (!string.IsNullOrEmpty(Text))
+            {
+                if (_text.Width <= _rightSide - _leftSide)
+                {
+                    renderer.Render(_text, _textPosition, new GameColor(0, 0, 0, 255));
+                }
+                else
+                {
+                    var tempText = _text.Text;
+
+                    Text = GetCharactersToFitTextArea();
+                    renderer.Render(_text, _textPosition, new GameColor(0, 0, 0, 255));
+                    Text = tempText;
+                }
+            }
+
+            //DEBUGGING
+            //Render the margins for visual debugging
+            var leftMarginStart = new Vector(_leftSide, Position.Y - 50);
+            var leftMarginStop = new Vector(_leftSide, Position.Y + 50);
+            renderer.Line(leftMarginStart, leftMarginStop, new GameColor(0, 255, 0, 255));
+
+            var rightMarginStart = new Vector(_rightSide, Position.Y - 50);
+            var rightMarginStop = new Vector(_rightSide, Position.Y + 50);
+            renderer.Line(rightMarginStart, rightMarginStop, new GameColor(0, 255, 0, 255));
+            ///////////
 
             //Render the blinking cursor
             var lineStart = new Vector(cursorPositionX, Position.Y - (Background.Height / 2) + 3);
             var lineStop = new Vector(cursorPositionX, Position.Y + (Background.Height / 2) - 3);
+
+            lineStart.X = lineStart.X > _rightSide ? _rightSide : lineStart.X;
+            lineStop.X = lineStop.X > _rightSide ? _rightSide : lineStop.X;
 
             if (_cursorVisible)
                 renderer.Line(lineStart, lineStop, new GameColor(255, 0, 0, 255));//TODO: Change to black when finished with testing
@@ -192,9 +271,47 @@ namespace ScorpionUI
         }
 
 
-        private string GetCharactersToFitTextboxWidth()
+        private string GetCharactersToFitTextArea()
         {
-            return "";
+            var textTemp = _text.Text;
+            var textAreaWidth = _rightSide - _leftSide;
+
+            _text.Text = string.Empty;
+
+            for (int i = textTemp.Length - 1; i >= 0; i--)
+            {
+                _text.Text = _text.Text.Insert(0, textTemp[i].ToString());
+
+                //If the text is currently too wide to fit, remove one character
+                if (_text.Width > textAreaWidth)
+                {
+                    _text.Text = _text.Text.Substring(1, _text.Text.Length - 1);
+                    break;
+                }
+            }
+
+
+            var result = _text.Text;
+
+            //Set text back to original value
+            _text.Text = textTemp;
+
+
+            return result;
+        }
+
+
+        private static string Reverse(string value)
+        {
+            var result = string.Empty;
+
+            for (int i = value.Length - 1; i >= 0; i--)
+            {
+                result += value[i];
+            }
+
+
+            return result;
         }
         #endregion
     }

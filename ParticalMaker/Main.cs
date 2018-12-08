@@ -31,8 +31,11 @@ namespace ParticalMaker
             _textBox = new TextBox()
             {
                 Position = new Vector(400, 250),
-                FontName = "ControlFont"
+                FontName = "ControlFont",
+                Text = "calvinwilkinsonkr"
             };
+
+            _textBox.SetCursorToEnd();
 
             _mouse = new Mouse();
 
