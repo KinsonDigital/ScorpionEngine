@@ -6,9 +6,9 @@ using KDScorpionCore.Exceptions;
 using System.Runtime.CompilerServices;
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: InternalsVisibleTo(assemblyName: "ScorpionCore.Tests", AllInternalsVisible = true)]
-[assembly: InternalsVisibleTo(assemblyName: "ScorpionEngine.Tests", AllInternalsVisible = true)]
-[assembly: InternalsVisibleTo(assemblyName: "ScorpionUI.Tests", AllInternalsVisible = true)]
+[assembly: InternalsVisibleTo(assemblyName: "ScorpionCoreTests", AllInternalsVisible = true)]
+[assembly: InternalsVisibleTo(assemblyName: "ScorpionEngineTests", AllInternalsVisible = true)]
+[assembly: InternalsVisibleTo(assemblyName: "ScorpionUITests", AllInternalsVisible = true)]
 [assembly: InternalsVisibleTo(assemblyName: "ScorpionEngine", AllInternalsVisible = true)]
 
 namespace KDScorpionCore.Plugins

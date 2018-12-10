@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Content;
 
-[assembly: InternalsVisibleTo(assemblyName: "ScorpionEngine.Tests", AllInternalsVisible = true)]
+[assembly: InternalsVisibleTo(assemblyName: "ScorpionEngineTests", AllInternalsVisible = true)]
 
 namespace KDScorpionEngine
 {
