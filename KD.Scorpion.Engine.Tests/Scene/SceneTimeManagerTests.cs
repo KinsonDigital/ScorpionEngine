@@ -1,9 +1,10 @@
 ﻿using NUnit.Framework;
 using KDScorpionCore;
+using KDScorpionEngine;
 using KDScorpionEngine.Scene;
 using System;
 
-namespace KDScorpionEngine.Tests.Scene
+namespace KDScorpionEngineTests.Scene
 {
     [TestFixture]
     public class SceneTimeManagerTests

@@ -4,10 +4,11 @@ using KDScorpionCore;
 using KDScorpionCore.Content;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Scene;
-using KDScorpionEngine.Tests.Fakes;
+using KDScorpionEngineTests.Fakes;
 using System;
+using KDScorpionEngine;
 
-namespace KDScorpionEngine.Tests
+namespace KDScorpionEngineTests
 {
     [TestFixture]
     public class EngineTests

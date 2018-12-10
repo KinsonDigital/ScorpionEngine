@@ -6,10 +6,10 @@ using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Exceptions;
-using KDScorpionEngine.Tests.Fakes;
+using KDScorpionEngineTests.Fakes;
 using System;
 
-namespace KDScorpionEngine.Tests.Entities
+namespace KDScorpionEngineTests.Entities
 {
     [TestFixture]
     public class EntityTests

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using KDScorpionCore;
+using System.Diagnostics.CodeAnalysis;
 
 namespace KDScorpionEngine.Content
 {

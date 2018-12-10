@@ -96,7 +96,6 @@
     <Compile Include="Entities\ObjectPool.cs" />
     <Compile Include="Entities\TextEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rect.cs" />
     <Compile Include="Utils\Enums.cs" />
     <Compile Include="Utils\StopWatch.cs" />
     <Compile Include="Utils\Tools.cs" />

@@ -4,5 +4,5 @@
 // Project-level suppressions either have no target or are given 
 // a specific target and scoped to a namespace, type, member, etc.
 
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0017:Simplify object initialization", Justification = "<Pending>", Scope = "member", Target = "~M:ScorpionEngine.Tests.Behaviors.KeyboardMovementBehaviorTests.TypeOfMovement_WhenGettingAndSettingValue_CorrectlySetsValue")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0017:Simplify object initialization", Justification = "<Pending>", Scope = "member", Target = "~M:ScorpionEngineTests.Behaviors.KeyboardMovementBehaviorTests.TypeOfMovement_WhenGettingAndSettingValue_CorrectlySetsValue")]
 

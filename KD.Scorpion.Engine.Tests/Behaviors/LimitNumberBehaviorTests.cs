@@ -2,7 +2,7 @@
 using KDScorpionCore;
 using KDScorpionEngine.Behaviors;
 
-namespace KDScorpionEngine.Tests.Behaviors
+namespace KDScorpionEngineTests.Behaviors
 {
     [TestFixture]
     public class LimitNumberBehaviorTests

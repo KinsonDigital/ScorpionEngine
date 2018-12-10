@@ -1,6 +1,6 @@
 ﻿using KDScorpionEngine.Behaviors;
 
-namespace KDScorpionEngine.Tests.Fakes
+namespace KDScorpionEngineTests.Fakes
 {
     public class FakeBehavior : Behavior
     {

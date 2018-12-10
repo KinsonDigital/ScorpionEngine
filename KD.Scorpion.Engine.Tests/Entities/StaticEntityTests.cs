@@ -5,9 +5,9 @@ using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Entities;
-using KDScorpionEngine.Tests.Fakes;
+using KDScorpionEngineTests.Fakes;
 
-namespace KDScorpionEngine.Tests.Entities
+namespace KDScorpionEngineTests.Entities
 {
     [TestFixture]
     public class StaticEntityTests

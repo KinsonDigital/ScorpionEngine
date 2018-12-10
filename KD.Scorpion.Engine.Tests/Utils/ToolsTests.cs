@@ -2,7 +2,7 @@
 using KDScorpionCore;
 using KDScorpionEngine.Utils;
 
-namespace KDScorpionEngine.Tests.Utils
+namespace KDScorpionEngineTests.Utils
 {
     public class ToolsTests
     {

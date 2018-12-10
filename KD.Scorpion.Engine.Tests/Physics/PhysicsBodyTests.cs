@@ -3,9 +3,9 @@ using NUnit.Framework;
 using KDScorpionCore;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Physics;
-using KDScorpionEngine.Tests.Fakes;
+using KDScorpionEngineTests.Fakes;
 
-namespace KDScorpionEngine.Tests.Physics
+namespace KDScorpionEngineTests.Physics
 {
     public class PhysicsBodyTests
     {

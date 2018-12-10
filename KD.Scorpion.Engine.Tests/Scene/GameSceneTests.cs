@@ -5,10 +5,11 @@ using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Scene;
-using KDScorpionEngine.Tests.Fakes;
+using KDScorpionEngineTests.Fakes;
 using System;
+using KDScorpionEngine;
 
-namespace KDScorpionEngine.Tests.Scene
+namespace KDScorpionEngineTests.Scene
 {
     [TestFixture]
     public class GameSceneTests

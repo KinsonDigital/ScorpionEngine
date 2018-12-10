@@ -3,10 +3,10 @@ using NUnit.Framework;
 using KDScorpionCore;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Entities;
-using KDScorpionEngine.Tests.Fakes;
+using KDScorpionEngineTests.Fakes;
 using System.Drawing;
 
-namespace KDScorpionEngine.Tests.Entities
+namespace KDScorpionEngineTests.Entities
 {
     [TestFixture]
     public class TextEntityTests

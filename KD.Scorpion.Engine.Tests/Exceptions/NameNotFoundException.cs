@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using KDScorpionEngine.Exceptions;
 
-namespace KDScorpionEngine.Tests.Exceptions
+namespace KDScorpionEngineTests.Exceptions
 {
     [TestFixture]
     public class NameNotFoundExceptionTests

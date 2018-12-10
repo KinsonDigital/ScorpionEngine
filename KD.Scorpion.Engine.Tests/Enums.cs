@@ -1,4 +1,4 @@
-﻿namespace KDScorpionEngine.Tests
+﻿namespace KDScorpionEngineTests
 {
     /// <summary>
     /// Represents the type of plugin library in the <see cref="PluginSystem"/>

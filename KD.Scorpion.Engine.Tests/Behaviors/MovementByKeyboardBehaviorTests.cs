@@ -5,9 +5,9 @@ using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Entities;
-using KDScorpionEngine.Tests.Fakes;
+using KDScorpionEngineTests.Fakes;
 
-namespace KDScorpionEngine.Tests.Behaviors
+namespace KDScorpionEngineTests.Behaviors
 {
     [TestFixture]
     public class MovementByKeyboardBehaviorTests

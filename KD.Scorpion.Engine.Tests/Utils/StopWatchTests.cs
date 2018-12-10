@@ -2,9 +2,9 @@
 using KDScorpionCore;
 using KDScorpionEngine.Utils;
 using System;
+using KDScorpionEngine;
 
-
-namespace KDScorpionEngine.Tests.Utils
+namespace KDScorpionEngineTests.Utils
 {
     public class StopWatchTests
     {

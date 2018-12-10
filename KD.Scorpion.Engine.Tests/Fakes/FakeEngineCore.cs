@@ -2,7 +2,7 @@
 using KDScorpionCore.Plugins;
 using System;
 
-namespace KDScorpionEngine.Tests.Fakes
+namespace KDScorpionEngineTests.Fakes
 {
     public class FakeEngineCore : IEngineCore
     {

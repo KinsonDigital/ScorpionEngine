@@ -5,8 +5,9 @@ using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Behaviors;
 using System;
+using KDScorpionEngine;
 
-namespace KDScorpionEngine.Tests.Input
+namespace KDScorpionEngineTests.Input
 {
     public class KeyBehaviorTests
     {

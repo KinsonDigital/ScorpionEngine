@@ -1,9 +1,10 @@
 ﻿using NUnit.Framework;
+using KDScorpionEngine;
 using KDScorpionEngine.Utils;
 using System;
 
 
-namespace KDScorpionEngine.Tests.Utils
+namespace KDScorpionEngineTests.Utils
 {
     public class CounterTests
     {

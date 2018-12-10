@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using KDScorpionEngine.Events;
 
-namespace KDScorpionEngine.Tests.Events
+namespace KDScorpionEngineTests.Events
 {
     [TestFixture]
     public class SceneChangedEventArgsTests

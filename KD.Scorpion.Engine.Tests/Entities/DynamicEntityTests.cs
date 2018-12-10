@@ -5,11 +5,11 @@ using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Entities;
 using KDScorpionEngine.Exceptions;
-using KDScorpionEngine.Tests.Fakes;
+using KDScorpionEngineTests.Fakes;
 using System;
 using System.Linq;
 
-namespace KDScorpionEngine.Tests.Entities
+namespace KDScorpionEngineTests.Entities
 {
     [TestFixture]
     public class DynamicEntityTests

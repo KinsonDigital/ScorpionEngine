@@ -5,9 +5,9 @@ using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngine.Physics;
-using KDScorpionEngine.Tests.Fakes;
+using KDScorpionEngineTests.Fakes;
 
-namespace KDScorpionEngine.Tests.Physics
+namespace KDScorpionEngineTests.Physics
 {
     public class PhysicsWorldTests
     {

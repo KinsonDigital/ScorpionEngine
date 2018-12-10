@@ -8,8 +8,9 @@ using KDScorpionCore.Plugins;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngine.Scene;
 using System;
+using KDScorpionEngine;
 
-namespace KDScorpionEngine.Tests.Scene
+namespace KDScorpionEngineTests.Scene
 {
     [TestFixture]
     public class SceneManagerTests

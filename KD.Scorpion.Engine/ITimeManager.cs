@@ -1,4 +1,6 @@
-﻿namespace KDScorpionEngine
+﻿using KDScorpionCore;
+
+namespace KDScorpionEngine
 {
     /// <summary>
     /// Provides functionality for managing time and state of a system.

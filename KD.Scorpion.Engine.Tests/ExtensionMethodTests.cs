@@ -1,8 +1,9 @@
 ﻿using NUnit.Framework;
 using KDScorpionCore;
 using System;
+using KDScorpionEngine;
 
-namespace KDScorpionEngine.Tests
+namespace KDScorpionEngineTests
 {
     [TestFixture]
     public class ExtensionMethodTests

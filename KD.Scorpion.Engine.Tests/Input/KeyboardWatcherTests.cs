@@ -6,9 +6,9 @@ using KDScorpionCore.Plugins;
 using KDScorpionEngine.Input;
 using System;
 using System.Collections.Generic;
+using KDScorpionEngine;
 
-
-namespace KDScorpionEngine.Tests.Input
+namespace KDScorpionEngineTests.Input
 {
     public class KeyboardWatcherTests
     {

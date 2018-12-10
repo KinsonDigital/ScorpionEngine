@@ -2,8 +2,9 @@
 using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
+using KDScorpionEngine;
 
-namespace KDScorpionEngine.Tests.Fakes
+namespace KDScorpionEngineTests.Fakes
 {
     public class FakeEngine : Engine
     {

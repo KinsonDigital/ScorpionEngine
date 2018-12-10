@@ -2,7 +2,7 @@
 using KDScorpionCore.Graphics;
 using KDScorpionEngine.Entities;
 
-namespace KDScorpionEngine.Tests.Fakes
+namespace KDScorpionEngineTests.Fakes
 {
     public class FakeEntity : Entity
     {

@@ -3,7 +3,7 @@ using KDScorpionEngine.Entities;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngine.Physics;
 
-namespace KDScorpionEngine.Tests.Exceptions
+namespace KDScorpionEngineTests.Exceptions
 {
     [TestFixture]
     public class EntityNotInitializedExceptionTests

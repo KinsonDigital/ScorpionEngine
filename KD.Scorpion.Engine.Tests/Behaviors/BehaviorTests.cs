@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
 using KDScorpionCore;
-using KDScorpionEngine.Tests.Fakes;
+using KDScorpionEngineTests.Fakes;
 
-namespace KDScorpionEngine.Tests.Behaviors
+namespace KDScorpionEngineTests.Behaviors
 {
     [TestFixture]
     public class BehaviorTests

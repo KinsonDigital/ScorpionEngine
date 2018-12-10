@@ -2,7 +2,7 @@
 using KDScorpionCore.Graphics;
 using KDScorpionEngine.Scene;
 
-namespace KDScorpionEngine.Tests.Fakes
+namespace KDScorpionEngineTests.Fakes
 {
     public class FakeGameScene : GameScene
     {

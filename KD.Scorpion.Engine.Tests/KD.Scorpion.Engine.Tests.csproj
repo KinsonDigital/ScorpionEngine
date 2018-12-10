@@ -7,7 +7,7 @@
     <ProjectGuid>{4357E355-FB3D-4B43-9E89-5718D1FB9389}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KD.Scorpion.Engine.Tests</RootNamespace>
+    <RootNamespace>KDScorpionEngineTests</RootNamespace>
     <AssemblyName>ScorpionEngine.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -87,7 +87,6 @@
     <Compile Include="Fakes\FakeData.cs" />
     <Compile Include="Input\MouseWatcherTests.cs" />
     <Compile Include="Input\KeyBehaviorTests.cs" />
-    <Compile Include="RectTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\StopWatchTests.cs" />
     <Compile Include="Utils\ToolsTests.cs" />

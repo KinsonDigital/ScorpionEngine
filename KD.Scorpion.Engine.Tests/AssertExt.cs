@@ -2,7 +2,7 @@
 using System;
 
 
-namespace KDScorpionEngine.Tests
+namespace KDScorpionEngineTests
 {
     public static class AssertExt
     {

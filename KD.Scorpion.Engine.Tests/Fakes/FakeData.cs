@@ -1,4 +1,4 @@
-﻿namespace KDScorpionEngine.Tests.Fakes
+﻿namespace KDScorpionEngineTests.Fakes
 {
     public class FakeData
     {
