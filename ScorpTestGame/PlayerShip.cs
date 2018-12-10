@@ -1,12 +1,11 @@
-﻿using ScorpionCore;
-using ScorpionCore.Content;
-using ScorpionCore.Graphics;
-using ScorpionEngine;
-using ScorpionEngine.Behaviors;
-using ScorpionEngine.Entities;
-using ScorpionEngine.Input;
-using ScorpionEngine.Particles;
-using ScorpionEngine.Utils;
+﻿using KDParticleEngine;
+using KDScorpionCore;
+using KDScorpionCore.Content;
+using KDScorpionCore.Graphics;
+using KDScorpionCore.Input;
+using KDScorpionEngine.Behaviors;
+using KDScorpionEngine.Entities;
+using KDScorpionEngine.Utils;
 
 namespace ScorpTestGame
 {
@@ -71,8 +70,8 @@ namespace ScorpTestGame
             _movementBehavior = new MoveFowardKeyboardBehavior<PlayerShip>(this, 2f, 0.25f)
             {
                 MoveFowardKey = InputKeys.Up,
-                RotateCW = InputKeys.Right,
-                RotateCCW = InputKeys.Left,
+                RotateCWKey = InputKeys.Right,
+                RotateCCWKey = InputKeys.Left,
                 Enabled = false
             };
             

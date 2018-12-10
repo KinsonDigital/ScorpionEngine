@@ -1,8 +1,8 @@
-using ScorpionCore;
-using ScorpionCore.Content;
-using ScorpionCore.Graphics;
-using ScorpionEngine;
-using ScorpionEngine.Scene;
+using KDScorpionCore;
+using KDScorpionCore.Content;
+using KDScorpionCore.Graphics;
+using KDScorpionEngine;
+using KDScorpionEngine.Scene;
 using ScorpTestGame.Scenes;
 
 namespace ScorpTestGame

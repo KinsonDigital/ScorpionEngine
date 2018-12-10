@@ -1,4 +1,4 @@
-﻿using ScorpionCore;
+﻿using KDScorpionCore;
 using Microsoft.Xna.Framework;
 using System;
 

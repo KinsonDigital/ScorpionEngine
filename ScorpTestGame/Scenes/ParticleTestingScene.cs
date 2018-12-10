@@ -1,10 +1,9 @@
-﻿using ScorpionCore;
-using ScorpionCore.Content;
-using ScorpionCore.Graphics;
-using ScorpionEngine;
-using ScorpionEngine.Input;
-using ScorpionEngine.Particles;
-using ScorpionEngine.Scene;
+﻿using KDParticleEngine;
+using KDScorpionCore;
+using KDScorpionCore.Content;
+using KDScorpionCore.Graphics;
+using KDScorpionCore.Input;
+using KDScorpionEngine.Scene;
 
 namespace ScorpTestGame.Scenes
 {

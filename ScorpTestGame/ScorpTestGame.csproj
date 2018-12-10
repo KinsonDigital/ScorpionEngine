@@ -13,27 +13,28 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -49,6 +50,10 @@
     <Compile Include="Scenes\ParticleTestingScene.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AdditionalFiles Include="..\ScorpionCore.DepGraph\Main.layerdiagram">
+      <Link>Main.layerdiagram</Link>
+      <Visible>False</Visible>
+    </AdditionalFiles>
     <None Include="App.config" />
     <None Include="Content\Content.mgcb" />
     <Content Include="Content\Fonts\MyGameText.spritefont" />
@@ -62,6 +67,7 @@
     <None Include="MonoGame.Framework.dll.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="packages.config" />
     <None Include="x64\libopenal.so.1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -76,13 +82,21 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ScorpionCore\ScorpionCore.csproj">
-      <Project>{3E136A13-190C-4390-9E74-8849022852F6}</Project>
-      <Name>ScorpionCore</Name>
+    <ProjectReference Include="..\KD.Particle.Engine\KD.Particle.Engine.csproj">
+      <Project>{6595ff25-b463-480d-9f26-c73c66c2d5f0}</Project>
+      <Name>KD.Particle.Engine</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ScorpionEngine\ScorpionEngine.csproj">
+    <ProjectReference Include="..\KD.Scorpion.Core\KD.Scorpion.Core.csproj">
+      <Project>{3E136A13-190C-4390-9E74-8849022852F6}</Project>
+      <Name>KD.Scorpion.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KD.Scorpion.Engine\KD.Scorpion.Engine.csproj">
       <Project>{91495c38-9695-4905-b5d9-0debb25e1a0f}</Project>
-      <Name>ScorpionEngine</Name>
+      <Name>KD.Scorpion.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KD.Scorpion.UI\KD.Scorpion.UI.csproj">
+      <Project>{ef70de07-de6f-40c6-af90-32e02090592c}</Project>
+      <Name>KD.Scorpion.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -110,60 +124,47 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Analyzer Include="..\packages\Microsoft.DependencyValidation.Analyzers.0.9.0\analyzers\dotnet\cs\Microsoft.DependencyValidation.Analyzers.resources.dll" />
+    <Analyzer Include="..\packages\Microsoft.DependencyValidation.Analyzers.0.9.0\analyzers\dotnet\Microsoft.DependencyValidation.Analyzers.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>REM Make sure that a Graphics directory exists
-
 mkdir "$(TargetDir)Content\Graphics"
 
 
-
 REM Copy the graphics content to the bin output folder
-
 xcopy "$(ProjectDir)Content\bin\Windows\Graphics" "$(TargetDir)Content\Graphics" /Y/E
+
 
 REM Make sure that a Fonts directory exists
 mkdir "$(TargetDir)Content\Fonts"
 
-REM Copy the Fonts content to the bin output folder
 
+REM Copy the Fonts content to the bin output folder
 xcopy "$(ProjectDir)Content\bin\Windows\Fonts" "$(TargetDir)Content\Fonts" /Y
 
 
-
 REM Copy the MonoGame Engine plugin to the output folder
-
-copy "$(SolutionDir)MonoScorpPlugin\bin\Debug\MonoScorpPlugin.dll" "$(TargetDir)MonoScorpPlugin.dll" /Y
-
-copy "$(SolutionDir)MonoScorpPlugin\bin\Debug\MonoScorpPlugin.pdb" "$(TargetDir)MonoScorpPlugin.pdb" /Y
-
+copy "$(SolutionDir)MonoScorpPlugin\bin\$(PlatformName)\Debug\MonoScorpPlugin.dll" "$(TargetDir)MonoScorpPlugin.dll" /Y
+copy "$(SolutionDir)MonoScorpPlugin\bin\$(PlatformName)\Debug\MonoScorpPlugin.pdb" "$(TargetDir)MonoScorpPlugin.pdb" /Y
 
 
 REM Copy the Velcro Physics Plugin to the output folder
-
 del "$(TargetDir)VelcroPhysicsPlugin.dll" /F /Q
-
-copy "$(SolutionDir)VelcroPhysicsPlugin\bin\Debug\VelcroPhysicsPlugin.dll" "$(TargetDir)VelcroPhysicsPlugin.dll"
-
-copy "$(SolutionDir)VelcroPhysicsPlugin\bin\Debug\VelcroPhysicsPlugin.pdb" "$(TargetDir)VelcroPhysicsPlugin.pdb"
-
+copy "$(SolutionDir)VelcroPhysicsPlugin\bin\$(PlatformName)\Debug\VelcroPhysicsPlugin.dll" "$(TargetDir)VelcroPhysicsPlugin.dll"
+copy "$(SolutionDir)VelcroPhysicsPlugin\bin\$(PlatformName)\Debug\VelcroPhysicsPlugin.pdb" "$(TargetDir)VelcroPhysicsPlugin.pdb"
 
 
 REM Copy the Main Velcro Physics Library to the output folder
-
 del "$(TargetDir)VelcroPhysics.dll" /F /Q
-
 copy "$(SolutionDir)VelcroPhysicsPlugin\bin\Debug\VelcroPhysics.dll" "$(TargetDir)VelcroPhysics.dll"
-
 copy "$(SolutionDir)VelcroPhysicsPlugin\bin\Debug\VelcroPhysics.pdb" "$(TargetDir)VelcroPhysics.pdb"
 
 
-
 REM Copy the MonoGame.Framework.dll file to the output directory
-
 del  "$(TargetDir)MonoGame.Framework.dll" /F /Q
-
-copy "$(SolutionDir)MonoScorpPlugin\bin\Debug\MonoGame.Framework.dll" "$(TargetDir)MonoGame.Framework.dll"</PostBuildEvent>
+copy "$(SolutionDir)MonoScorpPlugin\bin\$(PlatformName)\Debug\MonoGame.Framework.dll" "$(TargetDir)MonoGame.Framework.dll"</PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -1,4 +1,4 @@
-﻿using ScorpionCore;
+﻿using KDScorpionCore;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
@@ -8,17 +8,9 @@ namespace MonoScorpPlugin
     public class MonoText : IText
     {
         #region Props
-        public int Width
-        {
-            get => (int)Font.MeasureString(Text).X;
-            set { }
-        }
+        public int Width => Text == "" ? 0 : (int)Font.MeasureString(Text).X;
 
-        public int Height
-        {
-            get => (int)Font.MeasureString("").X;
-            set { }
-        }
+        public int Height => Text == "" ? 0 : (int)Font.MeasureString(Text).Y;
 
         public string Text { get; set; } = "";
 
@@ -32,6 +24,8 @@ namespace MonoScorpPlugin
         public byte[] Color { get; set; } = new byte[] { 255, 255, 255, 255 };
 
         internal SpriteFont Font { get; private set; }
+
+
         #endregion
 
 

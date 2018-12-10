@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ScorpionCore;
-using ScorpionCore.Plugins;
+using KDScorpionCore;
+using KDScorpionCore.Graphics;
+using KDScorpionCore.Plugins;
 using System;
 
 namespace MonoScorpPlugin
@@ -49,33 +50,55 @@ namespace MonoScorpPlugin
 
         public void Render(ITexture texture, float x, float y)
         {
-            var srcRect = new Rectangle(0, 0, texture.Width, texture.Height);
             var textureOrigin = new Vector2(texture.Width / 2f, texture.Height / 2f);
             var position = new Vector2(x, y);
 
-            _spriteBatch.Draw(texture.GetTexture<Texture2D>(), position, srcRect, Color.White, 0, textureOrigin, 1f, SpriteEffects.None, 0f);
+            _spriteBatch.Draw(texture.GetTexture<Texture2D>(), position, null, Color.White, 0, textureOrigin, 1f, SpriteEffects.None, 0f);
+        }
+
+
+        public void Line(float startX, float startY, float endX, float endY, byte[] color)
+        {
+            //If the color param does not have at least 4 items, throw an exception
+            if (color == null)
+                throw new ArgumentException($"The param '{nameof(color)}' cannot be null");
+
+            if (color.Length < 4)
+                throw new ArgumentException($"The param '{nameof(color)}' must have at lest 4 items.");
+
+            var lineColor = new Color(color[0], color[1], color[2], color[3]);
+
+            _spriteBatch.DrawLine(startX, startY, endX, endY, lineColor);
         }
 
 
         //Angle is in degrees
         public void Render(ITexture texture, float x, float y, float angle)
         {
-            var srcRect = new Rectangle(0, 0, texture.Width, texture.Height);
             var textureOrigin = new Vector2(texture.Width / 2f, texture.Height / 2f);
             var position = new Vector2(x, y);
 
-            _spriteBatch.Draw(texture.GetTexture<Texture2D>(), position, srcRect, Color.White, angle.ToRadians(), textureOrigin, 1f, SpriteEffects.None, 0f);
+            _spriteBatch.Draw(texture.GetTexture<Texture2D>(), position, null, Color.White, angle.ToRadians(), textureOrigin, 1f, SpriteEffects.None, 0f);
         }
 
 
         //Angle is in degrees
         public void Render(ITexture texture, float x, float y, float angle, float size, byte red, byte green, byte blue, byte alpha)
         {
-            var srcRect = new Rectangle(0, 0, texture.Width, texture.Height);
             var textureOrigin = new Vector2(texture.Width / 2f, texture.Height / 2f);
             var position = new Vector2(x, y);
 
-            _spriteBatch.Draw(texture.GetTexture<Texture2D>(), position, srcRect, new Color(red, green, blue, alpha), angle.ToRadians(), textureOrigin, size, SpriteEffects.None, 0f);
+            _spriteBatch.Draw(texture.GetTexture<Texture2D>(), position, null, new Color(red, green, blue, alpha), angle.ToRadians(), textureOrigin, size, SpriteEffects.None, 0f);
+        }
+
+
+        public void RenderTextureArea(ITexture texture, Rect area, float x, float y)
+        {
+            var srcRect = new Rectangle((int)area.X, (int)area.Y, (int)area.Width, (int)area.Height);
+            var textureOrigin = new Vector2(texture.Width / 2f, texture.Height / 2f);
+            var position = new Vector2(x, y);
+
+            _spriteBatch.Draw(texture.GetTexture<Texture2D>(), position, srcRect, Color.Orange, 0, textureOrigin, 1, SpriteEffects.None, 0f);
         }
 
 
