@@ -1,7 +1,7 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Graphics;
 
-namespace KDScorpionEngine.Particles
+namespace KDParticleEngine
 {
     /// <summary>
     /// Represents a single particle with various properties that dictate how the <see cref="Particle"/>

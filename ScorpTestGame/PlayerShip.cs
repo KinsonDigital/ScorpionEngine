@@ -1,10 +1,10 @@
-﻿using KDScorpionCore;
+﻿using KDParticleEngine;
+using KDScorpionCore;
 using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Input;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Entities;
-using KDScorpionEngine.Particles;
 using KDScorpionEngine.Utils;
 
 namespace ScorpTestGame

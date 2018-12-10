@@ -57,8 +57,6 @@
     <Compile Include="Exceptions\MissingVerticesException.cs" />
     <Compile Include="Exceptions\SceneNotFoundException.cs" />
     <Compile Include="Input\IInputWatcher.cs" />
-    <Compile Include="Particles\Particle.cs" />
-    <Compile Include="Particles\ParticleEngine.cs" />
     <Compile Include="Utils\Counter.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Events\FrameStackFinishedEventArgs.cs" />

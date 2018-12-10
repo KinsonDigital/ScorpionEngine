@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace KDScorpionEngine.Particles
+namespace KDParticleEngine
 {
     //TODO: Look into using a better random number generator than the built in .NET framework one
 
@@ -52,7 +52,7 @@ namespace KDScorpionEngine.Particles
                 _enabled = value;
 
                 //If the engine is disabled, kill all the particles
-                if(!_enabled)
+                if (!_enabled)
                 {
                     for (int i = 0; i < _particles.Count; i++)
                     {
