@@ -7,7 +7,7 @@
     <ProjectGuid>{EF70DE07-DE6F-40C6-AF90-32E02090592C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ScorpionUI</RootNamespace>
+    <RootNamespace>KDScorpionUI</RootNamespace>
     <AssemblyName>ScorpionUI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

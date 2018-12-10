@@ -68,9 +68,9 @@
       <Project>{3E136A13-190C-4390-9E74-8849022852F6}</Project>
       <Name>KD.Scorpion.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ScorpionUI\ScorpionUI.csproj">
+    <ProjectReference Include="..\KD.Scorpion.UI\KD.Scorpion.UI.csproj">
       <Project>{ef70de07-de6f-40c6-af90-32e02090592c}</Project>
-      <Name>ScorpionUI</Name>
+      <Name>KD.Scorpion.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

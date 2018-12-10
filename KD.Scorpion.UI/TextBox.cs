@@ -4,7 +4,7 @@ using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Input;
 
-namespace ScorpionUI
+namespace KDScorpionUI
 {
     /// <summary>
     /// Provides the ability to enter text into a box.

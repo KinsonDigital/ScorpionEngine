@@ -1,6 +1,6 @@
 ﻿using KDScorpionCore;
 
-namespace ScorpionUI
+namespace KDScorpionUI
 {
     /// <summary>
     /// A user interface object that can be updated and rendered to the screen.

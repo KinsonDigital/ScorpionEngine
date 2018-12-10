@@ -1,7 +1,7 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Graphics;
 
-namespace ScorpionUI
+namespace KDScorpionUI
 {
     /// <summary>
     /// Represents a single piece of text rendered to a screen.

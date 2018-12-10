@@ -4,7 +4,7 @@ using KDScorpionCore.Graphics;
 using KDScorpionCore.Input;
 using System;
 
-namespace ScorpionUI
+namespace KDScorpionUI
 {
     public class Button : IControl
     {

@@ -4,7 +4,7 @@ using KDScorpionCore.Graphics;
 using KDScorpionCore.Content;
 using KDScorpionCore;
 using KDScorpionCore.Input;
-using ScorpionUI;
+using KDScorpionUI;
 
 namespace ScorpTestGame.Scenes
 {

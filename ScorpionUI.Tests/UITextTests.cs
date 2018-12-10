@@ -5,7 +5,7 @@ using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
 using System;
 
-namespace ScorpionUI.Tests
+namespace KDScorpionUI.Tests
 {
     public class UITextTests
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ScorpionUI
+namespace KDScorpionUI
 {
     /// <summary>
     /// Provides verious extensions
