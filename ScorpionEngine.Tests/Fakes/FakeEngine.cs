@@ -3,7 +3,7 @@ using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
 
-namespace ScorpionEngine.Tests.Fakes
+namespace KDScorpionEngine.Tests.Fakes
 {
     public class FakeEngine : Engine
     {

@@ -3,11 +3,11 @@ using NUnit.Framework;
 using KDScorpionCore;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
-using ScorpionEngine.Exceptions;
-using ScorpionEngine.Physics;
-using ScorpionEngine.Tests.Fakes;
+using KDScorpionEngine.Exceptions;
+using KDScorpionEngine.Physics;
+using KDScorpionEngine.Tests.Fakes;
 
-namespace ScorpionEngine.Tests.Physics
+namespace KDScorpionEngine.Tests.Physics
 {
     public class PhysicsWorldTests
     {

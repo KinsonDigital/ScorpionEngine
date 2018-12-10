@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
 using KDScorpionCore;
-using ScorpionEngine.Utils;
+using KDScorpionEngine.Utils;
 
-namespace ScorpionEngine.Tests.Utils
+namespace KDScorpionEngine.Tests.Utils
 {
     public class ToolsTests
     {

@@ -5,11 +5,11 @@ using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
-using ScorpionEngine.Exceptions;
-using ScorpionEngine.Scene;
+using KDScorpionEngine.Exceptions;
+using KDScorpionEngine.Scene;
 using System;
 
-namespace ScorpionEngine.Tests.Scene
+namespace KDScorpionEngine.Tests.Scene
 {
     [TestFixture]
     public class SceneManagerTests

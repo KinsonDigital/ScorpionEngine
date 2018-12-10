@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
-using ScorpionEngine.Exceptions;
+using KDScorpionEngine.Exceptions;
 
-namespace ScorpionEngine.Tests.Exceptions
+namespace KDScorpionEngine.Tests.Exceptions
 {
     [TestFixture]
     public class SceneNotFoundExceptionTests

@@ -1,8 +1,8 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Graphics;
-using ScorpionEngine.Scene;
+using KDScorpionEngine.Scene;
 
-namespace ScorpionEngine.Tests.Fakes
+namespace KDScorpionEngine.Tests.Fakes
 {
     public class FakeGameScene : GameScene
     {

@@ -2,8 +2,8 @@
 using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Input;
-using ScorpionEngine.Particles;
-using ScorpionEngine.Scene;
+using KDScorpionEngine.Particles;
+using KDScorpionEngine.Scene;
 
 namespace ScorpTestGame.Scenes
 {

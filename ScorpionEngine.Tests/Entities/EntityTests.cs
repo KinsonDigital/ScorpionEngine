@@ -4,12 +4,12 @@ using KDScorpionCore;
 using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
-using ScorpionEngine.Behaviors;
-using ScorpionEngine.Exceptions;
-using ScorpionEngine.Tests.Fakes;
+using KDScorpionEngine.Behaviors;
+using KDScorpionEngine.Exceptions;
+using KDScorpionEngine.Tests.Fakes;
 using System;
 
-namespace ScorpionEngine.Tests.Entities
+namespace KDScorpionEngine.Tests.Entities
 {
     [TestFixture]
     public class EntityTests

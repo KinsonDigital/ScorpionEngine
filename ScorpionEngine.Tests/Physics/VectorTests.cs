@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using KDScorpionCore;
 
-namespace ScorpionEngine.Tests.Physics
+namespace KDScorpionEngine.Tests.Physics
 {
     public class VectorTests
     {

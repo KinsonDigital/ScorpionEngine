@@ -3,7 +3,7 @@ using KDScorpionCore.Plugins;
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace ScorpionEngine.Tests.Fakes
+namespace KDScorpionEngine.Tests.Fakes
 {
     [ExcludeFromCodeCoverage]
     public class FakePhysicsBody : IPhysicsBody

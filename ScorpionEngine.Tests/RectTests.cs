@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using KDScorpionCore;
 
-namespace ScorpionEngine.Tests
+namespace KDScorpionEngine.Tests
 {
     [TestFixture]
     public class RectTests

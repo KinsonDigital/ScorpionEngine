@@ -2,10 +2,10 @@
 using NUnit.Framework;
 using KDScorpionCore;
 using KDScorpionCore.Plugins;
-using ScorpionEngine.Physics;
-using ScorpionEngine.Tests.Fakes;
+using KDScorpionEngine.Physics;
+using KDScorpionEngine.Tests.Fakes;
 
-namespace ScorpionEngine.Tests.Physics
+namespace KDScorpionEngine.Tests.Physics
 {
     public class PhysicsBodyTests
     {

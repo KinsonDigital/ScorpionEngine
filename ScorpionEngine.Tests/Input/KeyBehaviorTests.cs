@@ -3,10 +3,10 @@ using NUnit.Framework;
 using KDScorpionCore;
 using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
-using ScorpionEngine.Behaviors;
+using KDScorpionEngine.Behaviors;
 using System;
 
-namespace ScorpionEngine.Tests.Input
+namespace KDScorpionEngine.Tests.Input
 {
     public class KeyBehaviorTests
     {

@@ -1,8 +1,8 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Graphics;
-using ScorpionEngine.Entities;
+using KDScorpionEngine.Entities;
 
-namespace ScorpionEngine.Tests.Fakes
+namespace KDScorpionEngine.Tests.Fakes
 {
     public class FakeEntity : Entity
     {

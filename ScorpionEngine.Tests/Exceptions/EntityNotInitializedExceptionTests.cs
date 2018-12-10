@@ -1,9 +1,9 @@
 ﻿using NUnit.Framework;
-using ScorpionEngine.Entities;
-using ScorpionEngine.Exceptions;
-using ScorpionEngine.Physics;
+using KDScorpionEngine.Entities;
+using KDScorpionEngine.Exceptions;
+using KDScorpionEngine.Physics;
 
-namespace ScorpionEngine.Tests.Exceptions
+namespace KDScorpionEngine.Tests.Exceptions
 {
     [TestFixture]
     public class EntityNotInitializedExceptionTests

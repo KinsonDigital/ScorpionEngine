@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
-using ScorpionEngine.Events;
+using KDScorpionEngine.Events;
 
-namespace ScorpionEngine.Tests.Events
+namespace KDScorpionEngine.Tests.Events
 {
     [TestFixture]
     public class FrameStackFinishedEventArgsTests

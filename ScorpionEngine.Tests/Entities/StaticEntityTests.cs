@@ -3,11 +3,11 @@ using NUnit.Framework;
 using KDScorpionCore;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
-using ScorpionEngine.Behaviors;
-using ScorpionEngine.Entities;
-using ScorpionEngine.Tests.Fakes;
+using KDScorpionEngine.Behaviors;
+using KDScorpionEngine.Entities;
+using KDScorpionEngine.Tests.Fakes;
 
-namespace ScorpionEngine.Tests.Entities
+namespace KDScorpionEngine.Tests.Entities
 {
     [TestFixture]
     public class StaticEntityTests

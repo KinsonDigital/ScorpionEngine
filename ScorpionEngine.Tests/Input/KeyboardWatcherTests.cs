@@ -3,12 +3,12 @@ using NUnit.Framework;
 using KDScorpionCore;
 using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
-using ScorpionEngine.Input;
+using KDScorpionEngine.Input;
 using System;
 using System.Collections.Generic;
 
 
-namespace ScorpionEngine.Tests.Input
+namespace KDScorpionEngine.Tests.Input
 {
     public class KeyboardWatcherTests
     {

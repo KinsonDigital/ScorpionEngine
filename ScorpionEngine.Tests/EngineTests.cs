@@ -3,11 +3,11 @@ using NUnit.Framework;
 using KDScorpionCore;
 using KDScorpionCore.Content;
 using KDScorpionCore.Plugins;
-using ScorpionEngine.Scene;
-using ScorpionEngine.Tests.Fakes;
+using KDScorpionEngine.Scene;
+using KDScorpionEngine.Tests.Fakes;
 using System;
 
-namespace ScorpionEngine.Tests
+namespace KDScorpionEngine.Tests
 {
     [TestFixture]
     public class EngineTests

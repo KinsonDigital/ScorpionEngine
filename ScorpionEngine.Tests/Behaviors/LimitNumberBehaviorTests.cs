@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
 using KDScorpionCore;
-using ScorpionEngine.Behaviors;
+using KDScorpionEngine.Behaviors;
 
-namespace ScorpionEngine.Tests.Behaviors
+namespace KDScorpionEngine.Tests.Behaviors
 {
     [TestFixture]
     public class LimitNumberBehaviorTests

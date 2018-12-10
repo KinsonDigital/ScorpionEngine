@@ -42,8 +42,8 @@
       <Name>ScorpionCore</Name>
       <Project>{3e136a13-190c-4390-9e74-8849022852f6}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\ScorpionEngine\ScorpionEngine.csproj">
-      <Name>ScorpionEngine</Name>
+    <ProjectReference Include="..\ScorpionEngine\KD.Scorpion.Engine.csproj">
+      <Name>KD.Scorpion.Engine</Name>
       <Project>{91495c38-9695-4905-b5d9-0debb25e1a0f}</Project>
     </ProjectReference>
     <ProjectReference Include="..\ScorpTestGame\ScorpTestGame.csproj">

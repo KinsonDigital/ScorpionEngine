@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
-using ScorpionEngine.Content;
+using KDScorpionEngine.Content;
 
-namespace ScorpionEngine.Tests.Content
+namespace KDScorpionEngine.Tests.Content
 {
     [TestFixture]
     public class ContentExtensionMethodTests

@@ -3,12 +3,12 @@ using NUnit.Framework;
 using KDScorpionCore;
 using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
-using ScorpionEngine.Behaviors;
-using ScorpionEngine.Entities;
-using ScorpionEngine.Tests.Fakes;
+using KDScorpionEngine.Behaviors;
+using KDScorpionEngine.Entities;
+using KDScorpionEngine.Tests.Fakes;
 using System;
 
-namespace ScorpionEngine.Tests.Behaviors
+namespace KDScorpionEngine.Tests.Behaviors
 {
     [TestFixture]
     public class MoveFowardKeyboardBehaviorTests

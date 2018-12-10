@@ -86,9 +86,9 @@
       <Project>{3E136A13-190C-4390-9E74-8849022852F6}</Project>
       <Name>KD.Scorpion.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ScorpionEngine\ScorpionEngine.csproj">
+    <ProjectReference Include="..\KD.Scorpion.Engine\KD.Scorpion.Engine.csproj">
       <Project>{91495c38-9695-4905-b5d9-0debb25e1a0f}</Project>
-      <Name>ScorpionEngine</Name>
+      <Name>KD.Scorpion.Engine</Name>
     </ProjectReference>
     <ProjectReference Include="..\ScorpionUI\ScorpionUI.csproj">
       <Project>{ef70de07-de6f-40c6-af90-32e02090592c}</Project>

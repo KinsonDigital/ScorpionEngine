@@ -3,13 +3,13 @@ using NUnit.Framework;
 using KDScorpionCore;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
-using ScorpionEngine.Entities;
-using ScorpionEngine.Exceptions;
-using ScorpionEngine.Tests.Fakes;
+using KDScorpionEngine.Entities;
+using KDScorpionEngine.Exceptions;
+using KDScorpionEngine.Tests.Fakes;
 using System;
 using System.Linq;
 
-namespace ScorpionEngine.Tests.Entities
+namespace KDScorpionEngine.Tests.Entities
 {
     [TestFixture]
     public class DynamicEntityTests

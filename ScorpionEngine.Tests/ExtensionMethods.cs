@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
-namespace ScorpionEngine.Tests
+namespace KDScorpionEngine.Tests
 {
     [ExcludeFromCodeCoverage]
     public static class ExtensionMethods

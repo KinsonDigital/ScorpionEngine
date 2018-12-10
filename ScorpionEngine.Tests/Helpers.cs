@@ -3,7 +3,7 @@ using KDScorpionCore.Plugins;
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace ScorpionEngine.Tests
+namespace KDScorpionEngine.Tests
 {
     [ExcludeFromCodeCoverage]
     public static class Helpers
