@@ -28,7 +28,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScorpionCore.Tests", "Scorp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KD.Scorpion.UI", "KD.Scorpion.UI\KD.Scorpion.UI.csproj", "{EF70DE07-DE6F-40C6-AF90-32E02090592C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScorpionUI.Tests", "ScorpionUI.Tests\ScorpionUI.Tests.csproj", "{36ABBA84-5FB3-4652-868F-590D342BDE2D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KD.ScorpionUI.Tests", "KD.Scorpion.UI.Tests\KD.ScorpionUI.Tests.csproj", "{36ABBA84-5FB3-4652-868F-590D342BDE2D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DependencyGraphs", "DependencyGraphs", "{23E219A6-4901-41DE-A89E-AE9832F37B54}"
 EndProject
