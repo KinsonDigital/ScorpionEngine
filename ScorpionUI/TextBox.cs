@@ -1,4 +1,5 @@
-﻿using ScorpionCore;
+﻿using System;
+using ScorpionCore;
 using ScorpionCore.Content;
 using ScorpionCore.Graphics;
 using ScorpionCore.Input;
@@ -11,8 +12,13 @@ namespace ScorpionUI
     public class TextBox : IControl
     {
         private Keyboard _keyboard = new Keyboard();
-        private GameText _text;
-        private string _deferredText;
+        private string _leftText = string.Empty;
+        private string _rightText = string.Empty;
+        private GameText _visibleText;
+        private static GameText _textRuler;//Used for measuring text with and height
+        private string _allText;
+        private int _visibleTextCharPosition;
+        private int _charPosDelta;
         private Vector _textPosition;
         private int _characterPosition;
         private int _cursorElapsedMilliseconds;
@@ -21,6 +27,7 @@ namespace ScorpionUI
         private const int RIGHT_MARGIN = 5;
         private int _rightSide;
         private int _leftSide;
+        private int _lastDirectionOfTravel = 0;
         private DeferredActions _deferredActions = new DeferredActions();
 
 
@@ -39,23 +46,11 @@ namespace ScorpionUI
         {
             get
             {
-                return _text == null ? _deferredText : _text.Text;
+                return _allText;
             }
             set
             {
-                if(_text is null)
-                {
-                    _deferredActions.Add(() =>
-                    {
-                        _text.Text = value;
-                    });
-
-                    _deferredText = value;
-                }
-                else
-                {
-                    _text.Text = value;
-                }
+                _allText = value;
             }
         }
         #endregion
@@ -69,24 +64,6 @@ namespace ScorpionUI
 
 
         #region Public Methods
-        /// <summary>
-        /// Sets the position of the cursor in the textbox.
-        /// </summary>
-        /// <param name="position">The position of the cursor. Anything outside of the text will be set to the min or max.</param>
-        public void SetCursorPosition(int position)
-        {
-            position = position < 0 ? 0 : position;
-            position = position > Text.Length ? Text.Length : position;
-            _characterPosition = position;
-        }
-
-
-        public void SetCursorToEnd()
-        {
-            _characterPosition = Text.Length;
-        }
-
-
         public void Initialize()
         {
         }
@@ -94,17 +71,16 @@ namespace ScorpionUI
 
         public void LoadContent(ContentLoader contentLoader)
         {
-            _text = contentLoader.LoadText(FontName);
+            _visibleText = contentLoader.LoadText(FontName);
+            _textRuler = contentLoader.LoadText(FontName);
+
             _deferredActions.ExecuteAll();
         }
 
 
         public void Update(EngineTime engineTime)
         {
-            var halfWidth = Width / 2;
-
-            _leftSide = (int)Position.X - halfWidth + LEFT_MARGIN;
-            _rightSide = (int)Position.X + halfWidth - RIGHT_MARGIN;
+            UpdateSideLocations();
 
             ProcessKeys();
 
@@ -123,28 +99,31 @@ namespace ScorpionUI
             renderer.Render(Background, Position);
 
             //Update the X position of the text
-            _textPosition = new Vector(_leftSide, Position.Y - _text.Height / 2f);
+            _textPosition = new Vector(_leftSide, Position.Y - _visibleText.Height / 2f);
+
+            //Render the text inside of the textbox
+            _visibleText.Text = ClipText(_allText);
+
+            renderer.Render(_visibleText, _textPosition, new GameColor(0, 0, 0, 255));
+
+            //Render the end to cover any text that has passed the end of the render area
+            var textureLeft = Position.X - (Width / 2);
+
+            var topLeftCorner = new Vector(Position.X - Width / 2, Position.Y - Height / 2);
+
+            var areaWidth = Width - (_rightSide - topLeftCorner.X);
+
+            var coverArea = new Rect(Width - areaWidth, 0, areaWidth, Height);
+            var coverPosition = new Vector(454, 250);// new Vector(_rightSide, Position.Y);
+
+            renderer.RenderTextureArea(Background, coverArea, coverPosition);
 
             var cursorPositionX = _leftSide + CalcCursorXPos();
 
-            //Render the text inside of the textbox
-            if (!string.IsNullOrEmpty(Text))
-            {
-                if (_text.Width <= _rightSide - _leftSide)
-                {
-                    renderer.Render(_text, _textPosition, new GameColor(0, 0, 0, 255));
-                }
-                else
-                {
-                    var tempText = _text.Text;
-
-                    Text = GetCharactersToFitTextArea();
-                    renderer.Render(_text, _textPosition, new GameColor(0, 0, 0, 255));
-                    Text = tempText;
-                }
-            }
-
             //DEBUGGING
+            //Render the dot at the right side line
+            renderer.FillCircle(new Vector(_rightSide, Position.Y - Height / 2), 5, new GameColor(125, 125, 0, 255));
+
             //Render the margins for visual debugging
             var leftMarginStart = new Vector(_leftSide, Position.Y - 50);
             var leftMarginStop = new Vector(_leftSide, Position.Y + 50);
@@ -156,8 +135,8 @@ namespace ScorpionUI
             ///////////
 
             //Render the blinking cursor
-            var lineStart = new Vector(cursorPositionX, Position.Y - (Background.Height / 2) + 3);
-            var lineStop = new Vector(cursorPositionX, Position.Y + (Background.Height / 2) - 3);
+            var lineStart = CalcCursorStart();// new Vector(cursorPositionX, Position.Y - (Background.Height / 2) + 3);
+            var lineStop = CalcCursorStop();// new Vector(cursorPositionX, Position.Y + (Background.Height / 2) - 3);
 
             lineStart.X = lineStart.X > _rightSide ? _rightSide : lineStart.X;
             lineStop.X = lineStop.X > _rightSide ? _rightSide : lineStop.X;
@@ -169,15 +148,32 @@ namespace ScorpionUI
 
 
         #region Private Methods
+        private void UpdateSideLocations()
+        {
+            var halfWidth = Width / 2;
+
+            _leftSide = (int)Position.X - halfWidth + LEFT_MARGIN;
+            _rightSide = (int)Position.X + halfWidth - RIGHT_MARGIN;
+        }
+
+
         private void ProcessKeys()
         {
             _keyboard.UpdateCurrentState();
 
             if (_keyboard.IsKeyPressed(InputKeys.Right))
             {
-                _characterPosition = _characterPosition > _text.Text.Length - 1 ?
+                _lastDirectionOfTravel = 1;
+
+                _characterPosition = _characterPosition > _allText.Length - 1 ?
                     _characterPosition :
                     _characterPosition + 1;
+
+                _visibleTextCharPosition = _visibleTextCharPosition > _visibleText.Text.Length - 1 ?
+                    _visibleTextCharPosition :
+                    _visibleTextCharPosition + 1;
+
+                _charPosDelta = Math.Abs(_characterPosition - _visibleTextCharPosition);
 
                 _keyboard.UpdatePreviousState();
                 return;
@@ -185,9 +181,17 @@ namespace ScorpionUI
 
             if (_keyboard.IsKeyPressed(InputKeys.Left))
             {
+                _lastDirectionOfTravel = -1;
+
                 _characterPosition = _characterPosition <= 0 ?
                     _characterPosition :
                     _characterPosition - 1;
+
+                _visibleTextCharPosition = _visibleTextCharPosition == 0 ?
+                    _visibleTextCharPosition :
+                    _visibleTextCharPosition - 1;
+
+                _charPosDelta = Math.Abs(_characterPosition - _visibleTextCharPosition);
 
                 _keyboard.UpdatePreviousState();
                 return;
@@ -195,22 +199,21 @@ namespace ScorpionUI
 
             var isShiftDown = _keyboard.IsKeyDown(InputKeys.LeftShift) || _keyboard.IsKeyDown(InputKeys.RightShift);
 
-            ///////TODO: Remmove after debugging
-            //////////////////////////////
-            
-            //The delete keys. This is the standard one and the numpad one
-            if(_keyboard.IsDeleteKeyPressed())
+            if (!string.IsNullOrEmpty(_visibleText.Text))
             {
-                _text.Text = _text.Text.Remove(_characterPosition, 1);
+                //The delete keys. This is the standard one and the numpad one
+                if(_keyboard.IsDeleteKeyPressed())
+                {
+                    _visibleText.Text = _visibleText.Text.Remove(_characterPosition, 1);
+                }
+
+                if (_keyboard.IsKeyPressed(InputKeys.Back) && _characterPosition > 0)
+                {
+                    RemoveCharacterUsingBackspace();
+                    //_visibleText.Text = _visibleText.Text.Remove(_characterPosition, 1);
+                }
             }
 
-            if (_keyboard.IsKeyPressed(InputKeys.Back) && _characterPosition > 0)
-            {
-                _characterPosition -= 1;
-                _text.Text = _text.Text.Remove(_characterPosition, 1);
-            }
-
-            
             //If a letter is pressed, add it to the textbox
             if (_keyboard.IsLetterPressed(out InputKeys letter))
             {
@@ -227,7 +230,7 @@ namespace ScorpionUI
                         letter.ToString().ToLower();
                 }
 
-                _text.Text = _text.Text.Insert(_characterPosition, letterText);
+                _visibleText.Text = _visibleText.Text.Insert(_characterPosition, letterText);
                 _characterPosition += 1;
             }
 
@@ -236,7 +239,7 @@ namespace ScorpionUI
             {
                 var character = _keyboard.KeyToChar(number).ToString();
 
-                _text.Text = _text.Text.Insert(_characterPosition, character);
+                _visibleText.Text = _visibleText.Text.Insert(_characterPosition, character);
 
                 _characterPosition += 1;
             }
@@ -246,7 +249,7 @@ namespace ScorpionUI
             {
                 var character = _keyboard.KeyToChar(symbol).ToString();
                 
-                _text.Text = _text.Text.Insert(_characterPosition, character);
+                _visibleText.Text = _visibleText.Text.Insert(_characterPosition, character);
 
                 _characterPosition += 1;
             }
@@ -255,63 +258,101 @@ namespace ScorpionUI
         }
 
 
+        private Vector CalcCursorStart()
+        {
+            var cursorPositionX = _leftSide + CalcCursorXPos();
+
+
+            return new Vector(cursorPositionX, Position.Y - (Background.Height / 2) + 3);
+        }
+
+
+        private Vector CalcCursorStop()
+        {
+            var cursorPositionX = _leftSide + CalcCursorXPos();
+
+
+            return new Vector(cursorPositionX, Position.Y + (Background.Height / 2) - 3);
+        }
+
+
+        private void RemoveCharacterUsingBackspace()
+        {
+            var isTextClipped = IsTextClipped();
+
+            var visibleTextIndex = _allText.IndexOf(_visibleText.Text);
+            var charToRemoveIndex = visibleTextIndex + _characterPosition - 1;
+
+            _allText = _allText.Remove(charToRemoveIndex, 1);
+        }
+
+
         private int CalcCursorXPos()
         {
-            var textTemp = _text.Text;
+            _textRuler.Text = string.Empty;
 
             //Update the text that is from the first letter up to the cursor position
-            _text.Text = _text.Text.Substring(0, _characterPosition);
+            _textRuler.Text = _allText.Substring(_charPosDelta, Math.Abs(_characterPosition - _charPosDelta));
 
-            var result = _text.Width;
+            var result = _textRuler.Width;
 
-            _text.Text = textTemp;
-
+            _textRuler.Text = string.Empty;
 
             return result;
         }
 
 
-        private string GetCharactersToFitTextArea()
+        private string ClipText(string text)
         {
-            var textTemp = _text.Text;
+            _textRuler.Text = string.Empty;
+
             var textAreaWidth = _rightSide - _leftSide;
 
-            _text.Text = string.Empty;
+            var startIndex = _charPosDelta == 0 ?
+                0 :
+                _charPosDelta + _lastDirectionOfTravel;
 
-            for (int i = textTemp.Length - 1; i >= 0; i--)
+            for (int i = startIndex; i < text.Length; i++)
             {
-                _text.Text = _text.Text.Insert(0, textTemp[i].ToString());
+                _textRuler.Text += _allText[i].ToString();
 
                 //If the text is currently too wide to fit, remove one character
-                if (_text.Width > textAreaWidth)
+                if (_textRuler.Width > textAreaWidth)
                 {
-                    _text.Text = _text.Text.Substring(1, _text.Text.Length - 1);
+                    _textRuler.Text = _textRuler.Text.Substring(0, _textRuler.Text.Length - 1);
                     break;
                 }
             }
 
 
-            var result = _text.Text;
+            var result = _textRuler.Text;
 
-            //Set text back to original value
-            _text.Text = textTemp;
+            _textRuler.Text = string.Empty;
 
 
             return result;
         }
 
 
-        private static string Reverse(string value)
+        private bool IsPositionInLeftSection()
         {
-            var result = string.Empty;
+            var allText = $"{_leftText}{_visibleText.Text}{_rightText}";
 
-            for (int i = value.Length - 1; i >= 0; i--)
-            {
-                result += value[i];
-            }
+            return _characterPosition <= _leftText.Length - 1;
+        }
 
 
-            return result;
+        private bool IsPositionInCenterSection()
+        {
+            var combinedSections = $"{_leftText}{_visibleText.Text}";
+
+            return _characterPosition >= _leftText.Length - 1 && _characterPosition <= combinedSections.Length - 1;
+        }
+
+
+        private bool IsTextClipped()
+        {
+            return _allText != _visibleText.Text;
         }
         #endregion
     }

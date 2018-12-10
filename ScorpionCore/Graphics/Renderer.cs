@@ -74,6 +74,12 @@ namespace ScorpionCore.Graphics
         }
 
 
+        public void RenderTextureArea(Texture texture, Rect area, Vector position)
+        {
+            InternalRenderer.RenderTextureArea(texture.InternalTexture, area, position.X, position.Y);
+        }
+
+
         public void Render(GameText text, float x, float y)
         {
             InternalRenderer.Render(text.InternalText, x, y);

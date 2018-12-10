@@ -35,6 +35,9 @@ namespace ScorpionCore.Plugins
         void Render(IText text, float x, float y);
 
 
+        void RenderTextureArea(ITexture texture, Rect area, float x, float y);
+
+
         void RenderLine(float lineStartX, float lineStartY, float lineStopX, float lineStopY);
         #endregion
     }

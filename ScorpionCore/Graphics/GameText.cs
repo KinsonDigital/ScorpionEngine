@@ -10,7 +10,7 @@
             get => InternalText.Text;
             set
             {
-                InternalText.Text = value;
+                InternalText.Text = value == null ? "" : value;
             }
         }
 

@@ -12,7 +12,8 @@ namespace ParticalMaker
         private Button _button;
         private TextBox _textBox;
         private Mouse _mouse;
-        
+        private GameText _mousePosition;
+
 
         public Main() : base(false)
         {
@@ -32,10 +33,10 @@ namespace ParticalMaker
             {
                 Position = new Vector(400, 250),
                 FontName = "ControlFont",
-                Text = "calvinwilkinsonkr"
+                Text = "CalvinKristenAreInLove"
             };
 
-            _textBox.SetCursorToEnd();
+            //_textBox.SetCursorToEnd();
 
             _mouse = new Mouse();
 
@@ -60,15 +61,22 @@ namespace ParticalMaker
             _textBox.Background = ContentLoader.LoadTexture("TextBox");
             _textBox.LoadContent(contentLoader);
 
+            _mousePosition = contentLoader.LoadText("ControlFont");
+
             base.LoadContent(contentLoader);
         }
 
 
         public override void Update(EngineTime engineTime)
         {
+            _mouse.UpdateCurrentState();
+
             _button.Update(engineTime);
             _textBox.Update(engineTime);
 
+            _mousePosition.Text = $"X: {_mouse.X}, Y:{_mouse.Y}";
+
+            _mouse.UpdatePreviousState();
             base.Update(engineTime);
         }
 
@@ -77,6 +85,8 @@ namespace ParticalMaker
         {
             _button.Render(renderer);
             _textBox.Render(renderer);
+
+            renderer.Render(_mousePosition, 5, 5);
 
             base.Render(renderer);
         }

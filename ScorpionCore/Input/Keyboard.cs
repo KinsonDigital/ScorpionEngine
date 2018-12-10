@@ -17,7 +17,7 @@ namespace ScorpionCore.Input
             InputKeys.K,InputKeys.L, InputKeys.M, InputKeys.N, InputKeys.O,
             InputKeys.P, InputKeys.Q, InputKeys.R, InputKeys.S, InputKeys.T,
             InputKeys.U, InputKeys.V, InputKeys.W, InputKeys.X, InputKeys.Y,
-            InputKeys.Z
+            InputKeys.Z, InputKeys.Space
         };
 
         private static readonly InputKeys[] _numbersKeys = new[]

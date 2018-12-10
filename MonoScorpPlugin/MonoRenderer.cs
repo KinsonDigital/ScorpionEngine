@@ -50,11 +50,10 @@ namespace MonoScorpPlugin
 
         public void Render(ITexture texture, float x, float y)
         {
-            var srcRect = new Rectangle(0, 0, texture.Width, texture.Height);
             var textureOrigin = new Vector2(texture.Width / 2f, texture.Height / 2f);
             var position = new Vector2(x, y);
 
-            _spriteBatch.Draw(texture.GetTexture<Texture2D>(), position, srcRect, Color.White, 0, textureOrigin, 1f, SpriteEffects.None, 0f);
+            _spriteBatch.Draw(texture.GetTexture<Texture2D>(), position, null, Color.White, 0, textureOrigin, 1f, SpriteEffects.None, 0f);
         }
 
 
@@ -76,22 +75,30 @@ namespace MonoScorpPlugin
         //Angle is in degrees
         public void Render(ITexture texture, float x, float y, float angle)
         {
-            var srcRect = new Rectangle(0, 0, texture.Width, texture.Height);
             var textureOrigin = new Vector2(texture.Width / 2f, texture.Height / 2f);
             var position = new Vector2(x, y);
 
-            _spriteBatch.Draw(texture.GetTexture<Texture2D>(), position, srcRect, Color.White, angle.ToRadians(), textureOrigin, 1f, SpriteEffects.None, 0f);
+            _spriteBatch.Draw(texture.GetTexture<Texture2D>(), position, null, Color.White, angle.ToRadians(), textureOrigin, 1f, SpriteEffects.None, 0f);
         }
 
 
         //Angle is in degrees
         public void Render(ITexture texture, float x, float y, float angle, float size, byte red, byte green, byte blue, byte alpha)
         {
-            var srcRect = new Rectangle(0, 0, texture.Width, texture.Height);
             var textureOrigin = new Vector2(texture.Width / 2f, texture.Height / 2f);
             var position = new Vector2(x, y);
 
-            _spriteBatch.Draw(texture.GetTexture<Texture2D>(), position, srcRect, new Color(red, green, blue, alpha), angle.ToRadians(), textureOrigin, size, SpriteEffects.None, 0f);
+            _spriteBatch.Draw(texture.GetTexture<Texture2D>(), position, null, new Color(red, green, blue, alpha), angle.ToRadians(), textureOrigin, size, SpriteEffects.None, 0f);
+        }
+
+
+        public void RenderTextureArea(ITexture texture, Rect area, float x, float y)
+        {
+            var srcRect = new Rectangle((int)area.X, (int)area.Y, (int)area.Width, (int)area.Height);
+            var textureOrigin = new Vector2(texture.Width / 2f, texture.Height / 2f);
+            var position = new Vector2(x, y);
+
+            _spriteBatch.Draw(texture.GetTexture<Texture2D>(), position, srcRect, Color.Orange, 0, textureOrigin, 1, SpriteEffects.None, 0f);
         }
 
 

@@ -57,6 +57,10 @@
         /// </summary>
         public float Height { get; set; }
 
+        public float HalfWidth => Width / 2;
+
+        public float HalfHeight => Height / 2;
+
         /// <summary>
         /// Gets X location of the left side of the <see cref="Rect"/>.
         /// </summary>
