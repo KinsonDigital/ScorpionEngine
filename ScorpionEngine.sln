@@ -24,7 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{EE8A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScorpionEngine.Tests", "ScorpionEngine.Tests\ScorpionEngine.Tests.csproj", "{4357E355-FB3D-4B43-9E89-5718D1FB9389}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScorpionCore.Tests", "ScorpionCore.Tests\ScorpionCore.Tests.csproj", "{6BDE0F14-64A5-4B31-BF8D-0BFCC476E298}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KD.Scorpion.Core.Tests", "KD.Scorpion.Core.Tests\KD.Scorpion.Core.Tests.csproj", "{6BDE0F14-64A5-4B31-BF8D-0BFCC476E298}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KD.Scorpion.UI", "KD.Scorpion.UI\KD.Scorpion.UI.csproj", "{EF70DE07-DE6F-40C6-AF90-32E02090592C}"
 EndProject
