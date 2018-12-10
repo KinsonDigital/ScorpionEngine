@@ -1,7 +1,8 @@
 ﻿using NUnit.Framework;
 using KDScorpionCore.Input;
+using KDScorpionCore;
 
-namespace KDScorpionCore.Tests.Input
+namespace KDScorpionCoreTests.Input
 {
     public class MouseEventArgsTests
     {

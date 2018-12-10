@@ -2,8 +2,9 @@
 using NUnit.Framework;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
+using KDScorpionCore;
 
-namespace KDScorpionCore.Tests.Graphics
+namespace KDScorpionCoreTests.Graphics
 {
     public class RendererTests
     {

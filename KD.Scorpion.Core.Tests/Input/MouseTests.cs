@@ -3,8 +3,9 @@ using NUnit.Framework;
 using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
 using System;
+using KDScorpionCore;
 
-namespace KDScorpionCore.Tests.Input
+namespace KDScorpionCoreTests.Input
 {
     public class MouseTests
     {

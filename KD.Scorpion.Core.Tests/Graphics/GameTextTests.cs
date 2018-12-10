@@ -1,8 +1,9 @@
 ﻿using Moq;
 using NUnit.Framework;
 using KDScorpionCore.Graphics;
+using KDScorpionCore;
 
-namespace KDScorpionCore.Tests.Graphics
+namespace KDScorpionCoreTests.Graphics
 {
     public class GameTextTests
     {

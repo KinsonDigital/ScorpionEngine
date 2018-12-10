@@ -1,9 +1,9 @@
 ﻿using Moq;
 using NUnit.Framework;
 using KDScorpionCore.Graphics;
-using KDScorpionCore.Tests.Fakes;
+using KDScorpionCoreTests.Fakes;
 
-namespace KDScorpionCore.Tests.Graphics
+namespace KDScorpionCoreTests.Graphics
 {
     public class TextureTests
     {

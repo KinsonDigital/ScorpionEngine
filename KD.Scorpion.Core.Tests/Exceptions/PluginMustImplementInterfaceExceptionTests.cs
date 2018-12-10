@@ -2,7 +2,7 @@
 using KDScorpionCore.Exceptions;
 using KDScorpionCore.Plugins;
 
-namespace KDScorpionCore.Tests.Exceptions
+namespace KDScorpionCoreTests.Exceptions
 {
     [TestFixture]
     public class PluginMustImplementInterfaceExceptionTests

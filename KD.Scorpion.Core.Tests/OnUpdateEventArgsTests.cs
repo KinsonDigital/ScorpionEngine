@@ -1,7 +1,8 @@
-﻿using Moq;
+﻿using KDScorpionCore;
+using Moq;
 using NUnit.Framework;
 
-namespace KDScorpionCore.Tests
+namespace KDScorpionCoreTests
 {
     [TestFixture]
     public class OnUpdateEventArgsTests

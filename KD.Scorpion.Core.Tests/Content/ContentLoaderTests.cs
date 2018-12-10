@@ -3,8 +3,9 @@ using NUnit.Framework;
 using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
+using KDScorpionCore;
 
-namespace KDScorpionCore.Tests.Content
+namespace KDScorpionCoreTests.Content
 {
     [TestFixture]
     public class ContentLoaderTests

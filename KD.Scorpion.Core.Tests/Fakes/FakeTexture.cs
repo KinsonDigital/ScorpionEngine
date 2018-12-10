@@ -1,4 +1,4 @@
-﻿namespace KDScorpionCore.Tests.Fakes
+﻿namespace KDScorpionCoreTests.Fakes
 {
     public class FakeTexture
     {

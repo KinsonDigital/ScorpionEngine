@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using KDScorpionCore.Graphics;
 
-namespace KDScorpionCore.Tests.Graphics
+namespace KDScorpionCoreTests.Graphics
 {
     public class GameColorTests
     {

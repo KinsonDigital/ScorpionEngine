@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using KDScorpionCore.Input;
 
-namespace KDScorpionCore.Tests.Input
+namespace KDScorpionCoreTests.Input
 {
     [TestFixture]
     public class KeyEventArgsTests

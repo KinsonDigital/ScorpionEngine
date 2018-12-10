@@ -1,7 +1,8 @@
-﻿using NUnit.Framework;
+﻿using KDScorpionCore;
+using NUnit.Framework;
 using System;
 
-namespace KDScorpionCore.Tests
+namespace KDScorpionCoreTests
 {
     [TestFixture]
     public class DeferredActionsTests

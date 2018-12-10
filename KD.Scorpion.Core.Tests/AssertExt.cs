@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 
-namespace KDScorpionCore.Tests
+namespace KDScorpionCoreTests
 {
     public static class AssertExt
     {

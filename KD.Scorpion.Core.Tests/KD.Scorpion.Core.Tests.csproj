@@ -7,7 +7,7 @@
     <ProjectGuid>{6BDE0F14-64A5-4B31-BF8D-0BFCC476E298}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KD.Scorpion.Core.Tests</RootNamespace>
+    <RootNamespace>KDScorpionCoreTests</RootNamespace>
     <AssemblyName>ScorpionCore.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
