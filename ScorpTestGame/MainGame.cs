@@ -1,6 +1,6 @@
-using ScorpionCore;
-using ScorpionCore.Content;
-using ScorpionCore.Graphics;
+using KDScorpionCore;
+using KDScorpionCore.Content;
+using KDScorpionCore.Graphics;
 using ScorpionEngine;
 using ScorpionEngine.Scene;
 using ScorpTestGame.Scenes;

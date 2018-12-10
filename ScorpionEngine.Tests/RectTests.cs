@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using ScorpionCore;
+using KDScorpionCore;
 
 namespace ScorpionEngine.Tests
 {

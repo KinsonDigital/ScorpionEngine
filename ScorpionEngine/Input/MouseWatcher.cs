@@ -1,6 +1,6 @@
-﻿using ScorpionCore;
-using ScorpionCore.Input;
-using ScorpionCore.Plugins;
+﻿using KDScorpionCore;
+using KDScorpionCore.Input;
+using KDScorpionCore.Plugins;
 using ScorpionEngine.Utils;
 using System;
 using System.Collections.Generic;

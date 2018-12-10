@@ -1,11 +1,11 @@
 ﻿using System;
-using ScorpionCore;
-using ScorpionCore.Plugins;
+using KDScorpionCore;
+using KDScorpionCore.Plugins;
 using ScorpionEngine.Scene;
 using System.Runtime.CompilerServices;
 using System.Diagnostics.CodeAnalysis;
-using ScorpionCore.Graphics;
-using ScorpionCore.Content;
+using KDScorpionCore.Graphics;
+using KDScorpionCore.Content;
 
 [assembly: InternalsVisibleTo(assemblyName: "ScorpionEngine.Tests", AllInternalsVisible = true)]
 

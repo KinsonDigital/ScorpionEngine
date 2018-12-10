@@ -1,9 +1,9 @@
 ﻿using Moq;
 using NUnit.Framework;
-using ScorpionCore.Graphics;
-using ScorpionCore.Plugins;
+using KDScorpionCore.Graphics;
+using KDScorpionCore.Plugins;
 
-namespace ScorpionCore.Tests.Graphics
+namespace KDScorpionCore.Tests.Graphics
 {
     public class RendererTests
     {

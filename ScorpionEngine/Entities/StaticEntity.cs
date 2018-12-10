@@ -1,6 +1,6 @@
 ﻿
-using ScorpionCore;
-using ScorpionCore.Graphics;
+using KDScorpionCore;
+using KDScorpionCore.Graphics;
 
 namespace ScorpionEngine.Entities
 {

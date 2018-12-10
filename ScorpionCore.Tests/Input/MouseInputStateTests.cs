@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
-using ScorpionCore.Input;
+using KDScorpionCore.Input;
 
-namespace ScorpionCore.Tests.Input
+namespace KDScorpionCore.Tests.Input
 {
     public class MouseInputStateTests
     {

@@ -1,10 +1,10 @@
 ﻿using Moq;
 using NUnit.Framework;
-using ScorpionCore.Content;
-using ScorpionCore.Graphics;
-using ScorpionCore.Plugins;
+using KDScorpionCore.Content;
+using KDScorpionCore.Graphics;
+using KDScorpionCore.Plugins;
 
-namespace ScorpionCore.Tests.Content
+namespace KDScorpionCore.Tests.Content
 {
     [TestFixture]
     public class ContentLoaderTests

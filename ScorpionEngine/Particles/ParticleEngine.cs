@@ -1,5 +1,5 @@
-﻿using ScorpionCore;
-using ScorpionCore.Graphics;
+﻿using KDScorpionCore;
+using KDScorpionCore.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;

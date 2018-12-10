@@ -1,5 +1,5 @@
-﻿using ScorpionCore;
-using ScorpionCore.Input;
+﻿using KDScorpionCore;
+using KDScorpionCore.Input;
 using ScorpionEngine.Entities;
 
 namespace ScorpionEngine.Behaviors

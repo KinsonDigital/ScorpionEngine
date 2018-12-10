@@ -1,8 +1,8 @@
 ﻿using Moq;
 using NUnit.Framework;
-using ScorpionCore.Plugins;
+using KDScorpionCore.Plugins;
 
-namespace ScorpionCore.Tests
+namespace KDScorpionCore.Tests
 {
     [TestFixture]
     public class OnRenderEventArgsTests

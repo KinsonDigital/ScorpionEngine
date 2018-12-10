@@ -1,9 +1,9 @@
 ﻿using Moq;
 using NUnit.Framework;
-using ScorpionCore;
-using ScorpionCore.Content;
-using ScorpionCore.Graphics;
-using ScorpionCore.Plugins;
+using KDScorpionCore;
+using KDScorpionCore.Content;
+using KDScorpionCore.Graphics;
+using KDScorpionCore.Plugins;
 using ScorpionEngine.Scene;
 using ScorpionEngine.Tests.Fakes;
 using System;

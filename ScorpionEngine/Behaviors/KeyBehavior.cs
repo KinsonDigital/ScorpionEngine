@@ -1,7 +1,7 @@
 ﻿using System;
-using ScorpionCore;
-using ScorpionCore.Input;
-using ScorpionCore.Plugins;
+using KDScorpionCore;
+using KDScorpionCore.Input;
+using KDScorpionCore.Plugins;
 
 namespace ScorpionEngine.Behaviors
 {

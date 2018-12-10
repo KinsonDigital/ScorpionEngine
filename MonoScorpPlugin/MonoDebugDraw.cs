@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ScorpionCore.Plugins;
+using KDScorpionCore.Plugins;
 using System;
 
 namespace MonoScorpPlugin

@@ -1,9 +1,9 @@
 using ScorpionEngine.Scene;
 using System;
-using ScorpionCore.Graphics;
-using ScorpionCore.Content;
-using ScorpionCore;
-using ScorpionCore.Input;
+using KDScorpionCore.Graphics;
+using KDScorpionCore.Content;
+using KDScorpionCore;
+using KDScorpionCore.Input;
 using ScorpionUI;
 
 namespace ScorpTestGame.Scenes

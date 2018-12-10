@@ -1,6 +1,6 @@
 ﻿using System;
-using ScorpionCore;
-using ScorpionCore.Plugins;
+using KDScorpionCore;
+using KDScorpionCore.Plugins;
 
 namespace MonoScorpPlugin
 {

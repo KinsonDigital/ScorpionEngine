@@ -54,9 +54,9 @@
     <Compile Include="VelcroVector.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ScorpionCore\ScorpionCore.csproj">
+    <ProjectReference Include="..\KD.Scorpion.Core\KD.Scorpion.Core.csproj">
       <Project>{3e136a13-190c-4390-9e74-8849022852f6}</Project>
-      <Name>ScorpionCore</Name>
+      <Name>KD.Scorpion.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

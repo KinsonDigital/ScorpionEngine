@@ -1,10 +1,10 @@
 ﻿using Moq;
 using NUnit.Framework;
-using ScorpionCore.Input;
-using ScorpionCore.Plugins;
+using KDScorpionCore.Input;
+using KDScorpionCore.Plugins;
 using System.Linq;
 
-namespace ScorpionCore.Tests.Input
+namespace KDScorpionCore.Tests.Input
 {
     public class KeyboardTests
     {

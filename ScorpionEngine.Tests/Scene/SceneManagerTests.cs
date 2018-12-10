@@ -1,10 +1,10 @@
 ﻿using Moq;
 using NUnit.Framework;
-using ScorpionCore;
-using ScorpionCore.Content;
-using ScorpionCore.Graphics;
-using ScorpionCore.Input;
-using ScorpionCore.Plugins;
+using KDScorpionCore;
+using KDScorpionCore.Content;
+using KDScorpionCore.Graphics;
+using KDScorpionCore.Input;
+using KDScorpionCore.Plugins;
 using ScorpionEngine.Exceptions;
 using ScorpionEngine.Scene;
 using System;

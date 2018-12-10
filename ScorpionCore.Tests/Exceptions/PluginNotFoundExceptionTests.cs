@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
-using ScorpionCore.Exceptions;
+using KDScorpionCore.Exceptions;
 
-namespace ScorpionCore.Tests.Exceptions
+namespace KDScorpionCore.Tests.Exceptions
 {
     [TestFixture]
     public class PluginNotFoundExceptionTests

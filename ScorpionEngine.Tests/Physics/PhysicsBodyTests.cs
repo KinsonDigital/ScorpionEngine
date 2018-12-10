@@ -1,7 +1,7 @@
 ﻿using Moq;
 using NUnit.Framework;
-using ScorpionCore;
-using ScorpionCore.Plugins;
+using KDScorpionCore;
+using KDScorpionCore.Plugins;
 using ScorpionEngine.Physics;
 using ScorpionEngine.Tests.Fakes;
 

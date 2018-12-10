@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using System;
-using ScorpionCore.Graphics;
+using KDScorpionCore.Graphics;
 
 namespace MonoScorpPlugin
 {

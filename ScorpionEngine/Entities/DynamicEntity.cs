@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using ScorpionCore;
-using ScorpionCore.Graphics;
+using KDScorpionCore;
+using KDScorpionCore.Graphics;
 using ScorpionEngine.Behaviors;
 using ScorpionEngine.Exceptions;
 using ScorpionEngine.Utils;

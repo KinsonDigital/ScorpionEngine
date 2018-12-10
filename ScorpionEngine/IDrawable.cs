@@ -1,6 +1,6 @@
 ﻿
 
-using ScorpionCore.Graphics;
+using KDScorpionCore.Graphics;
 
 namespace ScorpionEngine
 {

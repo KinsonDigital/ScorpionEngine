@@ -1,10 +1,10 @@
 ﻿using Moq;
 using NUnit.Framework;
-using ScorpionCore.Input;
-using ScorpionCore.Plugins;
+using KDScorpionCore.Input;
+using KDScorpionCore.Plugins;
 using System;
 
-namespace ScorpionCore.Tests.Input
+namespace KDScorpionCore.Tests.Input
 {
     public class MouseTests
     {

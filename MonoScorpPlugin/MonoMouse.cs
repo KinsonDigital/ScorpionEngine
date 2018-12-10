@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Input;
-using ScorpionCore.Plugins;
+using KDScorpionCore.Plugins;
 
 namespace MonoScorpPlugin
 {

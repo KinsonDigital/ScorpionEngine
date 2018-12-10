@@ -1,7 +1,7 @@
-﻿using ScorpionCore;
-using ScorpionCore.Content;
-using ScorpionCore.Graphics;
-using ScorpionCore.Input;
+﻿using KDScorpionCore;
+using KDScorpionCore.Content;
+using KDScorpionCore.Graphics;
+using KDScorpionCore.Input;
 using ScorpionEngine.Particles;
 using ScorpionEngine.Scene;
 

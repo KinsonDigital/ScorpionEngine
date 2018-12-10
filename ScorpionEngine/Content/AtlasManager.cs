@@ -1,4 +1,4 @@
-﻿using ScorpionCore.Graphics;
+﻿using KDScorpionCore.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;

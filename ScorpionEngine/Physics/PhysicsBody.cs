@@ -1,5 +1,5 @@
-﻿using ScorpionCore;
-using ScorpionCore.Plugins;
+﻿using KDScorpionCore;
+using KDScorpionCore.Plugins;
 using System.Collections.Generic;
 using System.Linq;
 

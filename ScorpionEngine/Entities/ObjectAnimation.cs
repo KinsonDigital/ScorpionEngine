@@ -1,5 +1,5 @@
 ﻿
-using ScorpionCore;
+using KDScorpionCore;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 

@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
-using ScorpionCore.Exceptions;
-using ScorpionCore.Plugins;
+using KDScorpionCore.Exceptions;
+using KDScorpionCore.Plugins;
 
-namespace ScorpionCore.Tests.Exceptions
+namespace KDScorpionCore.Tests.Exceptions
 {
     [TestFixture]
     public class PluginMustImplementInterfaceExceptionTests

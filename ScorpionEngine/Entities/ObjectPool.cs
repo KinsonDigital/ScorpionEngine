@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using ScorpionCore;
+using KDScorpionCore;
 using ScorpionEngine.Events;
 
 namespace ScorpionEngine.Entities
