@@ -4,9 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ParticleMaker"
+        xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <WindowsFormsHost Name="winFormsHost">
+            <WindowsFormsHost.Child>
+                <wf:PictureBox Name="grfxSurface"></wf:PictureBox>
+            </WindowsFormsHost.Child>
+        </WindowsFormsHost>
     </Grid>
 </Window>
