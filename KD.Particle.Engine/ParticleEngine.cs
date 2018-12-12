@@ -183,7 +183,7 @@ namespace KDParticleEngine
         ///     </item>
         /// </list>
         /// </summary>
-        public bool UseTintColorList { get; set; } = true;
+        public bool UseTintColorList { get; set; }
 
         /// <summary>
         /// Gets or sets the list of colors that the <see cref="ParticleEngine"/> will
@@ -439,7 +439,7 @@ namespace KDParticleEngine
         {
             if (UseTintColorList)
             {
-                return TintColors[_random.Next(TintColors.Length)];
+                return TintColors == null ? new GameColor(255, 255, 255, 255) : TintColors[_random.Next(TintColors.Length)];
             }
             else
             {

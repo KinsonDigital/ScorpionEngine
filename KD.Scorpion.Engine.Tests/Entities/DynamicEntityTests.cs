@@ -1288,7 +1288,7 @@ namespace KDScorpionEngineTests.Entities
             mockTexture.SetupGet(m => m.Height).Returns(50);
 
 
-            return new Texture() { InternalTexture = mockTexture.Object };
+            return new Texture(mockTexture.Object);
         }
 
 

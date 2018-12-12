@@ -65,7 +65,7 @@ namespace KDScorpionEngineTests.Entities
             mockTexture.SetupGet(m => m.Width).Returns(100);
             mockTexture.SetupGet(m => m.Height).Returns(50);
 
-            var texture = new Texture() { InternalTexture = mockTexture.Object };
+            var texture = new Texture(mockTexture.Object);
             var fakeEntity = new FakeEntity(texture, Vector.Zero);
             var expectedVertices = new Vector[]
             {
@@ -140,7 +140,7 @@ namespace KDScorpionEngineTests.Entities
 
             PluginSystem.LoadPhysicsPluginLibrary(mockPluginLib.Object);
 
-            var texture = new Texture() { InternalTexture = mockTexture.Object };
+            var texture = new Texture(mockTexture.Object);
 
             var halfWidth = 50;
             var halfHeight = 25;
@@ -905,7 +905,7 @@ namespace KDScorpionEngineTests.Entities
             mockTexture.SetupGet(m => m.Height).Returns(50);
 
 
-            return new Texture() { InternalTexture = mockTexture.Object };
+            return new Texture(mockTexture.Object);
         }
         #endregion
     }

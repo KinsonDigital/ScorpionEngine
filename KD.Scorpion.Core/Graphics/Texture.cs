@@ -8,13 +8,19 @@
         public int Width
         {
             get => InternalTexture.Width;
-            set => InternalTexture.Width = value;
         }
 
         public int Height
         {
             get => InternalTexture.Height;
-            set => InternalTexture.Height = value;
+        }
+        #endregion
+
+
+        #region Constructors
+        public Texture(ITexture texture)
+        {
+            InternalTexture = texture;
         }
         #endregion
 

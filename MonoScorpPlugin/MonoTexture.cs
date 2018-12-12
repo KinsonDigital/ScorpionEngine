@@ -22,6 +22,7 @@ namespace MonoScorpPlugin
         }
         #endregion
 
+
         #region Public Methods
         public object GetData(string dataType)
         {

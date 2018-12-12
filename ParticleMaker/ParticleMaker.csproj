@@ -77,6 +77,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="UserControls\ColorValue.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\NumericUpDown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -85,6 +93,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="UserControls\ColorValue.xaml.cs">
+      <DependentUpon>ColorValue.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\NumericUpDown.xaml.cs">
+      <DependentUpon>NumericUpDown.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Email.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="GraphicsEngine.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -92,6 +108,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ParticleRenderer.cs" />
+    <Compile Include="ParticleTexture.cs" />
+    <Compile Include="ParticleTextureLoader.cs" />
     <Compile Include="Primitives2D.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -129,6 +148,21 @@
     <PackageReference Include="MonoGame.Framework.WindowsDX">
       <Version>3.7.1.189</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KD.Particle.Engine\KD.Particle.Engine.csproj">
+      <Project>{6595ff25-b463-480d-9f26-c73c66c2d5f0}</Project>
+      <Name>KD.Particle.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KD.Scorpion.Core\KD.Scorpion.Core.csproj">
+      <Project>{3E136A13-190C-4390-9E74-8849022852F6}</Project>
+      <Name>KD.Scorpion.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\Star.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

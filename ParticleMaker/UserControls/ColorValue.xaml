@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="ParticleMaker.UserControls.ColorValue"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ParticleMaker.UserControls"
+             mc:Ignorable="d" Background="White"
+             d:DesignHeight="450" Width="Auto">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/> <!--Color Component Values Row-->
+            <RowDefinition/> <!--Color Result Row-->
+        </Grid.RowDefinitions>
+
+        <!--RED-->
+        <StackPanel Grid.Row="0" Grid.Column="0" Margin="0, 5, 0, 5"
+                    Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label VerticalAlignment="Center">Red:</Label>
+            <local:NumericUpDown Grid.Column="0" Max="255"
+                                 Value="{Binding Path=Red, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+
+        <!--GREEN-->
+        <StackPanel Grid.Row="0" Grid.Column="1" Margin="0, 5, 0, 5"
+                    Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label VerticalAlignment="Center">Green:</Label>
+            <local:NumericUpDown Grid.Column="0" Max="255"/>
+        </StackPanel>
+
+        <!--BLUE-->
+        <StackPanel Grid.Row="0" Grid.Column="2" Margin="0, 5, 0, 5"
+                    Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label VerticalAlignment="Center">Blue:</Label>
+            <local:NumericUpDown Grid.Column="0" Max="255"/>
+        </StackPanel>
+
+        <!--ALPHA-->
+        <StackPanel Grid.Row="0" Grid.Column="3" Margin="0, 5, 0, 5"
+                    Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label VerticalAlignment="Center">Alpha:</Label>
+            <local:NumericUpDown Grid.Column="0" Max="255"/>
+        </StackPanel>
+        
+        <!--COLOR RESULT-->
+        <Rectangle Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Fill="Gray" MouseUp="Rectangle_MouseUp">
+            
+        </Rectangle>
+
+        <TextBox Grid.Row="1" Grid.ColumnSpan="3" Text="{Binding Path=Red}"/>
+    </Grid>
+</UserControl>

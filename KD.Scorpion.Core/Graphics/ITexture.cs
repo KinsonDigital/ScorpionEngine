@@ -4,9 +4,9 @@ namespace KDScorpionCore.Graphics
 {
     public interface ITexture : IPlugin
     {
-        int Width { get; set; }
+        int Width { get; }
 
-        int Height { get; set; }
+        int Height { get; }
 
         T GetTexture<T>() where T : class;
     }

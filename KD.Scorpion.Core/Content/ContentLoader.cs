@@ -8,7 +8,7 @@ namespace KDScorpionCore.Content
         IContentLoader _internalLoader;
 
 
-        internal ContentLoader(IContentLoader contentLoader)
+        public ContentLoader(IContentLoader contentLoader)
         {
             _internalLoader = contentLoader;
         }
@@ -26,10 +26,7 @@ namespace KDScorpionCore.Content
 
         public Texture LoadTexture(string textureName)
         {
-            var result = new Texture()
-            {
-                InternalTexture = _internalLoader.LoadTexture<ITexture>(textureName)
-            };
+            var result = new Texture(_internalLoader.LoadTexture<ITexture>(textureName));
 
 
             return result;

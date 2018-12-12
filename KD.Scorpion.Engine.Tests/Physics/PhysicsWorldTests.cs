@@ -57,7 +57,7 @@ namespace KDScorpionEngineTests.Physics
             PluginSystem.LoadPhysicsPluginLibrary(mockPluginLib.Object);
             var mockTexture = new Mock<ITexture>();
 
-            var texture = new Texture() { InternalTexture = mockTexture.Object };
+            var texture = new Texture(mockTexture.Object);
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
             var body = new PhysicsBody(vertices, Vector.Zero);
             var entity = new FakeEntity(texture: texture, position: Vector.Zero)
@@ -98,7 +98,7 @@ namespace KDScorpionEngineTests.Physics
             PluginSystem.LoadPhysicsPluginLibrary(mockPluginLib.Object);
             var mockTexture = new Mock<ITexture>();
 
-            var texture = new Texture() { InternalTexture = mockTexture.Object };
+            var texture = new Texture(mockTexture.Object);
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
             var body = new PhysicsBody(vertices, Vector.Zero);
             var entity = new FakeEntity(texture: texture, position: Vector.Zero)
