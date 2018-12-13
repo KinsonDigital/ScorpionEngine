@@ -20,13 +20,12 @@
         </Grid.ColumnDefinitions>
 
         <!--Color Settings-->
-        <CustomControls:NumericUpDown Grid.Column="0" Grid.Row="0" Value="0" Min="0" Max="255" Height="Auto"/>
-
         <WindowsFormsHost Name="winFormsHost" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2">
             <WindowsFormsHost.Child>
                 <wf:PictureBox Name="grfxSurface"></wf:PictureBox>
             </WindowsFormsHost.Child>
         </WindowsFormsHost>
-        <CustomControls:ColorValue HorizontalAlignment="Left" Height="155" Margin="34,112,0,0" Grid.Row="1" VerticalAlignment="Top" Width="415" Grid.ColumnSpan="2"/>
+        <CustomControls:ColorValue HorizontalAlignment="Left" Height="170" Margin="37,63,0,0" Grid.Row="1" VerticalAlignment="Top" Width="268" ColorBrush="#FF7A6535"/>
+        <CustomControls:NumericUpDown HorizontalAlignment="Left" VerticalAlignment="Top" Margin="226,0,0,0" LabelText="Hello World"/>
     </Grid>
 </Window>

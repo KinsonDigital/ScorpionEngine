@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,6 +12,9 @@ namespace ParticleMaker.UserControls
     /// </summary>
     public partial class NumericUpDown : UserControl
     {
+        public event EventHandler<ValueChangedEventArgs> OnValueChanged;
+
+
         #region Private Fields
         private static readonly Key[] _numberKeys = new Key[]
         {
@@ -52,7 +56,7 @@ namespace ParticleMaker.UserControls
         /// Registers the <see cref="Value"/> property.
         /// </summary>
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register(nameof(Value), typeof(int), typeof(NumericUpDown), new PropertyMetadata(0, null, ValueCoerceCallback));
+            DependencyProperty.Register(nameof(Value), typeof(int), typeof(NumericUpDown), new PropertyMetadata(0, ValueChangedCallback, ValueCoerceCallback));
 
         /// <summary>
         /// Registers the <see cref="Min"/> property.
@@ -77,6 +81,18 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public static readonly DependencyProperty DecrementProperty =
             DependencyProperty.Register(nameof(Decrement), typeof(int), typeof(NumericUpDown), new PropertyMetadata(1));
+
+        /// <summary>
+        /// Registers the <see cref="LabelText"/> property.
+        /// </summary>
+        public static readonly DependencyProperty LabelTextProperty =
+            DependencyProperty.Register(nameof(LabelText), typeof(string), typeof(NumericUpDown), new PropertyMetadata("", LabelTextChangedCallback));
+
+        /// <summary>
+        /// Registers the <see cref="IsLabelVisible"/> property.
+        /// </summary>
+        public static readonly DependencyProperty IsLabelVisibleProperty =
+            DependencyProperty.Register(nameof(IsLabelVisible), typeof(Visibility), typeof(NumericUpDown), new PropertyMetadata(Visibility.Visible));
         #endregion
 
 
@@ -124,13 +140,34 @@ namespace ParticleMaker.UserControls
             get { return (int)GetValue(DecrementProperty); }
             set { SetValue(DecrementProperty, value); }
         }
+
+        /// <summary>
+        /// Gets or sets the label text of the control.
+        /// </summary>
+        [Category("Common")]
+        public string LabelText
+        {
+            get { return (string)GetValue(LabelTextProperty); }
+            set { SetValue(LabelTextProperty, value); }
+        }
+
+
+        /// <summary>
+        /// Gets or sets a value indicating if the label will be visible.
+        /// </summary>
+        public Visibility IsLabelVisible
+        {
+            get { return (Visibility)GetValue(IsLabelVisibleProperty); }
+            set { SetValue(IsLabelVisibleProperty, value); }
+        }
         #endregion
 
 
         #region Event Methods
-        /// <summary>aef="Increment"/> value.
+        /// <summary>
+        /// Increments the numeric up down value.
         /// </summary>
-        private void UpArrow_MouseUp(object sender, MouseButtonEventArgs e)
+        private void UpArrowPolygon_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Value += Increment;
             ValueTextbox.CaretIndex = ValueTextbox.Text.Length;
@@ -138,9 +175,9 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Decrements the <see cref="Value"/> by the given <see cref="Decrement"/> value.
+        /// Decrements the numeric up down value.
         /// </summary>
-        private void Polygon_MouseUp(object sender, MouseButtonEventArgs e)
+        private void DownArrowPolygon_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Value -= Increment;
             ValueTextbox.CaretIndex = ValueTextbox.Text.Length;
@@ -182,6 +219,34 @@ namespace ParticleMaker.UserControls
 
 
         #region Static Methods
+        /// <summary>
+        /// Sets the if the colon label separator is visible or hidden depending if the label text is null.
+        /// </summary>
+        private static void LabelTextChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var ctrl = (NumericUpDown)d;
+
+            if (ctrl == null)
+                return;
+
+            ctrl.IsLabelVisible = string.IsNullOrEmpty((string)e.NewValue) ? Visibility.Hidden : Visibility.Visible;
+        }
+
+
+        /// <summary>
+        /// Invokes the on value change event.
+        /// </summary>
+        private static void ValueChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var ctrl = (NumericUpDown)d;
+
+            if (ctrl == null)
+                return;
+
+            ctrl.OnValueChanged?.Invoke(ctrl, new ValueChangedEventArgs() { OldValue = (int)e.OldValue, NewValue = (int)e.NewValue });
+        }
+
+
         /// <summary>
         /// Restricts the value to the controls' <see cref="Min"/> and <see cref="Max"/> property values.
         /// </summary>
