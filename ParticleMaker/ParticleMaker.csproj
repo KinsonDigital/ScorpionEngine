@@ -77,8 +77,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="UserControls\RandomColorRanges.xaml.cs">
+      <DependentUpon>RandomColorRanges.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ValueChangedEventArgs.cs" />
     <Page Include="UserControls\ColorValue.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\RandomColorRanges.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

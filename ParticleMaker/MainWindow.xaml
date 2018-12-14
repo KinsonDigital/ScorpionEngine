@@ -25,7 +25,6 @@
                 <wf:PictureBox Name="grfxSurface"></wf:PictureBox>
             </WindowsFormsHost.Child>
         </WindowsFormsHost>
-        <CustomControls:ColorValue HorizontalAlignment="Left" Height="170" Margin="37,63,0,0" Grid.Row="1" VerticalAlignment="Top" Width="268" ColorBrush="#FF7A6535"/>
-        <CustomControls:NumericUpDown HorizontalAlignment="Left" VerticalAlignment="Top" Margin="226,0,0,0" LabelText="Hello World"/>
+        <CustomControls:RandomColorRanges HorizontalAlignment="Left" Height="240" Margin="24,22,0,0" Grid.Row="1" VerticalAlignment="Top" Width="157"/>
     </Grid>
 </Window>

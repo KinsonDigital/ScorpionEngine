@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="ParticleMaker.UserControls.RandomColorRanges"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ParticleMaker.UserControls"
+             mc:Ignorable="d" Background="White" d:DesignWidth="160"
+             Name="this">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Content="Random Color Ranges" HorizontalAlignment="Center"/>
+        
+        <!--RED MIN/MAX-->
+        <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0, 2.5, 5, 2.5">
+            <local:NumericUpDown LabelText="Red Min" Margin="0, 0, 0, 2.5" HorizontalAlignment="Right"
+                                 Value="{Binding Path=RedMin, Mode=TwoWay, ElementName=this}"/>
+            <local:NumericUpDown LabelText="Red Max" Margin="0, 2.5, 0, 0" HorizontalAlignment="Right"
+                                 Value="{Binding Path=RedMax, Mode=TwoWay, ElementName=this}"/>
+        </StackPanel>
+
+        <!--GREEN MIN/MAX-->
+        <StackPanel Grid.Row="2" Orientation="Vertical" Margin="0, 2.5, 5, 2.5">
+            <local:NumericUpDown LabelText="Green Min" Margin="0, 0, 0, 2.5" HorizontalAlignment="Right"
+                                 Value="{Binding Path=GreenMin, Mode=TwoWay, ElementName=this}"/>
+            <local:NumericUpDown LabelText="Green Max" Margin="0, 2.5, 0, 0" HorizontalAlignment="Right"
+                                 Value="{Binding Path=GreenMax, Mode=TwoWay, ElementName=this}"/>
+        </StackPanel>
+
+        <!--BLUE MIN/MAX-->
+        <StackPanel Grid.Row="3" Orientation="Vertical" Margin="0, 2.5, 5, 5">
+            <local:NumericUpDown LabelText="Blue Min" Margin="0, 0, 0, 2.5" HorizontalAlignment="Right"
+                                 Value="{Binding Path=BlueMin, Mode=TwoWay, ElementName=this}"/>
+            <local:NumericUpDown LabelText="Blue Max" Margin="0, 2.5, 0, 0" HorizontalAlignment="Right"
+                                 Value="{Binding Path=BlueMax, Mode=TwoWay, ElementName=this}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
