@@ -81,6 +81,7 @@
       <DependentUpon>RandomColorRanges.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ValueChangedEventArgs.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="UserControls\ColorValue.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -107,7 +108,6 @@
     <Compile Include="UserControls\NumericUpDown.xaml.cs">
       <DependentUpon>NumericUpDown.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Email.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="GraphicsEngine.cs" />
     <Compile Include="MainWindow.xaml.cs">

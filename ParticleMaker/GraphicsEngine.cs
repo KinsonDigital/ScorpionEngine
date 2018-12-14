@@ -11,6 +11,7 @@ namespace ParticleMaker
 {
     public class GraphicsEngine : Game
     {
+        #region Fields
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private IntPtr _windowsHandle;
@@ -21,9 +22,15 @@ namespace ParticleMaker
         private Renderer _renderer;
         private ParticleTextureLoader _particleTextureLoader;
         private bool _shuttingDown = false;
+        #endregion
 
 
         #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="GraphicsEngine"/>.
+        /// </summary>
+        /// <param name="windowHandle">The handle that points to the window of where to render the graphics.</param>
+        /// <param name="particleEngine">The particle engine that manages the particles.</param>
         public GraphicsEngine(IntPtr windowHandle, ParticleEngine particleEngine)
         {
             _particleEngine = particleEngine;
