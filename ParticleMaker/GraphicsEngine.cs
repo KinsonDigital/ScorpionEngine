@@ -22,6 +22,8 @@ namespace ParticleMaker
         private Renderer _renderer;
         private ParticleTextureLoader _particleTextureLoader;
         private bool _shuttingDown = false;
+        private int _width;
+        private int _height;
         #endregion
 
 
@@ -31,8 +33,11 @@ namespace ParticleMaker
         /// </summary>
         /// <param name="windowHandle">The handle that points to the window of where to render the graphics.</param>
         /// <param name="particleEngine">The particle engine that manages the particles.</param>
-        public GraphicsEngine(IntPtr windowHandle, ParticleEngine particleEngine)
+        public GraphicsEngine(IntPtr windowHandle, ParticleEngine particleEngine, int width, int height)
         {
+            _width = width;
+            _height = height;
+
             _particleEngine = particleEngine;
 
             _windowsHandle = windowHandle;
@@ -44,6 +49,18 @@ namespace ParticleMaker
 
 
         #region Public Methods
+        public int Width
+        {
+            get { return _width; }
+            set { _width = value; }
+        }
+
+        public int Height
+        {
+            get { return _height; }
+            set { _height = value; }
+        }
+
         public void Stop()
         {
             _shuttingDown = true;
@@ -57,6 +74,8 @@ namespace ParticleMaker
         private void _graphics_PreparingDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e)
         {
             e.GraphicsDeviceInformation.PresentationParameters.DeviceWindowHandle = _windowsHandle;
+            e.GraphicsDeviceInformation.PresentationParameters.BackBufferWidth = _width;
+            e.GraphicsDeviceInformation.PresentationParameters.BackBufferHeight = _height;
         }
         #endregion
 
@@ -82,7 +101,7 @@ namespace ParticleMaker
             _renderer = new Renderer(_particleRenderer);
 
             var starTexture = _contentLoader.LoadTexture("Star");
-
+            
             _particleEngine.AddTexture(starTexture);
 
             base.LoadContent();
@@ -113,8 +132,6 @@ namespace ParticleMaker
             GraphicsDevice.Clear(new Color(40, 40, 40, 255));
 
             _spriteBatch.Begin();
-
-            _spriteBatch.DrawRectangle(new Rectangle(100, 150, 100, 100), Color.CornflowerBlue);
 
             _particleEngine.Render(_renderer);
 

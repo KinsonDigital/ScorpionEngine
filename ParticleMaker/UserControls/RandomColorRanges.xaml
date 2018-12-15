@@ -6,39 +6,41 @@
              xmlns:local="clr-namespace:ParticleMaker.UserControls"
              mc:Ignorable="d" Background="White" d:DesignWidth="160"
              Name="this">
-    
-    <Grid DataContext="{Binding ElementName=this}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Content="Random Color Ranges" HorizontalAlignment="Center"/>
+    <Border BorderBrush="Gray" BorderThickness="1">
+        <Grid DataContext="{Binding ElementName=this}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Content="Random Color Ranges" HorizontalAlignment="Center"/>
         
-        <!--RED MIN/MAX-->
-        <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0, 2.5, 5, 2.5">
-            <local:NumericUpDown LabelText="Red Min" Margin="0, 0, 0, 2.5" HorizontalAlignment="Right"
-                                 Value="{Binding Path=RedMin, Mode=TwoWay}" Max="255"/>
-            <local:NumericUpDown LabelText="Red Max" Margin="0, 2.5, 0, 0" HorizontalAlignment="Right"
-                                 Value="{Binding Path=RedMax, Mode=TwoWay}" Max="255"/>
-        </StackPanel>
+            <!--RED MIN/MAX-->
+            <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0, 2.5, 5, 2.5">
+                <local:NumericUpDown LabelText="Red Min" Margin="0, 0, 0, 2.5" HorizontalAlignment="Right"
+                                     Value="{Binding Path=RedMin, Mode=TwoWay}" Max="255"/>
+                <local:NumericUpDown LabelText="Red Max" Margin="0, 2.5, 0, 0" HorizontalAlignment="Right"
+                                     Value="{Binding Path=RedMax, Mode=TwoWay}" Max="255"/>
+            </StackPanel>
 
-        <!--GREEN MIN/MAX-->
-        <StackPanel Grid.Row="2" Orientation="Vertical" Margin="0, 2.5, 5, 2.5">
-            <local:NumericUpDown LabelText="Green Min" Margin="0, 0, 0, 2.5" HorizontalAlignment="Right"
-                                 Value="{Binding Path=GreenMin, Mode=TwoWay}" Max="255"/>
-            <local:NumericUpDown LabelText="Green Max" Margin="0, 2.5, 0, 0" HorizontalAlignment="Right"
-                                 Value="{Binding Path=GreenMax, Mode=TwoWay}" Max="255"/>
-        </StackPanel>
+            <!--GREEN MIN/MAX-->
+            <StackPanel Grid.Row="2" Orientation="Vertical" Margin="0, 2.5, 5, 2.5">
+                <local:NumericUpDown LabelText="Green Min" Margin="0, 0, 0, 2.5" HorizontalAlignment="Right"
+                                     Value="{Binding Path=GreenMin, Mode=TwoWay}" Max="255"/>
+                <local:NumericUpDown LabelText="Green Max" Margin="0, 2.5, 0, 0" HorizontalAlignment="Right"
+                                     Value="{Binding Path=GreenMax, Mode=TwoWay}" Max="255"/>
+            </StackPanel>
 
-        <!--BLUE MIN/MAX-->
-        <StackPanel Grid.Row="3" Orientation="Vertical" Margin="0, 2.5, 5, 5">
-            <local:NumericUpDown LabelText="Blue Min" Margin="0, 0, 0, 2.5" HorizontalAlignment="Right"
-                                 Value="{Binding Path=BlueMin, Mode=TwoWay}" Max="255"/>
-            <local:NumericUpDown LabelText="Blue Max" Margin="0, 2.5, 0, 0" HorizontalAlignment="Right"
-                                 Value="{Binding Path=BlueMax, Mode=TwoWay}" Max="255"/>
-        </StackPanel>
-    </Grid>
+            <!--BLUE MIN/MAX-->
+            <StackPanel Grid.Row="3" Orientation="Vertical" Margin="0, 2.5, 5, 5">
+                <local:NumericUpDown LabelText="Blue Min" Margin="0, 0, 0, 2.5" HorizontalAlignment="Right"
+                                     Value="{Binding Path=BlueMin, Mode=TwoWay}" Max="255"/>
+                <local:NumericUpDown LabelText="Blue Max" Margin="0, 2.5, 0, 0" HorizontalAlignment="Right"
+                                     Value="{Binding Path=BlueMax, Mode=TwoWay}" Max="255"/>
+            </StackPanel>
+        </Grid>
+    </Border>
 </UserControl>

@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
+using System.Windows.Interop;
+using System.Windows.Media;
 using ThreadTimer = System.Threading.Timer;
 
 namespace ParticleMaker
@@ -54,6 +56,8 @@ namespace ParticleMaker
             DataContext = _mainViewModel;
 
             _mainViewModel.RedMax = 255;
+            _mainViewModel.GreenMax = 255;
+            _mainViewModel.BlueMax = 255;
         }
         #endregion
     }

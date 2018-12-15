@@ -28,12 +28,6 @@ namespace ParticleMaker.ViewModels
         private bool _timerRan;
         private ParticleEngine _particleEngine;
         private Dispatcher _uiDispatcher;
-        private int _redMin;
-        private int _redMax;
-        private int _greenMin;
-        private int _greenMax;
-        private int _blueMin;
-        private int _blueMax;
         #endregion
 
 
@@ -55,7 +49,7 @@ namespace ParticleMaker.ViewModels
 
             _timer = new ThreadTimer(TimerCallback, null, 0, 250);
 
-            _particleEngine = new ParticleEngine(new CoreVector(350, 200))
+            _particleEngine = new ParticleEngine(new CoreVector(200, 200))
             {
                 Enabled = true,
                 GreenMin = 0,
@@ -68,14 +62,29 @@ namespace ParticleMaker.ViewModels
 
 
         #region Props
-        public bool IsReady { get; set; }
+        public int RenderSurfaceWidth
+        {
+            get => _graphicsEngine.Width;
+            set
+            {
+                _graphicsEngine.Width = value;
+            }
+        }
+
+        public int RenderSurfaceHeight
+        {
+            get => _graphicsEngine.Height;
+            set
+            {
+                _graphicsEngine.Height = value;
+            }
+        }
 
         public int RedMin
         {
-            get => _redMin;
+            get => _particleEngine.RedMin;
             set
             {
-                _redMin = value;
                 _particleEngine.RedMin = (byte)value;
                 NotifyPropChange();
             }
@@ -83,10 +92,9 @@ namespace ParticleMaker.ViewModels
 
         public int RedMax
         {
-            get { return _redMax; }
+            get => _particleEngine.RedMax;
             set
             {
-                _redMax = value;
                 _particleEngine.RedMax = (byte)value;
                 NotifyPropChange();
             }
@@ -94,40 +102,40 @@ namespace ParticleMaker.ViewModels
 
         public int GreenMin
         {
-            get { return _greenMin; }
+            get => _particleEngine.GreenMin;
             set
             {
-                _greenMin = value;
+                _particleEngine.GreenMin = (byte)value;
                 NotifyPropChange();
             }
         }
 
         public int GreenMax
         {
-            get { return _greenMax; }
+            get => _particleEngine.GreenMax;
             set
             {
-                _greenMax = value;
+                _particleEngine.GreenMax = (byte)value;
                 NotifyPropChange();
             }
         }
 
         public int BlueMin
         {
-            get { return _blueMin; }
+            get => _particleEngine.BlueMin;
             set
             {
-                _blueMin = value;
+                _particleEngine.BlueMin = (byte)value;
                 NotifyPropChange();
             }
         }
 
         public int BlueMax
         {
-            get { return _blueMax; }
+            get => _particleEngine.BlueMax;
             set
             {
-                _blueMax = value;
+                _particleEngine.BlueMax = (byte)value;
                 NotifyPropChange();
             }
         }
@@ -165,7 +173,7 @@ namespace ParticleMaker.ViewModels
                 {
                     _timer?.Dispose();
                     _timer = null;
-                    _graphicsEngine = new GraphicsEngine(_renderSurface.Handle, _particleEngine);
+                    _graphicsEngine = new GraphicsEngine(_renderSurface.Handle, _particleEngine, 400, 400);
                     _graphicsEngine.Run();
                 }
             });
