@@ -24,12 +24,11 @@ namespace ParticleMaker
         /// </summary>
         public MainWindow()
         {
-            InitializeComponent();
             ElementHost.EnableModelessKeyboardInterop(this);
 
-            _mainViewModel = new MainViewModel(winFormsHost.Child as PictureBox, Dispatcher);
+            InitializeComponent();
 
-            DataContext = _mainViewModel;
+            Loaded += MainWindow_Loaded;
         }
         #endregion
 
@@ -48,7 +47,14 @@ namespace ParticleMaker
         #endregion
 
 
-        #region Private Methods
+        #region Event Methods
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            _mainViewModel = new MainViewModel(winFormsHost.Child as PictureBox, Dispatcher);
+            DataContext = _mainViewModel;
+
+            _mainViewModel.RedMax = 255;
+        }
         #endregion
     }
 }

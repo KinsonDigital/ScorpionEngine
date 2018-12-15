@@ -1,13 +1,16 @@
-﻿<Window xmlns:CustomControls="clr-namespace:ParticleMaker.UserControls"  x:Class="ParticleMaker.MainWindow"
+﻿<Window x:Class="ParticleMaker.MainWindow"
+        xmlns:ctrls="clr-namespace:ParticleMaker.UserControls"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ParticleMaker"
         xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+        xmlns:vm="clr-namespace:ParticleMaker.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="1500"
-        Name="MainWin" WindowStartupLocation="CenterScreen">
+        Name="this" WindowStartupLocation="CenterScreen"
+        d:DataContext="{d:DesignInstance Type=vm:MainViewModel}">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -25,6 +28,9 @@
                 <wf:PictureBox Name="grfxSurface"></wf:PictureBox>
             </WindowsFormsHost.Child>
         </WindowsFormsHost>
-        <CustomControls:RandomColorRanges HorizontalAlignment="Left" Height="240" Margin="24,22,0,0" Grid.Row="1" VerticalAlignment="Top" Width="157"/>
+        
+        <ctrls:RandomColorRanges x:Name="ColorRanges" HorizontalAlignment="Left" Height="240" Margin="24,22,0,0" Grid.Row="1" VerticalAlignment="Top" Width="157"
+                                RedMax="{Binding Path=RedMax, Mode=TwoWay}"
+                                RedMin="{Binding Path=RedMin, Mode=TwoWay}"/>
     </Grid>
 </Window>

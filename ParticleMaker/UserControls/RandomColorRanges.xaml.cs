@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace ParticleMaker.UserControls
@@ -15,8 +17,6 @@ namespace ParticleMaker.UserControls
         public RandomColorRanges()
         {
             InitializeComponent();
-
-            DataContext = this;
         }
         #endregion
 
@@ -64,6 +64,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Gets or sets the minimum value for the red color component.
         /// </summary>
+        [Category("Colors")]
         public int RedMin
         {
             get { return (int)GetValue(RedMinProperty); }
@@ -73,6 +74,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Gets or sets the maximum value for the red color component.
         /// </summary>
+        [Category("Colors")]
         public int RedMax
         {
             get { return (int)GetValue(RedMaxProperty); }

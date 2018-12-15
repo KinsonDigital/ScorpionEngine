@@ -44,8 +44,6 @@ namespace ParticleMaker.UserControls
         public NumericUpDown()
         {
             InitializeComponent();
-
-            DataContext = this;
         }
         #endregion
 
@@ -108,6 +106,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Gets or sets the minimum <see cref="NumericUpDown"/> control value.
         /// </summary>
+        [Category("Common")]
         public int Min
         {
             get { return (int)GetValue(MinProperty); }
@@ -117,6 +116,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Gets or sets the maximum <see cref="NumericUpDown"/> control value.
         /// </summary>
+        [Category("Common")]
         public int Max
         {
             get { return (int)GetValue(MaxProperty); }
@@ -126,6 +126,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Gets or sets the amount to increment the <see cref="Value"/> property.
         /// </summary>
+        [Category("Common")]
         public int Increment
         {
             get { return (int)GetValue(IncrementProperty); }
@@ -135,6 +136,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Gets or sets the amount to decrement the <see cref="Value"/> property.
         /// </summary>
+        [Category("Common")]
         public int Decrement
         {
             get { return (int)GetValue(DecrementProperty); }
@@ -150,7 +152,6 @@ namespace ParticleMaker.UserControls
             get { return (string)GetValue(LabelTextProperty); }
             set { SetValue(LabelTextProperty, value); }
         }
-
 
         /// <summary>
         /// Gets or sets a value indicating if the label will be visible.

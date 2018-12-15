@@ -4,8 +4,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ParticleMaker.UserControls" Background="White"
-             mc:Ignorable="d" Height="30" MinHeight="30" MaxHeight="30">
+             Background="White" mc:Ignorable="d"
+             MinHeight="30" MaxHeight="30"
+             Name="this">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -30,19 +31,19 @@
         <!--Holds the value of the up down control-->
         <TextBox x:Name="ValueTextbox" Grid.Column="1" Grid.Row="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                  PreviewKeyDown="TextBox_PreviewKeyDown" MinWidth="50"
-                 Text="{Binding Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                 Text="{Binding Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=this}">
         </TextBox>
 
         <Grid Grid.Column="2" Grid.Row="0" Margin="5, 0, 0, 0">
             <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <!--Value Up Button-->
-            <Canvas Width="25" Height="25" Grid.Row="0" Margin="0, 0, 0, 0.5">
+            <Canvas Grid.Row="0" Width="25" Height="15">
                 <Polygon Name="UpArrowPolygon"
-                         Points="12.5,0.5 24.5,11 0.5,11"
+                         Points="12.5,1 23,13 2,13"
                          Stroke="Gray"
                          StrokeThickness="0.5" MouseUp="UpArrowPolygon_MouseUp">
                     <Polygon.Style>
@@ -59,11 +60,11 @@
             </Canvas>
 
             <!--Value Down Button-->
-            <Canvas Grid.Row="1" Width="25" MaxWidth="25" Height="25" Margin="0, 0.5, 0, 0">
+            <Canvas Grid.Row="1" Width="25" Height="15">
                 <Polygon Name="DownArrowPolygon"
-                         Points="0.5,1 24.5,1 12.5,11.5"
-                         Stroke="Gray"
-                         StrokeThickness="0.5" MouseUp="DownArrowPolygon_MouseUp">
+                            Points="2,2 23,2 12.5,14"
+                            Stroke="Gray"
+                            StrokeThickness="0.5" MouseUp="DownArrowPolygon_MouseUp">
                     <Polygon.Style>
                         <Style TargetType="{x:Type Polygon}">
                             <Setter Property="Fill" Value="Gray"/>
