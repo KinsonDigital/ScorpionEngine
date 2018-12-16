@@ -2,7 +2,7 @@
 {
     public class ValueChangedEventArgs
     {
-        public int OldValue { get; internal set; }
-        public int NewValue { get; internal set; }
+        public float OldValue { get; internal set; }
+        public float NewValue { get; internal set; }
     }
 }

@@ -9,8 +9,8 @@
         xmlns:vm="clr-namespace:ParticleMaker.ViewModels"
         mc:Ignorable="d" Title="Particle Maker"
         Name="this" WindowStartupLocation="CenterScreen"
-        d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
-        Height="400" Width="650">
+        Height="591.943" Width="781.618"
+        d:DataContext="{d:DesignInstance Type={x:Type vm:MainViewModel}}">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -30,9 +30,13 @@
             </WindowsFormsHost.Child>
         </WindowsFormsHost>
 
-        <ctrls:RandomColorRanges x:Name="ColorRanges" HorizontalAlignment="Left" Height="281" Margin="10,10,0,0" VerticalAlignment="Top" Width="179"
+        <!--<ctrls:RandomColorRanges x:Name="ColorRanges" HorizontalAlignment="Left" Height="281" Margin="10,10,0,0" VerticalAlignment="Top" Width="179"
                                  RedMin="{Binding Path=RedMin, Mode=TwoWay}" RedMax="{Binding Path=RedMax, Mode=TwoWay}"
                                  GreenMin="{Binding Path=GreenMin, Mode=TwoWay}" GreenMax="{Binding Path=GreenMax, Mode=TwoWay}"
-                                 BlueMin="{Binding Path=BlueMin, Mode=TwoWay}" BlueMax="{Binding Path=BlueMax, Mode=TwoWay}"/>
+                                 BlueMin="{Binding Path=BlueMin, Mode=TwoWay}" BlueMax="{Binding Path=BlueMax, Mode=TwoWay}"/>-->
+        
+        <ctrls:RandomSizeRange SizeMin="{Binding SizeMin, Mode=TwoWay}" SizeMax="{Binding SizeMax, Mode=TwoWay}"/>
+
+        <Label Content="{Binding ElementName=MyNumber, Path=Value, Mode=TwoWay}" Margin="169,411,10.333,-34.667"></Label>
     </Grid>
 </Window>

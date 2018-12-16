@@ -80,6 +80,9 @@ namespace ParticleMaker.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the minimum value of the red color component range.
+        /// </summary>
         public int RedMin
         {
             get => _particleEngine.RedMin;
@@ -90,6 +93,9 @@ namespace ParticleMaker.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the maximum value of the red color component range.
+        /// </summary>
         public int RedMax
         {
             get => _particleEngine.RedMax;
@@ -100,6 +106,9 @@ namespace ParticleMaker.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the minimum value of the green color component range.
+        /// </summary>
         public int GreenMin
         {
             get => _particleEngine.GreenMin;
@@ -110,6 +119,9 @@ namespace ParticleMaker.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the maximum value of the green color component range.
+        /// </summary>
         public int GreenMax
         {
             get => _particleEngine.GreenMax;
@@ -120,6 +132,9 @@ namespace ParticleMaker.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the minimum value of the blue color component range.
+        /// </summary>
         public int BlueMin
         {
             get => _particleEngine.BlueMin;
@@ -130,12 +145,41 @@ namespace ParticleMaker.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the maximum value of the blue color component range.
+        /// </summary>
         public int BlueMax
         {
             get => _particleEngine.BlueMax;
             set
             {
                 _particleEngine.BlueMax = (byte)value;
+                NotifyPropChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the minimum size of the range that the size can be randomly chosen from.
+        /// </summary>
+        public float SizeMin
+        {
+            get => _particleEngine.SizeMin;
+            set
+            {
+                _particleEngine.SizeMin = value;
+                NotifyPropChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the maximum size of the range that the size can be randomly chosen from.
+        /// </summary>
+        public float SizeMax
+        {
+            get => _particleEngine.SizeMax;
+            set
+            {
+                _particleEngine.SizeMax = value;
                 NotifyPropChange();
             }
         }

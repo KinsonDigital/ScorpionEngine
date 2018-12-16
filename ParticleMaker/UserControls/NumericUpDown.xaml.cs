@@ -12,29 +12,8 @@ namespace ParticleMaker.UserControls
     /// </summary>
     public partial class NumericUpDown : UserControl
     {
+        //TODO: This needs to go away once this is not required by the ColorValueControl anymore
         public event EventHandler<ValueChangedEventArgs> OnValueChanged;
-
-
-        #region Private Fields
-        private static readonly Key[] _numberKeys = new Key[]
-        {
-            Key.D0, Key.D1, Key.D2, Key.D3, Key.D4, Key.D5,
-            Key.D6, Key.D7, Key.D8, Key.D9
-        };
-
-        private static readonly Key[] _numpadKeys = new Key[]
-        {
-            Key.NumPad0, Key.NumPad1, Key.NumPad2, Key.NumPad3,
-            Key.NumPad4, Key.NumPad5, Key.NumPad6, Key.NumPad7,
-            Key.NumPad8, Key.NumPad9
-        };
-
-        private static readonly Key[] _otherAllowedKeys = new Key[]
-        {
-            Key.Left, Key.Right, Key.Home, Key.End,
-            Key.Back, Key.Delete, Key.Decimal, Key.OemPeriod
-        };
-        #endregion
 
 
         #region Constructors
@@ -51,34 +30,40 @@ namespace ParticleMaker.UserControls
         #region Props
         #region Dependency Props
         /// <summary>
+        /// Registers the <see cref="DecimalPlaces"/> property.
+        /// </summary>
+        public static readonly DependencyProperty DecimalPlacesProperty =
+            DependencyProperty.Register(nameof(DecimalPlaces), typeof(int), typeof(NumericUpDown), new PropertyMetadata(0));
+
+        /// <summary>
         /// Registers the <see cref="Value"/> property.
         /// </summary>
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register(nameof(Value), typeof(int), typeof(NumericUpDown), new PropertyMetadata(0, ValueChangedCallback, ValueCoerceCallback));
+            DependencyProperty.Register(nameof(Value), typeof(float), typeof(NumericUpDown), new PropertyMetadata(0f, ValueChangedCallback, ValueCoerceCallback));
 
         /// <summary>
         /// Registers the <see cref="Min"/> property.
         /// </summary>
         public static readonly DependencyProperty MinProperty =
-            DependencyProperty.Register(nameof(Min), typeof(int), typeof(NumericUpDown), new PropertyMetadata(0, MinChangedCallback));
+            DependencyProperty.Register(nameof(Min), typeof(float), typeof(NumericUpDown), new PropertyMetadata(0f, MinChangedCallback));
 
         /// <summary>
         /// Registers the <see cref="Max"/> property.
         /// </summary>
         public static readonly DependencyProperty MaxProperty =
-            DependencyProperty.Register(nameof(Max), typeof(int), typeof(NumericUpDown), new PropertyMetadata(10, MaxChangedCallback));
+            DependencyProperty.Register(nameof(Max), typeof(float), typeof(NumericUpDown), new PropertyMetadata(10f, MaxChangedCallback));
 
         /// <summary>
         /// Registers the <see cref="Increment"/> property.
         /// </summary>
         public static readonly DependencyProperty IncrementProperty =
-            DependencyProperty.Register(nameof(Increment), typeof(int), typeof(NumericUpDown), new PropertyMetadata(1));
+            DependencyProperty.Register(nameof(Increment), typeof(float), typeof(NumericUpDown), new PropertyMetadata(1f));
 
         /// <summary>
         /// Registers the <see cref="Decrement"/> property.
         /// </summary>
         public static readonly DependencyProperty DecrementProperty =
-            DependencyProperty.Register(nameof(Decrement), typeof(int), typeof(NumericUpDown), new PropertyMetadata(1));
+            DependencyProperty.Register(nameof(Decrement), typeof(float), typeof(NumericUpDown), new PropertyMetadata(1f));
 
         /// <summary>
         /// Registers the <see cref="LabelText"/> property.
@@ -90,16 +75,26 @@ namespace ParticleMaker.UserControls
         /// Registers the <see cref="IsLabelVisible"/> property.
         /// </summary>
         public static readonly DependencyProperty IsLabelVisibleProperty =
-            DependencyProperty.Register(nameof(IsLabelVisible), typeof(Visibility), typeof(NumericUpDown), new PropertyMetadata(Visibility.Visible));
+            DependencyProperty.Register(nameof(IsLabelVisible), typeof(Visibility), typeof(NumericUpDown), new PropertyMetadata(Visibility.Hidden));
         #endregion
 
 
         /// <summary>
+        /// Gets or sets the number of decimal places that will be shown.
+        /// </summary>
+        [Category("Common")]
+        public int DecimalPlaces
+        {
+            get { return (int)GetValue(DecimalPlacesProperty); }
+            set { SetValue(DecimalPlacesProperty, value); }
+        }
+        
+        /// <summary>
         /// Gets or sets the value.
         /// </summary>
-        public int Value
+        public float Value
         {
-            get => (int)GetValue(ValueProperty);
+            get => (float)GetValue(ValueProperty);
             set => SetValue(ValueProperty, value);
         }
 
@@ -107,9 +102,9 @@ namespace ParticleMaker.UserControls
         /// Gets or sets the minimum <see cref="NumericUpDown"/> control value.
         /// </summary>
         [Category("Common")]
-        public int Min
+        public float Min
         {
-            get { return (int)GetValue(MinProperty); }
+            get { return (float)GetValue(MinProperty); }
             set { SetValue(MinProperty, value); }
         }
 
@@ -117,9 +112,9 @@ namespace ParticleMaker.UserControls
         /// Gets or sets the maximum <see cref="NumericUpDown"/> control value.
         /// </summary>
         [Category("Common")]
-        public int Max
+        public float Max
         {
-            get { return (int)GetValue(MaxProperty); }
+            get { return (float)GetValue(MaxProperty); }
             set { SetValue(MaxProperty, value); }
         }
 
@@ -127,9 +122,9 @@ namespace ParticleMaker.UserControls
         /// Gets or sets the amount to increment the <see cref="Value"/> property.
         /// </summary>
         [Category("Common")]
-        public int Increment
+        public float Increment
         {
-            get { return (int)GetValue(IncrementProperty); }
+            get { return (float)GetValue(IncrementProperty); }
             set { SetValue(IncrementProperty, value); }
         }
 
@@ -137,9 +132,9 @@ namespace ParticleMaker.UserControls
         /// Gets or sets the amount to decrement the <see cref="Value"/> property.
         /// </summary>
         [Category("Common")]
-        public int Decrement
+        public float Decrement
         {
-            get { return (int)GetValue(DecrementProperty); }
+            get { return (float)GetValue(DecrementProperty); }
             set { SetValue(DecrementProperty, value); }
         }
 
@@ -171,7 +166,7 @@ namespace ParticleMaker.UserControls
         private void UpArrowPolygon_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Value += Increment;
-            ValueTextbox.CaretIndex = ValueTextbox.Text.Length;
+            ValueTextbox.MoveCaretToEnd();
         }
 
 
@@ -180,41 +175,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void DownArrowPolygon_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            Value -= Increment;
-            ValueTextbox.CaretIndex = ValueTextbox.Text.Length;
-        }
-
-
-        /// <summary>
-        /// Limits the text box value to only numbers and various misc keys for 
-        /// text manipulation.
-        /// </summary>
-        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (_numberKeys.Contains(e.Key))
-            {
-                if (Keyboard.Modifiers != ModifierKeys.Shift)
-                    return;
-            }
-            else if (_numpadKeys.Contains(e.Key))
-            {
-                if (Keyboard.Modifiers != ModifierKeys.Shift)
-                    return;
-            }
-            else if (_otherAllowedKeys.Contains(e.Key))
-            {
-                if (Keyboard.IsKeyDown(Key.Decimal) || Keyboard.IsKeyDown(Key.OemPeriod))
-                {
-                    if (!Value.ToString().Contains('.') && Keyboard.Modifiers != ModifierKeys.Shift)
-                        return;
-                }
-                else
-                {
-                    return;
-                }
-            }
-
-            e.Handled = true;
+            Value -= Decrement;
+            ValueTextbox.MoveCaretToEnd();
         }
         #endregion
 
@@ -256,23 +218,25 @@ namespace ParticleMaker.UserControls
         /// <returns></returns>
         private static object ValueCoerceCallback(DependencyObject d, object baseValue)
         {
-            var numUpDown = (NumericUpDown)d;
+            var ctrl = (NumericUpDown)d;
 
-            if (numUpDown != null)
+            if (ctrl != null)
             {
-                var numValue = (int)baseValue;
+                var numValue = (float)baseValue;
 
                 //Apply the minimum if need be
-                numValue = numValue < numUpDown.Min ? numUpDown.Min : numValue;
+                numValue = numValue < ctrl.Min ? ctrl.Min : numValue;
 
                 //Apply the maximum if need be
-                numValue = numValue > numUpDown.Max ? numUpDown.Max : numValue;
+                numValue = numValue > ctrl.Max ? ctrl.Max : numValue;
+
+                numValue = (float)Math.Round(numValue, ctrl.DecimalPlaces);
 
                 return numValue;
             }
 
 
-            return numUpDown;
+            return ctrl;
         }
 
 
