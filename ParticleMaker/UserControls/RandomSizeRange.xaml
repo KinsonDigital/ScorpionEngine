@@ -6,15 +6,16 @@
              xmlns:local="clr-namespace:ParticleMaker.UserControls"
              mc:Ignorable="d" Background="White"
              Name="this">
-    
-    <Grid DataContext="{Binding ElementName=this}">
-        <StackPanel Orientation="Vertical" Margin="5">
+
+    <Border BorderBrush="Gray" BorderThickness="1">
+        <StackPanel DataContext="{Binding ElementName=this}" Orientation="Vertical" Margin="5">
+            <Label Content="Random Size Range" HorizontalAlignment="Center"/>
             <local:NumericUpDown LabelText="Size Min" Margin="0, 0, 0, 2.5"
-                                 Value="{Binding SizeMin, Mode=TwoWay}" Max="10"
-                                 Increment="0.01" Decrement="0.01" DecimalPlaces="2"/>
+                                    Value="{Binding SizeMin, Mode=TwoWay}" Max="10"
+                                    Increment="0.01" Decrement="0.01" DecimalPlaces="2"/>
             <local:NumericUpDown LabelText="Size Max" Margin="0, 2.5, 0, 0"
-                                 Value="{Binding SizeMax, Mode=TwoWay}" Max="10"
-                                 Increment="0.01" Decrement="0.01" DecimalPlaces="2"/>
+                                    Value="{Binding SizeMax, Mode=TwoWay}" Max="10"
+                                    Increment="0.01" Decrement="0.01" DecimalPlaces="2"/>
         </StackPanel>
-    </Grid>
+    </Border>
 </UserControl>

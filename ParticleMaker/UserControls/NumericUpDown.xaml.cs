@@ -252,7 +252,7 @@ namespace ParticleMaker.UserControls
 
             if (numericUpDown != null)
             {
-                var newValue = (int)e.NewValue;
+                var newValue = (float)e.NewValue;
 
                 if (newValue > numericUpDown.Value)
                     numericUpDown.Value = newValue;
@@ -272,7 +272,7 @@ namespace ParticleMaker.UserControls
 
             if (numericUpDown != null)
             {
-                var newValue = (int)e.NewValue;
+                var newValue = (float)e.NewValue;
 
                 if (newValue < numericUpDown.Value)
                     numericUpDown.Value = newValue;

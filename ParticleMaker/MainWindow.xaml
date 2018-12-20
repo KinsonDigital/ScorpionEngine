@@ -30,13 +30,12 @@
             </WindowsFormsHost.Child>
         </WindowsFormsHost>
 
-        <!--<ctrls:RandomColorRanges x:Name="ColorRanges" HorizontalAlignment="Left" Height="281" Margin="10,10,0,0" VerticalAlignment="Top" Width="179"
-                                 RedMin="{Binding Path=RedMin, Mode=TwoWay}" RedMax="{Binding Path=RedMax, Mode=TwoWay}"
+        <ctrls:RandomColorRanges x:Name="ColorRanges" HorizontalAlignment="Left" Height="272" Margin="10,10,0,0" VerticalAlignment="Top" Width="188"
+                                 RedMin="{Binding Path=RedMin, Mode=TwoWay}"
+                                 RedMax="{Binding Path=RedMax, Mode=TwoWay}"
                                  GreenMin="{Binding Path=GreenMin, Mode=TwoWay}" GreenMax="{Binding Path=GreenMax, Mode=TwoWay}"
-                                 BlueMin="{Binding Path=BlueMin, Mode=TwoWay}" BlueMax="{Binding Path=BlueMax, Mode=TwoWay}"/>-->
-        
-        <ctrls:RandomSizeRange SizeMin="{Binding SizeMin, Mode=TwoWay}" SizeMax="{Binding SizeMax, Mode=TwoWay}"/>
+                                 BlueMin="{Binding Path=BlueMin, Mode=TwoWay}" BlueMax="{Binding Path=BlueMax, Mode=TwoWay}"/>
 
-        <Label Content="{Binding ElementName=MyNumber, Path=Value, Mode=TwoWay}" Margin="169,411,10.333,-34.667"></Label>
+        <ctrls:RandomSizeRange SizeMin="{Binding SizeMin, Mode=TwoWay}" SizeMax="{Binding SizeMax, Mode=TwoWay}" Margin="10,287,53.333,0.333"/>
     </Grid>
 </Window>

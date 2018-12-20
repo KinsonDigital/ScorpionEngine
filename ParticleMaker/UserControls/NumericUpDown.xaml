@@ -8,79 +8,68 @@
              MinHeight="35" MaxHeight="30"
              Name="this">
 
-    <Border BorderBrush="Gray" BorderThickness="1">
-        <Grid DataContext="{Binding ElementName=this}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="35"/>
-        </Grid.RowDefinitions>
-        
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-
-        <!--The control label text-->
-        <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <Label VerticalContentAlignment="Center"
-                       Content="{Binding Path=LabelText, Mode=OneWay}"/>
+    <Border BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Stretch">
+        <StackPanel DataContext="{Binding ElementName=this}" Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <!--The control label text-->
+            <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
+                <Label VerticalContentAlignment="Center" VerticalAlignment="Center"
+                        Content="{Binding Path=LabelText, Mode=OneWay}"/>
                 <Label Content=":" Padding="0" VerticalContentAlignment="Center"
-                       Visibility="{Binding Path=IsLabelVisible, Mode=TwoWay}">
+                        Visibility="{Binding Path=IsLabelVisible, Mode=TwoWay}">
                 </Label>
             </StackPanel>
-        </Label>
-        
-        <!--Holds the value of the up down control-->
-        <this:NumberBox x:Name="ValueTextbox" Grid.Column="1" Grid.Row="0" MinWidth="50" VerticalAlignment="Center"
-                 VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
-                 Value="{Binding Path=Value, Mode=TwoWay}">
-        </this:NumberBox>        
 
-        <Grid Grid.Column="2" Grid.Row="0" Margin="5, 0, 0, 0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+            <!--Holds the value of the up down control-->
+            <this:NumberBox x:Name="ValueTextbox" Grid.Column="1" Grid.Row="0" MinWidth="25" VerticalAlignment="Center"
+                            HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                            Value="{Binding Path=Value, Mode=TwoWay}">
+            </this:NumberBox>
 
-            <!--Value Up Button-->
-            <Canvas Grid.Row="0" Width="25" Height="15">
-                <Polygon Name="UpArrowPolygon"
-                         Points="12.5,0 23,12 2,12"
-                         Stroke="Gray"
-                         StrokeThickness="0.5" MouseUp="UpArrowPolygon_MouseUp">
-                    <Polygon.Style>
-                        <Style TargetType="{x:Type Polygon}">
-                            <Setter Property="Fill" Value="Gray"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Fill" Value="LightGray"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Polygon.Style>
-                </Polygon>
-            </Canvas>
+            <Grid Grid.Column="2" Grid.Row="0" Margin="5, 0, 0, 0" HorizontalAlignment="Right">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-            <!--Value Down Button-->
-            <Canvas Grid.Row="1" Width="25" Height="15">
-                <Polygon Name="DownArrowPolygon"
-                            Points="2,0 23,0 12.5,12"
-                            Stroke="Gray"
-                            StrokeThickness="0.5" MouseUp="DownArrowPolygon_MouseUp">
-                    <Polygon.Style>
-                        <Style TargetType="{x:Type Polygon}">
-                            <Setter Property="Fill" Value="Gray"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Fill" Value="LightGray"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Polygon.Style>
-                </Polygon>
-            </Canvas>
-        </Grid>
-    </Grid>
+                <!--Value Up Button-->
+                <Canvas Grid.Row="0" Width="25" Height="15" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                    <Polygon Name="UpArrowPolygon"
+                             Points="12.5,1 23,13 2,13"
+                             Stroke="Gray"
+                             StrokeThickness="0.5" MouseUp="UpArrowPolygon_MouseUp">
+                        <Polygon.Style>
+                            <Style TargetType="{x:Type Polygon}">
+                                <Setter Property="Fill" Value="Gray"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Fill" Value="LightGray"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Polygon.Style>
+                    </Polygon>
+                </Canvas>
+
+                <!--Value Down Button-->
+                <Canvas Grid.Row="1" Width="25" Height="15" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Polygon Name="DownArrowPolygon"
+                                Points="2,1 23,1 12.5,13"
+                                Stroke="Gray"
+                                StrokeThickness="0.5" MouseUp="DownArrowPolygon_MouseUp">
+                        <Polygon.Style>
+                            <Style TargetType="{x:Type Polygon}">
+                                <Setter Property="Fill" Value="Gray"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Fill" Value="LightGray"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Polygon.Style>
+                    </Polygon>
+                </Canvas>
+            </Grid>
+        </StackPanel>
     </Border>
 </UserControl>
