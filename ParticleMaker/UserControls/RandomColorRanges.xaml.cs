@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -33,7 +32,7 @@ namespace ParticleMaker.UserControls
         /// Registers the <see cref="RedMax"/> property.
         /// </summary>
         public static readonly DependencyProperty RedMaxProperty =
-            DependencyProperty.Register(nameof(RedMax), typeof(int), typeof(RandomColorRanges), new PropertyMetadata(0));
+            DependencyProperty.Register(nameof(RedMax), typeof(int), typeof(RandomColorRanges), new PropertyMetadata(255));
 
         /// <summary>
         /// Registers the <see cref="GreenMin"/> property.
@@ -45,7 +44,7 @@ namespace ParticleMaker.UserControls
         /// Registers the <see cref="GreenMax"/> property.
         /// </summary>
         public static readonly DependencyProperty GreenMaxProperty =
-            DependencyProperty.Register(nameof(GreenMax), typeof(int), typeof(RandomColorRanges), new PropertyMetadata(0));
+            DependencyProperty.Register(nameof(GreenMax), typeof(int), typeof(RandomColorRanges), new PropertyMetadata(255));
 
         /// <summary>
         /// Registers the <see cref="BlueMin"/> property.
@@ -57,7 +56,7 @@ namespace ParticleMaker.UserControls
         /// Registers the <see cref="BlueMax"/> property.
         /// </summary>
         public static readonly DependencyProperty BlueMaxProperty =
-            DependencyProperty.Register(nameof(BlueMax), typeof(int), typeof(RandomColorRanges), new PropertyMetadata(0));
+            DependencyProperty.Register(nameof(BlueMax), typeof(int), typeof(RandomColorRanges), new PropertyMetadata(255));
         #endregion
 
 
@@ -84,6 +83,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Gets or sets the minimum value for the green color component.
         /// </summary>
+        [Category("Colors")]
         public int GreenMin
         {
             get { return (int)GetValue(GreenMinProperty); }
@@ -93,6 +93,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Gets or sets the maximum value for the green color component.
         /// </summary>
+        [Category("Colors")]
         public int GreenMax
         {
             get { return (int)GetValue(GreenMaxProperty); }
@@ -102,6 +103,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Gets or sets the minimum value for the blue color component.
         /// </summary>
+        [Category("Colors")]
         public int BlueMin
         {
             get { return (int)GetValue(BlueMinProperty); }
@@ -111,6 +113,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Gets or sets the maximum value for the blue color component.
         /// </summary>
+        [Category("Colors")]
         public int BlueMax
         {
             get { return (int)GetValue(BlueMaxProperty); }

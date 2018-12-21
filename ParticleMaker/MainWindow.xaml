@@ -15,7 +15,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Name="RenderRow" Height="400"/>
+            <RowDefinition Name="RenderRow" Height="Auto"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
@@ -24,8 +25,7 @@
 
         <!--Color Settings-->
         <WindowsFormsHost Name="winFormsHost" Grid.Column="2" Grid.Row="0"
-                          Width="400"
-                          Height="400">
+                          Width="400" Height="400" VerticalAlignment="Top">
             <WindowsFormsHost.Child>
                 <wf:PictureBox Name="grfxSurface"></wf:PictureBox>
             </WindowsFormsHost.Child>
@@ -33,16 +33,11 @@
 
         <!--<wpfext:ColorPicker ColorMode="ColorCanvas" Margin="10,10,10,368"/>-->
 
-        <ctrls:RandomColorRanges x:Name="ColorRanges" HorizontalAlignment="Left" Height="272" Margin="10,10,0,0" VerticalAlignment="Top" Width="158"
-                                 RedMin="{Binding Path=RedMin, Mode=TwoWay}"
-                                 RedMax="{Binding Path=RedMax, Mode=TwoWay}"
+        <ctrls:RandomColorRanges x:Name="ColorRanges" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="177"
+                                 RedMin="{Binding Path=RedMin, Mode=TwoWay}" RedMax="{Binding Path=RedMax, Mode=TwoWay}"
                                  GreenMin="{Binding Path=GreenMin, Mode=TwoWay}" GreenMax="{Binding Path=GreenMax, Mode=TwoWay}"
                                  BlueMin="{Binding Path=BlueMin, Mode=TwoWay}" BlueMax="{Binding Path=BlueMax, Mode=TwoWay}"/>
 
-        <ctrls:RandomSizeRange SizeMin="{Binding SizeMin, Mode=TwoWay}" SizeMax="{Binding SizeMax, Mode=TwoWay}" Margin="10,287,53.333,0.333"/>
-
-        <ctrls:ColorMinMax Grid.Column="1" HorizontalAlignment="Left" Margin="52.667,440,0,-107.667" VerticalAlignment="Top" Width="185"
-                           MinLabel="Red Min" MaxLabel="Red Max"
-                           ChosenColor="Green"/>
+        <ctrls:RandomSizeRange SizeMin="{Binding SizeMin, Mode=TwoWay}" SizeMax="{Binding SizeMax, Mode=TwoWay}" Margin="118.667,19,94.667,30.667" Grid.Column="1" Grid.Row="1"/>
     </Grid>
 </Window>

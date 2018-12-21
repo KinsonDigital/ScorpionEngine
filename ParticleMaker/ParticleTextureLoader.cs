@@ -1,12 +1,8 @@
 ﻿using KDScorpionCore.Plugins;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ParticleMaker
 {

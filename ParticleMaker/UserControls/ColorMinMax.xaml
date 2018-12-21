@@ -4,17 +4,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ParticleMaker.UserControls"
-             mc:Ignorable="d" Background="White"
-             Name="this">
+             Name="this" mc:Ignorable="d" Background="White">
 
     <StackPanel Orientation="Horizontal" DataContext="{Binding ElementName=this}">
         <StackPanel Orientation="Vertical">
-            <local:NumericUpDown x:Name="MinNumericUpDown" LabelText="{Binding Path=MinLabel}"
-                                 Value="{Binding Path=Min, Mode=TwoWay}"
-                                 Min="0" Max="255"/>
-            <local:NumericUpDown x:Name="MaxNumericUpDown" LabelText="{Binding Path=MaxLabel}"
-                                 Value="{Binding Path=Max, Mode=TwoWay}"
-                                 Min="0" Max="255"/>
+            <StackPanel Name="MinStackPanel">
+                <local:NumericUpDown x:Name="MinNumericUpDown" LabelText="{Binding Path=MinLabel}"
+                                     Value="{Binding Path=Min, Mode=TwoWay}"
+                                     Min="0" Max="255" Margin="0, 0, 0, 2.5"/>
+                <Slider Value="{Binding Path=Min, Mode=TwoWay}" Minimum="0" Maximum="255"/>
+            </StackPanel>
+
+            <StackPanel Name="MaxStackPanel">
+                <local:NumericUpDown x:Name="MaxNumericUpDown" LabelText="{Binding Path=MaxLabel}"
+                                     Value="{Binding Path=Max, Mode=TwoWay}"
+                                     Min="0" Max="255" Margin="0, 2.5, 0, 2.5"/>
+                <Slider Value="{Binding Path=Max, Mode=TwoWay}" Minimum="0" Maximum="255"/>
+            </StackPanel>
         </StackPanel>
 
         <Grid>
@@ -23,17 +29,17 @@
             </Grid.ColumnDefinitions>
             
             <Grid.RowDefinitions>
-                <RowDefinition Name="Row1" Height="{Binding ElementName=MinNumericUpDown, Path=ActualHeight}"/>
-                <RowDefinition Name="Row2" Height="{Binding ElementName=MaxNumericUpDown, Path=ActualHeight}"/>
+                <RowDefinition Name="Row1" Height="{Binding ElementName=MinStackPanel, Path=ActualHeight}"/>
+                <RowDefinition Name="Row2" Height="{Binding ElementName=MaxStackPanel, Path=ActualHeight}"/>
             </Grid.RowDefinitions>
 
-            <Border Name="MinBorder" Grid.Row="0" BorderBrush="Purple" BorderThickness="0, 1, 1, 1"
+            <Border Name="MinBorder" Grid.Row="0" BorderBrush="Gray" BorderThickness="1" Margin="5, 0, 0, 0"
                     Width="{Binding ElementName=Column, Path=Width}"
                     Height="{Binding ElementName=Row1, Path=Height}">
                 <Rectangle Fill="{Binding Path=MinColor}"/>
             </Border>
 
-            <Border Name="MaxBorder" Grid.Row="1" BorderBrush="Gray" BorderThickness="0, 1, 1, 1"
+            <Border Name="MaxBorder" Grid.Row="1" BorderBrush="Gray" BorderThickness="1" Margin="5, 2.5, 0, 0"
                     Width="{Binding ElementName=Column, Path=Width}"
                     Height="{Binding ElementName=Row2, Path=Height}">
                 <Rectangle Fill="{Binding Path=MaxColor}"/>

@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ParticleMaker.UserControls
 {
@@ -22,12 +11,13 @@ namespace ParticleMaker.UserControls
     {
         #region Fields
         private static SolidColorBrush DEFAULT_COLOR = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
-        private static bool _minChangedInvoked;
-        private static bool _maxChangedInvoked;
         #endregion
 
 
         #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="ColorMinMax"/>.
+        /// </summary>
         public ColorMinMax()
         {
             InitializeComponent();
@@ -62,10 +52,10 @@ namespace ParticleMaker.UserControls
             DependencyProperty.Register(nameof(Max), typeof(int), typeof(ColorMinMax), new PropertyMetadata(0, MaxChanged));
 
         /// <summary>
-        /// Registers the <see cref="ChosenColor"/> property.
+        /// Registers the <see cref="ChosenColorComponent"/> property.
         /// </summary>
-        public static readonly DependencyProperty ChosenColorProperty =
-            DependencyProperty.Register(nameof(ChosenColor), typeof(ColorComponent), typeof(ColorMinMax), new PropertyMetadata(ColorComponent.Red));
+        public static readonly DependencyProperty ChosenColorComponentProperty =
+            DependencyProperty.Register(nameof(ChosenColorComponent), typeof(ColorComponent), typeof(ColorMinMax), new PropertyMetadata(ColorComponent.Red, ChosenColorChanged));
 
         /// <summary>
         /// Registers the <see cref="MinColor"/> property.
@@ -120,10 +110,10 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Gets or sets the chosen color to apply the min and max values to.
         /// </summary>
-        public ColorComponent ChosenColor
+        public ColorComponent ChosenColorComponent
         {
-            get { return (ColorComponent)GetValue(ChosenColorProperty); }
-            set { SetValue(ChosenColorProperty, value); }
+            get { return (ColorComponent)GetValue(ChosenColorComponentProperty); }
+            set { SetValue(ChosenColorComponentProperty, value); }
         }
 
         /// <summary>
@@ -148,6 +138,21 @@ namespace ParticleMaker.UserControls
 
         #region Private Methods
         /// <summary>
+        /// Updates the <see cref="MinColor"/> and <see cref="MaxColor"/>.
+        /// </summary>
+        private static void ChosenColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var ctrl = (ColorMinMax)d;
+
+            if (ctrl == null)
+                return;
+
+            UpdateMinColor(ctrl);
+            UpdateMaxColor(ctrl);
+        }
+
+
+        /// <summary>
         /// Updates the <see cref="MinColor"/> based on the min value.
         /// </summary>
         private static void MinChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -157,7 +162,31 @@ namespace ParticleMaker.UserControls
             if (ctrl == null)
                 return;
 
-            switch (ctrl.ChosenColor)
+            UpdateMinColor(ctrl);
+        }
+
+
+        /// <summary>
+        /// Updates the <see cref="MaxColor"/> based on the max value.
+        /// </summary>
+        private static void MaxChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var ctrl = (ColorMinMax)d;
+
+            if (ctrl == null)
+                return;
+
+            UpdateMaxColor(ctrl);
+        }
+
+
+        /// <summary>
+        /// Updates the <see cref="MinColor"/> based on the min value.
+        /// </summary>
+        /// <param name="ctrl">The control to update.</param>
+        private static void UpdateMinColor(ColorMinMax ctrl)
+        {
+            switch (ctrl.ChosenColorComponent)
             {
                 case ColorComponent.Red:
                     ctrl.MinColor = new SolidColorBrush(Color.FromArgb(255, (byte)ctrl.Min, 0, 0));
@@ -177,14 +206,10 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Updates the <see cref="MaxColor"/> based on the max value.
         /// </summary>
-        private static void MaxChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        /// <param name="ctrl">The control to update.</param>
+        private static void UpdateMaxColor(ColorMinMax ctrl)
         {
-            var ctrl = (ColorMinMax)d;
-
-            if (ctrl == null)
-                return;
-
-            switch (ctrl.ChosenColor)
+            switch (ctrl.ChosenColorComponent)
             {
                 case ColorComponent.Red:
                     ctrl.MaxColor = new SolidColorBrush(Color.FromArgb(255, (byte)ctrl.Max, 0, 0));

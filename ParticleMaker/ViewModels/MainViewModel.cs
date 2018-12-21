@@ -1,13 +1,11 @@
-﻿using KDParticleEngine;
-using KDScorpionCore;
-using System;
-using System.Windows;
+﻿using System;
 using System.Windows.Forms;
 using System.Windows.Threading;
-using ThreadTimer = System.Threading.Timer;
-using CoreVector = KDScorpionCore.Vector;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using KDParticleEngine;
+using ThreadTimer = System.Threading.Timer;
+using CoreVector = KDScorpionCore.Vector;
 
 namespace ParticleMaker.ViewModels
 {
@@ -32,6 +30,9 @@ namespace ParticleMaker.ViewModels
 
 
         #region Constructor
+        /// <summary>
+        /// Creates a new instance of <see cref="MainViewModel"/>.
+        /// </summary>
         public MainViewModel()
         {
         }
@@ -52,10 +53,12 @@ namespace ParticleMaker.ViewModels
             _particleEngine = new ParticleEngine(new CoreVector(200, 200))
             {
                 Enabled = true,
+                RedMin = 0,
+                RedMax = 255,
                 GreenMin = 0,
-                GreenMax = 0,
+                GreenMax = 255,
                 BlueMin = 0,
-                BlueMax = 0
+                BlueMax = 255
             };
         }
         #endregion
@@ -224,6 +227,10 @@ namespace ParticleMaker.ViewModels
         }
 
 
+        /// <summary>
+        /// Notifies the binding system that a property with the given property name has changed its value.
+        /// </summary>
+        /// <param name="propName">The name of the property that has changed.</param>
         private void NotifyPropChange([CallerMemberName] string propName = "")
         {
             if (!string.IsNullOrEmpty(propName))

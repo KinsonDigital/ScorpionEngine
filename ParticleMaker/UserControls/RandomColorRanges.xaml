@@ -5,10 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ParticleMaker.UserControls"
              mc:Ignorable="d" Background="White"
-             Name="this" Width="165.878">
+             Name="this" Width="195.111">
 
     <Border BorderBrush="Gray" BorderThickness="1">
         <Grid DataContext="{Binding ElementName=this}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -19,28 +23,19 @@
             <Label Grid.Row="0" Content="Random Color Ranges" HorizontalAlignment="Center"/>
 
             <!--RED MIN/MAX-->
-            <StackPanel Name="StackOne" Grid.Row="1" Orientation="Vertical" Margin="0, 2.5, 5, 2.5">
-                <local:NumericUpDown LabelText="Red Min" Margin="5, 0, 0, 2.5"
-                                     Value="{Binding Path=RedMin, Mode=TwoWay}" Max="255"/>
-                <local:NumericUpDown LabelText="Red Max" Margin="5, 2.5, 0, 0"
-                                     Value="{Binding Path=RedMax, Mode=TwoWay}" Max="255"/>
-            </StackPanel>
+            <local:ColorMinMax Grid.Row="1" MaxLabel="Red Max" Margin="5, 2.5, 5, 2.5" MinLabel="    Red Min"
+                               Min="{Binding Path=RedMin, Mode=TwoWay}" Max="{Binding Path=RedMax, Mode=TwoWay}"
+                               ChosenColorComponent="Red" HorizontalAlignment="Center"/>
 
             <!--GREEN MIN/MAX-->
-            <StackPanel Name="StackTwo" Grid.Row="2" Orientation="Vertical" Margin="0, 2.5, 5, 2.5">
-                <local:NumericUpDown LabelText="Green Min" Margin="5, 0, 0, 2.5"
-                                     Value="{Binding Path=GreenMin, Mode=TwoWay}" Max="255"/>
-                <local:NumericUpDown LabelText="Green Max" Margin="5, 2.5, 0, 0"
-                                     Value="{Binding Path=GreenMax, Mode=TwoWay}" Max="255"/>
-            </StackPanel>
+            <local:ColorMinMax Grid.Row="2" MaxLabel="Green Max" Margin="5, 2.5, 5, 2.5" MinLabel="Green Min" 
+                               Min="{Binding Path=GreenMin, Mode=TwoWay}" Max="{Binding Path=GreenMax, Mode=TwoWay}"
+                               ChosenColorComponent="Green" HorizontalAlignment="Center"/>
 
             <!--BLUE MIN/MAX-->
-            <StackPanel Grid.Row="3" Orientation="Vertical" Margin="0, 2.5, 5, 5">
-                <local:NumericUpDown LabelText="Blue Min" Margin="5, 0, 0, 2.5"
-                                     Value="{Binding Path=BlueMin, Mode=TwoWay}" Max="255"/>
-                <local:NumericUpDown LabelText="Blue Max" Margin="5, 2.5, 0, 0"
-                                     Value="{Binding Path=BlueMax, Mode=TwoWay}" Max="255"/>
-            </StackPanel>
+            <local:ColorMinMax Grid.Row="3" MaxLabel="Blue Max" Margin="5, 2.5, 5, 2.5" MinLabel="   Blue Min"
+                               Min="{Binding Path=BlueMin, Mode=TwoWay}" Max="{Binding Path=BlueMax, Mode=TwoWay}"
+                               ChosenColorComponent="Blue" HorizontalAlignment="Center"/>
         </Grid>
     </Border>
 </UserControl>

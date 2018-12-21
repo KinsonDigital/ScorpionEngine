@@ -1,10 +1,8 @@
-﻿using ParticleMaker.ViewModels;
-using System.ComponentModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
-using System.Windows.Interop;
-using System.Windows.Media;
+using System.ComponentModel;
+using ParticleMaker.ViewModels;
 using ThreadTimer = System.Threading.Timer;
 
 namespace ParticleMaker
@@ -55,8 +53,11 @@ namespace ParticleMaker
             _mainViewModel = new MainViewModel(winFormsHost.Child as PictureBox, Dispatcher);
             DataContext = _mainViewModel;
 
+            _mainViewModel.RedMin = 0;
             _mainViewModel.RedMax = 255;
+            _mainViewModel.GreenMin = 0;
             _mainViewModel.GreenMax = 255;
+            _mainViewModel.BlueMin = 0;
             _mainViewModel.BlueMax = 255;
             _mainViewModel.SizeMin = 1;
             _mainViewModel.SizeMax = 2;

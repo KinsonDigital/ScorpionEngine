@@ -443,9 +443,15 @@ namespace KDParticleEngine
             }
             else
             {
-                var red = (byte)_random.Next(RedMin, RedMax);
-                var green = (byte)_random.Next(GreenMin, GreenMax);
-                var blue = (byte)_random.Next(BlueMin, BlueMax);
+                var red = RedMin <= RedMax ?
+                    (byte)_random.Next(RedMin, RedMax) :
+                    (byte)_random.Next(RedMax, RedMin);
+                var green = GreenMin <= GreenMax ? 
+                    (byte)_random.Next(GreenMin, GreenMax) :
+                    (byte)_random.Next(GreenMax, GreenMin);
+                var blue = BlueMin <= BlueMax ?
+                    (byte)_random.Next(BlueMin, BlueMax) :
+                    (byte)_random.Next(BlueMax, BlueMin);
 
                 return new GameColor(red, green, blue, 255);
             }
