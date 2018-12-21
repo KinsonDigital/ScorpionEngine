@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:ParticleMaker"
         xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         xmlns:vm="clr-namespace:ParticleMaker.ViewModels"
+        xmlns:wpfext="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d" Title="Particle Maker"
         Name="this" WindowStartupLocation="CenterScreen"
         Height="591.943" Width="781.618"
@@ -30,12 +31,18 @@
             </WindowsFormsHost.Child>
         </WindowsFormsHost>
 
-        <ctrls:RandomColorRanges x:Name="ColorRanges" HorizontalAlignment="Left" Height="272" Margin="10,10,0,0" VerticalAlignment="Top" Width="188"
+        <!--<wpfext:ColorPicker ColorMode="ColorCanvas" Margin="10,10,10,368"/>-->
+
+        <ctrls:RandomColorRanges x:Name="ColorRanges" HorizontalAlignment="Left" Height="272" Margin="10,10,0,0" VerticalAlignment="Top" Width="158"
                                  RedMin="{Binding Path=RedMin, Mode=TwoWay}"
                                  RedMax="{Binding Path=RedMax, Mode=TwoWay}"
                                  GreenMin="{Binding Path=GreenMin, Mode=TwoWay}" GreenMax="{Binding Path=GreenMax, Mode=TwoWay}"
                                  BlueMin="{Binding Path=BlueMin, Mode=TwoWay}" BlueMax="{Binding Path=BlueMax, Mode=TwoWay}"/>
 
         <ctrls:RandomSizeRange SizeMin="{Binding SizeMin, Mode=TwoWay}" SizeMax="{Binding SizeMax, Mode=TwoWay}" Margin="10,287,53.333,0.333"/>
+
+        <ctrls:ColorMinMax Grid.Column="1" HorizontalAlignment="Left" Margin="52.667,440,0,-107.667" VerticalAlignment="Top" Width="185"
+                           MinLabel="Red Min" MaxLabel="Red Max"
+                           ChosenColor="Green"/>
     </Grid>
 </Window>
