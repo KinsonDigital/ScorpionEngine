@@ -6,6 +6,6 @@ namespace ParticleMaker
     {
         public int Id { get; set; }
 
-        public SolidColorBrush Color { get; set; }
+        public SolidColorBrush ColorBrush { get; set; }
     }
 }

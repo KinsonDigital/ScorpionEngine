@@ -14,8 +14,8 @@ namespace ParticleMaker.UserControls
             //Test Data
             MyItems = new[]
             {
-                new ColorItem { Color = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)), Id = 1 },
-                new ColorItem { Color = new SolidColorBrush(Color.FromArgb(255, 0, 255, 0)), Id = 2 }
+                new ColorItem { ColorBrush = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)), Id = 1 },
+                new ColorItem { ColorBrush = new SolidColorBrush(Color.FromArgb(255, 0, 255, 0)), Id = 2 }
             };
 
             InitializeComponent();

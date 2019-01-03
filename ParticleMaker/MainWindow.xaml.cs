@@ -6,6 +6,7 @@ using ParticleMaker.ViewModels;
 using ThreadTimer = System.Threading.Timer;
 using WinMsgBox = System.Windows.MessageBox;
 using ParticleMaker.UserControls;
+using System.Windows.Media;
 
 namespace ParticleMaker
 {
@@ -67,9 +68,23 @@ namespace ParticleMaker
 
         #endregion
 
+
         private void ColorListItem_DeleteClicked(object sender, ColorItemClickedEventArgs e)
         {
             WinMsgBox.Show($"Del Img '{e.Id}' Clicked!");
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var startingClr = Color.FromRgb(62, 125, 255);
+
+            var colorPicker = new ColorPicker(startingClr);
+
+            colorPicker.ShowDialog();
+
+            if (colorPicker.DialogResult == true)
+            {
+            }
         }
     }
 }

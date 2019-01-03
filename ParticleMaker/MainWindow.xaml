@@ -40,9 +40,6 @@
 
         <ctrls:RandomSizeRange SizeMin="{Binding SizeMin, Mode=TwoWay}" SizeMax="{Binding SizeMax, Mode=TwoWay}" Margin="10,10,53.333,39.667" Grid.Row="1"/>
         
-        <ctrls:ColorList Grid.Column="1" HorizontalAlignment="Left" Height="219" Margin="37.667,26,0,0" Grid.Row="1" VerticalAlignment="Top" Width="217"/>
-
-        <ctrls:ColorListItem Grid.Column="1" HorizontalAlignment="Left" Margin="37.667,304,0,0" Grid.Row="1" VerticalAlignment="Top"
-                             ColorValue="Green" DeleteClicked="ColorListItem_DeleteClicked" Id="1234"/>
+        <ctrls:ColorList Grid.Column="1" HorizontalAlignment="Left" Margin="37.667,26,0,0" Grid.Row="1" VerticalAlignment="Top"/>
     </Grid>
 </Window>

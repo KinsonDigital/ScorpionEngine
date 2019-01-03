@@ -20,11 +20,11 @@
         <Label Grid.Row="0" Grid.Column="0" Content="Add Color" HorizontalAlignment="Center"/>
 
         <Grid Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Margin="0, 0, 11, 0">
-            <Rectangle Width="3" Height="22"
+            <Rectangle Width="5" Height="22"
                        RadiusX="2" RadiusY="2"
-                       Fill="Black" />
+                       Fill="Black" Margin="1, 0, 0, 0"/>
 
-            <Rectangle Width="22" Height="3"
+            <Rectangle Width="22" Height="5"
                        RadiusX="2" RadiusY="2"
                        Fill="Black" />
         </Grid>

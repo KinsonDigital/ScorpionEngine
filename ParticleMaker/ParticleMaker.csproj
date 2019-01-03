@@ -79,6 +79,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ColorItem.cs" />
+    <Compile Include="ColorPicker.xaml.cs">
+      <DependentUpon>ColorPicker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ColorItemClickedEventArgs.cs" />
     <Compile Include="UserControls\ColorList.xaml.cs">
       <DependentUpon>ColorList.xaml</DependentUpon>
@@ -102,6 +105,10 @@
     </Compile>
     <Compile Include="UserControls\ValueChangedEventArgs.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Page Include="ColorPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\ColorList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
