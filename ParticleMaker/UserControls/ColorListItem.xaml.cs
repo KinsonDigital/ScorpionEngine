@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -9,6 +10,11 @@ namespace ParticleMaker.UserControls
     /// </summary>
     public partial class ColorListItem : UserControl
     {
+        #region Public Events
+        public event EventHandler<ColorItemClickedEventArgs> EditColorClicked;
+        public event EventHandler<ColorItemClickedEventArgs> DeleteClicked;
+        #endregion
+
 
         #region Fields
         private static readonly SolidColorBrush DEFAULT_COLOR = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
@@ -46,6 +52,12 @@ namespace ParticleMaker.UserControls
         /// </summary>
         protected static readonly DependencyProperty TextForecolorProperty =
             DependencyProperty.Register(nameof(TextForecolor), typeof(SolidColorBrush), typeof(ColorListItem), new PropertyMetadata(DEFAULT_COLOR.ToNegative()));
+
+        /// <summary>
+        /// Registers the <see cref="Id"/> property.
+        /// </summary>
+        public static readonly DependencyProperty IdProperty =
+            DependencyProperty.Register(nameof(Id), typeof(int), typeof(ColorListItem), new PropertyMetadata(-1));
         #endregion
 
 
@@ -58,7 +70,6 @@ namespace ParticleMaker.UserControls
             set { SetValue(ColorValueProperty, value); }
         }
 
-
         /// <summary>
         /// Gets or sets the color value in text form.
         /// </summary>
@@ -68,7 +79,6 @@ namespace ParticleMaker.UserControls
             set { SetValue(ColorTextValueProperty, value); }
         }
 
-
         /// <summary>
         /// Gets or sets the forecolor of the text.
         /// </summary>
@@ -76,6 +86,16 @@ namespace ParticleMaker.UserControls
         {
             get { return (SolidColorBrush)GetValue(TextForecolorProperty); }
             set { SetValue(TextForecolorProperty, value); }
+        }
+
+        
+        /// <summary>
+        /// Gets or sets the Id of the <see cref="ColorListItem"/>.
+        /// </summary>
+        public int Id
+        {
+            get { return (int)GetValue(IdProperty); }
+            set { SetValue(IdProperty, value); }
         }
         #endregion
 
@@ -97,6 +117,24 @@ namespace ParticleMaker.UserControls
             var negativeForecolor = Color.FromArgb(255, (byte)(255 - newColor.R), (byte)(255 - newColor.G), (byte)(255 - newColor.B));
 
             ctrl.TextForecolor = newColor.ToNegativeBrush();
+        }
+
+
+        /// <summary>
+        /// Invoked when the delete image has been clicked.
+        /// </summary>
+        private void DeleteImage_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            DeleteClicked?.Invoke(this, new ColorItemClickedEventArgs(Id));
+        }
+
+
+        /// <summary>
+        /// Invoked when the edit color button has been clicked.
+        /// </summary>
+        private void EditColorImage_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            EditColorClicked?.Invoke(this, new ColorItemClickedEventArgs(Id));
         }
         #endregion
     }

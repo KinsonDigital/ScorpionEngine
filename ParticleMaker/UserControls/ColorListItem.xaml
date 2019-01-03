@@ -14,11 +14,11 @@
         </Border>
         
         <!--EDIT-->
-        <Image Source="/ParticleMaker;component/Icons/ColorDropper.png" Width="25" Height="25"
-               Margin="2.5"/>
+        <Image Name="EditColorImage" Source="/ParticleMaker;component/Icons/ColorDropper.png" Width="25" Height="25"
+               Margin="2.5" MouseUp="EditColorImage_MouseUp"/>
 
         <!--DELETE-->
-        <Image Source="/ParticleMaker;component/Icons/Delete.png" Width="25" Height="25"
-               Margin="2.5"/>
+        <Image Name="DeleteImage" Source="/ParticleMaker;component/Icons/Delete.png" Width="25" Height="25"
+               Margin="2.5" MouseUp="DeleteImage_MouseUp"/>
     </StackPanel>
 </UserControl>

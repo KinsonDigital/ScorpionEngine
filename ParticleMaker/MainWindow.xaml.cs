@@ -4,6 +4,8 @@ using System.Windows.Forms.Integration;
 using System.ComponentModel;
 using ParticleMaker.ViewModels;
 using ThreadTimer = System.Threading.Timer;
+using WinMsgBox = System.Windows.MessageBox;
+using ParticleMaker.UserControls;
 
 namespace ParticleMaker
 {
@@ -62,6 +64,12 @@ namespace ParticleMaker
             _mainViewModel.SizeMin = 1;
             _mainViewModel.SizeMax = 2;
         }
+
         #endregion
+
+        private void ColorListItem_DeleteClicked(object sender, ColorItemClickedEventArgs e)
+        {
+            WinMsgBox.Show($"Del Img '{e.Id}' Clicked!");
+        }
     }
 }

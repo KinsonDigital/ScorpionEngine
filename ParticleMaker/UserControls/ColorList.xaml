@@ -32,7 +32,9 @@
         <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Path=MyItems}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <local:ColorListItem ColorValue="{Binding Path=Color}"/>
+                    <local:ColorListItem ColorValue="{Binding Path=Color, Mode=TwoWay}" Id="{Binding Path=Id}"
+                                         EditColorClicked="ColorListItem_EditColorClicked"
+                                         DeleteClicked="ColorListItem_DeleteClicked"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
