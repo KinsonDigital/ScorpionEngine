@@ -10,7 +10,7 @@
         xmlns:wpfext="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d" Title="Particle Maker"
         Name="this" WindowStartupLocation="CenterScreen"
-        Height="591.943" Width="781.618"
+        Height="803.068" Width="781.618"
         d:DataContext="{d:DesignInstance Type={x:Type vm:MainViewModel}}">
 
     <Grid>
@@ -38,6 +38,11 @@
                                  GreenMin="{Binding Path=GreenMin, Mode=TwoWay}" GreenMax="{Binding Path=GreenMax, Mode=TwoWay}"
                                  BlueMin="{Binding Path=BlueMin, Mode=TwoWay}" BlueMax="{Binding Path=BlueMax, Mode=TwoWay}"/>
 
-        <ctrls:RandomSizeRange SizeMin="{Binding SizeMin, Mode=TwoWay}" SizeMax="{Binding SizeMax, Mode=TwoWay}" Margin="118.667,19,94.667,30.667" Grid.Column="1" Grid.Row="1"/>
+        <ctrls:RandomSizeRange SizeMin="{Binding SizeMin, Mode=TwoWay}" SizeMax="{Binding SizeMax, Mode=TwoWay}" Margin="10,10,53.333,39.667" Grid.Row="1"/>
+        
+        <ctrls:ColorList Grid.Column="1" HorizontalAlignment="Left" Height="219" Margin="37.667,26,0,0" Grid.Row="1" VerticalAlignment="Top" Width="217"/>
+
+        <ctrls:ColorListItem Grid.Column="1" HorizontalAlignment="Left" Margin="37.667,304,0,0" Grid.Row="1" VerticalAlignment="Top"
+                             ColorValue="Green"/>
     </Grid>
 </Window>

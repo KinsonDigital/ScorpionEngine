@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="ParticleMaker.UserControls.ColorList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ParticleMaker.UserControls"
+             mc:Ignorable="d" Background="White" Name="this">
+    
+    <Grid DataContext="{Binding ElementName=this}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Add Color" HorizontalAlignment="Center"/>
+
+        <Grid Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Margin="0, 0, 11, 0">
+            <Rectangle Width="3" Height="22"
+                       RadiusX="2" RadiusY="2"
+                       Fill="Black" />
+
+            <Rectangle Width="22" Height="3"
+                       RadiusX="2" RadiusY="2"
+                       Fill="Black" />
+        </Grid>
+        
+        <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Path=MyItems}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <local:ColorListItem ColorValue="{Binding Path=Color}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</UserControl>

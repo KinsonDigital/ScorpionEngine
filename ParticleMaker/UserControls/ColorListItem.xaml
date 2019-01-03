@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="ParticleMaker.UserControls.ColorListItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ParticleMaker.UserControls"
+             mc:Ignorable="d" Background="White" Name="this">
+
+    <StackPanel Orientation="Horizontal" DataContext="{Binding ElementName=this}">
+        <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5" Width="100" Height="25" Background="{Binding ColorValue}"
+                VerticalAlignment="Center">
+                <Label Content="{Binding Path=ColorTextValue}" HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                       VerticalContentAlignment="Stretch" Margin="0, -2, 0, 0"/>
+        </Border>
+        
+        <!--EDIT-->
+        <Image Source="/ParticleMaker;component/Icons/ColorDropper.png" Width="25" Height="25"
+               Margin="2.5"/>
+
+        <!--DELETE-->
+        <Image Source="/ParticleMaker;component/Icons/Delete.png" Width="25" Height="25"
+               Margin="2.5"/>
+    </StackPanel>
+</UserControl>

@@ -57,6 +57,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -77,10 +78,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ColorItem.cs" />
+    <Compile Include="UserControls\ColorList.xaml.cs">
+      <DependentUpon>ColorList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ColorListItem.xaml.cs">
+      <DependentUpon>ColorListItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ColorMinMax.xaml.cs">
       <DependentUpon>ColorMinMax.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Enums.cs" />
+    <Compile Include="UserControls\ExtensionMethods.cs" />
     <Compile Include="UserControls\NumberBox.xaml.cs">
       <DependentUpon>NumberBox.xaml</DependentUpon>
     </Compile>
@@ -92,6 +101,14 @@
     </Compile>
     <Compile Include="UserControls\ValueChangedEventArgs.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Page Include="UserControls\ColorList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ColorListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\ColorMinMax.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -196,6 +213,23 @@
     <None Include="Content\Star.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ColorPalette.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ColorDropper.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\ColorDropper.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\Delete.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
