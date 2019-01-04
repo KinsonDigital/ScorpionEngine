@@ -29,10 +29,10 @@
                        Fill="Black" />
         </Grid>
         
-        <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Path=MyItems}">
+        <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Path=Colors, Mode=TwoWay}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <local:ColorListItem ColorValue="{Binding Path=Color, Mode=TwoWay}" Id="{Binding Path=Id}"
+                    <local:ColorListItem ColorValue="{Binding Path=ColorBrush, Mode=TwoWay}" Id="{Binding Path=Id}"
                                          EditColorClicked="ColorListItem_EditColorClicked"
                                          DeleteClicked="ColorListItem_DeleteClicked"/>
                 </DataTemplate>

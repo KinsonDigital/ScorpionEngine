@@ -10,7 +10,7 @@
         <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5" Width="100" Height="25" Background="{Binding ColorValue}"
                 VerticalAlignment="Center">
                 <Label Content="{Binding Path=ColorTextValue}" HorizontalAlignment="Stretch" VerticalAlignment="Top"
-                       VerticalContentAlignment="Stretch" Margin="0, -2, 0, 0"/>
+                       VerticalContentAlignment="Stretch" Margin="0, -2, 0, 0" Foreground="{Binding Path=TextForecolor}"/>
         </Border>
         
         <!--EDIT-->

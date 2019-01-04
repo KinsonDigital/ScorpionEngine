@@ -67,24 +67,5 @@ namespace ParticleMaker
         }
 
         #endregion
-
-
-        private void ColorListItem_DeleteClicked(object sender, ColorItemClickedEventArgs e)
-        {
-            WinMsgBox.Show($"Del Img '{e.Id}' Clicked!");
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var startingClr = Color.FromRgb(62, 125, 255);
-
-            var colorPicker = new ColorPicker(startingClr);
-
-            colorPicker.ShowDialog();
-
-            if (colorPicker.DialogResult == true)
-            {
-            }
-        }
     }
 }

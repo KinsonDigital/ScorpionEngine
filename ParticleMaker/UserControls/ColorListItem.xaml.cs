@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace ParticleMaker.UserControls
@@ -88,7 +89,6 @@ namespace ParticleMaker.UserControls
             set { SetValue(TextForecolorProperty, value); }
         }
 
-        
         /// <summary>
         /// Gets or sets the Id of the <see cref="ColorListItem"/>.
         /// </summary>
@@ -123,18 +123,18 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Invoked when the delete image has been clicked.
         /// </summary>
-        private void DeleteImage_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void DeleteImage_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            DeleteClicked?.Invoke(this, new ColorItemClickedEventArgs(Id));
+            DeleteClicked?.Invoke(this, new ColorItemClickedEventArgs(Id, Color.FromRgb(255, 255, 255)));
         }
 
 
         /// <summary>
         /// Invoked when the edit color button has been clicked.
         /// </summary>
-        private void EditColorImage_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void EditColorImage_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            EditColorClicked?.Invoke(this, new ColorItemClickedEventArgs(Id));
+            EditColorClicked?.Invoke(this, new ColorItemClickedEventArgs(Id, ColorValue.Color));
         }
         #endregion
     }
