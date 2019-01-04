@@ -10,38 +10,39 @@ namespace ParticleMaker.UserControls
     /// </summary>
     public partial class ColorList : UserControl
     {
+        #region Constructors
         public ColorList()
         {
-            //TODO: Test Data, remove
-            Colors = new ObservableCollection<ColorItem>
-            {
-                new ColorItem { ColorBrush = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)), Id = 1 },
-                new ColorItem { ColorBrush = new SolidColorBrush(Color.FromArgb(255, 0, 255, 0)), Id = 2 }
-            };
-
             InitializeComponent();
         }
+        #endregion
 
 
-        public ObservableCollection<ColorItem> OldColors { get; set; }
+        #region Props
+        #region Dependency Props
+        /// <summary>
+        /// Registers the <see cref="Colors"/> property.
+        /// </summary>
+        public static readonly DependencyProperty ColorsProperty =
+            DependencyProperty.Register(nameof(Colors), typeof(ObservableCollection<ColorItem>), typeof(ColorList), new PropertyMetadata(new ObservableCollection<ColorItem>()));
+        #endregion
 
+
+        /// <summary>
+        /// Gets or sets the list of colors in the list.
+        /// </summary>
         public ObservableCollection<ColorItem> Colors
         {
             get { return (ObservableCollection<ColorItem>)GetValue(ColorsProperty); }
             set { SetValue(ColorsProperty, value); }
         }
-
-        public static readonly DependencyProperty ColorsProperty =
-            DependencyProperty.Register(nameof(Colors), typeof(ObservableCollection<ColorItem>), typeof(ColorList), new PropertyMetadata(new ObservableCollection<ColorItem>()));
+        #endregion
 
 
-
-        private void ColorListItem_DeleteClicked(object sender, ColorItemClickedEventArgs e)
-        {
-            MessageBox.Show($"Item '{e.Id}' was clicked for deletion.");
-        }
-
-
+        #region Private Methods
+        /// <summary>
+        /// Edits a color in the color list.
+        /// </summary>
         private void ColorListItem_EditColorClicked(object sender, ColorItemClickedEventArgs e)
         {
             var colorPicker = new ColorPicker(e.Color);
@@ -65,5 +66,27 @@ namespace ParticleMaker.UserControls
                 }
             }
         }
+
+
+        /// <summary>
+        /// Deletes a color list item from the list.
+        /// </summary>
+        private void ColorListItem_DeleteClicked(object sender, ColorItemClickedEventArgs e)
+        {
+            var deleteResult = MessageBox.Show("Are you sure you want to delete this color?", "Delete Color?", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+
+            if (deleteResult == MessageBoxResult.Yes)
+            {
+                for (int i = 0; i < Colors.Count; i++)
+                {
+                    if (Colors[i].Id == e.Id)
+                    {
+                        Colors.RemoveAt(i);
+                        break;
+                    }
+                }
+            }
+        }
+        #endregion
     }
 }
