@@ -9,8 +9,8 @@
     <StackPanel Orientation="Horizontal" DataContext="{Binding ElementName=this}">
         <StackPanel Orientation="Vertical">
             <StackPanel Name="MinStackPanel">
-                <local:NumericUpDown x:Name="MinNumericUpDown" LabelText="{Binding Path=MinLabel}"
-                                     Value="{Binding Path=Min, Mode=TwoWay}"
+                <local:NumericUpDown x:Name="MinNumericUpDown" 
+                                     Value="{Binding Path=Min, Mode=TwoWay}" LabelText="{Binding Path=MinLabel}"
                                      Min="0" Max="255" Margin="0, 0, 0, 2.5"/>
                 <Slider Value="{Binding Path=Min, Mode=TwoWay}" Minimum="0" Maximum="255"/>
             </StackPanel>

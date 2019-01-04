@@ -162,7 +162,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Increments the numeric up down value.
         /// </summary>
-        private void UpArrowPolygon_MouseUp(object sender, MouseButtonEventArgs e)
+        private void UpArrowButton_Click(object sender, EventArgs e)
         {
             Value += Increment;
             ValueTextbox.MoveCaretToEnd();
@@ -172,7 +172,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Decrements the numeric up down value.
         /// </summary>
-        private void DownArrowPolygon_MouseUp(object sender, MouseButtonEventArgs e)
+        private void DownArrowButton_Click(object sender, EventArgs e)
         {
             Value -= Decrement;
             ValueTextbox.MoveCaretToEnd();

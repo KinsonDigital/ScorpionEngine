@@ -18,7 +18,7 @@
             <RowDefinition Name="RenderRow" Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
             <ColumnDefinition Name="RenderColumn" Width="400"/>

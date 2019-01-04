@@ -1,5 +1,5 @@
 ﻿<UserControl x:Class="ParticleMaker.UserControls.NumericUpDown"
-             xmlns:this="clr-namespace:ParticleMaker.UserControls"
+             xmlns:ctrls="clr-namespace:ParticleMaker.UserControls"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,68 +8,71 @@
              MinHeight="35" MaxHeight="30"
              Name="this">
 
+    <UserControl.Resources>
+        <Style x:Key="EnabledStyle" TargetType="Polygon">
+            <Setter Property="Fill" Value="Black"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=this, Path=IsEnabled}" Value="False">
+                    <Setter Property="Fill" Value="Gray"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    
     <Border BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Stretch">
         <StackPanel DataContext="{Binding ElementName=this}" Orientation="Horizontal"
                     HorizontalAlignment="Right">
             <!--The control label text-->
             <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
                 <Label VerticalContentAlignment="Center" VerticalAlignment="Center"
-                        Content="{Binding Path=LabelText, Mode=OneWay}"/>
+                       Content="{Binding Path=LabelText, Mode=OneWay}"/>
+
                 <Label Content=":" Padding="0" VerticalContentAlignment="Center"
                         Visibility="{Binding Path=IsLabelVisible, Mode=TwoWay}">
                 </Label>
             </StackPanel>
 
             <!--Holds the value of the up down control-->
-            <this:NumberBox x:Name="ValueTextbox" Grid.Column="1" Grid.Row="0" MinWidth="25" VerticalAlignment="Center"
+            <ctrls:NumberBox x:Name="ValueTextbox" Grid.Column="1" Grid.Row="0" MinWidth="25" VerticalAlignment="Center"
                             HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                             Value="{Binding Path=Value, Mode=TwoWay}">
-            </this:NumberBox>
+            </ctrls:NumberBox>
 
-            <Grid Grid.Column="2" Grid.Row="0" Margin="5, 0, 0, 0" HorizontalAlignment="Right">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 0, 5, 0">
                 <!--Value Up Button-->
-                <Canvas Grid.Row="0" Width="25" Height="15" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-                    <Polygon Name="UpArrowPolygon"
-                             Points="12.5,1 23,13 2,13"
-                             Stroke="Gray"
-                             StrokeThickness="0.5" MouseUp="UpArrowPolygon_MouseUp">
-                        <Polygon.Style>
-                            <Style TargetType="{x:Type Polygon}">
-                                <Setter Property="Fill" Value="Gray"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Fill" Value="LightGray"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Polygon.Style>
-                    </Polygon>
-                </Canvas>
+                <ctrls:CustomButton x:Name="UpArrowButton" Grid.Row="0" Click="UpArrowButton_Click" Margin="0, 0, 0, 0"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ctrls:CustomButton.ButtonContent>
+                        <Polygon StrokeThickness="0.5" Style="{StaticResource EnabledStyle}">
+                            <Polygon.Points>
+                                12.5,0
+                                23,10
+                                18,10
+                                12.5,4.75
+                                7,10
+                                2,10
+                            </Polygon.Points>
+                        </Polygon>
+                    </ctrls:CustomButton.ButtonContent>
+                </ctrls:CustomButton>
 
                 <!--Value Down Button-->
-                <Canvas Grid.Row="1" Width="25" Height="15" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <Polygon Name="DownArrowPolygon"
-                                Points="2,1 23,1 12.5,13"
-                                Stroke="Gray"
-                                StrokeThickness="0.5" MouseUp="DownArrowPolygon_MouseUp">
-                        <Polygon.Style>
-                            <Style TargetType="{x:Type Polygon}">
-                                <Setter Property="Fill" Value="Gray"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Fill" Value="LightGray"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Polygon.Style>
-                    </Polygon>
-                </Canvas>
-            </Grid>
+                <ctrls:CustomButton x:Name="DownArrowButton" Grid.Row="1" Click="DownArrowButton_Click" Margin="0, 2.5, 0, 0"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ctrls:CustomButton.ButtonContent>
+                        <Polygon StrokeThickness="0.5"  Style="{StaticResource EnabledStyle}">
+                            <Polygon.Points>
+                                12.5,10
+                                2,0
+                                7,0
+                                12.5,5.25
+                                18,0
+                                23,0
+                            </Polygon.Points>
+                        </Polygon>
+                    </ctrls:CustomButton.ButtonContent>
+                </ctrls:CustomButton>
+            </StackPanel>
         </StackPanel>
     </Border>
 </UserControl>
