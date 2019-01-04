@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:ParticleMaker.UserControls"
              mc:Ignorable="d">
 
+    <!--TODO: DELETE THIS CONTROL-->
     <Grid>
         <Rectangle Width="5" Height="22" RadiusX="2" RadiusY="2" Fill="Black"/>
 

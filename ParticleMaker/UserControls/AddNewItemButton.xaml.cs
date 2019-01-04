@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 
 namespace ParticleMaker.UserControls
 {
+    //TODO: DELETE THIS CONTROL
+
     /// <summary>
     /// Interaction logic for AddNewItemButton.xaml
     /// </summary>

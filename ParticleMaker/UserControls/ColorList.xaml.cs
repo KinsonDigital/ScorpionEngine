@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -43,6 +44,28 @@ namespace ParticleMaker.UserControls
 
 
         #region Private Methods
+        /// <summary>
+        /// Adds a new color item to the list.
+        /// </summary>
+        private void AddNewItemButton_Click(object sender, System.EventArgs e)
+        {
+            var colorPicker = new ColorPicker(Color.FromRgb(255, 255, 255));
+
+            colorPicker.ShowDialog();
+
+            if (colorPicker.DialogResult == true)
+            {
+                var newId = Colors.Count <= 0 ? 1 : Colors.Max(c => c.Id) + 1;
+
+                Colors.Add(new ColorItem()
+                {
+                    Id = newId,
+                    ColorBrush = new SolidColorBrush(colorPicker.ChosenColor)
+                });
+            }
+        }
+
+
         /// <summary>
         /// Edits a color in the color list.
         /// </summary>
