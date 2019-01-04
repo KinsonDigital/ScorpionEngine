@@ -19,15 +19,7 @@
 
         <Label Grid.Row="0" Grid.Column="0" Content="Add Color" HorizontalAlignment="Center"/>
 
-        <Grid Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Margin="0, 0, 11, 0">
-            <Rectangle Width="5" Height="22"
-                       RadiusX="2" RadiusY="2"
-                       Fill="Black" Margin="1, 0, 0, 0"/>
-
-            <Rectangle Width="22" Height="5"
-                       RadiusX="2" RadiusY="2"
-                       Fill="Black" />
-        </Grid>
+        <local:AddNewItemButton Grid.Row="0" Grid.Column="1"/>
         
         <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Path=Colors, Mode=TwoWay}">
             <ListBox.ItemTemplate>

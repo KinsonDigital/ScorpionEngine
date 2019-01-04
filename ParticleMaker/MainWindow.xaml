@@ -18,6 +18,7 @@
             <RowDefinition Name="RenderRow" Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
             <ColumnDefinition Name="RenderColumn" Width="400"/>
@@ -31,15 +32,13 @@
             </WindowsFormsHost.Child>
         </WindowsFormsHost>
 
-        <!--<wpfext:ColorPicker ColorMode="ColorCanvas" Margin="10,10,10,368"/>-->
-
         <ctrls:RandomColorRanges x:Name="ColorRanges" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="177"
                                  RedMin="{Binding Path=RedMin, Mode=TwoWay}" RedMax="{Binding Path=RedMax, Mode=TwoWay}"
                                  GreenMin="{Binding Path=GreenMin, Mode=TwoWay}" GreenMax="{Binding Path=GreenMax, Mode=TwoWay}"
                                  BlueMin="{Binding Path=BlueMin, Mode=TwoWay}" BlueMax="{Binding Path=BlueMax, Mode=TwoWay}"/>
 
         <ctrls:RandomSizeRange SizeMin="{Binding SizeMin, Mode=TwoWay}" SizeMax="{Binding SizeMax, Mode=TwoWay}" Margin="10,10,53.333,39.667" Grid.Row="1"/>
-        
+
         <ctrls:ColorList Grid.Column="1" HorizontalAlignment="Left" Margin="37.667,26,0,0" Grid.Row="1" VerticalAlignment="Top"/>
     </Grid>
 </Window>

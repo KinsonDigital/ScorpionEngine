@@ -11,6 +11,9 @@ namespace ParticleMaker.UserControls
     public partial class ColorList : UserControl
     {
         #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="ColorList"/>.
+        /// </summary>
         public ColorList()
         {
             InitializeComponent();

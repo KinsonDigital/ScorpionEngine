@@ -121,20 +121,20 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Invoked when the delete image has been clicked.
-        /// </summary>
-        private void DeleteImage_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            DeleteClicked?.Invoke(this, new ColorItemClickedEventArgs(Id, Color.FromRgb(255, 255, 255)));
-        }
-
-
-        /// <summary>
         /// Invoked when the edit color button has been clicked.
         /// </summary>
-        private void EditColorImage_MouseUp(object sender, MouseButtonEventArgs e)
+        private void EditColorButton_Click(object sender, EventArgs e)
         {
             EditColorClicked?.Invoke(this, new ColorItemClickedEventArgs(Id, ColorValue.Color));
+        }
+
+        
+        /// <summary>
+        /// Invoked when the delete image has been clicked.
+        /// </summary>
+        private void DeleteColorButton_Click(object sender, EventArgs e)
+        {
+            DeleteClicked?.Invoke(this, new ColorItemClickedEventArgs(Id, Color.FromRgb(255, 255, 255)));
         }
         #endregion
     }

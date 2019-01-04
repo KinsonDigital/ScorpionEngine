@@ -4,9 +4,6 @@ using System.Windows.Forms.Integration;
 using System.ComponentModel;
 using ParticleMaker.ViewModels;
 using ThreadTimer = System.Threading.Timer;
-using WinMsgBox = System.Windows.MessageBox;
-using ParticleMaker.UserControls;
-using System.Windows.Media;
 
 namespace ParticleMaker
 {

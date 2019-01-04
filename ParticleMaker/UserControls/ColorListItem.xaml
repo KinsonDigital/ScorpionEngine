@@ -8,17 +8,25 @@
 
     <StackPanel Orientation="Horizontal" DataContext="{Binding ElementName=this}">
         <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5" Width="100" Height="25" Background="{Binding ColorValue}"
-                VerticalAlignment="Center">
+                VerticalAlignment="Center" Margin="4, 0, 0, 0">
                 <Label Content="{Binding Path=ColorTextValue}" HorizontalAlignment="Stretch" VerticalAlignment="Top"
                        VerticalContentAlignment="Stretch" Margin="0, -2, 0, 0" Foreground="{Binding Path=TextForecolor}"/>
         </Border>
         
         <!--EDIT-->
-        <Image Name="EditColorImage" Source="/ParticleMaker;component/Icons/ColorDropper.png" Width="25" Height="25"
-               Margin="2.5" MouseUp="EditColorImage_MouseUp"/>
+        <local:CustomButton x:Name="EditColorButton" Click="EditColorButton_Click">
+            <local:CustomButton.ButtonContent>
+                <Image Source="/ParticleMaker;component/Icons/ColorDropper.png" Width="25" Height="25"
+                        Margin="2.5"/>
+            </local:CustomButton.ButtonContent>
+        </local:CustomButton>
 
         <!--DELETE-->
-        <Image Name="DeleteImage" Source="/ParticleMaker;component/Icons/Delete.png" Width="25" Height="25"
-               Margin="2.5" MouseUp="DeleteImage_MouseUp"/>
+        <local:CustomButton x:Name="DeleteColorButton" Click="DeleteColorButton_Click">
+            <local:CustomButton.ButtonContent>
+                <Image Source="/ParticleMaker;component/Icons/Delete.png" Width="25" Height="25"
+                       Margin="2.5"/>
+            </local:CustomButton.ButtonContent>
+        </local:CustomButton>
     </StackPanel>
 </UserControl>
