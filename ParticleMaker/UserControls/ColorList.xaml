@@ -5,6 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ParticleMaker.UserControls"
              mc:Ignorable="d" Background="White" Name="this">
+    <UserControl.Resources>
+        <Style x:Key="EnabledStyle" TargetType="Rectangle">
+            <Setter Property="Fill" Value="Black"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=this, Path=IsEnabled}" Value="False">
+                    <Setter Property="Fill" Value="Gray"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     
     <Grid DataContext="{Binding ElementName=this}">
         <Grid.RowDefinitions>
@@ -22,8 +32,9 @@
         <local:CustomButton x:Name="AddNewItemButton" Grid.Row="0" Grid.Column="1" Click="AddNewItemButton_Click">
             <local:CustomButton.ButtonContent>
                 <Grid>
-                    <Rectangle Width="5" Height="22" RadiusX="2" RadiusY="2" Fill="Black"/>
-                    <Rectangle Width="22" Height="5" RadiusX="2" RadiusY="2" Fill="Black"/>
+                    <Rectangle Width="5" Height="22" RadiusX="2" RadiusY="2" Style="{StaticResource EnabledStyle}"/>
+
+                    <Rectangle Width="22" Height="5" RadiusX="2" RadiusY="2" Style="{StaticResource EnabledStyle}"/>
                 </Grid>
             </local:CustomButton.ButtonContent>
         </local:CustomButton>
