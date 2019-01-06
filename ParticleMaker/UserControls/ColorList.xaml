@@ -39,7 +39,8 @@
             </local:CustomButton.ButtonContent>
         </local:CustomButton>
         
-        <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Path=Colors, Mode=TwoWay}">
+        <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Path=Colors, Mode=TwoWay}"
+                 d:DataContext="{d:DesignData Source=/DesignData/ColorListSampleData.xaml}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <local:ColorListItem ColorValue="{Binding Path=ColorBrush, Mode=TwoWay}" Id="{Binding Path=Id}"

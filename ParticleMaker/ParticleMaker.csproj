@@ -82,6 +82,7 @@
     <Compile Include="ColorPicker.xaml.cs">
       <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DesignData\ColorListSampleData.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="UserControls\ColorItemClickedEventArgs.cs" />
     <Compile Include="UserControls\ColorList.xaml.cs">
@@ -110,6 +111,10 @@
     <Compile Include="UserControls\ValueChangedEventArgs.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="ColorPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DesignData\ColorListSampleData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -247,5 +252,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

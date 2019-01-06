@@ -38,8 +38,5 @@
                                  BlueMin="{Binding Path=BlueMin, Mode=TwoWay}" BlueMax="{Binding Path=BlueMax, Mode=TwoWay}"/>
 
         <ctrls:RandomSizeRange SizeMin="{Binding SizeMin, Mode=TwoWay}" SizeMax="{Binding SizeMax, Mode=TwoWay}" Margin="10,10,53.333,39.667" Grid.Row="1"/>
-
-        <ctrls:ColorList Grid.Column="1" HorizontalAlignment="Left" Margin="37.667,26,0,0" Grid.Row="1" VerticalAlignment="Top"
-                         IsEnabled="True"/>
     </Grid>
 </Window>

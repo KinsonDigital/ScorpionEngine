@@ -6,16 +6,19 @@ using System.Runtime.CompilerServices;
 using KDParticleEngine;
 using ThreadTimer = System.Threading.Timer;
 using CoreVector = KDScorpionCore.Vector;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using KDScorpionCore.Graphics;
 
 namespace ParticleMaker.ViewModels
 {
     /// <summary>
     /// The main view model for the application.
     /// </summary>
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel// : INotifyPropertyChanged
     {
         #region Public Fields
-        public event PropertyChangedEventHandler PropertyChanged;
+        //public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
 
@@ -186,6 +189,54 @@ namespace ParticleMaker.ViewModels
                 NotifyPropChange();
             }
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating if the colors will be randomly chosen from a list.
+        /// </summary>
+        public bool UseColorsFromList
+        {
+            get => _particleEngine.UseTintColorList;
+            set
+            {
+                _particleEngine.UseTintColorList = value;
+                NotifyPropChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the list of colors to randomly choose from.
+        /// </summary>
+        public ObservableCollection<ColorItem> ColorList
+        {
+            get
+            {
+                var result = new ObservableCollection<ColorItem>();
+
+                for (int i = 0; i < _particleEngine.TintColors.Length; i++)
+                {
+                    var clrItem = _particleEngine.TintColors[i].ToColorItem();
+                    clrItem.Id = i;
+
+                    result.Add(clrItem);
+                }
+
+
+                return result;
+            }
+            set
+            {
+                var result = new List<GameColor>();
+
+                foreach (var clr in value)
+                {
+                    result.Add(new GameColor(clr.ColorBrush.Color.R, clr.ColorBrush.Color.G, clr.ColorBrush.Color.B, clr.ColorBrush.Color.A));
+                }
+
+                _particleEngine.TintColors = result.ToArray();
+
+                NotifyPropChange();
+            }
+        }
         #endregion
 
 
@@ -233,8 +284,8 @@ namespace ParticleMaker.ViewModels
         /// <param name="propName">The name of the property that has changed.</param>
         private void NotifyPropChange([CallerMemberName] string propName = "")
         {
-            if (!string.IsNullOrEmpty(propName))
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+            //if (!string.IsNullOrEmpty(propName))
+            //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
         #endregion
     }
