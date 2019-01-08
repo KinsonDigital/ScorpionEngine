@@ -87,7 +87,11 @@ namespace KDParticleEngine
         public float AngleMin
         {
             get => _angleMin;
-            set => _angleMin = value < 0 || value > 360 ? 0 : value;
+            set
+            {
+                _angleMin = value < 0 ? 360 : value;
+                _angleMin = value > 360 ? 0 : value;
+            }
         }
 
         /// <summary>
@@ -97,7 +101,11 @@ namespace KDParticleEngine
         public float AngleMax
         {
             get => _angleMax;
-            set => _angleMax = value < 0 || value > 360 ? 0 : value;
+            set
+            {
+                _angleMax = value < 0 ? 360 : value;
+                _angleMax = value > 360 ? 0 : value;
+            }
         }
 
         /// <summary>
@@ -417,6 +425,8 @@ namespace KDParticleEngine
         /// <returns></returns>
         private float GetRandomAngle()
         {
+            var result = _random.Next(AngleMin, AngleMax);
+
             return _random.Next(AngleMin, AngleMax);
         }
 

@@ -108,8 +108,8 @@
     <Compile Include="UserControls\RandomColorRanges.xaml.cs">
       <DependentUpon>RandomColorRanges.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\RandomSizeRange.xaml.cs">
-      <DependentUpon>RandomSizeRange.xaml</DependentUpon>
+    <Compile Include="UserControls\RandomRange.xaml.cs">
+      <DependentUpon>RandomRange.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ValueChangedEventArgs.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -177,7 +177,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UserControls\RandomSizeRange.xaml">
+    <Page Include="UserControls\RandomRange.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -176,6 +176,20 @@ namespace ParticleMaker.ViewModels
             }
         }
 
+        public float AngleMin
+        {
+            get => _particleEngine.AngleMin;
+            set => _particleEngine.AngleMin = value;
+        }
+
+
+        public float AngleMax
+        {
+            get => _particleEngine.AngleMax;
+            set => _particleEngine.AngleMax = value;
+        }
+
+
         /// <summary>
         /// Gets or sets a value indicating if the colors will be randomly chosen from a list.
         /// </summary>

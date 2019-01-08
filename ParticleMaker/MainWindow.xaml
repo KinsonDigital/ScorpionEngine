@@ -78,6 +78,18 @@
             </ctrls:ColorList>
         </Grid>
 
-        <ctrls:RandomSizeRange SizeMin="{Binding SizeMin, Mode=TwoWay}" SizeMax="{Binding SizeMax, Mode=TwoWay}" Margin="10,10,53.333,39.667" Grid.Row="1"/>
+        <StackPanel Orientation="Vertical" Grid.Row="1">
+            <!--RANDOM SIZE SETTINGS-->
+            <ctrls:RandomRange HorizontalAlignment="Left" Height="120" VerticalAlignment="Top" Width="181"
+                               MinValue="{Binding SizeMin, Mode=TwoWay}" MaxValue="{Binding SizeMax, Mode=TwoWay}"
+                               MinLowerLimit="0.1" MinUpperLimit="2" MaxLowerLimit="0.1" MaxUpperLimit="2"
+                               Title="Random Size" MinTitle="Size Min" MaxTitle="Size Max"/>
+        
+            <!--RANDOM ANGLE SETTINGS-->
+            <ctrls:RandomRange HorizontalAlignment="Left" Height="120" VerticalAlignment="Top" Width="181"
+                               MinValue="{Binding AngleMin, Mode=TwoWay}" MaxValue="{Binding AngleMax, Mode=TwoWay}"
+                               MinLowerLimit="0" MinUpperLimit="360" MaxLowerLimit="0" MaxUpperLimit="360"
+                               Title="Random Angle" MinTitle="Angle Min" MaxTitle="Angle Max"/>
+        </StackPanel>
     </Grid>
 </Window>
