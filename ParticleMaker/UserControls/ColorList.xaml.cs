@@ -62,6 +62,8 @@ namespace ParticleMaker.UserControls
                     Id = newId,
                     ColorBrush = new SolidColorBrush(colorPicker.ChosenColor)
                 });
+
+                SetValue(ColorsProperty, Colors);
             }
         }
 
@@ -87,6 +89,7 @@ namespace ParticleMaker.UserControls
                             ColorBrush = new SolidColorBrush(colorPicker.ChosenColor)
                         };
 
+                        SetValue(ColorsProperty, Colors);
                         break;
                     }
                 }
@@ -108,6 +111,7 @@ namespace ParticleMaker.UserControls
                     if (Colors[i].Id == e.Id)
                     {
                         Colors.RemoveAt(i);
+                        SetValue(ColorsProperty, Colors);
                         break;
                     }
                 }

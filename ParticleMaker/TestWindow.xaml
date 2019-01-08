@@ -1,0 +1,23 @@
+﻿<Window x:Class="ParticleMaker.TestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ParticleMaker"
+        xmlns:ctrls="clr-namespace:ParticleMaker.UserControls"
+        xmlns:vm="clr-namespace:ParticleMaker.ViewModels"
+        mc:Ignorable="d" Name="this"
+        Title="TestWindow" Height="450" Width="517.894"
+        d:DataContext="{d:DesignInstance Type=vm:MainViewModel}" WindowStartupLocation="CenterScreen">
+
+    <StackPanel Orientation="Horizontal">
+        <ctrls:ColorList d:DataContext="{d:DesignData Source=/DesignData/ColorListSampleData.xaml}"
+                         Colors="{Binding Path=Colors, Mode=TwoWay}">
+        </ctrls:ColorList>
+
+        <!--
+        d:DataContext="{d:DesignData Source=/DesignData/ColorListSampleData.xaml}"
+        -->
+        <ListBox ItemsSource="{Binding Colors, Mode=TwoWay}" Margin="20,50,0,49.667" Width="208"/>
+    </StackPanel>
+</Window>

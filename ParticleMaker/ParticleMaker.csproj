@@ -84,6 +84,9 @@
     </Compile>
     <Compile Include="DesignData\ColorListSampleData.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="TestWindow.xaml.cs">
+      <DependentUpon>TestWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ColorItemClickedEventArgs.cs" />
     <Compile Include="UserControls\ColorList.xaml.cs">
       <DependentUpon>ColorList.xaml</DependentUpon>
@@ -115,6 +118,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DesignData\ColorListSampleData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

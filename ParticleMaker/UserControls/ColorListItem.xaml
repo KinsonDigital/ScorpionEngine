@@ -12,29 +12,37 @@
         </media:SolidColorBrush>
     </UserControl.Resources>
     
-    <StackPanel Orientation="Horizontal" DataContext="{Binding ElementName=this}">
-        <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5" Width="100" Height="25"
+    <Grid DataContext="{Binding ElementName=this}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        
+        <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5" Height="25"
                 d:DataContext="{d:DesignData Source=/DesignData/ColorListSampleData.xaml}"
-                Background="{Binding ColorValue}"
+                Background="{Binding ColorValue}" HorizontalAlignment="Stretch" Grid.Column="0"
                 VerticalAlignment="Center" Margin="4, 0, 0, 0">
+            
                 <Label Content="{Binding Path=ColorValue.Color}" HorizontalAlignment="Stretch" VerticalAlignment="Top"
                        VerticalContentAlignment="Stretch" Margin="0, -2, 0, 0" Foreground="Black"/>
         </Border>
-        
-        <!--EDIT-->
-        <local:CustomButton x:Name="EditColorButton" Click="EditColorButton_Click">
-            <local:CustomButton.ButtonContent>
-                <Image Source="/ParticleMaker;component/Icons/ColorDropper.png" Width="25" Height="25"
-                        Margin="2.5"/>
-            </local:CustomButton.ButtonContent>
-        </local:CustomButton>
 
-        <!--DELETE-->
-        <local:CustomButton x:Name="DeleteColorButton" Click="DeleteColorButton_Click">
-            <local:CustomButton.ButtonContent>
-                <Image Source="/ParticleMaker;component/Icons/Delete.png" Width="25" Height="25"
-                       Margin="2.5"/>
-            </local:CustomButton.ButtonContent>
-        </local:CustomButton>
-    </StackPanel>
+        <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right" Grid.Column="1">
+            <!--EDIT-->
+            <local:CustomButton x:Name="EditColorButton" Click="EditColorButton_Click">
+                <local:CustomButton.ButtonContent>
+                    <Image Source="/ParticleMaker;component/Icons/ColorDropper.png" Width="25" Height="25"
+                            Margin="2.5"/>
+                </local:CustomButton.ButtonContent>
+            </local:CustomButton>
+
+            <!--DELETE-->
+            <local:CustomButton x:Name="DeleteColorButton" Click="DeleteColorButton_Click">
+                <local:CustomButton.ButtonContent>
+                    <Image Source="/ParticleMaker;component/Icons/Delete.png" Width="25" Height="25"
+                           Margin="2.5"/>
+                </local:CustomButton.ButtonContent>
+            </local:CustomButton>
+        </StackPanel>
+    </Grid>
 </UserControl>

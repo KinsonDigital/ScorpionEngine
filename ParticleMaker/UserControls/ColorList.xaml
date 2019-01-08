@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ParticleMaker.UserControls"
-             mc:Ignorable="d" Background="White" Name="this">
+             mc:Ignorable="d" Background="White" Name="this" Width="200">
     <UserControl.Resources>
         <Style x:Key="EnabledStyle" TargetType="Rectangle">
             <Setter Property="Fill" Value="Black"/>
@@ -23,8 +23,8 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" Content="Add Color" HorizontalAlignment="Center"/>
@@ -39,11 +39,18 @@
             </local:CustomButton.ButtonContent>
         </local:CustomButton>
         
-        <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Path=Colors, Mode=TwoWay}"
+        <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch"
+                 ItemsSource="{Binding Path=Colors, Mode=TwoWay}"
                  d:DataContext="{d:DesignData Source=/DesignData/ColorListSampleData.xaml}">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <local:ColorListItem ColorValue="{Binding Path=ColorBrush, Mode=TwoWay}" Id="{Binding Path=Id}"
+                                         HorizontalContentAlignment="Stretch"
                                          EditColorClicked="ColorListItem_EditColorClicked"
                                          DeleteClicked="ColorListItem_DeleteClicked"/>
                 </DataTemplate>

@@ -1,7 +1,10 @@
 ﻿<!--projns = project namespace-->
 <local:ColorListSampleData xmlns:local="clr-namespace:ParticleMaker.DesignData"
                            xmlns:projns="clr-namespace:ParticleMaker"
-                           xmlns:media="clr-namespace:System.Windows.Media;assembly=PresentationCore">
+                           xmlns:media="clr-namespace:System.Windows.Media;assembly=PresentationCore"
+                           xmlns:objModel="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib">
+    
+    <!--COLOR LIST CONTROL INTERNAL SAMPLE DATA-->
     <local:ColorListSampleData.Colors>
         <projns:ColorItem Id="111">
             <projns:ColorItem.ColorBrush>
@@ -19,4 +22,6 @@
     <local:ColorListSampleData.ColorValue>
         <media:SolidColorBrush Color="CornflowerBlue"/>
     </local:ColorListSampleData.ColorValue>
+
+    <!--COLOR LIST CONTROL EXTERNAL SAMPLE DATA-->
 </local:ColorListSampleData>

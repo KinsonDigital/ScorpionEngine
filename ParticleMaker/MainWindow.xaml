@@ -32,10 +32,51 @@
             </WindowsFormsHost.Child>
         </WindowsFormsHost>
 
-        <ctrls:RandomColorRanges x:Name="ColorRanges" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="177"
-                                 RedMin="{Binding Path=RedMin, Mode=TwoWay}" RedMax="{Binding Path=RedMax, Mode=TwoWay}"
-                                 GreenMin="{Binding Path=GreenMin, Mode=TwoWay}" GreenMax="{Binding Path=GreenMax, Mode=TwoWay}"
-                                 BlueMin="{Binding Path=BlueMin, Mode=TwoWay}" BlueMax="{Binding Path=BlueMax, Mode=TwoWay}"/>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Vertical" Grid.Row="0">
+                <RadioButton Name="RandomColorRadioButton" Content="Random Color" IsChecked="True"/>
+                <RadioButton Content="Random Color List" IsChecked="{Binding UseColorsFromList}"/>
+            </StackPanel>
+
+            <ctrls:RandomColorRanges x:Name="ColorRanges" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                     Grid.Row="1" Margin="10,10,0,0" Width="177"
+                                     RedMin="{Binding Path=RedMin, Mode=TwoWay}" RedMax="{Binding Path=RedMax, Mode=TwoWay}"
+                                     GreenMin="{Binding Path=GreenMin, Mode=TwoWay}" GreenMax="{Binding Path=GreenMax, Mode=TwoWay}"
+                                     BlueMin="{Binding Path=BlueMin, Mode=TwoWay}" BlueMax="{Binding Path=BlueMax, Mode=TwoWay}">
+                <ctrls:RandomColorRanges.Style>
+                    <Style TargetType="ctrls:RandomColorRanges">
+                        <Setter Property="Visibility" Value="Hidden"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=RandomColorRadioButton, Path=IsChecked}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ctrls:RandomColorRanges.Style>
+            </ctrls:RandomColorRanges>
+
+            <ctrls:ColorList d:DataContext="{d:DesignData Source=/DesignData/ColorListSampleData.xaml}"
+                             Grid.Row="1" Colors="{Binding Colors, Mode=TwoWay}">
+                <ctrls:ColorList.Style>
+                    <Style TargetType="ctrls:ColorList">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=RandomColorRadioButton, Path=IsChecked}" Value="True">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ctrls:ColorList.Style>
+            </ctrls:ColorList>
+        </Grid>
 
         <ctrls:RandomSizeRange SizeMin="{Binding SizeMin, Mode=TwoWay}" SizeMax="{Binding SizeMax, Mode=TwoWay}" Margin="10,10,53.333,39.667" Grid.Row="1"/>
     </Grid>

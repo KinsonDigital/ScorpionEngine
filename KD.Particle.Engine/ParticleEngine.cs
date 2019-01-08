@@ -190,7 +190,7 @@ namespace KDParticleEngine
         /// randomly choose from when spawning a new <see cref="Particle"/>.
         /// Only used if the <see cref="UseTintColorList"/> is set to true.
         /// </summary>
-        public GameColor[] TintColors { get; set; }
+        public GameColor[] TintColors { get; set; } = new GameColor[0];
 
         /// <summary>
         /// Gets or sets the minimum value for the red component when randomly choosing
@@ -439,7 +439,7 @@ namespace KDParticleEngine
         {
             if (UseTintColorList)
             {
-                return TintColors == null ? new GameColor(255, 255, 255, 255) : TintColors[_random.Next(TintColors.Length)];
+                return TintColors == null || TintColors.Length == 0 ? new GameColor(255, 255, 255, 255) : TintColors[_random.Next(TintColors.Length)];
             }
             else
             {

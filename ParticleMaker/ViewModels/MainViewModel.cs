@@ -15,13 +15,8 @@ namespace ParticleMaker.ViewModels
     /// <summary>
     /// The main view model for the application.
     /// </summary>
-    public class MainViewModel// : INotifyPropertyChanged
+    public class MainViewModel
     {
-        #region Public Fields
-        //public event PropertyChangedEventHandler PropertyChanged;
-        #endregion
-
-
         #region Private Fields
         private GraphicsEngine _graphicsEngine;
         private ThreadTimer _timer;
@@ -38,6 +33,7 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public MainViewModel()
         {
+            _particleEngine = new ParticleEngine(new CoreVector(200, 200));
         }
 
 
@@ -206,7 +202,7 @@ namespace ParticleMaker.ViewModels
         /// <summary>
         /// Gets or sets the list of colors to randomly choose from.
         /// </summary>
-        public ObservableCollection<ColorItem> ColorList
+        public ObservableCollection<ColorItem> Colors
         {
             get
             {
