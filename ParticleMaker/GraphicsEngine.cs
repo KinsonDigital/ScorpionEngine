@@ -100,9 +100,9 @@ namespace ParticleMaker
             _particleRenderer = new ParticleRenderer(_spriteBatch);
             _renderer = new Renderer(_particleRenderer);
 
-            var starTexture = _contentLoader.LoadTexture("Star");
+            var texture = _contentLoader.LoadTexture("Arrow");
             
-            _particleEngine.AddTexture(starTexture);
+            _particleEngine.AddTexture(texture);
 
             base.LoadContent();
         }

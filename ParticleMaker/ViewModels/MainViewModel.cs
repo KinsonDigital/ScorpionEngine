@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Windows.Threading;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using KDParticleEngine;
 using ThreadTimer = System.Threading.Timer;
 using CoreVector = KDScorpionCore.Vector;
@@ -91,7 +89,6 @@ namespace ParticleMaker.ViewModels
             set
             {
                 _particleEngine.RedMin = (byte)value;
-                NotifyPropChange();
             }
         }
 
@@ -104,7 +101,6 @@ namespace ParticleMaker.ViewModels
             set
             {
                 _particleEngine.RedMax = (byte)value;
-                NotifyPropChange();
             }
         }
 
@@ -117,7 +113,6 @@ namespace ParticleMaker.ViewModels
             set
             {
                 _particleEngine.GreenMin = (byte)value;
-                NotifyPropChange();
             }
         }
 
@@ -130,7 +125,6 @@ namespace ParticleMaker.ViewModels
             set
             {
                 _particleEngine.GreenMax = (byte)value;
-                NotifyPropChange();
             }
         }
 
@@ -143,7 +137,6 @@ namespace ParticleMaker.ViewModels
             set
             {
                 _particleEngine.BlueMin = (byte)value;
-                NotifyPropChange();
             }
         }
 
@@ -156,7 +149,6 @@ namespace ParticleMaker.ViewModels
             set
             {
                 _particleEngine.BlueMax = (byte)value;
-                NotifyPropChange();
             }
         }
 
@@ -169,8 +161,7 @@ namespace ParticleMaker.ViewModels
             set
             {
                 _particleEngine.SizeMin = value;
-                NotifyPropChange();
-            }
+           }
         }
 
         /// <summary>
@@ -182,7 +173,6 @@ namespace ParticleMaker.ViewModels
             set
             {
                 _particleEngine.SizeMax = value;
-                NotifyPropChange();
             }
         }
 
@@ -195,7 +185,6 @@ namespace ParticleMaker.ViewModels
             set
             {
                 _particleEngine.UseTintColorList = value;
-                NotifyPropChange();
             }
         }
 
@@ -229,8 +218,6 @@ namespace ParticleMaker.ViewModels
                 }
 
                 _particleEngine.TintColors = result.ToArray();
-
-                NotifyPropChange();
             }
         }
         #endregion
@@ -271,17 +258,6 @@ namespace ParticleMaker.ViewModels
                     _graphicsEngine.Run();
                 }
             });
-        }
-
-
-        /// <summary>
-        /// Notifies the binding system that a property with the given property name has changed its value.
-        /// </summary>
-        /// <param name="propName">The name of the property that has changed.</param>
-        private void NotifyPropChange([CallerMemberName] string propName = "")
-        {
-            //if (!string.IsNullOrEmpty(propName))
-            //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
         #endregion
     }
