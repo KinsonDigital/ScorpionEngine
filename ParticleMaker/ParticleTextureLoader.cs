@@ -13,6 +13,9 @@ namespace ParticleMaker
 
 
         #region Constructors
+        //TODO: Look into injecting the grfxDevice param into this class via the InjectData method.
+        //The code inside the method will be implemented into the ContentDirService class that will
+        //be injected into this class.
         public ParticleTextureLoader(GraphicsDevice grfxDevice)
         {
             _grfxDevice = grfxDevice;
@@ -50,7 +53,7 @@ namespace ParticleMaker
             throw new NotImplementedException();
         }
 
-
+        //TODO: Use this to inject the graphics device
         public void InjectData<T>(T data) where T : class
         {
             throw new NotImplementedException();

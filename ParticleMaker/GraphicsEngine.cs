@@ -49,12 +49,16 @@ namespace ParticleMaker
 
 
         #region Public Methods
+        //TODO: Change this to directly use the BackBufferWidth in the
+        //_graphics_PreparingDeviceSettings event below.
         public int Width
         {
             get { return _width; }
             set { _width = value; }
         }
 
+        //TODO: Change this to directly use the BackBufferHeight in the
+        //_graphics_PreparingDeviceSettings event below.
         public int Height
         {
             get { return _height; }
@@ -73,6 +77,7 @@ namespace ParticleMaker
         #region Event Methods
         private void _graphics_PreparingDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e)
         {
+            //TODO: Use the width and height below directly in the Width and Height props
             e.GraphicsDeviceInformation.PresentationParameters.DeviceWindowHandle = _windowsHandle;
             e.GraphicsDeviceInformation.PresentationParameters.BackBufferWidth = _width;
             e.GraphicsDeviceInformation.PresentationParameters.BackBufferHeight = _height;
@@ -97,6 +102,8 @@ namespace ParticleMaker
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            //TODO: Use SimpleInjector to inject the ParticleRender when creating an instance of Renderer.
+            //TODO: This renderer class can be injected into GraphicsEngine class via constructor.
             _particleRenderer = new ParticleRenderer(_spriteBatch);
             _renderer = new Renderer(_particleRenderer);
 

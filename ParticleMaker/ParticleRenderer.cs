@@ -12,6 +12,7 @@ namespace ParticleMaker
         private SpriteBatch _spriteBatch;
 
 
+        //TODO: Move the injection of this sprite batch to the InjectData method.
         public ParticleRenderer(SpriteBatch spriteBatch)
         {
             _spriteBatch = spriteBatch;
@@ -41,7 +42,7 @@ namespace ParticleMaker
             throw new NotImplementedException();
         }
 
-
+        //TODO: Use this to inject the spritbatch into class.
         public void InjectData<T>(T data) where T : class
         {
             throw new NotImplementedException();
