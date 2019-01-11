@@ -112,7 +112,7 @@ namespace ParticleMaker.ViewModels
         public int TotalDeadParticles => _particleEngine.TotalDeadParticles;
 
         /// <summary>
-        /// Gets or sets the minimum value of the red color component range.
+        /// Gets or sets the minimum value of the red color component range that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public int RedMin
         {
@@ -124,7 +124,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the maximum value of the red color component range.
+        /// Gets or sets the maximum value of the red color component range that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public int RedMax
         {
@@ -136,7 +136,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the minimum value of the green color component range.
+        /// Gets or sets the minimum value of the green color component range that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public int GreenMin
         {
@@ -148,7 +148,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the maximum value of the green color component range.
+        /// Gets or sets the maximum value of the green color component range that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public int GreenMax
         {
@@ -160,7 +160,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the minimum value of the blue color component range.
+        /// Gets or sets the minimum value of the blue color component range that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public int BlueMin
         {
@@ -172,7 +172,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the maximum value of the blue color component range.
+        /// Gets or sets the maximum value of the blue color component range that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public int BlueMax
         {
@@ -184,7 +184,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the minimum size of the range that the size can be randomly chosen from.
+        /// Gets or sets the minimum size of the range that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public float SizeMin
         {
@@ -196,7 +196,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the maximum size of the range that the size can be randomly chosen from.
+        /// Gets or sets the maximum size of the range that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public float SizeMax
         {
@@ -208,7 +208,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the minimum angle of the range that a particle will randomly be set to.
+        /// Gets or sets the minimum angle of the range that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public float AngleMin
         {
@@ -217,7 +217,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the maximum angle of the range that a particle will randomly be set to.
+        /// Gets or sets the maximum angle of the range that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public float AngleMax
         {
@@ -226,7 +226,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the minimum angular velocity of the range that a particle will randomly be set to.
+        /// Gets or sets the minimum angular velocity of the range that a <see cref="Particle"/> be will randomly set to.
         /// </summary>
         public float AngularVelocityMin
         {
@@ -235,7 +235,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the maximum angular velocity of the range that a particle will randomly be set to.
+        /// Gets or sets the maximum angular velocity of the range that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public float AngularVelocityMax
         {
@@ -244,7 +244,17 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the minimum life time of the range that a particle will randomly be set to.
+        /// Gets or sets the minimum X velocity of the range that a <see cref="Particle"/> will be randomly set to.
+        /// </summary>
+        public float VelocityXMin
+        {
+            get => _particleEngine.VelocityXMin;
+            set => _particleEngine.VelocityXMin = value;
+        }
+
+
+        /// <summary>
+        /// Gets or sets the minimum life time of the range that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public int LifetimeMin
         {
@@ -253,7 +263,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the maximum life time of the range that a particle will randomly be set to.
+        /// Gets or sets the maximum life time of the range that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public int LifetimeMax
         {
@@ -262,7 +272,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the minimum spawn rate.
+        /// Gets or sets the minimum spawn rate of the range that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public int SpawnRateMin
         {
@@ -271,7 +281,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the maximum spawn rate.
+        /// Gets or sets the maximum spawn rate of the range that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public int SpawnRateMax
         {
