@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ParticleMaker.UserControls" Name="this"
-             mc:Ignorable="d" d:DesignHeight="100" d:DesignWidth="100">
+             Name="this" mc:Ignorable="d" d:DesignHeight="100" d:DesignWidth="100">
     
     <Grid>
         <ContentPresenter Content="{Binding ElementName=this, Path=ButtonContent}"/>
@@ -13,6 +12,7 @@
             <Rectangle.Style>
                 <Style TargetType="Rectangle">
                     <Setter Property="Opacity" Value="0"/>
+                    
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=CoverRect, Path=IsMouseOver}" Value="True">
                             <Setter Property="Opacity" Value="0.35"/>
