@@ -384,7 +384,9 @@ namespace KDParticleEngine
             if (_textures.Count <= 0)
                 return;
 
-            for (int i = 0; i < TotalParticlesAliveAtOnce - _particles.Count; i++)
+            _particles.Clear();
+
+            for (int i = 0; i < TotalParticlesAliveAtOnce; i++)
             {
                 _particles.Add(GenerateParticle());
             }
