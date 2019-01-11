@@ -480,11 +480,17 @@ namespace KDParticleEngine
 
         /// <summary>
         /// Returns a random <see cref="Particle.LifeTime"/> for a spawned <see cref="Particle"/>.
+        /// If the max is less than the min, the <see cref="Particle.LifeTime"/> will still be chosen
+        /// randomly between the two values.
         /// </summary>
         /// <returns></returns>
         private int GetRandomLifeTime()
         {
-            return _random.Next(LifeTimeMin, LifeTimeMax);
+            if (LifeTimeMin <= LifeTimeMax)
+                return _random.Next(LifeTimeMin, LifeTimeMax);
+
+
+            return _random.Next(LifeTimeMax, LifeTimeMin);
         }
         #endregion
     }

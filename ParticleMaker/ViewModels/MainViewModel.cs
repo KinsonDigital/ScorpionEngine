@@ -219,6 +219,24 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets the minimum life time of the range that a particle will randomly be set to.
+        /// </summary>
+        public int LifetimeMin
+        {
+            get => _particleEngine.LifeTimeMin;
+            set => _particleEngine.LifeTimeMin = value;
+        }
+
+        /// <summary>
+        /// Gets or sets the maximum life time of the range that a particle will randomly be set to.
+        /// </summary>
+        public int LifetimeMax
+        {
+            get => _particleEngine.LifeTimeMax;
+            set => _particleEngine.LifeTimeMax = value;
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating if the colors will be randomly chosen from a list.
         /// </summary>
         public bool UseColorsFromList

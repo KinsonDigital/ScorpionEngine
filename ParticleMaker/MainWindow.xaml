@@ -102,7 +102,7 @@
             <!--RANDOM PARTICLE LIFETIME (Upper limits set to 5 minutes)-->
             <ctrls:RandomRange MinLowerLimit="0" MinUpperLimit="300000" MaxLowerLimit="0" MaxUpperLimit="300000"
                                Title="PARTICLE LIFETIME (ms)" MinTitle="Lifetime Min" MaxTitle="Lifetime Max"
-                               MinValue="0" MaxValue="1000"/>
+                               MinValue="{Binding LifetimeMin, Mode=TwoWay}" MaxValue="{Binding LifetimeMax, Mode=TwoWay}"/>
         </StackPanel>
     </Grid>
 </Window>
