@@ -9,6 +9,7 @@
              Name="this">
 
     <UserControl.Resources>
+        <!--THE STYLE USED FOR THE UP AND DOWN BUTTONS-->
         <Style x:Key="EnabledStyle" TargetType="Polygon">
             <Setter Property="Fill" Value="Black"/>
             <Style.Triggers>
