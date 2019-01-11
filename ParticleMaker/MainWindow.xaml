@@ -84,9 +84,17 @@
             <StackPanel Orientation="Vertical">
                 <ctrls:NumericUpDown LabelText="Total Particles" Min="0" Max="100000" Value="{Binding TotalParticles, Mode=TwoWay}"
                                      HorizontalAlignment="Left"/>
+                
+                <!--TOTAL LIVING PARTICLES-->
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Total Living Particles:"/>
                     <Label Content="{Binding TotalLivingParticles}"/>
+                </StackPanel>
+
+                <!--TOTAL DEAD PARTICLES-->
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Total Dead Particles:"/>
+                    <Label Content="{Binding TotalDeadParticles}"/>
                 </StackPanel>
             </StackPanel>
             

@@ -104,17 +104,13 @@ namespace ParticleMaker.ViewModels
         /// <summary>
         /// Gets the total number of living particles.
         /// </summary>
-        public string TotalLivingParticles
-        {
-            get
-            {
-                var result = _particleEngine.TotalLivingParticles;
+        public int TotalLivingParticles => _particleEngine.TotalLivingParticles;
 
+        /// <summary>
+        /// Gets the total number of dead particles.
+        /// </summary>
+        public int TotalDeadParticles => _particleEngine.TotalDeadParticles;
 
-                return result.ToString();
-            }
-        }
-        
         /// <summary>
         /// Gets or sets the minimum value of the red color component range.
         /// </summary>
@@ -348,6 +344,7 @@ namespace ParticleMaker.ViewModels
         private void _particleEngine_LivingParticlesCountChanged(object sender, EventArgs e)
         {
             NotifyPropChange(nameof(TotalLivingParticles));
+            NotifyPropChange(nameof(TotalDeadParticles));
         }
 
 
