@@ -22,7 +22,8 @@ namespace KDParticleEngine
         private int _spawnRateElapsed = 0;
         private float _angleMin;
         private float _angleMax = 360;
-        private bool _enabled;
+        private bool _enabled = true;
+        private int _spawnRate;
         #endregion
 
 
@@ -143,9 +144,14 @@ namespace KDParticleEngine
         public float AngularVelocityMax { get; set; } = 4f;
 
         /// <summary>
-        /// The amount of time in milliseconds to spawn a new <see cref="Particle"/>.
+        /// Gets or sets the minimum amount of time for the spawn rate range that a <see cref="Particle"/> will next be spawned.
         /// </summary>
-        public int SpawnRate { get; set; } = 62;
+        public int SpawnRateMin { get; set; } = 62;
+
+        /// <summary>
+        /// Gets or sets the maximum amount of time for the spawn rate range that a <see cref="Particle"/> will next be spawned.
+        /// </summary>
+        public int SpawnRateMax { get; set; } = 62;
 
         /// <summary>
         /// Gets current total number of living <see cref="Particle"/>s.
@@ -283,15 +289,18 @@ namespace KDParticleEngine
         /// <param name="engineTime">The amount of time that has passed in the <see cref="Engine"/> since the last frame.</param>
         public void Update(EngineTime engineTime)
         {
-            //if (!Enabled)
-            //    return;
+            if (!Enabled)
+                return;
 
             _spawnRateElapsed += engineTime.ElapsedEngineTime.Milliseconds;
 
             //If the amount of time to spawn a new particle has passed
-            if (_spawnRateElapsed >= SpawnRate)
+            if (_spawnRateElapsed >= _spawnRate)
             {
+                _spawnRate = GetRandomSpawnRate();
+
                 SpawnNewParticle();
+
                 _spawnRateElapsed = 0;
             }
 
@@ -329,7 +338,7 @@ namespace KDParticleEngine
 
         #region Private Methods
         /// <summary>
-        /// Spawns a new particle.  This simple finds the first dead particle and
+        /// Spawns a new <see cref="Particle"/>.  This simple finds the first dead <see cref="Particle"/> and
         /// sets it back to alive and sets all of its parameters to random values.
         /// </summary>
         private void SpawnNewParticle()
@@ -354,6 +363,20 @@ namespace KDParticleEngine
 
 
         /// <summary>
+        /// Returns a random time in milliseconds that the <see cref="Particle"/> will be spawned next.
+        /// </summary>
+        /// <returns></returns>
+        private int GetRandomSpawnRate()
+        {
+            if (SpawnRateMin <= SpawnRateMax)
+                return _random.Next(SpawnRateMin, SpawnRateMax);
+
+
+            return _random.Next(SpawnRateMax, SpawnRateMin);
+        }
+
+
+        /// <summary>
         /// Generates all of the particles.
         /// </summary>
         private void GenerateAllParticles()
@@ -369,7 +392,7 @@ namespace KDParticleEngine
 
 
         /// <summary>
-        /// Generates a single particle with random settings based on the <see cref="ParticleEngine"/>s
+        /// Generates a single <see cref="Particle"/> with random settings based on the <see cref="ParticleEngine"/>s
         /// range settings.
         /// </summary>
         /// <returns></returns>
@@ -480,11 +503,17 @@ namespace KDParticleEngine
 
         /// <summary>
         /// Returns a random <see cref="Particle.LifeTime"/> for a spawned <see cref="Particle"/>.
+        /// If the max is less than the min, the <see cref="Particle.LifeTime"/> will still be chosen
+        /// randomly between the two values.
         /// </summary>
         /// <returns></returns>
         private int GetRandomLifeTime()
         {
-            return _random.Next(LifeTimeMin, LifeTimeMax);
+            if (LifeTimeMin <= LifeTimeMax)
+                return _random.Next(LifeTimeMin, LifeTimeMax);
+
+
+            return _random.Next(LifeTimeMax, LifeTimeMin);
         }
         #endregion
     }
