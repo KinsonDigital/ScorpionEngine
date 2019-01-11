@@ -50,6 +50,7 @@
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                 </Style>
             </ListBox.ItemContainerStyle>
+            
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <local:ColorListItem ColorValue="{Binding Path=ColorBrush, Mode=TwoWay}" Id="{Binding Path=Id}"
