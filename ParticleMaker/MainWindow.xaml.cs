@@ -34,6 +34,10 @@ namespace ParticleMaker
 
 
         #region Protected Methods
+        /// <summary>
+        /// Shuts down the graphics engine before closing the window.
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnClosing(CancelEventArgs e)
         {
             _mainViewModel.ShutdownEngine();
@@ -48,6 +52,9 @@ namespace ParticleMaker
 
 
         #region Event Methods
+        /// <summary>
+        /// Creates the <see cref="MainViewModel"/> with default settings.
+        /// </summary>
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             _mainViewModel = new MainViewModel(winFormsHost.Child as PictureBox, Dispatcher);
@@ -62,7 +69,6 @@ namespace ParticleMaker
             _mainViewModel.SizeMin = 1;
             _mainViewModel.SizeMax = 2;
         }
-
         #endregion
     }
 }

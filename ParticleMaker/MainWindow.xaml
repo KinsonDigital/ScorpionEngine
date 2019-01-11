@@ -47,6 +47,7 @@
                 <RadioButton Content="Random Color List" IsChecked="{Binding UseColorsFromList}"/>
             </StackPanel>
 
+            <!--THE COLOR COMPONENTS TO RANDOMLY CHOOSE FROM-->
             <ctrls:RandomColorRanges x:Name="ColorRanges" HorizontalAlignment="Left" VerticalAlignment="Top" 
                                      Grid.Row="1" Margin="10,10,0,0" Width="177"
                                      RedMin="{Binding Path=RedMin, Mode=TwoWay}" RedMax="{Binding Path=RedMax, Mode=TwoWay}"
@@ -64,6 +65,7 @@
                 </ctrls:RandomColorRanges.Style>
             </ctrls:RandomColorRanges>
 
+            <!--THE LIST OF COLORS TO RANDOMLY CHOOSE FROM-->
             <ctrls:ColorList d:DataContext="{d:DesignData Source=/DesignData/ColorListSampleData.xaml}"
                              Grid.Row="1" Colors="{Binding Colors, Mode=TwoWay}">
                 <ctrls:ColorList.Style>
