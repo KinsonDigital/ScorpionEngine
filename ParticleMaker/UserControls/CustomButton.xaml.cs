@@ -10,6 +10,9 @@ namespace ParticleMaker.UserControls
     public partial class CustomButton : UserControl
     {
         #region Events
+        /// <summary>
+        /// Invoked when the button has been clicked by the mouse.
+        /// </summary>
         public event EventHandler<EventArgs> Click;
         #endregion
 
