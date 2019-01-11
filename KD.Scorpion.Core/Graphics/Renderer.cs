@@ -44,7 +44,7 @@ namespace KDScorpionCore.Graphics
         {
             var lineColor = new byte[] { color.Red, color.Green, color.Blue, color.Alpha };
 
-            InternalRenderer.Line(start.X, start.Y, end.X, end.Y, lineColor);
+            InternalRenderer.RenderLine(start.X, start.Y, end.X, end.Y, lineColor);
         }
 
 
