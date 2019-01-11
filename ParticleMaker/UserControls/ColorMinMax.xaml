@@ -33,12 +33,14 @@
                 <RowDefinition Name="Row2" Height="{Binding ElementName=MaxStackPanel, Path=ActualHeight}"/>
             </Grid.RowDefinitions>
 
+            <!--MINIMUM VALUE COLOR-->
             <Border Name="MinBorder" Grid.Row="0" BorderBrush="Gray" BorderThickness="1" Margin="5, 0, 0, 0"
                     Width="{Binding ElementName=Column, Path=Width}"
                     Height="{Binding ElementName=Row1, Path=Height}">
                 <Rectangle Fill="{Binding Path=MinColor}"/>
             </Border>
 
+            <!--MAXIMUM VALUE COLOR-->
             <Border Name="MaxBorder" Grid.Row="1" BorderBrush="Gray" BorderThickness="1" Margin="5, 2.5, 0, 0"
                     Width="{Binding ElementName=Column, Path=Width}"
                     Height="{Binding ElementName=Row2, Path=Height}">
