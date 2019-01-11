@@ -8,8 +8,7 @@
              mc:Ignorable="d" Background="White" Name="this">
 
     <UserControl.Resources>
-        <media:SolidColorBrush x:Key="DesignTimeColor" Color="CornflowerBlue" x:Name="ColorValue">
-        </media:SolidColorBrush>
+        <media:SolidColorBrush x:Key="DesignTimeColor" Color="CornflowerBlue" x:Name="ColorValue"/>
     </UserControl.Resources>
     
     <Grid DataContext="{Binding ElementName=this}">
@@ -32,7 +31,7 @@
             <local:CustomButton x:Name="EditColorButton" Click="EditColorButton_Click">
                 <local:CustomButton.ButtonContent>
                     <Image Source="/ParticleMaker;component/Icons/ColorDropper.png" Width="25" Height="25"
-                            Margin="2.5"/>
+                           Margin="2.5"/>
                 </local:CustomButton.ButtonContent>
             </local:CustomButton>
 
