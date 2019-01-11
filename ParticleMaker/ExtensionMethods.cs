@@ -3,11 +3,17 @@ using System.Windows.Media;
 
 namespace ParticleMaker
 {
+    /// <summary>
+    /// Provides various extension methods for use throughout the application.
+    /// </summary>
     public static class ExtensionMethods
     {
+        #region Fields
         private const float PI = 3.1415926535897931f;
+        #endregion
 
 
+        #region Methods
         /// <summary>
         /// Converts the given degrees to radians.
         /// </summary>
@@ -19,6 +25,11 @@ namespace ParticleMaker
         }
 
 
+        /// <summary>
+        /// Returns the given <see cref="GameColor"/> type to a <see cref="ColorItem"/>.
+        /// </summary>
+        /// <param name="clr">The color to convert.</param>
+        /// <returns></returns>
         public static ColorItem ToColorItem(this GameColor clr)
         {
             return new ColorItem()
@@ -26,5 +37,6 @@ namespace ParticleMaker
                 ColorBrush = new SolidColorBrush(Color.FromArgb(clr.Alpha, clr.Red, clr.Green, clr.Blue))
             };
         }
+        #endregion
     }
 }
