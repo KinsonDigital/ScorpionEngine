@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace ParticleMaker.UserControls
@@ -56,7 +57,7 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public static readonly DependencyProperty MaxValueProperty =
             DependencyProperty.Register(nameof(MaxValue), typeof(float), typeof(RandomRange), new PropertyMetadata(0f));
-
+        
         /// <summary>
         /// Registers the <see cref="MaxLowerLimit"/> property.
         /// </summary>
