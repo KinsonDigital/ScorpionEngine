@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ParticleMaker.UserControls"
              mc:Ignorable="d" Background="White" Name="this" Width="200">
+    
     <UserControl.Resources>
         <Style x:Key="EnabledStyle" TargetType="Rectangle">
             <Setter Property="Fill" Value="Black"/>
@@ -29,6 +30,7 @@
 
         <Label Grid.Row="0" Grid.Column="0" Content="Add Color" HorizontalAlignment="Center"/>
 
+        <!--ADD NEW COLOR BUTTON-->
         <local:CustomButton x:Name="AddNewItemButton" Grid.Row="0" Grid.Column="1" Click="AddNewItemButton_Click">
             <local:CustomButton.ButtonContent>
                 <Grid>
@@ -39,6 +41,7 @@
             </local:CustomButton.ButtonContent>
         </local:CustomButton>
         
+        <!--LIST OF COLORS-->
         <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch"
                  ItemsSource="{Binding Path=Colors, Mode=TwoWay}"
                  d:DataContext="{d:DesignData Source=/DesignData/ColorListSampleData.xaml}">
