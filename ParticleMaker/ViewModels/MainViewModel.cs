@@ -7,14 +7,18 @@ using CoreVector = KDScorpionCore.Vector;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using KDScorpionCore.Graphics;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace ParticleMaker.ViewModels
 {
     /// <summary>
     /// The main view model for the application.
     /// </summary>
-    public class MainViewModel
+    public class MainViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         #region Private Fields
         private GraphicsEngine _graphicsEngine;
         private ThreadTimer _timer;
@@ -57,6 +61,8 @@ namespace ParticleMaker.ViewModels
                 BlueMin = 0,
                 BlueMax = 255
             };
+
+            _particleEngine.LivingParticlesCountChanged += _particleEngine_LivingParticlesCountChanged;
         }
         #endregion
 
@@ -95,6 +101,20 @@ namespace ParticleMaker.ViewModels
             set => _particleEngine.TotalParticlesAliveAtOnce = value;
         }
 
+        /// <summary>
+        /// Gets the total number of living particles.
+        /// </summary>
+        public string TotalLivingParticles
+        {
+            get
+            {
+                var result = _particleEngine.TotalLivingParticles;
+
+
+                return result.ToString();
+            }
+        }
+        
         /// <summary>
         /// Gets or sets the minimum value of the red color component range.
         /// </summary>
@@ -323,6 +343,15 @@ namespace ParticleMaker.ViewModels
 
         #region Private Methods
         /// <summary>
+        /// Updates the <see cref="TotalLivingParticles"/> property to update the UI.
+        /// </summary>
+        private void _particleEngine_LivingParticlesCountChanged(object sender, EventArgs e)
+        {
+            NotifyPropChange(nameof(TotalLivingParticles));
+        }
+
+
+        /// <summary>
         /// Invoked at a specified interval and checks when the render surface handle
         /// is available.  Once available, the graphics engine is created and the
         /// graphics engine rendering is pointed to the render surface.
@@ -345,6 +374,16 @@ namespace ParticleMaker.ViewModels
                     _graphicsEngine.Run();
                 }
             });
+        }
+
+        /// <summary>
+        /// Notifies the binding system that a property value has changed.
+        /// </summary>
+        /// <param name="propName"></param>
+        private void NotifyPropChange([CallerMemberName]string propName = "")
+        {
+            if (!string.IsNullOrEmpty(propName))
+                PropertyChanged(this, new PropertyChangedEventArgs(propName));
         }
         #endregion
     }

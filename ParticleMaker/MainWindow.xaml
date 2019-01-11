@@ -81,8 +81,13 @@
 
         <StackPanel Orientation="Vertical" Grid.Row="1">
             <!--TOTAL NUMBER OF PARTICLES-->
-            <StackPanel Orientation="Horizontal">
-                <ctrls:NumericUpDown LabelText="Total Particles" Min="0" Max="100000" Value="{Binding TotalParticles, Mode=TwoWay}"/>
+            <StackPanel Orientation="Vertical">
+                <ctrls:NumericUpDown LabelText="Total Particles" Min="0" Max="100000" Value="{Binding TotalParticles, Mode=TwoWay}"
+                                     HorizontalAlignment="Left"/>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Total Living Particles:"/>
+                    <Label Content="{Binding TotalLivingParticles}"/>
+                </StackPanel>
             </StackPanel>
             
             <!--RANDOM SIZE SETTINGS-->
