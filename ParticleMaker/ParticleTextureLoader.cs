@@ -73,6 +73,7 @@ namespace ParticleMaker
             throw new NotImplementedException();
         }
 
+
         //TODO: Use this to inject the graphics device
         /// <summary>
         /// Injects the given <paramref name="data"/> into the <see cref="ParticleTextureLoader"/> for use.

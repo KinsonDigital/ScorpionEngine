@@ -111,7 +111,15 @@ namespace MonoScorpPlugin
 
         public void RenderLine(float lineStartX, float lineStartY, float lineStopX, float lineStopY)
         {
-            RenderLine(lineStartX, lineStartY, lineStopX, lineStopY, Color.White);
+            var colorValues = new byte[]
+            {
+                Color.White.R,
+                Color.White.G,
+                Color.White.B,
+                Color.White.A
+            };
+
+            RenderLine(lineStartX, lineStartY, lineStopX, lineStopY, colorValues);
         }
 
 

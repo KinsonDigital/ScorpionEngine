@@ -65,20 +65,6 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public static readonly DependencyProperty ValueProperty =
             DependencyProperty.Register(nameof(Value), typeof(float), typeof(NumberBox), new PropertyMetadata(0f, ValueChanged));
-
-
-        /// <summary>
-        /// Sets the number text of the control when the value has changed.
-        /// </summary>
-        private static void ValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var ctrl = (NumberBox)d;
-
-            if (ctrl == null)
-                return;
-
-            ctrl.NumberText = e.NewValue.ToString();
-        }
         #endregion
 
 
@@ -90,7 +76,6 @@ namespace ParticleMaker.UserControls
             get { return (string)GetValue(NumberTextProperty); }
             set { SetValue(NumberTextProperty, value); }
         }
-
 
         /// <summary>
         /// Gets the value of the <see cref="NumberBox"/>.
@@ -162,6 +147,20 @@ namespace ParticleMaker.UserControls
 
             if (float.TryParse(e.NewValue.ToString(), out float result))
                 ctrl.Value = result;
+        }
+
+
+        /// <summary>
+        /// Sets the number text of the control when the value has changed.
+        /// </summary>
+        private static void ValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var ctrl = (NumberBox)d;
+
+            if (ctrl == null)
+                return;
+
+            ctrl.NumberText = e.NewValue.ToString();
         }
         #endregion
     }

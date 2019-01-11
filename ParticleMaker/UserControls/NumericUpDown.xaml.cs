@@ -11,8 +11,10 @@ namespace ParticleMaker.UserControls
     /// </summary>
     public partial class NumericUpDown : UserControl
     {
+        #region Fields
         //TODO: This needs to go away once this is not required by the ColorValueControl anymore
         public event EventHandler<ValueChangedEventArgs> OnValueChanged;
+        #endregion
 
 
         #region Constructors

@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ParticleMaker"
         xmlns:wpfTools="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d" Title="Choose a Color" ShowInTaskbar="False" ResizeMode="NoResize"
         SizeToContent="WidthAndHeight" Topmost="True" WindowStartupLocation="CenterScreen"
@@ -23,13 +22,11 @@
                               HorizontalAlignment="Left" SelectedColor="{Binding Path=ChosenColor}"/>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Name="OkButton" Width="75" Height="25" Margin="10" Click="OkButton_Click">
-                Ok
-            </Button>
+            <Button Name="OkButton" Width="75" Height="25" Margin="10"
+                    Content="Ok" Click="OkButton_Click"/>
 
-            <Button Name="CancelButton" Width="75" Height="25" Margin="10" Click="CancelButton_Click">
-                Cancel
-            </Button>
+            <Button Name="CancelButton" Width="75" Height="25" Margin="10" 
+                    Content="Cancel" Click="CancelButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>
