@@ -92,5 +92,9 @@
                                MinLowerLimit="0" MinUpperLimit="360" MaxLowerLimit="0" MaxUpperLimit="360"
                                Title="Random Angle" MinTitle="Angle Min" MaxTitle="Angle Max"/>
         </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <ctrls:RandomRange/>
+        </StackPanel>
     </Grid>
 </Window>

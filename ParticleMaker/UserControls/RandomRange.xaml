@@ -14,13 +14,13 @@
             <local:NumericUpDown LabelText="{Binding MinTitle, FallbackValue=Min}" Margin="0, 0, 0, 2.5"
                                  Value="{Binding MinValue, Mode=TwoWay}" DecimalPlaces="2"
                                  Min="{Binding MinLowerLimit}" Max="{Binding MinUpperLimit}"
-                                 Increment="{Binding MinValueIncrement}" Decrement="{Binding MinValueDecrement}" />
+                                 Increment="{Binding MinValueIncrement}" Decrement="{Binding MinValueDecrement}"/>
             
             <!--THE MAXIMUM VALUE-->
             <local:NumericUpDown LabelText="{Binding MaxTitle, FallbackValue=Max}" Margin="0, 2.5, 0, 0"
                                  Value="{Binding MaxValue, Mode=TwoWay}" DecimalPlaces="2"
                                  Min="{Binding MaxLowerLimit}" Max="{Binding MaxUpperLimit}"
-                                 Increment="{Binding MaxValueIncrement}" Decrement="{Binding MaxValueDecrement}" />
+                                 Increment="{Binding MaxValueIncrement}" Decrement="{Binding MaxValueDecrement}"/>
         </StackPanel>
     </Border>
 </UserControl>
