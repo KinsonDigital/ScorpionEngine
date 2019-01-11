@@ -9,6 +9,9 @@ using System.Windows.Forms;
 
 namespace ParticleMaker
 {
+    /// <summary>
+    /// Drives the graphics of the particles being rendered to the screen.
+    /// </summary>
     public class GraphicsEngine : Game
     {
         #region Fields
@@ -51,6 +54,9 @@ namespace ParticleMaker
         #region Public Methods
         //TODO: Change this to directly use the BackBufferWidth in the
         //_graphics_PreparingDeviceSettings event below.
+        /// <summary>
+        /// Gets or sets the width of the render surface that the graphics are rendering to.
+        /// </summary>
         public int Width
         {
             get { return _width; }
@@ -59,12 +65,18 @@ namespace ParticleMaker
 
         //TODO: Change this to directly use the BackBufferHeight in the
         //_graphics_PreparingDeviceSettings event below.
+        /// <summary>
+        /// Gets or sets the height of the render surface that the graphics are rendering to.
+        /// </summary>
         public int Height
         {
             get { return _height; }
             set { _height = value; }
         }
 
+        /// <summary>
+        /// Stops the graphics engine.
+        /// </summary>
         public void Stop()
         {
             _shuttingDown = true;
@@ -75,6 +87,9 @@ namespace ParticleMaker
 
 
         #region Event Methods
+        /// <summary>
+        /// Sets up the graphics device.
+        /// </summary>
         private void _graphics_PreparingDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e)
         {
             //TODO: Use the width and height below directly in the Width and Height props
@@ -86,6 +101,9 @@ namespace ParticleMaker
 
 
         #region Protected Methods
+        /// <summary>
+        /// Initializes the <see cref="GraphicsEngine"/>.
+        /// </summary>
         protected override void Initialize()
         {
             Window.Position = new Point(-30000, Window.Position.Y);
@@ -98,6 +116,9 @@ namespace ParticleMaker
         }
 
 
+        /// <summary>
+        /// Loads the content for the <see cref="GraphicsEngine"/> to render.
+        /// </summary>
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -115,6 +136,10 @@ namespace ParticleMaker
         }
 
 
+        /// <summary>
+        /// Updates the <see cref="GraphicsEngine"/>.
+        /// </summary>
+        /// <param name="gameTime">The amount of time that has passed since the last frame.</param>
         protected override void Update(GameTime gameTime)
         {
             if (_shuttingDown)
@@ -131,6 +156,10 @@ namespace ParticleMaker
         }
 
 
+        /// <summary>
+        /// Renders the partical graphics to the screen.
+        /// </summary>
+        /// <param name="gameTime">The amount of time that has passed since the last frame.</param>
         protected override void Draw(GameTime gameTime)
         {
             if (_shuttingDown)
