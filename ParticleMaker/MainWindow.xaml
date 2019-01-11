@@ -19,7 +19,7 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
-            <ColumnDefinition Name="RenderColumn" Width="400"/>
+            <ColumnDefinition Name="RenderColumn" Width="*"/>
         </Grid.ColumnDefinitions>
 
         <!--Color Settings-->
@@ -101,8 +101,12 @@
 
             <!--RANDOM PARTICLE LIFETIME (Upper limits set to 5 minutes)-->
             <ctrls:RandomRange MinLowerLimit="0" MinUpperLimit="300000" MaxLowerLimit="0" MaxUpperLimit="300000"
-                               Title="PARTICLE LIFETIME (ms)" MinTitle="Lifetime Min" MaxTitle="Lifetime Max"
+                               Title="Particle LifeTime (ms)" MinTitle="Lifetime Min" MaxTitle="Lifetime Max"
                                MinValue="{Binding LifetimeMin, Mode=TwoWay}" MaxValue="{Binding LifetimeMax, Mode=TwoWay}"/>
+
+            <ctrls:RandomRange MinLowerLimit="0" MinUpperLimit="300000" MaxLowerLimit="0" MaxUpperLimit="300000"
+                               Title="Spawn Rate (ms)" MinTitle="Spawn Rate Min" MaxTitle="Spawn Rate Max"
+                               MinValue="{Binding SpawnRateMin, Mode=TwoWay}" MaxValue="{Binding SpawnRateMax, Mode=TwoWay}"/>
         </StackPanel>
     </Grid>
 </Window>

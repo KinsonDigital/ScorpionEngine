@@ -237,6 +237,24 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets the minimum spawn rate.
+        /// </summary>
+        public int SpawnRateMin
+        {
+            get => _particleEngine.SpawnRateMin;
+            set => _particleEngine.SpawnRateMin = value;
+        }
+
+        /// <summary>
+        /// Gets or sets the maximum spawn rate.
+        /// </summary>
+        public int SpawnRateMax
+        {
+            get => _particleEngine.SpawnRateMax;
+            set => _particleEngine.SpawnRateMax = value;
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating if the colors will be randomly chosen from a list.
         /// </summary>
         public bool UseColorsFromList
