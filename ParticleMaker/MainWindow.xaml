@@ -112,11 +112,18 @@
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-            <!--RANDOM ANGULAR VELOCITY-->
-            <ctrls:RandomRange MinLowerLimit="0" MinUpperLimit="360" MaxLowerLimit="0" MaxUpperLimit="360"
-                               Title="Angular Velocity" MinTitle="Angular Velocity Min" MaxTitle="Angular Velocity Max"
-                               MinValue="{Binding AngularVelocityMin, Mode=TwoWay}" MaxValue="{Binding AngularVelocityMax, Mode=TwoWay}"/>
+            <StackPanel Orientation="Vertical">
+                <!--RANDOM ANGULAR VELOCITY-->
+                <ctrls:RandomRange MinLowerLimit="0" MinUpperLimit="360" MaxLowerLimit="0" MaxUpperLimit="360"
+                                   Title="Angular Velocity" MinTitle="Angular Velocity Min" MaxTitle="Angular Velocity Max"
+                                   MinValue="{Binding AngularVelocityMin, Mode=TwoWay}" MaxValue="{Binding AngularVelocityMax, Mode=TwoWay}"/>
 
+                <!--RANDOM X VELOCITY-->
+                <ctrls:RandomRange MinLowerLimit="-1000" MinUpperLimit="1000" MaxLowerLimit="-1000" MaxUpperLimit="1000"
+                                   Title="X Velocity" MinTitle="X Velocity Min" MaxTitle="X Velocity Max"
+                                   MinValue="{Binding VelocityXMin, Mode=TwoWay}" MaxValue="{Binding VelocityXMax, Mode=TwoWay}"/>
+            </StackPanel>
+            
             <!--RANDOM PARTICLE LIFETIME (Upper limits set to 5 minutes)-->
             <ctrls:RandomRange MinLowerLimit="0" MinUpperLimit="300000" MaxLowerLimit="0" MaxUpperLimit="300000"
                                Title="Particle LifeTime (ms)" MinTitle="Lifetime Min" MaxTitle="Lifetime Max"

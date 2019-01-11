@@ -252,6 +252,14 @@ namespace ParticleMaker.ViewModels
             set => _particleEngine.VelocityXMin = value;
         }
 
+        /// <summary>
+        /// Gets or sets the maximum X velocity of the range that a <see cref="Particle"/> will be randomly set to.
+        /// </summary>
+        public float VelocityXMax
+        {
+            get => _particleEngine.VelocityXMax;
+            set => _particleEngine.VelocityXMax = value;
+        }
 
         /// <summary>
         /// Gets or sets the minimum life time of the range that a <see cref="Particle"/> will be randomly set to.
