@@ -87,6 +87,15 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets the total number of particles that can be alive at any time.
+        /// </summary>
+        public int TotalParticles
+        {
+            get => _particleEngine.TotalParticlesAliveAtOnce;
+            set => _particleEngine.TotalParticlesAliveAtOnce = value;
+        }
+
+        /// <summary>
         /// Gets or sets the minimum value of the red color component range.
         /// </summary>
         public int RedMin
