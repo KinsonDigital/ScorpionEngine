@@ -14,6 +14,11 @@ namespace KDParticleEngine
     /// </summary>
     public class ParticleEngine
     {
+        #region Public Events
+        public event EventHandler<EventArgs> LivingParticlesCountChanged;
+        #endregion
+
+
         #region Fields
         private Random _random;
         private List<Particle> _particles;
@@ -314,7 +319,12 @@ namespace KDParticleEngine
 
                 //If the current particle's time to live has expired, kill the particle
                 if (_particles[i].LifeTime <= 0)
+                {
                     _particles[i].IsAlive = false;
+
+                    //Invoke the engine updated event
+                    LivingParticlesCountChanged?.Invoke(this, new EventArgs());
+                }
             }
         }
 
