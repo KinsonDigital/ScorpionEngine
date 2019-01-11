@@ -163,10 +163,7 @@ namespace KDScorpionCoreTests.Graphics
         {
             var mockTexture = new Mock<ITexture>();
 
-            _texture = new Texture()
-            {
-                InternalTexture = mockTexture.Object
-            };
+            _texture = new Texture(mockTexture.Object);
 
             var mockText = new Mock<IText>();
             mockText.SetupGet(m => m.Color).Returns(new byte[] { 11, 22, 33, 44 });

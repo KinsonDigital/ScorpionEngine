@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="ParticleMaker.UserControls.NumericUpDown"
+             xmlns:ctrls="clr-namespace:ParticleMaker.UserControls"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             Background="White" mc:Ignorable="d"
+             MinHeight="35" MaxHeight="30"
+             Name="this">
+
+    <UserControl.Resources>
+        <!--THE STYLE USED FOR THE UP AND DOWN BUTTONS-->
+        <Style x:Key="EnabledStyle" TargetType="Polygon">
+            <Setter Property="Fill" Value="Black"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=this, Path=IsEnabled}" Value="False">
+                    <Setter Property="Fill" Value="Gray"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    
+    <Border BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Stretch">
+        <StackPanel DataContext="{Binding ElementName=this}" Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <!--The control label text-->
+            <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
+                <Label VerticalContentAlignment="Center" VerticalAlignment="Center"
+                       Content="{Binding Path=LabelText, Mode=OneWay}"/>
+
+                <Label Content=":" Padding="0" VerticalContentAlignment="Center"
+                        Visibility="{Binding Path=IsLabelVisible, Mode=TwoWay}">
+                </Label>
+            </StackPanel>
+
+            <!--Holds the value of the up down control-->
+            <ctrls:NumberBox x:Name="ValueTextbox" Grid.Column="1" Grid.Row="0" MinWidth="25" VerticalAlignment="Center"
+                            HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                            Value="{Binding Path=Value, Mode=TwoWay}">
+            </ctrls:NumberBox>
+
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 0, 5, 0">
+                <!--Value Up Button-->
+                <ctrls:CustomButton x:Name="UpArrowButton" Grid.Row="0" Click="UpArrowButton_Click" Margin="0, 0, 0, 0"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ctrls:CustomButton.ButtonContent>
+                        <Polygon StrokeThickness="0.5" Style="{StaticResource EnabledStyle}">
+                            <Polygon.Points>
+                                12.5,0
+                                23,10
+                                18,10
+                                12.5,4.75
+                                7,10
+                                2,10
+                            </Polygon.Points>
+                        </Polygon>
+                    </ctrls:CustomButton.ButtonContent>
+                </ctrls:CustomButton>
+
+                <!--Value Down Button-->
+                <ctrls:CustomButton x:Name="DownArrowButton" Grid.Row="1" Click="DownArrowButton_Click" Margin="0, 2.5, 0, 0"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ctrls:CustomButton.ButtonContent>
+                        <Polygon StrokeThickness="0.5"  Style="{StaticResource EnabledStyle}">
+                            <Polygon.Points>
+                                12.5,10
+                                2,0
+                                7,0
+                                12.5,5.25
+                                18,0
+                                23,0
+                            </Polygon.Points>
+                        </Polygon>
+                    </ctrls:CustomButton.ButtonContent>
+                </ctrls:CustomButton>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

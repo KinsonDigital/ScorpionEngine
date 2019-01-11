@@ -17,6 +17,9 @@ namespace KDParticleEngine
             var minValueAsInt = (int)(minValue * 1000);
             var maxValueAsInt = (int)(maxValue * 1000);
 
+            if (minValueAsInt > maxValueAsInt)
+                return maxValue;
+
             var randomResult = random.Next(minValueAsInt, maxValueAsInt);
 
             return randomResult / 1000f;

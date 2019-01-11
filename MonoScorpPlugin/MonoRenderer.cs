@@ -57,21 +57,6 @@ namespace MonoScorpPlugin
         }
 
 
-        public void Line(float startX, float startY, float endX, float endY, byte[] color)
-        {
-            //If the color param does not have at least 4 items, throw an exception
-            if (color == null)
-                throw new ArgumentException($"The param '{nameof(color)}' cannot be null");
-
-            if (color.Length < 4)
-                throw new ArgumentException($"The param '{nameof(color)}' must have at lest 4 items.");
-
-            var lineColor = new Color(color[0], color[1], color[2], color[3]);
-
-            _spriteBatch.DrawLine(startX, startY, endX, endY, lineColor);
-        }
-
-
         //Angle is in degrees
         public void Render(ITexture texture, float x, float y, float angle)
         {
@@ -126,7 +111,23 @@ namespace MonoScorpPlugin
 
         public void RenderLine(float lineStartX, float lineStartY, float lineStopX, float lineStopY)
         {
-            _spriteBatch.DrawLine(lineStartX, lineStartY, lineStopX, lineStopY, Color.White);
+            RenderLine(lineStartX, lineStartY, lineStopX, lineStopY, Color.White);
         }
+
+
+        public void RenderLine(float startX, float startY, float endX, float endY, byte[] color)
+        {
+            //If the color param does not have at least 4 items, throw an exception
+            if (color == null)
+                throw new ArgumentException($"The param '{nameof(color)}' cannot be null");
+
+            if (color.Length < 4)
+                throw new ArgumentException($"The param '{nameof(color)}' must have at lest 4 items.");
+
+            var lineColor = new Color(color[0], color[1], color[2], color[3]);
+
+            _spriteBatch.DrawLine(startX, startY, endX, endY, lineColor);
+        }
+
     }
 }

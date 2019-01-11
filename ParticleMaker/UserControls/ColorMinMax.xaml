@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="ParticleMaker.UserControls.ColorMinMax"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ParticleMaker.UserControls"
+             Name="this" mc:Ignorable="d" Background="White">
+
+    <StackPanel Orientation="Horizontal" DataContext="{Binding ElementName=this}">
+        <StackPanel Orientation="Vertical">
+            <StackPanel Name="MinStackPanel">
+                <local:NumericUpDown x:Name="MinNumericUpDown" 
+                                     Value="{Binding Path=Min, Mode=TwoWay}" LabelText="{Binding Path=MinLabel}"
+                                     Min="0" Max="255" Margin="0, 0, 0, 2.5"/>
+                <Slider Value="{Binding Path=Min, Mode=TwoWay}" Minimum="0" Maximum="255"/>
+            </StackPanel>
+
+            <StackPanel Name="MaxStackPanel">
+                <local:NumericUpDown x:Name="MaxNumericUpDown" LabelText="{Binding Path=MaxLabel}"
+                                     Value="{Binding Path=Max, Mode=TwoWay}"
+                                     Min="0" Max="255" Margin="0, 2.5, 0, 2.5"/>
+                <Slider Value="{Binding Path=Max, Mode=TwoWay}" Minimum="0" Maximum="255"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Name="Column" Width="{Binding ElementName=MinNumericUpDown, Path=ActualHeight}"/>
+            </Grid.ColumnDefinitions>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Name="Row1" Height="{Binding ElementName=MinStackPanel, Path=ActualHeight}"/>
+                <RowDefinition Name="Row2" Height="{Binding ElementName=MaxStackPanel, Path=ActualHeight}"/>
+            </Grid.RowDefinitions>
+
+            <!--MINIMUM VALUE COLOR-->
+            <Border Name="MinBorder" Grid.Row="0" BorderBrush="Gray" BorderThickness="1" Margin="5, 0, 0, 0"
+                    Width="{Binding ElementName=Column, Path=Width}"
+                    Height="{Binding ElementName=Row1, Path=Height}">
+                <Rectangle Fill="{Binding Path=MinColor}"/>
+            </Border>
+
+            <!--MAXIMUM VALUE COLOR-->
+            <Border Name="MaxBorder" Grid.Row="1" BorderBrush="Gray" BorderThickness="1" Margin="5, 2.5, 0, 0"
+                    Width="{Binding ElementName=Column, Path=Width}"
+                    Height="{Binding ElementName=Row2, Path=Height}">
+                <Rectangle Fill="{Binding Path=MaxColor}"/>
+            </Border>
+        </Grid>
+    </StackPanel>
+</UserControl>

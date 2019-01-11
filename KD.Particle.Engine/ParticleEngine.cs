@@ -87,7 +87,11 @@ namespace KDParticleEngine
         public float AngleMin
         {
             get => _angleMin;
-            set => _angleMin = value < 0 || value > 360 ? 0 : value;
+            set
+            {
+                _angleMin = value < 0 ? 360 : value;
+                _angleMin = value > 360 ? 0 : value;
+            }
         }
 
         /// <summary>
@@ -97,7 +101,11 @@ namespace KDParticleEngine
         public float AngleMax
         {
             get => _angleMax;
-            set => _angleMax = value < 0 || value > 360 ? 0 : value;
+            set
+            {
+                _angleMax = value < 0 ? 360 : value;
+                _angleMax = value > 360 ? 0 : value;
+            }
         }
 
         /// <summary>
@@ -183,14 +191,14 @@ namespace KDParticleEngine
         ///     </item>
         /// </list>
         /// </summary>
-        public bool UseTintColorList { get; set; } = true;
+        public bool UseTintColorList { get; set; }
 
         /// <summary>
         /// Gets or sets the list of colors that the <see cref="ParticleEngine"/> will
         /// randomly choose from when spawning a new <see cref="Particle"/>.
         /// Only used if the <see cref="UseTintColorList"/> is set to true.
         /// </summary>
-        public GameColor[] TintColors { get; set; }
+        public GameColor[] TintColors { get; set; } = new GameColor[0];
 
         /// <summary>
         /// Gets or sets the minimum value for the red component when randomly choosing
@@ -417,6 +425,8 @@ namespace KDParticleEngine
         /// <returns></returns>
         private float GetRandomAngle()
         {
+            var result = _random.Next(AngleMin, AngleMax);
+
             return _random.Next(AngleMin, AngleMax);
         }
 
@@ -439,13 +449,19 @@ namespace KDParticleEngine
         {
             if (UseTintColorList)
             {
-                return TintColors[_random.Next(TintColors.Length)];
+                return TintColors == null || TintColors.Length == 0 ? new GameColor(255, 255, 255, 255) : TintColors[_random.Next(TintColors.Length)];
             }
             else
             {
-                var red = (byte)_random.Next(RedMin, RedMax);
-                var green = (byte)_random.Next(GreenMin, GreenMax);
-                var blue = (byte)_random.Next(BlueMin, BlueMax);
+                var red = RedMin <= RedMax ?
+                    (byte)_random.Next(RedMin, RedMax) :
+                    (byte)_random.Next(RedMax, RedMin);
+                var green = GreenMin <= GreenMax ? 
+                    (byte)_random.Next(GreenMin, GreenMax) :
+                    (byte)_random.Next(GreenMax, GreenMin);
+                var blue = BlueMin <= BlueMax ?
+                    (byte)_random.Next(BlueMin, BlueMax) :
+                    (byte)_random.Next(BlueMax, BlueMin);
 
                 return new GameColor(red, green, blue, 255);
             }
