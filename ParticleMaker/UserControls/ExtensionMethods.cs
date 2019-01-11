@@ -7,6 +7,7 @@ namespace ParticleMaker.UserControls
     /// </summary>
     public static class ExtensionMethods
     {
+        #region Methods
         /// <summary>
         /// Returns the color negative of the given <paramref name="color"/>.
         /// </summary>
@@ -15,6 +16,7 @@ namespace ParticleMaker.UserControls
         public static SolidColorBrush ToNegativeBrush(this Color color)
         {
             var negativeForecolor = Color.FromArgb(255, (byte)(255 - color.R), (byte)(255 - color.G), (byte)(255 - color.B));
+
 
             return new SolidColorBrush(negativeForecolor);
         }
@@ -29,5 +31,6 @@ namespace ParticleMaker.UserControls
         {
             return brush.Color.ToNegativeBrush();
         }
+        #endregion
     }
 }
