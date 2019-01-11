@@ -1,9 +1,13 @@
 ﻿namespace ParticleMaker.UserControls
 {
-    public enum ColorComponent
+    /// <summary>
+    /// Represents the four components that make up a color.
+    /// </summary>
+    public enum ColorComponents
     {
         Red,
         Green,
-        Blue
+        Blue,
+        Alpha
     }
 }

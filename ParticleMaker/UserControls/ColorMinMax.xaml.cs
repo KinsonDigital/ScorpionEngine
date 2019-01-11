@@ -55,7 +55,7 @@ namespace ParticleMaker.UserControls
         /// Registers the <see cref="ChosenColorComponent"/> property.
         /// </summary>
         public static readonly DependencyProperty ChosenColorComponentProperty =
-            DependencyProperty.Register(nameof(ChosenColorComponent), typeof(ColorComponent), typeof(ColorMinMax), new PropertyMetadata(ColorComponent.Red, ChosenColorChanged));
+            DependencyProperty.Register(nameof(ChosenColorComponent), typeof(ColorComponents), typeof(ColorMinMax), new PropertyMetadata(ColorComponents.Red, ChosenColorChanged));
 
         /// <summary>
         /// Registers the <see cref="MinColor"/> property.
@@ -110,9 +110,9 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Gets or sets the chosen color to apply the min and max values to.
         /// </summary>
-        public ColorComponent ChosenColorComponent
+        public ColorComponents ChosenColorComponent
         {
-            get { return (ColorComponent)GetValue(ChosenColorComponentProperty); }
+            get { return (ColorComponents)GetValue(ChosenColorComponentProperty); }
             set { SetValue(ChosenColorComponentProperty, value); }
         }
 
@@ -188,13 +188,13 @@ namespace ParticleMaker.UserControls
         {
             switch (ctrl.ChosenColorComponent)
             {
-                case ColorComponent.Red:
+                case ColorComponents.Red:
                     ctrl.MinColor = new SolidColorBrush(Color.FromArgb(255, (byte)ctrl.Min, 0, 0));
                     break;
-                case ColorComponent.Green:
+                case ColorComponents.Green:
                     ctrl.MinColor = new SolidColorBrush(Color.FromArgb(255, 0, (byte)ctrl.Min, 0));
                     break;
-                case ColorComponent.Blue:
+                case ColorComponents.Blue:
                     ctrl.MinColor = new SolidColorBrush(Color.FromArgb(255, 0, 0, (byte)ctrl.Min));
                     break;
                 default:
@@ -211,13 +211,13 @@ namespace ParticleMaker.UserControls
         {
             switch (ctrl.ChosenColorComponent)
             {
-                case ColorComponent.Red:
+                case ColorComponents.Red:
                     ctrl.MaxColor = new SolidColorBrush(Color.FromArgb(255, (byte)ctrl.Max, 0, 0));
                     break;
-                case ColorComponent.Green:
+                case ColorComponents.Green:
                     ctrl.MaxColor = new SolidColorBrush(Color.FromArgb(255, 0, (byte)ctrl.Max, 0));
                     break;
-                case ColorComponent.Blue:
+                case ColorComponents.Blue:
                     ctrl.MaxColor = new SolidColorBrush(Color.FromArgb(255, 0, 0, (byte)ctrl.Max));
                     break;
                 default:
