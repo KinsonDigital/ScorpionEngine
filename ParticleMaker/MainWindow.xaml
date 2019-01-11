@@ -93,8 +93,11 @@
                                Title="Random Angle" MinTitle="Angle Min" MaxTitle="Angle Max"/>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal">
-            <ctrls:RandomRange/>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+            <!--RANDOM ANGULAR VELOCITY-->
+            <ctrls:RandomRange MinLowerLimit="0" MinUpperLimit="360" MaxLowerLimit="0" MaxUpperLimit="360"
+                               Title="Angular Velocity" MinTitle="Angular Velocity Min" MaxTitle="Angular Velocity Max"
+                               MinValue="{Binding AngularVelocityMin, Mode=TwoWay}" MaxValue="{Binding AngularVelocityMax, Mode=TwoWay}"/>
         </StackPanel>
     </Grid>
 </Window>

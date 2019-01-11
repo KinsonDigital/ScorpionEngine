@@ -201,6 +201,24 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets the minimum angular velocity of the range that a particle will randomly be set to.
+        /// </summary>
+        public float AngularVelocityMin
+        {
+            get => _particleEngine.AngularVelocityMin;
+            set => _particleEngine.AngularVelocityMin = value;
+        }
+
+        /// <summary>
+        /// Gets or sets the maximum angular velocity of the range that a particle will randomly be set to.
+        /// </summary>
+        public float AngularVelocityMax
+        {
+            get => _particleEngine.AngularVelocityMax;
+            set => _particleEngine.AngularVelocityMax = value;
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating if the colors will be randomly chosen from a list.
         /// </summary>
         public bool UseColorsFromList
