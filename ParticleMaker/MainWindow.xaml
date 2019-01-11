@@ -4,10 +4,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ParticleMaker"
         xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         xmlns:vm="clr-namespace:ParticleMaker.ViewModels"
-        xmlns:wpfext="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d" Title="Particle Maker"
         Name="this" WindowStartupLocation="CenterScreen"
         Height="803.068" Width="781.618"
@@ -56,6 +54,7 @@
                 <ctrls:RandomColorRanges.Style>
                     <Style TargetType="ctrls:RandomColorRanges">
                         <Setter Property="Visibility" Value="Hidden"/>
+                        
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding ElementName=RandomColorRadioButton, Path=IsChecked}" Value="True">
                                 <Setter Property="Visibility" Value="Visible"/>
