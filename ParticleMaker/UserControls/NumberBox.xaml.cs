@@ -11,12 +11,18 @@ namespace ParticleMaker.UserControls
     public partial class NumberBox : UserControl
     {
         #region Private Fields
+        /// <summary>
+        /// The number keys above the letters on the keyboard.
+        /// </summary>
         private static readonly Key[] _numberKeys = new Key[]
         {
             Key.D0, Key.D1, Key.D2, Key.D3, Key.D4, Key.D5,
             Key.D6, Key.D7, Key.D8, Key.D9
         };
 
+        /// <summary>
+        /// The numpad number keys.
+        /// </summary>
         private static readonly Key[] _numpadKeys = new Key[]
         {
             Key.NumPad0, Key.NumPad1, Key.NumPad2, Key.NumPad3,
@@ -24,6 +30,9 @@ namespace ParticleMaker.UserControls
             Key.NumPad8, Key.NumPad9
         };
 
+        /// <summary>
+        /// All of the other keys that should be aloud to be used in a textbox like control for manipulating values.
+        /// </summary>
         private static readonly Key[] _otherAllowedKeys = new Key[]
         {
             Key.Left, Key.Right, Key.Home, Key.End,
@@ -57,6 +66,10 @@ namespace ParticleMaker.UserControls
         public static readonly DependencyProperty ValueProperty =
             DependencyProperty.Register(nameof(Value), typeof(float), typeof(NumberBox), new PropertyMetadata(0f, ValueChanged));
 
+
+        /// <summary>
+        /// Sets the number text of the control when the value has changed.
+        /// </summary>
         private static void ValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ctrl = (NumberBox)d;
