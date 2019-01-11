@@ -62,6 +62,9 @@ namespace ParticleMaker.ViewModels
 
 
         #region Props
+        /// <summary>
+        /// Gets or sets the width of the render surface.
+        /// </summary>
         public int RenderSurfaceWidth
         {
             get => _graphicsEngine.Width;
@@ -71,6 +74,9 @@ namespace ParticleMaker.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the height of the render surface.
+        /// </summary>
         public int RenderSurfaceHeight
         {
             get => _graphicsEngine.Height;
@@ -176,19 +182,23 @@ namespace ParticleMaker.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the minimum angle of the range that a particle will randomly be set to.
+        /// </summary>
         public float AngleMin
         {
             get => _particleEngine.AngleMin;
             set => _particleEngine.AngleMin = value;
         }
 
-
+        /// <summary>
+        /// Gets or sets the maximum angle of the range that a particle will randomly be set to.
+        /// </summary>
         public float AngleMax
         {
             get => _particleEngine.AngleMax;
             set => _particleEngine.AngleMax = value;
         }
-
 
         /// <summary>
         /// Gets or sets a value indicating if the colors will be randomly chosen from a list.
