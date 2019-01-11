@@ -5,13 +5,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              Background="White" mc:Ignorable="d"
-             MinHeight="35" MaxHeight="30"
-             Name="this">
+             MinHeight="35" MaxHeight="30" Name="this">
 
     <UserControl.Resources>
         <!--THE STYLE USED FOR THE UP AND DOWN BUTTONS-->
         <Style x:Key="EnabledStyle" TargetType="Polygon">
             <Setter Property="Fill" Value="Black"/>
+            
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=this, Path=IsEnabled}" Value="False">
                     <Setter Property="Fill" Value="Gray"/>
@@ -29,14 +29,13 @@
                        Content="{Binding Path=LabelText, Mode=OneWay}"/>
 
                 <Label Content=":" Padding="0" VerticalContentAlignment="Center"
-                        Visibility="{Binding Path=IsLabelVisible, Mode=TwoWay}">
-                </Label>
+                       Visibility="{Binding Path=IsLabelVisible, Mode=TwoWay}"/>
             </StackPanel>
 
             <!--Holds the value of the up down control-->
             <ctrls:NumberBox x:Name="ValueTextbox" Grid.Column="1" Grid.Row="0" MinWidth="25" VerticalAlignment="Center"
-                            HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
-                            Value="{Binding Path=Value, Mode=TwoWay}">
+                             HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                             Value="{Binding Path=Value, Mode=TwoWay}">
             </ctrls:NumberBox>
 
             <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 0, 5, 0">
