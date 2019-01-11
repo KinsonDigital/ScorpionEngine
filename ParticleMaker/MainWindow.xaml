@@ -98,6 +98,11 @@
             <ctrls:RandomRange MinLowerLimit="0" MinUpperLimit="360" MaxLowerLimit="0" MaxUpperLimit="360"
                                Title="Angular Velocity" MinTitle="Angular Velocity Min" MaxTitle="Angular Velocity Max"
                                MinValue="{Binding AngularVelocityMin, Mode=TwoWay}" MaxValue="{Binding AngularVelocityMax, Mode=TwoWay}"/>
+
+            <!--RANDOM PARTICLE LIFETIME (Upper limits set to 5 minutes)-->
+            <ctrls:RandomRange MinLowerLimit="0" MinUpperLimit="300000" MaxLowerLimit="0" MaxUpperLimit="300000"
+                               Title="PARTICLE LIFETIME (ms)" MinTitle="Lifetime Min" MaxTitle="Lifetime Max"
+                               MinValue="0" MaxValue="1000"/>
         </StackPanel>
     </Grid>
 </Window>
