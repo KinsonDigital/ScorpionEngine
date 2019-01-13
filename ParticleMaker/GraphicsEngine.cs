@@ -4,6 +4,7 @@ using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ParticleMaker.Services;
 using System;
 using System.Windows.Forms;
 
@@ -24,6 +25,7 @@ namespace ParticleMaker
         private ParticleRenderer _particleRenderer;
         private Renderer _renderer;
         private ParticleTextureLoader _particleTextureLoader;
+        private IContentDirectoryService _contentDirService;
         private bool _shuttingDown = false;
         private int _width;
         private int _height;
@@ -109,7 +111,11 @@ namespace ParticleMaker
             Window.Position = new Point(-30000, Window.Position.Y);
             _window = Control.FromHandle(Window.Handle);
 
-            _particleTextureLoader = new ParticleTextureLoader(_graphics.GraphicsDevice);
+            _contentDirService = new ContentDirectoryService();
+
+            _particleTextureLoader = App.DIContainer.GetInstance<ParticleTextureLoader>();
+            _particleTextureLoader.InjectData(_graphics.GraphicsDevice);
+
             _contentLoader = new ContentLoader(_particleTextureLoader);
 
             base.Initialize();

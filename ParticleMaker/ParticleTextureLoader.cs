@@ -1,5 +1,7 @@
 ﻿using KDScorpionCore.Plugins;
 using Microsoft.Xna.Framework.Graphics;
+using ParticleMaker.Exceptions;
+using ParticleMaker.Services;
 using System;
 using System.IO;
 using System.Reflection;
@@ -14,6 +16,7 @@ namespace ParticleMaker
         #region Fields
         private GraphicsDevice _grfxDevice;
         private const string CONTENT_DIR = "Content";
+        private IContentDirectoryService _contentDirService;
         #endregion
 
 
@@ -25,26 +28,9 @@ namespace ParticleMaker
         /// Creates a new instance of a <see cref="ParticleTextureLoader"/>.
         /// </summary>
         /// <param name="grfxDevice">The graphics device to load the textures into.</param>
-        public ParticleTextureLoader(GraphicsDevice grfxDevice)
+        public ParticleTextureLoader(IContentDirectoryService contentDirService)
         {
-            _grfxDevice = grfxDevice;
-
-            ContentRootDirectory = $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\{CONTENT_DIR}";
-
-            if (!Directory.Exists(ContentRootDirectory))
-            {
-                Directory.CreateDirectory(ContentRootDirectory);
-
-                throw new Exception("There is no content in the directory to load.");
-            }
-            else
-            {
-                //Check if there are any files, it not then throw an exception
-                if (Directory.GetFiles(ContentRootDirectory).Length <= 0)
-                {
-                    throw new Exception("There is no content in the directory to load.");
-                }
-            }
+            _contentDirService = contentDirService;
         }
         #endregion
 
@@ -58,7 +44,11 @@ namespace ParticleMaker
         /// <summary>
         /// The root directory where the texture to load is located.
         /// </summary>
-        public string ContentRootDirectory { get; set; }
+        public string ContentRootDirectory
+        {
+            get => _contentDirService.ContentRootDirectory;
+            set => _contentDirService.ContentRootDirectory = value;
+        }
         #endregion
 
 
@@ -82,7 +72,10 @@ namespace ParticleMaker
         /// <param name="data">The data to inject.</param>
         public void InjectData<T>(T data) where T : class
         {
-            throw new NotImplementedException();
+            if (data.GetType() != typeof(GraphicsDevice))
+                throw new Exception($"Data getting injected into {nameof(ParticleTextureLoader)} is not of type {nameof(GraphicsDevice)}.  Incorrect type is {data.GetType().ToString()}");
+
+            _grfxDevice = data as GraphicsDevice;
         }
 
 
@@ -107,6 +100,9 @@ namespace ParticleMaker
         T IContentLoader.LoadTexture<T>(string name)
         {
             Texture2D texture;
+
+            if (!_contentDirService.ContentItemExists(name))
+                throw new ContentDoesNotExistException(name);
 
             using (var file = File.OpenRead($@"{ContentRootDirectory}\{name}.png"))
             {
