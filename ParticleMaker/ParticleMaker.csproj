@@ -226,6 +226,9 @@
     <PackageReference Include="MonoGame.Framework.WindowsDX">
       <Version>3.7.1.189</Version>
     </PackageReference>
+    <PackageReference Include="SimpleInjector">
+      <Version>4.4.3</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KD.Particle.Engine\KD.Particle.Engine.csproj">
