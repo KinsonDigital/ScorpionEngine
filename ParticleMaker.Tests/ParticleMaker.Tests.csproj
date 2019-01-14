@@ -95,6 +95,7 @@
     <Compile Include="ColorItemTests.cs" />
     <Compile Include="CustomEventArgs\DrawEventArgsTests.cs" />
     <Compile Include="ExtensionMethodsTests.cs" />
+    <Compile Include="GraphicsEngineTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CustomEventArgs\UpdateEventArgsTests.cs" />
     <Compile Include="CustomEventArgs\ValueChangedEventArgsTests.cs" />
@@ -103,6 +104,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\KD.Particle.Engine\KD.Particle.Engine.csproj">
+      <Project>{6595FF25-B463-480D-9F26-C73C66C2D5F0}</Project>
+      <Name>KD.Particle.Engine</Name>
+    </ProjectReference>
     <ProjectReference Include="..\KD.Scorpion.Core\KD.Scorpion.Core.csproj">
       <Project>{3E136A13-190C-4390-9E74-8849022852F6}</Project>
       <Name>KD.Scorpion.Core</Name>
