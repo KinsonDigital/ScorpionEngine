@@ -2,7 +2,10 @@
 using ParticleMaker.Services;
 using ParticleMaker.ViewModels;
 using SimpleInjector;
+using System.Runtime.CompilerServices;
 using System.Windows;
+
+[assembly: InternalsVisibleTo(assemblyName: "ParticleMaker.Tests", AllInternalsVisible = true)]
 
 namespace ParticleMaker
 {
