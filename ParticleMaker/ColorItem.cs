@@ -27,7 +27,7 @@ namespace ParticleMaker
         /// <returns></returns>
         public override string ToString()
         {
-            return $"R:{ColorBrush.Color.R}, G:{ColorBrush.Color.G}, B:{ColorBrush.Color.B}";
+            return $"R:{ColorBrush.Color.R}, G:{ColorBrush.Color.G}, B:{ColorBrush.Color.B}, A:{ColorBrush.Color.A}";
         }
         #endregion
     }
