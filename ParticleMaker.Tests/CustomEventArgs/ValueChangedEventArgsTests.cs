@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using ParticleMaker.CustomEventArgs;
 
-namespace ParticleMaker.Tests
+namespace ParticleMaker.CustomEventArgs
 {
     [TestFixture]
     public class ValueChangedEventArgsTests

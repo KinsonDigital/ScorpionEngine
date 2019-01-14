@@ -3,7 +3,7 @@ using NUnit.Framework;
 using ParticleMaker.CustomEventArgs;
 using System;
 
-namespace ParticleMaker.Tests
+namespace ParticleMaker.CustomEventArgs
 {
     [TestFixture]
     public class DrawEventArgsTests

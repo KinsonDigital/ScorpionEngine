@@ -2,7 +2,7 @@
 using ParticleMaker.CustomEventArgs;
 using System.Windows.Media;
 
-namespace ParticleMaker.Tests
+namespace ParticleMaker.CustomEventArgs
 {
     [TestFixture]
     public class ColorItemClickedEventArgsTests
