@@ -1,5 +1,8 @@
-﻿using KDScorpionCore.Graphics;
+﻿using KDScorpionCore;
+using KDScorpionCore.Graphics;
+using Microsoft.Xna.Framework;
 using System.Windows.Media;
+using MediaColor = System.Windows.Media.Color;
 
 namespace ParticleMaker
 {
@@ -34,8 +37,19 @@ namespace ParticleMaker
         {
             return new ColorItem()
             {
-                ColorBrush = new SolidColorBrush(Color.FromArgb(clr.Alpha, clr.Red, clr.Green, clr.Blue))
+                ColorBrush = new SolidColorBrush(MediaColor.FromArgb(clr.Alpha, clr.Red, clr.Green, clr.Blue))
             };
+        }
+
+
+        /// <summary>
+        /// Converts the givent <paramref name="gameTime"/> to the type <see cref="EngineTime"/>.
+        /// </summary>
+        /// <param name="gameTime">The <see cref="GameTime"/> object to convert.</param>
+        /// <returns></returns>
+        public static EngineTime ToEngineTime(this GameTime gameTime)
+        {
+            return new EngineTime() { ElapsedEngineTime = gameTime.ElapsedGameTime };
         }
         #endregion
     }

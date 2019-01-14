@@ -82,9 +82,13 @@
     <Compile Include="ColorPicker.xaml.cs">
       <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CoreEngine.cs" />
+    <Compile Include="CustomEventArgs\DrawEventArgs.cs" />
     <Compile Include="DesignData\ColorListSampleData.cs" />
+    <Compile Include="CustomEventArgs\UpdateEventArgs.cs" />
     <Compile Include="Exceptions\ContentDoesNotExistException.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="ICoreEngine.cs" />
     <Compile Include="Services\ContentDirectoryService.cs" />
     <Compile Include="Services\IContentDirectoryService.cs" />
     <Compile Include="TestWindow.xaml.cs">

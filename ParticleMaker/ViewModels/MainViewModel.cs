@@ -368,7 +368,7 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public void ShutdownEngine()
         {
-            _graphicsEngine.Exit();
+            _graphicsEngine.Stop();
         }
         #endregion
 
@@ -403,7 +403,8 @@ namespace ParticleMaker.ViewModels
                 {
                     _timer?.Dispose();
                     _timer = null;
-                    _graphicsEngine = new GraphicsEngine(_renderSurface.Handle, _particleEngine, 400, 400);
+                    _graphicsEngine = new GraphicsEngine(_particleEngine, 400, 400);
+                    _graphicsEngine.RenderSurfaceHandle = _renderSurface.Handle;
                     _graphicsEngine.Run();
                 }
             });

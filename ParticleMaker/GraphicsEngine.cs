@@ -4,6 +4,7 @@ using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ParticleMaker.CustomEventArgs;
 using ParticleMaker.Services;
 using System;
 using System.Windows.Forms;
@@ -13,13 +14,11 @@ namespace ParticleMaker
     /// <summary>
     /// Drives the graphics of the particles being rendered to the screen.
     /// </summary>
-    public class GraphicsEngine : Game
+    public class GraphicsEngine
     {
         #region Fields
-        private GraphicsDeviceManager _graphics;
+        private ICoreEngine _coreEngine;
         private SpriteBatch _spriteBatch;
-        private IntPtr _windowsHandle;
-        private Control _window;
         private ParticleEngine _particleEngine;
         private ContentLoader _contentLoader;
         private ParticleRenderer _particleRenderer;
@@ -38,17 +37,28 @@ namespace ParticleMaker
         /// </summary>
         /// <param name="windowHandle">The handle that points to the window of where to render the graphics.</param>
         /// <param name="particleEngine">The particle engine that manages the particles.</param>
-        public GraphicsEngine(IntPtr windowHandle, ParticleEngine particleEngine, int width, int height)
+        public GraphicsEngine(ParticleEngine particleEngine, int width, int height)
         {
+            _coreEngine = new CoreEngine();
+            _coreEngine.OnInitialize += _coreEngine_OnInitialize;
+            _coreEngine.OnLoadContent += _coreEngine_OnLoadContent;
+            _coreEngine.OnUpdate += _coreEngine_OnUpdate;
+            _coreEngine.OnDraw += _coreEngine_OnDraw;
+            _coreEngine.OnUnLoadContent += _coreEngine_OnUnLoadContent;
+
             _width = width;
             _height = height;
 
             _particleEngine = particleEngine;
+        }
+        #endregion
 
-            _windowsHandle = windowHandle;
 
-            _graphics = new GraphicsDeviceManager(this);
-            _graphics.PreparingDeviceSettings += _graphics_PreparingDeviceSettings;
+        #region Props
+        public IntPtr RenderSurfaceHandle
+        {
+            get => _coreEngine.RenderSurfaceHandle;
+            set => _coreEngine.RenderSurfaceHandle = value;
         }
         #endregion
 
@@ -76,6 +86,19 @@ namespace ParticleMaker
             set { _height = value; }
         }
 
+
+        /// <summary>
+        /// Starts the <see cref="GraphicsEngine"/>.
+        /// </summary>
+        public void Run()
+        {
+            if (RenderSurfaceHandle == IntPtr.Zero)
+                throw new Exception($"You must set the rendering surface handle before starting the {nameof(GraphicsEngine)}");
+
+            _coreEngine.Run();
+        }
+
+
         /// <summary>
         /// Stops the graphics engine.
         /// </summary>
@@ -83,51 +106,34 @@ namespace ParticleMaker
         {
             _shuttingDown = true;
 
-            Exit();
+            _coreEngine.Exit();
         }
         #endregion
 
 
         #region Event Methods
         /// <summary>
-        /// Sets up the graphics device.
-        /// </summary>
-        private void _graphics_PreparingDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e)
-        {
-            //TODO: Use the width and height below directly in the Width and Height props
-            e.GraphicsDeviceInformation.PresentationParameters.DeviceWindowHandle = _windowsHandle;
-            e.GraphicsDeviceInformation.PresentationParameters.BackBufferWidth = _width;
-            e.GraphicsDeviceInformation.PresentationParameters.BackBufferHeight = _height;
-        }
-        #endregion
-
-
-        #region Protected Methods
-        /// <summary>
         /// Initializes the <see cref="GraphicsEngine"/>.
         /// </summary>
-        protected override void Initialize()
+        private void _coreEngine_OnInitialize(object sender, EventArgs e)
         {
-            Window.Position = new Point(-30000, Window.Position.Y);
-            _window = Control.FromHandle(Window.Handle);
-
+            _coreEngine.Window.Position = new Point(-30000, _coreEngine.Window.Position.Y);
+            
             _contentDirService = new ContentDirectoryService();
 
             _particleTextureLoader = App.DIContainer.GetInstance<ParticleTextureLoader>();
-            _particleTextureLoader.InjectData(_graphics.GraphicsDevice);
+            _particleTextureLoader.InjectData(_coreEngine.GraphicsDevice);
 
             _contentLoader = new ContentLoader(_particleTextureLoader);
-
-            base.Initialize();
         }
 
 
         /// <summary>
         /// Loads the content for the <see cref="GraphicsEngine"/> to render.
         /// </summary>
-        protected override void LoadContent()
+        private void _coreEngine_OnLoadContent(object sender, EventArgs e)
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _spriteBatch = new SpriteBatch(_coreEngine.GraphicsDevice);
 
             //TODO: Use SimpleInjector to inject the ParticleRender when creating an instance of Renderer.
             //TODO: This renderer class can be injected into GraphicsEngine class via constructor.
@@ -135,51 +141,47 @@ namespace ParticleMaker
             _renderer = new Renderer(_particleRenderer);
 
             var texture = _contentLoader.LoadTexture("Arrow");
-            
-            _particleEngine.AddTexture(texture);
 
-            base.LoadContent();
+            _particleEngine.AddTexture(texture);
         }
 
 
         /// <summary>
         /// Updates the <see cref="GraphicsEngine"/>.
         /// </summary>
-        /// <param name="gameTime">The amount of time that has passed since the last frame.</param>
-        protected override void Update(GameTime gameTime)
+        private void _coreEngine_OnUpdate(object sender, UpdateEventArgs e)
         {
             if (_shuttingDown)
                 return;
 
-            if (_window.Visible)
-                _window.Hide();
-
-            var engineTime = new EngineTime() { ElapsedEngineTime = gameTime.ElapsedGameTime };
-
-            _particleEngine.Update(engineTime);
-
-            base.Update(gameTime);
+            _particleEngine.Update(e.GameTime.ToEngineTime());
         }
 
 
         /// <summary>
         /// Renders the partical graphics to the screen.
         /// </summary>
-        /// <param name="gameTime">The amount of time that has passed since the last frame.</param>
-        protected override void Draw(GameTime gameTime)
+        private void _coreEngine_OnDraw(object sender, DrawEventArgs e)
         {
             if (_shuttingDown)
                 return;
 
-            GraphicsDevice.Clear(new Color(40, 40, 40, 255));
+            _coreEngine.GraphicsDevice.Clear(new Color(40, 40, 40, 255));
 
             _spriteBatch.Begin();
 
             _particleEngine.Render(_renderer);
 
             _spriteBatch.End();
+        }
 
-            base.Draw(gameTime);
+
+        /// <summary>
+        /// Unloads the content.
+        /// </summary>
+        private void _coreEngine_OnUnLoadContent(object sender, EventArgs e)
+        {
+            //TODO: Add code here to unload content before shutting down app
         }
         #endregion
     }
