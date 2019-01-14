@@ -9,6 +9,10 @@ namespace ParticleMaker.CustomEventArgs
     public class DrawEventArgs : EventArgs
     {
         #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="DrawEventArgs"/>.
+        /// </summary>
+        /// <param name="gameTime">The game time that has passed since the last frame.</param>
         public DrawEventArgs(GameTime gameTime)
         {
             GameTime = gameTime;
@@ -17,6 +21,9 @@ namespace ParticleMaker.CustomEventArgs
 
 
         #region Props
+        /// <summary>
+        /// Gets or sets the game time.
+        /// </summary>
         public GameTime GameTime { get; }
         #endregion
     }
