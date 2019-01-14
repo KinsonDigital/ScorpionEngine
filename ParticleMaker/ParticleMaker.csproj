@@ -93,7 +93,7 @@
     <Compile Include="IGraphicsEngineFactory.cs" />
     <Compile Include="Services\ContentDirectoryService.cs" />
     <Compile Include="Services\IContentDirectoryService.cs" />
-    <Compile Include="UserControls\ColorItemClickedEventArgs.cs" />
+    <Compile Include="CustomEventArgs\ColorItemClickedEventArgs.cs" />
     <Compile Include="UserControls\ColorList.xaml.cs">
       <DependentUpon>ColorList.xaml</DependentUpon>
     </Compile>
@@ -117,7 +117,7 @@
     <Compile Include="UserControls\RandomRange.xaml.cs">
       <DependentUpon>RandomRange.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ValueChangedEventArgs.cs" />
+    <Compile Include="CustomEventArgs\ValueChangedEventArgs.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="ColorPicker.xaml">
       <SubType>Designer</SubType>

@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using ParticleMaker.UserControls;
+using ParticleMaker.CustomEventArgs;
 using System.Windows.Media;
 
 namespace ParticleMaker.Tests
