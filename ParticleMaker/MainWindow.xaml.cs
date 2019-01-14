@@ -57,7 +57,10 @@ namespace ParticleMaker
         /// </summary>
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            _mainViewModel = new MainViewModel(winFormsHost.Child as PictureBox, Dispatcher);
+            _mainViewModel = App.DIContainer.GetInstance<MainViewModel>();
+            _mainViewModel.RenderSurface = (winFormsHost.Child as PictureBox);
+            _mainViewModel.UIDispatcher = Dispatcher;
+
             DataContext = _mainViewModel;
 
             _mainViewModel.RedMin = 0;

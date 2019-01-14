@@ -36,10 +36,8 @@ namespace KDParticleEngine
         /// <summary>
         /// Creates a new instance of <see cref="ParticleEngine"/>.
         /// </summary>
-        /// <param name="location">The location where to render the <see cref="Particle"/>s.</param>
-        public ParticleEngine(Vector location)
+        public ParticleEngine()
         {
-            SpawnLocation = location;
             _particles = new List<Particle>();
             _random = new Random();
         }

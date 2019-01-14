@@ -88,12 +88,11 @@
     <Compile Include="CustomEventArgs\UpdateEventArgs.cs" />
     <Compile Include="Exceptions\ContentDoesNotExistException.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="GraphicsEngineFactory.cs" />
     <Compile Include="ICoreEngine.cs" />
+    <Compile Include="IGraphicsEngineFactory.cs" />
     <Compile Include="Services\ContentDirectoryService.cs" />
     <Compile Include="Services\IContentDirectoryService.cs" />
-    <Compile Include="TestWindow.xaml.cs">
-      <DependentUpon>TestWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\ColorItemClickedEventArgs.cs" />
     <Compile Include="UserControls\ColorList.xaml.cs">
       <DependentUpon>ColorList.xaml</DependentUpon>
@@ -125,10 +124,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DesignData\ColorListSampleData.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

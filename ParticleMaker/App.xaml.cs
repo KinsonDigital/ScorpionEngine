@@ -1,4 +1,6 @@
-﻿using ParticleMaker.Services;
+﻿using KDParticleEngine;
+using ParticleMaker.Services;
+using ParticleMaker.ViewModels;
 using SimpleInjector;
 using System.Windows;
 
@@ -15,6 +17,10 @@ namespace ParticleMaker
 
             DIContainer.Register<IContentDirectoryService, ContentDirectoryService>();
             DIContainer.Register<ParticleTextureLoader>();
+            DIContainer.Register<ParticleEngine>();
+            DIContainer.RegisterInstance<IGraphicsEngineFactory>(new GraphicsEngineFactory());
+            DIContainer.Register<GraphicsEngine>();
+            DIContainer.Register<MainViewModel>();
         }
 
 

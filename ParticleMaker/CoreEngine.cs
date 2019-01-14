@@ -50,6 +50,8 @@ namespace ParticleMaker
         {
             _graphics = new GraphicsDeviceManager(this);
             _graphics.PreparingDeviceSettings += _graphics_PreparingDeviceSettings;
+
+            Window.Position = new Point(1000, 0);
         }
         #endregion
 
@@ -68,7 +70,6 @@ namespace ParticleMaker
         /// </summary>
         private void _graphics_PreparingDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e)
         {
-            //TODO: Use the width and height below directly in the Width and Height props
             e.GraphicsDeviceInformation.PresentationParameters.DeviceWindowHandle = RenderSurfaceHandle;
             e.GraphicsDeviceInformation.PresentationParameters.BackBufferWidth = 400;
             e.GraphicsDeviceInformation.PresentationParameters.BackBufferHeight = 400;

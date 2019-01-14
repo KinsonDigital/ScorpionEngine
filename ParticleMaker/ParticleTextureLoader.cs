@@ -4,7 +4,6 @@ using ParticleMaker.Exceptions;
 using ParticleMaker.Services;
 using System;
 using System.IO;
-using System.Reflection;
 
 namespace ParticleMaker
 {
@@ -21,9 +20,6 @@ namespace ParticleMaker
 
 
         #region Constructors
-        //TODO: Look into injecting the grfxDevice param into this class via the InjectData method.
-        //The code inside the method will be implemented into the ContentDirService class that will
-        //be injected into this class.
         /// <summary>
         /// Creates a new instance of a <see cref="ParticleTextureLoader"/>.
         /// </summary>
@@ -64,7 +60,6 @@ namespace ParticleMaker
         }
 
 
-        //TODO: Use this to inject the graphics device
         /// <summary>
         /// Injects the given <paramref name="data"/> into the <see cref="ParticleTextureLoader"/> for use.
         /// </summary>

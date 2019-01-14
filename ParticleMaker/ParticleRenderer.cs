@@ -18,7 +18,6 @@ namespace ParticleMaker
 
 
         #region Public Methods
-        //TODO: Move the injection of this sprite batch to the InjectData method.
         /// <summary>
         /// Creates a new instance of <see cref="ParticleRenderer"/>.
         /// </summary>
@@ -76,7 +75,6 @@ namespace ParticleMaker
         }
 
 
-        //TODO: Use this to inject the spritbatch into class.
         /// <summary>
         /// Injects the given <paramref name="data"/> into the class for use.
         /// </summary>
@@ -84,7 +82,7 @@ namespace ParticleMaker
         /// <param name="data">The data to inject.</param>
         public void InjectData<T>(T data) where T : class
         {
-            throw new NotImplementedException();
+            
         }
 
 

@@ -1,13 +1,10 @@
 ﻿using KDParticleEngine;
-using KDScorpionCore;
 using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ParticleMaker.CustomEventArgs;
-using ParticleMaker.Services;
 using System;
-using System.Windows.Forms;
 
 namespace ParticleMaker
 {
@@ -17,14 +14,11 @@ namespace ParticleMaker
     public class GraphicsEngine
     {
         #region Fields
+        private IGraphicsEngineFactory _factory;
         private ICoreEngine _coreEngine;
         private SpriteBatch _spriteBatch;
-        private ParticleEngine _particleEngine;
         private ContentLoader _contentLoader;
-        private ParticleRenderer _particleRenderer;
         private Renderer _renderer;
-        private ParticleTextureLoader _particleTextureLoader;
-        private IContentDirectoryService _contentDirService;
         private bool _shuttingDown = false;
         private int _width;
         private int _height;
@@ -37,19 +31,22 @@ namespace ParticleMaker
         /// </summary>
         /// <param name="windowHandle">The handle that points to the window of where to render the graphics.</param>
         /// <param name="particleEngine">The particle engine that manages the particles.</param>
-        public GraphicsEngine(ParticleEngine particleEngine, int width, int height)
+        public GraphicsEngine(IGraphicsEngineFactory factory, ParticleEngine particleEngine)
         {
-            _coreEngine = new CoreEngine();
+            _factory = factory;
+
+            _coreEngine = _factory.CoreEngine;
+
             _coreEngine.OnInitialize += _coreEngine_OnInitialize;
             _coreEngine.OnLoadContent += _coreEngine_OnLoadContent;
             _coreEngine.OnUpdate += _coreEngine_OnUpdate;
             _coreEngine.OnDraw += _coreEngine_OnDraw;
             _coreEngine.OnUnLoadContent += _coreEngine_OnUnLoadContent;
 
-            _width = width;
-            _height = height;
+            _width = 400;
+            _height = 400;
 
-            _particleEngine = particleEngine;
+            ParticleEngine = particleEngine;
         }
         #endregion
 
@@ -60,6 +57,8 @@ namespace ParticleMaker
             get => _coreEngine.RenderSurfaceHandle;
             set => _coreEngine.RenderSurfaceHandle = value;
         }
+
+        public ParticleEngine ParticleEngine { get; set; }
         #endregion
 
 
@@ -118,13 +117,8 @@ namespace ParticleMaker
         private void _coreEngine_OnInitialize(object sender, EventArgs e)
         {
             _coreEngine.Window.Position = new Point(-30000, _coreEngine.Window.Position.Y);
-            
-            _contentDirService = new ContentDirectoryService();
 
-            _particleTextureLoader = App.DIContainer.GetInstance<ParticleTextureLoader>();
-            _particleTextureLoader.InjectData(_coreEngine.GraphicsDevice);
-
-            _contentLoader = new ContentLoader(_particleTextureLoader);
+            _contentLoader = _factory.NewContentLoader();
         }
 
 
@@ -133,16 +127,17 @@ namespace ParticleMaker
         /// </summary>
         private void _coreEngine_OnLoadContent(object sender, EventArgs e)
         {
-            _spriteBatch = new SpriteBatch(_coreEngine.GraphicsDevice);
 
-            //TODO: Use SimpleInjector to inject the ParticleRender when creating an instance of Renderer.
-            //TODO: This renderer class can be injected into GraphicsEngine class via constructor.
-            _particleRenderer = new ParticleRenderer(_spriteBatch);
-            _renderer = new Renderer(_particleRenderer);
+            //_particleRenderer = new ParticleRenderer(_spriteBatch);
+            //_renderer = new Renderer(_particleRenderer);
+
+            _renderer = _factory.NewRenderer();
+
+            _spriteBatch = _factory.SpriteBatch;
 
             var texture = _contentLoader.LoadTexture("Arrow");
 
-            _particleEngine.AddTexture(texture);
+            ParticleEngine.AddTexture(texture);
         }
 
 
@@ -154,7 +149,7 @@ namespace ParticleMaker
             if (_shuttingDown)
                 return;
 
-            _particleEngine.Update(e.GameTime.ToEngineTime());
+            ParticleEngine.Update(e.GameTime.ToEngineTime());
         }
 
 
@@ -170,7 +165,7 @@ namespace ParticleMaker
 
             _spriteBatch.Begin();
 
-            _particleEngine.Render(_renderer);
+            ParticleEngine.Render(_renderer);
 
             _spriteBatch.End();
         }

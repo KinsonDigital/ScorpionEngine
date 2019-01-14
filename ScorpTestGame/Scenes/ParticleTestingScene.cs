@@ -30,8 +30,9 @@ namespace ScorpTestGame.Scenes
                 new GameColor(255, 106, 0, 255)
             };
 
-            _particleEngine = new ParticleEngine(new Vector(400, 400))
+            _particleEngine = new ParticleEngine()
             {
+                SpawnLocation = new Vector(400, 400),
                 UseRandomVelocity = true,
                 TotalParticlesAliveAtOnce = 60,
                 UseTintColorList = false,
