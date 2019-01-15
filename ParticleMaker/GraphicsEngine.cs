@@ -59,10 +59,7 @@ namespace ParticleMaker
         }
 
         public ParticleEngine ParticleEngine { get; set; }
-        #endregion
 
-
-        #region Public Methods
         //TODO: Change this to directly use the BackBufferWidth in the
         //_graphics_PreparingDeviceSettings event below.
         /// <summary>
@@ -85,7 +82,10 @@ namespace ParticleMaker
             set { _height = value; }
         }
 
+        #endregion
 
+
+        #region Public Methods
         /// <summary>
         /// Starts the <see cref="GraphicsEngine"/>.
         /// </summary>
