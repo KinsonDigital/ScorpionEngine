@@ -515,18 +515,6 @@ namespace ParticleMaker.Tests.ViewModels
             //Assert
             _mockCoreEngine.Verify(m => m.Exit(), Times.Once());
         }
-
-
-        [Test]
-        public void Testing()
-        {
-            var model = new MainViewModel(_engine);
-            model.UIDispatcher = Dispatcher.CurrentDispatcher;
-
-            Thread.Sleep(300);
-
-            var stop = true;
-        }
         #endregion
 
 
