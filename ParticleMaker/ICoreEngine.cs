@@ -42,7 +42,7 @@ namespace ParticleMaker
         /// <summary>
         /// The game window.
         /// </summary>
-        GameWindow Window { get; }
+        Point WindowPosition { get; set; }
 
         /// <summary>
         /// Gets the graphics device that performs the rendering.

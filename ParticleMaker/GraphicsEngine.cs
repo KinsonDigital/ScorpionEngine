@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ParticleMaker.CustomEventArgs;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ParticleMaker
 {
@@ -81,7 +82,6 @@ namespace ParticleMaker
             get { return _height; }
             set { _height = value; }
         }
-
         #endregion
 
 
@@ -114,9 +114,10 @@ namespace ParticleMaker
         /// <summary>
         /// Initializes the <see cref="GraphicsEngine"/>.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         private void _coreEngine_OnInitialize(object sender, EventArgs e)
         {
-            _coreEngine.Window.Position = new Point(-30000, _coreEngine.Window.Position.Y);
+            _coreEngine.WindowPosition = new Point(-30000, _coreEngine.WindowPosition.Y);
 
             _contentLoader = _factory.NewContentLoader();
         }
@@ -125,6 +126,7 @@ namespace ParticleMaker
         /// <summary>
         /// Loads the content for the <see cref="GraphicsEngine"/> to render.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         private void _coreEngine_OnLoadContent(object sender, EventArgs e)
         {
 
@@ -144,6 +146,7 @@ namespace ParticleMaker
         /// <summary>
         /// Updates the <see cref="GraphicsEngine"/>.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         private void _coreEngine_OnUpdate(object sender, UpdateEventArgs e)
         {
             if (_shuttingDown)
@@ -156,6 +159,7 @@ namespace ParticleMaker
         /// <summary>
         /// Renders the partical graphics to the screen.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         private void _coreEngine_OnDraw(object sender, DrawEventArgs e)
         {
             if (_shuttingDown)
@@ -174,6 +178,7 @@ namespace ParticleMaker
         /// <summary>
         /// Unloads the content.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         private void _coreEngine_OnUnLoadContent(object sender, EventArgs e)
         {
             //TODO: Add code here to unload content before shutting down app

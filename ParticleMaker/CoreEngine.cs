@@ -61,6 +61,12 @@ namespace ParticleMaker
         /// Gets or sets the handle to the surface to render the graphics to.
         /// </summary>
         public IntPtr RenderSurfaceHandle { get; set; }
+
+        public Point WindowPosition
+        {
+            get => Window.Position;
+            set => Window.Position = value;
+        }
         #endregion
 
 
