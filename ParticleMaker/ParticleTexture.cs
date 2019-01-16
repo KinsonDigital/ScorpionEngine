@@ -1,12 +1,14 @@
 ﻿using KDScorpionCore.Graphics;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ParticleMaker
 {
     /// <summary>
     /// Represents a single texture particle for a particle engine.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class ParticleTexture : ITexture
     {
         #region Fields

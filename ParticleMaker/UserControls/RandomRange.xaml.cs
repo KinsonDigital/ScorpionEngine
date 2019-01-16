@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace ParticleMaker.UserControls
@@ -6,6 +7,7 @@ namespace ParticleMaker.UserControls
     /// <summary>
     /// Interaction logic for RandomRange.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class RandomRange : UserControl
     {
         #region Constructors

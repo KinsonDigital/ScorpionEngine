@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -7,6 +8,7 @@ namespace ParticleMaker.UserControls
     /// <summary>
     /// Interaction logic for NumberMinMax.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class RandomColorRanges : UserControl
     {
         #region Constructors

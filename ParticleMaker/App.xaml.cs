@@ -2,6 +2,7 @@
 using ParticleMaker.Services;
 using ParticleMaker.ViewModels;
 using SimpleInjector;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Windows;
 
@@ -12,6 +13,7 @@ namespace ParticleMaker
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class App : Application
     {
         public App()

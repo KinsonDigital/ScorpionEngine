@@ -1,6 +1,7 @@
 ﻿using ParticleMaker.CustomEventArgs;
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -9,6 +10,7 @@ namespace ParticleMaker.UserControls
     /// <summary>
     /// Interaction logic for ColorComponentValue.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class NumericUpDown : UserControl
     {
         #region Fields

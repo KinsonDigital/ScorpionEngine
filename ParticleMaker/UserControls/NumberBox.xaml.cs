@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -8,6 +9,7 @@ namespace ParticleMaker.UserControls
     /// <summary>
     /// Interaction logic for NumberBox.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class NumberBox : UserControl
     {
         #region Private Fields

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ParticleMaker.Exceptions;
 using ParticleMaker.Services;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace ParticleMaker
@@ -10,6 +11,7 @@ namespace ParticleMaker
     /// <summary>
     /// Loads particle textures for rendering.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class ParticleTextureLoader : IContentLoader
     {
         #region Fields

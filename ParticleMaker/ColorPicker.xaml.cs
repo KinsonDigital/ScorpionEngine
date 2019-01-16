@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Windows;
 using System.Windows.Media;
 
 namespace ParticleMaker
@@ -6,6 +7,7 @@ namespace ParticleMaker
     /// <summary>
     /// Interaction logic for ColorPicker.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class ColorPicker : Window
     {
         #region Constructors

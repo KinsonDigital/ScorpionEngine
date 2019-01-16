@@ -4,12 +4,14 @@ using System.Windows.Forms.Integration;
 using System.ComponentModel;
 using ParticleMaker.ViewModels;
 using ThreadTimer = System.Threading.Timer;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ParticleMaker
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class MainWindow : Window
     {
         #region Fields

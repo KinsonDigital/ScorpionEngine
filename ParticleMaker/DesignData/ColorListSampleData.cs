@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Media;
 
 namespace ParticleMaker.DesignData
@@ -6,6 +7,7 @@ namespace ParticleMaker.DesignData
     /// <summary>
     /// Provides sample data for the use at design time for user controls.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class ColorListSampleData
     {
         #region Props

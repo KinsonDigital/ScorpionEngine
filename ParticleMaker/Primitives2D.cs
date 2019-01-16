@@ -2,12 +2,14 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ParticleMaker
 {
     /// <summary>
     /// Provides the ability to render simple shapes and lines to the screen.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     internal static class Primitives2D
     {
         #region Private Members

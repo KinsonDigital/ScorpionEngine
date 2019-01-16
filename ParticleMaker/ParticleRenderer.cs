@@ -4,12 +4,14 @@ using KDScorpionCore.Plugins;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ParticleMaker
 {
     /// <summary>
     /// Renders particles to the screen.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class ParticleRenderer : IRenderer
     {
         #region Fields
