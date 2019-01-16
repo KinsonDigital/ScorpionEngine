@@ -1,4 +1,5 @@
 ﻿using KDParticleEngine;
+using KDParticleEngine.Services;
 using KDScorpionCore;
 using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
@@ -46,7 +47,7 @@ namespace ScorpTestGame
                 new GameColor(255, 106, 0, 255)
             };
 
-            _particleEngine = new ParticleEngine()
+            _particleEngine = new ParticleEngine(new RandomizerService())
             { 
                 SpawnLocation = _thrusterPosition,
                 UseRandomVelocity = true,

@@ -1,4 +1,5 @@
 ﻿using KDParticleEngine;
+using KDParticleEngine.Services;
 using ParticleMaker.Services;
 using ParticleMaker.ViewModels;
 using SimpleInjector;
@@ -21,6 +22,7 @@ namespace ParticleMaker
             DIContainer = new Container();
 
             DIContainer.Register<IContentDirectoryService, ContentDirectoryService>();
+            DIContainer.Register<IRandomizerService, RandomizerService>();
             DIContainer.Register<ParticleTextureLoader>();
             DIContainer.Register<ParticleEngine>();
             DIContainer.RegisterInstance<IGraphicsEngineFactory>(new GraphicsEngineFactory());

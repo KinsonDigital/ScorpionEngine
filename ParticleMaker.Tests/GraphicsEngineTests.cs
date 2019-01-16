@@ -1,4 +1,5 @@
 ﻿using KDParticleEngine;
+using KDParticleEngine.Services;
 using Microsoft.Xna.Framework;
 using Moq;
 using NUnit.Framework;
@@ -19,7 +20,7 @@ namespace ParticleMaker.Tests
             var mockEngineFactory = new Mock<IGraphicsEngineFactory>();
             mockEngineFactory.SetupGet(p => p.CoreEngine).Returns(mockCoreEngine.Object);
 
-            var particleEngine = new ParticleEngine();
+            var particleEngine = new ParticleEngine(new RandomizerService());
 
             var engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine);
             var expected = particleEngine;
@@ -42,7 +43,7 @@ namespace ParticleMaker.Tests
             var mockEngineFactory = new Mock<IGraphicsEngineFactory>();
             mockEngineFactory.SetupGet(p => p.CoreEngine).Returns(mockCoreEngine.Object);
 
-            var particleEngine = new ParticleEngine();
+            var particleEngine = new ParticleEngine(new RandomizerService());
 
             var engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine);
             var expected = new IntPtr(1234);
@@ -65,7 +66,7 @@ namespace ParticleMaker.Tests
             var mockEngineFactory = new Mock<IGraphicsEngineFactory>();
             mockEngineFactory.SetupGet(p => p.CoreEngine).Returns(mockCoreEngine.Object);
 
-            var particleEngine = new ParticleEngine();
+            var particleEngine = new ParticleEngine(new RandomizerService());
 
             var engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine);
             var expected = new IntPtr(5678);
@@ -89,7 +90,7 @@ namespace ParticleMaker.Tests
             var mockEngineFactory = new Mock<IGraphicsEngineFactory>();
             mockEngineFactory.SetupGet(p => p.CoreEngine).Returns(mockCoreEngine.Object);
 
-            var particleEngine = new ParticleEngine();
+            var particleEngine = new ParticleEngine(new RandomizerService());
 
             var engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine);
             var expected = 1234;
@@ -112,7 +113,7 @@ namespace ParticleMaker.Tests
             var mockEngineFactory = new Mock<IGraphicsEngineFactory>();
             mockEngineFactory.SetupGet(p => p.CoreEngine).Returns(mockCoreEngine.Object);
 
-            var particleEngine = new ParticleEngine();
+            var particleEngine = new ParticleEngine(new RandomizerService());
 
             var engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine);
             var expected = 1234;
@@ -138,7 +139,7 @@ namespace ParticleMaker.Tests
             var mockEngineFactory = new Mock<IGraphicsEngineFactory>();
             mockEngineFactory.SetupGet(p => p.CoreEngine).Returns(mockCoreEngine.Object);
 
-            var particleEngine = new ParticleEngine();
+            var particleEngine = new ParticleEngine(new RandomizerService());
 
             var engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine);
 
@@ -159,7 +160,7 @@ namespace ParticleMaker.Tests
             var mockEngineFactory = new Mock<IGraphicsEngineFactory>();
             mockEngineFactory.SetupGet(p => p.CoreEngine).Returns(mockCoreEngine.Object);
 
-            var particleEngine = new ParticleEngine();
+            var particleEngine = new ParticleEngine(new RandomizerService());
 
             var engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine);
 
@@ -180,7 +181,7 @@ namespace ParticleMaker.Tests
             var mockEngineFactory = new Mock<IGraphicsEngineFactory>();
             mockEngineFactory.SetupGet(p => p.CoreEngine).Returns(mockCoreEngine.Object);
 
-            var particleEngine = new ParticleEngine();
+            var particleEngine = new ParticleEngine(new RandomizerService());
 
             var engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine);
 

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using KDScorpionCore.Graphics;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ParticleMaker.ViewModels
 {
@@ -35,6 +36,7 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         /// <param name="renderSurface">The surface to render the graphics on.</param>
         /// <param name="uiDispatcher">The UI thread to start the graphics engine on.</param>
+        [ExcludeFromCodeCoverage]
         public MainViewModel(GraphicsEngine graphicsEngine)
         {
             _graphicsEngine = graphicsEngine;
@@ -364,6 +366,7 @@ namespace ParticleMaker.ViewModels
         /// <summary>
         /// Updates the <see cref="TotalLivingParticles"/> property to update the UI.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         private void _particleEngine_LivingParticlesCountChanged(object sender, EventArgs e)
         {
             NotifyPropChange(nameof(TotalLivingParticles));
@@ -377,6 +380,7 @@ namespace ParticleMaker.ViewModels
         /// graphics engine rendering is pointed to the render surface.
         /// </summary>
         /// <param name="state">The state passed to the callback.</param>
+        [ExcludeFromCodeCoverage]
         private void TimerCallback(object state)
         {
             if (_timerRan)
@@ -384,19 +388,26 @@ namespace ParticleMaker.ViewModels
 
             _timerRan = true;
 
-            UIDispatcher.Invoke(() =>
-            {
-                if (RenderSurface.Handle != IntPtr.Zero)
-                {
-                    _timer?.Dispose();
-                    _timer = null;
+            UIDispatcher?.Invoke(DispatcherCallback);
+        }
 
-                    _graphicsEngine.RenderSurfaceHandle = RenderSurface.Handle;
-                    _graphicsEngine.ParticleEngine.LivingParticlesCountChanged += _particleEngine_LivingParticlesCountChanged;
-                    _graphicsEngine.ParticleEngine.SpawnLocation = new CoreVector(200, 200);
-                    _graphicsEngine.Run();
-                }
-            });
+
+        /// <summary>
+        /// Invoked by the dispatcher on the UI thread.
+        /// </summary>
+        [ExcludeFromCodeCoverage]
+        private void DispatcherCallback()
+        {
+            if (RenderSurface.Handle != IntPtr.Zero)
+            {
+                _timer?.Dispose();
+                _timer = null;
+
+                _graphicsEngine.RenderSurfaceHandle = RenderSurface.Handle;
+                _graphicsEngine.ParticleEngine.LivingParticlesCountChanged += _particleEngine_LivingParticlesCountChanged;
+                _graphicsEngine.ParticleEngine.SpawnLocation = new CoreVector(200, 200);
+                _graphicsEngine.Run();
+            }
         }
 
 
@@ -404,6 +415,7 @@ namespace ParticleMaker.ViewModels
         /// Notifies the binding system that a property value has changed.
         /// </summary>
         /// <param name="propName"></param>
+        [ExcludeFromCodeCoverage]
         private void NotifyPropChange([CallerMemberName]string propName = "")
         {
             if (!string.IsNullOrEmpty(propName))
