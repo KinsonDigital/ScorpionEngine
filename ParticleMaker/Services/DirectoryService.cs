@@ -1,5 +1,6 @@
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Text;
 
 namespace ParticleMaker.Services
 {
@@ -45,6 +46,27 @@ namespace ParticleMaker.Services
         }
 
 
+        /// <summary>
+        /// Renames the given <paramref name="folder"/> to the given 
+        /// </summary>
+        /// <param name="folder">The folder to rename</param>
+        /// <param name="newName">The new name to give the folder.</param>
+        public void Rename(string folder, string newName)
+        {
+            var folders = folder.Split('\\');
+            folders[folders.Length - 1] = newName;
+
+            var newFolderPath = new StringBuilder();
+
+            for (int i = 0; i < folders.Length; i++)
+            {
+                bool useForwardSlash = folders[i] != newName;
+
+                newFolderPath.Append($@"{folders[i]}{(useForwardSlash ? @"\" : "")}");
+            }
+
+            Directory.Move(folder, newFolderPath.ToString());
+        }
         #endregion
     }
 }

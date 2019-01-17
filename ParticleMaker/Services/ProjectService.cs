@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
 using ParticleMaker.Exceptions;
 
@@ -58,6 +58,27 @@ namespace ParticleMaker.Services
             if (_directoryService.Exists(projectDir))
             {
                 _directoryService.Delete(projectDir);
+            }
+            else
+            {
+                throw new ProjectDoesNotExistExistException(name);
+            }
+        }
+
+
+        /// <summary>
+        /// Renames the project with the given <paramref name="name"/>.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="newName">The new name to give the project.</param>
+        public void Rename(string name, string newName)
+        {
+            var oldProjectDir = $@"{_projectsPath}\{name}";
+            var newProjecDir = $@"{_projectsPath}\{newName}";
+
+            if (_directoryService.Exists(oldProjectDir))
+            {
+                _directoryService.Rename(oldProjectDir, newProjecDir);
             }
             else
             {

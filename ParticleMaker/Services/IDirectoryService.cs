@@ -1,4 +1,4 @@
-namespace ParticleMaker.Services
+﻿namespace ParticleMaker.Services
 {
     /// <summary>
     /// Manages directories using such operations such as create and exists.
@@ -31,6 +31,12 @@ namespace ParticleMaker.Services
         void Delete(string folder);
 
 
+        /// <summary>
+        /// Renames the given <paramref name="folder"/> to the given 
+        /// </summary>
+        /// <param name="folder">The folder to rename</param>
+        /// <param name="newName">The new name to give the folder.</param>
+        void Rename(string folder, string newName);
         #endregion
     }
 }
