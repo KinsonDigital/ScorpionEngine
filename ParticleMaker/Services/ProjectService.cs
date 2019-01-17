@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Reflection;
 using ParticleMaker.Exceptions;
 
@@ -47,6 +47,27 @@ namespace ParticleMaker.Services
         }
 
 
+        /// <summary>
+        /// Deletes the project that matches the given <paramref name="name"/>.
+        /// </summary>
+        /// <param name="name">The name of the project to delete.</param>
+        public void Delete(string name)
+        {
+            var projectDir = $@"{_projectsPath}\{name}";
+
+            if (_directoryService.Exists(projectDir))
+            {
+                _directoryService.Delete(projectDir);
+            }
+            else
+            {
+                throw new ProjectDoesNotExistExistException(name);
+            }
+        }
+        #endregion
+
+
+        #region Private Methods
         /// <summary>
         /// Checks to make sure that the root projects folder already exists.
         /// If not, creates the root folder.

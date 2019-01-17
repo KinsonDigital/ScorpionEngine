@@ -69,6 +69,7 @@
     <Compile Include="CustomEventArgs\UpdateEventArgs.cs" />
     <Compile Include="Exceptions\ContentDoesNotExistException.cs" />
     <Compile Include="Exceptions\ProjectAlreadyExistsException.cs" />
+    <Compile Include="Exceptions\ProjectDoesNotExistExistException.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="GraphicsEngineFactory.cs" />
     <Compile Include="ICoreEngine.cs" />

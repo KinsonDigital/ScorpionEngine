@@ -101,6 +101,7 @@
     <Compile Include="CustomEventArgs\DrawEventArgsTests.cs" />
     <Compile Include="Exceptions\ContentDoesNotExistExceptionTests.cs" />
     <Compile Include="Exceptions\ProjectAlreadyExistsExceptionTests.cs" />
+    <Compile Include="Exceptions\ProjectDoesNotExistExistExceptionTests.cs" />
     <Compile Include="ExtensionMethodsTests.cs" />
     <Compile Include="GraphicsEngineFactoryTests.cs" />
     <Compile Include="GraphicsEngineTests.cs" />

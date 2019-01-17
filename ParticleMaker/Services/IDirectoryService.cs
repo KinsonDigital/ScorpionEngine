@@ -1,4 +1,4 @@
-﻿namespace ParticleMaker.Services
+namespace ParticleMaker.Services
 {
     /// <summary>
     /// Manages directories using such operations such as create and exists.
@@ -16,11 +16,21 @@
 
 
         /// <summary>
-        /// Returns a value indicating if the given folder <paramref name="path"/> exists.
+        /// Returns a value indicating if the given folder <paramref name="folder"/> exists.
         /// </summary>
-        /// <param name="path">The folder path to check for.</param>
+        /// <param name="folder">The folder path to check for.</param>
         /// <returns></returns>
-        bool Exists(string path);
+        bool Exists(string folder);
+
+
+        /// <summary>
+        /// Deletes the given folder path and all of its contents.
+        /// </summary>
+        /// <param name="folder">The folder to delete.</param>
+        /// <returns></returns>
+        void Delete(string folder);
+
+
         #endregion
     }
 }

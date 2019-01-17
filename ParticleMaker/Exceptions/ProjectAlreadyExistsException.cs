@@ -3,7 +3,7 @@
 namespace ParticleMaker.Exceptions
 {
     /// <summary>
-    /// Holds information about an exception where a project trying to be created already exsits.
+    /// Holds information about an exception when a project already exsits.
     /// </summary>
     public class ProjectAlreadyExistsException : Exception
     {
@@ -18,7 +18,7 @@ namespace ParticleMaker.Exceptions
         /// <summary>
         /// Creates a new instance of <see cref="ProjectAlreadyExistsException"/>.
         /// </summary>
-        /// <param name="projectName">The name of the project to create.</param>
+        /// <param name="projectName">The name of the project.</param>
         public ProjectAlreadyExistsException(string projectName) : base($"The project '{projectName}' already exists.")
         {
         }

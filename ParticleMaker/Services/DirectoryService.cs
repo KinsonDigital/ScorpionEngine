@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace ParticleMaker.Services
@@ -18,20 +18,33 @@ namespace ParticleMaker.Services
         /// <param name="folder">The name of the project.</param>
         public void Create(string folder)
         {
-            if (!Directory.Exists(folder))
+            if (!Exists(folder))
                 Directory.CreateDirectory(folder);
         }
 
 
         /// <summary>
-        /// Returns a value indicating if the given folder <paramref name="path"/> exists.
+        /// Returns a value indicating if the given folder <paramref name="folder"/> exists.
         /// </summary>
-        /// <param name="path">The folder path to check for.</param>
+        /// <param name="folder">The folder path to check for.</param>
         /// <returns></returns>
-        public bool Exists(string path)
+        public bool Exists(string folder)
         {
-            return Directory.Exists(path);
+            return Directory.Exists(folder);
         }
+
+
+        /// <summary>
+        /// Deletes the given folder path and all of its contents.
+        /// </summary>
+        /// <param name="folder">The folder to delete.</param>
+        /// <returns></returns>
+        public void Delete(string folder)
+        {
+            Directory.Delete(folder, true);
+        }
+
+
         #endregion
     }
 }
