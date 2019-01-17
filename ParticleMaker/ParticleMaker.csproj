@@ -68,13 +68,17 @@
     <Compile Include="DesignData\ColorListSampleData.cs" />
     <Compile Include="CustomEventArgs\UpdateEventArgs.cs" />
     <Compile Include="Exceptions\ContentDoesNotExistException.cs" />
+    <Compile Include="Exceptions\ProjectAlreadyExistsException.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="GraphicsEngineFactory.cs" />
     <Compile Include="ICoreEngine.cs" />
     <Compile Include="IGraphicsEngineFactory.cs" />
     <Compile Include="Services\ContentDirectoryService.cs" />
+    <Compile Include="Services\DirectoryService.cs" />
     <Compile Include="Services\IContentDirectoryService.cs" />
     <Compile Include="CustomEventArgs\ColorItemClickedEventArgs.cs" />
+    <Compile Include="Services\IDirectoryService.cs" />
+    <Compile Include="Services\ProjectService.cs" />
     <Compile Include="UserControls\ColorList.xaml.cs">
       <DependentUpon>ColorList.xaml</DependentUpon>
     </Compile>

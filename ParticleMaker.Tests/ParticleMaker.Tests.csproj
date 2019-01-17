@@ -100,6 +100,7 @@
     <Compile Include="ColorItemTests.cs" />
     <Compile Include="CustomEventArgs\DrawEventArgsTests.cs" />
     <Compile Include="Exceptions\ContentDoesNotExistExceptionTests.cs" />
+    <Compile Include="Exceptions\ProjectAlreadyExistsExceptionTests.cs" />
     <Compile Include="ExtensionMethodsTests.cs" />
     <Compile Include="GraphicsEngineFactoryTests.cs" />
     <Compile Include="GraphicsEngineTests.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="CustomEventArgs\UpdateEventArgsTests.cs" />
     <Compile Include="CustomEventArgs\ValueChangedEventArgsTests.cs" />
     <Compile Include="Services\ContentDirectoryServiceTests.cs" />
+    <Compile Include="Services\ProjectServiceTests.cs" />
     <Compile Include="UserControls\ExtensionMethodsTests.cs" />
     <Compile Include="ViewModels\MainViewModelTests.cs" />
   </ItemGroup>
