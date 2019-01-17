@@ -4,12 +4,14 @@ using System.Windows.Forms.Integration;
 using System.ComponentModel;
 using ParticleMaker.ViewModels;
 using ThreadTimer = System.Threading.Timer;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ParticleMaker
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class MainWindow : Window
     {
         #region Fields
@@ -57,7 +59,10 @@ namespace ParticleMaker
         /// </summary>
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            _mainViewModel = new MainViewModel(winFormsHost.Child as PictureBox, Dispatcher);
+            _mainViewModel = App.DIContainer.GetInstance<MainViewModel>();
+            _mainViewModel.RenderSurface = (winFormsHost.Child as PictureBox);
+            _mainViewModel.UIDispatcher = Dispatcher;
+
             DataContext = _mainViewModel;
 
             _mainViewModel.RedMin = 0;

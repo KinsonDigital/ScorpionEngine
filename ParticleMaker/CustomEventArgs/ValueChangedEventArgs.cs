@@ -1,4 +1,4 @@
-﻿namespace ParticleMaker.UserControls
+﻿namespace ParticleMaker.CustomEventArgs
 {
     /// <summary>
     /// Holds information about when a value has changed.

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Media;
 
-namespace ParticleMaker.UserControls
+namespace ParticleMaker.CustomEventArgs
 {
     /// <summary>
     /// Holds information about when a user clicks a <see cref="ColorItem"/> with the mouse.

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using KDScorpionCore.Graphics;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ParticleMaker.ViewModels
 {
@@ -17,15 +18,15 @@ namespace ParticleMaker.ViewModels
     /// </summary>
     public class MainViewModel : INotifyPropertyChanged
     {
+        #region Public Events
         public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
+
 
         #region Private Fields
         private GraphicsEngine _graphicsEngine;
         private ThreadTimer _timer;
-        private PictureBox _renderSurface;
         private bool _timerRan;
-        private ParticleEngine _particleEngine;
-        private Dispatcher _uiDispatcher;
         #endregion
 
 
@@ -33,41 +34,29 @@ namespace ParticleMaker.ViewModels
         /// <summary>
         /// Creates a new instance of <see cref="MainViewModel"/>.
         /// </summary>
-        public MainViewModel()
-        {
-            _particleEngine = new ParticleEngine(new CoreVector(200, 200));
-        }
-
-
-        /// <summary>
-        /// Creates a new instance of <see cref="MainViewModel"/>.
-        /// </summary>
         /// <param name="renderSurface">The surface to render the graphics on.</param>
         /// <param name="uiDispatcher">The UI thread to start the graphics engine on.</param>
-        public MainViewModel(PictureBox renderSurface, Dispatcher uiDispatcher)
+        [ExcludeFromCodeCoverage]
+        public MainViewModel(GraphicsEngine graphicsEngine)
         {
-            _renderSurface = renderSurface;
-            _uiDispatcher = uiDispatcher;
+            _graphicsEngine = graphicsEngine;
 
             _timer = new ThreadTimer(TimerCallback, null, 0, 250);
-
-            _particleEngine = new ParticleEngine(new CoreVector(200, 200))
-            {
-                Enabled = true,
-                RedMin = 0,
-                RedMax = 255,
-                GreenMin = 0,
-                GreenMax = 255,
-                BlueMin = 0,
-                BlueMax = 255
-            };
-
-            _particleEngine.LivingParticlesCountChanged += _particleEngine_LivingParticlesCountChanged;
         }
         #endregion
 
 
         #region Props
+        /// <summary>
+        /// Gets or sets the surface that the particles will render to.
+        /// </summary>
+        public Control RenderSurface { get; set; }
+
+        /// <summary>
+        /// Gets or sets the dispatcher of the UI thread.
+        /// </summary>
+        public Dispatcher UIDispatcher { get; set; }
+
         /// <summary>
         /// Gets or sets the width of the render surface.
         /// </summary>
@@ -97,29 +86,29 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public int TotalParticles
         {
-            get => _particleEngine.TotalParticlesAliveAtOnce;
-            set => _particleEngine.TotalParticlesAliveAtOnce = value;
+            get => _graphicsEngine.ParticleEngine.TotalParticlesAliveAtOnce;
+            set => _graphicsEngine.ParticleEngine.TotalParticlesAliveAtOnce = value;
         }
 
         /// <summary>
         /// Gets the total number of living particles.
         /// </summary>
-        public int TotalLivingParticles => _particleEngine.TotalLivingParticles;
+        public int TotalLivingParticles => _graphicsEngine.ParticleEngine.TotalLivingParticles;
 
         /// <summary>
         /// Gets the total number of dead particles.
         /// </summary>
-        public int TotalDeadParticles => _particleEngine.TotalDeadParticles;
+        public int TotalDeadParticles => _graphicsEngine.ParticleEngine.TotalDeadParticles;
 
         /// <summary>
         /// Gets or sets the minimum value of the red color component range that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public int RedMin
         {
-            get => _particleEngine.RedMin;
+            get => _graphicsEngine.ParticleEngine.RedMin;
             set
             {
-                _particleEngine.RedMin = (byte)value;
+                _graphicsEngine.ParticleEngine.RedMin = (byte)value;
             }
         }
 
@@ -128,10 +117,10 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public int RedMax
         {
-            get => _particleEngine.RedMax;
+            get => _graphicsEngine.ParticleEngine.RedMax;
             set
             {
-                _particleEngine.RedMax = (byte)value;
+                _graphicsEngine.ParticleEngine.RedMax = (byte)value;
             }
         }
 
@@ -140,10 +129,10 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public int GreenMin
         {
-            get => _particleEngine.GreenMin;
+            get => _graphicsEngine.ParticleEngine.GreenMin;
             set
             {
-                _particleEngine.GreenMin = (byte)value;
+                _graphicsEngine.ParticleEngine.GreenMin = (byte)value;
             }
         }
 
@@ -152,10 +141,10 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public int GreenMax
         {
-            get => _particleEngine.GreenMax;
+            get => _graphicsEngine.ParticleEngine.GreenMax;
             set
             {
-                _particleEngine.GreenMax = (byte)value;
+                _graphicsEngine.ParticleEngine.GreenMax = (byte)value;
             }
         }
 
@@ -164,10 +153,10 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public int BlueMin
         {
-            get => _particleEngine.BlueMin;
+            get => _graphicsEngine.ParticleEngine.BlueMin;
             set
             {
-                _particleEngine.BlueMin = (byte)value;
+                _graphicsEngine.ParticleEngine.BlueMin = (byte)value;
             }
         }
 
@@ -176,10 +165,10 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public int BlueMax
         {
-            get => _particleEngine.BlueMax;
+            get => _graphicsEngine.ParticleEngine.BlueMax;
             set
             {
-                _particleEngine.BlueMax = (byte)value;
+                _graphicsEngine.ParticleEngine.BlueMax = (byte)value;
             }
         }
 
@@ -188,10 +177,10 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public float SizeMin
         {
-            get => _particleEngine.SizeMin;
+            get => _graphicsEngine.ParticleEngine.SizeMin;
             set
             {
-                _particleEngine.SizeMin = value;
+                _graphicsEngine.ParticleEngine.SizeMin = value;
            }
         }
 
@@ -200,10 +189,10 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public float SizeMax
         {
-            get => _particleEngine.SizeMax;
+            get => _graphicsEngine.ParticleEngine.SizeMax;
             set
             {
-                _particleEngine.SizeMax = value;
+                _graphicsEngine.ParticleEngine.SizeMax = value;
             }
         }
 
@@ -212,8 +201,8 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public float AngleMin
         {
-            get => _particleEngine.AngleMin;
-            set => _particleEngine.AngleMin = value;
+            get => _graphicsEngine.ParticleEngine.AngleMin;
+            set => _graphicsEngine.ParticleEngine.AngleMin = value;
         }
 
         /// <summary>
@@ -221,8 +210,8 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public float AngleMax
         {
-            get => _particleEngine.AngleMax;
-            set => _particleEngine.AngleMax = value;
+            get => _graphicsEngine.ParticleEngine.AngleMax;
+            set => _graphicsEngine.ParticleEngine.AngleMax = value;
         }
 
         /// <summary>
@@ -230,8 +219,8 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public float AngularVelocityMin
         {
-            get => _particleEngine.AngularVelocityMin;
-            set => _particleEngine.AngularVelocityMin = value;
+            get => _graphicsEngine.ParticleEngine.AngularVelocityMin;
+            set => _graphicsEngine.ParticleEngine.AngularVelocityMin = value;
         }
 
         /// <summary>
@@ -239,8 +228,8 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public float AngularVelocityMax
         {
-            get => _particleEngine.AngularVelocityMax;
-            set => _particleEngine.AngularVelocityMax = value;
+            get => _graphicsEngine.ParticleEngine.AngularVelocityMax;
+            set => _graphicsEngine.ParticleEngine.AngularVelocityMax = value;
         }
 
         /// <summary>
@@ -248,8 +237,8 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public float VelocityXMin
         {
-            get => _particleEngine.VelocityXMin;
-            set => _particleEngine.VelocityXMin = value;
+            get => _graphicsEngine.ParticleEngine.VelocityXMin;
+            set => _graphicsEngine.ParticleEngine.VelocityXMin = value;
         }
 
         /// <summary>
@@ -257,8 +246,8 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public float VelocityXMax
         {
-            get => _particleEngine.VelocityXMax;
-            set => _particleEngine.VelocityXMax = value;
+            get => _graphicsEngine.ParticleEngine.VelocityXMax;
+            set => _graphicsEngine.ParticleEngine.VelocityXMax = value;
         }
 
         /// <summary>
@@ -266,8 +255,8 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public float VelocityYMin
         {
-            get => _particleEngine.VelocityYMin;
-            set => _particleEngine.VelocityYMin = value;
+            get => _graphicsEngine.ParticleEngine.VelocityYMin;
+            set => _graphicsEngine.ParticleEngine.VelocityYMin = value;
         }
 
         /// <summary>
@@ -275,8 +264,8 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public float VelocityYMax
         {
-            get => _particleEngine.VelocityYMax;
-            set => _particleEngine.VelocityYMax = value;
+            get => _graphicsEngine.ParticleEngine.VelocityYMax;
+            set => _graphicsEngine.ParticleEngine.VelocityYMax = value;
         }
 
         /// <summary>
@@ -284,8 +273,8 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public int LifetimeMin
         {
-            get => _particleEngine.LifeTimeMin;
-            set => _particleEngine.LifeTimeMin = value;
+            get => _graphicsEngine.ParticleEngine.LifeTimeMin;
+            set => _graphicsEngine.ParticleEngine.LifeTimeMin = value;
         }
 
         /// <summary>
@@ -293,8 +282,8 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public int LifetimeMax
         {
-            get => _particleEngine.LifeTimeMax;
-            set => _particleEngine.LifeTimeMax = value;
+            get => _graphicsEngine.ParticleEngine.LifeTimeMax;
+            set => _graphicsEngine.ParticleEngine.LifeTimeMax = value;
         }
 
         /// <summary>
@@ -302,8 +291,8 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public int SpawnRateMin
         {
-            get => _particleEngine.SpawnRateMin;
-            set => _particleEngine.SpawnRateMin = value;
+            get => _graphicsEngine.ParticleEngine.SpawnRateMin;
+            set => _graphicsEngine.ParticleEngine.SpawnRateMin = value;
         }
 
         /// <summary>
@@ -311,8 +300,8 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public int SpawnRateMax
         {
-            get => _particleEngine.SpawnRateMax;
-            set => _particleEngine.SpawnRateMax = value;
+            get => _graphicsEngine.ParticleEngine.SpawnRateMax;
+            set => _graphicsEngine.ParticleEngine.SpawnRateMax = value;
         }
 
         /// <summary>
@@ -320,10 +309,10 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public bool UseColorsFromList
         {
-            get => _particleEngine.UseTintColorList;
+            get => _graphicsEngine.ParticleEngine.UseTintColorList;
             set
             {
-                _particleEngine.UseTintColorList = value;
+                _graphicsEngine.ParticleEngine.UseTintColorList = value;
             }
         }
 
@@ -336,9 +325,9 @@ namespace ParticleMaker.ViewModels
             {
                 var result = new ObservableCollection<ColorItem>();
 
-                for (int i = 0; i < _particleEngine.TintColors.Length; i++)
+                for (int i = 0; i < _graphicsEngine.ParticleEngine.TintColors.Length; i++)
                 {
-                    var clrItem = _particleEngine.TintColors[i].ToColorItem();
+                    var clrItem = _graphicsEngine.ParticleEngine.TintColors[i].ToColorItem();
                     clrItem.Id = i;
 
                     result.Add(clrItem);
@@ -356,7 +345,7 @@ namespace ParticleMaker.ViewModels
                     result.Add(new GameColor(clr.ColorBrush.Color.R, clr.ColorBrush.Color.G, clr.ColorBrush.Color.B, clr.ColorBrush.Color.A));
                 }
 
-                _particleEngine.TintColors = result.ToArray();
+                _graphicsEngine.ParticleEngine.TintColors = result.ToArray();
             }
         }
         #endregion
@@ -368,7 +357,7 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public void ShutdownEngine()
         {
-            _graphicsEngine.Exit();
+            _graphicsEngine.Stop();
         }
         #endregion
 
@@ -377,6 +366,7 @@ namespace ParticleMaker.ViewModels
         /// <summary>
         /// Updates the <see cref="TotalLivingParticles"/> property to update the UI.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         private void _particleEngine_LivingParticlesCountChanged(object sender, EventArgs e)
         {
             NotifyPropChange(nameof(TotalLivingParticles));
@@ -390,6 +380,7 @@ namespace ParticleMaker.ViewModels
         /// graphics engine rendering is pointed to the render surface.
         /// </summary>
         /// <param name="state">The state passed to the callback.</param>
+        [ExcludeFromCodeCoverage]
         private void TimerCallback(object state)
         {
             if (_timerRan)
@@ -397,22 +388,34 @@ namespace ParticleMaker.ViewModels
 
             _timerRan = true;
 
-            _uiDispatcher.Invoke(() =>
-            {
-                if (_renderSurface.Handle != IntPtr.Zero)
-                {
-                    _timer?.Dispose();
-                    _timer = null;
-                    _graphicsEngine = new GraphicsEngine(_renderSurface.Handle, _particleEngine, 400, 400);
-                    _graphicsEngine.Run();
-                }
-            });
+            UIDispatcher?.Invoke(DispatcherCallback);
         }
+
+
+        /// <summary>
+        /// Invoked by the dispatcher on the UI thread.
+        /// </summary>
+        [ExcludeFromCodeCoverage]
+        private void DispatcherCallback()
+        {
+            if (RenderSurface.Handle != IntPtr.Zero)
+            {
+                _timer?.Dispose();
+                _timer = null;
+
+                _graphicsEngine.RenderSurfaceHandle = RenderSurface.Handle;
+                _graphicsEngine.ParticleEngine.LivingParticlesCountChanged += _particleEngine_LivingParticlesCountChanged;
+                _graphicsEngine.ParticleEngine.SpawnLocation = new CoreVector(200, 200);
+                _graphicsEngine.Run();
+            }
+        }
+
 
         /// <summary>
         /// Notifies the binding system that a property value has changed.
         /// </summary>
         /// <param name="propName"></param>
+        [ExcludeFromCodeCoverage]
         private void NotifyPropChange([CallerMemberName]string propName = "")
         {
             if (!string.IsNullOrEmpty(propName))

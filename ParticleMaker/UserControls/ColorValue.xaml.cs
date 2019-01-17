@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using ParticleMaker.CustomEventArgs;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -8,6 +10,7 @@ namespace ParticleMaker.UserControls
     /// <summary>
     /// Interaction logic for ColorValue.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class ColorValue : UserControl
     {
         #region Constructors

@@ -1,4 +1,5 @@
-﻿using KDScorpionCore;
+﻿using KDParticleEngine.Services;
+using KDScorpionCore;
 using KDScorpionCore.Graphics;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,9 @@ namespace KDParticleEngine
     {
         #region Public Events
         public event EventHandler<EventArgs> LivingParticlesCountChanged;
+
         #endregion
-
-
         #region Fields
-        private Random _random;
         private List<Particle> _particles;
         private List<Texture> _textures = new List<Texture>();
         private int _totalParticlesAliveAtOnce = 10;
@@ -36,17 +35,20 @@ namespace KDParticleEngine
         /// <summary>
         /// Creates a new instance of <see cref="ParticleEngine"/>.
         /// </summary>
-        /// <param name="location">The location where to render the <see cref="Particle"/>s.</param>
-        public ParticleEngine(Vector location)
+        public ParticleEngine(IRandomizerService randomizer)
         {
-            SpawnLocation = location;
             _particles = new List<Particle>();
-            _random = new Random();
+            Randomizer = randomizer;
         }
         #endregion
 
 
         #region Props
+        /// <summary>
+        /// Gets or sets the randomizer used when generating new particles.
+        /// </summary>
+        public IRandomizerService Randomizer { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating if the engine is enabled or disabled.
         /// </summary>
@@ -379,10 +381,10 @@ namespace KDParticleEngine
         private int GetRandomSpawnRate()
         {
             if (SpawnRateMin <= SpawnRateMax)
-                return _random.Next(SpawnRateMin, SpawnRateMax);
+                return Randomizer.GetValue(SpawnRateMin, SpawnRateMax);
 
 
-            return _random.Next(SpawnRateMax, SpawnRateMin);
+            return Randomizer.GetValue(SpawnRateMax, SpawnRateMin);
         }
 
 
@@ -436,7 +438,10 @@ namespace KDParticleEngine
         /// <returns></returns>
         private Texture GetRandomTexture()
         {
-            return _textures[_random.Next(_textures.Count)];
+            var result = Randomizer.GetValue(0, _textures.Count);
+
+
+            return _textures[result >= 0 && result <= _textures.Count ? result : 0];
         }
 
 
@@ -446,8 +451,8 @@ namespace KDParticleEngine
         /// <returns></returns>
         private Vector GetRandomVelocity()
         {
-            var velXRandomResult = _random.Next(VelocityXMin, VelocityXMax);
-            var velYRandomResult = _random.Next(VelocityYMin, VelocityYMax);
+            var velXRandomResult = Randomizer.GetValue(VelocityXMin, VelocityXMax);
+            var velYRandomResult = Randomizer.GetValue(VelocityYMin, VelocityYMax);
 
             return new Vector(velXRandomResult,
                               velYRandomResult);
@@ -460,9 +465,9 @@ namespace KDParticleEngine
         /// <returns></returns>
         private float GetRandomAngle()
         {
-            var result = _random.Next(AngleMin, AngleMax);
+            var result = Randomizer.GetValue(AngleMin, AngleMax);
 
-            return _random.Next(AngleMin, AngleMax);
+            return Randomizer.GetValue(AngleMin, AngleMax);
         }
 
 
@@ -472,7 +477,7 @@ namespace KDParticleEngine
         /// <returns></returns>
         private float GetRandomAngularVelocity()
         {
-            return _random.Next(AngularVelocityMin, AngularVelocityMax) * (_random.FlipCoin() ? 1 : -1);
+            return Randomizer.GetValue(AngularVelocityMin, AngularVelocityMax) * (Randomizer.FlipCoin() ? 1 : -1);
         }
 
 
@@ -484,19 +489,19 @@ namespace KDParticleEngine
         {
             if (UseTintColorList)
             {
-                return TintColors == null || TintColors.Length == 0 ? new GameColor(255, 255, 255, 255) : TintColors[_random.Next(TintColors.Length)];
+                return TintColors == null || TintColors.Length == 0 ? new GameColor(255, 255, 255, 255) : TintColors[Randomizer.GetValue(0, TintColors.Length)];
             }
             else
             {
                 var red = RedMin <= RedMax ?
-                    (byte)_random.Next(RedMin, RedMax) :
-                    (byte)_random.Next(RedMax, RedMin);
+                    (byte)Randomizer.GetValue(RedMin, RedMax) :
+                    (byte)Randomizer.GetValue(RedMax, RedMin);
                 var green = GreenMin <= GreenMax ? 
-                    (byte)_random.Next(GreenMin, GreenMax) :
-                    (byte)_random.Next(GreenMax, GreenMin);
+                    (byte)Randomizer.GetValue(GreenMin, GreenMax) :
+                    (byte)Randomizer.GetValue(GreenMax, GreenMin);
                 var blue = BlueMin <= BlueMax ?
-                    (byte)_random.Next(BlueMin, BlueMax) :
-                    (byte)_random.Next(BlueMax, BlueMin);
+                    (byte)Randomizer.GetValue(BlueMin, BlueMax) :
+                    (byte)Randomizer.GetValue(BlueMax, BlueMin);
 
                 return new GameColor(red, green, blue, 255);
             }
@@ -509,7 +514,7 @@ namespace KDParticleEngine
         /// <returns></returns>
         private float GetRandomSize()
         {
-            return _random.Next(SizeMin, SizeMax);
+            return Randomizer.GetValue(SizeMin, SizeMax);
         }
 
 
@@ -522,10 +527,11 @@ namespace KDParticleEngine
         private int GetRandomLifeTime()
         {
             if (LifeTimeMin <= LifeTimeMax)
-                return _random.Next(LifeTimeMin, LifeTimeMax);
+                return Randomizer.GetValue(LifeTimeMin, LifeTimeMax);
 
+            var myResult = Randomizer.GetValue(LifeTimeMin, LifeTimeMax);
 
-            return _random.Next(LifeTimeMax, LifeTimeMin);
+            return Randomizer.GetValue(LifeTimeMax, LifeTimeMin);
         }
         #endregion
     }

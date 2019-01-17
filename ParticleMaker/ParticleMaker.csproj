@@ -15,25 +15,6 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
@@ -82,12 +63,18 @@
     <Compile Include="ColorPicker.xaml.cs">
       <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CoreEngine.cs" />
+    <Compile Include="CustomEventArgs\DrawEventArgs.cs" />
     <Compile Include="DesignData\ColorListSampleData.cs" />
+    <Compile Include="CustomEventArgs\UpdateEventArgs.cs" />
+    <Compile Include="Exceptions\ContentDoesNotExistException.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="TestWindow.xaml.cs">
-      <DependentUpon>TestWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ColorItemClickedEventArgs.cs" />
+    <Compile Include="GraphicsEngineFactory.cs" />
+    <Compile Include="ICoreEngine.cs" />
+    <Compile Include="IGraphicsEngineFactory.cs" />
+    <Compile Include="Services\ContentDirectoryService.cs" />
+    <Compile Include="Services\IContentDirectoryService.cs" />
+    <Compile Include="CustomEventArgs\ColorItemClickedEventArgs.cs" />
     <Compile Include="UserControls\ColorList.xaml.cs">
       <DependentUpon>ColorList.xaml</DependentUpon>
     </Compile>
@@ -111,17 +98,13 @@
     <Compile Include="UserControls\RandomRange.xaml.cs">
       <DependentUpon>RandomRange.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ValueChangedEventArgs.cs" />
+    <Compile Include="CustomEventArgs\ValueChangedEventArgs.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="ColorPicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DesignData\ColorListSampleData.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

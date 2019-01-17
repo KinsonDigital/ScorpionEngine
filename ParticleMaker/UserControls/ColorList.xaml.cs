@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using ParticleMaker.CustomEventArgs;
+using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,6 +11,7 @@ namespace ParticleMaker.UserControls
     /// <summary>
     /// Interaction logic for ColorList.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class ColorList : UserControl
     {
         #region Constructors

@@ -36,6 +36,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KD.Particle.Engine", "KD.Pa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KD.Particle.Engine.Tests", "KD.Particle.Engine.Tests\KD.Particle.Engine.Tests.csproj", "{3C349F0B-CF7E-4401-834D-A1B44C8F64D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParticleMaker.Tests", "ParticleMaker.Tests\ParticleMaker.Tests.csproj", "{3234BD2E-D0F7-437B-BC68-8A23DF1A7E3C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -80,8 +82,8 @@ Global
 		{36ABBA84-5FB3-4652-868F-590D342BDE2D}.Release|x86.Build.0 = Release|x86
 		{222DD082-BA5B-4750-8246-0677E3FDA2A3}.Debug|x86.ActiveCfg = Debug|x86
 		{222DD082-BA5B-4750-8246-0677E3FDA2A3}.Debug|x86.Build.0 = Debug|x86
-		{222DD082-BA5B-4750-8246-0677E3FDA2A3}.Release|x86.ActiveCfg = Release|Any CPU
-		{222DD082-BA5B-4750-8246-0677E3FDA2A3}.Release|x86.Build.0 = Release|Any CPU
+		{222DD082-BA5B-4750-8246-0677E3FDA2A3}.Release|x86.ActiveCfg = Release|x86
+		{222DD082-BA5B-4750-8246-0677E3FDA2A3}.Release|x86.Build.0 = Release|x86
 		{6595FF25-B463-480D-9F26-C73C66C2D5F0}.Debug|x86.ActiveCfg = Debug|x86
 		{6595FF25-B463-480D-9F26-C73C66C2D5F0}.Debug|x86.Build.0 = Debug|x86
 		{6595FF25-B463-480D-9F26-C73C66C2D5F0}.Release|x86.ActiveCfg = Release|x86
@@ -90,6 +92,10 @@ Global
 		{3C349F0B-CF7E-4401-834D-A1B44C8F64D0}.Debug|x86.Build.0 = Debug|x86
 		{3C349F0B-CF7E-4401-834D-A1B44C8F64D0}.Release|x86.ActiveCfg = Release|x86
 		{3C349F0B-CF7E-4401-834D-A1B44C8F64D0}.Release|x86.Build.0 = Release|x86
+		{3234BD2E-D0F7-437B-BC68-8A23DF1A7E3C}.Debug|x86.ActiveCfg = Debug|x86
+		{3234BD2E-D0F7-437B-BC68-8A23DF1A7E3C}.Debug|x86.Build.0 = Debug|x86
+		{3234BD2E-D0F7-437B-BC68-8A23DF1A7E3C}.Release|x86.ActiveCfg = Release|x86
+		{3234BD2E-D0F7-437B-BC68-8A23DF1A7E3C}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,6 +105,7 @@ Global
 		{6BDE0F14-64A5-4B31-BF8D-0BFCC476E298} = {EE8A8A20-A4DF-49FA-9456-480274CD7BFA}
 		{36ABBA84-5FB3-4652-868F-590D342BDE2D} = {EE8A8A20-A4DF-49FA-9456-480274CD7BFA}
 		{3C349F0B-CF7E-4401-834D-A1B44C8F64D0} = {EE8A8A20-A4DF-49FA-9456-480274CD7BFA}
+		{3234BD2E-D0F7-437B-BC68-8A23DF1A7E3C} = {EE8A8A20-A4DF-49FA-9456-480274CD7BFA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F10604E0-0DA6-44B3-A9BD-8D95EA21E67F}

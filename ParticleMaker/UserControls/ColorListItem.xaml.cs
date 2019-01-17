@@ -1,7 +1,8 @@
-﻿using System;
+﻿using ParticleMaker.CustomEventArgs;
+using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 
 namespace ParticleMaker.UserControls
@@ -9,6 +10,7 @@ namespace ParticleMaker.UserControls
     /// <summary>
     /// Interaction logic for ColorListItem.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class ColorListItem : UserControl
     {
         #region Public Events
