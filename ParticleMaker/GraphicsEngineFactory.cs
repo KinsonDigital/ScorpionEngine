@@ -1,6 +1,7 @@
 ﻿using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
 using Microsoft.Xna.Framework.Graphics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ParticleMaker
 {
@@ -10,6 +11,9 @@ namespace ParticleMaker
     public class GraphicsEngineFactory : IGraphicsEngineFactory
     {
         #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="GraphicsEngineFactory"/>.
+        /// </summary>
         public GraphicsEngineFactory()
         {
             CoreEngine = new CoreEngine();
@@ -26,6 +30,7 @@ namespace ParticleMaker
         /// <summary>
         /// Gets the <see cref="SpriteBatch"/> for rendering.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         public SpriteBatch SpriteBatch { get; set; }
         #endregion
 
@@ -35,6 +40,7 @@ namespace ParticleMaker
         /// Creates a new <see cref="ContentLoader"/>.
         /// </summary>
         /// <returns></returns>
+        [ExcludeFromCodeCoverage]
         public ContentLoader NewContentLoader()
         {
             var particleTextureLoader = App.DIContainer.GetInstance<ParticleTextureLoader>();
@@ -49,6 +55,7 @@ namespace ParticleMaker
         /// Creates a new <see cref="Renderer"/>.
         /// </summary>
         /// <returns></returns>
+        [ExcludeFromCodeCoverage]
         public Renderer NewRenderer()
         {
             SpriteBatch = new SpriteBatch(CoreEngine.GraphicsDevice);
