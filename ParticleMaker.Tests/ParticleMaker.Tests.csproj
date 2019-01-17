@@ -95,6 +95,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CoreEngineTests.cs" />
     <Compile Include="CustomEventArgs\ColorItemClickedEventArgsTests.cs" />
     <Compile Include="ColorItemTests.cs" />
     <Compile Include="CustomEventArgs\DrawEventArgsTests.cs" />
