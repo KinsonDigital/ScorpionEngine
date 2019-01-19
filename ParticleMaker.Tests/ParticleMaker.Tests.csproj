@@ -110,6 +110,7 @@
     <Compile Include="CustomEventArgs\UpdateEventArgsTests.cs" />
     <Compile Include="CustomEventArgs\ValueChangedEventArgsTests.cs" />
     <Compile Include="Services\ContentDirectoryServiceTests.cs" />
+    <Compile Include="Services\ProjectSettingsServiceTests.cs" />
     <Compile Include="Services\ProjectServiceTests.cs" />
     <Compile Include="UserControls\ExtensionMethodsTests.cs" />
     <Compile Include="ViewModels\MainViewModelTests.cs" />
