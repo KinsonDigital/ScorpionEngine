@@ -7,7 +7,7 @@ namespace ParticleMaker.Services
     /// <summary>
     /// Manages projects.
     /// </summary>
-    public class ProjectService
+    public class ProjectService : IProjectService
     {
         #region Fields
         private readonly string _projectsPath;
@@ -26,6 +26,11 @@ namespace ParticleMaker.Services
 
             _directoryService = directoryService;
         }
+
+        /// <summary>
+        /// Gets the list of projects.
+        /// </summary>
+        public string[] Projects => _directoryService.GetDirectories(_projectsPath);
         #endregion
 
 
@@ -76,6 +81,10 @@ namespace ParticleMaker.Services
             var oldProjectDir = $@"{_projectsPath}\{name}";
             var newProjecDir = $@"{_projectsPath}\{newName}";
 
+            //If the project name is illegal, throw an exception
+            if (string.IsNullOrEmpty(newName) || ContainsIllegalCharacters(newName))
+                throw new IllegalProjectNameException(newName);
+
             if (_directoryService.Exists(oldProjectDir))
             {
                 _directoryService.Rename(oldProjectDir, newProjecDir);
@@ -99,6 +108,38 @@ namespace ParticleMaker.Services
                 return;
 
             _directoryService.Create(_projectsPath);
+        }
+
+
+        /// <summary>
+        /// Returns a value indicating if the given string <paramref name="value"/> contains any 
+        /// illegal project name characters.
+        /// </summary>
+        /// <param name="value">The string value to check.</param>
+        /// <returns></returns>
+        private bool ContainsIllegalCharacters(string value)
+        {
+            var characters = new[]
+            {
+                '\\',
+                '/',
+                ':',
+                '*',
+                '?',
+                '"',
+                '<',
+                '>',
+                '|'
+            };
+
+            foreach (var c in characters)
+            {
+                if (value.Contains(c.ToString()))
+                    return true;
+            }
+
+
+            return false;
         }
         #endregion
     }

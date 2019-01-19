@@ -12,60 +12,79 @@ namespace ParticleMaker.Services
     {
         #region Public Methods
         /// <summary>
-        /// Creates a new project using the given <paramref name="folder"/>.
-        /// NOTE: Projects must have a unique name in the projects root folder and names must follow
+        /// Creates a new project using the given <paramref name="path"/>.
+        /// NOTE: Projects must have a unique name in the projects root directory and names must follow
         /// the OS directory naming rules.
         /// </summary>
-        /// <param name="folder">The name of the project.</param>
-        public void Create(string folder)
+        /// <param name="path">The name of the project.</param>
+        public void Create(string path)
         {
-            if (!Exists(folder))
-                Directory.CreateDirectory(folder);
+            if (!Exists(path))
+                Directory.CreateDirectory(path);
         }
 
 
         /// <summary>
-        /// Returns a value indicating if the given folder <paramref name="folder"/> exists.
+        /// Returns a value indicating if the given <paramref name="path"/> exists.
         /// </summary>
-        /// <param name="folder">The folder path to check for.</param>
+        /// <param name="path">The directory path to check for.</param>
         /// <returns></returns>
-        public bool Exists(string folder)
+        public bool Exists(string path)
         {
-            return Directory.Exists(folder);
+            return Directory.Exists(path);
         }
 
 
         /// <summary>
-        /// Deletes the given folder path and all of its contents.
+        /// Deletes the given directory path and all of its contents.
         /// </summary>
-        /// <param name="folder">The folder to delete.</param>
+        /// <param name="path">The directory to delete.</param>
         /// <returns></returns>
-        public void Delete(string folder)
+        public void Delete(string path)
         {
-            Directory.Delete(folder, true);
+            Directory.Delete(path, true);
         }
 
 
         /// <summary>
-        /// Renames the given <paramref name="folder"/> to the given 
+        /// Renames the given directory at the <paramref name="path"/> to the new given directory namne.
         /// </summary>
-        /// <param name="folder">The folder to rename</param>
-        /// <param name="newName">The new name to give the folder.</param>
-        public void Rename(string folder, string newName)
+        /// <param name="path">The directory to rename</param>
+        /// <param name="newName">The new name to give the directory.</param>
+        public void Rename(string path, string newName)
         {
-            var folders = folder.Split('\\');
-            folders[folders.Length - 1] = newName;
+            var dirs = path.Split('\\');
+            dirs[dirs.Length - 1] = newName;
 
             var newFolderPath = new StringBuilder();
 
-            for (int i = 0; i < folders.Length; i++)
+            for (int i = 0; i < dirs.Length; i++)
             {
-                bool useForwardSlash = folders[i] != newName;
+                bool useForwardSlash = dirs[i] != newName;
 
-                newFolderPath.Append($@"{folders[i]}{(useForwardSlash ? @"\" : "")}");
+                newFolderPath.Append($@"{dirs[i]}{(useForwardSlash ? @"\" : "")}");
             }
 
-            Directory.Move(folder, newFolderPath.ToString());
+            Directory.Move(path, newFolderPath.ToString());
+        }
+
+
+        /// <summary>
+        /// Returns a list of directories at the given path.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public string[] GetDirectories(string path)
+        {
+            var dirs = Directory.GetDirectories(path);
+
+            for (int i = 0; i < dirs.Length; i++)
+            {
+                dirs[i] = Path.GetDirectoryName(dirs[i]);
+            }
+
+
+            return dirs;
         }
         #endregion
     }

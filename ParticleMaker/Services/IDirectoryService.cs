@@ -7,36 +7,44 @@
     {
         #region Methods
         /// <summary>
-        /// Creates a new project using the given <paramref name="folder"/>.
-        /// NOTE: Projects must have a unique name in the projects root folder and names must follow
+        /// Creates a new project using the given <paramref name="path"/>.
+        /// NOTE: Projects must have a unique name in the projects root directory and names must follow
         /// the OS directory naming rules.
         /// </summary>
-        /// <param name="folder">The name of the project.</param>
+        /// <param name="path">The name of the project.</param>
         void Create(string folder);
 
 
         /// <summary>
-        /// Returns a value indicating if the given folder <paramref name="folder"/> exists.
+        /// Returns a value indicating if the given <paramref name="path"/> exists.
         /// </summary>
-        /// <param name="folder">The folder path to check for.</param>
+        /// <param name="path">The directory path to check for.</param>
         /// <returns></returns>
         bool Exists(string folder);
 
 
         /// <summary>
-        /// Deletes the given folder path and all of its contents.
+        /// Deletes the given directory path and all of its contents.
         /// </summary>
-        /// <param name="folder">The folder to delete.</param>
+        /// <param name="path">The directory to delete.</param>
         /// <returns></returns>
         void Delete(string folder);
 
 
         /// <summary>
-        /// Renames the given <paramref name="folder"/> to the given 
+        /// Renames the given directory at the <paramref name="path"/> to the new given directory namne.
         /// </summary>
-        /// <param name="folder">The folder to rename</param>
-        /// <param name="newName">The new name to give the folder.</param>
+        /// <param name="path">The directory to rename</param>
+        /// <param name="newName">The new name to give the directory.</param>
         void Rename(string folder, string newName);
+
+
+        /// <summary>
+        /// Returns a list of directories at the given path.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        string[] GetDirectories(string folder);
         #endregion
     }
 }
