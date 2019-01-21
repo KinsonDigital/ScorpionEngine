@@ -69,6 +69,27 @@ namespace ParticleMaker.Tests.Project
 
 
         [Test]
+        public void Create_WhenInvokingWithIllegalProjectName_ThrowsException()
+        {
+            //Arrange
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(false);
+
+            var mockFileService = new Mock<IFileService>();
+
+            var projSettingsService = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
+
+            var service = new ProjectManager(projSettingsService, mockDirService.Object);
+
+            //Act & Assert
+            Assert.Throws(typeof(IllegalProjectNameException), () =>
+            {
+                service.Create("**new|name**");
+            });
+        }
+
+
+        [Test]
         public void Create_WhenInvokingWithARootProjectsFolder_CreatesProjectFolder()
         {
             //Arrange

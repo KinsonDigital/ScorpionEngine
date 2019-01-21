@@ -55,6 +55,10 @@ namespace ParticleMaker.Project
             }
             else
             {
+                //If the project name is illegal, throw an exception
+                if (string.IsNullOrEmpty(name) || ContainsIllegalCharacters(name))
+                    throw new IllegalProjectNameException(name);
+
                 _directoryService.Create(newDirectory);
 
                 var newSettings = new ProjectSettings();
@@ -142,19 +146,8 @@ namespace ParticleMaker.Project
         /// <returns></returns>
         private bool ContainsIllegalCharacters(string value)
         {
-            var characters = new[]
-            {
-                '\\',
-                '/',
-                ':',
-                '*',
-                '?',
-                '"',
-                '<',
-                '>',
-                '|'
-            };
-
+            var characters = Path.GetInvalidPathChars();
+            
             foreach (var c in characters)
             {
                 if (value.Contains(c.ToString()))

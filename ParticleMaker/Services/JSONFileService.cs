@@ -35,7 +35,6 @@ namespace ParticleMaker.Services
             }
         }
 
-
         /// <summary>
         /// Loads a file at the given <paramref name="path"/>.
         /// </summary>
@@ -45,6 +44,17 @@ namespace ParticleMaker.Services
         public T Load<T>(string path) where T : class
         {
             throw new NotImplementedException();
+        }
+
+
+        /// <summary>
+        /// Returns a value indicating if the file at the given <paramref name="path"/> exists.
+        /// </summary>
+        /// <param name="path">The path to the file to check for.</param>
+        /// <returns></returns>
+        public bool Exists(string path)
+        {
+            return File.Exists(path);
         }
         #endregion
     }

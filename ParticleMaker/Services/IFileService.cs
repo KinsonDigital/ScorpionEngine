@@ -22,6 +22,14 @@
         /// <param name="path">The directory path to the file.</param>
         /// <returns>The data of type <typeparamref name="T"/>.</returns>
         T Load<T>(string path) where T : class;
+
+
+        /// <summary>
+        /// Returns a value indicating if the file at the given <paramref name="path"/> exists.
+        /// </summary>
+        /// <param name="path">The path to the file to check for.</param>
+        /// <returns></returns>
+        bool Exists(string path);
         #endregion
     }
 }
