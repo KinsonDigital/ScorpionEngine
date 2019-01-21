@@ -1,31 +1,35 @@
 ﻿using System.IO;
 using System.Reflection;
 using ParticleMaker.Exceptions;
+using ParticleMaker.Services;
 
-namespace ParticleMaker.Services
+namespace ParticleMaker.Project
 {
     /// <summary>
     /// Manages projects.
     /// </summary>
-    public class ProjectService : IProjectService
+    public class ProjectManager
     {
         #region Fields
-        private readonly string _projectsPath;
+        private ProjectSettingsManager _settingsService;
         private IDirectoryService _directoryService;
+        private static string _projectsPath;
         #endregion
 
 
         #region Constructors
         /// <summary>
-        /// Creates a new instance of <see cref="ProjectService"/>.
+        /// Creates a new instance of <see cref="ProjectManager"/>.
         /// </summary>
         /// <param name="directoryService">The directory service to manage the project directories</param>
-        public ProjectService(IDirectoryService directoryService)
+        public ProjectManager(ProjectSettingsManager settingsService, IDirectoryService directoryService)
         {
+            _settingsService = settingsService;
             _projectsPath = $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Projects";
 
             _directoryService = directoryService;
         }
+
 
         /// <summary>
         /// Gets the list of projects.
@@ -46,9 +50,17 @@ namespace ParticleMaker.Services
             CheckRootProjectsFolder();
 
             if (_directoryService.Exists(newDirectory))
+            {
                 throw new ProjectAlreadyExistsException(name);
+            }
             else
+            {
                 _directoryService.Create(newDirectory);
+
+                var newSettings = new ProjectSettings();
+
+                _settingsService.Save(name, newSettings);
+            }
         }
 
 
@@ -66,7 +78,7 @@ namespace ParticleMaker.Services
             }
             else
             {
-                throw new ProjectDoesNotExistExistException(name);
+                throw new ProjectDoesNotExistException(name);
             }
         }
 
@@ -91,8 +103,19 @@ namespace ParticleMaker.Services
             }
             else
             {
-                throw new ProjectDoesNotExistExistException(name);
+                throw new ProjectDoesNotExistException(name);
             }
+        }
+
+
+        /// <summary>
+        /// Returns a value indicating if a project with the given <paramref name="name"/> exists.
+        /// </summary>
+        /// <param name="name">The name of the project to check for.</param>
+        /// <returns></returns>
+        public bool Exists(string name)
+        {
+            return _directoryService.Exists($@"{_projectsPath}\{name}");
         }
         #endregion
 

@@ -1,6 +1,5 @@
 ﻿using KDParticleEngine;
 using KDParticleEngine.Services;
-using Microsoft.Xna.Framework;
 using Moq;
 using NUnit.Framework;
 using System;

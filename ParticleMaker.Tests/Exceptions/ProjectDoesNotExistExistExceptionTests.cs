@@ -11,7 +11,7 @@ namespace ParticleMaker.Tests.Exceptions
         public void Ctor_WhenInvokingWithNoParam_CreatesCorrectExceptionMessage()
         {
             //Arrange
-            var exception = new ProjectDoesNotExistExistException();
+            var exception = new ProjectDoesNotExistException();
             var expected = "The project does not exist.";
 
             //Act
@@ -26,7 +26,7 @@ namespace ParticleMaker.Tests.Exceptions
         public void Ctor_WhenInvokingWithParam_CreatesCorrectExceptionMessage()
         {
             //Arrange
-            var exception = new ProjectDoesNotExistExistException("test-project");
+            var exception = new ProjectDoesNotExistException("test-project");
             var expected = "The project 'test-project' does not exist.";
 
             //Act

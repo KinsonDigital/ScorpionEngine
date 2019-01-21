@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using NUnit.Framework;
-using ParticleMaker.CustomEventArgs;
 using System;
 
 namespace ParticleMaker.CustomEventArgs
