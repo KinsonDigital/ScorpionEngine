@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using ParticleMaker.CustomEventArgs;
 
 namespace ParticleMaker.CustomEventArgs
 {

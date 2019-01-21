@@ -1,10 +1,5 @@
 ﻿using NUnit.Framework;
 using ParticleMaker.UserControls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace ParticleMaker.Tests.UserControls
