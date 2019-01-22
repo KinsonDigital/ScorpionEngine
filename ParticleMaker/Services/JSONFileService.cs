@@ -48,6 +48,25 @@ namespace ParticleMaker.Services
 
 
         /// <summary>
+        /// Renames a file at the given <paramref name="path"/> to the given <paramref name="newName"/>.
+        /// </summary>
+        /// <param name="path">The path to the file to rename.</param>
+        /// <param name="newName">The new name to give the file.  Any file extensions will be ignored.</param>
+        public void Rename(string path, string newName)
+        {
+            if (!Path.HasExtension(path))
+                throw new ArgumentException($"The path must have a file name with an extension.", nameof(path));
+
+            newName = Path.HasExtension(newName) ? Path.GetFileNameWithoutExtension(newName) : newName;
+
+            var pathSections = path.Split('\\');
+            var oldFileName = Path.GetFileName(path);
+
+            File.Move(path, $@"{pathSections.Join(oldFileName)}\{newName}{Path.GetExtension(oldFileName)}");
+        }
+
+
+        /// <summary>
         /// Returns a value indicating if the file at the given <paramref name="path"/> exists.
         /// </summary>
         /// <param name="path">The path to the file to check for.</param>

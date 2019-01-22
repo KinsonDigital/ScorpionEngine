@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Moq;
+using NUnit.Framework;
 using ParticleMaker.Services;
 using System.IO;
 using System.Reflection;
@@ -19,16 +20,17 @@ namespace ParticleMaker.Tests.Services
         public void Ctor_WithContentRootDirNotExisting_ThrowsException()
         {
             //Arrange
+            var mockDirService = new Mock<IDirectoryService>();
+            var mockFileService = new Mock<IFileService>();
+
             var dirToDelete = $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Content";
-            DeleteFolderWithContents(dirToDelete);
-            var expected = true;
 
             //Act
-            var service = new ContentDirectoryService();
-            var actual = Directory.Exists(dirToDelete);
+            var service = new ContentDirectoryService(mockDirService.Object, mockFileService.Object);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            mockDirService.Verify(m => m.Exists(It.IsAny<string>()), Times.Once());
+            mockDirService.Verify(m => m.Create(It.IsAny<string>()), Times.Once());
         }
         #endregion
 
@@ -38,7 +40,10 @@ namespace ParticleMaker.Tests.Services
         public void ContentRootDirectory_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var service = new ContentDirectoryService();
+            var mockDirService = new Mock<IDirectoryService>();
+            var mockFileService = new Mock<IFileService>();
+
+            var service = new ContentDirectoryService(mockDirService.Object, mockFileService.Object);
             _createdTestDir = service.ContentRootDirectory;
 
             var expected = TEST_DIR;
@@ -58,10 +63,12 @@ namespace ParticleMaker.Tests.Services
         public void ContentItemExists_WhenInvokedWithExistingFile_ReturnsTrue()
         {
             //Arrange
-            var service = new ContentDirectoryService
-            {
-                ContentRootDirectory = TEST_DIR
-            };
+            var mockDirService = new Mock<IDirectoryService>();
+            var mockFileService = new Mock<IFileService>();
+            mockFileService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var service = new ContentDirectoryService(mockDirService.Object, mockFileService.Object);
+
             var expected = true;
             
             //Act
@@ -69,53 +76,6 @@ namespace ParticleMaker.Tests.Services
 
             //Assert
             Assert.AreEqual(expected, actual);
-        }
-        #endregion
-
-
-        #region Public Methods
-        [SetUp]
-        public void Setup()
-        {
-            //First delete the test directory if it exists
-            DeleteFolderWithContents(TEST_DIR);
-
-            Directory.CreateDirectory(TEST_DIR);
-
-            var file = File.Create($@"{TEST_DIR}\test-file.png");
-            file.Close();
-        }
-
-
-        [TearDown]
-        public void TearDown()
-        {
-            DeleteFolderWithContents(_createdTestDir);
-            DeleteFolderWithContents(TEST_DIR);
-
-            _createdTestDir = string.Empty;
-        }
-        #endregion
-
-
-        #region Private Methods
-        /// <summary>
-        /// Deletes the given <paramref name="folder"/> with its contents.
-        /// </summary>
-        /// <param name="folder">The folder to delete.</param>
-        private void DeleteFolderWithContents(string folder)
-        {
-            if (Directory.Exists(folder))
-            {
-                var filesToDelete = Directory.GetFiles(folder);
-
-                foreach (var file in filesToDelete)
-                {
-                    File.Delete(file);
-                }
-
-                Directory.Delete(folder);
-            }
         }
         #endregion
     }

@@ -67,6 +67,7 @@
     <Compile Include="CustomEventArgs\DrawEventArgs.cs" />
     <Compile Include="Exceptions\IllegalParticleSetupNameException.cs" />
     <Compile Include="Exceptions\ParticleSetupAlreadyExists.cs" />
+    <Compile Include="Exceptions\ParticleSetupDoesNotExist.cs" />
     <Compile Include="Project\DeploymentSetting.cs" />
     <Compile Include="DesignData\ColorListSampleData.cs" />
     <Compile Include="CustomEventArgs\UpdateEventArgs.cs" />

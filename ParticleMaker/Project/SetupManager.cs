@@ -1,5 +1,6 @@
 ﻿using ParticleMaker.Exceptions;
 using ParticleMaker.Services;
+using System;
 using System.IO;
 using System.Reflection;
 
@@ -69,6 +70,38 @@ namespace ParticleMaker.Project
             else
             {
                 throw new ProjectDoesNotExistException();
+            }
+        }
+
+
+        /// <summary>
+        /// Renames the setup with the given <paramref name="setupName"/> to the given <paramref name="newName"/>.
+        /// </summary>
+        /// <param name="setupName">The current name of the setup to rename.</param>
+        /// <param name="newName">The new name to name the setup.</param>
+        public void Rename(string setupName, string newName)
+        {
+            if (ProjectExists(_projectName))
+            {
+                var projPath = $@"{_rootProjectsPath}\{_projectName}";
+                var setupPath = $@"{projPath}\{setupName}";
+
+                //If the particle setup alread exists
+                if (_fileService.Exists(setupPath))
+                {
+                    if (ContainsIllegalCharacters(newName))
+                    {
+                        throw new IllegalParticleSetupNameException(setupName);
+                    }
+                    else
+                    {
+                        _fileService.Rename(setupPath, "new-setup");
+                    }
+                }
+                else
+                {
+                    throw new ParticleSetupDoesNotExist(setupName);
+                }
             }
         }
         #endregion

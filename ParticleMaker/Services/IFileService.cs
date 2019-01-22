@@ -25,6 +25,14 @@
 
 
         /// <summary>
+        /// Renames a file at the given <paramref name="path"/> to the given <paramref name="newName"/>.
+        /// </summary>
+        /// <param name="path">The path to the file to rename.</param>
+        /// <param name="newName">The new name to give the file.</param>
+        void Rename(string path, string newName);
+
+
+        /// <summary>
         /// Returns a value indicating if the file at the given <paramref name="path"/> exists.
         /// </summary>
         /// <param name="path">The path to the file to check for.</param>

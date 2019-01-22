@@ -101,6 +101,7 @@
     <Compile Include="CustomEventArgs\DrawEventArgsTests.cs" />
     <Compile Include="Exceptions\IllegalParticleSetupNameExceptionTests.cs" />
     <Compile Include="Exceptions\ParticleSetupAlreadyExistsTests.cs" />
+    <Compile Include="Exceptions\ParticleSetupDoesNotExistTests.cs" />
     <Compile Include="Project\DeploymentSettingTests.cs" />
     <Compile Include="Exceptions\ContentDoesNotExistExceptionTests.cs" />
     <Compile Include="Exceptions\IllegalProjectNameExceptionException.cs" />

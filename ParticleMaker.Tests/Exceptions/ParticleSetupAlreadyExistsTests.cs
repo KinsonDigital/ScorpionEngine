@@ -11,7 +11,7 @@ namespace ParticleMaker.Tests.Exceptions
         public void Ctor_WhenCreatingWithNoArgument_CreatesValidMessage()
         {
             //Arrange
-            var expected = "A particle setup with that name already exists.";
+            var expected = "The particle setup already exists.";
 
             //Arrange
             var exception = new ParticleSetupAlreadyExists();
@@ -26,7 +26,7 @@ namespace ParticleMaker.Tests.Exceptions
         public void Ctor_WhenCreatingWithArgument_CreatesValidMessage()
         {
             //Arrange
-            var expected = "A particle setup with the name 'test-setup' already exists.";
+            var expected = "The particle setup with the name 'test-setup' already exists.";
 
             //Arrange
             var exception = new ParticleSetupAlreadyExists("test-setup");
