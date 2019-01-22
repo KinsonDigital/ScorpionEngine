@@ -38,6 +38,13 @@
         /// <param name="path">The path to the file to check for.</param>
         /// <returns></returns>
         bool Exists(string path);
+
+
+        /// <summary>
+        /// Deletes the file at the given <paramref name="path"/>.
+        /// </summary>
+        /// <param name="path">The path to the file to delete.</param>
+        void Delete(string path);
         #endregion
     }
 }

@@ -12,8 +12,8 @@ namespace ParticleMaker.Project
     public class SetupManager
     {
         #region Fields
-        private IDirectoryService _directoryService;
-        private IFileService _fileService;
+        private readonly IDirectoryService _directoryService;
+        private readonly IFileService _fileService;
         private readonly string _projectName;
         private readonly string _rootProjectsPath;
         #endregion
@@ -47,7 +47,7 @@ namespace ParticleMaker.Project
             if (ProjectExists(_projectName))
             {
                 var projPath = $@"{_rootProjectsPath}\{_projectName}";
-                var setupPath = $@"{projPath}\{setupName}";
+                var setupPath = $@"{projPath}\{setupName}.json";
 
                 //If the particle setup already exists, throw an exception
                 if (_fileService.Exists(setupPath))
@@ -63,7 +63,7 @@ namespace ParticleMaker.Project
                     }
                     else
                     {
-                        _fileService.Create(projPath, new ParticleSetup());
+                        _fileService.Create(setupPath, new ParticleSetup());
                     }
                 }
             }
@@ -84,7 +84,7 @@ namespace ParticleMaker.Project
             if (ProjectExists(_projectName))
             {
                 var projPath = $@"{_rootProjectsPath}\{_projectName}";
-                var setupPath = $@"{projPath}\{setupName}";
+                var setupPath = $@"{projPath}\{setupName}.json";
 
                 //If the particle setup alread exists
                 if (_fileService.Exists(setupPath))
@@ -102,6 +102,32 @@ namespace ParticleMaker.Project
                 {
                     throw new ParticleSetupDoesNotExist(setupName);
                 }
+            }
+        }
+
+
+        /// <summary>
+        /// Deletes the setup with the given <paramref name="name"/>.
+        /// </summary>
+        /// <param name="name">The name of the setup to delete.</param>
+        public void Delete(string name)
+        {
+            var setupPath = $@"{_rootProjectsPath}\{_projectName}\{name}.json";
+
+            if (ProjectExists(_projectName))
+            {
+                if (_fileService.Exists(setupPath))
+                {
+                    _fileService.Delete(setupPath);
+                }
+                else
+                {
+                    throw new ParticleSetupDoesNotExist(name);
+                }
+            }
+            else
+            {
+                throw new ProjectDoesNotExistException(_projectName);
             }
         }
         #endregion

@@ -35,6 +35,7 @@ namespace ParticleMaker.Services
             }
         }
 
+
         /// <summary>
         /// Loads a file at the given <paramref name="path"/>.
         /// </summary>
@@ -74,6 +75,16 @@ namespace ParticleMaker.Services
         public bool Exists(string path)
         {
             return File.Exists(path);
+        }
+
+
+        /// <summary>
+        /// Deletes the file at the given <paramref name="path"/>.
+        /// </summary>
+        /// <param name="path">The path to the file to delete.</param>
+        public void Delete(string path)
+        {
+            File.Delete(path);
         }
         #endregion
     }
