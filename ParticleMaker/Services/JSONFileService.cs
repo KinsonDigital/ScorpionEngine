@@ -46,6 +46,57 @@ namespace ParticleMaker.Services
         {
             throw new NotImplementedException();
         }
+
+
+        /// <summary>
+        /// Renames a file at the given <paramref name="path"/> to the given <paramref name="newName"/>.
+        /// </summary>
+        /// <param name="path">The path to the file to rename.</param>
+        /// <param name="newName">The new name to give the file.  Any file extensions will be ignored.</param>
+        public void Rename(string path, string newName)
+        {
+            if (!Path.HasExtension(path))
+                throw new ArgumentException($"The path must have a file name with an extension.", nameof(path));
+
+            newName = Path.HasExtension(newName) ? Path.GetFileNameWithoutExtension(newName) : newName;
+
+            var pathSections = path.Split('\\');
+            var oldFileName = Path.GetFileName(path);
+
+            File.Move(path, $@"{pathSections.Join(oldFileName)}\{newName}{Path.GetExtension(oldFileName)}");
+        }
+
+
+        /// <summary>
+        /// Returns a value indicating if the file at the given <paramref name="path"/> exists.
+        /// </summary>
+        /// <param name="path">The path to the file to check for.</param>
+        /// <returns></returns>
+        public bool Exists(string path)
+        {
+            return File.Exists(path);
+        }
+
+
+        /// <summary>
+        /// Deletes the file at the given <paramref name="path"/>.
+        /// </summary>
+        /// <param name="path">The path to the file to delete.</param>
+        public void Delete(string path)
+        {
+            File.Delete(path);
+        }
+
+
+        /// <summary>
+        /// Copies the file at the given <paramref name="sourcePath"/> to the given <paramref name="destinationPath"/>.
+        /// </summary>
+        /// <param name="sourcePath">The source of the file to copy.</param>
+        /// <param name="destinationPath">The destination of the file to copy.</param>
+        public void Copy(string sourcePath, string destinationPath)
+        {
+            File.Copy(sourcePath, destinationPath);
+        }
         #endregion
     }
 }

@@ -1,6 +1,7 @@
 ﻿using KDScorpionCore.Graphics;
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
+using ParticleMaker.Services;
 using System;
 using System.Windows.Media;
 using MediaColor = System.Windows.Media.Color;
@@ -61,6 +62,48 @@ namespace ParticleMaker.Tests
 
             //Assert
             Assert.AreEqual(expected, actual.ElapsedEngineTime);
+        }
+
+
+        [Test]
+        public void Join_WhenInvokingWithItemExclude_ReturnsCorrectValue()
+        {
+            //Arrange
+            var items = new[]
+            {
+                "C:",
+                "parent-folder",
+                "child-folder",
+                "file-a.txt"
+            };
+            var expected = @"C:\parent-folder\child-folder";
+
+            //Act
+            var actual = items.Join("file-a.txt");
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void Join_WhenInvokingWithNoExclude_ReturnsCorrectValue()
+        {
+            //Arrange
+            var items = new[]
+            {
+                "C:",
+                "parent-folder",
+                "child-folder",
+                "file-a.txt"
+            };
+            var expected = @"C:\parent-folder\child-folder\file-a.txt";
+
+            //Act
+            var actual = items.Join();
+
+            //Assert
+            Assert.AreEqual(expected, actual);
         }
         #endregion
     }

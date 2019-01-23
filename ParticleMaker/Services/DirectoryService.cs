@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Text;
 
 namespace ParticleMaker.Services
 {
@@ -56,16 +55,7 @@ namespace ParticleMaker.Services
             var dirs = path.Split('\\');
             dirs[dirs.Length - 1] = newName;
 
-            var newFolderPath = new StringBuilder();
-
-            for (int i = 0; i < dirs.Length; i++)
-            {
-                bool useForwardSlash = dirs[i] != newName;
-
-                newFolderPath.Append($@"{dirs[i]}{(useForwardSlash ? @"\" : "")}");
-            }
-
-            Directory.Move(path, newFolderPath.ToString());
+            Directory.Move(path, dirs.Join());
         }
 
 

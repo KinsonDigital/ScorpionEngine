@@ -9,6 +9,8 @@ namespace ParticleMaker.Services
     public class ContentDirectoryService : IContentDirectoryService
     {
         #region Fields
+        private readonly IDirectoryService _directoryService;
+        private readonly IFileService _fileService;
         private const string CONTENT_DIR = "Content";
         #endregion
 
@@ -17,12 +19,15 @@ namespace ParticleMaker.Services
         /// <summary>
         /// Creates a new instance of <see cref="ContentDirectoryService"/>
         /// </summary>
-        public ContentDirectoryService()
+        public ContentDirectoryService(IDirectoryService directoryService, IFileService fileService)
         {
+            _directoryService = directoryService;
+            _fileService = fileService;
+
             ContentRootDirectory = $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\{CONTENT_DIR}";
 
-            if (!Directory.Exists(ContentRootDirectory))
-                Directory.CreateDirectory(ContentRootDirectory);
+            if (!_directoryService.Exists(ContentRootDirectory))
+                _directoryService.Create(ContentRootDirectory);
         }
         #endregion
 
@@ -43,7 +48,7 @@ namespace ParticleMaker.Services
         /// <returns></returns>
         public bool ContentItemExists(string itemName)
         {
-            return File.Exists($@"{ContentRootDirectory}\{itemName}.png");
+            return _fileService.Exists($@"{ContentRootDirectory}\{itemName}.png");
         }
         #endregion
     }

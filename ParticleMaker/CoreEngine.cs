@@ -8,6 +8,7 @@ namespace ParticleMaker
     /// <summary>
     /// Used to drive and interact with the graphics engine for rendering and updating purposes.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class CoreEngine : Game, ICoreEngine
     {
         #region Fields
@@ -75,7 +76,6 @@ namespace ParticleMaker
         /// <summary>
         /// Sets up the graphics device.
         /// </summary>
-        [ExcludeFromCodeCoverage]
         private void _graphics_PreparingDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e)
         {
             e.GraphicsDeviceInformation.PresentationParameters.DeviceWindowHandle = RenderSurfaceHandle;
@@ -89,7 +89,6 @@ namespace ParticleMaker
         /// <summary>
         /// Initializes the <see cref="CoreEngine"/>.
         /// </summary>
-        [ExcludeFromCodeCoverage]
         protected override void Initialize()
         {
             OnInitialize?.Invoke(this, new EventArgs());
@@ -101,7 +100,6 @@ namespace ParticleMaker
         /// <summary>
         /// Loads the content.
         /// </summary>
-        [ExcludeFromCodeCoverage]
         protected override void LoadContent()
         {
             OnLoadContent?.Invoke(this, new EventArgs());
@@ -114,7 +112,6 @@ namespace ParticleMaker
         /// Updates the <see cref="CoreEngine"/>.
         /// </summary>
         /// <param name="gameTime">The amount of time that has passed since the last frame.</param>
-        [ExcludeFromCodeCoverage]
         protected override void Update(GameTime gameTime)
         {
             OnUpdate?.Invoke(this, new UpdateEventArgs(gameTime));
@@ -127,7 +124,6 @@ namespace ParticleMaker
         /// Draws the content.
         /// </summary>
         /// <param name="gameTime">The amount of time that has passed since the last frame.</param>
-        [ExcludeFromCodeCoverage]
         protected override void Draw(GameTime gameTime)
         {
             OnDraw?.Invoke(this, new DrawEventArgs(gameTime));
@@ -139,7 +135,6 @@ namespace ParticleMaker
         /// <summary>
         /// Unloads the content.
         /// </summary>
-        [ExcludeFromCodeCoverage]
         protected override void UnloadContent()
         {
             OnUnLoadContent?.Invoke(this, new EventArgs());

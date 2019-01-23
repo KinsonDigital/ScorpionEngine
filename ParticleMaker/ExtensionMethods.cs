@@ -1,6 +1,8 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Graphics;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using System.Text;
 using System.Windows.Media;
 using MediaColor = System.Windows.Media.Color;
 
@@ -50,6 +52,30 @@ namespace ParticleMaker
         public static EngineTime ToEngineTime(this GameTime gameTime)
         {
             return new EngineTime() { ElapsedEngineTime = gameTime.ElapsedGameTime };
+        }
+
+
+        /// <summary>
+        /// Joins all of the strings in the given list of <paramref name="items"/> and will exclude any items
+        /// in the list that match the given <paramref name="excludeValue"/>.
+        /// </summary>
+        /// <param name="items">The list of items to join.</param>
+        /// <param name="excludeValue">The item to exclude from the join process.</param>
+        /// <returns></returns>
+        public static string Join(this string[] items, string excludeValue = "")
+        {
+            var result = new StringBuilder();
+
+            for (int i = 0; i < items.Length; i++)
+            {
+                var joinItem = items[i] != excludeValue;
+
+                if (joinItem)
+                    result.Append($@"{items[i]}\");
+            }
+
+
+            return result.ToString().TrimEnd('\\');
         }
         #endregion
     }

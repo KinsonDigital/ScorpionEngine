@@ -65,6 +65,9 @@
     </Compile>
     <Compile Include="CoreEngine.cs" />
     <Compile Include="CustomEventArgs\DrawEventArgs.cs" />
+    <Compile Include="Exceptions\IllegalParticleSetupNameException.cs" />
+    <Compile Include="Exceptions\ParticleSetupAlreadyExists.cs" />
+    <Compile Include="Exceptions\ParticleSetupDoesNotExist.cs" />
     <Compile Include="Project\DeploymentSetting.cs" />
     <Compile Include="DesignData\ColorListSampleData.cs" />
     <Compile Include="CustomEventArgs\UpdateEventArgs.cs" />
@@ -76,7 +79,9 @@
     <Compile Include="GraphicsEngineFactory.cs" />
     <Compile Include="ICoreEngine.cs" />
     <Compile Include="IGraphicsEngineFactory.cs" />
+    <Compile Include="Project\ParticleSetup.cs" />
     <Compile Include="Project\ProjectSettings.cs" />
+    <Compile Include="Project\SetupManager.cs" />
     <Compile Include="Services\ContentDirectoryService.cs" />
     <Compile Include="Services\DirectoryService.cs" />
     <Compile Include="Services\IFileService.cs" />
@@ -86,6 +91,7 @@
     <Compile Include="Services\IDirectoryService.cs" />
     <Compile Include="Project\ProjectManager.cs" />
     <Compile Include="Project\ProjectSettingManager.cs" />
+    <Compile Include="Services\SetupDeployService.cs" />
     <Compile Include="UserControls\ColorList.xaml.cs">
       <DependentUpon>ColorList.xaml</DependentUpon>
     </Compile>

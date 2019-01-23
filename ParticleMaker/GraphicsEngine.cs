@@ -30,7 +30,7 @@ namespace ParticleMaker
         /// <summary>
         /// Creates a new instance of <see cref="GraphicsEngine"/>.
         /// </summary>
-        /// <param name="windowHandle">The handle that points to the window of where to render the graphics.</param>
+        /// <param name="factory"></param>
         /// <param name="particleEngine">The particle engine that manages the particles.</param>
         public GraphicsEngine(IGraphicsEngineFactory factory, ParticleEngine particleEngine)
         {
