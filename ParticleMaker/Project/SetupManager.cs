@@ -33,6 +33,10 @@ namespace ParticleMaker.Project
 
             _projectName = projectName;
             _rootProjectsPath = $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Projects";
+
+
+            if (!ProjectExists(_projectName))
+                throw new ProjectDoesNotExistException(_projectName);
         }
         #endregion
 

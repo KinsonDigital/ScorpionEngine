@@ -45,6 +45,14 @@
         /// </summary>
         /// <param name="path">The path to the file to delete.</param>
         void Delete(string path);
+
+
+        /// <summary>
+        /// Copies the file at the given <paramref name="sourcePath"/> to the given <paramref name="destinationPath"/>.
+        /// </summary>
+        /// <param name="sourcePath">The source of the file to copy.</param>
+        /// <param name="destinationPath">The destination of the file to copy.</param>
+        void Copy(string sourcePath, string destinationPath);
         #endregion
     }
 }

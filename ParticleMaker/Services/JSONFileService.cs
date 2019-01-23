@@ -86,6 +86,17 @@ namespace ParticleMaker.Services
         {
             File.Delete(path);
         }
+
+
+        /// <summary>
+        /// Copies the file at the given <paramref name="sourcePath"/> to the given <paramref name="destinationPath"/>.
+        /// </summary>
+        /// <param name="sourcePath">The source of the file to copy.</param>
+        /// <param name="destinationPath">The destination of the file to copy.</param>
+        public void Copy(string sourcePath, string destinationPath)
+        {
+            File.Copy(sourcePath, destinationPath);
+        }
         #endregion
     }
 }

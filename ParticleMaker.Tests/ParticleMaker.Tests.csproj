@@ -95,7 +95,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CoreEngineTests.cs" />
     <Compile Include="CustomEventArgs\ColorItemClickedEventArgsTests.cs" />
     <Compile Include="ColorItemTests.cs" />
     <Compile Include="CustomEventArgs\DrawEventArgsTests.cs" />
@@ -119,6 +118,7 @@
     <Compile Include="Services\ContentDirectoryServiceTests.cs" />
     <Compile Include="Project\ProjectSettingsManagerTests.cs" />
     <Compile Include="Project\ProjectManagerTests.cs" />
+    <Compile Include="Services\SetupDeployServiceTests.cs" />
     <Compile Include="UserControls\ExtensionMethodsTests.cs" />
     <Compile Include="ViewModels\MainViewModelTests.cs" />
   </ItemGroup>

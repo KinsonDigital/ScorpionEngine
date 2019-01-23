@@ -21,6 +21,8 @@ namespace ParticleMaker
         {
             DIContainer = new Container();
 
+            DIContainer.Register<IDirectoryService, DirectoryService>();
+            DIContainer.Register<IFileService, JSONFileService>();
             DIContainer.Register<IContentDirectoryService, ContentDirectoryService>();
             DIContainer.Register<IRandomizerService, RandomizerService>();
             DIContainer.Register<ParticleTextureLoader>();

@@ -61,8 +61,16 @@ namespace ParticleMaker.Tests.Project
         public void Create_WhenInvokingWithNonExistingProject_ThrowsException()
         {
             //Arrange
+            var existsInvokeCount = 0;
             var mockDirService = new Mock<IDirectoryService>();
-            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(false);
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(() =>
+            {
+                existsInvokeCount += 1;
+
+                //If the number of times that the dir service exists() method has been invoked
+                //is 1, then its the invoke from the constructor. Return true.  Else return false.
+                return existsInvokeCount == 1;
+            });
 
             var mockFileService = new Mock<IFileService>();
             var manager = new SetupManager(mockDirService.Object, mockFileService.Object, "test-project");
@@ -257,8 +265,16 @@ namespace ParticleMaker.Tests.Project
         public void Delete_WhenInvokingWithNonExistingProject_ThrowsException()
         {
             //Arrange
+            var existsInvokeCount = 0;
             var mockDirService = new Mock<IDirectoryService>();
-            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(false);
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(() =>
+            {
+                existsInvokeCount += 1;
+
+                //If the number of times that the dir service exists() method has been invoked
+                //is 1, then its the invoke from the constructor. Return true.  Else return false.
+                return existsInvokeCount == 1;
+            });
 
             var mockFileService = new Mock<IFileService>();
 

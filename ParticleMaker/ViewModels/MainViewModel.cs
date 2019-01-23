@@ -10,6 +10,8 @@ using KDScorpionCore.Graphics;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace ParticleMaker.ViewModels
 {
@@ -24,9 +26,8 @@ namespace ParticleMaker.ViewModels
 
 
         #region Private Fields
-        private GraphicsEngine _graphicsEngine;
-        private ThreadTimer _timer;
-        private bool _timerRan;
+        private readonly GraphicsEngine _graphicsEngine;
+        private readonly CancellationTokenSource _cancelTokenSrc;
         #endregion
 
 
@@ -41,12 +42,44 @@ namespace ParticleMaker.ViewModels
         {
             _graphicsEngine = graphicsEngine;
 
-            _timer = new ThreadTimer(TimerCallback, null, 0, 250);
+            _cancelTokenSrc = new CancellationTokenSource();
+
+            StartupTask = new Task(() =>
+            {
+                //If the cancellation has not been requested, keep processing.
+                while(!_cancelTokenSrc.IsCancellationRequested)
+                {
+                    _cancelTokenSrc.Token.WaitHandle.WaitOne(250);
+
+                    UIDispatcher.Invoke(() =>
+                    {
+                        if (_cancelTokenSrc.IsCancellationRequested == false && RenderSurface != null && RenderSurface.Handle != IntPtr.Zero)
+                        {
+                            _cancelTokenSrc.Cancel();
+
+                            _graphicsEngine.RenderSurfaceHandle = RenderSurface.Handle;
+                            _graphicsEngine.ParticleEngine.LivingParticlesCountChanged += _particleEngine_LivingParticlesCountChanged;
+                            _graphicsEngine.ParticleEngine.SpawnLocation = new CoreVector(200, 200);
+                            _graphicsEngine.Run();
+                        }
+                    });
+                }
+            }, _cancelTokenSrc.Token);
+
+
+            StartupTask.Start();
         }
         #endregion
 
 
         #region Props
+        internal Task StartupTask { get; set; }
+
+        /// <summary>
+        /// Gets or sets the timer for 
+        /// </summary>
+        internal ThreadTimer StartupTimer { get; set; }
+
         /// <summary>
         /// Gets or sets the surface that the particles will render to.
         /// </summary>
@@ -357,6 +390,8 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public void ShutdownEngine()
         {
+            _cancelTokenSrc.Cancel();
+
             _graphicsEngine.Stop();
         }
         #endregion
@@ -375,39 +410,20 @@ namespace ParticleMaker.ViewModels
 
 
         /// <summary>
-        /// Invoked at a specified interval and checks when the render surface handle
-        /// is available.  Once available, the graphics engine is created and the
-        /// graphics engine rendering is pointed to the render surface.
-        /// </summary>
-        /// <param name="state">The state passed to the callback.</param>
-        [ExcludeFromCodeCoverage]
-        private void TimerCallback(object state)
-        {
-            if (_timerRan)
-                return;
-
-            _timerRan = true;
-
-            UIDispatcher?.Invoke(DispatcherCallback);
-        }
-
-
-        /// <summary>
         /// Invoked by the dispatcher on the UI thread.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        private void DispatcherCallback()
+        private void StartUp()
         {
-            if (RenderSurface.Handle != IntPtr.Zero)
-            {
-                _timer?.Dispose();
-                _timer = null;
+            //if (RenderSurface.Handle != IntPtr.Zero)
+            //{
+            //    _cancelTokenSrc.Cancel();
 
-                _graphicsEngine.RenderSurfaceHandle = RenderSurface.Handle;
-                _graphicsEngine.ParticleEngine.LivingParticlesCountChanged += _particleEngine_LivingParticlesCountChanged;
-                _graphicsEngine.ParticleEngine.SpawnLocation = new CoreVector(200, 200);
-                _graphicsEngine.Run();
-            }
+            //    _graphicsEngine.RenderSurfaceHandle = RenderSurface.Handle;
+            //    _graphicsEngine.ParticleEngine.LivingParticlesCountChanged += _particleEngine_LivingParticlesCountChanged;
+            //    _graphicsEngine.ParticleEngine.SpawnLocation = new CoreVector(200, 200);
+            //    _graphicsEngine.Run();
+            //}
         }
 
 
