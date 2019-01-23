@@ -1,0 +1,7 @@
+﻿<local:InputDialogData xmlns:local="clr-namespace:ParticleMaker.Dialogs.DesignData"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                       DialogTitle="Enter some input"
+                       Message="Enter some input and hit enter.  As well as tell calvin he is an awesome developer."
+                       InputValue="Input goes here"
+                       OkCommand="{x:Null}" CancelCommand="{x:Null}">
+</local:InputDialogData>
