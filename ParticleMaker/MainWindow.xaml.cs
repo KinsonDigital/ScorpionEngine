@@ -3,8 +3,10 @@ using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using System.ComponentModel;
 using ParticleMaker.ViewModels;
-using ThreadTimer = System.Threading.Timer;
 using System.Diagnostics.CodeAnalysis;
+using ParticleMaker.Dialogs;
+using ThreadTimer = System.Threading.Timer;
+using SysMsgBox = System.Windows.Forms.MessageBox;
 
 namespace ParticleMaker
 {
@@ -75,5 +77,16 @@ namespace ParticleMaker
             _mainViewModel.SizeMax = 2;
         }
         #endregion
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var inputDialog = new InputDialog("Input Title", "Input Message", "Default Value");
+
+            inputDialog.ShowDialog();
+
+            var result = inputDialog.InputResult;
+
+            SysMsgBox.Show(result);
+        }
     }
 }

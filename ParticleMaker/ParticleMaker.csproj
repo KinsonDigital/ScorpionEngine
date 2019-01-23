@@ -65,6 +65,10 @@
     </Compile>
     <Compile Include="CoreEngine.cs" />
     <Compile Include="CustomEventArgs\DrawEventArgs.cs" />
+    <Compile Include="Dialogs\DesignData\InputDialogData.cs" />
+    <Compile Include="Dialogs\InputDialog.xaml.cs">
+      <DependentUpon>InputDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Exceptions\IllegalParticleSetupNameException.cs" />
     <Compile Include="Exceptions\ParticleSetupAlreadyExists.cs" />
     <Compile Include="Exceptions\ParticleSetupDoesNotExist.cs" />
@@ -82,6 +86,7 @@
     <Compile Include="Project\ParticleSetup.cs" />
     <Compile Include="Project\ProjectSettings.cs" />
     <Compile Include="Project\SetupManager.cs" />
+    <Compile Include="RelayCommand.cs" />
     <Compile Include="Services\ContentDirectoryService.cs" />
     <Compile Include="Services\DirectoryService.cs" />
     <Compile Include="Services\IFileService.cs" />
@@ -122,6 +127,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DesignData\ColorListSampleData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\DesignData\InputDialogData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\InputDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

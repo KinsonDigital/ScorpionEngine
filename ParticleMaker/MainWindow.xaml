@@ -137,6 +137,7 @@
             <ctrls:RandomRange MinLowerLimit="0" MinUpperLimit="300000" MaxLowerLimit="0" MaxUpperLimit="300000"
                                Title="Spawn Rate (ms)" MinTitle="Min" MaxTitle="Max"
                                MinValue="{Binding SpawnRateMin, Mode=TwoWay}" MaxValue="{Binding SpawnRateMax, Mode=TwoWay}"/>
+            <Button Content="Test" Width="75" Height="25" Click="Button_Click"/>
         </StackPanel>
     </Grid>
 </Window>
