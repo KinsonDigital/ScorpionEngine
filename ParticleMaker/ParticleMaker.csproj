@@ -109,6 +109,7 @@
     <Compile Include="UserControls\CustomButton.xaml.cs">
       <DependentUpon>CustomButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\DesignData\SetupListItemData.cs" />
     <Compile Include="UserControls\Enums.cs" />
     <Compile Include="UserControls\ExtensionMethods.cs" />
     <Compile Include="UserControls\NumberBox.xaml.cs">
@@ -158,6 +159,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\CustomButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\DesignData\SetupListItemData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using IOPath = System.IO.Path;
 
 namespace ParticleMaker.UserControls
 {
@@ -37,7 +27,13 @@ namespace ParticleMaker.UserControls
         /// Registers the <see cref="SetupPath"/>.
         /// </summary>
         public static readonly DependencyProperty SetupPathProperty =
-            DependencyProperty.Register(nameof(SetupPath), typeof(string), typeof(SetupListItem), new PropertyMetadata(""));
+            DependencyProperty.Register(nameof(SetupPath), typeof(string), typeof(SetupListItem), new PropertyMetadata("", SetupPathChanged));
+
+        /// <summary>
+        /// Registers the <see cref="SetupName"/> property.
+        /// </summary>
+        protected static readonly DependencyProperty SetupNameProperty =
+            DependencyProperty.Register(nameof(SetupName), typeof(string), typeof(SetupListItem), new PropertyMetadata(""));
         #endregion
 
 
@@ -49,6 +45,47 @@ namespace ParticleMaker.UserControls
         {
             get { return (string)GetValue(SetupPathProperty); }
             set { SetValue(SetupPathProperty, value); }
+        }
+
+
+        /// <summary>
+        /// Gets or sets the setup name to be shown in the setup label.
+        /// </summary>
+        protected string SetupName
+        {
+            get { return (string)GetValue(SetupNameProperty); }
+            set { SetValue(SetupNameProperty, value); }
+        }
+        #endregion
+
+
+        #region Private Methods
+        /// <summary>
+        /// Updates the setup name to be the file name without the extension
+        /// </summary>
+        private static void SetupPathChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var newValue = (string)e.NewValue;
+
+            if (newValue == null)
+                return;
+
+            var ctrl = (SetupListItem)d;
+
+            if (ctrl == null)
+                return;
+
+            //TODO: Check if the file exists and setup UI to display error/issue
+            if (true)// <== file exists check here
+            {
+                ctrl.SetupPath = IOPath.GetFileNameWithoutExtension(newValue);
+
+                //TODO: Setup protected props to show no issue
+            }
+            else
+            {
+                //TODO: Setup protected props to show an issue
+            }
         }
         #endregion
     }

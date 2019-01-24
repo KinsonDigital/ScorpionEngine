@@ -1,0 +1,7 @@
+﻿<local:SetupListItemData xmlns:local="clr-namespace:ParticleMaker.UserControls.DesignData"
+                         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                         SetupPath="C:\temp\Projects\test-project\setup-a.json"
+                         SetupName="Thruster">
+    
+</local:SetupListItemData>

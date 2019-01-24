@@ -4,8 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ParticleMaker.UserControls"
-             mc:Ignorable="d" Background="White">
-    <Grid>
+             mc:Ignorable="d" Background="White" Name="this">
+    
+    <Grid d:DataContext="{d:DesignData Source=/UserControls/DesignData/SetupListItemData.xaml}"
+          DataContext="{Binding ElementName=this}">
         <!--SETUP LABEL WITH RENAMBE AND DELETE BUTTONS.  DISPLAY MODE-->
         <Grid Visibility="Visible">
             <Grid.ColumnDefinitions>
@@ -15,7 +17,7 @@
             </Grid.ColumnDefinitions>
 
             <!--SETUP NAME-->
-            <Label Grid.Column="0" Content="Thruster" Foreground="Red" VerticalContentAlignment="Center"/>
+            <Label Grid.Column="0" Content="{Binding Path=SetupName}" Foreground="Red" VerticalContentAlignment="Center"/>
 
             <!--RENAME BUTTON-->
             <local:CustomButton Grid.Column="1">
