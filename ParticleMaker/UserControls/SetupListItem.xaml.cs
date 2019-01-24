@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Shapes;
 using IOPath = System.IO.Path;
 
@@ -34,6 +36,12 @@ namespace ParticleMaker.UserControls
         /// </summary>
         protected static readonly DependencyProperty SetupNameProperty =
             DependencyProperty.Register(nameof(SetupName), typeof(string), typeof(SetupListItem), new PropertyMetadata(""));
+
+        /// <summary>
+        /// Registers the <see cref="ErrorBorderBrush"/> property.
+        /// </summary>
+        protected static readonly DependencyProperty ErrorBorderBrushProperty =
+            DependencyProperty.Register(nameof(ErrorBorderBrush), typeof(SolidColorBrush), typeof(SetupListItem), new PropertyMetadata(new SolidColorBrush(Color.FromRgb(255, 255, 255))));
         #endregion
 
 
@@ -56,6 +64,16 @@ namespace ParticleMaker.UserControls
             get { return (string)GetValue(SetupNameProperty); }
             set { SetValue(SetupNameProperty, value); }
         }
+
+
+        /// <summary>
+        /// Gets or sets the brush color for the error border.
+        /// </summary>
+        public SolidColorBrush ErrorBorderBrush
+        {
+            get { return (SolidColorBrush)GetValue(ErrorBorderBrushProperty); }
+            set { SetValue(ErrorBorderBrushProperty, value); }
+        }
         #endregion
 
 
@@ -76,15 +94,16 @@ namespace ParticleMaker.UserControls
                 return;
 
             //TODO: Check if the file exists and setup UI to display error/issue
-            if (true)// <== file exists check here
+            if (File.Exists(newValue))// <== file exists check here
             {
-                ctrl.SetupPath = IOPath.GetFileNameWithoutExtension(newValue);
+                ctrl.SetupName = IOPath.GetFileNameWithoutExtension(newValue);
 
-                //TODO: Setup protected props to show no issue
+                ctrl.ErrorBorderBrush = new SolidColorBrush(Color.FromRgb(255, 255, 255));
             }
             else
             {
                 //TODO: Setup protected props to show an issue
+                ctrl.ErrorBorderBrush = new SolidColorBrush(Color.FromRgb(255, 0, 0));
             }
         }
         #endregion

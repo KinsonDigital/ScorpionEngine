@@ -5,54 +5,57 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ParticleMaker.UserControls"
              mc:Ignorable="d" Background="White" Name="this">
-    
-    <Grid d:DataContext="{d:DesignData Source=/UserControls/DesignData/SetupListItemData.xaml}"
+
+    <!--ERROR BORDER-->
+    <Border BorderBrush="White" BorderThickness="1">
+        <Grid d:DataContext="{d:DesignData Source=/UserControls/DesignData/SetupListItemData.xaml}"
           DataContext="{Binding ElementName=this}">
         <!--SETUP LABEL WITH RENAMBE AND DELETE BUTTONS.  DISPLAY MODE-->
-        <Grid Visibility="Visible">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+            <Grid Visibility="Visible">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
 
-            <!--SETUP NAME-->
-            <Label Grid.Column="0" Content="{Binding Path=SetupName}" Foreground="Red" VerticalContentAlignment="Center"/>
+                <!--SETUP NAME-->
+                <Label Grid.Column="0" Content="{Binding Path=SetupName}" Foreground="Black" VerticalContentAlignment="Center"/>
 
-            <!--RENAME BUTTON-->
-            <local:CustomButton Grid.Column="1">
-                <local:CustomButton.ButtonContent>
-                    <Image Source="/ParticleMaker;component/Icons/Edit.png" Width="25" Height="25"
-                           Margin="2.5"/>
-                </local:CustomButton.ButtonContent>
-            </local:CustomButton>
+                <!--RENAME BUTTON-->
+                <local:CustomButton Grid.Column="1">
+                    <local:CustomButton.ButtonContent>
+                        <Image Source="/ParticleMaker;component/Icons/Edit.png" Width="25" Height="25"
+                               Margin="2.5"/>
+                    </local:CustomButton.ButtonContent>
+                </local:CustomButton>
 
-            <!--DELETE BUTTON-->
-            <local:CustomButton Grid.Column="2">
-                <local:CustomButton.ButtonContent>
-                    <Image Source="/ParticleMaker;component/Icons/Delete.png" Width="25" Height="25"
-                           Margin="2.5"/>
-                </local:CustomButton.ButtonContent>
-            </local:CustomButton>
-        </Grid>
+                <!--DELETE BUTTON-->
+                <local:CustomButton Grid.Column="2">
+                    <local:CustomButton.ButtonContent>
+                        <Image Source="/ParticleMaker;component/Icons/Delete.png" Width="25" Height="25"
+                               Margin="2.5"/>
+                    </local:CustomButton.ButtonContent>
+                </local:CustomButton>
+            </Grid>
         
-        <!--RENAME TEXTBOX AND ACCEPT BUTTON. EDIT MODE-->
-        <Grid Visibility="Hidden">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
+            <!--RENAME TEXTBOX AND ACCEPT BUTTON. EDIT MODE-->
+            <Grid Visibility="Hidden">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-            <!--RENAME TEXTBOX-->
-            <TextBox Grid.Column="0" Text="item" VerticalContentAlignment="Center"/>
+                <!--RENAME TEXTBOX-->
+                <TextBox Grid.Column="0" Text="item" VerticalContentAlignment="Center"/>
             
-            <!--ACCEPT BUTTON-->
-            <local:CustomButton Grid.Column="1" HorizontalAlignment="Right">
-                <local:CustomButton.ButtonContent>
-                    <Image Source="/ParticleMaker;component/Icons/Accept.png" Width="25" Height="25"
-                           Margin="2.5"/>
-                </local:CustomButton.ButtonContent>
-            </local:CustomButton>
+                <!--ACCEPT BUTTON-->
+                <local:CustomButton Grid.Column="1" HorizontalAlignment="Right">
+                    <local:CustomButton.ButtonContent>
+                        <Image Source="/ParticleMaker;component/Icons/Accept.png" Width="25" Height="25"
+                               Margin="2.5"/>
+                    </local:CustomButton.ButtonContent>
+                </local:CustomButton>
+            </Grid>
         </Grid>
-    </Grid>
+    </Border>
 </UserControl>

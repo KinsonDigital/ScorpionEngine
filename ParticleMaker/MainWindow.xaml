@@ -138,6 +138,8 @@
                                Title="Spawn Rate (ms)" MinTitle="Min" MaxTitle="Max"
                                MinValue="{Binding SpawnRateMin, Mode=TwoWay}" MaxValue="{Binding SpawnRateMax, Mode=TwoWay}"/>
             <Button Content="Test" Width="75" Height="25" Click="Button_Click"/>
+            
+            <ctrls:SetupListItem Width="100" SetupPath="C:\temp\test-setupASDF.json"/>
         </StackPanel>
     </Grid>
 </Window>
