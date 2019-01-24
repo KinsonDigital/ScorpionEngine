@@ -121,6 +121,9 @@
       <DependentUpon>RandomRange.xaml</DependentUpon>
     </Compile>
     <Compile Include="CustomEventArgs\ValueChangedEventArgs.cs" />
+    <Compile Include="UserControls\SetupListItem.xaml.cs">
+      <DependentUpon>SetupListItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="ColorPicker.xaml">
       <SubType>Designer</SubType>
@@ -194,6 +197,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\SetupListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ParticleRenderer.cs" />
@@ -262,26 +269,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Delete.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ColorPalette.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ColorDropper.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\ColorDropper.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Icons\Delete.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Content\Arrow.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Accept.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\ColorDropper.png" />
+    <Resource Include="Icons\Delete.png" />
+    <Resource Include="Icons\Edit.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
