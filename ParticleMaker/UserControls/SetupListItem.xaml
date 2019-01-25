@@ -1,15 +1,16 @@
-﻿<UserControl x:Class="ParticleMaker.UserControls.SetupListItem"
+<UserControl x:Class="ParticleMaker.UserControls.SetupListItem"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ParticleMaker.UserControls"
-             mc:Ignorable="d" Background="White" Name="this">
+             mc:Ignorable="d" Background="White" Name="this"
+             d:DataContext="{d:DesignData Source=/UserControls/DesignData/SetupListItemData.xaml}"
+             DataContext="{Binding ElementName=this}">
 
     <!--ERROR BORDER-->
-    <Border BorderBrush="White" BorderThickness="1">
-        <Grid d:DataContext="{d:DesignData Source=/UserControls/DesignData/SetupListItemData.xaml}"
-          DataContext="{Binding ElementName=this}">
+    <Border BorderBrush="{Binding Path=ErrorBorderBrush}" BorderThickness="1">
+        <Grid>
         <!--SETUP LABEL WITH RENAMBE AND DELETE BUTTONS.  DISPLAY MODE-->
             <Grid Visibility="Visible">
                 <Grid.ColumnDefinitions>

@@ -1,4 +1,6 @@
-﻿namespace ParticleMaker.UserControls.DesignData
+﻿using System.Windows.Media;
+
+namespace ParticleMaker.UserControls.DesignData
 {
     /// <summary>
     /// Used for design data for the <see cref="SetupListItem"/> user control
@@ -8,5 +10,7 @@
         public string SetupPath { get; set; }
 
         public string SetupName { get; set; }
+
+        public SolidColorBrush ErrorBorderBrush { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -93,10 +93,18 @@ namespace ParticleMaker.UserControls
             if (ctrl == null)
                 return;
 
-            //TODO: Check if the file exists and setup UI to display error/issue
-            if (File.Exists(newValue))// <== file exists check here
+            Refresh(ctrl);
+        }
+        #region Private Methods
+        /// <summary>
+        /// Refreshs the control by updating the control's UI based on if the file exists or not.
+        /// </summary>
+        /// <param name="ctrl">The control with the UI to update.</param>
+        private static void Refresh(SetupListItem ctrl)
+        {
+            if (FileExists(ctrl.SetupPath))
             {
-                ctrl.SetupName = IOPath.GetFileNameWithoutExtension(newValue);
+                ctrl.SetupName = IOPath.GetFileNameWithoutExtension(ctrl.SetupPath);
 
                 ctrl.ErrorBorderBrush = new SolidColorBrush(Color.FromRgb(255, 255, 255));
             }
@@ -104,6 +112,8 @@ namespace ParticleMaker.UserControls
             {
                 //TODO: Setup protected props to show an issue
                 ctrl.ErrorBorderBrush = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+
+                ctrl.SetupName = "Error!!";
             }
         }
         #endregion
