@@ -31,7 +31,8 @@
                 </local:CustomButton>
 
                 <!--DELETE BUTTON-->
-                <local:CustomButton Grid.Column="2">
+                <local:CustomButton x:Name="DeleteCustomButton" Grid.Column="2"
+                                    Click="DeleteCustomButton_Click">
                     <local:CustomButton.ButtonContent>
                         <Image Source="/ParticleMaker;component/Icons/Delete.png" Width="25" Height="25"
                                Margin="2.5"/>

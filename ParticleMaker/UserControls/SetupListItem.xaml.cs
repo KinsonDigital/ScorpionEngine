@@ -1,8 +1,8 @@
+using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Shapes;
 using IOPath = System.IO.Path;
 
 namespace ParticleMaker.UserControls
@@ -12,6 +12,11 @@ namespace ParticleMaker.UserControls
     /// </summary>
     public partial class SetupListItem : UserControl
     {
+        #region Public Events
+        public event EventHandler<EventArgs> DeleteClicked;
+        #endregion
+
+
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="SetupListItem"/>.
@@ -95,6 +100,33 @@ namespace ParticleMaker.UserControls
 
             Refresh(ctrl);
         }
+
+
+        /// <summary>
+        /// <summary>
+        /// Deletes the file at the given path.
+        /// </summary>
+        private void DeleteCustomButton_Click(object sender, EventArgs e)
+        {
+            if (FileExists(SetupPath))
+            {
+                try
+                {
+                    File.Delete(SetupPath);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
+            Refresh(this);
+
+            DeleteClicked?.Invoke(this, new EventArgs());
+        }
+        #endregion
+
+
         #region Private Methods
         /// <summary>
         /// Refreshs the control by updating the control's UI based on if the file exists or not.
@@ -115,6 +147,16 @@ namespace ParticleMaker.UserControls
 
                 ctrl.SetupName = "Error!!";
             }
+        }
+
+
+        /// <summary>
+        /// Returns a value indicating if the file at the given <paramref name="filePath"/> exists.
+        /// </summary>
+        /// <param name="filePath">The path to the file to check for.</param>
+        private static bool FileExists(string filePath)
+        {
+            return File.Exists(filePath);
         }
         #endregion
     }
