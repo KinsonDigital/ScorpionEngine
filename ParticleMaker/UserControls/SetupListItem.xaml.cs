@@ -1,9 +1,9 @@
+﻿using ParticleMaker.Dialogs;
 using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using IOPath = System.IO.Path;
 
 namespace ParticleMaker.UserControls
 {
@@ -34,7 +34,7 @@ namespace ParticleMaker.UserControls
         /// Registers the <see cref="SetupPath"/>.
         /// </summary>
         public static readonly DependencyProperty SetupPathProperty =
-            DependencyProperty.Register(nameof(SetupPath), typeof(string), typeof(SetupListItem), new PropertyMetadata("", SetupPathChanged));
+            DependencyProperty.Register(nameof(SetupPath), typeof(string), typeof(SetupListItem), new PropertyMetadata("", SetupFilePathChanged));
 
         /// <summary>
         /// Registers the <see cref="SetupName"/> property.
@@ -74,7 +74,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Gets or sets the brush color for the error border.
         /// </summary>
-        public SolidColorBrush ErrorBorderBrush
+        protected SolidColorBrush ErrorBorderBrush
         {
             get { return (SolidColorBrush)GetValue(ErrorBorderBrushProperty); }
             set { SetValue(ErrorBorderBrushProperty, value); }
@@ -86,11 +86,11 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Updates the setup name to be the file name without the extension
         /// </summary>
-        private static void SetupPathChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void SetupFilePathChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var newValue = (string)e.NewValue;
 
-            if (newValue == null)
+            if (string.IsNullOrEmpty(newValue))
                 return;
 
             var ctrl = (SetupListItem)d;
@@ -103,6 +103,41 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
+        /// Renames the file at the currently set path.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RenameCustomButton_Click(object sender, EventArgs e)
+        {
+            if (FileExists(SetupPath))
+            {
+                try
+                {
+                    var oldName = Path.GetFileNameWithoutExtension(SetupPath);
+
+                    var inputDialog = new InputDialog("Rename setup", $"Rename the setup named \"{oldName}\".", oldName);
+
+                    var dialogResult = inputDialog.ShowDialog();
+
+                    if (dialogResult != null && dialogResult == true)
+                    {
+                        var destFileName = $@"{Path.GetDirectoryName(SetupPath)}\{inputDialog.InputResult}.json";
+
+                        File.Move(SetupPath, destFileName);
+
+                        SetupPath = destFileName;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
+            Refresh(this);
+        }
+
+
         /// <summary>
         /// Deletes the file at the given path.
         /// </summary>
@@ -136,13 +171,12 @@ namespace ParticleMaker.UserControls
         {
             if (FileExists(ctrl.SetupPath))
             {
-                ctrl.SetupName = IOPath.GetFileNameWithoutExtension(ctrl.SetupPath);
+                ctrl.SetupName = Path.GetFileNameWithoutExtension(ctrl.SetupPath);
 
                 ctrl.ErrorBorderBrush = new SolidColorBrush(Color.FromRgb(255, 255, 255));
             }
             else
             {
-                //TODO: Setup protected props to show an issue
                 ctrl.ErrorBorderBrush = new SolidColorBrush(Color.FromRgb(255, 0, 0));
 
                 ctrl.SetupName = "Error!!";

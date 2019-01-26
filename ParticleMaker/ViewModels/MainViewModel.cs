@@ -20,6 +20,7 @@ namespace ParticleMaker.ViewModels
     /// </summary>
     public class MainViewModel : INotifyPropertyChanged
     {
+
         #region Public Events
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
@@ -47,11 +48,11 @@ namespace ParticleMaker.ViewModels
             StartupTask = new Task(() =>
             {
                 //If the cancellation has not been requested, keep processing.
-                while(!_cancelTokenSrc.IsCancellationRequested)
+                while (!_cancelTokenSrc.IsCancellationRequested)
                 {
                     _cancelTokenSrc.Token.WaitHandle.WaitOne(250);
 
-                    UIDispatcher.Invoke(() =>
+                    UIDispatcher?.Invoke(() =>
                     {
                         if (_cancelTokenSrc.IsCancellationRequested == false && RenderSurface != null && RenderSurface.Handle != IntPtr.Zero)
                         {
@@ -214,7 +215,7 @@ namespace ParticleMaker.ViewModels
             set
             {
                 _graphicsEngine.ParticleEngine.SizeMin = value;
-           }
+            }
         }
 
         /// <summary>
@@ -415,6 +416,8 @@ namespace ParticleMaker.ViewModels
         [ExcludeFromCodeCoverage]
         private void StartUp()
         {
+            //TODO: Remove this commented code and put the StartTask.Start() into this method.
+
             //if (RenderSurface.Handle != IntPtr.Zero)
             //{
             //    _cancelTokenSrc.Cancel();
@@ -435,7 +438,7 @@ namespace ParticleMaker.ViewModels
         private void NotifyPropChange([CallerMemberName]string propName = "")
         {
             if (!string.IsNullOrEmpty(propName))
-                PropertyChanged(this, new PropertyChangedEventArgs(propName));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
         #endregion
     }

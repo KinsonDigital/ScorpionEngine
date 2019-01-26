@@ -17,8 +17,9 @@ namespace KDParticleEngine
     {
         #region Public Events
         public event EventHandler<EventArgs> LivingParticlesCountChanged;
-
         #endregion
+
+
         #region Fields
         private List<Particle> _particles;
         private List<Texture> _textures = new List<Texture>();

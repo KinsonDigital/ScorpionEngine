@@ -111,7 +111,7 @@
                                Title="Random Angle" MinTitle="Min" MaxTitle="Max"/>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Visibility="Hidden">
             <StackPanel Orientation="Vertical">
                 <!--RANDOM ANGULAR VELOCITY-->
                 <ctrls:RandomRange MinLowerLimit="0" MinUpperLimit="360" MaxLowerLimit="0" MaxUpperLimit="360"
@@ -137,9 +137,6 @@
             <ctrls:RandomRange MinLowerLimit="0" MinUpperLimit="300000" MaxLowerLimit="0" MaxUpperLimit="300000"
                                Title="Spawn Rate (ms)" MinTitle="Min" MaxTitle="Max"
                                MinValue="{Binding SpawnRateMin, Mode=TwoWay}" MaxValue="{Binding SpawnRateMax, Mode=TwoWay}"/>
-            <Button Content="Test" Width="16" Height="25" Click="Button_Click" Margin="0,163,0,162.667"/>
-
-            <ctrls:SetupListItem Width="200" SetupPath="C:\temp\test-setup.json"/>
         </StackPanel>
     </Grid>
 </Window>
