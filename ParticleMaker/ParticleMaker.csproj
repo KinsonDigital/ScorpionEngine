@@ -109,6 +109,7 @@
     <Compile Include="UserControls\CustomButton.xaml.cs">
       <DependentUpon>CustomButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\DesignData\SetupListItemData.cs" />
     <Compile Include="UserControls\Enums.cs" />
     <Compile Include="UserControls\ExtensionMethods.cs" />
     <Compile Include="UserControls\NumberBox.xaml.cs">
@@ -121,6 +122,10 @@
       <DependentUpon>RandomRange.xaml</DependentUpon>
     </Compile>
     <Compile Include="CustomEventArgs\ValueChangedEventArgs.cs" />
+    <Compile Include="UserControls\SetupListItem.xaml.cs">
+      <DependentUpon>SetupListItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SetupPathItem.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="ColorPicker.xaml">
       <SubType>Designer</SubType>
@@ -158,6 +163,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\DesignData\SetupListItemData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\NumberBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -191,6 +200,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UserControls\RandomRange.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SetupListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -262,26 +275,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Delete.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ColorPalette.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ColorDropper.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\ColorDropper.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Icons\Delete.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Content\Arrow.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\ColorDropper.png" />
+    <Resource Include="Icons\Delete.png" />
+    <Resource Include="Icons\Edit.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

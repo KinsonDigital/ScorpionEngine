@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="ParticleMaker.UserControls.SetupListItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ParticleMaker.UserControls"
+             mc:Ignorable="d" Name="this">
+
+    <!--ERROR BORDER-->
+    <Border DataContext="{Binding ElementName=this}" d:DataContext="{d:DesignData Source=/UserControls/DesignData/SetupListItemData.xaml}"
+            BorderBrush="{Binding Path=ErrorBorderBrush}" BorderThickness="1">
+        <Grid>
+        <!--SETUP LABEL WITH RENAMBE AND DELETE BUTTONS.  DISPLAY MODE-->
+            <Grid Visibility="Visible">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <!--SETUP NAME-->
+                <Label Grid.Column="0" Content="{Binding Path=SetupName}" Foreground="Black" VerticalContentAlignment="Center"/>
+
+                <!--RENAME BUTTON-->
+                <local:CustomButton x:Name="RenameCustomButton" Grid.Column="1"
+                                    Click="RenameCustomButton_Click">
+                    <local:CustomButton.ButtonContent>
+                        <Image Source="/ParticleMaker;component/Icons/Edit.png" Width="25" Height="25"
+                               Margin="2.5"/>
+                    </local:CustomButton.ButtonContent>
+                </local:CustomButton>
+
+                <!--DELETE BUTTON-->
+                <local:CustomButton x:Name="DeleteCustomButton" Grid.Column="2"
+                                    Click="DeleteCustomButton_Click">
+                    <local:CustomButton.ButtonContent>
+                        <Image Source="/ParticleMaker;component/Icons/Delete.png" Width="25" Height="25"
+                               Margin="2.5"/>
+                    </local:CustomButton.ButtonContent>
+                </local:CustomButton>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

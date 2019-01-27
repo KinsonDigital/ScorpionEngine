@@ -28,6 +28,7 @@ namespace ParticleMaker.ViewModels
         #region Private Fields
         private readonly GraphicsEngine _graphicsEngine;
         private readonly CancellationTokenSource _cancelTokenSrc;
+        private readonly Task _startupTask;
         #endregion
 
 
@@ -44,14 +45,14 @@ namespace ParticleMaker.ViewModels
 
             _cancelTokenSrc = new CancellationTokenSource();
 
-            StartupTask = new Task(() =>
+            _startupTask = new Task(() =>
             {
                 //If the cancellation has not been requested, keep processing.
-                while(!_cancelTokenSrc.IsCancellationRequested)
+                while (!_cancelTokenSrc.IsCancellationRequested)
                 {
                     _cancelTokenSrc.Token.WaitHandle.WaitOne(250);
 
-                    UIDispatcher.Invoke(() =>
+                    UIDispatcher?.Invoke(() =>
                     {
                         if (_cancelTokenSrc.IsCancellationRequested == false && RenderSurface != null && RenderSurface.Handle != IntPtr.Zero)
                         {
@@ -65,21 +66,11 @@ namespace ParticleMaker.ViewModels
                     });
                 }
             }, _cancelTokenSrc.Token);
-
-
-            StartupTask.Start();
         }
         #endregion
 
 
         #region Props
-        internal Task StartupTask { get; set; }
-
-        /// <summary>
-        /// Gets or sets the timer for 
-        /// </summary>
-        internal ThreadTimer StartupTimer { get; set; }
-
         /// <summary>
         /// Gets or sets the surface that the particles will render to.
         /// </summary>
@@ -214,7 +205,7 @@ namespace ParticleMaker.ViewModels
             set
             {
                 _graphicsEngine.ParticleEngine.SizeMin = value;
-           }
+            }
         }
 
         /// <summary>
@@ -386,6 +377,15 @@ namespace ParticleMaker.ViewModels
 
         #region Public Methods
         /// <summary>
+        /// Starts the graphics engine to start the rendering process.
+        /// </summary>
+        public void StartEngine()
+        {
+            _startupTask.Start();
+        }
+
+
+        /// <summary>
         /// Shuts down the graphics engine.
         /// </summary>
         public void ShutdownEngine()
@@ -410,24 +410,6 @@ namespace ParticleMaker.ViewModels
 
 
         /// <summary>
-        /// Invoked by the dispatcher on the UI thread.
-        /// </summary>
-        [ExcludeFromCodeCoverage]
-        private void StartUp()
-        {
-            //if (RenderSurface.Handle != IntPtr.Zero)
-            //{
-            //    _cancelTokenSrc.Cancel();
-
-            //    _graphicsEngine.RenderSurfaceHandle = RenderSurface.Handle;
-            //    _graphicsEngine.ParticleEngine.LivingParticlesCountChanged += _particleEngine_LivingParticlesCountChanged;
-            //    _graphicsEngine.ParticleEngine.SpawnLocation = new CoreVector(200, 200);
-            //    _graphicsEngine.Run();
-            //}
-        }
-
-
-        /// <summary>
         /// Notifies the binding system that a property value has changed.
         /// </summary>
         /// <param name="propName"></param>
@@ -435,7 +417,7 @@ namespace ParticleMaker.ViewModels
         private void NotifyPropChange([CallerMemberName]string propName = "")
         {
             if (!string.IsNullOrEmpty(propName))
-                PropertyChanged(this, new PropertyChangedEventArgs(propName));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
         #endregion
     }

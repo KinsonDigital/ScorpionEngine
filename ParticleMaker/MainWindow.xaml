@@ -54,7 +54,7 @@
                 <ctrls:RandomColorRanges.Style>
                     <Style TargetType="ctrls:RandomColorRanges">
                         <Setter Property="Visibility" Value="Hidden"/>
-                        
+
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding ElementName=RandomColorRadioButton, Path=IsChecked}" Value="True">
                                 <Setter Property="Visibility" Value="Visible"/>
@@ -84,7 +84,7 @@
             <StackPanel Orientation="Vertical">
                 <ctrls:NumericUpDown LabelText="Total Particles" Min="0" Max="100000" Value="{Binding TotalParticles, Mode=TwoWay}"
                                      HorizontalAlignment="Left"/>
-                
+
                 <!--TOTAL LIVING PARTICLES-->
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Total Living Particles:"/>
@@ -97,13 +97,13 @@
                     <Label Content="{Binding TotalDeadParticles}"/>
                 </StackPanel>
             </StackPanel>
-            
+
             <!--RANDOM SIZE SETTINGS-->
             <ctrls:RandomRange HorizontalAlignment="Left" Height="120" VerticalAlignment="Top" Width="181"
                                MinValue="{Binding SizeMin, Mode=TwoWay}" MaxValue="{Binding SizeMax, Mode=TwoWay}"
                                MinLowerLimit="0.1" MinUpperLimit="2" MaxLowerLimit="0.1" MaxUpperLimit="2"
                                Title="Random Size" MinTitle="Min" MaxTitle="Max"/>
-        
+
             <!--RANDOM ANGLE SETTINGS-->
             <ctrls:RandomRange HorizontalAlignment="Left" Height="120" VerticalAlignment="Top" Width="181"
                                MinValue="{Binding AngleMin, Mode=TwoWay}" MaxValue="{Binding AngleMax, Mode=TwoWay}"
@@ -128,7 +128,7 @@
                                    Title="Y Velocity" MinTitle="Min" MaxTitle="Max"
                                    MinValue="{Binding VelocityYMin, Mode=TwoWay}" MaxValue="{Binding VelocityYMax, Mode=TwoWay}"/>
             </StackPanel>
-            
+
             <!--RANDOM PARTICLE LIFETIME (Upper limits set to 5 minutes)-->
             <ctrls:RandomRange MinLowerLimit="0" MinUpperLimit="300000" MaxLowerLimit="0" MaxUpperLimit="300000"
                                Title="Particle LifeTime (ms)" MinTitle="Min" MaxTitle="Max"
@@ -137,7 +137,6 @@
             <ctrls:RandomRange MinLowerLimit="0" MinUpperLimit="300000" MaxLowerLimit="0" MaxUpperLimit="300000"
                                Title="Spawn Rate (ms)" MinTitle="Min" MaxTitle="Max"
                                MinValue="{Binding SpawnRateMin, Mode=TwoWay}" MaxValue="{Binding SpawnRateMax, Mode=TwoWay}"/>
-            <Button Content="Test" Width="75" Height="25" Click="Button_Click"/>
         </StackPanel>
     </Grid>
 </Window>

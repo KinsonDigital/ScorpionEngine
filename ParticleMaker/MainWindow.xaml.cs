@@ -4,9 +4,7 @@ using System.Windows.Forms.Integration;
 using System.ComponentModel;
 using ParticleMaker.ViewModels;
 using System.Diagnostics.CodeAnalysis;
-using ParticleMaker.Dialogs;
 using ThreadTimer = System.Threading.Timer;
-using SysMsgBox = System.Windows.Forms.MessageBox;
 
 namespace ParticleMaker
 {
@@ -28,6 +26,8 @@ namespace ParticleMaker
         /// </summary>
         public MainWindow()
         {
+            _mainViewModel = App.DIContainer.GetInstance<MainViewModel>();
+
             ElementHost.EnableModelessKeyboardInterop(this);
 
             InitializeComponent();
@@ -61,7 +61,6 @@ namespace ParticleMaker
         /// </summary>
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            _mainViewModel = App.DIContainer.GetInstance<MainViewModel>();
             _mainViewModel.RenderSurface = (winFormsHost.Child as PictureBox);
             _mainViewModel.UIDispatcher = Dispatcher;
 
@@ -75,18 +74,9 @@ namespace ParticleMaker
             _mainViewModel.BlueMax = 255;
             _mainViewModel.SizeMin = 1;
             _mainViewModel.SizeMax = 2;
+
+            _mainViewModel.StartEngine();
         }
         #endregion
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var inputDialog = new InputDialog("Input Title", "Input Message", "Default Value");
-
-            inputDialog.ShowDialog();
-
-            var result = inputDialog.InputResult;
-
-            SysMsgBox.Show(result);
-        }
     }
 }

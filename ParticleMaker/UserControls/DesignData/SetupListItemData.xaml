@@ -1,0 +1,9 @@
+﻿<local:SetupListItemData xmlns:local="clr-namespace:ParticleMaker.UserControls.DesignData"
+                         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                         SetupPath="C:\temp\Projects\test-project\setup-a.json"
+                         SetupName="Error!!">
+    
+    <local:SetupListItemData.ErrorBorderBrush>
+        <SolidColorBrush Color="Red"/>
+    </local:SetupListItemData.ErrorBorderBrush>
+</local:SetupListItemData>
