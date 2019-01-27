@@ -74,6 +74,8 @@ namespace ParticleMaker
             _mainViewModel.BlueMax = 255;
             _mainViewModel.SizeMin = 1;
             _mainViewModel.SizeMax = 2;
+
+            _mainViewModel.StartEngine();
         }
         #endregion
     }

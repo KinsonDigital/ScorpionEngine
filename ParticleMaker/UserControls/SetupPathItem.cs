@@ -1,22 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ParticleMaker.UserControls
+﻿namespace ParticleMaker.UserControls
 {
+    /// <summary>
+    /// Represents a single setup file path.
+    /// </summary>
     public class SetupPathItem
     {
-        private string _filePath;
-
-        public string FilePath
-        {
-            get => _filePath;
-            set
-            {
-                _filePath = value;
-            }
-        }
+        /// <summary>
+        /// Gets or sets the path to the setup file.
+        /// </summary>
+        public string FilePath { get; set; }
     }
 }

@@ -280,9 +280,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\Accept.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Icons\ColorDropper.png" />
     <Resource Include="Icons\Delete.png" />
     <Resource Include="Icons\Edit.png" />

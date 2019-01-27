@@ -111,7 +111,7 @@
                                Title="Random Angle" MinTitle="Min" MaxTitle="Max"/>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Visibility="Hidden">
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
             <StackPanel Orientation="Vertical">
                 <!--RANDOM ANGULAR VELOCITY-->
                 <ctrls:RandomRange MinLowerLimit="0" MinUpperLimit="360" MaxLowerLimit="0" MaxUpperLimit="360"

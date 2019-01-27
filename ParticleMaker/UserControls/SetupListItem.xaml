@@ -39,25 +39,6 @@
                     </local:CustomButton.ButtonContent>
                 </local:CustomButton>
             </Grid>
-        
-            <!--RENAME TEXTBOX AND ACCEPT BUTTON. EDIT MODE-->
-            <Grid Visibility="Hidden">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <!--RENAME TEXTBOX-->
-                <TextBox Grid.Column="0" Text="item" VerticalContentAlignment="Center"/>
-            
-                <!--ACCEPT BUTTON-->
-                <local:CustomButton Grid.Column="1" HorizontalAlignment="Right">
-                    <local:CustomButton.ButtonContent>
-                        <Image Source="/ParticleMaker;component/Icons/Accept.png" Width="25" Height="25"
-                               Margin="2.5"/>
-                    </local:CustomButton.ButtonContent>
-                </local:CustomButton>
-            </Grid>
         </Grid>
     </Border>
 </UserControl>

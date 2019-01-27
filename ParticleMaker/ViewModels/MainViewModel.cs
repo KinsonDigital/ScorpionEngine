@@ -20,7 +20,6 @@ namespace ParticleMaker.ViewModels
     /// </summary>
     public class MainViewModel : INotifyPropertyChanged
     {
-
         #region Public Events
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
@@ -29,6 +28,7 @@ namespace ParticleMaker.ViewModels
         #region Private Fields
         private readonly GraphicsEngine _graphicsEngine;
         private readonly CancellationTokenSource _cancelTokenSrc;
+        private readonly Task _startupTask;
         #endregion
 
 
@@ -45,7 +45,7 @@ namespace ParticleMaker.ViewModels
 
             _cancelTokenSrc = new CancellationTokenSource();
 
-            StartupTask = new Task(() =>
+            _startupTask = new Task(() =>
             {
                 //If the cancellation has not been requested, keep processing.
                 while (!_cancelTokenSrc.IsCancellationRequested)
@@ -66,21 +66,11 @@ namespace ParticleMaker.ViewModels
                     });
                 }
             }, _cancelTokenSrc.Token);
-
-
-            StartupTask.Start();
         }
         #endregion
 
 
         #region Props
-        internal Task StartupTask { get; set; }
-
-        /// <summary>
-        /// Gets or sets the timer for 
-        /// </summary>
-        internal ThreadTimer StartupTimer { get; set; }
-
         /// <summary>
         /// Gets or sets the surface that the particles will render to.
         /// </summary>
@@ -387,6 +377,15 @@ namespace ParticleMaker.ViewModels
 
         #region Public Methods
         /// <summary>
+        /// Starts the graphics engine to start the rendering process.
+        /// </summary>
+        public void StartEngine()
+        {
+            _startupTask.Start();
+        }
+
+
+        /// <summary>
         /// Shuts down the graphics engine.
         /// </summary>
         public void ShutdownEngine()
@@ -407,26 +406,6 @@ namespace ParticleMaker.ViewModels
         {
             NotifyPropChange(nameof(TotalLivingParticles));
             NotifyPropChange(nameof(TotalDeadParticles));
-        }
-
-
-        /// <summary>
-        /// Invoked by the dispatcher on the UI thread.
-        /// </summary>
-        [ExcludeFromCodeCoverage]
-        private void StartUp()
-        {
-            //TODO: Remove this commented code and put the StartTask.Start() into this method.
-
-            //if (RenderSurface.Handle != IntPtr.Zero)
-            //{
-            //    _cancelTokenSrc.Cancel();
-
-            //    _graphicsEngine.RenderSurfaceHandle = RenderSurface.Handle;
-            //    _graphicsEngine.ParticleEngine.LivingParticlesCountChanged += _particleEngine_LivingParticlesCountChanged;
-            //    _graphicsEngine.ParticleEngine.SpawnLocation = new CoreVector(200, 200);
-            //    _graphicsEngine.Run();
-            //}
         }
 
 

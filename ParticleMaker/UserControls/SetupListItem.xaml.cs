@@ -172,14 +172,12 @@ namespace ParticleMaker.UserControls
             if (FileExists(ctrl.SetupPath))
             {
                 ctrl.SetupName = Path.GetFileNameWithoutExtension(ctrl.SetupPath);
-
                 ctrl.ErrorBorderBrush = new SolidColorBrush(Color.FromRgb(255, 255, 255));
             }
             else
             {
-                ctrl.ErrorBorderBrush = new SolidColorBrush(Color.FromRgb(255, 0, 0));
-
                 ctrl.SetupName = "Error!!";
+                ctrl.ErrorBorderBrush = new SolidColorBrush(Color.FromRgb(255, 0, 0));
             }
         }
 

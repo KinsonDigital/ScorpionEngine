@@ -7,10 +7,21 @@ namespace ParticleMaker.UserControls.DesignData
     /// </summary>
     public class SetupListItemData
     {
+        #region Props
+        /// <summary>
+        /// Gets or sets the setup path.
+        /// </summary>
         public string SetupPath { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name of the setup.
+        /// </summary>
         public string SetupName { get; set; }
 
+        /// <summary>
+        /// Gets or sets the brush for the error border.
+        /// </summary>
         public SolidColorBrush ErrorBorderBrush { get; set; }
+        #endregion
     }
 }
