@@ -7,7 +7,7 @@
              mc:Ignorable="d" Name="this">
 
     <!--ERROR BORDER-->
-    <Border DataContext="{Binding ElementName=this}" d:DataContext="{d:DesignData Source=/UserControls/DesignData/SetupListItemData.xaml}"
+    <Border DataContext="{Binding ElementName=this}" d:DataContext="{d:DesignData Source=/UserControls/DesignData/UserControlData.xaml}"
             BorderBrush="{Binding Path=ErrorBorderBrush}" BorderThickness="1">
         <Grid>
         <!--SETUP LABEL WITH RENAMBE AND DELETE BUTTONS.  DISPLAY MODE-->

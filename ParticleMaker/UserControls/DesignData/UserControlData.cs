@@ -3,9 +3,9 @@
 namespace ParticleMaker.UserControls.DesignData
 {
     /// <summary>
-    /// Used for design data for the <see cref="SetupListItem"/> user control
+    /// Used for design data for the various user controls.
     /// </summary>
-    public class SetupListItemData
+    public class UserControlData
     {
         #region Props
         /// <summary>

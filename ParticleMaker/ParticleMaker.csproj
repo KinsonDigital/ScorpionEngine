@@ -109,7 +109,7 @@
     <Compile Include="UserControls\CustomButton.xaml.cs">
       <DependentUpon>CustomButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\DesignData\SetupListItemData.cs" />
+    <Compile Include="UserControls\DesignData\UserControlData.cs" />
     <Compile Include="UserControls\Enums.cs" />
     <Compile Include="UserControls\ExtensionMethods.cs" />
     <Compile Include="UserControls\NumberBox.xaml.cs">
@@ -122,6 +122,9 @@
       <DependentUpon>RandomRange.xaml</DependentUpon>
     </Compile>
     <Compile Include="CustomEventArgs\ValueChangedEventArgs.cs" />
+    <Compile Include="UserControls\SetupList.xaml.cs">
+      <DependentUpon>SetupList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SetupListItem.xaml.cs">
       <DependentUpon>SetupListItem.xaml</DependentUpon>
     </Compile>
@@ -163,7 +166,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\DesignData\SetupListItemData.xaml">
+    <Page Include="UserControls\DesignData\UserControlData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -200,6 +203,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UserControls\RandomRange.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SetupList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
