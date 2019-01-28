@@ -291,5 +291,9 @@
     <Resource Include="Icons\Delete.png" />
     <Resource Include="Icons\Edit.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Add.png" />
+    <Resource Include="Icons\Refresh.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

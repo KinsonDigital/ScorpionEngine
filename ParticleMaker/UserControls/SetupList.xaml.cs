@@ -42,6 +42,12 @@ namespace ParticleMaker.UserControls
         /// </summary>
         protected static readonly DependencyProperty ErrorBorderBrushProperty =
             DependencyProperty.Register(nameof(ErrorBorderBrush), typeof(SolidColorBrush), typeof(SetupList), new PropertyMetadata(new SolidColorBrush(Color.FromRgb(255, 0, 0))));
+
+        /// <summary>
+        /// Registers the <see cref="HasError"/> property.
+        /// </summary>
+        protected static readonly DependencyProperty HasErrorProperty =
+            DependencyProperty.Register(nameof(HasError), typeof(bool), typeof(SetupList), new PropertyMetadata(false));
         #endregion
 
 
@@ -72,20 +78,36 @@ namespace ParticleMaker.UserControls
             set { SetValue(ErrorBorderBrushProperty, value); }
         }
 
-
-
-        public bool HasError
+        /// <summary>
+        /// Gets or sets a value indicating if the user control has an error.
+        /// </summary>
+        protected bool HasError
         {
             get { return (bool)GetValue(HasErrorProperty); }
             set { SetValue(HasErrorProperty, value); }
         }
-
-        public static readonly DependencyProperty HasErrorProperty =
-            DependencyProperty.Register(nameof(HasError), typeof(bool), typeof(SetupList), new PropertyMetadata(false));
         #endregion
 
 
         #region Private Methods
+        /// <summary>
+        /// Adds a new setup to the project.
+        /// </summary>
+        private void AddSetupButton_Click(object sender, System.EventArgs e)
+        {
+
+        }
+
+
+        /// <summary>
+        /// Refreshes the list.
+        /// </summary>
+        private void RefreshButton_Click(object sender, System.EventArgs e)
+        {
+
+        }
+
+
         /// <summary>
         /// Updates the list of setups.
         /// </summary>

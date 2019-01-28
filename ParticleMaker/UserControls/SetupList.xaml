@@ -7,7 +7,7 @@
              xmlns:data="clr-namespace:ParticleMaker.UserControls.DesignData"
              d:DataContext="{d:DesignInstance Type=data:UserControlData}"
              DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-             mc:Ignorable="d" Name="this">
+             mc:Ignorable="d" Name="this" Background="White">
 
     <Border BorderBrush="{Binding Path=ErrorBorderBrush}" BorderThickness="0.5">
         <Border.Style>
@@ -23,7 +23,38 @@
         </Border.Style>
         
         <Grid>
-            <ListBox ItemsSource="{Binding Path=Setups}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <!--LABEL, ADD & REFRESH BUTTONS-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Content="Setups:" VerticalAlignment="Bottom" Grid.Column="0" HorizontalAlignment="Stretch"
+                       FontWeight="Bold"/>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                    <local:CustomButton x:Name="AddSetupButton" Click="AddSetupButton_Click">
+                        <local:CustomButton.ButtonContent>
+                            <Image Source="/ParticleMaker;component/Icons/Add.png" Width="25" Height="25"/>
+                        </local:CustomButton.ButtonContent>
+                    </local:CustomButton>
+
+                    <local:CustomButton x:Name="RefreshButton" Click="RefreshButton_Click">
+                        <local:CustomButton.ButtonContent>
+                            <Image Source="/ParticleMaker;component/Icons/Refresh.png"  Width="25" Height="25"/>
+                        </local:CustomButton.ButtonContent>
+                    </local:CustomButton>
+                </StackPanel>
+            </Grid>
+            
+            <!--SETUP LIST-->
+            <ListBox ItemsSource="{Binding Path=Setups}" Grid.Row="1">
                 <ListBox.Style>
                     <Style TargetType="ListBox">
                         <Setter Property="Visibility" Value="Visible"/>
@@ -45,7 +76,7 @@
             </ListBox>
             
             <!--ERROR INFO-->
-            <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Vertical" Grid.Row="0">
                 <StackPanel.Style>
                     <Style TargetType="StackPanel">
                         <Setter Property="Visibility" Value="Hidden"/>
