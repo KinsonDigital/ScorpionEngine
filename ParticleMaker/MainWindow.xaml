@@ -30,6 +30,7 @@
             </WindowsFormsHost.Child>
         </WindowsFormsHost>
 
+        <!--COLOR SETTINGS-->
         <Grid Grid.Row="0" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -138,5 +139,18 @@
                                Title="Spawn Rate (ms)" MinTitle="Min" MaxTitle="Max"
                                MinValue="{Binding SpawnRateMin, Mode=TwoWay}" MaxValue="{Binding SpawnRateMax, Mode=TwoWay}"/>
         </StackPanel>
+
+        <StackPanel Orientation="Vertical">
+            <ctrls:SetupList x:Name="MySetupList" AddSetupClicked="MySetupList_AddSetupClicked">
+                <ctrls:SetupList.Setups>
+                    <x:Array Type="{x:Type ctrls:SetupPathItem}">
+                        <ctrls:SetupPathItem FilePath="C:\temp\projects\test-project\setup-A.json"/>
+                        <ctrls:SetupPathItem FilePath="C:\temp\projects\test-project\setup-B.json"/>
+                    </x:Array>
+                </ctrls:SetupList.Setups>
+            </ctrls:SetupList>
+        </StackPanel>
+
+        <Button x:Name="TestButton" Content="ClickMe" Height="30" Width="100" Click="TestButton_Click"/>
     </Grid>
 </Window>

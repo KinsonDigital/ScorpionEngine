@@ -5,6 +5,8 @@ using System.ComponentModel;
 using ParticleMaker.ViewModels;
 using System.Diagnostics.CodeAnalysis;
 using ThreadTimer = System.Threading.Timer;
+using ParticleMaker.Dialogs;
+using System;
 
 namespace ParticleMaker
 {
@@ -78,5 +80,31 @@ namespace ParticleMaker
             _mainViewModel.StartEngine();
         }
         #endregion
+
+        private void MySetupList_AddSetupClicked(object sender, EventArgs e)
+        {
+            var inputDialog = new InputDialog("Create new setup.", "Type in the new setup name.");
+            var dialogResult = inputDialog.ShowDialog();
+
+            if (dialogResult == true)
+            {
+                var newSetupName = inputDialog.InputValue;
+            }
+        }
+
+        private void TestButton_Click(object sender, RoutedEventArgs e)
+        {
+            MySetupList.Setups = new UserControls.SetupPathItem[]
+            {
+                new UserControls.SetupPathItem()
+                {
+                    FilePath = @"C:\temp\projects\test-project\setup-A.json"
+                },
+                new UserControls.SetupPathItem()
+                {
+                    FilePath = @"C:\temp\projects\test-project\setup-INVALID.json"
+                }
+            };
+        }
     }
 }

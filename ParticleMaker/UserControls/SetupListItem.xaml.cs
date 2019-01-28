@@ -98,7 +98,7 @@ namespace ParticleMaker.UserControls
             if (ctrl == null)
                 return;
 
-            Refresh(ctrl);
+            ctrl.Refresh(ctrl);
         }
 
 
@@ -167,7 +167,7 @@ namespace ParticleMaker.UserControls
         /// Refreshs the control by updating the control's UI based on if the file exists or not.
         /// </summary>
         /// <param name="ctrl">The control with the UI to update.</param>
-        private static void Refresh(SetupListItem ctrl)
+        public void Refresh(SetupListItem ctrl)
         {
             if (DesignerProperties.GetIsInDesignMode(ctrl) || FileExists(ctrl.SetupPath))
             {

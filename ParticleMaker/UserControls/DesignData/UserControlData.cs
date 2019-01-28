@@ -32,6 +32,11 @@ namespace ParticleMaker.UserControls.DesignData
             new SetupPathItem() { FilePath = @"C:\temp\test-setup\setup2.json" },
             new SetupPathItem() { FilePath = @"C:\temp\test-setup\setup3.json" }
         };
+
+        /// <summary>
+        /// Gets or sets the error message during design time.
+        /// </summary>
+        public string ErrorMessage { get; set; } = "This is a test error.";
         #endregion
     }
 }
