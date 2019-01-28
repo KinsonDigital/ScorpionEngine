@@ -38,12 +38,6 @@ namespace ParticleMaker.UserControls
             DependencyProperty.Register(nameof(Setups), typeof(SetupPathItem[]), typeof(SetupList), new PropertyMetadata(new SetupPathItem[0]));
 
         /// <summary>
-        /// Registers the <see cref="ErrorBorderBrush"/> property.
-        /// </summary>
-        protected static readonly DependencyProperty ErrorBorderBrushProperty =
-            DependencyProperty.Register(nameof(ErrorBorderBrush), typeof(SolidColorBrush), typeof(SetupList), new PropertyMetadata(new SolidColorBrush(Color.FromRgb(255, 0, 0))));
-
-        /// <summary>
         /// Registers the <see cref="HasError"/> property.
         /// </summary>
         protected static readonly DependencyProperty HasErrorProperty =
@@ -67,15 +61,6 @@ namespace ParticleMaker.UserControls
         {
             get { return (SetupPathItem[])GetValue(SetupProperty); }
             set { SetValue(SetupProperty, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the color of the error border.
-        /// </summary>
-        protected SolidColorBrush ErrorBorderBrush
-        {
-            get { return (SolidColorBrush)GetValue(ErrorBorderBrushProperty); }
-            set { SetValue(ErrorBorderBrushProperty, value); }
         }
 
         /// <summary>
@@ -104,7 +89,7 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void RefreshButton_Click(object sender, System.EventArgs e)
         {
-
+            ProjectPathChanged(this, new DependencyPropertyChangedEventArgs(ProjectPathProperty, ProjectPath, ProjectPath));
         }
 
 

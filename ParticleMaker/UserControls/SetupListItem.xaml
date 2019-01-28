@@ -8,7 +8,27 @@
 
     <!--ERROR BORDER-->
     <Border DataContext="{Binding ElementName=this}" d:DataContext="{d:DesignData Source=/UserControls/DesignData/UserControlData.xaml}"
-            BorderBrush="{Binding Path=ErrorBorderBrush}" BorderThickness="1">
+            BorderThickness="1">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Setter Property="BorderBrush">
+                    <Setter.Value>
+                        <SolidColorBrush>
+                            <SolidColorBrush.Color>
+                                <Color A="0" R="0" G="0" B="0"/>
+                            </SolidColorBrush.Color>
+                        </SolidColorBrush>
+                    </Setter.Value>
+                </Setter>
+
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=this, Path=HasError}" Value="True">
+                        <Setter Property="BorderBrush" Value="Red"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+        
         <Grid>
         <!--SETUP LABEL WITH RENAMBE AND DELETE BUTTONS.  DISPLAY MODE-->
             <Grid Visibility="Visible">
