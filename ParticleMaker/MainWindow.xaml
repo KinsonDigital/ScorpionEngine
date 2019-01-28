@@ -137,6 +137,9 @@
             <ctrls:RandomRange MinLowerLimit="0" MinUpperLimit="300000" MaxLowerLimit="0" MaxUpperLimit="300000"
                                Title="Spawn Rate (ms)" MinTitle="Min" MaxTitle="Max"
                                MinValue="{Binding SpawnRateMin, Mode=TwoWay}" MaxValue="{Binding SpawnRateMax, Mode=TwoWay}"/>
+            
+            <ctrls:SetupList Width="156" Margin="0,0,0,-0.333"
+                             ProjectPath="C:\temp\Projects\test-project"/>
         </StackPanel>
     </Grid>
 </Window>

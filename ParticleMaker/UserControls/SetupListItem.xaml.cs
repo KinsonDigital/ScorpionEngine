@@ -1,5 +1,6 @@
 ﻿using ParticleMaker.Dialogs;
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -169,7 +170,7 @@ namespace ParticleMaker.UserControls
         /// <param name="ctrl">The control with the UI to update.</param>
         private static void Refresh(SetupListItem ctrl)
         {
-            if (FileExists(ctrl.SetupPath))
+            if (DesignerProperties.GetIsInDesignMode(ctrl) || FileExists(ctrl.SetupPath))
             {
                 ctrl.SetupName = Path.GetFileNameWithoutExtension(ctrl.SetupPath);
                 ctrl.ErrorBorderBrush = new SolidColorBrush(Color.FromRgb(255, 255, 255));

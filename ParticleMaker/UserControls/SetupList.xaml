@@ -4,13 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ParticleMaker.UserControls"
-             mc:Ignorable="d">
+             xmlns:data="clr-namespace:ParticleMaker.UserControls.DesignData"
+             mc:Ignorable="d" Name="this">
     
-    <Grid>
-        <ListBox>
+    <Grid d:DataContext="{d:DesignInstance Type=data:UserControlData}"
+          DataContext="{Binding ElementName=this}">
+        <ListBox ItemsSource="{Binding Path=Setups}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    
+                    <local:SetupListItem SetupPath="{Binding Path=FilePath}"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
