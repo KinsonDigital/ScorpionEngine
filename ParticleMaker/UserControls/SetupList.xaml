@@ -5,16 +5,64 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ParticleMaker.UserControls"
              xmlns:data="clr-namespace:ParticleMaker.UserControls.DesignData"
+             d:DataContext="{d:DesignInstance Type=data:UserControlData}"
+             DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
              mc:Ignorable="d" Name="this">
-    
-    <Grid d:DataContext="{d:DesignInstance Type=data:UserControlData}"
-          DataContext="{Binding ElementName=this}">
-        <ListBox ItemsSource="{Binding Path=Setups}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <local:SetupListItem SetupPath="{Binding Path=FilePath}"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-    </Grid>
+
+    <Border BorderBrush="{Binding Path=ErrorBorderBrush}" BorderThickness="0.5">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Setter Property="BorderBrush" Value="White"/>
+
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=this, Path=HasError}" Value="True">
+                        <Setter Property="BorderBrush" Value="Red"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+        
+        <Grid>
+            <ListBox ItemsSource="{Binding Path=Setups}">
+                <ListBox.Style>
+                    <Style TargetType="ListBox">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=this, Path=HasError}" Value="True">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.Style>
+                
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <local:SetupListItem SetupPath="{Binding Path=FilePath}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            
+            <!--ERROR INFO-->
+            <StackPanel Orientation="Vertical">
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
+                        <Setter Property="Visibility" Value="Hidden"/>
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=this, Path=HasError}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+                
+                <Label Content="ERROR!!" Foreground="Red" FontWeight="Bold" HorizontalAlignment="Center"/>
+
+                <TextBlock Text="The project path does not exist." Foreground="Red" FontWeight="Bold"
+                           HorizontalAlignment="Center" TextWrapping="WrapWithOverflow"/>
+            </StackPanel>
+        </Grid>
+    </Border>
 </UserControl>

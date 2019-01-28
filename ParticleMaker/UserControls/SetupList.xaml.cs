@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace ParticleMaker.UserControls
 {
@@ -35,6 +36,12 @@ namespace ParticleMaker.UserControls
         /// </summary>
         protected static readonly DependencyProperty SetupProperty =
             DependencyProperty.Register(nameof(Setups), typeof(SetupPathItem[]), typeof(SetupList), new PropertyMetadata(new SetupPathItem[0]));
+
+        /// <summary>
+        /// Registers the <see cref="ErrorBorderBrush"/> property.
+        /// </summary>
+        protected static readonly DependencyProperty ErrorBorderBrushProperty =
+            DependencyProperty.Register(nameof(ErrorBorderBrush), typeof(SolidColorBrush), typeof(SetupList), new PropertyMetadata(new SolidColorBrush(Color.FromRgb(255, 0, 0))));
         #endregion
 
 
@@ -47,7 +54,6 @@ namespace ParticleMaker.UserControls
             set { SetValue(ProjectPathProperty, value); }
         }
 
-
         /// <summary>
         /// Gets or sets the list of setup paths.
         /// </summary>
@@ -56,6 +62,26 @@ namespace ParticleMaker.UserControls
             get { return (SetupPathItem[])GetValue(SetupProperty); }
             set { SetValue(SetupProperty, value); }
         }
+
+        /// <summary>
+        /// Gets or sets the color of the error border.
+        /// </summary>
+        protected SolidColorBrush ErrorBorderBrush
+        {
+            get { return (SolidColorBrush)GetValue(ErrorBorderBrushProperty); }
+            set { SetValue(ErrorBorderBrushProperty, value); }
+        }
+
+
+
+        public bool HasError
+        {
+            get { return (bool)GetValue(HasErrorProperty); }
+            set { SetValue(HasErrorProperty, value); }
+        }
+
+        public static readonly DependencyProperty HasErrorProperty =
+            DependencyProperty.Register(nameof(HasError), typeof(bool), typeof(SetupList), new PropertyMetadata(false));
         #endregion
 
 
@@ -94,6 +120,12 @@ namespace ParticleMaker.UserControls
                     {
                         result.Add(new SetupPathItem() { FilePath = setup });
                     }
+
+                    ctrl.HasError = false;
+                }
+                else
+                {
+                    ctrl.HasError = true;
                 }
             }
 

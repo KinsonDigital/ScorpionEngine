@@ -26,7 +26,7 @@
                        VerticalContentAlignment="Stretch" Margin="0, -2, 0, 0" Foreground="Black"/>
         </Border>
 
-        <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right" Grid.Column="1">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
             <!--EDIT-->
             <local:CustomButton x:Name="EditColorButton" Click="EditColorButton_Click">
                 <local:CustomButton.ButtonContent>
