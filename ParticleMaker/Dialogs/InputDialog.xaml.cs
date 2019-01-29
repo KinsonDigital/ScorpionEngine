@@ -1,5 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Forms.Integration;
+using System.Windows.Input;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace ParticleMaker.Dialogs
 {
@@ -11,6 +14,8 @@ namespace ParticleMaker.Dialogs
         #region Fields
         private RelayCommand _okCommmand;
         private RelayCommand _cancelCommand;
+        private char[] _invalidCharacters;
+        private string[] _invalidValues;
         #endregion
 
 
@@ -21,15 +26,25 @@ namespace ParticleMaker.Dialogs
         /// <param name="title">The dialog title.</param>
         /// <param name="message">The dialog message.</param>
         /// <param name="defaultValue">The default value of the dialog input text box.</param>
-        public InputDialog(string title, string message, string defaultValue = "")
+        /// <param name="invalidChars">The list of invalid characters that are not aloud to be input into the textbox.</param>
+        /// <param name="invalidValues">The list of invalid values that will display an error if the input value matches one of these items.</param>
+        public InputDialog(string title, string message, string defaultValue = "", char[] invalidChars = null, string[] invalidValues = null)
         {
             InitializeComponent();
 
             ElementHost.EnableModelessKeyboardInterop(this);
 
+            _invalidCharacters = invalidChars;
+            _invalidValues = invalidValues;
+
             DialogTitle = title;
             Message = message;
             InputValue = defaultValue;
+
+
+            //Select all of the text so the user can start typing immediately
+            InputTextBox.Focus();
+            InputTextBox.SelectAll();
         }
         #endregion
 
@@ -53,6 +68,12 @@ namespace ParticleMaker.Dialogs
         /// </summary>
         public static readonly DependencyProperty InputValueProperty =
             DependencyProperty.Register(nameof(InputValue), typeof(string), typeof(InputDialog), new PropertyMetadata(""));
+
+        /// <summary>
+        /// Registers the <see cref="ContainsInvalidValue"/> property.
+        /// </summary>
+        public static readonly DependencyProperty ContainsInvalidValueProperty =
+            DependencyProperty.Register(nameof(ContainsInvalidValue), typeof(bool), typeof(InputDialog), new PropertyMetadata(false));
         #endregion
 
 
@@ -128,6 +149,62 @@ namespace ParticleMaker.Dialogs
         /// Gets the result of the input that the user entered.
         /// </summary>
         public string InputResult => InputValue;
+
+        /// <summary>
+        /// Gets or sets a value that indicates if the casing of the invalid values should
+        /// be ignored.
+        /// </summary>
+        public bool IgnoreInvalidValueCasing { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating if the input text box contains an invalid value.
+        /// </summary>
+        public bool ContainsInvalidValue
+        {
+            get { return (bool)GetValue(ContainsInvalidValueProperty); }
+            set { SetValue(ContainsInvalidValueProperty, value); }
+        }
         #endregion
+
+
+        #region Private Methods
+        /// <summary>
+        /// Prevents any invalid characters from entering the input text box.
+        /// </summary>
+        private void InputTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = e.Text.Length > 0 && _invalidCharacters.Contains(e.Text[e.Text.Length - 1]);
+        }
+
+
+        /// <summary>
+        /// Shows an error if the input text box contains an invalid value.
+        /// </summary>
+        private void InputTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            var invalidValues = new string[0];
+
+            //If casing is to be ignored, convert all of the invalid values to lower case
+            if (IgnoreInvalidValueCasing)
+            {
+                var processedValues = new List<string>();
+
+                foreach (var value in _invalidValues)
+                {
+                    processedValues.Add(value.ToLower());
+                }
+
+                invalidValues = processedValues.ToArray();
+            }
+            else
+            {
+                invalidValues = _invalidValues;
+            }
+
+            //Check if the input text box value is an invalid value.  Take ignoring casing into account
+            ContainsInvalidValue = invalidValues.Contains(IgnoreInvalidValueCasing ? InputTextBox.Text.ToLower() : InputTextBox.Text);
+        }
+        #endregion
+
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" Title="{Binding Path=DialogTitle}" Name="this"
         WindowStartupLocation="CenterOwner" SizeToContent="WidthAndHeight"
-        MinWidth="300" MaxWidth="350" MinHeight="200" ShowInTaskbar="False" WindowStyle="ToolWindow"
+        MinWidth="300" MaxWidth="350" MinHeight="200" WindowStyle="ToolWindow"
         DataContext="{Binding ElementName=this}"
         d:DataContext="{d:DesignData Source=/Dialogs/DesignData/InputDialogData.xaml}" ResizeMode="NoResize">
 
@@ -22,6 +22,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
             
             <Grid.ColumnDefinitions>
@@ -29,15 +30,48 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             
+            <!--INPUT VALUE TEXTBOX-->
             <TextBox Name="InputTextBox" Grid.Row="0" Grid.ColumnSpan="2" MinWidth="250" Margin="5" VerticalAlignment="Center"
-                     Text="{Binding Path=InputValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                     Text="{Binding Path=InputValue, Mode=TwoWay}"
+                     PreviewTextInput="InputTextBox_PreviewTextInput"
+                     TextChanged="InputTextBox_TextChanged"/>
 
-            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-                <Button Content="Ok" Margin="6" Width="75" Height="25"
-                        Command="{Binding Path=OkCommand}" IsEnabled="{Binding ElementName=InputTextBox, Path=Text.Length}"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                <Button Content="Ok" Margin="6" Width="75" Height="25" Command="{Binding Path=OkCommand}">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="IsEnabled" Value="True"/>
+
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=this, Path=ContainsInvalidValue}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding ElementName=InputTextBox, Path=Text.Length}" Value="0">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
                 <Button Content="Cancel" Margin="6" Width="75" Height="25" HorizontalAlignment="Right"
                         Command="{Binding Path=CancelCommand}"/>
             </StackPanel>
+
+            <Label Content="The input box value is an invalid value." Grid.Row="2"
+                   FontWeight="Bold" Foreground="Red">
+                <Label.Style>
+                    <Style TargetType="Label">
+                        <Setter Property="Visibility" Value="Hidden"/>
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=this, Path=ContainsInvalidValue}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
         </Grid>
     </Grid>
 </Window>

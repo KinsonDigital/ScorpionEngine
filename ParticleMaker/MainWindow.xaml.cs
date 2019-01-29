@@ -94,17 +94,11 @@ namespace ParticleMaker
 
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
-            MySetupList.Setups = new UserControls.SetupPathItem[]
-            {
-                new UserControls.SetupPathItem()
-                {
-                    FilePath = @"C:\temp\projects\test-project\setup-A.json"
-                },
-                new UserControls.SetupPathItem()
-                {
-                    FilePath = @"C:\temp\projects\test-project\setup-INVALID.json"
-                }
-            };
+            var inputDialog = new InputDialog("Test Title", "Test Msg", "Default Value", new[] { 'A', '/', 'C', 'd' }, new[] { "calvin" });
+
+            inputDialog.IgnoreInvalidValueCasing = true;
+            inputDialog.ShowDialog();
+
         }
     }
 }
