@@ -77,7 +77,7 @@ namespace ParticleMaker
             _mainViewModel.SizeMin = 1;
             _mainViewModel.SizeMax = 2;
 
-            //_mainViewModel.StartEngine();
+            _mainViewModel.StartEngine();
         }
         #endregion
 

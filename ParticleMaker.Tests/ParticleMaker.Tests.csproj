@@ -118,7 +118,6 @@
     <Compile Include="Services\ContentDirectoryServiceTests.cs" />
     <Compile Include="Project\ProjectSettingsManagerTests.cs" />
     <Compile Include="Project\ProjectManagerTests.cs" />
-    <Compile Include="Services\KeyboardServiceTests.cs" />
     <Compile Include="Services\SetupDeployServiceTests.cs" />
     <Compile Include="UserControls\ExtensionMethodsTests.cs" />
     <Compile Include="ViewModels\MainViewModelTests.cs" />
