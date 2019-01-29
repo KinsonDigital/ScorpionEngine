@@ -77,7 +77,7 @@ namespace ParticleMaker
             _mainViewModel.SizeMin = 1;
             _mainViewModel.SizeMax = 2;
 
-            _mainViewModel.StartEngine();
+            //_mainViewModel.StartEngine();
         }
         #endregion
 
@@ -94,8 +94,9 @@ namespace ParticleMaker
 
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
-            var inputDialog = new InputDialog("Test Title", "Test Msg", "Default Value", new[] { 'A', '/', 'C', 'd' });
+            var inputDialog = new InputDialog("Test Title", "Test Msg", "Default Value", new[] { 'A', '/', 'C', 'd' }, new[] { "calvin" });
 
+            inputDialog.IgnoreInvalidValueCasing = true;
             inputDialog.ShowDialog();
 
         }
