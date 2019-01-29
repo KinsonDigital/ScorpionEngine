@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Forms.Integration;
+using System.Windows.Input;
+using System.Linq;
 
 namespace ParticleMaker.Dialogs
 {
@@ -11,6 +13,8 @@ namespace ParticleMaker.Dialogs
         #region Fields
         private RelayCommand _okCommmand;
         private RelayCommand _cancelCommand;
+        private char[] _invalidCharacters;
+        private string[] _invalidValues;
         #endregion
 
 
@@ -21,7 +25,9 @@ namespace ParticleMaker.Dialogs
         /// <param name="title">The dialog title.</param>
         /// <param name="message">The dialog message.</param>
         /// <param name="defaultValue">The default value of the dialog input text box.</param>
-        public InputDialog(string title, string message, string defaultValue = "")
+        /// <param name="invalidChars">The list of invalid characters that are not aloud to be input into the textbox.</param>
+        /// <param name="invalidValues">The list of invalid values that will display an error if the input value matches one of these items.</param>
+        public InputDialog(string title, string message, string defaultValue = "", char[] invalidChars = null, string[] invalidValues = null)
         {
             InitializeComponent();
 
@@ -30,6 +36,19 @@ namespace ParticleMaker.Dialogs
             DialogTitle = title;
             Message = message;
             InputValue = defaultValue;
+
+            _invalidCharacters = invalidChars;
+            //Lower case all of the characters
+            for (int i = 0; i < _invalidCharacters.Length; i++)
+            {
+                _invalidCharacters[i] = _invalidCharacters[i].ToString().ToLower()[0];
+            }
+
+            _invalidValues = invalidValues;
+
+            //Select all of the text so the user can start typing immediately
+            InputTextBox.Focus();
+            InputTextBox.SelectAll();
         }
         #endregion
 
@@ -129,5 +148,44 @@ namespace ParticleMaker.Dialogs
         /// </summary>
         public string InputResult => InputValue;
         #endregion
+
+        private void InputTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            return;
+            if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
+                return;
+
+            var isNumberKey = e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9
+                              ||
+                              e.Key >= Key.D0 && e.Key <= Key.D9;
+
+            var typedCharacter = isNumberKey ?
+                e.Key.ToString().ToLower()[e.Key.ToString().Length - 1]:
+                e.Key.ToString().ToLower()[0];
+
+            if (_invalidCharacters.Contains(typedCharacter))
+                e.Handled = true;
+
+
+            /*
+            Key.OemComma
+            Key.OemPeriod
+            Key.OemMinus
+            Key.OemPlus
+            Key.Divide
+            Key.Multiply
+            Key.Subtract
+            Key.Add
+            Key.Oem1
+            Key.Oem2
+            Key.Oem3
+            Key.Oem4
+            Key.Oem5
+            Key.Oem6
+            Key.Oem7
+            */
+
+
+        }
     }
 }

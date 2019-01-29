@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" Title="{Binding Path=DialogTitle}" Name="this"
         WindowStartupLocation="CenterOwner" SizeToContent="WidthAndHeight"
-        MinWidth="300" MaxWidth="350" MinHeight="200" ShowInTaskbar="False" WindowStyle="ToolWindow"
+        MinWidth="300" MaxWidth="350" MinHeight="200" WindowStyle="ToolWindow"
         DataContext="{Binding ElementName=this}"
         d:DataContext="{d:DesignData Source=/Dialogs/DesignData/InputDialogData.xaml}" ResizeMode="NoResize">
 
@@ -29,8 +29,10 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             
+            <!--INPUT VALUE TEXTBOX-->
             <TextBox Name="InputTextBox" Grid.Row="0" Grid.ColumnSpan="2" MinWidth="250" Margin="5" VerticalAlignment="Center"
-                     Text="{Binding Path=InputValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                     Text="{Binding Path=InputValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     PreviewKeyDown="InputTextBox_PreviewKeyDown"/>
 
             <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right">
                 <Button Content="Ok" Margin="6" Width="75" Height="25"
