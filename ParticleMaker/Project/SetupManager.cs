@@ -14,7 +14,6 @@ namespace ParticleMaker.Project
         #region Fields
         private readonly IDirectoryService _directoryService;
         private readonly IFileService _fileService;
-        private readonly string _projectName;
         private readonly string _rootProjectsPath;
         #endregion
 
@@ -26,17 +25,12 @@ namespace ParticleMaker.Project
         /// <param name="directoryService">The directory service used to manage directories.</param>
         /// <param name="fileService">The file service used to manage files.</param>
         /// <param name="projectName">The name of the project the setups belong to.</param>
-        public SetupManager(IDirectoryService directoryService, IFileService fileService, string projectName)
+        public SetupManager(IDirectoryService directoryService, IFileService fileService)
         {
             _directoryService = directoryService;
             _fileService = fileService;
 
-            _projectName = projectName;
             _rootProjectsPath = $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Projects";
-
-
-            if (!ProjectExists(_projectName))
-                throw new ProjectDoesNotExistException(_projectName);
         }
         #endregion
 
@@ -46,11 +40,11 @@ namespace ParticleMaker.Project
         /// Creates a new setup file using the given <paramref name="projectName"/>.
         /// </summary>
         /// <param name="setupName">The name to give the particle setup.</param>
-        public void Create(string setupName)
+        public void Create(string projectName, string setupName)
         {
-            if (ProjectExists(_projectName))
+            if (ProjectExists(projectName))
             {
-                var projPath = $@"{_rootProjectsPath}\{_projectName}";
+                var projPath = $@"{_rootProjectsPath}\{projectName}";
                 var setupPath = $@"{projPath}\{setupName}.json";
 
                 //If the particle setup already exists, throw an exception
@@ -83,11 +77,11 @@ namespace ParticleMaker.Project
         /// </summary>
         /// <param name="setupName">The current name of the setup to rename.</param>
         /// <param name="newName">The new name to name the setup.</param>
-        public void Rename(string setupName, string newName)
+        public void Rename(string projectName, string setupName, string newName)
         {
-            if (ProjectExists(_projectName))
+            if (ProjectExists(projectName))
             {
-                var projPath = $@"{_rootProjectsPath}\{_projectName}";
+                var projPath = $@"{_rootProjectsPath}\{projectName}";
                 var setupPath = $@"{projPath}\{setupName}.json";
 
                 //If the particle setup alread exists
@@ -114,11 +108,11 @@ namespace ParticleMaker.Project
         /// Deletes the setup with the given <paramref name="name"/>.
         /// </summary>
         /// <param name="name">The name of the setup to delete.</param>
-        public void Delete(string name)
+        public void Delete(string projectName, string name)
         {
-            var setupPath = $@"{_rootProjectsPath}\{_projectName}\{name}.json";
+            var setupPath = $@"{_rootProjectsPath}\{projectName}\{name}.json";
 
-            if (ProjectExists(_projectName))
+            if (ProjectExists(projectName))
             {
                 if (_fileService.Exists(setupPath))
                 {
@@ -131,7 +125,7 @@ namespace ParticleMaker.Project
             }
             else
             {
-                throw new ProjectDoesNotExistException(_projectName);
+                throw new ProjectDoesNotExistException(projectName);
             }
         }
         #endregion

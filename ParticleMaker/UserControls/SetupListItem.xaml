@@ -7,13 +7,32 @@
              mc:Ignorable="d" Name="this">
 
     <!--ERROR BORDER-->
-    <Border DataContext="{Binding ElementName=this}" d:DataContext="{d:DesignData Source=/UserControls/DesignData/SetupListItemData.xaml}"
-            BorderBrush="{Binding Path=ErrorBorderBrush}" BorderThickness="1">
+    <Border DataContext="{Binding ElementName=this}" d:DataContext="{d:DesignData Source=/UserControls/DesignData/UserControlData.xaml}"
+            BorderThickness="1">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Setter Property="BorderBrush">
+                    <Setter.Value>
+                        <SolidColorBrush>
+                            <SolidColorBrush.Color>
+                                <Color A="0" R="0" G="0" B="0"/>
+                            </SolidColorBrush.Color>
+                        </SolidColorBrush>
+                    </Setter.Value>
+                </Setter>
+
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=this, Path=HasError}" Value="True">
+                        <Setter Property="BorderBrush" Value="Red"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+        
         <Grid>
         <!--SETUP LABEL WITH RENAMBE AND DELETE BUTTONS.  DISPLAY MODE-->
             <Grid Visibility="Visible">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
@@ -22,22 +41,24 @@
                 <Label Grid.Column="0" Content="{Binding Path=SetupName}" Foreground="Black" VerticalContentAlignment="Center"/>
 
                 <!--RENAME BUTTON-->
-                <local:CustomButton x:Name="RenameCustomButton" Grid.Column="1"
-                                    Click="RenameCustomButton_Click">
-                    <local:CustomButton.ButtonContent>
-                        <Image Source="/ParticleMaker;component/Icons/Edit.png" Width="25" Height="25"
-                               Margin="2.5"/>
-                    </local:CustomButton.ButtonContent>
-                </local:CustomButton>
+                <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
+                    <local:CustomButton x:Name="RenameCustomButton"
+                                        Click="RenameCustomButton_Click">
+                        <local:CustomButton.ButtonContent>
+                            <Image Source="/ParticleMaker;component/Icons/Edit.png" Width="25" Height="25"
+                                   Margin="2.5"/>
+                        </local:CustomButton.ButtonContent>
+                    </local:CustomButton>
 
-                <!--DELETE BUTTON-->
-                <local:CustomButton x:Name="DeleteCustomButton" Grid.Column="2"
-                                    Click="DeleteCustomButton_Click">
-                    <local:CustomButton.ButtonContent>
-                        <Image Source="/ParticleMaker;component/Icons/Delete.png" Width="25" Height="25"
-                               Margin="2.5"/>
-                    </local:CustomButton.ButtonContent>
-                </local:CustomButton>
+                    <!--DELETE BUTTON-->
+                    <local:CustomButton x:Name="DeleteCustomButton"
+                                        Click="DeleteCustomButton_Click">
+                        <local:CustomButton.ButtonContent>
+                            <Image Source="/ParticleMaker;component/Icons/Delete.png" Width="25" Height="25"
+                                   Margin="2.5"/>
+                        </local:CustomButton.ButtonContent>
+                    </local:CustomButton>
+                </StackPanel>
             </Grid>
         </Grid>
     </Border>

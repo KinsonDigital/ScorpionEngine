@@ -1,9 +1,9 @@
 ﻿using ParticleMaker.Dialogs;
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace ParticleMaker.UserControls
 {
@@ -43,10 +43,10 @@ namespace ParticleMaker.UserControls
             DependencyProperty.Register(nameof(SetupName), typeof(string), typeof(SetupListItem), new PropertyMetadata(""));
 
         /// <summary>
-        /// Registers the <see cref="ErrorBorderBrush"/> property.
+        /// Registers the <see cref="HasError"/> property.
         /// </summary>
-        protected static readonly DependencyProperty ErrorBorderBrushProperty =
-            DependencyProperty.Register(nameof(ErrorBorderBrush), typeof(SolidColorBrush), typeof(SetupListItem), new PropertyMetadata(new SolidColorBrush(Color.FromRgb(255, 255, 255))));
+        protected static readonly DependencyProperty HasErrorProperty =
+                    DependencyProperty.Register(nameof(HasError), typeof(bool), typeof(SetupListItem), new PropertyMetadata(false));
         #endregion
 
 
@@ -72,12 +72,12 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Gets or sets the brush color for the error border.
+        /// Gets or sets a value indicating if the control has an error.
         /// </summary>
-        protected SolidColorBrush ErrorBorderBrush
+        protected bool HasError
         {
-            get { return (SolidColorBrush)GetValue(ErrorBorderBrushProperty); }
-            set { SetValue(ErrorBorderBrushProperty, value); }
+            get { return (bool)GetValue(HasErrorProperty); }
+            set { SetValue(HasErrorProperty, value); }
         }
         #endregion
 
@@ -98,7 +98,7 @@ namespace ParticleMaker.UserControls
             if (ctrl == null)
                 return;
 
-            Refresh(ctrl);
+            ctrl.Refresh(ctrl);
         }
 
 
@@ -167,17 +167,17 @@ namespace ParticleMaker.UserControls
         /// Refreshs the control by updating the control's UI based on if the file exists or not.
         /// </summary>
         /// <param name="ctrl">The control with the UI to update.</param>
-        private static void Refresh(SetupListItem ctrl)
+        public void Refresh(SetupListItem ctrl)
         {
-            if (FileExists(ctrl.SetupPath))
+            if (DesignerProperties.GetIsInDesignMode(ctrl) || FileExists(ctrl.SetupPath))
             {
                 ctrl.SetupName = Path.GetFileNameWithoutExtension(ctrl.SetupPath);
-                ctrl.ErrorBorderBrush = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                ctrl.HasError = false;
             }
             else
             {
                 ctrl.SetupName = "Error!!";
-                ctrl.ErrorBorderBrush = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+                ctrl.HasError = true;
             }
         }
 
