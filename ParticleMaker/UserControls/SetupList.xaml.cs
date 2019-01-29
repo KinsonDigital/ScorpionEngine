@@ -10,7 +10,7 @@ namespace ParticleMaker.UserControls
     /// </summary>
     public partial class SetupList : UserControl
     {
-        #region Public Event
+        #region Public Events
         /// <summary>
         /// Invoked when the add setup button has been clicked.
         /// </summary>

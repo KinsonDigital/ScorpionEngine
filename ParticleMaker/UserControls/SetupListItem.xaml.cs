@@ -72,7 +72,7 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Gets or sets a valud indicating if the control has an error.
+        /// Gets or sets a value indicating if the control has an error.
         /// </summary>
         protected bool HasError
         {
