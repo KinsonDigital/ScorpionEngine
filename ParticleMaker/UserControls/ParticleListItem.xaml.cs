@@ -67,7 +67,6 @@ namespace ParticleMaker.UserControls
             set { SetValue(ParticleNameProperty, value); }
         }
 
-
         /// <summary>
         /// Gets or sets the particle file path.
         /// </summary>
@@ -76,7 +75,6 @@ namespace ParticleMaker.UserControls
             get { return (string)GetValue(ParticleFilePathProperty); }
             set { SetValue(ParticleFilePathProperty, value); }
         }
-
 
         /// <summary>
         /// Gets or sets a value indicating if the user control has an error.

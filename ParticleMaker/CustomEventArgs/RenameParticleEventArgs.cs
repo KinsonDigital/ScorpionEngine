@@ -25,7 +25,6 @@
         /// </summary>
         public string ParticleName { get; set; }
 
-
         /// <summary>
         /// Gets or sets the path to the particle file.
         /// </summary>
