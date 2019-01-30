@@ -24,5 +24,39 @@ namespace ParticleMaker.UserControls
             InitializeComponent();
         }
         #endregion
+
+
+        #region Props
+        #region Dependency Props
+        /// <summary>
+        /// Registers the <see cref="Particles"/> property.
+        /// </summary>
+        public static readonly DependencyProperty ParticlesProperty =
+            DependencyProperty.Register(nameof(Particles), typeof(PathItem[]), typeof(SetupList), new PropertyMetadata(new PathItem[0], ParticlesChanged));
+        #endregion
+
+        /// <summary>
+        /// Gets or sets the list of particle paths.
+        /// </summary>
+        public PathItem[] Particles
+        {
+            get { return (PathItem[])GetValue(ParticlesProperty); }
+            set { SetValue(ParticlesProperty, value); }
+        }
+        #endregion
+
+
+        #region Private Methods
+        /// <summary>
+        /// Refreshes the list when the list of particle path items change.
+        /// </summary>
+        private static void ParticlesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var ctrl = (SetupList)d;
+
+            if (ctrl == null)
+                return;
+        }
+        #endregion
     }
 }

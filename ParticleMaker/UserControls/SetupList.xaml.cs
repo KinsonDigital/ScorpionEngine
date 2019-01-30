@@ -39,8 +39,8 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Registers the <see cref="Setups"/> property.
         /// </summary>
-        public static readonly DependencyProperty SetupProperty =
-            DependencyProperty.Register(nameof(Setups), typeof(SetupPathItem[]), typeof(SetupList), new PropertyMetadata(new SetupPathItem[0], SetupsChanged));
+        public static readonly DependencyProperty SetupsProperty =
+            DependencyProperty.Register(nameof(Setups), typeof(PathItem[]), typeof(SetupList), new PropertyMetadata(new PathItem[0], SetupsChanged));
 
         /// <summary>
         /// Registers the <see cref="HasError"/> property.
@@ -58,10 +58,10 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Gets or sets the list of setup paths.
         /// </summary>
-        public SetupPathItem[] Setups
+        public PathItem[] Setups
         {
-            get { return (SetupPathItem[])GetValue(SetupProperty); }
-            set { SetValue(SetupProperty, value); }
+            get { return (PathItem[])GetValue(SetupsProperty); }
+            set { SetValue(SetupsProperty, value); }
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Gets the selected setup.
         /// </summary>
-        public SetupPathItem SelectedSetup { get; private set; }
+        public PathItem SelectedSetup { get; private set; }
         #endregion
 
 
@@ -133,7 +133,7 @@ namespace ParticleMaker.UserControls
             var originalSrcType = e.OriginalSource.GetType();
             var srcType = e.Source.GetType();
 
-            var selectedItem = SetupListBox.SelectedItem as SetupPathItem;
+            var selectedItem = SetupListBox.SelectedItem as PathItem;
 
             if (selectedItem == null)
                 return;

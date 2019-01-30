@@ -139,7 +139,7 @@
     <Compile Include="UserControls\SetupListItem.xaml.cs">
       <DependentUpon>SetupListItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SetupPathItem.cs" />
+    <Compile Include="UserControls\PathItem.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="ColorPicker.xaml">
       <SubType>Designer</SubType>

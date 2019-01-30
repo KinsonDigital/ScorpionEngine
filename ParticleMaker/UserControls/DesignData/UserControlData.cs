@@ -26,11 +26,11 @@ namespace ParticleMaker.UserControls.DesignData
         /// <summary>
         /// Gets or sets the setup paths design data for the <see cref="SetupList"/> user control.
         /// </summary>
-        public SetupPathItem[] Setups { get; set; } = new SetupPathItem[]
+        public PathItem[] Setups { get; set; } = new PathItem[]
         {
-            new SetupPathItem() { FilePath = @"C:\temp\test-setup\setup1.json" },
-            new SetupPathItem() { FilePath = @"C:\temp\test-setup\setup2.json" },
-            new SetupPathItem() { FilePath = @"C:\temp\test-setup\setup3.json" }
+            new PathItem() { FilePath = @"C:\temp\test-setup\setup1.json" },
+            new PathItem() { FilePath = @"C:\temp\test-setup\setup2.json" },
+            new PathItem() { FilePath = @"C:\temp\test-setup\setup3.json" }
         };
 
         /// <summary>
