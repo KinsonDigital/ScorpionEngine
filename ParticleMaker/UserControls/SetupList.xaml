@@ -9,40 +9,7 @@
              DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
              mc:Ignorable="d" Name="this" Background="White">
 
-    <UserControl.Resources>
-        <!--Used to show or hide the framework element depending on if the control has an error-->
-        <Style x:Key="HiddenStyle" TargetType="FrameworkElement">
-            <Setter Property="Visibility" Value="Visible"/>
-
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding ElementName=this, Path=HasError}" Value="True">
-                    <Setter Property="Visibility" Value="Hidden"/>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-    </UserControl.Resources>
-    
     <Border BorderThickness="1">
-        <Border.Style>
-            <Style TargetType="Border">
-                <Setter Property="BorderBrush">
-                    <Setter.Value>
-                        <SolidColorBrush>
-                            <SolidColorBrush.Color>
-                                <Color A="0" R="0" G="0" B="0"/>
-                            </SolidColorBrush.Color>
-                        </SolidColorBrush>
-                    </Setter.Value>
-                </Setter>
-                
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=this, Path=HasError}" Value="True">
-                        <Setter Property="BorderBrush" Value="Red"/>
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-        </Border.Style>
-        
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -50,7 +17,7 @@
             </Grid.RowDefinitions>
 
             <!--LABEL, ADD & REFRESH BUTTONS-->
-            <Grid Style="{StaticResource HiddenStyle}">
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="Auto"/>
@@ -60,12 +27,14 @@
                        FontWeight="Bold"/>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                    <!--ADD BUTTON-->
                     <local:CustomButton x:Name="AddSetupButton" Click="AddSetupButton_Click">
                         <local:CustomButton.ButtonContent>
                             <Image Source="/ParticleMaker;component/Icons/Add.png" Width="25" Height="25"/>
                         </local:CustomButton.ButtonContent>
                     </local:CustomButton>
 
+                    <!--REFRESH BUTTON-->
                     <local:CustomButton x:Name="RefreshButton" Click="RefreshButton_Click">
                         <local:CustomButton.ButtonContent>
                             <Image Source="/ParticleMaker;component/Icons/Refresh.png"  Width="25" Height="25"/>
@@ -75,7 +44,7 @@
             </Grid>
             
             <!--SETUP LIST-->
-            <ListBox x:Name="SetupListBox" ItemsSource="{Binding Path=Setups}" Grid.Row="1" Style="{StaticResource HiddenStyle}"
+            <ListBox x:Name="SetupListBox" ItemsSource="{Binding Path=Setups}" Grid.Row="1"
                      HorizontalContentAlignment="Stretch" SelectionChanged="SetupListBox_SelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -83,26 +52,6 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            
-            <!--ERROR INFO-->
-            <StackPanel Orientation="Vertical" Grid.Row="0">
-                <StackPanel.Style>
-                    <Style TargetType="StackPanel">
-                        <Setter Property="Visibility" Value="Hidden"/>
-
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=this, Path=HasError}" Value="True">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </StackPanel.Style>
-                
-                <Label Content="ERROR!!" Foreground="Red" FontWeight="Bold" HorizontalAlignment="Center"/>
-
-                <TextBlock Text="{Binding}" Foreground="Red" FontWeight="Bold"
-                           HorizontalAlignment="Center" TextWrapping="WrapWithOverflow"/>
-            </StackPanel>
         </Grid>
     </Border>
 </UserControl>

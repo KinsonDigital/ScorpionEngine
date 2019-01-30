@@ -41,12 +41,6 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public static readonly DependencyProperty SetupsProperty =
             DependencyProperty.Register(nameof(Setups), typeof(PathItem[]), typeof(SetupList), new PropertyMetadata(new PathItem[0], SetupsChanged));
-
-        /// <summary>
-        /// Registers the <see cref="HasError"/> property.
-        /// </summary>
-        protected static readonly DependencyProperty HasErrorProperty =
-            DependencyProperty.Register(nameof(HasError), typeof(bool), typeof(SetupList), new PropertyMetadata(false));
         #endregion
 
         /// <summary>
@@ -56,15 +50,6 @@ namespace ParticleMaker.UserControls
         {
             get { return (PathItem[])GetValue(SetupsProperty); }
             set { SetValue(SetupsProperty, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating if the user control has an error.
-        /// </summary>
-        protected bool HasError
-        {
-            get { return (bool)GetValue(HasErrorProperty); }
-            set { SetValue(HasErrorProperty, value); }
         }
 
         /// <summary>
