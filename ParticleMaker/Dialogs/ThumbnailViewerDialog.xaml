@@ -19,18 +19,6 @@
         </Style>
     </Window.Style>
     
-    <Window.Resources>
-        <Style x:Key="ErrorStyle" TargetType="FrameworkElement">
-            <Setter Property="Visibility" Value="Hidden"/>
-
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Path=HasError}" Value="True">
-                    <Setter Property="Visibility" Value="Visible"/>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
