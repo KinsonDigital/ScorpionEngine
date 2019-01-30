@@ -10,7 +10,7 @@
              mc:Ignorable="d" Name="this" Background="White">
 
     <UserControl.Resources>
-        <!--Used to show or hide the framework element depending on if th control has an error-->
+        <!--Used to show or hide the framework element depending on if the control has an error-->
         <Style x:Key="HiddenStyle" TargetType="FrameworkElement">
             <Setter Property="Visibility" Value="Visible"/>
 

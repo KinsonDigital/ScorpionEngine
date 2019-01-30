@@ -120,6 +120,9 @@
     <Compile Include="UserControls\NumberBox.xaml.cs">
       <DependentUpon>NumberBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ParticleList.xaml.cs">
+      <DependentUpon>ParticleList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ParticleListItem.xaml.cs">
       <DependentUpon>ParticleListItem.xaml</DependentUpon>
     </Compile>
@@ -183,6 +186,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\NumberBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ParticleList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
