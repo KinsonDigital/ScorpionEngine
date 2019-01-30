@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace ParticleMaker.UserControls
@@ -26,6 +28,44 @@ namespace ParticleMaker.UserControls
         /// </summary>
         protected static readonly DependencyProperty ParticleNameProperty =
             DependencyProperty.Register(nameof(ParticleName), typeof(string), typeof(ParticleListItem), new PropertyMetadata(""));
+
+        /// <summary>
+        /// Registers the <see cref="ParticleFilePath"/> property.
+        /// </summary>
+        public static readonly DependencyProperty ParticleFilePathProperty =
+            DependencyProperty.Register(nameof(ParticleFilePath), typeof(string), typeof(ParticleListItem), new PropertyMetadata("", ParticlePathChanged));
+
+        /// <summary>
+        /// Sets the <see cref="ParticleName"/> property.
+        /// </summary>
+        private static void ParticlePathChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var ctrl = (ParticleListItem)d;
+
+            if (ctrl == null)
+                return;
+
+            var filePath = e.NewValue as string;
+
+            if (string.IsNullOrEmpty(filePath))
+            {
+                ctrl.ParticleName = "";
+            }
+            else
+            {
+                if (File.Exists(filePath))
+                {
+                    ctrl.ParticleName = Path.GetFileNameWithoutExtension(filePath);
+
+                    //TODO: Set the error bool prop to false
+                }
+                else
+                {
+                    ctrl.ParticleName = "";
+                    //TODO: Set the error bool prop to false
+                }
+            }
+        }
         #endregion
 
 
@@ -36,6 +76,16 @@ namespace ParticleMaker.UserControls
         {
             get { return (string)GetValue(ParticleNameProperty); }
             set { SetValue(ParticleNameProperty, value); }
+        }
+
+
+        /// <summary>
+        /// Gets or sets the particle file path.
+        /// </summary>
+        public string ParticleFilePath
+        {
+            get { return (string)GetValue(ParticleFilePathProperty); }
+            set { SetValue(ParticleFilePathProperty, value); }
         }
         #endregion
     }
