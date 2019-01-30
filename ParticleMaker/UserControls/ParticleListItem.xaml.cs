@@ -88,5 +88,16 @@ namespace ParticleMaker.UserControls
             set { SetValue(ParticleFilePathProperty, value); }
         }
         #endregion
+
+
+        #region Private Methods
+        /// <summary>
+        /// Invokes the rename event.
+        /// </summary>
+        private void RenameCustomButton_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
     }
 }
