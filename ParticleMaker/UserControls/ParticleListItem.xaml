@@ -4,7 +4,41 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ParticleMaker.UserControls"
-             mc:Ignorable="d" Name="this">
+             mc:Ignorable="d" Name="this" BorderThickness="1">
+
+    <UserControl.Resources>
+        <Style x:Key="NoErrorStyle" TargetType="FrameworkElement">
+            <Setter Property="Visibility" Value="Visible"/>
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=this, Path=HasError}" Value="True">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="HasErrorStyle" TargetType="FrameworkElement">
+            <Setter Property="Visibility" Value="Hidden"/>
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=this, Path=HasError}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    
+    <UserControl.Style>
+        <Style TargetType="UserControl">
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=this, Path=HasError}" Value="True">
+                    <Setter Property="BorderBrush" Value="Red"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Style>
     
     <Grid DataContext="{Binding ElementName=this}"
           d:DataContext="{d:DesignData Source=/UserControls/DesignData/UserControlData.xaml}">
@@ -14,14 +48,21 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         
-        <Label Content="{Binding Path=ParticleName}" Grid.Column="0"/>
+        <!--ERROR LABEL-->
+        <Label Content="ERROR!!" FontWeight="Bold" Foreground="Red" Grid.Column="0" Grid.ColumnSpan="3"
+               HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource HasErrorStyle}">
+        </Label>
+
+        <!--PARTICLE NAME-->
+        <Label Content="{Binding Path=ParticleName}" Grid.Column="0" VerticalAlignment="Center"
+               Style="{StaticResource NoErrorStyle}"/>
 
         <!--PARTICLE THUMBNAIL-->
         <Image Grid.Column="1" Width="25" Height="25" Margin="5, 0, 0, 0"
-               Source="{Binding Path=ParticleFilePath}"/>
+               Source="{Binding Path=ParticleFilePath}" Style="{StaticResource NoErrorStyle}"/>
 
         <!--RENAME & DELETE BUTTONS-->
-        <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right">
+        <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right" Style="{StaticResource NoErrorStyle}">
             <local:CustomButton x:Name="RenameCustomButton"
                                         Click="RenameCustomButton_Click">
                 <local:CustomButton.ButtonContent>

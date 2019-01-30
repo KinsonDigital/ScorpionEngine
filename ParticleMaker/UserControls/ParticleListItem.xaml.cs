@@ -48,6 +48,12 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public static readonly DependencyProperty ParticleFilePathProperty =
             DependencyProperty.Register(nameof(ParticleFilePath), typeof(string), typeof(ParticleListItem), new PropertyMetadata("", ParticlePathChanged));
+
+        /// <summary>
+        /// Registers the <see cref="HasError"/> property.
+        /// </summary>
+        protected static readonly DependencyProperty HasErrorProperty =
+            DependencyProperty.Register(nameof(HasError), typeof(bool), typeof(ParticleListItem), new PropertyMetadata(false));
         #endregion
 
 
@@ -68,6 +74,16 @@ namespace ParticleMaker.UserControls
         {
             get { return (string)GetValue(ParticleFilePathProperty); }
             set { SetValue(ParticleFilePathProperty, value); }
+        }
+
+
+        /// <summary>
+        /// Gets or sets a value indicating if the user control has an error.
+        /// </summary>
+        protected bool HasError
+        {
+            get { return (bool)GetValue(HasErrorProperty); }
+            set { SetValue(HasErrorProperty, value); }
         }
         #endregion
 
@@ -114,24 +130,12 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void Refresh()
         {
-            if (string.IsNullOrEmpty(ParticleFilePath))
-            {
-                ParticleName = "";
-            }
-            else
-            {
-                if (File.Exists(ParticleFilePath))
-                {
-                    ParticleName = Path.GetFileNameWithoutExtension(ParticleFilePath);
+            ParticleName = string.IsNullOrEmpty(ParticleFilePath) ||
+                           !File.Exists(ParticleFilePath) ?
+                           "" : 
+                           ParticleName = Path.GetFileNameWithoutExtension(ParticleFilePath);
 
-                    //TODO: Set the error bool prop to false
-                }
-                else
-                {
-                    ParticleName = "";
-                    //TODO: Set the error bool prop to false
-                }
-            }
+            HasError = !File.Exists(ParticleFilePath);
         }
         #endregion
     }
