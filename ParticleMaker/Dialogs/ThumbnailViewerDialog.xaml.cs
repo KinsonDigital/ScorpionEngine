@@ -53,7 +53,6 @@ namespace ParticleMaker.Dialogs
             set { SetValue(ThumbnailPathProperty, value); }
         }
 
-
         /// <summary>
         /// Gets or sets the title of the dialog window.
         /// </summary>
@@ -62,7 +61,6 @@ namespace ParticleMaker.Dialogs
             get { return (string)GetValue(TittleProperty); }
             set { SetValue(TittleProperty, value); }
         }
-
 
         /// <summary>
         /// Gets or sets a valid indicating if there is an error.
