@@ -16,6 +16,11 @@ namespace ParticleMaker.UserControls
         /// Invoked when the rename button has been clicked.
         /// </summary>
         public event EventHandler<RenameParticleEventArgs> RenameClicked;
+
+        /// <summary>
+        /// Invoked when the delete button has been clicked.
+        /// </summary>
+        public event EventHandler<DeleteParticleEventArgs> DeleteClicked;
         #endregion
 
 
@@ -80,11 +85,13 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Invokes the delete eveent.
+        /// Invokes the delete event.
         /// </summary>
         private void DeleteCustomButton_Click(object sender, EventArgs e)
         {
+            DeleteClicked?.Invoke(this, new DeleteParticleEventArgs(ParticleName, ParticleFilePath));
 
+            Refresh();
         }
 
 
