@@ -69,6 +69,9 @@
     <Compile Include="Dialogs\InputDialog.xaml.cs">
       <DependentUpon>InputDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\ThumbnailViewerDialog.xaml.cs">
+      <DependentUpon>ThumbnailViewerDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Exceptions\IllegalParticleSetupNameException.cs" />
     <Compile Include="Exceptions\ParticleSetupAlreadyExists.cs" />
     <Compile Include="Exceptions\ParticleSetupDoesNotExist.cs" />
@@ -143,6 +146,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\InputDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ThumbnailViewerDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
