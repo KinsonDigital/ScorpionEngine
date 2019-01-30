@@ -1,6 +1,7 @@
 ﻿using ParticleMaker.CustomEventArgs;
 using ParticleMaker.Dialogs;
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -143,12 +144,20 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void Refresh()
         {
-            ParticleName = string.IsNullOrEmpty(ParticleFilePath) ||
+            if (DesignerProperties.GetIsInDesignMode(this) || File.Exists(ParticleFilePath))
+            {
+                ParticleName = Path.GetFileNameWithoutExtension(ParticleFilePath);
+                HasError = false;
+            }
+            else
+            {
+                ParticleName = string.IsNullOrEmpty(ParticleFilePath) ||
                            !File.Exists(ParticleFilePath) ?
                            "" : 
                            ParticleName = Path.GetFileNameWithoutExtension(ParticleFilePath);
 
-            HasError = !File.Exists(ParticleFilePath);
+                HasError = !File.Exists(ParticleFilePath);
+            }
         }
         #endregion
     }

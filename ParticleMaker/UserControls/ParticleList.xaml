@@ -4,7 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ParticleMaker.UserControls"
-             mc:Ignorable="d">
+             d:DataContext="{d:DesignData Source=/UserControls/DesignData/UserControlData.xaml}"
+             DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+             mc:Ignorable="d" Background="White">
 
     <Border BorderThickness="1">
         <Grid>
@@ -13,6 +15,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
+            <!--LABEL, ADD & REFRESH BUTTONS-->
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -38,6 +41,16 @@
                     </local:CustomButton>
                 </StackPanel>
             </Grid>
+
+            <!--SETUP LIST-->
+            <ListBox x:Name="SetupListBox" ItemsSource="{Binding Path=Particles}" Grid.Row="1"
+                     HorizontalContentAlignment="Stretch" SelectionChanged="SetupListBox_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <local:ParticleListItem ParticleFilePath="{Binding Path=FilePath}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
     </Border>
 </UserControl>

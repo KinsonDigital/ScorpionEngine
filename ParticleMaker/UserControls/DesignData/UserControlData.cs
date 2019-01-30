@@ -28,9 +28,19 @@ namespace ParticleMaker.UserControls.DesignData
         /// </summary>
         public PathItem[] Setups { get; set; } = new PathItem[]
         {
-            new PathItem() { FilePath = @"C:\temp\test-setup\setup1.json" },
-            new PathItem() { FilePath = @"C:\temp\test-setup\setup2.json" },
-            new PathItem() { FilePath = @"C:\temp\test-setup\setup3.json" }
+            new PathItem() { FilePath = @"C:\temp\test-setup\setup-1.json" },
+            new PathItem() { FilePath = @"C:\temp\test-setup\setup-2.json" },
+            new PathItem() { FilePath = @"C:\temp\test-setup\setup-3.json" }
+        };
+
+        /// <summary>
+        /// Gets or sets the particle paths design data for the <see cref="ParticleList"/> user control.
+        /// </summary>
+        public PathItem[] Particles { get; set; } = new PathItem[]
+        {
+            new PathItem() { FilePath = @"C:\temp\test-setup\particle-1.png" },
+            new PathItem() { FilePath = @"C:\temp\test-setup\particle-2.png" },
+            new PathItem() { FilePath = @"C:\temp\test-setup\particle-3.png" }
         };
 
         /// <summary>

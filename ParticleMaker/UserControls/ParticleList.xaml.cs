@@ -47,7 +47,7 @@ namespace ParticleMaker.UserControls
         /// Registers the <see cref="Particles"/> property.
         /// </summary>
         public static readonly DependencyProperty ParticlesProperty =
-            DependencyProperty.Register(nameof(Particles), typeof(PathItem[]), typeof(SetupList), new PropertyMetadata(new PathItem[0], ParticlesChanged));
+            DependencyProperty.Register(nameof(Particles), typeof(PathItem[]), typeof(ParticleList), new PropertyMetadata(new PathItem[0], ParticlesChanged));
         #endregion
 
 
@@ -106,5 +106,10 @@ namespace ParticleMaker.UserControls
 
         }
         #endregion
+
+        private void SetupListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
