@@ -67,6 +67,15 @@ namespace ParticleMaker.Dialogs
 
         #region Private Methods
         /// <summary>
+        /// Closes the dialog.
+        /// </summary>
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+
+        /// <summary>
         /// Updates the <see cref="HasError"/> property when the path changes.
         /// </summary>
         private static void ThumbnailPathChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

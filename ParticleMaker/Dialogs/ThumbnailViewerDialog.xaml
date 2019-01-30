@@ -8,6 +8,14 @@
         Name="this">
     
     <Grid DataContext="{Binding ElementName=this}">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!--THUMBNAIL OF PARTICLE HERE-->
         <Image Source="{Binding Path=ThumbnailPath}" Margin="15" Stretch="None"/>
+
+        <Button Name="CloseButton" Content="Close" Width="100" Height="25" Grid.Row="1" Margin="15" Click="CloseButton_Click"/>
     </Grid>
 </Window>
