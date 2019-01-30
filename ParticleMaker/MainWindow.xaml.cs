@@ -96,6 +96,8 @@ namespace ParticleMaker
         {
             var thumbnailDialog = new ThumbnailViewerDialog();
 
+            thumbnailDialog.ThumbnailPath = @"C:\temp\owlparticle.png";
+
             thumbnailDialog.Owner = this;
             thumbnailDialog.ShowDialog();
         }
