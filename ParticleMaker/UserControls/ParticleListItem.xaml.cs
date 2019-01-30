@@ -98,6 +98,15 @@ namespace ParticleMaker.UserControls
         {
 
         }
+
+
+        /// <summary>
+        /// Invokes the delete eveent.
+        /// </summary>
+        private void DeleteCustomButton_Click(object sender, EventArgs e)
+        {
+
+        }
         #endregion
     }
 }

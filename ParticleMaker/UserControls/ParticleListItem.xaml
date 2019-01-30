@@ -20,13 +20,21 @@
         <Image Grid.Column="1" Width="25" Height="25" Margin="5, 0, 0, 0"
                Source="{Binding Path=ParticleFilePath}"/>
 
-        <!--RENAME BUTTON-->
+        <!--RENAME & DELETE BUTTONS-->
         <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right">
             <local:CustomButton x:Name="RenameCustomButton"
                                         Click="RenameCustomButton_Click">
                 <local:CustomButton.ButtonContent>
-                    <Image Source="/ParticleMaker;component/Icons/Edit.png" Width="25" Height="25"
-                                   Margin="2.5"/>
+                    <Image Source="/ParticleMaker;component/Icons/Edit.png" Width="25" Height="25" Margin="2.5"/>
+                </local:CustomButton.ButtonContent>
+            </local:CustomButton>
+
+
+            <!--DELETE BUTTON-->
+            <local:CustomButton x:Name="DeleteCustomButton"
+                                        Click="DeleteCustomButton_Click">
+                <local:CustomButton.ButtonContent>
+                    <Image Source="/ParticleMaker;component/Icons/Delete.png" Width="25" Height="25" Margin="2.5"/>
                 </local:CustomButton.ButtonContent>
             </local:CustomButton>
         </StackPanel>
