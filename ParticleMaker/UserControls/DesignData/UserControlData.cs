@@ -37,6 +37,11 @@ namespace ParticleMaker.UserControls.DesignData
         /// Gets or sets the error message during design time.
         /// </summary>
         public string ErrorMessage { get; set; } = "This is a test error.";
+
+        /// <summary>
+        /// Gets or sets the name of the particle.
+        /// </summary>
+        public string ParticleName { get; set; }
         #endregion
     }
 }

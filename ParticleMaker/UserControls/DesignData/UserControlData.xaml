@@ -3,7 +3,8 @@
                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                        xmlns:sys="clr-namespace:System;assembly=mscorlib"
                        SetupPath="C:\temp\Projects\test-project\setup-a.json"
-                       SetupName="Error!!">
+                       SetupName="Error!!"
+                       ParticleName="test-particle">
     
     <local:UserControlData.ErrorBorderBrush>
         <SolidColorBrush Color="Red"/>
