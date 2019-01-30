@@ -1,4 +1,5 @@
 ﻿using ParticleMaker.CustomEventArgs;
+using ParticleMaker.Dialogs;
 using System;
 using System.IO;
 using System.Windows;
@@ -108,6 +109,20 @@ namespace ParticleMaker.UserControls
             DeleteClicked?.Invoke(this, new DeleteParticleEventArgs(ParticleName, ParticleFilePath));
 
             Refresh();
+        }
+
+
+        /// <summary>
+        /// Shows the thumbnail preview dialog of the clicked particle thumbnail.
+        /// </summary>
+        private void Overlay_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var thumbnailDialog = new ThumbnailViewerDialog($"Thumbnail Viewer - {ParticleName}")
+            {
+                ThumbnailPath = ParticleFilePath
+            };
+
+            thumbnailDialog.ShowDialog();
         }
 
 

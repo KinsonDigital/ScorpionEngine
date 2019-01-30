@@ -58,8 +58,36 @@
                Style="{StaticResource NoErrorStyle}"/>
 
         <!--PARTICLE THUMBNAIL-->
-        <Image Grid.Column="1" Width="25" Height="25" Margin="5, 0, 0, 0"
-               Source="{Binding Path=ParticleFilePath}" Style="{StaticResource NoErrorStyle}"/>
+        <Image Width="25" Height="25" Source="{Binding Path=ParticleFilePath}" Style="{StaticResource NoErrorStyle}"
+               Margin="5, 0, 0, 0" Grid.Column="1"/>
+
+        <!--THUMBNAIL OVERLAY-->
+        <Border Name="Overlay" Grid.Column="1" BorderThickness="1" Margin="5, 0, 0, 0"
+                MouseUp="Overlay_MouseUp">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Background" Value="Transparent"/>
+
+                    <Style.Triggers>
+                        <Trigger Property="Border.IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" Value="Green"/>
+                        </Trigger>
+
+                        <Trigger Property="Border.IsMouseOver" Value="True">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush>
+                                        <SolidColorBrush.Color>
+                                            <Color A="62" R="255" G="255" B="255"/>
+                                        </SolidColorBrush.Color>
+                                    </SolidColorBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+        </Border>
 
         <!--RENAME & DELETE BUTTONS-->
         <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right" Style="{StaticResource NoErrorStyle}">

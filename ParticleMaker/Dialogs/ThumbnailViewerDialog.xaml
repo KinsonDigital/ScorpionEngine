@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" Title="{Binding ElementName=this, Path=Title, FallbackValue=ThumbnailViewer}" WindowStartupLocation="CenterOwner" SizeToContent="WidthAndHeight"
         WindowStyle="ToolWindow" ResizeMode="NoResize" Width="300" Height="300"
-        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Name="this" BorderThickness="1">
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Name="this" BorderThickness="1"
+        MinWidth="300" MinHeight="300">
     
     <Window.Style>
         <Style TargetType="Window">
