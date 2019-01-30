@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using ParticleMaker.CustomEventArgs;
+using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -15,6 +17,14 @@ namespace ParticleMaker.UserControls
     /// </summary>
     public partial class ParticleList : UserControl
     {
+        #region Public Events
+        /// <summary>
+        /// Occurs when then add particle button is clicked.
+        /// </summary>
+        public event EventHandler<AddParticleClickedEventArgs> AddParticleClicked;
+        #endregion
+
+
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="ParticleList"/>.
@@ -35,6 +45,7 @@ namespace ParticleMaker.UserControls
             DependencyProperty.Register(nameof(Particles), typeof(PathItem[]), typeof(SetupList), new PropertyMetadata(new PathItem[0], ParticlesChanged));
         #endregion
 
+
         /// <summary>
         /// Gets or sets the list of particle paths.
         /// </summary>
@@ -48,14 +59,35 @@ namespace ParticleMaker.UserControls
 
         #region Private Methods
         /// <summary>
+        /// Adds a new particle to the list.
+        /// </summary>
+        private void AddParticleButton_Click(object sender, EventArgs e)
+        {
+            //TODO: Add particle path to the event args constructor below
+            AddParticleClicked?.Invoke(this, new AddParticleClickedEventArgs(""));
+        }
+
+
+        /// <summary>
         /// Refreshes the list when the list of particle path items change.
         /// </summary>
         private static void ParticlesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var ctrl = (SetupList)d;
+            var ctrl = (ParticleList)d;
 
             if (ctrl == null)
                 return;
+
+            ctrl.Refresh();
+        }
+
+
+        /// <summary>
+        /// Refreshes the UI based on the state of the user control.
+        /// </summary>
+        private void Refresh()
+        {
+
         }
         #endregion
     }

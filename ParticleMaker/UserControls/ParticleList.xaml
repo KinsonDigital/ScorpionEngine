@@ -21,6 +21,14 @@
 
                 <Label Content="Particles:" VerticalAlignment="Bottom" Grid.Column="0" HorizontalAlignment="Stretch"
                        FontWeight="Bold"/>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                    <local:CustomButton x:Name="AddParticleButton" Click="AddParticleButton_Click">
+                        <local:CustomButton.ButtonContent>
+                            <Image Source="/ParticleMaker;component/Icons/Add.png" Width="25" Height="25"/>
+                        </local:CustomButton.ButtonContent>
+                    </local:CustomButton>
+                </StackPanel>
             </Grid>
         </Grid>
     </Border>
