@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ParticleMaker.CustomEventArgs;
+using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,6 +11,14 @@ namespace ParticleMaker.UserControls
     /// </summary>
     public partial class ParticleListItem : UserControl
     {
+        #region Public Events
+        /// <summary>
+        /// Invoked when the rename button has been clicked.
+        /// </summary>
+        public event EventHandler<RenameParticleEventArgs> RenameClicked;
+        #endregion
+
+
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="ParticleListItem"/>.
@@ -34,38 +43,6 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public static readonly DependencyProperty ParticleFilePathProperty =
             DependencyProperty.Register(nameof(ParticleFilePath), typeof(string), typeof(ParticleListItem), new PropertyMetadata("", ParticlePathChanged));
-
-        /// <summary>
-        /// Sets the <see cref="ParticleName"/> property.
-        /// </summary>
-        private static void ParticlePathChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var ctrl = (ParticleListItem)d;
-
-            if (ctrl == null)
-                return;
-
-            var filePath = e.NewValue as string;
-
-            if (string.IsNullOrEmpty(filePath))
-            {
-                ctrl.ParticleName = "";
-            }
-            else
-            {
-                if (File.Exists(filePath))
-                {
-                    ctrl.ParticleName = Path.GetFileNameWithoutExtension(filePath);
-
-                    //TODO: Set the error bool prop to false
-                }
-                else
-                {
-                    ctrl.ParticleName = "";
-                    //TODO: Set the error bool prop to false
-                }
-            }
-        }
         #endregion
 
 
@@ -96,7 +73,9 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void RenameCustomButton_Click(object sender, EventArgs e)
         {
+            RenameClicked?.Invoke(this, new RenameParticleEventArgs(ParticleName, ParticleFilePath));
 
+            Refresh();
         }
 
 
@@ -106,6 +85,46 @@ namespace ParticleMaker.UserControls
         private void DeleteCustomButton_Click(object sender, EventArgs e)
         {
 
+        }
+
+
+        /// <summary>
+        /// Sets the <see cref="ParticleName"/> property.
+        /// </summary>
+        private static void ParticlePathChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var ctrl = (ParticleListItem)d;
+
+            if (ctrl == null)
+                return;
+
+            ctrl.Refresh();
+        }
+
+
+        /// <summary>
+        /// Refreshes the UI of the user control.
+        /// </summary>
+        private void Refresh()
+        {
+            if (string.IsNullOrEmpty(ParticleFilePath))
+            {
+                ParticleName = "";
+            }
+            else
+            {
+                if (File.Exists(ParticleFilePath))
+                {
+                    ParticleName = Path.GetFileNameWithoutExtension(ParticleFilePath);
+
+                    //TODO: Set the error bool prop to false
+                }
+                else
+                {
+                    ParticleName = "";
+                    //TODO: Set the error bool prop to false
+                }
+            }
         }
         #endregion
     }

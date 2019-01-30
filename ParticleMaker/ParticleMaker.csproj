@@ -65,6 +65,7 @@
     </Compile>
     <Compile Include="CoreEngine.cs" />
     <Compile Include="CustomEventArgs\DrawEventArgs.cs" />
+    <Compile Include="CustomEventArgs\RenameParticleEventArgs.cs" />
     <Compile Include="Dialogs\DesignData\InputDialogData.cs" />
     <Compile Include="Dialogs\InputDialog.xaml.cs">
       <DependentUpon>InputDialog.xaml</DependentUpon>
