@@ -22,6 +22,11 @@ namespace ParticleMaker.UserControls
         /// Occurs when then add particle button is clicked.
         /// </summary>
         public event EventHandler<AddParticleClickedEventArgs> AddParticleClicked;
+
+        /// <summary>
+        /// Invoked when the refresh button has been clicked.
+        /// </summary>
+        public event EventHandler<EventArgs> RefreshClicked;
         #endregion
 
 
@@ -65,6 +70,17 @@ namespace ParticleMaker.UserControls
         {
             //TODO: Add particle path to the event args constructor below
             AddParticleClicked?.Invoke(this, new AddParticleClickedEventArgs(""));
+        }
+
+
+        /// <summary>
+        /// Refreshes the list.
+        /// </summary>
+        private void RefreshButton_Click(object sender, EventArgs e)
+        {
+            RefreshClicked?.Invoke(this, new EventArgs());
+
+            Refresh();
         }
 
 

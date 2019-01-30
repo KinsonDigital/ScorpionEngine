@@ -23,9 +23,17 @@
                        FontWeight="Bold"/>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                    <!--ADD BUTTON-->
                     <local:CustomButton x:Name="AddParticleButton" Click="AddParticleButton_Click">
                         <local:CustomButton.ButtonContent>
                             <Image Source="/ParticleMaker;component/Icons/Add.png" Width="25" Height="25"/>
+                        </local:CustomButton.ButtonContent>
+                    </local:CustomButton>
+
+                    <!--REFRESH BUTTON-->
+                    <local:CustomButton x:Name="RefreshButton" Click="RefreshButton_Click">
+                        <local:CustomButton.ButtonContent>
+                            <Image Source="/ParticleMaker;component/Icons/Refresh.png"  Width="25" Height="25"/>
                         </local:CustomButton.ButtonContent>
                     </local:CustomButton>
                 </StackPanel>
