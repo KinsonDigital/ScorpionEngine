@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ParticleMaker.Dialogs
 {
@@ -21,9 +9,15 @@ namespace ParticleMaker.Dialogs
     public partial class ThumbnailViewerDialog : Window
     {
         #region Constructors
-        public ThumbnailViewerDialog()
+        /// <summary>
+        /// Creates a new instance of <see cref="ThumbnailViewerDialog"/>.
+        /// </summary>
+        /// <param name="title">The title of the dialog window.</param>
+        public ThumbnailViewerDialog(string title = "")
         {
             InitializeComponent();
+
+            Title = title;
         }
         #endregion
 
@@ -35,6 +29,12 @@ namespace ParticleMaker.Dialogs
         /// </summary>
         public static readonly DependencyProperty ThumbnailPathProperty =
             DependencyProperty.Register(nameof(ThumbnailPath), typeof(string), typeof(ThumbnailViewerDialog), new PropertyMetadata("", ThumbnailPathChanged));
+
+        /// <summary>
+        /// Registers the <see cref="Tittle"/> property.
+        /// </summary>
+        public static readonly DependencyProperty TittleProperty =
+            DependencyProperty.Register(nameof(Tittle), typeof(string), typeof(ThumbnailViewerDialog), new PropertyMetadata(""));
 
         /// <summary>
         /// Registers the <see cref="HasError"/> property.
@@ -51,6 +51,16 @@ namespace ParticleMaker.Dialogs
         {
             get { return (string)GetValue(ThumbnailPathProperty); }
             set { SetValue(ThumbnailPathProperty, value); }
+        }
+
+
+        /// <summary>
+        /// Gets or sets the title of the dialog window.
+        /// </summary>
+        public string Tittle
+        {
+            get { return (string)GetValue(TittleProperty); }
+            set { SetValue(TittleProperty, value); }
         }
 
 

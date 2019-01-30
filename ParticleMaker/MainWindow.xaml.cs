@@ -94,7 +94,7 @@ namespace ParticleMaker
 
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
-            var thumbnailDialog = new ThumbnailViewerDialog();
+            var thumbnailDialog = new ThumbnailViewerDialog("Thumbnail Viewer - Owl");
 
             thumbnailDialog.ThumbnailPath = @"C:\temp\owlparticle.png";
 
