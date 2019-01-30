@@ -47,12 +47,6 @@ namespace ParticleMaker.UserControls
         /// </summary>
         protected static readonly DependencyProperty HasErrorProperty =
             DependencyProperty.Register(nameof(HasError), typeof(bool), typeof(SetupList), new PropertyMetadata(false));
-
-        /// <summary>
-        /// Registers the <see cref="ErrorMessage"/> property.
-        /// </summary>
-        protected static readonly DependencyProperty ErrorMessageProperty =
-            DependencyProperty.Register(nameof(ErrorMessage), typeof(string), typeof(SetupList), new PropertyMetadata(""));
         #endregion
 
         /// <summary>
@@ -71,15 +65,6 @@ namespace ParticleMaker.UserControls
         {
             get { return (bool)GetValue(HasErrorProperty); }
             set { SetValue(HasErrorProperty, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the error message to be shown in the control if there is an error.
-        /// </summary>
-        protected string ErrorMessage
-        {
-            get { return (string)GetValue(ErrorMessageProperty); }
-            set { SetValue(ErrorMessageProperty, value); }
         }
 
         /// <summary>
