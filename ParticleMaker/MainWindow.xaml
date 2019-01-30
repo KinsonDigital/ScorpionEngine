@@ -146,5 +146,8 @@
         </StackPanel>
 
         <Button x:Name="TestButton" Content="ClickMe" Height="30" Width="100" Click="TestButton_Click"/>
+
+        <ctrls:ParticleListItem Grid.Column="1" HorizontalAlignment="Left" Margin="352,169.667,0,0" Grid.Row="1" VerticalAlignment="Top"
+                                ParticleFilePath="C:\temp\test-particle.png"/>
     </Grid>
 </Window>
