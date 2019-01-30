@@ -100,7 +100,7 @@ namespace ParticleMaker.Dialogs
             if (string.IsNullOrEmpty(path))
                 return;
 
-            dialog.HasError = File.Exists(dialog.ThumbnailPath);
+            dialog.HasError = !File.Exists(dialog.ThumbnailPath);
         }
         #endregion
     }
