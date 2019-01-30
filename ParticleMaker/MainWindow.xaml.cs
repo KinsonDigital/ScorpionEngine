@@ -94,11 +94,10 @@ namespace ParticleMaker
 
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
-            var inputDialog = new InputDialog("Test Title", "Test Msg", "Default Value", new[] { 'A', '/', 'C', 'd' }, new[] { "calvin" });
+            var thumbnailDialog = new ThumbnailViewerDialog();
 
-            inputDialog.IgnoreInvalidValueCasing = true;
-            inputDialog.ShowDialog();
-
+            thumbnailDialog.Owner = this;
+            thumbnailDialog.ShowDialog();
         }
     }
 }
