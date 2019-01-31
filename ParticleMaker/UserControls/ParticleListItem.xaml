@@ -58,7 +58,7 @@
                Style="{StaticResource NoErrorStyle}"/>
 
         <!--PARTICLE THUMBNAIL-->
-        <Image Width="25" Height="25" Source="{Binding Path=ParticleFilePath}" Style="{StaticResource NoErrorStyle}"
+        <Image x:Name="ThumbnailImage" Width="25" Height="25" Style="{StaticResource NoErrorStyle}"
                Margin="5, 0, 0, 0" Grid.Column="1"/>
 
         <!--THUMBNAIL OVERLAY-->

@@ -115,6 +115,9 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void Refresh()
         {
+            var total = ParticleListBox.Items.Count;
+
+            //TODO: This isn't working.  Remove this code
             foreach (var item in ParticleListBox.Items)
             {
                 if (!(item is ParticleListItem listItem))

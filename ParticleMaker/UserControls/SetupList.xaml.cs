@@ -115,8 +115,11 @@ namespace ParticleMaker.UserControls
         /// <param name="projPath">The path to the project.</param>
         private void Refresh()
         {
+            //TODO: This isn't working.  Remove this code
             foreach (var item in SetupListBox.Items)
             {
+                var itemType = item.GetType();
+
                 if (!(item is SetupListItem listItem))
                     continue;
 

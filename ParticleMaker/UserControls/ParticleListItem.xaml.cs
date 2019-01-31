@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace ParticleMaker.UserControls
 {
@@ -101,12 +102,32 @@ namespace ParticleMaker.UserControls
             }
             else
             {
+                var fileExists = File.Exists(ParticleFilePath);
+
                 ParticleName = string.IsNullOrEmpty(ParticleFilePath) ||
-                           !File.Exists(ParticleFilePath) ?
+                           !fileExists ?
                            "" :
                            ParticleName = Path.GetFileNameWithoutExtension(ParticleFilePath);
 
-                HasError = !File.Exists(ParticleFilePath);
+                HasError = !fileExists;
+
+
+                if (fileExists)
+                {
+                    var thumbnailImage = new BitmapImage();
+                    thumbnailImage.BeginInit();
+
+                    //This prevents the file from being locked by loading ALL
+                    //of the image data into memory.  This prevents references to the image data
+                    //from having to go to the file itself which means it doesn't mean it has
+                    //to be locked.
+                    thumbnailImage.CacheOption = BitmapCacheOption.OnLoad;
+                    thumbnailImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                    thumbnailImage.UriSource = new Uri(ParticleFilePath);
+                    thumbnailImage.EndInit();
+
+                    ThumbnailImage.Source = thumbnailImage;
+                }
             }
         }
         #endregion
