@@ -13,8 +13,8 @@
         /// <param name="particleFilePath">The path to the particle file.</param>
         public RenameParticleEventArgs(string particleName, string particleFilePath)
         {
-            ParticleName = particleName;
-            ParticleFilePath = particleFilePath;
+            OldParticleName = particleName;
+            OldParticleFilePath = particleFilePath;
         }
         #endregion
 
@@ -23,12 +23,22 @@
         /// <summary>
         /// Gets or sets the name of the particle.
         /// </summary>
-        public string ParticleName { get; set; }
+        public string OldParticleName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the new particle name.
+        /// </summary>
+        public string NewParticleName { get; set; }
 
         /// <summary>
         /// Gets or sets the path to the particle file.
         /// </summary>
-        public string ParticleFilePath { get; set; }
+        public string OldParticleFilePath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the new particle path.
+        /// </summary>
+        public string NewParticleFilePath { get; set; }
         #endregion
     }
 }

@@ -58,7 +58,7 @@
                         Command="{Binding Path=CancelCommand}"/>
             </StackPanel>
 
-            <Label Content="The input box value is an invalid value." Grid.Row="2"
+            <Label Content="The input box value is an invalid value." Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                    FontWeight="Bold" Foreground="Red">
                 <Label.Style>
                     <Style TargetType="Label">

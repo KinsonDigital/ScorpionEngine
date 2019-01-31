@@ -43,7 +43,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Creates a new instance of <see cref="ParticleName"/>.
         /// </summary>
-        protected static readonly DependencyProperty ParticleNameProperty =
+        public static readonly DependencyProperty ParticleNameProperty =
             DependencyProperty.Register(nameof(ParticleName), typeof(string), typeof(ParticleListItem), new PropertyMetadata(""));
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Gets or sets the name of the particle.
         /// </summary>
-        protected string ParticleName
+        public string ParticleName
         {
             get { return (string)GetValue(ParticleNameProperty); }
             set { SetValue(ParticleNameProperty, value); }
@@ -86,6 +86,11 @@ namespace ParticleMaker.UserControls
             get { return (bool)GetValue(HasErrorProperty); }
             set { SetValue(HasErrorProperty, value); }
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating if the rename event has been subscribed to.
+        /// </summary>
+        internal bool IsRenameSubscribed { get; set; }
         #endregion
 
 
@@ -128,6 +133,32 @@ namespace ParticleMaker.UserControls
                     ThumbnailImage.Source = thumbnailImage;
                 }
             }
+        }
+        #endregion
+
+
+        #region Internal Methods
+        /// <summary>
+        /// Subscribes the given handler to the rename clicked event.
+        /// </summary>
+        /// <param name="handler">The handler to subscribe to.</param>
+        internal void SubscribeRenameClicked(EventHandler<RenameParticleEventArgs> handler)
+        {
+            RenameClicked += handler;
+
+            IsRenameSubscribed = true;
+        }
+
+
+        /// <summary>
+        /// Unsubscribes the given handler to the rename clicked event.
+        /// </summary>
+        /// <param name="handler">The handler to subscribe to.</param>
+        internal void UnsubscribeRenameClicked(EventHandler<RenameParticleEventArgs> handler)
+        {
+            RenameClicked -= handler;
+
+            IsRenameSubscribed = false;
         }
         #endregion
 

@@ -43,7 +43,7 @@
             </Grid>
 
             <!--SETUP LIST-->
-            <ListBox x:Name="ParticleListBox" ItemsSource="{Binding Path=Particles}" Grid.Row="1"
+            <ListBox x:Name="ParticleListBox" ItemsSource="{Binding Path=Particles, Mode=TwoWay}" Grid.Row="1"
                      HorizontalContentAlignment="Stretch" SelectionChanged="ParticleListBox_SelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>

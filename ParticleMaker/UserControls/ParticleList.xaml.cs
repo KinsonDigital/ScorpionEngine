@@ -1,13 +1,12 @@
 ﻿using ParticleMaker.CustomEventArgs;
+using ParticleMaker.Dialogs;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace ParticleMaker.UserControls
 {
@@ -26,10 +25,16 @@ namespace ParticleMaker.UserControls
         /// Invoked when the refresh button has been clicked.
         /// </summary>
         public event EventHandler<EventArgs> RefreshClicked;
+
+        /// <summary>
+        /// Occurs when any item in the list has been renamed.
+        /// </summary>
+        public event EventHandler<RenameParticleEventArgs> ItemRenamed;
         #endregion
 
 
         #region Fields
+        private char[] _illegalCharacters = new[] { '\\', '/', ':', '*', '?', '\"', '<', '>', '|', '.' };
         private Task _refreshTask;
         private CancellationTokenSource _refreshTaskTokenSrc;
         #endregion
@@ -42,6 +47,8 @@ namespace ParticleMaker.UserControls
         public ParticleList()
         {
             InitializeComponent();
+
+            Loaded += ParticleList_Loaded;
 
             _refreshTaskTokenSrc = new CancellationTokenSource();
 
@@ -80,6 +87,27 @@ namespace ParticleMaker.UserControls
 
         #region Public Methods
         /// <summary>
+        /// Finds the item that matches the given <paramref name="name"/> and updates its path to
+        /// the given <paramref name="path"/>.
+        /// </summary>
+        /// <param name="name">The name of the item to update.</param>
+        /// <param name="path">The new path to set the found item to.</param>
+        public void UpdateItemPath(string name, string path)
+        {
+            var particleItems = ParticleListBox.FindVisualChildren<ParticleListItem>().ToArray();
+
+            foreach (var item in particleItems)
+            {
+                if (item.ParticleName == name)
+                {
+                    item.ParticleFilePath = path;
+                    break;
+                }
+            }
+        }
+
+
+        /// <summary>
         /// Refreshes the UI based on the state of the user control.
         /// </summary>
         public void Refresh()
@@ -91,6 +119,8 @@ namespace ParticleMaker.UserControls
             {
                 item.Refresh();
             }
+
+            SubscribeEvents();
         }
 
 
@@ -100,11 +130,43 @@ namespace ParticleMaker.UserControls
         public void Dispose()
         {
             _refreshTaskTokenSrc.Cancel();
+
+            UnsubscribeEvents();
         }
         #endregion
 
 
         #region Private Methods
+        /// <summary>
+        /// Subscribes all of the events for each listbox item.
+        /// </summary>
+        private void ParticleList_Loaded(object sender, RoutedEventArgs e)
+        {
+            SubscribeEvents();
+        }
+
+
+        /// <summary>
+        /// Invokes the <see cref="ItemRenamed"/> event.
+        /// </summary>
+        private void ListBoxItems_RenameClicked(object sender, RenameParticleEventArgs e)
+        {
+            var illegalNames = (from item in Particles select Path.GetFileNameWithoutExtension(item.FilePath)).ToArray();
+
+            var inputDialog = new InputDialog("Rename particle", $"Rename the particle '{e.OldParticleName}'.", e.OldParticleName, _illegalCharacters, illegalNames);
+
+            inputDialog.ShowDialog();
+
+            if (inputDialog.DialogResult == true)
+            {
+                e.NewParticleName = inputDialog.InputValue;
+                e.NewParticleFilePath = $@"{Path.GetDirectoryName(e.OldParticleFilePath)}\{inputDialog.InputValue}{Path.GetExtension(e.OldParticleFilePath)}";
+
+                ItemRenamed?.Invoke(this, e);
+            }
+        }
+
+
         /// <summary>
         /// Adds a new particle to the list.
         /// </summary>
@@ -112,6 +174,9 @@ namespace ParticleMaker.UserControls
         {
             //TODO: Add particle path to the event args constructor below
             AddParticleClicked?.Invoke(this, new AddParticleClickedEventArgs(""));
+
+            //TODO: Check if the newly added item has its rename event subscribed to
+            Refresh();
         }
 
 
@@ -136,7 +201,7 @@ namespace ParticleMaker.UserControls
             if (selectedItem == null)
                 return;
 
-
+            //TODO: Set the selected item as the current selected item of the internal list box
         }
 
 
@@ -167,6 +232,39 @@ namespace ParticleMaker.UserControls
                 {
                     Refresh();
                 });
+            }
+        }
+
+
+        /// <summary>
+        /// Subscribes to all of the events
+        /// </summary>
+        private void SubscribeEvents()
+        {
+            var listItems = ParticleListBox.FindVisualChildren<ParticleListItem>().ToArray();
+
+            //Subsribe all of the events
+            foreach (var item in listItems)
+            {
+                if (!item.IsRenameSubscribed)
+                {
+                    item.SubscribeRenameClicked(ListBoxItems_RenameClicked);
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Unsubscribes to all of the events.
+        /// </summary>
+        private void UnsubscribeEvents()
+        {
+            var listItems = ParticleListBox.FindVisualChildren<ParticleListItem>().ToArray();
+
+            //Unsubsribe all of the events
+            foreach (var item in listItems)
+            {
+                item.UnsubscribeRenameClicked(ListBoxItems_RenameClicked);
             }
         }
         #endregion
