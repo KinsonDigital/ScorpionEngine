@@ -30,6 +30,11 @@ namespace ParticleMaker.UserControls
         /// Occurs when any item in the list has been renamed.
         /// </summary>
         public event EventHandler<RenameParticleEventArgs> ItemRenamed;
+
+        /// <summary>
+        /// Occurs when any item in the list has been deleted.
+        /// </summary>
+        public event EventHandler<DeleteParticleEventArgs> ItemDeleted;
         #endregion
 
 
@@ -108,6 +113,18 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
+        /// Removes the item from the lsit that matches the given <paramref name="name"/>.
+        /// </summary>
+        /// <param name="name">The name of the item to remove.</param>
+        public void RemoveItem(string name)
+        {
+            Particles = (from p in Particles
+                         where Path.GetFileNameWithoutExtension(p.FilePath) != name
+                         select p).ToArray();
+        }
+
+
+        /// <summary>
         /// Refreshes the UI based on the state of the user control.
         /// </summary>
         public void Refresh()
@@ -164,6 +181,37 @@ namespace ParticleMaker.UserControls
 
                 ItemRenamed?.Invoke(this, e);
             }
+        }
+
+
+        /// <summary>
+        /// Invokes the <see cref="ItemDeleted"/> event.
+        /// </summary>
+        private void ListBoxItems_DeleteClicked(object sender, DeleteParticleEventArgs e)
+        {
+            var msg = $"Are you sure you want to delete the particle {e.ParticleName}?";
+
+            var dialogResult = MessageBox.Show(msg, "Delete Particle", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (dialogResult == MessageBoxResult.Yes)
+            {
+                ItemDeleted?.Invoke(this, e);
+            }
+            //TODO:  Add a confirmation dialog here
+
+            //var illegalNames = (from item in Particles select Path.GetFileNameWithoutExtension(item.FilePath)).ToArray();
+
+            //var inputDialog = new InputDialog("Rename particle", $"Rename the particle '{e.OldParticleName}'.", e.OldParticleName, _illegalCharacters, illegalNames);
+
+            //inputDialog.ShowDialog();
+
+            //if (inputDialog.DialogResult == true)
+            //{
+            //    e.NewParticleName = inputDialog.InputValue;
+            //    e.NewParticleFilePath = $@"{Path.GetDirectoryName(e.OldParticleFilePath)}\{inputDialog.InputValue}{Path.GetExtension(e.OldParticleFilePath)}";
+
+            //    ItemRenamed?.Invoke(this, e);
+            //}
         }
 
 
@@ -250,6 +298,11 @@ namespace ParticleMaker.UserControls
                 {
                     item.SubscribeRenameClicked(ListBoxItems_RenameClicked);
                 }
+
+                if (!item.IsDeleteSubscribed)
+                {
+                    item.SubscribeDeleteClicked(ListBoxItems_DeleteClicked);
+                }
             }
         }
 
@@ -265,6 +318,7 @@ namespace ParticleMaker.UserControls
             foreach (var item in listItems)
             {
                 item.UnsubscribeRenameClicked(ListBoxItems_RenameClicked);
+                item.UnsubscribeDeleteClicked(ListBoxItems_DeleteClicked);
             }
         }
         #endregion

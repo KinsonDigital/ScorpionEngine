@@ -91,6 +91,11 @@ namespace ParticleMaker.UserControls
         /// Gets or sets a value indicating if the rename event has been subscribed to.
         /// </summary>
         internal bool IsRenameSubscribed { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating if the delete event has been subscribed to.
+        /// </summary>
+        internal bool IsDeleteSubscribed { get; set; }
         #endregion
 
 
@@ -159,6 +164,30 @@ namespace ParticleMaker.UserControls
             RenameClicked -= handler;
 
             IsRenameSubscribed = false;
+        }
+
+
+        /// <summary>
+        /// Subscribes the given handler to the delete clicked event.
+        /// </summary>
+        /// <param name="handler">The handler to subscribe to.</param>
+        internal void SubscribeDeleteClicked(EventHandler<DeleteParticleEventArgs> handler)
+        {
+            DeleteClicked += handler;
+
+            IsDeleteSubscribed = true;
+        }
+
+
+        /// <summary>
+        /// Unsubscribes the given handler to the delete clicked event.
+        /// </summary>
+        /// <param name="handler">The handler to subscribe to.</param>
+        internal void UnsubscribeDeleteClicked(EventHandler<DeleteParticleEventArgs> handler)
+        {
+            DeleteClicked -= handler;
+
+            IsDeleteSubscribed = false;
         }
         #endregion
 

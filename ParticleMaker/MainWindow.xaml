@@ -151,7 +151,8 @@
                 </ctrls:SetupList.Setups>
             </ctrls:SetupList>
 
-            <ctrls:ParticleList x:Name="ParticleList" ItemRenamed="ParticleList_ItemRenamed">
+            <ctrls:ParticleList x:Name="ParticleList" ItemRenamed="ParticleList_ItemRenamed"
+                                ItemDeleted="ParticleList_ItemDeleted">
                 <ctrls:ParticleList.Particles>
                     <x:Array Type="{x:Type uc:PathItem}">
                         <uc:PathItem FilePath="C:\TEMP\Projects\test-project\Red.png"/>

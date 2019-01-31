@@ -109,5 +109,12 @@ namespace ParticleMaker
 
             ParticleList.UpdateItemPath(e.OldParticleName, e.NewParticleFilePath);
         }
+
+        private void ParticleList_ItemDeleted(object sender, CustomEventArgs.DeleteParticleEventArgs e)
+        {
+            File.Delete(e.ParticleFilePath);
+
+            ParticleList.RemoveItem(e.ParticleName);
+        }
     }
 }
