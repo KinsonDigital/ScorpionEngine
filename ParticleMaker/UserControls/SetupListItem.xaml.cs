@@ -82,6 +82,27 @@ namespace ParticleMaker.UserControls
         #endregion
 
 
+        #region Public Methods
+        /// <summary>
+        /// Refreshs the control by updating the control's UI based on if the file exists or not.
+        /// </summary>
+        /// <param name="ctrl">The control with the UI to update.</param>
+        public void Refresh(SetupListItem ctrl)
+        {
+            if (DesignerProperties.GetIsInDesignMode(ctrl) || File.Exists(ctrl.SetupPath))
+            {
+                ctrl.SetupName = Path.GetFileNameWithoutExtension(ctrl.SetupPath);
+                ctrl.HasError = false;
+            }
+            else
+            {
+                ctrl.SetupName = "Error!!";
+                ctrl.HasError = true;
+            }
+        }
+        #endregion
+
+
         #region Private Methods
         /// <summary>
         /// Updates the setup name to be the file name without the extension
@@ -158,27 +179,6 @@ namespace ParticleMaker.UserControls
             Refresh(this);
 
             DeleteClicked?.Invoke(this, new EventArgs());
-        }
-        #endregion
-
-
-        #region Private Methods
-        /// <summary>
-        /// Refreshs the control by updating the control's UI based on if the file exists or not.
-        /// </summary>
-        /// <param name="ctrl">The control with the UI to update.</param>
-        public void Refresh(SetupListItem ctrl)
-        {
-            if (DesignerProperties.GetIsInDesignMode(ctrl) || File.Exists(ctrl.SetupPath))
-            {
-                ctrl.SetupName = Path.GetFileNameWithoutExtension(ctrl.SetupPath);
-                ctrl.HasError = false;
-            }
-            else
-            {
-                ctrl.SetupName = "Error!!";
-                ctrl.HasError = true;
-            }
         }
         #endregion
     }

@@ -1,7 +1,6 @@
 ﻿using KDScorpionCore.Graphics;
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
-using ParticleMaker.Services;
 using System;
 using System.Windows.Media;
 using MediaColor = System.Windows.Media.Color;

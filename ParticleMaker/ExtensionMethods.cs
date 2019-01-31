@@ -1,7 +1,6 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Graphics;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using System.Text;
 using System.Windows.Media;
 using MediaColor = System.Windows.Media.Color;

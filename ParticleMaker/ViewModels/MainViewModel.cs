@@ -2,7 +2,6 @@
 using System.Windows.Forms;
 using System.Windows.Threading;
 using KDParticleEngine;
-using ThreadTimer = System.Threading.Timer;
 using CoreVector = KDScorpionCore.Vector;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;

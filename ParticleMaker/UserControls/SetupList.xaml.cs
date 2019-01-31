@@ -99,10 +99,6 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void SetupListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var myType = sender.GetType();
-            var originalSrcType = e.OriginalSource.GetType();
-            var srcType = e.Source.GetType();
-
             var selectedItem = SetupListBox.SelectedItem as PathItem;
 
             if (selectedItem == null)

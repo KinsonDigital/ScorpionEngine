@@ -43,8 +43,8 @@
             </Grid>
 
             <!--SETUP LIST-->
-            <ListBox x:Name="SetupListBox" ItemsSource="{Binding Path=Particles}" Grid.Row="1"
-                     HorizontalContentAlignment="Stretch" SelectionChanged="SetupListBox_SelectionChanged">
+            <ListBox x:Name="ParticleListBox" ItemsSource="{Binding Path=Particles}" Grid.Row="1"
+                     HorizontalContentAlignment="Stretch" SelectionChanged="ParticleListBox_SelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <local:ParticleListItem ParticleFilePath="{Binding Path=FilePath}"/>

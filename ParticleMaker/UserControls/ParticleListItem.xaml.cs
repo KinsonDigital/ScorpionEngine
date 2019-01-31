@@ -88,6 +88,30 @@ namespace ParticleMaker.UserControls
         #endregion
 
 
+        #region Public Methods
+        /// <summary>
+        /// Refreshes the UI of the user control.
+        /// </summary>
+        public void Refresh()
+        {
+            if (DesignerProperties.GetIsInDesignMode(this) || File.Exists(ParticleFilePath))
+            {
+                ParticleName = Path.GetFileNameWithoutExtension(ParticleFilePath);
+                HasError = false;
+            }
+            else
+            {
+                ParticleName = string.IsNullOrEmpty(ParticleFilePath) ||
+                           !File.Exists(ParticleFilePath) ?
+                           "" :
+                           ParticleName = Path.GetFileNameWithoutExtension(ParticleFilePath);
+
+                HasError = !File.Exists(ParticleFilePath);
+            }
+        }
+        #endregion
+
+
         #region Private Methods
         /// <summary>
         /// Invokes the rename event.
@@ -136,28 +160,6 @@ namespace ParticleMaker.UserControls
                 return;
 
             ctrl.Refresh();
-        }
-
-
-        /// <summary>
-        /// Refreshes the UI of the user control.
-        /// </summary>
-        private void Refresh()
-        {
-            if (DesignerProperties.GetIsInDesignMode(this) || File.Exists(ParticleFilePath))
-            {
-                ParticleName = Path.GetFileNameWithoutExtension(ParticleFilePath);
-                HasError = false;
-            }
-            else
-            {
-                ParticleName = string.IsNullOrEmpty(ParticleFilePath) ||
-                           !File.Exists(ParticleFilePath) ?
-                           "" : 
-                           ParticleName = Path.GetFileNameWithoutExtension(ParticleFilePath);
-
-                HasError = !File.Exists(ParticleFilePath);
-            }
         }
         #endregion
     }

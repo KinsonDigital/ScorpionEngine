@@ -2,13 +2,6 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ParticleMaker.UserControls
 {
@@ -59,6 +52,11 @@ namespace ParticleMaker.UserControls
             get { return (PathItem[])GetValue(ParticlesProperty); }
             set { SetValue(ParticlesProperty, value); }
         }
+
+        /// <summary>
+        /// Gets the selected particle item in the list.
+        /// </summary>
+        public PathItem SelectedItem { get; private set; }
         #endregion
 
 
@@ -85,6 +83,20 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
+        /// Sets the selected item property based on the list box selection.
+        /// </summary>
+        private void ParticleListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedItem = ParticleListBox.SelectedItem as PathItem;
+
+            if (selectedItem == null)
+                return;
+
+
+        }
+
+
+        /// <summary>
         /// Refreshes the list when the list of particle path items change.
         /// </summary>
         private static void ParticlesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -103,13 +115,14 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void Refresh()
         {
+            foreach (var item in ParticleListBox.Items)
+            {
+                if (!(item is ParticleListItem listItem))
+                    continue;
 
+                listItem.Refresh();
+            }
         }
         #endregion
-
-        private void SetupListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 }
