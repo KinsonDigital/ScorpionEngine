@@ -1,5 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -8,7 +11,7 @@ namespace ParticleMaker.UserControls
     /// <summary>
     /// Interaction logic for SetupList.xaml
     /// </summary>
-    public partial class SetupList : UserControl
+    public partial class SetupList : UserControl, IDisposable
     {
         #region Public Events
         /// <summary>
@@ -23,6 +26,12 @@ namespace ParticleMaker.UserControls
         #endregion
 
 
+        #region Fields
+        private Task _refreshTask;
+        private CancellationTokenSource _refreshTaskTokenSrc;
+        #endregion
+
+
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="SetupList"/>.
@@ -30,6 +39,12 @@ namespace ParticleMaker.UserControls
         public SetupList()
         {
             InitializeComponent();
+
+            _refreshTaskTokenSrc = new CancellationTokenSource();
+
+            _refreshTask = new Task(RefreshAction, _refreshTaskTokenSrc.Token);
+
+            _refreshTask.Start();
         }
         #endregion
 
@@ -56,6 +71,34 @@ namespace ParticleMaker.UserControls
         /// Gets the selected setup.
         /// </summary>
         public PathItem SelectedSetup { get; private set; }
+        #endregion
+
+
+        #region Public Methods
+        /// <summary>
+        /// Refreshes the UI.
+        /// </summary>
+        /// <param name="ctrl">The control to apply the refresh to.</param>
+        /// <param name="projPath">The path to the project.</param>
+        public void Refresh()
+        {
+            var particleItems = SetupListBox.FindVisualChildren<SetupListItem>().ToArray();
+
+            //Refresh each setup list item
+            foreach (var item in particleItems)
+            {
+                item.Refresh();
+            }
+        }
+
+
+        /// <summary>
+        /// Dispose of the control.
+        /// </summary>
+        public void Dispose()
+        {
+            _refreshTaskTokenSrc.Cancel();
+        }
         #endregion
 
 
@@ -109,26 +152,6 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Refreshes the UI.
-        /// </summary>
-        /// <param name="ctrl">The control to apply the refresh to.</param>
-        /// <param name="projPath">The path to the project.</param>
-        private void Refresh()
-        {
-            //TODO: This isn't working.  Remove this code
-            foreach (var item in SetupListBox.Items)
-            {
-                var itemType = item.GetType();
-
-                if (!(item is SetupListItem listItem))
-                    continue;
-
-                listItem.Refresh(listItem);
-            }
-        }
-
-
-        /// <summary>
         /// Returns true if the given path exists.
         /// </summary>
         /// <param name="path">The path to check for.</param>
@@ -136,6 +159,23 @@ namespace ParticleMaker.UserControls
         private static bool ProjectPathExists(string path)
         {
             return Directory.Exists(path);
+        }
+
+
+        /// <summary>
+        /// Invokes the refresh method at a specified interval.
+        /// </summary>
+        private void RefreshAction()
+        {
+            while (!_refreshTaskTokenSrc.IsCancellationRequested)
+            {
+                _refreshTaskTokenSrc.Token.WaitHandle.WaitOne(4000);
+
+                Dispatcher.Invoke(() =>
+                {
+                    Refresh();
+                });
+            }
         }
         #endregion
     }

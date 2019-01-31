@@ -95,8 +95,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public void Refresh()
         {
-            if (DesignerProperties.GetIsInDesignMode(this) || File.Exists(ParticleFilePath))
-            {
+            if (DesignerProperties.GetIsInDesignMode(this) && File.Exists(ParticleFilePath))
+            { 
                 ParticleName = Path.GetFileNameWithoutExtension(ParticleFilePath);
                 HasError = false;
             }
@@ -110,7 +110,6 @@ namespace ParticleMaker.UserControls
                            ParticleName = Path.GetFileNameWithoutExtension(ParticleFilePath);
 
                 HasError = !fileExists;
-
 
                 if (fileExists)
                 {

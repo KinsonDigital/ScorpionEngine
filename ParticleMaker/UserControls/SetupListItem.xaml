@@ -7,7 +7,8 @@
              mc:Ignorable="d" Name="this">
 
     <!--ERROR BORDER-->
-    <Border DataContext="{Binding ElementName=this}" d:DataContext="{d:DesignData Source=/UserControls/DesignData/UserControlData.xaml}"
+    <Border DataContext="{Binding ElementName=this}"
+            d:DataContext="{d:DesignData Source=/UserControls/DesignData/UserControlData.xaml}"
             BorderThickness="1">
         <Border.Style>
             <Style TargetType="Border">
@@ -39,7 +40,35 @@
 
                 <!--SETUP NAME-->
                 <Label Grid.Column="0" Content="{Binding Path=SetupName}" Foreground="Black" VerticalContentAlignment="Center"
-                       HorizontalAlignment="Center"/>
+                       HorizontalAlignment="Center">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=this, Path=HasError}" Value="True">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+
+                <!--ERROR MESSAGE-->
+                <Label Grid.Column="0" Grid.ColumnSpan="2" Content="ERROR!!" Foreground="Red" FontWeight="Bold" VerticalContentAlignment="Center"
+                       HorizontalAlignment="Center">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="Visibility" Value="Hidden"/>
+                            
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=this, Path=HasError}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>                    
+                </Label>
 
                 <!--RENAME BUTTON-->
                 <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">

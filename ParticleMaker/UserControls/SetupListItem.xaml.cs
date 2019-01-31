@@ -13,6 +13,9 @@ namespace ParticleMaker.UserControls
     public partial class SetupListItem : UserControl
     {
         #region Public Events
+        /// <summary>
+        /// Invoked when the delete button is clicked.
+        /// </summary>
         public event EventHandler<EventArgs> DeleteClicked;
         #endregion
 
@@ -46,7 +49,7 @@ namespace ParticleMaker.UserControls
         /// Registers the <see cref="HasError"/> property.
         /// </summary>
         protected static readonly DependencyProperty HasErrorProperty =
-                    DependencyProperty.Register(nameof(HasError), typeof(bool), typeof(SetupListItem), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(HasError), typeof(bool), typeof(SetupListItem), new PropertyMetadata(false));
         #endregion
 
 
@@ -60,7 +63,6 @@ namespace ParticleMaker.UserControls
             set { SetValue(SetupPathProperty, value); }
         }
 
-
         /// <summary>
         /// Gets or sets the setup name to be shown in the setup label.
         /// </summary>
@@ -69,7 +71,6 @@ namespace ParticleMaker.UserControls
             get { return (string)GetValue(SetupNameProperty); }
             set { SetValue(SetupNameProperty, value); }
         }
-
 
         /// <summary>
         /// Gets or sets a value indicating if the control has an error.
@@ -86,18 +87,23 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Refreshs the control by updating the control's UI based on if the file exists or not.
         /// </summary>
-        /// <param name="ctrl">The control with the UI to update.</param>
-        public void Refresh(SetupListItem ctrl)
+        public void Refresh()
         {
-            if (DesignerProperties.GetIsInDesignMode(ctrl) || File.Exists(ctrl.SetupPath))
+            var fileExists = File.Exists(SetupPath);
+
+            if (DesignerProperties.GetIsInDesignMode(this) && fileExists)
             {
-                ctrl.SetupName = Path.GetFileNameWithoutExtension(ctrl.SetupPath);
-                ctrl.HasError = false;
+                SetupName = Path.GetFileNameWithoutExtension(SetupPath);
+                HasError = false;
             }
             else
             {
-                ctrl.SetupName = "Error!!";
-                ctrl.HasError = true;
+                SetupName = string.IsNullOrEmpty(SetupPath) ||
+                            !fileExists ?
+                            "" :
+                            SetupName = Path.GetFileNameWithoutExtension(SetupPath);
+
+                HasError = !fileExists;
             }
         }
         #endregion
@@ -119,7 +125,7 @@ namespace ParticleMaker.UserControls
             if (ctrl == null)
                 return;
 
-            ctrl.Refresh(ctrl);
+            ctrl.Refresh();
         }
 
 
@@ -155,7 +161,7 @@ namespace ParticleMaker.UserControls
                 }
             }
 
-            Refresh(this);
+            Refresh();
         }
 
 
@@ -176,7 +182,7 @@ namespace ParticleMaker.UserControls
                 }
             }
 
-            Refresh(this);
+            Refresh();
 
             DeleteClicked?.Invoke(this, new EventArgs());
         }

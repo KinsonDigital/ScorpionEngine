@@ -1,14 +1,20 @@
 ﻿using ParticleMaker.CustomEventArgs;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace ParticleMaker.UserControls
 {
     /// <summary>
     /// Interaction logic for ParticleList.xaml
     /// </summary>
-    public partial class ParticleList : UserControl
+    public partial class ParticleList : UserControl, IDisposable
     {
         #region Public Events
         /// <summary>
@@ -23,6 +29,12 @@ namespace ParticleMaker.UserControls
         #endregion
 
 
+        #region Fields
+        private Task _refreshTask;
+        private CancellationTokenSource _refreshTaskTokenSrc;
+        #endregion
+
+
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="ParticleList"/>.
@@ -30,6 +42,12 @@ namespace ParticleMaker.UserControls
         public ParticleList()
         {
             InitializeComponent();
+
+            _refreshTaskTokenSrc = new CancellationTokenSource();
+
+            _refreshTask = new Task(RefreshAction, _refreshTaskTokenSrc.Token);
+
+            _refreshTask.Start();
         }
         #endregion
 
@@ -57,6 +75,32 @@ namespace ParticleMaker.UserControls
         /// Gets the selected particle item in the list.
         /// </summary>
         public PathItem SelectedItem { get; private set; }
+        #endregion
+
+
+        #region Public Methods
+        /// <summary>
+        /// Refreshes the UI based on the state of the user control.
+        /// </summary>
+        public void Refresh()
+        {
+            var particleItems = ParticleListBox.FindVisualChildren<ParticleListItem>().ToArray();
+
+            //Refresh each particle list item
+            foreach (var item in particleItems)
+            {
+                item.Refresh();
+            }
+        }
+
+
+        /// <summary>
+        /// Dispose of the control.
+        /// </summary>
+        public void Dispose()
+        {
+            _refreshTaskTokenSrc.Cancel();
+        }
         #endregion
 
 
@@ -111,19 +155,18 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Refreshes the UI based on the state of the user control.
+        /// Invokes the refresh method at a specified interval.
         /// </summary>
-        private void Refresh()
+        private void RefreshAction()
         {
-            var total = ParticleListBox.Items.Count;
-
-            //TODO: This isn't working.  Remove this code
-            foreach (var item in ParticleListBox.Items)
+            while (!_refreshTaskTokenSrc.IsCancellationRequested)
             {
-                if (!(item is ParticleListItem listItem))
-                    continue;
+                _refreshTaskTokenSrc.Token.WaitHandle.WaitOne(4000);
 
-                listItem.Refresh();
+                Dispatcher.Invoke(() =>
+                {
+                    Refresh();
+                });
             }
         }
         #endregion
