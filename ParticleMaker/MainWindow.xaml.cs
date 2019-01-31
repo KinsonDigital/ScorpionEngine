@@ -123,5 +123,12 @@ namespace ParticleMaker
 
             MySetupList.UpdateItemPath(e.OldPath, e.NewPath);
         }
+
+        private void MySetupList_ItemDeleted(object sender, CustomEventArgs.DeleteItemEventArgs e)
+        {
+            File.Delete(e.Path);
+
+            MySetupList.RemoveItem(e.Name);
+        }
     }
 }

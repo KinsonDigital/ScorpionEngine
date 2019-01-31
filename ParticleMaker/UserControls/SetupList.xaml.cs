@@ -30,6 +30,11 @@ namespace ParticleMaker.UserControls
         /// Occurs when any item in the list has been renamed.
         /// </summary>
         public event EventHandler<RenameItemEventArgs> ItemRenamed;
+
+        /// <summary>
+        /// Occurs when any item in the list has been deleted.
+        /// </summary>
+        public event EventHandler<DeleteItemEventArgs> ItemDeleted;
         #endregion
 
 
@@ -102,6 +107,18 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
+        /// Removes the item from the lsit that matches the given <paramref name="name"/>.
+        /// </summary>
+        /// <param name="name">The name of the item to remove.</param>
+        public void RemoveItem(string name)
+        {
+            Setups = (from p in Setups
+                      where Path.GetFileNameWithoutExtension(p.FilePath) != name
+                      select p).ToArray();
+        }
+
+
+        /// <summary>
         /// Refreshes the UI.
         /// </summary>
         /// <param name="ctrl">The control to apply the refresh to.</param>
@@ -155,6 +172,22 @@ namespace ParticleMaker.UserControls
                 e.NewPath = $@"{Path.GetDirectoryName(e.OldPath)}\{inputDialog.InputValue}{Path.GetExtension(e.OldPath)}";
 
                 ItemRenamed?.Invoke(this, e);
+            }
+        }
+
+
+        /// <summary>
+        /// Invokes the <see cref="ItemDeleted"/> event.
+        /// </summary>
+        private void ListBoxItems_DeleteClicked(object sender, DeleteItemEventArgs e)
+        {
+            var msg = $"Are you sure you want to delete the setup {e.Name}?";
+
+            var dialogResult = MessageBox.Show(msg, "Delete Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (dialogResult == MessageBoxResult.Yes)
+            {
+                ItemDeleted?.Invoke(this, e);
             }
         }
 
@@ -242,6 +275,7 @@ namespace ParticleMaker.UserControls
                 if (!item.IsRenameSubscribed)
                 {
                     item.SubscribeRenameClicked(ListBoxItems_RenameClicked);
+                    item.SubscribeDeleteClicked(ListBoxItems_DeleteClicked);
                 }
             }
         }

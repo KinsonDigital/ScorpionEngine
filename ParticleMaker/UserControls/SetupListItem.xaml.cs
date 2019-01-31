@@ -1,5 +1,4 @@
 ﻿using ParticleMaker.CustomEventArgs;
-using ParticleMaker.Dialogs;
 using System;
 using System.ComponentModel;
 using System.IO;
@@ -22,7 +21,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Invoked when the delete button is clicked.
         /// </summary>
-        public event EventHandler<EventArgs> DeleteClicked;
+        public event EventHandler<DeleteItemEventArgs> DeleteClicked;
         #endregion
 
 
@@ -91,6 +90,11 @@ namespace ParticleMaker.UserControls
         /// Gets or sets a value indicating if the rename event has been subscribed to.
         /// </summary>
         internal bool IsRenameSubscribed { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating if the delete event has been subscribed to.
+        /// </summary>
+        internal bool IsDeleteSubscribed { get; set; }
         #endregion
 
 
@@ -134,11 +138,26 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
+        /// Subscribes the given handler to the delete clicked event.
+        /// </summary>
+        /// <param name="handler">The handler to subscribe to.</param>
+        internal void SubscribeDeleteClicked(EventHandler<DeleteItemEventArgs> handler)
+        {
+            DeleteClicked += handler;
+
+            IsDeleteSubscribed = true;
+        }
+
+
+        /// <summary>
         /// Unsubscribes the given handler to the delete clicked event.
         /// </summary>
         /// <param name="handler">The handler to subscribe to.</param>
         internal void UnsubscribeDeleteClicked(EventHandler<DeleteItemEventArgs> handler)
         {
+            DeleteClicked -= handler;
+
+            IsDeleteSubscribed = false;
         }
         #endregion
 
@@ -181,21 +200,9 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void DeleteCustomButton_Click(object sender, EventArgs e)
         {
-            if (File.Exists(SetupPath))
-            {
-                try
-                {
-                    File.Delete(SetupPath);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
+            DeleteClicked?.Invoke(this, new DeleteItemEventArgs(SetupName, SetupPath));
 
             Refresh();
-
-            DeleteClicked?.Invoke(this, new EventArgs());
         }
         #endregion
     }
