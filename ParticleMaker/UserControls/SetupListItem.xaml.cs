@@ -1,4 +1,5 @@
-﻿using ParticleMaker.Dialogs;
+﻿using ParticleMaker.CustomEventArgs;
+using ParticleMaker.Dialogs;
 using System;
 using System.ComponentModel;
 using System.IO;
@@ -13,6 +14,11 @@ namespace ParticleMaker.UserControls
     public partial class SetupListItem : UserControl
     {
         #region Public Events
+        /// <summary>
+        /// Invoked when the rename button has been clicked.
+        /// </summary>
+        public event EventHandler<RenameItemEventArgs> RenameClicked;
+
         /// <summary>
         /// Invoked when the delete button is clicked.
         /// </summary>
@@ -42,7 +48,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Registers the <see cref="SetupName"/> property.
         /// </summary>
-        protected static readonly DependencyProperty SetupNameProperty =
+        public static readonly DependencyProperty SetupNameProperty =
             DependencyProperty.Register(nameof(SetupName), typeof(string), typeof(SetupListItem), new PropertyMetadata(""));
 
         /// <summary>
@@ -66,7 +72,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Gets or sets the setup name to be shown in the setup label.
         /// </summary>
-        protected string SetupName
+        public string SetupName
         {
             get { return (string)GetValue(SetupNameProperty); }
             set { SetValue(SetupNameProperty, value); }
@@ -80,6 +86,11 @@ namespace ParticleMaker.UserControls
             get { return (bool)GetValue(HasErrorProperty); }
             set { SetValue(HasErrorProperty, value); }
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating if the rename event has been subscribed to.
+        /// </summary>
+        internal bool IsRenameSubscribed { get; set; }
         #endregion
 
 
@@ -105,6 +116,29 @@ namespace ParticleMaker.UserControls
 
                 HasError = !fileExists;
             }
+        }
+        #endregion
+
+
+        #region Internal Methods
+        /// <summary>
+        /// Subscribes the given handler to the rename clicked event.
+        /// </summary>
+        /// <param name="handler">The handler to subscribe to.</param>
+        internal void SubscribeRenameClicked(EventHandler<RenameItemEventArgs> handler)
+        {
+            RenameClicked += handler;
+
+            IsRenameSubscribed = true;
+        }
+
+
+        /// <summary>
+        /// Unsubscribes the given handler to the delete clicked event.
+        /// </summary>
+        /// <param name="handler">The handler to subscribe to.</param>
+        internal void UnsubscribeDeleteClicked(EventHandler<DeleteItemEventArgs> handler)
+        {
         }
         #endregion
 
@@ -136,30 +170,7 @@ namespace ParticleMaker.UserControls
         /// <param name="e"></param>
         private void RenameCustomButton_Click(object sender, EventArgs e)
         {
-            if (File.Exists(SetupPath))
-            {
-                try
-                {
-                    var oldName = Path.GetFileNameWithoutExtension(SetupPath);
-
-                    var inputDialog = new InputDialog("Rename setup", $"Rename the setup named \"{oldName}\".", oldName);
-
-                    var dialogResult = inputDialog.ShowDialog();
-
-                    if (dialogResult != null && dialogResult == true)
-                    {
-                        var destFileName = $@"{Path.GetDirectoryName(SetupPath)}\{inputDialog.InputResult}.json";
-
-                        File.Move(SetupPath, destFileName);
-
-                        SetupPath = destFileName;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
+            RenameClicked?.Invoke(this, new RenameItemEventArgs(SetupName, SetupPath));
 
             Refresh();
         }

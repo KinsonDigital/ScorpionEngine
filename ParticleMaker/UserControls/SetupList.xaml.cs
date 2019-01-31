@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ParticleMaker.CustomEventArgs;
+using ParticleMaker.Dialogs;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -23,10 +25,16 @@ namespace ParticleMaker.UserControls
         /// Invoked when the refresh button has been clicked.
         /// </summary>
         public event EventHandler<EventArgs> RefreshClicked;
+
+        /// <summary>
+        /// Occurs when any item in the list has been renamed.
+        /// </summary>
+        public event EventHandler<RenameItemEventArgs> ItemRenamed;
         #endregion
 
 
         #region Fields
+        private char[] _illegalCharacters = new[] { '\\', '/', ':', '*', '?', '\"', '<', '>', '|', '.' };
         private Task _refreshTask;
         private CancellationTokenSource _refreshTaskTokenSrc;
         #endregion
@@ -76,6 +84,24 @@ namespace ParticleMaker.UserControls
 
         #region Public Methods
         /// <summary>
+        /// Finds the item that matches the given <paramref name="oldPath"/> and replaces it with
+        /// the given <paramref name="newPath"/>.
+        /// </summary>
+        /// <param name="oldPath">The old path.</param>
+        /// <param name="newPath">The new path.</param>
+        public void UpdateItemPath(string oldPath, string newPath)
+        {
+            var updatedSetupList = (from p in Setups
+                                    where p.FilePath != oldPath
+                                    select p).ToList();
+
+            updatedSetupList.Add(new PathItem() { FilePath = newPath });
+
+            Setups = updatedSetupList.ToArray();
+        }
+
+
+        /// <summary>
         /// Refreshes the UI.
         /// </summary>
         /// <param name="ctrl">The control to apply the refresh to.</param>
@@ -113,6 +139,27 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
+        /// Invokes the <see cref="ItemRenamed"/> event.
+        /// </summary>
+        private void ListBoxItems_RenameClicked(object sender, RenameItemEventArgs e)
+        {
+            var illegalNames = (from item in Setups select Path.GetFileNameWithoutExtension(item.FilePath)).ToArray();
+
+            var inputDialog = new InputDialog("Rename particle", $"Rename the particle '{e.OldName}'.", e.OldName, _illegalCharacters, illegalNames);
+
+            inputDialog.ShowDialog();
+
+            if (inputDialog.DialogResult == true)
+            {
+                e.NewName = inputDialog.InputValue;
+                e.NewPath = $@"{Path.GetDirectoryName(e.OldPath)}\{inputDialog.InputValue}{Path.GetExtension(e.OldPath)}";
+
+                ItemRenamed?.Invoke(this, e);
+            }
+        }
+
+
+        /// <summary>
         /// Refreshes the list.
         /// </summary>
         private void RefreshButton_Click(object sender, EventArgs e)
@@ -132,6 +179,8 @@ namespace ParticleMaker.UserControls
 
             if (ctrl == null)
                 return;
+
+            ctrl.SubscribeEvents();
 
             ctrl.Refresh();
         }
@@ -169,12 +218,45 @@ namespace ParticleMaker.UserControls
         {
             while (!_refreshTaskTokenSrc.IsCancellationRequested)
             {
-                _refreshTaskTokenSrc.Token.WaitHandle.WaitOne(4000);
+                _refreshTaskTokenSrc.Token.WaitHandle.WaitOne(1000);
 
                 Dispatcher.Invoke(() =>
                 {
                     Refresh();
+                    SubscribeEvents();
                 });
+            }
+        }
+
+
+        /// <summary>
+        /// Subscribes to all of the events
+        /// </summary>
+        private void SubscribeEvents()
+        {
+            var listItems = SetupListBox.FindVisualChildren<SetupListItem>().ToArray();
+
+            //Subsribe all of the events
+            foreach (var item in listItems)
+            {
+                if (!item.IsRenameSubscribed)
+                {
+                    item.SubscribeRenameClicked(ListBoxItems_RenameClicked);
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Unsubscribes to all of the events.
+        /// </summary>
+        private void UnsubscribeEvents()
+        {
+            var listItems = SetupListBox.FindVisualChildren<SetupListItem>().ToArray();
+
+            //Unsubsribe all of the events
+            foreach (var item in listItems)
+            {
             }
         }
         #endregion

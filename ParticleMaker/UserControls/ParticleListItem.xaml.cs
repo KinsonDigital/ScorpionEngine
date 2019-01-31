@@ -18,12 +18,12 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Invoked when the rename button has been clicked.
         /// </summary>
-        public event EventHandler<RenameParticleEventArgs> RenameClicked;
+        public event EventHandler<RenameItemEventArgs> RenameClicked;
 
         /// <summary>
         /// Invoked when the delete button has been clicked.
         /// </summary>
-        public event EventHandler<DeleteParticleEventArgs> DeleteClicked;
+        public event EventHandler<DeleteItemEventArgs> DeleteClicked;
         #endregion
 
 
@@ -147,7 +147,7 @@ namespace ParticleMaker.UserControls
         /// Subscribes the given handler to the rename clicked event.
         /// </summary>
         /// <param name="handler">The handler to subscribe to.</param>
-        internal void SubscribeRenameClicked(EventHandler<RenameParticleEventArgs> handler)
+        internal void SubscribeRenameClicked(EventHandler<RenameItemEventArgs> handler)
         {
             RenameClicked += handler;
 
@@ -159,7 +159,7 @@ namespace ParticleMaker.UserControls
         /// Unsubscribes the given handler to the rename clicked event.
         /// </summary>
         /// <param name="handler">The handler to subscribe to.</param>
-        internal void UnsubscribeRenameClicked(EventHandler<RenameParticleEventArgs> handler)
+        internal void UnsubscribeRenameClicked(EventHandler<RenameItemEventArgs> handler)
         {
             RenameClicked -= handler;
 
@@ -171,7 +171,7 @@ namespace ParticleMaker.UserControls
         /// Subscribes the given handler to the delete clicked event.
         /// </summary>
         /// <param name="handler">The handler to subscribe to.</param>
-        internal void SubscribeDeleteClicked(EventHandler<DeleteParticleEventArgs> handler)
+        internal void SubscribeDeleteClicked(EventHandler<DeleteItemEventArgs> handler)
         {
             DeleteClicked += handler;
 
@@ -183,7 +183,7 @@ namespace ParticleMaker.UserControls
         /// Unsubscribes the given handler to the delete clicked event.
         /// </summary>
         /// <param name="handler">The handler to subscribe to.</param>
-        internal void UnsubscribeDeleteClicked(EventHandler<DeleteParticleEventArgs> handler)
+        internal void UnsubscribeDeleteClicked(EventHandler<DeleteItemEventArgs> handler)
         {
             DeleteClicked -= handler;
 
@@ -198,7 +198,7 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void RenameCustomButton_Click(object sender, EventArgs e)
         {
-            RenameClicked?.Invoke(this, new RenameParticleEventArgs(ParticleName, ParticleFilePath));
+            RenameClicked?.Invoke(this, new RenameItemEventArgs(ParticleName, ParticleFilePath));
 
             Refresh();
         }
@@ -209,7 +209,7 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void DeleteCustomButton_Click(object sender, EventArgs e)
         {
-            DeleteClicked?.Invoke(this, new DeleteParticleEventArgs(ParticleName, ParticleFilePath));
+            DeleteClicked?.Invoke(this, new DeleteItemEventArgs(ParticleName, ParticleFilePath));
 
             Refresh();
         }

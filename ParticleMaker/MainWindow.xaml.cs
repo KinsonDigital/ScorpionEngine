@@ -103,18 +103,25 @@ namespace ParticleMaker
             thumbnailDialog.ShowDialog();
         }
 
-        private void ParticleList_ItemRenamed(object sender, CustomEventArgs.RenameParticleEventArgs e)
+        private void ParticleList_ItemRenamed(object sender, CustomEventArgs.RenameItemEventArgs e)
         {
-            File.Move(e.OldParticleFilePath, e.NewParticleFilePath);
+            File.Move(e.OldPath, e.NewPath);
 
-            ParticleList.UpdateItemPath(e.OldParticleName, e.NewParticleFilePath);
+            ParticleList.UpdateItemPath(e.OldPath, e.NewPath);
         }
 
-        private void ParticleList_ItemDeleted(object sender, CustomEventArgs.DeleteParticleEventArgs e)
+        private void ParticleList_ItemDeleted(object sender, CustomEventArgs.DeleteItemEventArgs e)
         {
-            File.Delete(e.ParticleFilePath);
+            File.Delete(e.Path);
 
-            ParticleList.RemoveItem(e.ParticleName);
+            ParticleList.RemoveItem(e.Name);
+        }
+
+        private void MySetupList_ItemRenamed(object sender, CustomEventArgs.RenameItemEventArgs e)
+        {
+            File.Move(e.OldPath, e.NewPath);
+
+            MySetupList.UpdateItemPath(e.OldPath, e.NewPath);
         }
     }
 }

@@ -29,12 +29,12 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Occurs when any item in the list has been renamed.
         /// </summary>
-        public event EventHandler<RenameParticleEventArgs> ItemRenamed;
+        public event EventHandler<RenameItemEventArgs> ItemRenamed;
 
         /// <summary>
         /// Occurs when any item in the list has been deleted.
         /// </summary>
-        public event EventHandler<DeleteParticleEventArgs> ItemDeleted;
+        public event EventHandler<DeleteItemEventArgs> ItemDeleted;
         #endregion
 
 
@@ -52,8 +52,6 @@ namespace ParticleMaker.UserControls
         public ParticleList()
         {
             InitializeComponent();
-
-            Loaded += ParticleList_Loaded;
 
             _refreshTaskTokenSrc = new CancellationTokenSource();
 
@@ -92,23 +90,20 @@ namespace ParticleMaker.UserControls
 
         #region Public Methods
         /// <summary>
-        /// Finds the item that matches the given <paramref name="name"/> and updates its path to
-        /// the given <paramref name="path"/>.
+        /// Finds the item that matches the given <paramref name="oldPath"/> and replaces it with
+        /// the given <paramref name="newPath"/>.
         /// </summary>
-        /// <param name="name">The name of the item to update.</param>
-        /// <param name="path">The new path to set the found item to.</param>
-        public void UpdateItemPath(string name, string path)
+        /// <param name="oldPath">The old path.</param>
+        /// <param name="newPath">The new path.</param>
+        public void UpdateItemPath(string oldPath, string newPath)
         {
-            var particleItems = ParticleListBox.FindVisualChildren<ParticleListItem>().ToArray();
+            var updatedSetupList = (from p in Particles
+                                    where p.FilePath != oldPath
+                                    select p).ToList();
 
-            foreach (var item in particleItems)
-            {
-                if (item.ParticleName == name)
-                {
-                    item.ParticleFilePath = path;
-                    break;
-                }
-            }
+            updatedSetupList.Add(new PathItem() { FilePath = newPath });
+
+            Particles = updatedSetupList.ToArray();
         }
 
 
@@ -155,29 +150,20 @@ namespace ParticleMaker.UserControls
 
         #region Private Methods
         /// <summary>
-        /// Subscribes all of the events for each listbox item.
-        /// </summary>
-        private void ParticleList_Loaded(object sender, RoutedEventArgs e)
-        {
-            SubscribeEvents();
-        }
-
-
-        /// <summary>
         /// Invokes the <see cref="ItemRenamed"/> event.
         /// </summary>
-        private void ListBoxItems_RenameClicked(object sender, RenameParticleEventArgs e)
+        private void ListBoxItems_RenameClicked(object sender, RenameItemEventArgs e)
         {
             var illegalNames = (from item in Particles select Path.GetFileNameWithoutExtension(item.FilePath)).ToArray();
 
-            var inputDialog = new InputDialog("Rename particle", $"Rename the particle '{e.OldParticleName}'.", e.OldParticleName, _illegalCharacters, illegalNames);
+            var inputDialog = new InputDialog("Rename particle", $"Rename the particle '{e.OldName}'.", e.OldName, _illegalCharacters, illegalNames);
 
             inputDialog.ShowDialog();
 
             if (inputDialog.DialogResult == true)
             {
-                e.NewParticleName = inputDialog.InputValue;
-                e.NewParticleFilePath = $@"{Path.GetDirectoryName(e.OldParticleFilePath)}\{inputDialog.InputValue}{Path.GetExtension(e.OldParticleFilePath)}";
+                e.NewName = inputDialog.InputValue;
+                e.NewPath = $@"{Path.GetDirectoryName(e.OldPath)}\{inputDialog.InputValue}{Path.GetExtension(e.OldPath)}";
 
                 ItemRenamed?.Invoke(this, e);
             }
@@ -187,9 +173,9 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Invokes the <see cref="ItemDeleted"/> event.
         /// </summary>
-        private void ListBoxItems_DeleteClicked(object sender, DeleteParticleEventArgs e)
+        private void ListBoxItems_DeleteClicked(object sender, DeleteItemEventArgs e)
         {
-            var msg = $"Are you sure you want to delete the particle {e.ParticleName}?";
+            var msg = $"Are you sure you want to delete the particle {e.Name}?";
 
             var dialogResult = MessageBox.Show(msg, "Delete Particle", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
@@ -197,21 +183,6 @@ namespace ParticleMaker.UserControls
             {
                 ItemDeleted?.Invoke(this, e);
             }
-            //TODO:  Add a confirmation dialog here
-
-            //var illegalNames = (from item in Particles select Path.GetFileNameWithoutExtension(item.FilePath)).ToArray();
-
-            //var inputDialog = new InputDialog("Rename particle", $"Rename the particle '{e.OldParticleName}'.", e.OldParticleName, _illegalCharacters, illegalNames);
-
-            //inputDialog.ShowDialog();
-
-            //if (inputDialog.DialogResult == true)
-            //{
-            //    e.NewParticleName = inputDialog.InputValue;
-            //    e.NewParticleFilePath = $@"{Path.GetDirectoryName(e.OldParticleFilePath)}\{inputDialog.InputValue}{Path.GetExtension(e.OldParticleFilePath)}";
-
-            //    ItemRenamed?.Invoke(this, e);
-            //}
         }
 
 
@@ -274,11 +245,12 @@ namespace ParticleMaker.UserControls
         {
             while (!_refreshTaskTokenSrc.IsCancellationRequested)
             {
-                _refreshTaskTokenSrc.Token.WaitHandle.WaitOne(4000);
+                _refreshTaskTokenSrc.Token.WaitHandle.WaitOne(1000);
 
                 Dispatcher.Invoke(() =>
                 {
                     Refresh();
+                    SubscribeEvents();
                 });
             }
         }

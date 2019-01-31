@@ -43,7 +43,7 @@
             </Grid>
             
             <!--SETUP LIST-->
-            <ListBox x:Name="SetupListBox" ItemsSource="{Binding Path=Setups}" Grid.Row="1"
+            <ListBox x:Name="SetupListBox" ItemsSource="{Binding Path=Setups, Mode=TwoWay}" Grid.Row="1"
                      HorizontalContentAlignment="Stretch" SelectionChanged="SetupListBox_SelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
