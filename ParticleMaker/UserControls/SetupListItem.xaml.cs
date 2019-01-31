@@ -82,6 +82,27 @@ namespace ParticleMaker.UserControls
         #endregion
 
 
+        #region Public Methods
+        /// <summary>
+        /// Refreshs the control by updating the control's UI based on if the file exists or not.
+        /// </summary>
+        /// <param name="ctrl">The control with the UI to update.</param>
+        public void Refresh(SetupListItem ctrl)
+        {
+            if (DesignerProperties.GetIsInDesignMode(ctrl) || File.Exists(ctrl.SetupPath))
+            {
+                ctrl.SetupName = Path.GetFileNameWithoutExtension(ctrl.SetupPath);
+                ctrl.HasError = false;
+            }
+            else
+            {
+                ctrl.SetupName = "Error!!";
+                ctrl.HasError = true;
+            }
+        }
+        #endregion
+
+
         #region Private Methods
         /// <summary>
         /// Updates the setup name to be the file name without the extension
@@ -109,7 +130,7 @@ namespace ParticleMaker.UserControls
         /// <param name="e"></param>
         private void RenameCustomButton_Click(object sender, EventArgs e)
         {
-            if (FileExists(SetupPath))
+            if (File.Exists(SetupPath))
             {
                 try
                 {
@@ -143,7 +164,7 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void DeleteCustomButton_Click(object sender, EventArgs e)
         {
-            if (FileExists(SetupPath))
+            if (File.Exists(SetupPath))
             {
                 try
                 {
@@ -158,37 +179,6 @@ namespace ParticleMaker.UserControls
             Refresh(this);
 
             DeleteClicked?.Invoke(this, new EventArgs());
-        }
-        #endregion
-
-
-        #region Private Methods
-        /// <summary>
-        /// Refreshs the control by updating the control's UI based on if the file exists or not.
-        /// </summary>
-        /// <param name="ctrl">The control with the UI to update.</param>
-        public void Refresh(SetupListItem ctrl)
-        {
-            if (DesignerProperties.GetIsInDesignMode(ctrl) || FileExists(ctrl.SetupPath))
-            {
-                ctrl.SetupName = Path.GetFileNameWithoutExtension(ctrl.SetupPath);
-                ctrl.HasError = false;
-            }
-            else
-            {
-                ctrl.SetupName = "Error!!";
-                ctrl.HasError = true;
-            }
-        }
-
-
-        /// <summary>
-        /// Returns a value indicating if the file at the given <paramref name="filePath"/> exists.
-        /// </summary>
-        /// <param name="filePath">The path to the file to check for.</param>
-        private static bool FileExists(string filePath)
-        {
-            return File.Exists(filePath);
         }
         #endregion
     }

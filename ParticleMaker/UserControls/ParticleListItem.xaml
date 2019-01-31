@@ -54,7 +54,7 @@
         </Label>
 
         <!--PARTICLE NAME-->
-        <Label Content="{Binding Path=ParticleName}" Grid.Column="0" VerticalAlignment="Center"
+        <Label Content="{Binding Path=ParticleName}" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"
                Style="{StaticResource NoErrorStyle}"/>
 
         <!--PARTICLE THUMBNAIL-->

@@ -39,53 +39,23 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Registers the <see cref="Setups"/> property.
         /// </summary>
-        public static readonly DependencyProperty SetupProperty =
-            DependencyProperty.Register(nameof(Setups), typeof(SetupPathItem[]), typeof(SetupList), new PropertyMetadata(new SetupPathItem[0], SetupsChanged));
-
-        /// <summary>
-        /// Registers the <see cref="HasError"/> property.
-        /// </summary>
-        protected static readonly DependencyProperty HasErrorProperty =
-            DependencyProperty.Register(nameof(HasError), typeof(bool), typeof(SetupList), new PropertyMetadata(false));
-
-        /// <summary>
-        /// Registers the <see cref="ErrorMessage"/> property.
-        /// </summary>
-        protected static readonly DependencyProperty ErrorMessageProperty =
-            DependencyProperty.Register(nameof(ErrorMessage), typeof(string), typeof(SetupList), new PropertyMetadata(""));
+        public static readonly DependencyProperty SetupsProperty =
+            DependencyProperty.Register(nameof(Setups), typeof(PathItem[]), typeof(SetupList), new PropertyMetadata(new PathItem[0], SetupsChanged));
         #endregion
 
         /// <summary>
         /// Gets or sets the list of setup paths.
         /// </summary>
-        public SetupPathItem[] Setups
+        public PathItem[] Setups
         {
-            get { return (SetupPathItem[])GetValue(SetupProperty); }
-            set { SetValue(SetupProperty, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating if the user control has an error.
-        /// </summary>
-        protected bool HasError
-        {
-            get { return (bool)GetValue(HasErrorProperty); }
-            set { SetValue(HasErrorProperty, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the error message to be shown in the control if there is an error.
-        /// </summary>
-        protected string ErrorMessage
-        {
-            get { return (string)GetValue(ErrorMessageProperty); }
-            set { SetValue(ErrorMessageProperty, value); }
+            get { return (PathItem[])GetValue(SetupsProperty); }
+            set { SetValue(SetupsProperty, value); }
         }
 
         /// <summary>
         /// Gets the selected setup.
         /// </summary>
-        public SetupPathItem SelectedSetup { get; private set; }
+        public PathItem SelectedSetup { get; private set; }
         #endregion
 
 
@@ -129,11 +99,7 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void SetupListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var myType = sender.GetType();
-            var originalSrcType = e.OriginalSource.GetType();
-            var srcType = e.Source.GetType();
-
-            var selectedItem = SetupListBox.SelectedItem as SetupPathItem;
+            var selectedItem = SetupListBox.SelectedItem as PathItem;
 
             if (selectedItem == null)
                 return;

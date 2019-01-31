@@ -64,6 +64,7 @@
       <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
     <Compile Include="CoreEngine.cs" />
+    <Compile Include="CustomEventArgs\AddParticleClickedEventArgs.cs" />
     <Compile Include="CustomEventArgs\DeleteParticleEventArgs.cs" />
     <Compile Include="CustomEventArgs\DrawEventArgs.cs" />
     <Compile Include="CustomEventArgs\RenameParticleEventArgs.cs" />
@@ -120,6 +121,9 @@
     <Compile Include="UserControls\NumberBox.xaml.cs">
       <DependentUpon>NumberBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ParticleList.xaml.cs">
+      <DependentUpon>ParticleList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ParticleListItem.xaml.cs">
       <DependentUpon>ParticleListItem.xaml</DependentUpon>
     </Compile>
@@ -136,7 +140,7 @@
     <Compile Include="UserControls\SetupListItem.xaml.cs">
       <DependentUpon>SetupListItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SetupPathItem.cs" />
+    <Compile Include="UserControls\PathItem.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="ColorPicker.xaml">
       <SubType>Designer</SubType>
@@ -183,6 +187,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\NumberBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ParticleList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

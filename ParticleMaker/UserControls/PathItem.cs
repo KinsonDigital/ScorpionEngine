@@ -1,12 +1,12 @@
 ﻿namespace ParticleMaker.UserControls
 {
     /// <summary>
-    /// Represents a single setup file path.
+    /// Represents a single file path to an item.
     /// </summary>
-    public class SetupPathItem
+    public class PathItem
     {
         /// <summary>
-        /// Gets or sets the path to the setup file.
+        /// Gets or sets the path to the file.
         /// </summary>
         public string FilePath { get; set; }
     }
