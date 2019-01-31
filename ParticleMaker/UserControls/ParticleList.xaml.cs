@@ -22,11 +22,6 @@ namespace ParticleMaker.UserControls
         public event EventHandler<AddParticleClickedEventArgs> AddParticleClicked;
 
         /// <summary>
-        /// Invoked when the refresh button has been clicked.
-        /// </summary>
-        public event EventHandler<EventArgs> RefreshClicked;
-
-        /// <summary>
         /// Occurs when any item in the list has been renamed.
         /// </summary>
         public event EventHandler<RenameItemEventArgs> ItemRenamed;
@@ -195,17 +190,6 @@ namespace ParticleMaker.UserControls
             AddParticleClicked?.Invoke(this, new AddParticleClickedEventArgs(""));
 
             //TODO: Check if the newly added item has its rename event subscribed to
-            Refresh();
-        }
-
-
-        /// <summary>
-        /// Refreshes the list.
-        /// </summary>
-        private void RefreshButton_Click(object sender, EventArgs e)
-        {
-            RefreshClicked?.Invoke(this, new EventArgs());
-
             Refresh();
         }
 
