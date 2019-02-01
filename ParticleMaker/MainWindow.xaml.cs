@@ -95,12 +95,17 @@ namespace ParticleMaker
 
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
-            var thumbnailDialog = new ThumbnailViewerDialog("Thumbnail Viewer - Owl");
+            var projListDialog = new ProjectListDialog
+            {
+                ProjectPaths = new[]
+                {
+                    @"C:\temp\projects\project-A",
+                    @"C:\temp\projects\project-B",
+                    @"C:\temp\projects\project-C",
+                }
+            };
 
-            thumbnailDialog.ThumbnailPath = @"C:\temp\owlparticle.png";
-
-            thumbnailDialog.Owner = this;
-            thumbnailDialog.ShowDialog();
+            projListDialog.Show();
         }
 
         private void ParticleList_ItemRenamed(object sender, CustomEventArgs.RenameItemEventArgs e)

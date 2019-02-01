@@ -2,7 +2,7 @@
 
 namespace ParticleMaker.Dialogs.DesignData
 {
-    public class InputDialogData
+    public class DialogData
     {
         public string DialogTitle { get; set; }
 
@@ -13,5 +13,7 @@ namespace ParticleMaker.Dialogs.DesignData
         public ICommand OkCommand { get; set; }
 
         public ICommand CancelCommand { get; set; }
+
+        public string[] ProjectNames { get; set; }
     }
 }

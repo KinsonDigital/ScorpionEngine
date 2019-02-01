@@ -36,7 +36,39 @@ namespace ParticleMaker.Dialogs
         /// Registers the <see cref="ProjectPaths"/> property.
         /// </summary>
         public static readonly DependencyProperty ProjectPathsProperty =
-            DependencyProperty.Register(nameof(ProjectPaths), typeof(string[]), typeof(ProjectListDialog), new PropertyMetadata(new string[0]));
+            DependencyProperty.Register(nameof(ProjectPaths), typeof(string[]), typeof(ProjectListDialog), new PropertyMetadata(new string[0], ProjectPathsChanged));
+
+        /// <summary>
+        /// Updates the project names list.
+        /// </summary>
+        private static void ProjectPathsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var dialog = (ProjectListDialog)d;
+
+            if (dialog == null)
+                return;
+
+            if (!(e.NewValue is string[] newValue))
+                return;
+
+            var names = new List<string>();
+
+            foreach (var item in newValue)
+            {
+                var sections = item.Split('\\');
+
+                if (sections.Length > 0)
+                    names.Add(sections[sections.Length - 1]);
+            }
+
+            dialog.ProjectNames = names.ToArray();
+        }
+
+        /// <summary>
+        /// Registers the <see cref="ProjectNames"/>.
+        /// </summary>
+        protected static readonly DependencyProperty ProjectNamesProperty =
+            DependencyProperty.Register(nameof(ProjectNames), typeof(string[]), typeof(ProjectListDialog), new PropertyMetadata(new string[0]));
         #endregion
 
 
@@ -47,6 +79,16 @@ namespace ParticleMaker.Dialogs
         {
             get { return (string[])GetValue(ProjectPathsProperty); }
             set { SetValue(ProjectPathsProperty, value); }
+        }
+
+
+        /// <summary>
+        /// Gets or sets the list of project names.
+        /// </summary>
+        protected string[] ProjectNames
+        {
+            get { return (string[])GetValue(ProjectNamesProperty); }
+            set { SetValue(ProjectNamesProperty, value); }
         }
         #endregion
     }
