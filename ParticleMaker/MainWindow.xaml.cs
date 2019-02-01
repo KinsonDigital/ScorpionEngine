@@ -130,5 +130,10 @@ namespace ParticleMaker
 
             MySetupList.RemoveItem(e.Name);
         }
+
+        private void MySetupList_AddSetupClicked(object sender, CustomEventArgs.AddSetupClickedEventArgs e)
+        {
+
+        }
     }
 }

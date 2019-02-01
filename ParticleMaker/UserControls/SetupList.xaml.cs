@@ -19,7 +19,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Invoked when the add setup button has been clicked.
         /// </summary>
-        public event EventHandler<EventArgs> AddSetupClicked;
+        public event EventHandler<AddSetupClickedEventArgs> AddSetupClicked;
 
         /// <summary>
         /// Occurs when any item in the list has been renamed.
@@ -83,6 +83,12 @@ namespace ParticleMaker.UserControls
 
 
         #region Public Methods
+        public void AddItemPath(string itemPath)
+        {
+
+        }
+
+
         /// <summary>
         /// Finds the item that matches the given <paramref name="oldPath"/> and replaces it with
         /// the given <paramref name="newPath"/>.
@@ -148,7 +154,30 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void AddSetupButton_Click(object sender, EventArgs e)
         {
-            AddSetupClicked?.Invoke(this, e);
+            var invalidSetups = Setups.Select(s =>
+            {
+                var sections = s.FilePath.Split('\\');
+
+                if (sections.Length > 0)
+                    return Path.GetFileNameWithoutExtension(sections[sections.Length - 1]);
+
+
+                return "";
+            }).ToArray();
+
+            if (invalidSetups.All(item => string.IsNullOrEmpty(item)))
+                invalidSetups = null;
+
+            var inputDialog = new InputDialog("Add Setup", "Please type new setup name.", invalidChars: _illegalCharacters, invalidValues: invalidSetups);
+
+            var dialogResult = inputDialog.ShowDialog();
+
+            if (dialogResult == true)
+            {
+                AddSetupClicked?.Invoke(this, new AddSetupClickedEventArgs(""));
+
+                Refresh();
+            }
         }
 
 
