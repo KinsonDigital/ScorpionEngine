@@ -3,9 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:ctrls="clr-namespace:ParticleMaker.UserControls"
-        xmlns:local="clr-namespace:ParticleMaker.Dialogs" Name="this"
-        mc:Ignorable="d" Title="ProjectListDialog" WindowStyle="ToolWindow"
+        Name="this" mc:Ignorable="d" Title="ProjectListDialog" WindowStyle="ToolWindow"
         MinWidth="150" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
     
     <Grid DataContext="{Binding ElementName=this}"
@@ -15,23 +13,48 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        
         <!--PROJECT LIST-->
         <ListBox x:Name="ProjectListBox" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalContentAlignment="Center"
                  Margin="5, 15, 10, 15" MinHeight="210" ItemsSource="{Binding Path=ProjectNames}"
-                 SelectedItem="{Binding Path=SelectedProject, Mode=TwoWay}"/>
+                 SelectedItem="{Binding Path=SelectedProject, Mode=TwoWay}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Label Content="{Binding Path=Name}">
+                            <Label.Style>
+                                <Style TargetType="Label">
+                                    <Setter Property="Visibility" Value="Visible"/>
 
-        <!--REFRESH BUTTON-->
-        <ctrls:CustomButton Grid.Row="1" VerticalAlignment="Top" Margin="5, -6, 5, 5">
-            <ctrls:CustomButton.ButtonContent>
-                <Image Source="/ParticleMaker;component/Icons/Refresh.png" Width="27" Height="27" Margin="2.5"/>
-            </ctrls:CustomButton.ButtonContent>
-        </ctrls:CustomButton>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=Exists}" Value="False">
+                                            <Setter Property="Visibility" Value="Hidden"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+                        </Label>
+
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=Exists}" Value="False">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            
+                            <Label Content="{Binding Path=Name}" FontWeight="Bold" Foreground="Red"/>
+                            <Label Content=" - "/>
+                            <Label Content="ERROR!!" FontWeight="Bold" Foreground="Red"/>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
         <!--OK AND CANCEL BUTTONS-->        
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="25, 25, 5, 5">

@@ -1,4 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace ParticleMaker.Dialogs
@@ -6,8 +10,15 @@ namespace ParticleMaker.Dialogs
     /// <summary>
     /// Interaction logic for ProjectListDialog.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class ProjectListDialog : Window
     {
+        #region Fields
+        private CancellationTokenSource _tokenSrc;
+        private Task _autoRefreshTask;
+        #endregion
+
+
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="ProjectListDialog"/>.
@@ -17,6 +28,12 @@ namespace ParticleMaker.Dialogs
             InitializeComponent();
 
             Title = title;
+
+            Loaded += ProjectListDialog_Loaded;
+            Closing += ProjectListDialog_Closing;
+            _tokenSrc = new CancellationTokenSource();
+
+            _autoRefreshTask = new Task(AutoRefreshAction, _tokenSrc.Token);
         }
         #endregion
 
@@ -33,7 +50,7 @@ namespace ParticleMaker.Dialogs
         /// Registers the <see cref="ProjectNames"/>.
         /// </summary>
         protected static readonly DependencyProperty ProjectNamesProperty =
-            DependencyProperty.Register(nameof(ProjectNames), typeof(string[]), typeof(ProjectListDialog), new PropertyMetadata(new string[0]));
+            DependencyProperty.Register(nameof(ProjectNames), typeof(ProjectItem[]), typeof(ProjectListDialog), new PropertyMetadata(new ProjectItem[0]));
 
         /// <summary>
         /// Registers the <see cref="SelectedProject"/> property.
@@ -55,9 +72,9 @@ namespace ParticleMaker.Dialogs
         /// <summary>
         /// Gets or sets the list of project names.
         /// </summary>
-        protected string[] ProjectNames
+        protected ProjectItem[] ProjectNames
         {
-            get { return (string[])GetValue(ProjectNamesProperty); }
+            get { return (ProjectItem[])GetValue(ProjectNamesProperty); }
             set { SetValue(ProjectNamesProperty, value); }
         }
 
@@ -73,6 +90,24 @@ namespace ParticleMaker.Dialogs
 
 
         #region Private Methods
+        /// <summary>
+        /// Starts the auto refresh task.
+        /// </summary>
+        private void ProjectListDialog_Loaded(object sender, RoutedEventArgs e)
+        {
+            _autoRefreshTask.Start();
+        }
+
+
+        /// <summary>
+        /// Cancels the auto refresh task.
+        /// </summary>
+        private void ProjectListDialog_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            _tokenSrc.Cancel();
+        }
+
+
         /// <summary>
         /// Closes the dialog window and accepts the selected project value.
         /// </summary>
@@ -109,18 +144,56 @@ namespace ParticleMaker.Dialogs
             if (!(e.NewValue is string[] newValue))
                 return;
 
-            var names = new List<string>();
+            dialog.Refresh(newValue);
+        }
 
-            foreach (var item in newValue)
+
+        /// <summary>
+        /// Invoked by the auto refresh task to refresh the UI of the user control
+        /// at a specified interval.
+        /// </summary>
+        private void AutoRefreshAction()
+        {
+            //Keep refreshing as long as the task has not been cancelled.
+            while (!_tokenSrc.IsCancellationRequested)
             {
-                var sections = item.Split('\\');
+                _tokenSrc.Token.WaitHandle.WaitOne(3000);
+
+                Dispatcher.Invoke(() =>
+                {
+                    Refresh(ProjectPaths);
+                });
+            }
+        }
+
+
+        /// <summary>
+        /// Refresh the UI based on the given list of <paramref name="projPaths"/>.
+        /// </summary>
+        /// <param name="projPaths">The list of project paths.</param>
+        private void Refresh(string[] projPaths)
+        {
+            var paths = new List<ProjectItem>();
+
+            foreach (var path in projPaths)
+            {
+                var sections = path.Split('\\');
 
                 if (sections.Length > 0)
-                    names.Add(sections[sections.Length - 1]);
+                {
+                    var projName = sections[sections.Length - 1];
+                    var pathExists = Directory.Exists(path);
+
+                    paths.Add(new ProjectItem()
+                    {
+                        Name = projName,
+                        Exists = pathExists
+                    });
+                }
             }
 
-            dialog.ProjectNames = names.ToArray();
+            ProjectNames = paths.ToArray();
         }
         #endregion
-        }
+    }
 }

@@ -75,6 +75,7 @@
     <Compile Include="Dialogs\ProjectListDialog.xaml.cs">
       <DependentUpon>ProjectListDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\ProjectItem.cs" />
     <Compile Include="Dialogs\ThumbnailViewerDialog.xaml.cs">
       <DependentUpon>ThumbnailViewerDialog.xaml</DependentUpon>
     </Compile>
