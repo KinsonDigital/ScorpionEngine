@@ -3,12 +3,40 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ctrls="clr-namespace:ParticleMaker.UserControls"
         xmlns:local="clr-namespace:ParticleMaker.Dialogs" Name="this"
         mc:Ignorable="d" Title="ProjectListDialog" WindowStyle="ToolWindow"
         MinWidth="150" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
     
     <Grid DataContext="{Binding ElementName=this}"
           d:DataContext="{d:DesignData Source=/Dialogs/DesignData/DialogData.xaml}">
-        <ListBox ItemsSource="{Binding Path=ProjectNames}" HorizontalContentAlignment="Center"/>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        
+        <!--PROJECT LIST-->
+        <ListBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalContentAlignment="Center"
+                 Margin="5, 15, 10, 15" MinHeight="210"
+                 ItemsSource="{Binding Path=ProjectNames}"/>
+
+        <!--REFRESH BUTTON-->
+        <ctrls:CustomButton Grid.Row="1" VerticalAlignment="Top" Margin="5">
+            <ctrls:CustomButton.ButtonContent>
+                <Image Source="/ParticleMaker;component/Icons/Refresh.png" Width="27" Height="27" Margin="2.5"/>
+            </ctrls:CustomButton.ButtonContent>
+        </ctrls:CustomButton>
+
+        <!--OK AND CANCEL BUTTONS-->        
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="25, 25, 5, 5">
+            <Button Content="OK" Width="100" Height="25" Margin="5"/>
+            <Button Content="Cancel" Width="100" Height="25" Margin="5"/>
+        </StackPanel>
     </Grid>
 </Window>
