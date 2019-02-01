@@ -14,8 +14,8 @@ namespace ParticleMaker.Tests.CustomEventArgs
             var expected = "test-item";
 
             //Act
-            var eventArgs = new AddSetupClickedEventArgs("test-item");
-            var actual = eventArgs.SetupName;
+            var eventArgs = new AddItemClickedEventArgs("test-item");
+            var actual = eventArgs.ItemName;
 
             //Assert
             Assert.AreEqual(expected, actual);

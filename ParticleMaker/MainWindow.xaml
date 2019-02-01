@@ -153,7 +153,8 @@
                 </ctrls:SetupList.Setups>
             </ctrls:SetupList>
 
-            <ctrls:ParticleList x:Name="ParticleList" ItemRenamed="ParticleList_ItemRenamed"
+            <ctrls:ParticleList x:Name="ParticleList" AddParticleClicked="ParticleList_AddParticleClicked"
+                                ItemRenamed="ParticleList_ItemRenamed"
                                 ItemDeleted="ParticleList_ItemDeleted">
                 <ctrls:ParticleList.Particles>
                     <x:Array Type="{x:Type uc:PathItem}">

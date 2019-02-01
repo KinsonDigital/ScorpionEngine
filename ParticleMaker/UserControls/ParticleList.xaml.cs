@@ -1,6 +1,7 @@
 ﻿using ParticleMaker.CustomEventArgs;
 using ParticleMaker.Dialogs;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -13,13 +14,14 @@ namespace ParticleMaker.UserControls
     /// <summary>
     /// Interaction logic for ParticleList.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class ParticleList : UserControl, IDisposable
     {
         #region Public Events
         /// <summary>
         /// Occurs when then add particle button is clicked.
         /// </summary>
-        public event EventHandler<AddParticleClickedEventArgs> AddParticleClicked;
+        public event EventHandler<AddItemClickedEventArgs> AddParticleClicked;
 
         /// <summary>
         /// Occurs when any item in the list has been renamed.
@@ -186,10 +188,33 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void AddParticleButton_Click(object sender, EventArgs e)
         {
-            //TODO: Add particle path to the event args constructor below
-            AddParticleClicked?.Invoke(this, new AddParticleClickedEventArgs(""));
+            var invalidValues = Particles.Select(s =>
+            {
+                var sections = s.FilePath.Split('\\');
 
-            Refresh();
+                if (sections.Length > 0)
+                    return Path.GetFileNameWithoutExtension(sections[sections.Length - 1]);
+
+
+                return "";
+            }).ToArray();
+
+            if (invalidValues.All(item => string.IsNullOrEmpty(item)))
+                invalidValues = null;
+
+            var inputDialog = new InputDialog("Add Particle", "Please type new particle name.", invalidChars: _illegalCharacters, invalidValues: invalidValues)
+            {
+                IgnoreInvalidValueCasing = true
+            };
+            
+            var dialogResult = inputDialog.ShowDialog();
+
+            if (dialogResult == true)
+            {
+                AddParticleClicked?.Invoke(this, new AddItemClickedEventArgs(""));
+
+                Refresh();
+            }
         }
 
 

@@ -64,7 +64,7 @@
                    FontWeight="Bold" Foreground="Red">
                 <Label.Style>
                     <Style TargetType="Label">
-                        <Setter Property="Visibility" Value="Visible"/>
+                        <Setter Property="Visibility" Value="Hidden"/>
 
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding ElementName=this, Path=ContainsInvalidValue}" Value="True">

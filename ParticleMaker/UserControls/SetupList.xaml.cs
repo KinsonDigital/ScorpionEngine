@@ -1,6 +1,7 @@
 ﻿using ParticleMaker.CustomEventArgs;
 using ParticleMaker.Dialogs;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -13,13 +14,14 @@ namespace ParticleMaker.UserControls
     /// <summary>
     /// Interaction logic for SetupList.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class SetupList : UserControl, IDisposable
     {
         #region Public Events
         /// <summary>
         /// Invoked when the add setup button has been clicked.
         /// </summary>
-        public event EventHandler<AddSetupClickedEventArgs> AddSetupClicked;
+        public event EventHandler<AddItemClickedEventArgs> AddSetupClicked;
 
         /// <summary>
         /// Occurs when any item in the list has been renamed.
@@ -154,7 +156,7 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void AddSetupButton_Click(object sender, EventArgs e)
         {
-            var invalidSetups = Setups.Select(s =>
+            var invalidValues = Setups.Select(s =>
             {
                 var sections = s.FilePath.Split('\\');
 
@@ -165,16 +167,16 @@ namespace ParticleMaker.UserControls
                 return "";
             }).ToArray();
 
-            if (invalidSetups.All(item => string.IsNullOrEmpty(item)))
-                invalidSetups = null;
+            if (invalidValues.All(item => string.IsNullOrEmpty(item)))
+                invalidValues = null;
 
-            var inputDialog = new InputDialog("Add Setup", "Please type new setup name.", invalidChars: _illegalCharacters, invalidValues: invalidSetups);
+            var inputDialog = new InputDialog("Add Setup", "Please type new setup name.", invalidChars: _illegalCharacters, invalidValues: invalidValues);
 
             var dialogResult = inputDialog.ShowDialog();
 
             if (dialogResult == true)
             {
-                AddSetupClicked?.Invoke(this, new AddSetupClickedEventArgs(""));
+                AddSetupClicked?.Invoke(this, new AddItemClickedEventArgs(""));
 
                 Refresh();
             }

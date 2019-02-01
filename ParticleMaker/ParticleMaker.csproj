@@ -64,8 +64,7 @@
       <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
     <Compile Include="CoreEngine.cs" />
-    <Compile Include="CustomEventArgs\AddParticleClickedEventArgs.cs" />
-    <Compile Include="CustomEventArgs\AddSetupClickedEventArgs.cs" />
+    <Compile Include="CustomEventArgs\AddItemClickedEventArgs.cs" />
     <Compile Include="CustomEventArgs\DeleteItemEventArgs.cs" />
     <Compile Include="CustomEventArgs\DrawEventArgs.cs" />
     <Compile Include="CustomEventArgs\RenameItemEventArgs.cs" />
