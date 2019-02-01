@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ParticleMaker.Dialogs
 {
@@ -43,6 +32,12 @@ namespace ParticleMaker.Dialogs
         /// </summary>
         protected static readonly DependencyProperty ProjectNamesProperty =
             DependencyProperty.Register(nameof(ProjectNames), typeof(string[]), typeof(ProjectListDialog), new PropertyMetadata(new string[0]));
+
+        /// <summary>
+        /// Registers the <see cref="SelectedProject"/> property.
+        /// </summary>
+        public static readonly DependencyProperty SelectedProjectProperty =
+            DependencyProperty.Register(nameof(SelectedProject), typeof(string), typeof(ProjectListDialog), new PropertyMetadata(""));
         #endregion
 
 
@@ -55,7 +50,6 @@ namespace ParticleMaker.Dialogs
             set { SetValue(ProjectPathsProperty, value); }
         }
 
-
         /// <summary>
         /// Gets or sets the list of project names.
         /// </summary>
@@ -63,6 +57,15 @@ namespace ParticleMaker.Dialogs
         {
             get { return (string[])GetValue(ProjectNamesProperty); }
             set { SetValue(ProjectNamesProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the selected project.
+        /// </summary>
+        public string SelectedProject
+        {
+            get { return (string)GetValue(SelectedProjectProperty); }
+            set { SetValue(SelectedProjectProperty, value); }
         }
         #endregion
 
@@ -94,5 +97,10 @@ namespace ParticleMaker.Dialogs
             dialog.ProjectNames = names.ToArray();
         }
         #endregion
+
+        private void OkButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

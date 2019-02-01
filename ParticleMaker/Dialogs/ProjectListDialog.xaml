@@ -23,8 +23,8 @@
         
         <!--PROJECT LIST-->
         <ListBox x:Name="ProjectListBox" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalContentAlignment="Center"
-                 Margin="5, 15, 10, 15" MinHeight="210"
-                 ItemsSource="{Binding Path=ProjectNames}"/>
+                 Margin="5, 15, 10, 15" MinHeight="210" ItemsSource="{Binding Path=ProjectNames}"
+                 SelectedItem="{Binding Path=SelectedProject, Mode=TwoWay}"/>
 
         <!--REFRESH BUTTON-->
         <ctrls:CustomButton Grid.Row="1" VerticalAlignment="Top" Margin="5, -6, 5, 5">
@@ -35,7 +35,7 @@
 
         <!--OK AND CANCEL BUTTONS-->        
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="25, 25, 5, 5">
-            <Button Content="OK" Width="100" Height="25" Margin="5">
+            <Button x:Name="OkButton" Content="OK" Width="100" Height="25" Margin="5" Click="OkButton_Click">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="IsEnabled" Value="True"/>

@@ -15,5 +15,7 @@ namespace ParticleMaker.Dialogs.DesignData
         public ICommand CancelCommand { get; set; }
 
         public string[] ProjectNames { get; set; }
+
+        public string SelectedProject { get; set; } = "test-project";
     }
 }

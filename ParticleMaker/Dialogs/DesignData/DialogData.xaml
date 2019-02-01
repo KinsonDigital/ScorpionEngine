@@ -1,15 +1,16 @@
 ﻿<local:DialogData xmlns:local="clr-namespace:ParticleMaker.Dialogs.DesignData"
-                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                       xmlns:sys="clr-namespace:System;assembly=mscorlib"
-                       DialogTitle="Enter some input"
-                       Message="Enter some input and hit enter.  As well as tell calvin he is an awesome developer."
-                       InputValue="Input goes here"
-                       OkCommand="{x:Null}" CancelCommand="{x:Null}">
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                  DialogTitle="Enter some input"
+                  Message="Enter some input and hit enter.  As well as tell calvin he is an awesome developer."
+                  InputValue="Input goes here"
+                  OkCommand="{x:Null}" CancelCommand="{x:Null}"
+                  SelectedProject="Project-A">
     <local:DialogData.ProjectNames>
         <x:Array Type="{x:Type sys:String}">
-            <sys:String>Item 1</sys:String>
-            <sys:String>Item 2</sys:String>
-            <sys:String>Item 3</sys:String>
+            <sys:String>Poject-A</sys:String>
+            <sys:String>Project-B</sys:String>
+            <sys:String>Project-C</sys:String>
         </x:Array>
     </local:DialogData.ProjectNames>
 </local:DialogData>
