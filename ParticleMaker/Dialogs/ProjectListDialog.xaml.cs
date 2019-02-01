@@ -28,5 +28,26 @@ namespace ParticleMaker.Dialogs
             InitializeComponent();
         }
         #endregion
+
+
+        #region Props
+        #region Dependency Props
+        /// <summary>
+        /// Registers the <see cref="ProjectPaths"/> property.
+        /// </summary>
+        public static readonly DependencyProperty ProjectPathsProperty =
+            DependencyProperty.Register(nameof(ProjectPaths), typeof(string[]), typeof(ProjectListDialog), new PropertyMetadata(new string[0]));
+        #endregion
+
+
+        /// <summary>
+        /// Gets or sets the paths to all of the projects.
+        /// </summary>
+        public string[] ProjectPaths
+        {
+            get { return (string[])GetValue(ProjectPathsProperty); }
+            set { SetValue(ProjectPathsProperty, value); }
+        }
+        #endregion
     }
 }
