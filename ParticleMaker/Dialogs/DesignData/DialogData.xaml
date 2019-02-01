@@ -1,12 +1,11 @@
 ﻿<local:DialogData xmlns:local="clr-namespace:ParticleMaker.Dialogs.DesignData"
                   xmlns:dialogs="clr-namespace:ParticleMaker.Dialogs"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                  xmlns:sys="clr-namespace:System;assembly=mscorlib"
                   DialogTitle="Enter some input"
                   Message="Enter some input and hit enter.  As well as tell calvin he is an awesome developer."
                   InputValue="Input goes here"
-                  OkCommand="{x:Null}" CancelCommand="{x:Null}"
                   SelectedProject="Project-A">
+    
     <local:DialogData.ProjectNames>
         <x:Array Type="{x:Type dialogs:ProjectItem}">
             <dialogs:ProjectItem Name="Project-A" Exists="True"/>

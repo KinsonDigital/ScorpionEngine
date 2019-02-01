@@ -85,9 +85,17 @@ namespace ParticleMaker.UserControls
 
 
         #region Public Methods
+        /// <summary>
+        /// Adds the given <paramref name="itemPath"/> to the list.
+        /// </summary>
+        /// <param name="itemPath">The item path to add.</param>
         public void AddItemPath(string itemPath)
         {
+            var currentSetups = (from s in Setups select s).ToList();
 
+            currentSetups.Add(new PathItem() { FilePath = itemPath });
+
+            Setups = currentSetups.ToArray();
         }
 
 
@@ -128,10 +136,10 @@ namespace ParticleMaker.UserControls
         /// <param name="projPath">The path to the project.</param>
         public void Refresh()
         {
-            var particleItems = SetupListBox.FindVisualChildren<SetupListItem>().ToArray();
+            var setupListItems = SetupListBox.FindVisualChildren<SetupListItem>().ToArray();
 
             //Refresh each setup list item
-            foreach (var item in particleItems)
+            foreach (var item in setupListItems)
             {
                 item.Refresh();
             }
@@ -176,7 +184,7 @@ namespace ParticleMaker.UserControls
 
             if (dialogResult == true)
             {
-                AddSetupClicked?.Invoke(this, new AddItemClickedEventArgs(""));
+                AddSetupClicked?.Invoke(this, new AddItemClickedEventArgs($"{inputDialog.InputValue}.json"));
 
                 Refresh();
             }

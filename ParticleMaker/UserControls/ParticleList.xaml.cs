@@ -87,6 +87,20 @@ namespace ParticleMaker.UserControls
 
         #region Public Methods
         /// <summary>
+        /// Adds the given <paramref name="itemPath"/> to the list.
+        /// </summary>
+        /// <param name="itemPath">The item path to add.</param>
+        public void AddItemPath(string itemPath)
+        {
+            var currentParticles = (from s in Particles select s).ToList();
+
+            currentParticles.Add(new PathItem() { FilePath = itemPath });
+
+            Particles = currentParticles.ToArray();
+        }
+
+
+        /// <summary>
         /// Finds the item that matches the given <paramref name="oldPath"/> and replaces it with
         /// the given <paramref name="newPath"/>.
         /// </summary>
@@ -211,7 +225,7 @@ namespace ParticleMaker.UserControls
 
             if (dialogResult == true)
             {
-                AddParticleClicked?.Invoke(this, new AddItemClickedEventArgs(""));
+                AddParticleClicked?.Invoke(this, new AddItemClickedEventArgs($"{inputDialog.InputValue}.png"));
 
                 Refresh();
             }
