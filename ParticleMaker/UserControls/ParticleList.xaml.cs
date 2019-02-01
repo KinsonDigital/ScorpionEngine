@@ -1,5 +1,10 @@
 ﻿using ParticleMaker.CustomEventArgs;
+using ParticleMaker.Dialogs;
 using System;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -8,7 +13,7 @@ namespace ParticleMaker.UserControls
     /// <summary>
     /// Interaction logic for ParticleList.xaml
     /// </summary>
-    public partial class ParticleList : UserControl
+    public partial class ParticleList : UserControl, IDisposable
     {
         #region Public Events
         /// <summary>
@@ -17,9 +22,21 @@ namespace ParticleMaker.UserControls
         public event EventHandler<AddParticleClickedEventArgs> AddParticleClicked;
 
         /// <summary>
-        /// Invoked when the refresh button has been clicked.
+        /// Occurs when any item in the list has been renamed.
         /// </summary>
-        public event EventHandler<EventArgs> RefreshClicked;
+        public event EventHandler<RenameItemEventArgs> ItemRenamed;
+
+        /// <summary>
+        /// Occurs when any item in the list has been deleted.
+        /// </summary>
+        public event EventHandler<DeleteItemEventArgs> ItemDeleted;
+        #endregion
+
+
+        #region Fields
+        private char[] _illegalCharacters = new[] { '\\', '/', ':', '*', '?', '\"', '<', '>', '|', '.' };
+        private Task _refreshTask;
+        private CancellationTokenSource _refreshTaskTokenSrc;
         #endregion
 
 
@@ -30,6 +47,12 @@ namespace ParticleMaker.UserControls
         public ParticleList()
         {
             InitializeComponent();
+
+            _refreshTaskTokenSrc = new CancellationTokenSource();
+
+            _refreshTask = new Task(RefreshAction, _refreshTaskTokenSrc.Token);
+
+            _refreshTask.Start();
         }
         #endregion
 
@@ -60,7 +83,104 @@ namespace ParticleMaker.UserControls
         #endregion
 
 
+        #region Public Methods
+        /// <summary>
+        /// Finds the item that matches the given <paramref name="oldPath"/> and replaces it with
+        /// the given <paramref name="newPath"/>.
+        /// </summary>
+        /// <param name="oldPath">The old path.</param>
+        /// <param name="newPath">The new path.</param>
+        public void UpdateItemPath(string oldPath, string newPath)
+        {
+            var updatedSetupList = (from p in Particles
+                                    where p.FilePath != oldPath
+                                    select p).ToList();
+
+            updatedSetupList.Add(new PathItem() { FilePath = newPath });
+
+            Particles = updatedSetupList.ToArray();
+        }
+
+
+        /// <summary>
+        /// Removes the item from the list that matches the given <paramref name="name"/>.
+        /// </summary>
+        /// <param name="name">The name of the item to remove.</param>
+        public void RemoveItem(string name)
+        {
+            Particles = (from p in Particles
+                         where Path.GetFileNameWithoutExtension(p.FilePath) != name
+                         select p).ToArray();
+        }
+
+
+        /// <summary>
+        /// Refreshes the UI based on the state of the user control.
+        /// </summary>
+        public void Refresh()
+        {
+            var particleItems = ParticleListBox.FindVisualChildren<ParticleListItem>().ToArray();
+
+            //Refresh each particle list item
+            foreach (var item in particleItems)
+            {
+                item.Refresh();
+            }
+
+            SubscribeEvents();
+        }
+
+
+        /// <summary>
+        /// Dispose of the control.
+        /// </summary>
+        public void Dispose()
+        {
+            _refreshTaskTokenSrc.Cancel();
+
+            UnsubscribeEvents();
+        }
+        #endregion
+
+
         #region Private Methods
+        /// <summary>
+        /// Invokes the <see cref="ItemRenamed"/> event.
+        /// </summary>
+        private void ListBoxItems_RenameClicked(object sender, RenameItemEventArgs e)
+        {
+            var illegalNames = (from item in Particles select Path.GetFileNameWithoutExtension(item.FilePath)).ToArray();
+
+            var inputDialog = new InputDialog("Rename particle", $"Rename the particle '{e.OldName}'.", e.OldName, _illegalCharacters, illegalNames);
+
+            inputDialog.ShowDialog();
+
+            if (inputDialog.DialogResult == true)
+            {
+                e.NewName = inputDialog.InputValue;
+                e.NewPath = $@"{Path.GetDirectoryName(e.OldPath)}\{inputDialog.InputValue}{Path.GetExtension(e.OldPath)}";
+
+                ItemRenamed?.Invoke(this, e);
+            }
+        }
+
+
+        /// <summary>
+        /// Invokes the <see cref="ItemDeleted"/> event.
+        /// </summary>
+        private void ListBoxItems_DeleteClicked(object sender, DeleteItemEventArgs e)
+        {
+            var msg = $"Are you sure you want to delete the particle {e.Name}?";
+
+            var dialogResult = MessageBox.Show(msg, "Delete Particle", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (dialogResult == MessageBoxResult.Yes)
+            {
+                ItemDeleted?.Invoke(this, e);
+            }
+        }
+
+
         /// <summary>
         /// Adds a new particle to the list.
         /// </summary>
@@ -68,15 +188,6 @@ namespace ParticleMaker.UserControls
         {
             //TODO: Add particle path to the event args constructor below
             AddParticleClicked?.Invoke(this, new AddParticleClickedEventArgs(""));
-        }
-
-
-        /// <summary>
-        /// Refreshes the list.
-        /// </summary>
-        private void RefreshButton_Click(object sender, EventArgs e)
-        {
-            RefreshClicked?.Invoke(this, new EventArgs());
 
             Refresh();
         }
@@ -92,7 +203,7 @@ namespace ParticleMaker.UserControls
             if (selectedItem == null)
                 return;
 
-
+            //TODO: Set the selected item as the current selected item of the internal list box
         }
 
 
@@ -111,16 +222,54 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Refreshes the UI based on the state of the user control.
+        /// Invokes the refresh method at a specified interval.
         /// </summary>
-        private void Refresh()
+        private void RefreshAction()
         {
-            foreach (var item in ParticleListBox.Items)
+            while (!_refreshTaskTokenSrc.IsCancellationRequested)
             {
-                if (!(item is ParticleListItem listItem))
-                    continue;
+                _refreshTaskTokenSrc.Token.WaitHandle.WaitOne(1000);
 
-                listItem.Refresh();
+                Dispatcher.Invoke(() =>
+                {
+                    Refresh();
+                    SubscribeEvents();
+                });
+            }
+        }
+
+
+        /// <summary>
+        /// Subscribes to all of the events.
+        /// </summary>
+        private void SubscribeEvents()
+        {
+            var listItems = ParticleListBox.FindVisualChildren<ParticleListItem>().ToArray();
+
+            //Subsribe all of the events
+            foreach (var item in listItems)
+            {
+                if (!item.IsRenameSubscribed)
+                    item.SubscribeRenameClicked(ListBoxItems_RenameClicked);
+
+                if (!item.IsDeleteSubscribed)
+                    item.SubscribeDeleteClicked(ListBoxItems_DeleteClicked);
+            }
+        }
+
+
+        /// <summary>
+        /// Unsubscribes to all of the events.
+        /// </summary>
+        private void UnsubscribeEvents()
+        {
+            var listItems = ParticleListBox.FindVisualChildren<ParticleListItem>().ToArray();
+
+            //Unsubsribe all of the events
+            foreach (var item in listItems)
+            {
+                item.UnsubscribeRenameClicked(ListBoxItems_RenameClicked);
+                item.UnsubscribeDeleteClicked(ListBoxItems_DeleteClicked);
             }
         }
         #endregion

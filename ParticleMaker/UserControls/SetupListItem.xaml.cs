@@ -1,4 +1,4 @@
-﻿using ParticleMaker.Dialogs;
+﻿using ParticleMaker.CustomEventArgs;
 using System;
 using System.ComponentModel;
 using System.IO;
@@ -13,7 +13,15 @@ namespace ParticleMaker.UserControls
     public partial class SetupListItem : UserControl
     {
         #region Public Events
-        public event EventHandler<EventArgs> DeleteClicked;
+        /// <summary>
+        /// Invoked when the rename button has been clicked.
+        /// </summary>
+        public event EventHandler<RenameItemEventArgs> RenameClicked;
+
+        /// <summary>
+        /// Invoked when the delete button is clicked.
+        /// </summary>
+        public event EventHandler<DeleteItemEventArgs> DeleteClicked;
         #endregion
 
 
@@ -39,14 +47,14 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Registers the <see cref="SetupName"/> property.
         /// </summary>
-        protected static readonly DependencyProperty SetupNameProperty =
+        public static readonly DependencyProperty SetupNameProperty =
             DependencyProperty.Register(nameof(SetupName), typeof(string), typeof(SetupListItem), new PropertyMetadata(""));
 
         /// <summary>
         /// Registers the <see cref="HasError"/> property.
         /// </summary>
         protected static readonly DependencyProperty HasErrorProperty =
-                    DependencyProperty.Register(nameof(HasError), typeof(bool), typeof(SetupListItem), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(HasError), typeof(bool), typeof(SetupListItem), new PropertyMetadata(false));
         #endregion
 
 
@@ -60,16 +68,14 @@ namespace ParticleMaker.UserControls
             set { SetValue(SetupPathProperty, value); }
         }
 
-
         /// <summary>
         /// Gets or sets the setup name to be shown in the setup label.
         /// </summary>
-        protected string SetupName
+        public string SetupName
         {
             get { return (string)GetValue(SetupNameProperty); }
             set { SetValue(SetupNameProperty, value); }
         }
-
 
         /// <summary>
         /// Gets or sets a value indicating if the control has an error.
@@ -79,6 +85,16 @@ namespace ParticleMaker.UserControls
             get { return (bool)GetValue(HasErrorProperty); }
             set { SetValue(HasErrorProperty, value); }
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating if the rename event has been subscribed to.
+        /// </summary>
+        internal bool IsRenameSubscribed { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating if the delete event has been subscribed to.
+        /// </summary>
+        internal bool IsDeleteSubscribed { get; set; }
         #endregion
 
 
@@ -86,19 +102,74 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Refreshs the control by updating the control's UI based on if the file exists or not.
         /// </summary>
-        /// <param name="ctrl">The control with the UI to update.</param>
-        public void Refresh(SetupListItem ctrl)
+        public void Refresh()
         {
-            if (DesignerProperties.GetIsInDesignMode(ctrl) || File.Exists(ctrl.SetupPath))
+            var fileExists = File.Exists(SetupPath);
+
+            if (DesignerProperties.GetIsInDesignMode(this) && fileExists)
             {
-                ctrl.SetupName = Path.GetFileNameWithoutExtension(ctrl.SetupPath);
-                ctrl.HasError = false;
+                SetupName = Path.GetFileNameWithoutExtension(SetupPath);
+                HasError = false;
             }
             else
             {
-                ctrl.SetupName = "Error!!";
-                ctrl.HasError = true;
+                SetupName = string.IsNullOrEmpty(SetupPath) ||
+                            !fileExists ?
+                            "" :
+                            SetupName = Path.GetFileNameWithoutExtension(SetupPath);
+
+                HasError = !fileExists;
             }
+        }
+        #endregion
+
+
+        #region Internal Methods
+        /// <summary>
+        /// Subscribes the given handler to the <see cref="RenameClicked"/> event.
+        /// </summary>
+        /// <param name="handler">The handler to subscribe to.</param>
+        internal void SubscribeRenameClicked(EventHandler<RenameItemEventArgs> handler)
+        {
+            RenameClicked += handler;
+
+            IsRenameSubscribed = true;
+        }
+
+
+        /// <summary>
+        /// Subscribes the given handler to the <see cref="DeleteClicked"/> event.
+        /// </summary>
+        /// <param name="handler">The handler to subscribe to.</param>
+        internal void SubscribeDeleteClicked(EventHandler<DeleteItemEventArgs> handler)
+        {
+            DeleteClicked += handler;
+
+            IsDeleteSubscribed = true;
+        }
+
+
+        /// <summary>
+        /// Unsubscribes the given handler to the <see cref="RenameClicked"/> event.
+        /// </summary>
+        /// <param name="handler">The handler to subscribe to.</param>
+        internal void UnsubscribeRenameClicked(EventHandler<RenameItemEventArgs> handler)
+        {
+            RenameClicked -= handler;
+
+            IsRenameSubscribed = false;
+        }
+
+
+        /// <summary>
+        /// Unsubscribes the given handler to the <see cref="DeleteClicked"/> event.
+        /// </summary>
+        /// <param name="handler">The handler to subscribe to.</param>
+        internal void UnsubscribeDeleteClicked(EventHandler<DeleteItemEventArgs> handler)
+        {
+            DeleteClicked -= handler;
+
+            IsDeleteSubscribed = false;
         }
         #endregion
 
@@ -119,43 +190,18 @@ namespace ParticleMaker.UserControls
             if (ctrl == null)
                 return;
 
-            ctrl.Refresh(ctrl);
+            ctrl.Refresh();
         }
 
 
         /// <summary>
         /// Renames the file at the currently set path.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void RenameCustomButton_Click(object sender, EventArgs e)
         {
-            if (File.Exists(SetupPath))
-            {
-                try
-                {
-                    var oldName = Path.GetFileNameWithoutExtension(SetupPath);
+            RenameClicked?.Invoke(this, new RenameItemEventArgs(SetupName, SetupPath));
 
-                    var inputDialog = new InputDialog("Rename setup", $"Rename the setup named \"{oldName}\".", oldName);
-
-                    var dialogResult = inputDialog.ShowDialog();
-
-                    if (dialogResult != null && dialogResult == true)
-                    {
-                        var destFileName = $@"{Path.GetDirectoryName(SetupPath)}\{inputDialog.InputResult}.json";
-
-                        File.Move(SetupPath, destFileName);
-
-                        SetupPath = destFileName;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-
-            Refresh(this);
+            Refresh();
         }
 
 
@@ -164,21 +210,9 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void DeleteCustomButton_Click(object sender, EventArgs e)
         {
-            if (File.Exists(SetupPath))
-            {
-                try
-                {
-                    File.Delete(SetupPath);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
+            DeleteClicked?.Invoke(this, new DeleteItemEventArgs(SetupName, SetupPath));
 
-            Refresh(this);
-
-            DeleteClicked?.Invoke(this, new EventArgs());
+            Refresh();
         }
         #endregion
     }

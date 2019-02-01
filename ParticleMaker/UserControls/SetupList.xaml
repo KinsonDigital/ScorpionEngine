@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ParticleMaker.UserControls"
              d:DataContext="{d:DesignData Source=/UserControls/DesignData/UserControlData.xaml}"
              DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-             mc:Ignorable="d" Background="White">
+             mc:Ignorable="d" Background="White" MinWidth="150">
 
     <Border BorderThickness="1">
         <Grid>
@@ -25,25 +25,16 @@
                 <Label Content="Setups:" VerticalAlignment="Bottom" Grid.Column="0" HorizontalAlignment="Stretch"
                        FontWeight="Bold"/>
 
-                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                    <!--ADD BUTTON-->
-                    <local:CustomButton x:Name="AddSetupButton" Click="AddSetupButton_Click">
-                        <local:CustomButton.ButtonContent>
-                            <Image Source="/ParticleMaker;component/Icons/Add.png" Width="25" Height="25"/>
-                        </local:CustomButton.ButtonContent>
-                    </local:CustomButton>
-
-                    <!--REFRESH BUTTON-->
-                    <local:CustomButton x:Name="RefreshButton" Click="RefreshButton_Click">
-                        <local:CustomButton.ButtonContent>
-                            <Image Source="/ParticleMaker;component/Icons/Refresh.png"  Width="25" Height="25"/>
-                        </local:CustomButton.ButtonContent>
-                    </local:CustomButton>
-                </StackPanel>
+                <!--ADD BUTTON-->
+                <local:CustomButton x:Name="AddSetupButton" Grid.Column="1" Click="AddSetupButton_Click">
+                    <local:CustomButton.ButtonContent>
+                        <Image Source="/ParticleMaker;component/Icons/Add.png" Width="25" Height="25"/>
+                    </local:CustomButton.ButtonContent>
+                </local:CustomButton>
             </Grid>
             
             <!--SETUP LIST-->
-            <ListBox x:Name="SetupListBox" ItemsSource="{Binding Path=Setups}" Grid.Row="1"
+            <ListBox x:Name="SetupListBox" ItemsSource="{Binding Path=Setups, Mode=TwoWay}" Grid.Row="1"
                      HorizontalContentAlignment="Stretch" SelectionChanged="SetupListBox_SelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>

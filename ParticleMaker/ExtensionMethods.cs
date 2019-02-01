@@ -1,7 +1,9 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Graphics;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 using System.Windows.Media;
 using MediaColor = System.Windows.Media.Color;
 
@@ -75,6 +77,32 @@ namespace ParticleMaker
 
 
             return result.ToString().TrimEnd('\\');
+        }
+
+
+        /// <summary>
+        /// Gets all of the visual children of the given type <typeparamref name="T"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of children to retrieve.</typeparam>
+        /// <param name="parent">The parent object that owns the children being searched for.</param>
+        /// <returns></returns>
+        public static IEnumerable<T> FindVisualChildren<T>(this DependencyObject parent) where T : DependencyObject
+        {
+            if (parent != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+                {
+                    var child = VisualTreeHelper.GetChild(parent, i);
+
+                    if (child != null && child is T)
+                        yield return (T)child;
+
+                    foreach (T childOfChild in FindVisualChildren<T>(child))
+                    {
+                        yield return childOfChild;
+                    }
+                }
+            }
         }
         #endregion
     }

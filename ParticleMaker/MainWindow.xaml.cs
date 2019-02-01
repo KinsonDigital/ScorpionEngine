@@ -7,6 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 using ThreadTimer = System.Threading.Timer;
 using ParticleMaker.Dialogs;
 using System;
+using System.IO;
 
 namespace ParticleMaker
 {
@@ -100,6 +101,34 @@ namespace ParticleMaker
 
             thumbnailDialog.Owner = this;
             thumbnailDialog.ShowDialog();
+        }
+
+        private void ParticleList_ItemRenamed(object sender, CustomEventArgs.RenameItemEventArgs e)
+        {
+            File.Move(e.OldPath, e.NewPath);
+
+            ParticleList.UpdateItemPath(e.OldPath, e.NewPath);
+        }
+
+        private void ParticleList_ItemDeleted(object sender, CustomEventArgs.DeleteItemEventArgs e)
+        {
+            File.Delete(e.Path);
+
+            ParticleList.RemoveItem(e.Name);
+        }
+
+        private void MySetupList_ItemRenamed(object sender, CustomEventArgs.RenameItemEventArgs e)
+        {
+            File.Move(e.OldPath, e.NewPath);
+
+            MySetupList.UpdateItemPath(e.OldPath, e.NewPath);
+        }
+
+        private void MySetupList_ItemDeleted(object sender, CustomEventArgs.DeleteItemEventArgs e)
+        {
+            File.Delete(e.Path);
+
+            MySetupList.RemoveItem(e.Name);
         }
     }
 }

@@ -58,7 +58,7 @@
                Style="{StaticResource NoErrorStyle}"/>
 
         <!--PARTICLE THUMBNAIL-->
-        <Image Width="25" Height="25" Source="{Binding Path=ParticleFilePath}" Style="{StaticResource NoErrorStyle}"
+        <Image x:Name="ThumbnailImage" Width="25" Height="25" Style="{StaticResource NoErrorStyle}"
                Margin="5, 0, 0, 0" Grid.Column="1"/>
 
         <!--THUMBNAIL OVERLAY-->
@@ -94,16 +94,15 @@
             <local:CustomButton x:Name="RenameCustomButton"
                                         Click="RenameCustomButton_Click">
                 <local:CustomButton.ButtonContent>
-                    <Image Source="/ParticleMaker;component/Icons/Edit.png" Width="25" Height="25" Margin="2.5"/>
+                    <Image Source="/ParticleMaker;component/Icons/Edit.png" Width="27" Height="27" Margin="2.5"/>
                 </local:CustomButton.ButtonContent>
             </local:CustomButton>
 
 
             <!--DELETE BUTTON-->
-            <local:CustomButton x:Name="DeleteCustomButton"
-                                        Click="DeleteCustomButton_Click">
+            <local:CustomButton x:Name="DeleteCustomButton" Click="DeleteCustomButton_Click">
                 <local:CustomButton.ButtonContent>
-                    <Image Source="/ParticleMaker;component/Icons/Delete.png" Width="25" Height="25" Margin="2.5"/>
+                    <Image Source="/ParticleMaker;component/Icons/Delete.png" Width="27" Height="27" Margin="2.5"/>
                 </local:CustomButton.ButtonContent>
             </local:CustomButton>
         </StackPanel>

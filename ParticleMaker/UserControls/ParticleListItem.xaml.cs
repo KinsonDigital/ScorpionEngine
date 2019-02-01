@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace ParticleMaker.UserControls
 {
@@ -17,12 +18,12 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Invoked when the rename button has been clicked.
         /// </summary>
-        public event EventHandler<RenameParticleEventArgs> RenameClicked;
+        public event EventHandler<RenameItemEventArgs> RenameClicked;
 
         /// <summary>
         /// Invoked when the delete button has been clicked.
         /// </summary>
-        public event EventHandler<DeleteParticleEventArgs> DeleteClicked;
+        public event EventHandler<DeleteItemEventArgs> DeleteClicked;
         #endregion
 
 
@@ -40,9 +41,9 @@ namespace ParticleMaker.UserControls
         #region Props
         #region Dependency Props
         /// <summary>
-        /// Creates a new instance of <see cref="ParticleName"/>.
+        /// Registers the <see cref="ParticleName"/> property.
         /// </summary>
-        protected static readonly DependencyProperty ParticleNameProperty =
+        public static readonly DependencyProperty ParticleNameProperty =
             DependencyProperty.Register(nameof(ParticleName), typeof(string), typeof(ParticleListItem), new PropertyMetadata(""));
 
         /// <summary>
@@ -62,7 +63,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Gets or sets the name of the particle.
         /// </summary>
-        protected string ParticleName
+        public string ParticleName
         {
             get { return (string)GetValue(ParticleNameProperty); }
             set { SetValue(ParticleNameProperty, value); }
@@ -85,6 +86,16 @@ namespace ParticleMaker.UserControls
             get { return (bool)GetValue(HasErrorProperty); }
             set { SetValue(HasErrorProperty, value); }
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating if the rename event has been subscribed to.
+        /// </summary>
+        internal bool IsRenameSubscribed { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating if the delete event has been subscribed to.
+        /// </summary>
+        internal bool IsDeleteSubscribed { get; set; }
         #endregion
 
 
@@ -94,20 +105,89 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public void Refresh()
         {
-            if (DesignerProperties.GetIsInDesignMode(this) || File.Exists(ParticleFilePath))
-            {
+            if (DesignerProperties.GetIsInDesignMode(this) && File.Exists(ParticleFilePath))
+            { 
                 ParticleName = Path.GetFileNameWithoutExtension(ParticleFilePath);
                 HasError = false;
             }
             else
             {
+                var fileExists = File.Exists(ParticleFilePath);
+
                 ParticleName = string.IsNullOrEmpty(ParticleFilePath) ||
-                           !File.Exists(ParticleFilePath) ?
+                           !fileExists ?
                            "" :
                            ParticleName = Path.GetFileNameWithoutExtension(ParticleFilePath);
 
-                HasError = !File.Exists(ParticleFilePath);
+                HasError = !fileExists;
+
+                if (fileExists)
+                {
+                    var thumbnailImage = new BitmapImage();
+                    thumbnailImage.BeginInit();
+
+                    //This prevents the file from being locked by loading ALL
+                    //of the image data into memory.  This prevents references to the image data
+                    //from having to go to the file itself which means it doesn't mean it has
+                    //to be locked.
+                    thumbnailImage.CacheOption = BitmapCacheOption.OnLoad;
+                    thumbnailImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                    thumbnailImage.UriSource = new Uri(ParticleFilePath);
+                    thumbnailImage.EndInit();
+
+                    ThumbnailImage.Source = thumbnailImage;
+                }
             }
+        }
+        #endregion
+
+
+        #region Internal Methods
+        /// <summary>
+        /// Subscribes the given handler to the rename clicked event.
+        /// </summary>
+        /// <param name="handler">The handler to subscribe to.</param>
+        internal void SubscribeRenameClicked(EventHandler<RenameItemEventArgs> handler)
+        {
+            RenameClicked += handler;
+
+            IsRenameSubscribed = true;
+        }
+
+
+        /// <summary>
+        /// Unsubscribes the given handler to the rename clicked event.
+        /// </summary>
+        /// <param name="handler">The handler to subscribe to.</param>
+        internal void UnsubscribeRenameClicked(EventHandler<RenameItemEventArgs> handler)
+        {
+            RenameClicked -= handler;
+
+            IsRenameSubscribed = false;
+        }
+
+
+        /// <summary>
+        /// Subscribes the given handler to the delete clicked event.
+        /// </summary>
+        /// <param name="handler">The handler to subscribe to.</param>
+        internal void SubscribeDeleteClicked(EventHandler<DeleteItemEventArgs> handler)
+        {
+            DeleteClicked += handler;
+
+            IsDeleteSubscribed = true;
+        }
+
+
+        /// <summary>
+        /// Unsubscribes the given handler to the delete clicked event.
+        /// </summary>
+        /// <param name="handler">The handler to subscribe to.</param>
+        internal void UnsubscribeDeleteClicked(EventHandler<DeleteItemEventArgs> handler)
+        {
+            DeleteClicked -= handler;
+
+            IsDeleteSubscribed = false;
         }
         #endregion
 
@@ -118,7 +198,7 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void RenameCustomButton_Click(object sender, EventArgs e)
         {
-            RenameClicked?.Invoke(this, new RenameParticleEventArgs(ParticleName, ParticleFilePath));
+            RenameClicked?.Invoke(this, new RenameItemEventArgs(ParticleName, ParticleFilePath));
 
             Refresh();
         }
@@ -129,7 +209,7 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void DeleteCustomButton_Click(object sender, EventArgs e)
         {
-            DeleteClicked?.Invoke(this, new DeleteParticleEventArgs(ParticleName, ParticleFilePath));
+            DeleteClicked?.Invoke(this, new DeleteItemEventArgs(ParticleName, ParticleFilePath));
 
             Refresh();
         }
@@ -150,7 +230,7 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Sets the <see cref="ParticleName"/> property.
+        /// Refreshes the user control.
         /// </summary>
         private static void ParticlePathChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
