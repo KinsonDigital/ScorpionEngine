@@ -49,7 +49,7 @@
                 </Button.Style>
             </Button>
             
-            <Button Name="Cancel" Content="Cancel" Width="100" Height="25" Margin="5"/>
+            <Button x:Name="CancelButton" Content="Cancel" Width="100" Height="25" Margin="5" Click="CancelButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -105,7 +105,9 @@ namespace ParticleMaker
                 }
             };
 
-            projListDialog.Show();
+            var dialogResult = projListDialog.ShowDialog();
+
+
         }
 
         private void ParticleList_ItemRenamed(object sender, CustomEventArgs.RenameItemEventArgs e)

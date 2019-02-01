@@ -71,6 +71,25 @@ namespace ParticleMaker.Dialogs
 
 
         #region Private Methods
+        private void OkButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
+        /// <summary>
+        /// Cancels the dialog window.
+        /// </summary>
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedProject = string.Empty;
+
+            DialogResult = false;
+
+            Close();
+        }
+
+
         /// <summary>
         /// Updates the project names list.
         /// </summary>
@@ -97,10 +116,5 @@ namespace ParticleMaker.Dialogs
             dialog.ProjectNames = names.ToArray();
         }
         #endregion
-
-        private void OkButton_Click(object sender, RoutedEventArgs e)
-        {
-
         }
-    }
 }
