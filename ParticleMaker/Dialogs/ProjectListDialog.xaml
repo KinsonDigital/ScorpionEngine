@@ -22,12 +22,12 @@
         </Grid.ColumnDefinitions>
         
         <!--PROJECT LIST-->
-        <ListBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalContentAlignment="Center"
+        <ListBox x:Name="ProjectListBox" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalContentAlignment="Center"
                  Margin="5, 15, 10, 15" MinHeight="210"
                  ItemsSource="{Binding Path=ProjectNames}"/>
 
         <!--REFRESH BUTTON-->
-        <ctrls:CustomButton Grid.Row="1" VerticalAlignment="Top" Margin="5">
+        <ctrls:CustomButton Grid.Row="1" VerticalAlignment="Top" Margin="5, -6, 5, 5">
             <ctrls:CustomButton.ButtonContent>
                 <Image Source="/ParticleMaker;component/Icons/Refresh.png" Width="27" Height="27" Margin="2.5"/>
             </ctrls:CustomButton.ButtonContent>
@@ -35,8 +35,21 @@
 
         <!--OK AND CANCEL BUTTONS-->        
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="25, 25, 5, 5">
-            <Button Content="OK" Width="100" Height="25" Margin="5"/>
-            <Button Content="Cancel" Width="100" Height="25" Margin="5"/>
+            <Button Content="OK" Width="100" Height="25" Margin="5">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=ProjectListBox, Path=SelectedIndex}" Value="-1">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            
+            <Button Name="Cancel" Content="Cancel" Width="100" Height="25" Margin="5"/>
         </StackPanel>
     </Grid>
 </Window>

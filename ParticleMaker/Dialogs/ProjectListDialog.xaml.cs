@@ -39,32 +39,6 @@ namespace ParticleMaker.Dialogs
             DependencyProperty.Register(nameof(ProjectPaths), typeof(string[]), typeof(ProjectListDialog), new PropertyMetadata(new string[0], ProjectPathsChanged));
 
         /// <summary>
-        /// Updates the project names list.
-        /// </summary>
-        private static void ProjectPathsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var dialog = (ProjectListDialog)d;
-
-            if (dialog == null)
-                return;
-
-            if (!(e.NewValue is string[] newValue))
-                return;
-
-            var names = new List<string>();
-
-            foreach (var item in newValue)
-            {
-                var sections = item.Split('\\');
-
-                if (sections.Length > 0)
-                    names.Add(sections[sections.Length - 1]);
-            }
-
-            dialog.ProjectNames = names.ToArray();
-        }
-
-        /// <summary>
         /// Registers the <see cref="ProjectNames"/>.
         /// </summary>
         protected static readonly DependencyProperty ProjectNamesProperty =
@@ -89,6 +63,35 @@ namespace ParticleMaker.Dialogs
         {
             get { return (string[])GetValue(ProjectNamesProperty); }
             set { SetValue(ProjectNamesProperty, value); }
+        }
+        #endregion
+
+
+        #region Private Methods
+        /// <summary>
+        /// Updates the project names list.
+        /// </summary>
+        private static void ProjectPathsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var dialog = (ProjectListDialog)d;
+
+            if (dialog == null)
+                return;
+
+            if (!(e.NewValue is string[] newValue))
+                return;
+
+            var names = new List<string>();
+
+            foreach (var item in newValue)
+            {
+                var sections = item.Split('\\');
+
+                if (sections.Length > 0)
+                    names.Add(sections[sections.Length - 1]);
+            }
+
+            dialog.ProjectNames = names.ToArray();
         }
         #endregion
     }
