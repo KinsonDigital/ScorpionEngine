@@ -103,7 +103,7 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Removes the item from the lsit that matches the given <paramref name="name"/>.
+        /// Removes the item from the list that matches the given <paramref name="name"/>.
         /// </summary>
         /// <param name="name">The name of the item to remove.</param>
         public void RemoveItem(string name)
@@ -189,7 +189,6 @@ namespace ParticleMaker.UserControls
             //TODO: Add particle path to the event args constructor below
             AddParticleClicked?.Invoke(this, new AddParticleClickedEventArgs(""));
 
-            //TODO: Check if the newly added item has its rename event subscribed to
             Refresh();
         }
 
@@ -241,7 +240,7 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Subscribes to all of the events
+        /// Subscribes to all of the events.
         /// </summary>
         private void SubscribeEvents()
         {
@@ -251,14 +250,10 @@ namespace ParticleMaker.UserControls
             foreach (var item in listItems)
             {
                 if (!item.IsRenameSubscribed)
-                {
                     item.SubscribeRenameClicked(ListBoxItems_RenameClicked);
-                }
 
                 if (!item.IsDeleteSubscribed)
-                {
                     item.SubscribeDeleteClicked(ListBoxItems_DeleteClicked);
-                }
             }
         }
 

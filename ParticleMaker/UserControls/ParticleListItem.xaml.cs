@@ -41,7 +41,7 @@ namespace ParticleMaker.UserControls
         #region Props
         #region Dependency Props
         /// <summary>
-        /// Creates a new instance of <see cref="ParticleName"/>.
+        /// Registers the <see cref="ParticleName"/> property.
         /// </summary>
         public static readonly DependencyProperty ParticleNameProperty =
             DependencyProperty.Register(nameof(ParticleName), typeof(string), typeof(ParticleListItem), new PropertyMetadata(""));
@@ -230,7 +230,7 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Sets the <see cref="ParticleName"/> property.
+        /// Refreshes the user control.
         /// </summary>
         private static void ParticlePathChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

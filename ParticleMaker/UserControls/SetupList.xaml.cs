@@ -102,7 +102,7 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Removes the item from the lsit that matches the given <paramref name="name"/>.
+        /// Removes the item from the list that matches the given <paramref name="name"/>.
         /// </summary>
         /// <param name="name">The name of the item to remove.</param>
         public void RemoveItem(string name)
@@ -136,6 +136,8 @@ namespace ParticleMaker.UserControls
         public void Dispose()
         {
             _refreshTaskTokenSrc.Cancel();
+
+            UnsubscribeEvents();
         }
         #endregion
 
@@ -197,8 +199,6 @@ namespace ParticleMaker.UserControls
             if (ctrl == null)
                 return;
 
-            ctrl.SubscribeEvents();
-
             ctrl.Refresh();
         }
 
@@ -247,7 +247,7 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Subscribes to all of the events
+        /// Subscribes to all of the events.
         /// </summary>
         private void SubscribeEvents()
         {
@@ -275,6 +275,8 @@ namespace ParticleMaker.UserControls
             //Unsubsribe all of the events
             foreach (var item in listItems)
             {
+                item.UnsubscribeRenameClicked(ListBoxItems_RenameClicked);
+                item.UnsubscribeDeleteClicked(ListBoxItems_DeleteClicked);
             }
         }
         #endregion

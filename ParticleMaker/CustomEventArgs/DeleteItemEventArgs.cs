@@ -9,7 +9,7 @@
         /// <summary>
         /// Create a new instance of <see cref="DeleteItemEventArgs"/>.
         /// </summary>
-        /// <param name="name">The name of the being deleted.</param>
+        /// <param name="name">The name of the item being deleted.</param>
         /// <param name="path">The path to the item.</param>
         public DeleteItemEventArgs(string name, string path)
         {

@@ -81,7 +81,7 @@ namespace ParticleMaker
 
 
         /// <summary>
-        /// Gets all of the visual children of the given <typeparamref name="T"/>.
+        /// Gets all of the visual children of the given type <typeparamref name="T"/>.
         /// </summary>
         /// <typeparam name="T">The type of children to retrieve.</typeparam>
         /// <param name="parent">The parent object that owns the children being searched for.</param>

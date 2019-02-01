@@ -54,6 +54,7 @@
                         </Style>
                     </Button.Style>
                 </Button>
+                
                 <Button Content="Cancel" Margin="6" Width="75" Height="25" HorizontalAlignment="Right"
                         Command="{Binding Path=CancelCommand}"/>
             </StackPanel>

@@ -126,7 +126,7 @@ namespace ParticleMaker.UserControls
 
         #region Internal Methods
         /// <summary>
-        /// Subscribes the given handler to the rename clicked event.
+        /// Subscribes the given handler to the <see cref="RenameClicked"/> event.
         /// </summary>
         /// <param name="handler">The handler to subscribe to.</param>
         internal void SubscribeRenameClicked(EventHandler<RenameItemEventArgs> handler)
@@ -138,7 +138,7 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Subscribes the given handler to the delete clicked event.
+        /// Subscribes the given handler to the <see cref="DeleteClicked"/> event.
         /// </summary>
         /// <param name="handler">The handler to subscribe to.</param>
         internal void SubscribeDeleteClicked(EventHandler<DeleteItemEventArgs> handler)
@@ -150,7 +150,19 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Unsubscribes the given handler to the delete clicked event.
+        /// Unsubscribes the given handler to the <see cref="RenameClicked"/> event.
+        /// </summary>
+        /// <param name="handler">The handler to subscribe to.</param>
+        internal void UnsubscribeRenameClicked(EventHandler<RenameItemEventArgs> handler)
+        {
+            RenameClicked -= handler;
+
+            IsRenameSubscribed = false;
+        }
+
+
+        /// <summary>
+        /// Unsubscribes the given handler to the <see cref="DeleteClicked"/> event.
         /// </summary>
         /// <param name="handler">The handler to subscribe to.</param>
         internal void UnsubscribeDeleteClicked(EventHandler<DeleteItemEventArgs> handler)
@@ -185,8 +197,6 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Renames the file at the currently set path.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void RenameCustomButton_Click(object sender, EventArgs e)
         {
             RenameClicked?.Invoke(this, new RenameItemEventArgs(SetupName, SetupPath));

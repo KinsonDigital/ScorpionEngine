@@ -1,7 +1,7 @@
 ﻿namespace ParticleMaker.CustomEventArgs
 {
     /// <summary>
-    /// Holds information about the event of renaming an item
+    /// Holds information about the event of renaming an item.
     /// </summary>
     public class RenameItemEventArgs
     {
@@ -31,12 +31,12 @@
         public string NewName { get; set; }
 
         /// <summary>
-        /// Gets or sets the path to the item.
+        /// Gets or sets the old path to the item.
         /// </summary>
         public string OldPath { get; set; }
 
         /// <summary>
-        /// Gets or sets the new path.
+        /// Gets or sets the new path to the item.
         /// </summary>
         public string NewPath { get; set; }
         #endregion
