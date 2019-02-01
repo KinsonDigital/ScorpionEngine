@@ -12,9 +12,11 @@ namespace ParticleMaker.Dialogs
         /// <summary>
         /// Creates a new instance of <see cref="ProjectListDialog"/>.
         /// </summary>
-        public ProjectListDialog()
+        public ProjectListDialog(string title = "Project List")
         {
             InitializeComponent();
+
+            Title = title;
         }
         #endregion
 
@@ -71,14 +73,18 @@ namespace ParticleMaker.Dialogs
 
 
         #region Private Methods
+        /// <summary>
+        /// Closes the dialog window and accepts the selected project value.
+        /// </summary>
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-
+            DialogResult = true;
+            Close();
         }
 
 
         /// <summary>
-        /// Cancels the dialog window.
+        /// Cancels the dialog window and clears the selected project value.
         /// </summary>
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {

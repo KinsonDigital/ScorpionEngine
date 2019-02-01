@@ -95,7 +95,7 @@ namespace ParticleMaker
 
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
-            var projListDialog = new ProjectListDialog
+            var projListDialog = new ProjectListDialog("Open Project")
             {
                 ProjectPaths = new[]
                 {
