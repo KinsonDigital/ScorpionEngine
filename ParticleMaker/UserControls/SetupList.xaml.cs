@@ -1,6 +1,7 @@
 ﻿using ParticleMaker.CustomEventArgs;
 using ParticleMaker.Dialogs;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -13,13 +14,14 @@ namespace ParticleMaker.UserControls
     /// <summary>
     /// Interaction logic for SetupList.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class SetupList : UserControl, IDisposable
     {
         #region Public Events
         /// <summary>
         /// Invoked when the add setup button has been clicked.
         /// </summary>
-        public event EventHandler<EventArgs> AddSetupClicked;
+        public event EventHandler<AddItemClickedEventArgs> AddSetupClicked;
 
         /// <summary>
         /// Occurs when any item in the list has been renamed.
@@ -84,6 +86,20 @@ namespace ParticleMaker.UserControls
 
         #region Public Methods
         /// <summary>
+        /// Adds the given <paramref name="itemPath"/> to the list.
+        /// </summary>
+        /// <param name="itemPath">The item path to add.</param>
+        public void AddItemPath(string itemPath)
+        {
+            var currentSetups = (from s in Setups select s).ToList();
+
+            currentSetups.Add(new PathItem() { FilePath = itemPath });
+
+            Setups = currentSetups.ToArray();
+        }
+
+
+        /// <summary>
         /// Finds the item that matches the given <paramref name="oldPath"/> and replaces it with
         /// the given <paramref name="newPath"/>.
         /// </summary>
@@ -120,10 +136,10 @@ namespace ParticleMaker.UserControls
         /// <param name="projPath">The path to the project.</param>
         public void Refresh()
         {
-            var particleItems = SetupListBox.FindVisualChildren<SetupListItem>().ToArray();
+            var setupListItems = SetupListBox.FindVisualChildren<SetupListItem>().ToArray();
 
             //Refresh each setup list item
-            foreach (var item in particleItems)
+            foreach (var item in setupListItems)
             {
                 item.Refresh();
             }
@@ -148,7 +164,30 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void AddSetupButton_Click(object sender, EventArgs e)
         {
-            AddSetupClicked?.Invoke(this, e);
+            var invalidValues = Setups.Select(s =>
+            {
+                var sections = s.FilePath.Split('\\');
+
+                if (sections.Length > 0)
+                    return Path.GetFileNameWithoutExtension(sections[sections.Length - 1]);
+
+
+                return "";
+            }).ToArray();
+
+            if (invalidValues.All(item => string.IsNullOrEmpty(item)))
+                invalidValues = null;
+
+            var inputDialog = new InputDialog("Add Setup", "Please type new setup name.", invalidChars: _illegalCharacters, invalidValues: invalidValues);
+
+            var dialogResult = inputDialog.ShowDialog();
+
+            if (dialogResult == true)
+            {
+                AddSetupClicked?.Invoke(this, new AddItemClickedEventArgs($"{inputDialog.InputValue}.json"));
+
+                Refresh();
+            }
         }
 
 

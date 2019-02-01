@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" Title="{Binding Path=DialogTitle}" Name="this"
         WindowStartupLocation="CenterOwner" SizeToContent="WidthAndHeight"
-        MinWidth="300" MaxWidth="350" MinHeight="200" WindowStyle="ToolWindow"
+        MinWidth="300" MaxWidth="400" MinHeight="200" WindowStyle="ToolWindow"
         DataContext="{Binding ElementName=this}"
         d:DataContext="{d:DesignData Source=/Dialogs/DesignData/InputDialogData.xaml}" ResizeMode="NoResize">
 
@@ -59,7 +59,8 @@
                         Command="{Binding Path=CancelCommand}"/>
             </StackPanel>
 
-            <Label Content="The input box value is an invalid value." Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+            <!--ERROR MESSAGE-->
+            <Label Content="Item with that name already exists. Duplicate items not aloud." Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                    FontWeight="Bold" Foreground="Red">
                 <Label.Style>
                     <Style TargetType="Label">
