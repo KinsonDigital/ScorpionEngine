@@ -5,6 +5,7 @@ namespace ParticleMaker.Tests
     [TestFixture]
     public class RelayCommandTests
     {
+        #region Method Tests
         [Test]
         public void CanExecute_WhenInvoking_ExecutesCanAction()
         {
@@ -34,5 +35,6 @@ namespace ParticleMaker.Tests
             //Assert
             Assert.AreEqual(expected, actual);
         }
+        #endregion
     }
 }
