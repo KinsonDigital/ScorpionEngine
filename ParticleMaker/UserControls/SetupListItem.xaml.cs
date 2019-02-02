@@ -1,6 +1,7 @@
 ﻿using ParticleMaker.CustomEventArgs;
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,6 +11,7 @@ namespace ParticleMaker.UserControls
     /// <summary>
     /// Interaction logic for SetupListItem.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class SetupListItem : UserControl
     {
         #region Public Events

@@ -9,12 +9,12 @@
         /// <summary>
         /// Create a new instance of <see cref="RenameItemEventArgs"/>.
         /// </summary>
-        /// <param name="name">The name of the item being renamed.</param>
-        /// <param name="path">The path to the item.</param>
-        public RenameItemEventArgs(string name, string path)
+        /// <param name="oldName">The name of the item being renamed.</param>
+        /// <param name="oldPath">The path to the item.</param>
+        public RenameItemEventArgs(string oldName, string oldPath)
         {
-            OldName = name;
-            OldPath = path;
+            OldName = oldName;
+            OldPath = oldPath;
         }
         #endregion
 

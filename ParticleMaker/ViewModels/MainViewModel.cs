@@ -51,7 +51,7 @@ namespace ParticleMaker.ViewModels
                 {
                     _cancelTokenSrc.Token.WaitHandle.WaitOne(250);
 
-                    UIDispatcher?.Invoke(() =>
+                    Action taskAction = new Action(() =>
                     {
                         if (_cancelTokenSrc.IsCancellationRequested == false && RenderSurface != null && RenderSurface.Handle != IntPtr.Zero)
                         {
@@ -63,6 +63,15 @@ namespace ParticleMaker.ViewModels
                             _graphicsEngine.Run();
                         }
                     });
+
+                    if (UIDispatcher == null)
+                    {
+                        taskAction();
+                    }
+                    else
+                    {
+                        UIDispatcher.Invoke(taskAction);
+                    }
                 }
             }, _cancelTokenSrc.Token);
         }

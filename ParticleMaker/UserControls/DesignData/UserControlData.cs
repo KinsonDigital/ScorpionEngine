@@ -1,10 +1,12 @@
-﻿using System.Windows.Media;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Windows.Media;
 
 namespace ParticleMaker.UserControls.DesignData
 {
     /// <summary>
     /// Used for design data for the various user controls.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class UserControlData
     {
         #region Props

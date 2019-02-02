@@ -7,8 +7,10 @@ using NUnit.Framework;
 using ParticleMaker.ViewModels;
 using System;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace ParticleMaker.Tests.ViewModels
 {
@@ -27,7 +29,7 @@ namespace ParticleMaker.Tests.ViewModels
         public void RenderSurface_WhenSettingGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var expected = new Control("TEST-CONTROL");
+            var expected = new Control();
 
             //Act
             _viewModel.RenderSurface = expected;
@@ -36,21 +38,6 @@ namespace ParticleMaker.Tests.ViewModels
             //Assert
             Assert.AreEqual(expected, actual);
         }
-
-
-        //[Test]
-        //public void UIDispatcher_WhenSettingGettingValue_ReturnsCorrectValue()
-        //{
-        //    //Arrange
-        //    var expected = Dispatcher.CurrentDispatcher;
-
-        //    //Act
-        //    _viewModel.UIDispatcher = Dispatcher.CurrentDispatcher;
-        //    var actual = _viewModel.UIDispatcher;
-
-        //    //Assert
-        //    Assert.AreEqual(expected, actual);
-        //}
 
 
         [Test]
@@ -231,7 +218,6 @@ namespace ParticleMaker.Tests.ViewModels
         }
 
 
-
         [Test]
         public void SizeMax_WhenSettingValue_ReturnsCorrectValue()
         {
@@ -260,7 +246,6 @@ namespace ParticleMaker.Tests.ViewModels
             //Assert
             Assert.AreEqual(expected, actual);
         }
-
 
 
         [Test]
@@ -321,7 +306,6 @@ namespace ParticleMaker.Tests.ViewModels
             //Assert
             Assert.AreEqual(expected, actual);
         }
-
 
 
         [Test]
@@ -443,6 +427,7 @@ namespace ParticleMaker.Tests.ViewModels
             Assert.AreEqual(expected, actual);
         }
 
+
         [Test]
         public void Colors_WhenSettingValue_ReturnsCorrectValue()
         {
@@ -463,11 +448,38 @@ namespace ParticleMaker.Tests.ViewModels
             //Assert
             Assert.AreEqual(expected, actual);
         }
+        
+
+        [Test]
+        public void UIDispatcher_WhenSettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var expected = Dispatcher.CurrentDispatcher;
+
+            //Act
+            _viewModel.UIDispatcher = Dispatcher.CurrentDispatcher;
+            var actual = _viewModel.UIDispatcher;
+
+            //Assert    
+            Assert.AreEqual(expected, actual);
+        }
         #endregion
 
 
         #region Method Tests
-        //[Test]
+        [Test]
+        public void StartEngine_WhenInvoking_InvokesCoreEngineRunMethod()
+        {
+            //Act
+            _viewModel.StartEngine();
+            Thread.Sleep(500);//Wait for the startup task to run its code.
+
+            //Assert
+            _mockCoreEngine.Verify(m => m.Run(), Times.Once());
+        }
+
+
+        [Test]
         public void ShutdownEngine_WhenInvoked_InvokesCoreEngineExitMethod()
         {
             //Act
@@ -484,10 +496,10 @@ namespace ParticleMaker.Tests.ViewModels
         public void Setup()
         {
             _mockCoreEngine = new Mock<ICoreEngine>();
+            _mockCoreEngine.SetupGet(p => p.RenderSurfaceHandle).Returns(new IntPtr(1234));
 
             var mockEngineFactory = new Mock<IGraphicsEngineFactory>();
             mockEngineFactory.SetupGet(p => p.CoreEngine).Returns(_mockCoreEngine.Object);
-
             var mockTexture = new Mock<ITexture>();
 
             var getValueResult = 10f;
@@ -519,8 +531,10 @@ namespace ParticleMaker.Tests.ViewModels
 
             _engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine);
 
-            _viewModel = new MainViewModel(_engine);
-            _viewModel.RenderSurface = new PictureBox();
+            _viewModel = new MainViewModel(_engine)
+            {
+                RenderSurface = new PictureBox()
+            };
         }
 
 

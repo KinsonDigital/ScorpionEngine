@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Windows;
 
 namespace ParticleMaker.Dialogs
@@ -6,6 +7,7 @@ namespace ParticleMaker.Dialogs
     /// <summary>
     /// Interaction logic for ThumbnailViewerDialog.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class ThumbnailViewerDialog : Window
     {
         #region Constructors

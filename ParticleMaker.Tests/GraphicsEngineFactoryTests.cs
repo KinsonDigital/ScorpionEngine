@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Moq;
+using NUnit.Framework;
 
 namespace ParticleMaker.Tests
 {
@@ -10,7 +11,8 @@ namespace ParticleMaker.Tests
         public void CoreEngine_WhenGettingValue_ValueIsNotNull()
         {
             //Arrange
-            var factory = new GraphicsEngineFactory();
+            var mockCoreEngine = new Mock<ICoreEngine>();
+            var factory = new GraphicsEngineFactory(mockCoreEngine.Object);
             var expected = true;
 
             //Act
