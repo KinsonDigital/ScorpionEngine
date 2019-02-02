@@ -27,7 +27,8 @@ namespace ParticleMaker
             DIContainer.Register<IRandomizerService, RandomizerService>();
             DIContainer.Register<ParticleTextureLoader>();
             DIContainer.Register<ParticleEngine>();
-            DIContainer.RegisterInstance<IGraphicsEngineFactory>(new GraphicsEngineFactory());
+            DIContainer.Register<ICoreEngine, CoreEngine>();
+            DIContainer.Register<IGraphicsEngineFactory, GraphicsEngineFactory>();
             DIContainer.Register<GraphicsEngine>();
             DIContainer.Register<MainViewModel>();
         }

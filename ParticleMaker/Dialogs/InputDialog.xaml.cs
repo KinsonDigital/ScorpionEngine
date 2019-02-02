@@ -3,12 +3,14 @@ using System.Windows.Forms.Integration;
 using System.Windows.Input;
 using System.Linq;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ParticleMaker.Dialogs
 {
     /// <summary>
     /// Interaction logic for InputDialog.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class InputDialog : Window
     {
         #region Fields

@@ -1,8 +1,11 @@
-﻿namespace ParticleMaker.Dialogs.DesignData
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace ParticleMaker.Dialogs.DesignData
 {
     /// <summary>
     /// Sample data for use during design time for the dialogs of the application.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class DialogData
     {
         /// <summary>

@@ -2,6 +2,7 @@
 using KDScorpionCore.Graphics;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
@@ -86,6 +87,7 @@ namespace ParticleMaker
         /// <typeparam name="T">The type of children to retrieve.</typeparam>
         /// <param name="parent">The parent object that owns the children being searched for.</param>
         /// <returns></returns>
+        [ExcludeFromCodeCoverage]
         public static IEnumerable<T> FindVisualChildren<T>(this DependencyObject parent) where T : DependencyObject
         {
             if (parent != null)

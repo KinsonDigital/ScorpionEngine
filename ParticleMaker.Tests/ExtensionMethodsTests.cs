@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using System;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using MediaColor = System.Windows.Media.Color;
 
