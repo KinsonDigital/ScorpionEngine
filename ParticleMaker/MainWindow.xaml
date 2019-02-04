@@ -142,9 +142,7 @@
         </StackPanel>
 
         <StackPanel Orientation="Vertical" Visibility="Visible">
-            <ctrls:SetupList x:Name="MySetupList" AddSetupClicked="MySetupList_AddSetupClicked"
-                             ItemRenamed="MySetupList_ItemRenamed"
-                             ItemDeleted="MySetupList_ItemDeleted">
+            <ctrls:SetupList x:Name="MySetupList">
                 <ctrls:SetupList.Setups>
                     <x:Array Type="{x:Type uc:PathItem}">
                         <uc:PathItem FilePath="C:\TEMP\Projects\test-project\setup-A.json"/>
@@ -153,9 +151,7 @@
                 </ctrls:SetupList.Setups>
             </ctrls:SetupList>
 
-            <ctrls:ParticleList x:Name="ParticleList" AddParticleClicked="ParticleList_AddParticleClicked"
-                                ItemRenamed="ParticleList_ItemRenamed"
-                                ItemDeleted="ParticleList_ItemDeleted">
+            <ctrls:ParticleList x:Name="ParticleList">
                 <ctrls:ParticleList.Particles>
                     <x:Array Type="{x:Type uc:PathItem}">
                         <uc:PathItem FilePath="C:\TEMP\Projects\test-project\Red.png"/>

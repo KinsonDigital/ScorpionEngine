@@ -60,6 +60,9 @@ namespace ParticleMaker.ViewModels
                             _graphicsEngine.RenderSurfaceHandle = RenderSurface.Handle;
                             _graphicsEngine.ParticleEngine.LivingParticlesCountChanged += _particleEngine_LivingParticlesCountChanged;
                             _graphicsEngine.ParticleEngine.SpawnLocation = new CoreVector(200, 200);
+
+                            //NOTE: This line of code will not continue execution until the Monogame framework
+                            //has stopped running
                             _graphicsEngine.Run();
                         }
                     });
@@ -390,6 +393,7 @@ namespace ParticleMaker.ViewModels
         public void StartEngine()
         {
             _startupTask.Start();
+            MainWindow.SetFocus();
         }
 
 

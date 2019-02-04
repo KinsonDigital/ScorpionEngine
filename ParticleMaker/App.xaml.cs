@@ -17,6 +17,9 @@ namespace ParticleMaker
     [ExcludeFromCodeCoverage]
     public partial class App : Application
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="App"/>.
+        /// </summary>
         public App()
         {
             DIContainer = new Container();
@@ -34,6 +37,9 @@ namespace ParticleMaker
         }
 
 
+        /// <summary>
+        /// The dependency injection container for creating instances of registered objects.
+        /// </summary>
         public static Container DIContainer { get; set; }
     }
 }
