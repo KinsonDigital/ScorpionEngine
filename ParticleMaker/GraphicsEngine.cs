@@ -1,4 +1,4 @@
-﻿using KDParticleEngine;
+using KDParticleEngine;
 using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
 using Microsoft.Xna.Framework;
@@ -94,6 +94,7 @@ namespace ParticleMaker
             if (RenderSurfaceHandle == IntPtr.Zero)
                 throw new Exception($"You must set the rendering surface handle before starting the {nameof(GraphicsEngine)}");
 
+            _coreEngine.OriginalWindow.Hide();
             _coreEngine.Run();
         }
 

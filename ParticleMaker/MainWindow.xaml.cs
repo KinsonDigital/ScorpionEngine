@@ -1,17 +1,12 @@
-﻿using System.Windows;
+using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using System.ComponentModel;
 using ParticleMaker.ViewModels;
 using System.Diagnostics.CodeAnalysis;
-using ThreadTimer = System.Threading.Timer;
 using ParticleMaker.Dialogs;
-using System;
-using System.IO;
-using System.Windows.Media.Imaging;
-using System.Collections.Generic;
-using System.Collections;
-using System.Windows.Media;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace ParticleMaker
 {
@@ -22,7 +17,9 @@ namespace ParticleMaker
     public partial class MainWindow : Window
     {
         #region Fields
-        private ThreadTimer _shutDownTimer;
+        private static Window _self;
+        private static CancellationTokenSource _setFocusTaskTokenSrc;
+        private static Task _setFocusTask;
         private MainViewModel _mainViewModel;
         #endregion
 
@@ -40,6 +37,8 @@ namespace ParticleMaker
             InitializeComponent();
 
             Loaded += MainWindow_Loaded;
+
+            _self = this;
         }
         #endregion
 
@@ -52,12 +51,7 @@ namespace ParticleMaker
         protected override void OnClosing(CancelEventArgs e)
         {
             _mainViewModel.ShutdownEngine();
-            
-            //Give the graphics engine some time to shutdown and cleanup
-            _shutDownTimer = new ThreadTimer((state) =>
-            {
-                base.OnClosing(e);
-            }, null, 2000, 0);
+            base.OnClosing(e);
         }
         #endregion
 
@@ -86,16 +80,35 @@ namespace ParticleMaker
         }
         #endregion
 
-        private void MySetupList_AddSetupClicked(object sender, EventArgs e)
-        {
-            var inputDialog = new InputDialog("Create new setup.", "Type in the new setup name.");
-            var dialogResult = inputDialog.ShowDialog();
 
-            if (dialogResult == true)
+        /// <summary>
+        /// Sets the window in focus.
+        /// </summary>
+        public static void SetFocus()
+        {
+            _setFocusTaskTokenSrc = new CancellationTokenSource();
+            var totalAttempts = 0;
+
+            _setFocusTask = new Task(() =>
             {
-                var newSetupName = inputDialog.InputValue;
-            }
+                while (!_setFocusTaskTokenSrc.IsCancellationRequested)
+                {
+                    _setFocusTaskTokenSrc.Token.WaitHandle.WaitOne(250);
+
+                    _self.Dispatcher.Invoke(() =>
+                    {
+                        _self.Focus();
+                        totalAttempts += 1;
+                    });
+
+                    if (totalAttempts >= 4)
+                        _setFocusTaskTokenSrc.Cancel();
+                }
+            });
+
+            _setFocusTask.Start();
         }
+        #endregion
 
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
