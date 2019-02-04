@@ -1,11 +1,16 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Graphics;
 using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Threading;
 using MediaColor = System.Windows.Media.Color;
 
 namespace ParticleMaker
@@ -15,8 +20,23 @@ namespace ParticleMaker
     /// </summary>
     public static class ExtensionMethods
     {
+        #region PInvoke Functions
+        [DllImport("user32.dll", EntryPoint = "SetWindowLong")]
+        private static extern int SetWindowLong32(HandleRef hWnd, int nIndex, int dwNewLong);
+
+        [DllImport("user32.dll")]
+        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        #endregion
+
+
         #region Fields
+        private const int GWL_EXSTYLE = -20;
+        private const int WS_EX_APPWINDOW = 0x40000;
+        private const int SW_HIDE = 0x00;
+        private const int SW_SHOW = 0x05;
         private const float PI = 3.1415926535897931f;
+        private static CancellationTokenSource _tokenSrc;
+        private static Task _hideWindowTask;
         #endregion
 
 
@@ -105,6 +125,43 @@ namespace ParticleMaker
                     }
                 }
             }
+        }
+
+
+        /// <summary>
+        /// Hides the game window.
+        /// </summary>
+        /// <param name="window">The window to hide.</param>
+        [ExcludeFromCodeCoverage]
+        public static void Hide(this GameWindow window)
+        {
+            var windowHandle = window?.Handle;
+
+            if (windowHandle == null)
+                return;
+
+            _tokenSrc = new CancellationTokenSource();
+
+            _hideWindowTask = new Task(() =>
+            {
+                while (!_tokenSrc.IsCancellationRequested)
+                {
+                    Dispatcher.CurrentDispatcher.Invoke(() =>
+                    {
+                        _tokenSrc.Token.WaitHandle.WaitOne(62);
+
+                        var objWrapper = new object();
+                        var handle = new HandleRef(objWrapper, windowHandle.Value);
+
+                        SetWindowLong32(handle, GWL_EXSTYLE, ~WS_EX_APPWINDOW);
+                        ShowWindow(handle.Handle, SW_HIDE);
+
+                        _tokenSrc.Cancel();
+                    });
+                }
+            });
+
+            _hideWindowTask.Start();
         }
         #endregion
     }

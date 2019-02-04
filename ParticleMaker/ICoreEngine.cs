@@ -40,6 +40,11 @@ namespace ParticleMaker
 
         #region Props
         /// <summary>
+        /// The original render window.
+        /// </summary>
+        GameWindow OriginalWindow { get; set; }
+
+        /// <summary>
         /// The game window.
         /// </summary>
         Point WindowPosition { get; set; }

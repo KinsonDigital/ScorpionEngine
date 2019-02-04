@@ -4,14 +4,9 @@ using System.Windows.Forms.Integration;
 using System.ComponentModel;
 using ParticleMaker.ViewModels;
 using System.Diagnostics.CodeAnalysis;
-using ThreadTimer = System.Threading.Timer;
 using ParticleMaker.Dialogs;
-using System;
-using System.IO;
-using System.Windows.Media.Imaging;
-using System.Collections.Generic;
-using System.Collections;
-using System.Windows.Media;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace ParticleMaker
 {
@@ -22,7 +17,9 @@ namespace ParticleMaker
     public partial class MainWindow : Window
     {
         #region Fields
-        private ThreadTimer _shutDownTimer;
+        private static Window _self;
+        private static CancellationTokenSource _setFocusTaskTokenSrc;
+        private static Task _setFocusTask;
         private MainViewModel _mainViewModel;
         #endregion
 
@@ -40,6 +37,8 @@ namespace ParticleMaker
             InitializeComponent();
 
             Loaded += MainWindow_Loaded;
+
+            _self = this;
         }
         #endregion
 
@@ -52,12 +51,7 @@ namespace ParticleMaker
         protected override void OnClosing(CancelEventArgs e)
         {
             _mainViewModel.ShutdownEngine();
-            
-            //Give the graphics engine some time to shutdown and cleanup
-            _shutDownTimer = new ThreadTimer((state) =>
-            {
-                base.OnClosing(e);
-            }, null, 2000, 0);
+            base.OnClosing(e);
         }
         #endregion
 
@@ -84,19 +78,39 @@ namespace ParticleMaker
 
             _mainViewModel.StartEngine();
         }
+
+
+        /// <summary>
+        /// Sets the window in focus.
+        /// </summary>
+        public static void SetFocus()
+        {
+            _setFocusTaskTokenSrc = new CancellationTokenSource();
+            var totalAttempts = 0;
+
+            _setFocusTask = new Task(() =>
+            {
+                while (!_setFocusTaskTokenSrc.IsCancellationRequested)
+                {
+                    _setFocusTaskTokenSrc.Token.WaitHandle.WaitOne(250);
+
+                    _self.Dispatcher.Invoke(() =>
+                    {
+                        _self.Focus();
+                        totalAttempts += 1;
+                    });
+
+                    if (totalAttempts >= 4)
+                        _setFocusTaskTokenSrc.Cancel();
+                }
+            });
+
+            _setFocusTask.Start();
+        }
         #endregion
 
-        private void MySetupList_AddSetupClicked(object sender, EventArgs e)
-        {
-            var inputDialog = new InputDialog("Create new setup.", "Type in the new setup name.");
-            var dialogResult = inputDialog.ShowDialog();
 
-            if (dialogResult == true)
-            {
-                var newSetupName = inputDialog.InputValue;
-            }
-        }
-
+        //TODO:  Temporary for debugging.  Remove when finished.
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
             var projListDialog = new ProjectListDialog("Open Project")
@@ -110,82 +124,6 @@ namespace ParticleMaker
             };
 
             var dialogResult = projListDialog.ShowDialog();
-
-
-        }
-
-        private void ParticleList_ItemRenamed(object sender, CustomEventArgs.RenameItemEventArgs e)
-        {
-            File.Move(e.OldPath, e.NewPath);
-
-            ParticleList.UpdateItemPath(e.OldPath, e.NewPath);
-        }
-
-        private void ParticleList_ItemDeleted(object sender, CustomEventArgs.DeleteItemEventArgs e)
-        {
-            File.Delete(e.Path);
-
-            ParticleList.RemoveItem(e.Name);
-        }
-
-        private void MySetupList_ItemRenamed(object sender, CustomEventArgs.RenameItemEventArgs e)
-        {
-            File.Move(e.OldPath, e.NewPath);
-
-            MySetupList.UpdateItemPath(e.OldPath, e.NewPath);
-        }
-
-        private void MySetupList_ItemDeleted(object sender, CustomEventArgs.DeleteItemEventArgs e)
-        {
-            File.Delete(e.Path);
-
-            MySetupList.RemoveItem(e.Name);
-        }
-
-        private void MySetupList_AddSetupClicked(object sender, CustomEventArgs.AddItemClickedEventArgs e)
-        {
-            var newSetupFile = $@"C:\temp\projects\test-project\{e.ItemName}";
-
-            File.Create(newSetupFile);
-
-            MySetupList.AddItemPath(newSetupFile);
-        }
-
-        private void ParticleList_AddParticleClicked(object sender, CustomEventArgs.AddItemClickedEventArgs e)
-        {
-            var newSetupFile = $@"C:\temp\projects\test-project\{e.ItemName}";
-
-            var colors = new List<Color>()
-            {
-                Color.FromArgb(255, 255, 106, 0)
-            };
-
-            // Define parameters used to create the BitmapSource.
-            PixelFormat pf = PixelFormats.Bgr32;
-            int width = 25;
-            int height = 25;
-            int rawStride = (width * pf.BitsPerPixel + 7) / 8;
-            byte[] rawImage = new byte[rawStride * height];
-
-
-            // Initialize the image with data.
-            Random value = new Random();
-            value.NextBytes(rawImage);
-
-            // Create a BitmapSource.
-            BitmapSource bitmap = BitmapSource.Create(width, height,
-                96, 96, pf, null,
-                rawImage, rawStride);
-
-            using (var fileStream = new FileStream(newSetupFile, FileMode.Create))
-            {
-                var encoder = new PngBitmapEncoder();
-
-                encoder.Frames.Add(BitmapFrame.Create(bitmap));
-                encoder.Save(fileStream);
-            }
-
-            ParticleList.AddItemPath(newSetupFile);
         }
     }
 }

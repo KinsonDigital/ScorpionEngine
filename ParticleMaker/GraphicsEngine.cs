@@ -21,8 +21,6 @@ namespace ParticleMaker
         private ContentLoader _contentLoader;
         private Renderer _renderer;
         private bool _shuttingDown = false;
-        private int _width;
-        private int _height;
         #endregion
 
 
@@ -44,8 +42,8 @@ namespace ParticleMaker
             _coreEngine.OnDraw += _coreEngine_OnDraw;
             _coreEngine.OnUnLoadContent += _coreEngine_OnUnLoadContent;
 
-            _width = 400;
-            _height = 400;
+            Width = 400;
+            Height = 400;
 
             ParticleEngine = particleEngine;
         }
@@ -53,12 +51,18 @@ namespace ParticleMaker
 
 
         #region Props
+        /// <summary>
+        /// The handle to the render sturface of where to render the particle graphics.
+        /// </summary>
         public IntPtr RenderSurfaceHandle
         {
             get => _coreEngine.RenderSurfaceHandle;
             set => _coreEngine.RenderSurfaceHandle = value;
         }
 
+        /// <summary>
+        /// Gets or sets the particle engine managing the particles.
+        /// </summary>
         public ParticleEngine ParticleEngine { get; set; }
 
         //TODO: Change this to directly use the BackBufferWidth in the
@@ -66,22 +70,14 @@ namespace ParticleMaker
         /// <summary>
         /// Gets or sets the width of the render surface that the graphics are rendering to.
         /// </summary>
-        public int Width
-        {
-            get { return _width; }
-            set { _width = value; }
-        }
+        public int Width { get; set; }
 
         //TODO: Change this to directly use the BackBufferHeight in the
         //_graphics_PreparingDeviceSettings event below.
         /// <summary>
         /// Gets or sets the height of the render surface that the graphics are rendering to.
         /// </summary>
-        public int Height
-        {
-            get { return _height; }
-            set { _height = value; }
-        }
+        public int Height { get; set; }
         #endregion
 
 
@@ -91,9 +87,11 @@ namespace ParticleMaker
         /// </summary>
         public void Run()
         {
+            //NOTE: This method will not exit until the monogame object has exited
             if (RenderSurfaceHandle == IntPtr.Zero)
                 throw new Exception($"You must set the rendering surface handle before starting the {nameof(GraphicsEngine)}");
 
+            _coreEngine.OriginalWindow.Hide();
             _coreEngine.Run();
         }
 

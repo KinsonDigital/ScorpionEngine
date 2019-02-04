@@ -54,11 +54,18 @@ namespace ParticleMaker
             _graphics.PreparingDeviceSettings += _graphics_PreparingDeviceSettings;
 
             Window.Position = new Point(1000, 0);
+
+            OriginalWindow = Window;
         }
         #endregion
 
 
         #region Props
+        /// <summary>
+        /// The original render window.
+        /// </summary>
+        public GameWindow OriginalWindow { get; set; }
+
         /// <summary>
         /// Gets or sets the handle to the surface to render the graphics to.
         /// </summary>
