@@ -5,8 +5,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
-        xmlns:vm="clr-namespace:ParticleMaker.ViewModels"
-        xmlns:uc="clr-namespace:ParticleMaker.UserControls"
         mc:Ignorable="d" Title="Particle Maker"
         Name="this" WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignData Source=/DesignData/MainWindowData.xaml}" SizeToContent="WidthAndHeight">
