@@ -5,35 +5,34 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ParticleMaker.UserControls"
              mc:Ignorable="d" Background="White"
-             Name="this" Width="195.111">
+             Name="this">
 
     <Border BorderBrush="Gray" BorderThickness="1">
         <Grid DataContext="{Binding ElementName=this}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
 
             <Label Grid.Row="0" Content="Random Color Ranges" HorizontalAlignment="Center"/>
 
             <!--RED MIN/MAX-->
-            <local:ColorMinMax Grid.Row="1" MaxLabel="Red Max" Margin="5, 2.5, 5, 2.5" MinLabel="    Red Min"
+            <local:ColorMinMax Grid.Row="0" Grid.Column="0" MaxLabel="Red Max" Margin="5, 2.5, 5, 2.5" MinLabel="    Red Min"
                                Min="{Binding Path=RedMin, Mode=TwoWay}" Max="{Binding Path=RedMax, Mode=TwoWay}"
                                ChosenColorComponent="Red" HorizontalAlignment="Center"/>
 
             <!--GREEN MIN/MAX-->
-            <local:ColorMinMax Grid.Row="2" MaxLabel="Green Max" Margin="5, 2.5, 5, 2.5" MinLabel="Green Min" 
+            <local:ColorMinMax Grid.Row="0" Grid.Column="1" MaxLabel="Green Max" Margin="5, 2.5, 5, 2.5" MinLabel="Green Min" 
                                Min="{Binding Path=GreenMin, Mode=TwoWay}" Max="{Binding Path=GreenMax, Mode=TwoWay}"
                                ChosenColorComponent="Green" HorizontalAlignment="Center"/>
 
             <!--BLUE MIN/MAX-->
-            <local:ColorMinMax Grid.Row="3" MaxLabel="Blue Max" Margin="5, 2.5, 5, 2.5" MinLabel="   Blue Min"
+            <local:ColorMinMax Grid.Row="0" Grid.Column="2" MaxLabel="Blue Max" Margin="5, 2.5, 5, 2.5" MinLabel="   Blue Min"
                                Min="{Binding Path=BlueMin, Mode=TwoWay}" Max="{Binding Path=BlueMax, Mode=TwoWay}"
                                ChosenColorComponent="Blue" HorizontalAlignment="Center"/>
         </Grid>

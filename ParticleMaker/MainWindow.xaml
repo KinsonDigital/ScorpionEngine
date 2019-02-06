@@ -9,159 +9,189 @@
         xmlns:uc="clr-namespace:ParticleMaker.UserControls"
         mc:Ignorable="d" Title="Particle Maker"
         Name="this" WindowStartupLocation="CenterScreen"
-        Height="803.068" Width="781.618"
-        d:DataContext="{d:DesignInstance Type={x:Type vm:MainViewModel}}">
+        d:DataContext="{d:DesignData Source=/DesignData/MainWindowData.xaml}" SizeToContent="WidthAndHeight">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Name="RenderRow" Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>
-            <ColumnDefinition Name="RenderColumn" Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Name="RenderColumn" Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <!--Color Settings-->
-        <WindowsFormsHost Name="winFormsHost" Grid.Column="2" Grid.Row="0"
-                          Width="400" Height="400" VerticalAlignment="Top">
+        <StackPanel Orientation="Vertical" Visibility="Visible" Margin="10">
+            <!--PROJECT SETUP LIST-->
+            <ctrls:SetupList x:Name="MySetupList" Margin="10" Setups="{Binding Path=Setups}"/>
+
+            <!--PARTICLE LIST-->
+            <ctrls:ParticleList x:Name="ParticleList" Margin="10" Particles="{Binding Path=Particles, Mode=TwoWay}"/>
+
+            <ctrls:NumericUpDown LabelText="Total Particles" Min="0" Max="100000" Value="{Binding TotalParticles, Mode=TwoWay}"
+                                 HorizontalAlignment="Stretch" Margin="10"/>
+
+            <!--RANDOMIZATION SETTINGS-->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <!--RANDOM ANGULAR VELOCITY-->
+                <ctrls:RandomRange Title="Angular Velocity" MinTitle="Min" MaxTitle="Max" Grid.Row="0" Grid.Column="0" Margin="5"
+                               MinLowerLimit="0" MinUpperLimit="360" MaxLowerLimit="0" MaxUpperLimit="360"
+                               MinValue="{Binding AngularVelocityMin, Mode=TwoWay}" MaxValue="{Binding AngularVelocityMax, Mode=TwoWay}"/>
+
+                <!--RANDOM PARTICLE LIFETIME (Upper limits set to 5 minutes)-->
+                <ctrls:RandomRange Title="Particle LifeTime (ms)" MinTitle="Min" MaxTitle="Max" Grid.Row="0" Grid.Column="1" Margin="5"
+                               MinLowerLimit="0" MinUpperLimit="300000" MaxLowerLimit="0" MaxUpperLimit="300000"
+                               MinValue="{Binding LifetimeMin, Mode=TwoWay}" MaxValue="{Binding LifetimeMax, Mode=TwoWay}"/>
+
+                <!--RANDOM X VELOCITY-->
+                <ctrls:RandomRange Title="X Velocity" MinTitle="Min" MaxTitle="Max" Grid.Row="1" Grid.Column="0" Margin="5"
+                               MinLowerLimit="-1000" MinUpperLimit="1000" MaxLowerLimit="-1000" MaxUpperLimit="1000"
+                               MinValue="{Binding VelocityXMin, Mode=TwoWay}" MaxValue="{Binding VelocityXMax, Mode=TwoWay}"/>
+
+                <!--RANDOM Y VELOCITY-->
+                <ctrls:RandomRange Title="Y Velocity" MinTitle="Min" MaxTitle="Max" Grid.Row="1" Grid.Column="1" Margin="5"
+                               MinLowerLimit="-1000" MinUpperLimit="1000" MaxLowerLimit="-1000" MaxUpperLimit="1000"
+                               MinValue="{Binding VelocityYMin, Mode=TwoWay}" MaxValue="{Binding VelocityYMax, Mode=TwoWay}"/>
+
+                <!--SPAWN RATE-->
+                <ctrls:RandomRange Title="Spawn Rate (ms)" MinTitle="Min" MaxTitle="Max" Grid.Row="2" Grid.Column="0" Margin="5"
+                               MinLowerLimit="0" MinUpperLimit="300000" MaxLowerLimit="0" MaxUpperLimit="300000"
+                               MinValue="{Binding SpawnRateMin, Mode=TwoWay}" MaxValue="{Binding SpawnRateMax, Mode=TwoWay}"/>
+
+                <!--RANDOM ANGLE-->
+                <ctrls:RandomRange Title="Random Angle" MinTitle="Min" MaxTitle="Max" Grid.Row="2" Grid.Column="1" Margin="5"
+                               MinLowerLimit="0" MinUpperLimit="360" MaxLowerLimit="0" MaxUpperLimit="360"
+                               MinValue="{Binding AngleMin, Mode=TwoWay}" MaxValue="{Binding AngleMax, Mode=TwoWay}"/>
+
+                <!--RANDOM SIZE SETTINGS-->
+                <ctrls:RandomRange Title="Random Size" MinTitle="Min" MaxTitle="Max" Grid.Row="3" Grid.Column="0" Margin="5"
+                               MinLowerLimit="0.1" MinUpperLimit="2" MaxLowerLimit="0.1" MaxUpperLimit="2"
+                               MinValue="{Binding SizeMin, Mode=TwoWay}" MaxValue="{Binding SizeMax, Mode=TwoWay}"/>
+            </Grid>
+        </StackPanel>
+
+        <!--RENDERING SURFACE-->
+        <WindowsFormsHost Name="winFormsHost" Grid.Column="2" Grid.Row="0" Margin="10"
+                          Width="715" Height="715" VerticalAlignment="Top">
             <WindowsFormsHost.Child>
                 <wf:PictureBox Name="grfxSurface"></wf:PictureBox>
             </WindowsFormsHost.Child>
         </WindowsFormsHost>
 
-        <!--COLOR SETTINGS-->
-        <Grid Grid.Row="0" Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+        <!--LIVE STATUS-->
+        <GroupBox Grid.Row="1" Margin="10">
+            <GroupBox.Header>
+                <HeaderedContentControl FontWeight="Bold" Content="Live Stats"/>
+            </GroupBox.Header>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-
-            <StackPanel Orientation="Vertical" Grid.Row="0">
-                <RadioButton Name="RandomColorRadioButton" Content="Random Color" IsChecked="True"/>
-                <RadioButton Content="Random Color List" IsChecked="{Binding UseColorsFromList}"/>
-            </StackPanel>
-
-            <!--THE COLOR COMPONENTS TO RANDOMLY CHOOSE FROM-->
-            <ctrls:RandomColorRanges x:Name="ColorRanges" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                                     Grid.Row="1" Margin="10,10,0,0" Width="177"
-                                     RedMin="{Binding Path=RedMin, Mode=TwoWay}" RedMax="{Binding Path=RedMax, Mode=TwoWay}"
-                                     GreenMin="{Binding Path=GreenMin, Mode=TwoWay}" GreenMax="{Binding Path=GreenMax, Mode=TwoWay}"
-                                     BlueMin="{Binding Path=BlueMin, Mode=TwoWay}" BlueMax="{Binding Path=BlueMax, Mode=TwoWay}">
-                <ctrls:RandomColorRanges.Style>
-                    <Style TargetType="ctrls:RandomColorRanges">
-                        <Setter Property="Visibility" Value="Hidden"/>
-
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=RandomColorRadioButton, Path=IsChecked}" Value="True">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ctrls:RandomColorRanges.Style>
-            </ctrls:RandomColorRanges>
-
-            <!--THE LIST OF COLORS TO RANDOMLY CHOOSE FROM-->
-            <ctrls:ColorList d:DataContext="{d:DesignData Source=/DesignData/ColorListSampleData.xaml}"
-                             Grid.Row="1" Colors="{Binding Colors, Mode=TwoWay}">
-                <ctrls:ColorList.Style>
-                    <Style TargetType="ctrls:ColorList">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=RandomColorRadioButton, Path=IsChecked}" Value="True">
-                                <Setter Property="Visibility" Value="Hidden"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ctrls:ColorList.Style>
-            </ctrls:ColorList>
-        </Grid>
-
-        <StackPanel Orientation="Vertical" Grid.Row="1">
             <!--TOTAL NUMBER OF PARTICLES-->
             <StackPanel Orientation="Vertical">
-                <ctrls:NumericUpDown LabelText="Total Particles" Min="0" Max="100000" Value="{Binding TotalParticles, Mode=TwoWay}"
-                                     HorizontalAlignment="Left"/>
 
                 <!--TOTAL LIVING PARTICLES-->
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="Total Living Particles:"/>
+                    <Label Content="Total Living Particles:" FontWeight="Bold"/>
                     <Label Content="{Binding TotalLivingParticles}"/>
                 </StackPanel>
 
                 <!--TOTAL DEAD PARTICLES-->
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="Total Dead Particles:"/>
+                    <Label Content="Total Dead Particles:" FontWeight="Bold"/>
                     <Label Content="{Binding TotalDeadParticles}"/>
                 </StackPanel>
             </StackPanel>
+        </GroupBox>
 
-            <!--RANDOM SIZE SETTINGS-->
-            <ctrls:RandomRange HorizontalAlignment="Left" Height="120" VerticalAlignment="Top" Width="181"
-                               MinValue="{Binding SizeMin, Mode=TwoWay}" MaxValue="{Binding SizeMax, Mode=TwoWay}"
-                               MinLowerLimit="0.1" MinUpperLimit="2" MaxLowerLimit="0.1" MaxUpperLimit="2"
-                               Title="Random Size" MinTitle="Min" MaxTitle="Max"/>
+        <!--COLOR RANDOMIZATION-->
+        <Border BorderBrush="Gray" BorderThickness="1" Margin="10"
+                Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
-            <!--RANDOM ANGLE SETTINGS-->
-            <ctrls:RandomRange HorizontalAlignment="Left" Height="120" VerticalAlignment="Top" Width="181"
-                               MinValue="{Binding AngleMin, Mode=TwoWay}" MaxValue="{Binding AngleMax, Mode=TwoWay}"
-                               MinLowerLimit="0" MinUpperLimit="360" MaxLowerLimit="0" MaxUpperLimit="360"
-                               Title="Random Angle" MinTitle="Min" MaxTitle="Max"/>
-        </StackPanel>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-            <StackPanel Orientation="Vertical">
-                <!--RANDOM ANGULAR VELOCITY-->
-                <ctrls:RandomRange MinLowerLimit="0" MinUpperLimit="360" MaxLowerLimit="0" MaxUpperLimit="360"
-                                   Title="Angular Velocity" MinTitle="Min" MaxTitle="Max"
-                                   MinValue="{Binding AngularVelocityMin, Mode=TwoWay}" MaxValue="{Binding AngularVelocityMax, Mode=TwoWay}"/>
+                <StackPanel Orientation="Vertical" Grid.Row="0">
+                    <RadioButton Name="RandomColorComponentsRadioButton" Content="Random Color Components" IsChecked="True"/>
+                    <RadioButton Content="Random Color List" IsChecked="{Binding UseColorsFromList}"/>
+                </StackPanel>
 
-                <!--RANDOM X VELOCITY-->
-                <ctrls:RandomRange MinLowerLimit="-1000" MinUpperLimit="1000" MaxLowerLimit="-1000" MaxUpperLimit="1000"
-                                   Title="X Velocity" MinTitle="Min" MaxTitle="Max"
-                                   MinValue="{Binding VelocityXMin, Mode=TwoWay}" MaxValue="{Binding VelocityXMax, Mode=TwoWay}"/>
+                <!--RANDOM COLOR COMPONENT SETTINGS-->
+                <Grid Grid.Row="3">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Visibility" Value="Hidden"/>
 
-                <!--RANDOM Y VELOCITY-->
-                <ctrls:RandomRange MinLowerLimit="-1000" MinUpperLimit="1000" MaxLowerLimit="-1000" MaxUpperLimit="1000"
-                                   Title="Y Velocity" MinTitle="Min" MaxTitle="Max"
-                                   MinValue="{Binding VelocityYMin, Mode=TwoWay}" MaxValue="{Binding VelocityYMax, Mode=TwoWay}"/>
-            </StackPanel>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=RandomColorComponentsRadioButton, Path=IsChecked}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
 
-            <!--RANDOM PARTICLE LIFETIME (Upper limits set to 5 minutes)-->
-            <ctrls:RandomRange MinLowerLimit="0" MinUpperLimit="300000" MaxLowerLimit="0" MaxUpperLimit="300000"
-                               Title="Particle LifeTime (ms)" MinTitle="Min" MaxTitle="Max"
-                               MinValue="{Binding LifetimeMin, Mode=TwoWay}" MaxValue="{Binding LifetimeMax, Mode=TwoWay}"/>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
 
-            <ctrls:RandomRange MinLowerLimit="0" MinUpperLimit="300000" MaxLowerLimit="0" MaxUpperLimit="300000"
-                               Title="Spawn Rate (ms)" MinTitle="Min" MaxTitle="Max"
-                               MinValue="{Binding SpawnRateMin, Mode=TwoWay}" MaxValue="{Binding SpawnRateMax, Mode=TwoWay}"/>
-        </StackPanel>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Vertical" Visibility="Visible">
-            <ctrls:SetupList x:Name="MySetupList">
-                <ctrls:SetupList.Setups>
-                    <x:Array Type="{x:Type uc:PathItem}">
-                        <uc:PathItem FilePath="C:\TEMP\Projects\test-project\setup-A.json"/>
-                        <uc:PathItem FilePath="C:\TEMP\Projects\test-project\setup-B.json"/>
-                    </x:Array>
-                </ctrls:SetupList.Setups>
-            </ctrls:SetupList>
+                    <Label Grid.Row="0" Grid.ColumnSpan="3" FontWeight="Bold" Content="Random Color Components" HorizontalAlignment="Center"/>
 
-            <ctrls:ParticleList x:Name="ParticleList">
-                <ctrls:ParticleList.Particles>
-                    <x:Array Type="{x:Type uc:PathItem}">
-                        <uc:PathItem FilePath="C:\TEMP\Projects\test-project\Red.png"/>
-                        <uc:PathItem FilePath="C:\TEMP\Projects\test-project\Green.png"/>
-                        <uc:PathItem FilePath="C:\TEMP\Projects\test-project\Blue.png"/>
-                    </x:Array>
-                </ctrls:ParticleList.Particles>
-            </ctrls:ParticleList>
-            
-            <Button x:Name="TestButton" Content="ClickMe" Height="30" Width="100" Click="TestButton_Click"/>
-        </StackPanel>
+                    <!--RED MIN/MAX-->
+                    <ctrls:ColorMinMax MaxLabel="Red Max" MinLabel="Red Min" Width="165" Grid.Row="1" Grid.Column="0"
+                                       Min="{Binding Path=RedMin, Mode=TwoWay}" Max="{Binding Path=RedMax, Mode=TwoWay}"
+                                       ChosenColorComponent="Red" HorizontalAlignment="Center"/>
+
+                    <!--GREEN MIN/MAX-->
+                    <ctrls:ColorMinMax MaxLabel="Green Max" MinLabel="Green Min" Width="165" Grid.Row="1" Grid.Column="1"
+                                       Min="{Binding Path=GreenMin, Mode=TwoWay}" Max="{Binding Path=GreenMax, Mode=TwoWay}"
+                                       ChosenColorComponent="Green" HorizontalAlignment="Center"/>
+
+                    <!--BLUE MIN/MAX-->
+                    <ctrls:ColorMinMax MaxLabel="Blue Max" MinLabel="Blue Min" Width="165" Grid.Row="1" Grid.Column="2"
+                                        Min="{Binding Path=BlueMin, Mode=TwoWay}" Max="{Binding Path=BlueMax, Mode=TwoWay}"
+                                        ChosenColorComponent="Blue" HorizontalAlignment="Center"/>
+                </Grid>
+
+                <!--THE LIST OF COLORS TO RANDOMLY CHOOSE FROM-->
+                <ctrls:ColorList d:DataContext="{d:DesignData Source=/DesignData/MainWindowData.xaml}"
+                             Grid.Row="1" Grid.RowSpan="2" Colors="{Binding Colors, Mode=TwoWay}" HorizontalAlignment="Left">
+                    <ctrls:ColorList.Style>
+                        <Style TargetType="ctrls:ColorList">
+                            <Setter Property="Visibility" Value="Visible"/>
+
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=RandomColorComponentsRadioButton, Path=IsChecked}" Value="True">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ctrls:ColorList.Style>
+                </ctrls:ColorList>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

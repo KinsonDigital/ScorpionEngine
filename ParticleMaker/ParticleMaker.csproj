@@ -83,7 +83,7 @@
     <Compile Include="Exceptions\ParticleSetupAlreadyExists.cs" />
     <Compile Include="Exceptions\ParticleSetupDoesNotExist.cs" />
     <Compile Include="Project\DeploymentSetting.cs" />
-    <Compile Include="DesignData\ColorListSampleData.cs" />
+    <Compile Include="DesignData\MainWindowData.cs" />
     <Compile Include="CustomEventArgs\UpdateEventArgs.cs" />
     <Compile Include="Exceptions\ContentDoesNotExistException.cs" />
     <Compile Include="Exceptions\IllegalProjectNameException.cs" />
@@ -150,7 +150,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DesignData\ColorListSampleData.xaml">
+    <Page Include="DesignData\MainWindowData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

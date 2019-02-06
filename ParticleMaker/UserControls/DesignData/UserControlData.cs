@@ -54,6 +54,11 @@ namespace ParticleMaker.UserControls.DesignData
         /// Gets or sets the name of the particle.
         /// </summary>
         public string ParticleName { get; set; }
+
+        /// <summary>
+        /// The label text data for the <see cref="NumericUpDown"/> control.
+        /// </summary>
+        public string LabelText { get; set; } = nameof(LabelText);
         #endregion
     }
 }

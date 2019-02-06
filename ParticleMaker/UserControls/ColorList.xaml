@@ -28,7 +28,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="Add Color" HorizontalAlignment="Center"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="Add Color" HorizontalAlignment="Center" FontWeight="Bold"/>
 
         <!--ADD NEW COLOR BUTTON-->
         <local:CustomButton x:Name="AddNewItemButton" Grid.Row="0" Grid.Column="1" Click="AddNewItemButton_Click">

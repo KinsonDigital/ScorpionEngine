@@ -108,22 +108,5 @@ namespace ParticleMaker
             _setFocusTask.Start();
         }
         #endregion
-
-
-        //TODO:  Temporary for debugging.  Remove when finished.
-        private void TestButton_Click(object sender, RoutedEventArgs e)
-        {
-            var projListDialog = new ProjectListDialog("Open Project")
-            {
-                ProjectPaths = new[]
-                {
-                    @"C:\temp\projects\project-A",
-                    @"C:\temp\projects\project-B",
-                    @"C:\temp\projects\project-C",
-                }
-            };
-
-            var dialogResult = projListDialog.ShowDialog();
-        }
     }
 }

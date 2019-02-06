@@ -5,7 +5,8 @@
                        xmlns:userCtrls="clr-namespace:ParticleMaker.UserControls"
                        SetupPath="C:\temp\Projects\test-project\setup-a.json"
                        SetupName="test-setup"
-                       ParticleName="test-particle">
+                       ParticleName="test-particle"
+                       LabelText="Label Text">
     
     <local:UserControlData.ErrorBorderBrush>
         <SolidColorBrush Color="Red"/>
