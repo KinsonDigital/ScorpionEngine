@@ -26,7 +26,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Occurs when any item in the list has been renamed.
         /// </summary>
-        public event EventHandler<RenameItemEventArgs> ItemRenamed;
+        public event EventHandler<RenameSetupItemEventArgs> ItemRenamed;
 
         /// <summary>
         /// Occurs when any item in the list has been deleted.
@@ -163,7 +163,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Invokes the <see cref="ItemRenamed"/> event.
         /// </summary>
-        private void ListBoxItems_RenameClicked(object sender, RenameItemEventArgs e)
+        private void ListBoxItems_RenameClicked(object sender, RenameSetupItemEventArgs e)
         {
             var illegalNames = (from item in Particles select Path.GetFileNameWithoutExtension(item.FilePath)).ToArray();
 

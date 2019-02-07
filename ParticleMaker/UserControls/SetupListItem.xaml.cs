@@ -18,7 +18,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Invoked when the rename button has been clicked.
         /// </summary>
-        public event EventHandler<RenameItemEventArgs> RenameClicked;
+        public event EventHandler<RenameSetupItemEventArgs> RenameClicked;
 
         /// <summary>
         /// Invoked when the delete button is clicked.
@@ -131,7 +131,7 @@ namespace ParticleMaker.UserControls
         /// Subscribes the given handler to the <see cref="RenameClicked"/> event.
         /// </summary>
         /// <param name="handler">The handler to subscribe to.</param>
-        internal void SubscribeRenameClicked(EventHandler<RenameItemEventArgs> handler)
+        internal void SubscribeRenameClicked(EventHandler<RenameSetupItemEventArgs> handler)
         {
             RenameClicked += handler;
 
@@ -155,7 +155,7 @@ namespace ParticleMaker.UserControls
         /// Unsubscribes the given handler to the <see cref="RenameClicked"/> event.
         /// </summary>
         /// <param name="handler">The handler to subscribe to.</param>
-        internal void UnsubscribeRenameClicked(EventHandler<RenameItemEventArgs> handler)
+        internal void UnsubscribeRenameClicked(EventHandler<RenameSetupItemEventArgs> handler)
         {
             RenameClicked -= handler;
 
@@ -201,7 +201,7 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void RenameCustomButton_Click(object sender, EventArgs e)
         {
-            RenameClicked?.Invoke(this, new RenameItemEventArgs(SetupName, SetupPath));
+            RenameClicked?.Invoke(this, new RenameSetupItemEventArgs(SetupName, SetupPath));
 
             Refresh();
         }
