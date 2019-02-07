@@ -14,7 +14,7 @@
         /// <summary>
         /// Gets or sets the name of the project.
         /// </summary>
-        public object ProjectName { get; internal set; }
+        public string ProjectName { get; set; }
         #endregion
     }
 }

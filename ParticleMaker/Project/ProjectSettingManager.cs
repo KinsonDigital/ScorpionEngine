@@ -1,5 +1,6 @@
 ﻿using ParticleMaker.Exceptions;
 using ParticleMaker.Services;
+using System;
 using System.IO;
 using System.Reflection;
 
@@ -40,7 +41,20 @@ namespace ParticleMaker.Project
         {
             if (ProjectExists(projectName))
             {
-                _fileService.Create<ProjectSettings>(projectName, null);
+                //Throw an exception if the project name is empty or null
+                if (string.IsNullOrEmpty(projectName))
+                {
+                    throw new ArgumentException($"The {nameof(ProjectSettings)}.{nameof(ProjectSettings.ProjectName)} cannot be empty or null.", nameof(settings));
+                }
+                else if (settings.ProjectName.ContainsIllegalFileNameCharacters())//Illegal characters
+                {
+                    throw new IllegalFileNameCharactersException();
+                }
+                else
+                {
+                    _fileService.Create($@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json", settings);
+                }
+
                 return;
             }
 

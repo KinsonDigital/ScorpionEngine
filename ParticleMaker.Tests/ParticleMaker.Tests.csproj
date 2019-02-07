@@ -102,6 +102,7 @@
     <Compile Include="CustomEventArgs\SetupItemEventArgsTests.cs" />
     <Compile Include="CustomEventArgs\DrawEventArgsTests.cs" />
     <Compile Include="CustomEventArgs\RenameSetupItemEventArgsTests.cs" />
+    <Compile Include="Exceptions\IllegalFileNameCharactersExceptionTests.cs" />
     <Compile Include="Exceptions\IllegalParticleSetupNameExceptionTests.cs" />
     <Compile Include="Exceptions\ParticleSetupAlreadyExistsTests.cs" />
     <Compile Include="Exceptions\ParticleSetupDoesNotExistTests.cs" />

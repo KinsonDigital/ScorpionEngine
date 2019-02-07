@@ -4,6 +4,7 @@ using KDScorpionCore;
 using KDScorpionCore.Graphics;
 using Moq;
 using NUnit.Framework;
+using ParticleMaker.Project;
 using ParticleMaker.ViewModels;
 using System;
 using System.Collections.ObjectModel;
@@ -25,6 +26,17 @@ namespace ParticleMaker.Tests.ViewModels
 
 
         #region Prop Tests
+        [Test]
+        public void NewProject_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Act
+            var actual = _viewModel.NewProject != null;
+
+            //Assert
+            Assert.NotNull(actual);
+        }
+
+
         [Test]
         public void RenderSurface_WhenSettingGettingValue_ReturnsCorrectValue()
         {
@@ -531,7 +543,7 @@ namespace ParticleMaker.Tests.ViewModels
 
             _engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine);
 
-            _viewModel = new MainViewModel(_engine)
+            _viewModel = new MainViewModel(_engine, It.IsAny<ProjectManager>())
             {
                 RenderSurface = new PictureBox()
             };

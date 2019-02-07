@@ -11,6 +11,9 @@ using System.Runtime.CompilerServices;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using System.Threading;
+using ParticleMaker.Project;
+using ParticleMaker.Dialogs;
+using System.Windows;
 
 namespace ParticleMaker.ViewModels
 {
@@ -25,9 +28,12 @@ namespace ParticleMaker.ViewModels
 
 
         #region Private Fields
+        private readonly char[] _illegalCharacters = new[] { '\\', '/', ':', '*', '?', '\"', '<', '>', '|', '.' };
         private readonly GraphicsEngine _graphicsEngine;
+        private readonly ProjectManager _projectManager;
         private readonly CancellationTokenSource _cancelTokenSrc;
         private readonly Task _startupTask;
+        private RelayCommand _newProjectCommand;
         #endregion
 
 
@@ -38,9 +44,10 @@ namespace ParticleMaker.ViewModels
         /// <param name="renderSurface">The surface to render the graphics on.</param>
         /// <param name="uiDispatcher">The UI thread to start the graphics engine on.</param>
         [ExcludeFromCodeCoverage]
-        public MainViewModel(GraphicsEngine graphicsEngine)
+        public MainViewModel(GraphicsEngine graphicsEngine, ProjectManager projectManager)
         {
             _graphicsEngine = graphicsEngine;
+            _projectManager = projectManager;
 
             _cancelTokenSrc = new CancellationTokenSource();
 
@@ -82,6 +89,8 @@ namespace ParticleMaker.ViewModels
 
 
         #region Props
+        internal Window DialogOwner { get; set; }
+
         /// <summary>
         /// Gets or sets the surface that the particles will render to.
         /// </summary>
@@ -383,6 +392,24 @@ namespace ParticleMaker.ViewModels
                 _graphicsEngine.ParticleEngine.TintColors = result.ToArray();
             }
         }
+
+
+        #region Command Props
+        /// <summary>
+        /// Used for creating a new project when executed.
+        /// </summary>
+        public RelayCommand NewProject
+        {
+            get
+            {
+                if (_newProjectCommand == null)
+                    _newProjectCommand = new RelayCommand(NewProjectExecute, (param) => true);
+
+
+                return _newProjectCommand;
+            }
+        }
+        #endregion
         #endregion
 
 
@@ -419,6 +446,32 @@ namespace ParticleMaker.ViewModels
             NotifyPropChange(nameof(TotalLivingParticles));
             NotifyPropChange(nameof(TotalDeadParticles));
         }
+
+
+        #region Command Execute Methods
+        /// <summary>
+        /// Creates a new project.
+        /// </summary>
+        [ExcludeFromCodeCoverage]
+        private void NewProjectExecute(object parameter)
+        {
+            var msg = "Enter a new project name to create a project.  \nDuplicate project names not aloud.";
+
+            var invalidProjNames = _projectManager.Projects;
+
+            var inputDialog = new InputDialog("Create New Project", msg, "", _illegalCharacters, invalidProjNames)
+            {
+                Owner = DialogOwner
+            };
+
+            var dialogResult = inputDialog.ShowDialog();
+
+            if (dialogResult == true)
+            {
+                _projectManager.Create(inputDialog.InputValue);
+            }
+        }
+        #endregion
 
 
         /// <summary>

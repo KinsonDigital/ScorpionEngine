@@ -79,6 +79,7 @@
     <Compile Include="Dialogs\ThumbnailViewerDialog.xaml.cs">
       <DependentUpon>ThumbnailViewerDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Exceptions\IllegalFileNameCharactersException.cs" />
     <Compile Include="Exceptions\IllegalParticleSetupNameException.cs" />
     <Compile Include="Exceptions\ParticleSetupAlreadyExists.cs" />
     <Compile Include="Exceptions\ParticleSetupDoesNotExist.cs" />

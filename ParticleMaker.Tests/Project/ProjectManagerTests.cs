@@ -3,6 +3,8 @@ using NUnit.Framework;
 using ParticleMaker.Exceptions;
 using ParticleMaker.Project;
 using ParticleMaker.Services;
+using System;
+using System.Collections.Generic;
 
 namespace ParticleMaker.Tests.Project
 {
@@ -115,29 +117,70 @@ namespace ParticleMaker.Tests.Project
         {
             //Arrange
             var existsInvokeCount = 0;
-            var mockDirServiceA = new Mock<IDirectoryService>();
-            mockDirServiceA.Setup(m => m.Exists(It.IsAny<string>())).Returns(() =>
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(() =>
             {
                 existsInvokeCount += 1;
 
                 return existsInvokeCount == 1 || existsInvokeCount == 3;
             });
 
-            mockDirServiceA.Setup(m => m.Create(It.IsAny<string>()));
+            mockDirService.Setup(m => m.Create(It.IsAny<string>()));
 
             var mockFileService = new Mock<IFileService>();
             mockFileService.Setup(m => m.Create(It.IsAny<string>(), It.IsAny<ProjectSettings>()));
 
-            var projSettingsService = new ProjectSettingsManager(mockDirServiceA.Object, mockFileService.Object);
+            var projSettingsService = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
 
-            var service = new ProjectManager(projSettingsService, mockDirServiceA.Object);
+            var service = new ProjectManager(projSettingsService, mockDirService.Object);
 
             //Act
             service.Create("test-project");
 
             //Assert
-            mockDirServiceA.Verify(m => m.Create(It.IsAny<string>()), Times.AtLeastOnce());
+            mockDirService.Verify(m => m.Create(It.IsAny<string>()), Times.AtLeastOnce());
         }
+
+
+        [Test]
+        public void Create_WhenInvoking_PassesValidPathToSettingsManager()
+        {
+            //Arrange
+            var expected = @"\test-project";
+            var actual = "";
+
+            var mockDirService = new Mock<IDirectoryService>();
+
+            var existsInvokeCount = 0;
+
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(() =>
+            {
+                existsInvokeCount += 1;
+
+                return existsInvokeCount == 1 || existsInvokeCount == 3;
+            });
+
+            mockDirService.Setup(m => m.Create(It.IsAny<string>())).Callback<string>((path) =>
+            {
+                var sections = path.Split(new[] { "Projects" }, StringSplitOptions.None);
+
+                actual = sections.Length == 2 ? sections[1] : "";
+            });
+
+            var mockFileService = new Mock<IFileService>();
+            mockFileService.Setup(m => m.Create(It.IsAny<string>(), It.IsAny<ProjectSettings>()));
+
+            var projSettingsService = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
+
+            var service = new ProjectManager(projSettingsService, mockDirService.Object);
+
+            //Act
+            service.Create("test-project");
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
 
 
         [Test]
@@ -145,27 +188,27 @@ namespace ParticleMaker.Tests.Project
         {
             //Arrange
             var existsInvokeCount = 0;
-            var mockDirServiceA = new Mock<IDirectoryService>();
-            mockDirServiceA.Setup(m => m.Exists(It.IsAny<string>())).Returns(() =>
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(() =>
             {
                 existsInvokeCount += 1;
 
                 return existsInvokeCount == 3;
             });
-            mockDirServiceA.Setup(m => m.Create(It.IsAny<string>()));
+            mockDirService.Setup(m => m.Create(It.IsAny<string>()));
 
             var mockFileService = new Mock<IFileService>();
             mockFileService.Setup(m => m.Create(It.IsAny<string>(), It.IsAny<ProjectSettings>()));
 
-            var projSettingsService = new ProjectSettingsManager(mockDirServiceA.Object, mockFileService.Object);
+            var projSettingsService = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
 
-            var service = new ProjectManager(projSettingsService, mockDirServiceA.Object);
+            var service = new ProjectManager(projSettingsService, mockDirService.Object);
 
             //Act
             service.Create("test-project");
 
             //Assert
-            mockDirServiceA.Verify(m => m.Create(It.IsAny<string>()), Times.AtLeastOnce());
+            mockDirService.Verify(m => m.Create(It.IsAny<string>()), Times.AtLeastOnce());
         }
 
 

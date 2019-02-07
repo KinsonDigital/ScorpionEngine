@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -162,6 +163,27 @@ namespace ParticleMaker
             });
 
             _hideWindowTask.Start();
+        }
+
+
+        /// <summary>
+        /// Returns a value indicating if the given string <paramref name="value"/> contains any 
+        /// illegal project name characters.
+        /// </summary>
+        /// <param name="value">The string value to check.</param>
+        /// <returns></returns>
+        public static bool ContainsIllegalFileNameCharacters(this string value)
+        {
+            var characters = Path.GetInvalidPathChars();
+
+            foreach (var c in characters)
+            {
+                if (value.Contains(c.ToString()))
+                    return true;
+            }
+
+
+            return false;
         }
         #endregion
     }

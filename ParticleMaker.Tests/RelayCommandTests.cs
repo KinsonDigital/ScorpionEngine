@@ -11,7 +11,7 @@ namespace ParticleMaker.Tests
         {
             //Arrange
             var expected = true;
-            var command = new RelayCommand(() => { }, () => true);
+            var command = new RelayCommand((param) => { }, (param) => true);
 
             //Act
             var actual = command.CanExecute(null);
@@ -27,7 +27,7 @@ namespace ParticleMaker.Tests
             //Arrange
             var expected = true;
             var actual = false;
-            var command = new RelayCommand(() => { actual = true; }, () => true);
+            var command = new RelayCommand((param) => { actual = true; }, (param) => true);
 
             //Act
             command.Execute(null);

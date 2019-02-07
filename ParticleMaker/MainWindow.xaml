@@ -25,7 +25,7 @@
         <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
-                    <MenuItem Header="_New Project"/>
+                    <MenuItem Header="_New Project" Command="{Binding Path=NewProject}"/>
                     <MenuItem Header="_Open Project"/>
                     <MenuItem Header="_Rename Project"/>
                     <MenuItem Header="_Close Project"/>

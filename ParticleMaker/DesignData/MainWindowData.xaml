@@ -1,22 +1,22 @@
 ﻿<!--projns = project namespace-->
 <local:MainWindowData xmlns:local="clr-namespace:ParticleMaker.DesignData"
-                      xmlns:projns="clr-namespace:ParticleMaker"
+                      xmlns:root="clr-namespace:ParticleMaker"
                       xmlns:media="clr-namespace:System.Windows.Media;assembly=PresentationCore"
                       xmlns:ctrls="clr-namespace:ParticleMaker.UserControls"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
     <local:MainWindowData.Colors>
-        <projns:ColorItem Id="111">
-            <projns:ColorItem.ColorBrush>
+        <root:ColorItem Id="111">
+            <root:ColorItem.ColorBrush>
                 <media:SolidColorBrush Color="CornflowerBlue"/>
-            </projns:ColorItem.ColorBrush>
-        </projns:ColorItem>
+            </root:ColorItem.ColorBrush>
+        </root:ColorItem>
         
-        <projns:ColorItem Id="222">
-            <projns:ColorItem.ColorBrush>
+        <root:ColorItem Id="222">
+            <root:ColorItem.ColorBrush>
                 <media:SolidColorBrush Color="MediumPurple"/>
-            </projns:ColorItem.ColorBrush>
-        </projns:ColorItem>
+            </root:ColorItem.ColorBrush>
+        </root:ColorItem>
     </local:MainWindowData.Colors>
 
     <local:MainWindowData.ColorValue>
@@ -37,4 +37,8 @@
             <ctrls:PathItem FilePath="C:\TEMP\Projects\test-project\setup-B.json"/>
         </x:Array>
     </local:MainWindowData.Setups>
+
+    <local:MainWindowData.NewProject>
+        <root:RelayCommand/>
+    </local:MainWindowData.NewProject>
 </local:MainWindowData>

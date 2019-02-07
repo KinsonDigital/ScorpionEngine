@@ -4,7 +4,6 @@ using System.Windows.Forms.Integration;
 using System.ComponentModel;
 using ParticleMaker.ViewModels;
 using System.Diagnostics.CodeAnalysis;
-using ParticleMaker.Dialogs;
 using System.Threading.Tasks;
 using System.Threading;
 
@@ -31,6 +30,7 @@ namespace ParticleMaker
         public MainWindow()
         {
             _mainViewModel = App.DIContainer.GetInstance<MainViewModel>();
+            _mainViewModel.DialogOwner = this;
 
             ElementHost.EnableModelessKeyboardInterop(this);
 
