@@ -12,7 +12,6 @@ namespace ParticleMaker.Services
         #region Fields
         private readonly IDirectoryService _directoryService;
         private readonly IFileService _fileService;
-        private readonly string _projectName;
         private readonly string _rootProjectsPath;
         #endregion
 
@@ -24,16 +23,12 @@ namespace ParticleMaker.Services
         /// <param name="directoryService">The directory service used to manage directories.</param>
         /// <param name="fileService">The file service used to manage files.</param>
         /// <param name="projectName">The name of the project to point to for setup deployment.</param>
-        public SetupDeployService(IDirectoryService directoryService, IFileService fileService, string projectName)
+        public SetupDeployService(IDirectoryService directoryService, IFileService fileService)
         {
             _directoryService = directoryService;
             _fileService = fileService;
 
-            _projectName = projectName;
             _rootProjectsPath = $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Projects";
-
-            if (!ProjectExists(_projectName))
-                throw new ProjectDoesNotExistException(_projectName);
         }
         #endregion
 
@@ -44,12 +39,12 @@ namespace ParticleMaker.Services
         /// </summary>
         /// <param name="setupName">The name of the setup to deploy.</param>
         /// <param name="destinationPath">The destination path of where to deploy the setup.</param>
-        public void Deploy(string setupName, string destinationPath)
+        public void Deploy(string projectName, string setupName, string destinationPath)
         {
-            var projPath = $@"{_rootProjectsPath}\{_projectName}";
+            var projPath = $@"{_rootProjectsPath}\{projectName}";
             var setupPath = $@"{projPath}\{setupName}.json";
 
-            if (ProjectExists(_projectName))
+            if (ProjectExists(projectName))
             {
                 if (!_fileService.Exists(destinationPath))
                     throw new DirectoryNotFoundException($"The destination path '{Path.GetDirectoryName(destinationPath)}' does not exist.");
