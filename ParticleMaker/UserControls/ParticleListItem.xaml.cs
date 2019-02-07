@@ -26,7 +26,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Invoked when the delete button has been clicked.
         /// </summary>
-        public event EventHandler<DeleteItemEventArgs> DeleteClicked;
+        public event EventHandler<SetupItemEventArgs> DeleteClicked;
         #endregion
 
 
@@ -174,7 +174,7 @@ namespace ParticleMaker.UserControls
         /// Subscribes the given handler to the delete clicked event.
         /// </summary>
         /// <param name="handler">The handler to subscribe to.</param>
-        internal void SubscribeDeleteClicked(EventHandler<DeleteItemEventArgs> handler)
+        internal void SubscribeDeleteClicked(EventHandler<SetupItemEventArgs> handler)
         {
             DeleteClicked += handler;
 
@@ -186,7 +186,7 @@ namespace ParticleMaker.UserControls
         /// Unsubscribes the given handler to the delete clicked event.
         /// </summary>
         /// <param name="handler">The handler to subscribe to.</param>
-        internal void UnsubscribeDeleteClicked(EventHandler<DeleteItemEventArgs> handler)
+        internal void UnsubscribeDeleteClicked(EventHandler<SetupItemEventArgs> handler)
         {
             DeleteClicked -= handler;
 
@@ -212,7 +212,7 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void DeleteCustomButton_Click(object sender, EventArgs e)
         {
-            DeleteClicked?.Invoke(this, new DeleteItemEventArgs(ParticleName, ParticleFilePath));
+            DeleteClicked?.Invoke(this, new SetupItemEventArgs(ParticleName, ParticleFilePath));
 
             Refresh();
         }

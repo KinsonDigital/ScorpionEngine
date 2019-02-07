@@ -99,7 +99,7 @@
     <Compile Include="CustomEventArgs\AddSetupClickedEventArgsTests.cs" />
     <Compile Include="CustomEventArgs\ColorItemClickedEventArgsTests.cs" />
     <Compile Include="ColorItemTests.cs" />
-    <Compile Include="CustomEventArgs\DeleteItemEventArgsTests.cs" />
+    <Compile Include="CustomEventArgs\SetupItemEventArgsTests.cs" />
     <Compile Include="CustomEventArgs\DrawEventArgsTests.cs" />
     <Compile Include="CustomEventArgs\RenameItemEventArgsTests.cs" />
     <Compile Include="Exceptions\IllegalParticleSetupNameExceptionTests.cs" />

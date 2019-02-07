@@ -31,7 +31,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Occurs when any item in the list has been deleted.
         /// </summary>
-        public event EventHandler<DeleteItemEventArgs> ItemDeleted;
+        public event EventHandler<SetupItemEventArgs> ItemDeleted;
         #endregion
 
 
@@ -184,7 +184,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Invokes the <see cref="ItemDeleted"/> event.
         /// </summary>
-        private void ListBoxItems_DeleteClicked(object sender, DeleteItemEventArgs e)
+        private void ListBoxItems_DeleteClicked(object sender, SetupItemEventArgs e)
         {
             var msg = $"Are you sure you want to delete the particle {e.Name}?";
 
