@@ -24,6 +24,11 @@ namespace ParticleMaker.UserControls
         /// Invoked when the delete button is clicked.
         /// </summary>
         public event EventHandler<SetupItemEventArgs> DeleteClicked;
+
+        /// <summary>
+        /// Invoked when the save button is clicked.
+        /// </summary>
+        public event EventHandler<SetupItemEventArgs> SaveClicked;
         #endregion
 
 
@@ -197,7 +202,7 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Renames the file at the currently set path.
+        /// Renames the selected file.
         /// </summary>
         private void RenameCustomButton_Click(object sender, EventArgs e)
         {
@@ -208,11 +213,22 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Deletes the file at the given path.
+        /// Deletes the selected file.
         /// </summary>
         private void DeleteCustomButton_Click(object sender, EventArgs e)
         {
             DeleteClicked?.Invoke(this, new SetupItemEventArgs(SetupName, SetupPath));
+
+            Refresh();
+        }
+
+
+        /// <summary>
+        /// Saves the selected file.
+        /// </summary>
+        private void SaveCustomButton_Click(object sender, EventArgs e)
+        {
+            SaveClicked?.Invoke(this, new SetupItemEventArgs(SetupName, SetupPath));
 
             Refresh();
         }
