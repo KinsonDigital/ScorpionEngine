@@ -1,5 +1,6 @@
 ﻿using ParticleMaker.Exceptions;
 using ParticleMaker.Services;
+using System;
 using System.IO;
 using System.Reflection;
 
@@ -66,7 +67,37 @@ namespace ParticleMaker.Project
             }
             else
             {
-                throw new ProjectDoesNotExistException();
+                throw new ProjectDoesNotExistException(projectName);
+            }
+        }
+
+
+        /// <summary>
+        /// Saves the given particle <paramref name="setup"/> data in the project that matches the given <paramref name="projectName"/>
+        /// to the setup that matches the given <paramref name="setupName"/>.
+        /// </summary>
+        /// <param name="projectName">The name of the project to save the setup to.</param>
+        /// <param name="setupName">The name of the setup to save.</param>
+        /// <param name="setup">The data to save to the setup.</param>
+        public void Save(string projectName, string setupName, ParticleSetup setup)
+        {
+            var projPath = $@"{_rootProjectsPath}\{projectName}";
+            var setupPath = $@"{projPath}\{setupName}.json";
+
+            if (ProjectExists(projectName))
+            {
+                if (ContainsIllegalCharacters(setupName))
+                {
+                    throw new IllegalParticleSetupNameException(setupName);
+                }
+                else
+                {
+                    _fileService.Save(setupPath, setup);
+                }
+            }
+            else
+            {
+                throw new ProjectDoesNotExistException(projectName);
             }
         }
 

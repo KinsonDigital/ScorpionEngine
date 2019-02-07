@@ -37,6 +37,18 @@ namespace ParticleMaker.Services
 
 
         /// <summary>
+        /// Saves the given <paramref name="data"/> to the given <paramref name="path"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of data to save into the file.</typeparam>
+        /// <param name="path">The path of where to save the file.</param>
+        /// <param name="data">The data to save in the file.</param>
+        public void Save<T>(string path, T data) where T : class
+        {
+            throw new NotImplementedException();
+        }
+
+
+        /// <summary>
         /// Loads a file at the given <paramref name="path"/>.
         /// </summary>
         /// <typeparam name="T">The type of data to load from the file.</typeparam>
