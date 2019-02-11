@@ -96,6 +96,25 @@ namespace ParticleMaker.Tests.Services
                 deployService.Deploy("test-project", "test-setup", @"C:\temp");
             });
         }
+
+
+        [Test]
+        public void Deploy_WhenInvokedWithNullProjectName_ThrowsException()
+        {
+            //Arrange
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(() => false);
+
+            var mockFileService = new Mock<IFileService>();
+
+            var deployService = new SetupDeployService(mockDirService.Object, mockFileService.Object);
+
+            //Act & Assert
+            Assert.Throws(typeof(ProjectDoesNotExistException), () =>
+            {
+                deployService.Deploy(null, "test-setup", @"C:\temp");
+            });
+        }
         #endregion
     }
 }

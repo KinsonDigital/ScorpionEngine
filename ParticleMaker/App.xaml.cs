@@ -1,5 +1,6 @@
 ﻿using KDParticleEngine;
 using KDParticleEngine.Services;
+using ParticleMaker.Project;
 using ParticleMaker.Services;
 using ParticleMaker.ViewModels;
 using SimpleInjector;
@@ -33,6 +34,8 @@ namespace ParticleMaker
             DIContainer.Register<ICoreEngine, CoreEngine>();
             DIContainer.Register<IGraphicsEngineFactory, GraphicsEngineFactory>();
             DIContainer.Register<GraphicsEngine>();
+            DIContainer.Register<ProjectSettingsManager>();
+            DIContainer.Register<SetupManager>();
             DIContainer.Register<MainViewModel>();
         }
 

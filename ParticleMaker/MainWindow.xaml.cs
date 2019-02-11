@@ -66,17 +66,6 @@ namespace ParticleMaker
             _mainViewModel.UIDispatcher = Dispatcher;
 
             DataContext = _mainViewModel;
-
-            _mainViewModel.RedMin = 0;
-            _mainViewModel.RedMax = 255;
-            _mainViewModel.GreenMin = 0;
-            _mainViewModel.GreenMax = 255;
-            _mainViewModel.BlueMin = 0;
-            _mainViewModel.BlueMax = 255;
-            _mainViewModel.SizeMin = 1;
-            _mainViewModel.SizeMax = 2;
-
-            _mainViewModel.StartEngine();
         }
 
 

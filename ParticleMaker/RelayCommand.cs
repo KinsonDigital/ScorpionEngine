@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Input;
 
 namespace ParticleMaker
@@ -23,6 +24,7 @@ namespace ParticleMaker
         /// <summary>
         /// Creates a new instance of <see cref="RelayCommand"/>
         /// </summary>
+        [ExcludeFromCodeCoverage]
         public RelayCommand()
         {
             //This is here to satisfy a paramaterless constructor for design time data in xaml files.

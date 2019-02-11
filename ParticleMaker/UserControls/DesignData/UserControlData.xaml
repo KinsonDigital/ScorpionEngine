@@ -12,11 +12,19 @@
         <SolidColorBrush Color="Red"/>
     </local:UserControlData.ErrorBorderBrush>
 
+    <local:UserControlData.Setups>
+        <x:Array Type="{x:Type userCtrls:PathItem}">
+            <userCtrls:PathItem FilePath="C:\temp\test-setup\setup-A"/>
+            <userCtrls:PathItem FilePath="C:\temp\test-setup\setup-B"/>
+            <userCtrls:PathItem FilePath="C:\temp\test-setup\setup-C"/>
+        </x:Array>
+    </local:UserControlData.Setups>
+    
     <local:UserControlData.Particles>
         <x:Array Type="{x:Type userCtrls:PathItem}">
-            <userCtrls:PathItem FilePath="C:\temp\test-setup\particle-1.png"/>
-            <userCtrls:PathItem FilePath="C:\temp\test-setup\particle-2.png"/>
-            <userCtrls:PathItem FilePath="C:\temp\test-setup\particle-3.png"/>
+            <userCtrls:PathItem FilePath="C:\temp\test-setup\particle-A.png"/>
+            <userCtrls:PathItem FilePath="C:\temp\test-setup\particle-B.png"/>
+            <userCtrls:PathItem FilePath="C:\temp\test-setup\particle-C.png"/>
         </x:Array>
     </local:UserControlData.Particles>
 </local:UserControlData>

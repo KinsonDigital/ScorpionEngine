@@ -41,12 +41,7 @@ namespace ParticleMaker.Project
         {
             if (ProjectExists(projectName))
             {
-                //Throw an exception if the project name is empty or null
-                if (string.IsNullOrEmpty(projectName))
-                {
-                    throw new ArgumentException($"The {nameof(ProjectSettings)}.{nameof(ProjectSettings.ProjectName)} cannot be empty or null.", nameof(settings));
-                }
-                else if (settings.ProjectName.ContainsIllegalFileNameCharacters())//Illegal characters
+                if (settings.ProjectName.ContainsIllegalFileNameCharacters())//Illegal characters
                 {
                     throw new IllegalFileNameCharactersException();
                 }
@@ -57,8 +52,10 @@ namespace ParticleMaker.Project
 
                 return;
             }
-
-            throw new ProjectDoesNotExistException(projectName);
+            else
+            {
+                throw new ProjectDoesNotExistException(projectName);
+            }
         }
 
 
@@ -69,8 +66,10 @@ namespace ParticleMaker.Project
         /// <returns></returns>
         public ProjectSettings Load(string projectName)
         {
+            var filePath = $@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json";
+
             if (ProjectExists(projectName))
-                return _fileService.Load<ProjectSettings>(projectName);
+                return _fileService.Load<ProjectSettings>(filePath);
 
             throw new ProjectDoesNotExistException(projectName);
         }
@@ -85,7 +84,7 @@ namespace ParticleMaker.Project
         /// <returns></returns>
         private bool ProjectExists(string name)
         {
-            return _directoryService.Exists($@"{_projectSettingsPath}\{name}");
+            return !string.IsNullOrEmpty(name) && _directoryService.Exists($@"{_projectSettingsPath}\{name}");
         }
         #endregion
     }

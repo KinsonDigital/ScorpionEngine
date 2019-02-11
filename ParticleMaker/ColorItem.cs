@@ -1,4 +1,5 @@
-﻿using System.Windows.Media;
+﻿using System.Collections.Generic;
+using System.Windows.Media;
 
 namespace ParticleMaker
 {
@@ -50,6 +51,22 @@ namespace ParticleMaker
 
 
             return objToCompare.Id == Id && colorMatches;
+        }
+
+
+        /// <summary>
+        /// Returns an integer hash code of the object signifying its uniqueness.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            var hashCode = -1641377960;
+
+            hashCode = hashCode * -1521134295 + Id.GetHashCode();
+            hashCode = hashCode * -1521134295 + -1234;
+
+
+            return hashCode;
         }
         #endregion
     }

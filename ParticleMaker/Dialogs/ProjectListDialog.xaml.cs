@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace ParticleMaker.Dialogs
 {
@@ -81,11 +82,7 @@ namespace ParticleMaker.Dialogs
         /// <summary>
         /// Gets or sets the selected project.
         /// </summary>
-        public string SelectedProject
-        {
-            get { return (string)GetValue(SelectedProjectProperty); }
-            set { SetValue(SelectedProjectProperty, value); }
-        }
+        public string SelectedProject { get; set; }
         #endregion
 
 
@@ -128,6 +125,20 @@ namespace ParticleMaker.Dialogs
             DialogResult = false;
 
             Close();
+        }
+
+
+        /// <summary>
+        /// Updates the selected project name.
+        /// </summary>
+        private void ProjectListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedItem = e.AddedItems.Count > 0 ? e.AddedItems[0] as ProjectItem : null;
+
+            if (selectedItem == null)
+                return;
+
+            SelectedProject = selectedItem.Name;
         }
 
 
@@ -192,7 +203,11 @@ namespace ParticleMaker.Dialogs
                 }
             }
 
+            var selectedIndex = ProjectListBox.SelectedIndex;
+
             ProjectNames = paths.ToArray();
+
+            ProjectListBox.SelectedIndex = selectedIndex;
         }
         #endregion
     }

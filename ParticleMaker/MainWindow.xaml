@@ -5,11 +5,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
-        mc:Ignorable="d" Title="Particle Maker"
+        xmlns:vm="clr-namespace:ParticleMaker.ViewModels"
+        mc:Ignorable="d" Title="{Binding Path=WindowTitle}"
         Name="this" WindowStartupLocation="CenterScreen"
-        d:DataContext="{d:DesignData Source=/DesignData/MainWindowData.xaml}" SizeToContent="WidthAndHeight">
+        d:DataContext="{d:DesignData Source=/DesignData/MainWindowData.xaml}"
+        SizeToContent="WidthAndHeight">
 
-    <Grid>
+    <Grid d:DataContext="{d:DesignInstance Type=vm:MainViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/><!--MENU ROW-->
             <RowDefinition Name="RenderRow" Height="Auto"/>
@@ -26,7 +28,7 @@
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
                     <MenuItem Header="_New Project" Command="{Binding Path=NewProject}"/>
-                    <MenuItem Header="_Open Project"/>
+                    <MenuItem Header="_Open Project" Command="{Binding Path=OpenProject}"/>
                     <MenuItem Header="_Rename Project"/>
                     <MenuItem Header="_Close Project"/>
                     <Separator/>
@@ -37,10 +39,13 @@
         
         <StackPanel Orientation="Vertical" Visibility="Visible" Margin="10" Grid.Row="1" Grid.Column="0">
             <!--PROJECT SETUP LIST-->
-            <ctrls:SetupList x:Name="MySetupList" Margin="10" Setups="{Binding Path=Setups}"/>
+             <ctrls:SetupList x:Name="MySetupList" d:DataContext="{d:DesignData Source=/DesignData/MainWindowData.xaml}"
+                              Margin="10" Setups="{Binding Path=ProjectSetups}" ItemSelectedCommand="{Binding Path=SetupItemSelected}"
+                              AddItemCommand="{Binding Path=AddSetup}"/>
 
             <!--PARTICLE LIST-->
-            <ctrls:ParticleList x:Name="ParticleList" Margin="10" Particles="{Binding Path=Particles, Mode=TwoWay}"/>
+            <ctrls:ParticleList x:Name="ParticleList"  d:DataContext="{d:DesignData Source=/DesignData/MainWindowData.xaml}"
+                                Margin="10" Particles="{Binding Path=Particles, Mode=TwoWay}"/>
 
             <ctrls:NumericUpDown LabelText="Total Particles" Min="0" Max="100000" Value="{Binding TotalParticles, Mode=TwoWay}"
                                  HorizontalAlignment="Stretch" Margin="10"/>

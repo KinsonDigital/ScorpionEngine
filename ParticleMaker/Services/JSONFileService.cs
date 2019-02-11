@@ -57,7 +57,17 @@ namespace ParticleMaker.Services
         /// <returns>The data of type <typeparamref name="T"/>.</returns>
         public T Load<T>(string path) where T : class
         {
-            throw new NotImplementedException();
+            var jsonSerializer = new JsonSerializer();
+
+            using (var streamReader = new StreamReader(path))
+            {
+                using (var jsonReader = new JsonTextReader(streamReader))
+                {
+                    var serializer = new JsonSerializer();
+
+                    return serializer.Deserialize<T>(jsonReader);
+                }
+            }
         }
 
 

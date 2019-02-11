@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace ParticleMaker.UserControls
 {
@@ -18,11 +19,6 @@ namespace ParticleMaker.UserControls
     public partial class SetupList : UserControl, IDisposable
     {
         #region Public Events
-        /// <summary>
-        /// Invoked when the add setup button has been clicked.
-        /// </summary>
-        public event EventHandler<AddItemClickedEventArgs> AddSetupClicked;
-
         /// <summary>
         /// Occurs when any item in the list has been renamed.
         /// </summary>
@@ -66,7 +62,20 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public static readonly DependencyProperty SetupsProperty =
             DependencyProperty.Register(nameof(Setups), typeof(PathItem[]), typeof(SetupList), new PropertyMetadata(new PathItem[0], SetupsChanged));
+
+        /// <summary>
+        /// Registers the <see cref="ItemSelectedCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty ItemSelectedCommandProperty =
+            DependencyProperty.Register(nameof(ItemSelectedCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Registers the <see cref="AddItemCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty commandProperty =
+            DependencyProperty.Register(nameof(AddItemCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
         #endregion
+
 
         /// <summary>
         /// Gets or sets the list of setup paths.
@@ -81,6 +90,24 @@ namespace ParticleMaker.UserControls
         /// Gets the selected setup.
         /// </summary>
         public PathItem SelectedSetup { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the command to be executed when a list item has been selected.
+        /// </summary>
+        public ICommand ItemSelectedCommand
+        {
+            get { return (ICommand)GetValue(ItemSelectedCommandProperty); }
+            set { SetValue(ItemSelectedCommandProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the command to be executed when the add item button has been clicked.
+        /// </summary>
+        public ICommand AddItemCommand
+        {
+            get { return (ICommand)GetValue(commandProperty); }
+            set { SetValue(commandProperty, value); }
+        }
         #endregion
 
 
@@ -142,10 +169,13 @@ namespace ParticleMaker.UserControls
             foreach (var item in setupListItems)
             {
                 item.Refresh();
+
+                if (item.Command == null)
+                    item.Command = new RelayCommand(ListItemCommandExecuteAction, (param) => true);
             }
         }
 
-
+        
         /// <summary>
         /// Dispose of the control.
         /// </summary>
@@ -164,7 +194,7 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void AddSetupButton_Click(object sender, EventArgs e)
         {
-            var invalidValues = Setups.Select(s =>
+            var invalidValues = Setups?.Select(s =>
             {
                 var sections = s.FilePath.Split('\\');
 
@@ -175,7 +205,7 @@ namespace ParticleMaker.UserControls
                 return "";
             }).ToArray();
 
-            if (invalidValues.All(item => string.IsNullOrEmpty(item)))
+            if (invalidValues != null && invalidValues.All(item => string.IsNullOrEmpty(item)))
                 invalidValues = null;
 
             var inputDialog = new InputDialog("Add Setup", "Please type new setup name.", invalidChars: _illegalCharacters, invalidValues: invalidValues);
@@ -184,7 +214,7 @@ namespace ParticleMaker.UserControls
 
             if (dialogResult == true)
             {
-                AddSetupClicked?.Invoke(this, new AddItemClickedEventArgs($"{inputDialog.InputValue}.json"));
+                AddItemCommand?.Execute($"{inputDialog.InputValue}");
 
                 Refresh();
             }
@@ -282,6 +312,17 @@ namespace ParticleMaker.UserControls
                     SubscribeEvents();
                 });
             }
+        }
+
+
+        /// <summary>
+        /// The action method to be invoked when a list item command has 
+        /// been executed.
+        /// </summary>
+        /// <param name="param">The data to pass to the <see cref="SetupList"/> command.</param>
+        private void ListItemCommandExecuteAction(object param)
+        {
+            ItemSelectedCommand?.Execute(param);
         }
 
 

@@ -204,7 +204,7 @@ namespace ParticleMaker.Dialogs
             }
 
             //Check if the input text box value is an invalid value.  Take ignoring casing into account
-            ContainsInvalidValue = invalidValues.Contains(IgnoreInvalidValueCasing ? InputTextBox.Text.ToLower() : InputTextBox.Text);
+            ContainsInvalidValue = invalidValues != null && invalidValues.Contains(IgnoreInvalidValueCasing ? InputTextBox.Text.ToLower() : InputTextBox.Text);
         }
         #endregion
 

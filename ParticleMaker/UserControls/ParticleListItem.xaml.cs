@@ -2,7 +2,6 @@
 using ParticleMaker.Dialogs;
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows;

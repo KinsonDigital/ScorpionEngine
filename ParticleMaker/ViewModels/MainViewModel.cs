@@ -14,6 +14,10 @@ using System.Threading;
 using ParticleMaker.Project;
 using ParticleMaker.Dialogs;
 using System.Windows;
+using WPFMsgBox = System.Windows.MessageBox;
+using ParticleMaker.UserControls;
+using System.Linq;
+using ParticleMaker.CustomEventArgs;
 
 namespace ParticleMaker.ViewModels
 {
@@ -31,9 +35,15 @@ namespace ParticleMaker.ViewModels
         private readonly char[] _illegalCharacters = new[] { '\\', '/', ':', '*', '?', '\"', '<', '>', '|', '.' };
         private readonly GraphicsEngine _graphicsEngine;
         private readonly ProjectManager _projectManager;
+        private readonly ProjectSettingsManager _projectSettingsManager;
+        private readonly SetupManager _setupManager;
         private readonly CancellationTokenSource _cancelTokenSrc;
         private readonly Task _startupTask;
         private RelayCommand _newProjectCommand;
+        private RelayCommand _openProjectCommand;
+        private ProjectSettings _projectSettings;
+        private RelayCommand _setupItemSelectedCommand;
+        private RelayCommand _addSetupCommand;
         #endregion
 
 
@@ -44,10 +54,14 @@ namespace ParticleMaker.ViewModels
         /// <param name="renderSurface">The surface to render the graphics on.</param>
         /// <param name="uiDispatcher">The UI thread to start the graphics engine on.</param>
         [ExcludeFromCodeCoverage]
-        public MainViewModel(GraphicsEngine graphicsEngine, ProjectManager projectManager)
+        public MainViewModel(GraphicsEngine graphicsEngine, ProjectManager projectManager,
+            ProjectSettingsManager projectSettingsManager,
+            SetupManager setupManager)
         {
             _graphicsEngine = graphicsEngine;
             _projectManager = projectManager;
+            _projectSettingsManager = projectSettingsManager;
+            _setupManager = setupManager;
 
             _cancelTokenSrc = new CancellationTokenSource();
 
@@ -89,7 +103,16 @@ namespace ParticleMaker.ViewModels
 
 
         #region Props
-        internal Window DialogOwner { get; set; }
+        #region Standard Props
+        /// <summary>
+        /// Gets or sets the list of project setup paths.
+        /// </summary>
+        public PathItem[] ProjectSetups { get; set; }
+
+        /// <summary>
+        /// Gets or sets the window that will be the owner of any dialog windows.
+        /// </summary>
+        public Window DialogOwner { get; set; }
 
         /// <summary>
         /// Gets or sets the surface that the particles will render to.
@@ -393,6 +416,17 @@ namespace ParticleMaker.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets the title of the window.
+        /// </summary>
+        public string WindowTitle => $"Particle Maker{(string.IsNullOrEmpty(CurrentOpenProject) ? "" : " - ")}{CurrentOpenProject}";
+
+        /// <summary>
+        /// Gets or sets the name of the currently open project.
+        /// </summary>
+        public string CurrentOpenProject { get; set; }
+        #endregion
+
 
         #region Command Props
         /// <summary>
@@ -407,6 +441,51 @@ namespace ParticleMaker.ViewModels
 
 
                 return _newProjectCommand;
+            }
+        }
+
+        /// <summary>
+        /// Used for creating opening a project when executed.
+        /// </summary>
+        public RelayCommand OpenProject
+        {
+            get
+            {
+                if (_openProjectCommand == null)
+                    _openProjectCommand = new RelayCommand(OpenProjectExecute, (param) => true);
+
+
+                return _openProjectCommand;
+            }
+        }
+
+        /// <summary>
+        /// Gets the command that is invoked when a setup list item has been selected.
+        /// </summary>
+        public RelayCommand SetupItemSelected
+        {
+            get
+            {
+                if (_setupItemSelectedCommand == null)
+                    _setupItemSelectedCommand = new RelayCommand(SetupItemSelectedExcute, (param) => true);
+
+
+                return _setupItemSelectedCommand;
+            }
+        }
+
+        /// <summary>
+        /// Adds a setup to the currently loaded project.
+        /// </summary>
+        public RelayCommand AddSetup
+        {
+            get
+            {
+                if (_addSetupCommand == null)
+                    _addSetupCommand = new RelayCommand(AddSetupExcute, (param) => true);
+
+
+                return _addSetupCommand;
             }
         }
         #endregion
@@ -468,8 +547,92 @@ namespace ParticleMaker.ViewModels
 
             if (dialogResult == true)
             {
-                _projectManager.Create(inputDialog.InputValue);
+                try
+                {
+                    _projectManager.Create(inputDialog.InputValue);
+
+                    CurrentOpenProject = inputDialog.InputValue;
+
+                    NotifyPropChange(nameof(WindowTitle));
+                }
+                catch (Exception ex)
+                {
+                    //TODO: Use custom exception handler class here.
+                    WPFMsgBox.Show(ex.Message);
+                }
             }
+        }
+
+
+        /// <summary>
+        /// Opens a project.
+        /// </summary>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
+        [ExcludeFromCodeCoverage]
+        private void OpenProjectExecute(object param)
+        {
+            var projectListDialog = new ProjectListDialog("Open Project")
+            {
+                Owner = DialogOwner,
+                ProjectPaths = _projectManager.ProjectPaths
+            };
+
+            var dialogResult = projectListDialog.ShowDialog();
+
+            if (dialogResult == true)
+            {
+                CurrentOpenProject = projectListDialog.SelectedProject;
+
+                _projectSettings = _projectSettingsManager.Load(CurrentOpenProject);
+
+                var setupPaths = _setupManager.GetSetupPaths(CurrentOpenProject);
+
+                ProjectSetups = (from path in setupPaths
+                                 select new PathItem()
+                                 {
+                                     FilePath = path
+                                 }).ToArray();
+
+                NotifyPropChange(nameof(ProjectSetups));
+            }
+        }
+
+
+        /// <summary>
+        /// Adds a new setup to the currently open project.
+        /// </summary>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
+        [ExcludeFromCodeCoverage]
+        private void AddSetupExcute(object param)
+        {
+            var setupName = param as string;
+
+            if (string.IsNullOrEmpty(setupName))
+                return;
+
+            _setupManager.Create(CurrentOpenProject, setupName);
+
+            //Update the list with the newly created setup
+            ProjectSetups = (from s in _setupManager.GetSetupPaths(CurrentOpenProject)
+                             select new PathItem() { FilePath = s }).ToArray();
+
+            NotifyPropChange(nameof(ProjectSetups));
+        }
+
+
+        /// <summary>
+        /// Loads a selected setup and starts the particle engine.
+        /// </summary>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
+        [ExcludeFromCodeCoverage]
+        private void SetupItemSelectedExcute(object param)
+        {
+            var eventArgs = param as SetupItemEventArgs;
+
+            if (eventArgs == null)
+                return;
+
+            var setupData = _setupManager.Load(_projectSettings.ProjectName, eventArgs.Name);
         }
         #endregion
 

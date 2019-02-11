@@ -1,6 +1,7 @@
 ﻿using ParticleMaker.UserControls;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace ParticleMaker.DesignData
@@ -30,12 +31,28 @@ namespace ParticleMaker.DesignData
         /// <summary>
         /// Gets or sets the data for the <see cref="SetupList"/> control.
         /// </summary>
-        public PathItem[] Setups { get; set; }
+        public PathItem[] ProjectSetups { get; set; }
 
         /// <summary>
-        /// Get or sets the new project command for the File=>New Project menu item.
+        /// Sets the currently open project that is used as the command parameter for the
+        /// open project command in the maind window.
         /// </summary>
-        public RelayCommand NewProject { get; set; }
+        public string CurrentOpenProject { get; set; }
+
+        /// <summary>
+        /// Gets or sets the title for the MainWindow.
+        /// </summary>
+        public string WindowTitle { get; set; }
+
+        /// <summary>
+        /// Gets or sets the setup item selected property data for the setup list box.
+        /// </summary>
+        public ICommand SetupItemSelected { get; set; }
+
+        /// <summary>
+        /// Gets or sets the AddSetup command test data for the setup list control in the main window.
+        /// </summary>
+        public ICommand AddSetup { get; set; }
         #endregion
     }
 }

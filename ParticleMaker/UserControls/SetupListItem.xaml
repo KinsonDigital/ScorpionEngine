@@ -7,9 +7,9 @@
              mc:Ignorable="d" Name="this">
 
     <!--ERROR BORDER-->
-    <Border DataContext="{Binding ElementName=this}"
+    <Border x:Name="ItemBorder" DataContext="{Binding ElementName=this}"
             d:DataContext="{d:DesignData Source=/UserControls/DesignData/UserControlData.xaml}"
-            BorderThickness="1">
+            BorderThickness="1" Background="Transparent" MouseUp="ItemBorder_MouseUp">
         <Border.Style>
             <Style TargetType="Border">
                 <Setter Property="BorderBrush">

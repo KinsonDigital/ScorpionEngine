@@ -55,6 +55,18 @@ namespace ParticleMaker.Project
                 }).ToArray();
             }
         }
+
+
+        /// <summary>
+        /// Gets all of the directory paths to all of the projects.
+        /// </summary>
+        public string[] ProjectPaths
+        {
+            get
+            {
+                return _directoryService.GetDirectories(_projectsPath);
+            }
+        }
         #endregion
 
 

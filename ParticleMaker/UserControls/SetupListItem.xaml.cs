@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace ParticleMaker.UserControls
 {
@@ -62,6 +63,12 @@ namespace ParticleMaker.UserControls
         /// </summary>
         protected static readonly DependencyProperty HasErrorProperty =
             DependencyProperty.Register(nameof(HasError), typeof(bool), typeof(SetupListItem), new PropertyMetadata(false));
+
+        /// <summary>
+        /// Registers the <see cref="Command"/> property.
+        /// </summary>
+        public static readonly DependencyProperty CommandProperty =
+            DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(SetupListItem), new PropertyMetadata(null));
         #endregion
 
 
@@ -102,6 +109,15 @@ namespace ParticleMaker.UserControls
         /// Gets or sets a value indicating if the delete event has been subscribed to.
         /// </summary>
         internal bool IsDeleteSubscribed { get; set; }
+
+        /// <summary>
+        /// Gets or sets the command to be executed when the <see cref="SetupListItem"/> has been clicked.
+        /// </summary>
+        public ICommand Command
+        {
+            get { return (ICommand)GetValue(CommandProperty); }
+            set { SetValue(CommandProperty, value); }
+        }
         #endregion
 
 
@@ -111,22 +127,12 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public void Refresh()
         {
-            var fileExists = File.Exists(SetupPath);
+            var dirExists = DesignerProperties.GetIsInDesignMode(this) ? true : Directory.Exists(SetupPath);
+            var pathSections = string.IsNullOrEmpty(SetupPath) || !dirExists ? new string[0] : SetupPath.Split('\\');
 
-            if (DesignerProperties.GetIsInDesignMode(this) && fileExists)
-            {
-                SetupName = Path.GetFileNameWithoutExtension(SetupPath);
-                HasError = false;
-            }
-            else
-            {
-                SetupName = string.IsNullOrEmpty(SetupPath) ||
-                            !fileExists ?
-                            "" :
-                            SetupName = Path.GetFileNameWithoutExtension(SetupPath);
+            SetupName = pathSections.Length >= 1 ? pathSections[pathSections.Length - 1] : "";
 
-                HasError = !fileExists;
-            }
+            HasError = !dirExists;
         }
         #endregion
 
@@ -231,6 +237,16 @@ namespace ParticleMaker.UserControls
             SaveClicked?.Invoke(this, new SetupItemEventArgs(SetupName, SetupPath));
 
             Refresh();
+        }
+
+
+        /// <summary>
+        /// Invokes the control clicked event.
+        /// </summary>
+        private void ItemBorder_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var eventArgs = new SetupItemEventArgs(SetupName, SetupPath);
+            Command?.Execute(eventArgs);
         }
         #endregion
     }

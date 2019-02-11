@@ -130,6 +130,33 @@ namespace ParticleMaker
 
 
         /// <summary>
+        /// Finds all of the children <see cref="UIElement"/>s of the given type <typeparamref name="T"/>
+        /// that are contained by the given <paramref name="parent"/>.
+        /// </summary>
+        /// <typeparam name="T">Any type that inherits <see cref="UIElement"/></typeparam>
+        /// <param name="parent">The parent <see cref="DependencyObject"/> that contains the child elements.</param>
+        /// <returns></returns>
+        [ExcludeFromCodeCoverage]
+        public static List<T> AllChildren<T>(this DependencyObject parent) where T : UIElement
+        {
+            var result = new List<T>();
+
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+
+                if (child is T)
+                    result.Add(child as T);
+
+                result.AddRange(AllChildren<T>(child));
+            }
+
+
+            return result;
+        }
+
+
+        /// <summary>
         /// Hides the game window.
         /// </summary>
         /// <param name="window">The window to hide.</param>
