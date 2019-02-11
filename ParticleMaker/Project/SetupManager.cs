@@ -1,4 +1,5 @@
-﻿using ParticleMaker.Exceptions;
+﻿using KDParticleEngine;
+using ParticleMaker.Exceptions;
 using ParticleMaker.Services;
 using System;
 using System.Collections.ObjectModel;
@@ -119,11 +120,11 @@ namespace ParticleMaker.Project
             if (ProjectExists(projectName))
             {
                 var projPath = $@"{_rootProjectsPath}\{projectName}";
-                var setupPath = $@"{projPath}\{setupName}.json";
+                var setupPath = $@"{projPath}\Setups\{setupName}\{setupName}.json";
 
                 if (_fileService.Exists(setupPath))
                 {
-                    return _fileService.Load<ParticleSetup>("");
+                    return _fileService.Load<ParticleSetup>(setupPath);
                 }
                 else
                 {

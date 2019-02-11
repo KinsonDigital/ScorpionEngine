@@ -36,7 +36,7 @@ namespace ScorpTestGame.Scenes
                 SpawnLocation = new Vector(400, 400),
                 UseRandomVelocity = true,
                 TotalParticlesAliveAtOnce = 60,
-                UseTintColorList = false,
+                UseColorsFromList = false,
                 TintColors = colors,
                 RedMin = 255,
                 RedMax = 255,

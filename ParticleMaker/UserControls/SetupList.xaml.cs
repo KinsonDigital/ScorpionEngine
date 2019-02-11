@@ -72,7 +72,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Registers the <see cref="AddItemCommand"/> property.
         /// </summary>
-        public static readonly DependencyProperty commandProperty =
+        public static readonly DependencyProperty AddItemCommandProperty =
             DependencyProperty.Register(nameof(AddItemCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
         #endregion
 
@@ -105,8 +105,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public ICommand AddItemCommand
         {
-            get { return (ICommand)GetValue(commandProperty); }
-            set { SetValue(commandProperty, value); }
+            get { return (ICommand)GetValue(AddItemCommandProperty); }
+            set { SetValue(AddItemCommandProperty, value); }
         }
         #endregion
 

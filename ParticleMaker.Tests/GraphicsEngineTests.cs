@@ -143,7 +143,7 @@ namespace ParticleMaker.Tests
             var engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine);
 
             //Act
-            engine.Run();
+            engine.Start();
 
             //Assert
             mockCoreEngine.Verify(m => m.Run(), Times.Once());
@@ -166,7 +166,7 @@ namespace ParticleMaker.Tests
             //Act & Assert
             Assert.Throws(typeof(Exception), () =>
             {
-                engine.Run();
+                engine.Start();
             });
         }
 

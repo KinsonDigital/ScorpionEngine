@@ -24,27 +24,24 @@ namespace ParticleMaker.ViewModels
     /// <summary>
     /// The main view model for the application.
     /// </summary>
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : ViewModel
     {
-        #region Public Events
-        public event PropertyChangedEventHandler PropertyChanged;
-        #endregion
-
-
         #region Private Fields
         private readonly char[] _illegalCharacters = new[] { '\\', '/', ':', '*', '?', '\"', '<', '>', '|', '.' };
         private readonly GraphicsEngine _graphicsEngine;
         private readonly ProjectManager _projectManager;
         private readonly ProjectSettingsManager _projectSettingsManager;
         private readonly SetupManager _setupManager;
-        private readonly CancellationTokenSource _cancelTokenSrc;
-        private readonly Task _startupTask;
+        private CancellationTokenSource _cancelTokenSrc;
+        private Task _startupTask;
         private RelayCommand _newProjectCommand;
         private RelayCommand _openProjectCommand;
         private ProjectSettings _projectSettings;
         private RelayCommand _setupItemSelectedCommand;
         private RelayCommand _addSetupCommand;
         private RelayCommand _renameProjectCommand;
+        private RelayCommand _pauseCommand;
+        private RelayCommand _playCommand;
         #endregion
 
 
@@ -63,42 +60,6 @@ namespace ParticleMaker.ViewModels
             _projectManager = projectManager;
             _projectSettingsManager = projectSettingsManager;
             _setupManager = setupManager;
-
-            _cancelTokenSrc = new CancellationTokenSource();
-
-            _startupTask = new Task(() =>
-            {
-                //If the cancellation has not been requested, keep processing.
-                while (!_cancelTokenSrc.IsCancellationRequested)
-                {
-                    _cancelTokenSrc.Token.WaitHandle.WaitOne(250);
-
-                    Action taskAction = new Action(() =>
-                    {
-                        if (_cancelTokenSrc.IsCancellationRequested == false && RenderSurface != null && RenderSurface.Handle != IntPtr.Zero)
-                        {
-                            _cancelTokenSrc.Cancel();
-
-                            _graphicsEngine.RenderSurfaceHandle = RenderSurface.Handle;
-                            _graphicsEngine.ParticleEngine.LivingParticlesCountChanged += _particleEngine_LivingParticlesCountChanged;
-                            _graphicsEngine.ParticleEngine.SpawnLocation = new CoreVector(200, 200);
-
-                            //NOTE: This line of code will not continue execution until the Monogame framework
-                            //has stopped running
-                            _graphicsEngine.Run();
-                        }
-                    });
-
-                    if (UIDispatcher == null)
-                    {
-                        taskAction();
-                    }
-                    else
-                    {
-                        UIDispatcher.Invoke(taskAction);
-                    }
-                }
-            }, _cancelTokenSrc.Token);
         }
         #endregion
 
@@ -377,10 +338,10 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public bool UseColorsFromList
         {
-            get => _graphicsEngine.ParticleEngine.UseTintColorList;
+            get => _graphicsEngine.ParticleEngine.UseColorsFromList;
             set
             {
-                _graphicsEngine.ParticleEngine.UseTintColorList = value;
+                _graphicsEngine.ParticleEngine.UseColorsFromList = value;
             }
         }
 
@@ -430,6 +391,36 @@ namespace ParticleMaker.ViewModels
 
 
         #region Command Props
+        /// <summary>
+        /// Gets or sets the command that will play the particle rendering.
+        /// </summary>
+        public RelayCommand Play
+        {
+            get
+            {
+                if (_playCommand == null)
+                    _playCommand = new RelayCommand(PlayExecute, (param) => true);
+
+
+                return _playCommand;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the command that will pause the particle rendering.
+        /// </summary>
+        public RelayCommand Pause
+        {
+            get
+            {
+                if (_pauseCommand == null)
+                    _pauseCommand = new RelayCommand(PauseExecute, (param) => true);
+
+
+                return _pauseCommand;
+            }
+        }
+
         /// <summary>
         /// Used for creating a new project when executed.
         /// </summary>
@@ -514,7 +505,44 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public void StartEngine()
         {
+            _cancelTokenSrc = new CancellationTokenSource();
+
+            _startupTask = new Task(() =>
+            {
+                //If the cancellation has not been requested, keep processing.
+                while (!_cancelTokenSrc.IsCancellationRequested)
+                {
+                    _cancelTokenSrc.Token.WaitHandle.WaitOne(250);
+
+                    Action taskAction = new Action(() =>
+                    {
+                        if (_cancelTokenSrc.IsCancellationRequested == false && RenderSurface != null && RenderSurface.Handle != IntPtr.Zero)
+                        {
+                            _cancelTokenSrc.Cancel();
+
+                            _graphicsEngine.RenderSurfaceHandle = RenderSurface.Handle;
+                            _graphicsEngine.ParticleEngine.LivingParticlesCountChanged += _particleEngine_LivingParticlesCountChanged;
+                            _graphicsEngine.ParticleEngine.SpawnLocation = new CoreVector(200, 200);
+
+                            //NOTE: This line of code will not continue execution until the Monogame framework
+                            //has stopped running
+                            _graphicsEngine.Start();
+                        }
+                    });
+
+                    if (UIDispatcher == null)
+                    {
+                        taskAction();
+                    }
+                    else
+                    {
+                        UIDispatcher.Invoke(taskAction);
+                    }
+                }
+            }, _cancelTokenSrc.Token);
+
             _startupTask.Start();
+
             MainWindow.SetFocus();
         }
 
@@ -524,7 +552,7 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public void ShutdownEngine()
         {
-            _cancelTokenSrc.Cancel();
+            _cancelTokenSrc?.Cancel();
 
             _graphicsEngine.Stop();
         }
@@ -545,10 +573,33 @@ namespace ParticleMaker.ViewModels
 
         #region Command Execute Methods
         /// <summary>
+        /// Plays the particle rendering.
+        /// </summary>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
+        [ExcludeFromCodeCoverage]
+        private void PlayExecute(object param)
+        {
+            _graphicsEngine.Play();
+        }
+
+
+        /// <summary>
+        /// Pauses the particle rendering.
+        /// </summary>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
+        [ExcludeFromCodeCoverage]
+        private void PauseExecute(object param)
+        {
+            _graphicsEngine.Pause();
+        }
+
+
+        /// <summary>
         /// Creates a new project.
         /// </summary>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
         [ExcludeFromCodeCoverage]
-        private void NewProjectExecute(object parameter)
+        private void NewProjectExecute(object param)
         {
             var msg = "Enter a new project name to create a project.  \nDuplicate project names not aloud.";
 
@@ -647,7 +698,17 @@ namespace ParticleMaker.ViewModels
             if (eventArgs == null)
                 return;
 
+            _graphicsEngine.Pause();
+
             var setupData = _setupManager.Load(_projectSettings.ProjectName, eventArgs.Name);
+
+            _graphicsEngine.ParticleEngine.ApplySetup(setupData);
+
+            var propNames = eventArgs.GetPropertyNames();
+
+            NotifyAllPropChanges(setupData.GetPropertyNames());
+
+            _graphicsEngine.Play();
         }
 
 
@@ -707,18 +768,6 @@ namespace ParticleMaker.ViewModels
             }
         }
         #endregion
-
-
-        /// <summary>
-        /// Notifies the binding system that a property value has changed.
-        /// </summary>
-        /// <param name="propName"></param>
-        [ExcludeFromCodeCoverage]
-        private void NotifyPropChange([CallerMemberName]string propName = "")
-        {
-            if (!string.IsNullOrEmpty(propName))
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
-        }
         #endregion
     }
 }

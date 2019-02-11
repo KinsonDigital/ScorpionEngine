@@ -1,11 +1,10 @@
-﻿using Moq;
+﻿using KDParticleEngine;
+using Moq;
 using NUnit.Framework;
 using ParticleMaker.Exceptions;
 using ParticleMaker.Project;
 using ParticleMaker.Services;
 using System;
-using System.Collections.ObjectModel;
-using System.Windows.Media;
 
 namespace ParticleMaker.Tests.Project
 {
@@ -200,6 +199,38 @@ namespace ParticleMaker.Tests.Project
             {
                 manager.Create("test-project", "test-setup");
             });
+        }
+
+
+        [Test]
+        public void Load_WhenInvoking_BuildsCorrectSetupPath()
+        {
+            //Arrange
+            var expected = "\\test-project\\Setups\\setup-A\\setup-A.json";
+            var actual = string.Empty;
+
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var mockFileService = new Mock<IFileService>();
+            mockFileService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+            mockFileService.Setup(m => m.Load<ParticleSetup>(It.IsAny<string>())).Returns<string>((path) =>
+            {
+                var pathSections = path.Split(new[] { "Projects" }, StringSplitOptions.None);
+
+                actual = pathSections.Length >= 2 ? pathSections[1] : "";
+
+
+                return null;
+            });
+
+            var manager = new SetupManager(mockDirService.Object, mockFileService.Object);
+            
+            //Act
+            manager.Load("test-project", "setup-A");
+
+            //Assert
+            Assert.AreEqual(expected, actual);
         }
 
 

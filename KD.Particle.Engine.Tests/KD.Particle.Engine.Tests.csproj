@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ParticleEngineTests.cs" />
+    <Compile Include="ParticleSetupTests.cs" />
     <Compile Include="ParticleTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -74,6 +75,12 @@
     </AdditionalFiles>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KD.Particle.Engine\KD.Particle.Engine.csproj">
+      <Project>{6595FF25-B463-480D-9F26-C73C66C2D5F0}</Project>
+      <Name>KD.Particle.Engine</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

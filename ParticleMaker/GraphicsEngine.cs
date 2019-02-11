@@ -85,7 +85,7 @@ namespace ParticleMaker
         /// <summary>
         /// Starts the <see cref="GraphicsEngine"/>.
         /// </summary>
-        public void Run()
+        public void Start()
         {
             //NOTE: This method will not exit until the monogame object has exited
             if (RenderSurfaceHandle == IntPtr.Zero)
@@ -104,6 +104,24 @@ namespace ParticleMaker
             _shuttingDown = true;
 
             _coreEngine.Exit();
+        }
+
+
+        /// <summary>
+        /// Pauses the engine.
+        /// </summary>
+        public void Pause()
+        {
+            _coreEngine.Pause();
+        }
+
+
+        /// <summary>
+        /// Unpauses the graphics engine.
+        /// </summary>
+        public void Play()
+        {
+            _coreEngine.Unpause();
         }
         #endregion
 
@@ -127,10 +145,6 @@ namespace ParticleMaker
         [ExcludeFromCodeCoverage]
         private void _coreEngine_OnLoadContent(object sender, EventArgs e)
         {
-
-            //_particleRenderer = new ParticleRenderer(_spriteBatch);
-            //_renderer = new Renderer(_particleRenderer);
-
             _renderer = _factory.NewRenderer();
 
             _spriteBatch = _factory.SpriteBatch;

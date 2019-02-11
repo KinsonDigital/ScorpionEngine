@@ -219,10 +219,10 @@ namespace ParticleMaker.Tests.Project
 
 
         [Test]
-        public void Rename_WhenInvoking_BuildsCorrectNewPath()
+        public void Rename_WhenInvoking_BuildsCorrectNewName()
         {
             //Arrange
-            var expected = "new-project";
+            var expected = "new-project-project-settings.json";
             var actual = string.Empty;
             var mockDirService = new Mock<IDirectoryService>();
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);

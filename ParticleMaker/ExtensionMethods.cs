@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -163,7 +164,7 @@ namespace ParticleMaker
         [ExcludeFromCodeCoverage]
         public static void Hide(this GameWindow window)
         {
-            var windowHandle = window?.Handle;
+            var windowHandle = window?.Handle == null ? null : window?.Handle;
 
             if (windowHandle == null)
                 return;
@@ -211,6 +212,17 @@ namespace ParticleMaker
 
 
             return false;
+        }
+
+
+        /// <summary>
+        /// Gets a list of all the property names for this object.
+        /// </summary>
+        /// <param name="obj">The object to get the property names from.</param>
+        /// <returns></returns>
+        public static string[] GetPropertyNames(this object obj)
+        {
+            return (from n in obj.GetType().GetProperties() select n.Name).ToArray();
         }
         #endregion
     }

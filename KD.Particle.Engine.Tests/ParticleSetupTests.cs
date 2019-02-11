@@ -1,9 +1,8 @@
-﻿using NUnit.Framework;
-using ParticleMaker.Project;
+﻿using KDParticleEngine;
+using NUnit.Framework;
 using System.Collections.ObjectModel;
-using System.Windows.Media;
 
-namespace ParticleMaker.Tests.Project
+namespace KD.Particle.Engine.Tests
 {
     [TestFixture]
     public class ParticleSetupTests
@@ -14,10 +13,10 @@ namespace ParticleMaker.Tests.Project
         {
             //Arrange
             var setup = new ParticleSetup();
-            var expected = 1234;
+            byte expected = 123;
 
             //Act
-            setup.RedMin = 1234;
+            setup.RedMin = 123;
             var actual = setup.RedMin;
 
             //Assert
@@ -30,10 +29,10 @@ namespace ParticleMaker.Tests.Project
         {
             //Arrange
             var setup = new ParticleSetup();
-            var expected = 1234;
+            byte expected = 123;
 
             //Act
-            setup.RedMax = 1234;
+            setup.RedMax = 123;
             var actual = setup.RedMax;
 
             //Assert
@@ -46,10 +45,10 @@ namespace ParticleMaker.Tests.Project
         {
             //Arrange
             var setup = new ParticleSetup();
-            var expected = 1234;
+            byte expected = 123;
 
             //Act
-            setup.GreenMin = 1234;
+            setup.GreenMin = 123;
             var actual = setup.GreenMin;
 
             //Assert
@@ -62,10 +61,10 @@ namespace ParticleMaker.Tests.Project
         {
             //Arrange
             var setup = new ParticleSetup();
-            var expected = 1234;
+            byte expected = 123;
 
             //Act
-            setup.GreenMax = 1234;
+            setup.GreenMax = 123;
             var actual = setup.GreenMax;
 
             //Assert
@@ -78,10 +77,10 @@ namespace ParticleMaker.Tests.Project
         {
             //Arrange
             var setup = new ParticleSetup();
-            var expected = 1234;
+            byte expected = 123;
 
             //Act
-            setup.BlueMin = 1234;
+            setup.BlueMin = 123;
             var actual = setup.BlueMin;
 
             //Assert
@@ -94,10 +93,10 @@ namespace ParticleMaker.Tests.Project
         {
             //Arrange
             var setup = new ParticleSetup();
-            var expected = 1234;
+            byte expected = 123;
 
             //Act
-            setup.BlueMax = 1234;
+            setup.BlueMax = 123;
             var actual = setup.BlueMax;
 
             //Assert
@@ -350,17 +349,17 @@ namespace ParticleMaker.Tests.Project
         {
             //Arrange
             var setup = new ParticleSetup();
-            var expected = new ObservableCollection<ColorItem>()
+            var expected = new ParticleColor[]
             {
-                new ColorItem() { Id = 1, ColorBrush = new SolidColorBrush(Color.FromArgb(44, 11, 22, 33)) },
-                new ColorItem() { Id = 2, ColorBrush = new SolidColorBrush(Color.FromArgb(88, 55, 66, 77)) }
+                new ParticleColor() { Alpha = 44, Red = 11, Green = 22, Blue = 33 },
+                new ParticleColor() { Alpha = 88, Red = 55, Green = 66, Blue = 77 }
             };
 
             //Act
-            setup.Colors = new ObservableCollection<ColorItem>()
+            setup.Colors = new ParticleColor[]
             {
-                new ColorItem() { Id = 1, ColorBrush = new SolidColorBrush(Color.FromArgb(44, 11, 22, 33)) },
-                new ColorItem() { Id = 2, ColorBrush = new SolidColorBrush(Color.FromArgb(88, 55, 66, 77)) }
+                new ParticleColor() { Alpha = 44, Red = 11, Green = 22, Blue = 33 },
+                new ParticleColor() { Alpha = 88, Red = 55, Green = 66, Blue = 77 }
             };
             var actual = setup.Colors;
 

@@ -65,6 +65,9 @@ namespace ParticleMaker
             _mainViewModel.RenderSurface = (winFormsHost.Child as PictureBox);
             _mainViewModel.UIDispatcher = Dispatcher;
 
+            _mainViewModel.StartEngine();
+            _mainViewModel.Pause.Execute(null);
+            
             DataContext = _mainViewModel;
         }
 

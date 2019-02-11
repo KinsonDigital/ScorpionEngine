@@ -94,7 +94,6 @@
     <Compile Include="GraphicsEngineFactory.cs" />
     <Compile Include="ICoreEngine.cs" />
     <Compile Include="IGraphicsEngineFactory.cs" />
-    <Compile Include="Project\ParticleSetup.cs" />
     <Compile Include="Project\ProjectSettings.cs" />
     <Compile Include="Project\SetupManager.cs" />
     <Compile Include="RelayCommand.cs" />
@@ -147,6 +146,7 @@
     </Compile>
     <Compile Include="UserControls\PathItem.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ViewModel.cs" />
     <Page Include="ColorPicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

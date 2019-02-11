@@ -40,6 +40,11 @@ namespace ParticleMaker
 
         #region Props
         /// <summary>
+        /// Gets or sets a value indicating if the engine is paused.
+        /// </summary>
+        bool IsPaused { get; set; }
+
+        /// <summary>
         /// The original render window.
         /// </summary>
         GameWindow OriginalWindow { get; set; }
@@ -72,6 +77,18 @@ namespace ParticleMaker
         /// Exists and stops the <see cref="ICoreEngine"/>.
         /// </summary>
         void Exit();
+
+
+        /// <summary>
+        /// Pauses the engine.
+        /// </summary>
+        void Pause();
+
+
+        /// <summary>
+        /// Unpauses the engine.
+        /// </summary>
+        void Unpause();
         #endregion
     }
 }

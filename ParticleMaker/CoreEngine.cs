@@ -62,6 +62,11 @@ namespace ParticleMaker
 
         #region Props
         /// <summary>
+        /// Gets or sets a value indicating if the engine is paused.
+        /// </summary>
+        public bool IsPaused { get; set; }
+
+        /// <summary>
         /// The original render window.
         /// </summary>
         public GameWindow OriginalWindow { get; set; }
@@ -121,6 +126,9 @@ namespace ParticleMaker
         /// <param name="gameTime">The amount of time that has passed since the last frame.</param>
         protected override void Update(GameTime gameTime)
         {
+            if (IsPaused)
+                return;
+
             OnUpdate?.Invoke(this, new UpdateEventArgs(gameTime));
 
             base.Update(gameTime);
@@ -133,6 +141,9 @@ namespace ParticleMaker
         /// <param name="gameTime">The amount of time that has passed since the last frame.</param>
         protected override void Draw(GameTime gameTime)
         {
+            if (IsPaused)
+                return;
+
             OnDraw?.Invoke(this, new DrawEventArgs(gameTime));
 
             base.Draw(gameTime);
@@ -147,6 +158,24 @@ namespace ParticleMaker
             OnUnLoadContent?.Invoke(this, new EventArgs());
 
             base.UnloadContent();
+        }
+
+
+        /// <summary>
+        /// Pauses the <see cref="CoreEngine"/>.
+        /// </summary>
+        public void Pause()
+        {
+            IsPaused = true;
+        }
+
+
+        /// <summary>
+        /// Unpauses the <see cref="CoreEngine"/>.
+        /// </summary>
+        public void Unpause()
+        {
+            IsPaused = false;
         }
         #endregion
     }

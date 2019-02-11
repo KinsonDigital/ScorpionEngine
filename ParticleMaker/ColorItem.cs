@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 
 namespace ParticleMaker
 {
@@ -39,7 +38,10 @@ namespace ParticleMaker
         /// <returns></returns>
         public override bool Equals(object obj)
         {
-            var objToCompare = (ColorItem)obj;
+            ColorItem objToCompare = null;
+
+            if (obj is ColorItem)
+                objToCompare = (ColorItem)obj;
 
             if (objToCompare == null)
                 return false;

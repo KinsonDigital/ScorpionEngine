@@ -1,4 +1,6 @@
-﻿using System;
+﻿using KDScorpionCore.Graphics;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace KDParticleEngine
@@ -35,6 +37,36 @@ namespace KDParticleEngine
         public static bool FlipCoin(this Random random)
         {
             return random.NextDouble() <= 0.5f;
+        }
+
+
+        /// <summary>
+        /// Converts this <see cref="ParticleColor"/> to a <see cref="GameColor"/>.
+        /// </summary>
+        /// <param name="color">The color to convert.</param>
+        /// <returns></returns>
+        public static GameColor ToGameColor(this ParticleColor color)
+        {
+            return new GameColor(color.Red, color.Green, color.Blue, color.Alpha);
+        }
+
+
+        /// <summary>
+        /// Converts all of the given <see cref="ParticleColor"/>s to <see cref="GameColor"/>s.
+        /// </summary>
+        /// <param name="colors">The list of colors to convert.</param>
+        /// <returns></returns>
+        public static GameColor[] ToGameColors(this ParticleColor[] colors)
+        {
+            var result = new List<GameColor>();
+
+            foreach (var clr in colors)
+            {
+                result.Add(clr.ToGameColor());
+            }
+
+
+            return result.ToArray();
         }
     }
 }

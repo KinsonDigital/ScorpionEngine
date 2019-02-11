@@ -39,9 +39,9 @@
         
         <StackPanel Orientation="Vertical" Visibility="Visible" Margin="10" Grid.Row="1" Grid.Column="0">
             <!--PROJECT SETUP LIST-->
-             <ctrls:SetupList x:Name="MySetupList" d:DataContext="{d:DesignData Source=/DesignData/MainWindowData.xaml}"
-                              Margin="10" Setups="{Binding Path=ProjectSetups}" ItemSelectedCommand="{Binding Path=SetupItemSelected}"
-                              AddItemCommand="{Binding Path=AddSetup}"/>
+            <ctrls:SetupList x:Name="MySetupList"
+                             Margin="10" Setups="{Binding Path=ProjectSetups}" ItemSelectedCommand="{Binding Path=SetupItemSelected}"
+                             AddItemCommand="{Binding Path=AddSetup}"/>
 
             <!--PARTICLE LIST-->
             <ctrls:ParticleList x:Name="ParticleList"  d:DataContext="{d:DesignData Source=/DesignData/MainWindowData.xaml}"

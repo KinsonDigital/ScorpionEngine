@@ -1,8 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows.Media;
 using KDParticleEngine;
 
-namespace ParticleMaker.Project
+namespace KDParticleEngine
 {
     /// <summary>
     /// Holds the particle setup settings data for the <see cref="ParticleEngine"/> to consume.
@@ -13,32 +12,32 @@ namespace ParticleMaker.Project
         /// <summary>
         /// Gets or sets the minimum value of the red color component range that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
-        public int RedMin { get; set; }
+        public byte RedMin { get; set; }
 
         /// <summary>
         /// Gets or sets the maximum value of the red color component range that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
-        public int RedMax { get; set; } = 255;
+        public byte RedMax { get; set; } = 255;
 
         /// <summary>
         /// Gets or sets the minimum value of the green color component range that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
-        public int GreenMin { get; set; }
+        public byte GreenMin { get; set; }
 
         /// <summary>
         /// Gets or sets the maximum value of the green color component range that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
-        public int GreenMax { get; set; } = 255;
+        public byte GreenMax { get; set; } = 255;
 
         /// <summary>
         /// Gets or sets the minimum value of the blue color component range that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
-        public int BlueMin { get; set; }
+        public byte BlueMin { get; set; }
 
         /// <summary>
         /// Gets or sets the maximum value of the blue color component range that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
-        public int BlueMax { get; set; } = 255;
+        public byte BlueMax { get; set; } = 255;
 
         /// <summary>
         /// Gets or sets the minimum size of the range that a <see cref="Particle"/> will be randomly set to.
@@ -118,23 +117,11 @@ namespace ParticleMaker.Project
         /// <summary>
         /// Gets or sets the list of colors to randomly choose from.
         /// </summary>
-        public ObservableCollection<ColorItem> Colors { get; set; } = new ObservableCollection<ColorItem>()
+        public ParticleColor[] Colors { get; set; } = new ParticleColor[]
         {
-            new ColorItem()
-            {
-                Id = 1,
-                ColorBrush = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0))
-            },
-            new ColorItem()
-            {
-                Id = 2,
-                ColorBrush = new SolidColorBrush(Color.FromArgb(255, 0, 255, 0))
-            },
-            new ColorItem()
-            {
-                Id = 3,
-                ColorBrush = new SolidColorBrush(Color.FromArgb(255, 0, 0, 255))
-            }
+            new ParticleColor() { Alpha = 255, Red = 255, Green = 0, Blue = 0 },
+            new ParticleColor() { Alpha = 255, Red = 0, Green = 255, Blue = 0 },
+            new ParticleColor() { Alpha = 255, Red = 0, Green = 0, Blue = 255 }
         };
         #endregion
     }
