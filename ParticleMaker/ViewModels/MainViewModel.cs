@@ -44,6 +44,7 @@ namespace ParticleMaker.ViewModels
         private ProjectSettings _projectSettings;
         private RelayCommand _setupItemSelectedCommand;
         private RelayCommand _addSetupCommand;
+        private RelayCommand _renameProjectCommand;
         #endregion
 
 
@@ -488,6 +489,21 @@ namespace ParticleMaker.ViewModels
                 return _addSetupCommand;
             }
         }
+
+        /// <summary>
+        /// Renames a project.
+        /// </summary>
+        public RelayCommand RenameProject
+        {
+            get
+            {
+                if (_renameProjectCommand == null)
+                    _renameProjectCommand = new RelayCommand(RenameProjectExecute, (param) => true);
+
+
+                return _renameProjectCommand;
+            }
+        }
         #endregion
         #endregion
 
@@ -585,15 +601,14 @@ namespace ParticleMaker.ViewModels
 
                 _projectSettings = _projectSettingsManager.Load(CurrentOpenProject);
 
-                var setupPaths = _setupManager.GetSetupPaths(CurrentOpenProject);
-
-                ProjectSetups = (from path in setupPaths
+                ProjectSetups = (from path in _setupManager.GetSetupPaths(CurrentOpenProject)
                                  select new PathItem()
                                  {
                                      FilePath = path
                                  }).ToArray();
 
                 NotifyPropChange(nameof(ProjectSetups));
+                NotifyPropChange(nameof(WindowTitle));
             }
         }
 
@@ -633,6 +648,63 @@ namespace ParticleMaker.ViewModels
                 return;
 
             var setupData = _setupManager.Load(_projectSettings.ProjectName, eventArgs.Name);
+        }
+
+
+        /// <summary>
+        /// Renames a project.
+        /// </summary>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
+        [ExcludeFromCodeCoverage]
+        private void RenameProjectExecute(object param)
+        {
+            var projectListDialog = new ProjectListDialog("Select Project To Rename")
+            {
+                Owner = DialogOwner,
+                ProjectPaths = _projectManager.ProjectPaths
+            };
+
+            var projectListDialogResult = projectListDialog.ShowDialog();
+
+            if (projectListDialogResult == true)
+            {
+                var invalidProjNames = _projectManager.Projects;
+
+                var inputDialog = new InputDialog("Rename Project", "Enter new project name.", invalidChars: _illegalCharacters, invalidValues: invalidProjNames)
+                {
+                    Owner = DialogOwner
+                };
+
+                var inputDialogResult = inputDialog.ShowDialog();
+
+                if (inputDialogResult == true)
+                {
+                    //Update the project name value in the file itself
+                    var projectSettings = _projectSettingsManager.Load(projectListDialog.SelectedProject);
+                    projectSettings.ProjectName = inputDialog.InputValue;
+                    _projectSettingsManager.Save(projectListDialog.SelectedProject, projectSettings);
+
+                    _projectSettingsManager.Rename(projectListDialog.SelectedProject, inputDialog.InputValue);
+
+                    _projectManager.Rename(projectListDialog.SelectedProject, inputDialog.InputValue);
+
+                    //If the project that just got renamed is opened
+                    if (!string.IsNullOrEmpty(CurrentOpenProject) && CurrentOpenProject == projectListDialog.SelectedProject)
+                    {
+                        //Update the currently open project value
+                        CurrentOpenProject = inputDialog.InputValue;
+
+                        ProjectSetups = (from path in _setupManager.GetSetupPaths(CurrentOpenProject)
+                                         select new PathItem()
+                                         {
+                                             FilePath = path
+                                         }).ToArray();
+
+                        NotifyPropChange(nameof(ProjectSetups));
+                        NotifyPropChange(nameof(WindowTitle));
+                    }
+                }
+            }
         }
         #endregion
 

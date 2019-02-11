@@ -73,6 +73,27 @@ namespace ParticleMaker.Project
 
             throw new ProjectDoesNotExistException(projectName);
         }
+
+
+        /// <summary>
+        /// Renames the project settings file from the given <paramref name="projectName"/> to
+        /// the given <paramref name="newProjectName"/>.
+        /// </summary>
+        /// <param name="projectName">The current name of the project settings file.</param>
+        /// <param name="newProjectName">The new project name.</param>
+        public void Rename(string projectName, string newProjectName)
+        {
+            if (ProjectExists(projectName))
+            {
+                var oldFilePath = $@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json";
+
+                _fileService.Rename(oldFilePath, $"{newProjectName}-project-settings.json");
+            }
+            else
+            {
+                throw new ProjectDoesNotExistException(projectName);
+            }
+        }
         #endregion
 
 

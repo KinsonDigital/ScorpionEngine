@@ -560,6 +560,20 @@ namespace ParticleMaker.Tests.ViewModels
             //Assert
             Assert.AreEqual(expected, actual);
         }
+
+
+        [Test]
+        public void RenameProject_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Arrange
+            var expected = true;
+
+            //Act
+            var actual = _viewModel.RenameProject != null;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
         #endregion
 
 

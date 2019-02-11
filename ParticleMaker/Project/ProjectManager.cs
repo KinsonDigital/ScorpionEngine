@@ -35,8 +35,10 @@ namespace ParticleMaker.Project
 
             _directoryService = directoryService;
         }
+        #endregion
 
 
+        #region Props
         /// <summary>
         /// Gets the list of projects.
         /// </summary>
@@ -136,7 +138,8 @@ namespace ParticleMaker.Project
 
             if (_directoryService.Exists(oldProjectDir))
             {
-                _directoryService.Rename(oldProjectDir, newProjecDir);
+                //Rename the directory
+                _directoryService.Rename(oldProjectDir, newName);
             }
             else
             {

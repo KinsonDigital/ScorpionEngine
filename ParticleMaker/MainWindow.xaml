@@ -29,7 +29,7 @@
                 <MenuItem Header="_File">
                     <MenuItem Header="_New Project" Command="{Binding Path=NewProject}"/>
                     <MenuItem Header="_Open Project" Command="{Binding Path=OpenProject}"/>
-                    <MenuItem Header="_Rename Project"/>
+                    <MenuItem Header="_Rename Project" Command="{Binding Path=RenameProject}"/>
                     <MenuItem Header="_Close Project"/>
                     <Separator/>
                     <MenuItem Header="_Exit"/>
