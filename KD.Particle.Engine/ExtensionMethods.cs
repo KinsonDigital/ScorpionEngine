@@ -68,5 +68,35 @@ namespace KDParticleEngine
 
             return result.ToArray();
         }
+
+
+        /// <summary>
+        /// Converts this <see cref="ParticleColor"/> to a <see cref="GameColor"/>.
+        /// </summary>
+        /// <param name="color">The color to convert.</param>
+        /// <returns></returns>
+        public static ParticleColor ToParticleColor(this GameColor color)
+        {
+            return new ParticleColor(color.Alpha, color.Red, color.Green, color.Blue);
+        }
+
+
+        /// <summary>
+        /// Converts all of the given <see cref="ParticleColor"/>s to <see cref="GameColor"/>s.
+        /// </summary>
+        /// <param name="colors">The list of colors to convert.</param>
+        /// <returns></returns>
+        public static ParticleColor[] ToParticleColors(this GameColor[] colors)
+        {
+            var result = new List<ParticleColor>();
+
+            foreach (var clr in colors)
+            {
+                result.Add(clr.ToParticleColor());
+            }
+
+
+            return result.ToArray();
+        }
     }
 }

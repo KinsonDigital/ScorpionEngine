@@ -11,7 +11,27 @@ namespace ParticleMaker.Tests
     {
         #region Prop Tests
         [Test]
-        public void ParticleEngine_WhenInvoking_ReturnsParticleEngine()
+        public void IsRunning_WhenGettingValueWhileEngineIsRunning_ReturnsTrue()
+        {
+            //Arrange
+            var mockCoreEngine = new Mock<ICoreEngine>();
+            mockCoreEngine.SetupGet(p => p.IsRunning).Returns(true);
+
+            var mockEngineFactory = new Mock<IGraphicsEngineFactory>();
+            mockEngineFactory.SetupGet(p => p.CoreEngine).Returns(mockCoreEngine.Object);
+
+            var engine = new GraphicsEngine(mockEngineFactory.Object, It.IsAny<ParticleEngine>());
+
+            //Act
+            engine.Play();
+
+            //Assert
+            Assert.IsTrue(engine.IsRunning);
+        }
+
+
+        [Test]
+        public void ParticleEngine_WhenGettingValue_ReturnsParticleEngine()
         {
             //Arrange
             var mockCoreEngine = new Mock<ICoreEngine>();

@@ -78,6 +78,11 @@ namespace ParticleMaker
         /// Gets or sets the height of the render surface that the graphics are rendering to.
         /// </summary>
         public int Height { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating if the engine is running or paused.
+        /// </summary>
+        public bool IsRunning => _coreEngine.IsRunning;
         #endregion
 
 
@@ -103,7 +108,17 @@ namespace ParticleMaker
         {
             _shuttingDown = true;
 
+            _coreEngine.Dispose();
             _coreEngine.Exit();
+        }
+
+
+        /// <summary>
+        /// Unpauses the graphics engine.
+        /// </summary>
+        public void Play()
+        {
+            _coreEngine.Play();
         }
 
 
@@ -113,15 +128,6 @@ namespace ParticleMaker
         public void Pause()
         {
             _coreEngine.Pause();
-        }
-
-
-        /// <summary>
-        /// Unpauses the graphics engine.
-        /// </summary>
-        public void Play()
-        {
-            _coreEngine.Unpause();
         }
         #endregion
 
@@ -133,8 +139,6 @@ namespace ParticleMaker
         [ExcludeFromCodeCoverage]
         private void _coreEngine_OnInitialize(object sender, EventArgs e)
         {
-            _coreEngine.WindowPosition = new Point(-30000, _coreEngine.WindowPosition.Y);
-
             _contentLoader = _factory.NewContentLoader();
         }
 

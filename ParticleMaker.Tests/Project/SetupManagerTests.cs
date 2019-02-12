@@ -318,7 +318,7 @@ namespace ParticleMaker.Tests.Project
             var mockDirService = new Mock<IDirectoryService>();
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
 
-            var expected = @"\test-project\test-setup.json";
+            var expected = @"\test-project\Setups\test-setup\test-setup.json";
             var actual = "";
 
             var mockFileService = new Mock<IFileService>();

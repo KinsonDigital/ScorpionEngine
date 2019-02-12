@@ -62,9 +62,9 @@ namespace ParticleMaker
 
         #region Props
         /// <summary>
-        /// Gets or sets a value indicating if the engine is paused.
+        /// Gets or sets a value indicating if the engine is running.
         /// </summary>
-        public bool IsPaused { get; set; }
+        public bool IsRunning { get; set; }
 
         /// <summary>
         /// The original render window.
@@ -75,12 +75,6 @@ namespace ParticleMaker
         /// Gets or sets the handle to the surface to render the graphics to.
         /// </summary>
         public IntPtr RenderSurfaceHandle { get; set; }
-
-        public Point WindowPosition
-        {
-            get => Window.Position;
-            set => Window.Position = value;
-        }
         #endregion
 
 
@@ -126,7 +120,7 @@ namespace ParticleMaker
         /// <param name="gameTime">The amount of time that has passed since the last frame.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (IsPaused)
+            if (!IsRunning)
                 return;
 
             OnUpdate?.Invoke(this, new UpdateEventArgs(gameTime));
@@ -141,7 +135,7 @@ namespace ParticleMaker
         /// <param name="gameTime">The amount of time that has passed since the last frame.</param>
         protected override void Draw(GameTime gameTime)
         {
-            if (IsPaused)
+            if (!IsRunning)
                 return;
 
             OnDraw?.Invoke(this, new DrawEventArgs(gameTime));
@@ -162,20 +156,30 @@ namespace ParticleMaker
 
 
         /// <summary>
-        /// Pauses the <see cref="CoreEngine"/>.
+        /// Unpauses the <see cref="CoreEngine"/>.
         /// </summary>
-        public void Pause()
+        public void Play()
         {
-            IsPaused = true;
+            IsRunning = true;
         }
 
 
         /// <summary>
-        /// Unpauses the <see cref="CoreEngine"/>.
+        /// Pauses the <see cref="CoreEngine"/>.
         /// </summary>
-        public void Unpause()
+        public void Pause()
         {
-            IsPaused = false;
+            IsRunning = false;
+        }
+
+
+        /// <summary>
+        /// Properly disposes of the <see cref="CoreEngine"/>.
+        /// </summary>
+        /// <param name="disposing">true if currently being disposed.</param>
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
         }
         #endregion
     }

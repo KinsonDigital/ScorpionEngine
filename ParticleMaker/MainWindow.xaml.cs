@@ -6,6 +6,7 @@ using ParticleMaker.ViewModels;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using System.Threading;
+using WinMsgBox = System.Windows.MessageBox;
 
 namespace ParticleMaker
 {
@@ -50,7 +51,16 @@ namespace ParticleMaker
         /// <param name="e"></param>
         protected override void OnClosing(CancelEventArgs e)
         {
+            if (_mainViewModel.SettingsChanged)
+            {
+                var msgResult = WinMsgBox.Show("You have unsaved settings.  Save first?", "Save Changes", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (msgResult == MessageBoxResult.Yes)
+                    _mainViewModel.SaveSetup.Execute(null);
+            }
+
             _mainViewModel.ShutdownEngine();
+
             base.OnClosing(e);
         }
         #endregion

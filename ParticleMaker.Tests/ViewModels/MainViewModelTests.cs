@@ -5,10 +5,12 @@ using KDScorpionCore.Graphics;
 using Moq;
 using NUnit.Framework;
 using ParticleMaker.Project;
+using ParticleMaker.UserControls;
 using ParticleMaker.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading;
+using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -26,6 +28,46 @@ namespace ParticleMaker.Tests.ViewModels
 
 
         #region Prop Tests
+        [Test]
+        public void ProjectSetups_WhenSettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var expected = new[]
+            {
+                new PathItem() { FilePath = @"C:\Temp\item-A.json" },
+                new PathItem() { FilePath = @"C:\Temp\item-B.json" }
+            };
+
+            //Act
+            _viewModel.ProjectSetups = new[]
+            {
+                new PathItem() { FilePath = @"C:\Temp\item-A.json" },
+                new PathItem() { FilePath = @"C:\Temp\item-B.json" }
+            };
+
+            var actual = _viewModel.ProjectSetups;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void SettingsChanged_WhenGettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var expected = true;
+
+            //Act
+            _viewModel.RedMin = 123;
+
+            var actual = _viewModel.SettingsChanged;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
         [Test]
         public void NewProject_WhenGettingValue_DoesNotReturnNull()
         {
@@ -570,6 +612,63 @@ namespace ParticleMaker.Tests.ViewModels
 
             //Act
             var actual = _viewModel.RenameProject != null;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void Play_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Arrange
+            var expected = true;
+
+            //Act
+            var actual = _viewModel.Play != null;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void Pause_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Arrange
+            var expected = true;
+
+            //Act
+            var actual = _viewModel.Pause != null;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void SaveSetup_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Arrange
+            var expected = true;
+
+            //Act
+            var actual = _viewModel.SaveSetup != null;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void CurrentLoadedSetup_WhenSettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var expected = "current-setup";
+
+            //Act
+            _viewModel.CurrentLoadedSetup = "current-setup";
+            var actual = _viewModel.CurrentLoadedSetup;
 
             //Assert
             Assert.AreEqual(expected, actual);

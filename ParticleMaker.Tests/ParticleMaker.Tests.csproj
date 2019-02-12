@@ -125,6 +125,7 @@
     <Compile Include="Project\ProjectManagerTests.cs" />
     <Compile Include="Services\SetupDeployServiceTests.cs" />
     <Compile Include="UserControls\ExtensionMethodsTests.cs" />
+    <Compile Include="UserControls\PathItemTests.cs" />
     <Compile Include="ViewModels\MainViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>

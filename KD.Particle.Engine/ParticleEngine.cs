@@ -277,6 +277,10 @@ namespace KDParticleEngine
 
 
         #region Public Methods
+        /// <summary>
+        /// Adds the given <paramref name="texture"/> to the engine.
+        /// </summary>
+        /// <param name="texture">The texture to add.</param>
         public void AddTexture(Texture texture)
         {
             _textures.Add(texture);
@@ -284,6 +288,10 @@ namespace KDParticleEngine
         }
 
 
+        /// <summary>
+        /// Adds the given <paramref name="textures"/> to the engine.
+        /// </summary>
+        /// <param name="textures">The list of textures to add.</param>
         public void AddTextures(Texture[] textures)
         {
             _textures.AddRange(textures);
@@ -566,14 +574,48 @@ namespace KDParticleEngine
             VelocityYMin = setupData.VelocityYMin;
             VelocityYMax = setupData.VelocityYMax;
 
-            LifeTimeMin = setupData.LifetimeMin;
-            LifeTimeMax = setupData.LifetimeMax;
+            LifeTimeMin = setupData.LifeTimeMin;
+            LifeTimeMax = setupData.LifeTimeMax;
 
             SpawnRateMin = setupData.SpawnRateMin;
             SpawnRateMax = setupData.SpawnRateMax;
 
             UseColorsFromList = setupData.UseColorsFromList;
             TintColors = setupData.Colors.ToGameColors();
+        }
+
+
+        /// <summary>
+        /// Generates a particle setup from the current settings of the <see cref="ParticleEngine"/>.
+        /// </summary>
+        /// <returns></returns>
+        public ParticleSetup GenerateParticleSetup()
+        {
+            return new ParticleSetup()
+            {
+                RedMin = RedMin,
+                RedMax = RedMax,
+                GreenMin = GreenMin,
+                GreenMax = GreenMax,
+                BlueMin = BlueMin,
+                BlueMax = BlueMax,
+                SizeMin = SizeMin,
+                SizeMax = SizeMax,
+                AngleMin = AngleMin,
+                AngleMax = AngleMax,
+                AngularVelocityMin = AngularVelocityMin,
+                AngularVelocityMax = AngularVelocityMax,
+                VelocityXMin = VelocityXMin,
+                VelocityXMax = VelocityXMax,
+                VelocityYMin = VelocityYMin,
+                VelocityYMax = VelocityYMax,
+                LifeTimeMin = LifeTimeMin,
+                LifeTimeMax = LifeTimeMax,
+                SpawnRateMin = SpawnRateMin,
+                SpawnRateMax = SpawnRateMax,
+                UseColorsFromList = UseColorsFromList,
+                Colors = TintColors.ToParticleColors()
+            };
         }
         #endregion
     }

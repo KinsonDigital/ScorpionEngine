@@ -18,6 +18,7 @@ namespace ParticleMaker
     [ExcludeFromCodeCoverage]
     public partial class App : Application
     {
+        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="App"/>.
         /// </summary>
@@ -38,11 +39,27 @@ namespace ParticleMaker
             DIContainer.Register<SetupManager>();
             DIContainer.Register<MainViewModel>();
         }
+        #endregion
 
 
+        #region Props
         /// <summary>
         /// The dependency injection container for creating instances of registered objects.
         /// </summary>
         public static Container DIContainer { get; set; }
+        #endregion
+
+
+        #region Private Methods
+        /// <summary>
+        /// Starts up the application.
+        /// </summary>
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            var mainWindow = new MainWindow();
+
+            mainWindow.Show();
+        }
+        #endregion
     }
 }

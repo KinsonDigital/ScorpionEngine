@@ -272,8 +272,8 @@ namespace KD.Particle.Engine.Tests
             var expected = 1234;
 
             //Act
-            setup.LifetimeMin = 1234;
-            var actual = setup.LifetimeMin;
+            setup.LifeTimeMin = 1234;
+            var actual = setup.LifeTimeMin;
 
             //Assert
             Assert.AreEqual(expected, actual);
@@ -288,8 +288,8 @@ namespace KD.Particle.Engine.Tests
             var expected = 1234;
 
             //Act
-            setup.LifetimeMax = 1234;
-            var actual = setup.LifetimeMax;
+            setup.LifeTimeMax = 1234;
+            var actual = setup.LifeTimeMax;
 
             //Assert
             Assert.AreEqual(expected, actual);

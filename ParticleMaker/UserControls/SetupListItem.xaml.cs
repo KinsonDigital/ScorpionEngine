@@ -245,8 +245,7 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void ItemBorder_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            var eventArgs = new SetupItemEventArgs(SetupName, SetupPath);
-            Command?.Execute(eventArgs);
+            Command?.Execute(SetupName);
         }
         #endregion
     }

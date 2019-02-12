@@ -306,6 +306,12 @@ namespace ParticleMaker.UserControls
             {
                 _refreshTaskTokenSrc.Token.WaitHandle.WaitOne(1000);
 
+                if (Dispatcher.HasShutdownStarted || Dispatcher.HasShutdownFinished)
+                {
+                    _refreshTaskTokenSrc.Cancel();
+                    break;
+                }
+
                 Dispatcher.Invoke(() =>
                 {
                     Refresh();

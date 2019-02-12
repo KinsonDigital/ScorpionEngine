@@ -92,12 +92,12 @@ namespace KDParticleEngine
         /// <summary>
         /// Gets or sets the minimum life time of the range that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
-        public int LifetimeMin { get; set; } = 250;
+        public int LifeTimeMin { get; set; } = 250;
 
         /// <summary>
         /// Gets or sets the maximum life time of the range that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
-        public int LifetimeMax { get; set; } = 1000;
+        public int LifeTimeMax { get; set; } = 1000;
 
         /// <summary>
         /// Gets or sets the minimum spawn rate of the range that a <see cref="Particle"/> will be randomly set to.

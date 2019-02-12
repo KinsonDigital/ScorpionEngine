@@ -32,7 +32,6 @@ namespace ParticleMaker.Services
             catch (Exception ex)
             {
                 //TODO: Properly handle exceptions
-                throw;
             }
         }
 
@@ -45,7 +44,19 @@ namespace ParticleMaker.Services
         /// <param name="data">The data to save in the file.</param>
         public void Save<T>(string path, T data) where T : class
         {
-            throw new NotImplementedException();
+            try
+            {
+                var fileData = JsonConvert.SerializeObject(data);
+
+                using (var file = File.CreateText(path))
+                {
+                    file.Write(fileData);
+                }
+            }
+            catch (Exception ex)
+            {
+                //TODO: Properly handle exceptions
+            }
         }
 
 

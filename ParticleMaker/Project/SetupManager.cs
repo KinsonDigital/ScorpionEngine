@@ -146,7 +146,7 @@ namespace ParticleMaker.Project
         public void Save(string projectName, string setupName, ParticleSetup setup)
         {
             var projPath = $@"{_rootProjectsPath}\{projectName}";
-            var setupPath = $@"{projPath}\{setupName}.json";
+            var setupPath = $@"{projPath}\Setups\{setupName}\{setupName}.json";
 
             if (ProjectExists(projectName))
             {
