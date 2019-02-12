@@ -8,14 +8,20 @@
     <Grid>
         <ContentPresenter Content="{Binding ElementName=this, Path=ButtonContent}"/>
 
-        <Rectangle Name="CoverRect" Fill="White" MouseUp="CoverRect_MouseUp">
+        <!--USED FOR SHOWING HOVER OVER EFFECT-->
+        <Rectangle Name="HoverRect" MouseUp="HoverRect_MouseUp">
             <Rectangle.Style>
                 <Style TargetType="Rectangle">
+                    <Setter Property="Fill" Value="White"/>
                     <Setter Property="Opacity" Value="0"/>
                     
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=CoverRect, Path=IsMouseOver}" Value="True">
+                        <DataTrigger Binding="{Binding ElementName=HoverRect, Path=IsMouseOver}" Value="True">
                             <Setter Property="Opacity" Value="0.35"/>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding ElementName=this, Path=IsEnabled}" Value="False">
+                            <Setter Property="Fill" Value="Transparent"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>

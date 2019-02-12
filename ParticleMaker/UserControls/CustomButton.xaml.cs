@@ -55,7 +55,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Invokes the <see cref="Click"/> event.
         /// </summary>
-        private void CoverRect_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void HoverRect_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             Click?.Invoke(this, e);
         }
