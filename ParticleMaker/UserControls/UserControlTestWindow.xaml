@@ -14,7 +14,6 @@
         </Grid.RowDefinitions>
 
         <StackPanel Margin="0, 100, 0, 0" Orientation="Vertical">
-
         </StackPanel>
 
         <Button Name="TestButton" Content="Run Test" Width="100" Height="30" Grid.Row="1" Click="TestButton_Click"/>

@@ -94,9 +94,6 @@
 
                         <DataTrigger Binding="{Binding ElementName=this, Path=ParticleFilePath}" Value="">
                             <Setter Property="Foreground" Value="Red"/>
-                        </DataTrigger>
-
-                        <DataTrigger Binding="{Binding ElementName=this, Path=ParticleFilePath}" Value="">
                             <Setter Property="Content" Value="Path Not Set"/>
                         </DataTrigger>
                     </Style.Triggers>
@@ -131,9 +128,6 @@
                     <Style.Triggers>
                         <Trigger Property="Border.IsMouseOver" Value="True">
                             <Setter Property="BorderBrush" Value="Green"/>
-                        </Trigger>
-
-                        <Trigger Property="Border.IsMouseOver" Value="True">
                             <Setter Property="Background" Value="{StaticResource MouseOverlayBrush}"/>
                         </Trigger>
 

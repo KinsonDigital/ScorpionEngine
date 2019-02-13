@@ -56,6 +56,8 @@ namespace ParticleMaker.UserControls.DesignData
         /// The label text data for the <see cref="NumericUpDown"/> control.
         /// </summary>
         public string LabelText { get; set; } = nameof(LabelText);
+
+        public SolidColorBrush ColorValue { get; set; }
         #endregion
     }
 }

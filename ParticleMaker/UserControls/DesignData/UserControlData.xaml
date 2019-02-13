@@ -28,4 +28,12 @@
             <userCtrls:PathItem FilePath="C:\temp\test-setup\particle-C.png"/>
         </x:Array>
     </local:UserControlData.Particles>
+
+    <local:UserControlData.ColorValue>
+        <SolidColorBrush>
+            <SolidColorBrush.Color>
+                <Color A="255" R="62" G="125" B="255"/>
+            </SolidColorBrush.Color>
+        </SolidColorBrush>
+    </local:UserControlData.ColorValue>
 </local:UserControlData>
