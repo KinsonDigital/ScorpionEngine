@@ -7,7 +7,7 @@
              mc:Ignorable="d" Background="White" MinWidth="150"
              Name="this">
 
-    <Border BorderThickness="1">
+    <!--<Border BorderThickness="1" Background="Transparent">-->
         <Grid d:DataContext="{d:DesignData Source=/UserControls/DesignData/UserControlData.xaml}"
               DataContext="{Binding ElementName=this}">
             <Grid.RowDefinitions>
@@ -43,5 +43,5 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
-    </Border>
+    <!--</Border>-->
 </UserControl>

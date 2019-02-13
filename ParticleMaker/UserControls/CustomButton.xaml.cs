@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace ParticleMaker.UserControls
 {
@@ -55,7 +56,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Invokes the <see cref="Click"/> event.
         /// </summary>
-        private void HoverRect_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void OverlayBorder_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Click?.Invoke(this, e);
         }

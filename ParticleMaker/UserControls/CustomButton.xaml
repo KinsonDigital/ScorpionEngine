@@ -23,7 +23,7 @@
     <Grid>
         <ContentPresenter Content="{Binding ElementName=this, Path=ButtonContent}"/>
         
-        <Border x:Name="OverlayBorder">
+        <Border x:Name="OverlayBorder" MouseUp="OverlayBorder_MouseUp">
             <Border.Style>
                 <Style TargetType="Border">
                     <Setter Property="Background" Value="Transparent"/>
@@ -39,37 +39,6 @@
                     </Style.Triggers>
                 </Style>
             </Border.Style>
-
-
-            <!--<ContentPresenter Content="{Binding ElementName=this, Path=ButtonContent}"/>-->
-    
-                <!--<Rectangle Name="MouseOverlay" MouseUp="HoverRect_MouseUp" Fill="White">
-                    <Rectangle.Style>
-                        <Style TargetType="Rectangle">
-                            <Setter Property="Opacity" Value="0"/>
-
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ElementName=HoverRect, Path=IsMouseOver}" Value="True">
-                                    <Setter Property="Opacity" Value="0.40"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Rectangle.Style>
-                </Rectangle>
-
-                <Rectangle Name="DisabledOverlay" MouseUp="HoverRect_MouseUp" Fill="White">
-                    <Rectangle.Style>
-                        <Style TargetType="Rectangle">
-                            <Setter Property="Opacity" Value="0"/>
-
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ElementName=this, Path=IsEnabled}" Value="False">
-                                    <Setter Property="Opacity" Value="0.55"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Rectangle.Style>
-                </Rectangle>-->
         </Border>
     </Grid>
 </UserControl>

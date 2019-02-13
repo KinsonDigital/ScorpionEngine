@@ -24,10 +24,5 @@ namespace ParticleMaker.UserControls
 
         }
         #endregion
-
-        private void TestListItem_RenameClicked(object sender, CustomEventArgs.RenameSetupItemEventArgs e)
-        {
-
-        }
     }
 }
