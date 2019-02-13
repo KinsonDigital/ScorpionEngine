@@ -208,7 +208,10 @@ namespace ParticleMaker.UserControls
             if (invalidValues != null && invalidValues.All(item => string.IsNullOrEmpty(item)))
                 invalidValues = null;
 
-            var inputDialog = new InputDialog("Add Setup", "Please type new setup name.", invalidChars: _illegalCharacters, invalidValues: invalidValues);
+            var inputDialog = new InputDialog("Add Setup", "Please type new setup name.", invalidChars: _illegalCharacters, invalidValues: invalidValues)
+            {
+                Owner = this.FindParent<Window>()
+            };
 
             var dialogResult = inputDialog.ShowDialog();
 

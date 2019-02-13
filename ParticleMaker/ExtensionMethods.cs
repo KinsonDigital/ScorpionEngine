@@ -104,6 +104,29 @@ namespace ParticleMaker
 
 
         /// <summary>
+        /// Returns the parent of this <see cref="DependencyObject"/> that matches the
+        /// given <see cref="DependencyObject"/> of type <typeparamref name="T"/>.
+        /// </summary>
+        /// <typeparam name="T">The parent type of <see cref="DependencyObject"/> to find.</typeparam>
+        /// <param name="child">The child that is contained/owned by the parent.</param>
+        /// <returns></returns>
+        public static T FindParent<T>(this DependencyObject child) where T : DependencyObject
+        {
+            //Get parent item
+            var parentObject = VisualTreeHelper.GetParent(child);
+
+            //Return if we have reached the end of the tree
+            if (parentObject == null) return null;
+
+            //Check if the parent matches the type we're looking for
+            if (parentObject is T parent)
+                return parent;
+            else
+                return FindParent<T>(parentObject);
+        }
+
+
+        /// <summary>
         /// Gets all of the visual children of the given type <typeparamref name="T"/>.
         /// </summary>
         /// <typeparam name="T">The type of children to retrieve.</typeparam>

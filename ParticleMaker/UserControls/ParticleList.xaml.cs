@@ -167,7 +167,10 @@ namespace ParticleMaker.UserControls
         {
             var illegalNames = (from item in Particles select Path.GetFileNameWithoutExtension(item.FilePath)).ToArray();
 
-            var inputDialog = new InputDialog("Rename particle", $"Rename the particle '{e.OldName}'.", e.OldName, _illegalCharacters, illegalNames);
+            var inputDialog = new InputDialog("Rename particle", $"Rename the particle '{e.OldName}'.", e.OldName, _illegalCharacters, illegalNames)
+            {
+                Owner = this.FindParent<Window>()
+            };
 
             inputDialog.ShowDialog();
 
@@ -218,6 +221,7 @@ namespace ParticleMaker.UserControls
 
             var inputDialog = new InputDialog("Add Particle", "Please type new particle name.", invalidChars: _illegalCharacters, invalidValues: invalidValues)
             {
+                Owner = this.FindParent<Window>(),
                 IgnoreInvalidValueCasing = true
             };
             

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using ParticleMaker.Dialogs;
+using System.Windows;
 
 namespace ParticleMaker.UserControls
 {
@@ -21,7 +22,12 @@ namespace ParticleMaker.UserControls
         #region Private Methods
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
+            var inputDialog = new InputDialog("Title", "Msg", "DefaultValue")
+            {
+                Owner = TestButton.FindParent<Window>()
+            };
 
+            inputDialog.ShowDialog();
         }
         #endregion
     }
