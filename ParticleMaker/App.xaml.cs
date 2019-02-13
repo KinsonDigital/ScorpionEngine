@@ -2,6 +2,7 @@
 using KDParticleEngine.Services;
 using ParticleMaker.Project;
 using ParticleMaker.Services;
+using ParticleMaker.UserControls;
 using ParticleMaker.ViewModels;
 using SimpleInjector;
 using System.Diagnostics.CodeAnalysis;
@@ -56,9 +57,14 @@ namespace ParticleMaker
         /// </summary>
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+#if USERCTRLTESTING
+            //This is used for testing out user controls during runtime for debugging purposes
+            var userCtrlTestWindow = new UserControlTestWindow();
+            userCtrlTestWindow.Show();
+#else
             var mainWindow = new MainWindow();
-
             mainWindow.Show();
+#endif
         }
         #endregion
     }

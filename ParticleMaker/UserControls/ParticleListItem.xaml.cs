@@ -52,7 +52,7 @@ namespace ParticleMaker.UserControls
         /// Registers the <see cref="ParticleFilePath"/> property.
         /// </summary>
         public static readonly DependencyProperty ParticleFilePathProperty =
-            DependencyProperty.Register(nameof(ParticleFilePath), typeof(string), typeof(ParticleListItem), new PropertyMetadata("", ParticlePathChanged));
+            DependencyProperty.Register(nameof(ParticleFilePath), typeof(string), typeof(ParticleListItem), new PropertyMetadata("", ParticleFilePathChanged));
 
         /// <summary>
         /// Registers the <see cref="HasError"/> property.
@@ -107,38 +107,25 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public void Refresh()
         {
-            if (DesignerProperties.GetIsInDesignMode(this) && File.Exists(ParticleFilePath))
-            { 
-                ParticleName = Path.GetFileNameWithoutExtension(ParticleFilePath);
-                HasError = false;
-            }
-            else
+            var fileExists = File.Exists(ParticleFilePath);
+
+            HasError = string.IsNullOrEmpty(ParticleFilePath) ? false : !fileExists;
+
+            if (fileExists)
             {
-                var fileExists = File.Exists(ParticleFilePath);
+                var thumbnailImage = new BitmapImage();
+                thumbnailImage.BeginInit();
 
-                ParticleName = string.IsNullOrEmpty(ParticleFilePath) ||
-                           !fileExists ?
-                           "" :
-                           ParticleName = Path.GetFileNameWithoutExtension(ParticleFilePath);
+                //This prevents the file from being locked by loading ALL
+                //of the image data into memory.  This prevents references to the image data
+                //from having to go to the file itself which means it doesn't mean it has
+                //to be locked.
+                thumbnailImage.CacheOption = BitmapCacheOption.OnLoad;
+                thumbnailImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                thumbnailImage.UriSource = new Uri(ParticleFilePath);
+                thumbnailImage.EndInit();
 
-                HasError = !fileExists;
-
-                if (fileExists)
-                {
-                    var thumbnailImage = new BitmapImage();
-                    thumbnailImage.BeginInit();
-
-                    //This prevents the file from being locked by loading ALL
-                    //of the image data into memory.  This prevents references to the image data
-                    //from having to go to the file itself which means it doesn't mean it has
-                    //to be locked.
-                    thumbnailImage.CacheOption = BitmapCacheOption.OnLoad;
-                    thumbnailImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                    thumbnailImage.UriSource = new Uri(ParticleFilePath);
-                    thumbnailImage.EndInit();
-
-                    ThumbnailImage.Source = thumbnailImage;
-                }
+                ThumbnailImage.Source = thumbnailImage;
             }
         }
         #endregion
@@ -234,7 +221,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Refreshes the user control.
         /// </summary>
-        private static void ParticlePathChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void ParticleFilePathChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ctrl = (ParticleListItem)d;
 

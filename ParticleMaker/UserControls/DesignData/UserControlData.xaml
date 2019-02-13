@@ -6,7 +6,8 @@
                        SetupPath="C:\temp\Projects\test-project\setup-a.json"
                        SetupName="test-setup"
                        ParticleName="test-particle"
-                       LabelText="Label Text">
+                       LabelText="Label Text"
+                       ParticleFilePath="">
     
     <local:UserControlData.ErrorBorderBrush>
         <SolidColorBrush Color="Red"/>

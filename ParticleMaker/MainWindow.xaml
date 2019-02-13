@@ -1,4 +1,4 @@
-<Window x:Class="ParticleMaker.MainWindow"
+﻿<Window x:Class="ParticleMaker.MainWindow"
         xmlns:ctrls="clr-namespace:ParticleMaker.UserControls"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -66,38 +66,38 @@
 
                 <!--RANDOM ANGULAR VELOCITY-->
                 <ctrls:RandomRange Title="Angular Velocity" MinTitle="Min" MaxTitle="Max" Grid.Row="0" Grid.Column="0" Margin="5"
-                               MinLowerLimit="0" MinUpperLimit="360" MaxLowerLimit="0" MaxUpperLimit="360"
-                               MinValue="{Binding AngularVelocityMin, Mode=TwoWay}" MaxValue="{Binding AngularVelocityMax, Mode=TwoWay}"/>
+                                   MinLowerLimit="0" MinUpperLimit="360" MaxLowerLimit="0" MaxUpperLimit="360"
+                                   MinValue="{Binding AngularVelocityMin, Mode=TwoWay}" MaxValue="{Binding AngularVelocityMax, Mode=TwoWay}"/>
 
                 <!--RANDOM PARTICLE LIFETIME (Upper limits set to 5 minutes)-->
                 <ctrls:RandomRange Title="Particle LifeTime (ms)" MinTitle="Min" MaxTitle="Max" Grid.Row="0" Grid.Column="1" Margin="5"
-                               MinLowerLimit="0" MinUpperLimit="300000" MaxLowerLimit="0" MaxUpperLimit="300000"
-                               MinValue="{Binding LifetimeMin, Mode=TwoWay}" MaxValue="{Binding LifetimeMax, Mode=TwoWay}"/>
+                                   MinLowerLimit="0" MinUpperLimit="300000" MaxLowerLimit="0" MaxUpperLimit="300000"
+                                   MinValue="{Binding LifetimeMin, Mode=TwoWay}" MaxValue="{Binding LifetimeMax, Mode=TwoWay}"/>
 
                 <!--RANDOM X VELOCITY-->
                 <ctrls:RandomRange Title="X Velocity" MinTitle="Min" MaxTitle="Max" Grid.Row="1" Grid.Column="0" Margin="5"
-                               MinLowerLimit="-1000" MinUpperLimit="1000" MaxLowerLimit="-1000" MaxUpperLimit="1000"
-                               MinValue="{Binding VelocityXMin, Mode=TwoWay}" MaxValue="{Binding VelocityXMax, Mode=TwoWay}"/>
+                                   MinLowerLimit="-1000" MinUpperLimit="1000" MaxLowerLimit="-1000" MaxUpperLimit="1000"
+                                   MinValue="{Binding VelocityXMin, Mode=TwoWay}" MaxValue="{Binding VelocityXMax, Mode=TwoWay}"/>
 
                 <!--RANDOM Y VELOCITY-->
                 <ctrls:RandomRange Title="Y Velocity" MinTitle="Min" MaxTitle="Max" Grid.Row="1" Grid.Column="1" Margin="5"
-                               MinLowerLimit="-1000" MinUpperLimit="1000" MaxLowerLimit="-1000" MaxUpperLimit="1000"
-                               MinValue="{Binding VelocityYMin, Mode=TwoWay}" MaxValue="{Binding VelocityYMax, Mode=TwoWay}"/>
+                                   MinLowerLimit="-1000" MinUpperLimit="1000" MaxLowerLimit="-1000" MaxUpperLimit="1000"
+                                   MinValue="{Binding VelocityYMin, Mode=TwoWay}" MaxValue="{Binding VelocityYMax, Mode=TwoWay}"/>
 
                 <!--SPAWN RATE-->
                 <ctrls:RandomRange Title="Spawn Rate (ms)" MinTitle="Min" MaxTitle="Max" Grid.Row="2" Grid.Column="0" Margin="5"
-                               MinLowerLimit="0" MinUpperLimit="300000" MaxLowerLimit="0" MaxUpperLimit="300000"
-                               MinValue="{Binding SpawnRateMin, Mode=TwoWay}" MaxValue="{Binding SpawnRateMax, Mode=TwoWay}"/>
+                                   MinLowerLimit="0" MinUpperLimit="300000" MaxLowerLimit="0" MaxUpperLimit="300000"
+                                   MinValue="{Binding SpawnRateMin, Mode=TwoWay}" MaxValue="{Binding SpawnRateMax, Mode=TwoWay}"/>
 
                 <!--RANDOM ANGLE-->
                 <ctrls:RandomRange Title="Random Angle" MinTitle="Min" MaxTitle="Max" Grid.Row="2" Grid.Column="1" Margin="5"
-                               MinLowerLimit="0" MinUpperLimit="360" MaxLowerLimit="0" MaxUpperLimit="360"
-                               MinValue="{Binding AngleMin, Mode=TwoWay}" MaxValue="{Binding AngleMax, Mode=TwoWay}"/>
+                                   MinLowerLimit="0" MinUpperLimit="360" MaxLowerLimit="0" MaxUpperLimit="360"
+                                   MinValue="{Binding AngleMin, Mode=TwoWay}" MaxValue="{Binding AngleMax, Mode=TwoWay}"/>
 
                 <!--RANDOM SIZE SETTINGS-->
                 <ctrls:RandomRange Title="Random Size" MinTitle="Min" MaxTitle="Max" Grid.Row="3" Grid.Column="0" Margin="5"
-                               MinLowerLimit="0.1" MinUpperLimit="2" MaxLowerLimit="0.1" MaxUpperLimit="2"
-                               MinValue="{Binding SizeMin, Mode=TwoWay}" MaxValue="{Binding SizeMax, Mode=TwoWay}"/>
+                                   MinLowerLimit="0.1" MinUpperLimit="2" MaxLowerLimit="0.1" MaxUpperLimit="2"
+                                   MinValue="{Binding SizeMin, Mode=TwoWay}" MaxValue="{Binding SizeMax, Mode=TwoWay}"/>
             </Grid>
         </StackPanel>
 

@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace ParticleMaker.UserControls.DesignData
@@ -44,6 +46,11 @@ namespace ParticleMaker.UserControls.DesignData
         /// Gets or sets the name of the particle.
         /// </summary>
         public string ParticleName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the file path to the particle for the design data of the ParticleListItem control.
+        /// </summary>
+        public string ParticleFilePath { get; set; }
 
         /// <summary>
         /// The label text data for the <see cref="NumericUpDown"/> control.
