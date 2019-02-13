@@ -141,9 +141,6 @@
     <Compile Include="UserControls\ParticleListItem.xaml.cs">
       <DependentUpon>ParticleListItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\RandomColorRanges.xaml.cs">
-      <DependentUpon>RandomColorRanges.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\RandomRange.xaml.cs">
       <DependentUpon>RandomRange.xaml</DependentUpon>
     </Compile>
@@ -218,10 +215,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ParticleListItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\RandomColorRanges.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
