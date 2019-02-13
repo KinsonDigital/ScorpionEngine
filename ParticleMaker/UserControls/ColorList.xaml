@@ -25,13 +25,14 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" Content="Add Color" HorizontalAlignment="Center" FontWeight="Bold"/>
 
         <!--ADD NEW COLOR BUTTON-->
-        <local:CustomButton x:Name="AddNewItemButton" Grid.Row="0" Grid.Column="1" Click="AddNewItemButton_Click">
+        <local:CustomButton x:Name="AddNewItemButton" Grid.Row="0" Grid.Column="1" Width="22" Height="22"
+                            Margin="5, 0, 11, 0" Click="AddNewItemButton_Click">
             <local:CustomButton.ButtonContent>
                 <Grid>
                     <Rectangle Width="5" Height="22" RadiusX="2" RadiusY="2" Style="{StaticResource EnabledStyle}"/>
@@ -43,8 +44,8 @@
         
         <!--LIST OF COLORS-->
         <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch"
-                 ItemsSource="{Binding Path=Colors, Mode=TwoWay}"
-                 d:DataContext="{d:DesignData Source=/DesignData/ColorListSampleData.xaml}">
+                 d:DataContext="{d:DesignData Source=/UserControls/DesignData/UserControlData.xaml}"
+                 ItemsSource="{Binding Path=Colors, Mode=TwoWay}">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

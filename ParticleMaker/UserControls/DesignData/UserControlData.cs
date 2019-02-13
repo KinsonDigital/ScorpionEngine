@@ -57,7 +57,12 @@ namespace ParticleMaker.UserControls.DesignData
         /// </summary>
         public string LabelText { get; set; } = nameof(LabelText);
 
+        /// <summary>
+        /// Gets or sets the color value.
+        /// </summary>
         public SolidColorBrush ColorValue { get; set; }
+
+        public ColorItem[] Colors { get; set; }
         #endregion
     }
 }
