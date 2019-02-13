@@ -15,7 +15,8 @@
         </Grid.RowDefinitions>
 
         <StackPanel Margin="0, 100, 0, 0" Orientation="Vertical">
-
+            <local:ColorMinMax HorizontalAlignment="Center" ChosenColorComponent="Blue"
+                               Min="100" Max="200" IsEnabled="True"/>
         </StackPanel>
 
         <Button Name="TestButton" Content="Run Test" Width="100" Height="30" Grid.Row="1" Click="TestButton_Click"/>
