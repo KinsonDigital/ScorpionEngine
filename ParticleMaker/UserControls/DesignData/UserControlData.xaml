@@ -7,7 +7,7 @@
                        SetupName="test-setup"
                        ParticleName="test-particle"
                        LabelText="Label Text"
-                       ParticleFilePath="">
+                       ParticleFilePath="C:\temp\test-particle.png">
     
     <local:UserControlData.ErrorBorderBrush>
         <SolidColorBrush Color="Red"/>

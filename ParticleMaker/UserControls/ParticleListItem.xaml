@@ -71,7 +71,8 @@
         </Label>
 
         <!--PARTICLE NAME-->
-        <Label x:Name="ParticleNameLabel" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+        <Label x:Name="ParticleNameLabel" d:DataContext="{d:DesignData Source=/UserControls/DesignData/UserControlData.xaml}"
+               Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Stretch">
             <Label.Style>
                 <Style TargetType="Label">
                     <Setter Property="Foreground" Value="Black"/>
@@ -83,6 +84,10 @@
                     </Setter>
                     
                     <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=this, Path=IsEnabled}" Value="False">
+                            <Setter Property="Foreground" Value="LightGray"/>
+                        </DataTrigger>
+                        
                         <DataTrigger Binding="{Binding ElementName=this, Path=HasError}" Value="True">
                             <Setter Property="Visibility" Value="Hidden"/>
                         </DataTrigger>

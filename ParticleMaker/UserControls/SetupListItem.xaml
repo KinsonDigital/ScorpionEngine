@@ -56,14 +56,19 @@
                 <!--SETUP NAME-->
                 <Border x:Name="ItemBorder" Background="Transparent" MouseUp="ItemBorder_MouseUp" BorderBrush="Transparent" BorderThickness="0"
                         Grid.Column="0">
-                    <Label Content="{Binding Path=SetupName}" Foreground="Black" VerticalContentAlignment="Center" HorizontalAlignment="Center">
+                    <Label Content="{Binding Path=SetupName}" VerticalContentAlignment="Center" HorizontalAlignment="Center">
                         <Label.Style>
                             <Style TargetType="Label">
                                 <Setter Property="Visibility" Value="Visible"/>
+                                <Setter Property="Foreground" Value="Black"/>
                             
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding ElementName=this, Path=HasError}" Value="True">
                                         <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ElementName=this, Path=IsEnabled}" Value="False">
+                                        <Setter Property="Foreground" Value="LightGray"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
