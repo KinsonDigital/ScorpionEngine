@@ -155,6 +155,7 @@
     <Compile Include="UserControls\UserControlTestWindow.xaml.cs">
       <DependentUpon>UserControlTestWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ValueConverters\StringToBoolConverter.cs" />
     <Compile Include="UserControls\ValueConverters\PathToNameConverter.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />

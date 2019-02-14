@@ -40,6 +40,7 @@ namespace ParticleMaker.ViewModels
         private RelayCommand _pauseCommand;
         private RelayCommand _playCommand;
         private RelayCommand _saveSetupCommand;
+        private string _currentOpenProject;
         #endregion
 
 
@@ -448,7 +449,16 @@ namespace ParticleMaker.ViewModels
         /// <summary>
         /// Gets or sets the name of the currently open project.
         /// </summary>
-        public string CurrentOpenProject { get; set; }
+        public string CurrentOpenProject
+        {
+            get => _currentOpenProject;
+            set
+            {
+                _currentOpenProject = value;
+
+                NotifyPropChange();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the currently loaded setup.

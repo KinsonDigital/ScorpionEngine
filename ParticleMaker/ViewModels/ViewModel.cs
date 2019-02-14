@@ -16,7 +16,7 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         /// <param name="propName"></param>
         [ExcludeFromCodeCoverage]
-        protected void NotifyPropChange([CallerMemberName]string propName = "")
+        public void NotifyPropChange([CallerMemberName]string propName = "")
         {
             if (!string.IsNullOrEmpty(propName))
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
@@ -29,7 +29,7 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         /// <param name="propNames">The list of property names of the properties to notify a change on.</param>
         [ExcludeFromCodeCoverage]
-        protected void NotifyAllPropChanges(string[] propNames)
+        public void NotifyAllPropChanges(string[] propNames)
         {
             foreach (var name in propNames)
             {

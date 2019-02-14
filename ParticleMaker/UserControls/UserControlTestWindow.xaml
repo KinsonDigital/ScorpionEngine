@@ -5,16 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ParticleMaker.UserControls"
         xmlns:root="clr-namespace:ParticleMaker"
+        xmlns:converters="clr-namespace:ParticleMaker.UserControls.ValueConverters"
         mc:Ignorable="d" Name="this"
         Title="UserControlTestWindow" Height="450" Width="450" Background="CornflowerBlue" Topmost="True" WindowStartupLocation="CenterScreen">
 
+    <Window.Resources>
+        <converters:StringToBoolConverter x:Key="StringToBoolConverter"/>
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <StackPanel Margin="0, 100, 0, 0" Orientation="Vertical"/>
+        <StackPanel Margin="0, 100, 0, 0" Orientation="Vertical">
+        </StackPanel>
+
 
         <Button Name="TestButton" Content="Run Test" Width="100" Height="30" Grid.Row="1" Click="TestButton_Click"/>
     </Grid>

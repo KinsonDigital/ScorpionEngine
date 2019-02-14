@@ -5,9 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ParticleMaker.UserControls"
              xmlns:convtrs="clr-namespace:ParticleMaker.UserControls.ValueConverters"
-             mc:Ignorable="d" Name="this" BorderThickness="1" IsEnabled="True">
+             mc:Ignorable="d" Name="this" BorderThickness="1">
 
     <UserControl.Resources>
+        <convtrs:StringToBoolConverter x:Key="StringToBoolConverter"/>
+
         <!--OVERLAY SHOWN OVER THUMBNAIL WHEN MOUSE IS OVER THE THUMBNAIL-->
         <SolidColorBrush x:Key="MouseOverlayBrush">
             <SolidColorBrush.Color>
@@ -24,23 +26,13 @@
 
         <!--CONVERTS A FILE PATH TO JUST THE FILE NAME WITHOUT THE EXTENSION-->
         <convtrs:PathToNameConverter x:Key="PathToName"/>
-        
+
         <Style x:Key="NoErrorStyle" TargetType="FrameworkElement">
             <Setter Property="Visibility" Value="Visible"/>
 
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=this, Path=HasError}" Value="True">
                     <Setter Property="Visibility" Value="Hidden"/>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="HasErrorStyle" TargetType="FrameworkElement">
-            <Setter Property="Visibility" Value="Hidden"/>
-
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding ElementName=this, Path=HasError}" Value="True">
-                    <Setter Property="Visibility" Value="Visible"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -67,7 +59,18 @@
         
         <!--ERROR LABEL-->
         <Label Content="ERROR!!" FontWeight="Bold" Foreground="Red" Grid.Column="0" Grid.ColumnSpan="3"
-               HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource HasErrorStyle}">
+               HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label.Style>
+                <Style TargetType="Label">
+                    <Setter Property="Visibility" Value="Hidden"/>
+
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=this, Path=HasError}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
         </Label>
 
         <!--PARTICLE NAME-->
@@ -106,12 +109,18 @@
             <Image.Style>
                 <Style TargetType="Image">
                     <Setter Property="Visibility" Value="Visible"/>
-                    
+
                     <Style.Triggers>
+                        <!--HIDE IF THERE IS AN ERROR-->                       
+                        <DataTrigger Binding="{Binding ElementName=this, Path=HasError}" Value="True">
+                            <Setter Property="Visibility" Value="Hidden"/>
+                        </DataTrigger>
+                        
                         <!--HIDE IF PARTICLEFILEPATH PROP IS EMPTY-->
                         <DataTrigger Binding="{Binding ElementName=this, Path=ParticleFilePath}" Value="">
                             <Setter Property="Visibility" Value="Hidden"/>
                         </DataTrigger>
+
                     </Style.Triggers>
                 </Style>
             </Image.Style>
@@ -131,9 +140,14 @@
                             <Setter Property="Background" Value="{StaticResource MouseOverlayBrush}"/>
                         </Trigger>
 
-                        <DataTrigger Binding="{Binding ElementName=this, Path=IsEnabled}" Value="False">
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=this, Path=HasError}" Value="False"/>
+                                <Condition Binding="{Binding ElementName=this, Path=IsEnabled}" Value="False"/>
+                            </MultiDataTrigger.Conditions>
+
                             <Setter Property="Background" Value="{StaticResource DisabledOverlayBrush}"/>
-                        </DataTrigger>
+                        </MultiDataTrigger>
                     </Style.Triggers>
                 </Style>
             </Border.Style>

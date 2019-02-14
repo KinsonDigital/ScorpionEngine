@@ -6,11 +6,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         xmlns:vm="clr-namespace:ParticleMaker.ViewModels"
+        xmlns:converters="clr-namespace:ParticleMaker.UserControls.ValueConverters"
         mc:Ignorable="d" Title="{Binding Path=WindowTitle}"
         Name="this" WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignData Source=/DesignData/MainWindowData.xaml}"
         SizeToContent="WidthAndHeight">
 
+    <Window.Resources>
+        <converters:StringToBoolConverter x:Key="StringToBoolConverter"/>
+    </Window.Resources>
+    
     <Grid d:DataContext="{d:DesignInstance Type=vm:MainViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/><!--MENU ROW-->
@@ -40,14 +45,17 @@
         <StackPanel Orientation="Vertical" Visibility="Visible" Margin="10" Grid.Row="1" Grid.Column="0">
             <!--PROJECT SETUP LIST-->
             <ctrls:SetupList x:Name="MySetupList" Margin="10" Setups="{Binding Path=ProjectSetups}"
+                             IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
                              ItemSelectedCommand="{Binding Path=SetupItemSelected}"
                              AddItemCommand="{Binding Path=AddSetup}"/>
 
             <!--PARTICLE LIST-->
-            <ctrls:ParticleList x:Name="ParticleList"  d:DataContext="{d:DesignData Source=/DesignData/MainWindowData.xaml}"
+            <ctrls:ParticleList x:Name="ParticleList"
+                                IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
                                 Margin="10" Particles="{Binding Path=Particles, Mode=TwoWay}"/>
 
             <ctrls:NumericUpDown LabelText="Total Particles" Min="0" Max="100000" Value="{Binding TotalParticles, Mode=TwoWay}"
+                                 IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
                                  HorizontalAlignment="Stretch" Margin="10"/>
 
             <!--RANDOMIZATION SETTINGS-->
@@ -67,36 +75,43 @@
                 <!--RANDOM ANGULAR VELOCITY-->
                 <ctrls:RandomRange Title="Angular Velocity" MinTitle="Min" MaxTitle="Max" Grid.Row="0" Grid.Column="0" Margin="5"
                                    MinLowerLimit="0" MinUpperLimit="360" MaxLowerLimit="0" MaxUpperLimit="360"
+                                   IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
                                    MinValue="{Binding AngularVelocityMin, Mode=TwoWay}" MaxValue="{Binding AngularVelocityMax, Mode=TwoWay}"/>
 
                 <!--RANDOM PARTICLE LIFETIME (Upper limits set to 5 minutes)-->
                 <ctrls:RandomRange Title="Particle LifeTime (ms)" MinTitle="Min" MaxTitle="Max" Grid.Row="0" Grid.Column="1" Margin="5"
                                    MinLowerLimit="0" MinUpperLimit="300000" MaxLowerLimit="0" MaxUpperLimit="300000"
+                                   IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
                                    MinValue="{Binding LifetimeMin, Mode=TwoWay}" MaxValue="{Binding LifetimeMax, Mode=TwoWay}"/>
 
                 <!--RANDOM X VELOCITY-->
                 <ctrls:RandomRange Title="X Velocity" MinTitle="Min" MaxTitle="Max" Grid.Row="1" Grid.Column="0" Margin="5"
                                    MinLowerLimit="-1000" MinUpperLimit="1000" MaxLowerLimit="-1000" MaxUpperLimit="1000"
+                                   IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
                                    MinValue="{Binding VelocityXMin, Mode=TwoWay}" MaxValue="{Binding VelocityXMax, Mode=TwoWay}"/>
 
                 <!--RANDOM Y VELOCITY-->
                 <ctrls:RandomRange Title="Y Velocity" MinTitle="Min" MaxTitle="Max" Grid.Row="1" Grid.Column="1" Margin="5"
                                    MinLowerLimit="-1000" MinUpperLimit="1000" MaxLowerLimit="-1000" MaxUpperLimit="1000"
+                                   IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
                                    MinValue="{Binding VelocityYMin, Mode=TwoWay}" MaxValue="{Binding VelocityYMax, Mode=TwoWay}"/>
 
                 <!--SPAWN RATE-->
                 <ctrls:RandomRange Title="Spawn Rate (ms)" MinTitle="Min" MaxTitle="Max" Grid.Row="2" Grid.Column="0" Margin="5"
                                    MinLowerLimit="0" MinUpperLimit="300000" MaxLowerLimit="0" MaxUpperLimit="300000"
+                                   IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
                                    MinValue="{Binding SpawnRateMin, Mode=TwoWay}" MaxValue="{Binding SpawnRateMax, Mode=TwoWay}"/>
 
                 <!--RANDOM ANGLE-->
                 <ctrls:RandomRange Title="Random Angle" MinTitle="Min" MaxTitle="Max" Grid.Row="2" Grid.Column="1" Margin="5"
                                    MinLowerLimit="0" MinUpperLimit="360" MaxLowerLimit="0" MaxUpperLimit="360"
+                                   IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
                                    MinValue="{Binding AngleMin, Mode=TwoWay}" MaxValue="{Binding AngleMax, Mode=TwoWay}"/>
 
                 <!--RANDOM SIZE SETTINGS-->
                 <ctrls:RandomRange Title="Random Size" MinTitle="Min" MaxTitle="Max" Grid.Row="3" Grid.Column="0" Margin="5"
                                    MinLowerLimit="0.1" MinUpperLimit="2" MaxLowerLimit="0.1" MaxUpperLimit="2"
+                                   IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
                                    MinValue="{Binding SizeMin, Mode=TwoWay}" MaxValue="{Binding SizeMax, Mode=TwoWay}"/>
             </Grid>
         </StackPanel>
@@ -146,8 +161,10 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Orientation="Vertical" Grid.Row="0">
-                    <RadioButton Name="RandomColorComponentsRadioButton" Content="Random Color Components" IsChecked="True"/>
-                    <RadioButton Content="Random Color List" IsChecked="{Binding UseColorsFromList}"/>
+                    <RadioButton Name="RandomColorComponentsRadioButton" Content="Random Color Components" IsChecked="True"
+                                 IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"/>
+                    <RadioButton Content="Random Color List" IsChecked="{Binding UseColorsFromList}"
+                                 IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"/>
                 </StackPanel>
 
                 <!--RANDOM COLOR COMPONENT SETTINGS-->
@@ -179,23 +196,27 @@
 
                     <!--RED MIN/MAX-->
                     <ctrls:ColorMinMax MaxLabel="Red Max" MinLabel="Red Min" Width="165" Grid.Row="1" Grid.Column="0"
+                                       IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
                                        Min="{Binding Path=RedMin, Mode=TwoWay}" Max="{Binding Path=RedMax, Mode=TwoWay}"
                                        ChosenColorComponent="Red" HorizontalAlignment="Center"/>
 
                     <!--GREEN MIN/MAX-->
                     <ctrls:ColorMinMax MaxLabel="Green Max" MinLabel="Green Min" Width="165" Grid.Row="1" Grid.Column="1"
+                                       IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
                                        Min="{Binding Path=GreenMin, Mode=TwoWay}" Max="{Binding Path=GreenMax, Mode=TwoWay}"
                                        ChosenColorComponent="Green" HorizontalAlignment="Center"/>
 
                     <!--BLUE MIN/MAX-->
                     <ctrls:ColorMinMax MaxLabel="Blue Max" MinLabel="Blue Min" Width="165" Grid.Row="1" Grid.Column="2"
-                                        Min="{Binding Path=BlueMin, Mode=TwoWay}" Max="{Binding Path=BlueMax, Mode=TwoWay}"
-                                        ChosenColorComponent="Blue" HorizontalAlignment="Center"/>
+                                       IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
+                                       Min="{Binding Path=BlueMin, Mode=TwoWay}" Max="{Binding Path=BlueMax, Mode=TwoWay}"
+                                       ChosenColorComponent="Blue" HorizontalAlignment="Center"/>
                 </Grid>
 
                 <!--THE LIST OF COLORS TO RANDOMLY CHOOSE FROM-->
                 <ctrls:ColorList d:DataContext="{d:DesignData Source=/DesignData/MainWindowData.xaml}"
-                             Grid.Row="1" Grid.RowSpan="2" Colors="{Binding Colors, Mode=TwoWay}" HorizontalAlignment="Left">
+                                 IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
+                                 Grid.Row="1" Grid.RowSpan="2" Colors="{Binding Colors, Mode=TwoWay}" HorizontalAlignment="Left">
                     <ctrls:ColorList.Style>
                         <Style TargetType="ctrls:ColorList">
                             <Setter Property="Visibility" Value="Visible"/>

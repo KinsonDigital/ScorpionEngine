@@ -4,10 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ParticleMaker.UserControls"
-             mc:Ignorable="d" Background="White" MinWidth="150"
-             Name="this">
+             mc:Ignorable="d" Background="White" MinWidth="150" Name="this">
 
-    <!--<Border BorderThickness="1" Background="Transparent">-->
+    <Border BorderThickness="1" Background="Transparent">
         <Grid d:DataContext="{d:DesignData Source=/UserControls/DesignData/UserControlData.xaml}"
               DataContext="{Binding ElementName=this}">
             <Grid.RowDefinitions>
@@ -43,5 +42,5 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
-    <!--</Border>-->
+    </Border>
 </UserControl>
