@@ -38,6 +38,12 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public static readonly DependencyProperty ButtonContentProperty =
             DependencyProperty.Register(nameof(ButtonContent), typeof(FrameworkElement), typeof(CustomButton), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Registers the <see cref="ClickCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty ClickCommandProperty =
+            DependencyProperty.Register(nameof(ClickCommand), typeof(ICommand), typeof(CustomButton), new PropertyMetadata(null));
         #endregion
 
 
@@ -49,6 +55,15 @@ namespace ParticleMaker.UserControls
             get { return (FrameworkElement)GetValue(ButtonContentProperty); }
             set { SetValue(ButtonContentProperty, value); }
         }
+
+        /// <summary>
+        /// Gets or sets the command that is executed when the <see cref="CustomButton"/> has been clicked.
+        /// </summary>
+        public ICommand ClickCommand
+        {
+            get { return (ICommand)GetValue(ClickCommandProperty); }
+            set { SetValue(ClickCommandProperty, value); }
+        }
         #endregion
 
 
@@ -58,7 +73,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void OverlayBorder_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            Click?.Invoke(this, e);
+            Click?.Invoke(this, new EventArgs());
+            ClickCommand?.Execute(sender);
         }
         #endregion
     }

@@ -1,5 +1,6 @@
 ﻿using ParticleMaker.CustomEventArgs;
 using ParticleMaker.Dialogs;
+using ParticleMaker.Exceptions;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -18,19 +19,6 @@ namespace ParticleMaker.UserControls
     [ExcludeFromCodeCoverage]
     public partial class SetupList : UserControl, IDisposable
     {
-        #region Public Events
-        /// <summary>
-        /// Occurs when any item in the list has been renamed.
-        /// </summary>
-        public event EventHandler<RenameSetupItemEventArgs> ItemRenamed;
-
-        /// <summary>
-        /// Occurs when any item in the list has been deleted.
-        /// </summary>
-        public event EventHandler<SetupItemEventArgs> ItemDeleted;
-        #endregion
-
-
         #region Fields
         private char[] _illegalCharacters = new[] { '\\', '/', ':', '*', '?', '\"', '<', '>', '|', '.' };
         private Task _refreshTask;
@@ -51,6 +39,8 @@ namespace ParticleMaker.UserControls
             _refreshTask = new Task(RefreshAction, _refreshTaskTokenSrc.Token);
 
             _refreshTask.Start();
+
+            Refresh();
         }
         #endregion
 
@@ -74,6 +64,24 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public static readonly DependencyProperty AddItemCommandProperty =
             DependencyProperty.Register(nameof(AddItemCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Registers the <see cref="ItemRenamedCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty ItemRenamedCommandProperty =
+            DependencyProperty.Register(nameof(ItemRenamedCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Registers the <see cref="ItemDeletedCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty ItemDeletedCommandProperty =
+            DependencyProperty.Register(nameof(ItemDeletedCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Registers the <see cref="ItemSavedCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty ItemSavedCommandProperty =
+            DependencyProperty.Register(nameof(ItemSavedCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
         #endregion
 
 
@@ -89,7 +97,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Gets the selected setup.
         /// </summary>
-        public PathItem SelectedSetup { get; private set; }
+        public PathItem SelectedItem { get; private set; }
 
         /// <summary>
         /// Gets or sets the command to be executed when a list item has been selected.
@@ -101,12 +109,39 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
-        /// Gets or sets the command to be executed when the add item button has been clicked.
+        /// Gets or sets the command to be executed when a list item add button has been clicked.
         /// </summary>
         public ICommand AddItemCommand
         {
             get { return (ICommand)GetValue(AddItemCommandProperty); }
             set { SetValue(AddItemCommandProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the command that is executed when a list item rename button has been clicked.
+        /// </summary>
+        public ICommand ItemRenamedCommand
+        {
+            get { return (ICommand)GetValue(ItemRenamedCommandProperty); }
+            set { SetValue(ItemRenamedCommandProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the command to be executed when a list item delete button has been clicked.
+        /// </summary>
+        public ICommand ItemDeletedCommand
+        {
+            get { return (ICommand)GetValue(ItemDeletedCommandProperty); }
+            set { SetValue(ItemDeletedCommandProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the command to be executed when a list item save button has been clicked.
+        /// </summary>
+        public ICommand ItemSavedCommand
+        {
+            get { return (ICommand)GetValue(ItemSavedCommandProperty); }
+            set { SetValue(ItemSavedCommandProperty, value); }
         }
         #endregion
 
@@ -127,36 +162,6 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Finds the item that matches the given <paramref name="oldPath"/> and replaces it with
-        /// the given <paramref name="newPath"/>.
-        /// </summary>
-        /// <param name="oldPath">The old path.</param>
-        /// <param name="newPath">The new path.</param>
-        public void UpdateItemPath(string oldPath, string newPath)
-        {
-            var updatedSetupList = (from p in Setups
-                                    where p.FilePath != oldPath
-                                    select p).ToList();
-
-            updatedSetupList.Add(new PathItem() { FilePath = newPath });
-
-            Setups = updatedSetupList.ToArray();
-        }
-
-
-        /// <summary>
-        /// Removes the item from the list that matches the given <paramref name="name"/>.
-        /// </summary>
-        /// <param name="name">The name of the item to remove.</param>
-        public void RemoveItem(string name)
-        {
-            Setups = (from p in Setups
-                      where Path.GetFileNameWithoutExtension(p.FilePath) != name
-                      select p).ToArray();
-        }
-
-
-        /// <summary>
         /// Refreshes the UI.
         /// </summary>
         /// <param name="ctrl">The control to apply the refresh to.</param>
@@ -171,7 +176,7 @@ namespace ParticleMaker.UserControls
                 item.Refresh();
 
                 if (item.Command == null)
-                    item.Command = new RelayCommand(ListItemCommandExecuteAction, (param) => true);
+                    item.Command = new RelayCommand((param) => ItemSelectedCommand?.Execute(param), (param) => true);
             }
         }
 
@@ -183,7 +188,7 @@ namespace ParticleMaker.UserControls
         {
             _refreshTaskTokenSrc.Cancel();
 
-            UnsubscribeEvents();
+            DestroyCommands();
         }
         #endregion
 
@@ -225,43 +230,6 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Invokes the <see cref="ItemRenamed"/> event.
-        /// </summary>
-        private void ListBoxItems_RenameClicked(object sender, RenameSetupItemEventArgs e)
-        {
-            var illegalNames = (from item in Setups select Path.GetFileNameWithoutExtension(item.FilePath)).ToArray();
-
-            var inputDialog = new InputDialog("Rename particle", $"Rename the particle '{e.OldName}'.", e.OldName, _illegalCharacters, illegalNames);
-
-            inputDialog.ShowDialog();
-
-            if (inputDialog.DialogResult == true)
-            {
-                e.NewName = inputDialog.InputValue;
-                e.NewPath = $@"{Path.GetDirectoryName(e.OldPath)}\{inputDialog.InputValue}{Path.GetExtension(e.OldPath)}";
-
-                ItemRenamed?.Invoke(this, e);
-            }
-        }
-
-
-        /// <summary>
-        /// Invokes the <see cref="ItemDeleted"/> event.
-        /// </summary>
-        private void ListBoxItems_DeleteClicked(object sender, SetupItemEventArgs e)
-        {
-            var msg = $"Are you sure you want to delete the setup {e.Name}?";
-
-            var dialogResult = MessageBox.Show(msg, "Delete Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (dialogResult == MessageBoxResult.Yes)
-            {
-                ItemDeleted?.Invoke(this, e);
-            }
-        }
-
-
-        /// <summary>
         /// Refreshes the list when the list of setup items change.
         /// </summary>
         private static void SetupsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -280,23 +248,10 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void SetupListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selectedItem = SetupListBox.SelectedItem as PathItem;
-
-            if (selectedItem == null)
+            if (!(SetupListBox.SelectedItem is PathItem selectedItem))
                 return;
 
-            SelectedSetup = selectedItem;
-        }
-
-
-        /// <summary>
-        /// Returns true if the given path exists.
-        /// </summary>
-        /// <param name="path">The path to check for.</param>
-        /// <returns></returns>
-        private static bool ProjectPathExists(string path)
-        {
-            return Directory.Exists(path);
+            SelectedItem = selectedItem;
         }
 
 
@@ -318,55 +273,105 @@ namespace ParticleMaker.UserControls
                 Dispatcher.Invoke(() =>
                 {
                     Refresh();
-                    SubscribeEvents();
+                    SetupCommands();
                 });
             }
         }
 
 
         /// <summary>
-        /// The action method to be invoked when a list item command has 
-        /// been executed.
+        /// Sets up all of the commands for the list items.
         /// </summary>
-        /// <param name="param">The data to pass to the <see cref="SetupList"/> command.</param>
-        private void ListItemCommandExecuteAction(object param)
-        {
-            ItemSelectedCommand?.Execute(param);
-        }
-
-
-        /// <summary>
-        /// Subscribes to all of the events.
-        /// </summary>
-        private void SubscribeEvents()
+        private void SetupCommands()
         {
             var listItems = SetupListBox.FindVisualChildren<SetupListItem>().ToArray();
 
-            //Subsribe all of the events
             foreach (var item in listItems)
             {
-                if (!item.IsRenameSubscribed)
-                {
-                    item.SubscribeRenameClicked(ListBoxItems_RenameClicked);
-                    item.SubscribeDeleteClicked(ListBoxItems_DeleteClicked);
-                }
+                if (item.RenameClickedCommand == null)
+                    item.RenameClickedCommand = new RelayCommand(RenameCommandAction, (param) => true);
+
+                if (item.DeleteClickedCommand == null)
+                    item.DeleteClickedCommand = new RelayCommand(DeleteCommandAction, (param) => true);
+
+                if (item.SaveClickedCommand == null)
+                    item.SaveClickedCommand = new RelayCommand(SaveCommandAction, (param) => true);
             }
         }
 
 
         /// <summary>
-        /// Unsubscribes to all of the events.
+        /// Destroys all of the list item commands.
         /// </summary>
-        private void UnsubscribeEvents()
+        private void DestroyCommands()
         {
             var listItems = SetupListBox.FindVisualChildren<SetupListItem>().ToArray();
 
-            //Unsubsribe all of the events
             foreach (var item in listItems)
             {
-                item.UnsubscribeRenameClicked(ListBoxItems_RenameClicked);
-                item.UnsubscribeDeleteClicked(ListBoxItems_DeleteClicked);
+                item.RenameClickedCommand = null;
+                item.DeleteClickedCommand = null;
+                item.SaveClickedCommand = null;
             }
+        }
+
+
+        /// <summary>
+        /// The method to execute when a list item rename button has been clicked.
+        /// </summary>
+        /// <param name="param">The rename related data.</param>
+        private void RenameCommandAction(object param)
+        {
+            if (!(param is RenameItemEventArgs eventArgs))
+                throw new InvalidCommandActionParamTypeException(nameof(RenameCommandAction), nameof(param));
+
+            var illegalNames = (from setup in Setups select Path.GetFileNameWithoutExtension(setup.FilePath)).ToArray();
+
+            var inputDialog = new InputDialog("Rename setup", $"Rename the setup '{eventArgs.OldName}'.", eventArgs.OldName, _illegalCharacters, illegalNames)
+            {
+                Owner = this.FindParent<Window>()
+            };
+
+            inputDialog.ShowDialog();
+
+            if (inputDialog.DialogResult == true)
+            {
+                eventArgs.NewName = inputDialog.InputValue;
+                eventArgs.NewPath = $@"{Path.GetDirectoryName(eventArgs.OldPath)}\{inputDialog.InputValue}{Path.GetExtension(eventArgs.OldPath)}";
+
+                ItemRenamedCommand?.Execute(param);
+            }
+        }
+
+
+        /// <summary>
+        /// The method to execute when a list item delete button has been clicked.
+        /// </summary>
+        /// <param name="param">The setup item related data.</param>
+        private void DeleteCommandAction(object param)
+        {
+            if (!(param is ItemEventArgs eventArgs))
+                throw new InvalidCommandActionParamTypeException(nameof(DeleteCommandAction), nameof(param));
+
+            var msg = $"Are you sure you want to delete the setup named '{eventArgs.Name}'?";
+
+            var dialogResult = MessageBox.Show(msg, "Delete Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (dialogResult == MessageBoxResult.Yes)
+                ItemDeletedCommand?.Execute(eventArgs);
+        }
+
+
+        /// <summary>
+        /// The method to execute when a list item save button has been clicked.
+        /// </summary>
+        /// <param name="param">The setup item related data.</param>
+        private void SaveCommandAction(object param)
+        {
+            if (!(param is ItemEventArgs eventArgs))
+                throw new InvalidCommandActionParamTypeException(nameof(SaveCommandAction), nameof(param));
+
+            ItemSavedCommand?.Execute(eventArgs);
         }
         #endregion
     }

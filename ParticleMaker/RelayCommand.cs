@@ -30,6 +30,7 @@ namespace ParticleMaker
             //This is here to satisfy a paramaterless constructor for design time data in xaml files.
         }
 
+
         /// <summary>
         /// Creates a new instance of <see cref="RelayCommand"/>
         /// </summary>

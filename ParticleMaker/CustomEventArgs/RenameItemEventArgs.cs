@@ -3,15 +3,15 @@
     /// <summary>
     /// Holds information about the event of renaming an item.
     /// </summary>
-    public class RenameSetupItemEventArgs
+    public class RenameItemEventArgs
     {
         #region Constructors
         /// <summary>
-        /// Create a new instance of <see cref="RenameSetupItemEventArgs"/>.
+        /// Create a new instance of <see cref="RenameItemEventArgs"/>.
         /// </summary>
         /// <param name="oldName">The name of the item being renamed.</param>
         /// <param name="oldPath">The path to the item.</param>
-        public RenameSetupItemEventArgs(string oldName, string oldPath)
+        public RenameItemEventArgs(string oldName, string oldPath)
         {
             OldName = oldName;
             OldPath = oldPath;

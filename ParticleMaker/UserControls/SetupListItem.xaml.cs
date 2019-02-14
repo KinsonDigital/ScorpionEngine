@@ -13,23 +13,28 @@ namespace ParticleMaker.UserControls
     /// Interaction logic for SetupListItem.xaml
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public partial class SetupListItem : UserControl
+    public partial class SetupListItem : UserControl, IDisposable
     {
         #region Public Events
         /// <summary>
         /// Invoked when the rename button has been clicked.
         /// </summary>
-        public event EventHandler<RenameSetupItemEventArgs> RenameClicked;
+        public event EventHandler<RenameItemEventArgs> RenameClicked;
 
         /// <summary>
         /// Invoked when the delete button is clicked.
         /// </summary>
-        public event EventHandler<SetupItemEventArgs> DeleteClicked;
+        public event EventHandler<ItemEventArgs> DeleteClicked;
 
         /// <summary>
         /// Invoked when the save button is clicked.
         /// </summary>
-        public event EventHandler<SetupItemEventArgs> SaveClicked;
+        public event EventHandler<ItemEventArgs> SaveClicked;
+        #endregion
+
+
+        #region Fields
+        private RelayCommand _renameClickedCommand;
         #endregion
 
 
@@ -69,6 +74,24 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public static readonly DependencyProperty CommandProperty =
             DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(SetupListItem), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Registers the <see cref="RenameClickedCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty RenameClickedCommandProperty =
+            DependencyProperty.Register(nameof(RenameClickedCommand), typeof(ICommand), typeof(SetupListItem), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Registers the <see cref="DeleteClickedCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty DeleteClickedCommandProperty =
+            DependencyProperty.Register(nameof(DeleteClickedCommand), typeof(ICommand), typeof(SetupListItem), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Registers the <see cref="SaveClickedCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty SaveClickedCommandProperty =
+            DependencyProperty.Register(nameof(SaveClickedCommand), typeof(ICommand), typeof(SetupListItem), new PropertyMetadata(null));
         #endregion
 
 
@@ -101,22 +124,39 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
-        /// Gets or sets a value indicating if the rename event has been subscribed to.
-        /// </summary>
-        internal bool IsRenameSubscribed { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating if the delete event has been subscribed to.
-        /// </summary>
-        internal bool IsDeleteSubscribed { get; set; }
-
-        /// <summary>
         /// Gets or sets the command to be executed when the <see cref="SetupListItem"/> has been clicked.
         /// </summary>
         public ICommand Command
         {
             get { return (ICommand)GetValue(CommandProperty); }
             set { SetValue(CommandProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the command that is executed when the rename button has been clicked.
+        /// </summary>
+        public ICommand RenameClickedCommand
+        {
+            get { return (ICommand)GetValue(RenameClickedCommandProperty); }
+            set { SetValue(RenameClickedCommandProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the command that is executed when the delete button has been clicked.
+        /// </summary>
+        public ICommand DeleteClickedCommand
+        {
+            get { return (ICommand)GetValue(DeleteClickedCommandProperty); }
+            set { SetValue(DeleteClickedCommandProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the command that is executed when the save button has been clicked.
+        /// </summary>
+        public ICommand SaveClickedCommand
+        {
+            get { return (ICommand)GetValue(SaveClickedCommandProperty); }
+            set { SetValue(SaveClickedCommandProperty, value); }
         }
         #endregion
 
@@ -133,56 +173,6 @@ namespace ParticleMaker.UserControls
             SetupName = pathSections.Length >= 1 ? pathSections[pathSections.Length - 1] : "";
 
             HasError = !dirExists;
-        }
-        #endregion
-
-
-        #region Internal Methods
-        /// <summary>
-        /// Subscribes the given handler to the <see cref="RenameClicked"/> event.
-        /// </summary>
-        /// <param name="handler">The handler to subscribe to.</param>
-        internal void SubscribeRenameClicked(EventHandler<RenameSetupItemEventArgs> handler)
-        {
-            RenameClicked += handler;
-
-            IsRenameSubscribed = true;
-        }
-
-
-        /// <summary>
-        /// Subscribes the given handler to the <see cref="DeleteClicked"/> event.
-        /// </summary>
-        /// <param name="handler">The handler to subscribe to.</param>
-        internal void SubscribeDeleteClicked(EventHandler<SetupItemEventArgs> handler)
-        {
-            DeleteClicked += handler;
-
-            IsDeleteSubscribed = true;
-        }
-
-
-        /// <summary>
-        /// Unsubscribes the given handler to the <see cref="RenameClicked"/> event.
-        /// </summary>
-        /// <param name="handler">The handler to subscribe to.</param>
-        internal void UnsubscribeRenameClicked(EventHandler<RenameSetupItemEventArgs> handler)
-        {
-            RenameClicked -= handler;
-
-            IsRenameSubscribed = false;
-        }
-
-
-        /// <summary>
-        /// Unsubscribes the given handler to the <see cref="DeleteClicked"/> event.
-        /// </summary>
-        /// <param name="handler">The handler to subscribe to.</param>
-        internal void UnsubscribeDeleteClicked(EventHandler<SetupItemEventArgs> handler)
-        {
-            DeleteClicked -= handler;
-
-            IsDeleteSubscribed = false;
         }
         #endregion
 
@@ -212,7 +202,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void RenameCustomButton_Click(object sender, EventArgs e)
         {
-            RenameClicked?.Invoke(this, new RenameSetupItemEventArgs(SetupName, SetupPath));
+            RenameClicked?.Invoke(this, new RenameItemEventArgs(SetupName, SetupPath));
+            RenameClickedCommand?.Execute(new RenameItemEventArgs(SetupName, SetupPath));
 
             Refresh();
         }
@@ -223,7 +214,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void DeleteCustomButton_Click(object sender, EventArgs e)
         {
-            DeleteClicked?.Invoke(this, new SetupItemEventArgs(SetupName, SetupPath));
+            DeleteClicked?.Invoke(this, new ItemEventArgs(SetupName, SetupPath));
+            DeleteClickedCommand?.Execute(new ItemEventArgs(SetupName, SetupPath));
 
             Refresh();
         }
@@ -234,7 +226,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void SaveCustomButton_Click(object sender, EventArgs e)
         {
-            SaveClicked?.Invoke(this, new SetupItemEventArgs(SetupName, SetupPath));
+            SaveClicked?.Invoke(this, new ItemEventArgs(SetupName, SetupPath));
+            SaveClickedCommand?.Execute(new ItemEventArgs(SetupName, SetupPath));
 
             Refresh();
         }
@@ -246,6 +239,18 @@ namespace ParticleMaker.UserControls
         private void ItemBorder_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Command?.Execute(SetupName);
+        }
+
+
+        /// <summary>
+        /// Unsubscribes from any events.
+        /// </summary>
+        public void Dispose()
+        {
+            RenameCustomButton.Click -= RenameCustomButton_Click;
+            DeleteCustomButton.Click-= DeleteCustomButton_Click;
+            SaveCustomButton.Click -= SaveCustomButton_Click;
+            ItemBorder.MouseUp -= ItemBorder_MouseUp;
         }
         #endregion
     }

@@ -99,11 +99,12 @@
     <Compile Include="CustomEventArgs\AddSetupClickedEventArgsTests.cs" />
     <Compile Include="CustomEventArgs\ColorItemClickedEventArgsTests.cs" />
     <Compile Include="ColorItemTests.cs" />
-    <Compile Include="CustomEventArgs\SetupItemEventArgsTests.cs" />
+    <Compile Include="CustomEventArgs\ItemEventArgsTests.cs" />
     <Compile Include="CustomEventArgs\DrawEventArgsTests.cs" />
-    <Compile Include="CustomEventArgs\RenameSetupItemEventArgsTests.cs" />
+    <Compile Include="CustomEventArgs\RenameItemEventArgsTests.cs" />
     <Compile Include="Exceptions\IllegalFileNameCharactersExceptionTests.cs" />
     <Compile Include="Exceptions\IllegalParticleSetupNameExceptionTests.cs" />
+    <Compile Include="Exceptions\InvalidCommandActionParamTypeExceptionTests.cs" />
     <Compile Include="Exceptions\ParticleSetupAlreadyExistsTests.cs" />
     <Compile Include="Exceptions\ParticleSetupDoesNotExistTests.cs" />
     <Compile Include="Project\DeploymentSettingTests.cs" />

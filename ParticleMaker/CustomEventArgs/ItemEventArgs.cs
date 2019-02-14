@@ -3,15 +3,15 @@
     /// <summary>
     /// Holds information about an event of a setup item.
     /// </summary>
-    public class SetupItemEventArgs
+    public class ItemEventArgs
     {
         #region Constructors
         /// <summary>
-        /// Create a new instance of <see cref="SetupItemEventArgs"/>.
+        /// Create a new instance of <see cref="ItemEventArgs"/>.
         /// </summary>
         /// <param name="name">The name of the item.</param>
         /// <param name="path">The path to the item.</param>
-        public SetupItemEventArgs(string name, string path)
+        public ItemEventArgs(string name, string path)
         {
             Name = name;
             Path = path;

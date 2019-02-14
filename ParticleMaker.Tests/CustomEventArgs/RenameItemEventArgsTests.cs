@@ -4,7 +4,7 @@ using ParticleMaker.CustomEventArgs;
 namespace ParticleMaker.Tests.CustomEventArgs
 {
     [TestFixture]
-    public class RenameSetupItemEventArgsTests
+    public class RenameItemEventArgsTests
     {
         #region Constructor Tests
         [Test]
@@ -15,7 +15,7 @@ namespace ParticleMaker.Tests.CustomEventArgs
             var expectedOldPath = "old-path";
 
             //Act
-            var eventArgs = new RenameSetupItemEventArgs("old-name", "old-path");
+            var eventArgs = new RenameItemEventArgs("old-name", "old-path");
             var actualOldName = eventArgs.OldName;
             var actualOldPath = eventArgs.OldPath;
 
@@ -31,7 +31,7 @@ namespace ParticleMaker.Tests.CustomEventArgs
         public void OldName_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var eventArgs = new RenameSetupItemEventArgs("", "");
+            var eventArgs = new RenameItemEventArgs("", "");
             var expected = "old-name";
 
             //Act
@@ -47,7 +47,7 @@ namespace ParticleMaker.Tests.CustomEventArgs
         public void NewName_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var eventArgs = new RenameSetupItemEventArgs("", "");
+            var eventArgs = new RenameItemEventArgs("", "");
             var expected = "new-name";
 
             //Act
@@ -63,7 +63,7 @@ namespace ParticleMaker.Tests.CustomEventArgs
         public void OldPath_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var eventArgs = new RenameSetupItemEventArgs("", "");
+            var eventArgs = new RenameItemEventArgs("", "");
             var expected = "old-path";
 
             //Act
@@ -79,7 +79,7 @@ namespace ParticleMaker.Tests.CustomEventArgs
         public void NewPath_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var eventArgs = new RenameSetupItemEventArgs("", "");
+            var eventArgs = new RenameItemEventArgs("", "");
             var expected = "new-path";
 
             //Act

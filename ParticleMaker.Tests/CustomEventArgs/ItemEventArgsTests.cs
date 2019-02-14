@@ -4,7 +4,7 @@ using ParticleMaker.CustomEventArgs;
 namespace ParticleMaker.Tests.CustomEventArgs
 {
     [TestFixture]
-    public class SetupItemEventArgsTests
+    public class ItemEventArgsTests
     {
         #region Constructor Tests
         [Test]
@@ -15,7 +15,7 @@ namespace ParticleMaker.Tests.CustomEventArgs
             var expectedPath = "path";
 
             //Act
-            var eventArgs = new SetupItemEventArgs("name", "path");
+            var eventArgs = new ItemEventArgs("name", "path");
             var actualName = eventArgs.Name;
             var actualPath = eventArgs.Path;
 
@@ -31,7 +31,7 @@ namespace ParticleMaker.Tests.CustomEventArgs
         public void Name_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var eventArgs = new SetupItemEventArgs(string.Empty, string.Empty);
+            var eventArgs = new ItemEventArgs(string.Empty, string.Empty);
             var expected = "name";
 
             //Act
@@ -47,7 +47,7 @@ namespace ParticleMaker.Tests.CustomEventArgs
         public void Path_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var eventArgs = new SetupItemEventArgs(string.Empty, string.Empty);
+            var eventArgs = new ItemEventArgs(string.Empty, string.Empty);
             var expected = "path";
 
             //Act

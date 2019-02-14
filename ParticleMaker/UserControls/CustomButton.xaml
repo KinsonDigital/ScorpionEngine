@@ -18,7 +18,6 @@
             </SolidColorBrush.Color>
         </SolidColorBrush>
     </UserControl.Resources>
-
     
     <Grid>
         <ContentPresenter Content="{Binding ElementName=this, Path=ButtonContent}"/>
