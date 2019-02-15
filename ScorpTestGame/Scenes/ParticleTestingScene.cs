@@ -26,9 +26,9 @@ namespace ScorpTestGame.Scenes
 
             var colors = new GameColor[]
             {
-                new GameColor(255, 216, 0, 255),
-                new GameColor(255, 0, 0, 255),
-                new GameColor(255, 106, 0, 255)
+                new GameColor(255, 255, 216, 0),
+                new GameColor(255, 255, 0, 0),
+                new GameColor(255, 255, 106, 0)
             };
 
             _particleEngine = new ParticleEngine(new RandomizerService())

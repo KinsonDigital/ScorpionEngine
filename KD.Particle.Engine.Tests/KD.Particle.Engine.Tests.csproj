@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtensionMethodsTests.cs" />
     <Compile Include="ParticleEngineTests.cs" />
     <Compile Include="ParticleSetupTests.cs" />
     <Compile Include="ParticleTests.cs" />
@@ -80,6 +81,10 @@
     <ProjectReference Include="..\KD.Particle.Engine\KD.Particle.Engine.csproj">
       <Project>{6595FF25-B463-480D-9F26-C73C66C2D5F0}</Project>
       <Name>KD.Particle.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KD.Scorpion.Core\KD.Scorpion.Core.csproj">
+      <Project>{3E136A13-190C-4390-9E74-8849022852F6}</Project>
+      <Name>KD.Scorpion.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

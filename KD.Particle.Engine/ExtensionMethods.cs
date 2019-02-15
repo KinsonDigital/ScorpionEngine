@@ -7,6 +7,7 @@ namespace KDParticleEngine
 {
     public static class ExtensionMethods
     {
+        #region Public Methods
         /// <summary>
         /// Returns a random value between the given <paramref name="minValue"/> and <paramref name="maxValue"/>.
         /// </summary>
@@ -47,7 +48,7 @@ namespace KDParticleEngine
         /// <returns></returns>
         public static GameColor ToGameColor(this ParticleColor color)
         {
-            return new GameColor(color.Red, color.Green, color.Blue, color.Alpha);
+            return new GameColor(color.Alpha, color.Red, color.Green, color.Blue);
         }
 
 
@@ -98,5 +99,6 @@ namespace KDParticleEngine
 
             return result.ToArray();
         }
+        #endregion
     }
 }

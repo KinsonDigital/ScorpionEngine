@@ -37,7 +37,7 @@ namespace ParticleMaker.UserControls.ValueConverters
         /// Returns the given <paramref name="value"/> of the given <paramref name="targetType"/> unchanged.
         /// </summary>
         /// <param name="value">The incoming value.</param>
-        /// <param name="targetType">The type of data incomging into the method.</param>
+        /// <param name="targetType">The type of data incoming into the method.</param>
         /// <param name="parameter">The optional parameter data.</param>
         /// <param name="culture">The culture setting of the incoming data.</param>
         /// <returns></returns>

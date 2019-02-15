@@ -163,7 +163,7 @@ namespace ParticleMaker.UserControls
 
         #region Public Methods
         /// <summary>
-        /// Refreshs the control by updating the control's UI based on if the file exists or not.
+        /// Refreshes the control by updating the control's UI based on if the file exists or not.
         /// </summary>
         public void Refresh()
         {

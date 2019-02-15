@@ -66,22 +66,7 @@ namespace ParticleMaker
         #endregion
 
 
-        #region Event Methods
-        /// <summary>
-        /// Creates the <see cref="MainViewModel"/> with default settings.
-        /// </summary>
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            _mainViewModel.RenderSurface = (winFormsHost.Child as PictureBox);
-            _mainViewModel.UIDispatcher = Dispatcher;
-
-            _mainViewModel.StartEngine();
-            _mainViewModel.Pause.Execute(null);
-            
-            DataContext = _mainViewModel;
-        }
-
-
+        #region Public Methods
         /// <summary>
         /// Sets the window in focus.
         /// </summary>
@@ -108,6 +93,23 @@ namespace ParticleMaker
             });
 
             _setFocusTask.Start();
+        }
+        #endregion
+
+
+        #region Private Methods
+        /// <summary>
+        /// Creates the <see cref="MainViewModel"/> with default settings.
+        /// </summary>
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            _mainViewModel.RenderSurface = (winFormsHost.Child as PictureBox);
+            _mainViewModel.UIDispatcher = Dispatcher;
+
+            _mainViewModel.StartEngine();
+            _mainViewModel.Pause.Execute(null);
+            
+            DataContext = _mainViewModel;
         }
         #endregion
     }

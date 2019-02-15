@@ -65,15 +65,11 @@ namespace ParticleMaker
         /// </summary>
         public ParticleEngine ParticleEngine { get; set; }
 
-        //TODO: Change this to directly use the BackBufferWidth in the
-        //_graphics_PreparingDeviceSettings event below.
         /// <summary>
         /// Gets or sets the width of the render surface that the graphics are rendering to.
         /// </summary>
         public int Width { get; set; }
 
-        //TODO: Change this to directly use the BackBufferHeight in the
-        //_graphics_PreparingDeviceSettings event below.
         /// <summary>
         /// Gets or sets the height of the render surface that the graphics are rendering to.
         /// </summary>

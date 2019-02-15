@@ -58,7 +58,6 @@ namespace ParticleMaker.Project
             }
         }
 
-
         /// <summary>
         /// Gets all of the directory paths to all of the projects.
         /// </summary>
@@ -138,7 +137,6 @@ namespace ParticleMaker.Project
 
             if (_directoryService.Exists(oldProjectDir))
             {
-                //Rename the directory
                 _directoryService.Rename(oldProjectDir, newName);
             }
             else

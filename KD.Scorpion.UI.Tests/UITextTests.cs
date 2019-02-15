@@ -233,10 +233,10 @@ namespace KDScorpionUI.Tests
         {
             //Arrange
             var uiText = new UIText();
-            var expected = new GameColor(11, 22, 33, 44);
+            var expected = new GameColor(44, 11, 22, 33);
 
             //Act
-            uiText.DisabledForecolor = new GameColor(11, 22, 33, 44);
+            uiText.DisabledForecolor = new GameColor(44, 11, 22, 33);
             var actual = uiText.DisabledForecolor;
 
             //Assert
@@ -265,10 +265,10 @@ namespace KDScorpionUI.Tests
         {
             //Arrange
             var uiText = new UIText();
-            var expected = new GameColor(255, 255, 0, 255);
+            var expected = new GameColor(255, 255, 255, 0);
 
             //Act
-            uiText.SelectedColor = new GameColor(255, 255, 0, 255);
+            uiText.SelectedColor = new GameColor(255, 255, 255, 0);
             var actual = uiText.SelectedColor;
 
             //Assert
@@ -281,10 +281,10 @@ namespace KDScorpionUI.Tests
         {
             //Arrange
             var uiText = new UIText();
-            var expected = new GameColor(0, 0, 0, 255);
+            var expected = new GameColor(255, 0, 0, 0);
 
             //Act
-            uiText.LabelColor = new GameColor(0, 0, 0, 255);
+            uiText.LabelColor = new GameColor(255, 0, 0, 0);
             var actual = uiText.LabelColor;
 
             //Assert
@@ -297,10 +297,10 @@ namespace KDScorpionUI.Tests
         {
             //Arrange
             var uiText = new UIText();
-            var expected = new GameColor(0, 0, 0, 255);
+            var expected = new GameColor(255, 0, 0, 0);
 
             //Act
-            uiText.ValueColor = new GameColor(0, 0, 0, 255);
+            uiText.ValueColor = new GameColor(255, 0, 0, 0);
             var actual = uiText.ValueColor;
 
             //Assert

@@ -111,7 +111,7 @@ namespace KDParticleEngine
         /// <param name="renderer">Renders the particle.</param>
         public void Render(Renderer renderer)
         {
-            TintColor = new GameColor(TintColor.Red, TintColor.Green, TintColor.Blue, 255);
+            TintColor = new GameColor(255, TintColor.Red, TintColor.Green, TintColor.Blue);
             renderer.Render(Texture, Position.X, Position.Y, Angle, Size, TintColor);
         }
         #endregion

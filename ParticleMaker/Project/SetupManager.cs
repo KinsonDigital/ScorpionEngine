@@ -1,11 +1,8 @@
 ﻿using KDParticleEngine;
 using ParticleMaker.Exceptions;
 using ParticleMaker.Services;
-using System;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Reflection;
-using System.Windows.Media;
 
 namespace ParticleMaker.Project
 {
@@ -54,7 +51,7 @@ namespace ParticleMaker.Project
 
         #region Public Methods
         /// <summary>
-        /// Returns a list of directory paths to all of the setups in the given <paramref name="projectName"/>.
+        /// Returns a list of directory paths to all of the setups in the project that matches the given <paramref name="projectName"/>.
         /// </summary>
         /// <param name="projectName">The name of the project.</param>
         /// <returns></returns>

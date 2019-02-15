@@ -236,6 +236,10 @@ namespace KDScorpionCore
         }
 
 
+        /// <summary>
+        /// Returns the hash code of this object that makes this object unique.
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             var hashCode = -621239040;

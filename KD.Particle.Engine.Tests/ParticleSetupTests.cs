@@ -1,6 +1,5 @@
 ﻿using KDParticleEngine;
 using NUnit.Framework;
-using System.Collections.ObjectModel;
 
 namespace KD.Particle.Engine.Tests
 {

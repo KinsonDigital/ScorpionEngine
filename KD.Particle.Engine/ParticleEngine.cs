@@ -512,7 +512,7 @@ namespace KDParticleEngine
                     (byte)Randomizer.GetValue(BlueMin, BlueMax) :
                     (byte)Randomizer.GetValue(BlueMax, BlueMin);
 
-                return new GameColor(red, green, blue, 255);
+                return new GameColor(255, red, green, blue);
             }
         }
 

@@ -48,8 +48,10 @@ namespace ParticleMaker.ViewModels
         /// <summary>
         /// Creates a new instance of <see cref="MainViewModel"/>.
         /// </summary>
-        /// <param name="renderSurface">The surface to render the graphics on.</param>
-        /// <param name="uiDispatcher">The UI thread to start the graphics engine on.</param>
+        /// <param name="graphicsEngine">The graphics engine used to perform and drive the rendering.</param>
+        /// <param name="projectManager">Manages the project.</param>
+        /// <param name="projectSettingsManager">Manages all of the project related settings.</param>
+        /// <param name="setupManager">Manages the setups within a project.</param>
         [ExcludeFromCodeCoverage]
         public MainViewModel(GraphicsEngine graphicsEngine, ProjectManager projectManager,
             ProjectSettingsManager projectSettingsManager,
@@ -433,7 +435,7 @@ namespace ParticleMaker.ViewModels
 
                 foreach (var clr in value)
                 {
-                    result.Add(new GameColor(clr.ColorBrush.Color.R, clr.ColorBrush.Color.G, clr.ColorBrush.Color.B, clr.ColorBrush.Color.A));
+                    result.Add(new GameColor(clr.ColorBrush.Color.A, clr.ColorBrush.Color.R, clr.ColorBrush.Color.G, clr.ColorBrush.Color.B));
                 }
 
                 _graphicsEngine.ParticleEngine.TintColors = result.ToArray();
@@ -514,7 +516,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Ges the commane that is used for opening a project.
+        /// Ges the command that is used for opening a project.
         /// </summary>
         public RelayCommand OpenProject
         {

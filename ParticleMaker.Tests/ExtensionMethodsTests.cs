@@ -30,7 +30,7 @@ namespace ParticleMaker.Tests
         public void ToColorItem_WhenInvoked_ReturnsCorrectColorItem()
         {
             //Arrange
-            var gameColor = new GameColor(11, 22, 33, 44);
+            var gameColor = new GameColor(44, 11, 22, 33);
             var expected = new ColorItem()
             {
                 Id = 0,

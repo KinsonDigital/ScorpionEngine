@@ -10,7 +10,7 @@ namespace KDScorpionCoreTests.Graphics
         public void Red_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var gameColor = new GameColor(11, 0, 0, 0);
+            var gameColor = new GameColor(0, 11, 0, 0);
             var expected = 11;
 
             //Act
@@ -25,7 +25,7 @@ namespace KDScorpionCoreTests.Graphics
         public void Green_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var gameColor = new GameColor(0, 22, 0, 0);
+            var gameColor = new GameColor(0, 0, 22, 0);
             var expected = 22;
 
             //Act
@@ -40,7 +40,7 @@ namespace KDScorpionCoreTests.Graphics
         public void Blue_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var gameColor = new GameColor(0, 0, 33, 0);
+            var gameColor = new GameColor(0, 0, 0, 33);
             var expected = 33;
 
             //Act
@@ -55,7 +55,7 @@ namespace KDScorpionCoreTests.Graphics
         public void Alpha_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var gameColor = new GameColor(0, 0, 0, 44);
+            var gameColor = new GameColor(44, 0, 0, 0);
             var expected = 44;
 
             //Act

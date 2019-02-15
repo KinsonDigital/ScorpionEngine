@@ -1,6 +1,5 @@
 ﻿using ParticleMaker.CustomEventArgs;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
@@ -70,9 +69,6 @@ namespace ParticleMaker.UserControls
                 });
 
                 Colors = colors.ToArray();
-
-                //TODO: This can probably be removed if the line above works fine
-                //SetValue(ColorsProperty, Colors);
             }
         }
 

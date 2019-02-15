@@ -1,7 +1,4 @@
 ﻿using ParticleMaker.CustomEventArgs;
-using ParticleMaker.Dialogs;
-using ParticleMaker.ViewModels;
-using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Input;

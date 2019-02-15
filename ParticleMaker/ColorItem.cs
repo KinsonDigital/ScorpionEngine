@@ -57,7 +57,7 @@ namespace ParticleMaker
 
 
         /// <summary>
-        /// Returns an integer hash code of the object signifying its uniqueness.
+        /// Returns the hash code of this object that makes this object unique.
         /// </summary>
         /// <returns></returns>
         public override int GetHashCode()

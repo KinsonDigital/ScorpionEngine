@@ -7,7 +7,7 @@
              mc:Ignorable="d" Name="this">
 
     <!--ERROR BORDER-->
-    <Border  DataContext="{Binding ElementName=this}" BorderThickness="1"
+    <Border DataContext="{Binding ElementName=this}" BorderThickness="1"
             d:DataContext="{d:DesignData Source=/UserControls/DesignData/UserControlData.xaml}">
         <Border.Style>
             <Style TargetType="Border">

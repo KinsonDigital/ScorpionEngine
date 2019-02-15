@@ -4,6 +4,10 @@ using System.Windows.Input;
 
 namespace ParticleMaker
 {
+    /// <summary>
+    /// Provides a command with the ability to set the execute and can exectue
+    /// code to be invoked as delegates.
+    /// </summary>
     public class RelayCommand : ICommand
     {
         #region Public Events
@@ -22,7 +26,7 @@ namespace ParticleMaker
 
         #region Constructors
         /// <summary>
-        /// Creates a new instance of <see cref="RelayCommand"/>
+        /// Creates a new instance of <see cref="RelayCommand"/>.
         /// </summary>
         [ExcludeFromCodeCoverage]
         public RelayCommand()
@@ -34,7 +38,7 @@ namespace ParticleMaker
         /// <summary>
         /// Creates a new instance of <see cref="RelayCommand"/>
         /// </summary>
-        /// <param name="execute">The action to execute if when execution is attempted.</param>
+        /// <param name="execute">The action to execute when execution is attempted.</param>
         /// <param name="canExecute">Returns a value indicating if the action can be executed.</param>
         public RelayCommand(Action<object> execute, Func<object, bool> canExecute)
         {
@@ -59,7 +63,7 @@ namespace ParticleMaker
         /// <summary>
         /// Executes the set action.
         /// </summary>
-        /// <param name="parameter">The incomfing data to use in the action.</param>
+        /// <param name="parameter">The incoming data to use in the action.</param>
         public void Execute(object parameter)
         {
             _executeAction(parameter);

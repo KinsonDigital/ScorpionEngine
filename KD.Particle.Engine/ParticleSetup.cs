@@ -1,7 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using KDParticleEngine;
-
-namespace KDParticleEngine
+﻿namespace KDParticleEngine
 {
     /// <summary>
     /// Holds the particle setup settings data for the <see cref="ParticleEngine"/> to consume.

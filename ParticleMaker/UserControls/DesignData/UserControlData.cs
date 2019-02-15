@@ -1,6 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace ParticleMaker.UserControls.DesignData
@@ -62,6 +60,9 @@ namespace ParticleMaker.UserControls.DesignData
         /// </summary>
         public SolidColorBrush ColorValue { get; set; }
 
+        /// <summary>
+        /// Gets or sets the color data.
+        /// </summary>
         public ColorItem[] Colors { get; set; }
         #endregion
     }

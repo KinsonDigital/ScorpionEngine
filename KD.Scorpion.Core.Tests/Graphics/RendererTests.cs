@@ -84,7 +84,7 @@ namespace KDScorpionCoreTests.Graphics
 
             var renderer = new Renderer(mockInternalRenderer.Object);
             var gameColor = It.IsAny<GameColor>();
-            var expected = new GameColor(11, 22, 33, 44);
+            var expected = new GameColor(44, 11, 22, 33);
 
             //Act
             renderer.Render(_gameText, It.IsAny<float>(), It.IsAny<float>(), gameColor);

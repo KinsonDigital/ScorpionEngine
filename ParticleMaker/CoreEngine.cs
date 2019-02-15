@@ -78,7 +78,27 @@ namespace ParticleMaker
         #endregion
 
 
-        #region Event Methods
+        #region Public Methods
+        /// <summary>
+        /// Unpauses the <see cref="CoreEngine"/>.
+        /// </summary>
+        public void Play()
+        {
+            IsRunning = true;
+        }
+
+
+        /// <summary>
+        /// Pauses the <see cref="CoreEngine"/>.
+        /// </summary>
+        public void Pause()
+        {
+            IsRunning = false;
+        }
+        #endregion
+
+
+        #region Private Methods
         /// <summary>
         /// Sets up the graphics device.
         /// </summary>
@@ -152,24 +172,6 @@ namespace ParticleMaker
             OnUnLoadContent?.Invoke(this, new EventArgs());
 
             base.UnloadContent();
-        }
-
-
-        /// <summary>
-        /// Unpauses the <see cref="CoreEngine"/>.
-        /// </summary>
-        public void Play()
-        {
-            IsRunning = true;
-        }
-
-
-        /// <summary>
-        /// Pauses the <see cref="CoreEngine"/>.
-        /// </summary>
-        public void Pause()
-        {
-            IsRunning = false;
         }
 
 

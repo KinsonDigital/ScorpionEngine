@@ -26,7 +26,7 @@
 
         public GameColor Color
         {
-            get => new GameColor(InternalText.Color[0], InternalText.Color[1], InternalText.Color[2], InternalText.Color[3]);
+            get => new GameColor(InternalText.Color[3], InternalText.Color[0], InternalText.Color[1], InternalText.Color[2]);
             set
             {
                 InternalText.Color[0] = value.Red;

@@ -34,7 +34,7 @@
 
 
         /// <summary>
-        /// Returns the hash code for this this <see cref="DeploymentSetting"/>.
+        /// Returns the hash code of this object that makes this object unique.
         /// </summary>
         /// <returns></returns>
         public override int GetHashCode()

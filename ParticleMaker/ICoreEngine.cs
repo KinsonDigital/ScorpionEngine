@@ -75,7 +75,7 @@ namespace ParticleMaker
 
 
         /// <summary>
-        /// Unpauses the engine.
+        /// Plays the engine.
         /// </summary>
         void Play();
 

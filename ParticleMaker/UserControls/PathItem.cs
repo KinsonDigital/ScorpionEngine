@@ -32,7 +32,7 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Returns a hash code indicating if the uniqueness of this object instance.
+        /// Returns the hash code of this object that makes this object unique.
         /// </summary>
         /// <returns></returns>
         public override int GetHashCode()
