@@ -21,26 +21,35 @@
     </UserControl.Resources>
     
     <Border BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Stretch">
-        <StackPanel DataContext="{Binding ElementName=this}" Orientation="Horizontal"
-                    HorizontalAlignment="Right">
-            <!--The control label text-->
-            <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
-                <Label VerticalContentAlignment="Center" VerticalAlignment="Center"
-                       Content="{Binding Path=LabelText, Mode=OneWay}"/>
+        <Grid DataContext="{Binding ElementName=this}"
+              d:DataContext="{d:DesignData Source=/UserControls/DesignData/UserControlData.xaml}"
+              HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!--CONTROL LABEL TEXT-->
+            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center"
+                        HorizontalAlignment="Left">
+                <Label VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"
+                       Content="{Binding Path=LabelText}"/>
 
                 <Label Content=":" Padding="0" VerticalContentAlignment="Center"
-                       Visibility="{Binding Path=IsLabelVisible, Mode=TwoWay}"/>
+                       Visibility="{Binding Path=IsLabelVisible}"/>
             </StackPanel>
 
-            <!--Holds the value of the up down control-->
-            <ctrls:NumberBox x:Name="ValueTextbox" Grid.Column="1" Grid.Row="0" MinWidth="25" VerticalAlignment="Center"
-                             HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+            <!--UP DOWN CONTROL VALUE-->
+            <ctrls:NumberBox x:Name="ValueTextbox" Grid.Column="1" MinWidth="25" VerticalAlignment="Center"
+                             HorizontalAlignment="Left" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                              Value="{Binding Path=Value, Mode=TwoWay}">
             </ctrls:NumberBox>
 
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 0, 5, 0">
+            <StackPanel Orientation="Vertical" Margin="0, 0, 5, 0" Grid.Column="2"
+                        VerticalAlignment="Center" HorizontalAlignment="Right">
                 <!--Value Up Button-->
-                <ctrls:CustomButton x:Name="UpArrowButton" Grid.Row="0" Click="UpArrowButton_Click" Margin="0, 0, 0, 0"
+                <ctrls:CustomButton x:Name="UpArrowButton" Click="UpArrowButton_Click" Margin="0, 0, 0, 0"
                                     HorizontalAlignment="Center" VerticalAlignment="Center">
                     <ctrls:CustomButton.ButtonContent>
                         <Polygon StrokeThickness="0.5" Style="{StaticResource EnabledStyle}">
@@ -57,7 +66,7 @@
                 </ctrls:CustomButton>
 
                 <!--Value Down Button-->
-                <ctrls:CustomButton x:Name="DownArrowButton" Grid.Row="1" Click="DownArrowButton_Click" Margin="0, 2.5, 0, 0"
+                <ctrls:CustomButton x:Name="DownArrowButton" Click="DownArrowButton_Click" Margin="0, 2.5, 0, 0"
                                     HorizontalAlignment="Center" VerticalAlignment="Center">
                     <ctrls:CustomButton.ButtonContent>
                         <Polygon StrokeThickness="0.5"  Style="{StaticResource EnabledStyle}">
@@ -73,6 +82,6 @@
                     </ctrls:CustomButton.ButtonContent>
                 </ctrls:CustomButton>
             </StackPanel>
-        </StackPanel>
+        </Grid>
     </Border>
 </UserControl>

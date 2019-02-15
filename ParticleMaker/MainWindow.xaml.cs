@@ -4,9 +4,9 @@ using System.Windows.Forms.Integration;
 using System.ComponentModel;
 using ParticleMaker.ViewModels;
 using System.Diagnostics.CodeAnalysis;
-using ParticleMaker.Dialogs;
 using System.Threading.Tasks;
 using System.Threading;
+using WinMsgBox = System.Windows.MessageBox;
 
 namespace ParticleMaker
 {
@@ -31,6 +31,7 @@ namespace ParticleMaker
         public MainWindow()
         {
             _mainViewModel = App.DIContainer.GetInstance<MainViewModel>();
+            _mainViewModel.DialogOwner = this;
 
             ElementHost.EnableModelessKeyboardInterop(this);
 
@@ -50,36 +51,22 @@ namespace ParticleMaker
         /// <param name="e"></param>
         protected override void OnClosing(CancelEventArgs e)
         {
+            if (_mainViewModel.SettingsChanged)
+            {
+                var msgResult = WinMsgBox.Show("You have unsaved settings.  Save first?", "Save Changes", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (msgResult == MessageBoxResult.Yes)
+                    _mainViewModel.SaveSetup.Execute(null);
+            }
+
             _mainViewModel.ShutdownEngine();
+
             base.OnClosing(e);
         }
         #endregion
 
 
-        #region Event Methods
-        /// <summary>
-        /// Creates the <see cref="MainViewModel"/> with default settings.
-        /// </summary>
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            _mainViewModel.RenderSurface = (winFormsHost.Child as PictureBox);
-            _mainViewModel.UIDispatcher = Dispatcher;
-
-            DataContext = _mainViewModel;
-
-            _mainViewModel.RedMin = 0;
-            _mainViewModel.RedMax = 255;
-            _mainViewModel.GreenMin = 0;
-            _mainViewModel.GreenMax = 255;
-            _mainViewModel.BlueMin = 0;
-            _mainViewModel.BlueMax = 255;
-            _mainViewModel.SizeMin = 1;
-            _mainViewModel.SizeMax = 2;
-
-            _mainViewModel.StartEngine();
-        }
-
-
+        #region Public Methods
         /// <summary>
         /// Sets the window in focus.
         /// </summary>
@@ -110,20 +97,20 @@ namespace ParticleMaker
         #endregion
 
 
-        //TODO:  Temporary for debugging.  Remove when finished.
-        private void TestButton_Click(object sender, RoutedEventArgs e)
+        #region Private Methods
+        /// <summary>
+        /// Creates the <see cref="MainViewModel"/> with default settings.
+        /// </summary>
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            var projListDialog = new ProjectListDialog("Open Project")
-            {
-                ProjectPaths = new[]
-                {
-                    @"C:\temp\projects\project-A",
-                    @"C:\temp\projects\project-B",
-                    @"C:\temp\projects\project-C",
-                }
-            };
+            _mainViewModel.RenderSurface = (winFormsHost.Child as PictureBox);
+            _mainViewModel.UIDispatcher = Dispatcher;
 
-            var dialogResult = projListDialog.ShowDialog();
+            _mainViewModel.StartEngine();
+            _mainViewModel.Pause.Execute(null);
+            
+            DataContext = _mainViewModel;
         }
+        #endregion
     }
 }

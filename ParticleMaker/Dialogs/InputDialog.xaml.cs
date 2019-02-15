@@ -114,11 +114,11 @@ namespace ParticleMaker.Dialogs
             get
             {
                 if (_okCommmand == null)
-                    _okCommmand = new RelayCommand(() =>
+                    _okCommmand = new RelayCommand((param) =>
                     {
                         DialogResult = true;
                         Close();
-                    }, () =>
+                    }, (param) =>
                     {
                         return true;
                     });
@@ -136,11 +136,11 @@ namespace ParticleMaker.Dialogs
             get
             {
                 if (_cancelCommand == null)
-                    _cancelCommand = new RelayCommand(() =>
+                    _cancelCommand = new RelayCommand((param) =>
                     {
                         DialogResult = false;
                         Close();
-                    }, () => true);
+                    }, (param) => true);
 
 
                 return _cancelCommand;
@@ -204,7 +204,7 @@ namespace ParticleMaker.Dialogs
             }
 
             //Check if the input text box value is an invalid value.  Take ignoring casing into account
-            ContainsInvalidValue = invalidValues.Contains(IgnoreInvalidValueCasing ? InputTextBox.Text.ToLower() : InputTextBox.Text);
+            ContainsInvalidValue = invalidValues != null && invalidValues.Contains(IgnoreInvalidValueCasing ? InputTextBox.Text.ToLower() : InputTextBox.Text);
         }
         #endregion
 

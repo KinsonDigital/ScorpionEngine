@@ -63,7 +63,7 @@ namespace KDScorpionUI
         /// <summary>
         /// Gets or sets the selected color of the text item.
         /// </summary>
-        public GameColor SelectedColor { get; set; } = new GameColor(255, 255, 0, 255);
+        public GameColor SelectedColor { get; set; } = new GameColor(255, 255, 255, 0);
 
         /// <summary>
         /// Gets or sets the name of the text item.
@@ -179,12 +179,12 @@ namespace KDScorpionUI
         /// <summary>
         /// Gets or sets the color of the label section of the text item.
         /// </summary>
-        public GameColor LabelColor { get; set; } = new GameColor(0, 0, 0, 255);
+        public GameColor LabelColor { get; set; } = new GameColor(255, 0, 0, 0);
 
         /// <summary>
         /// Gets or sets the color of the value section of the text item.
         /// </summary>
-        public GameColor ValueColor { get; set; } = new GameColor(0, 0, 0, 255);
+        public GameColor ValueColor { get; set; } = new GameColor(255, 0, 0, 0);
 
         /// <summary>
         /// Gets or sets a value indicating if the <see cref="UIText"/> item will render in the
@@ -195,7 +195,7 @@ namespace KDScorpionUI
         /// <summary>
         /// Gets or sets the forecolor of the <see cref="UIText"/> item when disabled.
         /// </summary>
-        public GameColor DisabledForecolor { get; set; } = new GameColor(100, 100, 100, 255);
+        public GameColor DisabledForecolor { get; set; } = new GameColor(255, 100, 100, 100);
         #endregion
 
 

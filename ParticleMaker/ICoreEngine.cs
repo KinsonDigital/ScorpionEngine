@@ -8,7 +8,7 @@ namespace ParticleMaker
     /// <summary>
     /// The core engine that helps drive the <see cref="GraphicsEngine"/> class or another custome engine class.
     /// </summary>
-    public interface ICoreEngine
+    public interface ICoreEngine : IDisposable
     {
         #region Events
         /// <summary>
@@ -40,14 +40,14 @@ namespace ParticleMaker
 
         #region Props
         /// <summary>
+        /// Gets or sets a value indicating if the engine is running.
+        /// </summary>
+        bool IsRunning { get; set; }
+
+        /// <summary>
         /// The original render window.
         /// </summary>
         GameWindow OriginalWindow { get; set; }
-
-        /// <summary>
-        /// The game window.
-        /// </summary>
-        Point WindowPosition { get; set; }
 
         /// <summary>
         /// Gets the graphics device that performs the rendering.
@@ -72,6 +72,18 @@ namespace ParticleMaker
         /// Exists and stops the <see cref="ICoreEngine"/>.
         /// </summary>
         void Exit();
+
+
+        /// <summary>
+        /// Plays the engine.
+        /// </summary>
+        void Play();
+
+
+        /// <summary>
+        /// Pauses the engine.
+        /// </summary>
+        void Pause();
         #endregion
     }
 }

@@ -1,17 +1,17 @@
 ﻿namespace ParticleMaker.CustomEventArgs
 {
     /// <summary>
-    /// Holds information about the event of renaming an item.
+    /// Holds information about an event of a setup item.
     /// </summary>
-    public class DeleteItemEventArgs
+    public class ItemEventArgs
     {
         #region Constructors
         /// <summary>
-        /// Create a new instance of <see cref="DeleteItemEventArgs"/>.
+        /// Create a new instance of <see cref="ItemEventArgs"/>.
         /// </summary>
-        /// <param name="name">The name of the item being deleted.</param>
+        /// <param name="name">The name of the item.</param>
         /// <param name="path">The path to the item.</param>
-        public DeleteItemEventArgs(string name, string path)
+        public ItemEventArgs(string name, string path)
         {
             Name = name;
             Path = path;

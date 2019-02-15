@@ -1,4 +1,5 @@
-﻿using ParticleMaker.Exceptions;
+﻿using KDParticleEngine;
+using ParticleMaker.Exceptions;
 using ParticleMaker.Services;
 using System.IO;
 using System.Reflection;
@@ -31,10 +32,38 @@ namespace ParticleMaker.Project
 
             _rootProjectsPath = $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Projects";
         }
+
+
+        /// <summary>
+        /// Gets a list of the setups in the project that matches the given <paramref name="projectName"/>.
+        /// </summary>
+        /// <param name="projectName">The name of the project.</param>
+        /// <returns></returns>
+        public string[] GetSetupNames(string projectName)
+        {
+            if (ProjectExists(projectName))
+                return _directoryService.GetDirectories(projectName);
+
+            throw new ProjectDoesNotExistException(projectName);
+        }
         #endregion
 
 
         #region Public Methods
+        /// <summary>
+        /// Returns a list of directory paths to all of the setups in the project that matches the given <paramref name="projectName"/>.
+        /// </summary>
+        /// <param name="projectName">The name of the project.</param>
+        /// <returns></returns>
+        public string[] GetSetupPaths(string projectName)
+        {
+            var projectPath = $@"{_rootProjectsPath}\{projectName}\Setups";
+
+
+            return _directoryService.GetDirectories(projectPath);
+        }
+
+
         /// <summary>
         /// Creates a new setup file using the given <paramref name="projectName"/>.
         /// </summary>
@@ -44,7 +73,8 @@ namespace ParticleMaker.Project
             if (ProjectExists(projectName))
             {
                 var projPath = $@"{_rootProjectsPath}\{projectName}";
-                var setupPath = $@"{projPath}\{setupName}.json";
+                var setupDirectory = $@"{projPath}\Setups\{setupName}";
+                var setupPath = $@"{setupDirectory}\{setupName}.json";
 
                 //If the particle setup already exists, throw an exception
                 if (_fileService.Exists(setupPath))
@@ -60,13 +90,75 @@ namespace ParticleMaker.Project
                     }
                     else
                     {
+                        //Create the setup directory first
+                        _directoryService.Create(setupDirectory);
+
+                        //Now create the setup JSON file itself
                         _fileService.Create(setupPath, new ParticleSetup());
                     }
                 }
             }
             else
             {
-                throw new ProjectDoesNotExistException();
+                throw new ProjectDoesNotExistException(projectName);
+            }
+        }
+
+
+        /// <summary>
+        /// Loads the <see cref="ParticleSetup"/> data from a project that matches the given
+        /// <paramref name="projectName"/> and a setup that matches the given <paramref name="setupName"/>.
+        /// </summary>
+        /// <param name="projectName">The name of the project that the setup is located in.</param>
+        /// <param name="setupName">The name of the setup.</param>
+        /// <returns></returns>
+        public ParticleSetup Load(string projectName, string setupName)
+        {
+            if (ProjectExists(projectName))
+            {
+                var projPath = $@"{_rootProjectsPath}\{projectName}";
+                var setupPath = $@"{projPath}\Setups\{setupName}\{setupName}.json";
+
+                if (_fileService.Exists(setupPath))
+                {
+                    return _fileService.Load<ParticleSetup>(setupPath);
+                }
+                else
+                {
+                    throw new ParticleSetupDoesNotExist(setupName);
+                }
+            }
+
+            throw new ProjectDoesNotExistException(projectName);
+        }
+
+
+        /// <summary>
+        /// Saves the given particle <paramref name="setup"/> data in the project that matches the given <paramref name="projectName"/>
+        /// to the setup that matches the given <paramref name="setupName"/>.
+        /// </summary>
+        /// <param name="projectName">The name of the project to save the setup to.</param>
+        /// <param name="setupName">The name of the setup to save.</param>
+        /// <param name="setup">The data to save to the setup.</param>
+        public void Save(string projectName, string setupName, ParticleSetup setup)
+        {
+            var projPath = $@"{_rootProjectsPath}\{projectName}";
+            var setupPath = $@"{projPath}\Setups\{setupName}\{setupName}.json";
+
+            if (ProjectExists(projectName))
+            {
+                if (ContainsIllegalCharacters(setupName))
+                {
+                    throw new IllegalParticleSetupNameException(setupName);
+                }
+                else
+                {
+                    _fileService.Save(setupPath, setup);
+                }
+            }
+            else
+            {
+                throw new ProjectDoesNotExistException(projectName);
             }
         }
 
@@ -99,6 +191,10 @@ namespace ParticleMaker.Project
                 {
                     throw new ParticleSetupDoesNotExist(setupName);
                 }
+            }
+            else
+            {
+                throw new ProjectDoesNotExistException(projectName);
             }
         }
 
@@ -138,7 +234,7 @@ namespace ParticleMaker.Project
         /// <returns></returns>
         private bool ProjectExists(string name)
         {
-            return _directoryService.Exists($@"{_rootProjectsPath}\{name}");
+            return !string.IsNullOrEmpty(name) && _directoryService.Exists($@"{_rootProjectsPath}\{name}");
         }
 
 

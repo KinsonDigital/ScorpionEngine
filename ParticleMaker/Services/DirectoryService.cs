@@ -66,15 +66,7 @@ namespace ParticleMaker.Services
         /// <returns></returns>
         public string[] GetDirectories(string path)
         {
-            var dirs = Directory.GetDirectories(path);
-
-            for (int i = 0; i < dirs.Length; i++)
-            {
-                dirs[i] = Path.GetDirectoryName(dirs[i]);
-            }
-
-
-            return dirs;
+            return Directory.GetDirectories(path);
         }
         #endregion
     }

@@ -1,6 +1,8 @@
 ﻿using KDParticleEngine;
 using KDParticleEngine.Services;
+using ParticleMaker.Project;
 using ParticleMaker.Services;
+using ParticleMaker.UserControls;
 using ParticleMaker.ViewModels;
 using SimpleInjector;
 using System.Diagnostics.CodeAnalysis;
@@ -17,6 +19,7 @@ namespace ParticleMaker
     [ExcludeFromCodeCoverage]
     public partial class App : Application
     {
+        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="App"/>.
         /// </summary>
@@ -33,13 +36,36 @@ namespace ParticleMaker
             DIContainer.Register<ICoreEngine, CoreEngine>();
             DIContainer.Register<IGraphicsEngineFactory, GraphicsEngineFactory>();
             DIContainer.Register<GraphicsEngine>();
+            DIContainer.Register<ProjectSettingsManager>();
+            DIContainer.Register<SetupManager>();
             DIContainer.Register<MainViewModel>();
         }
+        #endregion
 
 
+        #region Props
         /// <summary>
         /// The dependency injection container for creating instances of registered objects.
         /// </summary>
         public static Container DIContainer { get; set; }
+        #endregion
+
+
+        #region Private Methods
+        /// <summary>
+        /// Starts up the application.
+        /// </summary>
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+#if USERCTRLTESTING
+            //This is used for testing out user controls during runtime for debugging purposes
+            var userCtrlTestWindow = new UserControlTestWindow();
+            userCtrlTestWindow.Show();
+#else
+            var mainWindow = new MainWindow();
+            mainWindow.Show();
+#endif
+        }
+        #endregion
     }
 }

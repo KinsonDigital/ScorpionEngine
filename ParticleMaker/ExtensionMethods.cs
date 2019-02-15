@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -102,6 +104,30 @@ namespace ParticleMaker
 
 
         /// <summary>
+        /// Returns the parent of this <see cref="DependencyObject"/> that matches the
+        /// given <see cref="DependencyObject"/> of type <typeparamref name="T"/>.
+        /// </summary>
+        /// <typeparam name="T">The parent type of <see cref="DependencyObject"/> to find.</typeparam>
+        /// <param name="child">The child that is contained/owned by the parent.</param>
+        /// <returns></returns>
+        [ExcludeFromCodeCoverage]
+        public static T FindParent<T>(this DependencyObject child) where T : DependencyObject
+        {
+            //Get parent item
+            var parentObject = VisualTreeHelper.GetParent(child);
+
+            //Return if we have reached the end of the tree
+            if (parentObject == null) return null;
+
+            //Check if the parent matches the type we're looking for
+            if (parentObject is T parent)
+                return parent;
+            else
+                return FindParent<T>(parentObject);
+        }
+
+
+        /// <summary>
         /// Gets all of the visual children of the given type <typeparamref name="T"/>.
         /// </summary>
         /// <typeparam name="T">The type of children to retrieve.</typeparam>
@@ -129,13 +155,40 @@ namespace ParticleMaker
 
 
         /// <summary>
+        /// Finds all of the children <see cref="UIElement"/>s of the given type <typeparamref name="T"/>
+        /// that are contained by the given <paramref name="parent"/>.
+        /// </summary>
+        /// <typeparam name="T">Any type that inherits <see cref="UIElement"/></typeparam>
+        /// <param name="parent">The parent <see cref="DependencyObject"/> that contains the child elements.</param>
+        /// <returns></returns>
+        [ExcludeFromCodeCoverage]
+        public static List<T> AllChildren<T>(this DependencyObject parent) where T : UIElement
+        {
+            var result = new List<T>();
+
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+
+                if (child is T)
+                    result.Add(child as T);
+
+                result.AddRange(AllChildren<T>(child));
+            }
+
+
+            return result;
+        }
+
+
+        /// <summary>
         /// Hides the game window.
         /// </summary>
         /// <param name="window">The window to hide.</param>
         [ExcludeFromCodeCoverage]
         public static void Hide(this GameWindow window)
         {
-            var windowHandle = window?.Handle;
+            var windowHandle = window?.Handle == null ? null : window?.Handle;
 
             if (windowHandle == null)
                 return;
@@ -162,6 +215,38 @@ namespace ParticleMaker
             });
 
             _hideWindowTask.Start();
+        }
+
+
+        /// <summary>
+        /// Returns a value indicating if the given string <paramref name="value"/> contains any 
+        /// illegal project name characters.
+        /// </summary>
+        /// <param name="value">The string value to check.</param>
+        /// <returns></returns>
+        public static bool ContainsIllegalFileNameCharacters(this string value)
+        {
+            var characters = Path.GetInvalidPathChars();
+
+            foreach (var c in characters)
+            {
+                if (value.Contains(c.ToString()))
+                    return true;
+            }
+
+
+            return false;
+        }
+
+
+        /// <summary>
+        /// Gets a list of all the property names for this object.
+        /// </summary>
+        /// <param name="obj">The object to get the property names from.</param>
+        /// <returns></returns>
+        public static string[] GetPropertyNames(this object obj)
+        {
+            return (from n in obj.GetType().GetProperties() select n.Name).ToArray();
         }
         #endregion
     }

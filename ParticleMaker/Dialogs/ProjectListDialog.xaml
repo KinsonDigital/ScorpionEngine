@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         Name="this" mc:Ignorable="d" Title="ProjectListDialog" WindowStyle="ToolWindow"
-        MinWidth="150" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
+        MinWidth="150" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterOwner">
     
     <Grid DataContext="{Binding ElementName=this}"
           d:DataContext="{d:DesignData Source=/Dialogs/DesignData/DialogData.xaml}">
@@ -14,13 +14,13 @@
         </Grid.RowDefinitions>
 
         <!--PROJECT LIST-->
-        <ListBox x:Name="ProjectListBox" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalContentAlignment="Center"
+        <ListBox x:Name="ProjectListBox" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalContentAlignment="Stretch"
                  Margin="5, 15, 10, 15" MinHeight="210" ItemsSource="{Binding Path=ProjectNames}"
-                 SelectedItem="{Binding Path=SelectedProject, Mode=TwoWay}">
+                 SelectedItem="{Binding Path=SelectedProject, Mode=TwoWay}" SelectionChanged="ProjectListBox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
-                        <Label Content="{Binding Path=Name}">
+                        <Label Content="{Binding Path=Name}" HorizontalContentAlignment="Center">
                             <Label.Style>
                                 <Style TargetType="Label">
                                     <Setter Property="Visibility" Value="Visible"/>
@@ -34,13 +34,14 @@
                             </Label.Style>
                         </Label>
 
-                        <StackPanel Orientation="Horizontal">
+                        <!--ERROR LABEL-->
+                        <StackPanel x:Name="ErrorPanel" Orientation="Horizontal">
                             <StackPanel.Style>
                                 <Style TargetType="StackPanel">
                                     <Setter Property="Visibility" Value="Hidden"/>
 
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Path=Exists}" Value="False">
+                                        <DataTrigger x:Name="VisibleTrigger" Binding="{Binding Path=Exists}" Value="False">
                                             <Setter Property="Visibility" Value="Visible"/>
                                         </DataTrigger>
                                     </Style.Triggers>

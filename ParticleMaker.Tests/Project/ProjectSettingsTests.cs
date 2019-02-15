@@ -38,6 +38,22 @@ namespace ParticleMaker.Tests.Project
             //Assert
             Assert.AreEqual(expected, actual);
         }
+
+
+        [Test]
+        public void ProjectName_WhenSettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var settings = new ProjectSettings();
+            var expected = "test-project";
+
+            //Act
+            settings.ProjectName = "test-project";
+            var actual = settings.ProjectName;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
         #endregion
     }
 }

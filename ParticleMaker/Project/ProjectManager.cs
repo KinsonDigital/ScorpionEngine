@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Reflection;
 using ParticleMaker.Exceptions;
 using ParticleMaker.Services;
@@ -11,7 +12,7 @@ namespace ParticleMaker.Project
     public class ProjectManager
     {
         #region Fields
-        private ProjectSettingsManager _settingsService;
+        private ProjectSettingsManager _settingsManager;
         private IDirectoryService _directoryService;
         private static string _projectsPath;
         #endregion
@@ -21,20 +22,52 @@ namespace ParticleMaker.Project
         /// <summary>
         /// Creates a new instance of <see cref="ProjectManager"/>.
         /// </summary>
+        /// <param name="settingsManager">The settings manager used to create project settings.</param>
         /// <param name="directoryService">The directory service to manage the project directories</param>
-        public ProjectManager(ProjectSettingsManager settingsService, IDirectoryService directoryService)
+        public ProjectManager(ProjectSettingsManager settingsManager, IDirectoryService directoryService)
         {
-            _settingsService = settingsService;
+            _settingsManager = settingsManager;
+            _directoryService = directoryService;
+
             _projectsPath = $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Projects";
+
+            CheckRootProjectsFolder();
 
             _directoryService = directoryService;
         }
+        #endregion
 
 
+        #region Props
         /// <summary>
         /// Gets the list of projects.
         /// </summary>
-        public string[] Projects => _directoryService.GetDirectories(_projectsPath);
+        public string[] Projects
+        {
+            get
+            {
+                return _directoryService.GetDirectories(_projectsPath).Where(d =>
+                {
+                    return !string.IsNullOrEmpty(d) && d.Split('\\').Length > 0;
+                }).Select(d =>
+                {
+                    var sections = d.Split('\\');
+
+                    return sections[sections.Length - 1];
+                }).ToArray();
+            }
+        }
+
+        /// <summary>
+        /// Gets all of the directory paths to all of the projects.
+        /// </summary>
+        public string[] ProjectPaths
+        {
+            get
+            {
+                return _directoryService.GetDirectories(_projectsPath);
+            }
+        }
         #endregion
 
 
@@ -47,8 +80,6 @@ namespace ParticleMaker.Project
         {
             var newDirectory = $@"{_projectsPath}\{name}";
 
-            CheckRootProjectsFolder();
-
             if (_directoryService.Exists(newDirectory))
             {
                 throw new ProjectAlreadyExistsException(name);
@@ -56,14 +87,17 @@ namespace ParticleMaker.Project
             else
             {
                 //If the project name is illegal, throw an exception
-                if (string.IsNullOrEmpty(name) || ContainsIllegalCharacters(name))
+                if (string.IsNullOrEmpty(name) || name.ContainsIllegalFileNameCharacters())
                     throw new IllegalProjectNameException(name);
 
                 _directoryService.Create(newDirectory);
 
-                var newSettings = new ProjectSettings();
+                var newSettings = new ProjectSettings()
+                {
+                    ProjectName = name,
+                };
 
-                _settingsService.Save(name, newSettings);
+                _settingsManager.Save(name, newSettings);
             }
         }
 
@@ -98,12 +132,12 @@ namespace ParticleMaker.Project
             var newProjecDir = $@"{_projectsPath}\{newName}";
 
             //If the project name is illegal, throw an exception
-            if (string.IsNullOrEmpty(newName) || ContainsIllegalCharacters(newName))
+            if (string.IsNullOrEmpty(newName) || newName.ContainsIllegalFileNameCharacters())
                 throw new IllegalProjectNameException(newName);
 
             if (_directoryService.Exists(oldProjectDir))
             {
-                _directoryService.Rename(oldProjectDir, newProjecDir);
+                _directoryService.Rename(oldProjectDir, newName);
             }
             else
             {
@@ -135,27 +169,6 @@ namespace ParticleMaker.Project
                 return;
 
             _directoryService.Create(_projectsPath);
-        }
-
-
-        /// <summary>
-        /// Returns a value indicating if the given string <paramref name="value"/> contains any 
-        /// illegal project name characters.
-        /// </summary>
-        /// <param name="value">The string value to check.</param>
-        /// <returns></returns>
-        private bool ContainsIllegalCharacters(string value)
-        {
-            var characters = Path.GetInvalidPathChars();
-            
-            foreach (var c in characters)
-            {
-                if (value.Contains(c.ToString()))
-                    return true;
-            }
-
-
-            return false;
         }
         #endregion
     }

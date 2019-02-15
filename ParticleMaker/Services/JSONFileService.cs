@@ -31,7 +31,31 @@ namespace ParticleMaker.Services
             }
             catch (Exception ex)
             {
-                throw;
+                //TODO: Properly handle exceptions
+            }
+        }
+
+
+        /// <summary>
+        /// Saves the given <paramref name="data"/> to the given <paramref name="path"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of data to save into the file.</typeparam>
+        /// <param name="path">The path of where to save the file.</param>
+        /// <param name="data">The data to save in the file.</param>
+        public void Save<T>(string path, T data) where T : class
+        {
+            try
+            {
+                var fileData = JsonConvert.SerializeObject(data);
+
+                using (var file = File.CreateText(path))
+                {
+                    file.Write(fileData);
+                }
+            }
+            catch (Exception ex)
+            {
+                //TODO: Properly handle exceptions
             }
         }
 
@@ -44,7 +68,17 @@ namespace ParticleMaker.Services
         /// <returns>The data of type <typeparamref name="T"/>.</returns>
         public T Load<T>(string path) where T : class
         {
-            throw new NotImplementedException();
+            var jsonSerializer = new JsonSerializer();
+
+            using (var streamReader = new StreamReader(path))
+            {
+                using (var jsonReader = new JsonTextReader(streamReader))
+                {
+                    var serializer = new JsonSerializer();
+
+                    return serializer.Deserialize<T>(jsonReader);
+                }
+            }
         }
 
 

@@ -104,7 +104,7 @@ namespace KDScorpionUI
             //Render the text inside of the textbox
             _visibleText.Text = ClipText(_allText);
 
-            renderer.Render(_visibleText, _textPosition, new GameColor(0, 0, 0, 255));
+            renderer.Render(_visibleText, _textPosition, new GameColor(255, 0, 0, 0));
 
             //Render the end to cover any text that has passed the end of the render area
             var textureLeft = Position.X - (Width / 2);
@@ -122,16 +122,16 @@ namespace KDScorpionUI
 
             //DEBUGGING
             //Render the dot at the right side line
-            renderer.FillCircle(new Vector(_rightSide, Position.Y - Height / 2), 5, new GameColor(125, 125, 0, 255));
+            renderer.FillCircle(new Vector(_rightSide, Position.Y - Height / 2), 5, new GameColor(255, 125, 125, 0));
 
             //Render the margins for visual debugging
             var leftMarginStart = new Vector(_leftSide, Position.Y - 50);
             var leftMarginStop = new Vector(_leftSide, Position.Y + 50);
-            renderer.Line(leftMarginStart, leftMarginStop, new GameColor(0, 255, 0, 255));
+            renderer.Line(leftMarginStart, leftMarginStop, new GameColor(255, 0, 255, 0));
 
             var rightMarginStart = new Vector(_rightSide, Position.Y - 50);
             var rightMarginStop = new Vector(_rightSide, Position.Y + 50);
-            renderer.Line(rightMarginStart, rightMarginStop, new GameColor(0, 255, 0, 255));
+            renderer.Line(rightMarginStart, rightMarginStop, new GameColor(255, 0, 255, 0));
             ///////////
 
             //Render the blinking cursor
@@ -142,7 +142,7 @@ namespace KDScorpionUI
             lineStop.X = lineStop.X > _rightSide ? _rightSide : lineStop.X;
 
             if (_cursorVisible)
-                renderer.Line(lineStart, lineStop, new GameColor(255, 0, 0, 255));//TODO: Change to black when finished with testing
+                renderer.Line(lineStart, lineStop, new GameColor(255, 255, 0, 0));//TODO: Change to black when finished with testing
         }
         #endregion
 

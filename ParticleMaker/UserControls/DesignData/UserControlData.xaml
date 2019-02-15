@@ -1,21 +1,48 @@
 ﻿<local:UserControlData xmlns:local="clr-namespace:ParticleMaker.UserControls.DesignData"
                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                       xmlns:root="clr-namespace:ParticleMaker"
                        xmlns:sys="clr-namespace:System;assembly=mscorlib"
                        xmlns:userCtrls="clr-namespace:ParticleMaker.UserControls"
                        SetupPath="C:\temp\Projects\test-project\setup-a.json"
                        SetupName="test-setup"
-                       ParticleName="test-particle">
+                       ParticleName="test-particle"
+                       LabelText="Label Text"
+                       ParticleFilePath="C:\temp\test-particle.png">
     
     <local:UserControlData.ErrorBorderBrush>
         <SolidColorBrush Color="Red"/>
     </local:UserControlData.ErrorBorderBrush>
 
+    <local:UserControlData.Setups>
+        <x:Array Type="{x:Type userCtrls:PathItem}">
+            <userCtrls:PathItem FilePath="C:\temp\test-setup\setup-A"/>
+            <userCtrls:PathItem FilePath="C:\temp\test-setup\setup-B"/>
+            <userCtrls:PathItem FilePath="C:\temp\test-setup\setup-C"/>
+        </x:Array>
+    </local:UserControlData.Setups>
+    
     <local:UserControlData.Particles>
         <x:Array Type="{x:Type userCtrls:PathItem}">
-            <userCtrls:PathItem FilePath="C:\temp\test-setup\particle-1.png"/>
-            <userCtrls:PathItem FilePath="C:\temp\test-setup\particle-2.png"/>
-            <userCtrls:PathItem FilePath="C:\temp\test-setup\particle-3.png"/>
+            <userCtrls:PathItem FilePath="C:\temp\test-setup\particle-A.png"/>
+            <userCtrls:PathItem FilePath="C:\temp\test-setup\particle-B.png"/>
+            <userCtrls:PathItem FilePath="C:\temp\test-setup\particle-C.png"/>
         </x:Array>
     </local:UserControlData.Particles>
+
+    <local:UserControlData.ColorValue>
+        <SolidColorBrush>
+            <SolidColorBrush.Color>
+                <Color A="255" R="62" G="125" B="255"/>
+            </SolidColorBrush.Color>
+        </SolidColorBrush>
+    </local:UserControlData.ColorValue>
+
+    <local:UserControlData.Colors>
+        <x:Array Type="{x:Type root:ColorItem}">
+            <root:ColorItem Id="1" ColorBrush="IndianRed"/>
+            <root:ColorItem Id="2" ColorBrush="ForestGreen"/>
+            <root:ColorItem Id="3" ColorBrush="MediumPurple"/>
+        </x:Array>
+    </local:UserControlData.Colors>
 </local:UserControlData>

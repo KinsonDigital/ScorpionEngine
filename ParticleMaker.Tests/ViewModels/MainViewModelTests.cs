@@ -4,6 +4,8 @@ using KDScorpionCore;
 using KDScorpionCore.Graphics;
 using Moq;
 using NUnit.Framework;
+using ParticleMaker.Project;
+using ParticleMaker.UserControls;
 using ParticleMaker.ViewModels;
 using System;
 using System.Collections.ObjectModel;
@@ -25,6 +27,57 @@ namespace ParticleMaker.Tests.ViewModels
 
 
         #region Prop Tests
+        [Test]
+        public void ProjectSetups_WhenSettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var expected = new[]
+            {
+                new PathItem() { FilePath = @"C:\Temp\item-A.json" },
+                new PathItem() { FilePath = @"C:\Temp\item-B.json" }
+            };
+
+            //Act
+            _viewModel.ProjectSetups = new[]
+            {
+                new PathItem() { FilePath = @"C:\Temp\item-A.json" },
+                new PathItem() { FilePath = @"C:\Temp\item-B.json" }
+            };
+
+            var actual = _viewModel.ProjectSetups;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void SettingsChanged_WhenGettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var expected = true;
+
+            //Act
+            _viewModel.RedMin = 123;
+
+            var actual = _viewModel.SettingsChanged;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void NewProject_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Act
+            var actual = _viewModel.NewProject != null;
+
+            //Assert
+            Assert.NotNull(actual);
+        }
+
+
         [Test]
         public void RenderSurface_WhenSettingGettingValue_ReturnsCorrectValue()
         {
@@ -463,6 +516,162 @@ namespace ParticleMaker.Tests.ViewModels
             //Assert    
             Assert.AreEqual(expected, actual);
         }
+
+
+        [Test]
+        public void WindowTitle_WhenGettingValueWithNullCurrentOpenProjectValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var expected = "Particle Maker";
+
+            //Act
+            var actual = _viewModel.WindowTitle;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void WindowTitle_WhenGettingValueWithSetCurrentOpenProjectValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var expected = "Particle Maker - TestProject";
+
+            //Act
+            _viewModel.CurrentOpenProject = "TestProject";
+            var actual = _viewModel.WindowTitle;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void CurrentOpenProject_WhenGettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var expected = "TestProject";
+
+            //Act
+            var actual = _viewModel.CurrentOpenProject = "TestProject";
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void OpenProject_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Arrange
+            var expected = true;
+
+            //Act
+            var actual = _viewModel.OpenProject != null;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void SetupItemSelected_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Arrange
+            var expected = true;
+
+            //Act
+            var actual = _viewModel.SetupItemSelected != null;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void AddSetup_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Arrange
+            var expected = true;
+
+            //Act
+            var actual = _viewModel.AddSetup != null;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void RenameProject_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Arrange
+            var expected = true;
+
+            //Act
+            var actual = _viewModel.RenameProject != null;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void Play_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Arrange
+            var expected = true;
+
+            //Act
+            var actual = _viewModel.Play != null;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void Pause_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Arrange
+            var expected = true;
+
+            //Act
+            var actual = _viewModel.Pause != null;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void SaveSetup_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Arrange
+            var expected = true;
+
+            //Act
+            var actual = _viewModel.SaveSetup != null;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void CurrentLoadedSetup_WhenSettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var expected = "current-setup";
+
+            //Act
+            _viewModel.CurrentLoadedSetup = "current-setup";
+            var actual = _viewModel.CurrentLoadedSetup;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
         #endregion
 
 
@@ -531,7 +740,7 @@ namespace ParticleMaker.Tests.ViewModels
 
             _engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine);
 
-            _viewModel = new MainViewModel(_engine)
+            _viewModel = new MainViewModel(_engine, It.IsAny<ProjectManager>(), It.IsAny<ProjectSettingsManager>(), It.IsAny<SetupManager>())
             {
                 RenderSurface = new PictureBox()
             };

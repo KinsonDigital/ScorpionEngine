@@ -62,6 +62,11 @@ namespace ParticleMaker
 
         #region Props
         /// <summary>
+        /// Gets or sets a value indicating if the engine is running.
+        /// </summary>
+        public bool IsRunning { get; set; }
+
+        /// <summary>
         /// The original render window.
         /// </summary>
         public GameWindow OriginalWindow { get; set; }
@@ -70,16 +75,30 @@ namespace ParticleMaker
         /// Gets or sets the handle to the surface to render the graphics to.
         /// </summary>
         public IntPtr RenderSurfaceHandle { get; set; }
+        #endregion
 
-        public Point WindowPosition
+
+        #region Public Methods
+        /// <summary>
+        /// Unpauses the <see cref="CoreEngine"/>.
+        /// </summary>
+        public void Play()
         {
-            get => Window.Position;
-            set => Window.Position = value;
+            IsRunning = true;
+        }
+
+
+        /// <summary>
+        /// Pauses the <see cref="CoreEngine"/>.
+        /// </summary>
+        public void Pause()
+        {
+            IsRunning = false;
         }
         #endregion
 
 
-        #region Event Methods
+        #region Private Methods
         /// <summary>
         /// Sets up the graphics device.
         /// </summary>
@@ -121,6 +140,9 @@ namespace ParticleMaker
         /// <param name="gameTime">The amount of time that has passed since the last frame.</param>
         protected override void Update(GameTime gameTime)
         {
+            if (!IsRunning)
+                return;
+
             OnUpdate?.Invoke(this, new UpdateEventArgs(gameTime));
 
             base.Update(gameTime);
@@ -133,6 +155,9 @@ namespace ParticleMaker
         /// <param name="gameTime">The amount of time that has passed since the last frame.</param>
         protected override void Draw(GameTime gameTime)
         {
+            if (!IsRunning)
+                return;
+
             OnDraw?.Invoke(this, new DrawEventArgs(gameTime));
 
             base.Draw(gameTime);
@@ -147,6 +172,16 @@ namespace ParticleMaker
             OnUnLoadContent?.Invoke(this, new EventArgs());
 
             base.UnloadContent();
+        }
+
+
+        /// <summary>
+        /// Properly disposes of the <see cref="CoreEngine"/>.
+        /// </summary>
+        /// <param name="disposing">true if currently being disposed.</param>
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
         }
         #endregion
     }

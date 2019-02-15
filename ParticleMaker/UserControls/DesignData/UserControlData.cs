@@ -28,22 +28,12 @@ namespace ParticleMaker.UserControls.DesignData
         /// <summary>
         /// Gets or sets the setup paths design data for the <see cref="SetupList"/> user control.
         /// </summary>
-        public PathItem[] Setups { get; set; } = new PathItem[]
-        {
-            new PathItem() { FilePath = @"C:\temp\test-setup\setup-1.json" },
-            new PathItem() { FilePath = @"C:\temp\test-setup\setup-2.json" },
-            new PathItem() { FilePath = @"C:\temp\test-setup\setup-3.json" }
-        };
+        public PathItem[] Setups { get; set; }
 
         /// <summary>
         /// Gets or sets the particle paths design data for the <see cref="ParticleList"/> user control.
         /// </summary>
-        public PathItem[] Particles { get; set; } = new PathItem[]
-        {
-            new PathItem() { FilePath = @"C:\temp\test-setup\particle-1.png" },
-            new PathItem() { FilePath = @"C:\temp\test-setup\particle-2.png" },
-            new PathItem() { FilePath = @"C:\temp\test-setup\particle-3.png" }
-        };
+        public PathItem[] Particles { get; set; }
 
         /// <summary>
         /// Gets or sets the error message during design time.
@@ -54,6 +44,26 @@ namespace ParticleMaker.UserControls.DesignData
         /// Gets or sets the name of the particle.
         /// </summary>
         public string ParticleName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the file path to the particle for the design data of the ParticleListItem control.
+        /// </summary>
+        public string ParticleFilePath { get; set; }
+
+        /// <summary>
+        /// The label text data for the <see cref="NumericUpDown"/> control.
+        /// </summary>
+        public string LabelText { get; set; } = nameof(LabelText);
+
+        /// <summary>
+        /// Gets or sets the color value.
+        /// </summary>
+        public SolidColorBrush ColorValue { get; set; }
+
+        /// <summary>
+        /// Gets or sets the color data.
+        /// </summary>
+        public ColorItem[] Colors { get; set; }
         #endregion
     }
 }

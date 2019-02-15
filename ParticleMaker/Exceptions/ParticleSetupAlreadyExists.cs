@@ -1,5 +1,4 @@
 ﻿using System;
-using ParticleMaker.Project;
 
 namespace ParticleMaker.Exceptions
 {

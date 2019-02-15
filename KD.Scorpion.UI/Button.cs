@@ -154,7 +154,7 @@ namespace KDScorpionUI
             };
 
             if(ButtonText != null)
-                renderer.Render(ButtonText, textPosition, new GameColor(0, 0, 0, 255));
+                renderer.Render(ButtonText, textPosition, new GameColor(255, 0, 0, 0));
         }
         #endregion
 

@@ -40,11 +40,21 @@ namespace ParticleMaker.Project
         {
             if (ProjectExists(projectName))
             {
-                _fileService.Create<ProjectSettings>(projectName, null);
+                if (settings.ProjectName.ContainsIllegalFileNameCharacters())//Illegal characters
+                {
+                    throw new IllegalFileNameCharactersException();
+                }
+                else
+                {
+                    _fileService.Create($@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json", settings);
+                }
+
                 return;
             }
-
-            throw new ProjectDoesNotExistException(projectName);
+            else
+            {
+                throw new ProjectDoesNotExistException(projectName);
+            }
         }
 
 
@@ -55,10 +65,33 @@ namespace ParticleMaker.Project
         /// <returns></returns>
         public ProjectSettings Load(string projectName)
         {
+            var filePath = $@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json";
+
             if (ProjectExists(projectName))
-                return _fileService.Load<ProjectSettings>(projectName);
+                return _fileService.Load<ProjectSettings>(filePath);
 
             throw new ProjectDoesNotExistException(projectName);
+        }
+
+
+        /// <summary>
+        /// Renames the project settings file from the given <paramref name="projectName"/> to
+        /// the given <paramref name="newProjectName"/>.
+        /// </summary>
+        /// <param name="projectName">The current name of the project settings file.</param>
+        /// <param name="newProjectName">The new project name.</param>
+        public void Rename(string projectName, string newProjectName)
+        {
+            if (ProjectExists(projectName))
+            {
+                var oldFilePath = $@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json";
+
+                _fileService.Rename(oldFilePath, $"{newProjectName}-project-settings.json");
+            }
+            else
+            {
+                throw new ProjectDoesNotExistException(projectName);
+            }
         }
         #endregion
 
@@ -71,7 +104,7 @@ namespace ParticleMaker.Project
         /// <returns></returns>
         private bool ProjectExists(string name)
         {
-            return _directoryService.Exists($@"{_projectSettingsPath}\{name}");
+            return !string.IsNullOrEmpty(name) && _directoryService.Exists($@"{_projectSettingsPath}\{name}");
         }
         #endregion
     }

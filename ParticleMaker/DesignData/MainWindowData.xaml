@@ -1,0 +1,49 @@
+﻿<local:MainWindowData xmlns:local="clr-namespace:ParticleMaker.DesignData"
+                      xmlns:root="clr-namespace:ParticleMaker"
+                      xmlns:media="clr-namespace:System.Windows.Media;assembly=PresentationCore"
+                      xmlns:ctrls="clr-namespace:ParticleMaker.UserControls"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      WindowTitle="Particle Maker - Test-Project"
+                      CurrentOpenProject="test-project">
+    
+    <local:MainWindowData.Colors>
+        <root:ColorItem Id="111">
+            <root:ColorItem.ColorBrush>
+                <media:SolidColorBrush Color="CornflowerBlue"/>
+            </root:ColorItem.ColorBrush>
+        </root:ColorItem>
+        
+        <root:ColorItem Id="222">
+            <root:ColorItem.ColorBrush>
+                <media:SolidColorBrush Color="MediumPurple"/>
+            </root:ColorItem.ColorBrush>
+        </root:ColorItem>
+    </local:MainWindowData.Colors>
+
+    <local:MainWindowData.ColorValue>
+        <media:SolidColorBrush Color="CornflowerBlue"/>
+    </local:MainWindowData.ColorValue>
+
+    <local:MainWindowData.Particles>
+        <x:Array Type="{x:Type ctrls:PathItem}">
+            <ctrls:PathItem FilePath="C:\TEMP\Projects\test-project\Red.png"/>
+            <ctrls:PathItem FilePath="C:\TEMP\Projects\test-project\Green.png"/>
+            <ctrls:PathItem FilePath="C:\TEMP\Projects\test-project\Blue.png"/>
+        </x:Array>
+    </local:MainWindowData.Particles>
+
+    <local:MainWindowData.ProjectSetups>
+        <x:Array Type="{x:Type ctrls:PathItem}">
+            <ctrls:PathItem FilePath="C:\TEMP\Projects\test-project\Setups\setup-A"/>
+            <ctrls:PathItem FilePath="C:\TEMP\Projects\test-project\Setups\setup-B"/>
+        </x:Array>
+    </local:MainWindowData.ProjectSetups>
+
+    <local:MainWindowData.SetupItemSelected>
+        <root:RelayCommand/>
+    </local:MainWindowData.SetupItemSelected>
+    
+    <local:MainWindowData.AddSetup>
+        <root:RelayCommand/>
+    </local:MainWindowData.AddSetup>
+</local:MainWindowData>

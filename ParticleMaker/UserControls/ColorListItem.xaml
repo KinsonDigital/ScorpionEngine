@@ -17,13 +17,42 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         
-        <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5" Height="25"
-                d:DataContext="{d:DesignData Source=/DesignData/ColorListSampleData.xaml}"
-                Background="{Binding ColorValue}" HorizontalAlignment="Stretch" Grid.Column="0"
+        <Border BorderThickness="1" CornerRadius="5" Height="25"
+                d:DataContext="{d:DesignData Source=/UserControls/DesignData/UserControlData.xaml}"
+                HorizontalAlignment="Center" Grid.Column="0"
                 VerticalAlignment="Center" Margin="4, 0, 0, 0">
-            
-                <Label Content="{Binding Path=ColorValue.Color}" HorizontalAlignment="Stretch" VerticalAlignment="Top"
-                       VerticalContentAlignment="Stretch" Margin="0, -2, 0, 0" Foreground="Black"/>
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="BorderBrush" Value="Black"/>
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <Binding Path="ColorValue"/>
+                        </Setter.Value>
+                    </Setter>
+                    
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=this, Path=IsEnabled}" Value="False">
+                            <Setter Property="Background" Value="LightGray"/>
+                            <Setter Property="BorderBrush" Value="LightGray"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+
+            <Label Content="{Binding Path=ColorValue.Color}" HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                    VerticalContentAlignment="Stretch" Margin="0, -2, 0, 0">
+                <Label.Style>
+                    <Style TargetType="Label">
+                        <Setter Property="Foreground" Value="Black"/>
+                        
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=this, Path=IsEnabled}" Value="False">
+                                <Setter Property="Foreground" Value="Gray"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
         </Border>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">

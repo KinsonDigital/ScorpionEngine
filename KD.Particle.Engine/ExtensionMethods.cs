@@ -1,10 +1,13 @@
-﻿using System;
+﻿using KDScorpionCore.Graphics;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace KDParticleEngine
 {
     public static class ExtensionMethods
     {
+        #region Public Methods
         /// <summary>
         /// Returns a random value between the given <paramref name="minValue"/> and <paramref name="maxValue"/>.
         /// </summary>
@@ -36,5 +39,66 @@ namespace KDParticleEngine
         {
             return random.NextDouble() <= 0.5f;
         }
+
+
+        /// <summary>
+        /// Converts this <see cref="ParticleColor"/> to a <see cref="GameColor"/>.
+        /// </summary>
+        /// <param name="color">The color to convert.</param>
+        /// <returns></returns>
+        public static GameColor ToGameColor(this ParticleColor color)
+        {
+            return new GameColor(color.Alpha, color.Red, color.Green, color.Blue);
+        }
+
+
+        /// <summary>
+        /// Converts all of the given <see cref="ParticleColor"/>s to <see cref="GameColor"/>s.
+        /// </summary>
+        /// <param name="colors">The list of colors to convert.</param>
+        /// <returns></returns>
+        public static GameColor[] ToGameColors(this ParticleColor[] colors)
+        {
+            var result = new List<GameColor>();
+
+            foreach (var clr in colors)
+            {
+                result.Add(clr.ToGameColor());
+            }
+
+
+            return result.ToArray();
+        }
+
+
+        /// <summary>
+        /// Converts this <see cref="ParticleColor"/> to a <see cref="GameColor"/>.
+        /// </summary>
+        /// <param name="color">The color to convert.</param>
+        /// <returns></returns>
+        public static ParticleColor ToParticleColor(this GameColor color)
+        {
+            return new ParticleColor(color.Alpha, color.Red, color.Green, color.Blue);
+        }
+
+
+        /// <summary>
+        /// Converts all of the given <see cref="ParticleColor"/>s to <see cref="GameColor"/>s.
+        /// </summary>
+        /// <param name="colors">The list of colors to convert.</param>
+        /// <returns></returns>
+        public static ParticleColor[] ToParticleColors(this GameColor[] colors)
+        {
+            var result = new List<ParticleColor>();
+
+            foreach (var clr in colors)
+            {
+                result.Add(clr.ToParticleColor());
+            }
+
+
+            return result.ToArray();
+        }
+        #endregion
     }
 }

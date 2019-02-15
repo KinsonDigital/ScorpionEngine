@@ -94,15 +94,15 @@ namespace KDScorpionCoreTests.Graphics
         {
             //Arrange
             var mockInternalText = new Mock<IText>();
-            mockInternalText.SetupProperty(m => m.Color, new byte[] { 11, 22, 33, 44 });
+            mockInternalText.SetupProperty(m => m.Color, new byte[] { 0, 0, 0, 0 });
             var gameText = new GameText()
             {
                 InternalText = mockInternalText.Object
             };
-            var expected = new GameColor(11, 22, 33, 44);
+            var expected = new GameColor(44, 11, 22, 33);
 
             //Act
-            gameText.Color = new GameColor(11, 22, 33, 44);
+            gameText.Color = new GameColor(44, 11, 22, 33);
             var actual = gameText.Color;
 
             //Assert

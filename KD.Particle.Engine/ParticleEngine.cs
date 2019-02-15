@@ -205,12 +205,12 @@ namespace KDParticleEngine
         ///     </item>
         /// </list>
         /// </summary>
-        public bool UseTintColorList { get; set; }
+        public bool UseColorsFromList { get; set; }
 
         /// <summary>
         /// Gets or sets the list of colors that the <see cref="ParticleEngine"/> will
         /// randomly choose from when spawning a new <see cref="Particle"/>.
-        /// Only used if the <see cref="UseTintColorList"/> is set to true.
+        /// Only used if the <see cref="UseColorsFromList"/> is set to true.
         /// </summary>
         public GameColor[] TintColors { get; set; } = new GameColor[0];
 
@@ -277,6 +277,10 @@ namespace KDParticleEngine
 
 
         #region Public Methods
+        /// <summary>
+        /// Adds the given <paramref name="texture"/> to the engine.
+        /// </summary>
+        /// <param name="texture">The texture to add.</param>
         public void AddTexture(Texture texture)
         {
             _textures.Add(texture);
@@ -284,6 +288,10 @@ namespace KDParticleEngine
         }
 
 
+        /// <summary>
+        /// Adds the given <paramref name="textures"/> to the engine.
+        /// </summary>
+        /// <param name="textures">The list of textures to add.</param>
         public void AddTextures(Texture[] textures)
         {
             _textures.AddRange(textures);
@@ -488,7 +496,7 @@ namespace KDParticleEngine
         /// <returns></returns>
         private GameColor GetRandomColor()
         {
-            if (UseTintColorList)
+            if (UseColorsFromList)
             {
                 return TintColors == null || TintColors.Length == 0 ? new GameColor(255, 255, 255, 255) : TintColors[Randomizer.GetValue(0, TintColors.Length)];
             }
@@ -504,7 +512,7 @@ namespace KDParticleEngine
                     (byte)Randomizer.GetValue(BlueMin, BlueMax) :
                     (byte)Randomizer.GetValue(BlueMax, BlueMin);
 
-                return new GameColor(red, green, blue, 255);
+                return new GameColor(255, red, green, blue);
             }
         }
 
@@ -533,6 +541,81 @@ namespace KDParticleEngine
             var myResult = Randomizer.GetValue(LifeTimeMin, LifeTimeMax);
 
             return Randomizer.GetValue(LifeTimeMax, LifeTimeMin);
+        }
+
+
+        /// <summary>
+        /// Applies the given <paramref name="setupData"/> to the engine.
+        /// </summary>
+        /// <param name="setupData">The setup data to apply.</param>
+        public void ApplySetup(ParticleSetup setupData)
+        {
+            RedMin = setupData.RedMin;
+            RedMax = setupData.RedMax;
+
+            GreenMin = setupData.GreenMin;
+            GreenMax = setupData.GreenMax;
+
+            BlueMin = setupData.BlueMin;
+            BlueMax = setupData.BlueMax;
+
+            SizeMin = setupData.SizeMin;
+            SizeMax = setupData.SizeMax;
+
+            AngleMin = setupData.AngleMin;
+            AngleMax = setupData.AngleMax;
+
+            AngularVelocityMin = setupData.AngularVelocityMin;
+            AngularVelocityMax = setupData.AngularVelocityMax;
+
+            VelocityXMin = setupData.VelocityXMin;
+            VelocityXMax = setupData.VelocityXMax;
+
+            VelocityYMin = setupData.VelocityYMin;
+            VelocityYMax = setupData.VelocityYMax;
+
+            LifeTimeMin = setupData.LifeTimeMin;
+            LifeTimeMax = setupData.LifeTimeMax;
+
+            SpawnRateMin = setupData.SpawnRateMin;
+            SpawnRateMax = setupData.SpawnRateMax;
+
+            UseColorsFromList = setupData.UseColorsFromList;
+            TintColors = setupData.Colors.ToGameColors();
+        }
+
+
+        /// <summary>
+        /// Generates a particle setup from the current settings of the <see cref="ParticleEngine"/>.
+        /// </summary>
+        /// <returns></returns>
+        public ParticleSetup GenerateParticleSetup()
+        {
+            return new ParticleSetup()
+            {
+                RedMin = RedMin,
+                RedMax = RedMax,
+                GreenMin = GreenMin,
+                GreenMax = GreenMax,
+                BlueMin = BlueMin,
+                BlueMax = BlueMax,
+                SizeMin = SizeMin,
+                SizeMax = SizeMax,
+                AngleMin = AngleMin,
+                AngleMax = AngleMax,
+                AngularVelocityMin = AngularVelocityMin,
+                AngularVelocityMax = AngularVelocityMax,
+                VelocityXMin = VelocityXMin,
+                VelocityXMax = VelocityXMax,
+                VelocityYMin = VelocityYMin,
+                VelocityYMax = VelocityYMax,
+                LifeTimeMin = LifeTimeMin,
+                LifeTimeMax = LifeTimeMax,
+                SpawnRateMin = SpawnRateMin,
+                SpawnRateMax = SpawnRateMax,
+                UseColorsFromList = UseColorsFromList,
+                Colors = TintColors.ToParticleColors()
+            };
         }
         #endregion
     }

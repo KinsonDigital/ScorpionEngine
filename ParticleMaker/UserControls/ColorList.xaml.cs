@@ -1,5 +1,5 @@
 ﻿using ParticleMaker.CustomEventArgs;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
@@ -31,16 +31,16 @@ namespace ParticleMaker.UserControls
         /// Registers the <see cref="Colors"/> property.
         /// </summary>
         public static readonly DependencyProperty ColorsProperty =
-            DependencyProperty.Register(nameof(Colors), typeof(ObservableCollection<ColorItem>), typeof(ColorList), new PropertyMetadata(new ObservableCollection<ColorItem>()));
+            DependencyProperty.Register(nameof(Colors), typeof(ColorItem[]), typeof(ColorList), new PropertyMetadata(new ColorItem[0]));
         #endregion
 
 
         /// <summary>
         /// Gets or sets the list of colors in the list.
         /// </summary>
-        public ObservableCollection<ColorItem> Colors
+        public ColorItem[] Colors
         {
-            get { return (ObservableCollection<ColorItem>)GetValue(ColorsProperty); }
+            get { return (ColorItem[])GetValue(ColorsProperty); }
             set { SetValue(ColorsProperty, value); }
         }
         #endregion
@@ -58,15 +58,17 @@ namespace ParticleMaker.UserControls
 
             if (colorPicker.DialogResult == true)
             {
-                var newId = Colors.Count <= 0 ? 1 : Colors.Max(c => c.Id) + 1;
+                var colors = new List<ColorItem>(Colors);
 
-                Colors.Add(new ColorItem()
+                var newId = Colors.Length <= 0 ? 1 : Colors.Max(c => c.Id) + 1;
+
+                colors.Add(new ColorItem()
                 {
                     Id = newId,
                     ColorBrush = new SolidColorBrush(colorPicker.ChosenColor)
                 });
 
-                SetValue(ColorsProperty, Colors);
+                Colors = colors.ToArray();
             }
         }
 
@@ -82,7 +84,7 @@ namespace ParticleMaker.UserControls
 
             if (colorPicker.DialogResult == true)
             {
-                for (int i = 0; i < Colors.Count; i++)
+                for (int i = 0; i < Colors.Length; i++)
                 {
                     if (Colors[i].Id == e.Id)
                     {
@@ -109,12 +111,15 @@ namespace ParticleMaker.UserControls
 
             if (deleteResult == MessageBoxResult.Yes)
             {
-                for (int i = 0; i < Colors.Count; i++)
+                var colors = new List<ColorItem>(Colors);
+
+                for (int i = 0; i < colors.Count; i++)
                 {
                     if (Colors[i].Id == e.Id)
                     {
-                        Colors.RemoveAt(i);
-                        SetValue(ColorsProperty, Colors);
+                        colors.RemoveAt(i);
+
+                        Colors = colors.ToArray();
                         break;
                     }
                 }

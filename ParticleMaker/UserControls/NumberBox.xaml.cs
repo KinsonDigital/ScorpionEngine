@@ -108,26 +108,29 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (_numberKeys.Contains(e.Key))
+            if(IsEnabled)
             {
-                if (Keyboard.Modifiers != ModifierKeys.Shift)
-                    return;
-            }
-            else if (_numpadKeys.Contains(e.Key))
-            {
-                if (Keyboard.Modifiers != ModifierKeys.Shift)
-                    return;
-            }
-            else if (_otherAllowedKeys.Contains(e.Key))
-            {
-                if (Keyboard.IsKeyDown(Key.Decimal) || Keyboard.IsKeyDown(Key.OemPeriod))
+                if (_numberKeys.Contains(e.Key))
                 {
-                    if (!NumberText.ToString().Contains('.') && Keyboard.Modifiers != ModifierKeys.Shift)
+                    if (Keyboard.Modifiers != ModifierKeys.Shift)
                         return;
                 }
-                else
+                else if (_numpadKeys.Contains(e.Key))
                 {
-                    return;
+                    if (Keyboard.Modifiers != ModifierKeys.Shift)
+                        return;
+                }
+                else if (_otherAllowedKeys.Contains(e.Key))
+                {
+                    if (Keyboard.IsKeyDown(Key.Decimal) || Keyboard.IsKeyDown(Key.OemPeriod))
+                    {
+                        if (!NumberText.ToString().Contains('.') && Keyboard.Modifiers != ModifierKeys.Shift)
+                            return;
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
             }
 
@@ -162,7 +165,8 @@ namespace ParticleMaker.UserControls
             if (ctrl == null)
                 return;
 
-            ctrl.NumberText = e.NewValue.ToString();
+            if (ctrl.IsEnabled)
+                ctrl.NumberText = e.NewValue.ToString();
         }
         #endregion
     }

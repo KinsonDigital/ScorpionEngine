@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace ParticleMaker.UserControls
 {
@@ -12,7 +13,7 @@ namespace ParticleMaker.UserControls
     /// Interaction logic for SetupListItem.xaml
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public partial class SetupListItem : UserControl
+    public partial class SetupListItem : UserControl, IDisposable
     {
         #region Public Events
         /// <summary>
@@ -23,7 +24,17 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Invoked when the delete button is clicked.
         /// </summary>
-        public event EventHandler<DeleteItemEventArgs> DeleteClicked;
+        public event EventHandler<ItemEventArgs> DeleteClicked;
+
+        /// <summary>
+        /// Invoked when the save button is clicked.
+        /// </summary>
+        public event EventHandler<ItemEventArgs> SaveClicked;
+        #endregion
+
+
+        #region Fields
+        private RelayCommand _renameClickedCommand;
         #endregion
 
 
@@ -57,6 +68,30 @@ namespace ParticleMaker.UserControls
         /// </summary>
         protected static readonly DependencyProperty HasErrorProperty =
             DependencyProperty.Register(nameof(HasError), typeof(bool), typeof(SetupListItem), new PropertyMetadata(false));
+
+        /// <summary>
+        /// Registers the <see cref="Command"/> property.
+        /// </summary>
+        public static readonly DependencyProperty CommandProperty =
+            DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(SetupListItem), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Registers the <see cref="RenameClickedCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty RenameClickedCommandProperty =
+            DependencyProperty.Register(nameof(RenameClickedCommand), typeof(ICommand), typeof(SetupListItem), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Registers the <see cref="DeleteClickedCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty DeleteClickedCommandProperty =
+            DependencyProperty.Register(nameof(DeleteClickedCommand), typeof(ICommand), typeof(SetupListItem), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Registers the <see cref="SaveClickedCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty SaveClickedCommandProperty =
+            DependencyProperty.Register(nameof(SaveClickedCommand), typeof(ICommand), typeof(SetupListItem), new PropertyMetadata(null));
         #endregion
 
 
@@ -89,89 +124,55 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
-        /// Gets or sets a value indicating if the rename event has been subscribed to.
+        /// Gets or sets the command to be executed when the <see cref="SetupListItem"/> has been clicked.
         /// </summary>
-        internal bool IsRenameSubscribed { get; set; }
+        public ICommand Command
+        {
+            get { return (ICommand)GetValue(CommandProperty); }
+            set { SetValue(CommandProperty, value); }
+        }
 
         /// <summary>
-        /// Gets or sets a value indicating if the delete event has been subscribed to.
+        /// Gets or sets the command that is executed when the rename button has been clicked.
         /// </summary>
-        internal bool IsDeleteSubscribed { get; set; }
+        public ICommand RenameClickedCommand
+        {
+            get { return (ICommand)GetValue(RenameClickedCommandProperty); }
+            set { SetValue(RenameClickedCommandProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the command that is executed when the delete button has been clicked.
+        /// </summary>
+        public ICommand DeleteClickedCommand
+        {
+            get { return (ICommand)GetValue(DeleteClickedCommandProperty); }
+            set { SetValue(DeleteClickedCommandProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the command that is executed when the save button has been clicked.
+        /// </summary>
+        public ICommand SaveClickedCommand
+        {
+            get { return (ICommand)GetValue(SaveClickedCommandProperty); }
+            set { SetValue(SaveClickedCommandProperty, value); }
+        }
         #endregion
 
 
         #region Public Methods
         /// <summary>
-        /// Refreshs the control by updating the control's UI based on if the file exists or not.
+        /// Refreshes the control by updating the control's UI based on if the file exists or not.
         /// </summary>
         public void Refresh()
         {
-            var fileExists = File.Exists(SetupPath);
+            var dirExists = DesignerProperties.GetIsInDesignMode(this) ? true : Directory.Exists(SetupPath);
+            var pathSections = string.IsNullOrEmpty(SetupPath) || !dirExists ? new string[0] : SetupPath.Split('\\');
 
-            if (DesignerProperties.GetIsInDesignMode(this) && fileExists)
-            {
-                SetupName = Path.GetFileNameWithoutExtension(SetupPath);
-                HasError = false;
-            }
-            else
-            {
-                SetupName = string.IsNullOrEmpty(SetupPath) ||
-                            !fileExists ?
-                            "" :
-                            SetupName = Path.GetFileNameWithoutExtension(SetupPath);
+            SetupName = pathSections.Length >= 1 ? pathSections[pathSections.Length - 1] : "";
 
-                HasError = !fileExists;
-            }
-        }
-        #endregion
-
-
-        #region Internal Methods
-        /// <summary>
-        /// Subscribes the given handler to the <see cref="RenameClicked"/> event.
-        /// </summary>
-        /// <param name="handler">The handler to subscribe to.</param>
-        internal void SubscribeRenameClicked(EventHandler<RenameItemEventArgs> handler)
-        {
-            RenameClicked += handler;
-
-            IsRenameSubscribed = true;
-        }
-
-
-        /// <summary>
-        /// Subscribes the given handler to the <see cref="DeleteClicked"/> event.
-        /// </summary>
-        /// <param name="handler">The handler to subscribe to.</param>
-        internal void SubscribeDeleteClicked(EventHandler<DeleteItemEventArgs> handler)
-        {
-            DeleteClicked += handler;
-
-            IsDeleteSubscribed = true;
-        }
-
-
-        /// <summary>
-        /// Unsubscribes the given handler to the <see cref="RenameClicked"/> event.
-        /// </summary>
-        /// <param name="handler">The handler to subscribe to.</param>
-        internal void UnsubscribeRenameClicked(EventHandler<RenameItemEventArgs> handler)
-        {
-            RenameClicked -= handler;
-
-            IsRenameSubscribed = false;
-        }
-
-
-        /// <summary>
-        /// Unsubscribes the given handler to the <see cref="DeleteClicked"/> event.
-        /// </summary>
-        /// <param name="handler">The handler to subscribe to.</param>
-        internal void UnsubscribeDeleteClicked(EventHandler<DeleteItemEventArgs> handler)
-        {
-            DeleteClicked -= handler;
-
-            IsDeleteSubscribed = false;
+            HasError = !dirExists;
         }
         #endregion
 
@@ -197,24 +198,59 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Renames the file at the currently set path.
+        /// Renames the selected file.
         /// </summary>
         private void RenameCustomButton_Click(object sender, EventArgs e)
         {
             RenameClicked?.Invoke(this, new RenameItemEventArgs(SetupName, SetupPath));
+            RenameClickedCommand?.Execute(new RenameItemEventArgs(SetupName, SetupPath));
 
             Refresh();
         }
 
 
         /// <summary>
-        /// Deletes the file at the given path.
+        /// Deletes the selected file.
         /// </summary>
         private void DeleteCustomButton_Click(object sender, EventArgs e)
         {
-            DeleteClicked?.Invoke(this, new DeleteItemEventArgs(SetupName, SetupPath));
+            DeleteClicked?.Invoke(this, new ItemEventArgs(SetupName, SetupPath));
+            DeleteClickedCommand?.Execute(new ItemEventArgs(SetupName, SetupPath));
 
             Refresh();
+        }
+
+
+        /// <summary>
+        /// Saves the selected file.
+        /// </summary>
+        private void SaveCustomButton_Click(object sender, EventArgs e)
+        {
+            SaveClicked?.Invoke(this, new ItemEventArgs(SetupName, SetupPath));
+            SaveClickedCommand?.Execute(new ItemEventArgs(SetupName, SetupPath));
+
+            Refresh();
+        }
+
+
+        /// <summary>
+        /// Invokes the control clicked event.
+        /// </summary>
+        private void ItemBorder_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Command?.Execute(SetupName);
+        }
+
+
+        /// <summary>
+        /// Unsubscribes from any events.
+        /// </summary>
+        public void Dispose()
+        {
+            RenameCustomButton.Click -= RenameCustomButton_Click;
+            DeleteCustomButton.Click-= DeleteCustomButton_Click;
+            SaveCustomButton.Click -= SaveCustomButton_Click;
+            ItemBorder.MouseUp -= ItemBorder_MouseUp;
         }
         #endregion
     }

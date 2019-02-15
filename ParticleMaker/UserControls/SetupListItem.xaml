@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ParticleMaker.UserControls.SetupListItem"
+<UserControl x:Class="ParticleMaker.UserControls.SetupListItem"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,9 +7,8 @@
              mc:Ignorable="d" Name="this">
 
     <!--ERROR BORDER-->
-    <Border DataContext="{Binding ElementName=this}"
-            d:DataContext="{d:DesignData Source=/UserControls/DesignData/UserControlData.xaml}"
-            BorderThickness="1">
+    <Border DataContext="{Binding ElementName=this}" BorderThickness="1"
+            d:DataContext="{d:DesignData Source=/UserControls/DesignData/UserControlData.xaml}">
         <Border.Style>
             <Style TargetType="Border">
                 <Setter Property="BorderBrush">
@@ -38,42 +37,49 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <!--SETUP NAME-->
-                <Label Grid.Column="0" Content="{Binding Path=SetupName}" Foreground="Black" VerticalContentAlignment="Center"
-                       HorizontalAlignment="Center">
-                    <Label.Style>
-                        <Style TargetType="Label">
-                            <Setter Property="Visibility" Value="Visible"/>
-                            
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ElementName=this, Path=HasError}" Value="True">
-                                    <Setter Property="Visibility" Value="Hidden"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Label.Style>
-                </Label>
-
                 <!--ERROR MESSAGE-->
                 <Label Grid.Column="0" Grid.ColumnSpan="2" Content="ERROR!!" Foreground="Red" FontWeight="Bold" VerticalContentAlignment="Center"
                        HorizontalAlignment="Center">
                     <Label.Style>
                         <Style TargetType="Label">
                             <Setter Property="Visibility" Value="Hidden"/>
-                            
+
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding ElementName=this, Path=HasError}" Value="True">
                                     <Setter Property="Visibility" Value="Visible"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
-                    </Label.Style>                    
+                    </Label.Style>
                 </Label>
+                
+                <!--SETUP NAME-->
+                <Border x:Name="ItemBorder" Background="Transparent" MouseUp="ItemBorder_MouseUp" BorderBrush="Transparent" BorderThickness="0"
+                        Grid.Column="0">
+                    <Label Content="{Binding Path=SetupName}" VerticalContentAlignment="Center" HorizontalAlignment="Center">
+                        <Label.Style>
+                            <Style TargetType="Label">
+                                <Setter Property="Visibility" Value="Visible"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                            
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=this, Path=HasError}" Value="True">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
 
-                <!--RENAME BUTTON-->
+                                    <DataTrigger Binding="{Binding ElementName=this, Path=IsEnabled}" Value="False">
+                                        <Setter Property="Foreground" Value="LightGray"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                </Border>
+
+                <!--RENAME, DELETE AND SAVE BUTTONS-->
                 <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
-                    <local:CustomButton x:Name="RenameCustomButton"
-                                        Click="RenameCustomButton_Click">
+                    <!--RENAME BUTTON-->
+                    <local:CustomButton x:Name="RenameCustomButton" Click="RenameCustomButton_Click">
                         <local:CustomButton.ButtonContent>
                             <Image Source="/ParticleMaker;component/Icons/Edit.png" Width="27" Height="27" Margin="2.5"/>
                         </local:CustomButton.ButtonContent>
@@ -82,7 +88,14 @@
                     <!--DELETE BUTTON-->
                     <local:CustomButton x:Name="DeleteCustomButton" Click="DeleteCustomButton_Click">
                         <local:CustomButton.ButtonContent>
-                            <Image Source="/ParticleMaker;component/Icons/Delete.png" Width="27" Height="27" Margin="2.5"/>
+                            <Image Source="/ParticleMaker;component/Icons/Delete.png" Width="23" Height="23" Margin="2.5"/>
+                        </local:CustomButton.ButtonContent>
+                    </local:CustomButton>
+
+                    <!--SAVE BUTTON-->
+                    <local:CustomButton x:Name="SaveCustomButton" Click="SaveCustomButton_Click">
+                        <local:CustomButton.ButtonContent>
+                            <Image Source="/ParticleMaker;component/Icons/Save.png" Width="27" Height="27" Margin="2.5"/>
                         </local:CustomButton.ButtonContent>
                     </local:CustomButton>
                 </StackPanel>
