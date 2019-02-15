@@ -587,15 +587,6 @@ namespace ParticleMaker.ViewModels
                 return _renameProjectCommand;
             }
         }
-
-
-        public RelayCommand MyCommand
-        {
-            get
-            {
-                return null;
-            }
-        }
         #endregion
         #endregion
 

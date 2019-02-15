@@ -110,6 +110,7 @@ namespace ParticleMaker
         /// <typeparam name="T">The parent type of <see cref="DependencyObject"/> to find.</typeparam>
         /// <param name="child">The child that is contained/owned by the parent.</param>
         /// <returns></returns>
+        [ExcludeFromCodeCoverage]
         public static T FindParent<T>(this DependencyObject child) where T : DependencyObject
         {
             //Get parent item

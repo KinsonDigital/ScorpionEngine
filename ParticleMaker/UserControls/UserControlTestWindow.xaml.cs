@@ -2,6 +2,7 @@
 using ParticleMaker.Dialogs;
 using ParticleMaker.ViewModels;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Input;
 
@@ -10,6 +11,7 @@ namespace ParticleMaker.UserControls
     /// <summary>
     /// Interaction logic for UserControlTestWindow.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class UserControlTestWindow : Window
     {
         private ICommand _renameCommand;

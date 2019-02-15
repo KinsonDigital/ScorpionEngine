@@ -104,6 +104,32 @@ namespace ParticleMaker.Tests
             //Assert
             Assert.AreEqual(expected, actual);
         }
+
+
+        [Test]
+        public void GetPropertyNames_WhenInvoked_ReturnsCorrectNames()
+        {
+            //Arrange
+            var testObject = new
+            {
+                PropertyA = "prop-A",
+                PropertyB = 1234,
+                PropertyC = 1234.1234f
+            };
+
+            var expected = new[]
+            {
+                "PropertyA",
+                "PropertyB",
+                "PropertyC"
+            };
+
+            //Act
+            var actual = testObject.GetPropertyNames();
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
         #endregion
     }
 }

@@ -9,69 +9,29 @@ namespace ParticleMaker.Tests
     [TestFixture]
     public class GraphicsEngineTests
     {
+        private Mock<ICoreEngine> _mockCoreEngine;
+        private ParticleEngine _particleEngine;
+        private GraphicsEngine _engine;
         #region Prop Tests
         [Test]
         public void IsRunning_WhenGettingValueWhileEngineIsRunning_ReturnsTrue()
         {
             //Arrange
-            var mockCoreEngine = new Mock<ICoreEngine>();
-            mockCoreEngine.SetupGet(p => p.IsRunning).Returns(true);
-
-            var mockEngineFactory = new Mock<IGraphicsEngineFactory>();
-            mockEngineFactory.SetupGet(p => p.CoreEngine).Returns(mockCoreEngine.Object);
-
-            var engine = new GraphicsEngine(mockEngineFactory.Object, It.IsAny<ParticleEngine>());
+            _mockCoreEngine.SetupGet(p => p.IsRunning).Returns(true);
 
             //Act
-            engine.Play();
+            _engine.Play();
 
             //Assert
-            Assert.IsTrue(engine.IsRunning);
+            Assert.IsTrue(_engine.IsRunning);
         }
 
 
         [Test]
         public void ParticleEngine_WhenGettingValue_ReturnsParticleEngine()
         {
-            //Arrange
-            var mockCoreEngine = new Mock<ICoreEngine>();
-
-            var mockEngineFactory = new Mock<IGraphicsEngineFactory>();
-            mockEngineFactory.SetupGet(p => p.CoreEngine).Returns(mockCoreEngine.Object);
-
-            var particleEngine = new ParticleEngine(new RandomizerService());
-
-            var engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine);
-            var expected = particleEngine;
-
-            //Act
-            var actual = engine.ParticleEngine;
-
             //Assert
-            Assert.AreEqual(expected, actual);
-        }
-
-
-        [Test]
-        public void RenderSurfaceHandle_WhenGettingValue_ReturnsCorrectValue()
-        {
-            //Arrange
-            var mockCoreEngine = new Mock<ICoreEngine>();
-            mockCoreEngine.SetupGet(p => p.RenderSurfaceHandle).Returns(new IntPtr(1234));
-
-            var mockEngineFactory = new Mock<IGraphicsEngineFactory>();
-            mockEngineFactory.SetupGet(p => p.CoreEngine).Returns(mockCoreEngine.Object);
-
-            var particleEngine = new ParticleEngine(new RandomizerService());
-
-            var engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine);
-            var expected = new IntPtr(1234);
-
-            //Act
-            var actual = engine.RenderSurfaceHandle;
-
-            //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(_particleEngine, _engine.ParticleEngine);
         }
 
 
@@ -79,21 +39,13 @@ namespace ParticleMaker.Tests
         public void RenderSurfaceHandle_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var mockCoreEngine = new Mock<ICoreEngine>();
-            mockCoreEngine.SetupProperty(p => p.RenderSurfaceHandle);
-
-            var mockEngineFactory = new Mock<IGraphicsEngineFactory>();
-            mockEngineFactory.SetupGet(p => p.CoreEngine).Returns(mockCoreEngine.Object);
-
-            var particleEngine = new ParticleEngine(new RandomizerService());
-
-            var engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine);
+            _mockCoreEngine.SetupProperty(p => p.RenderSurfaceHandle);
             var expected = new IntPtr(5678);
 
             //Act
-            engine.RenderSurfaceHandle = new IntPtr(5678);
+            _engine.RenderSurfaceHandle = new IntPtr(5678);
 
-            var actual = engine.RenderSurfaceHandle;
+            var actual = _engine.RenderSurfaceHandle;
 
             //Assert
             Assert.AreEqual(expected, actual);
@@ -104,19 +56,11 @@ namespace ParticleMaker.Tests
         public void Width_WhenGettingSettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var mockCoreEngine = new Mock<ICoreEngine>();
-
-            var mockEngineFactory = new Mock<IGraphicsEngineFactory>();
-            mockEngineFactory.SetupGet(p => p.CoreEngine).Returns(mockCoreEngine.Object);
-
-            var particleEngine = new ParticleEngine(new RandomizerService());
-
-            var engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine);
             var expected = 1234;
 
             //Act
-            engine.Width = 1234;
-            var actual = engine.Width;
+            _engine.Width = 1234;
+            var actual = _engine.Width;
 
             //Assert
             Assert.AreEqual(expected, actual);
@@ -127,19 +71,11 @@ namespace ParticleMaker.Tests
         public void Height_WhenGettingSettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var mockCoreEngine = new Mock<ICoreEngine>();
-
-            var mockEngineFactory = new Mock<IGraphicsEngineFactory>();
-            mockEngineFactory.SetupGet(p => p.CoreEngine).Returns(mockCoreEngine.Object);
-
-            var particleEngine = new ParticleEngine(new RandomizerService());
-
-            var engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine);
             var expected = 1234;
 
             //Act
-            engine.Height = 1234;
-            var actual = engine.Height;
+            _engine.Height = 1234;
+            var actual = _engine.Height;
 
             //Assert
             Assert.AreEqual(expected, actual);
@@ -152,21 +88,13 @@ namespace ParticleMaker.Tests
         public void Run_WhenInvoked_InvokesCoreEngineRunMethod()
         {
             //Arrange
-            var mockCoreEngine = new Mock<ICoreEngine>();
-            mockCoreEngine.SetupGet(p => p.RenderSurfaceHandle).Returns(new IntPtr(1234));
-
-            var mockEngineFactory = new Mock<IGraphicsEngineFactory>();
-            mockEngineFactory.SetupGet(p => p.CoreEngine).Returns(mockCoreEngine.Object);
-
-            var particleEngine = new ParticleEngine(new RandomizerService());
-
-            var engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine);
+            _mockCoreEngine.SetupGet(p => p.RenderSurfaceHandle).Returns(new IntPtr(1234));
 
             //Act
-            engine.Start();
+            _engine.Start();
 
             //Assert
-            mockCoreEngine.Verify(m => m.Run(), Times.Once());
+            _mockCoreEngine.Verify(m => m.Run(), Times.Once());
         }
 
 
@@ -174,19 +102,12 @@ namespace ParticleMaker.Tests
         public void Run_WhenInvokedWithoutSurfaceHandle_ThrowsException()
         {
             //Arrange
-            var mockCoreEngine = new Mock<ICoreEngine>();
+            _mockCoreEngine.SetupGet(p => p.RenderSurfaceHandle).Returns(IntPtr.Zero);
 
-            var mockEngineFactory = new Mock<IGraphicsEngineFactory>();
-            mockEngineFactory.SetupGet(p => p.CoreEngine).Returns(mockCoreEngine.Object);
-
-            var particleEngine = new ParticleEngine(new RandomizerService());
-
-            var engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine);
-
-            //Act & Assert
+            //Assert
             Assert.Throws(typeof(Exception), () =>
             {
-                engine.Start();
+                _engine.Start();
             });
         }
 
@@ -194,21 +115,46 @@ namespace ParticleMaker.Tests
         [Test]
         public void Stop_WhenInvoked_InvokesCoreEngineExitMethod()
         {
-            //Arrange
-            var mockCoreEngine = new Mock<ICoreEngine>();
-
-            var mockEngineFactory = new Mock<IGraphicsEngineFactory>();
-            mockEngineFactory.SetupGet(p => p.CoreEngine).Returns(mockCoreEngine.Object);
-
-            var particleEngine = new ParticleEngine(new RandomizerService());
-
-            var engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine);
-
             //Act
-            engine.Stop();
+            _engine.Stop();
 
             //Assert
-            mockCoreEngine.Verify(m => m.Exit(), Times.Once());
+            _mockCoreEngine.Verify(m => m.Exit(), Times.Once());
+        }
+
+
+        [Test]
+        public void Pause_WhenInvoked_InvokesCoreEnginePauseMethod()
+        {
+            //Act
+            _engine.Pause();
+
+            //Assert
+            _mockCoreEngine.Verify(m => m.Pause(), Times.Once());
+        }
+        #endregion
+
+
+        #region Private Methods
+        [SetUp]
+        public void Setup()
+        {
+            _mockCoreEngine = new Mock<ICoreEngine>();
+
+            var mockEngineFactory = new Mock<IGraphicsEngineFactory>();
+            mockEngineFactory.SetupGet(p => p.CoreEngine).Returns(_mockCoreEngine.Object);
+
+            _particleEngine = new ParticleEngine(new RandomizerService());
+
+            _engine = new GraphicsEngine(mockEngineFactory.Object, _particleEngine);
+        }
+
+
+        [TearDown]
+        public void TearDown()
+        {
+            _mockCoreEngine = null;
+            _engine = null;
         }
         #endregion
     }

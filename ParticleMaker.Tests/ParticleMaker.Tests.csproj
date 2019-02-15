@@ -127,6 +127,8 @@
     <Compile Include="Services\SetupDeployServiceTests.cs" />
     <Compile Include="UserControls\ExtensionMethodsTests.cs" />
     <Compile Include="UserControls\PathItemTests.cs" />
+    <Compile Include="UserControls\ValueConverters\PathToNameConverterTests.cs" />
+    <Compile Include="UserControls\ValueConverters\StringToBoolConverterTests.cs" />
     <Compile Include="ViewModels\MainViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
