@@ -111,6 +111,7 @@
     <Compile Include="Services\ContentDirectoryService.cs" />
     <Compile Include="Services\DirectoryService.cs" />
     <Compile Include="Services\IFileService.cs" />
+    <Compile Include="Services\ILoggerService.cs" />
     <Compile Include="Services\JSONFileService.cs" />
     <Compile Include="Services\IContentDirectoryService.cs" />
     <Compile Include="CustomEventArgs\ColorItemClickedEventArgs.cs" />
