@@ -34,7 +34,7 @@ namespace ParticleMaker.Services
 
         #region Public Methods
         /// <summary>
-        /// Logs generatl information using the given <paramref name="data"/>.
+        /// Logs genral information using the given <paramref name="data"/>.
         /// </summary>
         /// <param name="data">The data/info to log.</param>
         /// <param name="dateTime">The date time stamp of when the log will occur.</param>

@@ -19,7 +19,7 @@ namespace ParticleMaker.Services
         public DateTime DateTimeStamp { get; set; }
 
         /// <summary>
-        /// The unique numbre associated with the error if this is an error log.
+        /// The unique number associated with the error if this is an error log.
         /// </summary>
         public int ErrorNumber { get; set; }
 
