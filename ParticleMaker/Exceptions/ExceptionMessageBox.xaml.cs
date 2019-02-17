@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace ParticleMaker.Exceptions
 {
@@ -10,20 +11,39 @@ namespace ParticleMaker.Exceptions
         #region Constructors
         /// <summary>
         /// Creates a new instance <see cref="ExceptionMessageBox"/>.
-        /// <paramref name="title">The title of the message box.</paramref>
+        /// <paramref name="exception">The exception information ti display.</paramref>
         /// </summary>
-        public ExceptionMessageBox(string title)
+        public ExceptionMessageBox(Exception exception)
         {
             InitializeComponent();
 
-            Title = string.IsNullOrEmpty(title) ?
+            Title = exception == null?
                     "Exception" :
-                    $"Exception - {title}";
+                    $"Exception - {exception.GetType().ToString()}";
+
+            Message = exception.Message;
         }
         #endregion
 
 
         #region Props
+        #region Dependency Props
+        /// <summary>
+        /// Registers the <see cref="Message"/> property.
+        /// </summary>
+        private static readonly DependencyProperty MessageProperty =
+            DependencyProperty.Register(nameof(Message), typeof(string), typeof(ExceptionMessageBox), new PropertyMetadata(""));
+        #endregion
+
+
+        /// <summary>
+        /// Gets or sets the exception message to be displayed.
+        /// </summary>
+        private string Message
+        {
+            get { return (string)GetValue(MessageProperty); }
+            set { SetValue(MessageProperty, value); }
+        }
         #endregion
 
 

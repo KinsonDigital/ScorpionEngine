@@ -3,10 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ParticleMaker.Exceptions"
         mc:Ignorable="d" Title="ExceptionMessageBox" WindowStartupLocation="CenterScreen"
         SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStyle="ToolWindow"
-        MinWidth="400" MaxWidth="400" MinHeight="300" MaxHeight="300">
+        MinWidth="400" MaxWidth="400" MinHeight="300" MaxHeight="300"
+        Name="this">
     
     <Grid>
         <Grid.RowDefinitions>
@@ -33,7 +33,7 @@
             <Grid Margin="5">
                 <ScrollViewer>
                     <TextBlock TextWrapping="WrapWithOverflow"
-                               Text="A null reference exception has occured.A null reference exception has occured.A null reference exception has occured."/>
+                               Text="{Binding ElementName=this, Path=Message}"/>
                 </ScrollViewer>
             </Grid>
         </Border>
