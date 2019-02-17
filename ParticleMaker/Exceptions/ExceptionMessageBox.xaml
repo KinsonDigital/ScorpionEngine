@@ -8,6 +8,6 @@
         SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStyle="ToolWindow">
     
     <Grid>
-        
+        <Label Content="An exception has occured in the application."/>
     </Grid>
 </Window>
