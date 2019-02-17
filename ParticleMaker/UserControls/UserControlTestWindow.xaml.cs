@@ -85,6 +85,11 @@ namespace ParticleMaker.UserControls
         #region Private Methods
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
+            OtherMethod();
+        }
+
+        private void OtherMethod()
+        {
             object myObject = null;
 
             try
