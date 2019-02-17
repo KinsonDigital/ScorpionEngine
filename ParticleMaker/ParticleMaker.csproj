@@ -111,12 +111,16 @@
     <Compile Include="Services\ContentDirectoryService.cs" />
     <Compile Include="Services\DirectoryService.cs" />
     <Compile Include="Services\IFileService.cs" />
+    <Compile Include="Services\ILoggerService.cs" />
     <Compile Include="Services\JSONFileService.cs" />
     <Compile Include="Services\IContentDirectoryService.cs" />
     <Compile Include="CustomEventArgs\ColorItemClickedEventArgs.cs" />
     <Compile Include="Services\IDirectoryService.cs" />
     <Compile Include="Project\ProjectManager.cs" />
     <Compile Include="Project\ProjectSettingManager.cs" />
+    <Compile Include="Services\JSONLoggerService.cs" />
+    <Compile Include="Services\Log.cs" />
+    <Compile Include="Services\LogData.cs" />
     <Compile Include="Services\SetupDeployService.cs" />
     <Compile Include="UserControls\ColorList.xaml.cs">
       <DependentUpon>ColorList.xaml</DependentUpon>
