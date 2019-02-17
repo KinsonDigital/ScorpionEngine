@@ -118,6 +118,9 @@
     <Compile Include="Services\IDirectoryService.cs" />
     <Compile Include="Project\ProjectManager.cs" />
     <Compile Include="Project\ProjectSettingManager.cs" />
+    <Compile Include="Services\JSONLoggerService.cs" />
+    <Compile Include="Services\Log.cs" />
+    <Compile Include="Services\LogData.cs" />
     <Compile Include="Services\SetupDeployService.cs" />
     <Compile Include="UserControls\ColorList.xaml.cs">
       <DependentUpon>ColorList.xaml</DependentUpon>
