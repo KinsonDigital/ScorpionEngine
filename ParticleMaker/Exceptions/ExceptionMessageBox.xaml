@@ -38,6 +38,7 @@
             </Grid>
         </Border>
 
-        <Button Content="Ok" Width="100" Height="25" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" VerticalAlignment="Center"/>
+        <Button Name="OkButton" Content="Ok" Width="100" Height="25" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" VerticalAlignment="Center"
+                Click="OkButton_Click"/>
     </Grid>
 </Window>
