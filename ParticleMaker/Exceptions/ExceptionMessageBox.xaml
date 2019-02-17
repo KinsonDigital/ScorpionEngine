@@ -26,8 +26,11 @@
             <Label Content="An exception has occured in the application." VerticalAlignment="Center" Margin="10, 0, 0, 0"/>
         </StackPanel>
 
-        <Button Content="Copy" Grid.Row="1" Grid.Column="0" Width="35" Height="20" HorizontalAlignment="Left" Margin="5, 0, 0, 0"/>
+        <!--COPY BUTTON-->
+        <Button Name="CopyButton" Content="Copy" Grid.Row="1" Grid.Column="0" Width="35" Height="20" HorizontalAlignment="Left" Margin="5, 0, 0, 0"
+                Click="CopyButton_Click"/>
 
+        <!--EXCEPTION MESSAGE-->
         <Border BorderBrush="DarkGray" BorderThickness="1"
                 Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="5">
             <Grid Margin="5">
@@ -38,6 +41,7 @@
             </Grid>
         </Border>
 
+        <!--OK BUTTON-->
         <Button Name="OkButton" Content="Ok" Width="100" Height="25" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" VerticalAlignment="Center"
                 Click="OkButton_Click"/>
     </Grid>

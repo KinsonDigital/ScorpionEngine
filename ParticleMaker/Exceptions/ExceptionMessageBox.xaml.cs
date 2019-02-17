@@ -55,6 +55,15 @@ namespace ParticleMaker.Exceptions
         {
             Close();
         }
+
+
+        /// <summary>
+        /// Copies the exception information to the clipboard.
+        /// </summary>
+        private void CopyButton_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(Message);
+        }
         #endregion
     }
 }
