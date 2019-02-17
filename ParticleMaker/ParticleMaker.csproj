@@ -356,5 +356,8 @@
   <ItemGroup>
     <Resource Include="UserControls\DesignData\owl.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Error.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

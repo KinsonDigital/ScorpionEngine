@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ParticleMaker.Exceptions"
         mc:Ignorable="d" Title="ExceptionMessageBox" WindowStartupLocation="CenterScreen"
         SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStyle="ToolWindow"
-        MinHeight="200" MaxWidth="400" Width="400" MaxHeight="300" Height="300">
+        MinWidth="400" MaxWidth="400" MinHeight="300" MaxHeight="300">
     
     <Grid>
         <Grid.RowDefinitions>
@@ -20,8 +20,11 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        
-        <Label Content="An exception has occured in the application." Margin="20" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+        <StackPanel Orientation="Horizontal" Margin="20" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <Image Source="/ParticleMaker;component/Icons/Error.png" Width="45" Height="45"/>
+            <Label Content="An exception has occured in the application." VerticalAlignment="Center" Margin="10, 0, 0, 0"/>
+        </StackPanel>
 
         <Button Content="Copy" Grid.Row="1" Grid.Column="0" Width="35" Height="20" HorizontalAlignment="Left" Margin="5, 0, 0, 0"/>
 
