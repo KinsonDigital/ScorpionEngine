@@ -1,4 +1,5 @@
 ﻿using ParticleMaker.CustomEventArgs;
+using ParticleMaker.Exceptions;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Input;
@@ -83,6 +84,9 @@ namespace ParticleMaker.UserControls
         #region Private Methods
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
+            var dialog = new ExceptionMessageBox();
+
+            dialog.Show();
         }
         #endregion
     }
