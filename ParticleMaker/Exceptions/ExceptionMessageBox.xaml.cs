@@ -80,7 +80,7 @@ namespace ParticleMaker.Exceptions
         /// </summary>
         private void CopyButton_Click(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(Message);
+            Clipboard.SetText($"Exception Message:\r\n\t{Message}\r\n\r\nStack Trace:\r\n\t{StackTrace}");
         }
         #endregion
     }
