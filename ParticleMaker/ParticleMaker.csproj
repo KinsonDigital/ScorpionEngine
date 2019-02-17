@@ -89,6 +89,9 @@
     <Compile Include="Dialogs\ThumbnailViewerDialog.xaml.cs">
       <DependentUpon>ThumbnailViewerDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Exceptions\ExceptionMessageBox.xaml.cs">
+      <DependentUpon>ExceptionMessageBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Exceptions\IllegalFileNameCharactersException.cs" />
     <Compile Include="Exceptions\IllegalParticleSetupNameException.cs" />
     <Compile Include="Exceptions\InvalidCommandActionParamTypeException.cs" />
@@ -185,6 +188,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\ThumbnailViewerDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Exceptions\ExceptionMessageBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -348,6 +355,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="UserControls\DesignData\owl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Error.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
