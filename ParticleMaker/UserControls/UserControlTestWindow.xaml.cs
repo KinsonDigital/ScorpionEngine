@@ -84,7 +84,7 @@ namespace ParticleMaker.UserControls
         #region Private Methods
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new ExceptionMessageBox()
+            var dialog = new ExceptionMessageBox("")
             {
                 Owner = this
             };
