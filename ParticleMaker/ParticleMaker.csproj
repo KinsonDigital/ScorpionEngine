@@ -89,6 +89,7 @@
     <Compile Include="Dialogs\ThumbnailViewerDialog.xaml.cs">
       <DependentUpon>ThumbnailViewerDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Exceptions\ExceptionHandler.cs" />
     <Compile Include="Exceptions\ExceptionMessageBox.xaml.cs">
       <DependentUpon>ExceptionMessageBox.xaml</DependentUpon>
     </Compile>
