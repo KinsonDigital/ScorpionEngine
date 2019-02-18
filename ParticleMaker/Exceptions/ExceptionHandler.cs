@@ -17,7 +17,7 @@ namespace ParticleMaker.Exceptions
 
         #region Props
         /// <summary>
-        /// Gets or sets a value indicating if logging of exceptions is enabled.
+        /// Gets or sets a value indicating if logging exceptions is enabled.
         /// </summary>
         public static bool LoggingEnabled
         {
@@ -26,7 +26,7 @@ namespace ParticleMaker.Exceptions
         }
 
         /// <summary>
-        /// Gets or sets the logger service that performes the logging of exceptions.
+        /// Gets or sets the logger service that performs the logging of exceptions.
         /// </summary>
         public static ILoggerService Logger { get; set; }
 

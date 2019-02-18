@@ -13,7 +13,7 @@ namespace ParticleMaker.Exceptions
         #region Constructors
         /// <summary>
         /// Creates a new instance <see cref="ExceptionMessageBox"/>.
-        /// <paramref name="exception">The exception information ti display.</paramref>
+        /// <paramref name="exception">The exception information to display.</paramref>
         /// </summary>
         public ExceptionMessageBox(Exception exception)
         {
@@ -39,7 +39,7 @@ namespace ParticleMaker.Exceptions
             DependencyProperty.Register(nameof(Message), typeof(string), typeof(ExceptionMessageBox), new PropertyMetadata(""));
 
         /// <summary>
-        /// Registers the <see cref="StackTrace"/>.
+        /// Registers the <see cref="StackTrace"/> property.
         /// </summary>
         private static readonly DependencyProperty StackTraceProperty =
             DependencyProperty.Register(nameof(StackTrace), typeof(string), typeof(ExceptionMessageBox), new PropertyMetadata(""));
@@ -54,7 +54,6 @@ namespace ParticleMaker.Exceptions
             get { return (string)GetValue(MessageProperty); }
             set { SetValue(MessageProperty, value); }
         }
-
 
         /// <summary>
         /// Gets or sets the stack trace of the exception.
