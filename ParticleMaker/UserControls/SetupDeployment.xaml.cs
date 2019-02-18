@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using WinDialogResult = System.Windows.Forms.DialogResult;
 using FolderDialog = System.Windows.Forms.FolderBrowserDialog;
+using ParticleMaker.CustomEventArgs;
 
 namespace ParticleMaker.UserControls
 {
@@ -15,6 +16,14 @@ namespace ParticleMaker.UserControls
     [ExcludeFromCodeCoverage]
     public partial class SetupDeployment : UserControl, IDisposable
     {
+        #region Public Events
+        /// <summary>
+        /// Invoked when the deploy setup button has been clicked.
+        /// </summary>
+        public EventHandler<DeploySetupEventArgs> DeployClicked;
+        #endregion
+
+
         #region Fields
         private Task _refreshTask;
         private CancellationTokenSource _tokenSrc;
@@ -97,6 +106,15 @@ namespace ParticleMaker.UserControls
 
             if (dialogResult == WinDialogResult.OK)
                 DeploymentPath = folderDialog.SelectedPath;
+        }
+
+
+        /// <summary>
+        /// Invokes the <see cref="DeployClicked"/> event.
+        /// </summary>
+        private void DeploySetupCustomButton_Click(object sender, EventArgs e)
+        {
+            DeployClicked?.Invoke(this, new DeploySetupEventArgs(DeploymentPath));
         }
 
 

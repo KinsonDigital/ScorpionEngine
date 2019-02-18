@@ -75,6 +75,7 @@
     </Compile>
     <Compile Include="CoreEngine.cs" />
     <Compile Include="CustomEventArgs\AddItemClickedEventArgs.cs" />
+    <Compile Include="CustomEventArgs\DeploySetupEventArgs.cs" />
     <Compile Include="CustomEventArgs\ItemEventArgs.cs" />
     <Compile Include="CustomEventArgs\DrawEventArgs.cs" />
     <Compile Include="CustomEventArgs\RenameItemEventArgs.cs" />
@@ -368,6 +369,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\Error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Deploy.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

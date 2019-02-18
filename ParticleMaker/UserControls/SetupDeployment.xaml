@@ -11,6 +11,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         
         <!--DEPLOYMENT PATH-->
@@ -20,6 +21,13 @@
         <local:CustomButton x:Name="EditCustomButton" Grid.Column="1" Click="EditCustomButton_Click">
             <local:CustomButton.ButtonContent>
                 <Image Source="/ParticleMaker;component/Icons/Edit.png" Width="27" Height="27"/>
+            </local:CustomButton.ButtonContent>
+        </local:CustomButton>
+
+        <!--DEPLOY SETUP BUTTON-->
+        <local:CustomButton x:Name="DeploySetupCustomButton" Grid.Column="2" Click="DeploySetupCustomButton_Click">
+            <local:CustomButton.ButtonContent>
+                <Image Source="/ParticleMaker;component/Icons/Deploy.png" Width="27" Height="27"/>
             </local:CustomButton.ButtonContent>
         </local:CustomButton>
     </Grid>
