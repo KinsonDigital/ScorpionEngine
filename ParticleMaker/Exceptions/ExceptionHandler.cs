@@ -17,6 +17,11 @@ namespace ParticleMaker.Exceptions
         /// Gets or sets a value indicating if logging of exceptions is enabled.
         /// </summary>
         public static bool LoggingEnabled { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating if a dialog will show when an exception is handled.
+        /// </summary>
+        public static bool ShowDialogEnabled { get; set; }
         #endregion
     }
 }
