@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ParticleMaker.Services;
 
 namespace ParticleMaker.Exceptions
 {
@@ -22,6 +18,11 @@ namespace ParticleMaker.Exceptions
         /// Gets or sets a value indicating if a dialog will show when an exception is handled.
         /// </summary>
         public static bool ShowDialogEnabled { get; set; }
+
+        /// <summary>
+        /// Gets or sets the logger service that performes the logging of exceptions.
+        /// </summary>
+        public static ILoggerService Logger { get; set; }
         #endregion
     }
 }

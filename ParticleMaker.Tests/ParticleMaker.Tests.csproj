@@ -102,6 +102,7 @@
     <Compile Include="CustomEventArgs\ItemEventArgsTests.cs" />
     <Compile Include="CustomEventArgs\DrawEventArgsTests.cs" />
     <Compile Include="CustomEventArgs\RenameItemEventArgsTests.cs" />
+    <Compile Include="Exceptions\ExceptionHandlerTests.cs" />
     <Compile Include="Exceptions\IllegalFileNameCharactersExceptionTests.cs" />
     <Compile Include="Exceptions\IllegalParticleSetupNameExceptionTests.cs" />
     <Compile Include="Exceptions\InvalidCommandActionParamTypeExceptionTests.cs" />
