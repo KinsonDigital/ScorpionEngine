@@ -5,7 +5,7 @@ namespace ParticleMaker.Services
     /// <summary>
     /// Provides logging capibility.
     /// </summary>
-    interface ILoggerService
+    public interface ILoggerService
     {
         #region Methods
         /// <summary>

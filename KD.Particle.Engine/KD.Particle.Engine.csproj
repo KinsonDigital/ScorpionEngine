@@ -53,16 +53,16 @@
     <Compile Include="Services\RandomizerService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\KD.Scorpion.Core\KD.Scorpion.Core.csproj">
-      <Project>{3e136a13-190c-4390-9e74-8849022852f6}</Project>
-      <Name>KD.Scorpion.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <AdditionalFiles Include="..\ScorpionCore.DepGraph\Main.layerdiagram">
       <Link>Main.layerdiagram</Link>
       <Visible>False</Visible>
     </AdditionalFiles>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KD.Scorpion.Core\KD.Scorpion.Core.csproj">
+      <Project>{3e136a13-190c-4390-9e74-8849022852f6}</Project>
+      <Name>KD.Scorpion.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

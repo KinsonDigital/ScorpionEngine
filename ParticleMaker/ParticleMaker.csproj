@@ -89,9 +89,12 @@
     <Compile Include="Dialogs\ThumbnailViewerDialog.xaml.cs">
       <DependentUpon>ThumbnailViewerDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Exceptions\ExceptionMessage.cs" />
+    <Compile Include="Exceptions\ExceptionHandler.cs" />
     <Compile Include="Exceptions\ExceptionMessageBox.xaml.cs">
       <DependentUpon>ExceptionMessageBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Exceptions\IExceptionMessage.cs" />
     <Compile Include="Exceptions\IllegalFileNameCharactersException.cs" />
     <Compile Include="Exceptions\IllegalParticleSetupNameException.cs" />
     <Compile Include="Exceptions\InvalidCommandActionParamTypeException.cs" />

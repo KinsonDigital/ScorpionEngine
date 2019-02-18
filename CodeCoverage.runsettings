@@ -76,6 +76,7 @@ Included items must then not match any entries in the exclude list to remain inc
                 <Source>.*\\public\\sdk\\.*</Source>
                 <Source>.*\\microsoft sdks\\.*</Source>
                 <Source>.*\\vc\\include\\.*</Source>
+                <Source>.*\\ParticleMaker\Properties\\.*</Source>
               </Exclude>
             </Sources>
 

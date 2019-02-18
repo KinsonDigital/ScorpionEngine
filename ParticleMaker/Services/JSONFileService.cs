@@ -15,7 +15,7 @@ namespace ParticleMaker.Services
         /// <summary>
         /// Creates a JSON file at the given <paramref name="path"/> with the given <paramref name="data"/>.
         /// </summary>
-        /// <typeparam name="T">THe type of data to save.</typeparam>
+        /// <typeparam name="T">The type of data to save.</typeparam>
         /// <param name="path">The directory path to the file.</param>
         /// <param name="data">The data to save in the file.</param>
         public void Create<T>(string path, T data) where T : class
@@ -31,6 +31,7 @@ namespace ParticleMaker.Services
             }
             catch (Exception ex)
             {
+                throw ex;
                 //TODO: Properly handle exceptions
             }
         }
