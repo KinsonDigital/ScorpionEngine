@@ -8,7 +8,8 @@
                        SetupName="test-setup"
                        ParticleName="test-particle"
                        LabelText="Label Text"
-                       ParticleFilePath="C:\temp\test-particle.png">
+                       ParticleFilePath="C:\temp\test-particle.png"
+                       DeploymentPath="C:\SpaceShooter\Content\ParticleSetups\Ship">
     
     <local:UserControlData.ErrorBorderBrush>
         <SolidColorBrush Color="Red"/>
