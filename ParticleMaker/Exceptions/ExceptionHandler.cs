@@ -12,6 +12,11 @@ namespace ParticleMaker.Exceptions
     /// </summary>
     public static class ExceptionHandler
     {
-        
+        #region Props
+        /// <summary>
+        /// Gets or sets a value indicating if logging of exceptions is enabled.
+        /// </summary>
+        public static bool LoggingEnabled { get; set; }
+        #endregion
     }
 }
