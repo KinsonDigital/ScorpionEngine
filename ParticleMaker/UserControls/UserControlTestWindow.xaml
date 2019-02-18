@@ -20,37 +20,8 @@
         </Grid.RowDefinitions>
 
         <StackPanel Margin="0, 100, 0, 0" Orientation="Vertical">
-            <local:ColorList IsEnabled="True">
-                <local:ColorList.Colors>
-                    <x:Array Type="{x:Type root:ColorItem}">
-                        <root:ColorItem Id="1">
-                            <root:ColorItem.ColorBrush>
-                                <SolidColorBrush Color="IndianRed"/>
-                            </root:ColorItem.ColorBrush>
-                        </root:ColorItem>
-
-                        <root:ColorItem Id="2">
-                            <root:ColorItem.ColorBrush>
-                                <SolidColorBrush Color="DarkBlue"/>
-                            </root:ColorItem.ColorBrush>
-                        </root:ColorItem>
-                    </x:Array>
-                </local:ColorList.Colors>
-            </local:ColorList>
-            
-            <!--<local:ParticleList HorizontalAlignment="Center"
-                                ItemRenamedCommand="{Binding ElementName=this, Path=RenameCommand}"
-                                ItemDeletedCommand="{Binding ElementName=this, Path=DeleteCommand}">
-                <local:ParticleList.Particles>
-                    <x:Array Type="{x:Type local:PathItem}">
-                        <local:PathItem FilePath="C:\TEMP\ParticleMakerTesting\Projects\project-A\Setups\setup-A\red-part.png"/>
-                        <local:PathItem FilePath="C:\TEMP\ParticleMakerTesting\Projects\project-A\Setups\setup-A\green-part.png"/>
-                        <local:PathItem FilePath="C:\TEMP\ParticleMakerTesting\Projects\project-A\Setups\setup-A\blue-part.png"/>
-                    </x:Array>
-                </local:ParticleList.Particles>
-            </local:ParticleList>-->
+            <local:SetupDeployment HorizontalAlignment="Center"/>
         </StackPanel>
-
 
         <Button Name="TestButton" Content="Run Test" Width="100" Height="30" Grid.Row="1" Click="TestButton_Click"/>
     </Grid>

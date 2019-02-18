@@ -86,21 +86,7 @@ namespace ParticleMaker.UserControls
         #region Private Methods
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
-            ExceptionHandler.ExceptionMessageBox = new ExceptionMessage();
-            ExceptionHandler.ShowMessageBoxEnabled = true;
-            ExceptionHandler.LoggingEnabled = true;
-            ExceptionHandler.Logger = new JSONLoggerService(new JSONFileService(), new DirectoryService());
-
-            try
-            {
-                object myObj = null;
-
-                myObj.ToString();
-            }
-            catch (Exception ex)
-            {
-                ExceptionHandler.Handle(ex);
-            }
+            
         }
         #endregion
     }

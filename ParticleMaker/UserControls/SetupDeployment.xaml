@@ -8,6 +8,19 @@
     
     <Grid DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
           d:DataContext="{d:DesignData Source=/UserControls/DesignData/UserControlData.xaml}">
-        <Label Content="{Binding Path=DeploymentPath}"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <!--DEPLOYMENT PATH-->
+        <Label Content="{Binding Path=DeploymentPath}" Grid.Column="0" MaxWidth="150"/>
+
+        <!--EDIT PATH BUTTON-->
+        <local:CustomButton x:Name="EditCustomButton" Grid.Column="1" Click="EditCustomButton_Click">
+            <local:CustomButton.ButtonContent>
+                <Image Source="/ParticleMaker;component/Icons/Edit.png" Width="27" Height="27"/>
+            </local:CustomButton.ButtonContent>
+        </local:CustomButton>
     </Grid>
 </UserControl>

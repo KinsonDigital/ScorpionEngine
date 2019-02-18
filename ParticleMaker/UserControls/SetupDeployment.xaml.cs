@@ -4,6 +4,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using WinDialogResult = System.Windows.Forms.DialogResult;
+using FolderDialog = System.Windows.Forms.FolderBrowserDialog;
 
 namespace ParticleMaker.UserControls
 {
@@ -29,7 +31,9 @@ namespace ParticleMaker.UserControls
 
             Unloaded += SetupDeployment_Unloaded;
 
-            _refreshTask = new Task(Refresh);
+            _tokenSrc = new CancellationTokenSource();
+
+            _refreshTask = new Task(Refresh, _tokenSrc.Token);
             _refreshTask.Start();
         }
         #endregion
@@ -75,6 +79,24 @@ namespace ParticleMaker.UserControls
         private void SetupDeployment_Unloaded(object sender, RoutedEventArgs e)
         {
             _tokenSrc.Cancel();
+        }
+
+
+        /// <summary>
+        /// Allows the user to choose a deployment path.
+        /// </summary>
+        private void EditCustomButton_Click(object sender, EventArgs e)
+        {
+            var folderDialog = new FolderDialog
+            {
+                Description = "Choose setup deployment destination . . .",
+                SelectedPath = string.IsNullOrEmpty(DeploymentPath) ? @"C:\" : DeploymentPath
+            };
+
+            var dialogResult = folderDialog.ShowDialog();
+
+            if (dialogResult == WinDialogResult.OK)
+                DeploymentPath = folderDialog.SelectedPath;
         }
 
 
