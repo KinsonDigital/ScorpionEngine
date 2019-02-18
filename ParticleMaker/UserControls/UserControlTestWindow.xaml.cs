@@ -1,5 +1,6 @@
 ﻿using ParticleMaker.CustomEventArgs;
 using ParticleMaker.Exceptions;
+using ParticleMaker.Services;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
@@ -85,25 +86,20 @@ namespace ParticleMaker.UserControls
         #region Private Methods
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
-            OtherMethod();
-        }
-
-        private void OtherMethod()
-        {
-            object myObject = null;
+            ExceptionHandler.ExceptionMessageBox = new ExceptionMessage();
+            ExceptionHandler.ShowMessageBoxEnabled = true;
+            ExceptionHandler.LoggingEnabled = true;
+            ExceptionHandler.Logger = new JSONLoggerService(new JSONFileService(), new DirectoryService());
 
             try
             {
-                myObject.ToString();
+                object myObj = null;
+
+                myObj.ToString();
             }
             catch (Exception ex)
             {
-                var dialog = new ExceptionMessageBox(ex)
-                {
-                    Owner = this
-                };
-
-                dialog.ShowDialog();
+                ExceptionHandler.Handle(ex);
             }
         }
         #endregion

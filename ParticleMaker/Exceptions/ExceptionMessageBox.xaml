@@ -6,7 +6,7 @@
         mc:Ignorable="d" Title="ExceptionMessageBox" WindowStartupLocation="CenterScreen"
         SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStyle="ToolWindow"
         MinWidth="600" MaxWidth="600" MinHeight="400" MaxHeight="400"
-        Name="this">
+        Name="this" Topmost="True">
     
     <Grid>
         <Grid.RowDefinitions>

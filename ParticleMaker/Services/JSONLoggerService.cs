@@ -9,6 +9,7 @@ namespace ParticleMaker.Services
     {
         #region Fields
         private IFileService _fileService;
+        private IDirectoryService _directoryService;
         private string _logsDirectory;
         private Dictionary<int, string> _monthNames = new Dictionary<int, string>()
         {
@@ -24,9 +25,11 @@ namespace ParticleMaker.Services
         /// Creates a new instance of <see cref="JSONLoggerService"/>.
         /// </summary>
         /// <param name="fileService">Manages the file that will contain the logs.</param>
-        public JSONLoggerService(IFileService fileService)
+        public JSONLoggerService(IFileService fileService, IDirectoryService directoryService)
         {
             _fileService = fileService;
+            _directoryService = directoryService;
+
             _logsDirectory = $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Logs";
         }
         #endregion
@@ -44,6 +47,9 @@ namespace ParticleMaker.Services
 
             var dateTimeStamp = $"{dateTime.Day}-{monthName}-{dateTime.Year}";
             var logFilePath = $@"{_logsDirectory}\Info-Logs_{dateTimeStamp}.json";
+
+            if (!_directoryService.Exists(_logsDirectory))
+                _directoryService.Create(_logsDirectory);
 
             if (_fileService.Exists(logFilePath))
             {
@@ -79,6 +85,9 @@ namespace ParticleMaker.Services
             var dateTimeStamp = $"{dateTime.Day}-{monthName}-{dateTime.Year}";
             var logFilePath = $@"{_logsDirectory}\Error-Logs_{dateTimeStamp}.json";
 
+            if (!_directoryService.Exists(_logsDirectory))
+                _directoryService.Create(_logsDirectory);
+
             if (_fileService.Exists(logFilePath))
             {
                 var logData = _fileService.Load<LogData>(logFilePath);
@@ -95,7 +104,21 @@ namespace ParticleMaker.Services
             }
             else
             {
-                _fileService.Create(logFilePath, data);
+                var logData = new LogData()
+                {
+                    Logs = new List<Log>()
+                    {
+                        new Log()
+                        {
+                            Data = data,
+                            DateTimeStamp = dateTime,
+                            IsError = true,
+                            ErrorNumber = errorNumber
+                        }
+                    }
+                };
+
+                _fileService.Create(logFilePath, logData);
             }
         }
         #endregion

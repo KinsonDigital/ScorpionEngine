@@ -31,6 +31,7 @@ namespace ParticleMaker.Services
             }
             catch (Exception ex)
             {
+                throw ex;
                 //TODO: Properly handle exceptions
             }
         }

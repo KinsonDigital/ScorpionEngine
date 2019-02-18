@@ -11,12 +11,47 @@ namespace ParticleMaker.Tests.Services
     {
         #region Method Tests
         [Test]
+        public void Log_WhenInvoking_InvokesDirServiceExistsMethod()
+        {
+            //Arrange
+            var mockFileService = new Mock<IFileService>();
+            var mockDirectoryService = new Mock<IDirectoryService>();
+
+            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
+
+            //Act
+            service.Log("test-data", DateTime.Now);
+
+            //Assert
+            mockDirectoryService.Verify(m => m.Exists(It.IsAny<string>()), Times.Once());
+        }
+
+
+        [Test]
+        public void Log_WhenLogLogsDirectoryDoesNotExist_InvokesDirServiceCreateMethod()
+        {
+            //Arrange
+            var mockFileService = new Mock<IFileService>();
+            var mockDirectoryService = new Mock<IDirectoryService>();
+
+            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
+
+            //Act
+            service.Log("test-data", DateTime.Now);
+
+            //Assert
+            mockDirectoryService.Verify(m => m.Create(It.IsAny<string>()), Times.Once());
+        }
+
+
+        [Test]
         public void Log_WhenLogFileDoesNotExist_InvokesFileServiceCreateMethod()
         {
             //Arrange
             var mockFileService = new Mock<IFileService>();
+            var mockDirectoryService = new Mock<IDirectoryService>();
 
-            var service = new JSONLoggerService(mockFileService.Object);
+            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
 
             //Act
             service.Log("test-data", DateTime.Now);
@@ -41,7 +76,9 @@ namespace ParticleMaker.Tests.Services
                 actual = sections.Length > 0 ? sections[sections.Length - 1] : "";
             });
 
-            var service = new JSONLoggerService(mockFileService.Object);
+            var mockDirectoryService = new Mock<IDirectoryService>();
+
+            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
 
             //Act
             service.Log("test-data", new DateTime(2019, 2, 20));
@@ -56,8 +93,9 @@ namespace ParticleMaker.Tests.Services
         {
             //Arrange
             var mockFileService = new Mock<IFileService>();
+            var mockDirectoryService = new Mock<IDirectoryService>();
 
-            var service = new JSONLoggerService(mockFileService.Object);
+            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
 
             //Act
             service.Log("test-data", DateTime.Now);
@@ -78,7 +116,9 @@ namespace ParticleMaker.Tests.Services
                 Logs = new List<Log>()
             });
 
-            var service = new JSONLoggerService(mockFileService.Object);
+            var mockDirectoryService = new Mock<IDirectoryService>();
+
+            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
 
             //Act
             service.Log("test-data", DateTime.Now);
@@ -99,7 +139,9 @@ namespace ParticleMaker.Tests.Services
                 Logs = new List<Log>()
             });
 
-            var service = new JSONLoggerService(mockFileService.Object);
+            var mockDirectoryService = new Mock<IDirectoryService>();
+
+            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
 
             //Act
             service.Log("test-data", DateTime.Now);
@@ -110,12 +152,47 @@ namespace ParticleMaker.Tests.Services
 
 
         [Test]
+        public void LogError_WhenInvoking_InvokesDirServiceExistsMethod()
+        {
+            //Arrange
+            var mockFileService = new Mock<IFileService>();
+            var mockDirectoryService = new Mock<IDirectoryService>();
+
+            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
+
+            //Act
+            service.LogError("test-data", DateTime.Now, 1234);
+
+            //Assert
+            mockDirectoryService.Verify(m => m.Exists(It.IsAny<string>()), Times.Once());
+        }
+
+
+        [Test]
+        public void LogError_WhenLogLogsDirectoryDoesNotExist_InvokesDirServiceCreateMethod()
+        {
+            //Arrange
+            var mockFileService = new Mock<IFileService>();
+            var mockDirectoryService = new Mock<IDirectoryService>();
+
+            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
+
+            //Act
+            service.LogError("test-data", DateTime.Now, 1234);
+
+            //Assert
+            mockDirectoryService.Verify(m => m.Create(It.IsAny<string>()), Times.Once());
+        }
+
+
+        [Test]
         public void LogError_WhenLogFileDoesNotExist_InvokesFileServiceCreateMethod()
         {
             //Arrange
             var mockFileService = new Mock<IFileService>();
+            var mockDirectoryService = new Mock<IDirectoryService>();
 
-            var service = new JSONLoggerService(mockFileService.Object);
+            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
 
             //Act
             service.LogError("test-data", DateTime.Now, 1234);
@@ -133,14 +210,16 @@ namespace ParticleMaker.Tests.Services
             var expected = $"Error-Logs_20-Feb-2019.json";
 
             var actual = string.Empty;
-            mockFileService.Setup(m => m.Create(It.IsAny<string>(), It.IsAny<string>())).Callback<string, string>((path, data) =>
+            mockFileService.Setup(m => m.Create(It.IsAny<string>(), It.IsAny<LogData>())).Callback<string, LogData>((path, data) =>
             {
                 var sections = path.Split(new[] { "\\" }, StringSplitOptions.None);
 
                 actual = sections.Length > 0 ? sections[sections.Length - 1] : "";
             });
 
-            var service = new JSONLoggerService(mockFileService.Object);
+            var mockDirectoryService = new Mock<IDirectoryService>();
+
+            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
 
             //Act
             service.LogError("test-data", new DateTime(2019, 2, 20), 1234);
@@ -165,7 +244,9 @@ namespace ParticleMaker.Tests.Services
                 actual = sections.Length > 0 ? sections[sections.Length - 1] : "";
             });
 
-            var service = new JSONLoggerService(mockFileService.Object);
+            var mockDirectoryService = new Mock<IDirectoryService>();
+
+            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
 
             //Act
             service.LogError("test-data", new DateTime(2019, 2, 20), 1234);
@@ -180,8 +261,9 @@ namespace ParticleMaker.Tests.Services
         {
             //Arrange
             var mockFileService = new Mock<IFileService>();
+            var mockDirectoryService = new Mock<IDirectoryService>();
 
-            var service = new JSONLoggerService(mockFileService.Object);
+            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
 
             //Act
             service.LogError("test-data", DateTime.Now, 1234);
@@ -202,7 +284,9 @@ namespace ParticleMaker.Tests.Services
                 Logs = new List<Log>()
             });
 
-            var service = new JSONLoggerService(mockFileService.Object);
+            var mockDirectoryService = new Mock<IDirectoryService>();
+
+            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
 
             //Act
             service.LogError("test-data", DateTime.Now, 1234);
@@ -223,7 +307,9 @@ namespace ParticleMaker.Tests.Services
                 Logs = new List<Log>()
             });
 
-            var service = new JSONLoggerService(mockFileService.Object);
+            var mockDirectoryService = new Mock<IDirectoryService>();
+
+            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
 
             //Act
             service.LogError("test-data", DateTime.Now, 1234);

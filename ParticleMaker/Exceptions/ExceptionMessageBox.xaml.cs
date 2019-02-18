@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 
 namespace ParticleMaker.Exceptions
@@ -6,6 +7,7 @@ namespace ParticleMaker.Exceptions
     /// <summary>
     /// Interaction logic for ExceptionMessageBox.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class ExceptionMessageBox : Window
     {
         #region Constructors
