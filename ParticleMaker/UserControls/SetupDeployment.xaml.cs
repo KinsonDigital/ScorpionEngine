@@ -9,6 +9,7 @@ using FolderDialog = System.Windows.Forms.FolderBrowserDialog;
 using ParticleMaker.CustomEventArgs;
 using System.IO;
 using System.Windows.Input;
+using System.ComponentModel;
 
 namespace ParticleMaker.UserControls
 {
@@ -16,7 +17,7 @@ namespace ParticleMaker.UserControls
     /// Interaction logic for SetupDeployment.xaml
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public partial class SetupDeployment : UserControl, IDisposable
+    public partial class SetupDeployment : UserControl
     {
         #region Public Events
         /// <summary>
@@ -28,7 +29,7 @@ namespace ParticleMaker.UserControls
 
         #region Fields
         private Task _refreshTask;
-        private CancellationTokenSource _tokenSrc;
+        private CancellationTokenSource _refreshTokenSrc;
         #endregion
 
 
@@ -40,11 +41,11 @@ namespace ParticleMaker.UserControls
         {
             InitializeComponent();
 
-            Unloaded += SetupDeployment_Unloaded;
+            Dispatcher.ShutdownStarted += (sender, e) => { _refreshTokenSrc.Cancel(); };
 
-            _tokenSrc = new CancellationTokenSource();
+            _refreshTokenSrc = new CancellationTokenSource();
 
-            _refreshTask = new Task(RefreshAction, _tokenSrc.Token);
+            _refreshTask = new Task(RefreshAction, _refreshTokenSrc.Token);
             _refreshTask.Start();
         }
         #endregion
@@ -63,6 +64,12 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public static readonly DependencyProperty DeployClickedCommandProperty =
             DependencyProperty.Register(nameof(DeployClickedCommand), typeof(ICommand), typeof(SetupDeployment), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Registers the <see cref="HasError"/> property.
+        /// </summary>
+        private static readonly DependencyProperty HasErrorProperty =
+            DependencyProperty.Register(nameof(HasError), typeof(bool), typeof(SetupDeployment), new PropertyMetadata(false));
         #endregion
 
 
@@ -83,31 +90,20 @@ namespace ParticleMaker.UserControls
             get { return (ICommand)GetValue(DeployClickedCommandProperty); }
             set { SetValue(DeployClickedCommandProperty, value); }
         }
-        #endregion
 
-
-        #region Public Methods
         /// <summary>
-        /// Disposes of the refresh task.
+        /// Gets or stes the a value indicating if the control has an error due to
+        /// and invalid <see cref="DeploymentPath"/>.
         /// </summary>
-        public void Dispose()
+        private bool HasError
         {
-            _tokenSrc.Dispose();
-            _refreshTask.Dispose();
+            get { return (bool)GetValue(HasErrorProperty); }
+            set { SetValue(HasErrorProperty, value); }
         }
         #endregion
 
 
         #region Private Methods
-        /// <summary>
-        /// Cancels the refresh task.
-        /// </summary>
-        private void SetupDeployment_Unloaded(object sender, RoutedEventArgs e)
-        {
-            _tokenSrc.Cancel();
-        }
-
-
         /// <summary>
         /// Allows the user to choose a deployment path.
         /// </summary>
@@ -155,9 +151,9 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void RefreshAction()
         {
-            while(!_tokenSrc.IsCancellationRequested)
+            while(!_refreshTokenSrc.IsCancellationRequested)
             {
-                _tokenSrc.Token.WaitHandle.WaitOne(3000);
+                _refreshTokenSrc.Token.WaitHandle.WaitOne(3000);
 
                 Refresh();
             }
@@ -169,6 +165,13 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void Refresh()
         {
+            if (_refreshTokenSrc.IsCancellationRequested)
+                return;
+
+            Dispatcher.Invoke(() =>
+            {
+                HasError = DesignerProperties.GetIsInDesignMode(this) ? false : !Directory.Exists(DeploymentPath);
+            });
         }
         #endregion
     }

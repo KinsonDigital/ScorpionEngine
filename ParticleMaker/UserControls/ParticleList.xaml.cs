@@ -17,7 +17,7 @@ namespace ParticleMaker.UserControls
     /// Interaction logic for ParticleList.xaml
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public partial class ParticleList : UserControl, IDisposable
+    public partial class ParticleList : UserControl
     {
         #region Public Events
         /// <summary>
@@ -40,7 +40,7 @@ namespace ParticleMaker.UserControls
         #region Fields
         private char[] _illegalCharacters = new[] { '\\', '/', ':', '*', '?', '\"', '<', '>', '|', '.' };
         private Task _refreshTask;
-        private CancellationTokenSource _refreshTaskTokenSrc;
+        private CancellationTokenSource _refreshTokenSrc;
         #endregion
 
 
@@ -52,9 +52,11 @@ namespace ParticleMaker.UserControls
         {
             InitializeComponent();
 
-            _refreshTaskTokenSrc = new CancellationTokenSource();
+            Dispatcher.ShutdownStarted += (sender, e) => { _refreshTokenSrc.Cancel(); };
 
-            _refreshTask = new Task(RefreshAction, _refreshTaskTokenSrc.Token);
+            _refreshTokenSrc = new CancellationTokenSource();
+
+            _refreshTask = new Task(RefreshAction, _refreshTokenSrc.Token);
 
             _refreshTask.Start();
         }
@@ -137,6 +139,9 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public void Refresh()
         {
+            if (_refreshTokenSrc.IsCancellationRequested)
+                return;
+
             var particleItems = ParticleListBox.FindVisualChildren<ParticleListItem>().ToArray();
 
             //Refresh each particle list item
@@ -146,17 +151,6 @@ namespace ParticleMaker.UserControls
             }
 
             SetupCommands();
-        }
-
-
-        /// <summary>
-        /// Dispose of the control.
-        /// </summary>
-        public void Dispose()
-        {
-            _refreshTaskTokenSrc.Cancel();
-
-            DestroyCommands();
         }
         #endregion
 
@@ -245,15 +239,12 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void RefreshAction()
         {
-            while (!_refreshTaskTokenSrc.IsCancellationRequested)
+            while (!_refreshTokenSrc.IsCancellationRequested)
             {
-                _refreshTaskTokenSrc.Token.WaitHandle.WaitOne(1000);
+                _refreshTokenSrc.Token.WaitHandle.WaitOne(1000);
 
-                if (Dispatcher.HasShutdownStarted || Dispatcher.HasShutdownFinished)
-                {
-                    _refreshTaskTokenSrc.Cancel();
+                if (Dispatcher.HasShutdownFinished || _refreshTokenSrc.IsCancellationRequested)
                     break;
-                }
 
                 Dispatcher.Invoke(() =>
                 {
