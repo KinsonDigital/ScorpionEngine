@@ -7,6 +7,8 @@ using System.Windows.Controls;
 using WinDialogResult = System.Windows.Forms.DialogResult;
 using FolderDialog = System.Windows.Forms.FolderBrowserDialog;
 using ParticleMaker.CustomEventArgs;
+using System.IO;
+using System.Windows.Input;
 
 namespace ParticleMaker.UserControls
 {
@@ -20,7 +22,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Invoked when the deploy setup button has been clicked.
         /// </summary>
-        public EventHandler<DeploySetupEventArgs> DeployClicked;
+        public event EventHandler<DeploySetupEventArgs> DeployClicked;
         #endregion
 
 
@@ -42,7 +44,7 @@ namespace ParticleMaker.UserControls
 
             _tokenSrc = new CancellationTokenSource();
 
-            _refreshTask = new Task(Refresh, _tokenSrc.Token);
+            _refreshTask = new Task(RefreshAction, _tokenSrc.Token);
             _refreshTask.Start();
         }
         #endregion
@@ -55,6 +57,12 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public static readonly DependencyProperty DeploymentPathProperty =
             DependencyProperty.Register(nameof(DeploymentPath), typeof(string), typeof(SetupDeployment), new PropertyMetadata("", DeploymentPathChanged));
+
+        /// <summary>
+        /// Registers the <see cref="DeployClickedCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty DeployClickedCommandProperty =
+            DependencyProperty.Register(nameof(DeployClickedCommand), typeof(ICommand), typeof(SetupDeployment), new PropertyMetadata(null));
         #endregion
 
 
@@ -65,6 +73,15 @@ namespace ParticleMaker.UserControls
         {
             get { return (string)GetValue(DeploymentPathProperty); }
             set { SetValue(DeploymentPathProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets command that is executed when the deploy button has been clicked.
+        /// </summary>
+        public ICommand DeployClickedCommand
+        {
+            get { return (ICommand)GetValue(DeployClickedCommandProperty); }
+            set { SetValue(DeployClickedCommandProperty, value); }
         }
         #endregion
 
@@ -115,6 +132,7 @@ namespace ParticleMaker.UserControls
         private void DeploySetupCustomButton_Click(object sender, EventArgs e)
         {
             DeployClicked?.Invoke(this, new DeploySetupEventArgs(DeploymentPath));
+            DeployClickedCommand?.Execute(new DeploySetupEventArgs(DeploymentPath));
         }
 
 
@@ -133,14 +151,24 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Refreshes the UI at a set interval.
+        /// Invoked by the refresh task to refresh the UI at a set interval.
         /// </summary>
-        private void Refresh()
+        private void RefreshAction()
         {
             while(!_tokenSrc.IsCancellationRequested)
             {
                 _tokenSrc.Token.WaitHandle.WaitOne(3000);
+
+                Refresh();
             }
+        }
+
+
+        /// <summary>
+        /// Refreshes the UI.
+        /// </summary>
+        private void Refresh()
+        {
         }
         #endregion
     }

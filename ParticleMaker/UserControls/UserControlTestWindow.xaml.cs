@@ -14,7 +14,7 @@ namespace ParticleMaker.UserControls
     [ExcludeFromCodeCoverage]
     public partial class UserControlTestWindow : Window
     {
-        private ICommand _renameCommand;
+        private ICommand _deployCommand;
         private ICommand _deleteCommand;
         private ICommand _saveCommand;
 
@@ -30,58 +30,23 @@ namespace ParticleMaker.UserControls
         #endregion
 
 
-        public ICommand RenameCommand
+        public ICommand DeployCommand
         {
             get
             {
-                if (_renameCommand == null)
-                    _renameCommand = new RelayCommand((param) =>
+                if (_deployCommand == null)
+                    _deployCommand = new RelayCommand((param) =>
                     {
-                        var paramData = param as RenameItemEventArgs;
+                        var paramData = param as DeploySetupEventArgs;
 
-                        MessageBox.Show($"Setup '{paramData.OldName}' has been renamed to '{paramData.NewName}'.");
+                        MessageBox.Show($"Setup deployed to '{paramData.DeploymentPath}'.");
                     }, (param) => true);
 
 
-                return _renameCommand;
+                return _deployCommand;
             }
         }
 
-
-        public ICommand DeleteCommand
-        {
-            get
-            {
-                if (_deleteCommand == null)
-                    _deleteCommand = new RelayCommand((param) =>
-                    {
-                        var paramData = param as ItemEventArgs;
-
-                        MessageBox.Show($"Setup '{paramData.Name}' has been delete at path '{paramData.Path}'.");
-                    }, (param) => true);
-
-
-                return _deleteCommand;
-            }
-        }
-
-
-        public ICommand SaveCommand
-        {
-            get
-            {
-                if (_saveCommand == null)
-                    _saveCommand = new RelayCommand((param) =>
-                    {
-                        var paramData = param as ItemEventArgs;
-
-                        MessageBox.Show($"Setup '{paramData.Name}' has been saved at path '{paramData.Path}'.");
-                    }, (param) => true);
-
-
-                return _saveCommand;
-            }
-        }
 
         #region Private Methods
         private void TestButton_Click(object sender, RoutedEventArgs e)

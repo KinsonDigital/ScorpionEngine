@@ -7,7 +7,7 @@
         xmlns:root="clr-namespace:ParticleMaker"
         xmlns:converters="clr-namespace:ParticleMaker.UserControls.ValueConverters"
         mc:Ignorable="d" Name="this"
-        Title="UserControlTestWindow" Height="450" Width="450" Background="CornflowerBlue" Topmost="True" WindowStartupLocation="CenterScreen">
+        Title="UserControlTestWindow" Height="450" Width="450" Topmost="True" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <converters:StringToBoolConverter x:Key="StringToBoolConverter"/>
@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Margin="0, 100, 0, 0" Orientation="Vertical">
-            <local:SetupDeployment HorizontalAlignment="Center"/>
+            <local:SetupDeployment DeploymentPath="C:\Temp\Stuff" HorizontalAlignment="Center"/>
         </StackPanel>
 
         <Button Name="TestButton" Content="Run Test" Width="100" Height="30" Grid.Row="1" Click="TestButton_Click"/>
