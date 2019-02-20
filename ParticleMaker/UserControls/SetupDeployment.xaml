@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="ParticleMaker.UserControls.SetupDeployment"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ParticleMaker.UserControls"
+             mc:Ignorable="d" Background="White" Name="this"
+             DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+
+    <UserControl.Resources>
+        <BitmapImage x:Key="DeployIcon" UriSource="../Icons/Deploy.png"/>
+        
+        <Style x:Key="DisableWithErrorStyle" TargetType="FrameworkElement">
+            <Setter Property="IsEnabled" Value="True"/>
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=HasError}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid d:DataContext="{d:DesignData Source=/UserControls/DesignData/UserControlData.xaml}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <!--DEPLOYMENT PATH-->
+        <Label Content="{Binding Path=DeploymentPath}" Grid.Column="0" MaxWidth="150">
+            <Label.Style>
+                <Style TargetType="FrameworkElement">
+                    <Setter Property="Visibility" Value="Visible"/>
+
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=HasError}" Value="True">
+                            <Setter Property="Visibility" Value="Hidden"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+
+        <!--EDIT PATH BUTTON-->
+        <local:CustomButton x:Name="EditCustomButton" Grid.Column="1" Click="EditCustomButton_Click"
+                            Style="{StaticResource DisableWithErrorStyle}">
+            <local:CustomButton.ButtonContent>
+                <Image Source="/ParticleMaker;component/Icons/Edit.png" Width="27" Height="27"/>
+            </local:CustomButton.ButtonContent>
+        </local:CustomButton>
+
+        <!--DEPLOY SETUP BUTTON-->
+        <local:CustomButton x:Name="DeploySetupCustomButton" Grid.Column="2" Click="DeploySetupCustomButton_Click"
+                            Style="{StaticResource DisableWithErrorStyle}">
+            <local:CustomButton.ButtonContent>
+                <Image Source="/ParticleMaker;component/Icons/Deploy.png" Width="27" Height="27"/>
+            </local:CustomButton.ButtonContent>
+        </local:CustomButton>
+        
+        <!--ERROR DISPLAY-->
+        <Label Content="ERROR!!" FontWeight="Bold" Foreground="Red" Grid.Column="0"
+               HorizontalAlignment="Center">
+            <Label.Style>
+                <Style TargetType="Label">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                    
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=HasError}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+    </Grid>
+</UserControl>

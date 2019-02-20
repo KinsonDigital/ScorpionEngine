@@ -99,6 +99,7 @@
     <Compile Include="CustomEventArgs\AddSetupClickedEventArgsTests.cs" />
     <Compile Include="CustomEventArgs\ColorItemClickedEventArgsTests.cs" />
     <Compile Include="ColorItemTests.cs" />
+    <Compile Include="CustomEventArgs\DeploySetupEventArgsTests.cs" />
     <Compile Include="CustomEventArgs\ItemEventArgsTests.cs" />
     <Compile Include="CustomEventArgs\DrawEventArgsTests.cs" />
     <Compile Include="CustomEventArgs\RenameItemEventArgsTests.cs" />

@@ -64,6 +64,11 @@ namespace ParticleMaker.UserControls.DesignData
         /// Gets or sets the color data.
         /// </summary>
         public ColorItem[] Colors { get; set; }
+
+        /// <summary>
+        /// Gets or sets the deployment path for the design data for the SetupDeployment user control.
+        /// </summary>
+        public string DeploymentPath { get; set; }
         #endregion
     }
 }
