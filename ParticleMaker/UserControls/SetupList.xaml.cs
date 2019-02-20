@@ -256,7 +256,7 @@ namespace ParticleMaker.UserControls
         {
             while (!_refreshTokenSrc.IsCancellationRequested)
             {
-                _refreshTokenSrc.Token.WaitHandle.WaitOne(1000);
+                _refreshTokenSrc.Token.WaitHandle.WaitOne(2000);
 
                 if (Dispatcher.HasShutdownFinished || _refreshTokenSrc.IsCancellationRequested)
                     break;
