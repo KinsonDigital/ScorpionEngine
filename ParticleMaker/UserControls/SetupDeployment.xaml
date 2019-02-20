@@ -20,59 +20,62 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    
-    <Grid d:DataContext="{d:DesignData Source=/UserControls/DesignData/UserControlData.xaml}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        
-        <!--DEPLOYMENT PATH-->
-        <Label Content="{Binding Path=DeploymentPath}" Grid.Column="0" MaxWidth="150">
-            <Label.Style>
-                <Style TargetType="FrameworkElement">
-                    <Setter Property="Visibility" Value="Visible"/>
 
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Path=HasError}" Value="True">
-                            <Setter Property="Visibility" Value="Hidden"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Label.Style>
-        </Label>
+    <Border BorderBrush="DarkGray" BorderThickness="1">
+        <Grid d:DataContext="{d:DesignData Source=/UserControls/DesignData/UserControlData.xaml}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
-        <!--EDIT PATH BUTTON-->
-        <local:CustomButton x:Name="EditCustomButton" Grid.Column="1" Click="EditCustomButton_Click"
-                            Style="{StaticResource DisableWithErrorStyle}">
-            <local:CustomButton.ButtonContent>
-                <Image Source="/ParticleMaker;component/Icons/Edit.png" Width="27" Height="27"/>
-            </local:CustomButton.ButtonContent>
-        </local:CustomButton>
+            <!--DEPLOYMENT PATH-->
+            <Label Content="{Binding Path=DeploymentPath}" Grid.Column="0" MaxWidth="150" VerticalAlignment="Center" HorizontalAlignment="Left">
+                <Label.Style>
+                    <Style TargetType="FrameworkElement">
+                        <Setter Property="Visibility" Value="Visible"/>
 
-        <!--DEPLOY SETUP BUTTON-->
-        <local:CustomButton x:Name="DeploySetupCustomButton" Grid.Column="2" Click="DeploySetupCustomButton_Click"
-                            Style="{StaticResource DisableWithErrorStyle}">
-            <local:CustomButton.ButtonContent>
-                <Image Source="/ParticleMaker;component/Icons/Deploy.png" Width="27" Height="27"/>
-            </local:CustomButton.ButtonContent>
-        </local:CustomButton>
-        
-        <!--ERROR DISPLAY-->
-        <Label Content="ERROR!!" FontWeight="Bold" Foreground="Red" Grid.Column="0"
-               HorizontalAlignment="Center">
-            <Label.Style>
-                <Style TargetType="Label">
-                    <Setter Property="Visibility" Value="Hidden"/>
-                    
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Path=HasError}" Value="True">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Label.Style>
-        </Label>
-    </Grid>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=HasError}" Value="True">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="0, 5, 5, 5">
+                <!--EDIT PATH BUTTON-->
+                <local:CustomButton x:Name="EditCustomButton" Click="EditCustomButton_Click"
+                                    Style="{StaticResource DisableWithErrorStyle}">
+                    <local:CustomButton.ButtonContent>
+                        <Image Source="/ParticleMaker;component/Icons/Edit.png" Width="27" Height="27"/>
+                    </local:CustomButton.ButtonContent>
+                </local:CustomButton>
+
+                <!--DEPLOY SETUP BUTTON-->
+                <local:CustomButton x:Name="DeploySetupCustomButton" Click="DeploySetupCustomButton_Click"
+                                    Style="{StaticResource DisableWithErrorStyle}">
+                    <local:CustomButton.ButtonContent>
+                        <Image Source="/ParticleMaker;component/Icons/Deploy.png" Width="27" Height="27"/>
+                    </local:CustomButton.ButtonContent>
+                </local:CustomButton>
+            </StackPanel>
+
+            <!--ERROR DISPLAY-->
+            <Label Content="ERROR!!" FontWeight="Bold" Foreground="Red" Grid.Column="0"
+                   HorizontalAlignment="Center">
+                <Label.Style>
+                    <Style TargetType="Label">
+                        <Setter Property="Visibility" Value="Hidden"/>
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=HasError}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
+        </Grid>
+    </Border>
 </UserControl>

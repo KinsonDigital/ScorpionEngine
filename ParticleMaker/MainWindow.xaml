@@ -114,6 +114,12 @@
                                    IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
                                    MinValue="{Binding SizeMin, Mode=TwoWay}" MaxValue="{Binding SizeMax, Mode=TwoWay}"/>
             </Grid>
+            
+            <!--SETUP DEPLOYMENT-->
+            <ctrls:SetupDeployment d:DataContext="{d:DesignData Source=/DesignData/MainWindowData.xaml}"
+                                   DeploymentPath="{Binding Path=DeploymentPath}"  Margin="5">
+                
+            </ctrls:SetupDeployment>
         </StackPanel>
 
         <!--RENDERING SURFACE-->

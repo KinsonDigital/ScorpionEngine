@@ -53,6 +53,11 @@ namespace ParticleMaker.DesignData
         /// Gets or sets the AddSetup command test data for the setup list control in the main window.
         /// </summary>
         public ICommand AddSetup { get; set; }
+
+        /// <summary>
+        /// Gets or sets the design data for the deployment path user control.
+        /// </summary>
+        public string DeploymentPath { get; set; }
         #endregion
     }
 }
