@@ -673,6 +673,28 @@ namespace ParticleMaker.Tests.ViewModels
             //Assert
             Assert.AreEqual(expected, actual);
         }
+
+
+        [Test]
+        public void UpdateDeploymentPath_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Act
+            var actual = _viewModel.UpdateDeploymentPath != null;
+
+            //Assert
+            Assert.NotNull(actual);
+        }
+
+
+        [Test]
+        public void DeploySetup_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Act
+            var actual = _viewModel.DeploySetup != null;
+
+            //Assert
+            Assert.NotNull(actual);
+        }
         #endregion
 
 
