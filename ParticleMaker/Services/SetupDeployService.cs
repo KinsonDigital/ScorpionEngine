@@ -38,18 +38,20 @@ namespace ParticleMaker.Services
         /// Deploys the setup with the given <paramref name="setupName"/> to the given <paramref name="destinationPath"/>.
         /// </summary>
         /// <param name="setupName">The name of the setup to deploy.</param>
-        /// <param name="destinationPath">The destination path of where to deploy the setup.</param>
+        /// <param name="destinationPath">The destination folder path of where to deploy the setup.</param>
         public void Deploy(string projectName, string setupName, string destinationPath)
         {
             var projPath = $@"{_rootProjectsPath}\{projectName}";
-            var setupPath = $@"{projPath}\{setupName}.json";
+            var setupPath = $@"{projPath}\Setups\{setupName}\{setupName}.json";
 
             if (ProjectExists(projectName))
             {
-                if (!_fileService.Exists(destinationPath))
+                if (!_directoryService.Exists(destinationPath))
                     throw new DirectoryNotFoundException($"The destination path '{Path.GetDirectoryName(destinationPath)}' does not exist.");
 
-                _fileService.Copy(setupPath, destinationPath);
+                CheckRootSetupsFolder(projectName);
+
+                _fileService.Copy(setupPath, $@"{destinationPath}\{setupName}.json", true);
             }
             else
             {
@@ -68,6 +70,22 @@ namespace ParticleMaker.Services
         private bool ProjectExists(string name)
         {
             return !string.IsNullOrEmpty(name) && _directoryService.Exists($@"{_rootProjectsPath}\{name}");
+        }
+
+
+        /// <summary>
+        /// Checks to make sure that the root setups folder already exists for the project that
+        /// matches the given <paramref name="projectName"/>.  If not, creates the setups folder.
+        /// </summary>
+        /// <param name="projectName">The name of the project.</param>
+        private void CheckRootSetupsFolder(string projectName)
+        {
+            var setupsPath = $@"{_rootProjectsPath}\{projectName}\Setups";
+
+            if (_directoryService.Exists(setupsPath))
+                return;
+
+            _directoryService.Create(setupsPath);
         }
         #endregion
     }

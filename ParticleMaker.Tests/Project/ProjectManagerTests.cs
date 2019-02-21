@@ -76,6 +76,70 @@ namespace ParticleMaker.Tests.Project
             //Assert
             Assert.AreEqual(expected, actual);
         }
+
+
+        [Test]
+        public void ProjectPaths_WhenGettingValue_InvokesDirectoryServiceExistsMethod()
+        {
+            //Arrange
+            var mockDirService = new Mock<IDirectoryService>();
+
+            var manager = new ProjectManager(It.IsAny<ProjectSettingsManager>(), mockDirService.Object);
+
+            //Act
+            var actual = manager.ProjectPaths;
+
+            //Assert
+            mockDirService.Verify(m => m.Exists(It.IsAny<string>()), Times.Exactly(2));
+        }
+
+
+        [Test]
+        public void ProjectPaths_WhenGettingValueWhileDirectoryDoesNotExist_InvokesDirectoryServiceCreateMethod()
+        {
+            //Arrange
+            var mockDirService = new Mock<IDirectoryService>();
+
+            var manager = new ProjectManager(It.IsAny<ProjectSettingsManager>(), mockDirService.Object);
+
+            //Act
+            var actual = manager.ProjectPaths;
+
+            //Assert
+            mockDirService.Verify(m => m.Create(It.IsAny<string>()), Times.Exactly(2));
+        }
+
+
+        [Test]
+        public void Projects_WhenGettingValue_InvokesDirectoryServiceExistsMethod()
+        {
+            //Arrange
+            var mockDirService = new Mock<IDirectoryService>();
+
+            var manager = new ProjectManager(It.IsAny<ProjectSettingsManager>(), mockDirService.Object);
+
+            //Act
+            var actual = manager.Projects;
+
+            //Assert
+            mockDirService.Verify(m => m.Exists(It.IsAny<string>()), Times.Exactly(2));
+        }
+
+
+        [Test]
+        public void Projects_WhenGettingValueWhileDirectoryDoesNotExist_InvokesDirectoryServiceCreateMethod()
+        {
+            //Arrange
+            var mockDirService = new Mock<IDirectoryService>();
+
+            var manager = new ProjectManager(It.IsAny<ProjectSettingsManager>(), mockDirService.Object);
+
+            //Act
+            var actual = manager.Projects;
+
+            //Assert
+            mockDirService.Verify(m => m.Create(It.IsAny<string>()), Times.Exactly(2));
+        }
         #endregion
 
 

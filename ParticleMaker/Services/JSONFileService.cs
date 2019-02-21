@@ -128,9 +128,10 @@ namespace ParticleMaker.Services
         /// </summary>
         /// <param name="sourcePath">The source of the file to copy.</param>
         /// <param name="destinationPath">The destination of the file to copy.</param>
-        public void Copy(string sourcePath, string destinationPath)
+        /// <param name="overwrite">True if the destination file can be overwritten; otherwise, false.</param>
+        public void Copy(string sourcePath, string destinationPath, bool overwrite = false)
         {
-            File.Copy(sourcePath, destinationPath);
+            File.Copy(sourcePath, destinationPath, overwrite);
         }
         #endregion
     }

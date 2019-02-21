@@ -66,10 +66,43 @@ namespace ParticleMaker.Tests.Project
 
 
         [Test]
-        public void SetupPaths_WhenInvoking_ReturnsCorrectPaths()
+        public void GetSetupNames_WhenInvoked_BuildsCorrectProjectPath()
+        {
+            //Arrange
+            var expected = "\\test-project";
+            var actual = "";
+
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+            mockDirService.Setup(m => m.GetDirectories(It.IsAny<string>())).Returns<string>((folder) =>
+            {
+                var sections = folder.Split(new string[] { "Projects" }, StringSplitOptions.None);
+
+                actual = sections.Length >= 2 ? sections[1] : "";
+
+
+                return new string[0];
+            });
+
+            var mockFileService = new Mock<IFileService>();
+
+            var manager = new SetupManager(mockDirService.Object, mockFileService.Object);
+
+            //Act
+            manager.GetSetupNames("test-project");
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void GetSetupPaths_WhenInvoking_ReturnsCorrectPaths()
         {
             //Arrange
             var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
             var setupPathFolder = string.Empty;
 
             mockDirService.Setup(m => m.GetDirectories(It.IsAny<string>())).Returns<string>((folder) => 
@@ -101,6 +134,38 @@ namespace ParticleMaker.Tests.Project
 
 
         [Test]
+        public void GetSetupPaths_WhenInvoking_ChecksIfSetupsFolderExists()
+        {
+            //Arrange
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var manager = new SetupManager(mockDirService.Object, It.IsAny<IFileService>());
+
+            //Act
+            manager.GetSetupPaths("project-A");
+
+            //Assert
+            mockDirService.Verify(m => m.Exists(It.IsAny<string>()), Times.Once());
+        }
+
+
+        [Test]
+        public void GetSetupPaths_WhenInvokingWithNoSetupsFolder_CreatesProjectSetupsFolder()
+        {
+            //Arrange
+            var mockDirService = new Mock<IDirectoryService>();
+            var manager = new SetupManager(mockDirService.Object, It.IsAny<IFileService>());
+
+            //Act
+            manager.GetSetupPaths("project-A");
+
+            //Assert
+            mockDirService.Verify(m => m.Create(It.IsAny<string>()), Times.Once());
+        }
+
+
+        [Test]
         public void Create_WhenInvoking_CreatesSetupFile()
         {
             //Arrange
@@ -119,7 +184,7 @@ namespace ParticleMaker.Tests.Project
 
 
         [Test]
-        public void Create_WhenInvoking_UsesCorrectSetupPath()
+        public void Create_WhenInvoking_BuildsCorrectSetupPath()
         {
             //Arrange
             var mockDirService = new Mock<IDirectoryService>();
@@ -143,6 +208,51 @@ namespace ParticleMaker.Tests.Project
 
             //Assert
             Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void Create_WhenInvoking_ChecksIfProjectSetupsFolderExists()
+        {
+            //Arrange
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var mockFileService = new Mock<IFileService>();
+
+            var manager = new SetupManager(mockDirService.Object, mockFileService.Object);
+
+            //Act
+            manager.Create("test-project", "test-setup");
+
+            //Assert
+            mockDirService.Verify(m => m.Exists(It.IsAny<string>()), Times.Exactly(2));
+        }
+
+
+        [Test]
+        public void Create_WhenInvokingWithNoProjectSetupsFolder_CreatesProjectSetupFolder()
+        {
+            //Arrange
+            var existsInvokeCount = 0;
+
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns<string>((folder) =>
+            {
+                existsInvokeCount += 1;
+
+                return existsInvokeCount <= 1;
+            });
+
+            var mockFileService = new Mock<IFileService>();
+
+            var manager = new SetupManager(mockDirService.Object, mockFileService.Object);
+
+            //Act
+            manager.Create("test-project", "test-setup");
+
+            //Assert
+            mockDirService.Verify(m => m.Create(It.IsAny<string>()), Times.Exactly(2));
         }
 
 
@@ -293,6 +403,53 @@ namespace ParticleMaker.Tests.Project
 
 
         [Test]
+        public void Load_WhenInvoked_ChecksIfProjectSetupsFolderExists()
+        {
+            //Arrange
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var mockFileService = new Mock<IFileService>();
+            mockFileService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var manager = new SetupManager(mockDirService.Object, mockFileService.Object);
+
+            //Act
+            manager.Load("test-project", "test-setup");
+
+            //Assert
+            mockDirService.Verify(m => m.Exists(It.IsAny<string>()), Times.Exactly(2));
+        }
+
+
+        [Test]
+        public void Load_WhenInvokedWithNoProjectSetupsFolder_CreatesProjectSetupsFolder()
+        {
+            //Arrange
+            var existsInvokedCount = 0;
+
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns<string>((folder) =>
+            {
+                existsInvokedCount += 1;
+
+                return existsInvokedCount <= 1;
+            });
+
+            var mockFileService = new Mock<IFileService>();
+            mockFileService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var manager = new SetupManager(mockDirService.Object, mockFileService.Object);
+
+            //Act
+            manager.Load("test-project", "test-setup");
+
+            //Assert
+            mockDirService.Verify(m => m.Create(It.IsAny<string>()), Times.Exactly(1));
+        }
+
+
+        [Test]
         public void Save_WhenInvoking_SavesSetupFile()
         {
             //Arrange
@@ -312,7 +469,7 @@ namespace ParticleMaker.Tests.Project
 
 
         [Test]
-        public void Save_WhenInvoking_UsesCorrectSetupPath()
+        public void Save_WhenInvoking_BuildsCorrectSetupPath()
         {
             //Arrange
             var mockDirService = new Mock<IDirectoryService>();
@@ -374,6 +531,53 @@ namespace ParticleMaker.Tests.Project
 
 
         [Test]
+        public void Save_WhenInvoked_ChecksIfProjectSetupsFolderExists()
+        {
+            //Arrange
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var mockFileService = new Mock<IFileService>();
+            mockFileService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var manager = new SetupManager(mockDirService.Object, mockFileService.Object);
+
+            //Act
+            manager.Save("test-project", "test-setup", It.IsAny<ParticleSetup>());
+
+            //Assert
+            mockDirService.Verify(m => m.Exists(It.IsAny<string>()), Times.Exactly(2));
+        }
+
+
+        [Test]
+        public void Save_WhenInvokedWithNoProjectSetupsFolder_CreatesProjectSetupsFolder()
+        {
+            //Arrange
+            var existsInvokedCount = 0;
+
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns<string>((folder) =>
+            {
+                existsInvokedCount += 1;
+
+                return existsInvokedCount <= 1;
+            });
+
+            var mockFileService = new Mock<IFileService>();
+            mockFileService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var manager = new SetupManager(mockDirService.Object, mockFileService.Object);
+
+            //Act
+            manager.Save("test-project", "test-setup", It.IsAny<ParticleSetup>());
+
+            //Assert
+            mockDirService.Verify(m => m.Create(It.IsAny<string>()), Times.Exactly(1));
+        }
+
+
+        [Test]
         public void Rename_WhenInvoking_RenamesSetupFile()
         {
             //Arrange
@@ -395,13 +599,13 @@ namespace ParticleMaker.Tests.Project
 
 
         [Test]
-        public void Rename_WhenInvoking_UsesCorrectSetupPath()
+        public void Rename_WhenInvoking_BuildsCorrectSetupPath()
         {
             //Arrange
             var mockDirService = new Mock<IDirectoryService>();
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
 
-            var expected = @"\test-project\old-setup-name.json";
+            var expected = @"\test-project\Setups\old-setup-name\old-setup-name.json";
             var actual = "";
 
             var mockFileService = new Mock<IFileService>();
@@ -481,6 +685,53 @@ namespace ParticleMaker.Tests.Project
 
 
         [Test]
+        public void Rename_WhenInvoked_ChecksIfProjectSetupsFolderExists()
+        {
+            //Arrange
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var mockFileService = new Mock<IFileService>();
+            mockFileService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var manager = new SetupManager(mockDirService.Object, mockFileService.Object);
+
+            //Act
+            manager.Rename("test-project", "test-setup", "new-setup");
+
+            //Assert
+            mockDirService.Verify(m => m.Exists(It.IsAny<string>()), Times.Exactly(2));
+        }
+
+
+        [Test]
+        public void Rename_WhenInvokedWithNoProjectSetupsFolder_CreatesProjectSetupsFolder()
+        {
+            //Arrange
+            var existsInvokedCount = 0;
+
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns<string>((folder) =>
+            {
+                existsInvokedCount += 1;
+
+                return existsInvokedCount <= 1;
+            });
+
+            var mockFileService = new Mock<IFileService>();
+            mockFileService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var manager = new SetupManager(mockDirService.Object, mockFileService.Object);
+
+            //Act
+            manager.Rename("test-project", "test-setup", "new-setup");
+
+            //Assert
+            mockDirService.Verify(m => m.Create(It.IsAny<string>()), Times.Exactly(1));
+        }
+
+
+        [Test]
         public void Delete_WhenInvoking_DeletesSetup()
         {
             //Arrange
@@ -501,13 +752,13 @@ namespace ParticleMaker.Tests.Project
 
 
         [Test]
-        public void Delete_WhenInvoking_UsesCorrectDeletePath()
+        public void Delete_WhenInvoking_BuildsCorrectDeletePath()
         {
             //Arrange
             var mockDirService = new Mock<IDirectoryService>();
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
 
-            var expected = @"\test-project\test-setup.json";
+            var expected = @"\test-project\Setups\test-setup\test-setup.json";
             var actual = "";
 
             var mockFileService = new Mock<IFileService>();
@@ -565,6 +816,53 @@ namespace ParticleMaker.Tests.Project
             {
                 manager.Delete("test-project", "test-setup");
             });
+        }
+
+
+        [Test]
+        public void Delete_WhenInvoked_ChecksIfProjectSetupsFolderExists()
+        {
+            //Arrange
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var mockFileService = new Mock<IFileService>();
+            mockFileService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var manager = new SetupManager(mockDirService.Object, mockFileService.Object);
+
+            //Act
+            manager.Delete("test-project", "test-setup");
+
+            //Assert
+            mockDirService.Verify(m => m.Exists(It.IsAny<string>()), Times.Exactly(2));
+        }
+
+
+        [Test]
+        public void Delete_WhenInvokedWithNoProjectSetupsFolder_CreatesProjectSetupsFolder()
+        {
+            //Arrange
+            var existsInvokedCount = 0;
+
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns<string>((folder) =>
+            {
+                existsInvokedCount += 1;
+
+                return existsInvokedCount <= 1;
+            });
+
+            var mockFileService = new Mock<IFileService>();
+            mockFileService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var manager = new SetupManager(mockDirService.Object, mockFileService.Object);
+
+            //Act
+            manager.Delete("test-project", "test-setup");
+
+            //Assert
+            mockDirService.Verify(m => m.Create(It.IsAny<string>()), Times.Exactly(1));
         }
         #endregion
     }

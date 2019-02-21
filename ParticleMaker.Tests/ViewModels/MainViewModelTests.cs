@@ -5,6 +5,7 @@ using KDScorpionCore.Graphics;
 using Moq;
 using NUnit.Framework;
 using ParticleMaker.Project;
+using ParticleMaker.Services;
 using ParticleMaker.UserControls;
 using ParticleMaker.ViewModels;
 using System;
@@ -672,6 +673,28 @@ namespace ParticleMaker.Tests.ViewModels
             //Assert
             Assert.AreEqual(expected, actual);
         }
+
+
+        [Test]
+        public void UpdateDeploymentPath_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Act
+            var actual = _viewModel.UpdateDeploymentPath != null;
+
+            //Assert
+            Assert.NotNull(actual);
+        }
+
+
+        [Test]
+        public void DeploySetup_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Act
+            var actual = _viewModel.DeploySetup != null;
+
+            //Assert
+            Assert.NotNull(actual);
+        }
         #endregion
 
 
@@ -733,6 +756,11 @@ namespace ParticleMaker.Tests.ViewModels
                 return (int)getValueResult;
             });
 
+            var mockDirService = new Mock<IDirectoryService>();
+            var mockFileService = new Mock<IFileService>();
+
+            var setupDeployService = new SetupDeployService(mockDirService.Object, mockFileService.Object);
+
             particleEngine.Randomizer = mockRandomizer.Object;
             particleEngine.AddTexture(new Texture(mockTexture.Object));
             particleEngine.TotalParticlesAliveAtOnce = 4;
@@ -740,7 +768,7 @@ namespace ParticleMaker.Tests.ViewModels
 
             _engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine);
 
-            _viewModel = new MainViewModel(_engine, It.IsAny<ProjectManager>(), It.IsAny<ProjectSettingsManager>(), It.IsAny<SetupManager>())
+            _viewModel = new MainViewModel(_engine, It.IsAny<ProjectManager>(), It.IsAny<ProjectSettingsManager>(), It.IsAny<SetupManager>(), setupDeployService)
             {
                 RenderSurface = new PictureBox()
             };

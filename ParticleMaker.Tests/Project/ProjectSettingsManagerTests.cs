@@ -100,6 +100,30 @@ namespace ParticleMaker.Tests.Project
 
 
         [Test]
+        public void Load_WhenInvokingWithNullSetupDeploySettings_CreatesEmptyDeploySettingsList()
+        {
+            //Arrange
+            var mockFileService = new Mock<IFileService>();
+            mockFileService.Setup(m => m.Load<ProjectSettings>(It.IsAny<string>())).Returns(new ProjectSettings()
+            {
+                ProjectName = "test-project",
+                SetupDeploySettings = null
+            });
+
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var settingsManager = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
+
+            //Act
+            var actual = settingsManager.Load("test-project").SetupDeploySettings;
+
+            //Assert
+            Assert.IsNotNull(actual);
+        }
+
+
+        [Test]
         public void Load_WhenInvoking_CorrectlyBuildsPath()
         {
             //Arrange

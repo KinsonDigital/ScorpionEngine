@@ -20,7 +20,9 @@
         </Grid.RowDefinitions>
 
         <StackPanel Margin="0, 100, 0, 0" Orientation="Vertical">
-            <local:SetupDeployment DeploymentPath="C:\Temp\Stuff" HorizontalAlignment="Center"/>
+            <local:SetupDeployment DeploymentPath="C:\Temp\Stuff" HorizontalAlignment="Center"
+                                   EditClickedCommand="{Binding Path=DataContext.EditDeployPath, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                                   DeployClickedCommand="{Binding Path=DataContext.DeploySetup}"/>
         </StackPanel>
 
         <Button Name="TestButton" Content="Run Test" Width="100" Height="30" Grid.Row="1" Click="TestButton_Click"/>

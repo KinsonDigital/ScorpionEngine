@@ -15,6 +15,8 @@ using System.Windows;
 using WPFMsgBox = System.Windows.MessageBox;
 using ParticleMaker.UserControls;
 using System.Linq;
+using ParticleMaker.Services;
+using ParticleMaker.CustomEventArgs;
 
 namespace ParticleMaker.ViewModels
 {
@@ -29,6 +31,7 @@ namespace ParticleMaker.ViewModels
         private readonly ProjectManager _projectManager;
         private readonly ProjectSettingsManager _projectSettingsManager;
         private readonly SetupManager _setupManager;
+        private readonly SetupDeployService _setupDeployService;
         private CancellationTokenSource _cancelTokenSrc;
         private Task _startupTask;
         private RelayCommand _newProjectCommand;
@@ -40,6 +43,8 @@ namespace ParticleMaker.ViewModels
         private RelayCommand _pauseCommand;
         private RelayCommand _playCommand;
         private RelayCommand _saveSetupCommand;
+        private RelayCommand _updateDeploymentPathCommand;
+        private RelayCommand _deploySetupCommand;
         private string _currentOpenProject;
         #endregion
 
@@ -55,12 +60,15 @@ namespace ParticleMaker.ViewModels
         [ExcludeFromCodeCoverage]
         public MainViewModel(GraphicsEngine graphicsEngine, ProjectManager projectManager,
             ProjectSettingsManager projectSettingsManager,
-            SetupManager setupManager)
+            SetupManager setupManager, SetupDeployService setupDeployService)
         {
             _graphicsEngine = graphicsEngine;
             _projectManager = projectManager;
             _projectSettingsManager = projectSettingsManager;
             _setupManager = setupManager;
+            _setupDeployService = setupDeployService;
+
+            var stuff = UpdateDeploymentPath;
         }
         #endregion
 
@@ -466,6 +474,11 @@ namespace ParticleMaker.ViewModels
         /// Gets or sets the currently loaded setup.
         /// </summary>
         public string CurrentLoadedSetup { get; set; }
+
+        /// <summary>
+        /// Gets or sets the path of where the currently loaded setup will be deployed to.
+        /// </summary>
+        public string SetupDeploymentPath { get; set; }
         #endregion
 
 
@@ -587,6 +600,36 @@ namespace ParticleMaker.ViewModels
 
 
                 return _renameProjectCommand;
+            }
+        }
+
+        /// <summary>
+        /// Updates the deployment path for a setup.
+        /// </summary>
+        public RelayCommand UpdateDeploymentPath
+        {
+            get
+            {
+                if (_updateDeploymentPathCommand == null)
+                    _updateDeploymentPathCommand = new RelayCommand(UpdateDeployPathExecute, (param) => true);
+
+
+                return _updateDeploymentPathCommand;
+            }
+        }
+
+        /// <summary>
+        /// Deploys the setup to the set deployment path.
+        /// </summary>
+        public RelayCommand DeploySetup
+        {
+            get
+            {
+                if (_deploySetupCommand == null)
+                    _deploySetupCommand = new RelayCommand(DeploySetupExecute, (param) => true);
+
+
+                return _deploySetupCommand;
             }
         }
         #endregion
@@ -761,65 +804,6 @@ namespace ParticleMaker.ViewModels
 
 
         /// <summary>
-        /// Adds a new setup to the currently open project.
-        /// </summary>
-        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
-        [ExcludeFromCodeCoverage]
-        private void AddSetupExcute(object param)
-        {
-            var setupName = param as string;
-
-            if (string.IsNullOrEmpty(setupName))
-                return;
-
-            _setupManager.Create(CurrentOpenProject, setupName);
-
-            //Update the list with the newly created setup
-            ProjectSetups = (from s in _setupManager.GetSetupPaths(CurrentOpenProject)
-                             select new PathItem() { FilePath = s }).ToArray();
-
-            NotifyPropChange(nameof(ProjectSetups));
-        }
-
-
-        /// <summary>
-        /// Saves the current setup by using the the given <paramref name="param"/> as a name.
-        /// </summary>
-        /// <param name="param">The param that is holding the setup to save.</param>
-        [ExcludeFromCodeCoverage]
-        private void SaveSetupExcute(object param)
-        {
-            var setupToSave = _graphicsEngine.ParticleEngine.GenerateParticleSetup();
-
-            _setupManager.Save(CurrentOpenProject, CurrentLoadedSetup, setupToSave);
-        }
-
-
-        /// <summary>
-        /// Loads a selected setup and starts the particle engine.
-        /// </summary>
-        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
-        [ExcludeFromCodeCoverage]
-        private void SetupItemSelectedExcute(object param)
-        {
-            if (!(param is string setupName))
-                return;
-
-            _graphicsEngine.Pause();
-
-            var setupData = _setupManager.Load(_projectSettings.ProjectName, setupName);
-            _graphicsEngine.ParticleEngine.ApplySetup(setupData);
-
-            CurrentLoadedSetup = setupName;
-
-            var propNames = setupData.GetPropertyNames();
-            NotifyAllPropChanges(setupData.GetPropertyNames());
-
-            _graphicsEngine.Play();
-        }
-
-
-        /// <summary>
         /// Renames a project.
         /// </summary>
         /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
@@ -873,6 +857,135 @@ namespace ParticleMaker.ViewModels
                     }
                 }
             }
+        }
+
+
+        /// <summary>
+        /// Adds a new setup to the currently open project.
+        /// </summary>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
+        [ExcludeFromCodeCoverage]
+        private void AddSetupExcute(object param)
+        {
+            var setupName = param as string;
+
+            if (string.IsNullOrEmpty(setupName))
+                return;
+
+            _setupManager.Create(CurrentOpenProject, setupName);
+
+            var projSettings = _projectSettingsManager.Load(CurrentOpenProject);
+
+            var deploySettings = projSettings.SetupDeploySettings.ToList();
+
+            deploySettings.Add(new DeploymentSetting()
+            {
+                SetupName = setupName,
+                DeployPath = string.Empty
+            });
+
+            projSettings.SetupDeploySettings = deploySettings.ToArray();
+
+            _projectSettingsManager.Save(CurrentOpenProject, projSettings);
+
+            //Update the list with the newly created setup
+            ProjectSetups = (from s in _setupManager.GetSetupPaths(CurrentOpenProject)
+                             select new PathItem() { FilePath = s }).ToArray();
+
+            NotifyPropChange(nameof(ProjectSetups));
+        }
+
+
+        /// <summary>
+        /// Saves the current setup by using the the given <paramref name="param"/> as a name.
+        /// </summary>
+        /// <param name="param">The param that is holding the setup to save.</param>
+        [ExcludeFromCodeCoverage]
+        private void SaveSetupExcute(object param)
+        {
+            var setupToSave = _graphicsEngine.ParticleEngine.GenerateParticleSetup();
+
+            _setupManager.Save(CurrentOpenProject, CurrentLoadedSetup, setupToSave);
+        }
+
+
+        /// <summary>
+        /// Loads a selected setup and starts the particle engine.
+        /// </summary>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
+        [ExcludeFromCodeCoverage]
+        private void SetupItemSelectedExcute(object param)
+        {
+            if (!(param is string setupName))
+                return;
+
+            _graphicsEngine.Pause();
+
+            var setupData = _setupManager.Load(_projectSettings.ProjectName, setupName);
+            _graphicsEngine.ParticleEngine.ApplySetup(setupData);
+
+            CurrentLoadedSetup = setupName;
+
+            //Load the deployment path for the currently loaded setup
+            var projSettings = _projectSettingsManager.Load(CurrentOpenProject);
+
+            var deployPath = (from s in projSettings.SetupDeploySettings where s.SetupName == CurrentLoadedSetup select s.DeployPath).FirstOrDefault();
+
+            SetupDeploymentPath = deployPath;
+
+            var propNames = setupData.GetPropertyNames().ToList();
+
+            propNames.Add(nameof(SetupDeploymentPath));
+
+            NotifyAllPropChanges(propNames.ToArray());
+
+            _graphicsEngine.Play();
+        }
+
+
+        /// <summary>
+        /// Updates the deployment path for the currently loaded setup.
+        /// </summary>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
+        [ExcludeFromCodeCoverage]
+        private void UpdateDeployPathExecute(object param)
+        {
+            if (!(param is DeploySetupEventArgs eventArgs))
+                throw new ArgumentException($"The parameter in method '{nameof(UpdateDeployPathExecute)}' must be of type '{nameof(DeploySetupEventArgs)}' for the command to execute.");
+
+            //Updates the deployment path for the setup
+            var projSettings = _projectSettingsManager.Load(CurrentOpenProject);
+
+            var deploySettings = projSettings.SetupDeploySettings.ToList();
+
+            var deploySetting = (from s in deploySettings
+                                 where s.SetupName == CurrentLoadedSetup
+                                 select s).FirstOrDefault();
+
+            deploySetting.DeployPath = eventArgs.DeploymentPath;
+
+            deploySettings.Remove(deploySetting);
+
+            deploySettings.Add(deploySetting);
+
+            projSettings.SetupDeploySettings = deploySettings.ToArray();
+
+            _projectSettingsManager.Save(CurrentOpenProject, projSettings);
+        }
+
+
+        /// <summary>
+        /// Deploys the setup to the location set by the deployment path.
+        /// </summary>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
+        [ExcludeFromCodeCoverage]
+        private void DeploySetupExecute(object param)
+        {
+            if (!(param is DeploySetupEventArgs eventArgs))
+                throw new ArgumentException($"The parameter in method '{nameof(UpdateDeployPathExecute)}' must be of type '{nameof(DeploySetupEventArgs)}' for the command to execute.");
+
+            
+            _setupDeployService.Deploy(CurrentOpenProject, CurrentLoadedSetup, eventArgs.DeploymentPath);
         }
         #endregion
         #endregion

@@ -46,6 +46,8 @@ namespace ParticleMaker.Project
         {
             get
             {
+                CheckRootProjectsFolder();
+
                 return _directoryService.GetDirectories(_projectsPath).Where(d =>
                 {
                     return !string.IsNullOrEmpty(d) && d.Split('\\').Length > 0;
@@ -65,6 +67,7 @@ namespace ParticleMaker.Project
         {
             get
             {
+                CheckRootProjectsFolder();
                 return _directoryService.GetDirectories(_projectsPath);
             }
         }
