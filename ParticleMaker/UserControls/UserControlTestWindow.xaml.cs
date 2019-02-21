@@ -2,6 +2,7 @@
 using ParticleMaker.Exceptions;
 using ParticleMaker.Services;
 using System;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
@@ -15,10 +16,7 @@ namespace ParticleMaker.UserControls
     [ExcludeFromCodeCoverage]
     public partial class UserControlTestWindow : Window
     {
-        private ICommand _deployCommand;
-        private ICommand _deleteCommand;
-        private ICommand _saveCommand;
-
+        private MyViewModel _viewModel;
 
         #region Constructors
         /// <summary>
@@ -27,26 +25,12 @@ namespace ParticleMaker.UserControls
         public UserControlTestWindow()
         {
             InitializeComponent();
+
+            _viewModel = new MyViewModel();
+
+            DataContext = _viewModel;
         }
         #endregion
-
-
-        public ICommand DeployCommand
-        {
-            get
-            {
-                if (_deployCommand == null)
-                    _deployCommand = new RelayCommand((param) =>
-                    {
-                        var paramData = param as DeploySetupEventArgs;
-
-                        MessageBox.Show($"Setup deployed to '{paramData.DeploymentPath}'.");
-                    }, (param) => true);
-
-
-                return _deployCommand;
-            }
-        }
 
 
         #region Private Methods
@@ -55,5 +39,49 @@ namespace ParticleMaker.UserControls
             
         }
         #endregion
+    }
+
+
+    public class MyViewModel : INotifyPropertyChanged
+    {
+        private ICommand _deploySetupCommand;
+        private ICommand _editDeployPathCommand;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public ICommand EditDeployPath
+        {
+            get
+            {
+                if (_editDeployPathCommand == null)
+                    _editDeployPathCommand = new RelayCommand((param) =>
+                    {
+                        var paramData = param as DeploySetupEventArgs;
+
+                        MessageBox.Show($"Setup changed to '{paramData.DeploymentPath}'.");
+                    }, (param) => true);
+
+
+                return _editDeployPathCommand;
+            }
+        }
+
+
+        public ICommand DeploySetup
+        {
+            get
+            {
+                if (_deploySetupCommand == null)
+                    _deploySetupCommand = new RelayCommand((param) =>
+                    {
+                        var paramData = param as DeploySetupEventArgs;
+
+                        MessageBox.Show($"Setup deployed to '{paramData.DeploymentPath}'.");
+                    }, (param) => true);
+
+
+                return _deploySetupCommand;
+            }
+        }
     }
 }

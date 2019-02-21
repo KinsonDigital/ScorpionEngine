@@ -14,7 +14,7 @@
         /// <summary>
         /// Gets or sets the name of the path of where to deploy the setup.
         /// </summary>
-        public string DeployPath { get; set; }
+        public string DeployPath { get; set; } = string.Empty;
         #endregion
 
 

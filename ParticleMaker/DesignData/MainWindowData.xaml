@@ -47,4 +47,8 @@
     <local:MainWindowData.AddSetup>
         <root:RelayCommand/>
     </local:MainWindowData.AddSetup>
+
+    <local:MainWindowData.UpdateDeploymentPath>
+        <root:RelayCommand/>
+    </local:MainWindowData.UpdateDeploymentPath>
 </local:MainWindowData>

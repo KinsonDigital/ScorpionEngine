@@ -58,6 +58,11 @@ namespace ParticleMaker.DesignData
         /// Gets or sets the design data for the deployment path user control.
         /// </summary>
         public string DeploymentPath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the design data for the update deployment path for the setup deployment control.
+        /// </summary>
+        public ICommand UpdateDeploymentPath { get; set; }
         #endregion
     }
 }

@@ -68,7 +68,14 @@ namespace ParticleMaker.Project
             var filePath = $@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json";
 
             if (ProjectExists(projectName))
-                return _fileService.Load<ProjectSettings>(filePath);
+            {
+                var projSettings = _fileService.Load<ProjectSettings>(filePath);
+
+                if (projSettings != null && projSettings.SetupDeploySettings == null)
+                    projSettings.SetupDeploySettings = new DeploymentSetting[0];
+
+                return projSettings;
+            }
 
             throw new ProjectDoesNotExistException(projectName);
         }

@@ -42,7 +42,11 @@ namespace ParticleMaker.Project
         public string[] GetSetupNames(string projectName)
         {
             if (ProjectExists(projectName))
-                return _directoryService.GetDirectories(projectName);
+            {
+                var projectPath = $@"{_rootProjectsPath}\{projectName}";
+
+                return _directoryService.GetDirectories(projectPath);
+            }
 
             throw new ProjectDoesNotExistException(projectName);
         }
@@ -59,6 +63,7 @@ namespace ParticleMaker.Project
         {
             var projectPath = $@"{_rootProjectsPath}\{projectName}\Setups";
 
+            CheckRootSetupsFolder(projectName);
 
             return _directoryService.GetDirectories(projectPath);
         }
@@ -72,6 +77,8 @@ namespace ParticleMaker.Project
         {
             if (ProjectExists(projectName))
             {
+                CheckRootSetupsFolder(projectName);
+
                 var projPath = $@"{_rootProjectsPath}\{projectName}";
                 var setupDirectory = $@"{projPath}\Setups\{setupName}";
                 var setupPath = $@"{setupDirectory}\{setupName}.json";
@@ -116,6 +123,8 @@ namespace ParticleMaker.Project
         {
             if (ProjectExists(projectName))
             {
+                CheckRootSetupsFolder(projectName);
+
                 var projPath = $@"{_rootProjectsPath}\{projectName}";
                 var setupPath = $@"{projPath}\Setups\{setupName}\{setupName}.json";
 
@@ -153,6 +162,8 @@ namespace ParticleMaker.Project
                 }
                 else
                 {
+                    CheckRootSetupsFolder(projectName);
+
                     _fileService.Save(setupPath, setup);
                 }
             }
@@ -173,9 +184,11 @@ namespace ParticleMaker.Project
             if (ProjectExists(projectName))
             {
                 var projPath = $@"{_rootProjectsPath}\{projectName}";
-                var setupPath = $@"{projPath}\{setupName}.json";
+                var setupPath = $@"{projPath}\Setups\{setupName}\{setupName}.json";
 
-                //If the particle setup alread exists
+                CheckRootSetupsFolder(projectName);
+
+                //If the particle setup already exists
                 if (_fileService.Exists(setupPath))
                 {
                     if (ContainsIllegalCharacters(newName))
@@ -200,22 +213,24 @@ namespace ParticleMaker.Project
 
 
         /// <summary>
-        /// Deletes the setup with the given <paramref name="name"/>.
+        /// Deletes the setup with the given <paramref name="setupName"/>.
         /// </summary>
-        /// <param name="name">The name of the setup to delete.</param>
-        public void Delete(string projectName, string name)
+        /// <param name="setupName">The name of the setup to delete.</param>
+        public void Delete(string projectName, string setupName)
         {
-            var setupPath = $@"{_rootProjectsPath}\{projectName}\{name}.json";
+            var setupPath = $@"{_rootProjectsPath}\{projectName}\Setups\{setupName}\{setupName}.json";
 
             if (ProjectExists(projectName))
             {
+                CheckRootSetupsFolder(projectName);
+
                 if (_fileService.Exists(setupPath))
                 {
                     _fileService.Delete(setupPath);
                 }
                 else
                 {
-                    throw new ParticleSetupDoesNotExist(name);
+                    throw new ParticleSetupDoesNotExist(setupName);
                 }
             }
             else
@@ -256,6 +271,22 @@ namespace ParticleMaker.Project
 
 
             return false;
+        }
+
+
+        /// <summary>
+        /// Checks to make sure that the root setups folder already exists for a particular project.
+        /// If not, creates the setups folder.
+        /// </summary>
+        /// <param name="projectName">The name of the project.</param>
+        private void CheckRootSetupsFolder(string projectName)
+        {
+            var setupsPath = $@"{_rootProjectsPath}\{projectName}\Setups";
+
+            if (_directoryService.Exists(setupsPath))
+                return;
+
+            _directoryService.Create(setupsPath);
         }
         #endregion
     }

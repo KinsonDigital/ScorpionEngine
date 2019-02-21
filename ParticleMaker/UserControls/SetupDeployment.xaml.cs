@@ -24,6 +24,11 @@ namespace ParticleMaker.UserControls
         /// Invoked when the deploy setup button has been clicked.
         /// </summary>
         public event EventHandler<DeploySetupEventArgs> DeployClicked;
+
+        /// <summary>
+        /// Inovked when the edit button has been clicked.
+        /// </summary>
+        public event EventHandler<DeploySetupEventArgs> EditClicked;
         #endregion
 
 
@@ -60,6 +65,12 @@ namespace ParticleMaker.UserControls
             DependencyProperty.Register(nameof(DeploymentPath), typeof(string), typeof(SetupDeployment), new PropertyMetadata("", DeploymentPathChanged));
 
         /// <summary>
+        /// Registers the <see cref="EditClickedCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty EditClickedCommandProperty =
+            DependencyProperty.Register(nameof(EditClickedCommand), typeof(ICommand), typeof(SetupDeployment), new PropertyMetadata(null));
+
+        /// <summary>
         /// Registers the <see cref="DeployClickedCommand"/> property.
         /// </summary>
         public static readonly DependencyProperty DeployClickedCommandProperty =
@@ -80,6 +91,15 @@ namespace ParticleMaker.UserControls
         {
             get { return (string)GetValue(DeploymentPathProperty); }
             set { SetValue(DeploymentPathProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the command to execute when the edit button has been clicked.
+        /// </summary>
+        public ICommand EditClickedCommand
+        {
+            get { return (ICommand)GetValue(EditClickedCommandProperty); }
+            set { SetValue(EditClickedCommandProperty, value); }
         }
 
         /// <summary>
@@ -118,7 +138,12 @@ namespace ParticleMaker.UserControls
             var dialogResult = folderDialog.ShowDialog();
 
             if (dialogResult == WinDialogResult.OK)
+            {
                 DeploymentPath = folderDialog.SelectedPath;
+
+                EditClicked?.Invoke(this, new DeploySetupEventArgs(DeploymentPath));
+                EditClickedCommand?.Execute(new DeploySetupEventArgs(DeploymentPath));
+            }
         }
 
 
