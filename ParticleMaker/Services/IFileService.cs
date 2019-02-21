@@ -61,7 +61,8 @@
         /// </summary>
         /// <param name="sourcePath">The source of the file to copy.</param>
         /// <param name="destinationPath">The destination of the file to copy.</param>
-        void Copy(string sourcePath, string destinationPath);
+        /// <param name="overwrite">True if the destination file can be overwritten; otherwise, false.</param>
+        void Copy(string sourcePath, string destinationPath, bool overwrite);
         #endregion
     }
 }

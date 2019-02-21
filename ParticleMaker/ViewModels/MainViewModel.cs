@@ -620,7 +620,7 @@ namespace ParticleMaker.ViewModels
 
 
         /// <summary>
-        /// Deployes the setup to the set deployment path.
+        /// Deploys the setup to the set deployment path.
         /// </summary>
         public RelayCommand DeploySetup
         {
@@ -632,10 +632,6 @@ namespace ParticleMaker.ViewModels
 
                 return _deploySetupCommand;
             }
-        }
-
-        private void DeploySetupExecute(object param)
-        {
         }
         #endregion
         #endregion
@@ -939,8 +935,11 @@ namespace ParticleMaker.ViewModels
 
             SetupDeploymentPath = deployPath;
 
-            var propNames = setupData.GetPropertyNames();
-            NotifyAllPropChanges(setupData.GetPropertyNames());
+            var propNames = setupData.GetPropertyNames().ToList();
+
+            propNames.Add(nameof(SetupDeploymentPath));
+
+            NotifyAllPropChanges(propNames.ToArray());
 
             _graphicsEngine.Play();
         }
@@ -950,9 +949,10 @@ namespace ParticleMaker.ViewModels
         /// Updates the deployment path for the currently loaded setup.
         /// </summary>
         /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
+        [ExcludeFromCodeCoverage]
         private void UpdateDeployPathExecute(object param)
         {
-            if (!(param is DeploySetupEventArgs newPathEventArgs))
+            if (!(param is DeploySetupEventArgs eventArgs))
                 throw new ArgumentException($"The parameter in method '{nameof(UpdateDeployPathExecute)}' must be of type '{nameof(DeploySetupEventArgs)}' for the command to execute.");
 
             //Updates the deployment path for the setup
@@ -964,7 +964,7 @@ namespace ParticleMaker.ViewModels
                                  where s.SetupName == CurrentLoadedSetup
                                  select s).FirstOrDefault();
 
-            deploySetting.DeployPath = newPathEventArgs.DeploymentPath;
+            deploySetting.DeployPath = eventArgs.DeploymentPath;
 
             deploySettings.Remove(deploySetting);
 
@@ -973,6 +973,21 @@ namespace ParticleMaker.ViewModels
             projSettings.SetupDeploySettings = deploySettings.ToArray();
 
             _projectSettingsManager.Save(CurrentOpenProject, projSettings);
+        }
+
+
+        /// <summary>
+        /// Deploys the setup to the location set by the deployment path.
+        /// </summary>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
+        [ExcludeFromCodeCoverage]
+        private void DeploySetupExecute(object param)
+        {
+            if (!(param is DeploySetupEventArgs eventArgs))
+                throw new ArgumentException($"The parameter in method '{nameof(UpdateDeployPathExecute)}' must be of type '{nameof(DeploySetupEventArgs)}' for the command to execute.");
+
+            
+            _setupDeployService.Deploy(CurrentOpenProject, CurrentLoadedSetup, eventArgs.DeploymentPath);
         }
         #endregion
         #endregion

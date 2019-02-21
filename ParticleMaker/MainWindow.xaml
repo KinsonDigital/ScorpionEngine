@@ -115,16 +115,16 @@
                                    MinValue="{Binding SizeMin, Mode=TwoWay}" MaxValue="{Binding SizeMax, Mode=TwoWay}"/>
             </Grid>
             
-            <!--SETUP DEPLOYMENT
-            C:\SOFTWARE DEVELOPMENT\PERSONAL\ScorpionEngine\ParticleMaker\bin\x86\Debug\Projects\project-A\Setups\setup-A
-            DeploymentPath="{Binding Path=SetupDeploymentPath, Mode=TwoWay}"
-            -->
+            <!--SETUP DEPLOYMENT-->
             <Button Content="Command" Command="{Binding Path=UpdateDeploymentPath}"/>
-            <ctrls:SetupDeployment DeploymentPath="C:\SOFTWARE DEVELOPMENT\PERSONAL\ScorpionEngine\ParticleMaker\bin\x86\Debug\Projects\project-A\Setups\setup-A"
+            <ctrls:SetupDeployment IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
+                                   DeploymentPath="{Binding Path=DataContext.SetupDeploymentPath, Mode=TwoWay,
+                                                    RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
                                    Margin="5"
                                    EditClickedCommand="{Binding Path=DataContext.UpdateDeploymentPath,
                                                         RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
-                                   DeployClickedCommand="{Binding Path=DeploySetup}">
+                                   DeployClickedCommand="{Binding Path=DataContext.DeploySetup,
+                                                          RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}">
                 
             </ctrls:SetupDeployment>
         </StackPanel>

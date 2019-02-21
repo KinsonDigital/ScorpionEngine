@@ -63,7 +63,7 @@
 
             <!--ERROR DISPLAY-->
             <Label Content="ERROR!!" FontWeight="Bold" Foreground="Red" Grid.Column="0"
-                   HorizontalAlignment="Center">
+                   HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Label.Style>
                     <Style TargetType="Label">
                         <Setter Property="Visibility" Value="Hidden"/>
