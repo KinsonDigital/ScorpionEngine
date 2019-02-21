@@ -42,6 +42,7 @@ namespace ParticleMaker.UserControls
     }
 
 
+    [ExcludeFromCodeCoverage]
     public class MyViewModel : INotifyPropertyChanged
     {
         private ICommand _deploySetupCommand;

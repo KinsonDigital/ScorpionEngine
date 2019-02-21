@@ -74,8 +74,8 @@ namespace ParticleMaker.Services
 
 
         /// <summary>
-        /// Checks to make sure that the root setups folder already exists for a particular project.
-        /// If not, creates the setups folder.
+        /// Checks to make sure that the root setups folder already exists for the project that
+        /// matches the given <paramref name="projectName"/>.  If not, creates the setups folder.
         /// </summary>
         /// <param name="projectName">The name of the project.</param>
         private void CheckRootSetupsFolder(string projectName)

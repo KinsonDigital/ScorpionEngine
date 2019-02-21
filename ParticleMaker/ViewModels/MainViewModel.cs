@@ -618,7 +618,6 @@ namespace ParticleMaker.ViewModels
             }
         }
 
-
         /// <summary>
         /// Deploys the setup to the set deployment path.
         /// </summary>
@@ -875,7 +874,6 @@ namespace ParticleMaker.ViewModels
 
             _setupManager.Create(CurrentOpenProject, setupName);
 
-            //TODO: Add code here to add a deployment path to the project settings file
             var projSettings = _projectSettingsManager.Load(CurrentOpenProject);
 
             var deploySettings = projSettings.SetupDeploySettings.ToList();

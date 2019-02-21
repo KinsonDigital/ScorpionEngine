@@ -116,7 +116,7 @@
             </Grid>
             
             <!--SETUP DEPLOYMENT-->
-            <Button Content="Command" Command="{Binding Path=UpdateDeploymentPath}"/>
+            <Label Content="Setup Deployment:" FontWeight="Bold"/>
             <ctrls:SetupDeployment IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
                                    DeploymentPath="{Binding Path=DataContext.SetupDeploymentPath, Mode=TwoWay,
                                                     RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"

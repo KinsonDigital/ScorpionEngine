@@ -21,14 +21,14 @@ namespace ParticleMaker.UserControls
     {
         #region Public Events
         /// <summary>
-        /// Invoked when the deploy setup button has been clicked.
-        /// </summary>
-        public event EventHandler<DeploySetupEventArgs> DeployClicked;
-
-        /// <summary>
         /// Inovked when the edit button has been clicked.
         /// </summary>
         public event EventHandler<DeploySetupEventArgs> EditClicked;
+
+        /// <summary>
+        /// Invoked when the deploy setup button has been clicked.
+        /// </summary>
+        public event EventHandler<DeploySetupEventArgs> DeployClicked;
         #endregion
 
 

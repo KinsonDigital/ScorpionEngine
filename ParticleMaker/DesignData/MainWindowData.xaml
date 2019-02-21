@@ -4,8 +4,7 @@
                       xmlns:ctrls="clr-namespace:ParticleMaker.UserControls"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       WindowTitle="Particle Maker - Test-Project"
-                      CurrentOpenProject="test-project"
-                      DeploymentPath="C:\test-game\content\entity">
+                      CurrentOpenProject="test-project">
     
     <local:MainWindowData.Colors>
         <root:ColorItem Id="111">
@@ -47,8 +46,4 @@
     <local:MainWindowData.AddSetup>
         <root:RelayCommand/>
     </local:MainWindowData.AddSetup>
-
-    <local:MainWindowData.UpdateDeploymentPath>
-        <root:RelayCommand/>
-    </local:MainWindowData.UpdateDeploymentPath>
 </local:MainWindowData>
