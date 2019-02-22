@@ -93,7 +93,7 @@ namespace ParticleMaker
                 throw new Exception($"You must set the rendering surface handle before starting the {nameof(GraphicsEngine)}");
 
             _coreEngine.OriginalWindow.Hide();
-            _coreEngine.Run();
+            _coreEngine.Start();
         }
 
 
@@ -105,7 +105,7 @@ namespace ParticleMaker
             _shuttingDown = true;
 
             _coreEngine.Dispose();
-            _coreEngine.Exit();
+            _coreEngine.Stop();
         }
 
 
@@ -121,9 +121,9 @@ namespace ParticleMaker
         /// <summary>
         /// Pauses the engine.
         /// </summary>
-        public void Pause()
+        public void Pause(bool clearSurface = false)
         {
-            _coreEngine.Pause();
+            _coreEngine.Pause(clearSurface);
         }
         #endregion
 

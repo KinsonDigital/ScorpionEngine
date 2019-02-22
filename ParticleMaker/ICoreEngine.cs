@@ -63,15 +63,15 @@ namespace ParticleMaker
 
         #region Methods
         /// <summary>
-        /// Runs the <see cref="ICoreEngine"/>.
+        /// Starts the engine.
         /// </summary>
-        void Run();
+        void Start();
 
 
         /// <summary>
-        /// Exists and stops the <see cref="ICoreEngine"/>.
+        /// Stops the engine.
         /// </summary>
-        void Exit();
+        void Stop();
 
 
         /// <summary>
@@ -83,7 +83,8 @@ namespace ParticleMaker
         /// <summary>
         /// Pauses the engine.
         /// </summary>
-        void Pause();
+        /// <param name="clearSurface">If true, will clear the rendering surface before pausing.</param>
+        void Pause(bool clearSurface);
         #endregion
     }
 }
