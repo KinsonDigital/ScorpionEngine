@@ -46,8 +46,8 @@ namespace ParticleMaker.ViewModels
         private RelayCommand _saveSetupCommand;
         private RelayCommand _updateDeploymentPathCommand;
         private RelayCommand _deploySetupCommand;
-        private string _currentOpenProject;
         private RelayCommand _deleteProjectCommand;
+        private string _currentOpenProject;
         #endregion
 
 

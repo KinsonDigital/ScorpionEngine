@@ -173,10 +173,6 @@ namespace ParticleMaker.UserControls
             if (_refreshTokenSrc.IsCancellationRequested)
                 return;
 
-            if (Setups == null)
-            {
-
-            }
             var setupListItems = SetupListBox.FindVisualChildren<SetupListItem>().ToArray();
 
             //Refresh each setup list item
