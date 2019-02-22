@@ -94,7 +94,7 @@ namespace ParticleMaker.Tests
             _engine.Start();
 
             //Assert
-            _mockCoreEngine.Verify(m => m.Run(), Times.Once());
+            _mockCoreEngine.Verify(m => m.Start(), Times.Once());
         }
 
 
@@ -119,7 +119,7 @@ namespace ParticleMaker.Tests
             _engine.Stop();
 
             //Assert
-            _mockCoreEngine.Verify(m => m.Exit(), Times.Once());
+            _mockCoreEngine.Verify(m => m.Stop(), Times.Once());
         }
 
 
@@ -130,7 +130,7 @@ namespace ParticleMaker.Tests
             _engine.Pause();
 
             //Assert
-            _mockCoreEngine.Verify(m => m.Pause(), Times.Once());
+            _mockCoreEngine.Verify(m => m.Pause(It.IsAny<bool>()), Times.Once());
         }
         #endregion
 

@@ -80,6 +80,24 @@ namespace ParticleMaker
 
         #region Public Methods
         /// <summary>
+        /// Starts the engine.
+        /// </summary>
+        public void Start()
+        {
+            Run();
+        }
+
+
+        /// <summary>
+        /// Stops the engine.
+        /// </summary>
+        public void Stop()
+        {
+            Exit();
+        }
+
+
+        /// <summary>
         /// Unpauses the <see cref="CoreEngine"/>.
         /// </summary>
         public void Play()
@@ -91,8 +109,12 @@ namespace ParticleMaker
         /// <summary>
         /// Pauses the <see cref="CoreEngine"/>.
         /// </summary>
-        public void Pause()
+        /// /// <param name="clearSurface">If true, will clear the rendering surface before pausing.</param>
+        public void Pause(bool clearSurface)
         {
+            if (clearSurface)
+                GraphicsDevice?.Clear(new Color(40, 40, 40, 255));
+
             IsRunning = false;
         }
         #endregion

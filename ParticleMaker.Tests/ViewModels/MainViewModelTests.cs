@@ -619,6 +619,20 @@ namespace ParticleMaker.Tests.ViewModels
 
 
         [Test]
+        public void DeleteProject_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Arrange
+            var expected = true;
+
+            //Act
+            var actual = _viewModel.DeleteProject != null;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
         public void Play_WhenGettingValue_DoesNotReturnNull()
         {
             //Arrange
@@ -707,7 +721,7 @@ namespace ParticleMaker.Tests.ViewModels
             Thread.Sleep(500);//Wait for the startup task to run its code.
 
             //Assert
-            _mockCoreEngine.Verify(m => m.Run(), Times.Once());
+            _mockCoreEngine.Verify(m => m.Start(), Times.Once());
         }
 
 
@@ -718,7 +732,7 @@ namespace ParticleMaker.Tests.ViewModels
             _viewModel.ShutdownEngine();
 
             //Assert
-            _mockCoreEngine.Verify(m => m.Exit(), Times.Once());
+            _mockCoreEngine.Verify(m => m.Stop(), Times.Once());
         }
         #endregion
 

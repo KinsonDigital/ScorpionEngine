@@ -17,6 +17,7 @@ using ParticleMaker.UserControls;
 using System.Linq;
 using ParticleMaker.Services;
 using ParticleMaker.CustomEventArgs;
+using MessageBox = System.Windows.MessageBox;
 
 namespace ParticleMaker.ViewModels
 {
@@ -45,6 +46,7 @@ namespace ParticleMaker.ViewModels
         private RelayCommand _saveSetupCommand;
         private RelayCommand _updateDeploymentPathCommand;
         private RelayCommand _deploySetupCommand;
+        private RelayCommand _deleteProjectCommand;
         private string _currentOpenProject;
         #endregion
 
@@ -604,6 +606,21 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
+        /// Deletes a project.
+        /// </summary>
+        public RelayCommand DeleteProject
+        {
+            get
+            {
+                if (_deleteProjectCommand == null)
+                    _deleteProjectCommand = new RelayCommand(DeleteProjectExecute, (param) => true);
+
+
+                return _deleteProjectCommand;
+            }
+        }
+
+        /// <summary>
         /// Updates the deployment path for a setup.
         /// </summary>
         public RelayCommand UpdateDeploymentPath
@@ -855,6 +872,45 @@ namespace ParticleMaker.ViewModels
                         NotifyPropChange(nameof(ProjectSetups));
                         NotifyPropChange(nameof(WindowTitle));
                     }
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Deletes a project.
+        /// </summary>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
+        [ExcludeFromCodeCoverage]
+        private void DeleteProjectExecute(object param)
+        {
+            var projListDialog = new ProjectListDialog("Delete Project")
+            {
+                Owner = DialogOwner,
+                ProjectPaths = _projectManager.ProjectPaths
+            };
+
+            if (projListDialog.ShowDialog() == true)
+            {
+                var msg = $"Are you sure you want to delete the project named '{projListDialog.SelectedProject}'";
+
+                //Ask user if they are sure they want to delete the project
+                if (MessageBox.Show(DialogOwner, msg, "Delete Project?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    //If the project to be deleted is currently loaded, unload the project
+                    if (CurrentOpenProject == projListDialog.SelectedProject)
+                    {
+                        CurrentOpenProject = string.Empty;
+                        CurrentLoadedSetup = string.Empty;
+                        ProjectSetups = null;
+                        SetupDeploymentPath = string.Empty;
+
+                        _graphicsEngine.Pause(true);
+                    }
+
+                    _projectManager.Delete(projListDialog.SelectedProject);
+
+                    NotifyAllPropChanges(this.GetPropertyNames());
                 }
             }
         }
