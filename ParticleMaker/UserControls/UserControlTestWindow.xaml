@@ -20,16 +20,8 @@
         </Grid.RowDefinitions>
 
         <StackPanel Margin="0, 100, 0, 0" Orientation="Vertical">
-            <local:SetupList HorizontalAlignment="center">
-                <local:SetupList.Setups>
-                    <x:Array Type="{x:Type local:PathItem}">
-                        <local:PathItem FilePath="C:\temp\setup-A.json"/>
-                        <local:PathItem FilePath="C:\temp\setup-B.json"/>
-                        <local:PathItem FilePath="C:\temp\setup-C.json"/>
-                        <local:PathItem FilePath="C:\temp\setup-D.json"/>
-                    </x:Array>
-                </local:SetupList.Setups>
-            </local:SetupList>
+            <local:NumericUpDown HorizontalAlignment="Center"
+                                 Min="-4" Max="4"/>
         </StackPanel>
 
         <Button Name="TestButton" Content="Run Test" Width="100" Height="30" Grid.Row="1" Click="TestButton_Click"/>
