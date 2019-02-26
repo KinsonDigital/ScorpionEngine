@@ -1,13 +1,14 @@
-﻿using KDParticleEngine;
+﻿using System.Windows;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
+using SimpleInjector;
+using KDParticleEngine;
 using KDParticleEngine.Services;
 using ParticleMaker.Exceptions;
 using ParticleMaker.Project;
 using ParticleMaker.Services;
 using ParticleMaker.ViewModels;
-using SimpleInjector;
-using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
-using System.Windows;
+using ParticleMaker.UserControls;
 
 [assembly: InternalsVisibleTo(assemblyName: "ParticleMaker.Tests", AllInternalsVisible = true)]
 

@@ -1,9 +1,9 @@
-﻿using ParticleMaker.CustomEventArgs;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace ParticleMaker.UserControls
 {
@@ -13,12 +13,6 @@ namespace ParticleMaker.UserControls
     [ExcludeFromCodeCoverage]
     public partial class NumericUpDown : UserControl
     {
-        #region Fields
-        //TODO: This needs to go away once this is not required by the ColorValueControl anymore
-        public event EventHandler<ValueChangedEventArgs> OnValueChanged;
-        #endregion
-
-
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="NumericUpDown"/>.
@@ -42,19 +36,19 @@ namespace ParticleMaker.UserControls
         /// Registers the <see cref="Value"/> property.
         /// </summary>
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register(nameof(Value), typeof(float), typeof(NumericUpDown), new PropertyMetadata(0f, ValueChangedCallback, ValueCoerceCallback));
+            DependencyProperty.Register(nameof(Value), typeof(float), typeof(NumericUpDown), new PropertyMetadata(0f, null, ValueCoerce));
 
         /// <summary>
         /// Registers the <see cref="Min"/> property.
         /// </summary>
         public static readonly DependencyProperty MinProperty =
-            DependencyProperty.Register(nameof(Min), typeof(float), typeof(NumericUpDown), new PropertyMetadata(0f, MinChangedCallback));
+            DependencyProperty.Register(nameof(Min), typeof(float), typeof(NumericUpDown), new PropertyMetadata(0f, MinChanged));
 
         /// <summary>
         /// Registers the <see cref="Max"/> property.
         /// </summary>
         public static readonly DependencyProperty MaxProperty =
-            DependencyProperty.Register(nameof(Max), typeof(float), typeof(NumericUpDown), new PropertyMetadata(10f, MaxChangedCallback));
+            DependencyProperty.Register(nameof(Max), typeof(float), typeof(NumericUpDown), new PropertyMetadata(10f, MaxChanged));
 
         /// <summary>
         /// Registers the <see cref="Increment"/> property.
@@ -72,7 +66,7 @@ namespace ParticleMaker.UserControls
         /// Registers the <see cref="LabelText"/> property.
         /// </summary>
         public static readonly DependencyProperty LabelTextProperty =
-            DependencyProperty.Register(nameof(LabelText), typeof(string), typeof(NumericUpDown), new PropertyMetadata("", LabelTextChangedCallback));
+            DependencyProperty.Register(nameof(LabelText), typeof(string), typeof(NumericUpDown), new PropertyMetadata("", LabelTextChanged));
 
         /// <summary>
         /// Registers the <see cref="IsLabelVisible"/> property.
@@ -169,7 +163,7 @@ namespace ParticleMaker.UserControls
         private void UpArrowButton_Click(object sender, EventArgs e)
         {
             Value += Increment;
-            ValueTextbox.MoveCaretToEnd();
+            ValueNumberbox.MoveCaretToEnd();
         }
 
 
@@ -179,7 +173,7 @@ namespace ParticleMaker.UserControls
         private void DownArrowButton_Click(object sender, EventArgs e)
         {
             Value -= Decrement;
-            ValueTextbox.MoveCaretToEnd();
+            ValueNumberbox.MoveCaretToEnd();
         }
         #endregion
 
@@ -188,7 +182,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Sets the if the colon label separator is visible or hidden depending if the label text is null.
         /// </summary>
-        private static void LabelTextChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void LabelTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ctrl = (NumericUpDown)d;
 
@@ -200,26 +194,12 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Invokes the on value change event.
-        /// </summary>
-        private static void ValueChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var ctrl = (NumericUpDown)d;
-
-            if (ctrl == null)
-                return;
-
-            ctrl.OnValueChanged?.Invoke(ctrl, new ValueChangedEventArgs() { OldValue = (int)e.OldValue, NewValue = (int)e.NewValue });
-        }
-
-
-        /// <summary>
         /// Restricts the value to the controls' <see cref="Min"/> and <see cref="Max"/> property values.
         /// </summary>
         /// <param name="d">The dependency object that contains the property to coerce.</param>
         /// <param name="baseValue">The base value of the property that needs coercion.</param>
         /// <returns></returns>
-        private static object ValueCoerceCallback(DependencyObject d, object baseValue)
+        private static object ValueCoerce(DependencyObject d, object baseValue)
         {
             var ctrl = (NumericUpDown)d;
 
@@ -249,7 +229,7 @@ namespace ParticleMaker.UserControls
         /// </summary>
         /// <param name="d">The dependency object that contains the property to coerce.</param>
         /// <param name="baseValue">The base value of the property that needs coercion.</param>
-        private static void MinChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void MinChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var numericUpDown = (NumericUpDown)d;
 
@@ -269,7 +249,7 @@ namespace ParticleMaker.UserControls
         /// </summary>
         /// <param name="d">The dependency object that contains the property to coerce.</param>
         /// <param name="baseValue">The base value of the property that needs coercion.</param>
-        private static void MaxChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void MaxChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var numericUpDown = (NumericUpDown)d;
 
@@ -279,6 +259,23 @@ namespace ParticleMaker.UserControls
 
                 if (newValue < numericUpDown.Value)
                     numericUpDown.Value = newValue;
+            }
+        }
+
+
+        /// <summary>
+        /// Increments or decrements the value if the up or down keys have been pressed.
+        /// </summary>
+        private void ValueNumberbox_NumberKeyDown(object sender, KeyEventArgs e)
+        {
+            switch(e.Key)
+            {
+                case Key.Up:
+                    Value += Increment;
+                    break;
+                case Key.Down:
+                    Value -= Decrement;
+                    break;
             }
         }
         #endregion

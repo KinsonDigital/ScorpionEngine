@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +13,14 @@ namespace ParticleMaker.UserControls
     [ExcludeFromCodeCoverage]
     public partial class NumberBox : UserControl
     {
+        #region Public Events
+        /// <summary>
+        /// Invoked when a number related key has been pressed.
+        /// </summary>
+        public event EventHandler<KeyEventArgs> NumberKeyDown;
+        #endregion
+
+
         #region Private Fields
         /// <summary>
         /// The number keys above the letters on the keyboard.
@@ -37,8 +46,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private static readonly Key[] _otherAllowedKeys = new Key[]
         {
-            Key.Left, Key.Right, Key.Home, Key.End,
-            Key.Back, Key.Delete, Key.Decimal, Key.OemPeriod
+            Key.Left, Key.Right, Key.Up, Key.Down, Key.Home, Key.End,
+            Key.Subtract, Key.Back, Key.Delete, Key.Decimal, Key.OemPeriod
         };
         #endregion
 
@@ -127,8 +136,19 @@ namespace ParticleMaker.UserControls
                         if (!NumberText.ToString().Contains('.') && Keyboard.Modifiers != ModifierKeys.Shift)
                             return;
                     }
-                    else
+                    else if (e.Key == Key.Subtract && !NumberText.ToString().Contains("-") && ValueTextBox.CaretIndex == 0)
                     {
+                        return;
+                    }
+                    else if (e.Key == Key.Back || e.Key == Key.Delete)
+                    {
+                        return;
+                    }
+                    else if (new Key[] { Key.Left, Key.Right, Key.Up, Key.Down, Key.Home, Key.End }.Contains(e.Key))
+                    {
+                        if (e.Key == Key.Up || e.Key == Key.Down)
+                            NumberKeyDown?.Invoke(this, e);
+
                         return;
                     }
                 }
