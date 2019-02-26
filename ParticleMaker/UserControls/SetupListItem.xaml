@@ -15,8 +15,7 @@
                     <Setter.Value>
                         <SolidColorBrush>
                             <SolidColorBrush.Color>
-                                <Color A="255" R="255" G="0" B="0"/>
-                                <!--<Color A="0" R="0" G="0" B="0"/>-->
+                                <Color A="0" R="0" G="0" B="0"/>
                             </SolidColorBrush.Color>
                         </SolidColorBrush>
                     </Setter.Value>
