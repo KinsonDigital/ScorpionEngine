@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace ParticleMaker.Services
@@ -18,8 +19,10 @@ namespace ParticleMaker.Services
         /// <param name="path">The name of the project.</param>
         public void Create(string path)
         {
-            if (!Exists(path))
-                Directory.CreateDirectory(path);
+            if (string.IsNullOrEmpty(path))
+                throw new ArgumentException("The argument cannot be null or empty.", nameof(path));
+
+            Directory.CreateDirectory(path);
         }
 
 
@@ -30,6 +33,9 @@ namespace ParticleMaker.Services
         /// <returns></returns>
         public bool Exists(string path)
         {
+            if (string.IsNullOrEmpty(path))
+                throw new ArgumentException("The argument cannot be null or empty.", nameof(path));
+
             return Directory.Exists(path);
         }
 
@@ -41,6 +47,9 @@ namespace ParticleMaker.Services
         /// <returns></returns>
         public void Delete(string path)
         {
+            if (string.IsNullOrEmpty(path))
+                throw new ArgumentException("The argument cannot be null or empty.", nameof(path));
+
             Directory.Delete(path, true);
         }
 
@@ -52,7 +61,17 @@ namespace ParticleMaker.Services
         /// <param name="newName">The new name to give the directory.</param>
         public void Rename(string path, string newName)
         {
+            if (string.IsNullOrEmpty(path))
+                throw new ArgumentException("The argument cannot be null or empty.", nameof(path));
+
+            if (string.IsNullOrEmpty(newName))
+                throw new ArgumentException("The argument cannot be null or empty.", nameof(path));
+
+            if (path.Split('\\').Length <= 0)
+                throw new ArgumentException("The argument must be a valid directory path.", nameof(path));
+
             var dirs = path.Split('\\');
+
             dirs[dirs.Length - 1] = newName;
 
             Directory.Move(path, dirs.Join());
@@ -62,10 +81,13 @@ namespace ParticleMaker.Services
         /// <summary>
         /// Returns a list of directories at the given path.
         /// </summary>
-        /// <param name="path"></param>
+        /// <param name="path">The directory path of where to get the list of directories from.</param>
         /// <returns></returns>
         public string[] GetDirectories(string path)
         {
+            if (string.IsNullOrEmpty(path))
+                throw new ArgumentException("The argument cannot be null or empty.", nameof(path));
+
             return Directory.GetDirectories(path);
         }
         #endregion

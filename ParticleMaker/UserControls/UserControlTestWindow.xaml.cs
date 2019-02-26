@@ -1,10 +1,6 @@
 ﻿using ParticleMaker.CustomEventArgs;
-using ParticleMaker.Exceptions;
-using ParticleMaker.Services;
-using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 

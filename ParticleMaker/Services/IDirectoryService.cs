@@ -42,7 +42,7 @@
         /// <summary>
         /// Returns a list of directories at the given path.
         /// </summary>
-        /// <param name="path"></param>
+        /// <param name="path">The directory path of where to get the list of directories from.</param>
         /// <returns></returns>
         string[] GetDirectories(string folder);
         #endregion

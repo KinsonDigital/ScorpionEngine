@@ -24,8 +24,9 @@ namespace ParticleMaker.Services
         /// <summary>
         /// Creates a new instance of <see cref="JSONLoggerService"/>.
         /// </summary>
+        /// <param name="directoryService">manages the directory that the logging file will be located in.</param>
         /// <param name="fileService">Manages the file that will contain the logs.</param>
-        public JSONLoggerService(IFileService fileService, IDirectoryService directoryService)
+        public JSONLoggerService(IDirectoryService directoryService, IFileService fileService)
         {
             _fileService = fileService;
             _directoryService = directoryService;

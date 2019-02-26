@@ -127,7 +127,7 @@ namespace ParticleMaker.Project
         /// <summary>
         /// Renames the project with the given <paramref name="name"/>.
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="name">The name of the project to rename.</param>
         /// <param name="newName">The new name to give the project.</param>
         public void Rename(string name, string newName)
         {
