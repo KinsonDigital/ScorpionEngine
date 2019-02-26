@@ -20,6 +20,9 @@
             <userCtrls:PathItem FilePath="C:\temp\test-setup\setup-A"/>
             <userCtrls:PathItem FilePath="C:\temp\test-setup\setup-B"/>
             <userCtrls:PathItem FilePath="C:\temp\test-setup\setup-C"/>
+            <userCtrls:PathItem FilePath="C:\temp\test-setup\setup-D"/>
+            <userCtrls:PathItem FilePath="C:\temp\test-setup\setup-E"/>
+            <userCtrls:PathItem FilePath="C:\temp\test-setup\setup-F"/>
         </x:Array>
     </local:UserControlData.Setups>
     

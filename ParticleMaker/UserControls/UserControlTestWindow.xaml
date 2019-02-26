@@ -7,7 +7,7 @@
         xmlns:root="clr-namespace:ParticleMaker"
         xmlns:converters="clr-namespace:ParticleMaker.UserControls.ValueConverters"
         mc:Ignorable="d" Name="this"
-        Title="UserControlTestWindow" Height="450" Width="450" Topmost="True" WindowStartupLocation="CenterScreen">
+        Title="UserControlTestWindow" Height="450" Width="450" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <converters:StringToBoolConverter x:Key="StringToBoolConverter"/>
@@ -20,9 +20,16 @@
         </Grid.RowDefinitions>
 
         <StackPanel Margin="0, 100, 0, 0" Orientation="Vertical">
-            <local:SetupDeployment DeploymentPath="C:\Temp\Stuff" HorizontalAlignment="Center"
-                                   EditClickedCommand="{Binding Path=DataContext.EditDeployPath, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
-                                   DeployClickedCommand="{Binding Path=DataContext.DeploySetup}"/>
+            <local:SetupList HorizontalAlignment="center">
+                <local:SetupList.Setups>
+                    <x:Array Type="{x:Type local:PathItem}">
+                        <local:PathItem FilePath="C:\temp\setup-A.json"/>
+                        <local:PathItem FilePath="C:\temp\setup-B.json"/>
+                        <local:PathItem FilePath="C:\temp\setup-C.json"/>
+                        <local:PathItem FilePath="C:\temp\setup-D.json"/>
+                    </x:Array>
+                </local:SetupList.Setups>
+            </local:SetupList>
         </StackPanel>
 
         <Button Name="TestButton" Content="Run Test" Width="100" Height="30" Grid.Row="1" Click="TestButton_Click"/>

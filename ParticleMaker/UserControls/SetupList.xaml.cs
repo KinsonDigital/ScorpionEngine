@@ -175,6 +175,9 @@ namespace ParticleMaker.UserControls
 
             var setupListItems = SetupListBox.FindVisualChildren<SetupListItem>().ToArray();
 
+            var listBoxHeight = SetupListBox.Height;
+            var listBoxActualHeight = SetupListBox.ActualHeight;
+
             //Refresh each setup list item
             foreach (var item in setupListItems)
             {

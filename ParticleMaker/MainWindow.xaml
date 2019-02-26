@@ -118,6 +118,7 @@
             
             <!--SETUP DEPLOYMENT-->
             <Label Content="Setup Deployment:" FontWeight="Bold"/>
+            
             <ctrls:SetupDeployment IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
                                    DeploymentPath="{Binding Path=DataContext.SetupDeploymentPath, Mode=TwoWay,
                                                     RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
@@ -126,43 +127,19 @@
                                                         RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
                                    DeployClickedCommand="{Binding Path=DataContext.DeploySetup,
                                                           RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}">
-                
             </ctrls:SetupDeployment>
         </StackPanel>
 
-        <!--RENDERING SURFACE-->
-        <WindowsFormsHost Name="winFormsHost" Grid.Row="1" Grid.Column="2" Margin="10"
-                          Width="715" Height="715" VerticalAlignment="Top">
-            <WindowsFormsHost.Child>
-                <wf:PictureBox Name="grfxSurface"></wf:PictureBox>
-            </WindowsFormsHost.Child>
-        </WindowsFormsHost>
+        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2">
+            <!--RENDERING SURFACE-->
+            <WindowsFormsHost Name="winFormsHost" Margin="10"
+                              Width="715" Height="715" VerticalAlignment="Top">
+                <WindowsFormsHost.Child>
+                    <wf:PictureBox Name="grfxSurface"></wf:PictureBox>
+                </WindowsFormsHost.Child>
+            </WindowsFormsHost>
 
-        <!--LIVE STATUS-->
-        <GroupBox Grid.Row="2" Margin="10">
-            <GroupBox.Header>
-                <HeaderedContentControl FontWeight="Bold" Content="Live Stats"/>
-            </GroupBox.Header>
-
-            <!--TOTAL NUMBER OF PARTICLES-->
-            <StackPanel Orientation="Vertical">
-                <!--TOTAL LIVING PARTICLES-->
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Total Living Particles:" FontWeight="Bold"/>
-                    <Label Content="{Binding TotalLivingParticles}"/>
-                </StackPanel>
-
-                <!--TOTAL DEAD PARTICLES-->
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Total Dead Particles:" FontWeight="Bold"/>
-                    <Label Content="{Binding TotalDeadParticles}"/>
-                </StackPanel>
-            </StackPanel>
-        </GroupBox>
-
-        <!--COLOR RANDOMIZATION-->
-        <Border BorderBrush="Gray" BorderThickness="1" Margin="10"
-                Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
+            <!--COLOR RANDOMIZATION-->
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -176,9 +153,9 @@
 
                 <StackPanel Orientation="Vertical" Grid.Row="0">
                     <RadioButton Name="RandomColorComponentsRadioButton" Content="Random Color Components" IsChecked="True"
-                                 IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"/>
+                                IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"/>
                     <RadioButton Content="Random Color List" IsChecked="{Binding UseColorsFromList}"
-                                 IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"/>
+                                IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"/>
                 </StackPanel>
 
                 <!--RANDOM COLOR COMPONENT SETTINGS-->
@@ -209,28 +186,28 @@
                     <Label Grid.Row="0" Grid.ColumnSpan="3" FontWeight="Bold" Content="Random Color Components" HorizontalAlignment="Center"/>
 
                     <!--RED MIN/MAX-->
-                    <ctrls:ColorMinMax MaxLabel="Red Max" MinLabel="Red Min" Width="165" Grid.Row="1" Grid.Column="0"
-                                       IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
-                                       Min="{Binding Path=RedMin, Mode=TwoWay}" Max="{Binding Path=RedMax, Mode=TwoWay}"
-                                       ChosenColorComponent="Red" HorizontalAlignment="Center"/>
+                    <ctrls:ColorMinMax MaxLabel="Red Max" MinLabel="Red Min" Width="155" Grid.Row="1" Grid.Column="0" Margin="0, 0, 5, 0"
+                                    IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
+                                    Min="{Binding Path=RedMin, Mode=TwoWay}" Max="{Binding Path=RedMax, Mode=TwoWay}"
+                                    ChosenColorComponent="Red" HorizontalAlignment="Center"/>
 
                     <!--GREEN MIN/MAX-->
-                    <ctrls:ColorMinMax MaxLabel="Green Max" MinLabel="Green Min" Width="165" Grid.Row="1" Grid.Column="1"
-                                       IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
-                                       Min="{Binding Path=GreenMin, Mode=TwoWay}" Max="{Binding Path=GreenMax, Mode=TwoWay}"
-                                       ChosenColorComponent="Green" HorizontalAlignment="Center"/>
+                    <ctrls:ColorMinMax MaxLabel="Green Max" MinLabel="Green Min" Width="165" Grid.Row="1" Grid.Column="1" Margin="5, 0, 5, 0"
+                                    IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
+                                    Min="{Binding Path=GreenMin, Mode=TwoWay}" Max="{Binding Path=GreenMax, Mode=TwoWay}"
+                                    ChosenColorComponent="Green" HorizontalAlignment="Center"/>
 
                     <!--BLUE MIN/MAX-->
-                    <ctrls:ColorMinMax MaxLabel="Blue Max" MinLabel="Blue Min" Width="165" Grid.Row="1" Grid.Column="2"
-                                       IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
-                                       Min="{Binding Path=BlueMin, Mode=TwoWay}" Max="{Binding Path=BlueMax, Mode=TwoWay}"
-                                       ChosenColorComponent="Blue" HorizontalAlignment="Center"/>
+                    <ctrls:ColorMinMax MaxLabel="Blue Max" MinLabel="Blue Min" Width="165" Grid.Row="1" Grid.Column="2" Margin="5, 0, 0, 0"
+                                    IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
+                                    Min="{Binding Path=BlueMin, Mode=TwoWay}" Max="{Binding Path=BlueMax, Mode=TwoWay}"
+                                    ChosenColorComponent="Blue" HorizontalAlignment="Center"/>
                 </Grid>
 
                 <!--THE LIST OF COLORS TO RANDOMLY CHOOSE FROM-->
                 <ctrls:ColorList d:DataContext="{d:DesignData Source=/DesignData/MainWindowData.xaml}"
-                                 IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
-                                 Grid.Row="1" Grid.RowSpan="2" Colors="{Binding Colors, Mode=TwoWay}" HorizontalAlignment="Left">
+                                IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
+                                Grid.Row="1" Grid.RowSpan="2" Colors="{Binding Colors, Mode=TwoWay}" HorizontalAlignment="Left">
                     <ctrls:ColorList.Style>
                         <Style TargetType="ctrls:ColorList">
                             <Setter Property="Visibility" Value="Visible"/>
@@ -244,6 +221,28 @@
                     </ctrls:ColorList.Style>
                 </ctrls:ColorList>
             </Grid>
-        </Border>
+        </StackPanel>
+
+        <!--LIVE STATUS-->
+        <GroupBox Grid.Row="2" Margin="10">
+            <GroupBox.Header>
+                <HeaderedContentControl FontWeight="Bold" Content="Live Stats"/>
+            </GroupBox.Header>
+
+            <!--TOTAL NUMBER OF PARTICLES-->
+            <StackPanel Orientation="Vertical">
+                <!--TOTAL LIVING PARTICLES-->
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Total Living Particles:" FontWeight="Bold"/>
+                    <Label Content="{Binding TotalLivingParticles}"/>
+                </StackPanel>
+
+                <!--TOTAL DEAD PARTICLES-->
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Total Dead Particles:" FontWeight="Bold"/>
+                    <Label Content="{Binding TotalDeadParticles}"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
     </Grid>
 </Window>
