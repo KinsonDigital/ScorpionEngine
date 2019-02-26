@@ -1,8 +1,8 @@
 ﻿using KDParticleEngine;
 using KDParticleEngine.Services;
+using ParticleMaker.Exceptions;
 using ParticleMaker.Project;
 using ParticleMaker.Services;
-using ParticleMaker.UserControls;
 using ParticleMaker.ViewModels;
 using SimpleInjector;
 using System.Diagnostics.CodeAnalysis;
@@ -39,6 +39,13 @@ namespace ParticleMaker
             DIContainer.Register<ProjectSettingsManager>();
             DIContainer.Register<SetupManager>();
             DIContainer.Register<MainViewModel>();
+
+
+            //Setup the exception handler
+            ExceptionHandler.LoggingEnabled = true;
+            ExceptionHandler.Logger = new JSONLoggerService(DIContainer.GetInstance<IDirectoryService>(), DIContainer.GetInstance<IFileService>());
+            ExceptionHandler.ShowMessageBoxEnabled = true;
+            ExceptionHandler.ExceptionMessageBox = new ExceptionMessage();
         }
         #endregion
 

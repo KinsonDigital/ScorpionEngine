@@ -18,6 +18,7 @@ using System.Linq;
 using ParticleMaker.Services;
 using ParticleMaker.CustomEventArgs;
 using MessageBox = System.Windows.MessageBox;
+using ParticleMaker.Exceptions;
 
 namespace ParticleMaker.ViewModels
 {
@@ -553,7 +554,7 @@ namespace ParticleMaker.ViewModels
             get
             {
                 if (_setupItemSelectedCommand == null)
-                    _setupItemSelectedCommand = new RelayCommand(SetupItemSelectedExcute, (param) => true);
+                    _setupItemSelectedCommand = new RelayCommand(SetupItemSelectedExecute, (param) => true);
 
 
                 return _setupItemSelectedCommand;
@@ -568,7 +569,7 @@ namespace ParticleMaker.ViewModels
             get
             {
                 if (_addSetupCommand == null)
-                    _addSetupCommand = new RelayCommand(AddSetupExcute, (param) => true);
+                    _addSetupCommand = new RelayCommand(AddSetupExecute, (param) => true);
 
 
                 return _addSetupCommand;
@@ -583,7 +584,7 @@ namespace ParticleMaker.ViewModels
             get
             {
                 if (_saveSetupCommand == null)
-                    _saveSetupCommand = new RelayCommand(SaveSetupExcute, (param) => true);
+                    _saveSetupCommand = new RelayCommand(SaveSetupExecute, (param) => true);
 
 
                 return _saveSetupCommand;
@@ -755,34 +756,41 @@ namespace ParticleMaker.ViewModels
         [ExcludeFromCodeCoverage]
         private void NewProjectExecute(object param)
         {
-            var msg = "Enter a new project name to create a project.  \nDuplicate project names not aloud.";
-
-            var invalidProjNames = _projectManager.Projects;
-
-            var inputDialog = new InputDialog("Create New Project", msg, "", _illegalCharacters, invalidProjNames)
+            try
             {
-                Owner = DialogOwner
-            };
+                var msg = "Enter a new project name to create a project.  \nDuplicate project names not aloud.";
 
-            var dialogResult = inputDialog.ShowDialog();
+                var invalidProjNames = _projectManager.Projects;
 
-            if (dialogResult == true)
+                var inputDialog = new InputDialog("Create New Project", msg, "", _illegalCharacters, invalidProjNames)
+                {
+                    Owner = DialogOwner
+                };
+
+                var dialogResult = inputDialog.ShowDialog();
+
+                if (dialogResult == true)
+                {
+                    try
+                    {
+                        _projectManager.Create(inputDialog.InputValue);
+
+                        CurrentOpenProject = inputDialog.InputValue;
+
+                        _projectSettings = _projectSettingsManager.Load(inputDialog.InputValue);
+
+                        NotifyPropChange(nameof(WindowTitle));
+                    }
+                    catch (Exception ex)
+                    {
+                        //TODO: Use custom exception handler class here.
+                        WPFMsgBox.Show(ex.Message);
+                    }
+                }
+            }
+            catch (Exception ex)
             {
-                try
-                {
-                    _projectManager.Create(inputDialog.InputValue);
-
-                    CurrentOpenProject = inputDialog.InputValue;
-
-                    _projectSettings = _projectSettingsManager.Load(inputDialog.InputValue);
-
-                    NotifyPropChange(nameof(WindowTitle));
-                }
-                catch (Exception ex)
-                {
-                    //TODO: Use custom exception handler class here.
-                    WPFMsgBox.Show(ex.Message);
-                }
+                ExceptionHandler.Handle(ex);
             }
         }
 
@@ -794,28 +802,35 @@ namespace ParticleMaker.ViewModels
         [ExcludeFromCodeCoverage]
         private void OpenProjectExecute(object param)
         {
-            var projectListDialog = new ProjectListDialog("Open Project")
+            try
             {
-                Owner = DialogOwner,
-                ProjectPaths = _projectManager.ProjectPaths
-            };
+                var projectListDialog = new ProjectListDialog("Open Project")
+                {
+                    Owner = DialogOwner,
+                    ProjectPaths = _projectManager.ProjectPaths
+                };
 
-            var dialogResult = projectListDialog.ShowDialog();
+                var dialogResult = projectListDialog.ShowDialog();
 
-            if (dialogResult == true)
+                if (dialogResult == true)
+                {
+                    CurrentOpenProject = projectListDialog.SelectedProject;
+
+                    _projectSettings = _projectSettingsManager.Load(CurrentOpenProject);
+
+                    ProjectSetups = (from path in _setupManager.GetSetupPaths(CurrentOpenProject)
+                                     select new PathItem()
+                                     {
+                                         FilePath = path
+                                     }).ToArray();
+
+                    NotifyPropChange(nameof(ProjectSetups));
+                    NotifyPropChange(nameof(WindowTitle));
+                }
+            }
+            catch (Exception ex)
             {
-                CurrentOpenProject = projectListDialog.SelectedProject;
-
-                _projectSettings = _projectSettingsManager.Load(CurrentOpenProject);
-
-                ProjectSetups = (from path in _setupManager.GetSetupPaths(CurrentOpenProject)
-                                 select new PathItem()
-                                 {
-                                     FilePath = path
-                                 }).ToArray();
-
-                NotifyPropChange(nameof(ProjectSetups));
-                NotifyPropChange(nameof(WindowTitle));
+                ExceptionHandler.Handle(ex);
             }
         }
 
@@ -827,52 +842,59 @@ namespace ParticleMaker.ViewModels
         [ExcludeFromCodeCoverage]
         private void RenameProjectExecute(object param)
         {
-            var projectListDialog = new ProjectListDialog("Select Project To Rename")
+            try
             {
-                Owner = DialogOwner,
-                ProjectPaths = _projectManager.ProjectPaths
-            };
-
-            var projectListDialogResult = projectListDialog.ShowDialog();
-
-            if (projectListDialogResult == true)
-            {
-                var invalidProjNames = _projectManager.Projects;
-
-                var inputDialog = new InputDialog("Rename Project", "Enter new project name.", invalidChars: _illegalCharacters, invalidValues: invalidProjNames)
+                var projectListDialog = new ProjectListDialog("Select Project To Rename")
                 {
-                    Owner = DialogOwner
+                    Owner = DialogOwner,
+                    ProjectPaths = _projectManager.ProjectPaths
                 };
 
-                var inputDialogResult = inputDialog.ShowDialog();
+                var projectListDialogResult = projectListDialog.ShowDialog();
 
-                if (inputDialogResult == true)
+                if (projectListDialogResult == true)
                 {
-                    //Update the project name value in the file itself
-                    var projectSettings = _projectSettingsManager.Load(projectListDialog.SelectedProject);
-                    projectSettings.ProjectName = inputDialog.InputValue;
-                    _projectSettingsManager.Save(projectListDialog.SelectedProject, projectSettings);
+                    var invalidProjNames = _projectManager.Projects;
 
-                    _projectSettingsManager.Rename(projectListDialog.SelectedProject, inputDialog.InputValue);
-
-                    _projectManager.Rename(projectListDialog.SelectedProject, inputDialog.InputValue);
-
-                    //If the project that just got renamed is opened
-                    if (!string.IsNullOrEmpty(CurrentOpenProject) && CurrentOpenProject == projectListDialog.SelectedProject)
+                    var inputDialog = new InputDialog("Rename Project", "Enter new project name.", invalidChars: _illegalCharacters, invalidValues: invalidProjNames)
                     {
-                        //Update the currently open project value
-                        CurrentOpenProject = inputDialog.InputValue;
+                        Owner = DialogOwner
+                    };
 
-                        ProjectSetups = (from path in _setupManager.GetSetupPaths(CurrentOpenProject)
-                                         select new PathItem()
-                                         {
-                                             FilePath = path
-                                         }).ToArray();
+                    var inputDialogResult = inputDialog.ShowDialog();
 
-                        NotifyPropChange(nameof(ProjectSetups));
-                        NotifyPropChange(nameof(WindowTitle));
+                    if (inputDialogResult == true)
+                    {
+                        //Update the project name value in the file itself
+                        var projectSettings = _projectSettingsManager.Load(projectListDialog.SelectedProject);
+                        projectSettings.ProjectName = inputDialog.InputValue;
+                        _projectSettingsManager.Save(projectListDialog.SelectedProject, projectSettings);
+
+                        _projectSettingsManager.Rename(projectListDialog.SelectedProject, inputDialog.InputValue);
+
+                        _projectManager.Rename(projectListDialog.SelectedProject, inputDialog.InputValue);
+
+                        //If the project that just got renamed is opened
+                        if (!string.IsNullOrEmpty(CurrentOpenProject) && CurrentOpenProject == projectListDialog.SelectedProject)
+                        {
+                            //Update the currently open project value
+                            CurrentOpenProject = inputDialog.InputValue;
+
+                            ProjectSetups = (from path in _setupManager.GetSetupPaths(CurrentOpenProject)
+                                             select new PathItem()
+                                             {
+                                                 FilePath = path
+                                             }).ToArray();
+
+                            NotifyPropChange(nameof(ProjectSetups));
+                            NotifyPropChange(nameof(WindowTitle));
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.Handle(ex);
             }
         }
 
@@ -884,34 +906,41 @@ namespace ParticleMaker.ViewModels
         [ExcludeFromCodeCoverage]
         private void DeleteProjectExecute(object param)
         {
-            var projListDialog = new ProjectListDialog("Delete Project")
+            try
             {
-                Owner = DialogOwner,
-                ProjectPaths = _projectManager.ProjectPaths
-            };
-
-            if (projListDialog.ShowDialog() == true)
-            {
-                var msg = $"Are you sure you want to delete the project named '{projListDialog.SelectedProject}'";
-
-                //Ask user if they are sure they want to delete the project
-                if (MessageBox.Show(DialogOwner, msg, "Delete Project?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                var projListDialog = new ProjectListDialog("Delete Project")
                 {
-                    //If the project to be deleted is currently loaded, unload the project
-                    if (CurrentOpenProject == projListDialog.SelectedProject)
+                    Owner = DialogOwner,
+                    ProjectPaths = _projectManager.ProjectPaths
+                };
+
+                if (projListDialog.ShowDialog() == true)
+                {
+                    var msg = $"Are you sure you want to delete the project named '{projListDialog.SelectedProject}'";
+
+                    //Ask user if they are sure they want to delete the project
+                    if (MessageBox.Show(DialogOwner, msg, "Delete Project?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
-                        CurrentOpenProject = string.Empty;
-                        CurrentLoadedSetup = string.Empty;
-                        ProjectSetups = null;
-                        SetupDeploymentPath = string.Empty;
+                        //If the project to be deleted is currently loaded, unload the project
+                        if (CurrentOpenProject == projListDialog.SelectedProject)
+                        {
+                            CurrentOpenProject = string.Empty;
+                            CurrentLoadedSetup = string.Empty;
+                            ProjectSetups = null;
+                            SetupDeploymentPath = string.Empty;
 
-                        _graphicsEngine.Pause(true);
+                            _graphicsEngine.Pause(true);
+                        }
+
+                        _projectManager.Delete(projListDialog.SelectedProject);
+
+                        NotifyAllPropChanges(this.GetPropertyNames());
                     }
-
-                    _projectManager.Delete(projListDialog.SelectedProject);
-
-                    NotifyAllPropChanges(this.GetPropertyNames());
                 }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.Handle(ex);
             }
         }
 
@@ -921,34 +950,41 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
         [ExcludeFromCodeCoverage]
-        private void AddSetupExcute(object param)
+        private void AddSetupExecute(object param)
         {
-            var setupName = param as string;
-
-            if (string.IsNullOrEmpty(setupName))
-                return;
-
-            _setupManager.Create(CurrentOpenProject, setupName);
-
-            var projSettings = _projectSettingsManager.Load(CurrentOpenProject);
-
-            var deploySettings = projSettings.SetupDeploySettings.ToList();
-
-            deploySettings.Add(new DeploymentSetting()
+            try
             {
-                SetupName = setupName,
-                DeployPath = string.Empty
-            });
+                var setupName = param as string;
 
-            projSettings.SetupDeploySettings = deploySettings.ToArray();
+                if (string.IsNullOrEmpty(setupName))
+                    return;
 
-            _projectSettingsManager.Save(CurrentOpenProject, projSettings);
+                _setupManager.Create(CurrentOpenProject, setupName);
 
-            //Update the list with the newly created setup
-            ProjectSetups = (from s in _setupManager.GetSetupPaths(CurrentOpenProject)
-                             select new PathItem() { FilePath = s }).ToArray();
+                var projSettings = _projectSettingsManager.Load(CurrentOpenProject);
 
-            NotifyPropChange(nameof(ProjectSetups));
+                var deploySettings = projSettings.SetupDeploySettings.ToList();
+
+                deploySettings.Add(new DeploymentSetting()
+                {
+                    SetupName = setupName,
+                    DeployPath = string.Empty
+                });
+
+                projSettings.SetupDeploySettings = deploySettings.ToArray();
+
+                _projectSettingsManager.Save(CurrentOpenProject, projSettings);
+
+                //Update the list with the newly created setup
+                ProjectSetups = (from s in _setupManager.GetSetupPaths(CurrentOpenProject)
+                                 select new PathItem() { FilePath = s }).ToArray();
+
+                NotifyPropChange(nameof(ProjectSetups));
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.Handle(ex);
+            }
         }
 
 
@@ -957,11 +993,18 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         /// <param name="param">The param that is holding the setup to save.</param>
         [ExcludeFromCodeCoverage]
-        private void SaveSetupExcute(object param)
+        private void SaveSetupExecute(object param)
         {
-            var setupToSave = _graphicsEngine.ParticleEngine.GenerateParticleSetup();
+            try
+            {
+                var setupToSave = _graphicsEngine.ParticleEngine.GenerateParticleSetup();
 
-            _setupManager.Save(CurrentOpenProject, CurrentLoadedSetup, setupToSave);
+                _setupManager.Save(CurrentOpenProject, CurrentLoadedSetup, setupToSave);
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.Handle(ex);
+            }
         }
 
 
@@ -970,32 +1013,39 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
         [ExcludeFromCodeCoverage]
-        private void SetupItemSelectedExcute(object param)
+        private void SetupItemSelectedExecute(object param)
         {
-            if (!(param is string setupName))
-                return;
+            try
+            {
+                if (!(param is string setupName))
+                    return;
 
-            _graphicsEngine.Pause();
+                _graphicsEngine.Pause();
 
-            var setupData = _setupManager.Load(_projectSettings.ProjectName, setupName);
-            _graphicsEngine.ParticleEngine.ApplySetup(setupData);
+                var setupData = _setupManager.Load(_projectSettings.ProjectName, setupName);
+                _graphicsEngine.ParticleEngine.ApplySetup(setupData);
 
-            CurrentLoadedSetup = setupName;
+                CurrentLoadedSetup = setupName;
 
-            //Load the deployment path for the currently loaded setup
-            var projSettings = _projectSettingsManager.Load(CurrentOpenProject);
+                //Load the deployment path for the currently loaded setup
+                var projSettings = _projectSettingsManager.Load(CurrentOpenProject);
 
-            var deployPath = (from s in projSettings.SetupDeploySettings where s.SetupName == CurrentLoadedSetup select s.DeployPath).FirstOrDefault();
+                var deployPath = (from s in projSettings.SetupDeploySettings where s.SetupName == CurrentLoadedSetup select s.DeployPath).FirstOrDefault();
 
-            SetupDeploymentPath = deployPath;
+                SetupDeploymentPath = deployPath;
 
-            var propNames = setupData.GetPropertyNames().ToList();
+                var propNames = setupData.GetPropertyNames().ToList();
 
-            propNames.Add(nameof(SetupDeploymentPath));
+                propNames.Add(nameof(SetupDeploymentPath));
 
-            NotifyAllPropChanges(propNames.ToArray());
+                NotifyAllPropChanges(propNames.ToArray());
 
-            _graphicsEngine.Play();
+                _graphicsEngine.Play();
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.Handle(ex);
+            }
         }
 
 
@@ -1006,27 +1056,34 @@ namespace ParticleMaker.ViewModels
         [ExcludeFromCodeCoverage]
         private void UpdateDeployPathExecute(object param)
         {
-            if (!(param is DeploySetupEventArgs eventArgs))
-                throw new ArgumentException($"The parameter in method '{nameof(UpdateDeployPathExecute)}' must be of type '{nameof(DeploySetupEventArgs)}' for the command to execute.");
+            try
+            {
+                if (!(param is DeploySetupEventArgs eventArgs))
+                    throw new ArgumentException($"The parameter in method '{nameof(UpdateDeployPathExecute)}' must be of type '{nameof(DeploySetupEventArgs)}' for the command to execute.");
 
-            //Updates the deployment path for the setup
-            var projSettings = _projectSettingsManager.Load(CurrentOpenProject);
+                //Updates the deployment path for the setup
+                var projSettings = _projectSettingsManager.Load(CurrentOpenProject);
 
-            var deploySettings = projSettings.SetupDeploySettings.ToList();
+                var deploySettings = projSettings.SetupDeploySettings.ToList();
 
-            var deploySetting = (from s in deploySettings
-                                 where s.SetupName == CurrentLoadedSetup
-                                 select s).FirstOrDefault();
+                var deploySetting = (from s in deploySettings
+                                     where s.SetupName == CurrentLoadedSetup
+                                     select s).FirstOrDefault();
 
-            deploySetting.DeployPath = eventArgs.DeploymentPath;
+                deploySetting.DeployPath = eventArgs.DeploymentPath;
 
-            deploySettings.Remove(deploySetting);
+                deploySettings.Remove(deploySetting);
 
-            deploySettings.Add(deploySetting);
+                deploySettings.Add(deploySetting);
 
-            projSettings.SetupDeploySettings = deploySettings.ToArray();
+                projSettings.SetupDeploySettings = deploySettings.ToArray();
 
-            _projectSettingsManager.Save(CurrentOpenProject, projSettings);
+                _projectSettingsManager.Save(CurrentOpenProject, projSettings);
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.Handle(ex);
+            }
         }
 
 

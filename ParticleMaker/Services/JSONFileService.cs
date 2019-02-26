@@ -20,19 +20,11 @@ namespace ParticleMaker.Services
         /// <param name="data">The data to save in the file.</param>
         public void Create<T>(string path, T data) where T : class
         {
-            try
-            {
-                var fileData = JsonConvert.SerializeObject(data);
+            var fileData = JsonConvert.SerializeObject(data);
 
-                using (var file = File.CreateText(path))
-                {
-                    file.Write(fileData);
-                }
-            }
-            catch (Exception ex)
+            using (var file = File.CreateText(path))
             {
-                throw ex;
-                //TODO: Properly handle exceptions
+                file.Write(fileData);
             }
         }
 
@@ -45,18 +37,11 @@ namespace ParticleMaker.Services
         /// <param name="data">The data to save in the file.</param>
         public void Save<T>(string path, T data) where T : class
         {
-            try
-            {
-                var fileData = JsonConvert.SerializeObject(data);
+            var fileData = JsonConvert.SerializeObject(data);
 
-                using (var file = File.CreateText(path))
-                {
-                    file.Write(fileData);
-                }
-            }
-            catch (Exception ex)
+            using (var file = File.CreateText(path))
             {
-                //TODO: Properly handle exceptions
+                file.Write(fileData);
             }
         }
 

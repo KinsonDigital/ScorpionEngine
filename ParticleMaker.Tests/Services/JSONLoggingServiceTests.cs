@@ -17,7 +17,7 @@ namespace ParticleMaker.Tests.Services
             var mockFileService = new Mock<IFileService>();
             var mockDirectoryService = new Mock<IDirectoryService>();
 
-            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
+            var service = new JSONLoggerService(mockDirectoryService.Object, mockFileService.Object);
 
             //Act
             service.Log("test-data", DateTime.Now);
@@ -34,7 +34,7 @@ namespace ParticleMaker.Tests.Services
             var mockFileService = new Mock<IFileService>();
             var mockDirectoryService = new Mock<IDirectoryService>();
 
-            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
+            var service = new JSONLoggerService(mockDirectoryService.Object, mockFileService.Object);
 
             //Act
             service.Log("test-data", DateTime.Now);
@@ -51,7 +51,7 @@ namespace ParticleMaker.Tests.Services
             var mockFileService = new Mock<IFileService>();
             var mockDirectoryService = new Mock<IDirectoryService>();
 
-            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
+            var service = new JSONLoggerService(mockDirectoryService.Object, mockFileService.Object);
 
             //Act
             service.Log("test-data", DateTime.Now);
@@ -78,7 +78,7 @@ namespace ParticleMaker.Tests.Services
 
             var mockDirectoryService = new Mock<IDirectoryService>();
 
-            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
+            var service = new JSONLoggerService(mockDirectoryService.Object, mockFileService.Object);
 
             //Act
             service.Log("test-data", new DateTime(2019, 2, 20));
@@ -95,7 +95,7 @@ namespace ParticleMaker.Tests.Services
             var mockFileService = new Mock<IFileService>();
             var mockDirectoryService = new Mock<IDirectoryService>();
 
-            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
+            var service = new JSONLoggerService(mockDirectoryService.Object, mockFileService.Object);
 
             //Act
             service.Log("test-data", DateTime.Now);
@@ -118,7 +118,7 @@ namespace ParticleMaker.Tests.Services
 
             var mockDirectoryService = new Mock<IDirectoryService>();
 
-            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
+            var service = new JSONLoggerService(mockDirectoryService.Object, mockFileService.Object);
 
             //Act
             service.Log("test-data", DateTime.Now);
@@ -141,7 +141,7 @@ namespace ParticleMaker.Tests.Services
 
             var mockDirectoryService = new Mock<IDirectoryService>();
 
-            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
+            var service = new JSONLoggerService(mockDirectoryService.Object, mockFileService.Object);
 
             //Act
             service.Log("test-data", DateTime.Now);
@@ -158,7 +158,7 @@ namespace ParticleMaker.Tests.Services
             var mockFileService = new Mock<IFileService>();
             var mockDirectoryService = new Mock<IDirectoryService>();
 
-            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
+            var service = new JSONLoggerService(mockDirectoryService.Object, mockFileService.Object);
 
             //Act
             service.LogError("test-data", DateTime.Now, 1234);
@@ -175,7 +175,7 @@ namespace ParticleMaker.Tests.Services
             var mockFileService = new Mock<IFileService>();
             var mockDirectoryService = new Mock<IDirectoryService>();
 
-            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
+            var service = new JSONLoggerService(mockDirectoryService.Object, mockFileService.Object);
 
             //Act
             service.LogError("test-data", DateTime.Now, 1234);
@@ -192,7 +192,7 @@ namespace ParticleMaker.Tests.Services
             var mockFileService = new Mock<IFileService>();
             var mockDirectoryService = new Mock<IDirectoryService>();
 
-            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
+            var service = new JSONLoggerService(mockDirectoryService.Object, mockFileService.Object);
 
             //Act
             service.LogError("test-data", DateTime.Now, 1234);
@@ -219,7 +219,7 @@ namespace ParticleMaker.Tests.Services
 
             var mockDirectoryService = new Mock<IDirectoryService>();
 
-            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
+            var service = new JSONLoggerService(mockDirectoryService.Object, mockFileService.Object);
 
             //Act
             service.LogError("test-data", new DateTime(2019, 2, 20), 1234);
@@ -246,7 +246,7 @@ namespace ParticleMaker.Tests.Services
 
             var mockDirectoryService = new Mock<IDirectoryService>();
 
-            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
+            var service = new JSONLoggerService(mockDirectoryService.Object, mockFileService.Object);
 
             //Act
             service.LogError("test-data", new DateTime(2019, 2, 20), 1234);
@@ -263,7 +263,7 @@ namespace ParticleMaker.Tests.Services
             var mockFileService = new Mock<IFileService>();
             var mockDirectoryService = new Mock<IDirectoryService>();
 
-            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
+            var service = new JSONLoggerService(mockDirectoryService.Object, mockFileService.Object);
 
             //Act
             service.LogError("test-data", DateTime.Now, 1234);
@@ -286,7 +286,7 @@ namespace ParticleMaker.Tests.Services
 
             var mockDirectoryService = new Mock<IDirectoryService>();
 
-            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
+            var service = new JSONLoggerService(mockDirectoryService.Object, mockFileService.Object);
 
             //Act
             service.LogError("test-data", DateTime.Now, 1234);
@@ -309,7 +309,7 @@ namespace ParticleMaker.Tests.Services
 
             var mockDirectoryService = new Mock<IDirectoryService>();
 
-            var service = new JSONLoggerService(mockFileService.Object, mockDirectoryService.Object);
+            var service = new JSONLoggerService(mockDirectoryService.Object, mockFileService.Object);
 
             //Act
             service.LogError("test-data", DateTime.Now, 1234);
