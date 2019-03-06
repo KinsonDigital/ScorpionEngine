@@ -68,10 +68,10 @@ namespace ParticleMaker.UserControls
             DependencyProperty.Register(nameof(AddItemCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
 
         /// <summary>
-        /// Registers the <see cref="ItemRenamedCommand"/> property.
+        /// Registers the <see cref="RenameItemCommand"/> property.
         /// </summary>
-        public static readonly DependencyProperty ItemRenamedCommandProperty =
-            DependencyProperty.Register(nameof(ItemRenamedCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
+        public static readonly DependencyProperty RenameItemCommandProperty =
+            DependencyProperty.Register(nameof(RenameItemCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
 
         /// <summary>
         /// Registers the <see cref="ItemDeletedCommand"/> property.
@@ -122,10 +122,10 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Gets or sets the command that is executed when a list item rename button has been clicked.
         /// </summary>
-        public ICommand ItemRenamedCommand
+        public ICommand RenameItemCommand
         {
-            get { return (ICommand)GetValue(ItemRenamedCommandProperty); }
-            set { SetValue(ItemRenamedCommandProperty, value); }
+            get { return (ICommand)GetValue(RenameItemCommandProperty); }
+            set { SetValue(RenameItemCommandProperty, value); }
         }
 
         /// <summary>
@@ -330,7 +330,7 @@ namespace ParticleMaker.UserControls
                 eventArgs.NewName = inputDialog.InputValue;
                 eventArgs.NewPath = $@"{Path.GetDirectoryName(eventArgs.OldPath)}\{inputDialog.InputValue}{Path.GetExtension(eventArgs.OldPath)}";
 
-                ItemRenamedCommand?.Execute(param);
+                RenameItemCommand?.Execute(param);
             }
         }
 

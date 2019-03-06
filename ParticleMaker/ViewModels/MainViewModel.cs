@@ -666,22 +666,6 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Deploys the setup to the set deployment path.
-        /// </summary>
-        public RelayCommand DeploySetup
-        {
-            get
-            {
-                if (_deploySetupCommand == null)
-                    _deploySetupCommand = new RelayCommand(DeploySetupExecute, (param) => true);
-
-
-                return _deploySetupCommand;
-            }
-        }
-
-
-        /// <summary>
         /// Deletes a setup from a project.
         /// </summary>
         public RelayCommand DeleteSetup
@@ -1168,21 +1152,6 @@ namespace ParticleMaker.ViewModels
             {
                 ExceptionHandler.Handle(ex);
             }
-        }
-
-
-        /// <summary>
-        /// Deploys the setup to the location set by the deployment path.
-        /// </summary>
-        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
-        [ExcludeFromCodeCoverage]
-        private void DeploySetupExecute(object param)
-        {
-            if (!(param is DeploySetupEventArgs eventArgs))
-                throw new ArgumentException($"The parameter in method '{nameof(UpdateDeployPathExecute)}' must be of type '{nameof(DeploySetupEventArgs)}' for the command to execute.");
-
-            
-            _setupDeployService.Deploy(CurrentOpenProject, CurrentLoadedSetup, eventArgs.DeploymentPath);
         }
 
 
