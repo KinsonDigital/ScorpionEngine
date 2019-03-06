@@ -70,8 +70,6 @@ namespace ParticleMaker.ViewModels
             _projectSettingsManager = projectSettingsManager;
             _setupManager = setupManager;
             _setupDeployService = setupDeployService;
-
-            var stuff = UpdateDeploymentPath;
         }
         #endregion
 
