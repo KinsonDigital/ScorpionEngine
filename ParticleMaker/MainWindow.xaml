@@ -51,7 +51,7 @@
                              AddItemCommand="{Binding Path=AddSetup}"
                              ItemSelectedCommand="{Binding Path=SetupItemSelected}"
                              RenameItemCommand="{Binding Path=RenameSetup}"
-                             ItemDeletedCommand="{Binding Path=DeleteSetup}"/>
+                             DeleteItemCommand="{Binding Path=DeleteSetup}"/>
 
             <!--PARTICLE LIST-->
             <ctrls:ParticleList x:Name="ParticleList" ItemRenamedCommand="{Binding Path=MyCommand}"

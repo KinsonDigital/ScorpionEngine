@@ -74,10 +74,10 @@ namespace ParticleMaker.UserControls
             DependencyProperty.Register(nameof(RenameItemCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
 
         /// <summary>
-        /// Registers the <see cref="ItemDeletedCommand"/> property.
+        /// Registers the <see cref="DeleteItemCommand"/> property.
         /// </summary>
-        public static readonly DependencyProperty ItemDeletedCommandProperty =
-            DependencyProperty.Register(nameof(ItemDeletedCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
+        public static readonly DependencyProperty DeleteItemCommandProperty =
+            DependencyProperty.Register(nameof(DeleteItemCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
 
         /// <summary>
         /// Registers the <see cref="ItemSavedCommand"/> property.
@@ -131,10 +131,10 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Gets or sets the command to be executed when a list item delete button has been clicked.
         /// </summary>
-        public ICommand ItemDeletedCommand
+        public ICommand DeleteItemCommand
         {
-            get { return (ICommand)GetValue(ItemDeletedCommandProperty); }
-            set { SetValue(ItemDeletedCommandProperty, value); }
+            get { return (ICommand)GetValue(DeleteItemCommandProperty); }
+            set { SetValue(DeleteItemCommandProperty, value); }
         }
 
         /// <summary>
@@ -344,7 +344,7 @@ namespace ParticleMaker.UserControls
             if (!(param is ItemEventArgs eventArgs))
                 throw new InvalidCommandActionParamTypeException(nameof(DeleteCommandAction), nameof(param));
 
-            ItemDeletedCommand?.Execute(eventArgs);
+            DeleteItemCommand?.Execute(eventArgs);
         }
 
 
