@@ -80,10 +80,10 @@ namespace ParticleMaker.UserControls
             DependencyProperty.Register(nameof(DeleteItemCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
 
         /// <summary>
-        /// Registers the <see cref="ItemSavedCommand"/> property.
+        /// Registers the <see cref="SaveItemCommand"/> property.
         /// </summary>
-        public static readonly DependencyProperty ItemSavedCommandProperty =
-            DependencyProperty.Register(nameof(ItemSavedCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
+        public static readonly DependencyProperty SaveItemCommandProperty =
+            DependencyProperty.Register(nameof(SaveItemCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
         #endregion
 
 
@@ -140,10 +140,10 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Gets or sets the command to be executed when a list item save button has been clicked.
         /// </summary>
-        public ICommand ItemSavedCommand
+        public ICommand SaveItemCommand
         {
-            get { return (ICommand)GetValue(ItemSavedCommandProperty); }
-            set { SetValue(ItemSavedCommandProperty, value); }
+            get { return (ICommand)GetValue(SaveItemCommandProperty); }
+            set { SetValue(SaveItemCommandProperty, value); }
         }
         #endregion
 
@@ -357,7 +357,7 @@ namespace ParticleMaker.UserControls
             if (!(param is ItemEventArgs eventArgs))
                 throw new InvalidCommandActionParamTypeException(nameof(SaveCommandAction), nameof(param));
 
-            ItemSavedCommand?.Execute(eventArgs);
+            SaveItemCommand?.Execute(eventArgs);
         }
         #endregion
     }
