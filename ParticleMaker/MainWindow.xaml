@@ -49,7 +49,7 @@
             <ctrls:SetupList Margin="10" Setups="{Binding Path=ProjectSetups}"
                              IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
                              ItemSelectedCommand="{Binding Path=SetupItemSelected}"
-                             AddItemCommand="{Binding Path=AddSetup}"
+                             ItemRenamedCommand="{Binding Path=RenameSetup}"
                              ItemDeletedCommand="{Binding Path=DeleteSetup}"/>
 
             <!--PARTICLE LIST-->

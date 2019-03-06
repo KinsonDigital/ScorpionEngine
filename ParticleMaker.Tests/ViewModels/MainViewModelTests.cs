@@ -712,6 +712,17 @@ namespace ParticleMaker.Tests.ViewModels
 
 
         [Test]
+        public void RenameSetup_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Act
+            var actual = _viewModel.RenameSetup != null;
+
+            //Assert
+            Assert.NotNull(actual);
+        }
+
+
+        [Test]
         public void DeleteSetup_WhenGettingValue_DoesNotReturnNull()
         {
             //Act

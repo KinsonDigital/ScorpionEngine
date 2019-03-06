@@ -32,7 +32,7 @@
 
 
         /// <summary>
-        /// Renames the given directory at the <paramref name="path"/> to the new given directory namne.
+        /// Renames the given directory at the <paramref name="path"/> to the new given directory name.
         /// </summary>
         /// <param name="path">The directory to rename</param>
         /// <param name="newName">The new name to give the directory.</param>

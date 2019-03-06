@@ -47,6 +47,7 @@ namespace ParticleMaker.ViewModels
         private RelayCommand _updateDeploymentPathCommand;
         private RelayCommand _deploySetupCommand;
         private RelayCommand _deleteProjectCommand;
+        private RelayCommand _renameSetupCommand;
         private RelayCommand _deleteSetupCommand;
         private string _currentOpenProject;
         #endregion
@@ -485,6 +486,21 @@ namespace ParticleMaker.ViewModels
 
         #region Command Props
         /// <summary>
+        /// Gets the command that is invoked when a setup list item has been selected.
+        /// </summary>
+        public RelayCommand SetupItemSelected
+        {
+            get
+            {
+                if (_setupItemSelectedCommand == null)
+                    _setupItemSelectedCommand = new RelayCommand(SetupItemSelectedExecute, (param) => true);
+
+
+                return _setupItemSelectedCommand;
+            }
+        }
+
+        /// <summary>
         /// Gets the command that will play the particle rendering.
         /// </summary>
         public RelayCommand Play
@@ -545,17 +561,32 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets the command that is invoked when a setup list item has been selected.
+        /// Renames a project.
         /// </summary>
-        public RelayCommand SetupItemSelected
+        public RelayCommand RenameProject
         {
             get
             {
-                if (_setupItemSelectedCommand == null)
-                    _setupItemSelectedCommand = new RelayCommand(SetupItemSelectedExecute, (param) => true);
+                if (_renameProjectCommand == null)
+                    _renameProjectCommand = new RelayCommand(RenameProjectExecute, (param) => true);
 
 
-                return _setupItemSelectedCommand;
+                return _renameProjectCommand;
+            }
+        }
+
+        /// <summary>
+        /// Deletes a project.
+        /// </summary>
+        public RelayCommand DeleteProject
+        {
+            get
+            {
+                if (_deleteProjectCommand == null)
+                    _deleteProjectCommand = new RelayCommand(DeleteProjectExecute, (param) => true);
+
+
+                return _deleteProjectCommand;
             }
         }
 
@@ -590,32 +621,32 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Renames a project.
+        /// Deploys the setup to the set deployment path.
         /// </summary>
-        public RelayCommand RenameProject
+        public RelayCommand DeploySetup
         {
             get
             {
-                if (_renameProjectCommand == null)
-                    _renameProjectCommand = new RelayCommand(RenameProjectExecute, (param) => true);
+                if (_deploySetupCommand == null)
+                    _deploySetupCommand = new RelayCommand(DeploySetupExecute, (param) => true);
 
 
-                return _renameProjectCommand;
+                return _deploySetupCommand;
             }
         }
 
         /// <summary>
-        /// Deletes a project.
+        /// Renames a setup.
         /// </summary>
-        public RelayCommand DeleteProject
+        public RelayCommand RenameSetup
         {
             get
             {
-                if (_deleteProjectCommand == null)
-                    _deleteProjectCommand = new RelayCommand(DeleteProjectExecute, (param) => true);
+                if (_renameSetupCommand == null)
+                    _renameSetupCommand = new RelayCommand(RenameSetupExecute, (param) => true);
 
 
-                return _deleteProjectCommand;
+                return _renameSetupCommand;
             }
         }
 
@@ -1018,6 +1049,45 @@ namespace ParticleMaker.ViewModels
             catch (Exception ex)
             {
                 ExceptionHandler.Handle(ex);
+            }
+        }
+
+
+        /// <summary>
+        /// Deploys the setup to the location set by the deployment path.
+        /// </summary>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
+        [ExcludeFromCodeCoverage]
+        private void DeploySetupExecute(object param)
+        {
+            if (!(param is DeploySetupEventArgs eventArgs))
+                throw new ArgumentException($"The parameter in method '{nameof(DeploySetupExecute)}' must be of type '{nameof(DeploySetupEventArgs)}' for the command to execute.");
+
+
+            _setupDeployService.Deploy(CurrentOpenProject, CurrentLoadedSetup, eventArgs.DeploymentPath);
+        }
+
+
+        /// <summary>
+        /// Renames a setup.
+        /// </summary>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
+        [ExcludeFromCodeCoverage]
+        private void RenameSetupExecute(object param)
+        {
+            if (!(param is RenameItemEventArgs eventArgs))
+                throw new ArgumentException($"The parameter in method '{nameof(RenameSetupExecute)}' must be of type '{nameof(RenameItemEventArgs)}' for the command to execute.");
+
+            var dialogResult = WPFMsgBox.Show(DialogOwner, $"Are you sure you want to rename '{eventArgs.OldName}' to '{eventArgs.NewName}'?", "Rename Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (dialogResult == MessageBoxResult.Yes)
+            {
+                _setupManager.Rename(CurrentOpenProject, eventArgs.OldName, eventArgs.NewName);
+
+                ProjectSetups = (from p in _setupManager.GetSetupPaths(CurrentOpenProject)
+                                 select new PathItem() { FilePath = p }).ToArray();
+
+                NotifyPropChange(nameof(ProjectSetups));
             }
         }
 
