@@ -485,6 +485,21 @@ namespace ParticleMaker.ViewModels
 
         #region Command Props
         /// <summary>
+        /// Gets the command that is invoked when a setup list item has been selected.
+        /// </summary>
+        public RelayCommand SetupItemSelected
+        {
+            get
+            {
+                if (_setupItemSelectedCommand == null)
+                    _setupItemSelectedCommand = new RelayCommand(SetupItemSelectedExecute, (param) => true);
+
+
+                return _setupItemSelectedCommand;
+            }
+        }
+
+        /// <summary>
         /// Gets the command that will play the particle rendering.
         /// </summary>
         public RelayCommand Play
@@ -545,17 +560,32 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets the command that is invoked when a setup list item has been selected.
+        /// Renames a project.
         /// </summary>
-        public RelayCommand SetupItemSelected
+        public RelayCommand RenameProject
         {
             get
             {
-                if (_setupItemSelectedCommand == null)
-                    _setupItemSelectedCommand = new RelayCommand(SetupItemSelectedExecute, (param) => true);
+                if (_renameProjectCommand == null)
+                    _renameProjectCommand = new RelayCommand(RenameProjectExecute, (param) => true);
 
 
-                return _setupItemSelectedCommand;
+                return _renameProjectCommand;
+            }
+        }
+
+        /// <summary>
+        /// Deletes a project.
+        /// </summary>
+        public RelayCommand DeleteProject
+        {
+            get
+            {
+                if (_deleteProjectCommand == null)
+                    _deleteProjectCommand = new RelayCommand(DeleteProjectExecute, (param) => true);
+
+
+                return _deleteProjectCommand;
             }
         }
 
@@ -590,32 +620,17 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Renames a project.
+        /// Deploys the setup to the set deployment path.
         /// </summary>
-        public RelayCommand RenameProject
+        public RelayCommand DeploySetup
         {
             get
             {
-                if (_renameProjectCommand == null)
-                    _renameProjectCommand = new RelayCommand(RenameProjectExecute, (param) => true);
+                if (_deploySetupCommand == null)
+                    _deploySetupCommand = new RelayCommand(DeploySetupExecute, (param) => true);
 
 
-                return _renameProjectCommand;
-            }
-        }
-
-        /// <summary>
-        /// Deletes a project.
-        /// </summary>
-        public RelayCommand DeleteProject
-        {
-            get
-            {
-                if (_deleteProjectCommand == null)
-                    _deleteProjectCommand = new RelayCommand(DeleteProjectExecute, (param) => true);
-
-
-                return _deleteProjectCommand;
+                return _deploySetupCommand;
             }
         }
 
