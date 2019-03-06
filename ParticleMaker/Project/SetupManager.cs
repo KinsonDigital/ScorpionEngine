@@ -218,15 +218,18 @@ namespace ParticleMaker.Project
         /// <param name="setupName">The name of the setup to delete.</param>
         public void Delete(string projectName, string setupName)
         {
-            var setupPath = $@"{_rootProjectsPath}\{projectName}\Setups\{setupName}\{setupName}.json";
+            var setupDirPath = $@"{_rootProjectsPath}\{projectName}\Setups\{setupName}";
+            var setupFilePath = $@"{setupDirPath}\{setupName}.json";
 
             if (ProjectExists(projectName))
             {
                 CheckRootSetupsFolder(projectName);
 
-                if (_fileService.Exists(setupPath))
+                if (_fileService.Exists(setupFilePath))
                 {
-                    _fileService.Delete(setupPath);
+                    _fileService.Delete(setupFilePath);
+
+                    _directoryService.Delete(setupDirPath);
                 }
                 else
                 {

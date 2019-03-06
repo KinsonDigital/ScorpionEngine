@@ -17,7 +17,6 @@ using ParticleMaker.UserControls;
 using System.Linq;
 using ParticleMaker.Services;
 using ParticleMaker.CustomEventArgs;
-using MessageBox = System.Windows.MessageBox;
 using ParticleMaker.Exceptions;
 
 namespace ParticleMaker.ViewModels
@@ -48,6 +47,7 @@ namespace ParticleMaker.ViewModels
         private RelayCommand _updateDeploymentPathCommand;
         private RelayCommand _deploySetupCommand;
         private RelayCommand _deleteProjectCommand;
+        private RelayCommand _deleteSetupCommand;
         private string _currentOpenProject;
         #endregion
 
@@ -650,6 +650,22 @@ namespace ParticleMaker.ViewModels
                 return _deploySetupCommand;
             }
         }
+
+
+        /// <summary>
+        /// Deletes a setup from a project.
+        /// </summary>
+        public RelayCommand DeleteSetup
+        {
+            get
+            {
+                if (_deleteSetupCommand == null)
+                    _deleteSetupCommand = new RelayCommand(DeleteSetupExecute, (param) => true);
+
+
+                return _deleteSetupCommand;
+            }
+        }
         #endregion
         #endregion
 
@@ -919,7 +935,7 @@ namespace ParticleMaker.ViewModels
                     var msg = $"Are you sure you want to delete the project named '{projListDialog.SelectedProject}'";
 
                     //Ask user if they are sure they want to delete the project
-                    if (MessageBox.Show(DialogOwner, msg, "Delete Project?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    if (WPFMsgBox.Show(DialogOwner, msg, "Delete Project?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
                         //If the project to be deleted is currently loaded, unload the project
                         if (CurrentOpenProject == projListDialog.SelectedProject)
@@ -1099,6 +1115,30 @@ namespace ParticleMaker.ViewModels
 
             
             _setupDeployService.Deploy(CurrentOpenProject, CurrentLoadedSetup, eventArgs.DeploymentPath);
+        }
+
+
+        /// <summary>
+        /// Deletes a setup from the currently loaded project.
+        /// </summary>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
+        [ExcludeFromCodeCoverage]
+        private void DeleteSetupExecute(object param)
+        {
+            if (!(param is ItemEventArgs eventArgs))
+                throw new ArgumentException($"The parameter in method '{nameof(DeleteSetupExecute)}' must be of type '{nameof(ItemEventArgs)}' for the command to execute.");
+
+            var dialogResult = WPFMsgBox.Show(DialogOwner, $"Are you sure you want to delete the setup '{eventArgs.Name}'?", "Delete Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (dialogResult == MessageBoxResult.Yes)
+            {
+                _setupManager.Delete(CurrentOpenProject, eventArgs.Name);
+
+                ProjectSetups = (from p in _setupManager.GetSetupPaths(CurrentOpenProject)
+                                 select new PathItem() { FilePath = p }).ToArray();
+
+                NotifyPropChange(nameof(ProjectSetups));
+            }
         }
         #endregion
         #endregion
