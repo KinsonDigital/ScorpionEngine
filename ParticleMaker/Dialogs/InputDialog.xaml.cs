@@ -191,7 +191,7 @@ namespace ParticleMaker.Dialogs
             {
                 var processedValues = new List<string>();
 
-                foreach (var value in _invalidValues)
+                foreach (var value in _invalidValues == null ? new string[0] : _invalidValues)
                 {
                     processedValues.Add(value.ToLower());
                 }
