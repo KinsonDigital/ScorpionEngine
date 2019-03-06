@@ -595,6 +595,7 @@ namespace ParticleMaker.Tests.Project
             //Assert
             mockFileService.Verify(m => m.Exists(It.IsAny<string>()), Times.Once());
             mockFileService.Verify(m => m.Rename(It.IsAny<string>(), It.IsAny<string>()), Times.Once());
+            mockDirService.Verify(m => m.Rename(It.IsAny<string>(), It.IsAny<string>()), Times.Once());
         }
 
 

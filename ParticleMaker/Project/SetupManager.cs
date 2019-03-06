@@ -184,12 +184,13 @@ namespace ParticleMaker.Project
             if (ProjectExists(projectName))
             {
                 var projPath = $@"{_rootProjectsPath}\{projectName}";
-                var setupPath = $@"{projPath}\Setups\{setupName}\{setupName}.json";
+                var setupDirPath = $@"{projPath}\Setups\{setupName}";
+                var setupFilePath = $@"{setupDirPath}\{setupName}.json";
 
                 CheckRootSetupsFolder(projectName);
 
                 //If the particle setup already exists
-                if (_fileService.Exists(setupPath))
+                if (_fileService.Exists(setupFilePath))
                 {
                     if (ContainsIllegalCharacters(newName))
                     {
@@ -197,7 +198,9 @@ namespace ParticleMaker.Project
                     }
                     else
                     {
-                        _fileService.Rename(setupPath, "new-setup");
+                        _fileService.Rename(setupFilePath, newName);
+
+                        _directoryService.Rename(setupDirPath, newName);
                     }
                 }
                 else

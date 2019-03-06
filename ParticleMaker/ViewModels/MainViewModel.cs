@@ -47,6 +47,7 @@ namespace ParticleMaker.ViewModels
         private RelayCommand _updateDeploymentPathCommand;
         private RelayCommand _deploySetupCommand;
         private RelayCommand _deleteProjectCommand;
+        private RelayCommand _renameSetupCommand;
         private RelayCommand _deleteSetupCommand;
         private string _currentOpenProject;
         #endregion
@@ -635,6 +636,21 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
+        /// Renames a setup.
+        /// </summary>
+        public RelayCommand RenameSetup
+        {
+            get
+            {
+                if (_renameSetupCommand == null)
+                    _renameSetupCommand = new RelayCommand(RenameSetupExecute, (param) => true);
+
+
+                return _renameSetupCommand;
+            }
+        }
+
+        /// <summary>
         /// Updates the deployment path for a setup.
         /// </summary>
         public RelayCommand UpdateDeploymentPath
@@ -1033,6 +1049,45 @@ namespace ParticleMaker.ViewModels
             catch (Exception ex)
             {
                 ExceptionHandler.Handle(ex);
+            }
+        }
+
+
+        /// <summary>
+        /// Deploys the setup to the location set by the deployment path.
+        /// </summary>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
+        [ExcludeFromCodeCoverage]
+        private void DeploySetupExecute(object param)
+        {
+            if (!(param is DeploySetupEventArgs eventArgs))
+                throw new ArgumentException($"The parameter in method '{nameof(DeploySetupExecute)}' must be of type '{nameof(DeploySetupEventArgs)}' for the command to execute.");
+
+
+            _setupDeployService.Deploy(CurrentOpenProject, CurrentLoadedSetup, eventArgs.DeploymentPath);
+        }
+
+
+        /// <summary>
+        /// Renames a setup.
+        /// </summary>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
+        [ExcludeFromCodeCoverage]
+        private void RenameSetupExecute(object param)
+        {
+            if (!(param is RenameItemEventArgs eventArgs))
+                throw new ArgumentException($"The parameter in method '{nameof(RenameSetupExecute)}' must be of type '{nameof(RenameItemEventArgs)}' for the command to execute.");
+
+            var dialogResult = WPFMsgBox.Show(DialogOwner, $"Are you sure you want to rename '{eventArgs.OldName}' to '{eventArgs.NewName}'?", "Rename Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (dialogResult == MessageBoxResult.Yes)
+            {
+                _setupManager.Rename(CurrentOpenProject, eventArgs.OldName, eventArgs.NewName);
+
+                ProjectSetups = (from p in _setupManager.GetSetupPaths(CurrentOpenProject)
+                                 select new PathItem() { FilePath = p }).ToArray();
+
+                NotifyPropChange(nameof(ProjectSetups));
             }
         }
 
