@@ -344,12 +344,7 @@ namespace ParticleMaker.UserControls
             if (!(param is ItemEventArgs eventArgs))
                 throw new InvalidCommandActionParamTypeException(nameof(DeleteCommandAction), nameof(param));
 
-            var msg = $"Are you sure you want to delete the setup named '{eventArgs.Name}'?";
-
-            var dialogResult = MessageBox.Show(msg, "Delete Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (dialogResult == MessageBoxResult.Yes)
-                ItemDeletedCommand?.Execute(eventArgs);
+            ItemDeletedCommand?.Execute(eventArgs);
         }
 
 

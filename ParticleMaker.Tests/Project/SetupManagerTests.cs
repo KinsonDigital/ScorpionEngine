@@ -748,6 +748,7 @@ namespace ParticleMaker.Tests.Project
 
             //Assert
             mockFileService.Verify(m => m.Delete(It.IsAny<string>()), Times.Once());
+            mockDirService.Verify(m => m.Delete(It.IsAny<string>()), Times.Once());
         }
 
 
