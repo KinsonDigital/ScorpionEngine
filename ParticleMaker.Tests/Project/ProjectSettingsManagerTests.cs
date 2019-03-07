@@ -11,6 +11,11 @@ namespace ParticleMaker.Tests.Project
     [TestFixture]
     public class ProjectSettingsManagerTests
     {
+        #region Fields
+        private ProjectSettings _testProjectSettings;
+        #endregion
+
+
         #region Method Tests
         [Test]
         public void Save_WhenInvoking_CreatesSettingsFile()
@@ -264,6 +269,196 @@ namespace ParticleMaker.Tests.Project
 
             //Assert
             Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void RenameDeploymentSetupName_WhenInvoked_LoadsProjectSettingFile()
+        {
+            //Arrange
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var mockFileService = new Mock<IFileService>();
+            mockFileService.Setup(m => m.Load<ProjectSettings>(It.IsAny<string>())).Returns<string>((path) =>
+            {
+                return _testProjectSettings;
+            });
+
+            var manager = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
+
+            //Act
+            manager.RenameDeploymentSetupName("test-project", "test-setup", "new-setup");
+
+            //Assert
+            mockFileService.Verify(m => m.Load<ProjectSettings>(It.IsAny<string>()), Times.Once());
+        }
+
+
+        [Test]
+        public void RenameDeploymentSetupName_WhenInvoked_BuildsCorrectFilePath()
+        {
+            //Arrange
+            var expected = true;
+            var actual = false;
+
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var mockFileService = new Mock<IFileService>();
+            mockFileService.Setup(m => m.Load<ProjectSettings>(It.IsAny<string>())).Returns<string>((path) =>
+            {
+                var pathSections = path.Split(new string[] { "Projects" }, StringSplitOptions.RemoveEmptyEntries);
+                var projStructureSections = pathSections.Length < 1 ?
+                    new string[0] :
+                    (from s in pathSections[1].Split('\\') where !string.IsNullOrEmpty(s) select s).ToArray();
+
+                actual = projStructureSections.Length < 2 ?
+                    false :
+                    projStructureSections[0] == "test-project" && projStructureSections[1] == "test-project-project-settings.json";
+
+                return _testProjectSettings;
+            });
+
+            var manager = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
+
+            //Act
+            manager.RenameDeploymentSetupName("test-project", "test-setup", "new-setup");
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void RenameDeploymentSetupName_WhenInvokedWithExistingProject_ProjectExists()
+        {
+            //Arrange
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var mockFileService = new Mock<IFileService>();
+            mockFileService.Setup(m => m.Load<ProjectSettings>(It.IsAny<string>())).Returns<string>((path) =>
+            {
+                return _testProjectSettings;
+            });
+
+            var manager = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
+
+            //Act
+            manager.RenameDeploymentSetupName("test-project", "test-setup", "new-setup");
+
+            //Assert
+            mockDirService.Verify(m => m.Exists(It.IsAny<string>()), Times.Once());
+        }
+
+
+        [Test]
+        public void RenameDeploymentSetupName_WhenInvoked_SavesSettingsDataBeingUpdated()
+        {
+            //Arrange
+            var expected = "new-setup";
+            var actual = string.Empty;
+
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var mockFileService = new Mock<IFileService>();
+            mockFileService.Setup(m => m.Load<ProjectSettings>(It.IsAny<string>())).Returns<string>((path) =>
+            {
+                return _testProjectSettings;
+            });
+
+            mockFileService.Setup(m => m.Save(It.IsAny<string>(), It.IsAny<ProjectSettings>())).Callback<string, ProjectSettings>((path, data) =>
+            {
+                actual = data.SetupDeploySettings.Length > 0 ?
+                    data.SetupDeploySettings[0].SetupName :
+                    string.Empty;
+            });
+
+            var manager = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
+
+            //Act
+            manager.RenameDeploymentSetupName("test-project", "test-setup", "new-setup");
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void RenameDeploymentSetupName_WhenInvoked_SavesSettingsFileChanges()
+        {
+            //Arrange
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var mockFileService = new Mock<IFileService>();
+            mockFileService.Setup(m => m.Load<ProjectSettings>(It.IsAny<string>())).Returns<string>((path) =>
+            {
+                return _testProjectSettings;
+            });
+
+            var manager = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
+
+            //Act
+            manager.RenameDeploymentSetupName("test-project", "test-setup", "new-setup");
+
+            //Assert
+            mockFileService.Verify(m => m.Save(It.IsAny<string>(), It.IsAny<ProjectSettings>()), Times.Once());
+        }
+
+
+        [Test]
+        public void RenameDeploymentSetupName_WhenInvokedWithNoSetupData_ThrowsException()
+        {
+            //Arrange
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var mockFileService = new Mock<IFileService>();
+
+            //Empty out the setup name in the deploy settings so the method cannot find it
+            _testProjectSettings.SetupDeploySettings[0].SetupName = string.Empty;
+
+            mockFileService.Setup(m => m.Load<ProjectSettings>(It.IsAny<string>())).Returns<string>((path) =>
+            {
+                return _testProjectSettings;
+            });
+
+            var manager = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
+
+            //Act & Assert
+            Assert.Throws<Exception>(() =>
+            {
+                manager.RenameDeploymentSetupName("test-project", "test-setup", "new-setup");
+            });
+        }
+        #endregion
+
+
+        #region Setup Teardown Methods
+        [SetUp]
+        public void Setup()
+        {
+            _testProjectSettings = new ProjectSettings()
+            {
+                ProjectName = "test-project",
+                SetupDeploySettings = new[] {
+                    new DeploymentSetting()
+                    {
+                        SetupName = "test-setup",
+                        DeployPath = @"C:\Temp\Projects\test-project\test-project-settings.json"
+                    }
+                }
+            };
+        }
+
+
+        [TearDown]
+        public void TearDown()
+        {
+            _testProjectSettings = null;
         }
         #endregion
     }
