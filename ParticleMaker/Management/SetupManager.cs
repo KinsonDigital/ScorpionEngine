@@ -4,7 +4,7 @@ using ParticleMaker.Services;
 using System.IO;
 using System.Reflection;
 
-namespace ParticleMaker.Project
+namespace ParticleMaker.Management
 {
     /// <summary>
     /// Manages particle setup files for a project.

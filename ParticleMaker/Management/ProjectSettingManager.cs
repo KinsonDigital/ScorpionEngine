@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace ParticleMaker.Project
+namespace ParticleMaker.Management
 {
     /// <summary>
     /// Manages project related settings.

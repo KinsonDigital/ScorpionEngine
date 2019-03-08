@@ -4,7 +4,7 @@ using System.Reflection;
 using ParticleMaker.Exceptions;
 using ParticleMaker.Services;
 
-namespace ParticleMaker.Project
+namespace ParticleMaker.Management
 {
     /// <summary>
     /// Manages projects.

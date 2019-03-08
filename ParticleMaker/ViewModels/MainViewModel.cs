@@ -9,7 +9,7 @@ using KDScorpionCore.Graphics;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using System.Threading;
-using ParticleMaker.Project;
+using ParticleMaker.Management;
 using ParticleMaker.Dialogs;
 using System.Windows;
 using WPFMsgBox = System.Windows.MessageBox;
