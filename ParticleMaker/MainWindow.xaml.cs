@@ -112,15 +112,5 @@ namespace ParticleMaker
             DataContext = _mainViewModel;
         }
         #endregion
-
-        private void StartButton_Click(object sender, RoutedEventArgs e)
-        {
-            _mainViewModel.StartEngine();
-        }
-
-        private void ShutdownButton_Click(object sender, RoutedEventArgs e)
-        {
-            _mainViewModel.ShutdownEngine();
-        }
     }
 }
