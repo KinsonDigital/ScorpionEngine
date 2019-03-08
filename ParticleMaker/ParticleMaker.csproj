@@ -140,6 +140,7 @@
     <Compile Include="GraphicsEngineFactory.cs" />
     <Compile Include="ICoreEngine.cs" />
     <Compile Include="IGraphicsEngineFactory.cs" />
+    <Compile Include="Management\ParticleManager.cs" />
     <Compile Include="Management\ProjectSettings.cs" />
     <Compile Include="Management\SetupManager.cs" />
     <Compile Include="RelayCommand.cs" />
