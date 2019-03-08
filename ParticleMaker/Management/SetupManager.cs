@@ -86,7 +86,7 @@ namespace ParticleMaker.Management
                 //If the particle setup already exists, throw an exception
                 if (_fileService.Exists(setupPath))
                 {
-                    throw new ParticleSetupAlreadyExists();
+                    throw new ParticleSetupAlreadyExistsException();
                 }
                 else
                 {
@@ -134,7 +134,7 @@ namespace ParticleMaker.Management
                 }
                 else
                 {
-                    throw new ParticleSetupDoesNotExist(setupName);
+                    throw new ParticleSetupDoesNotExistException(setupName);
                 }
             }
 
@@ -205,7 +205,7 @@ namespace ParticleMaker.Management
                 }
                 else
                 {
-                    throw new ParticleSetupDoesNotExist(setupName);
+                    throw new ParticleSetupDoesNotExistException(setupName);
                 }
             }
             else
@@ -236,7 +236,7 @@ namespace ParticleMaker.Management
                 }
                 else
                 {
-                    throw new ParticleSetupDoesNotExist(setupName);
+                    throw new ParticleSetupDoesNotExistException(setupName);
                 }
             }
             else

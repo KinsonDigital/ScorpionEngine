@@ -305,7 +305,7 @@ namespace ParticleMaker.Tests.Management
             var manager = new SetupManager(mockDirService.Object, mockFileService.Object);
 
             //Act & Assert
-            Assert.Throws(typeof(ParticleSetupAlreadyExists), () =>
+            Assert.Throws(typeof(ParticleSetupAlreadyExistsException), () =>
             {
                 manager.Create("test-project", "test-setup");
             });
@@ -395,7 +395,7 @@ namespace ParticleMaker.Tests.Management
             var manager = new SetupManager(mockDirService.Object, mockFileService.Object);
 
             //Act & Assert
-            Assert.Throws(typeof(ParticleSetupDoesNotExist), () =>
+            Assert.Throws(typeof(ParticleSetupDoesNotExistException), () =>
             {
                 manager.Load("test-project", It.IsAny<string>());
             });
@@ -658,7 +658,7 @@ namespace ParticleMaker.Tests.Management
             var manager = new SetupManager(mockDirService.Object, mockFileService.Object);
 
             //Act & Assert
-            Assert.Throws(typeof(ParticleSetupDoesNotExist), () =>
+            Assert.Throws(typeof(ParticleSetupDoesNotExistException), () =>
             {
                 manager.Rename("test-project", It.IsAny<string>(), "new-setup-name");
             });
@@ -814,7 +814,7 @@ namespace ParticleMaker.Tests.Management
             var manager = new SetupManager(mockDirService.Object, mockFileService.Object);
 
             //Act & Assert
-            Assert.Throws(typeof(ParticleSetupDoesNotExist), () =>
+            Assert.Throws(typeof(ParticleSetupDoesNotExistException), () =>
             {
                 manager.Delete("test-project", "test-setup");
             });

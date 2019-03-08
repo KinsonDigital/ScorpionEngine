@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\NUnit3TestAdapter.3.12.0\build\net35\NUnit3TestAdapter.props" Condition="Exists('..\packages\NUnit3TestAdapter.3.12.0\build\net35\NUnit3TestAdapter.props')" />
   <Import Project="..\packages\NUnit.3.11.0\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.11.0\build\NUnit.props')" />
@@ -117,6 +117,7 @@
     <Compile Include="Exceptions\ProjectDoesNotExistExistExceptionTests.cs" />
     <Compile Include="ExtensionMethodsTests.cs" />
     <Compile Include="GraphicsEngineTests.cs" />
+    <Compile Include="Management\ParticleManagerTests.cs" />
     <Compile Include="Management\ProjectSettingsTests.cs" />
     <Compile Include="Management\SetupManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
