@@ -4,7 +4,7 @@ using KDScorpionCore;
 using KDScorpionCore.Graphics;
 using Moq;
 using NUnit.Framework;
-using ParticleMaker.Project;
+using ParticleMaker.Management;
 using ParticleMaker.Services;
 using ParticleMaker.UserControls;
 using ParticleMaker.ViewModels;

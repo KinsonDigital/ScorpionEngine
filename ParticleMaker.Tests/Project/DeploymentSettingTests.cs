@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using ParticleMaker.Project;
+using ParticleMaker.Management;
 
 namespace ParticleMaker.Tests.Project
 {
