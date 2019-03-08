@@ -5,7 +5,7 @@ using ParticleMaker.Management;
 using ParticleMaker.Services;
 using System;
 
-namespace ParticleMaker.Tests.Project
+namespace ParticleMaker.Tests.Management
 {
     [TestFixture]
     public class ProjectManagerTests

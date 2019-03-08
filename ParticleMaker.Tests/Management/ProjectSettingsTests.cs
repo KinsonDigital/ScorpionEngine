@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using ParticleMaker.Management;
 
-namespace ParticleMaker.Tests.Project
+namespace ParticleMaker.Tests.Management
 {
     [TestFixture]
     public class ProjectSettingsTests
