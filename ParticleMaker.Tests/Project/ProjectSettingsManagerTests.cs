@@ -78,7 +78,7 @@ namespace ParticleMaker.Tests.Project
         {
             //Arrange
             var mockFileService = new Mock<IFileService>();
-            mockFileService.Setup(m => m.Load<ProjectSettings>(It.IsAny<string>(), It.IsAny<object>())).Returns(new ProjectSettings()
+            mockFileService.Setup(m => m.Load<ProjectSettings>(It.IsAny<string>())).Returns(new ProjectSettings()
             {
                 ProjectName = "test-project",
                 SetupDeploySettings = new DeploymentSetting[]
@@ -100,7 +100,7 @@ namespace ParticleMaker.Tests.Project
             settingsManager.Load("test-project");
 
             //Assert
-            mockFileService.Verify(m => m.Load<ProjectSettings>(It.IsAny<string>(), It.IsAny<object>()), Times.Once());
+            mockFileService.Verify(m => m.Load<ProjectSettings>(It.IsAny<string>()), Times.Once());
         }
 
 
@@ -109,7 +109,7 @@ namespace ParticleMaker.Tests.Project
         {
             //Arrange
             var mockFileService = new Mock<IFileService>();
-            mockFileService.Setup(m => m.Load<ProjectSettings>(It.IsAny<string>(), It.IsAny<object>())).Returns(new ProjectSettings()
+            mockFileService.Setup(m => m.Load<ProjectSettings>(It.IsAny<string>())).Returns(new ProjectSettings()
             {
                 ProjectName = "test-project",
                 SetupDeploySettings = null
@@ -134,7 +134,7 @@ namespace ParticleMaker.Tests.Project
             //Arrange
             var fileToLoadPath = string.Empty;
             var mockFileService = new Mock<IFileService>();
-            mockFileService.Setup(m => m.Load<ProjectSettings>(It.IsAny<string>(), It.IsAny<object>())).Returns<string>((path) =>
+            mockFileService.Setup(m => m.Load<ProjectSettings>(It.IsAny<string>())).Returns<string>((path) =>
             {
                 fileToLoadPath = path;
 
@@ -280,7 +280,7 @@ namespace ParticleMaker.Tests.Project
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
 
             var mockFileService = new Mock<IFileService>();
-            mockFileService.Setup(m => m.Load<ProjectSettings>(It.IsAny<string>(), It.IsAny<object>())).Returns<string>((path) =>
+            mockFileService.Setup(m => m.Load<ProjectSettings>(It.IsAny<string>())).Returns<string>((path) =>
             {
                 return _testProjectSettings;
             });
@@ -291,7 +291,7 @@ namespace ParticleMaker.Tests.Project
             manager.RenameDeploymentSetupName("test-project", "test-setup", "new-setup");
 
             //Assert
-            mockFileService.Verify(m => m.Load<ProjectSettings>(It.IsAny<string>(), It.IsAny<object>()), Times.Once());
+            mockFileService.Verify(m => m.Load<ProjectSettings>(It.IsAny<string>()), Times.Once());
         }
 
 
@@ -306,7 +306,7 @@ namespace ParticleMaker.Tests.Project
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
 
             var mockFileService = new Mock<IFileService>();
-            mockFileService.Setup(m => m.Load<ProjectSettings>(It.IsAny<string>(), It.IsAny<object>())).Returns<string>((path) =>
+            mockFileService.Setup(m => m.Load<ProjectSettings>(It.IsAny<string>())).Returns<string>((path) =>
             {
                 var pathSections = path.Split(new string[] { "Projects" }, StringSplitOptions.RemoveEmptyEntries);
                 var projStructureSections = pathSections.Length < 1 ?

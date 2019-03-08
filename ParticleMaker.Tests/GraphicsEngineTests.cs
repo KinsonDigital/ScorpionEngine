@@ -2,6 +2,7 @@
 using KDParticleEngine.Services;
 using Moq;
 using NUnit.Framework;
+using ParticleMaker.Services;
 using System;
 
 namespace ParticleMaker.Tests
@@ -144,9 +145,11 @@ namespace ParticleMaker.Tests
             var mockEngineFactory = new Mock<IGraphicsEngineFactory>();
             mockEngineFactory.SetupGet(p => p.CoreEngine).Returns(_mockCoreEngine.Object);
 
+            var mockFileService = new Mock<IFileService>();
+
             _particleEngine = new ParticleEngine(new RandomizerService());
 
-            _engine = new GraphicsEngine(mockEngineFactory.Object, _particleEngine);
+            _engine = new GraphicsEngine(mockEngineFactory.Object, _particleEngine, mockFileService.Object);
         }
 
 
