@@ -4,14 +4,14 @@ using ParticleMaker.Exceptions;
 namespace ParticleMaker.Tests.Exceptions
 {
     [TestFixture]
-    public class ParticleSetupDoesNotExistTests
+    public class ParticleSetupDoesNotExistExceptionTests
     {
         #region Constructor Tests
         [Test]
         public void Ctor_WhenInvokingWithNoParam_CreatesCorrectExceptionMessage()
         {
             //Arrange
-            var exception = new ParticleSetupDoesNotExist();
+            var exception = new ParticleSetupDoesNotExistException();
             var expected = "The particle setup does not exist.";
 
             //Act
@@ -26,7 +26,7 @@ namespace ParticleMaker.Tests.Exceptions
         public void Ctor_WhenInvokingWithParam_CreatesCorrectExceptionMessage()
         {
             //Arrange
-            var exception = new ParticleSetupDoesNotExist("test-setup");
+            var exception = new ParticleSetupDoesNotExistException("test-setup");
             var expected = "The particle setup with the name 'test-setup' does not exist.";
 
             //Act

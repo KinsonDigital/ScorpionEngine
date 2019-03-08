@@ -4,7 +4,7 @@ using ParticleMaker.Exceptions;
 namespace ParticleMaker.Tests.Exceptions
 {
     [TestFixture]
-    public class ParticleSetupAlreadyExistsTests
+    public class ParticleSetupAlreadyExistsExceptionTests
     {
         #region Constructor Tests
         [Test]
@@ -14,7 +14,7 @@ namespace ParticleMaker.Tests.Exceptions
             var expected = "The particle setup already exists.";
 
             //Arrange
-            var exception = new ParticleSetupAlreadyExists();
+            var exception = new ParticleSetupAlreadyExistsException();
             var actual = exception.Message;
 
             //Assert
@@ -29,7 +29,7 @@ namespace ParticleMaker.Tests.Exceptions
             var expected = "The particle setup with the name 'test-setup' already exists.";
 
             //Arrange
-            var exception = new ParticleSetupAlreadyExists("test-setup");
+            var exception = new ParticleSetupAlreadyExistsException("test-setup");
             var actual = exception.Message;
 
             //Assert
