@@ -116,7 +116,6 @@
     <Compile Include="Exceptions\ProjectAlreadyExistsExceptionTests.cs" />
     <Compile Include="Exceptions\ProjectDoesNotExistExistExceptionTests.cs" />
     <Compile Include="ExtensionMethodsTests.cs" />
-    <Compile Include="GraphicsEngineFactoryTests.cs" />
     <Compile Include="GraphicsEngineTests.cs" />
     <Compile Include="Project\ProjectSettingsTests.cs" />
     <Compile Include="Project\SetupManagerTests.cs" />

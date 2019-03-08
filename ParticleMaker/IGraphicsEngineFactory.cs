@@ -1,5 +1,4 @@
-﻿using KDScorpionCore.Content;
-using KDScorpionCore.Graphics;
+﻿using KDScorpionCore.Graphics;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace ParticleMaker
@@ -23,12 +22,6 @@ namespace ParticleMaker
 
 
         #region Methods
-        /// <summary>
-        /// Creates a new <see cref="ContentLoader"/> to load content.
-        /// </summary>
-        /// <returns></returns>
-        ContentLoader NewContentLoader();
-
         /// <summary>
         /// Creates a new <see cref="Renderer"/> to render content to the rendering surface.
         /// </summary>

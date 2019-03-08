@@ -45,6 +45,9 @@
         </DockPanel>
         
         <StackPanel Orientation="Vertical" Visibility="Visible" Margin="10" Grid.Row="1" Grid.Column="0">
+            <Button x:Name="StartButton" Content="Start Up" Click="StartButton_Click"/>
+
+            <Button x:Name="ShutdownButton" Content="Shut Down" Click="ShutdownButton_Click"/>
             <!--PROJECT SETUP LIST-->
             <ctrls:SetupList Margin="10" Setups="{Binding Path=ProjectSetups}"
                              IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"

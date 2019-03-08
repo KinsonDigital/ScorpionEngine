@@ -4,8 +4,10 @@ using KDScorpionCore.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ParticleMaker.CustomEventArgs;
+using ParticleMaker.Services;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using CoreTexture = KDScorpionCore.Graphics.Texture;
 
 namespace ParticleMaker
 {
@@ -15,6 +17,7 @@ namespace ParticleMaker
     public class GraphicsEngine
     {
         #region Fields
+        private IFileService _fileService;
         private IGraphicsEngineFactory _factory;
         private ICoreEngine _coreEngine;
         private SpriteBatch _spriteBatch;
@@ -30,17 +33,17 @@ namespace ParticleMaker
         /// </summary>
         /// <param name="factory"></param>
         /// <param name="particleEngine">The particle engine that manages the particles.</param>
-        public GraphicsEngine(IGraphicsEngineFactory factory, ParticleEngine particleEngine)
+        public GraphicsEngine(IGraphicsEngineFactory factory, ParticleEngine particleEngine, IFileService fileService)
         {
-            _factory = factory;
+            _fileService = fileService;
 
+            _factory = factory;
+            
             _coreEngine = _factory.CoreEngine;
 
-            _coreEngine.OnInitialize += _coreEngine_OnInitialize;
             _coreEngine.OnLoadContent += _coreEngine_OnLoadContent;
             _coreEngine.OnUpdate += _coreEngine_OnUpdate;
             _coreEngine.OnDraw += _coreEngine_OnDraw;
-            _coreEngine.OnUnLoadContent += _coreEngine_OnUnLoadContent;
 
             Width = 400;
             Height = 400;
@@ -79,6 +82,15 @@ namespace ParticleMaker
         /// Gets a value indicating if the engine is running or paused.
         /// </summary>
         public bool IsRunning => _coreEngine.IsRunning;
+
+        /// <summary>
+        /// This list of paths to all of the texture to load and render.
+        /// </summary>
+        public string[] TexturePaths { get; set; } = new string[] 
+        {
+            @"C:\SOFTWARE DEVELOPMENT\PERSONAL\ScorpionEngine\ParticleMaker\Content\Arrow.png",
+            @"C:\SOFTWARE DEVELOPMENT\PERSONAL\ScorpionEngine\ParticleMaker\Content\Star.png"
+        };
         #endregion
 
 
@@ -123,22 +135,12 @@ namespace ParticleMaker
         /// </summary>
         public void Pause(bool clearSurface = false)
         {
-            _coreEngine.Pause(clearSurface);
+            _coreEngine?.Pause(clearSurface);
         }
         #endregion
 
 
         #region Event Methods
-        /// <summary>
-        /// Initializes the <see cref="GraphicsEngine"/>.
-        /// </summary>
-        [ExcludeFromCodeCoverage]
-        private void _coreEngine_OnInitialize(object sender, EventArgs e)
-        {
-            _contentLoader = _factory.NewContentLoader();
-        }
-
-
         /// <summary>
         /// Loads the content for the <see cref="GraphicsEngine"/> to render.
         /// </summary>
@@ -149,9 +151,12 @@ namespace ParticleMaker
 
             _spriteBatch = _factory.SpriteBatch;
 
-            var texture = _contentLoader.LoadTexture("Arrow");
+            foreach (var path in TexturePaths)
+            {
+                var texture = _fileService.Load(path, _coreEngine.GraphicsDevice);
 
-            ParticleEngine.AddTexture(texture);
+                ParticleEngine.AddTexture(new CoreTexture(new ParticleTexture(texture.GetTexture<Texture2D>())));
+            }
         }
 
 
@@ -184,16 +189,6 @@ namespace ParticleMaker
             ParticleEngine.Render(_renderer);
 
             _spriteBatch.End();
-        }
-
-
-        /// <summary>
-        /// Unloads the content.
-        /// </summary>
-        [ExcludeFromCodeCoverage]
-        private void _coreEngine_OnUnLoadContent(object sender, EventArgs e)
-        {
-            //TODO: Add code here to unload content before shutting down app
         }
         #endregion
     }

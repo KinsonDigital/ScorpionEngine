@@ -812,8 +812,7 @@ namespace ParticleMaker.ViewModels
                     }
                     catch (Exception ex)
                     {
-                        //TODO: Use custom exception handler class here.
-                        WPFMsgBox.Show(ex.Message);
+                        ExceptionHandler.Handle(ex);
                     }
                 }
             }

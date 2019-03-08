@@ -8,7 +8,6 @@ using ParticleMaker.Exceptions;
 using ParticleMaker.Project;
 using ParticleMaker.Services;
 using ParticleMaker.ViewModels;
-using ParticleMaker.UserControls;
 
 [assembly: InternalsVisibleTo(assemblyName: "ParticleMaker.Tests", AllInternalsVisible = true)]
 
@@ -30,13 +29,12 @@ namespace ParticleMaker
 
             DIContainer.Register<IDirectoryService, DirectoryService>();
             DIContainer.Register<IFileService, JSONFileService>();
-            DIContainer.Register<IContentDirectoryService, ContentDirectoryService>();
             DIContainer.Register<IRandomizerService, RandomizerService>();
-            DIContainer.Register<ParticleTextureLoader>();
             DIContainer.Register<ParticleEngine>();
             DIContainer.Register<ICoreEngine, CoreEngine>();
             DIContainer.Register<IGraphicsEngineFactory, GraphicsEngineFactory>();
             DIContainer.Register<GraphicsEngine>();
+
             DIContainer.Register<ProjectSettingsManager>();
             DIContainer.Register<SetupManager>();
             DIContainer.Register<MainViewModel>();
