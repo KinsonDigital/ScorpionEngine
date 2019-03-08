@@ -802,7 +802,7 @@ namespace ParticleMaker.Tests.ViewModels
             particleEngine.TotalParticlesAliveAtOnce = 4;
             particleEngine.Update(new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 11) });
 
-            _engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine);
+            _engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine, mockFileService.Object);
 
             _viewModel = new MainViewModel(_engine, It.IsAny<ProjectManager>(), It.IsAny<ProjectSettingsManager>(), It.IsAny<SetupManager>(), setupDeployService)
             {

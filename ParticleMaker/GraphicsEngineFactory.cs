@@ -37,21 +37,6 @@ namespace ParticleMaker
 
         #region Public Methods
         /// <summary>
-        /// Creates a new <see cref="ContentLoader"/>.
-        /// </summary>
-        /// <returns></returns>
-        [ExcludeFromCodeCoverage]
-        public ContentLoader NewContentLoader()
-        {
-            var particleTextureLoader = App.DIContainer.GetInstance<ParticleTextureLoader>();
-            particleTextureLoader.InjectData(CoreEngine.GraphicsDevice);
-
-
-            return new ContentLoader(particleTextureLoader);
-        }
-
-
-        /// <summary>
         /// Creates a new <see cref="Renderer"/>.
         /// </summary>
         /// <returns></returns>
