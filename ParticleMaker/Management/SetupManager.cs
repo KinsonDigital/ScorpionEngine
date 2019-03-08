@@ -22,8 +22,8 @@ namespace ParticleMaker.Management
         /// <summary>
         /// Creates a new instance of <see cref="SetupManager"/>.
         /// </summary>
-        /// <param name="directoryService">The directory service used to manage directories.</param>
-        /// <param name="fileService">The file service used to manage files.</param>
+        /// <param name="directoryService">The directory service used to manage the project directories.</param>
+        /// <param name="fileService">The file service used to manage setup files.</param>
         /// <param name="projectName">The name of the project the setups belong to.</param>
         public SetupManager(IDirectoryService directoryService, IFileService fileService)
         {

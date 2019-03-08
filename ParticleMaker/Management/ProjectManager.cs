@@ -23,7 +23,7 @@ namespace ParticleMaker.Management
         /// Creates a new instance of <see cref="ProjectManager"/>.
         /// </summary>
         /// <param name="settingsManager">The settings manager used to create project settings.</param>
-        /// <param name="directoryService">The directory service to manage the project directories</param>
+        /// <param name="directoryService">The directory service used to manage the project directories.</param>
         public ProjectManager(ProjectSettingsManager settingsManager, IDirectoryService directoryService)
         {
             _settingsManager = settingsManager;
