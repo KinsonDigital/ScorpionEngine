@@ -1,4 +1,4 @@
-﻿namespace ParticleMaker.Project
+﻿namespace ParticleMaker.Management
 {
     /// <summary>
     /// Gets or sets the deployement setting of a particle setup.

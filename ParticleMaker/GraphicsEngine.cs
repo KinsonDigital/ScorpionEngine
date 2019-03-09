@@ -31,8 +31,9 @@ namespace ParticleMaker
         /// <summary>
         /// Creates a new instance of <see cref="GraphicsEngine"/>.
         /// </summary>
-        /// <param name="factory"></param>
-        /// <param name="particleEngine">The particle engine that manages the particles.</param>
+        /// <param name="factory">The factory used to get <see cref="GraphicsEngine"/> dependencies and services.</param>
+        /// <param name="particleEngine">The particle engine that manages the particles behaviors.</param>
+        /// <param name="fileService">The file service used to manage particle texture files.</param>
         public GraphicsEngine(IGraphicsEngineFactory factory, ParticleEngine particleEngine, IFileService fileService)
         {
             _fileService = fileService;

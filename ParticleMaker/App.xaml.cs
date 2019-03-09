@@ -5,7 +5,7 @@ using SimpleInjector;
 using KDParticleEngine;
 using KDParticleEngine.Services;
 using ParticleMaker.Exceptions;
-using ParticleMaker.Project;
+using ParticleMaker.Management;
 using ParticleMaker.Services;
 using ParticleMaker.ViewModels;
 

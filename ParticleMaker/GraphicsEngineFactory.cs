@@ -1,5 +1,4 @@
-﻿using KDScorpionCore.Content;
-using KDScorpionCore.Graphics;
+﻿using KDScorpionCore.Graphics;
 using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics.CodeAnalysis;
 

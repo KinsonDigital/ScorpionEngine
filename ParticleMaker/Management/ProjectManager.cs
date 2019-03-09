@@ -4,7 +4,7 @@ using System.Reflection;
 using ParticleMaker.Exceptions;
 using ParticleMaker.Services;
 
-namespace ParticleMaker.Project
+namespace ParticleMaker.Management
 {
     /// <summary>
     /// Manages projects.
@@ -23,7 +23,7 @@ namespace ParticleMaker.Project
         /// Creates a new instance of <see cref="ProjectManager"/>.
         /// </summary>
         /// <param name="settingsManager">The settings manager used to create project settings.</param>
-        /// <param name="directoryService">The directory service to manage the project directories</param>
+        /// <param name="directoryService">The directory service used to manage the project directories.</param>
         public ProjectManager(ProjectSettingsManager settingsManager, IDirectoryService directoryService)
         {
             _settingsManager = settingsManager;
@@ -131,15 +131,16 @@ namespace ParticleMaker.Project
         /// <param name="newName">The new name to give the project.</param>
         public void Rename(string name, string newName)
         {
-            var oldProjectDir = $@"{_projectsPath}\{name}";
-            var newProjecDir = $@"{_projectsPath}\{newName}";
-
             //If the project name is illegal, throw an exception
             if (string.IsNullOrEmpty(newName) || newName.ContainsIllegalFileNameCharacters())
                 throw new IllegalProjectNameException(newName);
 
+            var oldProjectDir = $@"{_projectsPath}\{name}";
+
             if (_directoryService.Exists(oldProjectDir))
             {
+                var newProjecDir = $@"{_projectsPath}\{newName}";
+
                 _directoryService.Rename(oldProjectDir, newName);
             }
             else

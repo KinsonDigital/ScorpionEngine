@@ -127,9 +127,9 @@
     <Compile Include="Exceptions\IllegalFileNameCharactersException.cs" />
     <Compile Include="Exceptions\IllegalParticleSetupNameException.cs" />
     <Compile Include="Exceptions\InvalidCommandActionParamTypeException.cs" />
-    <Compile Include="Exceptions\ParticleSetupAlreadyExists.cs" />
-    <Compile Include="Exceptions\ParticleSetupDoesNotExist.cs" />
-    <Compile Include="Project\DeploymentSetting.cs" />
+    <Compile Include="Exceptions\ParticleSetupAlreadyExistsException.cs" />
+    <Compile Include="Exceptions\ParticleSetupDoesNotExistException.cs" />
+    <Compile Include="Management\DeploymentSetting.cs" />
     <Compile Include="DesignData\MainWindowData.cs" />
     <Compile Include="CustomEventArgs\UpdateEventArgs.cs" />
     <Compile Include="Exceptions\ContentDoesNotExistException.cs" />
@@ -140,8 +140,9 @@
     <Compile Include="GraphicsEngineFactory.cs" />
     <Compile Include="ICoreEngine.cs" />
     <Compile Include="IGraphicsEngineFactory.cs" />
-    <Compile Include="Project\ProjectSettings.cs" />
-    <Compile Include="Project\SetupManager.cs" />
+    <Compile Include="Management\ParticleManager.cs" />
+    <Compile Include="Management\ProjectSettings.cs" />
+    <Compile Include="Management\SetupManager.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="Services\DirectoryService.cs" />
     <Compile Include="Services\ExtensionMethods.cs" />
@@ -150,8 +151,8 @@
     <Compile Include="Services\JSONFileService.cs" />
     <Compile Include="CustomEventArgs\ColorItemClickedEventArgs.cs" />
     <Compile Include="Services\IDirectoryService.cs" />
-    <Compile Include="Project\ProjectManager.cs" />
-    <Compile Include="Project\ProjectSettingManager.cs" />
+    <Compile Include="Management\ProjectManager.cs" />
+    <Compile Include="Management\ProjectSettingManager.cs" />
     <Compile Include="Services\JSONLoggerService.cs" />
     <Compile Include="Services\Log.cs" />
     <Compile Include="Services\LogData.cs" />

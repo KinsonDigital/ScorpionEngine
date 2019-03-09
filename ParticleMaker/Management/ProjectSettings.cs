@@ -1,4 +1,4 @@
-﻿namespace ParticleMaker.Project
+﻿namespace ParticleMaker.Management
 {
     /// <summary>
     /// Holds various project related settings.

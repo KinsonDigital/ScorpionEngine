@@ -4,7 +4,7 @@ using ParticleMaker.Services;
 using System.IO;
 using System.Reflection;
 
-namespace ParticleMaker.Project
+namespace ParticleMaker.Management
 {
     /// <summary>
     /// Manages particle setup files for a project.
@@ -22,8 +22,8 @@ namespace ParticleMaker.Project
         /// <summary>
         /// Creates a new instance of <see cref="SetupManager"/>.
         /// </summary>
-        /// <param name="directoryService">The directory service used to manage directories.</param>
-        /// <param name="fileService">The file service used to manage files.</param>
+        /// <param name="directoryService">The directory service used to manage the project directories.</param>
+        /// <param name="fileService">The file service used to manage setup files.</param>
         /// <param name="projectName">The name of the project the setups belong to.</param>
         public SetupManager(IDirectoryService directoryService, IFileService fileService)
         {
@@ -86,7 +86,7 @@ namespace ParticleMaker.Project
                 //If the particle setup already exists, throw an exception
                 if (_fileService.Exists(setupPath))
                 {
-                    throw new ParticleSetupAlreadyExists();
+                    throw new ParticleSetupAlreadyExistsException();
                 }
                 else
                 {
@@ -134,7 +134,7 @@ namespace ParticleMaker.Project
                 }
                 else
                 {
-                    throw new ParticleSetupDoesNotExist(setupName);
+                    throw new ParticleSetupDoesNotExistException(setupName);
                 }
             }
 
@@ -151,9 +151,6 @@ namespace ParticleMaker.Project
         /// <param name="setup">The data to save to the setup.</param>
         public void Save(string projectName, string setupName, ParticleSetup setup)
         {
-            var projPath = $@"{_rootProjectsPath}\{projectName}";
-            var setupPath = $@"{projPath}\Setups\{setupName}\{setupName}.json";
-
             if (ProjectExists(projectName))
             {
                 if (ContainsIllegalCharacters(setupName))
@@ -162,6 +159,9 @@ namespace ParticleMaker.Project
                 }
                 else
                 {
+                    var projPath = $@"{_rootProjectsPath}\{projectName}";
+                    var setupPath = $@"{projPath}\Setups\{setupName}\{setupName}.json";
+
                     CheckRootSetupsFolder(projectName);
 
                     _fileService.Save(setupPath, setup);
@@ -205,7 +205,7 @@ namespace ParticleMaker.Project
                 }
                 else
                 {
-                    throw new ParticleSetupDoesNotExist(setupName);
+                    throw new ParticleSetupDoesNotExistException(setupName);
                 }
             }
             else
@@ -221,12 +221,12 @@ namespace ParticleMaker.Project
         /// <param name="setupName">The name of the setup to delete.</param>
         public void Delete(string projectName, string setupName)
         {
-            var setupDirPath = $@"{_rootProjectsPath}\{projectName}\Setups\{setupName}";
-            var setupFilePath = $@"{setupDirPath}\{setupName}.json";
-
             if (ProjectExists(projectName))
             {
                 CheckRootSetupsFolder(projectName);
+
+                var setupDirPath = $@"{_rootProjectsPath}\{projectName}\Setups\{setupName}";
+                var setupFilePath = $@"{setupDirPath}\{setupName}.json";
 
                 if (_fileService.Exists(setupFilePath))
                 {
@@ -236,7 +236,7 @@ namespace ParticleMaker.Project
                 }
                 else
                 {
-                    throw new ParticleSetupDoesNotExist(setupName);
+                    throw new ParticleSetupDoesNotExistException(setupName);
                 }
             }
             else

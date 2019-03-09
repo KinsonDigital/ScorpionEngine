@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace ParticleMaker.Project
+namespace ParticleMaker.Management
 {
     /// <summary>
     /// Manages project related settings.
@@ -23,6 +23,8 @@ namespace ParticleMaker.Project
         /// <summary>
         /// Creates a new instance of <see cref="ProjectSettingsManager"/>
         /// </summary>
+        /// <param name="directoryService">The directory service used to manage the project directories.</param>
+        /// <param name="fileService">The file service used to manage project setting files.</param>
         public ProjectSettingsManager(IDirectoryService directoryService, IFileService fileService)
         {
             _directoryService = directoryService;
@@ -67,10 +69,10 @@ namespace ParticleMaker.Project
         /// <returns></returns>
         public ProjectSettings Load(string projectName)
         {
-            var filePath = $@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json";
-
             if (ProjectExists(projectName))
             {
+                var filePath = $@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json";
+
                 var projSettings = _fileService.Load<ProjectSettings>(filePath);
 
                 if (projSettings != null && projSettings.SetupDeploySettings == null)
@@ -113,10 +115,10 @@ namespace ParticleMaker.Project
         /// <param name="newSetupName">The new name to change the <paramref name="currentSetupName"/> to.</param>
         public void RenameDeploymentSetupName(string projectName, string currentSetupName, string newSetupName)
         {
-            var projectDirPath = $@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json";
-
             if (ProjectExists(projectName))
             {
+                var projectDirPath = $@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json";
+
                 var projSettings = _fileService.Load<ProjectSettings>(projectDirPath);
 
                 var deploySetting = (from s in projSettings.SetupDeploySettings

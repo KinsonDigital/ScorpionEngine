@@ -1,12 +1,12 @@
 ﻿using Moq;
 using NUnit.Framework;
 using ParticleMaker.Exceptions;
-using ParticleMaker.Project;
+using ParticleMaker.Management;
 using ParticleMaker.Services;
 using System;
 using System.Linq;
 
-namespace ParticleMaker.Tests.Project
+namespace ParticleMaker.Tests.Management
 {
     [TestFixture]
     public class ProjectSettingsManagerTests
