@@ -1129,6 +1129,8 @@ namespace ParticleMaker.ViewModels
 
                 NotifyAllPropChanges(propNames.ToArray());
 
+                NotifyPropChange(nameof(CurrentLoadedSetup));
+
                 _graphicsEngine.Play();
             }
             catch (Exception ex)
