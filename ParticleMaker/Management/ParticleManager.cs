@@ -36,13 +36,13 @@ namespace ParticleMaker.Management
         #region Public Methods
         public void AddParticle(string projectName, string setupName, string particleSrcPath, bool overwriteDestination = false)
         {
-            var projectPath = $@"{_rootProjectsPath}\{projectName}";
-            var destPath = $@"{projectPath}\Setups\{setupName}\{Path.GetFileName(particleSrcPath)}";
-
             if (ProjectExists(projectName))
             {
                 if (SetupExists(projectName, setupName))
                 {
+                    var projectPath = $@"{_rootProjectsPath}\{projectName}";
+                    var destPath = $@"{projectPath}\Setups\{setupName}\{Path.GetFileName(particleSrcPath)}";
+
                     _fileService.Copy(particleSrcPath, destPath, overwriteDestination);
                 }
                 else
@@ -55,7 +55,17 @@ namespace ParticleMaker.Management
                 throw new ProjectDoesNotExistException(projectName);
             }
         }
+        #endregion
 
+
+        #region Private Methods
+        /// <summary>
+        /// Returns a value indicating if a setup with the given <paramref name="setupName"/>
+        /// exists in a project with the given <paramref name="projectName"/>.
+        /// </summary>
+        /// <param name="projectName">The name of the project that the setup exists in.</param>
+        /// <param name="setupName">The name of the setup to check for.</param>
+        /// <returns></returns>
         private bool SetupExists(string projectName, string setupName)
         {
             var setupDirectory = $@"{_rootProjectsPath}\{projectName}\Setups\{setupName}";
@@ -66,10 +76,8 @@ namespace ParticleMaker.Management
                 _directoryService.Exists(setupDirectory) &&
                 _fileService.Exists(setupFilePath);
         }
-        #endregion
 
 
-        #region Private Methods
         /// <summary>
         /// Returns a value indicating if a project with the given <paramref name="name"/> exists.
         /// </summary>

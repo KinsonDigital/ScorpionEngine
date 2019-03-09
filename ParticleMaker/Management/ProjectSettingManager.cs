@@ -69,10 +69,10 @@ namespace ParticleMaker.Management
         /// <returns></returns>
         public ProjectSettings Load(string projectName)
         {
-            var filePath = $@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json";
-
             if (ProjectExists(projectName))
             {
+                var filePath = $@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json";
+
                 var projSettings = _fileService.Load<ProjectSettings>(filePath);
 
                 if (projSettings != null && projSettings.SetupDeploySettings == null)
@@ -115,10 +115,10 @@ namespace ParticleMaker.Management
         /// <param name="newSetupName">The new name to change the <paramref name="currentSetupName"/> to.</param>
         public void RenameDeploymentSetupName(string projectName, string currentSetupName, string newSetupName)
         {
-            var projectDirPath = $@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json";
-
             if (ProjectExists(projectName))
             {
+                var projectDirPath = $@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json";
+
                 var projSettings = _fileService.Load<ProjectSettings>(projectDirPath);
 
                 var deploySetting = (from s in projSettings.SetupDeploySettings

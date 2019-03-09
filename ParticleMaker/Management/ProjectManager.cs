@@ -131,15 +131,16 @@ namespace ParticleMaker.Management
         /// <param name="newName">The new name to give the project.</param>
         public void Rename(string name, string newName)
         {
-            var oldProjectDir = $@"{_projectsPath}\{name}";
-            var newProjecDir = $@"{_projectsPath}\{newName}";
-
             //If the project name is illegal, throw an exception
             if (string.IsNullOrEmpty(newName) || newName.ContainsIllegalFileNameCharacters())
                 throw new IllegalProjectNameException(newName);
 
+            var oldProjectDir = $@"{_projectsPath}\{name}";
+
             if (_directoryService.Exists(oldProjectDir))
             {
+                var newProjecDir = $@"{_projectsPath}\{newName}";
+
                 _directoryService.Rename(oldProjectDir, newName);
             }
             else
