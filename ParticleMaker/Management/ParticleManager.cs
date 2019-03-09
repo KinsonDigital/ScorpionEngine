@@ -38,7 +38,7 @@ namespace ParticleMaker.Management
         /// Adds the new particle at the given <paramref name="particleSrcPath"/> in a setup with the given
         /// <paramref name="setupName"/> in a project with the given <paramref name="projectName"/>.
         /// </summary>
-        /// <param name="projectName">The name of the project that owns the setup to add the particle to.</param>
+        /// <param name="projectName">The name of the project to add the particle to.</param>
         /// <param name="setupName">The name of the setup to add the particle to.</param>
         /// <param name="particleSrcPath">The file path to the particle to add/copy to the setup.</param>
         /// <param name="overwriteDestination">True if the particle should be overwritten in the setup directory.</param>
@@ -69,9 +69,9 @@ namespace ParticleMaker.Management
         /// Renames the <paramref name="currentParticleName"/> to the new given <paramref name="newParticleName"/>
         /// in a project that has the given <paramref name="projectName"/> and setup with the given <paramref name="setupName"/>.
         /// </summary>
-        /// <param name="projectName">The name of the project where the particle is located.</param>
-        /// <param name="setupName">The name of the setup where the particle is located.</param>
-        /// <param name="currentParticleName">The current name of the particle to rename.</param>
+        /// <param name="projectName">The name of the project owns the particle.</param>
+        /// <param name="setupName">The name of the setup that owns the particle.</param>
+        /// <param name="currentParticleName">The name of the particle to rename.</param>
         /// <param name="newParticleName">The new name to rename the particle to.</param>
         public void RenameParticle(string projectName, string setupName, string currentParticleName, string newParticleName)
         {
