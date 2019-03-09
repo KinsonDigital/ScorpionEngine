@@ -21,7 +21,6 @@ namespace ParticleMaker
         private IGraphicsEngineFactory _factory;
         private ICoreEngine _coreEngine;
         private SpriteBatch _spriteBatch;
-        private ContentLoader _contentLoader;
         private Renderer _renderer;
         private bool _shuttingDown = false;
         #endregion

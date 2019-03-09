@@ -108,6 +108,7 @@
     <Compile Include="Exceptions\IllegalFileNameCharactersExceptionTests.cs" />
     <Compile Include="Exceptions\IllegalParticleSetupNameExceptionTests.cs" />
     <Compile Include="Exceptions\InvalidCommandActionParamTypeExceptionTests.cs" />
+    <Compile Include="Exceptions\ParticleDoesNotExistExceptionTests.cs" />
     <Compile Include="Exceptions\ParticleSetupAlreadyExistsExceptionTests.cs" />
     <Compile Include="Exceptions\ParticleSetupDoesNotExistExceptionTests.cs" />
     <Compile Include="Management\DeploymentSettingTests.cs" />

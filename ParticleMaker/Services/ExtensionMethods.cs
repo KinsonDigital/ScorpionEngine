@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using ParticleMaker.Exceptions;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace ParticleMaker.Services
@@ -6,6 +8,7 @@ namespace ParticleMaker.Services
     /// <summary>
     /// Provides extension methods for the classes in the <see cref="Services"/> namespace.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public static class ExtensionMethods
     {
         /// <summary>
@@ -17,10 +20,15 @@ namespace ParticleMaker.Services
         /// <returns></returns>
         public static ParticleTexture Load(this IFileService service, string path, GraphicsDevice grfxDevice)
         {
-            using (var file = File.OpenRead(path))
+            if (service.Exists(path))
             {
-                return new ParticleTexture(Texture2D.FromStream(grfxDevice, file));
+                using (var file = File.OpenRead(path))
+                {
+                    return new ParticleTexture(Texture2D.FromStream(grfxDevice, file));
+                }
             }
+
+            throw new ParticleDoesNotExistException();
         }
     }
 }
