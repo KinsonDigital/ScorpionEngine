@@ -10,8 +10,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using FolderDialogResult = System.Windows.Forms.DialogResult;
-using FolderDialog = System.Windows.Forms.FolderBrowserDialog;
 
 namespace ParticleMaker.UserControls
 {
@@ -174,34 +172,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void AddParticleButton_Click(object sender, EventArgs e)
         {
-            var invalidValues = Particles.Select(s =>
-            {
-                var sections = s.FilePath.Split('\\');
-
-                if (sections.Length > 0)
-                    return Path.GetFileNameWithoutExtension(sections[sections.Length - 1]);
-
-                return "";
-            }).ToArray();
-
-            if (invalidValues.All(item => string.IsNullOrEmpty(item)))
-                invalidValues = null;
-
-            var folderDialog = new FolderDialog
-            {
-                Description = "Choose particle to add . . .",
-                SelectedPath = @"C:\"
-            };
-
-            
-            var dialogResult = folderDialog.ShowDialog();
-
-            if (dialogResult == FolderDialogResult.OK)
-            {
-                AddItemCommand?.Execute(new AddParticleEventArgs(folderDialog.SelectedPath));
-
-                Refresh();
-            }
+            AddItemCommand?.Execute(null);
+            Refresh();
         }
 
 

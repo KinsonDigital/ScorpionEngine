@@ -12,12 +12,14 @@ using System.Threading;
 using ParticleMaker.Management;
 using ParticleMaker.Dialogs;
 using System.Windows;
-using WPFMsgBox = System.Windows.MessageBox;
 using ParticleMaker.UserControls;
 using System.Linq;
 using ParticleMaker.Services;
 using ParticleMaker.CustomEventArgs;
 using ParticleMaker.Exceptions;
+using WPFMsgBox = System.Windows.MessageBox;
+using FolderDialog = System.Windows.Forms.FolderBrowserDialog;
+using FolderDialogResult = System.Windows.Forms.DialogResult;
 
 namespace ParticleMaker.ViewModels
 {
@@ -33,6 +35,7 @@ namespace ParticleMaker.ViewModels
         private readonly ProjectSettingsManager _projectSettingsManager;
         private readonly SetupManager _setupManager;
         private readonly SetupDeployService _setupDeployService;
+        private readonly ParticleManager _particleManager;
         private CancellationTokenSource _cancelTokenSrc;
         private Task _startupTask;
         private RelayCommand _newProjectCommand;
@@ -62,16 +65,18 @@ namespace ParticleMaker.ViewModels
         /// <param name="projectManager">Manages the project.</param>
         /// <param name="projectSettingsManager">Manages all of the project related settings.</param>
         /// <param name="setupManager">Manages the setups within a project.</param>
+        /// <param name="setupDeployService">The service responsible for deploying setups.</param>
         [ExcludeFromCodeCoverage]
         public MainViewModel(GraphicsEngine graphicsEngine, ProjectManager projectManager,
-            ProjectSettingsManager projectSettingsManager,
-            SetupManager setupManager, SetupDeployService setupDeployService)
+            ProjectSettingsManager projectSettingsManager, SetupManager setupManager,
+            SetupDeployService setupDeployService, ParticleManager particleManager)
         {
             _graphicsEngine = graphicsEngine;
             _projectManager = projectManager;
             _projectSettingsManager = projectSettingsManager;
             _setupManager = setupManager;
             _setupDeployService = setupDeployService;
+            _particleManager = particleManager;
         }
         #endregion
 
@@ -1202,7 +1207,17 @@ namespace ParticleMaker.ViewModels
         [ExcludeFromCodeCoverage]
         private void AddParticleExecute(object param)
         {
+            var openFileDialog = new OpenFileDialog()
+            {
+                Title = "Choose particle to add . . .",
+                InitialDirectory = @"C:\"
+            };
 
+            
+            if (openFileDialog.ShowDialog() == FolderDialogResult.OK)
+            {
+                //_particleManager.AddParticle(CurrentOpenProject, CurrentLoadedSetup, openFileDialog.FileName, true);
+            }
         }
         #endregion
         #endregion
