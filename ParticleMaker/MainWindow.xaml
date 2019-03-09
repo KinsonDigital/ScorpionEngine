@@ -228,9 +228,22 @@
         </StackPanel>
 
         <!--LIVE STATUS-->
-        <GroupBox Grid.Row="2" Margin="10">
+        <GroupBox Grid.Row="2" Margin="10" IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}">
             <GroupBox.Header>
-                <HeaderedContentControl FontWeight="Bold" Content="Live Stats"/>
+                <HeaderedContentControl FontWeight="Bold" Content="Live Stats">
+                    <HeaderedContentControl.Style>
+                        <Style TargetType="HeaderedContentControl">
+                            <Setter Property="Foreground" Value="Gray"/>
+
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
+                                             Value="True">
+                                    <Setter Property="Foreground" Value="Black"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </HeaderedContentControl.Style>
+                </HeaderedContentControl>
             </GroupBox.Header>
 
             <!--TOTAL NUMBER OF PARTICLES-->
