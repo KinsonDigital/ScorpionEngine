@@ -49,6 +49,7 @@ namespace ParticleMaker.ViewModels
         private RelayCommand _deleteProjectCommand;
         private RelayCommand _renameSetupCommand;
         private RelayCommand _deleteSetupCommand;
+        private RelayCommand _addParticleCommand;
         private string _currentOpenProject;
         #endregion
 
@@ -679,6 +680,18 @@ namespace ParticleMaker.ViewModels
                 return _deleteSetupCommand;
             }
         }
+
+        public RelayCommand AddParticle
+        {
+            get
+            {
+                if (_addParticleCommand == null)
+                    _addParticleCommand = new RelayCommand(AddParticleExecute, (param) => true);
+
+
+                return _addParticleCommand;
+            }
+        }
         #endregion
         #endregion
 
@@ -1179,6 +1192,17 @@ namespace ParticleMaker.ViewModels
 
                 NotifyPropChange(nameof(ProjectSetups));
             }
+        }
+
+
+        /// <summary>
+        /// Adds a particle to a setup in a project.
+        /// </summary>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
+        [ExcludeFromCodeCoverage]
+        private void AddParticleExecute(object param)
+        {
+
         }
         #endregion
         #endregion

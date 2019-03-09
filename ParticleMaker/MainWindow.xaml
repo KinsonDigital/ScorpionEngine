@@ -55,6 +55,7 @@
 
             <!--PARTICLE LIST-->
             <ctrls:ParticleList x:Name="ParticleList"
+                                AddItemCommand="{Binding AddParticle}"
                                 IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
                                 Margin="10" Particles="{Binding Path=Particles, Mode=TwoWay}"/>
 
