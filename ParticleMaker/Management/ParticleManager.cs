@@ -1,5 +1,6 @@
 ﻿using ParticleMaker.Exceptions;
 using ParticleMaker.Services;
+using System;
 using System.IO;
 using System.Reflection;
 
@@ -34,6 +35,14 @@ namespace ParticleMaker.Management
 
 
         #region Public Methods
+        /// <summary>
+        /// Adds the new particle at the given <paramref name="particleSrcPath"/> in a setup with the given
+        /// <paramref name="setupName"/> in a project with the given <paramref name="projectName"/>.
+        /// </summary>
+        /// <param name="projectName">The name of the project that owns the setup to add the particle to.</param>
+        /// <param name="setupName">The name of the setup to add the particle to.</param>
+        /// <param name="particleSrcPath">The file path to the particle to add/copy to the setup.</param>
+        /// <param name="overwriteDestination">True if the particle should be overwritten in the setup directory.</param>
         public void AddParticle(string projectName, string setupName, string particleSrcPath, bool overwriteDestination = false)
         {
             if (ProjectExists(projectName))
@@ -44,6 +53,37 @@ namespace ParticleMaker.Management
                     var destPath = $@"{projectPath}\Setups\{setupName}\{Path.GetFileName(particleSrcPath)}";
 
                     _fileService.Copy(particleSrcPath, destPath, overwriteDestination);
+                }
+                else
+                {
+                    throw new ParticleSetupDoesNotExistException(setupName);
+                }
+            }
+            else
+            {
+                throw new ProjectDoesNotExistException(projectName);
+            }
+        }
+
+
+        /// <summary>
+        /// Renames the <paramref name="currentParticleName"/> to the new given <paramref name="newParticleName"/>
+        /// in a project that has the given <paramref name="projectName"/> and setup with the given <paramref name="setupName"/>.
+        /// </summary>
+        /// <param name="projectName">The name of the project where the particle is located.</param>
+        /// <param name="setupName">The name of the setup where the particle is located.</param>
+        /// <param name="currentParticleName">The current name of the particle to rename.</param>
+        /// <param name="newParticleName">The new name to rename the particle to.</param>
+        public void RenameParticle(string projectName, string setupName, string currentParticleName, string newParticleName)
+        {
+            if (ProjectExists(projectName))
+            {
+                if (SetupExists(projectName, setupName))
+                {
+                    var setupDirPath = $@"{_rootProjectsPath}\{projectName}\Setups\{setupName}";
+                    var particleFilePath = $@"{setupDirPath}\{currentParticleName}.png";
+
+                    _fileService.Rename(particleFilePath, newParticleName);
                 }
                 else
                 {
