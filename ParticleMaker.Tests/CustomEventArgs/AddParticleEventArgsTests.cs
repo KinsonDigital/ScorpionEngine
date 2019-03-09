@@ -4,7 +4,7 @@ using ParticleMaker.CustomEventArgs;
 namespace ParticleMaker.Tests.CustomEventArgs
 {
     [TestFixture]
-    public class AddSetupClickedEventArgsTests
+    public class AddParticleEventArgsTests
     {
         #region Constructor Tests
         [Test]
@@ -14,8 +14,8 @@ namespace ParticleMaker.Tests.CustomEventArgs
             var expected = "test-item";
 
             //Act
-            var eventArgs = new AddItemClickedEventArgs("test-item");
-            var actual = eventArgs.ItemName;
+            var eventArgs = new AddParticleEventArgs("test-item");
+            var actual = eventArgs.ParticleFilePath;
 
             //Assert
             Assert.AreEqual(expected, actual);

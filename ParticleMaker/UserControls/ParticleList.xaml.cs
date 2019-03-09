@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using FolderDialogResult = System.Windows.Forms.DialogResult;
+using FolderDialog = System.Windows.Forms.FolderBrowserDialog;
 
 namespace ParticleMaker.UserControls
 {
@@ -185,17 +187,18 @@ namespace ParticleMaker.UserControls
             if (invalidValues.All(item => string.IsNullOrEmpty(item)))
                 invalidValues = null;
 
-            var inputDialog = new InputDialog("Add Particle", "Please type new particle name.", invalidChars: _illegalCharacters, invalidValues: invalidValues)
+            var folderDialog = new FolderDialog
             {
-                Owner = this.FindParent<Window>(),
-                IgnoreInvalidValueCasing = true
+                Description = "Choose particle to add . . .",
+                SelectedPath = @"C:\"
             };
-            
-            var dialogResult = inputDialog.ShowDialog();
 
-            if (dialogResult == true)
+            
+            var dialogResult = folderDialog.ShowDialog();
+
+            if (dialogResult == FolderDialogResult.OK)
             {
-                AddItemCommand?.Execute(new AddItemClickedEventArgs($"{inputDialog.InputValue}.png"));
+                AddItemCommand?.Execute(new AddParticleEventArgs(folderDialog.SelectedPath));
 
                 Refresh();
             }
