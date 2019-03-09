@@ -7,6 +7,8 @@ using ParticleMaker.CustomEventArgs;
 using ParticleMaker.Services;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Reflection;
 using CoreTexture = KDScorpionCore.Graphics.Texture;
 
 namespace ParticleMaker
@@ -21,7 +23,6 @@ namespace ParticleMaker
         private IGraphicsEngineFactory _factory;
         private ICoreEngine _coreEngine;
         private SpriteBatch _spriteBatch;
-        private ContentLoader _contentLoader;
         private Renderer _renderer;
         private bool _shuttingDown = false;
         #endregion
@@ -89,8 +90,8 @@ namespace ParticleMaker
         /// </summary>
         public string[] TexturePaths { get; set; } = new string[] 
         {
-            @"C:\SOFTWARE DEVELOPMENT\PERSONAL\ScorpionEngine\ParticleMaker\Content\Arrow.png",
-            @"C:\SOFTWARE DEVELOPMENT\PERSONAL\ScorpionEngine\ParticleMaker\Content\Star.png"
+            $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Content\Arrow.png",
+            $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Content\Star.png"
         };
         #endregion
 
