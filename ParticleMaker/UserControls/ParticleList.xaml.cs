@@ -21,11 +21,6 @@ namespace ParticleMaker.UserControls
     {
         #region Public Events
         /// <summary>
-        /// Occurs when then add particle button is clicked.
-        /// </summary>
-        public event EventHandler<AddItemClickedEventArgs> AddParticleClicked;
-
-        /// <summary>
         /// Occurs when any item in the list has been renamed.
         /// </summary>
         public event EventHandler<RenameItemEventArgs> ItemRenamed;
@@ -82,6 +77,12 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public static readonly DependencyProperty ItemDeletedCommandProperty =
             DependencyProperty.Register(nameof(ItemDeletedCommand), typeof(ICommand), typeof(ParticleList), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Registers the <see cref="AddItemCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty AddItemCommandProperty =
+            DependencyProperty.Register(nameof(AddItemCommand), typeof(ICommand), typeof(ParticleList), new PropertyMetadata(null));
         #endregion
 
 
@@ -115,6 +116,15 @@ namespace ParticleMaker.UserControls
         {
             get { return (ICommand)GetValue(ItemDeletedCommandProperty); }
             set { SetValue(ItemDeletedCommandProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the command that is executed when the add item button is clicked.
+        /// </summary>
+        public ICommand AddItemCommand
+        {
+            get { return (ICommand)GetValue(AddItemCommandProperty); }
+            set { SetValue(AddItemCommandProperty, value); }
         }
         #endregion
 
@@ -201,7 +211,7 @@ namespace ParticleMaker.UserControls
 
             if (dialogResult == true)
             {
-                AddParticleClicked?.Invoke(this, new AddItemClickedEventArgs($"{inputDialog.InputValue}.png"));
+                AddItemCommand?.Execute(new AddItemClickedEventArgs($"{inputDialog.InputValue}.png"));
 
                 Refresh();
             }
