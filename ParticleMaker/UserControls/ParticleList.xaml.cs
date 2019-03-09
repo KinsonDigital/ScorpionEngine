@@ -21,11 +21,6 @@ namespace ParticleMaker.UserControls
     {
         #region Public Events
         /// <summary>
-        /// Occurs when any item in the list has been renamed.
-        /// </summary>
-        public event EventHandler<RenameItemEventArgs> ItemRenamed;
-
-        /// <summary>
         /// Occurs when any item in the list has been deleted.
         /// </summary>
         public event EventHandler<ItemEventArgs> ItemDeleted;
@@ -67,10 +62,10 @@ namespace ParticleMaker.UserControls
             DependencyProperty.Register(nameof(Particles), typeof(PathItem[]), typeof(ParticleList), new PropertyMetadata(new PathItem[0], ParticlesChanged));
 
         /// <summary>
-        /// Registers the <see cref="ItemRenamedCommand"/> property.
+        /// Registers the <see cref="RenameItemCommand"/> property.
         /// </summary>
-        public static readonly DependencyProperty ItemRenamedCommandProperty =
-            DependencyProperty.Register(nameof(ItemRenamedCommand), typeof(ICommand), typeof(ParticleList), new PropertyMetadata(null));
+        public static readonly DependencyProperty RenameItemCommandProperty =
+            DependencyProperty.Register(nameof(RenameItemCommand), typeof(ICommand), typeof(ParticleList), new PropertyMetadata(null));
 
         /// <summary>
         /// Registers the <see cref="ItemDeletedCommand"/> property.
@@ -103,10 +98,10 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Gets or sets the command that is executed when a list item rename button has been clicked.
         /// </summary>
-        public ICommand ItemRenamedCommand
+        public ICommand RenameItemCommand
         {
-            get { return (ICommand)GetValue(ItemRenamedCommandProperty); }
-            set { SetValue(ItemRenamedCommandProperty, value); }
+            get { return (ICommand)GetValue(RenameItemCommandProperty); }
+            set { SetValue(RenameItemCommandProperty, value); }
         }
 
         /// <summary>
@@ -274,10 +269,10 @@ namespace ParticleMaker.UserControls
             foreach (var item in listItems)
             {
                 if (item.RenameClickedCommand == null)
-                    item.RenameClickedCommand = new RelayCommand(RenameCommandAction, (param) => true);
+                    item.RenameClickedCommand = new RelayCommand(RenameItemCommandExecute, (param) => true);
 
                 if (item.DeleteClickedCommand == null)
-                    item.DeleteClickedCommand = new RelayCommand(DeleteCommandAction, (param) => true);
+                    item.DeleteClickedCommand = new RelayCommand(DeleteItemCommandExecute, (param) => true);
             }
         }
 
@@ -301,10 +296,10 @@ namespace ParticleMaker.UserControls
         /// The method to execute when a list item rename button has been clicked.
         /// </summary>
         /// <param name="param">The rename related data.</param>
-        private void RenameCommandAction(object param)
+        private void RenameItemCommandExecute(object param)
         {
             if (!(param is RenameItemEventArgs eventArgs))
-                throw new InvalidCommandActionParamTypeException(nameof(RenameCommandAction), nameof(param));
+                throw new InvalidCommandActionParamTypeException(nameof(RenameItemCommandExecute), nameof(param));
 
             var illegalNames = (from particle in Particles select Path.GetFileNameWithoutExtension(particle.FilePath)).ToArray();
 
@@ -320,7 +315,7 @@ namespace ParticleMaker.UserControls
                 eventArgs.NewName = inputDialog.InputValue;
                 eventArgs.NewPath = $@"{Path.GetDirectoryName(eventArgs.OldPath)}\{inputDialog.InputValue}{Path.GetExtension(eventArgs.OldPath)}";
 
-                ItemRenamedCommand?.Execute(param);
+                RenameItemCommand?.Execute(param);
             }
         }
 
@@ -329,10 +324,10 @@ namespace ParticleMaker.UserControls
         /// The method to execute when a list item delete button has been clicked.
         /// </summary>
         /// <param name="param">The setup item related data.</param>
-        private void DeleteCommandAction(object param)
+        private void DeleteItemCommandExecute(object param)
         {
             if (!(param is ItemEventArgs eventArgs))
-                throw new InvalidCommandActionParamTypeException(nameof(DeleteCommandAction), nameof(param));
+                throw new InvalidCommandActionParamTypeException(nameof(DeleteItemCommandExecute), nameof(param));
 
             var msg = $"Are you sure you want to delete the particle named '{eventArgs.Name}'?";
 

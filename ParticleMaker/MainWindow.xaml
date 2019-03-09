@@ -54,7 +54,7 @@
                              DeleteItemCommand="{Binding Path=DeleteSetup}"/>
 
             <!--PARTICLE LIST-->
-            <ctrls:ParticleList x:Name="ParticleList" ItemRenamedCommand="{Binding Path=MyCommand}"
+            <ctrls:ParticleList x:Name="ParticleList"
                                 IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
                                 Margin="10" Particles="{Binding Path=Particles, Mode=TwoWay}"/>
 
