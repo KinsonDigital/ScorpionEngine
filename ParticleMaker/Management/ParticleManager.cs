@@ -1,6 +1,5 @@
 ﻿using ParticleMaker.Exceptions;
 using ParticleMaker.Services;
-using System;
 using System.IO;
 using System.Reflection;
 
@@ -84,6 +83,36 @@ namespace ParticleMaker.Management
                     var particleFilePath = $@"{setupDirPath}\{currentParticleName}.png";
 
                     _fileService.Rename(particleFilePath, newParticleName);
+                }
+                else
+                {
+                    throw new ParticleSetupDoesNotExistException(setupName);
+                }
+            }
+            else
+            {
+                throw new ProjectDoesNotExistException(projectName);
+            }
+        }
+
+
+        /// <summary>
+        /// Deletes a particle with the given <paramref name="particleName"/> in a setup
+        /// with the given <paramref name="setupName"/> in a project with the given <paramref name="projectName"/>.
+        /// </summary>
+        /// <param name="projectName">The name of the project that owns the particle.</param>
+        /// <param name="setupName">The name of the setup that owns the particle.</param>
+        /// <param name="particleName">The name of the particle.</param>
+        public void DeleteParticle(string projectName, string setupName, string particleName)
+        {
+            if (ProjectExists(projectName))
+            {
+                if (SetupExists(projectName, setupName))
+                {
+                    var setupDirPath = $@"{_rootProjectsPath}\{projectName}\Setups\{setupName}";
+                    var particleFilePath = $@"{setupDirPath}\{particleName}.png";
+
+                    _fileService.Delete(particleFilePath);
                 }
                 else
                 {
