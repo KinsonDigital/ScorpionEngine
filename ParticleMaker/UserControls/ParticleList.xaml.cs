@@ -19,14 +19,6 @@ namespace ParticleMaker.UserControls
     [ExcludeFromCodeCoverage]
     public partial class ParticleList : UserControl
     {
-        #region Public Events
-        /// <summary>
-        /// Occurs when any item in the list has been deleted.
-        /// </summary>
-        public event EventHandler<ItemEventArgs> ItemDeleted;
-        #endregion
-
-
         #region Fields
         private char[] _illegalCharacters = new[] { '\\', '/', ':', '*', '?', '\"', '<', '>', '|', '.' };
         private Task _refreshTask;
@@ -68,10 +60,10 @@ namespace ParticleMaker.UserControls
             DependencyProperty.Register(nameof(RenameItemCommand), typeof(ICommand), typeof(ParticleList), new PropertyMetadata(null));
 
         /// <summary>
-        /// Registers the <see cref="ItemDeletedCommand"/> property.
+        /// Registers the <see cref="DeleteItemCommand"/> property.
         /// </summary>
-        public static readonly DependencyProperty ItemDeletedCommandProperty =
-            DependencyProperty.Register(nameof(ItemDeletedCommand), typeof(ICommand), typeof(ParticleList), new PropertyMetadata(null));
+        public static readonly DependencyProperty DeleteItemCommandProperty =
+            DependencyProperty.Register(nameof(DeleteItemCommand), typeof(ICommand), typeof(ParticleList), new PropertyMetadata(null));
 
         /// <summary>
         /// Registers the <see cref="AddItemCommand"/> property.
@@ -107,10 +99,10 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Gets or sets the command that is executed when a list item delete button has been clicked.
         /// </summary>
-        public ICommand ItemDeletedCommand
+        public ICommand DeleteItemCommand
         {
-            get { return (ICommand)GetValue(ItemDeletedCommandProperty); }
-            set { SetValue(ItemDeletedCommandProperty, value); }
+            get { return (ICommand)GetValue(DeleteItemCommandProperty); }
+            set { SetValue(DeleteItemCommandProperty, value); }
         }
 
         /// <summary>
@@ -171,9 +163,7 @@ namespace ParticleMaker.UserControls
             var dialogResult = MessageBox.Show(msg, "Delete Particle", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (dialogResult == MessageBoxResult.Yes)
-            {
-                ItemDeleted?.Invoke(this, e);
-            }
+                DeleteItemCommand?.Execute(e);
         }
 
 
@@ -188,7 +178,6 @@ namespace ParticleMaker.UserControls
 
                 if (sections.Length > 0)
                     return Path.GetFileNameWithoutExtension(sections[sections.Length - 1]);
-
 
                 return "";
             }).ToArray();
@@ -334,7 +323,7 @@ namespace ParticleMaker.UserControls
             var dialogResult = MessageBox.Show(msg, "Delete Particle", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (dialogResult == MessageBoxResult.Yes)
-                ItemDeletedCommand?.Execute(eventArgs);
+                DeleteItemCommand?.Execute(eventArgs);
         }
         #endregion
     }
