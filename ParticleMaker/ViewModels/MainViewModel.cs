@@ -1147,12 +1147,22 @@ namespace ParticleMaker.ViewModels
 
                 SetupDeploymentPath = deployPath;
 
+                //Get the list of all the particles
+                Particles = (from p in _particleManager.GetParticlePaths(CurrentOpenProject, CurrentLoadedSetup)
+                             select new PathItem()
+                             {
+                                 FilePath = p
+                             }).ToArray();
+
+                _graphicsEngine.TexturePaths = (from p in Particles select p.FilePath).ToArray();
+
                 var propNames = setupData.GetPropertyNames().ToList();
 
                 propNames.Add(nameof(SetupDeploymentPath));
 
                 NotifyAllPropChanges(propNames.ToArray());
 
+                NotifyPropChange(nameof(Particles));
                 NotifyPropChange(nameof(CurrentLoadedSetup));
 
                 _graphicsEngine.Play();
@@ -1244,7 +1254,20 @@ namespace ParticleMaker.ViewModels
             {
                 _particleManager.AddParticle(CurrentOpenProject, CurrentLoadedSetup, openFileDialog.FileName, true);
 
-                //NotifyPropChange(nameof(Particles));
+                //Get the list of all the particles
+                Particles = (from p in _particleManager.GetParticlePaths(CurrentOpenProject, CurrentLoadedSetup)
+                             select new PathItem()
+                             {
+                                 FilePath = p
+                             }).ToArray();
+
+                _graphicsEngine.Pause();
+
+                _graphicsEngine.TexturePaths = (from p in Particles select p.FilePath).ToArray();
+
+                _graphicsEngine.Play();
+
+                NotifyPropChange(nameof(Particles));
             }
         }
 

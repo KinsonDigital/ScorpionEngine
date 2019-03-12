@@ -104,6 +104,9 @@
             </Label.Style>
         </Label>
 
+        <!--THUMBNAIL BACKDROP-->
+        <Rectangle Width="25" Height="25" Margin="10, 0, 0, 0" Grid.Column="1" Fill="CornflowerBlue"/>
+        
         <!--PARTICLE THUMBNAIL-->
         <Image x:Name="ThumbnailImage" Width="25" Height="25" Margin="10, 0, 0, 0" Grid.Column="1">
             <Image.Style>

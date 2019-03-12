@@ -88,11 +88,7 @@ namespace ParticleMaker
         /// <summary>
         /// This list of paths to all of the texture to load and render.
         /// </summary>
-        public string[] TexturePaths { get; set; } = new string[] 
-        {
-            $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Content\Arrow.png",
-            $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Content\Star.png"
-        };
+        public string[] TexturePaths { get; set; } = new string[0];
         #endregion
 
 

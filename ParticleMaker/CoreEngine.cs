@@ -103,6 +103,7 @@ namespace ParticleMaker
         public void Play()
         {
             IsRunning = true;
+            LoadContent();
         }
 
 
@@ -116,6 +117,7 @@ namespace ParticleMaker
                 GraphicsDevice?.Clear(new Color(40, 40, 40, 255));
 
             IsRunning = false;
+            UnloadContent();
         }
         #endregion
 
