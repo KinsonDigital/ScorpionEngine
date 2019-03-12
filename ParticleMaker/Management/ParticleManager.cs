@@ -1,6 +1,8 @@
 ﻿using ParticleMaker.Exceptions;
 using ParticleMaker.Services;
+using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace ParticleMaker.Management
@@ -113,6 +115,37 @@ namespace ParticleMaker.Management
                     var particleFilePath = $@"{setupDirPath}\{particleName}.png";
 
                     _fileService.Delete(particleFilePath);
+                }
+                else
+                {
+                    throw new ParticleSetupDoesNotExistException(setupName);
+                }
+            }
+            else
+            {
+                throw new ProjectDoesNotExistException(projectName);
+            }
+        }
+
+
+        /// <summary>
+        /// Returns a list of the particle path paths for a setup that matches the given
+        /// <paramref name="setupName"/> in a project that matches the given <paramref name="projectName"/>.
+        /// </summary>
+        /// <param name="projectName">The name of the project where the particles are located.</param>
+        /// <param name="setupName">The name of the setup where the particles are located.</param>
+        /// <returns></returns>
+        public string[] GetParticlePaths(string projectName, string setupName)
+        {
+            if (ProjectExists(projectName))
+            {
+                var particlePath = $@"{_rootProjectsPath}\{projectName}\Setups\{setupName}";
+
+                if (SetupExists(projectName, setupName))
+                {
+                    return (from f in _directoryService.GetFiles(particlePath)
+                            where Path.HasExtension(f) && Path.GetExtension(f) == ".png"
+                            select f).ToArray();
                 }
                 else
                 {

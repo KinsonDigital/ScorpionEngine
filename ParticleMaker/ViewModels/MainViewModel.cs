@@ -53,6 +53,7 @@ namespace ParticleMaker.ViewModels
         private RelayCommand _renameSetupCommand;
         private RelayCommand _deleteSetupCommand;
         private RelayCommand _addParticleCommand;
+        private RelayCommand _renameParticleCommand;
         private string _currentOpenProject;
         #endregion
 
@@ -92,6 +93,11 @@ namespace ParticleMaker.ViewModels
         /// Gets or sets the list of project setup paths.
         /// </summary>
         public PathItem[] ProjectSetups { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of setup particles.
+        /// </summary>
+        public PathItem[] Particles { get; set; }
 
         /// <summary>
         /// Gets or sets the window that will be the owner of any dialog windows.
@@ -686,6 +692,9 @@ namespace ParticleMaker.ViewModels
             }
         }
 
+        /// <summary>
+        /// Adds a particle to a selected project setup.
+        /// </summary>
         public RelayCommand AddParticle
         {
             get
@@ -695,6 +704,21 @@ namespace ParticleMaker.ViewModels
 
 
                 return _addParticleCommand;
+            }
+        }
+
+        /// <summary>
+        /// Renames a particle in a project setup.
+        /// </summary>
+        public RelayCommand RenameParticle
+        {
+            get
+            {
+                if (_renameParticleCommand == null)
+                    _renameParticleCommand = new RelayCommand(RenameParticleExecute, (param) => true);
+
+
+                return _renameParticleCommand;
             }
         }
         #endregion
@@ -1218,8 +1242,21 @@ namespace ParticleMaker.ViewModels
             
             if (openFileDialog.ShowDialog() == FolderDialogResult.OK)
             {
-                //_particleManager.AddParticle(CurrentOpenProject, CurrentLoadedSetup, openFileDialog.FileName, true);
+                _particleManager.AddParticle(CurrentOpenProject, CurrentLoadedSetup, openFileDialog.FileName, true);
+
+                //NotifyPropChange(nameof(Particles));
             }
+        }
+
+
+        /// <summary>
+        /// Renames a particle in a project setup.
+        /// </summary>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
+        [ExcludeFromCodeCoverage]
+        private void RenameParticleExecute(object obj)
+        {
+            
         }
         #endregion
         #endregion

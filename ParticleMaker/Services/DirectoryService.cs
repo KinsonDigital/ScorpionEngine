@@ -35,6 +35,7 @@ namespace ParticleMaker.Services
         {
             if (string.IsNullOrEmpty(path))
                 throw new ArgumentException("The argument cannot be null or empty.", nameof(path));
+            
 
             return Directory.Exists(path);
         }
@@ -88,7 +89,23 @@ namespace ParticleMaker.Services
             if (string.IsNullOrEmpty(path))
                 throw new ArgumentException("The argument cannot be null or empty.", nameof(path));
 
+
             return Directory.GetDirectories(path);
+        }
+
+
+        /// <summary>
+        /// Returns the names of files (including their paths) in the given directory.
+        /// </summary>
+        /// <param name="path">The directory to check for files in.</param>
+        /// <returns></returns>
+        public string[] GetFiles(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+                throw new ArgumentException("The argument cannot be null or empty.", nameof(path));
+
+
+            return Directory.GetFiles(path);
         }
         #endregion
     }

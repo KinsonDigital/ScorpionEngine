@@ -87,7 +87,7 @@ namespace ParticleMaker.Tests.Management
         {
             //Arrange
             var mockDirectoryService = new Mock<IDirectoryService>();
-            mockDirectoryService.Setup(m => m.Exists(It.IsAny<string>())).Returns(false);
+            mockDirectoryService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
 
             var mockFileService = new Mock<IFileService>();
 
@@ -217,7 +217,7 @@ namespace ParticleMaker.Tests.Management
         {
             //Arrange
             var mockDirectoryService = new Mock<IDirectoryService>();
-            mockDirectoryService.Setup(m => m.Exists(It.IsAny<string>())).Returns(false);
+            mockDirectoryService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
 
             var mockFileService = new Mock<IFileService>();
 
@@ -347,7 +347,7 @@ namespace ParticleMaker.Tests.Management
         {
             //Arrange
             var mockDirectoryService = new Mock<IDirectoryService>();
-            mockDirectoryService.Setup(m => m.Exists(It.IsAny<string>())).Returns(false);
+            mockDirectoryService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
 
             var mockFileService = new Mock<IFileService>();
 
@@ -397,6 +397,143 @@ namespace ParticleMaker.Tests.Management
             Assert.Throws<ParticleSetupDoesNotExistException>(() =>
             {
                 manager.DeleteParticle("test-project", null, "test-particle");
+            });
+        }
+        
+
+        [Test]
+        public void GetParticlePaths_WhenInvoked_ReturnsListOfParticlePaths()
+        {
+            //Arrange
+            var mockDirectoryService = new Mock<IDirectoryService>();
+            mockDirectoryService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+            mockDirectoryService.Setup(m => m.GetFiles(It.IsAny<string>())).Returns(new string[]
+            {
+                @"C:\temp\particle1.png",
+                @"C:\temp\particle2.png"
+            });
+
+            var mockFileService = new Mock<IFileService>();
+            mockFileService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var manager = new ParticleManager(mockDirectoryService.Object, mockFileService.Object);
+
+            //Act
+            var actual = manager.GetParticlePaths("test-project", "test-setup");
+
+            //Assert
+            mockDirectoryService.Verify(m => m.GetFiles(It.IsAny<string>()), Times.Once());
+        }
+
+
+        [Test]
+        public void GetParticlePaths_WhenInvoked_BuildsCorrectDestinationPath()
+        {
+            //Arrange
+            var expected = @"\test-project\Setups\test-setup";
+            var actual = string.Empty;
+            var mockDirectoryService = new Mock<IDirectoryService>();
+            mockDirectoryService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+            mockDirectoryService.Setup(m => m.GetFiles(It.IsAny<string>())).Returns<string>((path) =>
+            {
+                var sections = path.Split(new string[] { "Projects" }, StringSplitOptions.RemoveEmptyEntries);
+
+                actual = sections.Length < 2 ?
+                    "" :
+                    sections[1];
+
+                return new string[]
+                {
+                    @"C:\temp\particle1.png",
+                    @"C:\temp\particle2.png"
+                };
+            });
+
+            var mockFileService = new Mock<IFileService>();
+            mockFileService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var manager = new ParticleManager(mockDirectoryService.Object, mockFileService.Object);
+
+            //Act
+            manager.GetParticlePaths("test-project", "test-setup");
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void GetParticlePaths_WhenInvokedWithNoExistingProject_ThrowsException()
+        {
+            var mockDirectoryService = new Mock<IDirectoryService>();
+            mockDirectoryService.Setup(m => m.Exists(It.IsAny<string>())).Returns(false);
+
+            var mockFileService = new Mock<IFileService>();
+            mockFileService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var manager = new ParticleManager(mockDirectoryService.Object, mockFileService.Object);
+
+            //Act & Assert
+            Assert.Throws<ProjectDoesNotExistException>(() =>
+            {
+                manager.GetParticlePaths("test-project", It.IsAny<string>());
+            });
+        }
+
+
+        [Test]
+        public void GetParticlePaths_WhenInvokedWithNullProjectName_ThrowsException()
+        {
+            var mockDirectoryService = new Mock<IDirectoryService>();
+            mockDirectoryService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var mockFileService = new Mock<IFileService>();
+            mockFileService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var manager = new ParticleManager(mockDirectoryService.Object, mockFileService.Object);
+
+            //Act & Assert
+            Assert.Throws<ProjectDoesNotExistException>(() =>
+            {
+                manager.GetParticlePaths(null, It.IsAny<string>());
+            });
+        }
+
+
+        [Test]
+        public void GetParticlePaths_WhenInvokedWithNoExistingSetup_ThrowsException()
+        {
+            var mockDirectoryService = new Mock<IDirectoryService>();
+            mockDirectoryService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var mockFileService = new Mock<IFileService>();
+            mockFileService.Setup(m => m.Exists(It.IsAny<string>())).Returns(false);
+
+            var manager = new ParticleManager(mockDirectoryService.Object, mockFileService.Object);
+
+            //Act & Assert
+            Assert.Throws<ParticleSetupDoesNotExistException>(() =>
+            {
+                manager.GetParticlePaths("test-project", "test-setup");
+            });
+        }
+
+
+        [Test]
+        public void GetParticlePaths_WhenInvokedWithNullSetupName_ThrowsException()
+        {
+            var mockDirectoryService = new Mock<IDirectoryService>();
+            mockDirectoryService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var mockFileService = new Mock<IFileService>();
+            mockFileService.Setup(m => m.Exists(It.IsAny<string>())).Returns(false);
+
+            var manager = new ParticleManager(mockDirectoryService.Object, mockFileService.Object);
+
+            //Act & Assert
+            Assert.Throws<ParticleSetupDoesNotExistException>(() =>
+            {
+                manager.GetParticlePaths("test-project", null);
             });
         }
         #endregion

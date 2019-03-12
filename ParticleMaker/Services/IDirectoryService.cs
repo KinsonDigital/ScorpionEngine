@@ -12,7 +12,7 @@
         /// the OS directory naming rules.
         /// </summary>
         /// <param name="path">The name of the project.</param>
-        void Create(string folder);
+        void Create(string path);
 
 
         /// <summary>
@@ -20,7 +20,7 @@
         /// </summary>
         /// <param name="path">The directory path to check for.</param>
         /// <returns></returns>
-        bool Exists(string folder);
+        bool Exists(string path);
 
 
         /// <summary>
@@ -28,7 +28,7 @@
         /// </summary>
         /// <param name="path">The directory to delete.</param>
         /// <returns></returns>
-        void Delete(string folder);
+        void Delete(string path);
 
 
         /// <summary>
@@ -36,7 +36,7 @@
         /// </summary>
         /// <param name="path">The directory to rename</param>
         /// <param name="newName">The new name to give the directory.</param>
-        void Rename(string folder, string newName);
+        void Rename(string path, string newName);
 
 
         /// <summary>
@@ -45,6 +45,14 @@
         /// <param name="path">The directory path of where to get the list of directories from.</param>
         /// <returns></returns>
         string[] GetDirectories(string folder);
+
+
+        /// <summary>
+        /// Returns the names of files (including their paths) in the given directory.
+        /// </summary>
+        /// <param name="path">The directory to check for files in.</param>
+        /// <returns></returns>
+        string[] GetFiles(string path);
         #endregion
     }
 }
