@@ -43,9 +43,12 @@ namespace ParticleMaker
             
             _coreEngine = _factory.CoreEngine;
 
-            _coreEngine.OnLoadContent += _coreEngine_OnLoadContent;
-            _coreEngine.OnUpdate += _coreEngine_OnUpdate;
-            _coreEngine.OnDraw += _coreEngine_OnDraw;
+            if (_coreEngine != null)
+            {
+                _coreEngine.OnLoadContent += _coreEngine_OnLoadContent;
+                _coreEngine.OnUpdate += _coreEngine_OnUpdate;
+                _coreEngine.OnDraw += _coreEngine_OnDraw;
+            }
 
             Width = 400;
             Height = 400;

@@ -133,6 +133,29 @@ namespace ParticleMaker.Tests
             //Assert
             _mockCoreEngine.Verify(m => m.Pause(It.IsAny<bool>()), Times.Once());
         }
+
+
+        [Test]
+        public void Pause_WhenInvokedWithNullCoreEngine_DoesNotThrowException()
+        {
+            //Arrange
+            ICoreEngine coreEngine = null;
+
+            var mockEngineFactory = new Mock<IGraphicsEngineFactory>();
+            mockEngineFactory.SetupGet(p => p.CoreEngine).Returns(coreEngine);
+
+            var mockFileService = new Mock<IFileService>();
+
+            var particleEngine = new ParticleEngine(new RandomizerService());
+
+            _engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine, mockFileService.Object);
+
+            //Act
+            _engine.Pause();
+
+            //Assert
+            _mockCoreEngine.Verify(m => m.Pause(It.IsAny<bool>()), Times.Never());
+        }
         #endregion
 
 

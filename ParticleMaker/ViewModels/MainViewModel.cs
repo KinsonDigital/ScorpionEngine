@@ -797,6 +797,25 @@ namespace ParticleMaker.ViewModels
         }
 
 
+        /// <summary>
+        /// Updates the particle list.
+        /// </summary>
+        [ExcludeFromCodeCoverage]
+        private void UpdateParticleList()
+        {
+            //Get the list of all the particles
+            Particles = (from p in _particleManager.GetParticlePaths(CurrentOpenProject, CurrentLoadedSetup)
+                         select new PathItem()
+                         {
+                             FilePath = p
+                         }).ToArray();
+
+            _graphicsEngine.TexturePaths = (from p in Particles select p.FilePath).ToArray();
+
+            NotifyPropChange(nameof(Particles));
+        }
+
+
         #region Command Execute Methods
         /// <summary>
         /// Plays the particle rendering.
@@ -1147,12 +1166,7 @@ namespace ParticleMaker.ViewModels
 
                 SetupDeploymentPath = deployPath;
 
-                //Get the list of all the particles
-                Particles = (from p in _particleManager.GetParticlePaths(CurrentOpenProject, CurrentLoadedSetup)
-                             select new PathItem()
-                             {
-                                 FilePath = p
-                             }).ToArray();
+                UpdateParticleList();
 
                 _graphicsEngine.TexturePaths = (from p in Particles select p.FilePath).ToArray();
 
@@ -1162,7 +1176,6 @@ namespace ParticleMaker.ViewModels
 
                 NotifyAllPropChanges(propNames.ToArray());
 
-                NotifyPropChange(nameof(Particles));
                 NotifyPropChange(nameof(CurrentLoadedSetup));
 
                 _graphicsEngine.Play();
@@ -1277,9 +1290,21 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
         [ExcludeFromCodeCoverage]
-        private void RenameParticleExecute(object obj)
+        private void RenameParticleExecute(object param)
         {
-            
+            if (!(param is RenameItemEventArgs eventArgs))
+                throw new ArgumentException($"The parameter in method '{nameof(RenameParticleExecute)}' must be of type '{nameof(RenameItemEventArgs)}' for the command to execute.");
+
+            if (WPFMsgBox.Show($"Are you sure you want to rename the particle '{eventArgs.OldName}' to '{eventArgs.NewName}'?", "Rename Particle", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                _graphicsEngine.Pause();
+
+                _particleManager.RenameParticle(CurrentOpenProject, CurrentLoadedSetup, eventArgs.OldName, eventArgs.NewName);
+
+                UpdateParticleList();
+
+                _graphicsEngine.Play();
+            }
         }
         #endregion
         #endregion

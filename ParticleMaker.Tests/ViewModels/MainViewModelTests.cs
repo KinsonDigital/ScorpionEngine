@@ -731,6 +731,28 @@ namespace ParticleMaker.Tests.ViewModels
             //Assert
             Assert.NotNull(actual);
         }
+
+
+        [Test]
+        public void AddParticle_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Act
+            var actual = _viewModel.AddParticle != null;
+
+            //Assert
+            Assert.NotNull(actual);
+        }
+
+
+        [Test]
+        public void RenameParticle_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Act
+            var actual = _viewModel.RenameParticle != null;
+
+            //Assert
+            Assert.NotNull(actual);
+        }
         #endregion
 
 
