@@ -48,6 +48,7 @@ namespace ParticleMaker
                 _coreEngine.OnLoadContent += _coreEngine_OnLoadContent;
                 _coreEngine.OnUpdate += _coreEngine_OnUpdate;
                 _coreEngine.OnDraw += _coreEngine_OnDraw;
+                _coreEngine.OnUnLoadContent += _coreEngine_OnUnLoadContent;
             }
 
             Width = 400;
@@ -185,11 +186,21 @@ namespace ParticleMaker
 
             _coreEngine.GraphicsDevice.Clear(new Color(40, 40, 40, 255));
 
+            if (TexturePaths.Length <= 0)
+                return;
+
             _spriteBatch.Begin();
 
             ParticleEngine.Render(_renderer);
 
             _spriteBatch.End();
+        }
+
+
+        [ExcludeFromCodeCoverage]
+        private void _coreEngine_OnUnLoadContent(object sender, EventArgs e)
+        {
+            _spriteBatch?.Dispose();
         }
         #endregion
     }

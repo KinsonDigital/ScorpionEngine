@@ -753,6 +753,17 @@ namespace ParticleMaker.Tests.ViewModels
             //Assert
             Assert.NotNull(actual);
         }
+
+
+        [Test]
+        public void DeleteParticle_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Act
+            var actual = _viewModel.DeleteParticle != null;
+
+            //Assert
+            Assert.NotNull(actual);
+        }
         #endregion
 
 

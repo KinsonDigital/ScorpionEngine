@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using KDParticleEngine;
@@ -54,6 +54,7 @@ namespace ParticleMaker.ViewModels
         private RelayCommand _deleteSetupCommand;
         private RelayCommand _addParticleCommand;
         private RelayCommand _renameParticleCommand;
+        private RelayCommand _deleteParticleCommand;
         private string _currentOpenProject;
         #endregion
 
@@ -721,6 +722,21 @@ namespace ParticleMaker.ViewModels
                 return _renameParticleCommand;
             }
         }
+
+        /// <summary>
+        /// Deletes a particle in a project setup.
+        /// </summary>
+        public RelayCommand DeleteParticle
+        {
+            get
+            {
+                if (_deleteParticleCommand == null)
+                    _deleteParticleCommand = new RelayCommand(DeleteParticleExecute, (param) => true);
+
+
+                return _deleteParticleCommand;
+            }
+        }
         #endregion
         #endregion
 
@@ -1105,8 +1121,7 @@ namespace ParticleMaker.ViewModels
         private void DeploySetupExecute(object param)
         {
             if (!(param is DeploySetupEventArgs eventArgs))
-                throw new ArgumentException($"The parameter in method '{nameof(DeploySetupExecute)}' must be of type '{nameof(DeploySetupEventArgs)}' for the command to execute.");
-
+                throw new InvalidCommandActionParamTypeException(nameof(DeploySetupExecute), nameof(param));
 
             _setupDeployService.Deploy(CurrentOpenProject, CurrentLoadedSetup, eventArgs.DeploymentPath);
         }
@@ -1120,7 +1135,7 @@ namespace ParticleMaker.ViewModels
         private void RenameSetupExecute(object param)
         {
             if (!(param is RenameItemEventArgs eventArgs))
-                throw new ArgumentException($"The parameter in method '{nameof(RenameSetupExecute)}' must be of type '{nameof(RenameItemEventArgs)}' for the command to execute.");
+                throw new InvalidCommandActionParamTypeException(nameof(RenameSetupExecute), nameof(param));
 
             var dialogResult = WPFMsgBox.Show(DialogOwner, $"Are you sure you want to rename '{eventArgs.OldName}' to '{eventArgs.NewName}'?", "Rename Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
@@ -1233,7 +1248,7 @@ namespace ParticleMaker.ViewModels
         private void DeleteSetupExecute(object param)
         {
             if (!(param is ItemEventArgs eventArgs))
-                throw new ArgumentException($"The parameter in method '{nameof(DeleteSetupExecute)}' must be of type '{nameof(ItemEventArgs)}' for the command to execute.");
+                throw new InvalidCommandActionParamTypeException(nameof(DeleteSetupExecute), nameof(param));
 
             var dialogResult = WPFMsgBox.Show(DialogOwner, $"Are you sure you want to delete the setup '{eventArgs.Name}'?", "Delete Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
@@ -1293,7 +1308,7 @@ namespace ParticleMaker.ViewModels
         private void RenameParticleExecute(object param)
         {
             if (!(param is RenameItemEventArgs eventArgs))
-                throw new ArgumentException($"The parameter in method '{nameof(RenameParticleExecute)}' must be of type '{nameof(RenameItemEventArgs)}' for the command to execute.");
+                throw new InvalidCommandActionParamTypeException(nameof(RenameParticleExecute), nameof(param));
 
             if (WPFMsgBox.Show($"Are you sure you want to rename the particle '{eventArgs.OldName}' to '{eventArgs.NewName}'?", "Rename Particle", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
@@ -1316,7 +1331,19 @@ namespace ParticleMaker.ViewModels
         private void DeleteParticleExecute(object param)
         {
             if (!(param is ItemEventArgs eventArgs))
-                throw new ArgumentException($"The parameter in method '{nameof(DeleteParticleExecute)}' must be of type '{nameof(ItemEventArgs)}' for the command to execute.");
+                throw new InvalidCommandActionParamTypeException(nameof(DeleteParticleExecute), nameof(param));
+
+            //Confirm with the user
+            if (WPFMsgBox.Show($"Are you sure you want to delete the particle named '{eventArgs.Name}'?", "Delete Particle", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                _graphicsEngine.Pause();
+
+                _particleManager.DeleteParticle(CurrentOpenProject, CurrentLoadedSetup, eventArgs.Name);
+
+                UpdateParticleList();
+
+                _graphicsEngine.Play();
+            }
         }
         #endregion
         #endregion

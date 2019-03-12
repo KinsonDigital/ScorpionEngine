@@ -293,12 +293,7 @@ namespace ParticleMaker.UserControls
             if (!(param is ItemEventArgs eventArgs))
                 throw new InvalidCommandActionParamTypeException(nameof(DeleteItemCommandExecute), nameof(param));
 
-            var msg = $"Are you sure you want to delete the particle named '{eventArgs.Name}'?";
-
-            var dialogResult = MessageBox.Show(msg, "Delete Particle", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (dialogResult == MessageBoxResult.Yes)
-                DeleteItemCommand?.Execute(eventArgs);
+            DeleteItemCommand?.Execute(eventArgs);
         }
         #endregion
     }
