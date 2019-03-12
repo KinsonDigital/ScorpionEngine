@@ -57,6 +57,7 @@
             <ctrls:ParticleList x:Name="ParticleList" IsEnabled="{Binding Path=CurrentLoadedSetup, Converter={StaticResource StringToBoolConverter}}"
                                 AddItemCommand="{Binding Path=AddParticle}"
                                 RenameItemCommand="{Binding Path=RenameParticle}"
+                                DeleteItemCommand="{Binding Path=DeleteParticle}"
                                 Margin="10" Particles="{Binding Path=Particles, Mode=TwoWay}"/>
 
             <ctrls:NumericUpDown LabelText="Total Particles" Min="0" Max="100000" Value="{Binding TotalParticles, Mode=TwoWay}"

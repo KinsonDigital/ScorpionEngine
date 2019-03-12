@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using KDParticleEngine;
@@ -1305,6 +1305,18 @@ namespace ParticleMaker.ViewModels
 
                 _graphicsEngine.Play();
             }
+        }
+
+
+        /// <summary>
+        /// Deletes a particle in a project setup.
+        /// </summary>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
+        [ExcludeFromCodeCoverage]
+        private void DeleteParticleExecute(object param)
+        {
+            if (!(param is ItemEventArgs eventArgs))
+                throw new ArgumentException($"The parameter in method '{nameof(DeleteParticleExecute)}' must be of type '{nameof(ItemEventArgs)}' for the command to execute.");
         }
         #endregion
         #endregion
