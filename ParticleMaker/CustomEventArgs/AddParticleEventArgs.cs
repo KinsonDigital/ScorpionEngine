@@ -5,6 +5,7 @@
     /// </summary>
     public class AddParticleEventArgs
     {
+        #region Public Methods
         /// <summary>
         /// Creates a new instance of <see cref="AddParticleEventArgs"/>.
         /// </summary>
@@ -13,6 +14,7 @@
         {
             ParticleFilePath = particleFilePath;
         }
+        #endregion
 
 
         #region Props

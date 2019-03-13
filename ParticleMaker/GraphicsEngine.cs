@@ -197,6 +197,9 @@ namespace ParticleMaker
         }
 
 
+        /// <summary>
+        /// Disposes of the sprite batch when unloading content.
+        /// </summary>
         [ExcludeFromCodeCoverage]
         private void _coreEngine_OnUnLoadContent(object sender, EventArgs e)
         {
