@@ -731,6 +731,39 @@ namespace ParticleMaker.Tests.ViewModels
             //Assert
             Assert.NotNull(actual);
         }
+
+
+        [Test]
+        public void AddParticle_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Act
+            var actual = _viewModel.AddParticle != null;
+
+            //Assert
+            Assert.NotNull(actual);
+        }
+
+
+        [Test]
+        public void RenameParticle_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Act
+            var actual = _viewModel.RenameParticle != null;
+
+            //Assert
+            Assert.NotNull(actual);
+        }
+
+
+        [Test]
+        public void DeleteParticle_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Act
+            var actual = _viewModel.DeleteParticle != null;
+
+            //Assert
+            Assert.NotNull(actual);
+        }
         #endregion
 
 
@@ -803,8 +836,9 @@ namespace ParticleMaker.Tests.ViewModels
             particleEngine.Update(new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 11) });
 
             _engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine, mockFileService.Object);
+            var particleManager = new ParticleManager(mockDirService.Object, mockFileService.Object);
 
-            _viewModel = new MainViewModel(_engine, It.IsAny<ProjectManager>(), It.IsAny<ProjectSettingsManager>(), It.IsAny<SetupManager>(), setupDeployService)
+            _viewModel = new MainViewModel(_engine, It.IsAny<ProjectManager>(), It.IsAny<ProjectSettingsManager>(), It.IsAny<SetupManager>(), setupDeployService, particleManager)
             {
                 RenderSurface = new PictureBox()
             };

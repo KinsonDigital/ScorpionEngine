@@ -12,12 +12,14 @@ using System.Threading;
 using ParticleMaker.Management;
 using ParticleMaker.Dialogs;
 using System.Windows;
-using WPFMsgBox = System.Windows.MessageBox;
 using ParticleMaker.UserControls;
 using System.Linq;
 using ParticleMaker.Services;
 using ParticleMaker.CustomEventArgs;
 using ParticleMaker.Exceptions;
+using WPFMsgBox = System.Windows.MessageBox;
+using FolderDialog = System.Windows.Forms.FolderBrowserDialog;
+using FolderDialogResult = System.Windows.Forms.DialogResult;
 
 namespace ParticleMaker.ViewModels
 {
@@ -33,6 +35,7 @@ namespace ParticleMaker.ViewModels
         private readonly ProjectSettingsManager _projectSettingsManager;
         private readonly SetupManager _setupManager;
         private readonly SetupDeployService _setupDeployService;
+        private readonly ParticleManager _particleManager;
         private CancellationTokenSource _cancelTokenSrc;
         private Task _startupTask;
         private RelayCommand _newProjectCommand;
@@ -49,6 +52,9 @@ namespace ParticleMaker.ViewModels
         private RelayCommand _deleteProjectCommand;
         private RelayCommand _renameSetupCommand;
         private RelayCommand _deleteSetupCommand;
+        private RelayCommand _addParticleCommand;
+        private RelayCommand _renameParticleCommand;
+        private RelayCommand _deleteParticleCommand;
         private string _currentOpenProject;
         #endregion
 
@@ -61,16 +67,18 @@ namespace ParticleMaker.ViewModels
         /// <param name="projectManager">Manages the project.</param>
         /// <param name="projectSettingsManager">Manages all of the project related settings.</param>
         /// <param name="setupManager">Manages the setups within a project.</param>
+        /// <param name="setupDeployService">The service responsible for deploying setups.</param>
         [ExcludeFromCodeCoverage]
         public MainViewModel(GraphicsEngine graphicsEngine, ProjectManager projectManager,
-            ProjectSettingsManager projectSettingsManager,
-            SetupManager setupManager, SetupDeployService setupDeployService)
+            ProjectSettingsManager projectSettingsManager, SetupManager setupManager,
+            SetupDeployService setupDeployService, ParticleManager particleManager)
         {
             _graphicsEngine = graphicsEngine;
             _projectManager = projectManager;
             _projectSettingsManager = projectSettingsManager;
             _setupManager = setupManager;
             _setupDeployService = setupDeployService;
+            _particleManager = particleManager;
         }
         #endregion
 
@@ -86,6 +94,11 @@ namespace ParticleMaker.ViewModels
         /// Gets or sets the list of project setup paths.
         /// </summary>
         public PathItem[] ProjectSetups { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of setup particles.
+        /// </summary>
+        public PathItem[] Particles { get; set; }
 
         /// <summary>
         /// Gets or sets the window that will be the owner of any dialog windows.
@@ -679,6 +692,51 @@ namespace ParticleMaker.ViewModels
                 return _deleteSetupCommand;
             }
         }
+
+        /// <summary>
+        /// Adds a particle to a selected project setup.
+        /// </summary>
+        public RelayCommand AddParticle
+        {
+            get
+            {
+                if (_addParticleCommand == null)
+                    _addParticleCommand = new RelayCommand(AddParticleExecute, (param) => true);
+
+
+                return _addParticleCommand;
+            }
+        }
+
+        /// <summary>
+        /// Renames a particle in a project setup.
+        /// </summary>
+        public RelayCommand RenameParticle
+        {
+            get
+            {
+                if (_renameParticleCommand == null)
+                    _renameParticleCommand = new RelayCommand(RenameParticleExecute, (param) => true);
+
+
+                return _renameParticleCommand;
+            }
+        }
+
+        /// <summary>
+        /// Deletes a particle in a project setup.
+        /// </summary>
+        public RelayCommand DeleteParticle
+        {
+            get
+            {
+                if (_deleteParticleCommand == null)
+                    _deleteParticleCommand = new RelayCommand(DeleteParticleExecute, (param) => true);
+
+
+                return _deleteParticleCommand;
+            }
+        }
         #endregion
         #endregion
 
@@ -752,6 +810,25 @@ namespace ParticleMaker.ViewModels
         {
             NotifyPropChange(nameof(TotalLivingParticles));
             NotifyPropChange(nameof(TotalDeadParticles));
+        }
+
+
+        /// <summary>
+        /// Updates the particle list.
+        /// </summary>
+        [ExcludeFromCodeCoverage]
+        private void UpdateParticleList()
+        {
+            //Get the list of all the particles
+            Particles = (from p in _particleManager.GetParticlePaths(CurrentOpenProject, CurrentLoadedSetup)
+                         select new PathItem()
+                         {
+                             FilePath = p
+                         }).ToArray();
+
+            _graphicsEngine.TexturePaths = (from p in Particles select p.FilePath).ToArray();
+
+            NotifyPropChange(nameof(Particles));
         }
 
 
@@ -1044,8 +1121,7 @@ namespace ParticleMaker.ViewModels
         private void DeploySetupExecute(object param)
         {
             if (!(param is DeploySetupEventArgs eventArgs))
-                throw new ArgumentException($"The parameter in method '{nameof(DeploySetupExecute)}' must be of type '{nameof(DeploySetupEventArgs)}' for the command to execute.");
-
+                throw new InvalidCommandActionParamTypeException(nameof(DeploySetupExecute), nameof(param));
 
             _setupDeployService.Deploy(CurrentOpenProject, CurrentLoadedSetup, eventArgs.DeploymentPath);
         }
@@ -1059,7 +1135,7 @@ namespace ParticleMaker.ViewModels
         private void RenameSetupExecute(object param)
         {
             if (!(param is RenameItemEventArgs eventArgs))
-                throw new ArgumentException($"The parameter in method '{nameof(RenameSetupExecute)}' must be of type '{nameof(RenameItemEventArgs)}' for the command to execute.");
+                throw new InvalidCommandActionParamTypeException(nameof(RenameSetupExecute), nameof(param));
 
             var dialogResult = WPFMsgBox.Show(DialogOwner, $"Are you sure you want to rename '{eventArgs.OldName}' to '{eventArgs.NewName}'?", "Rename Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
@@ -1105,11 +1181,17 @@ namespace ParticleMaker.ViewModels
 
                 SetupDeploymentPath = deployPath;
 
+                UpdateParticleList();
+
+                _graphicsEngine.TexturePaths = (from p in Particles select p.FilePath).ToArray();
+
                 var propNames = setupData.GetPropertyNames().ToList();
 
                 propNames.Add(nameof(SetupDeploymentPath));
 
                 NotifyAllPropChanges(propNames.ToArray());
+
+                NotifyPropChange(nameof(CurrentLoadedSetup));
 
                 _graphicsEngine.Play();
             }
@@ -1166,7 +1248,7 @@ namespace ParticleMaker.ViewModels
         private void DeleteSetupExecute(object param)
         {
             if (!(param is ItemEventArgs eventArgs))
-                throw new ArgumentException($"The parameter in method '{nameof(DeleteSetupExecute)}' must be of type '{nameof(ItemEventArgs)}' for the command to execute.");
+                throw new InvalidCommandActionParamTypeException(nameof(DeleteSetupExecute), nameof(param));
 
             var dialogResult = WPFMsgBox.Show(DialogOwner, $"Are you sure you want to delete the setup '{eventArgs.Name}'?", "Delete Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
@@ -1178,6 +1260,89 @@ namespace ParticleMaker.ViewModels
                                  select new PathItem() { FilePath = p }).ToArray();
 
                 NotifyPropChange(nameof(ProjectSetups));
+            }
+        }
+
+
+        /// <summary>
+        /// Adds a particle to a setup in a project.
+        /// </summary>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
+        [ExcludeFromCodeCoverage]
+        private void AddParticleExecute(object param)
+        {
+            var openFileDialog = new OpenFileDialog()
+            {
+                Title = "Choose particle to add . . .",
+                InitialDirectory = @"C:\"
+            };
+
+            
+            if (openFileDialog.ShowDialog() == FolderDialogResult.OK)
+            {
+                _particleManager.AddParticle(CurrentOpenProject, CurrentLoadedSetup, openFileDialog.FileName, true);
+
+                //Get the list of all the particles
+                Particles = (from p in _particleManager.GetParticlePaths(CurrentOpenProject, CurrentLoadedSetup)
+                             select new PathItem()
+                             {
+                                 FilePath = p
+                             }).ToArray();
+
+                _graphicsEngine.Pause();
+
+                _graphicsEngine.TexturePaths = (from p in Particles select p.FilePath).ToArray();
+
+                _graphicsEngine.Play();
+
+                NotifyPropChange(nameof(Particles));
+            }
+        }
+
+
+        /// <summary>
+        /// Renames a particle in a project setup.
+        /// </summary>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
+        [ExcludeFromCodeCoverage]
+        private void RenameParticleExecute(object param)
+        {
+            if (!(param is RenameItemEventArgs eventArgs))
+                throw new InvalidCommandActionParamTypeException(nameof(RenameParticleExecute), nameof(param));
+
+            if (WPFMsgBox.Show($"Are you sure you want to rename the particle '{eventArgs.OldName}' to '{eventArgs.NewName}'?", "Rename Particle", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                _graphicsEngine.Pause();
+
+                _particleManager.RenameParticle(CurrentOpenProject, CurrentLoadedSetup, eventArgs.OldName, eventArgs.NewName);
+
+                UpdateParticleList();
+
+                _graphicsEngine.Play();
+            }
+        }
+
+
+        /// <summary>
+        /// Deletes a particle in a project setup.
+        /// </summary>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
+        [ExcludeFromCodeCoverage]
+        private void DeleteParticleExecute(object param)
+        {
+            if (!(param is ItemEventArgs eventArgs))
+                throw new InvalidCommandActionParamTypeException(nameof(DeleteParticleExecute), nameof(param));
+
+            //Confirm with the user
+            if (WPFMsgBox.Show($"Are you sure you want to delete the particle named '{eventArgs.Name}'?", "Delete Particle", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                _graphicsEngine.Pause();
+
+                _particleManager.DeleteParticle(CurrentOpenProject, CurrentLoadedSetup, eventArgs.Name);
+
+                UpdateParticleList();
+
+                _graphicsEngine.Play();
             }
         }
         #endregion

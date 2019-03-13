@@ -102,7 +102,7 @@
       <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
     <Compile Include="CoreEngine.cs" />
-    <Compile Include="CustomEventArgs\AddItemClickedEventArgs.cs" />
+    <Compile Include="CustomEventArgs\AddParticleEventArgs.cs" />
     <Compile Include="CustomEventArgs\DeploySetupEventArgs.cs" />
     <Compile Include="CustomEventArgs\ItemEventArgs.cs" />
     <Compile Include="CustomEventArgs\DrawEventArgs.cs" />

@@ -43,9 +43,13 @@ namespace ParticleMaker
             
             _coreEngine = _factory.CoreEngine;
 
-            _coreEngine.OnLoadContent += _coreEngine_OnLoadContent;
-            _coreEngine.OnUpdate += _coreEngine_OnUpdate;
-            _coreEngine.OnDraw += _coreEngine_OnDraw;
+            if (_coreEngine != null)
+            {
+                _coreEngine.OnLoadContent += _coreEngine_OnLoadContent;
+                _coreEngine.OnUpdate += _coreEngine_OnUpdate;
+                _coreEngine.OnDraw += _coreEngine_OnDraw;
+                _coreEngine.OnUnLoadContent += _coreEngine_OnUnLoadContent;
+            }
 
             Width = 400;
             Height = 400;
@@ -88,11 +92,7 @@ namespace ParticleMaker
         /// <summary>
         /// This list of paths to all of the texture to load and render.
         /// </summary>
-        public string[] TexturePaths { get; set; } = new string[] 
-        {
-            $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Content\Arrow.png",
-            $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Content\Star.png"
-        };
+        public string[] TexturePaths { get; set; } = new string[0];
         #endregion
 
 
@@ -186,11 +186,24 @@ namespace ParticleMaker
 
             _coreEngine.GraphicsDevice.Clear(new Color(40, 40, 40, 255));
 
+            if (TexturePaths.Length <= 0)
+                return;
+
             _spriteBatch.Begin();
 
             ParticleEngine.Render(_renderer);
 
             _spriteBatch.End();
+        }
+
+
+        /// <summary>
+        /// Disposes of the sprite batch when unloading content.
+        /// </summary>
+        [ExcludeFromCodeCoverage]
+        private void _coreEngine_OnUnLoadContent(object sender, EventArgs e)
+        {
+            _spriteBatch?.Dispose();
         }
         #endregion
     }

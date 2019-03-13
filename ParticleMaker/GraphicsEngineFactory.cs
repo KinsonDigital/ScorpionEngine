@@ -7,6 +7,7 @@ namespace ParticleMaker
     /// <summary>
     /// Creates dependencies for a <see cref="GraphicsEngine"/>.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class GraphicsEngineFactory : IGraphicsEngineFactory
     {
         #region Constructors
@@ -29,7 +30,6 @@ namespace ParticleMaker
         /// <summary>
         /// Gets the <see cref="SpriteBatch"/> for rendering.
         /// </summary>
-        [ExcludeFromCodeCoverage]
         public SpriteBatch SpriteBatch { get; set; }
         #endregion
 
@@ -39,7 +39,6 @@ namespace ParticleMaker
         /// Creates a new <see cref="Renderer"/>.
         /// </summary>
         /// <returns></returns>
-        [ExcludeFromCodeCoverage]
         public Renderer NewRenderer()
         {
             SpriteBatch = new SpriteBatch(CoreEngine.GraphicsDevice);
