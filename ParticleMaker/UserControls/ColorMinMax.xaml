@@ -4,37 +4,40 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ParticleMaker.UserControls"
-             Name="this" mc:Ignorable="d" Background="White">
+             Name="this" mc:Ignorable="d" MinWidth="105" Background="White">
 
-    <StackPanel Orientation="Horizontal" DataContext="{Binding ElementName=this}">
-        <Grid>
+    <!--TODO: Remove width from this grid-->
+    <Grid DataContext="{Binding ElementName=this}" Width="140">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
 
-            <StackPanel Name="MinStackPanel" Margin="0, 0, 0, 5" Grid.Row="0" Grid.Column="0">
-                <local:NumericUpDown x:Name="MinNumericUpDown" 
-                                     Value="{Binding Path=Min, Mode=TwoWay}" LabelText="{Binding Path=MinLabel}"
-                                     Min="0" Max="255" Margin="0, 0, 0, 5"/>
-                <Slider Value="{Binding Path=Min, Mode=TwoWay}" Minimum="0" Maximum="255"/>
-            </StackPanel>
+            <Grid Grid.Column="0" HorizontalAlignment="Stretch" Margin="0, 0, 5, 5">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
-            <StackPanel Name="MaxStackPanel" Margin="0, 5, 0, 0" Grid.Row="1" Grid.Column="0">
-                <local:NumericUpDown x:Name="MaxNumericUpDown" LabelText="{Binding Path=MaxLabel}"
-                                     Value="{Binding Path=Max, Mode=TwoWay}"
-                                     Min="0" Max="255" Margin="0, 0, 0, 5"/>
-                <Slider Value="{Binding Path=Max, Mode=TwoWay}" Minimum="0" Maximum="255"/>
-            </StackPanel>
+                <local:NumericUpDown Grid.Row="0" MinWidth="70" Min="0" Max="255"
+                                     Value="{Binding Path=Min, Mode=TwoWay}" LabelText="{Binding Path=MinLabel}"/>
+                
+                <Slider Value="{Binding Path=Min, Mode=TwoWay}" Minimum="0" Maximum="255" Grid.Row="1" MinWidth="70"/>
+            </Grid>
 
             <!--MINIMUM VALUE COLOR-->
-            <Border Name="MinBorder" Grid.Row="0" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="5, 0, 0, 5"
-                    Width="30">
+            <Border Name="MinBorder" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="0, 0, 0, 5"
+                    MinWidth="30" HorizontalAlignment="Right">
                 <Rectangle>
                     <Rectangle.Style>
                         <Style TargetType="Rectangle">
@@ -53,10 +56,29 @@
                     </Rectangle.Style>
                 </Rectangle>
             </Border>
+        </Grid>
+
+        <Grid Grid.Row="1" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" HorizontalAlignment="Stretch" Margin="0, 5, 5, 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <local:NumericUpDown Grid.Row="0" MinWidth="70" Min="0" Max="255"
+                                     Value="{Binding Path=Max, Mode=TwoWay}" LabelText="{Binding Path=MaxLabel}"/>
+                
+                <Slider Value="{Binding Path=Max, Mode=TwoWay}" Minimum="0" Maximum="255" Grid.Row="1" MinWidth="70"/>
+            </Grid>
 
             <!--MAXIMUM VALUE COLOR-->
-            <Border Name="MaxBorder" Grid.Row="1" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="5, 5, 0, 0"
-                    Width="30">
+            <Border Name="MaxBorder" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="0, 5, 0, 0"
+                    MinWidth="30" HorizontalAlignment="Right">
                 <Rectangle>
                     <Rectangle.Style>
                         <Style TargetType="Rectangle">
@@ -73,8 +95,8 @@
                             </Style.Triggers>
                         </Style>
                     </Rectangle.Style>
-                </Rectangle>            
+                </Rectangle>
             </Border>
         </Grid>
-    </StackPanel>
+    </Grid>
 </UserControl>
