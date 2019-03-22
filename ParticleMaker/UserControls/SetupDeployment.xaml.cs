@@ -195,7 +195,7 @@ namespace ParticleMaker.UserControls
 
             Dispatcher.Invoke(() =>
             {
-                HasError = DesignerProperties.GetIsInDesignMode(this) ? false : !string.IsNullOrEmpty(DeploymentPath) && !Directory.Exists(DeploymentPath);
+                HasError = DesignerProperties.GetIsInDesignMode(this) ? false : string.IsNullOrEmpty(DeploymentPath) || !Directory.Exists(DeploymentPath);
             });
         }
         #endregion
