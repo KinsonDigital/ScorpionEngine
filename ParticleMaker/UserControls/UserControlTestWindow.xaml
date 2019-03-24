@@ -12,16 +12,22 @@
     <Window.Resources>
         <converters:StringToBoolConverter x:Key="StringToBoolConverter"/>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <StackPanel Margin="0, 100, 0, 0" Orientation="Vertical">
-            <local:NumericUpDown HorizontalAlignment="Center"
-                                 Min="-4" Max="4"/>
+        <StackPanel Margin="192,105,153.333,0" Orientation="Vertical">
+            <local:ParticleList Margin="0,0,-129,0" Height="144">
+                <local:ParticleList.Particles>
+                    <x:Array Type="{x:Type local:PathItem}">
+                        <local:PathItem FilePath="C:\temp\plus-particle.png"/>
+                        <local:PathItem FilePath="C:\temp\circle-particle.png"/>
+                    </x:Array>
+                </local:ParticleList.Particles>
+            </local:ParticleList>
         </StackPanel>
 
         <Button Name="TestButton" Content="Run Test" Width="100" Height="30" Grid.Row="1" Click="TestButton_Click"/>

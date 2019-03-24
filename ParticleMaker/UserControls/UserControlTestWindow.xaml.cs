@@ -35,6 +35,11 @@ namespace ParticleMaker.UserControls
             
         }
         #endregion
+
+        private void Rectangle_GiveFeedback(object sender, GiveFeedbackEventArgs e)
+        {
+
+        }
     }
 
 
