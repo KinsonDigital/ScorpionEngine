@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ParticleMaker.UserControls"
              xmlns:convtrs="clr-namespace:ParticleMaker.UserControls.ValueConverters"
-             mc:Ignorable="d" Name="this" BorderThickness="1">
+             mc:Ignorable="d" Name="this" BorderThickness="1" MaxHeight="28.66">
 
     <UserControl.Resources>
         <convtrs:StringToBoolConverter x:Key="StringToBoolConverter"/>
@@ -75,7 +75,7 @@
 
         <!--PARTICLE NAME-->
         <Label x:Name="ParticleNameLabel" d:DataContext="{d:DesignData Source=/UserControls/DesignData/UserControlData.xaml}"
-               Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+               Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Content="{Binding Path=ParticleName}">
             <Label.Style>
                 <Style TargetType="Label">
                     <Setter Property="Foreground" Value="Black"/>
@@ -105,7 +105,7 @@
         </Label>
 
         <!--THUMBNAIL BACKDROP-->
-        <Rectangle Width="25" Height="25" Margin="10, 0, 0, 0" Grid.Column="1" Fill="CornflowerBlue"/>
+        <Rectangle Width="25" Height="25" Margin="10, 0, 0, 0" Grid.Column="1" Fill="CornflowerBlue" Style="{StaticResource NoErrorStyle}"/>
         
         <!--PARTICLE THUMBNAIL-->
         <Image x:Name="ThumbnailImage" Width="25" Height="25" Margin="10, 0, 0, 0" Grid.Column="1">

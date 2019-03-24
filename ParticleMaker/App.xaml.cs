@@ -8,6 +8,7 @@ using ParticleMaker.Exceptions;
 using ParticleMaker.Management;
 using ParticleMaker.Services;
 using ParticleMaker.ViewModels;
+using ParticleMaker.UserControls;//KEEP THIS. SHOWS USED WHEN IN UserControlTesting mode
 
 [assembly: InternalsVisibleTo(assemblyName: "ParticleMaker.Tests", AllInternalsVisible = true)]
 
@@ -60,6 +61,7 @@ namespace ParticleMaker
         /// <summary>
         /// Starts up the application.
         /// </summary>
+        /// <remarks>Keep the reference of <see cref="UserControlTestWindow"/> in this comment to pretent deletion of using at top of the file.</remarks>
         private void Application_Startup(object sender, StartupEventArgs e)
         {
 #if USERCTRLTESTING
