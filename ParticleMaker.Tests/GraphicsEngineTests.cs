@@ -164,6 +164,8 @@ namespace ParticleMaker.Tests
         public void Setup()
         {
             _mockCoreEngine = new Mock<ICoreEngine>();
+            _mockCoreEngine.SetupProperty(m => m.RenderWidth);
+            _mockCoreEngine.SetupProperty(m => m.RenderHeight);
 
             var mockEngineFactory = new Mock<IGraphicsEngineFactory>();
             mockEngineFactory.SetupGet(p => p.CoreEngine).Returns(_mockCoreEngine.Object);

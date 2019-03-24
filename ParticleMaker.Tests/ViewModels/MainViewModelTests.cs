@@ -798,6 +798,8 @@ namespace ParticleMaker.Tests.ViewModels
         {
             _mockCoreEngine = new Mock<ICoreEngine>();
             _mockCoreEngine.SetupGet(p => p.RenderSurfaceHandle).Returns(new IntPtr(1234));
+            _mockCoreEngine.SetupProperty(m => m.RenderWidth);
+            _mockCoreEngine.SetupProperty(m => m.RenderHeight);
 
             var mockEngineFactory = new Mock<IGraphicsEngineFactory>();
             mockEngineFactory.SetupGet(p => p.CoreEngine).Returns(_mockCoreEngine.Object);

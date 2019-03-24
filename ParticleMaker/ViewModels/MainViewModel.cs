@@ -125,6 +125,11 @@ namespace ParticleMaker.ViewModels
             set
             {
                 _graphicsEngine.Width = value;
+
+                _graphicsEngine.Pause();
+                _graphicsEngine.Play();
+
+                NotifyPropChange(nameof(RenderSurfaceWidth));
             }
         }
 
@@ -134,10 +139,7 @@ namespace ParticleMaker.ViewModels
         public int RenderSurfaceHeight
         {
             get => _graphicsEngine.Height;
-            set
-            {
-                _graphicsEngine.Height = value;
-            }
+            set => _graphicsEngine.Height = value;
         }
 
         /// <summary>
