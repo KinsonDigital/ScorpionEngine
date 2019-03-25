@@ -229,7 +229,15 @@ namespace ParticleMaker.Dialogs
         private void KeyUpHandler(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
+            {
+                DialogResult = false;
                 Close();
+            }
+            else if (e.Key == Key.Enter && !string.IsNullOrEmpty(InputTextBox.Text))
+            {
+                DialogResult = true;
+                Close();
+            }
         }
         #endregion
     }
