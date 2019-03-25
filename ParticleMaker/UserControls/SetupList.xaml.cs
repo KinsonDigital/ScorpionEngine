@@ -48,45 +48,13 @@ namespace ParticleMaker.UserControls
 
 
         #region Props
+        /// <summary>
+        /// Gets the selected setup.
+        /// </summary>
+        public PathItem SelectedItem { get; private set; }
+
+
         #region Dependency Props
-        /// <summary>
-        /// Registers the <see cref="Setups"/> property.
-        /// </summary>
-        public static readonly DependencyProperty SetupsProperty =
-            DependencyProperty.Register(nameof(Setups), typeof(PathItem[]), typeof(SetupList), new PropertyMetadata(new PathItem[0], SetupsChanged));
-
-        /// <summary>
-        /// Registers the <see cref="ItemSelectedCommand"/> property.
-        /// </summary>
-        public static readonly DependencyProperty ItemSelectedCommandProperty =
-            DependencyProperty.Register(nameof(ItemSelectedCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
-
-        /// <summary>
-        /// Registers the <see cref="AddItemCommand"/> property.
-        /// </summary>
-        public static readonly DependencyProperty AddItemCommandProperty =
-            DependencyProperty.Register(nameof(AddItemCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
-
-        /// <summary>
-        /// Registers the <see cref="RenameItemCommand"/> property.
-        /// </summary>
-        public static readonly DependencyProperty RenameItemCommandProperty =
-            DependencyProperty.Register(nameof(RenameItemCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
-
-        /// <summary>
-        /// Registers the <see cref="DeleteItemCommand"/> property.
-        /// </summary>
-        public static readonly DependencyProperty DeleteItemCommandProperty =
-            DependencyProperty.Register(nameof(DeleteItemCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
-
-        /// <summary>
-        /// Registers the <see cref="SaveItemCommand"/> property.
-        /// </summary>
-        public static readonly DependencyProperty SaveItemCommandProperty =
-            DependencyProperty.Register(nameof(SaveItemCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
-        #endregion
-
-
         /// <summary>
         /// Gets or sets the list of setup paths.
         /// </summary>
@@ -97,9 +65,11 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
-        /// Gets the selected setup.
+        /// Registers the <see cref="Setups"/> property.
         /// </summary>
-        public PathItem SelectedItem { get; private set; }
+        public static readonly DependencyProperty SetupsProperty =
+            DependencyProperty.Register(nameof(Setups), typeof(PathItem[]), typeof(SetupList), new PropertyMetadata(new PathItem[0], SetupsChanged));
+        
 
         /// <summary>
         /// Gets or sets the command to be executed when a list item has been selected.
@@ -111,6 +81,13 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
+        /// Registers the <see cref="ItemSelectedCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty ItemSelectedCommandProperty =
+            DependencyProperty.Register(nameof(ItemSelectedCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
+
+
+        /// <summary>
         /// Gets or sets the command to be executed when a list item add button has been clicked.
         /// </summary>
         public ICommand AddItemCommand
@@ -118,6 +95,13 @@ namespace ParticleMaker.UserControls
             get { return (ICommand)GetValue(AddItemCommandProperty); }
             set { SetValue(AddItemCommandProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="AddItemCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty AddItemCommandProperty =
+            DependencyProperty.Register(nameof(AddItemCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
+
 
         /// <summary>
         /// Gets or sets the command that is executed when a list item rename button has been clicked.
@@ -129,6 +113,13 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
+        /// Registers the <see cref="RenameItemCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty RenameItemCommandProperty =
+            DependencyProperty.Register(nameof(RenameItemCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
+
+
+        /// <summary>
         /// Gets or sets the command to be executed when a list item delete button has been clicked.
         /// </summary>
         public ICommand DeleteItemCommand
@@ -138,6 +129,13 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
+        /// Registers the <see cref="DeleteItemCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty DeleteItemCommandProperty =
+            DependencyProperty.Register(nameof(DeleteItemCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
+
+
+        /// <summary>
         /// Gets or sets the command to be executed when a list item save button has been clicked.
         /// </summary>
         public ICommand SaveItemCommand
@@ -145,6 +143,13 @@ namespace ParticleMaker.UserControls
             get { return (ICommand)GetValue(SaveItemCommandProperty); }
             set { SetValue(SaveItemCommandProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="SaveItemCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty SaveItemCommandProperty =
+            DependencyProperty.Register(nameof(SaveItemCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
+        #endregion
         #endregion
 
 
@@ -280,13 +285,13 @@ namespace ParticleMaker.UserControls
             foreach (var item in listItems)
             {
                 if (item.RenameClickedCommand == null)
-                    item.RenameClickedCommand = new RelayCommand(RenameCommandAction, (param) => true);
+                    item.RenameClickedCommand = new RelayCommand(RenameCommandExecute, (param) => true);
 
                 if (item.DeleteClickedCommand == null)
-                    item.DeleteClickedCommand = new RelayCommand(DeleteCommandAction, (param) => true);
+                    item.DeleteClickedCommand = new RelayCommand(DeleteCommandExecute, (param) => true);
 
                 if (item.SaveClickedCommand == null)
-                    item.SaveClickedCommand = new RelayCommand(SaveCommandAction, (param) => true);
+                    item.SaveClickedCommand = new RelayCommand(SaveCommandExecute, (param) => true);
             }
         }
 
@@ -311,10 +316,10 @@ namespace ParticleMaker.UserControls
         /// The method to execute when a list item rename button has been clicked.
         /// </summary>
         /// <param name="param">The rename related data.</param>
-        private void RenameCommandAction(object param)
+        private void RenameCommandExecute(object param)
         {
             if (!(param is RenameItemEventArgs eventArgs))
-                throw new InvalidCommandActionParamTypeException(nameof(RenameCommandAction), nameof(param));
+                throw new InvalidCommandActionParamTypeException(nameof(RenameCommandExecute), nameof(param));
 
             var illegalNames = (from setup in Setups select Path.GetFileNameWithoutExtension(setup.FilePath)).ToArray();
 
@@ -339,10 +344,10 @@ namespace ParticleMaker.UserControls
         /// The method to execute when a list item delete button has been clicked.
         /// </summary>
         /// <param name="param">The setup item related data.</param>
-        private void DeleteCommandAction(object param)
+        private void DeleteCommandExecute(object param)
         {
             if (!(param is ItemEventArgs eventArgs))
-                throw new InvalidCommandActionParamTypeException(nameof(DeleteCommandAction), nameof(param));
+                throw new InvalidCommandActionParamTypeException(nameof(DeleteCommandExecute), nameof(param));
 
             DeleteItemCommand?.Execute(eventArgs);
         }
@@ -352,10 +357,10 @@ namespace ParticleMaker.UserControls
         /// The method to execute when a list item save button has been clicked.
         /// </summary>
         /// <param name="param">The setup item related data.</param>
-        private void SaveCommandAction(object param)
+        private void SaveCommandExecute(object param)
         {
             if (!(param is ItemEventArgs eventArgs))
-                throw new InvalidCommandActionParamTypeException(nameof(SaveCommandAction), nameof(param));
+                throw new InvalidCommandActionParamTypeException(nameof(SaveCommandExecute), nameof(param));
 
             SaveItemCommand?.Execute(eventArgs);
         }
