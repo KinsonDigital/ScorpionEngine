@@ -46,52 +46,7 @@ namespace ParticleMaker.UserControls
         #endregion
 
 
-        #region Props
         #region Dependency Props
-        /// <summary>
-        /// Registers the <see cref="SetupPath"/>.
-        /// </summary>
-        public static readonly DependencyProperty SetupPathProperty =
-            DependencyProperty.Register(nameof(SetupPath), typeof(string), typeof(SetupListItem), new PropertyMetadata("", SetupFilePathChanged));
-
-        /// <summary>
-        /// Registers the <see cref="SetupName"/> property.
-        /// </summary>
-        public static readonly DependencyProperty SetupNameProperty =
-            DependencyProperty.Register(nameof(SetupName), typeof(string), typeof(SetupListItem), new PropertyMetadata(""));
-
-        /// <summary>
-        /// Registers the <see cref="HasError"/> property.
-        /// </summary>
-        protected static readonly DependencyProperty HasErrorProperty =
-            DependencyProperty.Register(nameof(HasError), typeof(bool), typeof(SetupListItem), new PropertyMetadata(false));
-
-        /// <summary>
-        /// Registers the <see cref="Command"/> property.
-        /// </summary>
-        public static readonly DependencyProperty CommandProperty =
-            DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(SetupListItem), new PropertyMetadata(null));
-
-        /// <summary>
-        /// Registers the <see cref="RenameClickedCommand"/> property.
-        /// </summary>
-        public static readonly DependencyProperty RenameClickedCommandProperty =
-            DependencyProperty.Register(nameof(RenameClickedCommand), typeof(ICommand), typeof(SetupListItem), new PropertyMetadata(null));
-
-        /// <summary>
-        /// Registers the <see cref="DeleteClickedCommand"/> property.
-        /// </summary>
-        public static readonly DependencyProperty DeleteClickedCommandProperty =
-            DependencyProperty.Register(nameof(DeleteClickedCommand), typeof(ICommand), typeof(SetupListItem), new PropertyMetadata(null));
-
-        /// <summary>
-        /// Registers the <see cref="SaveClickedCommand"/> property.
-        /// </summary>
-        public static readonly DependencyProperty SaveClickedCommandProperty =
-            DependencyProperty.Register(nameof(SaveClickedCommand), typeof(ICommand), typeof(SetupListItem), new PropertyMetadata(null));
-        #endregion
-
-
         /// <summary>
         /// Gets or sets the path to the setup file.
         /// Must be a full path with file name.
@@ -103,6 +58,13 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
+        /// Registers the <see cref="SetupPath"/>.
+        /// </summary>
+        public static readonly DependencyProperty SetupPathProperty =
+            DependencyProperty.Register(nameof(SetupPath), typeof(string), typeof(SetupListItem), new PropertyMetadata("", SetupFilePathChanged));
+
+
+        /// <summary>
         /// Gets or sets the setup name to be shown in the setup label.
         /// </summary>
         public string SetupName
@@ -110,6 +72,13 @@ namespace ParticleMaker.UserControls
             get { return (string)GetValue(SetupNameProperty); }
             set { SetValue(SetupNameProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="SetupName"/> property.
+        /// </summary>
+        public static readonly DependencyProperty SetupNameProperty =
+            DependencyProperty.Register(nameof(SetupName), typeof(string), typeof(SetupListItem), new PropertyMetadata(""));
+
 
         /// <summary>
         /// Gets or sets a value indicating if the control has an error.
@@ -121,6 +90,13 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
+        /// Registers the <see cref="HasError"/> property.
+        /// </summary>
+        protected static readonly DependencyProperty HasErrorProperty =
+            DependencyProperty.Register(nameof(HasError), typeof(bool), typeof(SetupListItem), new PropertyMetadata(false));
+
+
+        /// <summary>
         /// Gets or sets the command to be executed when the <see cref="SetupListItem"/> has been clicked.
         /// </summary>
         public ICommand Command
@@ -128,6 +104,13 @@ namespace ParticleMaker.UserControls
             get { return (ICommand)GetValue(CommandProperty); }
             set { SetValue(CommandProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="Command"/> property.
+        /// </summary>
+        public static readonly DependencyProperty CommandProperty =
+            DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(SetupListItem), new PropertyMetadata(null));
+
 
         /// <summary>
         /// Gets or sets the command that is executed when the rename button has been clicked.
@@ -139,6 +122,13 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
+        /// Registers the <see cref="RenameClickedCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty RenameClickedCommandProperty =
+            DependencyProperty.Register(nameof(RenameClickedCommand), typeof(ICommand), typeof(SetupListItem), new PropertyMetadata(null));
+
+
+        /// <summary>
         /// Gets or sets the command that is executed when the delete button has been clicked.
         /// </summary>
         public ICommand DeleteClickedCommand
@@ -148,6 +138,13 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
+        /// Registers the <see cref="DeleteClickedCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty DeleteClickedCommandProperty =
+            DependencyProperty.Register(nameof(DeleteClickedCommand), typeof(ICommand), typeof(SetupListItem), new PropertyMetadata(null));
+
+
+        /// <summary>
         /// Gets or sets the command that is executed when the save button has been clicked.
         /// </summary>
         public ICommand SaveClickedCommand
@@ -155,6 +152,12 @@ namespace ParticleMaker.UserControls
             get { return (ICommand)GetValue(SaveClickedCommandProperty); }
             set { SetValue(SaveClickedCommandProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="SaveClickedCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty SaveClickedCommandProperty =
+            DependencyProperty.Register(nameof(SaveClickedCommand), typeof(ICommand), typeof(SetupListItem), new PropertyMetadata(null));
         #endregion
 
 
