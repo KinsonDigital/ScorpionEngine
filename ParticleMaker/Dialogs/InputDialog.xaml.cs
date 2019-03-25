@@ -46,6 +46,10 @@ namespace ParticleMaker.Dialogs
             //Select all of the text so the user can start typing immediately
             InputTextBox.Focus();
             InputTextBox.SelectAll();
+
+            Unloaded += InputDialog_Unloaded;
+
+            Keyboard.AddKeyUpHandler(this, KeyUpHandler);
         }
         #endregion
 
@@ -173,6 +177,15 @@ namespace ParticleMaker.Dialogs
 
         #region Private Methods
         /// <summary>
+        /// Unregisters the <see cref="KeyUpHandler(object, KeyEventArgs)"/> method.
+        /// </summary>
+        private void InputDialog_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Keyboard.RemoveKeyUpHandler(this, KeyUpHandler);
+        }
+
+
+        /// <summary>
         /// Prevents any invalid characters from entering the input text box.
         /// </summary>
         private void InputTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -207,6 +220,16 @@ namespace ParticleMaker.Dialogs
 
             //Check if the input text box value is an invalid value.  Take ignoring casing into account
             ContainsInvalidValue = invalidValues != null && invalidValues.Contains(IgnoreInvalidValueCasing ? InputTextBox.Text.ToLower() : InputTextBox.Text);
+        }
+
+
+        /// <summary>
+        /// Processes key presses to add behavior to the dialog.
+        /// </summary>
+        private void KeyUpHandler(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+                Close();
         }
         #endregion
     }
