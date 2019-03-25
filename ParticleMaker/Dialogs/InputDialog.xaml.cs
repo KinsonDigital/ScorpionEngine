@@ -52,60 +52,6 @@ namespace ParticleMaker.Dialogs
 
 
         #region Props
-        #region Dependency Props
-        /// <summary>
-        /// Registers the <see cref="DialogTitle"/> property.
-        /// </summary>
-        public static readonly DependencyProperty DialogTitleProperty =
-            DependencyProperty.Register(nameof(DialogTitle), typeof(string), typeof(InputDialog), new PropertyMetadata("Input Dialog"));
-
-        /// <summary>
-        /// Registers the <see cref="Message"/> property.
-        /// </summary>
-        public static readonly DependencyProperty MessageProperty =
-            DependencyProperty.Register(nameof(Message), typeof(string), typeof(InputDialog), new PropertyMetadata("Enter some input and press enter"));
-
-        /// <summary>
-        /// Registers the <see cref="InputValue"/> property.
-        /// </summary>
-        public static readonly DependencyProperty InputValueProperty =
-            DependencyProperty.Register(nameof(InputValue), typeof(string), typeof(InputDialog), new PropertyMetadata(""));
-
-        /// <summary>
-        /// Registers the <see cref="ContainsInvalidValue"/> property.
-        /// </summary>
-        public static readonly DependencyProperty ContainsInvalidValueProperty =
-            DependencyProperty.Register(nameof(ContainsInvalidValue), typeof(bool), typeof(InputDialog), new PropertyMetadata(false));
-        #endregion
-
-
-        /// <summary>
-        /// Gets or sets the <see cref="InputDialog"/>'s title.
-        /// </summary>
-        public string DialogTitle
-        {
-            get { return (string)GetValue(DialogTitleProperty); }
-            set { SetValue(DialogTitleProperty, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the message of the <see cref="InputDialog"/>.
-        /// </summary>
-        public string Message
-        {
-            get { return (string)GetValue(MessageProperty); }
-            set { SetValue(MessageProperty, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the input textbox value.
-        /// </summary>
-        public string InputValue
-        {
-            get { return (string)GetValue(InputValueProperty); }
-            set { SetValue(InputValueProperty, value); }
-        }
-
         /// <summary>
         /// Gets or sets the command for the ok button.
         /// </summary>
@@ -158,6 +104,56 @@ namespace ParticleMaker.Dialogs
         /// </summary>
         public bool IgnoreInvalidValueCasing { get; set; }
 
+
+        #region Dependency Props
+        /// <summary>
+        /// Gets or sets the <see cref="InputDialog"/>'s title.
+        /// </summary>
+        public string DialogTitle
+        {
+            get { return (string)GetValue(DialogTitleProperty); }
+            set { SetValue(DialogTitleProperty, value); }
+        }
+
+        /// <summary>
+        /// Registers the <see cref="DialogTitle"/> property.
+        /// </summary>
+        public static readonly DependencyProperty DialogTitleProperty =
+            DependencyProperty.Register(nameof(DialogTitle), typeof(string), typeof(InputDialog), new PropertyMetadata("Input Dialog"));
+
+
+        /// <summary>
+        /// Gets or sets the message of the <see cref="InputDialog"/>.
+        /// </summary>
+        public string Message
+        {
+            get { return (string)GetValue(MessageProperty); }
+            set { SetValue(MessageProperty, value); }
+        }
+
+        /// <summary>
+        /// Registers the <see cref="Message"/> property.
+        /// </summary>
+        public static readonly DependencyProperty MessageProperty =
+            DependencyProperty.Register(nameof(Message), typeof(string), typeof(InputDialog), new PropertyMetadata("Enter some input and press enter"));
+
+
+        /// <summary>
+        /// Gets or sets the input textbox value.
+        /// </summary>
+        public string InputValue
+        {
+            get { return (string)GetValue(InputValueProperty); }
+            set { SetValue(InputValueProperty, value); }
+        }
+
+        /// <summary>
+        /// Registers the <see cref="InputValue"/> property.
+        /// </summary>
+        public static readonly DependencyProperty InputValueProperty =
+            DependencyProperty.Register(nameof(InputValue), typeof(string), typeof(InputDialog), new PropertyMetadata(""));
+
+
         /// <summary>
         /// Gets or sets a value indicating if the input text box contains an invalid value.
         /// </summary>
@@ -166,6 +162,13 @@ namespace ParticleMaker.Dialogs
             get { return (bool)GetValue(ContainsInvalidValueProperty); }
             set { SetValue(ContainsInvalidValueProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="ContainsInvalidValue"/> property.
+        /// </summary>
+        public static readonly DependencyProperty ContainsInvalidValueProperty =
+            DependencyProperty.Register(nameof(ContainsInvalidValue), typeof(bool), typeof(InputDialog), new PropertyMetadata(false));
+        #endregion
         #endregion
 
 
@@ -207,6 +210,5 @@ namespace ParticleMaker.Dialogs
             ContainsInvalidValue = invalidValues != null && invalidValues.Contains(IgnoreInvalidValueCasing ? InputTextBox.Text.ToLower() : InputTextBox.Text);
         }
         #endregion
-
     }
 }
