@@ -20,6 +20,7 @@ using ParticleMaker.Exceptions;
 using WPFMsgBox = System.Windows.MessageBox;
 using FolderDialog = System.Windows.Forms.FolderBrowserDialog;
 using FolderDialogResult = System.Windows.Forms.DialogResult;
+using System.ComponentModel;
 
 namespace ParticleMaker.ViewModels
 {
@@ -129,7 +130,7 @@ namespace ParticleMaker.ViewModels
                 _graphicsEngine.Pause();
                 _graphicsEngine.Play();
 
-                NotifyPropChange(nameof(RenderSurfaceWidth));
+                NotifyPropChange();
             }
         }
 
@@ -139,7 +140,16 @@ namespace ParticleMaker.ViewModels
         public int RenderSurfaceHeight
         {
             get => _graphicsEngine.Height;
-            set => _graphicsEngine.Height = value;
+            set
+            {
+                _graphicsEngine.Pause();
+
+                _graphicsEngine.Height = value;
+
+                _graphicsEngine.Play();
+
+                NotifyPropChange();
+            }
         }
 
         /// <summary>

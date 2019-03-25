@@ -179,7 +179,9 @@
 
 
         <!--RENDER SURFACE-->
-        <WindowsFormsHost Name="WinFormsHost" Grid.Row="1" Grid.Column="1" Width="{Binding Path=RenderSurfaceWidth}" Height="{Binding Path=RenderSurfaceHeight}" Margin="199.667,347,200.333,343">
+        <WindowsFormsHost Name="WinFormsHost" Grid.Row="1" Grid.Column="1" d:DesignWidth="400" d:DesignHeight="400"
+                          d:DataContext="{d:DesignData Source=/DesignData/MainWIndowData.xaml}"
+                          Width="{Binding Path=RenderSurfaceWidth}" Height="{Binding Path=RenderSurfaceHeight}">
             <WindowsFormsHost.Child>
                 <wf:PictureBox Name="grfxSurface"/>
             </WindowsFormsHost.Child>
@@ -189,6 +191,7 @@
         <!--RANDOMIZATION SETTINGS-->
         <Grid Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -241,6 +244,11 @@
                                    MinLowerLimit="0.1" MinUpperLimit="2" MaxLowerLimit="0.1" MaxUpperLimit="2"
                                    IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
                                    MinValue="{Binding SizeMin, Mode=TwoWay}" MaxValue="{Binding SizeMax, Mode=TwoWay}"/>
+            
+            <!--RENDER SIZE-->
+            <ctrls:RenderSize Grid.Row="4" Grid.Column="0" Margin="5"
+                              RenderWidth="{Binding Path=RenderSurfaceWidth, Mode=TwoWay}"
+                              RenderHeight="{Binding Path=RenderSurfaceHeight, Mode=TwoWay}"/>
         </Grid>
 
 

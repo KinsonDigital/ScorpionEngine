@@ -22,22 +22,22 @@
     <Grid>
         <ContentPresenter Content="{Binding ElementName=this, Path=ButtonContent}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         
-        <Border x:Name="OverlayBorder" MouseUp="OverlayBorder_MouseUp">
-            <Border.Style>
-                <Style TargetType="Border">
-                    <Setter Property="Background" Value="Transparent"/>
+        <Rectangle x:Name="OverlayBorder" MouseUp="OverlayBorder_MouseUp">
+            <Rectangle.Style>
+                <Style TargetType="Rectangle">
+                    <Setter Property="Fill" Value="Transparent"/>
 
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=this, Path=IsEnabled}" Value="False">
-                            <Setter Property="Background" Value="{StaticResource DisabledOverlayBrush}"/>
+                            <Setter Property="Fill" Value="{StaticResource DisabledOverlayBrush}"/>
                         </DataTrigger>
 
                         <DataTrigger Binding="{Binding ElementName=OverlayBorder, Path=IsMouseOver}" Value="True">
-                            <Setter Property="Background" Value="{StaticResource MouseOverlayBrush}"/>
+                            <Setter Property="Fill" Value="{StaticResource MouseOverlayBrush}"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </Border.Style>
-        </Border>
+            </Rectangle.Style>
+        </Rectangle>
     </Grid>
 </UserControl>
