@@ -95,7 +95,7 @@
                     <!--SAVE BUTTON-->
                     <local:CustomButton x:Name="SaveCustomButton" Click="SaveCustomButton_Click">
                         <local:CustomButton.ButtonContent>
-                            <Image Source="/ParticleMaker;component/Icons/Save.png" Width="27" Height="27" Margin="2.5"/>
+                            <Image Source="/ParticleMaker;component/Icons/Save.png" Width="27" Height="27" Margin="2.5, 5, 2.5, 2.5"/>
                         </local:CustomButton.ButtonContent>
                     </local:CustomButton>
                 </StackPanel>

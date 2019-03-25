@@ -53,6 +53,16 @@ namespace ParticleMaker.DesignData
         /// Gets or sets the AddSetup command test data for the setup list control in the main window.
         /// </summary>
         public ICommand AddSetup { get; set; }
+
+        /// <summary>
+        /// Gets the width to be used at design time for the <see cref="WindowsFormHost"/> control.
+        /// </summary>
+        public int RenderSurfaceWidth { get; } = 400;
+
+        /// <summary>
+        /// Gets the height to be used at design time for the <see cref="WindowsFormHost"/> control.
+        /// </summary>
+        public int RenderSurfaceHeight { get; } = 400;
         #endregion
     }
 }

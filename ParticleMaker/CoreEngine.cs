@@ -13,6 +13,8 @@ namespace ParticleMaker
     {
         #region Fields
         private GraphicsDeviceManager _graphics;
+        private int _renderWidth = 400;
+        private int _renderHeight = 400;
         #endregion
 
 
@@ -75,6 +77,34 @@ namespace ParticleMaker
         /// Gets or sets the handle to the surface to render the graphics to.
         /// </summary>
         public IntPtr RenderSurfaceHandle { get; set; }
+
+        /// <summary>
+        /// Gets or sets the width of the render surface.
+        /// </summary>
+        public int RenderWidth
+        {
+            get => _renderWidth;
+            set
+            {
+                _renderWidth = value;
+                _graphics.PreferredBackBufferWidth = value;
+                _graphics.ApplyChanges();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the height of the render surface.
+        /// </summary>
+        public int RenderHeight
+        {
+            get => _renderHeight;
+            set
+            {
+                _renderHeight = value;
+                _graphics.PreferredBackBufferHeight = value;
+                _graphics.ApplyChanges();
+            }
+        }
         #endregion
 
 
@@ -129,8 +159,8 @@ namespace ParticleMaker
         private void _graphics_PreparingDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e)
         {
             e.GraphicsDeviceInformation.PresentationParameters.DeviceWindowHandle = RenderSurfaceHandle;
-            e.GraphicsDeviceInformation.PresentationParameters.BackBufferWidth = 400;
-            e.GraphicsDeviceInformation.PresentationParameters.BackBufferHeight = 400;
+            e.GraphicsDeviceInformation.PresentationParameters.BackBufferWidth = _renderWidth;
+            e.GraphicsDeviceInformation.PresentationParameters.BackBufferHeight = _renderHeight;
         }
         #endregion
 

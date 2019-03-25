@@ -51,9 +51,6 @@ namespace ParticleMaker
                 _coreEngine.OnUnLoadContent += _coreEngine_OnUnLoadContent;
             }
 
-            Width = 400;
-            Height = 400;
-
             ParticleEngine = particleEngine;
         }
         #endregion
@@ -77,12 +74,20 @@ namespace ParticleMaker
         /// <summary>
         /// Gets or sets the width of the render surface that the graphics are rendering to.
         /// </summary>
-        public int Width { get; set; }
+        public int Width
+        {
+            get => _coreEngine.RenderWidth;
+            set => _coreEngine.RenderWidth = value;
+        }
 
         /// <summary>
         /// Gets or sets the height of the render surface that the graphics are rendering to.
         /// </summary>
-        public int Height { get; set; }
+        public int Height
+        {
+            get => _coreEngine.RenderHeight;
+            set => _coreEngine.RenderHeight = value;
+        }
 
         /// <summary>
         /// Gets a value indicating if the engine is running or paused.

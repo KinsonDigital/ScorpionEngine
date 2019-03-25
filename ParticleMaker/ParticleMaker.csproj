@@ -186,6 +186,9 @@
       <DependentUpon>RandomRange.xaml</DependentUpon>
     </Compile>
     <Compile Include="CustomEventArgs\ValueChangedEventArgs.cs" />
+    <Compile Include="UserControls\RenderSize.xaml.cs">
+      <DependentUpon>RenderSize.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SetupDeployment.xaml.cs">
       <DependentUpon>SetupDeployment.xaml</DependentUpon>
     </Compile>
@@ -285,6 +288,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UserControls\RandomRange.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\RenderSize.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

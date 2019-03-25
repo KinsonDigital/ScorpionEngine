@@ -38,7 +38,6 @@ namespace ParticleMaker
             InitializeComponent();
 
             Loaded += MainWindow_Loaded;
-
             _self = this;
         }
         #endregion
@@ -103,7 +102,7 @@ namespace ParticleMaker
         /// </summary>
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            _mainViewModel.RenderSurface = (winFormsHost.Child as PictureBox);
+            _mainViewModel.RenderSurface = (WinFormsHost.Child as PictureBox);
             _mainViewModel.UIDispatcher = Dispatcher;
 
             _mainViewModel.StartEngine();

@@ -15,23 +15,36 @@
 
     <Window.Resources>
         <converters:StringToBoolConverter x:Key="StringToBoolConverter"/>
+
+        <Style x:Key="ProjectLoadedStyle" TargetType="FrameworkElement">
+            <Setter Property="IsEnabled" Value="False"/>
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
+                                             Value="True">
+                    <Setter Property="IsEnabled" Value="True"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
-    
+
     <Grid d:DataContext="{d:DesignInstance Type=vm:MainViewModel}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/><!--MENU ROW-->
-            <RowDefinition Name="RenderRow" Height="Auto"/>
+            <RowDefinition Height="22"/>
+            <RowDefinition Name="RenderRow" Height="*" MinHeight="400"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Name="RenderColumn" Width="Auto"/>
+            <ColumnDefinition x:Name="RenderColumn" Width="*" MinWidth="400"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
         <!--FILE MENU-->
-        <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
-            <Menu DockPanel.Dock="Top">
+        <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Margin="0,0,0.334,0">
+            <Menu DockPanel.Dock="Top" Background="White" MinHeight="22" MaxHeight="22"
+                  VerticalAlignment="Top">
                 <MenuItem Header="_File">
                     <MenuItem Header="_New Project" Command="{Binding Path=NewProject}"/>
                     <MenuItem Header="_Open Project" Command="{Binding Path=OpenProject}"/>
@@ -43,8 +56,10 @@
                 </MenuItem>
             </Menu>
         </DockPanel>
-        
-        <StackPanel Orientation="Vertical" Visibility="Visible" Margin="10" Grid.Row="1" Grid.Column="0">
+
+
+        <StackPanel Orientation="Vertical" Visibility="Visible" Margin="10,10,0,10" Grid.Row="1" Grid.Column="0"
+                    HorizontalAlignment="Left">
             <!--PROJECT SETUP LIST-->
             <ctrls:SetupList Margin="10" Setups="{Binding Path=ProjectSetups}"
                              IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
@@ -60,90 +75,10 @@
                                 DeleteItemCommand="{Binding Path=DeleteParticle}"
                                 Margin="10" Particles="{Binding Path=Particles, Mode=TwoWay}"/>
 
-            <ctrls:NumericUpDown LabelText="Total Particles" Min="0" Max="100000" Value="{Binding TotalParticles, Mode=TwoWay}"
+            <!--TOTAL PARTICLES TO RENDER-->
+            <ctrls:NumericUpDown LabelText="Total Particles" Min="0" Max="100000" MaxWidth="150" Value="{Binding TotalParticles, Mode=TwoWay}"
                                  IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
-                                 HorizontalAlignment="Stretch" Margin="10"/>
-
-            <!--RANDOMIZATION SETTINGS-->
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-
-                <!--RANDOM ANGULAR VELOCITY-->
-                <ctrls:RandomRange Title="Angular Velocity" MinTitle="Min" MaxTitle="Max" Grid.Row="0" Grid.Column="0" Margin="5"
-                                   MinLowerLimit="0" MinUpperLimit="360" MaxLowerLimit="0" MaxUpperLimit="360"
-                                   IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
-                                   MinValue="{Binding AngularVelocityMin, Mode=TwoWay}" MaxValue="{Binding AngularVelocityMax, Mode=TwoWay}"/>
-
-                <!--RANDOM PARTICLE LIFETIME (Upper limits set to 5 minutes)-->
-                <ctrls:RandomRange Title="Particle LifeTime (ms)" MinTitle="Min" MaxTitle="Max" Grid.Row="0" Grid.Column="1" Margin="5"
-                                   MinLowerLimit="0" MinUpperLimit="300000" MaxLowerLimit="0" MaxUpperLimit="300000"
-                                   IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
-                                   MinValue="{Binding LifetimeMin, Mode=TwoWay}" MaxValue="{Binding LifetimeMax, Mode=TwoWay}"/>
-
-                <!--RANDOM X VELOCITY-->
-                <ctrls:RandomRange Title="X Velocity" MinTitle="Min" MaxTitle="Max" Grid.Row="1" Grid.Column="0" Margin="5"
-                                   MinLowerLimit="-1000" MinUpperLimit="1000" MaxLowerLimit="-1000" MaxUpperLimit="1000"
-                                   IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
-                                   MinValue="{Binding VelocityXMin, Mode=TwoWay}" MaxValue="{Binding VelocityXMax, Mode=TwoWay}"/>
-
-                <!--RANDOM Y VELOCITY-->
-                <ctrls:RandomRange Title="Y Velocity" MinTitle="Min" MaxTitle="Max" Grid.Row="1" Grid.Column="1" Margin="5"
-                                   MinLowerLimit="-1000" MinUpperLimit="1000" MaxLowerLimit="-1000" MaxUpperLimit="1000"
-                                   IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
-                                   MinValue="{Binding VelocityYMin, Mode=TwoWay}" MaxValue="{Binding VelocityYMax, Mode=TwoWay}"/>
-
-                <!--SPAWN RATE-->
-                <ctrls:RandomRange Title="Spawn Rate (ms)" MinTitle="Min" MaxTitle="Max" Grid.Row="2" Grid.Column="0" Margin="5"
-                                   MinLowerLimit="0" MinUpperLimit="300000" MaxLowerLimit="0" MaxUpperLimit="300000"
-                                   IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
-                                   MinValue="{Binding SpawnRateMin, Mode=TwoWay}" MaxValue="{Binding SpawnRateMax, Mode=TwoWay}"/>
-
-                <!--RANDOM ANGLE-->
-                <ctrls:RandomRange Title="Random Angle" MinTitle="Min" MaxTitle="Max" Grid.Row="2" Grid.Column="1" Margin="5"
-                                   MinLowerLimit="0" MinUpperLimit="360" MaxLowerLimit="0" MaxUpperLimit="360"
-                                   IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
-                                   MinValue="{Binding AngleMin, Mode=TwoWay}" MaxValue="{Binding AngleMax, Mode=TwoWay}"/>
-
-                <!--RANDOM SIZE SETTINGS-->
-                <ctrls:RandomRange Title="Random Size" MinTitle="Min" MaxTitle="Max" Grid.Row="3" Grid.Column="0" Margin="5"
-                                   MinLowerLimit="0.1" MinUpperLimit="2" MaxLowerLimit="0.1" MaxUpperLimit="2"
-                                   IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
-                                   MinValue="{Binding SizeMin, Mode=TwoWay}" MaxValue="{Binding SizeMax, Mode=TwoWay}"/>
-            </Grid>
-            
-            <!--SETUP DEPLOYMENT-->
-            <Label Content="Setup Deployment:" FontWeight="Bold"/>
-            
-            <ctrls:SetupDeployment DeploymentPath="{Binding Path=DataContext.SetupDeploymentPath, Mode=TwoWay,
-                                                    RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
-                                   IsEnabled="{Binding Path=DataContext.CurrentOpenProject, Converter={StaticResource StringToBoolConverter},
-                                                       RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MainWindow}}}"
-                                   Margin="5"
-                                   EditClickedCommand="{Binding Path=DataContext.UpdateDeploymentPath,
-                                                        RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
-                                   DeployClickedCommand="{Binding Path=DataContext.DeploySetup,
-                                                          RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}">
-            </ctrls:SetupDeployment>
-        </StackPanel>
-
-        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2">
-            <!--RENDERING SURFACE-->
-            <WindowsFormsHost Name="winFormsHost" Margin="10"
-                              Width="715" Height="715" VerticalAlignment="Top">
-                <WindowsFormsHost.Child>
-                    <wf:PictureBox Name="grfxSurface"></wf:PictureBox>
-                </WindowsFormsHost.Child>
-            </WindowsFormsHost>
+                                 HorizontalAlignment="Left" Margin="10"/>
 
             <!--COLOR RANDOMIZATION-->
             <Grid>
@@ -157,15 +92,15 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Orientation="Vertical" Grid.Row="0">
+                <StackPanel Orientation="Vertical" Grid.Row="0" Margin="5, 0, 0, 0">
                     <RadioButton Name="RandomColorComponentsRadioButton" Content="Random Color Components" IsChecked="True"
-                                IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"/>
+                                 IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"/>
                     <RadioButton Content="Random Color List" IsChecked="{Binding UseColorsFromList}"
-                                IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"/>
+                                 IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"/>
                 </StackPanel>
 
                 <!--RANDOM COLOR COMPONENT SETTINGS-->
-                <Grid Grid.Row="3">
+                <Grid Grid.Row="3" Grid.Column="0" Margin="0, 0, 0, 0">
                     <Grid.Style>
                         <Style TargetType="Grid">
                             <Setter Property="Visibility" Value="Hidden"/>
@@ -189,31 +124,31 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Row="0" Grid.ColumnSpan="3" FontWeight="Bold" Content="Random Color Components" HorizontalAlignment="Center"/>
+                    <Label Grid.Row="0" FontWeight="Bold" Content="Random Color Components" HorizontalAlignment="Center"/>
 
                     <!--RED MIN/MAX-->
-                    <ctrls:ColorMinMax MaxLabel="Red Max" MinLabel="Red Min" Width="155" Grid.Row="1" Grid.Column="0" Margin="0, 0, 5, 0"
-                                    IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
-                                    Min="{Binding Path=RedMin, Mode=TwoWay}" Max="{Binding Path=RedMax, Mode=TwoWay}"
-                                    ChosenColorComponent="Red" HorizontalAlignment="Center"/>
+                    <ctrls:ColorMinMax MaxLabel="Red Max" MinLabel="Red Min" Grid.Row="1" Grid.Column="0" Margin="0, 0, 5, 0"
+                                       IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
+                                       Min="{Binding Path=RedMin, Mode=TwoWay}" Max="{Binding Path=RedMax, Mode=TwoWay}"
+                                       ChosenColorComponent="Red" HorizontalAlignment="Center"/>
 
                     <!--GREEN MIN/MAX-->
-                    <ctrls:ColorMinMax MaxLabel="Green Max" MinLabel="Green Min" Width="165" Grid.Row="1" Grid.Column="1" Margin="5, 0, 5, 0"
-                                    IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
-                                    Min="{Binding Path=GreenMin, Mode=TwoWay}" Max="{Binding Path=GreenMax, Mode=TwoWay}"
-                                    ChosenColorComponent="Green" HorizontalAlignment="Center"/>
+                    <ctrls:ColorMinMax MaxLabel="Green Max" MinLabel="Green Min" Grid.Row="1" Grid.Column="1" Margin="5, 0, 5, 0"
+                                       IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
+                                       Min="{Binding Path=GreenMin, Mode=TwoWay}" Max="{Binding Path=GreenMax, Mode=TwoWay}"
+                                       ChosenColorComponent="Green" HorizontalAlignment="Center"/>
 
                     <!--BLUE MIN/MAX-->
-                    <ctrls:ColorMinMax MaxLabel="Blue Max" MinLabel="Blue Min" Width="165" Grid.Row="1" Grid.Column="2" Margin="5, 0, 0, 0"
-                                    IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
-                                    Min="{Binding Path=BlueMin, Mode=TwoWay}" Max="{Binding Path=BlueMax, Mode=TwoWay}"
-                                    ChosenColorComponent="Blue" HorizontalAlignment="Center"/>
+                    <ctrls:ColorMinMax MaxLabel="Blue Max" MinLabel="Blue Min" Grid.Row="1" Grid.Column="2" Margin="5, 0, 10, 0"
+                                       IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
+                                       Min="{Binding Path=BlueMin, Mode=TwoWay}" Max="{Binding Path=BlueMax, Mode=TwoWay}"
+                                       ChosenColorComponent="Blue" HorizontalAlignment="Center"/>
                 </Grid>
 
                 <!--THE LIST OF COLORS TO RANDOMLY CHOOSE FROM-->
                 <ctrls:ColorList d:DataContext="{d:DesignData Source=/DesignData/MainWindowData.xaml}"
                                 IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
-                                Grid.Row="1" Grid.RowSpan="2" Colors="{Binding Colors, Mode=TwoWay}" HorizontalAlignment="Left">
+                                Grid.Row="1" Grid.RowSpan="2" Colors="{Binding Colors, Mode=TwoWay}">
                     <ctrls:ColorList.Style>
                         <Style TargetType="ctrls:ColorList">
                             <Setter Property="Visibility" Value="Visible"/>
@@ -227,41 +162,117 @@
                     </ctrls:ColorList.Style>
                 </ctrls:ColorList>
             </Grid>
+
+            <!--SETUP DEPLOYMENT-->
+            <Label Content="Setup Deployment:" FontWeight="Bold"/>
+
+            <ctrls:SetupDeployment DeploymentPath="{Binding Path=DataContext.SetupDeploymentPath, Mode=TwoWay,
+                                                    RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                                   IsEnabled="{Binding Path=DataContext.CurrentOpenProject, Converter={StaticResource StringToBoolConverter},
+                                                       RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MainWindow}}}"
+                                   Margin="5"
+                                   EditClickedCommand="{Binding Path=DataContext.UpdateDeploymentPath,
+                                                        RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                                   DeployClickedCommand="{Binding Path=DataContext.DeploySetup,
+                                                          RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"/>
         </StackPanel>
 
-        <!--LIVE STATUS-->
-        <GroupBox Grid.Row="2" Margin="10" IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}">
-            <GroupBox.Header>
-                <HeaderedContentControl FontWeight="Bold" Content="Live Stats">
-                    <HeaderedContentControl.Style>
-                        <Style TargetType="HeaderedContentControl">
-                            <Setter Property="Foreground" Value="Gray"/>
 
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
-                                             Value="True">
-                                    <Setter Property="Foreground" Value="Black"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </HeaderedContentControl.Style>
-                </HeaderedContentControl>
-            </GroupBox.Header>
+        <!--RENDER SURFACE-->
+        <WindowsFormsHost Name="WinFormsHost" Grid.Row="1" Grid.Column="1" d:DesignWidth="400" d:DesignHeight="400"
+                          d:DataContext="{d:DesignData Source=/DesignData/MainWIndowData.xaml}"
+                          Width="{Binding Path=RenderSurfaceWidth}" Height="{Binding Path=RenderSurfaceHeight}">
+            <WindowsFormsHost.Child>
+                <wf:PictureBox Name="grfxSurface"/>
+            </WindowsFormsHost.Child>
+        </WindowsFormsHost>
 
-            <!--TOTAL NUMBER OF PARTICLES-->
-            <StackPanel Orientation="Vertical">
-                <!--TOTAL LIVING PARTICLES-->
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Total Living Particles:" FontWeight="Bold"/>
-                    <Label Content="{Binding TotalLivingParticles}"/>
-                </StackPanel>
 
-                <!--TOTAL DEAD PARTICLES-->
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Total Dead Particles:" FontWeight="Bold"/>
-                    <Label Content="{Binding TotalDeadParticles}"/>
-                </StackPanel>
-            </StackPanel>
-        </GroupBox>
+        <!--RANDOMIZATION SETTINGS-->
+        <Grid Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <!--RANDOM ANGULAR VELOCITY-->
+            <ctrls:RandomRange Title="Angular Velocity" MinTitle="Min" MaxTitle="Max" Grid.Row="0" Grid.Column="0" Margin="5"
+                               MinLowerLimit="0" MinUpperLimit="360" MaxLowerLimit="0" MaxUpperLimit="360"
+                               IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
+                               MinValue="{Binding AngularVelocityMin, Mode=TwoWay}" MaxValue="{Binding AngularVelocityMax, Mode=TwoWay}"/>
+
+            <!--RANDOM PARTICLE LIFETIME (Upper limits set to 5 minutes)-->
+            <ctrls:RandomRange Title="Particle LifeTime (ms)" MinTitle="Min" MaxTitle="Max" Grid.Row="0" Grid.Column="1" Margin="5"
+                                   MinLowerLimit="0" MinUpperLimit="300000" MaxLowerLimit="0" MaxUpperLimit="300000"
+                                   IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
+                                   MinValue="{Binding LifetimeMin, Mode=TwoWay}" MaxValue="{Binding LifetimeMax, Mode=TwoWay}"/>
+
+            <!--RANDOM X VELOCITY-->
+            <ctrls:RandomRange Title="X Velocity" MinTitle="Min" MaxTitle="Max" Grid.Row="1" Grid.Column="0" Margin="5"
+                                   MinLowerLimit="-1000" MinUpperLimit="1000" MaxLowerLimit="-1000" MaxUpperLimit="1000"
+                                   IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
+                                   MinValue="{Binding VelocityXMin, Mode=TwoWay}" MaxValue="{Binding VelocityXMax, Mode=TwoWay}"/>
+
+            <!--RANDOM Y VELOCITY-->
+            <ctrls:RandomRange Title="Y Velocity" MinTitle="Min" MaxTitle="Max" Grid.Row="1" Grid.Column="1" Margin="5"
+                                   MinLowerLimit="-1000" MinUpperLimit="1000" MaxLowerLimit="-1000" MaxUpperLimit="1000"
+                                   IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
+                                   MinValue="{Binding VelocityYMin, Mode=TwoWay}" MaxValue="{Binding VelocityYMax, Mode=TwoWay}"/>
+
+            <!--SPAWN RATE-->
+            <ctrls:RandomRange Title="Spawn Rate (ms)" MinTitle="Min" MaxTitle="Max" Grid.Row="2" Grid.Column="0" Margin="5"
+                                   MinLowerLimit="0" MinUpperLimit="300000" MaxLowerLimit="0" MaxUpperLimit="300000"
+                                   IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
+                                   MinValue="{Binding SpawnRateMin, Mode=TwoWay}" MaxValue="{Binding SpawnRateMax, Mode=TwoWay}"/>
+
+            <!--RANDOM ANGLE-->
+            <ctrls:RandomRange Title="Random Angle" MinTitle="Min" MaxTitle="Max" Grid.Row="2" Grid.Column="1" Margin="5"
+                                   MinLowerLimit="0" MinUpperLimit="360" MaxLowerLimit="0" MaxUpperLimit="360"
+                                   IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
+                                   MinValue="{Binding AngleMin, Mode=TwoWay}" MaxValue="{Binding AngleMax, Mode=TwoWay}"/>
+
+            <!--RANDOM SIZE SETTINGS-->
+            <ctrls:RandomRange Title="Random Size" MinTitle="Min" MaxTitle="Max" Grid.Row="3" Grid.Column="0" Margin="5"
+                                   MinLowerLimit="0.1" MinUpperLimit="2" MaxLowerLimit="0.1" MaxUpperLimit="2"
+                                   IsEnabled="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
+                                   MinValue="{Binding SizeMin, Mode=TwoWay}" MaxValue="{Binding SizeMax, Mode=TwoWay}"/>
+            
+            <!--RENDER SIZE-->
+            <ctrls:RenderSize Grid.Row="4" Grid.Column="0" Margin="5"
+                              RenderWidth="{Binding Path=RenderSurfaceWidth, Mode=TwoWay}"
+                              RenderHeight="{Binding Path=RenderSurfaceHeight, Mode=TwoWay}"/>
+        </Grid>
+
+
+        <!--STATUS BAR-->
+        <Border BorderBrush="LightGray" BorderThickness="1" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" >
+            <DockPanel Style="{StaticResource ProjectLoadedStyle}">
+                <StatusBar DockPanel.Dock="Bottom">
+                    <StatusBarItem>
+                        <!--TOTAL LIVING PARTICLES-->
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Total Living Particles:" FontWeight="Bold"/>
+                            <Label Content="{Binding TotalLivingParticles}"/>
+                        </StackPanel>
+                    </StatusBarItem>
+
+                    <StatusBarItem>
+                        <!--TOTAL DEAD PARTICLES-->
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Total Dead Particles:" FontWeight="Bold"/>
+                            <Label Content="{Binding TotalDeadParticles}"/>
+                        </StackPanel>
+                    </StatusBarItem>
+                </StatusBar>
+            </DockPanel>
+        </Border>
     </Grid>
 </Window>
