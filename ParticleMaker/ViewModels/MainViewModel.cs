@@ -974,7 +974,7 @@ namespace ParticleMaker.ViewModels
                 {
                     var invalidProjNames = _projectManager.Projects;
 
-                    var inputDialog = new InputDialog("Rename Project", "Enter new project name.",defaultValue: projectListDialog.SelectedProject, invalidChars: _illegalCharacters, invalidValues: invalidProjNames)
+                    var inputDialog = new InputDialog("Rename Project", "Enter new project name.", defaultValue: projectListDialog.SelectedProject, invalidChars: _illegalCharacters, invalidValues: invalidProjNames)
                     {
                         Owner = DialogOwner
                     };
