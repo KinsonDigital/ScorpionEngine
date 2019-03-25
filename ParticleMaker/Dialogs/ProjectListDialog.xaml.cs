@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,6 +19,7 @@ namespace ParticleMaker.Dialogs
         #region Fields
         private CancellationTokenSource _tokenSrc;
         private Task _autoRefreshTask;
+        private bool _firstTimeRefreshed = true;
         #endregion
 
 
@@ -236,11 +238,39 @@ namespace ParticleMaker.Dialogs
                 }
             }
 
-            var selectedIndex = ProjectListBox.SelectedIndex;
+            //Check if any of the path items are not the same as the items in the list.
+            //If any items are not the same, something has changed. Update the list.
+            if (paths.Count != ProjectNames.Length)
+            {
+                ProjectNames = paths.ToArray();
+            }
+            else
+            {
+                for (int i = 0; i < paths.Count; i++)
+                {
+                    if (!ProjectNames.Any(item => item.Equals(paths[i])))
+                    {
+                        ProjectNames = paths.ToArray();
+                        break;
+                    }
+                }
+            }
 
-            ProjectNames = paths.ToArray();
+            if (_firstTimeRefreshed)
+            {
+                if (ProjectListBox.Items.Count > 0)
+                    ProjectListBox.SelectedValue = ProjectListBox.Items[0];
 
-            ProjectListBox.SelectedIndex = selectedIndex;
+                _firstTimeRefreshed = false;
+
+                ProjectListBox.Focus();
+            }
+            else if(ProjectListBox.SelectedItem ==  null)
+            {
+                var selectedIndex = ProjectListBox.SelectedIndex;
+
+                ProjectListBox.SelectedIndex = selectedIndex;
+            }
         }
         #endregion
     }
