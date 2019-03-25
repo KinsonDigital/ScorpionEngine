@@ -43,7 +43,6 @@ namespace ParticleMaker.Dialogs
             Message = message;
             InputValue = defaultValue;
 
-
             //Select all of the text so the user can start typing immediately
             InputTextBox.Focus();
             InputTextBox.SelectAll();

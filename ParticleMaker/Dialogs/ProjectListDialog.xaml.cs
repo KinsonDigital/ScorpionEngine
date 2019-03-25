@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace ParticleMaker.Dialogs
 {
@@ -35,6 +36,11 @@ namespace ParticleMaker.Dialogs
             _tokenSrc = new CancellationTokenSource();
 
             _autoRefreshTask = new Task(AutoRefreshAction, _tokenSrc.Token);
+
+            Unloaded += ProjectListDialog_Unloaded;
+
+            //Cancel the dialog if the esc key is pressed
+            Keyboard.AddKeyUpHandler(this, KeyUpHandler);
         }
         #endregion
 
@@ -97,6 +103,15 @@ namespace ParticleMaker.Dialogs
 
 
         /// <summary>
+        /// Unregisters the <see cref="KeyUpHandler(object, KeyEventArgs)"/> method.
+        /// </summary>
+        private void ProjectListDialog_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Keyboard.RemoveKeyUpHandler(this, KeyUpHandler);
+        }
+
+
+        /// <summary>
         /// Cancels the auto refresh task.
         /// </summary>
         private void ProjectListDialog_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -139,6 +154,16 @@ namespace ParticleMaker.Dialogs
                 return;
 
             SelectedProject = selectedItem.Name;
+        }
+
+
+        /// <summary>
+        /// Processes keyboard presses to add behavior to the dialog.
+        /// </summary>
+        private void KeyUpHandler(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+                Close();
         }
 
 
