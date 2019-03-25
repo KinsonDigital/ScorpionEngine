@@ -177,7 +177,7 @@ namespace ParticleMaker.Dialogs
 
         #region Private Methods
         /// <summary>
-        /// Unregisters the <see cref="KeyUpHandler(object, KeyEventArgs)"/>.
+        /// Unregisters the <see cref="KeyUpHandler(object, KeyEventArgs)"/> method.
         /// </summary>
         private void InputDialog_Unloaded(object sender, RoutedEventArgs e)
         {
