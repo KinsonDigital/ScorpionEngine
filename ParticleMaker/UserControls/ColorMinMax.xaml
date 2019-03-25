@@ -6,7 +6,6 @@
              xmlns:local="clr-namespace:ParticleMaker.UserControls"
              Name="this" mc:Ignorable="d" MinWidth="105" Background="White">
 
-    <!--TODO: Remove width from this grid-->
     <Grid DataContext="{Binding ElementName=this}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

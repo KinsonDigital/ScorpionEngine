@@ -125,9 +125,10 @@ namespace ParticleMaker.ViewModels
             get => _graphicsEngine.Width;
             set
             {
+                _graphicsEngine.Pause();
+
                 _graphicsEngine.Width = value;
 
-                _graphicsEngine.Pause();
                 _graphicsEngine.Play();
 
                 NotifyPropChange();

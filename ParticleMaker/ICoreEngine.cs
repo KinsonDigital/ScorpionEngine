@@ -59,10 +59,14 @@ namespace ParticleMaker
         /// </summary>
         IntPtr RenderSurfaceHandle { get; set; }
 
-        //TODO: Add Docs
+        /// <summary>
+        /// Gets or sets the width of the render surface.
+        /// </summary>
         int RenderWidth { get; set; }
 
-        //TODO: Add Docs
+        /// <summary>
+        /// Gets or sets the height of the render surface.
+        /// </summary>
         int RenderHeight { get; set; }
         #endregion
 
