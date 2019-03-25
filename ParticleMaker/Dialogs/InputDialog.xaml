@@ -7,7 +7,7 @@
         WindowStartupLocation="CenterOwner" SizeToContent="WidthAndHeight"
         MinWidth="300" MaxWidth="400" MinHeight="200" WindowStyle="ToolWindow"
         DataContext="{Binding ElementName=this}"
-        d:DataContext="{d:DesignData Source=/Dialogs/DesignData/InputDialogData.xaml}" ResizeMode="NoResize">
+        d:DataContext="{d:DesignData Source=/Dialogs/DesignData/DialogData.xaml}" ResizeMode="NoResize">
 
     <Grid>
         <Grid.RowDefinitions>
