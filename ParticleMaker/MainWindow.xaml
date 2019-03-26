@@ -50,7 +50,7 @@
                     <MenuItem Header="_Open Project" Command="{Binding Path=OpenProject}"/>
                     <MenuItem Header="_Rename Project" Command="{Binding Path=RenameProject}"/>
                     <MenuItem Header="_Delete Project" Command="{Binding Path=DeleteProject}"/>
-                    <MenuItem Header="_Close Project"/>
+                    <MenuItem Header="_Close Project" Command="{Binding Path=CloseProject}"/>
                     <Separator/>
                     <MenuItem Header="_Exit"/>
                 </MenuItem>

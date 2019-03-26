@@ -254,19 +254,19 @@ namespace KDParticleEngine
         /// Gets or sets the minimum X value for the <see cref="Particle.Velocity"/> when
         /// spawning new <see cref="Particle"/>.
         /// </summary>
-        public float VelocityXMin { get; set; }
+        public float VelocityXMin { get; set; } = -1;
 
         /// <summary>
         /// Gets or sets the maximum X value for the <see cref="Particle.Velocity"/> when
         /// spawning new <see cref="Particle"/>.
         /// </summary>
-        public float VelocityXMax { get; set; }
+        public float VelocityXMax { get; set; } = 1;
 
         /// <summary>
         /// Gets or sets the minimum Y value for the <see cref="Particle.Velocity"/> when
         /// spawning new <see cref="Particle"/>.
         /// </summary>
-        public float VelocityYMin { get; set; }
+        public float VelocityYMin { get; set; } = -1;
 
         /// <summary>
         /// Gets or sets the maximum Y value for the <see cref="Particle.Velocity"/> when

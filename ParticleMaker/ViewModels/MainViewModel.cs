@@ -56,6 +56,7 @@ namespace ParticleMaker.ViewModels
         private RelayCommand _addParticleCommand;
         private RelayCommand _renameParticleCommand;
         private RelayCommand _deleteParticleCommand;
+        private RelayCommand _closeProjectCommand;
         private string _currentOpenProject;
         #endregion
 
@@ -750,6 +751,21 @@ namespace ParticleMaker.ViewModels
                 return _deleteParticleCommand;
             }
         }
+
+        /// <summary>
+        /// Closes a loaded project.
+        /// </summary>
+        public RelayCommand CloseProject
+        {
+            get
+            {
+                if (_closeProjectCommand == null)
+                    _closeProjectCommand = new RelayCommand(CloseProjectExecute, (param) => true);
+
+
+                return _closeProjectCommand;
+            }
+        }
         #endregion
         #endregion
 
@@ -1060,6 +1076,57 @@ namespace ParticleMaker.ViewModels
             {
                 ExceptionHandler.Handle(ex);
             }
+        }
+
+
+        /// <summary>
+        /// Closes a loaded project.
+        /// </summary>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
+        [ExcludeFromCodeCoverage]
+        private void CloseProjectExecute(object param)
+        {
+            _graphicsEngine.Pause();
+
+            if (SettingsChanged)
+            {
+                var saveSettingsDialog = WPFMsgBox.Show($"The settings for the setup '{CurrentLoadedSetup}' has changed.  Save setup before closing?", "Save Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (saveSettingsDialog == MessageBoxResult.Yes)
+                    SaveSetupExecute(null);
+            }
+
+            RedMin = 0;
+            RedMax = 0;
+            GreenMin = 0;
+            GreenMax = 0;
+            BlueMin = 0;
+            BlueMax = 0;
+            SizeMin = 0;
+            SizeMax = 0;
+            AngleMin = 0;
+            AngleMax = 0;
+            AngularVelocityMin = 0;
+            AngularVelocityMax = 0;
+            VelocityXMin = 0;
+            VelocityXMax = 0;
+            VelocityYMin = 0;
+            VelocityYMax = 0;
+            LifetimeMin = 0;
+            LifetimeMax = 0;
+            SpawnRateMin = 0;
+            SpawnRateMax = 0;
+            UseColorsFromList = false;
+
+            CurrentLoadedSetup = string.Empty;
+            CurrentOpenProject = string.Empty;
+            SetupDeploymentPath = string.Empty;
+            ProjectSetups = null;
+            Particles = null;
+        
+            SettingsChanged = false;
+
+            NotifyAllPropChanges(this.GetPropertyNames());
         }
 
 
