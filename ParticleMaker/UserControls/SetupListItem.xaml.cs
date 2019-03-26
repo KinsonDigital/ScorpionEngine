@@ -40,8 +40,6 @@ namespace ParticleMaker.UserControls
         public SetupListItem()
         {
             InitializeComponent();
-
-            Keyboard.AddKeyUpHandler(this, KeyUpHandler);
         }
         #endregion
 
@@ -239,16 +237,6 @@ namespace ParticleMaker.UserControls
         private void ItemBorder_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Command?.Execute(SetupName);
-        }
-
-
-        /// <summary>
-        /// Process keys to add behavior to the user control.
-        /// </summary>
-        private void KeyUpHandler(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-                Command?.Execute(SetupName);
         }
 
 
