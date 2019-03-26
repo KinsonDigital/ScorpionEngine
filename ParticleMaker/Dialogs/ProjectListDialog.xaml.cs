@@ -195,12 +195,14 @@ namespace ParticleMaker.Dialogs
         /// </summary>
         private void MouseUpHandler(object sender, MouseEventArgs e)
         {
+            var clickTiming = (_secondClickStamp - _firstClickStamp).TotalMilliseconds;
+
             if (_clickCount <= 1 && e.LeftButton == MouseButtonState.Released)
             {
-                _clickCount += 1;
-
                 if (_clickCount == 1)
                     _firstClickStamp = DateTime.Now;
+
+                _clickCount += 1;
             }
 
 
@@ -208,7 +210,7 @@ namespace ParticleMaker.Dialogs
             {
                 _secondClickStamp = DateTime.Now;
 
-                if ((_secondClickStamp - _firstClickStamp).TotalMilliseconds <= 350)
+                if (clickTiming <= 350)
                 {
                     DialogResult = true;
                     Close();

@@ -52,7 +52,8 @@
                     <MenuItem Header="_Delete Project" Command="{Binding Path=DeleteProject}"/>
                     <MenuItem Header="_Close Project" Command="{Binding Path=CloseProject}"/>
                     <Separator/>
-                    <MenuItem Header="_Exit"/>
+                    <MenuItem Header="_Exit"
+                              Command="{Binding Path=ExitApp}" CommandParameter="{Binding ElementName=this}"/>
                 </MenuItem>
             </Menu>
         </DockPanel>

@@ -21,6 +21,7 @@ using WPFMsgBox = System.Windows.MessageBox;
 using FolderDialog = System.Windows.Forms.FolderBrowserDialog;
 using FolderDialogResult = System.Windows.Forms.DialogResult;
 using System.ComponentModel;
+using System.Reflection;
 
 namespace ParticleMaker.ViewModels
 {
@@ -57,6 +58,7 @@ namespace ParticleMaker.ViewModels
         private RelayCommand _renameParticleCommand;
         private RelayCommand _deleteParticleCommand;
         private RelayCommand _closeProjectCommand;
+        private RelayCommand _exitAppCommand;
         private string _currentOpenProject;
         #endregion
 
@@ -766,6 +768,21 @@ namespace ParticleMaker.ViewModels
                 return _closeProjectCommand;
             }
         }
+
+        /// <summary>
+        /// Exists the application.
+        /// </summary>
+        public RelayCommand ExitApp
+        {
+            get
+            {
+                if (_exitAppCommand == null)
+                    _exitAppCommand = new RelayCommand(ExitAppExecute, (param) => true);
+
+
+                return _exitAppCommand;
+            }
+        }
         #endregion
         #endregion
 
@@ -1127,6 +1144,29 @@ namespace ParticleMaker.ViewModels
             SettingsChanged = false;
 
             NotifyAllPropChanges(this.GetPropertyNames());
+        }
+
+
+        /// <summary>
+        /// Exits the application.
+        /// </summary>
+        /// <param name="param"></param>
+        private void ExitAppExecute(object param)
+        {
+            try
+            {
+                if (!(param is MainWindow mainWindow))
+                    throw new InvalidCommandActionParamTypeException(nameof(ExitAppExecute), nameof(param));
+
+                _graphicsEngine.Pause();
+                _graphicsEngine.Stop();
+
+                mainWindow.Close();
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.Handle(ex);
+            }
         }
 
 
