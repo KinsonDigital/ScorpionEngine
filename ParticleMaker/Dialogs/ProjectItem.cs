@@ -25,6 +25,16 @@ namespace ParticleMaker.Dialogs
         /// <returns>true if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.</returns>
         /// <param name="other">A <see cref="ProjectItem"/> object to compare with this object.</param>
         public bool Equals(ProjectItem other) => Name == other.Name && Exists == other.Exists;
+
+
+        /// <summary>
+        /// Returns a hashcode that represents the uniqueness of this <see cref="ProjectItem"/> instance.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode() + Exists.GetHashCode();
+        }
         #endregion
     }
 }

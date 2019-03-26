@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
@@ -20,6 +21,9 @@ namespace ParticleMaker.Dialogs
         private CancellationTokenSource _tokenSrc;
         private Task _autoRefreshTask;
         private bool _firstTimeRefreshed = true;
+        private int _clickCount = 0;
+        private DateTime _firstClickStamp;
+        private DateTime _secondClickStamp;
         #endregion
 
 
@@ -30,6 +34,12 @@ namespace ParticleMaker.Dialogs
         public ProjectListDialog(string title = "Project List")
         {
             InitializeComponent();
+
+            Dispatcher.ShutdownStarted += (sender, e) =>
+            {
+                Keyboard.RemoveKeyUpHandler(this, KeyUpHandler);
+                Mouse.RemoveMouseUpHandler(this, MouseUpHandler);
+            };
 
             Title = title;
 
@@ -43,32 +53,14 @@ namespace ParticleMaker.Dialogs
 
             //Cancel the dialog if the esc key is pressed
             Keyboard.AddKeyUpHandler(this, KeyUpHandler);
+
+            //Used to accept and item by double clicking it.
+            Mouse.AddMouseUpHandler(this, MouseUpHandler);
         }
         #endregion
 
 
-        #region Props
         #region Dependency Props
-        /// <summary>
-        /// Registers the <see cref="ProjectPaths"/> property.
-        /// </summary>
-        public static readonly DependencyProperty ProjectPathsProperty =
-            DependencyProperty.Register(nameof(ProjectPaths), typeof(string[]), typeof(ProjectListDialog), new PropertyMetadata(new string[0], ProjectPathsChanged));
-
-        /// <summary>
-        /// Registers the <see cref="ProjectNames"/>.
-        /// </summary>
-        protected static readonly DependencyProperty ProjectNamesProperty =
-            DependencyProperty.Register(nameof(ProjectNames), typeof(ProjectItem[]), typeof(ProjectListDialog), new PropertyMetadata(new ProjectItem[0]));
-
-        /// <summary>
-        /// Registers the <see cref="SelectedProject"/> property.
-        /// </summary>
-        public static readonly DependencyProperty SelectedProjectProperty =
-            DependencyProperty.Register(nameof(SelectedProject), typeof(string), typeof(ProjectListDialog), new PropertyMetadata(""));
-        #endregion
-
-
         /// <summary>
         /// Gets or sets the paths to all of the projects.
         /// </summary>
@@ -77,6 +69,13 @@ namespace ParticleMaker.Dialogs
             get { return (string[])GetValue(ProjectPathsProperty); }
             set { SetValue(ProjectPathsProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="ProjectPaths"/> property.
+        /// </summary>
+        public static readonly DependencyProperty ProjectPathsProperty =
+            DependencyProperty.Register(nameof(ProjectPaths), typeof(string[]), typeof(ProjectListDialog), new PropertyMetadata(new string[0], ProjectPathsChanged));
+
 
         /// <summary>
         /// Gets or sets the list of project names.
@@ -88,9 +87,22 @@ namespace ParticleMaker.Dialogs
         }
 
         /// <summary>
+        /// Registers the <see cref="ProjectNames"/>.
+        /// </summary>
+        protected static readonly DependencyProperty ProjectNamesProperty =
+            DependencyProperty.Register(nameof(ProjectNames), typeof(ProjectItem[]), typeof(ProjectListDialog), new PropertyMetadata(new ProjectItem[0]));
+
+
+        /// <summary>
         /// Gets or sets the selected project.
         /// </summary>
         public string SelectedProject { get; set; }
+
+        /// <summary>
+        /// Registers the <see cref="SelectedProject"/> property.
+        /// </summary>
+        public static readonly DependencyProperty SelectedProjectProperty =
+            DependencyProperty.Register(nameof(SelectedProject), typeof(string), typeof(ProjectListDialog), new PropertyMetadata(""));
         #endregion
 
 
@@ -178,6 +190,36 @@ namespace ParticleMaker.Dialogs
 
 
         /// <summary>
+        /// Detects double clicks of an item and if it has been double clicked, 
+        /// accepts the item by closing the dialog with a result of true.
+        /// </summary>
+        private void MouseUpHandler(object sender, MouseEventArgs e)
+        {
+            if (_clickCount <= 1 && e.LeftButton == MouseButtonState.Released)
+            {
+                _clickCount += 1;
+
+                if (_clickCount == 1)
+                    _firstClickStamp = DateTime.Now;
+            }
+
+
+            if (_clickCount >= 2 && ProjectListBox.SelectedItem != null)
+            {
+                _secondClickStamp = DateTime.Now;
+
+                if ((_secondClickStamp - _firstClickStamp).TotalMilliseconds <= 350)
+                {
+                    DialogResult = true;
+                    Close();
+                }
+
+                _clickCount = 0;
+            }
+        }
+
+
+        /// <summary>
         /// Updates the project names list.
         /// </summary>
         private static void ProjectPathsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -190,7 +232,7 @@ namespace ParticleMaker.Dialogs
             if (!(e.NewValue is string[] newValue))
                 return;
 
-            dialog.Refresh(newValue);
+            dialog.Refresh();
         }
 
 
@@ -207,7 +249,7 @@ namespace ParticleMaker.Dialogs
 
                 Dispatcher.Invoke(() =>
                 {
-                    Refresh(ProjectPaths);
+                    Refresh();
                 });
             }
         }
@@ -217,36 +259,19 @@ namespace ParticleMaker.Dialogs
         /// Refresh the UI based on the given list of <paramref name="projPaths"/>.
         /// </summary>
         /// <param name="projPaths">The list of project paths.</param>
-        private void Refresh(string[] projPaths)
+        private void Refresh()
         {
-            var paths = new List<ProjectItem>();
-
-            foreach (var path in projPaths)
-            {
-                var sections = path.Split('\\');
-
-                if (sections.Length > 0)
-                {
-                    var projName = sections[sections.Length - 1];
-                    var pathExists = Directory.Exists(path);
-
-                    paths.Add(new ProjectItem()
-                    {
-                        Name = projName,
-                        Exists = pathExists
-                    });
-                }
-            }
+            var paths = ToProjectItems(ProjectPaths);
 
             //Check if any of the path items are not the same as the items in the list.
             //If any items are not the same, something has changed. Update the list.
-            if (paths.Count != ProjectNames.Length)
+            if (paths.Length != ProjectNames.Length)
             {
                 ProjectNames = paths.ToArray();
             }
             else
             {
-                for (int i = 0; i < paths.Count; i++)
+                for (int i = 0; i < paths.Length; i++)
                 {
                     if (!ProjectNames.Any(item => item.Equals(paths[i])))
                     {
@@ -271,6 +296,37 @@ namespace ParticleMaker.Dialogs
 
                 ProjectListBox.SelectedIndex = selectedIndex;
             }
+        }
+
+
+        /// <summary>
+        /// Converts the given array of <paramref name="projPaths"/> to an array of <see cref="ProjectItem"/>s.
+        /// </summary>
+        /// <param name="projPaths">This list of items to convert.</param>
+        /// <returns></returns>
+        private ProjectItem[] ToProjectItems(string[] projPaths)
+        {
+            var paths = new List<ProjectItem>();
+
+            foreach (var path in projPaths)
+            {
+                var sections = path.Split('\\');
+
+                if (sections.Length > 0)
+                {
+                    var projName = sections[sections.Length - 1];
+                    var pathExists = Directory.Exists(path);
+
+                    paths.Add(new ProjectItem()
+                    {
+                        Name = projName,
+                        Exists = pathExists
+                    });
+                }
+            }
+
+
+            return paths.ToArray();
         }
         #endregion
     }
