@@ -34,7 +34,11 @@ namespace ParticleMaker.UserControls
         {
             InitializeComponent();
 
-            Dispatcher.ShutdownStarted += (sender, e) => { _refreshTokenSrc.Cancel(); };
+            Dispatcher.ShutdownStarted += (sender, e) => 
+            {
+                _refreshTokenSrc.Cancel();
+                Keyboard.RemoveKeyUpHandler(this, KeyUpHandler);
+            };
 
             _refreshTokenSrc = new CancellationTokenSource();
 
@@ -43,6 +47,8 @@ namespace ParticleMaker.UserControls
             _refreshTask.Start();
 
             Refresh();
+
+            Keyboard.AddKeyUpHandler(this, KeyUpHandler);
         }
         #endregion
 
@@ -251,6 +257,21 @@ namespace ParticleMaker.UserControls
                 return;
 
             SelectedItem = selectedItem;
+        }
+
+
+        /// <summary>
+        /// Processes keys to dictate the behavior of the <see cref="SetupList"/> control.
+        /// </summary>
+        private void KeyUpHandler(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Up && e.Key != Key.Down)
+                return;
+
+            var itemSections = SelectedItem.FilePath.Split('\\');
+
+            if (itemSections.Length >= 1)
+                ItemSelectedCommand?.Execute(itemSections[itemSections.Length - 1]);
         }
 
 

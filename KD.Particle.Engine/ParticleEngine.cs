@@ -300,6 +300,15 @@ namespace KDParticleEngine
 
 
         /// <summary>
+        /// Clears all of the textures.
+        /// </summary>
+        public void ClearTextures()
+        {
+            _textures.Clear();
+        }
+
+
+        /// <summary>
         /// Updates all of the <see cref="Particle"/>s.
         /// </summary>
         /// <param name="engineTime">The amount of time that has passed in the <see cref="Engine"/> since the last frame.</param>

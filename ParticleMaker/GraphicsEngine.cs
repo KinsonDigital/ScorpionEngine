@@ -209,6 +209,7 @@ namespace ParticleMaker
         private void _coreEngine_OnUnLoadContent(object sender, EventArgs e)
         {
             _spriteBatch?.Dispose();
+            ParticleEngine.ClearTextures();
         }
         #endregion
     }
