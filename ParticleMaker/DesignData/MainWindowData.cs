@@ -75,6 +75,11 @@ namespace ParticleMaker.DesignData
         public ICommand DeleteProject { get; set; }
 
         /// <summary>
+        /// Create a close project command for the <see cref="MainWindow"/>.
+        /// </summary>
+        public ICommand CloseProject { get; set; }
+
+        /// <summary>
         /// Gets the width to be used at design time for the <see cref="WindowsFormHost"/> control.
         /// </summary>
         public int RenderSurfaceWidth { get; } = 400;
