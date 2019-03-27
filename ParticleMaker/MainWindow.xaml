@@ -13,9 +13,13 @@
         d:DataContext="{d:DesignData Source=/DesignData/MainWindowData.xaml}"
         SizeToContent="WidthAndHeight">
 
+    <Window.InputBindings>
+        <KeyBinding Modifiers="Ctrl" Key="N" Command="{Binding Path=NewProject}"/>
+    </Window.InputBindings>
+    
     <Window.Resources>
         <converters:StringToBoolConverter x:Key="StringToBoolConverter"/>
-
+        
         <Style x:Key="ProjectLoadedStyle" TargetType="FrameworkElement">
             <Setter Property="IsEnabled" Value="False"/>
 
@@ -46,7 +50,19 @@
             <Menu DockPanel.Dock="Top" Background="White" MinHeight="22" MaxHeight="22"
                   VerticalAlignment="Top">
                 <MenuItem Header="_File">
-                    <MenuItem Header="_New Project" Command="{Binding Path=NewProject}"/>
+                    <MenuItem Command="{Binding Path=NewProject}">
+                        <MenuItem.Header>
+                            <Grid Width="150">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <Label Content="_Hello" Grid.Column="0"/>
+                                <Label Content="Ctrl + N" Grid.Column="1" HorizontalAlignment="Right"/>
+                            </Grid>
+                        </MenuItem.Header>
+                    </MenuItem>
                     <MenuItem Header="_Open Project" Command="{Binding Path=OpenProject}"/>
                     <MenuItem Header="_Rename Project" Command="{Binding Path=RenameProject}"/>
                     <MenuItem Header="_Delete Project" Command="{Binding Path=DeleteProject}"/>
