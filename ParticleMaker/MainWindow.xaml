@@ -15,6 +15,7 @@
 
     <Window.InputBindings>
         <KeyBinding Modifiers="Ctrl" Key="N" Command="{Binding Path=NewProject}"/>
+        <KeyBinding Modifiers="Ctrl" Key="O" Command="{Binding Path=OpenProject}"/>
     </Window.InputBindings>
     
     <Window.Resources>
@@ -46,24 +47,40 @@
         </Grid.ColumnDefinitions>
 
         <!--FILE MENU-->
-        <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Margin="0,0,0.334,0">
+        <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4">
             <Menu DockPanel.Dock="Top" Background="White" MinHeight="22" MaxHeight="22"
                   VerticalAlignment="Top">
                 <MenuItem Header="_File">
+                    <!--NEW PROJECT-->
                     <MenuItem Command="{Binding Path=NewProject}">
                         <MenuItem.Header>
-                            <Grid Width="150">
+                            <Grid HorizontalAlignment="Left">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 
-                                <Label Content="_Hello" Grid.Column="0"/>
-                                <Label Content="Ctrl + N" Grid.Column="1" HorizontalAlignment="Right"/>
+                                <Label Content="_New Project" Grid.Column="0"/>
+                                <Label Content="      Ctrl + N" Grid.Column="1"/>
                             </Grid>
                         </MenuItem.Header>
                     </MenuItem>
-                    <MenuItem Header="_Open Project" Command="{Binding Path=OpenProject}"/>
+                    
+                    <!--OPEN PROJECT-->
+                    <MenuItem Command="{Binding Path=OpenProject}">
+                        <MenuItem.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Content="_Open Project" Grid.Column="0"/>
+                                <Label Content="     Ctrl + O" Grid.Column="1"/>
+                            </Grid>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    
                     <MenuItem Header="_Rename Project" Command="{Binding Path=RenameProject}"/>
                     <MenuItem Header="_Delete Project" Command="{Binding Path=DeleteProject}"/>
                     <MenuItem Header="_Close Project" Command="{Binding Path=CloseProject}"/>

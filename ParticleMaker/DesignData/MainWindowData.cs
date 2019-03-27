@@ -55,6 +55,16 @@ namespace ParticleMaker.DesignData
         public ICommand AddSetup { get; set; }
 
         /// <summary>
+        /// Create a new project command for the <see cref="MainWindow"/>.
+        /// </summary>
+        public ICommand NewProject { get; set; }
+
+        /// <summary>
+        /// Create a open project command for the <see cref="MainWindow"/>.
+        /// </summary>
+        public ICommand OpenProject { get; set; }
+
+        /// <summary>
         /// Gets the width to be used at design time for the <see cref="WindowsFormHost"/> control.
         /// </summary>
         public int RenderSurfaceWidth { get; } = 400;
