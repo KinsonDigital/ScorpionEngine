@@ -24,6 +24,7 @@ namespace ParticleMaker.Dialogs
         private int _clickCount = 0;
         private DateTime _firstClickStamp;
         private DateTime _secondClickStamp;
+        private int _mouseDownSelectedIndex;
         #endregion
 
 
@@ -195,6 +196,9 @@ namespace ParticleMaker.Dialogs
         /// </summary>
         private void MouseUpHandler(object sender, MouseEventArgs e)
         {
+            if (ProjectListBox.SelectedItem == null)
+                return;
+
             if (_clickCount <= 1 && e.LeftButton == MouseButtonState.Released)
             {
                 _clickCount += 1;
@@ -204,17 +208,19 @@ namespace ParticleMaker.Dialogs
             }
 
 
-            if (_clickCount >= 2 && ProjectListBox.SelectedItem != null)
+            if (_clickCount >= 2)
             {
-                _secondClickStamp = DateTime.Now;
+                var clickTiming = (DateTime.Now - _firstClickStamp).TotalMilliseconds;
 
-                if ((_secondClickStamp - _firstClickStamp).TotalMilliseconds <= 350)
+                if (clickTiming <= 2000)
                 {
                     DialogResult = true;
                     Close();
                 }
-
-                _clickCount = 0;
+                else
+                {
+                    _clickCount = 0;
+                }
             }
         }
 
