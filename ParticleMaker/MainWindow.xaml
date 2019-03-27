@@ -17,6 +17,7 @@
         <KeyBinding Modifiers="Ctrl" Key="N" Command="{Binding Path=NewProject}"/>
         <KeyBinding Modifiers="Ctrl" Key="O" Command="{Binding Path=OpenProject}"/>
         <KeyBinding Modifiers="Ctrl" Key="R" Command="{Binding Path=RenameProject}"/>
+        <KeyBinding Modifiers="Ctrl" Key="D" Command="{Binding Path=DeleteProject}"/>
     </Window.InputBindings>
     
     <Window.Resources>
@@ -96,8 +97,22 @@
                             </Grid>
                         </MenuItem.Header>
                     </MenuItem>
+
+                    <!--RENAME PROJECT-->
+                    <MenuItem Command="{Binding Path=DeleteProject}">
+                        <MenuItem.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Content="_Delete Project" Grid.Column="0"/>
+                                <Label Content="        Ctrl + D" Grid.Column="1"/>
+                            </Grid>
+                        </MenuItem.Header>
+                    </MenuItem>
                     
-                    <MenuItem Header="_Delete Project" Command="{Binding Path=DeleteProject}"/>
                     <MenuItem Header="_Close Project" Command="{Binding Path=CloseProject}"/>
                     <Separator/>
                     <MenuItem Header="_Exit"
