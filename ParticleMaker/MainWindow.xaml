@@ -18,7 +18,7 @@
         <KeyBinding Modifiers="Ctrl" Key="O" Command="{Binding Path=OpenProject}"/>
         <KeyBinding Modifiers="Ctrl" Key="R" Command="{Binding Path=RenameProject}"/>
         <KeyBinding Modifiers="Ctrl" Key="D" Command="{Binding Path=DeleteProject}"/>
-        <KeyBinding Modifiers="Ctrl" Key="C" Command="{Binding Path=CloseProject}"/>
+        <KeyBinding Modifiers="Ctrl" Key="E" Command="{Binding Path=ExitApp}" CommandParameter="{Binding ElementName=this}"/>
     </Window.InputBindings>
     
     <Window.Resources>
@@ -79,7 +79,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Label Content="_Open Project" Grid.Column="0"/>
-                                <Label Content="         Ctrl + O" Grid.Column="1"/>
+                                <Label Content="        Ctrl + O" Grid.Column="1"/>
                             </Grid>
                         </MenuItem.Header>
                     </MenuItem>
@@ -94,7 +94,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Label Content="_Rename Project" Grid.Column="0"/>
-                                <Label Content="     Ctrl + R" Grid.Column="1"/>
+                                <Label Content="    Ctrl + R" Grid.Column="1"/>
                             </Grid>
                         </MenuItem.Header>
                     </MenuItem>
@@ -109,7 +109,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Label Content="_Delete Project" Grid.Column="0"/>
-                                <Label Content="        Ctrl + D" Grid.Column="1"/>
+                                <Label Content="       Ctrl + D" Grid.Column="1"/>
                             </Grid>
                         </MenuItem.Header>
                     </MenuItem>
@@ -124,13 +124,26 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Label Content="_Close Project" Grid.Column="0"/>
-                                <Label Content="          Ctrl + C" Grid.Column="1"/>
+                                <Label Content="         Ctrl + C" Grid.Column="1"/>
                             </Grid>
                         </MenuItem.Header>
                     </MenuItem>
                     
                     <Separator/>
-                    <MenuItem Header="_Exit" Command="{Binding Path=ExitApp}" CommandParameter="{Binding ElementName=this}"/>
+                    <!--CLOSE PROJECT-->
+                    <MenuItem Command="{Binding Path=ExitApp}" CommandParameter="{Binding ElementName=this}">
+                        <MenuItem.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Content="_Exit" Grid.Column="0"/>
+                                <Label Content="                        Ctrl + E" Grid.Column="1"/>
+                            </Grid>
+                        </MenuItem.Header>
+                    </MenuItem>
                 </MenuItem>
             </Menu>
         </DockPanel>

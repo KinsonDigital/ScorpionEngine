@@ -60,7 +60,7 @@ namespace ParticleMaker.DesignData
         public ICommand NewProject { get; set; }
 
         /// <summary>
-        /// Create a open project command for the <see cref="MainWindow"/>.
+        /// Create an open project command for the <see cref="MainWindow"/>.
         /// </summary>
         public ICommand OpenProject { get; set; }
 
@@ -78,6 +78,11 @@ namespace ParticleMaker.DesignData
         /// Create a close project command for the <see cref="MainWindow"/>.
         /// </summary>
         public ICommand CloseProject { get; set; }
+
+        /// <summary>
+        /// Create an exit command for the <see cref="MainWindow"/>.
+        /// </summary>
+        public ICommand ExitApp { get; set; }
 
         /// <summary>
         /// Gets the width to be used at design time for the <see cref="WindowsFormHost"/> control.
