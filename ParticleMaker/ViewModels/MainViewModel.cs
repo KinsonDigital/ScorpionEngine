@@ -1306,6 +1306,27 @@ namespace ParticleMaker.ViewModels
 
                 propNames.Add(nameof(SetupDeploymentPath));
 
+                /*NOTE
+                 * This line is important.  The ordering of the prop names
+                 * alphabetically will make sure that the max values of all
+                 * the random range ctrls are processed first before the 
+                 * min values.  This is important because of how the RandomRange
+                 * control works.  Min values are restricted to never go above the max value.
+                 * Due to this, if the incoming min value from the data file is greater than
+                 * the current max value of the ctrl when the binding gets processed, then
+                 * the min value will automatically be set to the max value to make sure that
+                 * it is not higher then the max value. Then once the max value is processed
+                 * and set to a value that is higher then the min value, the min value has 
+                 * already been processed and it doesn't match what is in the file.
+                 * 
+                 * Processing the max values first will make sure that this does not occur
+                 * by making sure that the max value is higher then the min when the min value
+                 * gets processed.
+                 * 
+                 * Trust me, you need this.  This was fixed with devops bug card 681.
+                 */
+                propNames = propNames.OrderBy(name => name).ToList();
+
                 NotifyAllPropChanges(propNames.ToArray());
 
                 NotifyPropChange(nameof(CurrentLoadedSetup));
