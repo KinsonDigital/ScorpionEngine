@@ -36,10 +36,20 @@ namespace ParticleMaker.UserControls
         }
         #endregion
 
-        private void Rectangle_GiveFeedback(object sender, GiveFeedbackEventArgs e)
-        {
 
+
+
+        public int MaxValue
+        {
+            get { return (int)GetValue(MaxValueProperty); }
+            set { SetValue(MaxValueProperty, value); }
         }
+
+        // Using a DependencyProperty as the backing store for MaxValue.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MaxValueProperty =
+            DependencyProperty.Register("MaxValue", typeof(int), typeof(UserControlTestWindow), new PropertyMetadata(4));
+
+
     }
 
 
