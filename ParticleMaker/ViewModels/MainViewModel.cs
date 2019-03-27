@@ -18,10 +18,7 @@ using ParticleMaker.Services;
 using ParticleMaker.CustomEventArgs;
 using ParticleMaker.Exceptions;
 using WPFMsgBox = System.Windows.MessageBox;
-using FolderDialog = System.Windows.Forms.FolderBrowserDialog;
 using FolderDialogResult = System.Windows.Forms.DialogResult;
-using System.ComponentModel;
-using System.Reflection;
 
 namespace ParticleMaker.ViewModels
 {
