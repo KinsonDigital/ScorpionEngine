@@ -185,8 +185,7 @@ namespace ParticleMaker.UserControls
             if (ctrl == null)
                 return;
 
-            if (ctrl.IsEnabled)
-                ctrl.NumberText = e.NewValue.ToString();
+            ctrl.NumberText = e.NewValue.ToString();
         }
         #endregion
     }
