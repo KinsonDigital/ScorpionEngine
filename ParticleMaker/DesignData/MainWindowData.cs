@@ -65,6 +65,11 @@ namespace ParticleMaker.DesignData
         public ICommand OpenProject { get; set; }
 
         /// <summary>
+        /// Create a rename project command for the <see cref="MainWindow"/>.
+        /// </summary>
+        public ICommand RenameProject { get; set; }
+
+        /// <summary>
         /// Gets the width to be used at design time for the <see cref="WindowsFormHost"/> control.
         /// </summary>
         public int RenderSurfaceWidth { get; } = 400;
