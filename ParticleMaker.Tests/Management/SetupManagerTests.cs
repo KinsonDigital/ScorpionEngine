@@ -445,15 +445,10 @@ namespace ParticleMaker.Tests.Management
         public void Load_WhenInvokedWithNoProjectSetupsFolder_CreatesProjectSetupsFolder()
         {
             //Arrange
-            var existsInvokedCount = 0;
+            _mockProjIODirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
 
             var mockDirService = new Mock<IDirectoryService>();
-            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns<string>((folder) =>
-            {
-                existsInvokedCount += 1;
-
-                return existsInvokedCount <= 1;
-            });
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(false);
 
             var mockFileService = new Mock<IFileService>();
             mockFileService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);

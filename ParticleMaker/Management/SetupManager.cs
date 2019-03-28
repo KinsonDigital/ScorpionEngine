@@ -123,7 +123,7 @@ namespace ParticleMaker.Management
         /// <returns></returns>
         public ParticleSetup Load(string projectName, string setupName)
         {
-            if (ProjectExists(projectName))
+            if (_projIOService.ProjectExists(projectName))
             {
                 CheckRootSetupsFolder(projectName);
 
