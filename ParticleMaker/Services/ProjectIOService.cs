@@ -49,6 +49,17 @@ namespace ParticleMaker.Services
 
             _directoryService.Create(_projectsPath);
         }
+
+
+        /// <summary>
+        /// Returns a value indicating if a project with the given <paramref name="name"/> exists.
+        /// </summary>
+        /// <param name="name">The name of the project to check for.</param>
+        /// <returns></returns>
+        public bool ProjectExists(string name)
+        {
+            return !string.IsNullOrEmpty(name) && _directoryService.Exists($@"{_projectsPath}\{name}");
+        }
         #endregion
     }
 }
