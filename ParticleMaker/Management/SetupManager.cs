@@ -1,4 +1,4 @@
-using KDParticleEngine;
+﻿using KDParticleEngine;
 using ParticleMaker.Exceptions;
 using ParticleMaker.Services;
 using System.IO;
@@ -77,7 +77,7 @@ namespace ParticleMaker.Management
         /// <param name="setupName">The name to give the particle setup.</param>
         public void Create(string projectName, string setupName)
         {
-            if (ProjectExists(projectName))
+            if (_projIOService.ProjectExists(projectName))
             {
                 CheckRootSetupsFolder(projectName);
 
