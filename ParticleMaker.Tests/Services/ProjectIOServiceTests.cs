@@ -40,6 +40,27 @@ namespace ParticleMaker.Tests.Services
             //Assert
             mockDirService.Verify(m => m.Create(It.IsAny<string>()), Times.Once());
         }
+
+
+        [Test]
+        public void ProjectExists_WhenInvokingWithExitingPath_ReturnsTrue()
+        {
+            //Arrange
+            var expected = true;
+
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
+            var mockFileService = new Mock<IFileService>();
+
+            var service = new ProjectIOService(mockDirService.Object, mockFileService.Object);
+
+            //Act
+            var actual = service.ProjectExists("test-project");
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
         #endregion
     }
 }
