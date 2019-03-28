@@ -129,6 +129,7 @@
     <Compile Include="Management\ProjectManagerTests.cs" />
     <Compile Include="Services\JSONLoggingServiceTests.cs" />
     <Compile Include="Services\LogTests.cs" />
+    <Compile Include="Services\ProjectIOServiceTests.cs" />
     <Compile Include="Services\SetupDeployServiceTests.cs" />
     <Compile Include="UserControls\ExtensionMethodsTests.cs" />
     <Compile Include="UserControls\PathItemTests.cs" />
