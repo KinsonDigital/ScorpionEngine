@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +14,13 @@ namespace ParticleMaker.Services
     /// </summary>
     public class ProjectIOService
     {
+        #region Fields
+        private readonly IDirectoryService _directoryService;
+        private readonly IFileService _fileService;
+        private static string _projectsPath;
+        #endregion
+
+
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="ProjectIOService"/>.
@@ -20,7 +29,25 @@ namespace ParticleMaker.Services
         /// <param name="fileService">The service used to manage files.</param>
         public ProjectIOService(IDirectoryService directoryService, IFileService fileService)
         {
+            _directoryService = directoryService;
+            _fileService = fileService;
 
+            _projectsPath = $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Projects";
+        }
+        #endregion
+
+
+        #region Public Methods
+        /// <summary>
+        /// Checks to make sure that the root projects folder already exists.
+        /// If not, creates the root folder.
+        /// </summary>
+        public void CheckRootProjectsFolder()
+        {
+            if (_directoryService.Exists(_projectsPath))
+                return;
+
+            _directoryService.Create(_projectsPath);
         }
         #endregion
     }
