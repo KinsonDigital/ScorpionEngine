@@ -52,6 +52,22 @@ namespace ParticleMaker.Services
 
 
         /// <summary>
+        /// Checks to make sure that the root setups folder already exists for a particular project.
+        /// If not, creates the setups folder.
+        /// </summary>
+        /// <param name="projectName">The name of the project.</param>
+        public void CheckRootSetupsFolder(string projectName)
+        {
+            var setupsPath = $@"{_projectsPath}\{projectName}\Setups";
+
+            if (_directoryService.Exists(setupsPath))
+                return;
+
+            _directoryService.Create(setupsPath);
+        }
+
+
+        /// <summary>
         /// Returns a value indicating if a project with the given <paramref name="name"/> exists.
         /// </summary>
         /// <param name="name">The name of the project to check for.</param>
