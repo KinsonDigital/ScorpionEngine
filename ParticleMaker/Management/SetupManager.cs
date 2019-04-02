@@ -43,7 +43,7 @@ namespace ParticleMaker.Management
         /// <returns></returns>
         public string[] GetSetupNames(string projectName)
         {
-            if (ProjectExists(projectName))
+            if (_projIOService.ProjectExists(projectName))
             {
                 var projectPath = $@"{_rootProjectsPath}\{projectName}";
 
@@ -153,7 +153,7 @@ namespace ParticleMaker.Management
         /// <param name="setup">The data to save to the setup.</param>
         public void Save(string projectName, string setupName, ParticleSetup setup)
         {
-            if (ProjectExists(projectName))
+            if (_projIOService.ProjectExists(projectName))
             {
                 if (ContainsIllegalCharacters(setupName))
                 {
@@ -183,7 +183,7 @@ namespace ParticleMaker.Management
         /// <param name="newName">The new name to name the setup.</param>
         public void Rename(string projectName, string setupName, string newName)
         {
-            if (ProjectExists(projectName))
+            if (_projIOService.ProjectExists(projectName))
             {
                 var projPath = $@"{_rootProjectsPath}\{projectName}";
                 var setupDirPath = $@"{projPath}\Setups\{setupName}";
@@ -223,7 +223,7 @@ namespace ParticleMaker.Management
         /// <param name="setupName">The name of the setup to delete.</param>
         public void Delete(string projectName, string setupName)
         {
-            if (ProjectExists(projectName))
+            if (_projIOService.ProjectExists(projectName))
             {
                 CheckRootSetupsFolder(projectName);
 
@@ -250,17 +250,6 @@ namespace ParticleMaker.Management
 
 
         #region Private Methods
-        /// <summary>
-        /// Returns a value indicating if a project with the given <paramref name="name"/> exists.
-        /// </summary>
-        /// <param name="name">The name of the project to check for.</param>
-        /// <returns></returns>
-        private bool ProjectExists(string name)
-        {
-            return !string.IsNullOrEmpty(name) && _directoryService.Exists($@"{_rootProjectsPath}\{name}");
-        }
-
-
         /// <summary>
         /// Returns a value indicating if the given string <paramref name="value"/> contains any 
         /// illegal particle name characters.
