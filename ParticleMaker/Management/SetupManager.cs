@@ -12,6 +12,7 @@ namespace ParticleMaker.Management
     public class SetupManager
     {
         #region Fields
+        private readonly ProjectIOService _projIOService;
         private readonly IDirectoryService _directoryService;
         private readonly IFileService _fileService;
         private readonly string _rootProjectsPath;
@@ -22,11 +23,12 @@ namespace ParticleMaker.Management
         /// <summary>
         /// Creates a new instance of <see cref="SetupManager"/>.
         /// </summary>
+        /// <param name="projIOService">The service used to manage common project management tasks.</param>
         /// <param name="directoryService">The directory service used to manage the project directories.</param>
         /// <param name="fileService">The file service used to manage setup files.</param>
-        /// <param name="projectName">The name of the project the setups belong to.</param>
-        public SetupManager(IDirectoryService directoryService, IFileService fileService)
+        public SetupManager(ProjectIOService projIOService, IDirectoryService directoryService, IFileService fileService)
         {
+            _projIOService = projIOService;
             _directoryService = directoryService;
             _fileService = fileService;
 
@@ -41,7 +43,7 @@ namespace ParticleMaker.Management
         /// <returns></returns>
         public string[] GetSetupNames(string projectName)
         {
-            if (ProjectExists(projectName))
+            if (_projIOService.ProjectExists(projectName))
             {
                 var projectPath = $@"{_rootProjectsPath}\{projectName}";
 
@@ -63,7 +65,7 @@ namespace ParticleMaker.Management
         {
             var projectPath = $@"{_rootProjectsPath}\{projectName}\Setups";
 
-            CheckRootSetupsFolder(projectName);
+            _projIOService.CheckRootSetupsFolder(projectName);
 
             return _directoryService.GetDirectories(projectPath);
         }
@@ -75,9 +77,9 @@ namespace ParticleMaker.Management
         /// <param name="setupName">The name to give the particle setup.</param>
         public void Create(string projectName, string setupName)
         {
-            if (ProjectExists(projectName))
+            if (_projIOService.ProjectExists(projectName))
             {
-                CheckRootSetupsFolder(projectName);
+                _projIOService.CheckRootSetupsFolder(projectName);
 
                 var projPath = $@"{_rootProjectsPath}\{projectName}";
                 var setupDirectory = $@"{projPath}\Setups\{setupName}";
@@ -91,7 +93,7 @@ namespace ParticleMaker.Management
                 else
                 {
                     //Check for any illegal characters in the setup name
-                    if (ContainsIllegalCharacters(setupName))
+                    if (_projIOService.ContainsIllegalCharacters(setupName))
                     {
                         throw new IllegalParticleSetupNameException(setupName);
                     }
@@ -121,9 +123,9 @@ namespace ParticleMaker.Management
         /// <returns></returns>
         public ParticleSetup Load(string projectName, string setupName)
         {
-            if (ProjectExists(projectName))
+            if (_projIOService.ProjectExists(projectName))
             {
-                CheckRootSetupsFolder(projectName);
+                _projIOService.CheckRootSetupsFolder(projectName);
 
                 var projPath = $@"{_rootProjectsPath}\{projectName}";
                 var setupPath = $@"{projPath}\Setups\{setupName}\{setupName}.json";
@@ -151,9 +153,9 @@ namespace ParticleMaker.Management
         /// <param name="setup">The data to save to the setup.</param>
         public void Save(string projectName, string setupName, ParticleSetup setup)
         {
-            if (ProjectExists(projectName))
+            if (_projIOService.ProjectExists(projectName))
             {
-                if (ContainsIllegalCharacters(setupName))
+                if (_projIOService.ContainsIllegalCharacters(setupName))
                 {
                     throw new IllegalParticleSetupNameException(setupName);
                 }
@@ -162,7 +164,7 @@ namespace ParticleMaker.Management
                     var projPath = $@"{_rootProjectsPath}\{projectName}";
                     var setupPath = $@"{projPath}\Setups\{setupName}\{setupName}.json";
 
-                    CheckRootSetupsFolder(projectName);
+                    _projIOService.CheckRootSetupsFolder(projectName);
 
                     _fileService.Save(setupPath, setup);
                 }
@@ -181,18 +183,18 @@ namespace ParticleMaker.Management
         /// <param name="newName">The new name to name the setup.</param>
         public void Rename(string projectName, string setupName, string newName)
         {
-            if (ProjectExists(projectName))
+            if (_projIOService.ProjectExists(projectName))
             {
                 var projPath = $@"{_rootProjectsPath}\{projectName}";
                 var setupDirPath = $@"{projPath}\Setups\{setupName}";
                 var setupFilePath = $@"{setupDirPath}\{setupName}.json";
 
-                CheckRootSetupsFolder(projectName);
+                _projIOService.CheckRootSetupsFolder(projectName);
 
                 //If the particle setup already exists
                 if (_fileService.Exists(setupFilePath))
                 {
-                    if (ContainsIllegalCharacters(newName))
+                    if (_projIOService.ContainsIllegalCharacters(newName))
                     {
                         throw new IllegalParticleSetupNameException(setupName);
                     }
@@ -221,9 +223,9 @@ namespace ParticleMaker.Management
         /// <param name="setupName">The name of the setup to delete.</param>
         public void Delete(string projectName, string setupName)
         {
-            if (ProjectExists(projectName))
+            if (_projIOService.ProjectExists(projectName))
             {
-                CheckRootSetupsFolder(projectName);
+                _projIOService.CheckRootSetupsFolder(projectName);
 
                 var setupDirPath = $@"{_rootProjectsPath}\{projectName}\Setups\{setupName}";
                 var setupFilePath = $@"{setupDirPath}\{setupName}.json";
@@ -243,56 +245,6 @@ namespace ParticleMaker.Management
             {
                 throw new ProjectDoesNotExistException(projectName);
             }
-        }
-        #endregion
-
-
-        #region Private Methods
-        /// <summary>
-        /// Returns a value indicating if a project with the given <paramref name="name"/> exists.
-        /// </summary>
-        /// <param name="name">The name of the project to check for.</param>
-        /// <returns></returns>
-        private bool ProjectExists(string name)
-        {
-            return !string.IsNullOrEmpty(name) && _directoryService.Exists($@"{_rootProjectsPath}\{name}");
-        }
-
-
-        /// <summary>
-        /// Returns a value indicating if the given string <paramref name="value"/> contains any 
-        /// illegal particle name characters.
-        /// </summary>
-        /// <param name="value">The string value to check.</param>
-        /// <returns></returns>
-        private bool ContainsIllegalCharacters(string value)
-        {
-            var characters = Path.GetInvalidFileNameChars();
-
-            foreach (var c in characters)
-            {
-                if (value.Contains(c.ToString()))
-                    return true;
-            }
-
-
-            return false;
-        }
-
-
-        /// <summary>
-        /// Checks to make sure that the root setups folder already exists for a particular project.
-        /// If not, creates the setups folder.
-        /// </summary>
-        /// <param name="projectName">The name of the project.</param>
-        private void CheckRootSetupsFolder(string projectName)
-        {
-            var setupsPath = $@"{_rootProjectsPath}\{projectName}\Setups";
-
-            if (_directoryService.Exists(setupsPath))
-                return;
-
-            _directoryService.Create(setupsPath);
         }
         #endregion
     }

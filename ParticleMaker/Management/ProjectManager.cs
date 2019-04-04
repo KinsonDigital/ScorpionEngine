@@ -13,6 +13,7 @@ namespace ParticleMaker.Management
     {
         #region Fields
         private ProjectSettingsManager _settingsManager;
+        private readonly ProjectIOService _projIOService;
         private IDirectoryService _directoryService;
         private static string _projectsPath;
         #endregion
@@ -23,15 +24,17 @@ namespace ParticleMaker.Management
         /// Creates a new instance of <see cref="ProjectManager"/>.
         /// </summary>
         /// <param name="settingsManager">The settings manager used to create project settings.</param>
+        /// <param name="projIOService">The service used to manage common project management tasks.</param>
         /// <param name="directoryService">The directory service used to manage the project directories.</param>
-        public ProjectManager(ProjectSettingsManager settingsManager, IDirectoryService directoryService)
+        public ProjectManager(ProjectSettingsManager settingsManager, ProjectIOService projIOService, IDirectoryService directoryService)
         {
             _settingsManager = settingsManager;
+            _projIOService = projIOService;
             _directoryService = directoryService;
 
             _projectsPath = $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Projects";
 
-            CheckRootProjectsFolder();
+            _projIOService.CheckRootProjectsFolder();
 
             _directoryService = directoryService;
         }
@@ -46,7 +49,7 @@ namespace ParticleMaker.Management
         {
             get
             {
-                CheckRootProjectsFolder();
+                _projIOService.CheckRootProjectsFolder();
 
                 return _directoryService.GetDirectories(_projectsPath).Where(d =>
                 {
@@ -67,7 +70,7 @@ namespace ParticleMaker.Management
         {
             get
             {
-                CheckRootProjectsFolder();
+                _projIOService.CheckRootProjectsFolder();
                 return _directoryService.GetDirectories(_projectsPath);
             }
         }
@@ -158,21 +161,6 @@ namespace ParticleMaker.Management
         public bool Exists(string name)
         {
             return _directoryService.Exists($@"{_projectsPath}\{name}");
-        }
-        #endregion
-
-
-        #region Private Methods
-        /// <summary>
-        /// Checks to make sure that the root projects folder already exists.
-        /// If not, creates the root folder.
-        /// </summary>
-        private void CheckRootProjectsFolder()
-        {
-            if (_directoryService.Exists(_projectsPath))
-                return;
-
-            _directoryService.Create(_projectsPath);
         }
         #endregion
     }

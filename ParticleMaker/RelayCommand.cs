@@ -19,8 +19,8 @@ namespace ParticleMaker
 
 
         #region Fields
-        private Action<object> _executeAction;
-        private Func<object, bool> _canExecuteAction;
+        private readonly Action<object> _executeAction;
+        private readonly Func<object, bool> _canExecuteAction;
         #endregion
 
 

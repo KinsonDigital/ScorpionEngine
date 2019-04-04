@@ -1,5 +1,4 @@
 ﻿using KDParticleEngine;
-using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -7,8 +6,6 @@ using ParticleMaker.CustomEventArgs;
 using ParticleMaker.Services;
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Reflection;
 using CoreTexture = KDScorpionCore.Graphics.Texture;
 
 namespace ParticleMaker
