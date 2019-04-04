@@ -79,6 +79,25 @@ namespace ParticleMaker.Services
 
 
         /// <summary>
+        /// Returns a value indicating if a setup with the given <paramref name="setupName"/>
+        /// exists in a project with the given <paramref name="projectName"/>.
+        /// </summary>
+        /// <param name="projectName">The name of the project that the setup exists in.</param>
+        /// <param name="setupName">The name of the setup to check for.</param>
+        /// <returns></returns>
+        public bool SetupExists(string projectName, string setupName)
+        {
+            var setupDirectory = $@"{_projectsPath}\{projectName}\Setups\{setupName}";
+            var setupFilePath = $@"{setupDirectory}\{setupName}.json";
+
+
+            return !string.IsNullOrEmpty(setupName) &&
+                _directoryService.Exists(setupDirectory) &&
+                _fileService.Exists(setupFilePath);
+        }
+
+
+        /// <summary>
         /// Returns a value indicating if the given string <paramref name="value"/> contains any 
         /// illegal particle name characters.
         /// </summary>
