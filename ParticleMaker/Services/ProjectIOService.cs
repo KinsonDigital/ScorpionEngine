@@ -76,6 +76,27 @@ namespace ParticleMaker.Services
         {
             return !string.IsNullOrEmpty(name) && _directoryService.Exists($@"{_projectsPath}\{name}");
         }
+
+
+        /// <summary>
+        /// Returns a value indicating if the given string <paramref name="value"/> contains any 
+        /// illegal particle name characters.
+        /// </summary>
+        /// <param name="value">The string value to check.</param>
+        /// <returns></returns>
+        public bool ContainsIllegalCharacters(string value)
+        {
+            var characters = Path.GetInvalidFileNameChars();
+
+            foreach (var c in characters)
+            {
+                if (value.Contains(c.ToString()))
+                    return true;
+            }
+
+
+            return false;
+        }
         #endregion
     }
 }
