@@ -129,6 +129,44 @@ namespace ParticleMaker.Tests.Services
             //Assert
             Assert.AreEqual(expected, actual);
         }
+
+
+        [Test]
+        public void ContainsIllegalCharacters_WhenInvokingWithIllegalCharacters_ReturnsTrue()
+        {
+            //Arrange
+            var expected = true;
+
+            var mockDirService = new Mock<IDirectoryService>();
+            var mockFileService = new Mock<IFileService>();
+
+            var service = new ProjectIOService(mockDirService.Object, mockFileService.Object);
+
+            //Act
+            var actual = service.ContainsIllegalCharacters(@"test*item");
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [Test]
+        public void ContainsIllegalCharacters_WhenInvokingWithNoIllegalCharacters_ReturnsFalse()
+        {
+            //Arrange
+            var expected = false;
+
+            var mockDirService = new Mock<IDirectoryService>();
+            var mockFileService = new Mock<IFileService>();
+
+            var service = new ProjectIOService(mockDirService.Object, mockFileService.Object);
+
+            //Act
+            var actual = service.ContainsIllegalCharacters(@"testitem");
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
         #endregion
     }
 }
