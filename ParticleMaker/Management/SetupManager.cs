@@ -93,7 +93,7 @@ namespace ParticleMaker.Management
                 else
                 {
                     //Check for any illegal characters in the setup name
-                    if (ContainsIllegalCharacters(setupName))
+                    if (_projIOService.ContainsIllegalCharacters(setupName))
                     {
                         throw new IllegalParticleSetupNameException(setupName);
                     }
@@ -155,7 +155,7 @@ namespace ParticleMaker.Management
         {
             if (_projIOService.ProjectExists(projectName))
             {
-                if (ContainsIllegalCharacters(setupName))
+                if (_projIOService.ContainsIllegalCharacters(setupName))
                 {
                     throw new IllegalParticleSetupNameException(setupName);
                 }
@@ -194,7 +194,7 @@ namespace ParticleMaker.Management
                 //If the particle setup already exists
                 if (_fileService.Exists(setupFilePath))
                 {
-                    if (ContainsIllegalCharacters(newName))
+                    if (_projIOService.ContainsIllegalCharacters(newName))
                     {
                         throw new IllegalParticleSetupNameException(setupName);
                     }
@@ -245,29 +245,6 @@ namespace ParticleMaker.Management
             {
                 throw new ProjectDoesNotExistException(projectName);
             }
-        }
-        #endregion
-
-
-        #region Private Methods
-        /// <summary>
-        /// Returns a value indicating if the given string <paramref name="value"/> contains any 
-        /// illegal particle name characters.
-        /// </summary>
-        /// <param name="value">The string value to check.</param>
-        /// <returns></returns>
-        private bool ContainsIllegalCharacters(string value)
-        {
-            var characters = Path.GetInvalidFileNameChars();
-
-            foreach (var c in characters)
-            {
-                if (value.Contains(c.ToString()))
-                    return true;
-            }
-
-
-            return false;
         }
         #endregion
     }
