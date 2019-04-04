@@ -65,7 +65,7 @@ namespace ParticleMaker.Management
         {
             var projectPath = $@"{_rootProjectsPath}\{projectName}\Setups";
 
-            CheckRootSetupsFolder(projectName);
+            _projIOService.CheckRootSetupsFolder(projectName);
 
             return _directoryService.GetDirectories(projectPath);
         }
@@ -79,7 +79,7 @@ namespace ParticleMaker.Management
         {
             if (_projIOService.ProjectExists(projectName))
             {
-                CheckRootSetupsFolder(projectName);
+                _projIOService.CheckRootSetupsFolder(projectName);
 
                 var projPath = $@"{_rootProjectsPath}\{projectName}";
                 var setupDirectory = $@"{projPath}\Setups\{setupName}";
@@ -125,7 +125,7 @@ namespace ParticleMaker.Management
         {
             if (_projIOService.ProjectExists(projectName))
             {
-                CheckRootSetupsFolder(projectName);
+                _projIOService.CheckRootSetupsFolder(projectName);
 
                 var projPath = $@"{_rootProjectsPath}\{projectName}";
                 var setupPath = $@"{projPath}\Setups\{setupName}\{setupName}.json";
@@ -164,7 +164,7 @@ namespace ParticleMaker.Management
                     var projPath = $@"{_rootProjectsPath}\{projectName}";
                     var setupPath = $@"{projPath}\Setups\{setupName}\{setupName}.json";
 
-                    CheckRootSetupsFolder(projectName);
+                    _projIOService.CheckRootSetupsFolder(projectName);
 
                     _fileService.Save(setupPath, setup);
                 }
@@ -189,7 +189,7 @@ namespace ParticleMaker.Management
                 var setupDirPath = $@"{projPath}\Setups\{setupName}";
                 var setupFilePath = $@"{setupDirPath}\{setupName}.json";
 
-                CheckRootSetupsFolder(projectName);
+                _projIOService.CheckRootSetupsFolder(projectName);
 
                 //If the particle setup already exists
                 if (_fileService.Exists(setupFilePath))
@@ -225,7 +225,7 @@ namespace ParticleMaker.Management
         {
             if (_projIOService.ProjectExists(projectName))
             {
-                CheckRootSetupsFolder(projectName);
+                _projIOService.CheckRootSetupsFolder(projectName);
 
                 var setupDirPath = $@"{_rootProjectsPath}\{projectName}\Setups\{setupName}";
                 var setupFilePath = $@"{setupDirPath}\{setupName}.json";
@@ -268,22 +268,6 @@ namespace ParticleMaker.Management
 
 
             return false;
-        }
-
-
-        /// <summary>
-        /// Checks to make sure that the root setups folder already exists for a particular project.
-        /// If not, creates the setups folder.
-        /// </summary>
-        /// <param name="projectName">The name of the project.</param>
-        private void CheckRootSetupsFolder(string projectName)
-        {
-            var setupsPath = $@"{_rootProjectsPath}\{projectName}\Setups";
-
-            if (_directoryService.Exists(setupsPath))
-                return;
-
-            _directoryService.Create(setupsPath);
         }
         #endregion
     }
