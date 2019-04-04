@@ -69,6 +69,7 @@ namespace ParticleMaker.Tests.Management
             });
 
             var manager = new ProjectManager(It.IsAny<ProjectSettingsManager>(), _projIOService, mockDirService.Object);
+
             var expected = new []
             {
                 @"C:\temp\projects\my-dir-a",

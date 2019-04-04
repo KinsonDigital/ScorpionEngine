@@ -4,8 +4,7 @@ using System.Reflection;
 namespace ParticleMaker.Services
 {
     /// <summary>
-    /// Provides various project related services such and project and
-    /// setup checks to checking for illegal characters for file and directory management.
+    /// Provides various project related services.
     /// </summary>
     public class ProjectIOService
     {
@@ -47,7 +46,7 @@ namespace ParticleMaker.Services
 
 
         /// <summary>
-        /// Checks to make sure that the root setups folder already exists for a particular project.
+        /// Checks to make sure that the root setups folder already exists for the given project.
         /// If not, creates the setups folder.
         /// </summary>
         /// <param name="projectName">The name of the project.</param>
@@ -65,7 +64,7 @@ namespace ParticleMaker.Services
         /// <summary>
         /// Returns a value indicating if a project with the given <paramref name="name"/> exists.
         /// </summary>
-        /// <param name="name">The name of the project to check for.</param>
+        /// <param name="name">The name of the project.</param>
         /// <returns></returns>
         public bool ProjectExists(string name)
         {
@@ -77,8 +76,8 @@ namespace ParticleMaker.Services
         /// Returns a value indicating if a setup with the given <paramref name="setupName"/>
         /// exists in a project with the given <paramref name="projectName"/>.
         /// </summary>
-        /// <param name="projectName">The name of the project that the setup exists in.</param>
-        /// <param name="setupName">The name of the setup to check for.</param>
+        /// <param name="projectName">The name of the project.</param>
+        /// <param name="setupName">The name of the setup.</param>
         /// <returns></returns>
         public bool SetupExists(string projectName, string setupName)
         {
