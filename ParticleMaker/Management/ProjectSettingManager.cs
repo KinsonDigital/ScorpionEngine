@@ -13,6 +13,7 @@ namespace ParticleMaker.Management
     public class ProjectSettingsManager
     {
         #region Fields
+        private readonly ProjectIOService _projIOService;
         private IDirectoryService _directoryService;
         private IFileService _fileService;
         private string _projectSettingsPath;
@@ -25,8 +26,9 @@ namespace ParticleMaker.Management
         /// </summary>
         /// <param name="directoryService">The directory service used to manage the project directories.</param>
         /// <param name="fileService">The file service used to manage project setting files.</param>
-        public ProjectSettingsManager(IDirectoryService directoryService, IFileService fileService)
+        public ProjectSettingsManager(ProjectIOService projIOService, IDirectoryService directoryService, IFileService fileService)
         {
+            _projIOService = projIOService;
             _directoryService = directoryService;
             _fileService = fileService;
             _projectSettingsPath = $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Projects";

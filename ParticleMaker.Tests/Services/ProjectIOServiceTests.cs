@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using ParticleMaker.Services;
 using System;
-using System.IO;
 
 namespace ParticleMaker.Tests.Services
 {

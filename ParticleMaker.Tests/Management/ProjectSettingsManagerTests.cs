@@ -12,6 +12,9 @@ namespace ParticleMaker.Tests.Management
     public class ProjectSettingsManagerTests
     {
         #region Fields
+        private Mock<IDirectoryService> _mockProjDirService;
+        private Mock<IFileService> _mockProjFileService;
+        private ProjectIOService _projIOService;
         private ProjectSettings _testProjectSettings;
         #endregion
 
@@ -25,11 +28,11 @@ namespace ParticleMaker.Tests.Management
             var mockDirService = new Mock<IDirectoryService>();
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
 
-            var settingsManager = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
+            var manager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
             var settings = new ProjectSettings() { ProjectName = "test-project" };
 
             //Act
-            settingsManager.Save("test-project", settings);
+            manager.Save("test-project", settings);
 
             //Assert
             mockFileService.Verify(m => m.Create(It.IsAny<string>(), It.IsAny<ProjectSettings>()), Times.Once());
@@ -44,12 +47,11 @@ namespace ParticleMaker.Tests.Management
             var mockDirService = new Mock<IDirectoryService>();
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(false);
 
-            var settingsManager = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
-
+            var manager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
             //Act & Assert
             Assert.Throws(typeof(ProjectDoesNotExistException), () =>
             {
-               settingsManager.Save(It.IsAny<string>(), It.IsAny<ProjectSettings>());
+               manager.Save(It.IsAny<string>(), It.IsAny<ProjectSettings>());
             });
         }
 
@@ -62,13 +64,13 @@ namespace ParticleMaker.Tests.Management
             var mockDirService = new Mock<IDirectoryService>();
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
 
-            var settingsManager = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
+            var manager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
             var settings = new ProjectSettings() { ProjectName = "<illegalname>" };
 
             //Act & Assert
             Assert.Throws(typeof(IllegalFileNameCharactersException), () =>
             {
-                settingsManager.Save("test-project", settings);
+                manager.Save("test-project", settings);
             });
         }
 
@@ -94,10 +96,10 @@ namespace ParticleMaker.Tests.Management
             var mockDirService = new Mock<IDirectoryService>();
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
 
-            var settingsManager = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
+            var manager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
 
             //Act
-            settingsManager.Load("test-project");
+            manager.Load("test-project");
 
             //Assert
             mockFileService.Verify(m => m.Load<ProjectSettings>(It.IsAny<string>()), Times.Once());
@@ -118,10 +120,10 @@ namespace ParticleMaker.Tests.Management
             var mockDirService = new Mock<IDirectoryService>();
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
 
-            var settingsManager = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
+            var manager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
 
             //Act
-            var actual = settingsManager.Load("test-project").SetupDeploySettings;
+            var actual = manager.Load("test-project").SetupDeploySettings;
 
             //Assert
             Assert.IsNotNull(actual);
@@ -144,7 +146,7 @@ namespace ParticleMaker.Tests.Management
             var mockDirService = new Mock<IDirectoryService>();
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
 
-            var settingsManager = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
+            var manager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
             var expected = new[]
             {
                 "test-project",
@@ -152,7 +154,7 @@ namespace ParticleMaker.Tests.Management
             };
 
             //Act
-            settingsManager.Load("test-project");
+            manager.Load("test-project");
 
             var pathEndSection = fileToLoadPath.Split(new[] { "Projects" }, StringSplitOptions.None);
 
@@ -174,12 +176,12 @@ namespace ParticleMaker.Tests.Management
             var mockDirService = new Mock<IDirectoryService>();
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(false);
 
-            var settingsManager = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
+            var manager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
 
             //Act & Assert
             Assert.Throws(typeof(ProjectDoesNotExistException), () =>
             {
-                settingsManager.Load(It.IsAny<string>());
+                manager.Load(It.IsAny<string>());
             });
         }
 
@@ -188,10 +190,11 @@ namespace ParticleMaker.Tests.Management
         public void Rename_WhenInvokingWithNonExistingProject_ThrowsException()
         {
             //Arrange
+            var mockFileService = new Mock<IFileService>();
             var mockDirService = new Mock<IDirectoryService>();
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(false);
 
-            var manager = new ProjectSettingsManager(mockDirService.Object, It.IsAny<IFileService>());
+            var manager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
 
             //Act & Assert
             Assert.Throws(typeof(ProjectDoesNotExistException), () =>
@@ -209,8 +212,8 @@ namespace ParticleMaker.Tests.Management
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
 
             var mockFileService = new Mock<IFileService>();
-            
-            var manager = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
+
+            var manager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
 
             //Act
             manager.Rename("test-project", It.IsAny<string>());
@@ -237,7 +240,7 @@ namespace ParticleMaker.Tests.Management
                 actual = pathSections.Length >= 2 ? pathSections[1] : "";
             });
 
-            var manager = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
+            var manager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
 
             //Act
             manager.Rename("test-project", It.IsAny<string>());
@@ -262,7 +265,7 @@ namespace ParticleMaker.Tests.Management
                 actual = newName;
             });
 
-            var manager = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
+            var manager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
 
             //Act
             manager.Rename("old-project", "new-project");
@@ -285,7 +288,7 @@ namespace ParticleMaker.Tests.Management
                 return _testProjectSettings;
             });
 
-            var manager = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
+            var manager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
 
             //Act
             manager.RenameDeploymentSetupName("test-project", "test-setup", "new-setup");
@@ -320,7 +323,7 @@ namespace ParticleMaker.Tests.Management
                 return _testProjectSettings;
             });
 
-            var manager = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
+            var manager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
 
             //Act
             manager.RenameDeploymentSetupName("test-project", "test-setup", "new-setup");
@@ -343,7 +346,7 @@ namespace ParticleMaker.Tests.Management
                 return _testProjectSettings;
             });
 
-            var manager = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
+            var manager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
 
             //Act
             manager.RenameDeploymentSetupName("test-project", "test-setup", "new-setup");
@@ -376,7 +379,7 @@ namespace ParticleMaker.Tests.Management
                     string.Empty;
             });
 
-            var manager = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
+            var manager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
 
             //Act
             manager.RenameDeploymentSetupName("test-project", "test-setup", "new-setup");
@@ -399,7 +402,7 @@ namespace ParticleMaker.Tests.Management
                 return _testProjectSettings;
             });
 
-            var manager = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
+            var manager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
 
             //Act
             manager.RenameDeploymentSetupName("test-project", "test-setup", "new-setup");
@@ -426,7 +429,7 @@ namespace ParticleMaker.Tests.Management
                 return _testProjectSettings;
             });
 
-            var manager = new ProjectSettingsManager(mockDirService.Object, mockFileService.Object);
+            var manager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
 
             //Act & Assert
             Assert.Throws<Exception>(() =>
@@ -441,6 +444,11 @@ namespace ParticleMaker.Tests.Management
         [SetUp]
         public void Setup()
         {
+            _mockProjDirService = new Mock<IDirectoryService>();
+            _mockProjFileService = new Mock<IFileService>();
+
+            _projIOService = new ProjectIOService(_mockProjDirService.Object, _mockProjFileService.Object);
+
             _testProjectSettings = new ProjectSettings()
             {
                 ProjectName = "test-project",
@@ -459,6 +467,9 @@ namespace ParticleMaker.Tests.Management
         public void TearDown()
         {
             _testProjectSettings = null;
+            _mockProjDirService = null;
+            _mockProjFileService = null;
+            _projIOService = null;
         }
         #endregion
     }
