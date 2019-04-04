@@ -829,6 +829,7 @@ namespace ParticleMaker.Tests.ViewModels
 
             var mockDirService = new Mock<IDirectoryService>();
             var mockFileService = new Mock<IFileService>();
+            var projIOService = new ProjectIOService(mockDirService.Object, mockFileService.Object);
 
             var setupDeployService = new SetupDeployService(mockDirService.Object, mockFileService.Object);
 
@@ -838,7 +839,7 @@ namespace ParticleMaker.Tests.ViewModels
             particleEngine.Update(new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 11) });
 
             _engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine, mockFileService.Object);
-            var particleManager = new ParticleManager(mockDirService.Object, mockFileService.Object);
+            var particleManager = new ParticleManager(projIOService, mockDirService.Object, mockFileService.Object);
 
             _viewModel = new MainViewModel(_engine, It.IsAny<ProjectManager>(), It.IsAny<ProjectSettingsManager>(), It.IsAny<SetupManager>(), setupDeployService, particleManager)
             {
