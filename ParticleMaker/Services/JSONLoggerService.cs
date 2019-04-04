@@ -10,8 +10,8 @@ namespace ParticleMaker.Services
         #region Fields
         private IFileService _fileService;
         private IDirectoryService _directoryService;
-        private string _logsDirectory;
-        private Dictionary<int, string> _monthNames = new Dictionary<int, string>()
+        private readonly string _logsDirectory;
+        private readonly Dictionary<int, string> _monthNames = new Dictionary<int, string>()
         {
             { 1, "Jan" }, { 2, "Feb" }, { 3, "Mar" }, { 4, "April" },
             { 5, "May" }, { 6, "June" }, { 7, "July" }, { 8, "Aug" },

@@ -208,6 +208,8 @@ namespace ParticleMaker.Tests.Management
         public void Create_WhenInvokingWithARootProjectsFolder_CreatesProjectFolder()
         {
             //Arrange
+            _mockProjDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
             var existsInvokeCount = 0;
             var mockDirService = new Mock<IDirectoryService>();
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(() =>

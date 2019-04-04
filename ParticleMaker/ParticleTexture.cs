@@ -59,7 +59,9 @@ namespace ParticleMaker
         /// <returns></returns>
         public T GetTexture<T>() where T : class
         {
+#pragma warning disable IDE0019 // Use pattern matching
             var result = _texture as T;
+#pragma warning restore IDE0019 // Use pattern matching
 
             if (result == null)
                 throw new Exception($"Generic param T must be of type {nameof(Texture2D)}");

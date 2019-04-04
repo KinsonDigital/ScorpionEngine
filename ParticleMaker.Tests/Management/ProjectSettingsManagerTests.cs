@@ -24,6 +24,8 @@ namespace ParticleMaker.Tests.Management
         public void Save_WhenInvoking_CreatesSettingsFile()
         {
             //Arrange
+            _mockProjDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
             var mockFileService = new Mock<IFileService>();
             var mockDirService = new Mock<IDirectoryService>();
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
@@ -60,6 +62,8 @@ namespace ParticleMaker.Tests.Management
         public void Save_WhenInvokingWithProjectNameWithIllegalCharacters_ThrowsException()
         {
             //Arrange
+            _mockProjDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
             var mockFileService = new Mock<IFileService>();
             var mockDirService = new Mock<IDirectoryService>();
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
@@ -79,6 +83,8 @@ namespace ParticleMaker.Tests.Management
         public void Load_WhenInvoking_LoadsData()
         {
             //Arrange
+            _mockProjDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
             var mockFileService = new Mock<IFileService>();
             mockFileService.Setup(m => m.Load<ProjectSettings>(It.IsAny<string>())).Returns(new ProjectSettings()
             {
@@ -110,6 +116,8 @@ namespace ParticleMaker.Tests.Management
         public void Load_WhenInvokingWithNullSetupDeploySettings_CreatesEmptyDeploySettingsList()
         {
             //Arrange
+            _mockProjDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
             var mockFileService = new Mock<IFileService>();
             mockFileService.Setup(m => m.Load<ProjectSettings>(It.IsAny<string>())).Returns(new ProjectSettings()
             {
@@ -134,6 +142,8 @@ namespace ParticleMaker.Tests.Management
         public void Load_WhenInvoking_CorrectlyBuildsPath()
         {
             //Arrange
+            _mockProjDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
             var fileToLoadPath = string.Empty;
             var mockFileService = new Mock<IFileService>();
             mockFileService.Setup(m => m.Load<ProjectSettings>(It.IsAny<string>())).Returns<string>((path) =>
@@ -208,6 +218,8 @@ namespace ParticleMaker.Tests.Management
         public void Rename_WhenInvoking_InvokesFileServiceRenameMethod()
         {
             //Arrange
+            _mockProjDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
             var mockDirService = new Mock<IDirectoryService>();
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
 
@@ -227,6 +239,8 @@ namespace ParticleMaker.Tests.Management
         public void Rename_WhenInvoking_BuildsCorrectOldPath()
         {
             //Arrange
+            _mockProjDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
             var expected = @"\test-project\test-project-project-settings.json";
             var actual = string.Empty;
             var mockDirService = new Mock<IDirectoryService>();
@@ -254,6 +268,8 @@ namespace ParticleMaker.Tests.Management
         public void Rename_WhenInvoking_BuildsCorrectNewName()
         {
             //Arrange
+            _mockProjDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
             var expected = "new-project-project-settings.json";
             var actual = string.Empty;
             var mockDirService = new Mock<IDirectoryService>();
@@ -279,6 +295,8 @@ namespace ParticleMaker.Tests.Management
         public void RenameDeploymentSetupName_WhenInvoked_LoadsProjectSettingFile()
         {
             //Arrange
+            _mockProjDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
             var mockDirService = new Mock<IDirectoryService>();
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
 
@@ -302,6 +320,8 @@ namespace ParticleMaker.Tests.Management
         public void RenameDeploymentSetupName_WhenInvoked_BuildsCorrectFilePath()
         {
             //Arrange
+            _mockProjDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
             var expected = true;
             var actual = false;
 
@@ -337,6 +357,8 @@ namespace ParticleMaker.Tests.Management
         public void RenameDeploymentSetupName_WhenInvokedWithExistingProject_ProjectExists()
         {
             //Arrange
+            _mockProjDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
             var mockDirService = new Mock<IDirectoryService>();
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
 
@@ -352,7 +374,7 @@ namespace ParticleMaker.Tests.Management
             manager.RenameDeploymentSetupName("test-project", "test-setup", "new-setup");
 
             //Assert
-            mockDirService.Verify(m => m.Exists(It.IsAny<string>()), Times.Once());
+            _mockProjDirService.Verify(m => m.Exists(It.IsAny<string>()), Times.Once());
         }
 
 
@@ -360,6 +382,8 @@ namespace ParticleMaker.Tests.Management
         public void RenameDeploymentSetupName_WhenInvoked_SavesSettingsDataBeingUpdated()
         {
             //Arrange
+            _mockProjDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
             var expected = "new-setup";
             var actual = string.Empty;
 
@@ -393,6 +417,8 @@ namespace ParticleMaker.Tests.Management
         public void RenameDeploymentSetupName_WhenInvoked_SavesSettingsFileChanges()
         {
             //Arrange
+            _mockProjDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
             var mockDirService = new Mock<IDirectoryService>();
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
 
@@ -416,6 +442,8 @@ namespace ParticleMaker.Tests.Management
         public void RenameDeploymentSetupName_WhenInvokedWithNoSetupData_ThrowsException()
         {
             //Arrange
+            _mockProjDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
+
             var mockDirService = new Mock<IDirectoryService>();
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
 

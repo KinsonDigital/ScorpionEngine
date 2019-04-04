@@ -14,9 +14,9 @@ namespace ParticleMaker.Management
     {
         #region Fields
         private readonly ProjectIOService _projIOService;
-        private IDirectoryService _directoryService;
+        private readonly IDirectoryService _directoryService;
         private IFileService _fileService;
-        private string _projectSettingsPath;
+        private readonly string _projectSettingsPath;
         #endregion
 
 
@@ -44,7 +44,7 @@ namespace ParticleMaker.Management
         /// <param name="settings">The project settings data to save.</param>
         public void Save(string projectName, ProjectSettings settings)
         {
-            if (ProjectExists(projectName))
+            if (_projIOService.ProjectExists(projectName))
             {
                 if (settings.ProjectName.ContainsIllegalFileNameCharacters())//Illegal characters
                 {
@@ -71,7 +71,7 @@ namespace ParticleMaker.Management
         /// <returns></returns>
         public ProjectSettings Load(string projectName)
         {
-            if (ProjectExists(projectName))
+            if (_projIOService.ProjectExists(projectName))
             {
                 var filePath = $@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json";
 
@@ -95,7 +95,7 @@ namespace ParticleMaker.Management
         /// <param name="newProjectName">The new project name.</param>
         public void Rename(string projectName, string newProjectName)
         {
-            if (ProjectExists(projectName))
+            if (_projIOService.ProjectExists(projectName))
             {
                 var oldFilePath = $@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json";
 
@@ -117,7 +117,7 @@ namespace ParticleMaker.Management
         /// <param name="newSetupName">The new name to change the <paramref name="currentSetupName"/> to.</param>
         public void RenameDeploymentSetupName(string projectName, string currentSetupName, string newSetupName)
         {
-            if (ProjectExists(projectName))
+            if (_projIOService.ProjectExists(projectName))
             {
                 var projectDirPath = $@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json";
 
@@ -140,19 +140,6 @@ namespace ParticleMaker.Management
 
                 _fileService.Save(projectDirPath, projSettings);
             }
-        }
-        #endregion
-
-
-        #region Private Methods
-        /// <summary>
-        /// Returns a value indicating if a project with the given <paramref name="name"/> exists.
-        /// </summary>
-        /// <param name="name">The name of the project to check for.</param>
-        /// <returns></returns>
-        private bool ProjectExists(string name)
-        {
-            return !string.IsNullOrEmpty(name) && _directoryService.Exists($@"{_projectSettingsPath}\{name}");
         }
         #endregion
     }

@@ -12,9 +12,9 @@ namespace ParticleMaker.Management
     public class SetupManager
     {
         #region Fields
+        private readonly ProjectIOService _projIOService;
         private readonly IDirectoryService _directoryService;
         private readonly IFileService _fileService;
-        private readonly ProjectIOService _projIOService;
         private readonly string _rootProjectsPath;
         #endregion
 
@@ -26,11 +26,11 @@ namespace ParticleMaker.Management
         /// <param name="directoryService">The directory service used to manage the project directories.</param>
         /// <param name="fileService">The file service used to manage setup files.</param>
         /// <param name="projIOService">The service used to manage common project management tasks.</param>
-        public SetupManager(IDirectoryService directoryService, IFileService fileService, ProjectIOService projIOService)
+        public SetupManager(ProjectIOService projIOService, IDirectoryService directoryService, IFileService fileService)
         {
+            _projIOService = projIOService;
             _directoryService = directoryService;
             _fileService = fileService;
-            _projIOService = projIOService;
 
             _rootProjectsPath = $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Projects";
         }
