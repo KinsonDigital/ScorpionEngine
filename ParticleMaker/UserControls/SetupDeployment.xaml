@@ -30,6 +30,7 @@
 
             <!--DEPLOYMENT PATH-->
             <Label Content="{Binding Path=DeploymentPath}" Grid.Column="0" MinHeight="26"
+                   ToolTip="{Binding Path=DeploymentPath}"
                    VerticalAlignment="Center" HorizontalAlignment="Left">
                 <Label.Style>
                     <Style TargetType="FrameworkElement">
