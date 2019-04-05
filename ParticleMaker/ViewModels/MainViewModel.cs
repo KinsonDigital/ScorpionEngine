@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Windows.Threading;
-using KDParticleEngine;
-using CoreVector = KDScorpionCore.Vector;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
-using KDScorpionCore.Graphics;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Windows;
+using System.Linq;
+using KDParticleEngine;
+using KDScorpionCore.Graphics;
 using ParticleMaker.Management;
 using ParticleMaker.Dialogs;
-using System.Windows;
 using ParticleMaker.UserControls;
-using System.Linq;
 using ParticleMaker.Services;
 using ParticleMaker.CustomEventArgs;
 using ParticleMaker.Exceptions;
 using WPFMsgBox = System.Windows.MessageBox;
+using CoreVector = KDScorpionCore.Vector;
 using FolderDialogResult = System.Windows.Forms.DialogResult;
 
 namespace ParticleMaker.ViewModels

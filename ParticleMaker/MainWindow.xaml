@@ -275,7 +275,8 @@
                           d:DataContext="{d:DesignData Source=/DesignData/MainWIndowData.xaml}"
                           Width="{Binding Path=RenderSurfaceWidth}" Height="{Binding Path=RenderSurfaceHeight}">
             <WindowsFormsHost.Child>
-                <wf:PictureBox Name="grfxSurface"/>
+                <wf:PictureBox x:Name="RenderSurface" MouseDown="RenderSurface_MouseDown"
+                               MouseUp="RenderSurface_MouseUp" MouseMove="RenderSurface_MouseMove"/>
             </WindowsFormsHost.Child>
         </WindowsFormsHost>
 
