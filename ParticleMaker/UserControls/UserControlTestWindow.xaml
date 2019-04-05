@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Margin="150,105,153.333,0" Orientation="Vertical">
-            <local:RandomRange MinValue="1" MinLowerLimit="1" MaxValue="{Binding Path=MaxValue}"/>
+            <Button/>
         </StackPanel>
 
         <Button Name="TestButton" Content="Run Test" Width="100" Height="30" Grid.Row="1" Click="TestButton_Click"/>
