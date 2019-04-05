@@ -87,6 +87,18 @@ namespace ParticleMaker.ViewModels
         #region Props
         #region Standard Props
         /// <summary>
+        /// Gets or sets the spawn location of the particles on the rendering surface.
+        /// </summary>
+        public CoreVector SpawnLocation
+        {
+            get => _graphicsEngine.ParticleEngine.SpawnLocation;
+            set
+            {
+                _graphicsEngine.ParticleEngine.SpawnLocation = value;
+            }
+        }
+
+        /// <summary>
         /// Gets a value indicating if any of the setup changes have changed.
         /// </summary>
         public bool SettingsChanged { get; private set; } = false;
