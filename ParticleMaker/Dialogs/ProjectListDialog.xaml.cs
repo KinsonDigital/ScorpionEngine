@@ -23,8 +23,6 @@ namespace ParticleMaker.Dialogs
         private bool _firstTimeRefreshed = true;
         private int _clickCount = 0;
         private DateTime _firstClickStamp;
-        private DateTime _secondClickStamp;
-        private int _mouseDownSelectedIndex;
         #endregion
 
 

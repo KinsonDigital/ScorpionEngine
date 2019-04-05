@@ -47,7 +47,7 @@
                                     </Style.Triggers>
                                 </Style>
                             </StackPanel.Style>
-                            
+
                             <Label Content="{Binding Path=Name}" FontWeight="Bold" Foreground="Red"/>
                             <Label Content=" - "/>
                             <Label Content="ERROR!!" FontWeight="Bold" Foreground="Red"/>
@@ -57,6 +57,21 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
+        <!--NO PROJECT MESSAGE-->
+        <Label Content="No projects exist. Please create a project." HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label.Style>
+                <Style TargetType="Label">
+                    <Setter Property="Visibility" Value="Hidden"/>
+
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=ProjectNames.Length}" Value="0">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+        
         <!--OK AND CANCEL BUTTONS-->        
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="25, 25, 5, 5">
             <Button x:Name="OkButton" Content="OK" Width="100" Height="25" Margin="5" Click="OkButton_Click">
