@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using ParticleMaker.UserControls.ValueConverters;
+using ParticleMaker.ValueConverters;
 using System.Globalization;
 
 namespace ParticleMaker.Tests.UserControls.ValueConverters

@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         xmlns:vm="clr-namespace:ParticleMaker.ViewModels"
-        xmlns:converters="clr-namespace:ParticleMaker.UserControls.ValueConverters"
+        xmlns:converters="clr-namespace:ParticleMaker.ValueConverters"
         xmlns:local="clr-namespace:ParticleMaker"
         mc:Ignorable="d" Title="{Binding Path=WindowTitle}"
         Name="this" WindowStartupLocation="CenterScreen"
@@ -23,7 +23,7 @@
     
     <Window.Resources>
         <converters:StringToBoolConverter x:Key="StringToBoolConverter"/>
-        
+
         <Style x:Key="ProjectLoadedStyle" TargetType="FrameworkElement">
             <Setter Property="IsEnabled" Value="False"/>
 

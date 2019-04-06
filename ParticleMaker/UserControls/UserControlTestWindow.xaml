@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ParticleMaker.UserControls"
         xmlns:root="clr-namespace:ParticleMaker"
-        xmlns:converters="clr-namespace:ParticleMaker.UserControls.ValueConverters"
+        xmlns:converters="clr-namespace:ParticleMaker.ValueConverters"
         mc:Ignorable="d" Name="this"
         Title="UserControlTestWindow" Height="450" Width="450" WindowStartupLocation="CenterScreen">
 
