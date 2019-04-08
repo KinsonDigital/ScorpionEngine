@@ -203,8 +203,8 @@
     <Compile Include="UserControls\UserControlTestWindow.xaml.cs">
       <DependentUpon>UserControlTestWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ValueConverters\StringToBoolConverter.cs" />
-    <Compile Include="UserControls\ValueConverters\PathToNameConverter.cs" />
+    <Compile Include="ValueConverters\StringToBoolConverter.cs" />
+    <Compile Include="ValueConverters\PathToNameConverter.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Page Include="ColorPicker.xaml">
@@ -440,5 +440,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

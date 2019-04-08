@@ -7,6 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using System.Threading;
 using WinMsgBox = System.Windows.MessageBox;
+using CoreVector = KDScorpionCore.Vector;
 
 namespace ParticleMaker
 {
@@ -21,6 +22,7 @@ namespace ParticleMaker
         private static CancellationTokenSource _setFocusTaskTokenSrc;
         private static Task _setFocusTask;
         private MainViewModel _mainViewModel;
+        private bool _isMouseDown = false;
         #endregion
 
 
@@ -31,7 +33,7 @@ namespace ParticleMaker
         public MainWindow()
         {
             _mainViewModel = App.DIContainer.GetInstance<MainViewModel>();
-            _mainViewModel.DialogOwner = this;
+            _mainViewModel.MainWindow = this;
 
             ElementHost.EnableModelessKeyboardInterop(this);
 
@@ -109,6 +111,28 @@ namespace ParticleMaker
             _mainViewModel.Pause.Execute(null);
             
             DataContext = _mainViewModel;
+        }
+
+
+        /// <summary>
+        /// Sets the down state of the left mouse button to true.
+        /// </summary>
+        private void RenderSurface_MouseDown(object sender, MouseEventArgs e) => _isMouseDown = true;
+
+
+        /// <summary>
+        /// Sets the down state of the left mouse button to false.
+        /// </summary>
+        private void RenderSurface_MouseUp(object sender, MouseEventArgs e) => _isMouseDown = false;
+
+
+        /// <summary>
+        /// Updates the particle spawn location if the left mouse button is in the down position.
+        /// </summary>
+        private void RenderSurface_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (_isMouseDown)
+                _mainViewModel.SpawnLocation = new CoreVector(e.X, e.Y);
         }
         #endregion
     }

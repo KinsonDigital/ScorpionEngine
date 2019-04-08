@@ -1,24 +1,25 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Windows.Threading;
-using KDParticleEngine;
-using CoreVector = KDScorpionCore.Vector;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
-using KDScorpionCore.Graphics;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Windows;
+using System.Linq;
+using KDParticleEngine;
+using KDScorpionCore.Graphics;
 using ParticleMaker.Management;
 using ParticleMaker.Dialogs;
-using System.Windows;
 using ParticleMaker.UserControls;
-using System.Linq;
 using ParticleMaker.Services;
 using ParticleMaker.CustomEventArgs;
 using ParticleMaker.Exceptions;
 using WPFMsgBox = System.Windows.MessageBox;
+using CoreVector = KDScorpionCore.Vector;
 using FolderDialogResult = System.Windows.Forms.DialogResult;
+using System.Windows.Forms.Integration;
 
 namespace ParticleMaker.ViewModels
 {
@@ -87,6 +88,15 @@ namespace ParticleMaker.ViewModels
         #region Props
         #region Standard Props
         /// <summary>
+        /// Gets or sets the spawn location of the particles on the rendering surface.
+        /// </summary>
+        public CoreVector SpawnLocation
+        {
+            get => _graphicsEngine.ParticleEngine.SpawnLocation;
+            set => _graphicsEngine.ParticleEngine.SpawnLocation = value;
+        }
+
+        /// <summary>
         /// Gets a value indicating if any of the setup changes have changed.
         /// </summary>
         public bool SettingsChanged { get; private set; } = false;
@@ -105,7 +115,7 @@ namespace ParticleMaker.ViewModels
         /// Gets or sets the window that will be the owner of any dialog windows.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        public Window DialogOwner { get; set; }
+        public Window MainWindow { get; set; }
 
         /// <summary>
         /// Gets or sets the surface that the particles will render to.
@@ -122,12 +132,12 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public int RenderSurfaceWidth
         {
-            get => _graphicsEngine.Width;
+            get => _graphicsEngine.Width.WidthToPoints();
             set
             {
                 _graphicsEngine.Pause();
 
-                _graphicsEngine.Width = value;
+                _graphicsEngine.Width = value.WidthToPixels();
 
                 _graphicsEngine.Play();
 
@@ -140,12 +150,12 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public int RenderSurfaceHeight
         {
-            get => _graphicsEngine.Height;
+            get => _graphicsEngine.Height.HeightToPoints();
             set
             {
                 _graphicsEngine.Pause();
 
-                _graphicsEngine.Height = value;
+                _graphicsEngine.Height = value.HeightToPixels();
 
                 _graphicsEngine.Play();
 
@@ -828,7 +838,12 @@ namespace ParticleMaker.ViewModels
 
             _startupTask.Start();
 
-            MainWindow.SetFocus();
+            /*This is here to set focus back to the main window.  The monogame window created and hidden
+             * shows up after the main window loads.  After the monogame window hides itself, the main window
+             * is left in a state of not being in focus due to the last window that was in focus being the
+             * monogame window.  This puts the main window back into focus.
+             */
+            ParticleMaker.MainWindow.SetFocus();
         }
 
 
@@ -913,7 +928,7 @@ namespace ParticleMaker.ViewModels
 
                 var inputDialog = new InputDialog("Create New Project", msg, "", _illegalCharacters, invalidProjNames)
                 {
-                    Owner = DialogOwner
+                    Owner = MainWindow
                 };
 
                 var dialogResult = inputDialog.ShowDialog();
@@ -954,7 +969,7 @@ namespace ParticleMaker.ViewModels
             {
                 var projectListDialog = new ProjectListDialog("Open Project")
                 {
-                    Owner = DialogOwner,
+                    Owner = MainWindow,
                     ProjectPaths = _projectManager.ProjectPaths
                 };
 
@@ -994,7 +1009,7 @@ namespace ParticleMaker.ViewModels
             {
                 var projectListDialog = new ProjectListDialog("Select Project To Rename")
                 {
-                    Owner = DialogOwner,
+                    Owner = MainWindow,
                     ProjectPaths = _projectManager.ProjectPaths
                 };
 
@@ -1006,7 +1021,7 @@ namespace ParticleMaker.ViewModels
 
                     var inputDialog = new InputDialog("Rename Project", "Enter new project name.", defaultValue: projectListDialog.SelectedProject, invalidChars: _illegalCharacters, invalidValues: invalidProjNames)
                     {
-                        Owner = DialogOwner
+                        Owner = MainWindow
                     };
 
                     var inputDialogResult = inputDialog.ShowDialog();
@@ -1058,7 +1073,7 @@ namespace ParticleMaker.ViewModels
             {
                 var projListDialog = new ProjectListDialog("Delete Project")
                 {
-                    Owner = DialogOwner,
+                    Owner = MainWindow,
                     ProjectPaths = _projectManager.ProjectPaths
                 };
 
@@ -1067,7 +1082,7 @@ namespace ParticleMaker.ViewModels
                     var msg = $"Are you sure you want to delete the project named '{projListDialog.SelectedProject}'";
 
                     //Ask user if they are sure they want to delete the project
-                    if (WPFMsgBox.Show(DialogOwner, msg, "Delete Project?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    if (WPFMsgBox.Show(MainWindow, msg, "Delete Project?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
                         //If the project to be deleted is currently loaded, unload the project
                         if (CurrentOpenProject == projListDialog.SelectedProject)
@@ -1254,7 +1269,7 @@ namespace ParticleMaker.ViewModels
             if (!(param is RenameItemEventArgs eventArgs))
                 throw new InvalidCommandActionParamTypeException(nameof(RenameSetupExecute), nameof(param));
 
-            var dialogResult = WPFMsgBox.Show(DialogOwner, $"Are you sure you want to rename '{eventArgs.OldName}' to '{eventArgs.NewName}'?", "Rename Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var dialogResult = WPFMsgBox.Show(MainWindow, $"Are you sure you want to rename '{eventArgs.OldName}' to '{eventArgs.NewName}'?", "Rename Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (dialogResult == MessageBoxResult.Yes)
             {
@@ -1388,7 +1403,7 @@ namespace ParticleMaker.ViewModels
             if (!(param is ItemEventArgs eventArgs))
                 throw new InvalidCommandActionParamTypeException(nameof(DeleteSetupExecute), nameof(param));
 
-            var dialogResult = WPFMsgBox.Show(DialogOwner, $"Are you sure you want to delete the setup '{eventArgs.Name}'?", "Delete Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var dialogResult = WPFMsgBox.Show(MainWindow, $"Are you sure you want to delete the setup '{eventArgs.Name}'?", "Delete Setup", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (dialogResult == MessageBoxResult.Yes)
             {

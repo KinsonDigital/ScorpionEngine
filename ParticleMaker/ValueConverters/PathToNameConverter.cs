@@ -3,7 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Windows.Data;
 
-namespace ParticleMaker.UserControls.ValueConverters
+namespace ParticleMaker.ValueConverters
 {
     /// <summary>
     /// Converts incoming data from a binding from a file path to a file name without

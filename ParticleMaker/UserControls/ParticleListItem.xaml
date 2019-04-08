@@ -4,11 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ParticleMaker.UserControls"
-             xmlns:convtrs="clr-namespace:ParticleMaker.UserControls.ValueConverters"
+             xmlns:converters="clr-namespace:ParticleMaker.ValueConverters"
              mc:Ignorable="d" Name="this" BorderThickness="1" MaxHeight="28.66">
 
     <UserControl.Resources>
-        <convtrs:StringToBoolConverter x:Key="StringToBoolConverter"/>
+        <converters:StringToBoolConverter x:Key="StringToBoolConverter"/>
 
         <!--OVERLAY SHOWN OVER THUMBNAIL WHEN MOUSE IS OVER THE THUMBNAIL-->
         <SolidColorBrush x:Key="MouseOverlayBrush">
@@ -25,7 +25,7 @@
         </SolidColorBrush>
 
         <!--CONVERTS A FILE PATH TO JUST THE FILE NAME WITHOUT THE EXTENSION-->
-        <convtrs:PathToNameConverter x:Key="PathToName"/>
+        <converters:PathToNameConverter x:Key="PathToName"/>
 
         <Style x:Key="NoErrorStyle" TargetType="FrameworkElement">
             <Setter Property="Visibility" Value="Visible"/>

@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace ParticleMaker.UserControls.ValueConverters
+namespace ParticleMaker.ValueConverters
 {
     /// <summary>
     /// Converts the incoming string data to a boolean result. Empty or null will result
