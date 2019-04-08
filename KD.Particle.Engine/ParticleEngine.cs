@@ -608,6 +608,7 @@ namespace KDParticleEngine
                 GreenMax = GreenMax,
                 BlueMin = BlueMin,
                 BlueMax = BlueMax,
+                TotalParticlesAliveAtOnce = TotalParticlesAliveAtOnce,
                 SizeMin = SizeMin,
                 SizeMax = SizeMax,
                 AngleMin = AngleMin,

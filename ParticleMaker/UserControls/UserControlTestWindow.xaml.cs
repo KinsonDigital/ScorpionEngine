@@ -32,7 +32,8 @@ namespace ParticleMaker.UserControls
         #region Private Methods
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            _viewModel.TotalParticlesAliveAtOnce = 51;
+            _viewModel.UpdateBindings();
         }
         #endregion
 
@@ -94,6 +95,15 @@ namespace ParticleMaker.UserControls
 
                 return _deploySetupCommand;
             }
+        }
+
+
+        public int TotalParticlesAliveAtOnce { get; set; } = 91;
+
+
+        public void UpdateBindings()
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TotalParticlesAliveAtOnce)));
         }
     }
 }

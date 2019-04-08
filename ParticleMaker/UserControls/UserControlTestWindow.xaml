@@ -13,14 +13,19 @@
         <converters:StringToBoolConverter x:Key="StringToBoolConverter"/>
     </Window.Resources>
 
-    <Grid DataContext="{Binding ElementName=this}">
+    <Grid d:DataContext="{d:DesignInstance Type=local:MyViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <StackPanel Margin="150,105,153.333,0" Orientation="Vertical">
-            <Button/>
+        <!--
+        Value="{Binding Path=TotalParticlesAliveAtOnce, Mode=TwoWay}"
+        -->
+        <StackPanel Margin="150,105,91.333,0" Orientation="Vertical">
+            <local:NumericUpDown LabelText="Total Particles" Min="0" Max="100000" MinWidth="150" MaxWidth="150"
+                                 Value="{Binding Path=TotalParticlesAliveAtOnce, Mode=TwoWay}"
+                                 HorizontalAlignment="Left" Margin="10"/>
         </StackPanel>
 
         <Button Name="TestButton" Content="Run Test" Width="100" Height="30" Grid.Row="1" Click="TestButton_Click"/>
