@@ -14,9 +14,9 @@ namespace ParticleMaker.Management
     {
         #region Fields
         private readonly ProjectIOService _projIOService;
-        private readonly IDirectoryService _directoryService;
         private IFileService _fileService;
         private readonly string _projectSettingsPath;
+        private const string FILE_EXTENSION = ".projs";
         #endregion
 
 
@@ -25,12 +25,10 @@ namespace ParticleMaker.Management
         /// Creates a new instance of <see cref="ProjectSettingsManager"/>
         /// </summary>
         /// <param name="projIOService">The service used to manage common project management tasks.</param>
-        /// <param name="directoryService">The directory service used to manage the project directories.</param>
         /// <param name="fileService">The file service used to manage project setting files.</param>
-        public ProjectSettingsManager(ProjectIOService projIOService, IDirectoryService directoryService, IFileService fileService)
+        public ProjectSettingsManager(ProjectIOService projIOService, IFileService fileService)
         {
             _projIOService = projIOService;
-            _directoryService = directoryService;
             _fileService = fileService;
             _projectSettingsPath = $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Projects";
         }
@@ -53,7 +51,7 @@ namespace ParticleMaker.Management
                 }
                 else
                 {
-                    _fileService.Create($@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json", settings);
+                    _fileService.Create($@"{_projectSettingsPath}\{projectName}\{projectName}{FILE_EXTENSION}", settings);
                 }
 
                 return;
@@ -74,7 +72,7 @@ namespace ParticleMaker.Management
         {
             if (_projIOService.ProjectExists(projectName))
             {
-                var filePath = $@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json";
+                var filePath = $@"{_projectSettingsPath}\{projectName}\{projectName}{FILE_EXTENSION}";
 
                 var projSettings = _fileService.Load<ProjectSettings>(filePath);
 
@@ -98,9 +96,9 @@ namespace ParticleMaker.Management
         {
             if (_projIOService.ProjectExists(projectName))
             {
-                var oldFilePath = $@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json";
+                var oldFilePath = $@"{_projectSettingsPath}\{projectName}\{projectName}{FILE_EXTENSION}";
 
-                _fileService.Rename(oldFilePath, $"{newProjectName}-project-settings.json");
+                _fileService.Rename(oldFilePath, $"{newProjectName}{FILE_EXTENSION}");
             }
             else
             {
@@ -120,7 +118,7 @@ namespace ParticleMaker.Management
         {
             if (_projIOService.ProjectExists(projectName))
             {
-                var projectDirPath = $@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json";
+                var projectDirPath = $@"{_projectSettingsPath}\{projectName}\{projectName}{FILE_EXTENSION}";
 
                 var projSettings = _fileService.Load<ProjectSettings>(projectDirPath);
 
