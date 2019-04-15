@@ -131,8 +131,8 @@ namespace ParticleMaker.Tests.ViewModels
             var expected = 1234;
 
             //Act
-            _viewModel.TotalParticles = 1234;
-            var actual = _viewModel.TotalParticles;
+            _viewModel.TotalParticlesAliveAtOnce = 1234;
+            var actual = _viewModel.TotalParticlesAliveAtOnce;
 
             //Assert
             Assert.AreEqual(expected, actual);

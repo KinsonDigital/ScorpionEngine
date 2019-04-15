@@ -37,6 +37,11 @@
         public byte BlueMax { get; set; } = 255;
 
         /// <summary>
+        /// Gets or sets the total number of particles that can be alive at once.
+        /// </summary>
+        public int TotalParticlesAliveAtOnce { get; set; }
+
+        /// <summary>
         /// Gets or sets the minimum size of the range that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public float SizeMin { get; set; } = 0.5f;

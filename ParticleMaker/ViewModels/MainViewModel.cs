@@ -166,7 +166,7 @@ namespace ParticleMaker.ViewModels
         /// <summary>
         /// Gets or sets the total number of particles that can be alive at any time.
         /// </summary>
-        public int TotalParticles
+        public int TotalParticlesAliveAtOnce
         {
             get => _graphicsEngine.ParticleEngine.TotalParticlesAliveAtOnce;
             set => _graphicsEngine.ParticleEngine.TotalParticlesAliveAtOnce = value;
