@@ -298,7 +298,7 @@
 
             <!--RANDOM ANGULAR VELOCITY-->
             <ctrls:RandomRange Title="Angular Velocity" MinTitle="Min" MaxTitle="Max" Grid.Row="0" Grid.Column="0" Margin="5"
-                               MinLowerLimit="0" MinUpperLimit="360" MaxLowerLimit="0" MaxUpperLimit="360"
+                               MinLowerLimit="-360" MinUpperLimit="360" MaxLowerLimit="-360" MaxUpperLimit="360"
                                IsEnabled="{Binding Path=CurrentLoadedSetup, Converter={StaticResource StringToBoolConverter}}"
                                MinValue="{Binding Path=AngularVelocityMin, Mode=TwoWay}" MaxValue="{Binding Path=AngularVelocityMax, Mode=TwoWay}"/>
 
