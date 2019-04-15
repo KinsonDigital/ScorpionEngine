@@ -14,7 +14,6 @@ namespace ParticleMaker.Management
     {
         #region Fields
         private readonly ProjectIOService _projIOService;
-        private readonly IDirectoryService _directoryService;
         private IFileService _fileService;
         private readonly string _projectSettingsPath;
         #endregion
@@ -25,12 +24,10 @@ namespace ParticleMaker.Management
         /// Creates a new instance of <see cref="ProjectSettingsManager"/>
         /// </summary>
         /// <param name="projIOService">The service used to manage common project management tasks.</param>
-        /// <param name="directoryService">The directory service used to manage the project directories.</param>
         /// <param name="fileService">The file service used to manage project setting files.</param>
-        public ProjectSettingsManager(ProjectIOService projIOService, IDirectoryService directoryService, IFileService fileService)
+        public ProjectSettingsManager(ProjectIOService projIOService, IFileService fileService)
         {
             _projIOService = projIOService;
-            _directoryService = directoryService;
             _fileService = fileService;
             _projectSettingsPath = $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Projects";
         }

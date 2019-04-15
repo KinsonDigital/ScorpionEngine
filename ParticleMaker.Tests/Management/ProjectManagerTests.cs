@@ -33,7 +33,7 @@ namespace ParticleMaker.Tests.Management
                 };
             });
 
-            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
+            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockFileService.Object);
 
             var manager = new ProjectManager(projSettingsManager, _projIOService, mockDirService.Object);
 
@@ -151,7 +151,7 @@ namespace ParticleMaker.Tests.Management
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
             var mockFileService = new Mock<IFileService>();
 
-            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
+            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockFileService.Object);
 
             var manager = new ProjectManager(projSettingsManager, _projIOService, mockDirService.Object);
 
@@ -172,7 +172,7 @@ namespace ParticleMaker.Tests.Management
 
             var mockFileService = new Mock<IFileService>();
 
-            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
+            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockFileService.Object);
 
             var manager = new ProjectManager(projSettingsManager, _projIOService, mockDirService.Object);
 
@@ -193,7 +193,7 @@ namespace ParticleMaker.Tests.Management
 
             var mockFileService = new Mock<IFileService>();
 
-            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
+            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockFileService.Object);
 
             var service = new ProjectManager(projSettingsManager, _projIOService, mockDirService.Object);
 
@@ -225,7 +225,7 @@ namespace ParticleMaker.Tests.Management
             var mockFileService = new Mock<IFileService>();
             mockFileService.Setup(m => m.Create(It.IsAny<string>(), It.IsAny<ProjectSettings>()));
 
-            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
+            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockFileService.Object);
 
             var manager = new ProjectManager(projSettingsManager, _projIOService, mockDirService.Object);
 
@@ -246,7 +246,7 @@ namespace ParticleMaker.Tests.Management
 
             var mockFileService = new Mock<IFileService>();
 
-            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
+            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockFileService.Object);
 
             var manager = new ProjectManager(projSettingsManager, _projIOService, mockDirService.Object);
 
@@ -267,7 +267,7 @@ namespace ParticleMaker.Tests.Management
 
             var mockFileService = new Mock<IFileService>();
 
-            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
+            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockFileService.Object);
 
             var manager = new ProjectManager(projSettingsManager, _projIOService, mockDirService.Object);
 
@@ -288,7 +288,7 @@ namespace ParticleMaker.Tests.Management
 
             var mockFileService = new Mock<IFileService>();
 
-            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
+            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockFileService.Object);
 
             var manager = new ProjectManager(projSettingsManager, _projIOService, mockDirService.Object);
 
@@ -309,7 +309,7 @@ namespace ParticleMaker.Tests.Management
 
             var mockFileService = new Mock<IFileService>();
 
-            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
+            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockFileService.Object);
 
             var manager = new ProjectManager(projSettingsManager, _projIOService, mockDirService.Object);
 
@@ -330,7 +330,7 @@ namespace ParticleMaker.Tests.Management
 
             var mockFileService = new Mock<IFileService>();
 
-            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
+            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockFileService.Object);
 
             var anager = new ProjectManager(projSettingsManager, _projIOService, mockDirService.Object);
 
@@ -351,7 +351,7 @@ namespace ParticleMaker.Tests.Management
 
             var mockFileService = new Mock<IFileService>();
 
-            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
+            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockFileService.Object);
 
             var manager = new ProjectManager(projSettingsManager, _projIOService, mockDirService.Object);
 
@@ -372,7 +372,7 @@ namespace ParticleMaker.Tests.Management
 
             var mockFileService = new Mock<IFileService>();
 
-            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockDirService.Object, mockFileService.Object);
+            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockFileService.Object);
 
             var manager = new ProjectManager(projSettingsManager, _projIOService, mockDirService.Object);
 
