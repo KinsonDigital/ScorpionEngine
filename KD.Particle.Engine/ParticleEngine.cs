@@ -589,6 +589,8 @@ namespace KDParticleEngine
             SpawnRateMin = setupData.SpawnRateMin;
             SpawnRateMax = setupData.SpawnRateMax;
 
+            TotalParticlesAliveAtOnce = setupData.TotalParticlesAliveAtOnce;
+
             UseColorsFromList = setupData.UseColorsFromList;
             TintColors = setupData.Colors.ToGameColors();
         }
