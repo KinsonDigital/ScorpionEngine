@@ -160,7 +160,7 @@ namespace ParticleMaker.Tests.Management
             var expected = new[]
             {
                 "test-project",
-                "test-project-project-settings.json"
+                "test-project.projs"
             };
 
             //Act
@@ -241,7 +241,7 @@ namespace ParticleMaker.Tests.Management
             //Arrange
             _mockProjDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
 
-            var expected = @"\test-project\test-project-project-settings.json";
+            var expected = @"\test-project\test-project.projs";
             var actual = string.Empty;
             var mockDirService = new Mock<IDirectoryService>();
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
@@ -270,7 +270,7 @@ namespace ParticleMaker.Tests.Management
             //Arrange
             _mockProjDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
 
-            var expected = "new-project-project-settings.json";
+            var expected = "new-project.projs";
             var actual = string.Empty;
             var mockDirService = new Mock<IDirectoryService>();
             mockDirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
@@ -338,7 +338,7 @@ namespace ParticleMaker.Tests.Management
 
                 actual = projStructureSections.Length < 2 ?
                     false :
-                    projStructureSections[0] == "test-project" && projStructureSections[1] == "test-project-project-settings.json";
+                    projStructureSections[0] == "test-project" && projStructureSections[1] == "test-project.projs";
 
                 return _testProjectSettings;
             });
