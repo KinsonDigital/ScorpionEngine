@@ -16,6 +16,7 @@ namespace ParticleMaker.Management
         private readonly ProjectIOService _projIOService;
         private IFileService _fileService;
         private readonly string _projectSettingsPath;
+        private const string FILE_EXTENSION = ".projs";
         #endregion
 
 
@@ -50,7 +51,7 @@ namespace ParticleMaker.Management
                 }
                 else
                 {
-                    _fileService.Create($@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json", settings);
+                    _fileService.Create($@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings{FILE_EXTENSION}", settings);
                 }
 
                 return;
@@ -71,7 +72,7 @@ namespace ParticleMaker.Management
         {
             if (_projIOService.ProjectExists(projectName))
             {
-                var filePath = $@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json";
+                var filePath = $@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings{FILE_EXTENSION}";
 
                 var projSettings = _fileService.Load<ProjectSettings>(filePath);
 
@@ -95,9 +96,9 @@ namespace ParticleMaker.Management
         {
             if (_projIOService.ProjectExists(projectName))
             {
-                var oldFilePath = $@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json";
+                var oldFilePath = $@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings{FILE_EXTENSION}";
 
-                _fileService.Rename(oldFilePath, $"{newProjectName}-project-settings.json");
+                _fileService.Rename(oldFilePath, $"{newProjectName}-project-settings{FILE_EXTENSION}");
             }
             else
             {
@@ -117,7 +118,7 @@ namespace ParticleMaker.Management
         {
             if (_projIOService.ProjectExists(projectName))
             {
-                var projectDirPath = $@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings.json";
+                var projectDirPath = $@"{_projectSettingsPath}\{projectName}\{projectName}-project-settings{FILE_EXTENSION}";
 
                 var projSettings = _fileService.Load<ProjectSettings>(projectDirPath);
 
