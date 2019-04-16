@@ -57,33 +57,6 @@ namespace ParticleMaker.UserControls
 
 
         #region Props
-        #region Dependency Props
-        /// <summary>
-        /// Registers the <see cref="DeploymentPath"/> property.
-        /// </summary>
-        public static readonly DependencyProperty DeploymentPathProperty =
-            DependencyProperty.Register(nameof(DeploymentPath), typeof(string), typeof(SetupDeployment), new PropertyMetadata("", DeploymentPathChanged));
-
-        /// <summary>
-        /// Registers the <see cref="EditClickedCommand"/> property.
-        /// </summary>
-        public static readonly DependencyProperty EditClickedCommandProperty =
-            DependencyProperty.Register(nameof(EditClickedCommand), typeof(ICommand), typeof(SetupDeployment), new PropertyMetadata(null));
-
-        /// <summary>
-        /// Registers the <see cref="DeployClickedCommand"/> property.
-        /// </summary>
-        public static readonly DependencyProperty DeployClickedCommandProperty =
-            DependencyProperty.Register(nameof(DeployClickedCommand), typeof(ICommand), typeof(SetupDeployment), new PropertyMetadata(null));
-
-        /// <summary>
-        /// Registers the <see cref="HasError"/> property.
-        /// </summary>
-        private static readonly DependencyProperty HasErrorProperty =
-            DependencyProperty.Register(nameof(HasError), typeof(bool), typeof(SetupDeployment), new PropertyMetadata(false));
-        #endregion
-
-
         /// <summary>
         /// Gets or sets the directory path to where a setup deployment will occur.
         /// </summary>
@@ -92,6 +65,13 @@ namespace ParticleMaker.UserControls
             get { return (string)GetValue(DeploymentPathProperty); }
             set { SetValue(DeploymentPathProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="DeploymentPath"/> property.
+        /// </summary>
+        public static readonly DependencyProperty DeploymentPathProperty =
+            DependencyProperty.Register(nameof(DeploymentPath), typeof(string), typeof(SetupDeployment), new PropertyMetadata("", DeploymentPathChanged));
+
 
         /// <summary>
         /// Gets or sets the command to execute when the edit button has been clicked.
@@ -103,6 +83,13 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
+        /// Registers the <see cref="EditClickedCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty EditClickedCommandProperty =
+            DependencyProperty.Register(nameof(EditClickedCommand), typeof(ICommand), typeof(SetupDeployment), new PropertyMetadata(null));
+
+
+        /// <summary>
         /// Gets or sets command that is executed when the deploy button has been clicked.
         /// </summary>
         public ICommand DeployClickedCommand
@@ -110,6 +97,13 @@ namespace ParticleMaker.UserControls
             get { return (ICommand)GetValue(DeployClickedCommandProperty); }
             set { SetValue(DeployClickedCommandProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="DeployClickedCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty DeployClickedCommandProperty =
+            DependencyProperty.Register(nameof(DeployClickedCommand), typeof(ICommand), typeof(SetupDeployment), new PropertyMetadata(null));
+
 
         /// <summary>
         /// Gets or stes the a value indicating if the control has an error due to
@@ -120,6 +114,12 @@ namespace ParticleMaker.UserControls
             get { return (bool)GetValue(HasErrorProperty); }
             set { SetValue(HasErrorProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="HasError"/> property.
+        /// </summary>
+        private static readonly DependencyProperty HasErrorProperty =
+            DependencyProperty.Register(nameof(HasError), typeof(bool), typeof(SetupDeployment), new PropertyMetadata(false));
         #endregion
 
 
