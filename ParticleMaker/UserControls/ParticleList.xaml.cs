@@ -46,33 +46,14 @@ namespace ParticleMaker.UserControls
 
 
         #region Props
-        #region Dependency Props
         /// <summary>
-        /// Registers the <see cref="Particles"/> property.
+        /// Gets the selected particle item in the list.
         /// </summary>
-        public static readonly DependencyProperty ParticlesProperty =
-            DependencyProperty.Register(nameof(Particles), typeof(PathItem[]), typeof(ParticleList), new PropertyMetadata(new PathItem[0], ParticlesChanged));
-
-        /// <summary>
-        /// Registers the <see cref="RenameItemCommand"/> property.
-        /// </summary>
-        public static readonly DependencyProperty RenameItemCommandProperty =
-            DependencyProperty.Register(nameof(RenameItemCommand), typeof(ICommand), typeof(ParticleList), new PropertyMetadata(null));
-
-        /// <summary>
-        /// Registers the <see cref="DeleteItemCommand"/> property.
-        /// </summary>
-        public static readonly DependencyProperty DeleteItemCommandProperty =
-            DependencyProperty.Register(nameof(DeleteItemCommand), typeof(ICommand), typeof(ParticleList), new PropertyMetadata(null));
-
-        /// <summary>
-        /// Registers the <see cref="AddItemCommand"/> property.
-        /// </summary>
-        public static readonly DependencyProperty AddItemCommandProperty =
-            DependencyProperty.Register(nameof(AddItemCommand), typeof(ICommand), typeof(ParticleList), new PropertyMetadata(null));
+        public PathItem SelectedItem { get; private set; }
         #endregion
 
 
+        #region Dependency Props
         /// <summary>
         /// Gets or sets the list of particle paths.
         /// </summary>
@@ -83,9 +64,11 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
-        /// Gets the selected particle item in the list.
+        /// Registers the <see cref="Particles"/> property.
         /// </summary>
-        public PathItem SelectedItem { get; private set; }
+        public static readonly DependencyProperty ParticlesProperty =
+            DependencyProperty.Register(nameof(Particles), typeof(PathItem[]), typeof(ParticleList), new PropertyMetadata(new PathItem[0], ParticlesChanged));
+
 
         /// <summary>
         /// Gets or sets the command that is executed when a list item rename button has been clicked.
@@ -97,6 +80,13 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
+        /// Registers the <see cref="RenameItemCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty RenameItemCommandProperty =
+            DependencyProperty.Register(nameof(RenameItemCommand), typeof(ICommand), typeof(ParticleList), new PropertyMetadata(null));
+
+
+        /// <summary>
         /// Gets or sets the command that is executed when a list item delete button has been clicked.
         /// </summary>
         public ICommand DeleteItemCommand
@@ -106,6 +96,13 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
+        /// Registers the <see cref="DeleteItemCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty DeleteItemCommandProperty =
+            DependencyProperty.Register(nameof(DeleteItemCommand), typeof(ICommand), typeof(ParticleList), new PropertyMetadata(null));
+
+
+        /// <summary>
         /// Gets or sets the command that is executed when the add item button is clicked.
         /// </summary>
         public ICommand AddItemCommand
@@ -113,6 +110,12 @@ namespace ParticleMaker.UserControls
             get { return (ICommand)GetValue(AddItemCommandProperty); }
             set { SetValue(AddItemCommandProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="AddItemCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty AddItemCommandProperty =
+            DependencyProperty.Register(nameof(AddItemCommand), typeof(ICommand), typeof(ParticleList), new PropertyMetadata(null));
         #endregion
 
 
