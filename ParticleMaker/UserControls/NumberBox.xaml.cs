@@ -64,21 +64,6 @@ namespace ParticleMaker.UserControls
 
 
         #region Props
-        #region Dependency Props
-        /// <summary>
-        /// Registers the <see cref="NumberText"/> property.
-        /// </summary>
-        public static readonly DependencyProperty NumberTextProperty =
-            DependencyProperty.Register(nameof(NumberText), typeof(string), typeof(NumberBox), new PropertyMetadata("0", NumberTextChanged));
-
-        /// <summary>
-        /// Registers the <see cref="Value"/> property.
-        /// </summary>
-        public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register(nameof(Value), typeof(float), typeof(NumberBox), new PropertyMetadata(0f, ValueChanged));
-        #endregion
-
-
         /// <summary>
         /// Gets or sets the number text of the <see cref="NumberBox"/>.
         /// </summary>
@@ -89,6 +74,13 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
+        /// Registers the <see cref="NumberText"/> property.
+        /// </summary>
+        public static readonly DependencyProperty NumberTextProperty =
+            DependencyProperty.Register(nameof(NumberText), typeof(string), typeof(NumberBox), new PropertyMetadata("0", NumberTextChanged));
+
+
+        /// <summary>
         /// Gets the value of the <see cref="NumberBox"/>.
         /// </summary>
         public float Value
@@ -96,6 +88,12 @@ namespace ParticleMaker.UserControls
             get { return (float)GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="Value"/> property.
+        /// </summary>
+        public static readonly DependencyProperty ValueProperty =
+            DependencyProperty.Register(nameof(Value), typeof(float), typeof(NumberBox), new PropertyMetadata(0f, ValueChanged));
         #endregion
 
 
