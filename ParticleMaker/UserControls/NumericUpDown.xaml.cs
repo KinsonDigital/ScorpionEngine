@@ -25,57 +25,6 @@ namespace ParticleMaker.UserControls
 
 
         #region Props
-        #region Dependency Props
-        /// <summary>
-        /// Registers the <see cref="DecimalPlaces"/> property.
-        /// </summary>
-        public static readonly DependencyProperty DecimalPlacesProperty =
-            DependencyProperty.Register(nameof(DecimalPlaces), typeof(int), typeof(NumericUpDown), new PropertyMetadata(0));
-
-        /// <summary>
-        /// Registers the <see cref="Value"/> property.
-        /// </summary>
-        public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register(nameof(Value), typeof(float), typeof(NumericUpDown), new PropertyMetadata(0f, null, ValueCoerce));
-
-        /// <summary>
-        /// Registers the <see cref="Min"/> property.
-        /// </summary>
-        public static readonly DependencyProperty MinProperty =
-            DependencyProperty.Register(nameof(Min), typeof(float), typeof(NumericUpDown), new PropertyMetadata(0f, MinChanged));
-
-        /// <summary>
-        /// Registers the <see cref="Max"/> property.
-        /// </summary>
-        public static readonly DependencyProperty MaxProperty =
-            DependencyProperty.Register(nameof(Max), typeof(float), typeof(NumericUpDown), new PropertyMetadata(10f, MaxChanged));
-
-        /// <summary>
-        /// Registers the <see cref="Increment"/> property.
-        /// </summary>
-        public static readonly DependencyProperty IncrementProperty =
-            DependencyProperty.Register(nameof(Increment), typeof(float), typeof(NumericUpDown), new PropertyMetadata(1f));
-
-        /// <summary>
-        /// Registers the <see cref="Decrement"/> property.
-        /// </summary>
-        public static readonly DependencyProperty DecrementProperty =
-            DependencyProperty.Register(nameof(Decrement), typeof(float), typeof(NumericUpDown), new PropertyMetadata(1f));
-
-        /// <summary>
-        /// Registers the <see cref="LabelText"/> property.
-        /// </summary>
-        public static readonly DependencyProperty LabelTextProperty =
-            DependencyProperty.Register(nameof(LabelText), typeof(string), typeof(NumericUpDown), new PropertyMetadata("", LabelTextChanged));
-
-        /// <summary>
-        /// Registers the <see cref="IsLabelVisible"/> property.
-        /// </summary>
-        public static readonly DependencyProperty IsLabelVisibleProperty =
-            DependencyProperty.Register(nameof(IsLabelVisible), typeof(Visibility), typeof(NumericUpDown), new PropertyMetadata(Visibility.Hidden));
-        #endregion
-
-
         /// <summary>
         /// Gets or sets the number of decimal places that will be shown.
         /// </summary>
@@ -85,7 +34,14 @@ namespace ParticleMaker.UserControls
             get { return (int)GetValue(DecimalPlacesProperty); }
             set { SetValue(DecimalPlacesProperty, value); }
         }
-        
+
+        /// <summary>
+        /// Registers the <see cref="DecimalPlaces"/> property.
+        /// </summary>
+        public static readonly DependencyProperty DecimalPlacesProperty =
+            DependencyProperty.Register(nameof(DecimalPlaces), typeof(int), typeof(NumericUpDown), new PropertyMetadata(0));
+
+
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
@@ -94,6 +50,13 @@ namespace ParticleMaker.UserControls
             get => (float)GetValue(ValueProperty);
             set => SetValue(ValueProperty, value);
         }
+
+        /// <summary>
+        /// Registers the <see cref="Value"/> property.
+        /// </summary>
+        public static readonly DependencyProperty ValueProperty =
+            DependencyProperty.Register(nameof(Value), typeof(float), typeof(NumericUpDown), new PropertyMetadata(0f, null, ValueCoerce));
+
 
         /// <summary>
         /// Gets or sets the minimum <see cref="NumericUpDown"/> control value.
@@ -106,6 +69,13 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
+        /// Registers the <see cref="Min"/> property.
+        /// </summary>
+        public static readonly DependencyProperty MinProperty =
+            DependencyProperty.Register(nameof(Min), typeof(float), typeof(NumericUpDown), new PropertyMetadata(0f, MinChanged));
+
+
+        /// <summary>
         /// Gets or sets the maximum <see cref="NumericUpDown"/> control value.
         /// </summary>
         [Category("Common")]
@@ -114,6 +84,13 @@ namespace ParticleMaker.UserControls
             get { return (float)GetValue(MaxProperty); }
             set { SetValue(MaxProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="Max"/> property.
+        /// </summary>
+        public static readonly DependencyProperty MaxProperty =
+            DependencyProperty.Register(nameof(Max), typeof(float), typeof(NumericUpDown), new PropertyMetadata(10f, MaxChanged));
+
 
         /// <summary>
         /// Gets or sets the amount to increment the <see cref="Value"/> property.
@@ -126,6 +103,13 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
+        /// Registers the <see cref="Increment"/> property.
+        /// </summary>
+        public static readonly DependencyProperty IncrementProperty =
+            DependencyProperty.Register(nameof(Increment), typeof(float), typeof(NumericUpDown), new PropertyMetadata(1f));
+
+
+        /// <summary>
         /// Gets or sets the amount to decrement the <see cref="Value"/> property.
         /// </summary>
         [Category("Common")]
@@ -134,6 +118,13 @@ namespace ParticleMaker.UserControls
             get { return (float)GetValue(DecrementProperty); }
             set { SetValue(DecrementProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="Decrement"/> property.
+        /// </summary>
+        public static readonly DependencyProperty DecrementProperty =
+            DependencyProperty.Register(nameof(Decrement), typeof(float), typeof(NumericUpDown), new PropertyMetadata(1f));
+
 
         /// <summary>
         /// Gets or sets the label text of the control.
@@ -146,6 +137,13 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
+        /// Registers the <see cref="LabelText"/> property.
+        /// </summary>
+        public static readonly DependencyProperty LabelTextProperty =
+            DependencyProperty.Register(nameof(LabelText), typeof(string), typeof(NumericUpDown), new PropertyMetadata("", LabelTextChanged));
+
+
+        /// <summary>
         /// Gets or sets a value indicating if the label will be visible.
         /// </summary>
         public Visibility IsLabelVisible
@@ -153,6 +151,12 @@ namespace ParticleMaker.UserControls
             get { return (Visibility)GetValue(IsLabelVisibleProperty); }
             set { SetValue(IsLabelVisibleProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="IsLabelVisible"/> property.
+        /// </summary>
+        public static readonly DependencyProperty IsLabelVisibleProperty =
+            DependencyProperty.Register(nameof(IsLabelVisible), typeof(Visibility), typeof(NumericUpDown), new PropertyMetadata(Visibility.Hidden));
         #endregion
 
 
