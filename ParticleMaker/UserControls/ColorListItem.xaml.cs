@@ -44,33 +44,6 @@ namespace ParticleMaker.UserControls
 
 
         #region Props
-        #region Dependency Props
-        /// <summary>
-        /// Registers the <see cref="ColorValue"/> property.
-        /// </summary>
-        public static readonly DependencyProperty ColorValueProperty =
-            DependencyProperty.Register(nameof(ColorValue), typeof(SolidColorBrush), typeof(ColorListItem), new PropertyMetadata(DEFAULT_COLOR, ColorValueChanged));
-
-        /// <summary>
-        /// Registers the <see cref="ColorTextValue"/> property.
-        /// </summary>
-        protected static readonly DependencyProperty ColorTextValueProperty =
-            DependencyProperty.Register(nameof(ColorTextValue), typeof(string), typeof(ColorListItem), new PropertyMetadata("255, 255, 255"));
-
-        /// <summary>
-        /// Registers the <see cref="TextForecolor"/> property.
-        /// </summary>
-        protected static readonly DependencyProperty TextForecolorProperty =
-            DependencyProperty.Register(nameof(TextForecolor), typeof(SolidColorBrush), typeof(ColorListItem), new PropertyMetadata(DEFAULT_COLOR.ToNegative()));
-
-        /// <summary>
-        /// Registers the <see cref="Id"/> property.
-        /// </summary>
-        public static readonly DependencyProperty IdProperty =
-            DependencyProperty.Register(nameof(Id), typeof(int), typeof(ColorListItem), new PropertyMetadata(-1));
-        #endregion
-
-
         /// <summary>
         /// Gets or sets the color.
         /// </summary>
@@ -79,6 +52,13 @@ namespace ParticleMaker.UserControls
             get { return (SolidColorBrush)GetValue(ColorValueProperty); }
             set { SetValue(ColorValueProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="ColorValue"/> property.
+        /// </summary>
+        public static readonly DependencyProperty ColorValueProperty =
+            DependencyProperty.Register(nameof(ColorValue), typeof(SolidColorBrush), typeof(ColorListItem), new PropertyMetadata(DEFAULT_COLOR, ColorValueChanged));
+
 
         /// <summary>
         /// Gets or sets the color value in text form.
@@ -90,6 +70,13 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
+        /// Registers the <see cref="ColorTextValue"/> property.
+        /// </summary>
+        protected static readonly DependencyProperty ColorTextValueProperty =
+            DependencyProperty.Register(nameof(ColorTextValue), typeof(string), typeof(ColorListItem), new PropertyMetadata("255, 255, 255"));
+
+
+        /// <summary>
         /// Gets or sets the forecolor of the text.
         /// </summary>
         protected SolidColorBrush TextForecolor
@@ -99,6 +86,13 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
+        /// Registers the <see cref="TextForecolor"/> property.
+        /// </summary>
+        protected static readonly DependencyProperty TextForecolorProperty =
+            DependencyProperty.Register(nameof(TextForecolor), typeof(SolidColorBrush), typeof(ColorListItem), new PropertyMetadata(DEFAULT_COLOR.ToNegative()));
+
+
+        /// <summary>
         /// Gets or sets the Id of the <see cref="ColorListItem"/>.
         /// </summary>
         public int Id
@@ -106,6 +100,12 @@ namespace ParticleMaker.UserControls
             get { return (int)GetValue(IdProperty); }
             set { SetValue(IdProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="Id"/> property.
+        /// </summary>
+        public static readonly DependencyProperty IdProperty =
+            DependencyProperty.Register(nameof(Id), typeof(int), typeof(ColorListItem), new PropertyMetadata(-1));
         #endregion
 
 
