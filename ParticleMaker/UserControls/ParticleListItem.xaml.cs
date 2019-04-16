@@ -42,39 +42,6 @@ namespace ParticleMaker.UserControls
 
 
         #region Props
-        #region Dependency Props
-        /// <summary>
-        /// Registers the <see cref="ParticleName"/> property.
-        /// </summary>
-        public static readonly DependencyProperty ParticleNameProperty =
-            DependencyProperty.Register(nameof(ParticleName), typeof(string), typeof(ParticleListItem), new PropertyMetadata(""));
-
-        /// <summary>
-        /// Registers the <see cref="ParticleFilePath"/> property.
-        /// </summary>
-        public static readonly DependencyProperty ParticleFilePathProperty =
-            DependencyProperty.Register(nameof(ParticleFilePath), typeof(string), typeof(ParticleListItem), new PropertyMetadata("", ParticleFilePathChanged));
-
-        /// <summary>
-        /// Registers the <see cref="HasError"/> property.
-        /// </summary>
-        protected static readonly DependencyProperty HasErrorProperty =
-            DependencyProperty.Register(nameof(HasError), typeof(bool), typeof(ParticleListItem), new PropertyMetadata(false));
-
-        /// <summary>
-        /// Registers the <see cref="RenameClickedCommand"/> property.
-        /// </summary>
-        public static readonly DependencyProperty RenameClickedCommandProperty =
-            DependencyProperty.Register(nameof(RenameClickedCommand), typeof(ICommand), typeof(ParticleListItem), new PropertyMetadata(null));
-
-        /// <summary>
-        /// Registers the <see cref="DeleteClickedCommand"/> property.
-        /// </summary>
-        public static readonly DependencyProperty DeleteClickedCommandProperty =
-            DependencyProperty.Register(nameof(DeleteClickedCommand), typeof(ICommand), typeof(ParticleListItem), new PropertyMetadata(null));
-        #endregion
-
-
         /// <summary>
         /// Gets or sets the name of the particle.
         /// </summary>
@@ -83,6 +50,13 @@ namespace ParticleMaker.UserControls
             get { return (string)GetValue(ParticleNameProperty); }
             set { SetValue(ParticleNameProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="ParticleName"/> property.
+        /// </summary>
+        public static readonly DependencyProperty ParticleNameProperty =
+            DependencyProperty.Register(nameof(ParticleName), typeof(string), typeof(ParticleListItem), new PropertyMetadata(""));
+
 
         /// <summary>
         /// Gets or sets the particle file path.
@@ -94,6 +68,13 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
+        /// Registers the <see cref="ParticleFilePath"/> property.
+        /// </summary>
+        public static readonly DependencyProperty ParticleFilePathProperty =
+            DependencyProperty.Register(nameof(ParticleFilePath), typeof(string), typeof(ParticleListItem), new PropertyMetadata("", ParticleFilePathChanged));
+
+
+        /// <summary>
         /// Gets or sets a value indicating if the user control has an error.
         /// </summary>
         protected bool HasError
@@ -101,6 +82,13 @@ namespace ParticleMaker.UserControls
             get { return (bool)GetValue(HasErrorProperty); }
             set { SetValue(HasErrorProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="HasError"/> property.
+        /// </summary>
+        protected static readonly DependencyProperty HasErrorProperty =
+            DependencyProperty.Register(nameof(HasError), typeof(bool), typeof(ParticleListItem), new PropertyMetadata(false));
+
 
         /// <summary>
         /// Gets or sets the command to execute when the rename button has been clicked.
@@ -112,6 +100,13 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
+        /// Registers the <see cref="RenameClickedCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty RenameClickedCommandProperty =
+            DependencyProperty.Register(nameof(RenameClickedCommand), typeof(ICommand), typeof(ParticleListItem), new PropertyMetadata(null));
+
+
+        /// <summary>
         /// Gets or sets the command to execute when the delete button has been clicked.
         /// </summary>
         public ICommand DeleteClickedCommand
@@ -119,6 +114,12 @@ namespace ParticleMaker.UserControls
             get { return (ICommand)GetValue(DeleteClickedCommandProperty); }
             set { SetValue(DeleteClickedCommandProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="DeleteClickedCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty DeleteClickedCommandProperty =
+            DependencyProperty.Register(nameof(DeleteClickedCommand), typeof(ICommand), typeof(ParticleListItem), new PropertyMetadata(null));
         #endregion
 
 
