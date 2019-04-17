@@ -28,51 +28,6 @@ namespace ParticleMaker.UserControls
 
 
         #region Props
-        #region Dependency Props
-        /// <summary>
-        /// Registers the <see cref="MinLabel"/> property.
-        /// </summary>
-        public static readonly DependencyProperty MinLabelProperty =
-            DependencyProperty.Register(nameof(MinLabel), typeof(string), typeof(ColorMinMax), new PropertyMetadata("Min"));
-
-        /// <summary>
-        /// Registers the <see cref="MaxLabel"/> property.
-        /// </summary>
-        public static readonly DependencyProperty MaxLabelProperty =
-            DependencyProperty.Register(nameof(MaxLabel), typeof(string), typeof(ColorMinMax), new PropertyMetadata("Max"));
-
-        /// <summary>
-        /// Registers the <see cref="Min"/> property.
-        /// </summary>
-        public static readonly DependencyProperty MinProperty =
-            DependencyProperty.Register(nameof(Min), typeof(int), typeof(ColorMinMax), new PropertyMetadata(0, MinChanged));
-
-        /// <summary>
-        /// Registers the <see cref="Max"/> property.
-        /// </summary>
-        public static readonly DependencyProperty MaxProperty =
-            DependencyProperty.Register(nameof(Max), typeof(int), typeof(ColorMinMax), new PropertyMetadata(0, MaxChanged));
-
-        /// <summary>
-        /// Registers the <see cref="ChosenColorComponent"/> property.
-        /// </summary>
-        public static readonly DependencyProperty ChosenColorComponentProperty =
-            DependencyProperty.Register(nameof(ChosenColorComponent), typeof(ColorComponents), typeof(ColorMinMax), new PropertyMetadata(ColorComponents.Red, ChosenColorChanged));
-
-        /// <summary>
-        /// Registers the <see cref="MinColor"/> property.
-        /// </summary>
-        protected static readonly DependencyProperty MinColorProperty =
-            DependencyProperty.Register(nameof(MinColor), typeof(SolidColorBrush), typeof(ColorMinMax), new PropertyMetadata(DEFAULT_COLOR));
-
-        /// <summary>
-        /// Register the <see cref="MaxColor"/> property.
-        /// </summary>
-        protected static readonly DependencyProperty MaxColorProperty =
-            DependencyProperty.Register(nameof(MaxColor), typeof(SolidColorBrush), typeof(ColorMinMax), new PropertyMetadata(DEFAULT_COLOR));
-        #endregion
-
-
         /// <summary>
         /// Gets or sets the min label text.
         /// </summary>
@@ -81,6 +36,13 @@ namespace ParticleMaker.UserControls
             get { return (string)GetValue(MinLabelProperty); }
             set { SetValue(MinLabelProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="MinLabel"/> property.
+        /// </summary>
+        public static readonly DependencyProperty MinLabelProperty =
+            DependencyProperty.Register(nameof(MinLabel), typeof(string), typeof(ColorMinMax), new PropertyMetadata("Min"));
+
 
         /// <summary>
         /// Gets or sets the max label text.
@@ -92,6 +54,13 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
+        /// Registers the <see cref="MaxLabel"/> property.
+        /// </summary>
+        public static readonly DependencyProperty MaxLabelProperty =
+            DependencyProperty.Register(nameof(MaxLabel), typeof(string), typeof(ColorMinMax), new PropertyMetadata("Max"));
+
+
+        /// <summary>
         /// Gets or sets the min value.
         /// </summary>
         public int Min
@@ -99,6 +68,13 @@ namespace ParticleMaker.UserControls
             get { return (int)GetValue(MinProperty); }
             set { SetValue(MinProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="Min"/> property.
+        /// </summary>
+        public static readonly DependencyProperty MinProperty =
+            DependencyProperty.Register(nameof(Min), typeof(int), typeof(ColorMinMax), new PropertyMetadata(0, MinChanged));
+
 
         /// <summary>
         /// Gets or sets the max value.
@@ -110,6 +86,13 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
+        /// Registers the <see cref="Max"/> property.
+        /// </summary>
+        public static readonly DependencyProperty MaxProperty =
+            DependencyProperty.Register(nameof(Max), typeof(int), typeof(ColorMinMax), new PropertyMetadata(0, MaxChanged));
+
+
+        /// <summary>
         /// Gets or sets the chosen color to apply the min and max values to.
         /// </summary>
         public ColorComponents ChosenColorComponent
@@ -117,6 +100,13 @@ namespace ParticleMaker.UserControls
             get { return (ColorComponents)GetValue(ChosenColorComponentProperty); }
             set { SetValue(ChosenColorComponentProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="ChosenColorComponent"/> property.
+        /// </summary>
+        public static readonly DependencyProperty ChosenColorComponentProperty =
+            DependencyProperty.Register(nameof(ChosenColorComponent), typeof(ColorComponents), typeof(ColorMinMax), new PropertyMetadata(ColorComponents.Red, ChosenColorChanged));
+
 
         /// <summary>
         /// Gets or sets the min color value based on the chosen color component.
@@ -128,6 +118,13 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
+        /// Registers the <see cref="MinColor"/> property.
+        /// </summary>
+        protected static readonly DependencyProperty MinColorProperty =
+            DependencyProperty.Register(nameof(MinColor), typeof(SolidColorBrush), typeof(ColorMinMax), new PropertyMetadata(DEFAULT_COLOR));
+
+
+        /// <summary>
         /// Gets or sets the max color value based on the chosen color component.
         /// </summary>
         protected SolidColorBrush MaxColor
@@ -135,6 +132,12 @@ namespace ParticleMaker.UserControls
             get { return (SolidColorBrush)GetValue(MaxColorProperty); }
             set { SetValue(MaxColorProperty, value); }
         }
+
+        /// <summary>
+        /// Register the <see cref="MaxColor"/> property.
+        /// </summary>
+        protected static readonly DependencyProperty MaxColorProperty =
+            DependencyProperty.Register(nameof(MaxColor), typeof(SolidColorBrush), typeof(ColorMinMax), new PropertyMetadata(DEFAULT_COLOR));
         #endregion
 
 

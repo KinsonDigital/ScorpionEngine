@@ -25,27 +25,6 @@ namespace ParticleMaker.Dialogs
 
 
         #region Props
-        #region Dependency Props
-        /// <summary>
-        /// Registers the <see cref="ThumbnailPath"/> property.
-        /// </summary>
-        public static readonly DependencyProperty ThumbnailPathProperty =
-            DependencyProperty.Register(nameof(ThumbnailPath), typeof(string), typeof(ThumbnailViewerDialog), new PropertyMetadata("", ThumbnailPathChanged));
-
-        /// <summary>
-        /// Registers the <see cref="Tittle"/> property.
-        /// </summary>
-        public static readonly DependencyProperty TittleProperty =
-            DependencyProperty.Register(nameof(Tittle), typeof(string), typeof(ThumbnailViewerDialog), new PropertyMetadata(""));
-
-        /// <summary>
-        /// Registers the <see cref="HasError"/> property.
-        /// </summary>
-        protected static readonly DependencyProperty HasErrorProperty =
-            DependencyProperty.Register("HasError", typeof(bool), typeof(ThumbnailViewerDialog), new PropertyMetadata(false));
-        #endregion
-
-
         /// <summary>
         /// Gets or sets the path to the thumbnail to view.
         /// </summary>
@@ -56,13 +35,11 @@ namespace ParticleMaker.Dialogs
         }
 
         /// <summary>
-        /// Gets or sets the title of the dialog window.
+        /// Registers the <see cref="ThumbnailPath"/> property.
         /// </summary>
-        public string Tittle
-        {
-            get { return (string)GetValue(TittleProperty); }
-            set { SetValue(TittleProperty, value); }
-        }
+        public static readonly DependencyProperty ThumbnailPathProperty =
+            DependencyProperty.Register(nameof(ThumbnailPath), typeof(string), typeof(ThumbnailViewerDialog), new PropertyMetadata("", ThumbnailPathChanged));
+
 
         /// <summary>
         /// Gets or sets a valid indicating if there is an error.
@@ -72,6 +49,12 @@ namespace ParticleMaker.Dialogs
             get { return (bool)GetValue(HasErrorProperty); }
             set { SetValue(HasErrorProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="HasError"/> property.
+        /// </summary>
+        protected static readonly DependencyProperty HasErrorProperty =
+            DependencyProperty.Register("HasError", typeof(bool), typeof(ThumbnailViewerDialog), new PropertyMetadata(false));
         #endregion
 
 

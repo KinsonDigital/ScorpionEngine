@@ -26,15 +26,6 @@ namespace ParticleMaker.UserControls
 
 
         #region Props
-        #region Dependency Props
-        /// <summary>
-        /// Registers the <see cref="Colors"/> property.
-        /// </summary>
-        public static readonly DependencyProperty ColorsProperty =
-            DependencyProperty.Register(nameof(Colors), typeof(ColorItem[]), typeof(ColorList), new PropertyMetadata(new ColorItem[0]));
-        #endregion
-
-
         /// <summary>
         /// Gets or sets the list of colors in the list.
         /// </summary>
@@ -43,6 +34,12 @@ namespace ParticleMaker.UserControls
             get { return (ColorItem[])GetValue(ColorsProperty); }
             set { SetValue(ColorsProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="Colors"/> property.
+        /// </summary>
+        public static readonly DependencyProperty ColorsProperty =
+            DependencyProperty.Register(nameof(Colors), typeof(ColorItem[]), typeof(ColorList), new PropertyMetadata(new ColorItem[0]));
         #endregion
 
 

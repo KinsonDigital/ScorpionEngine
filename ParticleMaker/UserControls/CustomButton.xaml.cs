@@ -32,21 +32,6 @@ namespace ParticleMaker.UserControls
 
         
         #region Props
-        #region Dependency Props
-        /// <summary>
-        /// Registers the <see cref="ButtonContent"/> property.
-        /// </summary>
-        public static readonly DependencyProperty ButtonContentProperty =
-            DependencyProperty.Register(nameof(ButtonContent), typeof(FrameworkElement), typeof(CustomButton), new PropertyMetadata(null));
-
-        /// <summary>
-        /// Registers the <see cref="ClickCommand"/> property.
-        /// </summary>
-        public static readonly DependencyProperty ClickCommandProperty =
-            DependencyProperty.Register(nameof(ClickCommand), typeof(ICommand), typeof(CustomButton), new PropertyMetadata(null));
-        #endregion
-
-
         /// <summary>
         /// Gets or sets the button content.
         /// </summary>
@@ -57,6 +42,13 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
+        /// Registers the <see cref="ButtonContent"/> property.
+        /// </summary>
+        public static readonly DependencyProperty ButtonContentProperty =
+            DependencyProperty.Register(nameof(ButtonContent), typeof(FrameworkElement), typeof(CustomButton), new PropertyMetadata(null));
+
+
+        /// <summary>
         /// Gets or sets the command that is executed when the <see cref="CustomButton"/> has been clicked.
         /// </summary>
         public ICommand ClickCommand
@@ -64,6 +56,12 @@ namespace ParticleMaker.UserControls
             get { return (ICommand)GetValue(ClickCommandProperty); }
             set { SetValue(ClickCommandProperty, value); }
         }
+
+        /// <summary>
+        /// Registers the <see cref="ClickCommand"/> property.
+        /// </summary>
+        public static readonly DependencyProperty ClickCommandProperty =
+            DependencyProperty.Register(nameof(ClickCommand), typeof(ICommand), typeof(CustomButton), new PropertyMetadata(null));
         #endregion
 
 
