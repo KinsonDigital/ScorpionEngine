@@ -34,7 +34,7 @@
             <Grid Visibility="Visible">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <!--ERROR MESSAGE-->
