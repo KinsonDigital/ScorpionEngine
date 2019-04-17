@@ -62,10 +62,7 @@ namespace ParticleMaker.Dialogs
         /// <summary>
         /// Closes the dialog.
         /// </summary>
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        private void CloseButton_Click(object sender, RoutedEventArgs e) => Close();
 
 
         /// <summary>

@@ -35,19 +35,13 @@ namespace ParticleMaker
         /// <summary>
         /// Accepts the color that was chosen and returns dialog result of true.
         /// </summary>
-        private void OkButton_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = true;
-        }
+        private void OkButton_Click(object sender, RoutedEventArgs e) => DialogResult = true;
 
 
         /// <summary>
         /// Cancels the color that was chosen by returned the dialog result of false.
         /// </summary>
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = false;
-        }
+        private void CancelButton_Click(object sender, RoutedEventArgs e) => DialogResult = false;
         #endregion
     }
 }

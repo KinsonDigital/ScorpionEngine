@@ -14,10 +14,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Creates a new instance of <see cref="RandomRange"/>.
         /// </summary>
-        public RandomRange()
-        {
-            InitializeComponent();
-        }
+        public RandomRange() => InitializeComponent();
         #endregion
 
 

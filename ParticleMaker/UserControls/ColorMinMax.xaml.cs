@@ -20,10 +20,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Creates a new instance of <see cref="ColorMinMax"/>.
         /// </summary>
-        public ColorMinMax()
-        {
-            InitializeComponent();
-        }
+        public ColorMinMax() => InitializeComponent();
         #endregion
 
 

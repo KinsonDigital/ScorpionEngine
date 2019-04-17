@@ -14,10 +14,7 @@ namespace ParticleMaker
         /// <summary>
         /// Creates a new instance of <see cref="GraphicsEngineFactory"/>.
         /// </summary>
-        public GraphicsEngineFactory(ICoreEngine coreEngine)
-        {
-            CoreEngine = coreEngine;
-        }
+        public GraphicsEngineFactory(ICoreEngine coreEngine) => CoreEngine = coreEngine;
         #endregion
 
 

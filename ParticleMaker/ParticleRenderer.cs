@@ -24,10 +24,7 @@ namespace ParticleMaker
         /// Creates a new instance of <see cref="ParticleRenderer"/>.
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public ParticleRenderer(SpriteBatch spriteBatch)
-        {
-            _spriteBatch = spriteBatch;
-        }
+        public ParticleRenderer(SpriteBatch spriteBatch) => _spriteBatch = spriteBatch;
 
 
         /// <summary>
@@ -37,19 +34,13 @@ namespace ParticleMaker
         /// <param name="green">The green color value.</param>
         /// <param name="blue">The blue color value.</param>
         /// <param name="alpha">The alpha value of the color.</param>
-        public void Clear(byte red, byte green, byte blue, byte alpha)
-        {
-            throw new NotImplementedException();
-        }
+        public void Clear(byte red, byte green, byte blue, byte alpha) => throw new NotImplementedException();
 
 
         /// <summary>
         /// Ends the rendering process.
         /// </summary>
-        public void End()
-        {
-            throw new NotImplementedException();
-        }
+        public void End() => throw new NotImplementedException();
 
 
         /// <summary>
@@ -60,10 +51,7 @@ namespace ParticleMaker
         /// <param name="y">The Y location of the where to render the circle.</param>
         /// <param name="radius">The radius to the circle.</param>
         /// <param name="color">The color of the circle.</param>
-        public void FillCircle(float x, float y, float radius, byte[] color)
-        {
-            throw new NotImplementedException();
-        }
+        public void FillCircle(float x, float y, float radius, byte[] color) => throw new NotImplementedException();
 
 
         /// <summary>
@@ -71,10 +59,7 @@ namespace ParticleMaker
         /// </summary>
         /// <param name="dataType">The type of data to get.</param>
         /// <returns></returns>
-        public object GetData(string dataType)
-        {
-            throw new NotImplementedException();
-        }
+        public object GetData(string dataType) => throw new NotImplementedException();
 
 
         /// <summary>
@@ -82,10 +67,7 @@ namespace ParticleMaker
         /// </summary>
         /// <typeparam name="T">The type of data to inject.</typeparam>
         /// <param name="data">The data to inject.</param>
-        public void InjectData<T>(T data) where T : class
-        {
-            
-        }
+        public void InjectData<T>(T data) where T : class { }
 
 
         /// <summary>
@@ -96,10 +78,7 @@ namespace ParticleMaker
         /// <param name="lineStopX">The ending X location of the line.</param>
         /// <param name="lineStopY">The ending Y location of the line.</param>
         /// <param name="color">The color to render the line.</param>
-        public void RenderLine(float startX, float startY, float endX, float endY, byte[] color)
-        {
-            throw new NotImplementedException();
-        }
+        public void RenderLine(float startX, float startY, float endX, float endY, byte[] color) => throw new NotImplementedException();
 
 
         /// <summary>
@@ -109,10 +88,7 @@ namespace ParticleMaker
         /// <param name="texture">The texture to render to the screen.</param>
         /// <param name="x">The x location to render the <paramref name="texture"/> at.</param>
         /// <param name="y">The y location to render the <paramref name="texture"/> at.</param>
-        public void Render(ITexture texture, float x, float y)
-        {
-            throw new NotImplementedException();
-        }
+        public void Render(ITexture texture, float x, float y) => throw new NotImplementedException();
 
 
         /// <summary>
@@ -123,10 +99,7 @@ namespace ParticleMaker
         /// <param name="x">The x location to render the <paramref name="texture"/> at.</param>
         /// <param name="y">The y location to render the <paramref name="texture"/> at.</param>
         /// <param name="angle">The angle to render the <paramref name="texture"/> at.</param>
-        public void Render(ITexture texture, float x, float y, float angle)
-        {
-            throw new NotImplementedException();
-        }
+        public void Render(ITexture texture, float x, float y, float angle) => throw new NotImplementedException();
 
 
         /// <summary>
@@ -156,10 +129,7 @@ namespace ParticleMaker
         /// <param name="text">The text to render to the screen.</param>
         /// <param name="x">The x location to render the <paramref name="text"/> at.</param>
         /// <param name="y">The y location to render the <paramref name="text"/> at.</param>
-        public void Render(IText text, float x, float y)
-        {
-            throw new NotImplementedException();
-        }
+        public void Render(IText text, float x, float y) => throw new NotImplementedException();
 
 
         /// <summary>
@@ -169,10 +139,7 @@ namespace ParticleMaker
         /// <param name="lineStartY">The starting Y location of the line.</param>
         /// <param name="lineStopX">The ending X location of the line.</param>
         /// <param name="lineStopY">The ending Y location of the line.</param>
-        public void RenderLine(float lineStartX, float lineStartY, float lineStopX, float lineStopY)
-        {
-            throw new NotImplementedException();
-        }
+        public void RenderLine(float lineStartX, float lineStartY, float lineStopX, float lineStopY) => throw new NotImplementedException();
 
 
         /// <summary>
@@ -182,19 +149,13 @@ namespace ParticleMaker
         /// <param name="area">The area of the texture to render.</param>
         /// <param name="x">The X location to render the texture.</param>
         /// <param name="y">The Y location to render the texture.</param>
-        public void RenderTextureArea(ITexture texture, Rect area, float x, float y)
-        {
-            throw new NotImplementedException();
-        }
+        public void RenderTextureArea(ITexture texture, Rect area, float x, float y) => throw new NotImplementedException();
 
 
         /// <summary>
         /// Starts the rendering process.  Must be called before rendering.
         /// </summary>
-        public void Start()
-        {
-            throw new NotImplementedException();
-        }
+        public void Start() => throw new NotImplementedException();
         #endregion
     }
 }

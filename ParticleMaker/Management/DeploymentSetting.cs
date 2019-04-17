@@ -37,10 +37,7 @@
         /// Returns the hash code of this object that makes this object unique.
         /// </summary>
         /// <returns></returns>
-        public override int GetHashCode()
-        {
-            return SetupName.GetHashCode() + DeployPath.GetHashCode();
-        }
+        public override int GetHashCode() => SetupName.GetHashCode() + DeployPath.GetHashCode();
         #endregion
     }
 }

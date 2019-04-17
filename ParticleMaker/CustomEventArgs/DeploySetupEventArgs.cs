@@ -12,10 +12,7 @@ namespace ParticleMaker.CustomEventArgs
         /// Creates a new instance of <see cref="DeploySetupEventArgs"/>.
         /// </summary>
         /// <param name="deploymentPath">The destination path of where to deploy a setup.</param>
-        public DeploySetupEventArgs(string deploymentPath)
-        {
-            DeploymentPath = deploymentPath;
-        }
+        public DeploySetupEventArgs(string deploymentPath) => DeploymentPath = deploymentPath;
         #endregion
 
 

@@ -157,20 +157,6 @@ namespace ParticleMaker.UserControls
 
         #region Private Methods
         /// <summary>
-        /// Invokes the <see cref="ItemDeleted"/> event.
-        /// </summary>
-        private void ListBoxItems_DeleteClicked(object sender, ItemEventArgs e)
-        {
-            var msg = $"Are you sure you want to delete the particle {e.Name}?";
-
-            var dialogResult = MessageBox.Show(msg, "Delete Particle", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (dialogResult == MessageBoxResult.Yes)
-                DeleteItemCommand?.Execute(e);
-        }
-
-
-        /// <summary>
         /// Adds a new particle to the list.
         /// </summary>
         private void AddParticleButton_Click(object sender, EventArgs e)
@@ -240,21 +226,6 @@ namespace ParticleMaker.UserControls
 
                 if (item.DeleteClickedCommand == null)
                     item.DeleteClickedCommand = new RelayCommand(DeleteItemCommandExecute, (param) => true);
-            }
-        }
-
-
-        /// <summary>
-        /// Destroys all of the list item commands.
-        /// </summary>
-        private void DestroyCommands()
-        {
-            var listItems = ParticleListBox.FindVisualChildren<ParticleListItem>().ToArray();
-
-            foreach (var item in listItems)
-            {
-                item.RenameClickedCommand = null;
-                item.DeleteClickedCommand = null;
             }
         }
 

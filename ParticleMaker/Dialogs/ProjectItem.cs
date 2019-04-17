@@ -31,10 +31,7 @@ namespace ParticleMaker.Dialogs
         /// Returns a hashcode that represents the uniqueness of this <see cref="ProjectItem"/> instance.
         /// </summary>
         /// <returns></returns>
-        public override int GetHashCode()
-        {
-            return Name.GetHashCode() + Exists.GetHashCode();
-        }
+        public override int GetHashCode() => Name.GetHashCode() + Exists.GetHashCode();
         #endregion
     }
 }

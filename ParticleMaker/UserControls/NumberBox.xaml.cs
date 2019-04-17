@@ -56,10 +56,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Creates a new instance of <see cref="NumberBox"/>.
         /// </summary>
-        public NumberBox()
-        {
-            InitializeComponent();
-        }
+        public NumberBox() => InitializeComponent();
         #endregion
 
 
@@ -101,10 +98,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Moves the caret to the end of the text.
         /// </summary>
-        public void MoveCaretToEnd()
-        {
-            ValueTextBox.CaretIndex = ValueTextBox.Text.Length;
-        }
+        public void MoveCaretToEnd() => ValueTextBox.CaretIndex = ValueTextBox.Text.Length;
         #endregion
 
 

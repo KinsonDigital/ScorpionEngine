@@ -25,7 +25,6 @@ namespace ParticleMaker
         private bool _isMouseDown = false;
         #endregion
 
-
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="MainWindow"/>.

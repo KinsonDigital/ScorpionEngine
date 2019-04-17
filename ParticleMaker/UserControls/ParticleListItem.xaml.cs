@@ -34,10 +34,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Creates a new instance of <see cref="ParticleListItem"/>.
         /// </summary>
-        public ParticleListItem()
-        {
-            InitializeComponent();
-        }
+        public ParticleListItem() => InitializeComponent();
         #endregion
 
 

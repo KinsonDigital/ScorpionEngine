@@ -112,19 +112,13 @@ namespace ParticleMaker
         /// <summary>
         /// Starts the engine.
         /// </summary>
-        public void Start()
-        {
-            Run();
-        }
+        public void Start() => Run();
 
 
         /// <summary>
         /// Stops the engine.
         /// </summary>
-        public void Stop()
-        {
-            Exit();
-        }
+        public void Stop() => Exit();
 
 
         /// <summary>
@@ -233,10 +227,7 @@ namespace ParticleMaker
         /// Properly disposes of the <see cref="CoreEngine"/>.
         /// </summary>
         /// <param name="disposing">true if currently being disposed.</param>
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-        }
+        protected override void Dispose(bool disposing) => base.Dispose(disposing);
         #endregion
     }
 }

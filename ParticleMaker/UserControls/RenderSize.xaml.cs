@@ -12,10 +12,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Creates a new instance of <see cref="RenderSize"/>.
         /// </summary>
-        public RenderSize()
-        {
-            InitializeComponent();
-        }
+        public RenderSize() => InitializeComponent();
         #endregion
 
 

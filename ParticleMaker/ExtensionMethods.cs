@@ -49,10 +49,7 @@ namespace ParticleMaker
         /// </summary>
         /// <param name="degrees">The degrees to convert.</param>
         /// <returns></returns>
-        public static float ToRadians(this float degrees)
-        {
-            return degrees * PI / 180f;
-        }
+        public static float ToRadians(this float degrees) => degrees * PI / 180f;
 
 
         /// <summary>
@@ -60,13 +57,8 @@ namespace ParticleMaker
         /// </summary>
         /// <param name="clr">The color to convert.</param>
         /// <returns></returns>
-        public static ColorItem ToColorItem(this GameColor clr)
-        {
-            return new ColorItem()
-            {
-                ColorBrush = new SolidColorBrush(MediaColor.FromArgb(clr.Alpha, clr.Red, clr.Green, clr.Blue))
-            };
-        }
+        public static ColorItem ToColorItem(this GameColor clr) =>
+            new ColorItem() { ColorBrush = new SolidColorBrush(MediaColor.FromArgb(clr.Alpha, clr.Red, clr.Green, clr.Blue)) };
 
 
         /// <summary>
@@ -74,10 +66,7 @@ namespace ParticleMaker
         /// </summary>
         /// <param name="gameTime">The <see cref="GameTime"/> object to convert.</param>
         /// <returns></returns>
-        public static EngineTime ToEngineTime(this GameTime gameTime)
-        {
-            return new EngineTime() { ElapsedEngineTime = gameTime.ElapsedGameTime };
-        }
+        public static EngineTime ToEngineTime(this GameTime gameTime) => new EngineTime() { ElapsedEngineTime = gameTime.ElapsedGameTime };
 
 
         /// <summary>
@@ -245,9 +234,23 @@ namespace ParticleMaker
         /// </summary>
         /// <param name="obj">The object to get the property names from.</param>
         /// <returns></returns>
-        public static string[] GetPropertyNames(this object obj)
+        public static string[] GetPropertyNames(this object obj) => (from n in obj.GetType().GetProperties() select n.Name).ToArray();
+
+
+        /// <summary>
+        /// Returns all of the strings as lowercase.
+        /// </summary>
+        /// <param name="values">The string values to convert.</param>
+        /// <returns></returns>
+        public static string[] ToLowerCase(this string[] values)
         {
-            return (from n in obj.GetType().GetProperties() select n.Name).ToArray();
+            var result = new List<string>();
+
+            foreach (var value in values)
+                result.Add(value.ToLower());
+
+
+            return result.ToArray();
         }
 
 

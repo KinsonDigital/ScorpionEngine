@@ -20,10 +20,7 @@ namespace ParticleMaker.ValueConverters
         /// <param name="parameter">The optional parameter data.</param>
         /// <param name="culture">The culture setting of the incoming data.</param>
         /// <returns></returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return !string.IsNullOrEmpty(value as string);
-        }
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => !string.IsNullOrEmpty(value as string);
 
 
         /// <summary>
@@ -34,10 +31,7 @@ namespace ParticleMaker.ValueConverters
         /// <param name="parameter">The optional parameter data.</param>
         /// <param name="culture">The culture setting of the incoming data.</param>
         /// <returns></returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return false;
-        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => false;
         #endregion
     }
 }

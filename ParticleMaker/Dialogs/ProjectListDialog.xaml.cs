@@ -109,28 +109,19 @@ namespace ParticleMaker.Dialogs
         /// <summary>
         /// Starts the auto refresh task.
         /// </summary>
-        private void ProjectListDialog_Loaded(object sender, RoutedEventArgs e)
-        {
-            _autoRefreshTask.Start();
-        }
+        private void ProjectListDialog_Loaded(object sender, RoutedEventArgs e) => _autoRefreshTask.Start();
 
 
         /// <summary>
         /// Unregisters the <see cref="KeyUpHandler(object, KeyEventArgs)"/> method.
         /// </summary>
-        private void ProjectListDialog_Unloaded(object sender, RoutedEventArgs e)
-        {
-            Keyboard.RemoveKeyUpHandler(this, KeyUpHandler);
-        }
+        private void ProjectListDialog_Unloaded(object sender, RoutedEventArgs e) => Keyboard.RemoveKeyUpHandler(this, KeyUpHandler);
 
 
         /// <summary>
         /// Cancels the auto refresh task.
         /// </summary>
-        private void ProjectListDialog_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            _tokenSrc.Cancel();
-        }
+        private void ProjectListDialog_Closing(object sender, System.ComponentModel.CancelEventArgs e) => _tokenSrc.Cancel();
 
 
         /// <summary>

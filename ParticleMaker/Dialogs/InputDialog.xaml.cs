@@ -162,8 +162,8 @@ namespace ParticleMaker.Dialogs
         /// </summary>
         public bool ContainsInvalidValue
         {
-            get { return (bool)GetValue(ContainsInvalidValueProperty); }
-            set { SetValue(ContainsInvalidValueProperty, value); }
+            get => (bool)GetValue(ContainsInvalidValueProperty);
+            set => SetValue(ContainsInvalidValueProperty, value);
         }
 
         /// <summary>
@@ -179,19 +179,13 @@ namespace ParticleMaker.Dialogs
         /// <summary>
         /// Unregisters the <see cref="KeyUpHandler(object, KeyEventArgs)"/> method.
         /// </summary>
-        private void InputDialog_Unloaded(object sender, RoutedEventArgs e)
-        {
-            Keyboard.RemoveKeyUpHandler(this, KeyUpHandler);
-        }
+        private void InputDialog_Unloaded(object sender, RoutedEventArgs e) => Keyboard.RemoveKeyUpHandler(this, KeyUpHandler);
 
 
         /// <summary>
         /// Prevents any invalid characters from entering the input text box.
         /// </summary>
-        private void InputTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            e.Handled = e.Text.Length > 0 && _invalidCharacters.Contains(e.Text[e.Text.Length - 1]);
-        }
+        private void InputTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e) => e.Handled = e.Text.Length > 0 && _invalidCharacters.Contains(e.Text[e.Text.Length - 1]);
 
 
         /// <summary>
@@ -199,24 +193,7 @@ namespace ParticleMaker.Dialogs
         /// </summary>
         private void InputTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            var invalidValues = new string[0];
-
-            //If casing is to be ignored, convert all of the invalid values to lower case
-            if (IgnoreInvalidValueCasing)
-            {
-                var processedValues = new List<string>();
-
-                foreach (var value in _invalidValues ?? (new string[0]))
-                {
-                    processedValues.Add(value.ToLower());
-                }
-
-                invalidValues = processedValues.ToArray();
-            }
-            else
-            {
-                invalidValues = _invalidValues;
-            }
+            var invalidValues = IgnoreInvalidValueCasing ? _invalidValues.ToLowerCase() : _invalidValues;
 
             //Check if the input text box value is an invalid value.  Take ignoring casing into account
             ContainsInvalidValue = invalidValues != null && invalidValues.Contains(IgnoreInvalidValueCasing ? InputTextBox.Text.ToLower() : InputTextBox.Text);

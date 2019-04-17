@@ -70,19 +70,13 @@ namespace ParticleMaker.Exceptions
         /// <summary>
         /// Closes the message box.
         /// </summary>
-        private void OkButton_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        private void OkButton_Click(object sender, RoutedEventArgs e) => Close();
 
 
         /// <summary>
         /// Copies the exception information to the clipboard.
         /// </summary>
-        private void CopyButton_Click(object sender, RoutedEventArgs e)
-        {
-            Clipboard.SetText($"Exception Message:\r\n\t{Message}\r\n\r\nStack Trace:\r\n\t{StackTrace}");
-        }
+        private void CopyButton_Click(object sender, RoutedEventArgs e) => Clipboard.SetText($"Exception Message:\r\n\t{Message}\r\n\r\nStack Trace:\r\n\t{StackTrace}");
         #endregion
     }
 }

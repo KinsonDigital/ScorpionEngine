@@ -234,10 +234,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Invokes the control clicked event.
         /// </summary>
-        private void ItemBorder_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            Command?.Execute(SetupName);
-        }
+        private void ItemBorder_MouseUp(object sender, MouseButtonEventArgs e) => Command?.Execute(SetupName);
 
 
         /// <summary>

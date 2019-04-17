@@ -20,10 +20,7 @@ namespace ParticleMaker
         /// <summary>
         /// Creates a new <see cref="ParticleTexture"/>.
         /// </summary>
-        public ParticleTexture(Texture2D texture)
-        {
-            _texture = texture;
-        }
+        public ParticleTexture(Texture2D texture) => _texture = texture;
         #endregion
 
 
@@ -46,10 +43,7 @@ namespace ParticleMaker
         /// </summary>
         /// <param name="dataType">The type of data to get.</param>
         /// <returns></returns>
-        public object GetData(string dataType)
-        {
-            throw new NotImplementedException();
-        }
+        public object GetData(string dataType) => throw new NotImplementedException();
 
 
         /// <summary>
@@ -76,10 +70,7 @@ namespace ParticleMaker
         /// </summary>
         /// <param name="data">The data to inject.</param>
         /// <returns></returns>
-        public void InjectData<T>(T data) where T : class
-        {
-            throw new NotImplementedException();
-        }
+        public void InjectData<T>(T data) where T : class => throw new NotImplementedException();
         #endregion
     }
 }
