@@ -66,8 +66,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         protected string NumberText
         {
-            get { return (string)GetValue(NumberTextProperty); }
-            set { SetValue(NumberTextProperty, value); }
+            get => (string)GetValue(NumberTextProperty);
+            set => SetValue(NumberTextProperty, value);
         }
 
         /// <summary>
@@ -82,8 +82,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public float Value
         {
-            get { return (float)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
+            get => (float)GetValue(ValueProperty);
+            set => SetValue(ValueProperty, value);
         }
 
         /// <summary>

@@ -51,8 +51,8 @@ namespace ParticleMaker.Exceptions
         /// </summary>
         private string Message
         {
-            get { return (string)GetValue(MessageProperty); }
-            set { SetValue(MessageProperty, value); }
+            get => (string)GetValue(MessageProperty);
+            set => SetValue(MessageProperty, value);
         }
 
         /// <summary>
@@ -60,8 +60,8 @@ namespace ParticleMaker.Exceptions
         /// </summary>
         private string StackTrace
         {
-            get { return (string)GetValue(StackTraceProperty); }
-            set { SetValue(StackTraceProperty, value); }
+            get => (string)GetValue(StackTraceProperty);
+            set => SetValue(StackTraceProperty, value);
         }
         #endregion
 

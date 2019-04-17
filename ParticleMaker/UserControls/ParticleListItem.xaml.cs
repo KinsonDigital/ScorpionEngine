@@ -44,8 +44,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public string ParticleName
         {
-            get { return (string)GetValue(ParticleNameProperty); }
-            set { SetValue(ParticleNameProperty, value); }
+            get => (string)GetValue(ParticleNameProperty);
+            set => SetValue(ParticleNameProperty, value);
         }
 
         /// <summary>
@@ -60,8 +60,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public string ParticleFilePath
         {
-            get { return (string)GetValue(ParticleFilePathProperty); }
-            set { SetValue(ParticleFilePathProperty, value); }
+            get => (string)GetValue(ParticleFilePathProperty);
+            set => SetValue(ParticleFilePathProperty, value);
         }
 
         /// <summary>
@@ -76,8 +76,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         protected bool HasError
         {
-            get { return (bool)GetValue(HasErrorProperty); }
-            set { SetValue(HasErrorProperty, value); }
+            get => (bool)GetValue(HasErrorProperty);
+            set => SetValue(HasErrorProperty, value);
         }
 
         /// <summary>
@@ -92,8 +92,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public ICommand RenameClickedCommand
         {
-            get { return (ICommand)GetValue(RenameClickedCommandProperty); }
-            set { SetValue(RenameClickedCommandProperty, value); }
+            get => (ICommand)GetValue(RenameClickedCommandProperty);
+            set => SetValue(RenameClickedCommandProperty, value);
         }
 
         /// <summary>
@@ -108,8 +108,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public ICommand DeleteClickedCommand
         {
-            get { return (ICommand)GetValue(DeleteClickedCommandProperty); }
-            set { SetValue(DeleteClickedCommandProperty, value); }
+            get => (ICommand)GetValue(DeleteClickedCommandProperty);
+            set => SetValue(DeleteClickedCommandProperty, value);
         }
 
         /// <summary>

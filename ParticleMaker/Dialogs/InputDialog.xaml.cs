@@ -114,8 +114,8 @@ namespace ParticleMaker.Dialogs
         /// </summary>
         public string DialogTitle
         {
-            get { return (string)GetValue(DialogTitleProperty); }
-            set { SetValue(DialogTitleProperty, value); }
+            get => (string)GetValue(DialogTitleProperty);
+            set => SetValue(DialogTitleProperty, value);
         }
 
         /// <summary>
@@ -130,8 +130,8 @@ namespace ParticleMaker.Dialogs
         /// </summary>
         public string Message
         {
-            get { return (string)GetValue(MessageProperty); }
-            set { SetValue(MessageProperty, value); }
+            get => (string)GetValue(MessageProperty);
+            set => SetValue(MessageProperty, value);
         }
 
         /// <summary>
@@ -146,8 +146,8 @@ namespace ParticleMaker.Dialogs
         /// </summary>
         public string InputValue
         {
-            get { return (string)GetValue(InputValueProperty); }
-            set { SetValue(InputValueProperty, value); }
+            get => (string)GetValue(InputValueProperty);
+            set => SetValue(InputValueProperty, value);
         }
 
         /// <summary>

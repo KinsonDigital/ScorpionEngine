@@ -28,8 +28,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public ColorItem[] Colors
         {
-            get { return (ColorItem[])GetValue(ColorsProperty); }
-            set { SetValue(ColorsProperty, value); }
+            get => (ColorItem[])GetValue(ColorsProperty);
+            set => SetValue(ColorsProperty, value);
         }
 
         /// <summary>

@@ -34,8 +34,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public FrameworkElement ButtonContent
         {
-            get { return (FrameworkElement)GetValue(ButtonContentProperty); }
-            set { SetValue(ButtonContentProperty, value); }
+            get => (FrameworkElement)GetValue(ButtonContentProperty);
+            set => SetValue(ButtonContentProperty, value);
         }
 
         /// <summary>
@@ -50,8 +50,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public ICommand ClickCommand
         {
-            get { return (ICommand)GetValue(ClickCommandProperty); }
-            set { SetValue(ClickCommandProperty, value); }
+            get => (ICommand)GetValue(ClickCommandProperty);
+            set => SetValue(ClickCommandProperty, value);
         }
 
         /// <summary>

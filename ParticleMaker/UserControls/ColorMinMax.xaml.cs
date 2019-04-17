@@ -30,8 +30,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public string MinLabel
         {
-            get { return (string)GetValue(MinLabelProperty); }
-            set { SetValue(MinLabelProperty, value); }
+            get => (string)GetValue(MinLabelProperty);
+            set => SetValue(MinLabelProperty, value);
         }
 
         /// <summary>
@@ -46,8 +46,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public string MaxLabel
         {
-            get { return (string)GetValue(MaxLabelProperty); }
-            set { SetValue(MaxLabelProperty, value); }
+            get => (string)GetValue(MaxLabelProperty);
+            set => SetValue(MaxLabelProperty, value);
         }
 
         /// <summary>
@@ -62,8 +62,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public int Min
         {
-            get { return (int)GetValue(MinProperty); }
-            set { SetValue(MinProperty, value); }
+            get => (int)GetValue(MinProperty);
+            set => SetValue(MinProperty, value);
         }
 
         /// <summary>
@@ -78,8 +78,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public int Max
         {
-            get { return (int)GetValue(MaxProperty); }
-            set { SetValue(MaxProperty, value); }
+            get => (int)GetValue(MaxProperty);
+            set => SetValue(MaxProperty, value);
         }
 
         /// <summary>
@@ -94,8 +94,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public ColorComponents ChosenColorComponent
         {
-            get { return (ColorComponents)GetValue(ChosenColorComponentProperty); }
-            set { SetValue(ChosenColorComponentProperty, value); }
+            get => (ColorComponents)GetValue(ChosenColorComponentProperty);
+            set => SetValue(ChosenColorComponentProperty, value);
         }
 
         /// <summary>
@@ -110,8 +110,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         protected SolidColorBrush MinColor
         {
-            get { return (SolidColorBrush)GetValue(MinColorProperty); }
-            set { SetValue(MinColorProperty, value); }
+            get => (SolidColorBrush)GetValue(MinColorProperty);
+            set => SetValue(MinColorProperty, value);
         }
 
         /// <summary>
@@ -126,8 +126,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         protected SolidColorBrush MaxColor
         {
-            get { return (SolidColorBrush)GetValue(MaxColorProperty); }
-            set { SetValue(MaxColorProperty, value); }
+            get => (SolidColorBrush)GetValue(MaxColorProperty);
+            set => SetValue(MaxColorProperty, value);
         }
 
         /// <summary>

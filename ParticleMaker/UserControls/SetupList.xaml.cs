@@ -66,8 +66,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public PathItem[] Setups
         {
-            get { return (PathItem[])GetValue(SetupsProperty); }
-            set { SetValue(SetupsProperty, value); }
+            get => (PathItem[])GetValue(SetupsProperty);
+            set => SetValue(SetupsProperty, value);
         }
 
         /// <summary>
@@ -82,8 +82,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public ICommand ItemSelectedCommand
         {
-            get { return (ICommand)GetValue(ItemSelectedCommandProperty); }
-            set { SetValue(ItemSelectedCommandProperty, value); }
+            get => (ICommand)GetValue(ItemSelectedCommandProperty);
+            set => SetValue(ItemSelectedCommandProperty, value);
         }
 
         /// <summary>
@@ -98,8 +98,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public ICommand AddItemCommand
         {
-            get { return (ICommand)GetValue(AddItemCommandProperty); }
-            set { SetValue(AddItemCommandProperty, value); }
+            get => (ICommand)GetValue(AddItemCommandProperty);
+            set => SetValue(AddItemCommandProperty, value);
         }
 
         /// <summary>
@@ -114,8 +114,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public ICommand RenameItemCommand
         {
-            get { return (ICommand)GetValue(RenameItemCommandProperty); }
-            set { SetValue(RenameItemCommandProperty, value); }
+            get => (ICommand)GetValue(RenameItemCommandProperty);
+            set => SetValue(RenameItemCommandProperty, value);
         }
 
         /// <summary>
@@ -130,8 +130,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public ICommand DeleteItemCommand
         {
-            get { return (ICommand)GetValue(DeleteItemCommandProperty); }
-            set { SetValue(DeleteItemCommandProperty, value); }
+            get => (ICommand)GetValue(DeleteItemCommandProperty);
+            set => SetValue(DeleteItemCommandProperty, value);
         }
 
         /// <summary>
@@ -146,8 +146,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public ICommand SaveItemCommand
         {
-            get { return (ICommand)GetValue(SaveItemCommandProperty); }
-            set { SetValue(SaveItemCommandProperty, value); }
+            get => (ICommand)GetValue(SaveItemCommandProperty);
+            set => SetValue(SaveItemCommandProperty, value);
         }
 
         /// <summary>

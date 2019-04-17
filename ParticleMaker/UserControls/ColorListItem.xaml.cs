@@ -49,8 +49,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public SolidColorBrush ColorValue
         {
-            get { return (SolidColorBrush)GetValue(ColorValueProperty); }
-            set { SetValue(ColorValueProperty, value); }
+            get => (SolidColorBrush)GetValue(ColorValueProperty);
+            set => SetValue(ColorValueProperty, value);
         }
 
         /// <summary>
@@ -65,8 +65,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         protected string ColorTextValue
         {
-            get { return (string)GetValue(ColorTextValueProperty); }
-            set { SetValue(ColorTextValueProperty, value); }
+            get => (string)GetValue(ColorTextValueProperty);
+            set => SetValue(ColorTextValueProperty, value);
         }
 
         /// <summary>
@@ -81,8 +81,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         protected SolidColorBrush TextForecolor
         {
-            get { return (SolidColorBrush)GetValue(TextForecolorProperty); }
-            set { SetValue(TextForecolorProperty, value); }
+            get => (SolidColorBrush)GetValue(TextForecolorProperty);
+            set => SetValue(TextForecolorProperty, value);
         }
 
         /// <summary>
@@ -97,8 +97,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public int Id
         {
-            get { return (int)GetValue(IdProperty); }
-            set { SetValue(IdProperty, value); }
+            get => (int)GetValue(IdProperty);
+            set => SetValue(IdProperty, value);
         }
 
         /// <summary>

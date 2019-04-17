@@ -65,8 +65,8 @@ namespace ParticleMaker.Dialogs
         /// </summary>
         public string[] ProjectPaths
         {
-            get { return (string[])GetValue(ProjectPathsProperty); }
-            set { SetValue(ProjectPathsProperty, value); }
+            get => (string[])GetValue(ProjectPathsProperty);
+            set => SetValue(ProjectPathsProperty, value);
         }
 
         /// <summary>
@@ -81,8 +81,8 @@ namespace ParticleMaker.Dialogs
         /// </summary>
         protected ProjectItem[] ProjectNames
         {
-            get { return (ProjectItem[])GetValue(ProjectNamesProperty); }
-            set { SetValue(ProjectNamesProperty, value); }
+            get => (ProjectItem[])GetValue(ProjectNamesProperty);
+            set => SetValue(ProjectNamesProperty, value);
         }
 
         /// <summary>
