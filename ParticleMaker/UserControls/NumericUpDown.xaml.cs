@@ -17,10 +17,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Creates a new instance of <see cref="NumericUpDown"/>.
         /// </summary>
-        public NumericUpDown()
-        {
-            InitializeComponent();
-        }
+        public NumericUpDown() => InitializeComponent();
         #endregion
 
 
@@ -31,8 +28,8 @@ namespace ParticleMaker.UserControls
         [Category("Common")]
         public int DecimalPlaces
         {
-            get { return (int)GetValue(DecimalPlacesProperty); }
-            set { SetValue(DecimalPlacesProperty, value); }
+            get => (int)GetValue(DecimalPlacesProperty);
+            set => SetValue(DecimalPlacesProperty, value);
         }
 
         /// <summary>
@@ -64,8 +61,8 @@ namespace ParticleMaker.UserControls
         [Category("Common")]
         public float Min
         {
-            get { return (float)GetValue(MinProperty); }
-            set { SetValue(MinProperty, value); }
+            get => (float)GetValue(MinProperty);
+            set => SetValue(MinProperty, value);
         }
 
         /// <summary>
@@ -81,8 +78,8 @@ namespace ParticleMaker.UserControls
         [Category("Common")]
         public float Max
         {
-            get { return (float)GetValue(MaxProperty); }
-            set { SetValue(MaxProperty, value); }
+            get => (float)GetValue(MaxProperty);
+            set => SetValue(MaxProperty, value);
         }
 
         /// <summary>
@@ -98,8 +95,8 @@ namespace ParticleMaker.UserControls
         [Category("Common")]
         public float Increment
         {
-            get { return (float)GetValue(IncrementProperty); }
-            set { SetValue(IncrementProperty, value); }
+            get => (float)GetValue(IncrementProperty);
+            set => SetValue(IncrementProperty, value);
         }
 
         /// <summary>
@@ -115,8 +112,8 @@ namespace ParticleMaker.UserControls
         [Category("Common")]
         public float Decrement
         {
-            get { return (float)GetValue(DecrementProperty); }
-            set { SetValue(DecrementProperty, value); }
+            get => (float)GetValue(DecrementProperty);
+            set => SetValue(DecrementProperty, value);
         }
 
         /// <summary>
@@ -132,8 +129,8 @@ namespace ParticleMaker.UserControls
         [Category("Common")]
         public string LabelText
         {
-            get { return (string)GetValue(LabelTextProperty); }
-            set { SetValue(LabelTextProperty, value); }
+            get => (string)GetValue(LabelTextProperty);
+            set => SetValue(LabelTextProperty, value);
         }
 
         /// <summary>
@@ -148,8 +145,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public Visibility IsLabelVisible
         {
-            get { return (Visibility)GetValue(IsLabelVisibleProperty); }
-            set { SetValue(IsLabelVisibleProperty, value); }
+            get => (Visibility)GetValue(IsLabelVisibleProperty);
+            set => SetValue(IsLabelVisibleProperty, value);
         }
 
         /// <summary>

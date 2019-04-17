@@ -66,10 +66,7 @@ namespace ParticleMaker.Services
         /// </summary>
         /// <param name="name">The name of the project.</param>
         /// <returns></returns>
-        public bool ProjectExists(string name)
-        {
-            return !string.IsNullOrEmpty(name) && _directoryService.Exists($@"{_projectsPath}\{name}");
-        }
+        public bool ProjectExists(string name) => !string.IsNullOrEmpty(name) && _directoryService.Exists($@"{_projectsPath}\{name}");
 
 
         /// <summary>

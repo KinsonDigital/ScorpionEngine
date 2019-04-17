@@ -9,10 +9,7 @@ namespace ParticleMaker.CustomEventArgs
     public class UpdateEventArgs : EventArgs
     {
         #region Constructors
-        public UpdateEventArgs(GameTime gameTime)
-        {
-            GameTime = gameTime;
-        }
+        public UpdateEventArgs(GameTime gameTime) => GameTime = gameTime;
         #endregion
 
 

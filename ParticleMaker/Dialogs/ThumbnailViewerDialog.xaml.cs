@@ -30,8 +30,8 @@ namespace ParticleMaker.Dialogs
         /// </summary>
         public string ThumbnailPath
         {
-            get { return (string)GetValue(ThumbnailPathProperty); }
-            set { SetValue(ThumbnailPathProperty, value); }
+            get => (string)GetValue(ThumbnailPathProperty);
+            set => SetValue(ThumbnailPathProperty, value);
         }
 
         /// <summary>
@@ -46,8 +46,8 @@ namespace ParticleMaker.Dialogs
         /// </summary>
         protected bool HasError
         {
-            get { return (bool)GetValue(HasErrorProperty); }
-            set { SetValue(HasErrorProperty, value); }
+            get => (bool)GetValue(HasErrorProperty);
+            set => SetValue(HasErrorProperty, value);
         }
 
         /// <summary>
@@ -62,10 +62,7 @@ namespace ParticleMaker.Dialogs
         /// <summary>
         /// Closes the dialog.
         /// </summary>
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        private void CloseButton_Click(object sender, RoutedEventArgs e) => Close();
 
 
         /// <summary>

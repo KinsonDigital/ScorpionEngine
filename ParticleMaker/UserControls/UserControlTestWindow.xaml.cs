@@ -42,8 +42,8 @@ namespace ParticleMaker.UserControls
 
         public int MaxValue
         {
-            get { return (int)GetValue(MaxValueProperty); }
-            set { SetValue(MaxValueProperty, value); }
+            get => (int)GetValue(MaxValueProperty);
+            set => SetValue(MaxValueProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for MaxValue.  This enables animation, styling, binding, etc...

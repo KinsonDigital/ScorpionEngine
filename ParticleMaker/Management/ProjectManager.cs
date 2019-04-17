@@ -158,10 +158,7 @@ namespace ParticleMaker.Management
         /// </summary>
         /// <param name="name">The name of the project to check for.</param>
         /// <returns></returns>
-        public bool Exists(string name)
-        {
-            return _directoryService.Exists($@"{_projectsPath}\{name}");
-        }
+        public bool Exists(string name) => _directoryService.Exists($@"{_projectsPath}\{name}");
         #endregion
     }
 }

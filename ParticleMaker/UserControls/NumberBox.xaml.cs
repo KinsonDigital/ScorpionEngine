@@ -56,10 +56,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Creates a new instance of <see cref="NumberBox"/>.
         /// </summary>
-        public NumberBox()
-        {
-            InitializeComponent();
-        }
+        public NumberBox() => InitializeComponent();
         #endregion
 
 
@@ -69,8 +66,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         protected string NumberText
         {
-            get { return (string)GetValue(NumberTextProperty); }
-            set { SetValue(NumberTextProperty, value); }
+            get => (string)GetValue(NumberTextProperty);
+            set => SetValue(NumberTextProperty, value);
         }
 
         /// <summary>
@@ -85,8 +82,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public float Value
         {
-            get { return (float)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
+            get => (float)GetValue(ValueProperty);
+            set => SetValue(ValueProperty, value);
         }
 
         /// <summary>
@@ -101,10 +98,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Moves the caret to the end of the text.
         /// </summary>
-        public void MoveCaretToEnd()
-        {
-            ValueTextBox.CaretIndex = ValueTextBox.Text.Length;
-        }
+        public void MoveCaretToEnd() => ValueTextBox.CaretIndex = ValueTextBox.Text.Length;
         #endregion
 
 

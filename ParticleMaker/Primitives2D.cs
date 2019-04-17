@@ -160,10 +160,8 @@ namespace ParticleMaker
         /// <param name="location">Where to draw</param>
         /// <param name="size">The size of the rectangle</param>
         /// <param name="color">The color to draw the rectangle in</param>
-        public static void FillRectangle(this SpriteBatch spriteBatch, Vector2 location, Vector2 size, Color color)
-        {
+        public static void FillRectangle(this SpriteBatch spriteBatch, Vector2 location, Vector2 size, Color color) =>
             FillRectangle(spriteBatch, location, size, color, 0.0f);
-        }
 
         /// <summary>
         /// Draws a filled rectangle
@@ -201,10 +199,8 @@ namespace ParticleMaker
         /// <param name="w">Width</param>
         /// <param name="h">Height</param>
         /// <param name="color">The color to draw the rectangle in</param>
-        public static void FillRectangle(this SpriteBatch spriteBatch, float x, float y, float w, float h, Color color)
-        {
+        public static void FillRectangle(this SpriteBatch spriteBatch, float x, float y, float w, float h, Color color) =>
             FillRectangle(spriteBatch, new Vector2(x, y), new Vector2(w, h), color, 0.0f);
-        }
 
         /// <summary>
         /// Draws a filled rectangle
@@ -216,10 +212,8 @@ namespace ParticleMaker
         /// <param name="h">Height</param>
         /// <param name="color">The color to draw the rectangle in</param>
         /// <param name="angle">The angle of the rectangle in radians</param>
-        public static void FillRectangle(this SpriteBatch spriteBatch, float x, float y, float w, float h, Color color, float angle)
-        {
+        public static void FillRectangle(this SpriteBatch spriteBatch, float x, float y, float w, float h, Color color, float angle) =>
             FillRectangle(spriteBatch, new Vector2(x, y), new Vector2(w, h), color, angle);
-        }
         #endregion
 
 
@@ -230,10 +224,8 @@ namespace ParticleMaker
         /// <param name="spriteBatch">The destination drawing surface</param>
         /// <param name="rect">The rectangle to draw</param>
         /// <param name="color">The color to draw the rectangle in</param>
-        public static void DrawRectangle(this SpriteBatch spriteBatch, Rectangle rect, Color color)
-        {
+        public static void DrawRectangle(this SpriteBatch spriteBatch, Rectangle rect, Color color) =>
             DrawRectangle(spriteBatch, rect, color, 1.0f);
-        }
 
         /// <summary>
         /// Draws a rectangle with the thickness provided
@@ -257,10 +249,8 @@ namespace ParticleMaker
         /// <param name="location">Where to draw</param>
         /// <param name="size">The size of the rectangle</param>
         /// <param name="color">The color to draw the rectangle in</param>
-        public static void DrawRectangle(this SpriteBatch spriteBatch, Vector2 location, Vector2 size, Color color)
-        {
+        public static void DrawRectangle(this SpriteBatch spriteBatch, Vector2 location, Vector2 size, Color color) =>
             DrawRectangle(spriteBatch, new Rectangle((int)location.X, (int)location.Y, (int)size.X, (int)size.Y), color, 1.0f);
-        }
 
         /// <summary>
         /// Draws a rectangle with the thickness provided
@@ -270,10 +260,8 @@ namespace ParticleMaker
         /// <param name="size">The size of the rectangle</param>
         /// <param name="color">The color to draw the rectangle in</param>
         /// <param name="thickness">The thickness of the line</param>
-        public static void DrawRectangle(this SpriteBatch spriteBatch, Vector2 location, Vector2 size, Color color, float thickness)
-        {
+        public static void DrawRectangle(this SpriteBatch spriteBatch, Vector2 location, Vector2 size, Color color, float thickness) =>
             DrawRectangle(spriteBatch, new Rectangle((int)location.X, (int)location.Y, (int)size.X, (int)size.Y), color, thickness);
-        }
         #endregion
 
 
@@ -287,10 +275,8 @@ namespace ParticleMaker
         /// <param name="x2">The X coord of the second point</param>
         /// <param name="y2">The Y coord of the second point</param>
         /// <param name="color">The color to use</param>
-        public static void DrawLine(this SpriteBatch spriteBatch, float x1, float y1, float x2, float y2, Color color)
-        {
+        public static void DrawLine(this SpriteBatch spriteBatch, float x1, float y1, float x2, float y2, Color color) =>
             DrawLine(spriteBatch, new Vector2(x1, y1), new Vector2(x2, y2), color, 1.0f);
-        }
 
         /// <summary>
         /// Draws a line from point1 to point2 with an offset
@@ -302,10 +288,8 @@ namespace ParticleMaker
         /// <param name="y2">The Y coord of the second point</param>
         /// <param name="color">The color to use</param>
         /// <param name="thickness">The thickness of the line</param>
-        public static void DrawLine(this SpriteBatch spriteBatch, float x1, float y1, float x2, float y2, Color color, float thickness)
-        {
+        public static void DrawLine(this SpriteBatch spriteBatch, float x1, float y1, float x2, float y2, Color color, float thickness) =>
             DrawLine(spriteBatch, new Vector2(x1, y1), new Vector2(x2, y2), color, thickness);
-        }
 
         /// <summary>
         /// Draws a line from point1 to point2 with an offset
@@ -314,10 +298,8 @@ namespace ParticleMaker
         /// <param name="point1">The first point</param>
         /// <param name="point2">The second point</param>
         /// <param name="color">The color to use</param>
-        public static void DrawLine(this SpriteBatch spriteBatch, Vector2 point1, Vector2 point2, Color color)
-        {
+        public static void DrawLine(this SpriteBatch spriteBatch, Vector2 point1, Vector2 point2, Color color) =>
             DrawLine(spriteBatch, point1, point2, color, 1.0f);
-        }
 
         /// <summary>
         /// Draws a line from point1 to point2 with an offset
@@ -346,10 +328,8 @@ namespace ParticleMaker
         /// <param name="length">The length of the line</param>
         /// <param name="angle">The angle of this line from the starting point in radians</param>
         /// <param name="color">The color to use</param>
-        public static void DrawLine(this SpriteBatch spriteBatch, Vector2 point, float length, float angle, Color color)
-        {
+        public static void DrawLine(this SpriteBatch spriteBatch, Vector2 point, float length, float angle, Color color) =>
             DrawLine(spriteBatch, point, length, angle, color, 1.0f);
-        }
 
         /// <summary>
         /// Draws a line from point1 to point2 with an offset
@@ -382,10 +362,7 @@ namespace ParticleMaker
 
 
         #region PutPixel
-        public static void PutPixel(this SpriteBatch spriteBatch, float x, float y, Color color)
-        {
-            PutPixel(spriteBatch, new Vector2(x, y), color);
-        }
+        public static void PutPixel(this SpriteBatch spriteBatch, float x, float y, Color color) => PutPixel(spriteBatch, new Vector2(x, y), color);
 
         public static void PutPixel(this SpriteBatch spriteBatch, Vector2 position, Color color)
         {
@@ -408,10 +385,8 @@ namespace ParticleMaker
         /// <param name="radius">The radius of the circle</param>
         /// <param name="sides">The number of sides to generate</param>
         /// <param name="color">The color of the circle</param>
-        public static void DrawCircle(this SpriteBatch spriteBatch, Vector2 center, float radius, int sides, Color color)
-        {
+        public static void DrawCircle(this SpriteBatch spriteBatch, Vector2 center, float radius, int sides, Color color) =>
             DrawPoints(spriteBatch, center, CreateCircle(radius, sides), color, 1.0f);
-        }
 
         /// <summary>
         /// Draw a circle
@@ -422,10 +397,8 @@ namespace ParticleMaker
         /// <param name="sides">The number of sides to generate</param>
         /// <param name="color">The color of the circle</param>
         /// <param name="thickness">The thickness of the lines used</param>
-        public static void DrawCircle(this SpriteBatch spriteBatch, Vector2 center, float radius, int sides, Color color, float thickness)
-        {
+        public static void DrawCircle(this SpriteBatch spriteBatch, Vector2 center, float radius, int sides, Color color, float thickness) =>
             DrawPoints(spriteBatch, center, CreateCircle(radius, sides), color, thickness);
-        }
 
         /// <summary>
         /// Draw a circle
@@ -436,10 +409,8 @@ namespace ParticleMaker
         /// <param name="radius">The radius of the circle</param>
         /// <param name="sides">The number of sides to generate</param>
         /// <param name="color">The color of the circle</param>
-        public static void DrawCircle(this SpriteBatch spriteBatch, float x, float y, float radius, int sides, Color color)
-        {
+        public static void DrawCircle(this SpriteBatch spriteBatch, float x, float y, float radius, int sides, Color color) =>
             DrawPoints(spriteBatch, new Vector2(x, y), CreateCircle(radius, sides), color, 1.0f);
-        }
 
         /// <summary>
         /// Draw a circle
@@ -451,10 +422,8 @@ namespace ParticleMaker
         /// <param name="sides">The number of sides to generate</param>
         /// <param name="color">The color of the circle</param>
         /// <param name="thickness">The thickness of the lines used</param>
-        public static void DrawCircle(this SpriteBatch spriteBatch, float x, float y, float radius, int sides, Color color, float thickness)
-        {
+        public static void DrawCircle(this SpriteBatch spriteBatch, float x, float y, float radius, int sides, Color color, float thickness) =>
             DrawPoints(spriteBatch, new Vector2(x, y), CreateCircle(radius, sides), color, thickness);
-        }
         #endregion
 
 
@@ -523,10 +492,8 @@ namespace ParticleMaker
         /// <param name="startingAngle">The starting angle of arc, 0 being to the east, increasing as you go clockwise</param>
         /// <param name="radians">The number of radians to draw, clockwise from the starting angle</param>
         /// <param name="color">The color of the arc</param>
-        public static void DrawArc(this SpriteBatch spriteBatch, Vector2 center, float radius, int sides, float startingAngle, float radians, Color color)
-        {
+        public static void DrawArc(this SpriteBatch spriteBatch, Vector2 center, float radius, int sides, float startingAngle, float radians, Color color) =>
             DrawArc(spriteBatch, center, radius, sides, startingAngle, radians, color, 1.0f);
-        }
 
         /// <summary>
         /// Draw a arc
@@ -539,12 +506,8 @@ namespace ParticleMaker
         /// <param name="radians">The number of radians to draw, clockwise from the starting angle</param>
         /// <param name="color">The color of the arc</param>
         /// <param name="thickness">The thickness of the arc</param>
-        public static void DrawArc(this SpriteBatch spriteBatch, Vector2 center, float radius, int sides, float startingAngle, float radians, Color color, float thickness)
-        {
-            List<Vector2> arc = CreateArc(radius, sides, startingAngle, radians);
-            //List<Vector2> arc = CreateArc2(radius, sides, startingAngle, degrees);
-            DrawPoints(spriteBatch, center, arc, color, thickness);
-        }
+        public static void DrawArc(this SpriteBatch spriteBatch, Vector2 center, float radius, int sides, float startingAngle, float radians, Color color, float thickness) =>
+            DrawPoints(spriteBatch, center, points: CreateArc(radius, sides, startingAngle, radians), color, thickness);
         #endregion
     }
 }

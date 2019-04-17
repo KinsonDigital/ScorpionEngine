@@ -25,10 +25,7 @@ namespace ParticleMaker
         /// Returns the string representation of the <see cref="ColorItem"/>.
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return $"R:{ColorBrush.Color.R}, G:{ColorBrush.Color.G}, B:{ColorBrush.Color.B}, A:{ColorBrush.Color.A}";
-        }
+        public override string ToString() => $"R:{ColorBrush.Color.R}, G:{ColorBrush.Color.G}, B:{ColorBrush.Color.B}, A:{ColorBrush.Color.A}";
 
 
         /// <summary>

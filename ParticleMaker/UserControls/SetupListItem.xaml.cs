@@ -37,10 +37,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Creates a new instance of <see cref="SetupListItem"/>.
         /// </summary>
-        public SetupListItem()
-        {
-            InitializeComponent();
-        }
+        public SetupListItem() => InitializeComponent();
         #endregion
 
 
@@ -51,8 +48,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public string SetupPath
         {
-            get { return (string)GetValue(SetupPathProperty); }
-            set { SetValue(SetupPathProperty, value); }
+            get => (string)GetValue(SetupPathProperty);
+            set => SetValue(SetupPathProperty, value);
         }
 
         /// <summary>
@@ -67,8 +64,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public string SetupName
         {
-            get { return (string)GetValue(SetupNameProperty); }
-            set { SetValue(SetupNameProperty, value); }
+            get => (string)GetValue(SetupNameProperty);
+            set => SetValue(SetupNameProperty, value);
         }
 
         /// <summary>
@@ -83,8 +80,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         protected bool HasError
         {
-            get { return (bool)GetValue(HasErrorProperty); }
-            set { SetValue(HasErrorProperty, value); }
+            get => (bool)GetValue(HasErrorProperty);
+            set => SetValue(HasErrorProperty, value);
         }
 
         /// <summary>
@@ -99,8 +96,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public ICommand Command
         {
-            get { return (ICommand)GetValue(CommandProperty); }
-            set { SetValue(CommandProperty, value); }
+            get => (ICommand)GetValue(CommandProperty);
+            set => SetValue(CommandProperty, value);
         }
 
         /// <summary>
@@ -115,8 +112,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public ICommand RenameClickedCommand
         {
-            get { return (ICommand)GetValue(RenameClickedCommandProperty); }
-            set { SetValue(RenameClickedCommandProperty, value); }
+            get => (ICommand)GetValue(RenameClickedCommandProperty);
+            set => SetValue(RenameClickedCommandProperty, value);
         }
 
         /// <summary>
@@ -131,8 +128,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public ICommand DeleteClickedCommand
         {
-            get { return (ICommand)GetValue(DeleteClickedCommandProperty); }
-            set { SetValue(DeleteClickedCommandProperty, value); }
+            get => (ICommand)GetValue(DeleteClickedCommandProperty);
+            set => SetValue(DeleteClickedCommandProperty, value);
         }
 
         /// <summary>
@@ -147,8 +144,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public ICommand SaveClickedCommand
         {
-            get { return (ICommand)GetValue(SaveClickedCommandProperty); }
-            set { SetValue(SaveClickedCommandProperty, value); }
+            get => (ICommand)GetValue(SaveClickedCommandProperty);
+            set => SetValue(SaveClickedCommandProperty, value);
         }
 
         /// <summary>
@@ -234,10 +231,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Invokes the control clicked event.
         /// </summary>
-        private void ItemBorder_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            Command?.Execute(SetupName);
-        }
+        private void ItemBorder_MouseUp(object sender, MouseButtonEventArgs e) => Command?.Execute(SetupName);
 
 
         /// <summary>

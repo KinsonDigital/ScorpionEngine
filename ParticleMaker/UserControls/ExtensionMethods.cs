@@ -27,10 +27,7 @@ namespace ParticleMaker.UserControls
         /// </summary>
         /// <param name="brush">The brush to convert to a negative.</param>
         /// <returns></returns>
-        public static SolidColorBrush ToNegative(this SolidColorBrush brush)
-        {
-            return brush.Color.ToNegativeBrush();
-        }
+        public static SolidColorBrush ToNegative(this SolidColorBrush brush) => brush.Color.ToNegativeBrush();
         #endregion
     }
 }

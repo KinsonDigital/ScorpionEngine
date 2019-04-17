@@ -41,10 +41,7 @@ namespace ParticleMaker.ValueConverters
         /// <param name="parameter">The optional parameter data.</param>
         /// <param name="culture">The culture setting of the incoming data.</param>
         /// <returns></returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return value as string;
-        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => value as string;
         #endregion
     }
 }

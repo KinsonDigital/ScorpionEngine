@@ -49,8 +49,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public SolidColorBrush ColorValue
         {
-            get { return (SolidColorBrush)GetValue(ColorValueProperty); }
-            set { SetValue(ColorValueProperty, value); }
+            get => (SolidColorBrush)GetValue(ColorValueProperty);
+            set => SetValue(ColorValueProperty, value);
         }
 
         /// <summary>
@@ -65,8 +65,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         protected string ColorTextValue
         {
-            get { return (string)GetValue(ColorTextValueProperty); }
-            set { SetValue(ColorTextValueProperty, value); }
+            get => (string)GetValue(ColorTextValueProperty);
+            set => SetValue(ColorTextValueProperty, value);
         }
 
         /// <summary>
@@ -81,8 +81,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         protected SolidColorBrush TextForecolor
         {
-            get { return (SolidColorBrush)GetValue(TextForecolorProperty); }
-            set { SetValue(TextForecolorProperty, value); }
+            get => (SolidColorBrush)GetValue(TextForecolorProperty);
+            set => SetValue(TextForecolorProperty, value);
         }
 
         /// <summary>
@@ -97,8 +97,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public int Id
         {
-            get { return (int)GetValue(IdProperty); }
-            set { SetValue(IdProperty, value); }
+            get => (int)GetValue(IdProperty);
+            set => SetValue(IdProperty, value);
         }
 
         /// <summary>
@@ -132,19 +132,13 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Invoked when the edit color button has been clicked.
         /// </summary>
-        private void EditColorButton_Click(object sender, EventArgs e)
-        {
-            EditColorClicked?.Invoke(this, new ColorItemClickedEventArgs(Id, ColorValue.Color));
-        }
+        private void EditColorButton_Click(object sender, EventArgs e) => EditColorClicked?.Invoke(this, new ColorItemClickedEventArgs(Id, ColorValue.Color));
 
-        
+
         /// <summary>
         /// Invoked when the delete image has been clicked.
         /// </summary>
-        private void DeleteColorButton_Click(object sender, EventArgs e)
-        {
-            DeleteClicked?.Invoke(this, new ColorItemClickedEventArgs(Id, Color.FromRgb(255, 255, 255)));
-        }
+        private void DeleteColorButton_Click(object sender, EventArgs e) => DeleteClicked?.Invoke(this, new ColorItemClickedEventArgs(Id, Color.FromRgb(255, 255, 255)));
         #endregion
     }
 }

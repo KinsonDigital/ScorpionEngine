@@ -14,10 +14,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Creates a new instance of <see cref="RandomRange"/>.
         /// </summary>
-        public RandomRange()
-        {
-            InitializeComponent();
-        }
+        public RandomRange() => InitializeComponent();
         #endregion
 
 
@@ -27,8 +24,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public float MinValue
         {
-            get { return (float)GetValue(MinValueProperty); }
-            set { SetValue(MinValueProperty, value); }
+            get => (float)GetValue(MinValueProperty);
+            set => SetValue(MinValueProperty, value);
         }
 
         /// <summary>
@@ -43,8 +40,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public float MinLowerLimit
         {
-            get { return (float)GetValue(MinLowerLimitProperty); }
-            set { SetValue(MinLowerLimitProperty, value); }
+            get => (float)GetValue(MinLowerLimitProperty);
+            set => SetValue(MinLowerLimitProperty, value);
         }
 
         /// <summary>
@@ -59,8 +56,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public float MinUpperLimit
         {
-            get { return (float)GetValue(MinUpperLimitProperty); }
-            set { SetValue(MinUpperLimitProperty, value); }
+            get => (float)GetValue(MinUpperLimitProperty);
+            set => SetValue(MinUpperLimitProperty, value);
         }
 
         /// <summary>
@@ -75,8 +72,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public float MinValueIncrement
         {
-            get { return (float)GetValue(MinValueIncrementProperty); }
-            set { SetValue(MinValueIncrementProperty, value); }
+            get => (float)GetValue(MinValueIncrementProperty);
+            set => SetValue(MinValueIncrementProperty, value);
         }
 
         /// <summary>
@@ -91,8 +88,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public float MinValueDecrement
         {
-            get { return (float)GetValue(MinValueDecrementProperty); }
-            set { SetValue(MinValueDecrementProperty, value); }
+            get => (float)GetValue(MinValueDecrementProperty);
+            set => SetValue(MinValueDecrementProperty, value);
         }
 
         /// <summary>
@@ -107,8 +104,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public float MaxValue
         {
-            get { return (float)GetValue(MaxValueProperty); }
-            set { SetValue(MaxValueProperty, value); }
+            get => (float)GetValue(MaxValueProperty);
+            set => SetValue(MaxValueProperty, value);
         }
 
         /// <summary>
@@ -123,8 +120,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public float MaxLowerLimit
         {
-            get { return (float)GetValue(MaxLowerLimitProperty); }
-            set { SetValue(MaxLowerLimitProperty, value); }
+            get => (float)GetValue(MaxLowerLimitProperty);
+            set => SetValue(MaxLowerLimitProperty, value);
         }
 
         /// <summary>
@@ -139,8 +136,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public float MaxUpperLimit
         {
-            get { return (float)GetValue(MaxUpperLimitProperty); }
-            set { SetValue(MaxUpperLimitProperty, value); }
+            get => (float)GetValue(MaxUpperLimitProperty);
+            set => SetValue(MaxUpperLimitProperty, value);
         }
 
         /// <summary>
@@ -155,8 +152,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public float MaxValueIncrement
         {
-            get { return (float)GetValue(MaxValueIncrementProperty); }
-            set { SetValue(MaxValueIncrementProperty, value); }
+            get => (float)GetValue(MaxValueIncrementProperty);
+            set => SetValue(MaxValueIncrementProperty, value);
         }
 
         /// <summary>
@@ -171,8 +168,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public float MaxValueDecrement
         {
-            get { return (float)GetValue(MaxValueDecrementProperty); }
-            set { SetValue(MaxValueDecrementProperty, value); }
+            get => (float)GetValue(MaxValueDecrementProperty);
+            set => SetValue(MaxValueDecrementProperty, value);
         }
 
         /// <summary>
@@ -187,8 +184,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public string MinTitle
         {
-            get { return (string)GetValue(MinTitleProperty); }
-            set { SetValue(MinTitleProperty, value); }
+            get => (string)GetValue(MinTitleProperty);
+            set => SetValue(MinTitleProperty, value);
         }
 
         /// <summary>
@@ -203,8 +200,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public string MaxTitle
         {
-            get { return (string)GetValue(MaxTitleProperty); }
-            set { SetValue(MaxTitleProperty, value); }
+            get => (string)GetValue(MaxTitleProperty);
+            set => SetValue(MaxTitleProperty, value);
         }
 
         /// <summary>
@@ -219,8 +216,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public string Title
         {
-            get { return (string)GetValue(TitleProperty); }
-            set { SetValue(TitleProperty, value); }
+            get => (string)GetValue(TitleProperty);
+            set => SetValue(TitleProperty, value);
         }
 
         /// <summary>

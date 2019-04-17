@@ -896,10 +896,7 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
         [ExcludeFromCodeCoverage]
-        private void PlayExecute(object param)
-        {
-            _graphicsEngine.Play();
-        }
+        private void PlayExecute(object param) => _graphicsEngine.Play();
 
 
         /// <summary>
@@ -907,10 +904,7 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
         [ExcludeFromCodeCoverage]
-        private void PauseExecute(object param)
-        {
-            _graphicsEngine.Pause();
-        }
+        private void PauseExecute(object param) => _graphicsEngine.Pause();
 
 
         /// <summary>

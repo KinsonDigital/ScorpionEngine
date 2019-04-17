@@ -54,20 +54,14 @@ namespace ParticleMaker
         /// </summary>
         /// <param name="parameter">The incoming data.</param>
         /// <returns></returns>
-        public bool CanExecute(object parameter)
-        {
-            return _canExecuteAction(parameter);
-        }
+        public bool CanExecute(object parameter) => _canExecuteAction(parameter);
 
 
         /// <summary>
         /// Executes the set action.
         /// </summary>
         /// <param name="parameter">The incoming data to use in the action.</param>
-        public void Execute(object parameter)
-        {
-            _executeAction(parameter);
-        }
+        public void Execute(object parameter) => _executeAction(parameter);
         #endregion
     }
 }

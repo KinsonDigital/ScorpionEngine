@@ -12,10 +12,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Creates a new instance of <see cref="RenderSize"/>.
         /// </summary>
-        public RenderSize()
-        {
-            InitializeComponent();
-        }
+        public RenderSize() => InitializeComponent();
         #endregion
 
 
@@ -25,8 +22,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public int RenderWidth
         {
-            get { return (int)GetValue(RenderWidthProperty); }
-            set { SetValue(RenderWidthProperty, value); }
+            get => (int)GetValue(RenderWidthProperty);
+            set => SetValue(RenderWidthProperty, value);
         }
 
         /// <summary>
@@ -41,8 +38,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public int RenderHeight
         {
-            get { return (int)GetValue(RenderHeightProperty); }
-            set { SetValue(RenderHeightProperty, value); }
+            get => (int)GetValue(RenderHeightProperty);
+            set => SetValue(RenderHeightProperty, value);
         }
         
         /// <summary>

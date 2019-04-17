@@ -13,10 +13,7 @@ namespace ParticleMaker.CustomEventArgs
         /// Creates a new instance of <see cref="DrawEventArgs"/>.
         /// </summary>
         /// <param name="gameTime">The game time that has passed since the last frame.</param>
-        public DrawEventArgs(GameTime gameTime)
-        {
-            GameTime = gameTime;
-        }
+        public DrawEventArgs(GameTime gameTime) => GameTime = gameTime;
         #endregion
 
 

@@ -35,10 +35,7 @@ namespace ParticleMaker.UserControls
         /// Returns the hash code of this object that makes this object unique.
         /// </summary>
         /// <returns></returns>
-        public override int GetHashCode()
-        {
-            return 1230029444 + EqualityComparer<string>.Default.GetHashCode(FilePath);
-        }
+        public override int GetHashCode() => 1230029444 + EqualityComparer<string>.Default.GetHashCode(FilePath);
         #endregion
     }
 }

@@ -128,19 +128,13 @@ namespace ParticleMaker
         /// <summary>
         /// Unpauses the graphics engine.
         /// </summary>
-        public void Play()
-        {
-            _coreEngine.Play();
-        }
+        public void Play() => _coreEngine.Play();
 
 
         /// <summary>
         /// Pauses the engine.
         /// </summary>
-        public void Pause(bool clearSurface = false)
-        {
-            _coreEngine?.Pause(clearSurface);
-        }
+        public void Pause(bool clearSurface = false) => _coreEngine?.Pause(clearSurface);
         #endregion
 
 

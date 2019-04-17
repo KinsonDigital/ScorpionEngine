@@ -46,7 +46,7 @@ namespace ParticleMaker.UserControls
         {
             InitializeComponent();
 
-            Dispatcher.ShutdownStarted += (sender, e) => { _refreshTokenSrc.Cancel(); };
+            Dispatcher.ShutdownStarted += (sender, e) => _refreshTokenSrc.Cancel();
 
             _refreshTokenSrc = new CancellationTokenSource();
 
@@ -62,8 +62,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public string DeploymentPath
         {
-            get { return (string)GetValue(DeploymentPathProperty); }
-            set { SetValue(DeploymentPathProperty, value); }
+            get => (string)GetValue(DeploymentPathProperty);
+            set => SetValue(DeploymentPathProperty, value);
         }
 
         /// <summary>
@@ -78,8 +78,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public ICommand EditClickedCommand
         {
-            get { return (ICommand)GetValue(EditClickedCommandProperty); }
-            set { SetValue(EditClickedCommandProperty, value); }
+            get => (ICommand)GetValue(EditClickedCommandProperty);
+            set => SetValue(EditClickedCommandProperty, value);
         }
 
         /// <summary>
@@ -94,8 +94,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public ICommand DeployClickedCommand
         {
-            get { return (ICommand)GetValue(DeployClickedCommandProperty); }
-            set { SetValue(DeployClickedCommandProperty, value); }
+            get => (ICommand)GetValue(DeployClickedCommandProperty);
+            set => SetValue(DeployClickedCommandProperty, value);
         }
 
         /// <summary>
@@ -111,8 +111,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private bool HasError
         {
-            get { return (bool)GetValue(HasErrorProperty); }
-            set { SetValue(HasErrorProperty, value); }
+            get => (bool)GetValue(HasErrorProperty);
+            set => SetValue(HasErrorProperty, value);
         }
 
         /// <summary>

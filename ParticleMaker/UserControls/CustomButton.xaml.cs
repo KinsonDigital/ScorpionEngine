@@ -24,21 +24,18 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Creates a new instance of <see cref="CustomButton"/>.
         /// </summary>
-        public CustomButton()
-        {
-            InitializeComponent();
-        }
+        public CustomButton() => InitializeComponent();
         #endregion
 
-        
+
         #region Props
         /// <summary>
         /// Gets or sets the button content.
         /// </summary>
         public FrameworkElement ButtonContent
         {
-            get { return (FrameworkElement)GetValue(ButtonContentProperty); }
-            set { SetValue(ButtonContentProperty, value); }
+            get => (FrameworkElement)GetValue(ButtonContentProperty);
+            set => SetValue(ButtonContentProperty, value);
         }
 
         /// <summary>
@@ -53,8 +50,8 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public ICommand ClickCommand
         {
-            get { return (ICommand)GetValue(ClickCommandProperty); }
-            set { SetValue(ClickCommandProperty, value); }
+            get => (ICommand)GetValue(ClickCommandProperty);
+            set => SetValue(ClickCommandProperty, value);
         }
 
         /// <summary>
