@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using ParticleMaker.Exceptions;
@@ -12,10 +13,12 @@ namespace ParticleMaker.Management
     public class ProjectManager
     {
         #region Fields
-        private ProjectSettingsManager _settingsManager;
+        private readonly ProjectSettingsManager _settingsManager;
         private readonly ProjectIOService _projIOService;
-        private IDirectoryService _directoryService;
+        private readonly IDirectoryService _directoryService;
+        private readonly IFileService _fileService;
         private static string _projectsPath;
+        private const string PROJ_FILE_EXTENSION = ".projs";
         #endregion
 
 
@@ -26,11 +29,12 @@ namespace ParticleMaker.Management
         /// <param name="settingsManager">The settings manager used to create project settings.</param>
         /// <param name="projIOService">The service used to manage common project management tasks.</param>
         /// <param name="directoryService">The directory service used to manage the project directories.</param>
-        public ProjectManager(ProjectSettingsManager settingsManager, ProjectIOService projIOService, IDirectoryService directoryService)
+        public ProjectManager(ProjectSettingsManager settingsManager, ProjectIOService projIOService, IDirectoryService directoryService, IFileService fileService)
         {
             _settingsManager = settingsManager;
             _projIOService = projIOService;
             _directoryService = directoryService;
+            _fileService = fileService;
 
             _projectsPath = $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Projects";
 
@@ -71,7 +75,24 @@ namespace ParticleMaker.Management
             get
             {
                 _projIOService.CheckRootProjectsFolder();
-                return _directoryService.GetDirectories(_projectsPath);
+
+                var projPaths = _directoryService.GetDirectories(_projectsPath);
+                var validPaths = new List<string>();
+
+                foreach (var path in projPaths)
+                {
+                    var dirSections = path.Split('\\');
+                    var dir = dirSections.Length >= 1 ? dirSections[dirSections.Length - 1] : string.Empty;
+
+                    if (string.IsNullOrEmpty(dir))
+                        continue;
+
+                    if (_fileService.Exists($@"{path}\{dir}{PROJ_FILE_EXTENSION}"))
+                        validPaths.Add(path);
+                }
+
+
+                return validPaths.ToArray();
             }
         }
         #endregion
