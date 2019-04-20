@@ -7,20 +7,6 @@
              mc:Ignorable="d" Background="White" Name="this"
              DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
-    <UserControl.Resources>
-        <BitmapImage x:Key="DeployIcon" UriSource="../Icons/Deploy.png"/>
-        
-        <Style x:Key="DisableWithErrorStyle" TargetType="FrameworkElement">
-            <Setter Property="IsEnabled" Value="True"/>
-
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Path=HasError}" Value="True">
-                    <Setter Property="IsEnabled" Value="False"/>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-    </UserControl.Resources>
-
     <Border BorderBrush="DarkGray" BorderThickness="1">
         <Grid d:DataContext="{d:DesignData Source=/UserControls/DesignData/UserControlData.xaml}">
             <Grid.ColumnDefinitions>
@@ -47,19 +33,45 @@
 
             <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="0, 5, 5, 5">
                 <!--EDIT PATH BUTTON-->
-                <local:CustomButton x:Name="EditCustomButton" Click="EditCustomButton_Click"
-                                    Style="{StaticResource DisableWithErrorStyle}">
+                <local:CustomButton x:Name="EditCustomButton" Click="EditCustomButton_Click">
                     <local:CustomButton.ButtonContent>
                         <Image Source="/ParticleMaker;component/Icons/Edit.png" Width="27" Height="27"/>
                     </local:CustomButton.ButtonContent>
+
+                    <local:CustomButton.Style>
+                        <Style TargetType="local:CustomButton">
+                            <Setter Property="IsEnabled" Value="True"/>
+
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=HasError}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </local:CustomButton.Style>
                 </local:CustomButton>
 
                 <!--DEPLOY SETUP BUTTON-->
-                <local:CustomButton x:Name="DeploySetupCustomButton" Click="DeploySetupCustomButton_Click"
-                                    Style="{StaticResource DisableWithErrorStyle}">
+                <local:CustomButton x:Name="DeploySetupCustomButton" Click="DeploySetupCustomButton_Click">
                     <local:CustomButton.ButtonContent>
                         <Image Source="/ParticleMaker;component/Icons/Deploy.png" Width="27" Height="27"/>
                     </local:CustomButton.ButtonContent>
+
+                    <local:CustomButton.Style>
+                        <Style TargetType="local:CustomButton">
+                            <Setter Property="IsEnabled" Value="True"/>
+
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=HasError}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding Path=DeploymentPath}" Value="">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </local:CustomButton.Style>
                 </local:CustomButton>
             </StackPanel>
 
