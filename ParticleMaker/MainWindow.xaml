@@ -25,12 +25,12 @@
         <converters:StringToBoolConverter x:Key="StringToBoolConverter"/>
 
         <Style x:Key="ProjectLoadedStyle" TargetType="FrameworkElement">
-            <Setter Property="IsEnabled" Value="False"/>
+            <Setter Property="Visibility" Value="Hidden"/>
 
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=CurrentOpenProject, Converter={StaticResource StringToBoolConverter}}"
                                              Value="True">
-                    <Setter Property="IsEnabled" Value="True"/>
+                    <Setter Property="Visibility" Value="Visible"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -349,6 +349,15 @@
         <Border BorderBrush="LightGray" BorderThickness="1" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" >
             <DockPanel Style="{StaticResource ProjectLoadedStyle}">
                 <StatusBar DockPanel.Dock="Bottom">
+                    <!--CURRENTLY LOADED PROJECT-->
+                    <StatusBarItem>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Project:" FontWeight="Bold"/>
+                            <Label Content="{Binding Path=CurrentOpenProject}"/>
+                            <Label Content=" | "/>
+                        </StackPanel>
+                    </StatusBarItem>
+                    
                     <StatusBarItem>
                         <!--TOTAL LIVING PARTICLES-->
                         <StackPanel Orientation="Horizontal">
