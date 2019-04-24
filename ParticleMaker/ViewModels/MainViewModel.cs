@@ -19,7 +19,6 @@ using ParticleMaker.Exceptions;
 using WPFMsgBox = System.Windows.MessageBox;
 using CoreVector = KDScorpionCore.Vector;
 using FolderDialogResult = System.Windows.Forms.DialogResult;
-using System.Windows.Forms.Integration;
 
 namespace ParticleMaker.ViewModels
 {
@@ -1403,10 +1402,15 @@ namespace ParticleMaker.ViewModels
             {
                 _setupManager.Delete(CurrentOpenProject, eventArgs.Name);
 
+                CurrentLoadedSetup = string.Empty;
+                Particles = null;
+
                 ProjectSetups = (from p in _setupManager.GetSetupPaths(CurrentOpenProject)
                                  select new PathItem() { FilePath = p }).ToArray();
 
                 NotifyPropChange(nameof(ProjectSetups));
+                NotifyPropChange(nameof(CurrentLoadedSetup));
+                NotifyPropChange(nameof(Particles));
             }
         }
 
