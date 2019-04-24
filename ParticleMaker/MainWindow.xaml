@@ -347,10 +347,10 @@
 
         <!--STATUS BAR-->
         <Border BorderBrush="LightGray" BorderThickness="1" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" >
-            <DockPanel Style="{StaticResource ProjectLoadedStyle}">
+            <DockPanel>
                 <StatusBar DockPanel.Dock="Bottom">
                     <!--CURRENTLY LOADED PROJECT-->
-                    <StatusBarItem>
+                    <StatusBarItem Style="{StaticResource ProjectLoadedStyle}">
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Project:" FontWeight="Bold"/>
                             <Label Content="{Binding Path=CurrentOpenProject}"/>
@@ -359,15 +359,15 @@
                     </StatusBarItem>
 
                     <!--CURRENTLY LOADED SETUP-->
-                    <StatusBarItem>
+                    <StatusBarItem Style="{StaticResource ProjectLoadedStyle}">
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Setup:" FontWeight="Bold"/>
                             <Label Content="{Binding Path=CurrentLoadedSetup}"/>
                             <Label Content=" | "/>
                         </StackPanel>
                     </StatusBarItem>
-                    
-                    <StatusBarItem>
+
+                    <StatusBarItem Style="{StaticResource ProjectLoadedStyle}">
                         <!--TOTAL LIVING PARTICLES-->
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Total Living Particles:" FontWeight="Bold"/>
@@ -375,12 +375,17 @@
                         </StackPanel>
                     </StatusBarItem>
 
-                    <StatusBarItem>
-                        <!--TOTAL DEAD PARTICLES-->
+                    <!--TOTAL DEAD PARTICLES-->
+                    <StatusBarItem Style="{StaticResource ProjectLoadedStyle}">
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Total Dead Particles:" FontWeight="Bold"/>
                             <Label Content="{Binding Path=TotalDeadParticles}"/>
                         </StackPanel>
+                    </StatusBarItem>
+
+                    <!--APP VERSION-->
+                    <StatusBarItem HorizontalAlignment="Right">
+                        <Label Content="{Binding Path=ApplicationVersion}"/>
                     </StatusBarItem>
                 </StatusBar>
             </DockPanel>
