@@ -8,7 +8,7 @@
         xmlns:vm="clr-namespace:ParticleMaker.ViewModels"
         xmlns:converters="clr-namespace:ParticleMaker.ValueConverters"
         xmlns:local="clr-namespace:ParticleMaker"
-        mc:Ignorable="d" Title="{Binding Path=WindowTitle}"
+        mc:Ignorable="d" Title="Particle Maker"
         Name="this" WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignData Source=/DesignData/MainWindowData.xaml}"
         SizeToContent="WidthAndHeight">
