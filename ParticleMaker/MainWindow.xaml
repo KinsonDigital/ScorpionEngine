@@ -357,6 +357,15 @@
                             <Label Content=" | "/>
                         </StackPanel>
                     </StatusBarItem>
+
+                    <!--CURRENTLY LOADED SETUP-->
+                    <StatusBarItem>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Setup:" FontWeight="Bold"/>
+                            <Label Content="{Binding Path=CurrentLoadedSetup}"/>
+                            <Label Content=" | "/>
+                        </StackPanel>
+                    </StatusBarItem>
                     
                     <StatusBarItem>
                         <!--TOTAL LIVING PARTICLES-->
