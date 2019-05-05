@@ -9,6 +9,8 @@ using ParticleMaker.Management;
 using ParticleMaker.Services;
 using ParticleMaker.ViewModels;
 using ParticleMaker.UserControls;//KEEP THIS. SHOWS USED WHEN IN UserControlTesting mode
+using System.Reflection;
+using System.Diagnostics;
 
 [assembly: InternalsVisibleTo(assemblyName: "ParticleMaker.Tests", AllInternalsVisible = true)]
 
@@ -55,6 +57,11 @@ namespace ParticleMaker
         /// The dependency injection container for creating instances of registered objects.
         /// </summary>
         public static Container DIContainer { get; set; }
+
+        /// <summary>
+        /// Gets the current version of the application.
+        /// </summary>
+        public static string Version => $"v{FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion}";
         #endregion
 
 

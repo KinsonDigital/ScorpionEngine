@@ -87,6 +87,11 @@ namespace ParticleMaker.ViewModels
         #region Props
         #region Standard Props
         /// <summary>
+        /// Gets the current application version.
+        /// </summary>
+        public string ApplicationVersion => App.Version;
+
+        /// <summary>
         /// Gets or sets the spawn location of the particles on the rendering surface.
         /// </summary>
         public CoreVector SpawnLocation
