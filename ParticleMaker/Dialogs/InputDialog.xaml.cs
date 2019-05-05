@@ -160,7 +160,7 @@ namespace ParticleMaker.Dialogs
         /// <summary>
         /// Gets or sets a value indicating if the input text box contains an invalid value.
         /// </summary>
-        public bool ContainsInvalidValue
+        private bool ContainsInvalidValue
         {
             get => (bool)GetValue(ContainsInvalidValueProperty);
             set => SetValue(ContainsInvalidValueProperty, value);
@@ -169,7 +169,7 @@ namespace ParticleMaker.Dialogs
         /// <summary>
         /// Registers the <see cref="ContainsInvalidValue"/> property.
         /// </summary>
-        public static readonly DependencyProperty ContainsInvalidValueProperty =
+        private static readonly DependencyProperty ContainsInvalidValueProperty =
             DependencyProperty.Register(nameof(ContainsInvalidValue), typeof(bool), typeof(InputDialog), new PropertyMetadata(false));
         #endregion
         #endregion
@@ -210,7 +210,7 @@ namespace ParticleMaker.Dialogs
                 DialogResult = false;
                 Close();
             }
-            else if (e.Key == Key.Enter && !string.IsNullOrEmpty(InputTextBox.Text))
+            else if (e.Key == Key.Enter && !string.IsNullOrEmpty(InputTextBox.Text) && !ContainsInvalidValue)
             {
                 DialogResult = true;
                 Close();
