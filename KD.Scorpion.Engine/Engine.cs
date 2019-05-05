@@ -48,9 +48,13 @@ namespace KDScorpionEngine
         [ExcludeFromCodeCoverage]
         public Engine(bool loadPhysicsLibrary = true)
         {
+#if MONOGAME
             PluginSystem.LoadEnginePluginLibrary(new PluginLibrary("MonoScorpPlugin"));
+#elif SFML
+            PluginSystem.LoadEnginePluginLibrary(new PluginLibrary("SFMLScorpPlugin"));
+#endif
 
-            if(loadPhysicsLibrary)
+            if (loadPhysicsLibrary)
                 PluginSystem.LoadPhysicsPluginLibrary(new PluginLibrary("VelcroPhysicsPlugin"));
 
             Setup();

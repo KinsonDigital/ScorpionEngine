@@ -27,6 +27,13 @@ namespace KDScorpionCore.Plugins
             //Get all of the compatible plugin types to register
             _concretePluginTypes = _container.GetTypesToRegister<IPlugin>(_pluginAssembly);
 
+            //Throw an exception if there are no concrete types in the plugin library to use.
+            if (_concretePluginTypes.ToArray().Length <= 0)
+            {
+                //TODO: Create a better custom exception for the exception below
+                throw new Exception($"The plugin library '{Name}' does not have any acceptable plugin classes to be loaded.");
+            }
+
             //Register all of the plugin types with the IoC container for instantiation
             foreach (var concreteType in _concretePluginTypes)
             {
@@ -45,17 +52,29 @@ namespace KDScorpionCore.Plugins
 
 
         #region Public Methods
+        /// <summary>
+        /// Loads the concrete plugin that matches the given type <typeparamref name="T"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of plugin to load.</typeparam>
+        /// <returns></returns>
         public T LoadPlugin<T>() where T : class, IPlugin
         {
             return _container.GetInstance<T>();
         }
 
 
+        /// <summary>
+        /// Loads the concrete plugins that matche the given type <typeparamref name="T"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of plugins to load.</typeparam>
+        /// <param name="paramItems"></param>
+        /// <returns></returns>
         public T LoadPlugin<T>(params object[] paramItems) where T : class, IPlugin
         {
             var foundConcreteType = (from p in _concretePluginTypes
                                      where p.GetInterfaces().Any(i => i.Name == typeof(T).Name)
                                      select p).FirstOrDefault();
+
 
             return Activator.CreateInstance(foundConcreteType, paramItems) as T;
         }
@@ -63,6 +82,11 @@ namespace KDScorpionCore.Plugins
 
 
         #region Private Methods
+        /// <summary>
+        /// Gets the interfce type that the given <paramref name="concreteType"/> implements.
+        /// </summary>
+        /// <param name="concreteType">The concrete type to pull the <see cref="IPlugin"/> interface from.</param>
+        /// <returns></returns>
         private Type GetPluginInterface(Type concreteType)
         {
             return (from i in concreteType.GetInterfaces()
@@ -72,6 +96,11 @@ namespace KDScorpionCore.Plugins
         }
 
 
+        /// <summary>
+        /// Returns value indicating if the given <paramref name="type"/> is valid for IoC container registration.
+        /// </summary>
+        /// <param name="type">The type to check.</param>
+        /// <returns></returns>
         private bool ValidForRegistration(Type type)
         {
             //If the type has only one constructor and has
@@ -97,6 +126,11 @@ namespace KDScorpionCore.Plugins
         }
 
 
+        /// <summary>
+        /// Returns a value indicating if the constructor of the given <paramref name="concreteType"/> has any value type parameters.
+        /// </summary>
+        /// <param name="concreteType">The concrete type to check.</param>
+        /// <returns></returns>
         private bool CtrHasValueTypes(Type concreteType)
         {
             //If the type has no constructors, then it definitly does not have any value type parameters
