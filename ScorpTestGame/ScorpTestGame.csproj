@@ -151,6 +151,11 @@ copy "$(SolutionDir)MonoScorpPlugin\bin\$(PlatformName)\Debug\MonoScorpPlugin.dl
 copy "$(SolutionDir)MonoScorpPlugin\bin\$(PlatformName)\Debug\MonoScorpPlugin.pdb" "$(TargetDir)MonoScorpPlugin.pdb" /Y
 
 
+REM Copy the SFML Engine plugin to the output folder
+copy "$(SolutionDir)SFMLScorpPlugin\bin\$(PlatformName)\$(ConfigurationName)\netstandard2.0\SFMLScorpPlugin.dll" "$(TargetDir)SFMLScorpPlugin.dll" /Y
+copy "$(SolutionDir)SFMLScorpPlugin\bin\$(PlatformName)\$(ConfigurationName)\netstandard2.0\SFMLScorpPlugin.pdb" "$(TargetDir)SFMLScorpPlugin.pdb" /Y
+
+
 REM Copy the Velcro Physics Plugin to the output folder
 del "$(TargetDir)VelcroPhysicsPlugin.dll" /F /Q
 copy "$(SolutionDir)VelcroPhysicsPlugin\bin\$(PlatformName)\Debug\VelcroPhysicsPlugin.dll" "$(TargetDir)VelcroPhysicsPlugin.dll"
