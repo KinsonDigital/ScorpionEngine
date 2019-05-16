@@ -1830,9 +1830,9 @@ namespace KDScorpionEngineTests.Scene
             _mockCoreLoader = new Mock<IContentLoader>().Object;
             _contentLoader = new ContentLoader(_mockCoreLoader);
             var mockCoreKeyboard = new Mock<IKeyboard>();
-            mockCoreKeyboard.Setup(m => m.IsKeyPressed((int)KeyCodes.Space)).Returns(true);
-            mockCoreKeyboard.Setup(m => m.IsKeyPressed((int)KeyCodes.Right)).Returns(true);
-            mockCoreKeyboard.Setup(m => m.IsKeyPressed((int)KeyCodes.Left)).Returns(true);
+            mockCoreKeyboard.Setup(m => m.IsKeyPressed(KeyCodes.Space)).Returns(true);
+            mockCoreKeyboard.Setup(m => m.IsKeyPressed(KeyCodes.Right)).Returns(true);
+            mockCoreKeyboard.Setup(m => m.IsKeyPressed(KeyCodes.Left)).Returns(true);
 
             _mockEnginePluginLib = new Mock<IPluginLibrary>();
             _mockEnginePluginLib.Setup(m => m.LoadPlugin<IKeyboard>()).Returns(mockCoreKeyboard.Object);

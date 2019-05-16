@@ -66,7 +66,7 @@ namespace KDScorpionEngineTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IKeyboard>();
-            mockMouse.Setup(m => m.IsKeyPressed((int)KeyCodes.Left)).Returns(true);
+            mockMouse.Setup(m => m.IsKeyPressed(KeyCodes.Left)).Returns(true);
             Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
             var keyboardWatcher = new KeyboardWatcher(true)
             {
@@ -222,7 +222,7 @@ namespace KDScorpionEngineTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IKeyboard>();
-            mockMouse.Setup(m => m.IsKeyDown((int)KeyCodes.W)).Returns(false);
+            mockMouse.Setup(m => m.IsKeyDown(KeyCodes.W)).Returns(false);
 
             Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
 
@@ -237,7 +237,7 @@ namespace KDScorpionEngineTests.Input
 
             //Act/Assert
             keyboardWatcher.Update(engineTime);//Run once to get the internal states.
-            mockMouse.Setup(m => m.IsKeyDown((int)KeyCodes.W)).Returns(false);//Return false to simulate that the button is not down
+            mockMouse.Setup(m => m.IsKeyDown(KeyCodes.W)).Returns(false);//Return false to simulate that the button is not down
             //keyboardWatcher.Update(engineTime);
             var actual = Math.Round(keyboardWatcher.InputReleasedElapsedSeconds, 3);
 
@@ -313,7 +313,7 @@ namespace KDScorpionEngineTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IKeyboard>();
-            mockMouse.Setup(m => m.IsKeyPressed((int)KeyCodes.Left)).Returns(true);
+            mockMouse.Setup(m => m.IsKeyPressed(KeyCodes.Left)).Returns(true);
 
             Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
 
@@ -337,7 +337,7 @@ namespace KDScorpionEngineTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IKeyboard>();
-            mockMouse.Setup(m => m.IsKeyPressed((int)KeyCodes.Left)).Returns(true);
+            mockMouse.Setup(m => m.IsKeyPressed(KeyCodes.Left)).Returns(true);
 
             Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
 
@@ -362,7 +362,7 @@ namespace KDScorpionEngineTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IKeyboard>();
-            mockMouse.Setup(m => m.IsKeyDown((int)KeyCodes.Left)).Returns(true);
+            mockMouse.Setup(m => m.IsKeyDown(KeyCodes.Left)).Returns(true);
 
             Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
 
@@ -377,7 +377,7 @@ namespace KDScorpionEngineTests.Input
 
             //Act/Assert
             keyboardWatcher.Update(engineTime);//Run once to get the internal states.
-            mockMouse.Setup(m => m.IsKeyDown((int)KeyCodes.Left)).Returns(false);//Return false to simulate that the button is not down
+            mockMouse.Setup(m => m.IsKeyDown(KeyCodes.Left)).Returns(false);//Return false to simulate that the button is not down
             keyboardWatcher.Update(engineTime);//Run update again to set the current and previous states different
             keyboardWatcher.Update(engineTime);
             var actualDownTimerElapsed = keyboardWatcher.InputDownElapsedMS;
@@ -394,9 +394,9 @@ namespace KDScorpionEngineTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IKeyboard>();
-            mockMouse.Setup(m => m.IsKeyDown((int)KeyCodes.Left)).Returns(true);
-            mockMouse.Setup(m => m.IsKeyUp((int)KeyCodes.Left)).Returns(true);
-            mockMouse.Setup(m => m.IsKeyPressed((int)KeyCodes.Left)).Returns(true);
+            mockMouse.Setup(m => m.IsKeyDown(KeyCodes.Left)).Returns(true);
+            mockMouse.Setup(m => m.IsKeyUp(KeyCodes.Left)).Returns(true);
+            mockMouse.Setup(m => m.IsKeyPressed(KeyCodes.Left)).Returns(true);
 
             Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
 
@@ -444,7 +444,7 @@ namespace KDScorpionEngineTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IKeyboard>();
-            mockMouse.Setup(m => m.IsKeyPressed((int)KeyCodes.Left)).Returns(true);
+            mockMouse.Setup(m => m.IsKeyPressed(KeyCodes.Left)).Returns(true);
             Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
 
             var expected = true;
@@ -473,7 +473,7 @@ namespace KDScorpionEngineTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IKeyboard>();
-            mockMouse.Setup(m => m.IsKeyDown((int)KeyCodes.Left)).Returns(true);
+            mockMouse.Setup(m => m.IsKeyDown(KeyCodes.Left)).Returns(true);
             Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
 
             var expected = true;
@@ -501,7 +501,7 @@ namespace KDScorpionEngineTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IKeyboard>();
-            mockMouse.Setup(m => m.IsKeyDown((int)KeyCodes.Left)).Returns(true);
+            mockMouse.Setup(m => m.IsKeyDown(KeyCodes.Left)).Returns(true);
             Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
 
             var keyboardWatcher = new KeyboardWatcher(true)
@@ -525,7 +525,7 @@ namespace KDScorpionEngineTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IKeyboard>();
-            mockMouse.Setup(m => m.IsKeyUp((int)KeyCodes.Right)).Returns(true);
+            mockMouse.Setup(m => m.IsKeyUp(KeyCodes.Right)).Returns(true);
             Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
 
             var expected = true;
@@ -552,7 +552,7 @@ namespace KDScorpionEngineTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IKeyboard>();
-            mockMouse.Setup(m => m.IsKeyUp((int)KeyCodes.Right)).Returns(true);
+            mockMouse.Setup(m => m.IsKeyUp(KeyCodes.Right)).Returns(true);
             Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
 
             var keyboardWatcher = new KeyboardWatcher(true)
@@ -576,8 +576,8 @@ namespace KDScorpionEngineTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IKeyboard>();
-            mockMouse.Setup(m => m.IsKeyDown((int)KeyCodes.Left)).Returns(true);
-            mockMouse.Setup(m => m.IsKeyDown((int)KeyCodes.Right)).Returns(true);
+            mockMouse.Setup(m => m.IsKeyDown(KeyCodes.Left)).Returns(true);
+            mockMouse.Setup(m => m.IsKeyDown(KeyCodes.Right)).Returns(true);
 
             Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
             var keyboardWatcher = new KeyboardWatcher(true)
@@ -606,8 +606,8 @@ namespace KDScorpionEngineTests.Input
         {
             //Arrange
             var mockKeyboard = new Mock<IKeyboard>();
-            mockKeyboard.Setup(m => m.IsKeyDown((int)KeyCodes.Left)).Returns(true);
-            mockKeyboard.Setup(m => m.IsKeyDown((int)KeyCodes.Right)).Returns(true);
+            mockKeyboard.Setup(m => m.IsKeyDown(KeyCodes.Left)).Returns(true);
+            mockKeyboard.Setup(m => m.IsKeyDown(KeyCodes.Right)).Returns(true);
 
             var mockPluginLib = new Mock<IPluginLibrary>();
             mockPluginLib.Setup(m => m.LoadPlugin<IKeyboard>()).Returns(() =>

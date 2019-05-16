@@ -1,4 +1,4 @@
-using KDScorpionCore;
+﻿using KDScorpionCore;
 using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Utils;
@@ -132,11 +132,11 @@ namespace KDScorpionEngine.Input
             _keyReleasedTimer.Update(engineTime);
 
             //Get the current state of the key
-            _curState = _keyboard.IsKeyDown((int)Key);
+            _curState = _keyboard.IsKeyDown(Key);
 
 
             #region Hit Count Code
-            if (_keyboard.IsKeyPressed((int)Key))
+            if (_keyboard.IsKeyPressed(Key))
             {
                 //If the max is reached, invoke the OnButtonHitCountReached event and reset it back to 0
                 if (_counter != null && _counter.Value == HitCountMax)
@@ -157,7 +157,7 @@ namespace KDScorpionEngine.Input
 
             #region Timing Code
             //As long as the button is down, continue to keep the button release timer reset to 0
-            if (_keyboard.IsKeyDown((int)Key))
+            if (_keyboard.IsKeyDown(Key))
                 _keyReleasedTimer.Reset();
 
             //If the button is not pressed down and the button was pressed down last frame,
@@ -180,7 +180,7 @@ namespace KDScorpionEngine.Input
                 //Set the state of all of the pressed keys
                 foreach (var key in keys)
                 {
-                    _currentPressedKeys[key] = _keyboard.IsKeyDown((int)key);
+                    _currentPressedKeys[key] = _keyboard.IsKeyDown(key);
                 }
 
                 //If all of the keys are pressed down
@@ -199,7 +199,7 @@ namespace KDScorpionEngine.Input
         #region Private Event Methods
         private void _keyUpTimer_OnTimeElapsed(object sender, EventArgs e)
         {
-            if (_keyboard.IsKeyUp((int)Key))
+            if (_keyboard.IsKeyUp(Key))
             {
                 //If the reset mode is set to auto, reset the time elapsed
                 if (DownElapsedResetMode == ResetType.Auto)
@@ -212,7 +212,7 @@ namespace KDScorpionEngine.Input
 
         private void _keyDownTimer_OnTimeElapsed(object sender, EventArgs e)
         {
-            if (_keyboard.IsKeyDown((int)Key))
+            if (_keyboard.IsKeyDown(Key))
             {
                 //If the reset mode is set to auto, reset the time elapsed
                 if (ReleasedElapsedResetMode == ResetType.Auto)

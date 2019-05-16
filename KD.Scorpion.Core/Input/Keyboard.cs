@@ -170,7 +170,7 @@ namespace KDScorpionCore.Input
         /// <returns></returns>
         public bool IsKeyUp(KeyCodes key)
         {
-            return InternalKeyboard.IsKeyUp((int)key);
+            return InternalKeyboard.IsKeyUp(key);
         }
 
 
@@ -181,7 +181,7 @@ namespace KDScorpionCore.Input
         /// <returns></returns>
         public bool IsKeyPressed(KeyCodes key)
         {
-            return InternalKeyboard.IsKeyPressed((int)key);
+            return InternalKeyboard.IsKeyPressed(key);
         }
 
 
@@ -194,7 +194,7 @@ namespace KDScorpionCore.Input
         {
             for (int i = 0; i < _lettersKeys.Length; i++)
             {
-                if (InternalKeyboard.IsKeyPressed((int)_lettersKeys[i]))
+                if (InternalKeyboard.IsKeyPressed(_lettersKeys[i]))
                 {
                     letterKey = _lettersKeys[i];
                     return true;
@@ -223,7 +223,7 @@ namespace KDScorpionCore.Input
 
             for (int i = 0; i < _numbersKeys.Length; i++)
             {
-                if (InternalKeyboard.IsKeyPressed((int)_numbersKeys[i]))
+                if (InternalKeyboard.IsKeyPressed(_numbersKeys[i]))
                 {
                     numberKey = _numbersKeys[i];
 
@@ -249,7 +249,7 @@ namespace KDScorpionCore.Input
             {
                 for (int i = 0; i < _numbersKeys.Length; i++)
                 {
-                    if (InternalKeyboard.IsKeyPressed((int)_numbersKeys[i]))
+                    if (InternalKeyboard.IsKeyPressed(_numbersKeys[i]))
                     {
                         symbolKey = _numbersKeys[i];
                         return true;
@@ -260,7 +260,7 @@ namespace KDScorpionCore.Input
             {
                 for (int i = 0; i < _symbolKeys.Length; i++)
                 {
-                    if (InternalKeyboard.IsKeyPressed((int)_symbolKeys[i]))
+                    if (InternalKeyboard.IsKeyPressed(_symbolKeys[i]))
                     {
                         symbolKey = _symbolKeys[i];
                         return true;

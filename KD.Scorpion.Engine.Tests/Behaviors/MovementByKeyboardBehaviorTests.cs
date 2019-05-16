@@ -190,7 +190,7 @@ namespace KDScorpionEngineTests.Behaviors
         private void SetupKeyboard(KeyCodes key)
         {
             var mockCoreKeyboard = new Mock<IKeyboard>();
-            mockCoreKeyboard.Setup(m => m.IsKeyDown((int)key)).Returns(true);
+            mockCoreKeyboard.Setup(m => m.IsKeyDown(key)).Returns(true);
             var mockEnginePluginLibrary = new Mock<IPluginLibrary>();
             mockEnginePluginLibrary.Setup(m => m.LoadPlugin<IKeyboard>()).Returns(mockCoreKeyboard.Object);
 

@@ -1,7 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
+using MonoGameKeyboard = Microsoft.Xna.Framework.Input.Keyboard;
 using KDScorpionCore.Plugins;
+using KDScorpionCore.Input;
+using System.Linq;
 
 namespace MonoScorpPlugin
 {
@@ -26,7 +29,7 @@ namespace MonoScorpPlugin
         #region Fields
         private KeyboardState _currentState;//The current state of the keyboard to compare to the previous state
         private KeyboardState _previousState;//The previous state of the keyboard to compare to the current state
-        private int[] _letters;//The array of key codes for all the letters on the keyboard
+        private KeyCodes[] _letters;//The array of key codes for all the letters on the keyboard
         private static readonly Keys[] _numpadNumberKeys = new Keys[]
         {
             Keys.NumPad0, Keys.NumPad1, Keys.NumPad2,
@@ -40,11 +43,11 @@ namespace MonoScorpPlugin
         #region Constructors
         public MonoKeyboard()
         {
-            var letters = new List<int>();
+            var letters = new List<KeyCodes>();
             
             for (int i = 65; i <= 90; i++)
             {
-                letters.Add(i);
+                letters.Add((KeyCodes)i);
             }
 
             _letters = letters.ToArray();
@@ -72,7 +75,7 @@ namespace MonoScorpPlugin
         public void UpdateCurrentState()
         {
             //Get the state of the keyboard and save it as the current state
-            _currentState = Keyboard.GetState();
+            _currentState = MonoGameKeyboard.GetState();
 
             //If any key has been pressed, invoke the OnKeyDown event
             if (_currentState.GetPressedKeys().Length > 0)
@@ -138,7 +141,7 @@ namespace MonoScorpPlugin
         /// </summary>
         /// <param name="keys">The list of key codes to check.</param>
         /// <returns></returns>
-        public bool IsAnyKeyDown(int[] keys)
+        public bool IsAnyKeyDown(KeyCodes[] keys)
         {
             foreach (var key in keys)
             {
@@ -156,7 +159,7 @@ namespace MonoScorpPlugin
         /// </summary>
         /// <param name="key">The key to check for.</param>
         /// <returns></returns>
-        public bool IsKeyDown(int key) => _currentState.IsKeyDown((Keys)key);
+        public bool IsKeyDown(KeyCodes key) => _currentState.IsKeyDown((Keys)key);
 
 
         /// <summary>
@@ -164,7 +167,7 @@ namespace MonoScorpPlugin
         /// </summary>
         /// <param name="key">The key to check for.</param>
         /// <returns></returns>
-        public bool IsKeyUp(int key) => _currentState.IsKeyUp((Keys)key);
+        public bool IsKeyUp(KeyCodes key) => _currentState.IsKeyUp((Keys)key);
 
 
         /// <summary>
@@ -172,7 +175,7 @@ namespace MonoScorpPlugin
         /// </summary>
         /// <param name="key">The key to check for.</param>
         /// <returns></returns>
-        public bool IsKeyPressed(int key)
+        public bool IsKeyPressed(KeyCodes key)
         {
             return _currentState.IsKeyUp((Keys)key) && _previousState.IsKeyDown((Keys)key);
         }
@@ -182,9 +185,9 @@ namespace MonoScorpPlugin
         /// Gets the list of currently pressed keys.
         /// </summary>
         /// <returns></returns>
-        public int[] GetCurrentPressedKeys()
+        public KeyCodes[] GetCurrentPressedKeys()
         {
-            return Tools.ToInputKeyCodes(_currentState.GetPressedKeys());
+            return (from k in _currentState.GetPressedKeys() select (KeyCodes)k).ToArray();
         }
 
 
@@ -192,9 +195,9 @@ namespace MonoScorpPlugin
         /// Gets the list of previously pressed keys.
         /// </summary>
         /// <returns></returns>
-        public int[] GetPreviousPressedKeys()
+        public KeyCodes[] GetPreviousPressedKeys()
         {
-            return Tools.ToInputKeyCodes(_previousState.GetPressedKeys());
+            return (from k in _previousState.GetPressedKeys() select (KeyCodes)k).ToArray();
         }
 
 

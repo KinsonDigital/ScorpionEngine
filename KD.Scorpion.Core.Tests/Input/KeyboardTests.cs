@@ -29,8 +29,8 @@ namespace KDScorpionCoreTests.Input
         {
             //Arrange
             var mockKeyboard = new Mock<IKeyboard>();
-            var pressedKeys = (from k in new KeyCodes[] { KeyCodes.Left, KeyCodes.Z }
-                               select (int)k).ToArray();
+            var pressedKeys = new KeyCodes[] { KeyCodes.Left, KeyCodes.Z };
+
             mockKeyboard.Setup(m => m.GetCurrentPressedKeys()).Returns(pressedKeys);
 
             var keyboard = new Keyboard(mockKeyboard.Object);
@@ -50,8 +50,7 @@ namespace KDScorpionCoreTests.Input
         {
             //Arrange
             var mockKeyboard = new Mock<IKeyboard>();
-            var pressedKeys = (from k in new KeyCodes[] { KeyCodes.Down, KeyCodes.U }
-                               select (int)k).ToArray();
+            var pressedKeys = new KeyCodes[] { KeyCodes.Down, KeyCodes.U };
             mockKeyboard.Setup(m => m.GetPreviousPressedKeys()).Returns(pressedKeys);
 
             var keyboard = new Keyboard(mockKeyboard.Object);
@@ -71,14 +70,14 @@ namespace KDScorpionCoreTests.Input
         {
             //Arrange
             var mockKeyboard = new Mock<IKeyboard>();
-            mockKeyboard.Setup(m => m.IsKeyDown(It.IsAny<int>())).Returns(true);
+            mockKeyboard.Setup(m => m.IsKeyDown(It.IsAny<KeyCodes>())).Returns(true);
             var keyboard = new Keyboard(mockKeyboard.Object);
 
             //Act
             var actual = keyboard.IsKeyDown(KeyCodes.A);
 
             //Assert
-            mockKeyboard.Verify(m => m.IsKeyDown(It.IsAny<int>()), Times.Once());
+            mockKeyboard.Verify(m => m.IsKeyDown(It.IsAny<KeyCodes>()), Times.Once());
         }
 
 
@@ -87,14 +86,14 @@ namespace KDScorpionCoreTests.Input
         {
             //Arrange
             var mockKeyboard = new Mock<IKeyboard>();
-            mockKeyboard.Setup(m => m.IsKeyUp(It.IsAny<int>())).Returns(true);
+            mockKeyboard.Setup(m => m.IsKeyUp(It.IsAny<KeyCodes>())).Returns(true);
             var keyboard = new Keyboard(mockKeyboard.Object);
 
             //Act
             var actual = keyboard.IsKeyUp(KeyCodes.A);
 
             //Assert
-            mockKeyboard.Verify(m => m.IsKeyUp(It.IsAny<int>()), Times.Once());
+            mockKeyboard.Verify(m => m.IsKeyUp(It.IsAny<KeyCodes>()), Times.Once());
         }
 
 
@@ -103,14 +102,14 @@ namespace KDScorpionCoreTests.Input
         {
             //Arrange
             var mockKeyboard = new Mock<IKeyboard>();
-            mockKeyboard.Setup(m => m.IsKeyPressed(It.IsAny<int>())).Returns(true);
+            mockKeyboard.Setup(m => m.IsKeyPressed(It.IsAny<KeyCodes>())).Returns(true);
             var keyboard = new Keyboard(mockKeyboard.Object);
 
             //Act
             var actual = keyboard.IsKeyPressed(KeyCodes.A);
 
             //Assert
-            mockKeyboard.Verify(m => m.IsKeyPressed(It.IsAny<int>()), Times.Once());
+            mockKeyboard.Verify(m => m.IsKeyPressed(It.IsAny<KeyCodes>()), Times.Once());
         }
 
 

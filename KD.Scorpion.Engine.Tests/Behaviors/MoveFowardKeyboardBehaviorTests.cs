@@ -92,7 +92,7 @@ namespace KDScorpionEngineTests.Behaviors
             //Arrange
             TearDown();
             var mockKeyboard = new Mock<IKeyboard>();
-            mockKeyboard.Setup(m => m.IsKeyDown((int)KeyCodes.Right)).Returns(true);
+            mockKeyboard.Setup(m => m.IsKeyDown(KeyCodes.Right)).Returns(true);
 
             var entityXVertices = new[] { 10f, 20f, 30f };
             var entityYVertices = new[] { 10f, 20f, 30f };
@@ -149,9 +149,9 @@ namespace KDScorpionEngineTests.Behaviors
         public void Setup()
         {
             var mockKeyboard = new Mock<IKeyboard>();
-            mockKeyboard.Setup(m => m.IsKeyDown((int)KeyCodes.Up)).Returns(true);
-            mockKeyboard.Setup(m => m.IsKeyDown((int)KeyCodes.Left)).Returns(true);
-            mockKeyboard.Setup(m => m.IsKeyDown((int)KeyCodes.Right)).Returns(true);
+            mockKeyboard.Setup(m => m.IsKeyDown(KeyCodes.Up)).Returns(true);
+            mockKeyboard.Setup(m => m.IsKeyDown(KeyCodes.Left)).Returns(true);
+            mockKeyboard.Setup(m => m.IsKeyDown(KeyCodes.Right)).Returns(true);
 
             var entityXVertices = new[] { 10f, 20f, 30f };
             var entityYVertices = new[] { 10f, 20f, 30f };

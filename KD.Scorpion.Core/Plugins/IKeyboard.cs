@@ -1,4 +1,6 @@
-﻿namespace KDScorpionCore.Plugins
+﻿using KDScorpionCore.Input;
+
+namespace KDScorpionCore.Plugins
 {
     public interface IKeyboard : IPlugin
     {
@@ -36,17 +38,10 @@
 
 
         /// <summary>
-        /// Returns true if any keys have been pressed.  This means a key was first put into the down position, then released to the up position.
-        /// </summary>
-        /// <returns></returns>
-        bool AreAnyKeysPressed();
-
-
-        /// <summary>
         /// Returns a value indicating if any of the numpad number keys were pressed.
         /// </summary>
         /// <returns></returns>
-        bool AnyNumpadNumbersKeysDown();
+        bool AnyNumpadNumberKeysDown();
 
 
         /// <summary>
@@ -54,7 +49,7 @@
         /// </summary>
         /// <param name="keys">The list of key codes to check.</param>
         /// <returns></returns>
-        bool IsAnyKeyDown(int[] keys);
+        bool IsAnyKeyDown(KeyCodes[] keys);
 
 
         /// <summary>
@@ -62,7 +57,7 @@
         /// </summary>
         /// <param name="key">The key to check for.</param>
         /// <returns></returns>
-        bool IsKeyDown(int key);
+        bool IsKeyDown(KeyCodes key);
 
 
         /// <summary>
@@ -70,7 +65,7 @@
         /// </summary>
         /// <param name="key">The key to check for.</param>
         /// <returns></returns>
-        bool IsKeyUp(int key);
+        bool IsKeyUp(KeyCodes key);
 
 
         /// <summary>
@@ -78,21 +73,21 @@
         /// </summary>
         /// <param name="key">The key to check for.</param>
         /// <returns></returns>
-        bool IsKeyPressed(int key);
+        bool IsKeyPressed(KeyCodes key);
 
 
         /// <summary>
         /// Returns all of the currently pressed keys on the keyboard.
         /// </summary>
         /// <returns></returns>
-        int[] GetCurrentPressedKeys();
+        KeyCodes[] GetCurrentPressedKeys();
 
 
         /// <summary>
         /// Returns all of the previously pressed keys from the last frame.
         /// </summary>
         /// <returns></returns>
-        int[] GetPreviousPressedKeys();
+        KeyCodes[] GetPreviousPressedKeys();
 
 
         /// <summary>
