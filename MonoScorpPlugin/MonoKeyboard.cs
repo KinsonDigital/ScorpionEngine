@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 using KDScorpionCore.Plugins;
@@ -114,7 +114,7 @@ namespace MonoScorpPlugin
         /// Returns a value indicating if any of the numpad number keys are down.
         /// </summary>
         /// <returns></returns>
-        public bool AnyNumpadNumbersKeysDown()
+        public bool AnyNumpadNumberKeysDown()
         {
             foreach (var key in _numpadNumberKeys)
             {

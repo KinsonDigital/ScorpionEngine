@@ -17,7 +17,7 @@ namespace KDScorpionEngineTests.Behaviors
         public void Ctor_WhenInvoking_CreatesMoveRightBehavior()
         {
             //Arrange
-            SetupKeyboard(InputKeys.Right);
+            SetupKeyboard(KeyCodes.Right);
             var entity = new DynamicEntity(new Vector[0], Vector.Zero);
             entity.Initialize();
             var behavior = new MovementByKeyboardBehavior<DynamicEntity>(entity, 10f);
@@ -36,7 +36,7 @@ namespace KDScorpionEngineTests.Behaviors
         public void Ctor_WhenInvoking_CreatesMoveLeftBehavior()
         {
             //Arrange
-            SetupKeyboard(InputKeys.Left);
+            SetupKeyboard(KeyCodes.Left);
             var entity = new DynamicEntity(new Vector[0], Vector.Zero);
             entity.Initialize();
             var behavior = new MovementByKeyboardBehavior<DynamicEntity>(entity, 10f);
@@ -55,7 +55,7 @@ namespace KDScorpionEngineTests.Behaviors
         public void Ctor_WhenInvoking_CreatesMoveUpBehavior()
         {
             //Arrange
-            SetupKeyboard(InputKeys.Up);
+            SetupKeyboard(KeyCodes.Up);
             var entity = new DynamicEntity(new Vector[0], Vector.Zero);
             entity.Initialize();
             var behavior = new MovementByKeyboardBehavior<DynamicEntity>(entity, 10f);
@@ -74,7 +74,7 @@ namespace KDScorpionEngineTests.Behaviors
         public void Ctor_WhenInvoking_CreatesMoveDownBehavior()
         {
             //Arrange
-            SetupKeyboard(InputKeys.Down);
+            SetupKeyboard(KeyCodes.Down);
             var entity = new DynamicEntity(new Vector[0], Vector.Zero);
             entity.Initialize();
             var behavior = new MovementByKeyboardBehavior<DynamicEntity>(entity, 10f);
@@ -95,13 +95,13 @@ namespace KDScorpionEngineTests.Behaviors
         public void MoveUpKey_WhenGettingAndSettingValue_CorrectlySetsValue()
         {
             //Arrange
-            SetupKeyboard(It.IsAny<InputKeys>());
+            SetupKeyboard(It.IsAny<KeyCodes>());
             var mockEntity = new Mock<DynamicEntity>();
             var behavior = new MovementByKeyboardBehavior<DynamicEntity>(mockEntity.Object, 1);
-            var expected = InputKeys.W;
+            var expected = KeyCodes.W;
 
             //Act
-            behavior.MoveUpKey = InputKeys.W;
+            behavior.MoveUpKey = KeyCodes.W;
             var actual = behavior.MoveUpKey;
 
             //Assert
@@ -113,13 +113,13 @@ namespace KDScorpionEngineTests.Behaviors
         public void MoveDownKey_WhenGettingAndSettingValue_CorrectlySetsValue()
         {
             //Arrange
-            SetupKeyboard(It.IsAny<InputKeys>());
+            SetupKeyboard(It.IsAny<KeyCodes>());
             var mockEntity = new Mock<DynamicEntity>();
             var behavior = new MovementByKeyboardBehavior<DynamicEntity>(mockEntity.Object, 1);
-            var expected = InputKeys.S;
+            var expected = KeyCodes.S;
 
             //Act
-            behavior.MoveDownKey = InputKeys.S;
+            behavior.MoveDownKey = KeyCodes.S;
             var actual = behavior.MoveDownKey;
 
             //Assert
@@ -131,13 +131,13 @@ namespace KDScorpionEngineTests.Behaviors
         public void MoveLeftKey_WhenGettingAndSettingValue_CorrectlySetsValue()
         {
             //Arrange
-            SetupKeyboard(It.IsAny<InputKeys>());
+            SetupKeyboard(It.IsAny<KeyCodes>());
             var mockEntity = new Mock<DynamicEntity>();
             var behavior = new MovementByKeyboardBehavior<DynamicEntity>(mockEntity.Object, 1);
-            var expected = InputKeys.S;
+            var expected = KeyCodes.S;
 
             //Act
-            behavior.MoveLeftKey = InputKeys.S;
+            behavior.MoveLeftKey = KeyCodes.S;
             var actual = behavior.MoveLeftKey;
 
             //Assert
@@ -149,13 +149,13 @@ namespace KDScorpionEngineTests.Behaviors
         public void MoveRightKey_WhenGettingAndSettingValue_CorrectlySetsValue()
         {
             //Arrange
-            SetupKeyboard(It.IsAny<InputKeys>());
+            SetupKeyboard(It.IsAny<KeyCodes>());
             var mockEntity = new Mock<DynamicEntity>();
             var behavior = new MovementByKeyboardBehavior<DynamicEntity>(mockEntity.Object, 1);
-            var expected = InputKeys.S;
+            var expected = KeyCodes.S;
 
             //Act
-            behavior.MoveRightKey = InputKeys.S;
+            behavior.MoveRightKey = KeyCodes.S;
             var actual = behavior.MoveRightKey;
 
             //Assert
@@ -187,7 +187,7 @@ namespace KDScorpionEngineTests.Behaviors
 
 
         #region Private Methods
-        private void SetupKeyboard(InputKeys key)
+        private void SetupKeyboard(KeyCodes key)
         {
             var mockCoreKeyboard = new Mock<IKeyboard>();
             mockCoreKeyboard.Setup(m => m.IsKeyDown((int)key)).Returns(true);

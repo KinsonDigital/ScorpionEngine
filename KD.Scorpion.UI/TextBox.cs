@@ -161,7 +161,7 @@ namespace KDScorpionUI
         {
             _keyboard.UpdateCurrentState();
 
-            if (_keyboard.IsKeyPressed(InputKeys.Right))
+            if (_keyboard.IsKeyPressed(KeyCodes.Right))
             {
                 _lastDirectionOfTravel = 1;
 
@@ -179,7 +179,7 @@ namespace KDScorpionUI
                 return;
             }
 
-            if (_keyboard.IsKeyPressed(InputKeys.Left))
+            if (_keyboard.IsKeyPressed(KeyCodes.Left))
             {
                 _lastDirectionOfTravel = -1;
 
@@ -197,7 +197,7 @@ namespace KDScorpionUI
                 return;
             }
 
-            var isShiftDown = _keyboard.IsKeyDown(InputKeys.LeftShift) || _keyboard.IsKeyDown(InputKeys.RightShift);
+            var isShiftDown = _keyboard.IsKeyDown(KeyCodes.LeftShift) || _keyboard.IsKeyDown(KeyCodes.RightShift);
 
             if (!string.IsNullOrEmpty(_visibleText.Text))
             {
@@ -207,7 +207,7 @@ namespace KDScorpionUI
                     _visibleText.Text = _visibleText.Text.Remove(_characterPosition, 1);
                 }
 
-                if (_keyboard.IsKeyPressed(InputKeys.Back) && _characterPosition > 0)
+                if (_keyboard.IsKeyPressed(KeyCodes.Back) && _characterPosition > 0)
                 {
                     RemoveCharacterUsingBackspace();
                     //_visibleText.Text = _visibleText.Text.Remove(_characterPosition, 1);
@@ -215,11 +215,11 @@ namespace KDScorpionUI
             }
 
             //If a letter is pressed, add it to the textbox
-            if (_keyboard.IsLetterPressed(out InputKeys letter))
+            if (_keyboard.IsLetterPressed(out KeyCodes letter))
             {
                 var letterText = "";
 
-                if (letter == InputKeys.Space)
+                if (letter == KeyCodes.Space)
                 {
                     letterText = " ";
                 }
@@ -235,7 +235,7 @@ namespace KDScorpionUI
             }
 
             //If a number was pressed on the keyboard
-            if (_keyboard.IsNumberPressed(out InputKeys number))
+            if (_keyboard.IsNumberPressed(out KeyCodes number))
             {
                 var character = _keyboard.KeyToChar(number).ToString();
 
@@ -245,7 +245,7 @@ namespace KDScorpionUI
             }
 
             //If a symbol was press on the keyboard
-            if (_keyboard.IsSymbolPressed(out InputKeys symbol))
+            if (_keyboard.IsSymbolPressed(out KeyCodes symbol))
             {
                 var character = _keyboard.KeyToChar(symbol).ToString();
                 

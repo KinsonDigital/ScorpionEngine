@@ -11,14 +11,14 @@ namespace KDScorpionCoreTests.Input
         public void Ctor_WhenInvoking_SetsKeysProp()
         {
             //Arrange
-            var expected = new InputKeys[]
+            var expected = new KeyCodes[]
             {
-                InputKeys.Left,
-                InputKeys.Right
+                KeyCodes.Left,
+                KeyCodes.Right
             };
 
             //Act
-            var eventArgs = new KeyEventArgs(new InputKeys[] { InputKeys.Left, InputKeys.Right });
+            var eventArgs = new KeyEventArgs(new KeyCodes[] { KeyCodes.Left, KeyCodes.Right });
             var actual = eventArgs.Keys;
 
             //Assert
@@ -32,16 +32,16 @@ namespace KDScorpionCoreTests.Input
         public void Keys_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var expected = new InputKeys[]
+            var expected = new KeyCodes[]
             {
-                InputKeys.Up,
-                InputKeys.Down
+                KeyCodes.Up,
+                KeyCodes.Down
             };
 
             //Act
-            var eventArgs = new KeyEventArgs(new InputKeys[] { InputKeys.Left, InputKeys.Right })
+            var eventArgs = new KeyEventArgs(new KeyCodes[] { KeyCodes.Left, KeyCodes.Right })
             {
-                Keys = new InputKeys[] { InputKeys.Up, InputKeys.Down }
+                Keys = new KeyCodes[] { KeyCodes.Up, KeyCodes.Down }
             };
             var actual = eventArgs.Keys;
 

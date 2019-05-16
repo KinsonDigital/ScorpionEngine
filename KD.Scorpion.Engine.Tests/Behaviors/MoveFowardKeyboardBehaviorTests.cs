@@ -20,10 +20,10 @@ namespace KDScorpionEngineTests.Behaviors
             //Arrange
             var entity = new DynamicEntity();
             var behavior = new MoveFowardKeyboardBehavior<DynamicEntity>(entity, 0, 0);
-            var expected = InputKeys.Space;
+            var expected = KeyCodes.Space;
 
             //Act
-            behavior.MoveFowardKey = InputKeys.Space;
+            behavior.MoveFowardKey = KeyCodes.Space;
             var actual = behavior.MoveFowardKey;
 
             //Assert
@@ -37,10 +37,10 @@ namespace KDScorpionEngineTests.Behaviors
             //Arrange
             var entity = new DynamicEntity();
             var behavior = new MoveFowardKeyboardBehavior<DynamicEntity>(entity, 0, 0);
-            var expected = InputKeys.Space;
+            var expected = KeyCodes.Space;
 
             //Act
-            behavior.RotateCWKey = InputKeys.Space;
+            behavior.RotateCWKey = KeyCodes.Space;
             var actual = behavior.RotateCWKey;
 
             //Assert
@@ -54,10 +54,10 @@ namespace KDScorpionEngineTests.Behaviors
             //Arrange
             var entity = new DynamicEntity();
             var behavior = new MoveFowardKeyboardBehavior<DynamicEntity>(entity, 0, 0);
-            var expected = InputKeys.Space;
+            var expected = KeyCodes.Space;
 
             //Act
-            behavior.RotateCCWKey = InputKeys.Space;
+            behavior.RotateCCWKey = KeyCodes.Space;
             var actual = behavior.RotateCCWKey;
 
             //Assert
@@ -92,7 +92,7 @@ namespace KDScorpionEngineTests.Behaviors
             //Arrange
             TearDown();
             var mockKeyboard = new Mock<IKeyboard>();
-            mockKeyboard.Setup(m => m.IsKeyDown((int)InputKeys.Right)).Returns(true);
+            mockKeyboard.Setup(m => m.IsKeyDown((int)KeyCodes.Right)).Returns(true);
 
             var entityXVertices = new[] { 10f, 20f, 30f };
             var entityYVertices = new[] { 10f, 20f, 30f };
@@ -149,9 +149,9 @@ namespace KDScorpionEngineTests.Behaviors
         public void Setup()
         {
             var mockKeyboard = new Mock<IKeyboard>();
-            mockKeyboard.Setup(m => m.IsKeyDown((int)InputKeys.Up)).Returns(true);
-            mockKeyboard.Setup(m => m.IsKeyDown((int)InputKeys.Left)).Returns(true);
-            mockKeyboard.Setup(m => m.IsKeyDown((int)InputKeys.Right)).Returns(true);
+            mockKeyboard.Setup(m => m.IsKeyDown((int)KeyCodes.Up)).Returns(true);
+            mockKeyboard.Setup(m => m.IsKeyDown((int)KeyCodes.Left)).Returns(true);
+            mockKeyboard.Setup(m => m.IsKeyDown((int)KeyCodes.Right)).Returns(true);
 
             var entityXVertices = new[] { 10f, 20f, 30f };
             var entityYVertices = new[] { 10f, 20f, 30f };

@@ -17,10 +17,10 @@ namespace KDScorpionEngine.Behaviors
         private KeyBehavior _moveDownOnKeyDown;
         private T _gameObject;
         private readonly float _movementSpeed;
-        private InputKeys _moveUpKey = InputKeys.Up;
-        private InputKeys _moveDownKey = InputKeys.Down;
-        private InputKeys _moveLeftKey = InputKeys.Left;
-        private InputKeys _moveRightKey = InputKeys.Right;
+        private KeyCodes _moveUpKey = KeyCodes.Up;
+        private KeyCodes _moveDownKey = KeyCodes.Down;
+        private KeyCodes _moveLeftKey = KeyCodes.Left;
+        private KeyCodes _moveRightKey = KeyCodes.Right;
         #endregion
 
 
@@ -47,7 +47,7 @@ namespace KDScorpionEngine.Behaviors
         /// <summary>
         /// Gets or sets the keyboard key that will move the <see cref="DynamicEntity"/> up.
         /// </summary>
-        public InputKeys MoveUpKey
+        public KeyCodes MoveUpKey
         {
             get
             {
@@ -63,7 +63,7 @@ namespace KDScorpionEngine.Behaviors
         /// <summary>
         /// Gets or sets the keyboard key that will move the <see cref="DynamicEntity"/> down.
         /// </summary>
-        public InputKeys MoveDownKey
+        public KeyCodes MoveDownKey
         {
             get
             {
@@ -79,7 +79,7 @@ namespace KDScorpionEngine.Behaviors
         /// <summary>
         /// Gets or sets the keyboard key that will move the <see cref="DynamicEntity"/> left.
         /// </summary>
-        public InputKeys MoveLeftKey
+        public KeyCodes MoveLeftKey
         {
             get
             {
@@ -95,7 +95,7 @@ namespace KDScorpionEngine.Behaviors
         /// <summary>
         /// Gets or sets the keyboard key that will move the <see cref="DynamicEntity"/> right.
         /// </summary>
-        public InputKeys MoveRightKey
+        public KeyCodes MoveRightKey
         {
             get
             {

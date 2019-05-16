@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents the keys on a keyboard.
     /// </summary>	
-    public enum InputKeys
+    public enum KeyCodes
     {
         /// <summary>
         /// Reserved

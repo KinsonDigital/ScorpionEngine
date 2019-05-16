@@ -11,7 +11,7 @@ namespace KDScorpionCore.Input
         /// <summary>
         /// Gets the keys that was pressed.
         /// </summary>
-        public InputKeys[] Keys { get; set; }
+        public KeyCodes[] Keys { get; set; }
         #endregion
 
 
@@ -20,7 +20,7 @@ namespace KDScorpionCore.Input
         /// Creates a new instance of KeyEventArgs.
         /// </summary>
         /// <param name="keys">The key that has to do with the event.</param>
-        public KeyEventArgs(InputKeys[] keys)
+        public KeyEventArgs(KeyCodes[] keys)
         {
             Keys = keys;
         }

@@ -41,10 +41,10 @@ namespace KDScorpionEngineTests.Scene
         {
             //Arrang
             var manager = new SceneManager(_contentLoader);
-            var expected = InputKeys.Left;
+            var expected = KeyCodes.Left;
 
             //Act
-            manager.NextFrameStackKey = InputKeys.Left;
+            manager.NextFrameStackKey = KeyCodes.Left;
             var actual = manager.NextFrameStackKey;
 
             //Assert
@@ -102,10 +102,10 @@ namespace KDScorpionEngineTests.Scene
         {
             //Arrang
             var manager = new SceneManager(_contentLoader);
-            var expected = InputKeys.Left;
+            var expected = KeyCodes.Left;
 
             //Act
-            manager.PlayCurrentSceneKey = InputKeys.Left;
+            manager.PlayCurrentSceneKey = KeyCodes.Left;
             var actual = manager.PlayCurrentSceneKey;
 
             //Assert
@@ -118,10 +118,10 @@ namespace KDScorpionEngineTests.Scene
         {
             //Arrang
             var manager = new SceneManager(_contentLoader);
-            var expected = InputKeys.Left;
+            var expected = KeyCodes.Left;
 
             //Act
-            manager.PlayCurrentSceneKey = InputKeys.Left;
+            manager.PlayCurrentSceneKey = KeyCodes.Left;
             var actual = manager.PlayCurrentSceneKey;
 
             //Assert
@@ -134,10 +134,10 @@ namespace KDScorpionEngineTests.Scene
         {
             //Arrang
             var manager = new SceneManager(_contentLoader);
-            var expected = InputKeys.Left;
+            var expected = KeyCodes.Left;
 
             //Act
-            manager.NextSceneKey = InputKeys.Left;
+            manager.NextSceneKey = KeyCodes.Left;
             var actual = manager.NextSceneKey;
 
             //Assert
@@ -150,10 +150,10 @@ namespace KDScorpionEngineTests.Scene
         {
             //Arrang
             var manager = new SceneManager(_contentLoader);
-            var expected = InputKeys.Left;
+            var expected = KeyCodes.Left;
 
             //Act
-            manager.PreviousSceneKey = InputKeys.Left;
+            manager.PreviousSceneKey = KeyCodes.Left;
             var actual = manager.PreviousSceneKey;
 
             //Assert
@@ -1679,7 +1679,7 @@ namespace KDScorpionEngineTests.Scene
             {
                 scene
             };
-            manager.PlayCurrentSceneKey = InputKeys.Space;
+            manager.PlayCurrentSceneKey = KeyCodes.Space;
             var expected = false;//Unpaused
 
             //Act
@@ -1708,7 +1708,7 @@ namespace KDScorpionEngineTests.Scene
             {
                 scene
             };
-            manager.PauseCurrentSceneKey = InputKeys.Space;
+            manager.PauseCurrentSceneKey = KeyCodes.Space;
             var expected = true;//Paused
 
             //Act
@@ -1737,7 +1737,7 @@ namespace KDScorpionEngineTests.Scene
                 sceneA,
                 sceneB
             };
-            manager.NextSceneKey = InputKeys.Right;
+            manager.NextSceneKey = KeyCodes.Right;
             manager.SetCurrentSceneID(10);
             var expected = 20;
 
@@ -1767,7 +1767,7 @@ namespace KDScorpionEngineTests.Scene
                 sceneA,
                 sceneB
             };
-            manager.PreviousSceneKey = InputKeys.Left;
+            manager.PreviousSceneKey = KeyCodes.Left;
             var expected = 10;
 
             //Act
@@ -1830,9 +1830,9 @@ namespace KDScorpionEngineTests.Scene
             _mockCoreLoader = new Mock<IContentLoader>().Object;
             _contentLoader = new ContentLoader(_mockCoreLoader);
             var mockCoreKeyboard = new Mock<IKeyboard>();
-            mockCoreKeyboard.Setup(m => m.IsKeyPressed((int)InputKeys.Space)).Returns(true);
-            mockCoreKeyboard.Setup(m => m.IsKeyPressed((int)InputKeys.Right)).Returns(true);
-            mockCoreKeyboard.Setup(m => m.IsKeyPressed((int)InputKeys.Left)).Returns(true);
+            mockCoreKeyboard.Setup(m => m.IsKeyPressed((int)KeyCodes.Space)).Returns(true);
+            mockCoreKeyboard.Setup(m => m.IsKeyPressed((int)KeyCodes.Right)).Returns(true);
+            mockCoreKeyboard.Setup(m => m.IsKeyPressed((int)KeyCodes.Left)).Returns(true);
 
             _mockEnginePluginLib = new Mock<IPluginLibrary>();
             _mockEnginePluginLib.Setup(m => m.LoadPlugin<IKeyboard>()).Returns(mockCoreKeyboard.Object);

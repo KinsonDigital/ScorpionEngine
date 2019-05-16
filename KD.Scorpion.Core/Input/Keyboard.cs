@@ -10,57 +10,57 @@ namespace KDScorpionCore.Input
     public class Keyboard
     {
         #region Fields
-        private readonly InputKeys[] _lettersKeys = new[]
+        private readonly KeyCodes[] _lettersKeys = new[]
         {
-            InputKeys.A, InputKeys.B, InputKeys.C, InputKeys.D, InputKeys.E,
-            InputKeys.F, InputKeys.G, InputKeys.H, InputKeys.I, InputKeys.J,
-            InputKeys.K,InputKeys.L, InputKeys.M, InputKeys.N, InputKeys.O,
-            InputKeys.P, InputKeys.Q, InputKeys.R, InputKeys.S, InputKeys.T,
-            InputKeys.U, InputKeys.V, InputKeys.W, InputKeys.X, InputKeys.Y,
-            InputKeys.Z, InputKeys.Space
+            KeyCodes.A, KeyCodes.B, KeyCodes.C, KeyCodes.D, KeyCodes.E,
+            KeyCodes.F, KeyCodes.G, KeyCodes.H, KeyCodes.I, KeyCodes.J,
+            KeyCodes.K,KeyCodes.L, KeyCodes.M, KeyCodes.N, KeyCodes.O,
+            KeyCodes.P, KeyCodes.Q, KeyCodes.R, KeyCodes.S, KeyCodes.T,
+            KeyCodes.U, KeyCodes.V, KeyCodes.W, KeyCodes.X, KeyCodes.Y,
+            KeyCodes.Z, KeyCodes.Space
         };
 
-        private static readonly InputKeys[] _numbersKeys = new[]
+        private static readonly KeyCodes[] _numbersKeys = new[]
         {
-            InputKeys.D0, InputKeys.D1, InputKeys.D2,
-            InputKeys.D3, InputKeys.D4, InputKeys.D5,
-            InputKeys.D6, InputKeys.D7, InputKeys.D8,
-            InputKeys.D9, InputKeys.NumPad0, InputKeys.NumPad0,
-            InputKeys.NumPad0, InputKeys.NumPad1, InputKeys.NumPad2,
-            InputKeys.NumPad3, InputKeys.NumPad4, InputKeys.NumPad5,
-            InputKeys.NumPad6, InputKeys.NumPad7, InputKeys.NumPad8,
-            InputKeys.NumPad9,
+            KeyCodes.D0, KeyCodes.D1, KeyCodes.D2,
+            KeyCodes.D3, KeyCodes.D4, KeyCodes.D5,
+            KeyCodes.D6, KeyCodes.D7, KeyCodes.D8,
+            KeyCodes.D9, KeyCodes.NumPad0, KeyCodes.NumPad0,
+            KeyCodes.NumPad0, KeyCodes.NumPad1, KeyCodes.NumPad2,
+            KeyCodes.NumPad3, KeyCodes.NumPad4, KeyCodes.NumPad5,
+            KeyCodes.NumPad6, KeyCodes.NumPad7, KeyCodes.NumPad8,
+            KeyCodes.NumPad9,
         };
 
-        private static InputKeys[] _symbolKeys = new[]
+        private static KeyCodes[] _symbolKeys = new[]
         {
-            InputKeys.OemSemicolon, InputKeys.OemPlus, InputKeys.OemComma,
-            InputKeys.OemMinus, InputKeys.OemPeriod, InputKeys.OemQuestion,
-            InputKeys.OemTilde, InputKeys.OemOpenBrackets, InputKeys.OemPipe,
-            InputKeys.OemCloseBrackets, InputKeys.OemQuotes, InputKeys.Decimal,
-            InputKeys.Divide, InputKeys.Multiply, InputKeys.Subtract, InputKeys.Add
+            KeyCodes.OemSemicolon, KeyCodes.OemPlus, KeyCodes.OemComma,
+            KeyCodes.OemMinus, KeyCodes.OemPeriod, KeyCodes.OemQuestion,
+            KeyCodes.OemTilde, KeyCodes.OemOpenBrackets, KeyCodes.OemPipe,
+            KeyCodes.OemCloseBrackets, KeyCodes.OemQuotes, KeyCodes.Decimal,
+            KeyCodes.Divide, KeyCodes.Multiply, KeyCodes.Subtract, KeyCodes.Add
         };
 
-        private static Dictionary<InputKeys, string> _noShiftModifierSymbolTextItems = new Dictionary<InputKeys, string>()
+        private static Dictionary<KeyCodes, string> _noShiftModifierSymbolTextItems = new Dictionary<KeyCodes, string>()
         {
-            { InputKeys.OemPlus, "=" }, { InputKeys.OemComma, "," }, { InputKeys.OemMinus, "-" },
-            { InputKeys.OemPeriod, "." }, { InputKeys.OemQuestion, "/" }, { InputKeys.OemTilde, "`" },
-            { InputKeys.OemPipe, "\\" }, { InputKeys.OemOpenBrackets, "[" }, { InputKeys.OemCloseBrackets, "]" },
-            { InputKeys.OemQuotes, "'" }, { InputKeys.OemSemicolon, ";" }, { InputKeys.Decimal, "." },
-            { InputKeys.Divide, "/" }, { InputKeys.Multiply, "*" }, { InputKeys.Subtract, "-" },
-            { InputKeys.Add, "+" }
+            { KeyCodes.OemPlus, "=" }, { KeyCodes.OemComma, "," }, { KeyCodes.OemMinus, "-" },
+            { KeyCodes.OemPeriod, "." }, { KeyCodes.OemQuestion, "/" }, { KeyCodes.OemTilde, "`" },
+            { KeyCodes.OemPipe, "\\" }, { KeyCodes.OemOpenBrackets, "[" }, { KeyCodes.OemCloseBrackets, "]" },
+            { KeyCodes.OemQuotes, "'" }, { KeyCodes.OemSemicolon, ";" }, { KeyCodes.Decimal, "." },
+            { KeyCodes.Divide, "/" }, { KeyCodes.Multiply, "*" }, { KeyCodes.Subtract, "-" },
+            { KeyCodes.Add, "+" }
         };
 
-        private static Dictionary<InputKeys, string> _withShiftModifierSymbolTextItems = new Dictionary<InputKeys, string>()
+        private static Dictionary<KeyCodes, string> _withShiftModifierSymbolTextItems = new Dictionary<KeyCodes, string>()
         {
-            { InputKeys.OemPlus, "+" }, { InputKeys.OemComma, "<" }, { InputKeys.OemMinus, "_" },
-            { InputKeys.OemPeriod, ">" }, { InputKeys.OemQuestion, "?" }, { InputKeys.OemTilde, "~" },
-            { InputKeys.OemPipe, "|" }, { InputKeys.OemOpenBrackets, "{" }, { InputKeys.OemCloseBrackets, "}" },
-            { InputKeys.OemQuotes, "\"" }, { InputKeys.OemSemicolon, ":" }, { InputKeys.D1, "!" },
-            { InputKeys.D2, "@" }, { InputKeys.D3, "#" }, { InputKeys.D4, "$" }, { InputKeys.D5, "%" },
-            { InputKeys.D6, "^" }, { InputKeys.D7, "&" }, { InputKeys.D8, "*" }, { InputKeys.D9, "(" },
-            { InputKeys.D0, ")" }, { InputKeys.Divide, "/" }, { InputKeys.Multiply, "*" }, { InputKeys.Subtract, "-" },
-            { InputKeys.Add, "+" }
+            { KeyCodes.OemPlus, "+" }, { KeyCodes.OemComma, "<" }, { KeyCodes.OemMinus, "_" },
+            { KeyCodes.OemPeriod, ">" }, { KeyCodes.OemQuestion, "?" }, { KeyCodes.OemTilde, "~" },
+            { KeyCodes.OemPipe, "|" }, { KeyCodes.OemOpenBrackets, "{" }, { KeyCodes.OemCloseBrackets, "}" },
+            { KeyCodes.OemQuotes, "\"" }, { KeyCodes.OemSemicolon, ":" }, { KeyCodes.D1, "!" },
+            { KeyCodes.D2, "@" }, { KeyCodes.D3, "#" }, { KeyCodes.D4, "$" }, { KeyCodes.D5, "%" },
+            { KeyCodes.D6, "^" }, { KeyCodes.D7, "&" }, { KeyCodes.D8, "*" }, { KeyCodes.D9, "(" },
+            { KeyCodes.D0, ")" }, { KeyCodes.Divide, "/" }, { KeyCodes.Multiply, "*" }, { KeyCodes.Subtract, "-" },
+            { KeyCodes.Add, "+" }
         };
         #endregion
 
@@ -105,10 +105,10 @@ namespace KDScorpionCore.Input
         /// Returns all of the currently pressed keys on the keyboard.
         /// </summary>
         /// <returns></returns>
-        public InputKeys[] GetCurrentPressedKeys()
+        public KeyCodes[] GetCurrentPressedKeys()
         {
             return (from k in InternalKeyboard.GetCurrentPressedKeys()
-                    select (InputKeys)k).ToArray();
+                    select (KeyCodes)k).ToArray();
         }
 
 
@@ -116,10 +116,10 @@ namespace KDScorpionCore.Input
         /// Returns all of the previously pressed keys from the last frame.
         /// </summary>
         /// <returns></returns>
-        public InputKeys[] GetPreviousPressedKeys()
+        public KeyCodes[] GetPreviousPressedKeys()
         {
             return (from k in InternalKeyboard.GetPreviousPressedKeys()
-                    select (InputKeys)k).ToArray();
+                    select (KeyCodes)k).ToArray();
         }
 
 
@@ -134,21 +134,11 @@ namespace KDScorpionCore.Input
 
 
         /// <summary>
-        /// Returns true if any keys have been pressed.  This means a key was first put into the down position, then released to the up position.
-        /// </summary>
-        /// <returns></returns>
-        public bool AreAnyKeysPressed()
-        {
-            return InternalKeyboard.AreAnyKeysPressed();
-        }
-
-
-        /// <summary>
         /// Returns a value indicating if any of the given key codes are being held down.
         /// </summary>
         /// <param name="keys">The list of key codes to check.</param>
         /// <returns></returns>
-        public bool IsAnyKeyDown(InputKeys[] keys)
+        public bool IsAnyKeyDown(KeyCodes[] keys)
         {
             var keyCodes = new List<int>();
 
@@ -158,7 +148,7 @@ namespace KDScorpionCore.Input
             }
 
 
-            return InternalKeyboard.IsAnyKeyDown(keyCodes.ToArray());
+            return InternalKeyboard.IsAnyKeyDown(keys);
         }
 
 
@@ -167,9 +157,9 @@ namespace KDScorpionCore.Input
         /// </summary>
         /// <param name="key">The key to check for.</param>
         /// <returns></returns>
-        public bool IsKeyDown(InputKeys key)
+        public bool IsKeyDown(KeyCodes key)
         {
-            return InternalKeyboard.IsKeyDown((int)key);
+            return InternalKeyboard.IsKeyDown(key);
         }
 
 
@@ -178,7 +168,7 @@ namespace KDScorpionCore.Input
         /// </summary>
         /// <param name="key">The key to check for.</param>
         /// <returns></returns>
-        public bool IsKeyUp(InputKeys key)
+        public bool IsKeyUp(KeyCodes key)
         {
             return InternalKeyboard.IsKeyUp((int)key);
         }
@@ -189,7 +179,7 @@ namespace KDScorpionCore.Input
         /// </summary>
         /// <param name="key">The key to check for.</param>
         /// <returns></returns>
-        public bool IsKeyPressed(InputKeys key)
+        public bool IsKeyPressed(KeyCodes key)
         {
             return InternalKeyboard.IsKeyPressed((int)key);
         }
@@ -200,7 +190,7 @@ namespace KDScorpionCore.Input
         /// </summary>
         /// <param name="letterKey">The letter key that was pressed if found.</param>
         /// <returns></returns>
-        public bool IsLetterPressed(out InputKeys letterKey)
+        public bool IsLetterPressed(out KeyCodes letterKey)
         {
             for (int i = 0; i < _lettersKeys.Length; i++)
             {
@@ -211,7 +201,7 @@ namespace KDScorpionCore.Input
                 }
             }
 
-            letterKey = InputKeys.None;
+            letterKey = KeyCodes.None;
 
 
             return false;
@@ -223,11 +213,11 @@ namespace KDScorpionCore.Input
         /// </summary>
         /// <param name="symbolKey">The number key that was pressed if found.</param>
         /// <returns></returns>
-        public bool IsNumberPressed(out InputKeys numberKey)
+        public bool IsNumberPressed(out KeyCodes numberKey)
         {
             if (IsAnyShiftKeyDown())
             {
-                numberKey = InputKeys.None;
+                numberKey = KeyCodes.None;
                 return false;
             }
 
@@ -241,7 +231,7 @@ namespace KDScorpionCore.Input
                 }
             }
 
-            numberKey = InputKeys.None;
+            numberKey = KeyCodes.None;
 
 
             return false;
@@ -253,7 +243,7 @@ namespace KDScorpionCore.Input
         /// </summary>
         /// <param name="symbolKey">The symbok key that was pressed if found.</param>
         /// <returns></returns>
-        public bool IsSymbolPressed(out InputKeys symbolKey)
+        public bool IsSymbolPressed(out KeyCodes symbolKey)
         {
             if (IsAnyShiftKeyDown())
             {
@@ -278,7 +268,7 @@ namespace KDScorpionCore.Input
                 }
             }
 
-            symbolKey = InputKeys.None;
+            symbolKey = KeyCodes.None;
 
 
             return false;
@@ -292,7 +282,7 @@ namespace KDScorpionCore.Input
         /// </summary>
         /// <param name="key">The key to check.</param>
         /// <returns></returns>
-        public char KeyToChar(InputKeys key)
+        public char KeyToChar(KeyCodes key)
         {
             if (IsAnyShiftKeyDown())
             {
@@ -340,7 +330,7 @@ namespace KDScorpionCore.Input
         /// <returns></returns>
         public bool IsAnyShiftKeyDown()
         {
-            return InternalKeyboard.IsKeyDown((int)InputKeys.LeftShift) || InternalKeyboard.IsKeyDown((int)InputKeys.RightShift);
+            return InternalKeyboard.IsKeyDown(KeyCodes.LeftShift) || InternalKeyboard.IsKeyDown(KeyCodes.RightShift);
         }
 
 
@@ -350,7 +340,7 @@ namespace KDScorpionCore.Input
         /// <returns></returns>
         public bool IsDeleteKeyPressed()
         {
-            return IsKeyPressed(InputKeys.Delete) || (IsAnyShiftKeyDown() && IsKeyPressed(InputKeys.Decimal));
+            return IsKeyPressed(KeyCodes.Delete) || (IsAnyShiftKeyDown() && IsKeyPressed(KeyCodes.Decimal));
         }
 
 
@@ -360,7 +350,7 @@ namespace KDScorpionCore.Input
         /// <returns></returns>
         public bool IsBackspaceKeyPressed()
         {
-            return IsKeyPressed(InputKeys.Back);
+            return IsKeyPressed(KeyCodes.Back);
         }
 
 

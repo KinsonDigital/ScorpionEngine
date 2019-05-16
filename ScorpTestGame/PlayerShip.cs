@@ -71,9 +71,9 @@ namespace ScorpTestGame
 
             _movementBehavior = new MoveFowardKeyboardBehavior<PlayerShip>(this, 2f, 0.25f)
             {
-                MoveFowardKey = InputKeys.Up,
-                RotateCWKey = InputKeys.Right,
-                RotateCCWKey = InputKeys.Left,
+                MoveFowardKey = KeyCodes.Up,
+                RotateCWKey = KeyCodes.Right,
+                RotateCCWKey = KeyCodes.Left,
                 Enabled = false
             };
             
@@ -112,7 +112,7 @@ namespace ScorpTestGame
             //_particleEngine.Enabled = _movementBehavior.IsMovingForward;
             _particleEngine.Update(engineTime);
 
-            _particleEngine.Enabled = _keyboard.IsKeyDown(InputKeys.Up);
+            _particleEngine.Enabled = _keyboard.IsKeyDown(KeyCodes.Up);
 
             base.Update(engineTime);
 

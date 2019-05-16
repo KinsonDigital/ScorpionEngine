@@ -13,9 +13,9 @@ namespace KDScorpionEngine.Behaviors
         private Keyboard _keyboard = new Keyboard();
         private T _gameObject;
         private readonly float _movementSpeed;
-        private InputKeys _moveFowardKey = InputKeys.Up;
-        private InputKeys _rotateCWKey = InputKeys.Right;
-        private InputKeys _rotateCCWKey = InputKeys.Left;
+        private KeyCodes _moveFowardKey = KeyCodes.Up;
+        private KeyCodes _rotateCWKey = KeyCodes.Right;
+        private KeyCodes _rotateCCWKey = KeyCodes.Left;
         private float _rotateSpeed;
         #endregion
 
@@ -45,7 +45,7 @@ namespace KDScorpionEngine.Behaviors
         /// <summary>
         /// Gets or sets the keyboard key that will move the <see cref="DynamicEntity"/> foward in the direction it is facing.
         /// </summary>
-        public InputKeys MoveFowardKey
+        public KeyCodes MoveFowardKey
         {
             get => _moveFowardKey;
             set
@@ -58,7 +58,7 @@ namespace KDScorpionEngine.Behaviors
         /// <summary>
         /// Gets or sets the keyboard key that will rotate the <see cref="DynamicEntity"/> clockwise.
         /// </summary>
-        public InputKeys RotateCWKey
+        public KeyCodes RotateCWKey
         {
             get => _rotateCWKey;
             set
@@ -71,7 +71,7 @@ namespace KDScorpionEngine.Behaviors
         /// <summary>
         /// Gets or sets the keyboard key that will rotate the <see cref="DynamicEntity"/> counter clockwise.
         /// </summary>
-        public InputKeys RotateCCWKey
+        public KeyCodes RotateCCWKey
         {
             get => _rotateCCWKey;
             set

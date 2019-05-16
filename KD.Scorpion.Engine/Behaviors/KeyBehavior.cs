@@ -49,7 +49,7 @@ namespace KDScorpionEngine.Behaviors
         /// Creates a new key behavior.
         /// </summary>
         /// <param name="key">The assigned keyboard key of the behavior.</param>
-        public KeyBehavior(InputKeys key, bool enabled = false, Keyboard keyboard = null)
+        public KeyBehavior(KeyCodes key, bool enabled = false, Keyboard keyboard = null)
         {
             _keyboard = keyboard == null ?
                 new Keyboard(PluginSystem.EnginePlugins.LoadPlugin<IKeyboard>()) :
@@ -65,7 +65,7 @@ namespace KDScorpionEngine.Behaviors
         /// <summary>
         /// Gets or sets the key for the behavior.
         /// </summary>
-        public InputKeys Key { get; set; }
+        public KeyCodes Key { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating if the behavior is enabled.  If disabled, the update method will not update the behavior or fire events.
