@@ -108,7 +108,7 @@ namespace KDScorpionCore.Input
         public KeyCodes[] GetCurrentPressedKeys()
         {
             return (from k in InternalKeyboard.GetCurrentPressedKeys()
-                    select (KeyCodes)k).ToArray();
+                    select k).ToArray();
         }
 
 
@@ -119,7 +119,7 @@ namespace KDScorpionCore.Input
         public KeyCodes[] GetPreviousPressedKeys()
         {
             return (from k in InternalKeyboard.GetPreviousPressedKeys()
-                    select (KeyCodes)k).ToArray();
+                    select k).ToArray();
         }
 
 
@@ -360,7 +360,7 @@ namespace KDScorpionCore.Input
         /// <returns></returns>
         public bool WasLetterPressed()
         {
-            return InternalKeyboard.WasLetterPressed();
+            return InternalKeyboard.AnyLettersPressed();
         }
 
 

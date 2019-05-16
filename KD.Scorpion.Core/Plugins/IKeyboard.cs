@@ -91,10 +91,10 @@ namespace KDScorpionCore.Plugins
 
 
         /// <summary>
-        /// Returns a value indicating if a letter on the keyboard was pressed.
+        /// Returns a value indicating if a letter on the keyboard have been pressed.
         /// </summary>
         /// <returns></returns>
-        bool WasLetterPressed();
+        bool AnyLettersPressed();
         #endregion
     }
 }
