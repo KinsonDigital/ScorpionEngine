@@ -14,6 +14,26 @@ namespace KDScorpionCore.Plugins
         /// Gets a value indicating if the numlock key is on.
         /// </summary>
         bool NumLockOn { get; }
+
+        /// <summary>
+        /// Gets a value indicating if the left shift key is being pressed.
+        /// </summary>
+        bool IsLeftShiftDown { get; }
+
+        /// <summary>
+        /// Gets a value indicating if the right shift key is being pressed.
+        /// </summary>
+        bool IsRightShiftDown { get; }
+
+        /// <summary>
+        /// Gets a value indicating if the left control key is being pressed down.
+        /// </summary>
+        bool IsLeftCtrlDown { get; }
+
+        /// <summary>
+        /// Gets a value indicating if the right control key is being pressed down.
+        /// </summary>
+        bool IsRightCtrlDown { get; }
         #endregion
 
 

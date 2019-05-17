@@ -70,6 +70,26 @@ namespace MonoScorpPlugin
         /// Gets a value indicating if the numlock key is on.
         /// </summary>
         public bool NumLockOn => _currentState.NumLock;
+
+        /// <summary>
+        /// Gets a value indicating if the left shift key is being pressed.
+        /// </summary>
+        public bool IsLeftShiftDown => _currentState.IsKeyDown(Keys.LeftShift);
+
+        /// <summary>
+        /// Gets a value indicating if the right shift key is being pressed.
+        /// </summary>
+        public bool IsRightShiftDown => _currentState.IsKeyDown(Keys.RightShift);
+
+        /// <summary>
+        /// Gets a value indicating if the left control key is being pressed down.
+        /// </summary>
+        public bool IsLeftCtrlDown => _currentState.IsKeyDown(Keys.LeftControl);
+
+        /// <summary>
+        /// Gets a value indicating if the right control key is being pressed down.
+        /// </summary>
+        public bool IsRightCtrlDown => _currentState.IsKeyDown(Keys.RightControl);
         #endregion
 
 

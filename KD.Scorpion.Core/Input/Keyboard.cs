@@ -97,6 +97,26 @@ namespace KDScorpionCore.Input
         /// Gets a value indicating if the numlock key is on.
         /// </summary>
         public bool NumLockOn => InternalKeyboard.NumLockOn;
+
+        /// <summary>
+        /// Gets a value indicating if the left shift key is being pressed down.
+        /// </summary>
+        public bool IsLeftShiftDown => InternalKeyboard.IsLeftShiftDown;
+
+        /// <summary>
+        /// Gets a value indicating if the right shift key is being pressed down.
+        /// </summary>
+        public bool IsRightShiftDown => InternalKeyboard.IsRightShiftDown;
+
+        /// <summary>
+        /// Gets a value indicating if the left control key is being pressed down.
+        /// </summary>
+        bool IsLeftCtrlDown => InternalKeyboard.IsLeftCtrlDown;
+
+        /// <summary>
+        /// Gets a value indicating if the right control key is being pressed down.
+        /// </summary>
+        bool IsRightCtrlDown => InternalKeyboard.IsRightCtrlDown;
         #endregion
 
 
@@ -331,6 +351,16 @@ namespace KDScorpionCore.Input
         public bool IsAnyShiftKeyDown()
         {
             return InternalKeyboard.IsKeyDown(KeyCodes.LeftShift) || InternalKeyboard.IsKeyDown(KeyCodes.RightShift);
+        }
+
+
+        /// <summary>
+        /// Returns a value indicating if any of the control keys are being pressed down.
+        /// </summary>
+        /// <returns></returns>
+        public bool IsAnyCtrlKeyDown()
+        {
+            return InternalKeyboard.IsLeftCtrlDown || InternalKeyboard.IsRightCtrlDown;
         }
 
 
