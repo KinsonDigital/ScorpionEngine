@@ -117,6 +117,16 @@ namespace KDScorpionCore.Input
         /// Gets a value indicating if the right control key is being pressed down.
         /// </summary>
         bool IsRightCtrlDown => InternalKeyboard.IsRightCtrlDown;
+
+        /// <summary>
+        /// Gets a value indicating if the left alt key is being pressed down.
+        /// </summary>
+        bool IsLeftAltDown => InternalKeyboard.IsLeftAltDown;
+
+        /// <summary>
+        /// Gets a value indicating if the right alt key is being pressed down.
+        /// </summary>
+        bool IsRightAltDown => InternalKeyboard.IsRightAltDown;
         #endregion
 
 

@@ -90,6 +90,16 @@ namespace MonoScorpPlugin
         /// Gets a value indicating if the right control key is being pressed down.
         /// </summary>
         public bool IsRightCtrlDown => _currentState.IsKeyDown(Keys.RightControl);
+
+        /// <summary>
+        /// Gets a value indicating if the left alt key is being pressed down.
+        /// </summary>
+        public bool IsLeftAltDown => _currentState.IsKeyDown(Keys.LeftAlt);
+
+        /// <summary>
+        /// Gets a value indicating if the right alt key is being pressed down.
+        /// </summary>
+        public bool IsRightAltDown => _currentState.IsKeyDown(Keys.RightAlt);
         #endregion
 
 

@@ -34,6 +34,16 @@ namespace KDScorpionCore.Plugins
         /// Gets a value indicating if the right control key is being pressed down.
         /// </summary>
         bool IsRightCtrlDown { get; }
+
+        /// <summary>
+        /// Gets a value indicating if the left alt key is being pressed down.
+        /// </summary>
+        bool IsLeftAltDown { get; }
+
+        /// <summary>
+        /// Gets a value indicating if the right alt key is being pressed down.
+        /// </summary>
+        bool IsRightAltDown { get; }
         #endregion
 
 
