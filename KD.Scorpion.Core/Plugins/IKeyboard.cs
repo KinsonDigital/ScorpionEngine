@@ -118,13 +118,6 @@ namespace KDScorpionCore.Plugins
         /// </summary>
         /// <returns></returns>
         KeyCodes[] GetPreviousPressedKeys();
-
-
-        /// <summary>
-        /// Returns a value indicating if a letter on the keyboard have been pressed.
-        /// </summary>
-        /// <returns></returns>
-        bool AnyLettersPressed();
         #endregion
     }
 }

@@ -29,20 +29,6 @@ namespace MonoScorpPlugin
         #region Fields
         private KeyboardState _currentState;//The current state of the keyboard to compare to the previous state
         private KeyboardState _previousState;//The previous state of the keyboard to compare to the current state
-        private static readonly KeyCodes[] _letters = new KeyCodes[]
-        {
-            KeyCodes.A, KeyCodes.B, KeyCodes.C, KeyCodes.D,
-            KeyCodes.E, KeyCodes.F, KeyCodes.G,KeyCodes.H,
-            KeyCodes.I, KeyCodes.J, KeyCodes.K, KeyCodes.L,
-            KeyCodes.M, KeyCodes.N, KeyCodes.O, KeyCodes.P,
-            KeyCodes.Q, KeyCodes.R, KeyCodes.S, KeyCodes.T,
-            KeyCodes.U, KeyCodes.V, KeyCodes.W, KeyCodes.X,
-            KeyCodes.Y, KeyCodes.Z
-        };
-
-        
-        //The array of key codes for all the letters on the keyboard
-
         private static readonly Keys[] _numpadNumberKeys = new Keys[]
         {
             Keys.NumPad0, Keys.NumPad1, Keys.NumPad2,
@@ -50,13 +36,6 @@ namespace MonoScorpPlugin
             Keys.NumPad6, Keys.NumPad7, Keys.NumPad8,
             Keys.NumPad9
         };
-        #endregion
-
-
-        #region Constructors
-        public MonoKeyboard()
-        {
-        }
         #endregion
 
 
@@ -245,23 +224,6 @@ namespace MonoScorpPlugin
         public object GetData(string dataType)
         {
             throw new NotImplementedException();
-        }
-
-
-        /// <summary>
-        /// Returns a value indicating if a letter on the keyboard have been pressed.
-        /// </summary>
-        /// <returns></returns>
-        public bool AnyLettersPressed()
-        {
-            for (int i = 0; i < _letters.Length; i++)
-            {
-                if (IsKeyPressed(_letters[i]))
-                    return true;
-            }
-
-
-            return false;
         }
         #endregion
     }

@@ -215,7 +215,7 @@ namespace KDScorpionUI
             }
 
             //If a letter is pressed, add it to the textbox
-            if (_keyboard.IsLetterPressed(out KeyCodes letter))
+            if (_keyboard.AnyLettersPressed(out KeyCodes letter))
             {
                 var letterText = "";
 
@@ -235,7 +235,7 @@ namespace KDScorpionUI
             }
 
             //If a number was pressed on the keyboard
-            if (_keyboard.IsNumberPressed(out KeyCodes number))
+            if (_keyboard.AnyNumbersPressed(out KeyCodes number))
             {
                 var character = _keyboard.KeyToChar(number).ToString();
 
@@ -244,15 +244,6 @@ namespace KDScorpionUI
                 _characterPosition += 1;
             }
 
-            //If a symbol was press on the keyboard
-            if (_keyboard.IsSymbolPressed(out KeyCodes symbol))
-            {
-                var character = _keyboard.KeyToChar(symbol).ToString();
-                
-                _visibleText.Text = _visibleText.Text.Insert(_characterPosition, character);
-
-                _characterPosition += 1;
-            }
 
             _keyboard.UpdatePreviousState();
         }
