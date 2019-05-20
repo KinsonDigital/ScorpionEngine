@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 using MonoGameKeyboard = Microsoft.Xna.Framework.Input.Keyboard;
 using KDScorpionCore.Plugins;
@@ -26,7 +25,7 @@ namespace MonoScorpPlugin
         #endregion
 
 
-        #region Fields
+        #region Private Fields
         private KeyboardState _currentState;//The current state of the keyboard to compare to the previous state
         private KeyboardState _previousState;//The previous state of the keyboard to compare to the current state
         #endregion
@@ -103,21 +102,14 @@ namespace MonoScorpPlugin
         /// <summary>
         /// Update the previous state of the keyboard.
         /// </summary>
-        public void UpdatePreviousState()
-        {
-            //Update the previous state
-            _previousState = _currentState;
-        }
+        public void UpdatePreviousState() => _previousState = _currentState;
 
 
         /// <summary>
         /// Gets a value indicating if any of the keys are in the down position.
         /// </summary>
         /// <returns></returns>
-        public bool AreAnyKeysDown()
-        {
-            return _currentState.GetPressedKeys().Length > 0;
-        }
+        public bool AreAnyKeysDown() => _currentState.GetPressedKeys().Length > 0;
 
 
         /// <summary>
@@ -159,30 +151,21 @@ namespace MonoScorpPlugin
         /// </summary>
         /// <param name="key">The key to check for.</param>
         /// <returns></returns>
-        public bool IsKeyPressed(KeyCodes key)
-        {
-            return _currentState.IsKeyUp((Keys)key) && _previousState.IsKeyDown((Keys)key);
-        }
+        public bool IsKeyPressed(KeyCodes key) => _currentState.IsKeyUp((Keys)key) && _previousState.IsKeyDown((Keys)key);
 
 
         /// <summary>
         /// Gets the list of currently pressed keys.
         /// </summary>
         /// <returns></returns>
-        public KeyCodes[] GetCurrentPressedKeys()
-        {
-            return (from k in _currentState.GetPressedKeys() select (KeyCodes)k).ToArray();
-        }
+        public KeyCodes[] GetCurrentPressedKeys() => (from k in _currentState.GetPressedKeys() select (KeyCodes)k).ToArray();
 
 
         /// <summary>
         /// Gets the list of previously pressed keys.
         /// </summary>
         /// <returns></returns>
-        public KeyCodes[] GetPreviousPressedKeys()
-        {
-            return (from k in _previousState.GetPressedKeys() select (KeyCodes)k).ToArray();
-        }
+        public KeyCodes[] GetPreviousPressedKeys() => (from k in _previousState.GetPressedKeys() select (KeyCodes)k).ToArray();
 
 
         public void InjectData<T>(T data) where T : class
