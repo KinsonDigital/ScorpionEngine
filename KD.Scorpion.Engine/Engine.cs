@@ -50,8 +50,8 @@ namespace KDScorpionEngine
         {
 #if MONOGAME
             PluginSystem.LoadEnginePluginLibrary(new PluginLibrary("MonoScorpPlugin"));
-#elif SFML
-            PluginSystem.LoadEnginePluginLibrary(new PluginLibrary("SFMLScorpPlugin"));
+#elif SDL
+            PluginSystem.LoadEnginePluginLibrary(new PluginLibrary("SDLScorpPlugin"));
 #endif
 
             if (loadPhysicsLibrary)
