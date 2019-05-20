@@ -12,19 +12,6 @@ namespace MonoScorpPlugin
     /// </summary>
     public class MonoKeyboard : IKeyboard
     {
-        #region Events
-        /// <summary>
-        /// Occurs when a key has been pressed to the down position.
-        /// </summary>
-        public event EventHandler<EventArgs> OnKeyDown;
-
-        /// <summary>
-        /// Occurs when a key has been released to the up position.
-        /// </summary>
-        public event EventHandler<EventArgs> OnKeyUp;
-        #endregion
-
-
         #region Private Fields
         private KeyboardState _currentState;//The current state of the keyboard to compare to the previous state
         private KeyboardState _previousState;//The previous state of the keyboard to compare to the current state
@@ -82,20 +69,6 @@ namespace MonoScorpPlugin
         {
             //Get the state of the keyboard and save it as the current state
             _currentState = MonoGameKeyboard.GetState();
-
-            //If any key has been pressed, invoke the OnKeyDown event
-            if (_currentState.GetPressedKeys().Length > 0)
-            {
-                //Invoke the OnKeyDown event and send the list of keys that are pressed down
-                OnKeyDown?.Invoke(this, new EventArgs());
-            }
-            else if (_currentState.GetPressedKeys().Length == 0 && _previousState.GetPressedKeys().Length > 0)
-            {
-                //If any keys have been released, invoke the OnKeyUp event
-
-                //Invoke the OnKeyUp event and send the list of keys that are pressed down
-                OnKeyUp?.Invoke(this, new EventArgs());
-            }
         }
 
 

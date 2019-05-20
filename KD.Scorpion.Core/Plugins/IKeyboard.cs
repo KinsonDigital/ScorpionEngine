@@ -100,14 +100,14 @@ namespace KDScorpionCore.Plugins
 
 
         /// <summary>
-        /// Returns all of the currently pressed keys on the keyboard.
+        /// Returns all of the currently pressed keys of the keyboard for the current frame.
         /// </summary>
         /// <returns></returns>
         KeyCodes[] GetCurrentPressedKeys();
 
 
         /// <summary>
-        /// Returns all of the previously pressed keys from the last frame.
+        /// Returns all of the previously pressed keys of the keyborad from the last frame.
         /// </summary>
         /// <returns></returns>
         KeyCodes[] GetPreviousPressedKeys();
