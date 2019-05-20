@@ -218,3 +218,24 @@ FakesAssemblies/
 _Pvt_Extensions
 
 ScorpionEngine/ScorpTestGame/Content/SyncToy_1dc1f63c-d39f-4e1d-a6f4-fce409f405d9\.dat
+
+#Allowed Binaries
+#SDL Main Lib
+!/SDLScorpPlugin/Libs/SDL/x86
+!/SDLScorpPlugin/Libs/SDL/x64
+
+#SDL Net Library (Wrapper/Binding for SDL)
+!/SDLScorpPlugin/Libs/SDLNet/x86
+!/SDLScorpPlugin/Libs/SDLNet/x64
+
+#SDL Image Libraries (Images)
+!/SDLScorpPlugin/Libs/SDL-Image/x86
+!/SDLScorpPlugin/Libs/SDL-Image/x64
+
+#SDL Mixer Libraries (Sound)
+!/SDLScorpPlugin/Libs/SDL-Mixer/x86
+!/SDLScorpPlugin/Libs/SDL-Mixer/x64
+
+#SDL TTF Libraries (Font/Text)
+!/SDLScorpPlugin/Libs/SDL-TTF/x86
+!/SDLScorpPlugin/Libs/SDL-TTF/x64
