@@ -1,15 +1,15 @@
 ﻿using KDScorpionCore;
 using System;
 
-namespace SFMLScorpPlugin
+namespace SDLScorpPlugin
 {
-    public class SFMLEngineTime : IEngineTiming
+    public class SDLEngineTime : IEngineTiming
     {
         #region Constructors
-        public SFMLEngineTime() { }
+        public SDLEngineTime() { }
 
 
-        public SFMLEngineTime(TimeSpan totalEngineTime, TimeSpan elapsedEngineTime)
+        public SDLEngineTime(TimeSpan totalEngineTime, TimeSpan elapsedEngineTime)
         {
             TotalEngineTime = totalEngineTime;
             ElapsedEngineTime = elapsedEngineTime;

@@ -1,13 +1,13 @@
 ﻿using KDScorpionCore.Graphics;
 using System;
-using SFMLLibTexture = SFML.Graphics.Texture;
+using SDLLibTexture = SFML.Graphics.Texture;
 
-namespace SFMLScorpPlugin
+namespace SDLScorpPlugin
 {
-    public class SFMLTexture : ITexture
+    public class SDLTexture : ITexture
     {
         #region Fields
-        private SFMLLibTexture _texture;
+        private SDLLibTexture _texture;
         #endregion
 
 
@@ -28,10 +28,10 @@ namespace SFMLScorpPlugin
         public void InjectData<T>(T data) where T : class
         {
             //If the incoming data is not a monogame texture, throw an exception
-            if (data.GetType() != typeof(SFMLTexture))
-                throw new Exception($"Data getting injected into {nameof(SFMLTexture)} is not of type {nameof(SFML.Graphics.Texture)}.  Incorrect type is {data.GetType().ToString()}");
+            if (data.GetType() != typeof(SDLTexture))
+                throw new Exception($"Data getting injected into {nameof(SDLTexture)} is not of type {nameof(SFML.Graphics.Texture)}.  Incorrect type is {data.GetType().ToString()}");
 
-            _texture = data as SFMLLibTexture;
+            _texture = data as SDLLibTexture;
         }
         #endregion
     }
