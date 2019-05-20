@@ -29,13 +29,6 @@ namespace MonoScorpPlugin
         #region Fields
         private KeyboardState _currentState;//The current state of the keyboard to compare to the previous state
         private KeyboardState _previousState;//The previous state of the keyboard to compare to the current state
-        private static readonly Keys[] _numpadNumberKeys = new Keys[]
-        {
-            Keys.NumPad0, Keys.NumPad1, Keys.NumPad2,
-            Keys.NumPad3, Keys.NumPad4, Keys.NumPad5,
-            Keys.NumPad6, Keys.NumPad7, Keys.NumPad8,
-            Keys.NumPad9
-        };
         #endregion
 
 
@@ -125,29 +118,6 @@ namespace MonoScorpPlugin
         {
             return _currentState.GetPressedKeys().Length > 0;
         }
-
-
-        /// <summary>
-        /// Returns a value indicating if any of the numpad number keys are down.
-        /// </summary>
-        /// <returns></returns>
-        public bool AnyNumpadNumberKeysDown()
-        {
-            foreach (var key in _numpadNumberKeys)
-            {
-                if (_currentState.IsKeyDown(key))
-                    return true;
-            }
-
-
-            return false;
-        }
-
-
-        /// Returns true if any keys have been pressed.  This means a key was first put into the down position, then released to the up position.
-        /// </summary>
-        /// <returns></returns>
-        public bool AreAnyKeysPressed() => _currentState.GetPressedKeys().Length > 0;
 
 
         /// <summary>

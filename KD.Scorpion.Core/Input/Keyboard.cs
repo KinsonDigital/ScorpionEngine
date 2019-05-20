@@ -9,7 +9,7 @@ namespace KDScorpionCore.Input
     /// </summary>
     public class Keyboard
     {
-        #region Fields
+        #region Pivate Fields
         private static readonly KeyCodes[] _letterKeys = new[]
         {
             KeyCodes.A, KeyCodes.B, KeyCodes.C, KeyCodes.D, KeyCodes.E,
@@ -20,12 +20,17 @@ namespace KDScorpionCore.Input
             KeyCodes.Z, KeyCodes.Space
         };
 
-        private static readonly KeyCodes[] _numberKeys = new[]
+        private static readonly KeyCodes[] _standardNumberKeys = new[]
         {
             KeyCodes.D0, KeyCodes.D1, KeyCodes.D2,
             KeyCodes.D3, KeyCodes.D4, KeyCodes.D5,
             KeyCodes.D6, KeyCodes.D7, KeyCodes.D8,
-            KeyCodes.D9, KeyCodes.NumPad0, KeyCodes.NumPad0,
+            KeyCodes.D9
+        };
+
+        private static readonly KeyCodes[] _numpadNumberKeys = new[]
+        {
+            KeyCodes.NumPad0, KeyCodes.NumPad0,
             KeyCodes.NumPad0, KeyCodes.NumPad1, KeyCodes.NumPad2,
             KeyCodes.NumPad3, KeyCodes.NumPad4, KeyCodes.NumPad5,
             KeyCodes.NumPad6, KeyCodes.NumPad7, KeyCodes.NumPad8,
@@ -257,19 +262,88 @@ namespace KDScorpionCore.Input
 
 
         /// <summary>
-        /// Returns a value indicating if any letter keys were pressed down then let go.
+        /// Returns a value indicating if any of the standard number keys
+        /// above the letter keys on the keyboard are being pressed down.
         /// </summary>
         /// <returns></returns>
-        public bool AnyNumbersPressed()
+        public bool AnyStandardNumberKeysDown()
         {
-            for (int i = 0; i < _numberKeys.Length; i++)
+            //Check all of the standard number keys
+            foreach (var key in _standardNumberKeys)
             {
-                if (IsKeyPressed(_numberKeys[i]))
+                if (IsKeyDown(key))
                     return true;
             }
 
 
             return false;
+        }
+
+
+        /// <summary>
+        /// Returns a value indicating if any of the numpad number keys
+        /// are being pressed down.
+        /// </summary>
+        /// <returns></returns>
+        public bool AnyNumpadNumberKeysDown()
+        {
+            //Check all of the numpad number keys
+            foreach (var key in _numpadNumberKeys)
+            {
+                if (IsKeyDown(key))
+                    return true;
+            }
+
+
+            return false;
+        }
+
+
+        /// <summary>
+        /// Returns a value indicating if any of the standard number keys
+        /// above the letter keys on the keyboard have been pressed.
+        /// </summary>
+        /// <returns></returns>
+        public bool AnyStandardNumberKeysPressed()
+        {
+            //Check all of the standard number keys
+            foreach (var key in _standardNumberKeys)
+            {
+                if (IsKeyPressed(key))
+                    return true;
+            }
+
+
+            return false;
+        }
+
+
+        /// <summary>
+        /// Returns a value indicating if any of the numpad number keys
+        /// are have been pressed.
+        /// </summary>
+        /// <returns></returns>
+        public bool AnyNumpadNumberKeysPressed()
+        {
+            //Check all of the numpad number keys
+            foreach (var key in _numpadNumberKeys)
+            {
+                if (IsKeyPressed(key))
+                    return true;
+            }
+
+
+            return false;
+        }
+
+
+        /// <summary>
+        /// Returns a value indicating if any number keys were pressed down then let go.
+        /// </summary>
+        /// <returns></returns>
+        public bool AnyNumbersPressed()
+        {
+            return AnyStandardNumberKeysPressed() || AnyNumpadNumberKeysPressed();
         }
 
 
@@ -280,11 +354,23 @@ namespace KDScorpionCore.Input
         /// <returns></returns>
         public bool AnyNumbersPressed(out KeyCodes numberKey)
         {
-            for (int i = 0; i < _numberKeys.Length; i++)
+            //Check standard number keys
+            for (int i = 0; i < _standardNumberKeys.Length; i++)
             {
-                if (InternalKeyboard.IsKeyPressed(_numberKeys[i]))
+                if (InternalKeyboard.IsKeyPressed(_standardNumberKeys[i]))
                 {
-                    numberKey = _numberKeys[i];
+                    numberKey = _standardNumberKeys[i];
+
+                    return true;
+                }
+            }
+
+            //Check numpad number keys
+            for (int i = 0; i < _numpadNumberKeys.Length; i++)
+            {
+                if (InternalKeyboard.IsKeyPressed(_numpadNumberKeys[i]))
+                {
+                    numberKey = _numpadNumberKeys[i];
 
                     return true;
                 }
@@ -316,7 +402,7 @@ namespace KDScorpionCore.Input
                 {
                     return _withShiftModifierSymbolTextItems[key][0];
                 }
-                else if (_numberKeys.Contains(key))
+                else if (_standardNumberKeys.Contains(key))
                 {
                     var keyString = key.ToString();
 
@@ -333,7 +419,7 @@ namespace KDScorpionCore.Input
                 {
                     return _noShiftModifierSymbolTextItems[key][0];
                 }
-                else if(_numberKeys.Contains(key))
+                else if(_standardNumberKeys.Contains(key))
                 {
                     var keyString = key.ToString();
 
