@@ -1,20 +1,21 @@
 ﻿using KDScorpionCore.Graphics;
+using SDL2;
 using System;
-using SDLLibTexture = SFML.Graphics.Texture;
 
 namespace SDLScorpPlugin
 {
     public class SDLTexture : ITexture
     {
         #region Fields
-        private SDLLibTexture _texture;
+        //TODO: This needs to be fixed.  SDL returns a pointer to a texture. Figure this out.
+        private IntPtr _texture;
         #endregion
 
 
         #region Props
-        public int Width => (int)_texture.Size.X;
+        public int Width => -1;
 
-        public int Height => (int)_texture.Size.Y;
+        public int Height => -1;
         #endregion
 
 
@@ -27,11 +28,11 @@ namespace SDLScorpPlugin
 
         public void InjectData<T>(T data) where T : class
         {
-            //If the incoming data is not a monogame texture, throw an exception
-            if (data.GetType() != typeof(SDLTexture))
-                throw new Exception($"Data getting injected into {nameof(SDLTexture)} is not of type {nameof(SFML.Graphics.Texture)}.  Incorrect type is {data.GetType().ToString()}");
+            ////If the incoming data is not a monogame texture, throw an exception
+            //if (data.GetType() != typeof(SDLTexture))
+            //    throw new Exception($"Data getting injected into {nameof(SDLTexture)} is not of type {nameof(SFML.Graphics.Texture)}.  Incorrect type is {data.GetType().ToString()}");
 
-            _texture = data as SDLLibTexture;
+            //_texture = data as SDL.Texture;
         }
         #endregion
     }
