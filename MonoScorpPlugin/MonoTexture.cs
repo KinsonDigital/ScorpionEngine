@@ -9,17 +9,9 @@ namespace MonoScorpPlugin
         #region Props
         internal Texture2D Texture { get; private set; }
 
-        public int Width
-        {
-            get => Texture.Width;
-            set { }
-        }
+        public int Width => Texture.Width;
 
-        public int Height
-        {
-            get => Texture.Height;
-            set { }
-        }
+        public int Height => Texture.Height;
         #endregion
 
 
