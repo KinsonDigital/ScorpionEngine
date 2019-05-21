@@ -17,14 +17,14 @@ namespace SDLScorpPlugin
         /// <summary>
         /// Holds a list of all the keys and there current state this frame.
         /// </summary>
-        private readonly static Dictionary<SDL.SDL_Keycode, bool> _currentStateKeys = new Dictionary<SDL.SDL_Keycode, bool>();
-        //new Dictionary<SDL.SDL_Keycode, bool>((from k in KeyboardKeyMapper.SDLToStandardMappings select new KeyValuePair<SDL.SDL_Keycode, bool>(k.Key, false)).ToArray());
+        private readonly static Dictionary<SDL.SDL_Keycode, bool> _currentStateKeys =
+            (from m in KeyboardKeyMapper.SDLToStandardMappings select m.Key).ToArray().ToDictionary(k => k, value => false);
 
         /// <summary>
         /// Holds a list of all the keys and there state the previous frame.
         /// </summary>
-        private readonly static Dictionary<SDL.SDL_Keycode, bool> _prevStateKeys = new Dictionary<SDL.SDL_Keycode, bool>();
-            //new Dictionary<SDL.SDL_Keycode, bool>((from k in KeyboardKeyMapper.SDLToStandardMappings select new KeyValuePair<SDL.SDL_Keycode, bool>(k.Key, false)).ToArray());
+        private readonly static Dictionary<SDL.SDL_Keycode, bool> _prevStateKeys =
+            (from m in KeyboardKeyMapper.SDLToStandardMappings select m.Key).ToArray().ToDictionary(k => k, value => false);
         #endregion
 
 
