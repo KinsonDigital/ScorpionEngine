@@ -36,7 +36,13 @@ namespace SDLScorpPlugin
         public object GetData(string dataType) => throw new NotImplementedException();
 
 
-        public T GetTexture<T>() where T : class => _texturePtr as T;
+        public T GetTextureAsClass<T>() where T : class => _texturePtr as T;
+
+
+        public T GetTextureAsStruct<T>() where T : struct
+        {
+            throw new NotImplementedException();
+        }
 
 
         public void InjectData<T>(T data) where T : class

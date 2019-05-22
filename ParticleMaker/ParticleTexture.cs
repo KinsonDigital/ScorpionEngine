@@ -46,12 +46,13 @@ namespace ParticleMaker
         public object GetData(string dataType) => throw new NotImplementedException();
 
 
+        //TODO: Refactor method comment doc to better explain that it returns a class.
         /// <summary>
         /// Returns the particle texture as a <see cref="Texture2D"/>.
         /// </summary>
         /// <typeparam name="T">The type of texture to return.</typeparam>
         /// <returns></returns>
-        public T GetTexture<T>() where T : class
+        public T GetTextureAsClass<T>() where T : class
         {
 #pragma warning disable IDE0019 // Use pattern matching
             var result = _texture as T;
@@ -62,6 +63,13 @@ namespace ParticleMaker
 
 
             return result;
+        }
+
+
+        //TODO: Refactor method comment doc to better explain that it returns a struct.
+        public T GetTextureAsStruct<T>() where T : struct
+        {
+            throw new NotImplementedException();
         }
 
 

@@ -28,7 +28,7 @@
         #region Public Methods
         public T GetTexture<T>() where T : class
         {
-            return InternalTexture.GetTexture<T>();
+            return InternalTexture.GetTextureAsClass<T>();
         }
         #endregion
     }

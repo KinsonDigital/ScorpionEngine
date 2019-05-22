@@ -53,7 +53,7 @@ namespace MonoScorpPlugin
             var textureOrigin = new Vector2(texture.Width / 2f, texture.Height / 2f);
             var position = new Vector2(x, y);
 
-            _spriteBatch.Draw(texture.GetTexture<Texture2D>(), position, null, Color.White, 0, textureOrigin, 1f, SpriteEffects.None, 0f);
+            _spriteBatch.Draw(texture.GetTextureAsClass<Texture2D>(), position, null, Color.White, 0, textureOrigin, 1f, SpriteEffects.None, 0f);
         }
 
 
@@ -63,7 +63,7 @@ namespace MonoScorpPlugin
             var textureOrigin = new Vector2(texture.Width / 2f, texture.Height / 2f);
             var position = new Vector2(x, y);
 
-            _spriteBatch.Draw(texture.GetTexture<Texture2D>(), position, null, Color.White, angle.ToRadians(), textureOrigin, 1f, SpriteEffects.None, 0f);
+            _spriteBatch.Draw(texture.GetTextureAsClass<Texture2D>(), position, null, Color.White, angle.ToRadians(), textureOrigin, 1f, SpriteEffects.None, 0f);
         }
 
 
@@ -73,7 +73,7 @@ namespace MonoScorpPlugin
             var textureOrigin = new Vector2(texture.Width / 2f, texture.Height / 2f);
             var position = new Vector2(x, y);
 
-            _spriteBatch.Draw(texture.GetTexture<Texture2D>(), position, null, new Color(red, green, blue, alpha), angle.ToRadians(), textureOrigin, size, SpriteEffects.None, 0f);
+            _spriteBatch.Draw(texture.GetTextureAsClass<Texture2D>(), position, null, new Color(red, green, blue, alpha), angle.ToRadians(), textureOrigin, size, SpriteEffects.None, 0f);
         }
 
 
@@ -83,7 +83,7 @@ namespace MonoScorpPlugin
             var textureOrigin = new Vector2(texture.Width / 2f, texture.Height / 2f);
             var position = new Vector2(x, y);
 
-            _spriteBatch.Draw(texture.GetTexture<Texture2D>(), position, srcRect, Color.Orange, 0, textureOrigin, 1, SpriteEffects.None, 0f);
+            _spriteBatch.Draw(texture.GetTextureAsClass<Texture2D>(), position, srcRect, Color.Orange, 0, textureOrigin, 1, SpriteEffects.None, 0f);
         }
 
 

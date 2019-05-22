@@ -12,7 +12,7 @@ namespace KDScorpionCoreTests.Graphics
         {
             //Arrange
             var mockTexture = new Mock<ITexture>();
-            mockTexture.Setup(m => m.GetTexture<FakeTexture>()).Returns(new FakeTexture() { FakeData = 11 });
+            mockTexture.Setup(m => m.GetTextureAsClass<FakeTexture>()).Returns(new FakeTexture() { FakeData = 11 });
             var texture = new Texture(mockTexture.Object);
 
             var expected = new FakeTexture() { FakeData = 11 };
