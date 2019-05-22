@@ -37,6 +37,7 @@ namespace MonoScorpPlugin
             Texture = data as Texture2D;
         }
 
+
         public T GetTextureAsStruct<T>() where T : struct
         {
             throw new NotImplementedException();
