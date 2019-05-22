@@ -88,13 +88,19 @@ namespace VelcroPhysicsPlugin
         }
 
 
+        public object GetData(string dataType)
+        {
+            throw new NotImplementedException();
+        }
+
+
         public void InjectData<T>(T data) where T : class
         {
             throw new NotImplementedException();
         }
 
 
-        public object GetData(string dataType)
+        public void InjectPointer(IntPtr pointer)
         {
             throw new NotImplementedException();
         }

@@ -74,6 +74,12 @@ namespace SDLScorpPlugin
         {
             throw new NotImplementedException();
         }
+
+
+        public void InjectPointer(IntPtr pointer)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

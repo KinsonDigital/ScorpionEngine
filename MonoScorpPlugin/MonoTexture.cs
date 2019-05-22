@@ -38,6 +38,12 @@ namespace MonoScorpPlugin
         }
 
 
+        public void InjectPointer(IntPtr pointer)
+        {
+            throw new NotImplementedException();
+        }
+
+
         public T GetTextureAsStruct<T>() where T : struct
         {
             throw new NotImplementedException();

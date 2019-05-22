@@ -53,6 +53,12 @@ namespace SDLScorpPlugin
 
             //_texture = data as SDL.Texture;
         }
+
+
+        public void InjectPointer(IntPtr pointer)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

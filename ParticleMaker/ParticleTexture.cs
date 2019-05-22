@@ -79,6 +79,12 @@ namespace ParticleMaker
         /// <param name="data">The data to inject.</param>
         /// <returns></returns>
         public void InjectData<T>(T data) where T : class => throw new NotImplementedException();
+
+
+        public void InjectPointer(IntPtr pointer)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

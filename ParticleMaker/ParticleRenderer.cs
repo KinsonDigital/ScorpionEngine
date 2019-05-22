@@ -63,14 +63,6 @@ namespace ParticleMaker
 
 
         /// <summary>
-        /// Injects the given <paramref name="data"/> into the class for use.
-        /// </summary>
-        /// <typeparam name="T">The type of data to inject.</typeparam>
-        /// <param name="data">The data to inject.</param>
-        public void InjectData<T>(T data) where T : class { }
-
-
-        /// <summary>
         /// Renders a line to the screen based on the given parameters.
         /// </summary>
         /// <param name="lineStartX">The starting X location of the line.</param>
@@ -156,6 +148,20 @@ namespace ParticleMaker
         /// Starts the rendering process.  Must be called before rendering.
         /// </summary>
         public void Start() => throw new NotImplementedException();
+
+
+        /// <summary>
+        /// Injects the given <paramref name="data"/> into the class for use.
+        /// </summary>
+        /// <typeparam name="T">The type of data to inject.</typeparam>
+        /// <param name="data">The data to inject.</param>
+        public void InjectData<T>(T data) where T : class { }
+
+
+        public void InjectPointer(IntPtr pointer)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

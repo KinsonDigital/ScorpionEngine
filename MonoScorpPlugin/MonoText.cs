@@ -50,6 +50,12 @@ namespace MonoScorpPlugin
 
             Font = data as SpriteFont;
         }
+
+
+        public void InjectPointer(IntPtr pointer)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

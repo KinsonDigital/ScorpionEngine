@@ -189,5 +189,8 @@ namespace SDLScorpPlugin
         {
             throw new NotImplementedException();
         }
+
+
+        public void InjectPointer(IntPtr pointer) => _rendererPtr = pointer;
     }
 }

@@ -24,18 +24,6 @@ namespace MonoScorpPlugin
         }
 
 
-        public object GetData(string dataType)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public void InjectData<T>(T data) where T : class
-        {
-            throw new NotImplementedException();
-        }
-
-
         /// <summary>
         /// Rotates the <paramref name="vector"/> around the <paramref name="rotateOrigin"/> at the given <paramref name="angle"/>.
         /// </summary>
@@ -61,6 +49,24 @@ namespace MonoScorpPlugin
 
 
             return new Vector2(x, y);
+        }
+
+
+        public object GetData(string dataType)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void InjectData<T>(T data) where T : class
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void InjectPointer(IntPtr pointer)
+        {
+            throw new NotImplementedException();
         }
     }
 }

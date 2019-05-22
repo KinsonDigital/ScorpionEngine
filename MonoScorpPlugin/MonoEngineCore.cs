@@ -124,6 +124,12 @@ namespace MonoScorpPlugin
         }
 
 
+        public void InjectPointer(IntPtr pointer)
+        {
+            throw new NotImplementedException();
+        }
+
+
         public object GetData(string dataType)
         {
             throw new NotImplementedException();

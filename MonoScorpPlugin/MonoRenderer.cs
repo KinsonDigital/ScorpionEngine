@@ -95,20 +95,6 @@ namespace MonoScorpPlugin
         }
 
 
-        public void InjectData<T>(T data) where T : class
-        {
-            _graphicsDevice = data;
-
-            _spriteBatch = new SpriteBatch(_graphicsDevice as GraphicsDevice);
-        }
-
-
-        public object GetData(string dataType)
-        {
-            throw new NotImplementedException();
-        }
-
-
         public void RenderLine(float lineStartX, float lineStartY, float lineStopX, float lineStopY)
         {
             var colorValues = new byte[]
@@ -137,5 +123,24 @@ namespace MonoScorpPlugin
             _spriteBatch.DrawLine(startX, startY, endX, endY, lineColor);
         }
 
+
+        public void InjectData<T>(T data) where T : class
+        {
+            _graphicsDevice = data;
+
+            _spriteBatch = new SpriteBatch(_graphicsDevice as GraphicsDevice);
+        }
+
+
+        public object GetData(string dataType)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void InjectPointer(IntPtr pointer)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
