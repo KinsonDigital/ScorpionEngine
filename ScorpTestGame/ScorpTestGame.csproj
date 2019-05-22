@@ -184,8 +184,8 @@ copy "$(SolutionDir)VelcroPhysicsPlugin\bin\$(PlatformName)\Debug\VelcroPhysicsP
 
 REM Copy the Main Velcro Physics Library to the output folder
 del "$(TargetDir)VelcroPhysics.dll" /F /Q
-copy "$(SolutionDir)VelcroPhysicsPlugin\bin\Debug\VelcroPhysics.dll" "$(TargetDir)VelcroPhysics.dll"
-copy "$(SolutionDir)VelcroPhysicsPlugin\bin\Debug\VelcroPhysics.pdb" "$(TargetDir)VelcroPhysics.pdb"
+copy "$(SolutionDir)VelcroPhysicsPlugin\bin\$(PlatformName)\Debug\VelcroPhysics.dll" "$(TargetDir)VelcroPhysics.dll"
+copy "$(SolutionDir)VelcroPhysicsPlugin\bin\$(PlatformName)\Debug\VelcroPhysics.pdb" "$(TargetDir)VelcroPhysics.pdb"
 
 
 REM Copy the MonoGame.Framework.dll file to the output directory
