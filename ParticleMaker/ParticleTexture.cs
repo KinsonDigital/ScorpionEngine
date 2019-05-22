@@ -51,7 +51,7 @@ namespace ParticleMaker
         /// </summary>
         /// <typeparam name="T">The type of texture to return.</typeparam>
         /// <returns></returns>
-        public T GetTexture<T>() where T : class
+        public T GetTextureAsClass<T>() where T : class
         {
 #pragma warning disable IDE0019 // Use pattern matching
             var result = _texture as T;
@@ -62,6 +62,11 @@ namespace ParticleMaker
 
 
             return result;
+        }
+
+        public T GetTextureAsStruct<T>() where T : struct
+        {
+            throw new NotImplementedException();
         }
 
 

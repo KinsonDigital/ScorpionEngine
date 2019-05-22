@@ -8,6 +8,8 @@ namespace KDScorpionCore.Graphics
 
         int Height { get; }
 
-        T GetTexture<T>() where T : class;
+        T GetTextureAsClass<T>() where T : class;
+
+        T GetTextureAsStruct<T>() where T : struct;
     }
 }

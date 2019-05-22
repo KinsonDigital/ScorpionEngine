@@ -22,7 +22,7 @@ namespace MonoScorpPlugin
         }
 
 
-        public T GetTexture<T>() where T : class
+        public T GetTextureAsClass<T>() where T : class
         {
             return Texture as T;
         }
@@ -35,6 +35,11 @@ namespace MonoScorpPlugin
                 throw new Exception($"Data getting injected into {nameof(MonoTexture)} is not of type {nameof(Texture2D)}.  Incorrect type is {data.GetType().ToString()}");
 
             Texture = data as Texture2D;
+        }
+
+        public T GetTextureAsStruct<T>() where T : struct
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

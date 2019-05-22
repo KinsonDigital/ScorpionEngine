@@ -119,7 +119,7 @@ namespace ParticleMaker
             var textureOrigin = new Vector2(texture.Width / 2f, texture.Height / 2f);
             var position = new Vector2(x, y);
 
-            _spriteBatch.Draw(texture.GetTexture<Texture2D>(), position, null, new Color(red, green, blue, alpha), angle.ToRadians(), textureOrigin, size, SpriteEffects.None, 0f);
+            _spriteBatch.Draw(texture.GetTextureAsClass<Texture2D>(), position, null, new Color(red, green, blue, alpha), angle.ToRadians(), textureOrigin, size, SpriteEffects.None, 0f);
         }
 
 
