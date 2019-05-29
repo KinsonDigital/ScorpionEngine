@@ -10,8 +10,10 @@ namespace SDLScorpPlugin
 {
     public class SDLRenderer : IRenderer
     {
+        #region Private Fields
         private bool _beginInvoked = false;
         private IntPtr _rendererPtr;
+        #endregion
 
 
         public void Start()
@@ -31,20 +33,56 @@ namespace SDLScorpPlugin
         }
 
 
+        /// <summary>
+        /// Clears the screen to the color using the given color components of
+        /// <paramref name="red"/>, <paramref name="green"/>, <paramref name="blue"/> and <paramref name="alpha"/>.
+        /// </summary>
+        /// <param name="red">The red component of the color to clearn the screen to.</param>
+        /// <param name="green">The green component of the color to clearn the screen to.</param>
+        /// <param name="blue">The blue component of the color to clearn the screen to.</param>
+        /// <param name="alpha">The alpha component of the color to clearn the screen to.</param>
         public void Clear(byte red, byte green, byte blue, byte alpha)
         {
-            //TODO: See if we can clear to a particular color
+            SDL.SDL_SetRenderDrawColor(_rendererPtr, red, green, blue, alpha);
             SDL.SDL_RenderClear(_rendererPtr);
         }
 
 
-        public void Render(ITexture texture, float x, float y) => Render(texture, x, y, 0f, 0f, 255, 255, 255, 255);
+        /// <summary>
+        /// Renders the given <paramref name="texture"/> at the given <paramref name="x"/>
+        /// and <paramref name="y"/> location.
+        /// </summary>
+        /// <param name="texture">The texture to render.</param>
+        /// <param name="x">The X coordinate location on the screen to render the at.</param>
+        /// <param name="y">The Y coordinate location on the screen to render the at.</param>
+        public void Render(ITexture texture, float x, float y) => Render(texture, x, y, 0f, 0f, new byte[] { 255, 255, 255, 255 });
 
 
-        public void Render(ITexture texture, float x, float y, float angle) => Render(texture, x, y, angle, 0f, 255, 255, 255, 255);
+        /// <summary>
+        /// Renders the given <paramref name="texture"/> at the given <paramref name="x"/>
+        /// and <paramref name="y"/> location and rotates the texture to the given
+        /// <paramref name="angle"/> in degrees.
+        /// </summary>
+        /// <param name="texture">The texture to render.</param>
+        /// <param name="x">The X coordinate location on the screen to render the at.</param>
+        /// <param name="y">The Y coordinate location on the screen to render the at.</param>
+        /// <param name="angle">The angle in degrees to rotate the texture to.</param>
+        public void Render(ITexture texture, float x, float y, float angle) => Render(texture, x, y, angle, 0f, new byte[] { 255, 255, 255, 255 });
 
 
-        public void Render(ITexture texture, float x, float y, float angle, float size, byte red, byte green, byte blue, byte alpha)
+        /// <summary>
+        /// Renders the given <paramref name="texture"/> at the given <paramref name="x"/>
+        /// and <paramref name="y"/> location and rotates the texture to the given
+        /// <paramref name="angle"/> in degrees.
+        /// </summary>
+        /// <param name="texture">The texture to render.</param>
+        /// <param name="x">The X coordinate location on the screen to render the at.</param>
+        /// <param name="y">The Y coordinate location on the screen to render the at.</param>
+        /// <param name="angle">The angle in degrees to rotate the texture to.</param>
+        /// <param name="color">The array of color components of the color to add to the texture.
+        /// Only aloud to have 4 elements or less.  Any more than 4 elements will throw an exception.
+        /// If element does not exist, the value 255 will be used.</param>
+        public void Render(ITexture texture, float x, float y, float angle, float size, byte[] color)
         {
             var textureOrigin = new SDL.SDL_Point()
             {
@@ -69,6 +107,11 @@ namespace SDLScorpPlugin
             };
 
             var texturePtr = texture.GetTextureAsStruct<IntPtr>();
+
+            var red = color.Length >= 1 ? color[0] : (byte)255;
+            var green = color.Length >= 2 ? color[1] : (byte)255;
+            var blue = color.Length >= 3 ? color[2] : (byte)255;
+            var alpha = color.Length >= 4 ? color[3] : (byte)255;
 
             SDL.SDL_SetTextureBlendMode(texturePtr, SDL.SDL_BlendMode.SDL_BLENDMODE_BLEND);
             SDL.SDL_SetTextureColorMod(texturePtr, red, green, blue);

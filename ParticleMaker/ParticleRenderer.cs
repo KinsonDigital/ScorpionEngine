@@ -106,10 +106,15 @@ namespace ParticleMaker
         /// <param name="green">The green component of the color to apply to the texture.</param>
         /// <param name="blue">The blue component of the color to apply to the texture.</param>
         /// <param name="alpha">The alpha component of the color to apply to the texture.</param>
-        public void Render(ITexture texture, float x, float y, float angle, float size, byte red, byte green, byte blue, byte alpha)
+        public void Render(ITexture texture, float x, float y, float angle, float size, byte[] color)
         {
             var textureOrigin = new Vector2(texture.Width / 2f, texture.Height / 2f);
             var position = new Vector2(x, y);
+
+            var red = color.Length >= 1 ? color[0] : 255;
+            var green = color.Length >= 2 ? color[1] : 255;
+            var blue = color.Length >= 3 ? color[2] : 255;
+            var alpha = color.Length >= 4 ? color[3] : 255;
 
             _spriteBatch.Draw(texture.GetTextureAsClass<Texture2D>(), position, null, new Color(red, green, blue, alpha), angle.ToRadians(), textureOrigin, size, SpriteEffects.None, 0f);
         }
