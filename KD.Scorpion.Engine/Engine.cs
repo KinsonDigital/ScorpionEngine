@@ -201,6 +201,7 @@ namespace KDScorpionEngine
             SceneManager = new SceneManager(ContentLoader);
         }
 
+        
 
         private void _engineCore_OnInitialize(object sender, EventArgs e)
         {

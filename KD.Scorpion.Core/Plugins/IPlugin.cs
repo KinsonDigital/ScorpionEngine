@@ -7,16 +7,18 @@ namespace KDScorpionCore.Plugins
     /// </summary>
     public interface IPlugin
     {
-        //TODO: Improve method doc here explaining this method and the fact that it only injects class data
         /// <summary>
-        /// Inject any arbitrary data into the plugin for use.
+        /// Injects any arbitrary data into the plugin for use.  Must be a class.
         /// </summary>
         /// <typeparam name="T">The type of data to inject.</typeparam>
         /// <param name="data">The data to inject.</param>
         void InjectData<T>(T data) where T : class;
 
 
-        //TODO: Add method doc here explaining this method and the fact that it only injects struct data
+        /// <summary>
+        /// Injects a pointer into the plugin for use.
+        /// </summary>
+        /// <param name="pointer"></param>
         void InjectPointer(IntPtr pointer);
 
 
