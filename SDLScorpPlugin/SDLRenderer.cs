@@ -3,11 +3,12 @@ using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
 using SDL2;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SDLScorpPlugin
 {
+    /// <summary>
+    /// Provides methods for rendering textures, text and primitives to the screen.
+    /// </summary>
     public class SDLRenderer : IRenderer
     {
         #region Private Fields
@@ -16,12 +17,20 @@ namespace SDLScorpPlugin
         #endregion
 
 
+        #region Public Methods
+        /// <summary>
+        /// Starts the process of rendering a batch of <see cref="Texture"/>s, <see cref="GameText"/> items
+        /// or primitives.  This method must be invoked before rendering.
+        /// </summary>
         public void Start()
         {
             _beginInvoked = true;
         }
 
 
+        /// <summary>
+        /// Stops the batching process and renders all of the batches textures to the screen.
+        /// </summary>
         public void End()
         {
             if (!_beginInvoked)
@@ -53,8 +62,8 @@ namespace SDLScorpPlugin
         /// and <paramref name="y"/> location.
         /// </summary>
         /// <param name="texture">The texture to render.</param>
-        /// <param name="x">The X coordinate location on the screen to render the at.</param>
-        /// <param name="y">The Y coordinate location on the screen to render the at.</param>
+        /// <param name="x">The X coordinate location on the screen to render.</param>
+        /// <param name="y">The Y coordinate location on the screen to render.</param>
         public void Render(ITexture texture, float x, float y) => Render(texture, x, y, 0f, 0f, new byte[] { 255, 255, 255, 255 });
 
 
@@ -64,8 +73,8 @@ namespace SDLScorpPlugin
         /// <paramref name="angle"/> in degrees.
         /// </summary>
         /// <param name="texture">The texture to render.</param>
-        /// <param name="x">The X coordinate location on the screen to render the at.</param>
-        /// <param name="y">The Y coordinate location on the screen to render the at.</param>
+        /// <param name="x">The X coordinate location on the screen to render.</param>
+        /// <param name="y">The Y coordinate location on the screen to render.</param>
         /// <param name="angle">The angle in degrees to rotate the texture to.</param>
         public void Render(ITexture texture, float x, float y, float angle) => Render(texture, x, y, angle, 0f, new byte[] { 255, 255, 255, 255 });
 
@@ -76,8 +85,8 @@ namespace SDLScorpPlugin
         /// <paramref name="angle"/> in degrees.
         /// </summary>
         /// <param name="texture">The texture to render.</param>
-        /// <param name="x">The X coordinate location on the screen to render the at.</param>
-        /// <param name="y">The Y coordinate location on the screen to render the at.</param>
+        /// <param name="x">The X coordinate location on the screen to render.</param>
+        /// <param name="y">The Y coordinate location on the screen to render.</param>
         /// <param name="angle">The angle in degrees to rotate the texture to.</param>
         /// <param name="color">The array of color components of the color to add to the texture.
         /// Only aloud to have 4 elements or less.  Any more than 4 elements will throw an exception.
@@ -120,6 +129,14 @@ namespace SDLScorpPlugin
         }
 
 
+        /// <summary>
+        /// Renders an area of the given <paramref name="texture"/> at the given <paramref name="x"/>
+        /// and <paramref name="y"/> location.
+        /// </summary>
+        /// <param name="texture">The texture to render.</param>
+        /// <param name="area">The area/section of the texture to render.</param>
+        /// <param name="x">The X coordinate location on the screen to render.</param>
+        /// <param name="y">The Y coordinate location on the screen to render.</param>
         public void RenderTextureArea(ITexture texture, Rect area, float x, float y)
         {
             var textureOrigin = new SDL.SDL_Point()
@@ -150,16 +167,61 @@ namespace SDLScorpPlugin
         }
 
 
+        /// <summary>
+        /// Renders the given <paramref name="text"/> at the given <paramref name="x"/>
+        /// and <paramref name="y"/> location.
+        /// </summary>
+        /// <param name="texture">The texture to render.</param>
+        /// <param name="x">The X coordinate location on the screen to render.</param>
+        /// <param name="y">The Y coordinate location on the screen to render.</param>
         public void Render(IText text, float x, float y)
         {
             throw new NotImplementedException();
         }
 
 
+        /// <summary>
+        /// Renders a line using the given start and stop X and Y coordinates.
+        /// </summary>
+        /// <param name="lineStartX">The starting X coordinate of the line.</param>
+        /// <param name="lineStartY">The starting Y coordinate of the line.</param>
+        /// <param name="lineStopX">The ending X coordinate of the line.</param>
+        /// <param name="lineStopY">The ending Y coordinate of the line.</param>
         public void RenderLine(float lineStartX, float lineStartY, float lineStopX, float lineStopY) =>
             RenderLine(lineStartX, lineStartY, lineStopX, lineStopY, new byte[] { 255, 255, 255, 255 });
 
 
+        /// <summary>
+        /// Renders a line using the given start and stop X and Y coordinates.
+        /// </summary>
+        /// <param name="lineStartX">The starting X coordinate of the line.</param>
+        /// <param name="lineStartY">The starting Y coordinate of the line.</param>
+        /// <param name="lineStopX">The ending X coordinate of the line.</param>
+        /// <param name="lineStopY">The ending Y coordinate of the line.</param>
+        /// <param name="color">The color of the line.  Must be a total of 4 color component channels consisting of
+        /// red, green, blue and alpha in that order.  A missing element will result in a default value of 255.</param>
+        public void RenderLine(float startX, float startY, float endX, float endY, byte[] color)
+        {
+            SDL.SDL_SetRenderDrawColor(_rendererPtr,
+                                       color == null || color.Length >= 1 ? color[0] : (byte)255,
+                                       color == null || color.Length >= 2 ? color[1] : (byte)255,
+                                       color == null || color.Length >= 3 ? color[2] : (byte)255,
+                                       color == null || color.Length >= 4 ? color[3] : (byte)255);
+
+            SDL.SDL_RenderDrawLine(_rendererPtr, (int)startX, (int)startY, (int)endX, (int)endY);
+        }
+
+
+        /// <summary>
+        /// Creates a filled circle at the given <paramref name="x"/> and <paramref name="y"/> location
+        /// with the given <paramref name="radius"/> and with the given <paramref name="color"/>.  The
+        /// <paramref name="x"/> and <paramref name="y"/> coordinates represent the center of the circle.
+        /// </summary>
+        /// <param name="x">The X coordinate on the screen of where to render the circle.</param>
+        /// <param name="y">The Y coordinate on the screen of where to render the circle.</param>
+        /// <param name="radius">The radius of the circle.</param>
+        /// <param name="color">The color of the circle.  Must be a total of 4 color component channels consisting of
+        /// red, green, blue and alpha in that order.  A missing element will result in a default value of 255.</param>
         public void FillCircle(float centerX, float centerY, float radius, byte[] color)
         {
             /*Midpoint Algorith
@@ -181,7 +243,11 @@ namespace SDLScorpPlugin
             int centerXIntValue = (int)centerX;
             int centerYIntValue = (int)centerY;
 
-            SDL.SDL_SetRenderDrawColor(_rendererPtr, color[0], color[1], color[2], color[3]);
+            SDL.SDL_SetRenderDrawColor(_rendererPtr,
+                                       color == null || color.Length >= 1 ? color[0] : (byte)255,
+                                       color == null || color.Length >= 2 ? color[1] : (byte)255,
+                                       color == null || color.Length >= 3 ? color[2] : (byte)255,
+                                       color == null || color.Length >= 4 ? color[3] : (byte)255);
 
             while (x >= y)
             {
@@ -212,28 +278,27 @@ namespace SDLScorpPlugin
         }
 
 
-        public void RenderLine(float startX, float startY, float endX, float endY, byte[] color)
-        {
-            if (color == null || color.Length != 4)
-                throw new ArgumentException($"The argument '{nameof(color)}' must not be null and must have exactly 4 elements.");
-
-            SDL.SDL_SetRenderDrawColor(_rendererPtr, color[0], color[1], color[2], color[3]);
-            SDL.SDL_RenderDrawLine(_rendererPtr, (int)startX, (int)startY, (int)endX, (int)endY);
-        }
+        /// <summary>
+        /// Injects any arbitrary data into the plugin for use.  Must be a class.
+        /// </summary>
+        /// <typeparam name="T">The type of data to inject.</typeparam>
+        /// <param name="data">The data to inject.</param>
+        public void InjectData<T>(T data) where T : class => throw new NotImplementedException();
 
 
-        public object GetData(string dataType)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public void InjectData<T>(T data) where T : class
-        {
-            throw new NotImplementedException();
-        }
-
-
+        /// <summary>
+        /// Injects a pointer into the plugin for use.
+        /// </summary>
+        /// <param name="pointer"></param>
         public void InjectPointer(IntPtr pointer) => _rendererPtr = pointer;
+
+
+        /// <summary>
+        /// Gets any arbitrary data needed for use.
+        /// </summary>
+        /// <typeparam name="T">The type of data to get.</typeparam>
+        /// <returns></returns>
+        public object GetData(string dataType) => throw new NotImplementedException();
+        #endregion
     }
 }
