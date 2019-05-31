@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -185,7 +185,7 @@ copy "$(TargetDir)$(PlatformName)\SDL2.dll" "$(TargetDir)SDL2.dll" /Y
 
 
 REM Copy the native SDL2 imaging required libraries to the output folder
-REM copy "$(SolutionDir)SDLScorpPlugin\Libs\SDL-Image\$(PlatformName)\SDL2_image.dll" "$(TargetDir)SDL2_image.dll" /Y
+copy "$(SolutionDir)SDLScorpPlugin\Libs\SDL-Image\$(PlatformName)\SDL2_image.dll" "$(TargetDir)SDL2_image.dll" /Y
 copy "$(SolutionDir)SDLScorpPlugin\Libs\SDL-Image\$(PlatformName)\libjpeg-9.dll" "$(TargetDir)libjpeg-9.dll" /Y
 copy "$(SolutionDir)SDLScorpPlugin\Libs\SDL-Image\$(PlatformName)\libpng16-16.dll" "$(TargetDir)libpng16-16.dll" /Y
 copy "$(SolutionDir)SDLScorpPlugin\Libs\SDL-Image\$(PlatformName)\libtiff-5.dll" "$(TargetDir)libtiff-5.dll" /Y
