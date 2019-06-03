@@ -9,12 +9,6 @@ namespace MonoScorpPlugin
 {
     public class MonoContentLoader : IContentLoader
     {
-        public MonoContentLoader()
-        {
-            ContentRootDirectory = $"{GamePath}\\Content";
-        }
-
-
         #region Props
         /// <summary>
         /// Gets the path to the executable game.
@@ -25,6 +19,11 @@ namespace MonoScorpPlugin
         /// Gets or sets the root directory for the game's content.
         /// </summary>
         public string ContentRootDirectory { get; set; }
+        #endregion
+
+
+        #region Constructors
+        public MonoContentLoader() => ContentRootDirectory = $@"{GamePath}\Content";
         #endregion
 
 

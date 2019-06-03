@@ -51,7 +51,6 @@ namespace PluginSystem
 
             for (int i = 0; i < paramItems.Length; i++)
             {
-
                 //If the current paremter is not the correct type
                 if (paramItems[i].GetType() != paramTypeList[i])
                 {

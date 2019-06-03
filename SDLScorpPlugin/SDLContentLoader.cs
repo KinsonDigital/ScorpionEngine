@@ -17,10 +17,15 @@ namespace SDLScorpPlugin
         #endregion
 
 
+        #region Constructors
+        public SDLContentLoader() => ContentRootDirectory = $@"{GamePath}\Content\";
+        #endregion
+
+
         #region Public Methods
         T IContentLoader.LoadTexture<T>(string name)
         {
-            var texturePath = $@"{GamePath}\Content\{name}.png";
+            var texturePath = $@"{ContentRootDirectory}\Graphics\{name}.png";
 
             //The final optimized image
             var newTexturePtr = IntPtr.Zero;
@@ -30,18 +35,15 @@ namespace SDLScorpPlugin
 
             if (loadedSurface == IntPtr.Zero)
             {
-                throw new Exception($"Unable to load image {texturePath}! SDL Error: {SDL.SDL_GetError()}");
+                throw new Exception($"Unable to load image {texturePath}! \n\nSDL Error: {SDL.SDL_GetError()}");
             }
             else
             {
-                //TODO: Need to get a real renderer pointer from the Renderer
-                var tempRendererPtr = IntPtr.Zero;
-
                 //Create texture from surface pixels
-                newTexturePtr = SDL.SDL_CreateTextureFromSurface(tempRendererPtr, loadedSurface);
+                newTexturePtr = SDL.SDL_CreateTextureFromSurface(SDLEngineCore.RendererPointer, loadedSurface);
 
                 if (newTexturePtr == IntPtr.Zero)
-                    throw new Exception($"Unable to create texture from {texturePath}! SDL Error: {SDL.SDL_GetError()}");
+                    throw new Exception($"Unable to create texture from {texturePath}! \n\nSDL Error: {SDL.SDL_GetError()}");
 
                 //Get rid of old loaded surface
                 SDL.SDL_FreeSurface(loadedSurface);
@@ -49,37 +51,21 @@ namespace SDLScorpPlugin
 
             ITexture newTexture = new SDLTexture(newTexturePtr);
 
-            //TODO: This is probably not needed due to injecting the pointer via the constructor
-            //Remove this
-            //newTexture.InjectData();
-
 
             return newTexture as T;
         }
 
 
-        public object GetData(string dataType)
-        {
-            throw new NotImplementedException();
-        }
+        public object GetData(string dataType) => throw new NotImplementedException();
 
 
-        public void InjectData<T>(T data) where T : class
-        {
-            throw new NotImplementedException();
-        }
+        public void InjectData<T>(T data) where T : class => throw new NotImplementedException();
 
 
-        T IContentLoader.LoadText<T>(string name)
-        {
-            throw new NotImplementedException();
-        }
+        T IContentLoader.LoadText<T>(string name) => throw new NotImplementedException();
 
 
-        public void InjectPointer(IntPtr pointer)
-        {
-            throw new NotImplementedException();
-        }
+        public void InjectPointer(IntPtr pointer) => throw new NotImplementedException();
         #endregion
     }
 }

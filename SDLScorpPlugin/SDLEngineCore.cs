@@ -76,7 +76,7 @@ namespace SDLScorpPlugin
         }
 
         //TODO: Need to implement/create the SDLRenderer and use it here in this prop
-        public IRenderer Renderer { get; set; }
+        public IRenderer Renderer { get; private set; }
 
         public TimeStepType TimeStep { get; set; } = TimeStepType.Fixed;
 
@@ -84,6 +84,11 @@ namespace SDLScorpPlugin
         /// Gets the current FPS for the current running frame.
         /// </summary>
         public float CurrentFPS { get; private set; }
+
+        /// <summary>
+        /// Gets the renderer pointer.
+        /// </summary>
+        internal static IntPtr RendererPointer => _rendererPtr;
         #endregion
 
 
@@ -130,7 +135,10 @@ namespace SDLScorpPlugin
         /// <returns></returns>
         public object GetData(string dataType)
         {
-            throw new NotImplementedException();
+            if (dataType == "IntPtr")
+                return _rendererPtr;
+
+            throw new Exception($"Incorrect requested data type in '{nameof(SDLEngineCore)}'");
         }
 
 
@@ -162,6 +170,11 @@ namespace SDLScorpPlugin
         {
             SDL.SDL_DestroyRenderer(_rendererPtr);
             SDL.SDL_DestroyWindow(_windowPtr);
+
+            //Quit SDL sub systems
+            SDL_ttf.TTF_Quit();
+            SDL_image.IMG_Quit();
+
             SDL.SDL_Quit();
         }
         #endregion
@@ -173,44 +186,37 @@ namespace SDLScorpPlugin
         /// </summary>
         private void InitEngine()
         {
-            //Initialization flag
-            var success = true;
-
             //Initialize SDL
             if (SDL.SDL_Init(SDL.SDL_INIT_VIDEO) < 0)
             {
-                //TODO: Convert to exception
-                Console.WriteLine("SDL could not initialize! SDL_Error: {0}", SDL.SDL_GetError());
-                success = false;
+                throw new Exception($"SDL could not initialize! \n\nSDL_Error: {SDL.SDL_GetError()}");
             }
             else
             {
                 //Set texture filtering to linear
                 if (SDL.SDL_SetHint(SDL.SDL_HINT_RENDER_SCALE_QUALITY, "1") == SDL.SDL_bool.SDL_FALSE)
-                {
-                    //TODO: Convert to exception
-                    Console.WriteLine("Warning: Linear texture filtering not enabled!");
-                }
+                    throw new Exception("Warning: Linear texture filtering not enabled!");
 
                 //Create window
                 _windowPtr = SDL.SDL_CreateWindow("SDL Tutorial", SDL.SDL_WINDOWPOS_CENTERED, SDL.SDL_WINDOWPOS_CENTERED,
                     640, 480, SDL.SDL_WindowFlags.SDL_WINDOW_SHOWN);
                 if (_windowPtr == IntPtr.Zero)
                 {
-                    //TODO: Convert to exception
-                    Console.WriteLine("Window could not be created! SDL_Error: {0}", SDL.SDL_GetError());
-                    success = false;
+                    throw new Exception($"Window could not be created! \n\nSDL_Error: {SDL.SDL_GetError()}");
                 }
                 else
                 {
                     //Create vsynced renderer for window
                     var renderFlags = SDL.SDL_RendererFlags.SDL_RENDERER_ACCELERATED;
+
+                    Renderer = new SDLRenderer();
                     _rendererPtr = SDL.SDL_CreateRenderer(_windowPtr, -1, renderFlags);
+
+                    Renderer.InjectPointer(_rendererPtr);
+
                     if (_rendererPtr == IntPtr.Zero)
                     {
-                        //TODO: Convert to exception
-                        Console.WriteLine("Renderer could not be created! SDL Error: {0}", SDL.SDL_GetError());
-                        success = false;
+                        throw new Exception($"Renderer could not be created! \n\nSDL_Error: {SDL.SDL_GetError()}");
                     }
                     else
                     {
@@ -219,20 +225,13 @@ namespace SDLScorpPlugin
 
                         //Initialize PNG loading
                         var imgFlags = SDL_image.IMG_InitFlags.IMG_INIT_PNG;
+
                         if ((SDL_image.IMG_Init(imgFlags) > 0 & imgFlags > 0) == false)
-                        {
-                            //TODO: Convert to exception
-                            Console.WriteLine("SDL_image could not initialize! SDL_image Error: {0}", SDL.SDL_GetError());
-                            success = false;
-                        }
+                            throw new Exception($"SDL_image could not initialize! \n\nSDL_image Error: {SDL.SDL_GetError()}");
 
                         //Initialize SDL_ttf
                         if (SDL_ttf.TTF_Init() == -1)
-                        {
-                            //TODO: Convert to exception
-                            Console.WriteLine("SDL_ttf could not initialize! SDL_ttf Error: {0}", SDL.SDL_GetError());
-                            success = false;
-                        }
+                            throw new Exception($"SDL_ttf could not initialize! \n\nSDL_ttf Error: {SDL.SDL_GetError()}");
                     }
                 }
             }

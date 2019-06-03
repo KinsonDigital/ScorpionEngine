@@ -177,10 +177,8 @@ namespace KDScorpionEngine
         {
             Plugins.LoadPluginFactory();
 
-            //ContentLoader = new ContentLoader(PluginSystem.EnginePlugins.LoadPlugin<IContentLoader>());//TODO: To be removed
             ContentLoader = new ContentLoader(Plugins.PluginFactory.CreateContentLoader());
-
-            //_engineCore = PluginSystem.EnginePlugins.LoadPlugin<IEngineCore>();//TODO: To be removed
+            
             _engineCore = Plugins.PluginFactory.CreateEngineCore();
 
             _engineCore.SetFPS(60);

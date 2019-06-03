@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -155,7 +155,7 @@ mkdir "$(TargetDir)Content\Graphics"
 
 
 REM Copy the graphics content to the bin output folder
-xcopy "$(ProjectDir)Content\bin\Windows\Graphics" "$(TargetDir)Content\Graphics" /Y/E
+xcopy "$(ProjectDir)Content\Graphics" "$(TargetDir)Content\Graphics" /Y/E
 
 
 REM Make sure that a Fonts directory exists
@@ -177,11 +177,12 @@ copy "$(SolutionDir)SDLScorpPlugin\bin\$(PlatformName)\$(ConfigurationName)\nets
 
 
 REM Copy the SDL-CS C# wrapper library to the output folder
-copy "$(SolutionDir)SDLScorpPlugin\Libs\SDLNet\$(PlatformName)\SDL2-CS.dll" "$(TargetDir)SDL2-CS.dll" /Y
+REM copy "$(SolutionDir)SDLScorpPlugin\Libs\SDLNet\$(PlatformName)\SDL2-CS.dll" "$(TargetDir)SDL2-CS.dll" /Y
+copy "S:\Software Development\GitHub-Repos\SDL2-CS\bin\Debug\x64\netstandard2.0\SDL2-CS.dll" "$(TargetDir)SDL2-CS.dll"
+copy "S:\Software Development\GitHub-Repos\SDL2-CS\bin\Debug\x64\netstandard2.0\SDL2-CS.pdb" "$(TargetDir)SDL2-CS.pdb"
 
-
-REM Copy the native SDL2 libraries to the output folder
-copy "$(TargetDir)$(PlatformName)\SDL2.dll" "$(TargetDir)SDL2.dll" /Y
+REM Copy the native SDL2 library to the output folder
+copy "$(SolutionDir)SDLScorpPlugin\Libs\SDL\$(PlatformName)\SDL2.dll" "$(TargetDir)SDL2.dll" /Y
 
 
 REM Copy the native SDL2 imaging required libraries to the output folder
@@ -191,6 +192,11 @@ copy "$(SolutionDir)SDLScorpPlugin\Libs\SDL-Image\$(PlatformName)\libpng16-16.dl
 copy "$(SolutionDir)SDLScorpPlugin\Libs\SDL-Image\$(PlatformName)\libtiff-5.dll" "$(TargetDir)libtiff-5.dll" /Y
 copy "$(SolutionDir)SDLScorpPlugin\Libs\SDL-Image\$(PlatformName)\libwebp-7.dll" "$(TargetDir)libwebp-7.dll" /Y
 copy "$(SolutionDir)SDLScorpPlugin\Libs\SDL-Image\$(PlatformName)\zlib1.dll" "$(TargetDir)zlib1.dll" /Y
+
+
+REM Copy the native SDL libraries for dealing with fonts and rendering text
+copy "$(SolutionDir)SDLScorpPlugin\Libs\SDL-TTF\$(PlatformName)\SDL2_ttf.dll" "$(TargetDir)SDL2_ttf.dll"
+copy "$(SolutionDir)SDLScorpPlugin\Libs\SDL-TTF\$(PlatformName)\libfreetype-6.dll" "$(TargetDir)libfreetype-6.dll"
 
 
 REM Copy the Velcro Physics Plugin to the output folder

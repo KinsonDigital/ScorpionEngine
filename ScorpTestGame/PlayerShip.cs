@@ -90,7 +90,7 @@ namespace ScorpTestGame
 
         public override void LoadContent(ContentLoader contentLoader)
         {
-            Texture = contentLoader.LoadTexture("Ship");
+            Texture = contentLoader.LoadTexture(@"Ship");
 
             _particleEngine.AddTexture(contentLoader.LoadTexture(@"Particles\ShipThruster"));
 

@@ -35,13 +35,15 @@ namespace PluginSystem
         {
             var paramTypeList = new Dictionary<int, Type>()
             {
-                { 0, typeof(Vector[]) },
-                { 0, typeof(Vector) },
-                { 0, typeof(float) },
-                { 0, typeof(float) },
-                { 0, typeof(float) },
-                { 0, typeof(float) },
-                { 0, typeof(bool) },
+                { 0, typeof(float[]) },
+                { 1, typeof(float[]) },
+                { 2, typeof(float) },
+                { 3, typeof(float) },
+                { 4, typeof(float) },
+                { 5, typeof(float) },
+                { 6, typeof(float) },
+                { 7, typeof(float) },
+                { 8, typeof(bool) },
             };
 
             if (paramItems.Length < paramTypeList.Count)
@@ -49,7 +51,6 @@ namespace PluginSystem
 
             for (int i = 0; i < paramItems.Length; i++)
             {
-
                 //If the current paremter is not the correct type
                 if (paramItems[i].GetType() != paramTypeList[i])
                 {
@@ -58,7 +59,7 @@ namespace PluginSystem
                         new string[0];
 
                     if (typeSections.Length > 0)
-                        throw new ArgumentException($"Param number {i} is not the correct type.  The param must be of type '{typeSections[typeSections.Length - 1]}'.");
+                        throw new ArgumentException($"Param number {i + 1} is not the correct type.  The param must be of type '{typeSections[typeSections.Length - 1]}'.");
                 }
             }
 
