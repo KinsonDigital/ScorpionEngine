@@ -73,6 +73,7 @@
     <Compile Include="SDLEngineTime.cs" />
     <Compile Include="SDLKeyboard.cs" />
     <Compile Include="SDLRenderer.cs" />
+    <Compile Include="SDLText.cs" />
     <Compile Include="SDLTexture.cs" />
   </ItemGroup>
   <ItemGroup>
