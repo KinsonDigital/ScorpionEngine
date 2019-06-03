@@ -1,7 +1,14 @@
-﻿using KDScorpionCore.Plugins;
+﻿using KDScorpionCore;
+using KDScorpionCore.Input;
+using KDScorpionCore.Plugins;
+using PluginSystem;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace KDScorpionCore.Input
+namespace KDScorpionEngine.Input
 {
     /// <summary>
     /// Tracks the state of the mouse.
@@ -53,7 +60,7 @@ namespace KDScorpionCore.Input
         /// </summary>
         public Mouse()
         {
-            InternalMouse = PluginSystem.EnginePlugins.LoadPlugin<IMouse>();
+            InternalMouse = Plugins.PluginFactory.CreateMouse();
         }
         #endregion
 
@@ -214,5 +221,4 @@ namespace KDScorpionCore.Input
         }
         #endregion
     }
-
 }

@@ -91,8 +91,9 @@
     <Compile Include="Fakes\FakePhysicsBody.cs" />
     <Compile Include="Fakes\FakeGameScene.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Helpers.cs" />
+    <Compile Include="Input\KeyboardTests.cs" />
     <Compile Include="Input\KeyboardWatcherTests.cs" />
+    <Compile Include="Input\MouseTests.cs" />
     <Compile Include="Physics\PhysicsBodyTests.cs" />
     <Compile Include="Physics\PhysicsWorldTests.cs" />
     <Compile Include="Physics\VectorTests.cs" />
@@ -117,6 +118,10 @@
     <ProjectReference Include="..\KD.Scorpion.Engine\KD.Scorpion.Engine.csproj">
       <Project>{91495c38-9695-4905-b5d9-0debb25e1a0f}</Project>
       <Name>KD.Scorpion.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PluginSystem\PluginSystem.csproj">
+      <Project>{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}</Project>
+      <Name>PluginSystem</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

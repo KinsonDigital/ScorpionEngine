@@ -6,6 +6,7 @@ using KDScorpionCore.Graphics;
 using KDScorpionCore.Input;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Entities;
+using KDScorpionEngine.Input;
 using KDScorpionEngine.Utils;
 
 namespace ScorpTestGame
@@ -106,7 +107,6 @@ namespace ScorpTestGame
             _thrusterPosition = Tools.RotateAround(_thrusterPosition, Position, Angle);
             //_particleEngine.SpawnLocation = _thrusterPosition;//KEEP
 
-            //TODO: Remove when done
             _particleEngine.SpawnLocation = new Vector(200, 200);
 
             //_particleEngine.Enabled = _movementBehavior.IsMovingForward;

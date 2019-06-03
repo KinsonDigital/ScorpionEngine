@@ -73,9 +73,7 @@
     <Compile Include="IContentLoadable.cs" />
     <Compile Include="IInitialize.cs" />
     <Compile Include="Input\Enums.cs" />
-    <Compile Include="Input\Keyboard.cs" />
     <Compile Include="Input\KeyEventArgs.cs" />
-    <Compile Include="Input\Mouse.cs" />
     <Compile Include="Input\MouseEventArgs.cs" />
     <Compile Include="Input\MouseInputState.cs" />
     <Compile Include="IRenderable.cs" />

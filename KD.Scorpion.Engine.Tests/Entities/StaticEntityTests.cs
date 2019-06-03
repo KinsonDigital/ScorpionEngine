@@ -6,6 +6,7 @@ using KDScorpionCore.Plugins;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Entities;
 using KDScorpionEngineTests.Fakes;
+using PluginSystem;
 
 namespace KDScorpionEngineTests.Entities
 {
@@ -17,13 +18,13 @@ namespace KDScorpionEngineTests.Entities
         public void Ctor_WhenInvoking_PropertlyConstructsObject()
         {
             //Arrange
-            var mockPhysicPluginLibrary = new Mock<IPluginLibrary>();
-            mockPhysicPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
+            var mockPluginFactory = new Mock<IPluginFactory>();
+            mockPluginFactory.Setup(m => m.CreatePhysicsBody(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
             {
                 return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[1], (float)ctorParams[2], (float)ctorParams[3]);
             });
 
-            PluginSystem.LoadPhysicsPluginLibrary(mockPhysicPluginLibrary.Object);
+            Plugins.LoadPluginFactory(mockPluginFactory.Object);
 
             var mockTexture = new Mock<ITexture>();
             var texture = new Texture(mockTexture.Object);
@@ -45,13 +46,14 @@ namespace KDScorpionEngineTests.Entities
         public void Update_WhenInvoking_UpdatesBehavior()
         {
             //Arrange
-            var mockPhysicPluginLibrary = new Mock<IPluginLibrary>();
-            mockPhysicPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
+            var mockPluginFactory = new Mock<IPluginFactory>();
+            mockPluginFactory.Setup(m => m.CreatePhysicsBody(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
             {
                 return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[1], (float)ctorParams[2], (float)ctorParams[3]);
             });
 
-            PluginSystem.LoadPhysicsPluginLibrary(mockPhysicPluginLibrary.Object);
+            Plugins.LoadPluginFactory(mockPluginFactory.Object);
+
             var mockTexture = new Mock<ITexture>();
             var mockBehavior = new Mock<IBehavior>();
             var texture = new Texture(mockTexture.Object);

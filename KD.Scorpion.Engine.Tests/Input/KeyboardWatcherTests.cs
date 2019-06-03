@@ -7,20 +7,23 @@ using KDScorpionEngine.Input;
 using System;
 using System.Collections.Generic;
 using KDScorpionEngine;
+using PluginSystem;
 
 namespace KDScorpionEngineTests.Input
 {
     public class KeyboardWatcherTests
     {
+        #region Private Fields
+        private Mock<IKeyboard> _mockKeyboard;
+        #endregion
+
+
         #region Method Tests
         [Test]
         public void Ctor_WhenUsingEnabled_CorrectlyPerformSetup()
         {
             //Arrange
-            Helpers.SetupPluginLib<IKeyboard>(PluginLibType.Engine);
-
             var keyboardWatcher = new KeyboardWatcher(true);
-
             var expectedComboButtons = new List<KeyCodes>();
             var expectedEnabled = true;
 
@@ -41,12 +44,6 @@ namespace KDScorpionEngineTests.Input
         public void Button_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var mockKeyboard = new Mock<IKeyboard>();
-            var mockPluginLib = new Mock<IPluginLibrary>();
-            mockPluginLib.Setup(m => m.LoadPlugin<IKeyboard>()).Returns(mockKeyboard.Object);
-
-            PluginSystem.LoadEnginePluginLibrary(mockPluginLib.Object);
-            
             var keyboardWatcher = new KeyboardWatcher(true)
             {
                 Key = KeyCodes.Left
@@ -65,9 +62,7 @@ namespace KDScorpionEngineTests.Input
         public void CurrentHitCountPercentage_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var mockMouse = new Mock<IKeyboard>();
-            mockMouse.Setup(m => m.IsKeyPressed(KeyCodes.Left)).Returns(true);
-            Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
+            _mockKeyboard.Setup(m => m.IsKeyPressed(KeyCodes.Left)).Returns(true);
             var keyboardWatcher = new KeyboardWatcher(true)
             {
                 Key = KeyCodes.Left,
@@ -95,7 +90,6 @@ namespace KDScorpionEngineTests.Input
         public void DownElapsedResetMode_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            Helpers.SetupPluginLib<IKeyboard>(PluginLibType.Engine);
             var keyboardWatcher = new KeyboardWatcher(true)
             {
                 DownElapsedResetMode = ResetType.Manual
@@ -115,7 +109,6 @@ namespace KDScorpionEngineTests.Input
         public void HitCountResetMode_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            Helpers.SetupPluginLib<IKeyboard>(PluginLibType.Engine);
             var keyboardWatcher = new KeyboardWatcher(true)
             {
                 HitCountResetMode = ResetType.Manual
@@ -135,7 +128,6 @@ namespace KDScorpionEngineTests.Input
         public void ComboKeys_WhenSettingWithNonNullValue_ReturnsCorrectValue()
         {
             //Arrange
-            Helpers.SetupPluginLib<IKeyboard>(PluginLibType.Engine);
             var keyboardWatcher = new KeyboardWatcher(true)
             {
                 ComboKeys = new List<KeyCodes>()
@@ -163,8 +155,6 @@ namespace KDScorpionEngineTests.Input
         public void InputDownElapsedMS_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            Helpers.SetupPluginLib<IKeyboard>(PluginLibType.Engine);
-
             var keyboardWatcher = new KeyboardWatcher(true);
             var expected = 16;
 
@@ -181,7 +171,6 @@ namespace KDScorpionEngineTests.Input
         public void InputDownElapsedSeconds_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            Helpers.SetupPluginLib<IKeyboard>(PluginLibType.Engine);
             var keyboardWatcher = new KeyboardWatcher(true)
             {
                 InputReleasedTimeout = 2000,
@@ -203,7 +192,6 @@ namespace KDScorpionEngineTests.Input
         public void InputReleasedElapsedMS_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            Helpers.SetupPluginLib<IKeyboard>(PluginLibType.Engine);
             var keyboardWatcher = new KeyboardWatcher(true);
 
             var expected = 31;
@@ -221,10 +209,7 @@ namespace KDScorpionEngineTests.Input
         public void InputReleasedElapsedSeconds_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var mockMouse = new Mock<IKeyboard>();
-            mockMouse.Setup(m => m.IsKeyDown(KeyCodes.W)).Returns(false);
-
-            Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
+            _mockKeyboard.Setup(m => m.IsKeyDown(KeyCodes.W)).Returns(false);
 
             var keyboardWatcher = new KeyboardWatcher(true)
             {
@@ -237,7 +222,7 @@ namespace KDScorpionEngineTests.Input
 
             //Act/Assert
             keyboardWatcher.Update(engineTime);//Run once to get the internal states.
-            mockMouse.Setup(m => m.IsKeyDown(KeyCodes.W)).Returns(false);//Return false to simulate that the button is not down
+
             //keyboardWatcher.Update(engineTime);
             var actual = Math.Round(keyboardWatcher.InputReleasedElapsedSeconds, 3);
 
@@ -250,7 +235,6 @@ namespace KDScorpionEngineTests.Input
         public void InputDownTimeOut_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            Helpers.SetupPluginLib<IKeyboard>(PluginLibType.Engine);
             var keyboardWatcher = new KeyboardWatcher(true)
             {
                 InputDownTimeOut = 123
@@ -270,7 +254,6 @@ namespace KDScorpionEngineTests.Input
         public void InputReleasedTimeOut_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            Helpers.SetupPluginLib<IKeyboard>(PluginLibType.Engine);
             var keyboardWatcher = new KeyboardWatcher(true)
             {
                 InputReleasedTimeout = 456
@@ -290,7 +273,6 @@ namespace KDScorpionEngineTests.Input
         public void ReleasedElapsedResetMode_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            Helpers.SetupPluginLib<IKeyboard>(PluginLibType.Engine);
             var keyboardWatcher = new KeyboardWatcher(true)
             {
                 ReleasedElapsedResetMode = ResetType.Manual
@@ -312,17 +294,13 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenInvokingWithNullOnInputHitCountReachedEvent_RunsWithNoNullReferenceExceptions()
         {
             //Arrange
-            var mockMouse = new Mock<IKeyboard>();
-            mockMouse.Setup(m => m.IsKeyPressed(KeyCodes.Left)).Returns(true);
-
-            Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
+            _mockKeyboard.Setup(m => m.IsKeyPressed(KeyCodes.Left)).Returns(true);
 
             var keyboardWatcher = new KeyboardWatcher(true)
             {
                 Key = KeyCodes.Left,
                 HitCountMax = 0
             };
-
 
             //Act/Assert
             AssertExt.DoesNotThrowNullReference(() =>
@@ -336,10 +314,7 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenInvokingWhileCountingWithNullCounter_RunsWithNoNullReferenceExceptions()
         {
             //Arrange
-            var mockMouse = new Mock<IKeyboard>();
-            mockMouse.Setup(m => m.IsKeyPressed(KeyCodes.Left)).Returns(true);
-
-            Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
+            _mockKeyboard.Setup(m => m.IsKeyPressed(KeyCodes.Left)).Returns(true);
 
             var keyboardWatcher = new KeyboardWatcher(true)
             {
@@ -361,10 +336,7 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenInvokingWithProperButtonState_ResetsDownTimerAndStartsButtonUpTimer()
         {
             //Arrange
-            var mockMouse = new Mock<IKeyboard>();
-            mockMouse.Setup(m => m.IsKeyDown(KeyCodes.Left)).Returns(true);
-
-            Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
+            _mockKeyboard.Setup(m => m.IsKeyDown(KeyCodes.Left)).Returns(true);
 
             var keyboardWatcher = new KeyboardWatcher(true)
             {
@@ -377,7 +349,7 @@ namespace KDScorpionEngineTests.Input
 
             //Act/Assert
             keyboardWatcher.Update(engineTime);//Run once to get the internal states.
-            mockMouse.Setup(m => m.IsKeyDown(KeyCodes.Left)).Returns(false);//Return false to simulate that the button is not down
+            _mockKeyboard.Setup(m => m.IsKeyDown(KeyCodes.Left)).Returns(false);
             keyboardWatcher.Update(engineTime);//Run update again to set the current and previous states different
             keyboardWatcher.Update(engineTime);
             var actualDownTimerElapsed = keyboardWatcher.InputDownElapsedMS;
@@ -393,12 +365,9 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenDisabled_DoNotUpdateAnything()
         {
             //Arrange
-            var mockMouse = new Mock<IKeyboard>();
-            mockMouse.Setup(m => m.IsKeyDown(KeyCodes.Left)).Returns(true);
-            mockMouse.Setup(m => m.IsKeyUp(KeyCodes.Left)).Returns(true);
-            mockMouse.Setup(m => m.IsKeyPressed(KeyCodes.Left)).Returns(true);
-
-            Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
+            _mockKeyboard.Setup(m => m.IsKeyDown(KeyCodes.Left)).Returns(true);
+            _mockKeyboard.Setup(m => m.IsKeyUp(KeyCodes.Left)).Returns(true);
+            _mockKeyboard.Setup(m => m.IsKeyPressed(KeyCodes.Left)).Returns(true);
 
             var expectedCurrentHitCount = 0;
             var expectedInputHitCountReachedEventInvoked = false;
@@ -443,9 +412,7 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenUpdating_InvokesHitCountReachedEvent()
         {
             //Arrange
-            var mockMouse = new Mock<IKeyboard>();
-            mockMouse.Setup(m => m.IsKeyPressed(KeyCodes.Left)).Returns(true);
-            Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
+            _mockKeyboard.Setup(m => m.IsKeyPressed(KeyCodes.Left)).Returns(true);
 
             var expected = true;
             var actual = false;
@@ -472,9 +439,7 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenUpdating_InvokesInputDownTimeoutEvent()
         {
             //Arrange
-            var mockMouse = new Mock<IKeyboard>();
-            mockMouse.Setup(m => m.IsKeyDown(KeyCodes.Left)).Returns(true);
-            Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
+            _mockKeyboard.Setup(m => m.IsKeyDown(KeyCodes.Left)).Returns(true);
 
             var expected = true;
             var actual = false;
@@ -500,9 +465,7 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenUpdatingWithNullInputDownTimeoutEvent_ShouldNotThrowNullRefException()
         {
             //Arrange
-            var mockMouse = new Mock<IKeyboard>();
-            mockMouse.Setup(m => m.IsKeyDown(KeyCodes.Left)).Returns(true);
-            Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
+            _mockKeyboard.Setup(m => m.IsKeyDown(KeyCodes.Left)).Returns(true);
 
             var keyboardWatcher = new KeyboardWatcher(true)
             {
@@ -524,9 +487,7 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenUpdating_InvokesInputReleaseTimeoutEvent()
         {
             //Arrange
-            var mockMouse = new Mock<IKeyboard>();
-            mockMouse.Setup(m => m.IsKeyUp(KeyCodes.Right)).Returns(true);
-            Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
+            _mockKeyboard.Setup(m => m.IsKeyUp(KeyCodes.Right)).Returns(true);
 
             var expected = true;
             var actual = false;
@@ -551,9 +512,7 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenUpdatingWithNullInputReleasedTimeoutEvent_ShouldNotThrowNullRefException()
         {
             //Arrange
-            var mockMouse = new Mock<IKeyboard>();
-            mockMouse.Setup(m => m.IsKeyUp(KeyCodes.Right)).Returns(true);
-            Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
+            _mockKeyboard.Setup(m => m.IsKeyUp(KeyCodes.Right)).Returns(true);
 
             var keyboardWatcher = new KeyboardWatcher(true)
             {
@@ -575,11 +534,9 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenInvokingWithSetComboButtons_InvokesOnInputComboPressedEvent()
         {
             //Arrange
-            var mockMouse = new Mock<IKeyboard>();
-            mockMouse.Setup(m => m.IsKeyDown(KeyCodes.Left)).Returns(true);
-            mockMouse.Setup(m => m.IsKeyDown(KeyCodes.Right)).Returns(true);
+            _mockKeyboard.Setup(m => m.IsKeyDown(KeyCodes.Left)).Returns(true);
+            _mockKeyboard.Setup(m => m.IsKeyDown(KeyCodes.Right)).Returns(true);
 
-            Helpers.SetupPluginLib(mockMouse, PluginLibType.Engine);
             var keyboardWatcher = new KeyboardWatcher(true)
             {
                 ComboKeys = new List<KeyCodes>()
@@ -605,17 +562,11 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenInvokingWithNullOnInputComboPressedEvent_DoesNotThrowNullException()
         {
             //Arrange
-            var mockKeyboard = new Mock<IKeyboard>();
-            mockKeyboard.Setup(m => m.IsKeyDown(KeyCodes.Left)).Returns(true);
-            mockKeyboard.Setup(m => m.IsKeyDown(KeyCodes.Right)).Returns(true);
-
             var mockPluginLib = new Mock<IPluginLibrary>();
             mockPluginLib.Setup(m => m.LoadPlugin<IKeyboard>()).Returns(() =>
             {
-                return mockKeyboard.Object;
+                return _mockKeyboard.Object;
             });
-
-            PluginSystem.LoadEnginePluginLibrary(mockPluginLib.Object);
 
             var keyboardWatcher = new KeyboardWatcher(true)
             {
@@ -627,18 +578,27 @@ namespace KDScorpionEngineTests.Input
             };
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
 
-            //Act
-
-            //Assert
+            //Act & Assert
             AssertExt.DoesNotThrowNullReference(() => keyboardWatcher.Update(engineTime));
         }
         #endregion
 
 
-        [TearDown]
-        public void TearDown()
+        #region Setup & TearDown
+        [SetUp]
+        public void Setup()
         {
-            PluginSystem.ClearPlugins();
+            _mockKeyboard = new Mock<IKeyboard>();
+
+            var mockPluginLib = new Mock<IPluginFactory>();
+            mockPluginLib.Setup(m => m.CreateKeyboard()).Returns(() => _mockKeyboard.Object);
+
+            Plugins.LoadPluginFactory(mockPluginLib.Object);
         }
+
+
+        [TearDown]
+        public void TearDown() => Plugins.UnloadPluginFactory();
+        #endregion
     }
 }

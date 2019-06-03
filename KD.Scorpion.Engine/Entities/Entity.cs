@@ -8,6 +8,7 @@ using KDScorpionCore.Plugins;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngine.Physics;
+using PluginSystem;
 
 namespace KDScorpionEngine.Entities
 {
@@ -255,7 +256,7 @@ namespace KDScorpionEngine.Entities
             {
                 if (value)
                 {
-                    _debugDraw = PluginSystem.EnginePlugins.LoadPlugin<IDebugDraw>();
+                    _debugDraw = Plugins.PluginFactory.CreateDebugDraw();
                 }
                 else
                 {

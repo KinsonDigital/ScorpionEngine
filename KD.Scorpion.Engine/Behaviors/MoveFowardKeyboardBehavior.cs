@@ -1,6 +1,7 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Input;
 using KDScorpionEngine.Entities;
+using KDScorpionEngine.Input;
 
 namespace KDScorpionEngine.Behaviors
 {

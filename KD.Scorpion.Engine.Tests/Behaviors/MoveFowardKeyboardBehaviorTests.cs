@@ -7,12 +7,18 @@ using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Entities;
 using KDScorpionEngineTests.Fakes;
 using System;
+using PluginSystem;
 
 namespace KDScorpionEngineTests.Behaviors
 {
     [TestFixture]
     public class MoveFowardKeyboardBehaviorTests
     {
+        #region Private Fields
+        private Mock<IKeyboard> _mockKeyboard;
+        #endregion
+
+
         #region Prop Tests
         [Test]
         public void MoveFowardKey_WhenGettingAndSettingValue_ReturnsCorrectValue()
@@ -69,6 +75,8 @@ namespace KDScorpionEngineTests.Behaviors
         public void IsMovingFoward_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
+            _mockKeyboard.Setup(m => m.IsKeyDown(KeyCodes.Up)).Returns(true);
+
             var entity = new DynamicEntity();
             entity.Initialize();
 
@@ -90,24 +98,10 @@ namespace KDScorpionEngineTests.Behaviors
         public void Update_WhenInvoked_InvokesEntityRotateCW()
         {
             //Arrange
-            TearDown();
-            var mockKeyboard = new Mock<IKeyboard>();
-            mockKeyboard.Setup(m => m.IsKeyDown(KeyCodes.Right)).Returns(true);
+            _mockKeyboard.Setup(m => m.IsKeyDown(KeyCodes.Right)).Returns(true);
 
             var entityXVertices = new[] { 10f, 20f, 30f };
             var entityYVertices = new[] { 10f, 20f, 30f };
-
-            var mockEnginePluginLibrary = new Mock<IPluginLibrary>();
-            mockEnginePluginLibrary.Setup(m => m.LoadPlugin<IKeyboard>()).Returns(mockKeyboard.Object);
-
-            var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
-            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParms) =>
-            {
-                return new FakePhysicsBody((float[])ctorParms[0], (float[])ctorParms[1]);
-            });
-
-            PluginSystem.LoadEnginePluginLibrary(mockEnginePluginLibrary.Object);
-            PluginSystem.LoadPhysicsPluginLibrary(mockPhysicsPluginLibrary.Object);
 
             var entity = new DynamicEntity();
             entity.Initialize();
@@ -128,6 +122,8 @@ namespace KDScorpionEngineTests.Behaviors
         public void Update_WhenInvoked_InvokesEntityRotateCCW()
         {
             //Arrange
+            _mockKeyboard.Setup(m => m.IsKeyDown(KeyCodes.Left)).Returns(true);
+
             var entity = new DynamicEntity();
             entity.Initialize();
 
@@ -148,33 +144,24 @@ namespace KDScorpionEngineTests.Behaviors
         [SetUp]
         public void Setup()
         {
-            var mockKeyboard = new Mock<IKeyboard>();
-            mockKeyboard.Setup(m => m.IsKeyDown(KeyCodes.Up)).Returns(true);
-            mockKeyboard.Setup(m => m.IsKeyDown(KeyCodes.Left)).Returns(true);
-            mockKeyboard.Setup(m => m.IsKeyDown(KeyCodes.Right)).Returns(true);
+            _mockKeyboard = new Mock<IKeyboard>();
 
             var entityXVertices = new[] { 10f, 20f, 30f };
             var entityYVertices = new[] { 10f, 20f, 30f };
 
-            var mockEnginePluginLibrary = new Mock<IPluginLibrary>();
-            mockEnginePluginLibrary.Setup(m => m.LoadPlugin<IKeyboard>()).Returns(mockKeyboard.Object);
-
-            var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
-            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParms) =>
+            var mockPluginFactory = new Mock<IPluginFactory>();
+            mockPluginFactory.Setup(m => m.CreateKeyboard()).Returns(_mockKeyboard.Object);
+            mockPluginFactory.Setup(m => m.CreatePhysicsBody(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
             {
-                return new FakePhysicsBody((float[])ctorParms[0], (float[])ctorParms[1]);
+                return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[1]);
             });
 
-            PluginSystem.LoadEnginePluginLibrary(mockEnginePluginLibrary.Object);
-            PluginSystem.LoadPhysicsPluginLibrary(mockPhysicsPluginLibrary.Object);
+            Plugins.LoadPluginFactory(mockPluginFactory.Object);
         }
 
 
         [TearDown]
-        public void TearDown()
-        {
-            PluginSystem.ClearPlugins();
-        }
+        public void TearDown() => Plugins.UnloadPluginFactory();
         #endregion
     }
 }

@@ -72,6 +72,10 @@
       <Project>{3e136a13-190c-4390-9e74-8849022852f6}</Project>
       <Name>KD.Scorpion.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\KD.Scorpion.Engine\KD.Scorpion.Engine.csproj">
+      <Project>{91495C38-9695-4905-B5D9-0DEBB25E1A0F}</Project>
+      <Name>KD.Scorpion.Engine</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\" />

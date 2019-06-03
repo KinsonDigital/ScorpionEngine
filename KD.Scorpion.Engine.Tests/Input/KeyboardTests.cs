@@ -2,28 +2,13 @@
 using NUnit.Framework;
 using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
-using System.Linq;
+using KDScorpionEngine.Input;
 
-namespace KDScorpionCoreTests.Input
+namespace KDScorpionEngineTests.Input
 {
     public class KeyboardTests
     {
         #region Method Tests
-        [Test]
-        public void Ctor_WhenInvoking_InvokesPluginLibraryLoadPluginMethod()
-        {
-            //Arrange
-            var mockPluginLibrary = new Mock<IPluginLibrary>();
-            PluginSystem.LoadEnginePluginLibrary(mockPluginLibrary.Object);
-
-            //Act
-            var keyboard = new Keyboard();
-
-            //Assert
-            mockPluginLibrary.Verify(m => m.LoadPlugin<IKeyboard>(), Times.Once());
-        }
-
-
         [Test]
         public void GetCurrentPressedKeys_WhenInvoking_ReturnsCorrectPressedKeys()
         {
@@ -140,13 +125,6 @@ namespace KDScorpionCoreTests.Input
 
             //Assert
             mockKeyboard.Verify(m => m.UpdatePreviousState(), Times.Once());
-        }
-
-
-        [TearDown]
-        public void TearDown()
-        {
-            PluginSystem.ClearPlugins();
         }
         #endregion
     }

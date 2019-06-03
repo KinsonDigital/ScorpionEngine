@@ -4,22 +4,25 @@ using KDScorpionCore;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Physics;
 using KDScorpionEngineTests.Fakes;
+using PluginSystem;
 
 namespace KDScorpionEngineTests.Physics
 {
     public class PhysicsBodyTests
     {
+        private Mock<IPhysicsBody> _mockInternalPhysicsBody;
         #region Prop Tests
         [Test]
         public void Vertices_WhenGettingAndSettingValue_GetsCorrectValue()
         {
             //Arrange
-            var mockPluginLib = new Mock<IPluginLibrary>();
-            mockPluginLib.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctrParams) =>
-            {
-                return new FakePhysicsBody((float[])ctrParams[0], (float[])ctrParams[1]);
-            });
-            PluginSystem.LoadPhysicsPluginLibrary(mockPluginLib.Object);
+            TearDown();
+
+            var mockPluginLib = new Mock<IPluginFactory>();
+            mockPluginLib.Setup(m => m.CreatePhysicsBody(It.IsAny<object[]>())).Returns((object[] ctrParams) =>
+                new FakePhysicsBody((float[])ctrParams[0], (float[])ctrParams[1]));
+
+            Plugins.LoadPluginFactory(mockPluginLib.Object);
 
             var expectedVertices = new Vector[]
             {
@@ -42,15 +45,10 @@ namespace KDScorpionEngineTests.Physics
         public void X_WhenGettingAndSettingValue_GetsCorrectValue()
         {
             //Arrange
-            var mockInternalPhysicsBody = new Mock<IPhysicsBody>();
-            mockInternalPhysicsBody.SetupProperty(m => m.X);
-
-            Helpers.SetupPluginLib<IPhysicsBody, float, float>(mockInternalPhysicsBody, PluginLibType.Physics);
-
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
             var body = new PhysicsBody(vertices, Vector.Zero)
             {
-                InternalPhysicsBody = mockInternalPhysicsBody.Object
+                InternalPhysicsBody = _mockInternalPhysicsBody.Object
             };
             var expected = 1234.4321f;
 
@@ -67,15 +65,10 @@ namespace KDScorpionEngineTests.Physics
         public void Y_WhenGettingAndSettingValue_GetsCorrectValue()
         {
             //Arrange
-            var mockInternalPhysicsBody = new Mock<IPhysicsBody>();
-            mockInternalPhysicsBody.SetupProperty(m => m.Y);
-
-            Helpers.SetupPluginLib<IPhysicsBody, float, float>(mockInternalPhysicsBody, PluginLibType.Physics);
-
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
             var body = new PhysicsBody(vertices, Vector.Zero)
             {
-                InternalPhysicsBody = mockInternalPhysicsBody.Object
+                InternalPhysicsBody = _mockInternalPhysicsBody.Object
             };
             var expected = 456.654f;
 
@@ -92,21 +85,10 @@ namespace KDScorpionEngineTests.Physics
         public void Angle_WhenGettingAndSettingValue_GetsCorrectValue()
         {
             //Arrange
-            var mockInternalPhysicsBody = new Mock<IPhysicsBody>();
-            mockInternalPhysicsBody.SetupProperty(m => m.Angle);
-
-            var mockPluginLib = new Mock<IPluginLibrary>();
-            mockPluginLib.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<float>())).Returns(() =>
-            {
-                return mockInternalPhysicsBody.Object;
-            });
-
-            PluginSystem.LoadPhysicsPluginLibrary(mockPluginLib.Object);
-
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
             var body = new PhysicsBody(vertices, Vector.Zero)
             {
-                InternalPhysicsBody = mockInternalPhysicsBody.Object
+                InternalPhysicsBody = _mockInternalPhysicsBody.Object
             };
             var expected = 90.12f;
 
@@ -123,15 +105,10 @@ namespace KDScorpionEngineTests.Physics
         public void Density_WhenGettingAndSettingValue_GetsCorrectValue()
         {
             //Arrange
-            var mockInternalPhysicsBody = new Mock<IPhysicsBody>();
-            mockInternalPhysicsBody.SetupProperty(m => m.Density);
-
-            Helpers.SetupPluginLib<IPhysicsBody, float, float>(mockInternalPhysicsBody, PluginLibType.Physics);
-
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
             var body = new PhysicsBody(vertices, Vector.Zero)
             {
-                InternalPhysicsBody = mockInternalPhysicsBody.Object
+                InternalPhysicsBody = _mockInternalPhysicsBody.Object
             };
             var expected = 14.7f;
 
@@ -148,15 +125,10 @@ namespace KDScorpionEngineTests.Physics
         public void Friction_WhenGettingAndSettingValue_GetsCorrectValue()
         {
             //Arrange
-            var mockInternalPhysicsBody = new Mock<IPhysicsBody>();
-            mockInternalPhysicsBody.SetupProperty(m => m.Friction);
-
-            Helpers.SetupPluginLib<IPhysicsBody, float, float>(mockInternalPhysicsBody, PluginLibType.Physics);
-
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
             var body = new PhysicsBody(vertices, Vector.Zero)
             {
-                InternalPhysicsBody = mockInternalPhysicsBody.Object
+                InternalPhysicsBody = _mockInternalPhysicsBody.Object
             };
             var expected = 43.73f;
 
@@ -173,15 +145,10 @@ namespace KDScorpionEngineTests.Physics
         public void Restitution_WhenGettingAndSettingValue_GetsCorrectValue()
         {
             //Arrange
-            var mockInternalPhysicsBody = new Mock<IPhysicsBody>();
-            mockInternalPhysicsBody.SetupProperty(m => m.Restitution);
-
-            Helpers.SetupPluginLib<IPhysicsBody, float, float>(mockInternalPhysicsBody, PluginLibType.Physics);
-
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
             var body = new PhysicsBody(vertices, Vector.Zero)
             {
-                InternalPhysicsBody = mockInternalPhysicsBody.Object
+                InternalPhysicsBody = _mockInternalPhysicsBody.Object
             };
             var expected = 8.4f;
 
@@ -198,15 +165,10 @@ namespace KDScorpionEngineTests.Physics
         public void LinearDeceleration_WhenGettingAndSettingValue_GetsCorrectValue()
         {
             //Arrange
-            var mockInternalPhysicsBody = new Mock<IPhysicsBody>();
-            mockInternalPhysicsBody.SetupProperty(m => m.LinearDeceleration);
-
-            Helpers.SetupPluginLib<IPhysicsBody, float, float>(mockInternalPhysicsBody, PluginLibType.Physics);
-
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
             var body = new PhysicsBody(vertices, Vector.Zero)
             {
-                InternalPhysicsBody = mockInternalPhysicsBody.Object
+                InternalPhysicsBody = _mockInternalPhysicsBody.Object
             };
             var expected = 3.22f;
 
@@ -223,15 +185,10 @@ namespace KDScorpionEngineTests.Physics
         public void AngularDeceleration_WhenGettingAndSettingValue_GetsCorrectValue()
         {
             //Arrange
-            var mockInternalPhysicsBody = new Mock<IPhysicsBody>();
-            mockInternalPhysicsBody.SetupProperty(m => m.AngularDeceleration);
-
-            Helpers.SetupPluginLib<IPhysicsBody, float, float>(mockInternalPhysicsBody, PluginLibType.Physics);
-
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
             var body = new PhysicsBody(vertices, Vector.Zero)
             {
-                InternalPhysicsBody = mockInternalPhysicsBody.Object
+                InternalPhysicsBody = _mockInternalPhysicsBody.Object
             };
             var expected = 43.73f;
 
@@ -248,16 +205,10 @@ namespace KDScorpionEngineTests.Physics
         public void LinearVelocity_WhenGettingAndSettingValue_GetsCorrectValue()
         {
             //Arrange
-            var mockInternalPhysicsBody = new Mock<IPhysicsBody>();
-            mockInternalPhysicsBody.SetupProperty(m => m.LinearVelocityX);
-            mockInternalPhysicsBody.SetupProperty(m => m.LinearVelocityY);
-
-            Helpers.SetupPluginLib<IPhysicsBody, float, float>(mockInternalPhysicsBody, PluginLibType.Physics);
-
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
             var body = new PhysicsBody(vertices, Vector.Zero)
             {
-                InternalPhysicsBody = mockInternalPhysicsBody.Object
+                InternalPhysicsBody = _mockInternalPhysicsBody.Object
             };
             var expected = new Vector(123.321f, 789.987f);
 
@@ -274,15 +225,10 @@ namespace KDScorpionEngineTests.Physics
         public void AngularVelocity_WhenGettingAndSettingValue_GetsCorrectValue()
         {
             //Arrange
-            var mockInternalPhysicsBody = new Mock<IPhysicsBody>();
-            mockInternalPhysicsBody.SetupProperty(m => m.AngularVelocity);
-
-            Helpers.SetupPluginLib<IPhysicsBody, float, float>(mockInternalPhysicsBody, PluginLibType.Physics);
-
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
             var body = new PhysicsBody(vertices, Vector.Zero)
             {
-                InternalPhysicsBody = mockInternalPhysicsBody.Object
+                InternalPhysicsBody = _mockInternalPhysicsBody.Object
             };
             var expected = 1973.3791f;
 
@@ -293,13 +239,35 @@ namespace KDScorpionEngineTests.Physics
             //Assert
             Assert.AreEqual(expected, actual);
         }
+        #endregion
+
+
+        #region Setup & TearDown
+        [SetUp]
+        public void Setup()
+        {
+            _mockInternalPhysicsBody = new Mock<IPhysicsBody>();
+            _mockInternalPhysicsBody.SetupProperty(m => m.Angle);
+            _mockInternalPhysicsBody.SetupProperty(m => m.AngularVelocity);
+            _mockInternalPhysicsBody.SetupProperty(m => m.X);
+            _mockInternalPhysicsBody.SetupProperty(m => m.Y);
+            _mockInternalPhysicsBody.SetupProperty(m => m.Density);
+            _mockInternalPhysicsBody.SetupProperty(m => m.Friction);
+            _mockInternalPhysicsBody.SetupProperty(m => m.Restitution);
+            _mockInternalPhysicsBody.SetupProperty(m => m.LinearDeceleration);
+            _mockInternalPhysicsBody.SetupProperty(m => m.AngularDeceleration);
+            _mockInternalPhysicsBody.SetupProperty(m => m.LinearVelocityX);
+            _mockInternalPhysicsBody.SetupProperty(m => m.LinearVelocityY);
+
+            var mockPluginLib = new Mock<IPluginFactory>();
+            mockPluginLib.Setup(m => m.CreatePhysicsBody(It.IsAny<float>())).Returns(() => _mockInternalPhysicsBody.Object);
+
+            Plugins.LoadPluginFactory(mockPluginLib.Object);
+        }
 
 
         [TearDown]
-        public void TearDown()
-        {
-            PluginSystem.ClearPlugins();
-        }
+        public void TearDown() => Plugins.UnloadPluginFactory();
         #endregion
     }
 }

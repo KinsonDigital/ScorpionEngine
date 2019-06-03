@@ -2,6 +2,7 @@
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Entities;
 using KDScorpionEngine.Exceptions;
+using PluginSystem;
 
 namespace KDScorpionEngine.Physics
 {
@@ -14,7 +15,7 @@ namespace KDScorpionEngine.Physics
         {
             object[] ctrParams = new object[] { gravity.X, gravity.Y };
 
-            _internalWorld = PluginSystem.PhysicsPlugins.LoadPlugin<IPhysicsWorld>(gravity.X, gravity.Y);
+            _internalWorld = Plugins.PluginFactory.CreatePhysicsWorld(ctrParams);
         }
 
 

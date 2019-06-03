@@ -294,9 +294,6 @@ namespace VelcroPhysicsPlugin
 
         public void ApplyLinearImpulse(float x, float y)
         {
-            //TODO: Remove this
-            var physicsValue = y.ToPhysics();
-
             PolygonBody.ApplyLinearImpulse(new Vector2(x.ToPhysics(), y.ToPhysics()));
         }
 
