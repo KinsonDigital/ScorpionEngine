@@ -20,6 +20,8 @@ namespace ScorpTestGame
         private Vector _thrusterPosition;
         private ParticleEngine _particleEngine;
         private MoveFowardKeyboardBehavior<PlayerShip> _movementBehavior;
+        private const float _particleVelocityMagnitudeMin = 0.25f;
+        private const float _particleVelocityMagnitudeMax = 2;
 
 
         /// <summary>
@@ -64,10 +66,6 @@ namespace ScorpTestGame
                 SizeMin = 0.2f,
                 SizeMax = 0.3f,
                 LifeTimeMax = 250,
-                VelocityXMin = -1.5f,
-                VelocityXMax = 1.5f,
-                VelocityYMin = -1.5f,
-                VelocityYMax = 1.5f,
                 AngularVelocityMin = 0,
                 AngularVelocityMax = 2
             };
@@ -108,22 +106,30 @@ namespace ScorpTestGame
             _thrusterPosition = new Vector(Position.X, Position.Y + 22.5f);
             _thrusterPosition = _thrusterPosition.RotateAround(Position, Angle);
 
-            _particleEngine.SpawnLocation = new Vector(200, 200);// _thrusterPosition;
+            //Update the X and Y velocity of the particles
+            var rotatedParticleMin = new Vector(0, _particleVelocityMagnitudeMin).RotateAround(Vector.Zero, Angle);
+            var rotatedParticleMax = new Vector(0, _particleVelocityMagnitudeMax).RotateAround(Vector.Zero, Angle);
+            _particleEngine.VelocityXMin = rotatedParticleMin.X;
+            _particleEngine.VelocityXMax = rotatedParticleMax.X;
+            _particleEngine.VelocityYMin = rotatedParticleMin.Y;
+            _particleEngine.VelocityYMax = rotatedParticleMax.Y;
 
-            //_particleEngine.Enabled = _movementBehavior.IsMovingForward;
+            _particleEngine.SpawnLocation = _thrusterPosition;
+
+            _particleEngine.Enabled = _movementBehavior.IsMovingForward;
 
             _movementBehavior.Update(engineTime);
             _particleEngine.Update(engineTime);
 
-            base.Update(engineTime);
-
             _keyboard.UpdatePreviousState();
+
+            base.Update(engineTime);
         }
 
 
         public override void Render(Renderer renderer)
         {
-            //_particleEngine.Render(renderer);
+            _particleEngine.Render(renderer);
 
             renderer.FillRect(new Rect(100, 100, 1, 1), new GameColor(255, 255, 255, 255));
 
