@@ -154,6 +154,18 @@ namespace ParticleMaker
 
 
         /// <summary>
+        /// Renders a filled rectangle using the given <paramref name="rect"/>
+        /// and using the given <paramref name="color"/>.
+        /// </summary>
+        /// <param name="rect">The rectangle to render.</param>
+        /// <param name="color">The color to render the rectangle.</param>
+        public void FillRect(Rect rect, byte[] color)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        /// <summary>
         /// Injects any arbitrary data into the plugin for use.  Must be a class.
         /// </summary>
         /// <typeparam name="T">The type of data to inject.</typeparam>
