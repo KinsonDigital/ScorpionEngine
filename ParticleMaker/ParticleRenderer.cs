@@ -162,18 +162,11 @@ namespace ParticleMaker
 
 
         /// <summary>
-        /// Injects a pointer into the plugin for use.
-        /// </summary>
-        /// <param name="pointer"></param>
-        public void InjectPointer(IntPtr pointer) => throw new NotImplementedException();
-
-
-        /// <summary>
         /// Gets any arbitrary data needed for use.
         /// </summary>
         /// <typeparam name="T">The type of data to get.</typeparam>
         /// <returns></returns>
-        public object GetData(string dataType) => throw new NotImplementedException();
+        public T GetData<T>(int option) where T : class => throw new NotImplementedException();
         #endregion
     }
 }

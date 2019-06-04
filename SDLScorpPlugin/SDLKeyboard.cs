@@ -179,13 +179,7 @@ namespace SDLScorpPlugin
         }
 
 
-        public object GetData(string dataType)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public void InjectPointer(IntPtr pointer)
+        public T GetData<T>(int option) where T : class
         {
             throw new NotImplementedException();
         }

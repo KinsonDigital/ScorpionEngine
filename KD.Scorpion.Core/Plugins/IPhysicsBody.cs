@@ -37,9 +37,6 @@ namespace KDScorpionCore.Plugins
 
 
         #region Methods
-        void DataSender(Func<dynamic> dataSender);
-
-
         void ApplyLinearImpulse(float x, float y);
 
 

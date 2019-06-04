@@ -30,9 +30,9 @@ namespace MonoScorpPlugin
 
 
         #region Public Methods
-        public object GetData(string dataType)
+        public T GetData<T>(int option) where T : class
         {
-            throw new NotImplementedException();
+            return Font as T; 
         }
 
 
@@ -49,12 +49,6 @@ namespace MonoScorpPlugin
                 throw new Exception($"Data getting injected into {nameof(MonoText)} is not of type {nameof(SpriteFont)}.  Incorrect type is {data.GetType().ToString()}");
 
             Font = data as SpriteFont;
-        }
-
-
-        public void InjectPointer(IntPtr pointer)
-        {
-            throw new NotImplementedException();
         }
         #endregion
     }

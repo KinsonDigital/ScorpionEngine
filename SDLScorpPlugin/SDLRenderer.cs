@@ -176,7 +176,7 @@ namespace SDLScorpPlugin
         /// <param name="y">The Y coordinate location on the screen to render.</param>
         public void Render(IText text, float x, float y)
         {
-            throw new NotImplementedException();
+            
         }
 
 
@@ -283,14 +283,14 @@ namespace SDLScorpPlugin
         /// </summary>
         /// <typeparam name="T">The type of data to inject.</typeparam>
         /// <param name="data">The data to inject.</param>
-        public void InjectData<T>(T data) where T : class => throw new NotImplementedException();
+        public void InjectData<T>(T data) where T : class
+        {
+            //TODO: Replace this with a custom exception called InjectDataException class
+            if (data.GetType() != typeof(PointerContainer))
+                throw new Exception($"Data getting injected into {nameof(SDLRenderer)} is not of type {nameof(PointerContainer)}.  Incorrect type is {data.GetType().ToString()}");
 
-
-        /// <summary>
-        /// Injects a pointer into the plugin for use.
-        /// </summary>
-        /// <param name="pointer"></param>
-        public void InjectPointer(IntPtr pointer) => _rendererPtr = pointer;
+            _rendererPtr = (data as PointerContainer).UnpackPointer();
+        }
 
 
         /// <summary>
@@ -298,7 +298,14 @@ namespace SDLScorpPlugin
         /// </summary>
         /// <typeparam name="T">The type of data to get.</typeparam>
         /// <returns></returns>
-        public object GetData(string dataType) => throw new NotImplementedException();
+        public T GetData<T>(int option) where T : class
+        {
+            var ptrContainer = new PointerContainer();
+            ptrContainer.PackPointer(_rendererPtr);
+
+
+            return ptrContainer as T;
+        }
         #endregion
     }
 }

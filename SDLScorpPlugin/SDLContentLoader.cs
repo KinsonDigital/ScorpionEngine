@@ -56,16 +56,13 @@ namespace SDLScorpPlugin
         }
 
 
-        public object GetData(string dataType) => throw new NotImplementedException();
+        public T GetData<T>(int option) where T : class => throw new NotImplementedException();
 
 
         public void InjectData<T>(T data) where T : class => throw new NotImplementedException();
 
 
         T IContentLoader.LoadText<T>(string name) => throw new NotImplementedException();
-
-
-        public void InjectPointer(IntPtr pointer) => throw new NotImplementedException();
         #endregion
     }
 }

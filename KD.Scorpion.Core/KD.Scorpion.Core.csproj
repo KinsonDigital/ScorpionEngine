@@ -98,6 +98,7 @@
     <Compile Include="Graphics\ITexture.cs" />
     <Compile Include="OnUpdateEventArgs.cs" />
     <Compile Include="Plugins\PluginSystem.cs" />
+    <Compile Include="PointerContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Graphics\Renderer.cs" />
     <Compile Include="Rect.cs" />

@@ -147,13 +147,7 @@ namespace MonoScorpPlugin
         }
 
 
-        public void InjectPointer(IntPtr pointer)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public object GetData(string dataType)
+        public T GetData<T>(int option) where T : class
         {
             throw new NotImplementedException();
         }

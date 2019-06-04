@@ -12,7 +12,7 @@ namespace VelcroPhysicsPlugin
     //TODO: Add docs
     public class VelcroBody : IPhysicsBody
     {
-        private PhysicsBodySettings _tempSettings;
+        private PhysicsBodySettings _tempSettings = new PhysicsBodySettings();
 
 
         #region Constructors
@@ -252,46 +252,6 @@ namespace VelcroPhysicsPlugin
 
 
         #region Public Methods
-        public void DataSender(Func<dynamic> dataGetter)
-        {
-            var result = dataGetter();
-
-            //TODO: Do some array and array element type checking here. Very verbose
-            //exception methods will help with debugging and troubleshooting
-            PolygonBody = result[0];
-            PolygonShape = result[1];
-            _tempSettings.Friction = result[2];//Friction
-        }
-
-
-        public object GetData(string dataType)
-        {
-            switch (dataType)
-            {
-                case "x_vertices":
-                    return _tempSettings.XVertices;
-                case "y_vertices":
-                    return _tempSettings.YVertices;
-                case "x_position":
-                    return _tempSettings.XPosition;
-                case "y_position":
-                    return _tempSettings.YPosition;
-                case "angle":
-                    return _tempSettings.Angle;
-                case "density":
-                    return _tempSettings.Density;
-                case "friction":
-                    return _tempSettings.Friction;
-                case "restitution":
-                    return _tempSettings.Restitution;
-                case "is_static":
-                    return _tempSettings.IsStatic;
-                default:
-                    return null;
-            }
-        }
-
-
         public void ApplyLinearImpulse(float x, float y)
         {
             PolygonBody.ApplyLinearImpulse(new Vector2(x.ToPhysics(), y.ToPhysics()));
@@ -310,15 +270,33 @@ namespace VelcroPhysicsPlugin
         }
 
 
-        public void InjectData<T>(T data) where T : class
+        public T GetData<T>(int option) where T : class
         {
-            throw new NotImplementedException();
+            if (option == 100)
+            {
+                return _tempSettings as T;
+            }
+            else
+            {
+                throw new Exception($"Do not recognize the option '{option}'");
+            }
         }
 
 
-        public void InjectPointer(IntPtr pointer)
+        public void InjectData<T>(T data) where T : class
         {
-            throw new NotImplementedException();
+            if (data.GetType() == typeof(Body))
+            {
+                PolygonBody = data as Body;
+            }
+            else if(data.GetType() == typeof(PolygonShape))
+            {
+                PolygonShape = data as PolygonShape;
+            }
+            else
+            {
+                throw new Exception($"Data getting injected into {nameof(VelcroBody)} is not of type {nameof(Body)} or {nameof(PolygonShape)}.  Incorrect type is {data.GetType().ToString()}");
+            }
         }
         #endregion
     }

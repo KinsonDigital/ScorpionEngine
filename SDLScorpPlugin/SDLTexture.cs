@@ -33,7 +33,7 @@ namespace SDLScorpPlugin
 
 
         #region Public Methods
-        public object GetData(string dataType) => throw new NotImplementedException();
+        public T GetData<T>(int option) where T : class => throw new NotImplementedException();
 
 
         public T GetTextureAsClass<T>() where T : class => _texturePtr as T;
@@ -52,12 +52,6 @@ namespace SDLScorpPlugin
             //    throw new Exception($"Data getting injected into {nameof(SDLTexture)} is not of type {nameof(SFML.Graphics.Texture)}.  Incorrect type is {data.GetType().ToString()}");
 
             //_texture = data as SDL.Texture;
-        }
-
-
-        public void InjectPointer(IntPtr pointer)
-        {
-            throw new NotImplementedException();
         }
         #endregion
     }

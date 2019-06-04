@@ -133,10 +133,17 @@ namespace SDLScorpPlugin
         /// </summary>
         /// <typeparam name="T">The type of data to get.</typeparam>
         /// <returns></returns>
-        public object GetData(string dataType)
+        public T GetData<T>(int option) where T : class
         {
-            if (dataType == "IntPtr")
-                return _rendererPtr;
+            if (option == 1)
+            {
+                var ptrContainer = new PointerContainer();
+                ptrContainer.PackPointer(_rendererPtr);
+
+
+                return _rendererPtr as T;
+            }
+
 
             throw new Exception($"Incorrect requested data type in '{nameof(SDLEngineCore)}'");
         }
@@ -148,15 +155,6 @@ namespace SDLScorpPlugin
         /// <typeparam name="T">The type of data to inject.</typeparam>
         /// <param name="data">The data to inject.</param>
         public void InjectData<T>(T data) where T : class
-        {
-            throw new NotImplementedException();
-        }
-
-
-        /// <summary>
-        /// Injects a pointer into the plugin for use.
-        /// </summary>
-        public void InjectPointer(IntPtr pointer)
         {
             throw new NotImplementedException();
         }
@@ -212,7 +210,10 @@ namespace SDLScorpPlugin
                     Renderer = new SDLRenderer();
                     _rendererPtr = SDL.SDL_CreateRenderer(_windowPtr, -1, renderFlags);
 
-                    Renderer.InjectPointer(_rendererPtr);
+                    var ptrContainer = new PointerContainer();
+                    ptrContainer.PackPointer(_rendererPtr);
+
+                    Renderer.InjectData(ptrContainer);
 
                     if (_rendererPtr == IntPtr.Zero)
                     {

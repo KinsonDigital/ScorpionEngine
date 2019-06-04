@@ -16,7 +16,7 @@ namespace MonoScorpPlugin
 
 
         #region Public Methods
-        public object GetData(string dataType)
+        public T GetData<T>(int option) where T : class
         {
             throw new NotImplementedException();
         }
@@ -35,12 +35,6 @@ namespace MonoScorpPlugin
                 throw new Exception($"Data getting injected into {nameof(MonoTexture)} is not of type {nameof(Texture2D)}.  Incorrect type is {data.GetType().ToString()}");
 
             Texture = data as Texture2D;
-        }
-
-
-        public void InjectPointer(IntPtr pointer)
-        {
-            throw new NotImplementedException();
         }
 
 

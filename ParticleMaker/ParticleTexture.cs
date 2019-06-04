@@ -43,7 +43,7 @@ namespace ParticleMaker
         /// </summary>
         /// <param name="dataType">The type of data to get.</param>
         /// <returns></returns>
-        public object GetData(string dataType) => throw new NotImplementedException();
+        public T GetData<T>(int option) where T : class => throw new NotImplementedException();
 
 
         //TODO: Refactor method comment doc to better explain that it returns a class.
@@ -79,12 +79,6 @@ namespace ParticleMaker
         /// <param name="data">The data to inject.</param>
         /// <returns></returns>
         public void InjectData<T>(T data) where T : class => throw new NotImplementedException();
-
-
-        public void InjectPointer(IntPtr pointer)
-        {
-            throw new NotImplementedException();
-        }
         #endregion
     }
 }

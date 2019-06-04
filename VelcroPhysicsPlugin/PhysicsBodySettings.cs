@@ -1,6 +1,6 @@
 ﻿namespace VelcroPhysicsPlugin
 {
-    public struct PhysicsBodySettings
+    public class PhysicsBodySettings
     {
         public float[] XVertices { get; set; }
 

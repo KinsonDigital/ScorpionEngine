@@ -16,17 +16,11 @@ namespace KDScorpionCore.Plugins
 
 
         /// <summary>
-        /// Injects a pointer into the plugin for use.
+        /// Gets the data as the given type <typeparamref name="T"/>.
         /// </summary>
-        /// <param name="pointer"></param>
-        void InjectPointer(IntPtr pointer);
-
-
-        /// <summary>
-        /// Gets any arbitrary data needed for use.
-        /// </summary>
+        /// <param name="option">Used to pass in options for the <see cref="GetData{T}(int)"/> implementation to process.</param>
         /// <typeparam name="T">The type of data to get.</typeparam>
         /// <returns></returns>
-        object GetData(string dataType);
+        T GetData<T>(int option) where T : class;
     }
 }

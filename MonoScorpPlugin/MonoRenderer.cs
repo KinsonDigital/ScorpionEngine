@@ -230,15 +230,7 @@ namespace MonoScorpPlugin
         /// Injects a pointer into the plugin for use.
         /// </summary>
         /// <param name="pointer"></param>
-        public object GetData(string dataType) => throw new NotImplementedException();
-
-
-        /// <summary>
-        /// Gets any arbitrary data needed for use.
-        /// </summary>
-        /// <typeparam name="T">The type of data to get.</typeparam>
-        /// <returns></returns>
-        public void InjectPointer(IntPtr pointer) => throw new NotImplementedException();
+        public T GetData<T>(int option) where T : class => throw new NotImplementedException();
         #endregion
     }
 }

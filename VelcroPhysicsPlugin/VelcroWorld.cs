@@ -44,32 +44,32 @@ namespace VelcroPhysicsPlugin
         {
             var velVertices = new Vertices();
 
-            var xVertices = body.GetData("x_vertices") as float[];
-            var yVertices = body.GetData("y_vertices") as float[];
+            var bodySettings = body.GetData<PhysicsBodySettings>(100);
+
+            //var xVertices = body.GetData<float[]>("x_vertices");//1
+            //var yVertices = body.GetData("y_vertices") as float[];//2
             var vectors = new List<Vector2>();
 
-            for (int i = 0; i < xVertices.Length; i++)
+            for (int i = 0; i < bodySettings.XVertices.Length; i++)
             {
-                velVertices.Add(new Vector2(xVertices[i], yVertices[i]).ToPhysics());
+                velVertices.Add(new Vector2(bodySettings.XVertices[i], bodySettings.YVertices[i]).ToPhysics());
             }
 
-            var xPosition = float.Parse(body.GetData("x_position").ToString());
-            var yPosition = float.Parse(body.GetData("y_position").ToString());
-            var angle = float.Parse(body.GetData("angle").ToString());
-            var density = float.Parse(body.GetData("density").ToString());
-            var friction = float.Parse(body.GetData("friction").ToString());
-            var restitution = float.Parse(body.GetData("restitution").ToString());
-            var isStatic = bool.Parse(body.GetData("is_static").ToString());
+            //var xPosition = float.Parse(body.GetData("x_position").ToString());//3
+            //var yPosition = float.Parse(body.GetData("y_position").ToString());//4
+            //var angle = float.Parse(body.GetData("angle").ToString());//5
+            //var density = float.Parse(body.GetData("density").ToString());//6
+            //var friction = float.Parse(body.GetData("friction").ToString());//7
+            //var restitution = float.Parse(body.GetData("restitution").ToString());//8
+            //var isStatic = bool.Parse(body.GetData("is_static").ToString());//9
 
-            var physicsBody = BodyFactory.CreatePolygon(PhysicsWorld, velVertices, density, new Vector2(xPosition, yPosition).ToPhysics(), angle.ToRadians(), isStatic ? BodyType.Static : BodyType.Dynamic);
-            physicsBody.Friction = friction;
-            physicsBody .Restitution = restitution;
+            var physicsBody = BodyFactory.CreatePolygon(PhysicsWorld, velVertices, bodySettings.Density, new Vector2(bodySettings.XPosition, bodySettings.YPosition).ToPhysics(), bodySettings.Angle.ToRadians(), bodySettings.IsStatic ? BodyType.Static : BodyType.Dynamic);
+            physicsBody.Friction = bodySettings.Friction;
+            physicsBody.Restitution = bodySettings.Restitution;
             var polyShape = (PolygonShape)physicsBody.FixtureList[0].Shape;
 
-            //WARNING: This data sender is not ideal and error prone as well as 
-            //not performant.  Need to find a way to send data to the physics body 
-            //in a type safe and performant way
-            body.DataSender(() => new object[] { physicsBody, polyShape, friction });
+            body.InjectData(physicsBody);
+            body.InjectData(polyShape);
 
             //Execute any deferred actions if any exist
             body.AfterAddedToWorldActions.ExecuteAll();
@@ -88,19 +88,13 @@ namespace VelcroPhysicsPlugin
         }
 
 
-        public object GetData(string dataType)
+        public T GetData<T>(int option) where T : class
         {
             throw new NotImplementedException();
         }
 
 
         public void InjectData<T>(T data) where T : class
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public void InjectPointer(IntPtr pointer)
         {
             throw new NotImplementedException();
         }
