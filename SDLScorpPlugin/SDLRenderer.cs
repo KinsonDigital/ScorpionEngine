@@ -125,7 +125,7 @@ namespace SDLScorpPlugin
             SDL.SDL_SetTextureBlendMode(texturePtr, SDL.SDL_BlendMode.SDL_BLENDMODE_BLEND);
             SDL.SDL_SetTextureColorMod(texturePtr, red, green, blue);
             SDL.SDL_SetTextureAlphaMod(texturePtr, alpha);
-            SDL.SDL_RenderCopyEx(_rendererPtr, texturePtr, ref srcRect, ref destRect, 0.0, ref textureOrigin, SDL.SDL_RendererFlip.SDL_FLIP_NONE);
+            SDL.SDL_RenderCopyEx(_rendererPtr, texturePtr, ref srcRect, ref destRect, angle.ToRadians(), ref textureOrigin, SDL.SDL_RendererFlip.SDL_FLIP_NONE);
         }
 
 

@@ -52,7 +52,7 @@ namespace ScorpTestGame
             { 
                 SpawnLocation = _thrusterPosition,
                 UseRandomVelocity = true,
-                TotalParticlesAliveAtOnce = 100,
+                TotalParticlesAliveAtOnce = 40,
                 UseColorsFromList = false,
                 TintColors = colors,
                 RedMin = 255,
@@ -61,13 +61,15 @@ namespace ScorpTestGame
                 GreenMax = 209,
                 BlueMin = 0,
                 BlueMax = 0,
-                SizeMin = 0.1f,
-                SizeMax = 0.5f,
-                LifeTimeMax = 500,
-                VelocityXMin = -2.5f,
-                VelocityXMax = 2.5f,
-                VelocityYMin = -2.5f,
-                VelocityYMax = 2.5f
+                SizeMin = 0.5f,
+                SizeMax = 1f,
+                LifeTimeMax = 2000,
+                VelocityXMin = -1.5f,
+                VelocityXMax = 1.5f,
+                VelocityYMin = -1.5f,
+                VelocityYMax = 1.5f,
+                AngularVelocityMin = 0,
+                AngularVelocityMax = 2
             };
 
             _movementBehavior = new MoveFowardKeyboardBehavior<PlayerShip>(this, 2f, 0.25f)
@@ -92,7 +94,7 @@ namespace ScorpTestGame
         {
             Texture = contentLoader.LoadTexture(@"Ship");
 
-            _particleEngine.AddTexture(contentLoader.LoadTexture(@"Particles\ShipThruster"));
+            _particleEngine.AddTexture(contentLoader.LoadTexture(@"Particles\Triangle"));
 
             base.LoadContent(contentLoader);
         }

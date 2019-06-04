@@ -67,6 +67,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\PluginMustImplementInterfaceException.cs" />
     <Compile Include="Exceptions\PluginNotFoundException.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Graphics\GameColor.cs" />
     <Compile Include="Graphics\GameText.cs" />
     <Compile Include="Graphics\Texture.cs" />

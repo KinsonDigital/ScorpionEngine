@@ -1,4 +1,5 @@
-﻿using KDScorpionCore.Plugins;
+﻿using KDScorpionCore;
+using KDScorpionCore.Plugins;
 using System;
 using System.Collections.Generic;
 using VelcroPhysics.Collision.Shapes;

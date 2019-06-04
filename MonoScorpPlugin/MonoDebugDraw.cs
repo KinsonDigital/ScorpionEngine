@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using KDScorpionCore;
 using KDScorpionCore.Plugins;
 using System;
 

@@ -9,7 +9,6 @@ namespace VelcroPhysicsPlugin
 {
     public static class ExtensionMethods
     {
-        private const float PI = 3.1415926535897931f;
         private const float unitToPixel = 100.0f;
         private const float pixelToUnit = 1f / unitToPixel;
 
@@ -164,30 +163,6 @@ namespace VelcroPhysicsPlugin
         public static string ToString(this float value, int round)
         {
             return Math.Round(value, round).ToString();
-        }
-
-
-        public static float ToDegrees(this float radians)
-        {
-            return radians * 180.0f / PI;
-        }
-
-
-        public static float ToRadians(this float degrees)
-        {
-            return degrees * PI / 180f;
-        }
-
-
-        public static float ToDegrees(this int radians)
-        {
-            return ToDegrees((float)radians);
-        }
-
-
-        public static float ToRadians(this int degrees)
-        {
-            return ToRadians((float)degrees);
         }
     }
 }
