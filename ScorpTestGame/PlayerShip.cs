@@ -52,7 +52,7 @@ namespace ScorpTestGame
             { 
                 SpawnLocation = _thrusterPosition,
                 UseRandomVelocity = true,
-                TotalParticlesAliveAtOnce = 60,
+                TotalParticlesAliveAtOnce = 100,
                 UseColorsFromList = false,
                 TintColors = colors,
                 RedMin = 255,
@@ -61,13 +61,13 @@ namespace ScorpTestGame
                 GreenMax = 209,
                 BlueMin = 0,
                 BlueMax = 0,
-                SizeMin = 0.05f,
-                SizeMax = 0.20f,
-                LifeTimeMax = 125,
-                VelocityXMin = -0.5f,
-                VelocityXMax = 0.5f,
-                VelocityYMin = -0.5f,
-                VelocityYMax = 0.5f
+                SizeMin = 0.01f,
+                SizeMax = 0.05f,
+                LifeTimeMax = 500,
+                VelocityXMin = -2.5f,
+                VelocityXMax = 2.5f,
+                VelocityYMin = -2.5f,
+                VelocityYMax = 2.5f
             };
 
             _movementBehavior = new MoveFowardKeyboardBehavior<PlayerShip>(this, 2f, 0.25f)

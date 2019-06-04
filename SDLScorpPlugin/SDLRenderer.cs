@@ -76,7 +76,7 @@ namespace SDLScorpPlugin
         /// <param name="x">The X coordinate location on the screen to render.</param>
         /// <param name="y">The Y coordinate location on the screen to render.</param>
         /// <param name="angle">The angle in degrees to rotate the texture to.</param>
-        public void Render(ITexture texture, float x, float y, float angle) => Render(texture, x, y, angle, 0f, new byte[] { 255, 255, 255, 255 });
+        public void Render(ITexture texture, float x, float y, float angle) => Render(texture, x, y, angle, 1f, new byte[] { 255, 255, 255, 255 });
 
 
         /// <summary>
@@ -111,8 +111,8 @@ namespace SDLScorpPlugin
             {
                 x = (int)x,//Texture X on screen
                 y = (int)y,//Texture Y on screen
-                w = texture.Width,
-                h = texture.Height
+                w = texture.Width * 2,
+                h = texture.Height * 2
             };
 
             var texturePtr = texture.GetData<PointerContainer>(1).UnpackPointer();
@@ -122,6 +122,7 @@ namespace SDLScorpPlugin
             var blue = color.Length >= 3 ? color[2] : (byte)255;
             var alpha = color.Length >= 4 ? color[3] : (byte)255;
 
+            //SDL.SDL_RenderSetScale(_rendererPtr, size, size);
             SDL.SDL_SetTextureBlendMode(texturePtr, SDL.SDL_BlendMode.SDL_BLENDMODE_BLEND);
             SDL.SDL_SetTextureColorMod(texturePtr, red, green, blue);
             SDL.SDL_SetTextureAlphaMod(texturePtr, alpha);

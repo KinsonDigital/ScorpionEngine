@@ -112,7 +112,7 @@ namespace KDParticleEngine
         public void Render(Renderer renderer)
         {
             TintColor = new GameColor(255, TintColor.Red, TintColor.Green, TintColor.Blue);
-            renderer.Render(Texture, Position.X, Position.Y, Angle, Size, TintColor);
+            renderer.Render(Texture, Position.X, Position.Y, Angle, 0.5f, TintColor);
         }
         #endregion
     }
