@@ -123,6 +123,15 @@ namespace KDScorpionCore.Plugins
         /// <param name="color">The color of the circle.  Must be a total of 4 color component channels consisting of
         /// red, green, blue and alpha in that order.  A missing element will result in a default value of 255.</param>
         void FillCircle(float x, float y, float radius, byte[] color);
+
+
+        /// <summary>
+        /// Renders a filled rectangle using the given <paramref name="rect"/>
+        /// and using the given <paramref name="color"/>.
+        /// </summary>
+        /// <param name="rect">The rectangle to render.</param>
+        /// <param name="color">The color to render the rectangle.</param>
+        void FillRect(Rect rect, byte[]color);
         #endregion
     }
 }

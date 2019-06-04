@@ -304,6 +304,31 @@ namespace SDLScorpPlugin
 
 
         /// <summary>
+        /// Renders a filled rectangle using the given <paramref name="rect"/>
+        /// and using the given <paramref name="color"/>.
+        /// </summary>
+        /// <param name="rect">The rectangle to render.</param>
+        /// <param name="color">The color to render the rectangle.</param> 
+        public void FillRect(Rect rect, byte[] color)
+        {
+            var sdlRect = new SDL.SDL_Rect()
+            {
+                x = (int)rect.X,
+                y = (int)rect.Y,
+                w = (int)rect.Width,
+                h = (int)rect.Height
+            };
+
+            SDL.SDL_SetRenderDrawColor(_rendererPtr,
+                                       color == null || color.Length >= 1 ? color[0] : (byte)255,
+                                       color == null || color.Length >= 2 ? color[1] : (byte)255,
+                                       color == null || color.Length >= 3 ? color[2] : (byte)255,
+                                       color == null || color.Length >= 4 ? color[3] : (byte)255);
+            SDL.SDL_RenderFillRect(_rendererPtr, ref sdlRect);
+        }
+
+
+        /// <summary>
         /// Injects any arbitrary data into the plugin for use.  Must be a class.
         /// </summary>
         /// <typeparam name="T">The type of data to inject.</typeparam>

@@ -47,22 +47,10 @@ namespace VelcroPhysicsPlugin
 
             var bodySettings = body.GetData<PhysicsBodySettings>(100);
 
-            //var xVertices = body.GetData<float[]>("x_vertices");//1
-            //var yVertices = body.GetData("y_vertices") as float[];//2
-            var vectors = new List<Vector2>();
-
             for (int i = 0; i < bodySettings.XVertices.Length; i++)
             {
                 velVertices.Add(new Vector2(bodySettings.XVertices[i], bodySettings.YVertices[i]).ToPhysics());
             }
-
-            //var xPosition = float.Parse(body.GetData("x_position").ToString());//3
-            //var yPosition = float.Parse(body.GetData("y_position").ToString());//4
-            //var angle = float.Parse(body.GetData("angle").ToString());//5
-            //var density = float.Parse(body.GetData("density").ToString());//6
-            //var friction = float.Parse(body.GetData("friction").ToString());//7
-            //var restitution = float.Parse(body.GetData("restitution").ToString());//8
-            //var isStatic = bool.Parse(body.GetData("is_static").ToString());//9
 
             var physicsBody = BodyFactory.CreatePolygon(PhysicsWorld, velVertices, bodySettings.Density, new Vector2(bodySettings.XPosition, bodySettings.YPosition).ToPhysics(), bodySettings.Angle.ToRadians(), bodySettings.IsStatic ? BodyType.Static : BodyType.Dynamic);
             physicsBody.Friction = bodySettings.Friction;

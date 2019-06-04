@@ -194,6 +194,10 @@ namespace SDLScorpPlugin
                 if (SDL.SDL_SetHint(SDL.SDL_HINT_RENDER_SCALE_QUALITY, "1") == SDL.SDL_bool.SDL_FALSE)
                     throw new Exception("Warning: Linear texture filtering not enabled!");
 
+                //Disable high DPI
+                if (SDL.SDL_SetHint(SDL.SDL_HINT_VIDEO_HIGHDPI_DISABLED, "1") == SDL.SDL_bool.SDL_FALSE)
+                    throw new Exception("Could not disable high DPI video");
+
                 //Create window
                 _windowPtr = SDL.SDL_CreateWindow("SDL Tutorial", SDL.SDL_WINDOWPOS_CENTERED, SDL.SDL_WINDOWPOS_CENTERED,
                     640, 480, SDL.SDL_WindowFlags.SDL_WINDOW_SHOWN);

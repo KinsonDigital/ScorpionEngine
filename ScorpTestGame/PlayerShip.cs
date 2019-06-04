@@ -108,9 +108,9 @@ namespace ScorpTestGame
             _thrusterPosition = new Vector(Position.X, Position.Y + 22.5f);
             _thrusterPosition = _thrusterPosition.RotateAround(Position, Angle);
 
-            _particleEngine.SpawnLocation = _thrusterPosition;
+            _particleEngine.SpawnLocation = new Vector(200, 200);// _thrusterPosition;
 
-            _particleEngine.Enabled = _movementBehavior.IsMovingForward;
+            //_particleEngine.Enabled = _movementBehavior.IsMovingForward;
 
             _movementBehavior.Update(engineTime);
             _particleEngine.Update(engineTime);
@@ -123,7 +123,9 @@ namespace ScorpTestGame
 
         public override void Render(Renderer renderer)
         {
-            _particleEngine.Render(renderer);
+            //_particleEngine.Render(renderer);
+
+            renderer.FillRect(new Rect(100, 100, 1, 1), new GameColor(255, 255, 255, 255));
 
             base.Render(renderer);
         }
