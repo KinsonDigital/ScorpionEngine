@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="MonoContentLoader.cs" />
     <Compile Include="MonoDebugDraw.cs" />
     <Compile Include="MonoGame.cs" />

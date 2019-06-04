@@ -1,10 +1,9 @@
-﻿using NUnit.Framework;
-using KDScorpionCore;
-using KDScorpionEngine.Utils;
+﻿using KDScorpionCore;
+using NUnit.Framework;
 
-namespace KDScorpionEngineTests.Utils
+namespace KDScorpionCoreTests
 {
-    public class ToolsTests
+    class ExtensionMethodTests
     {
         [Test]
         public void RotateAround_WhenInvoked_ReturnsCorrectResult()
@@ -16,7 +15,7 @@ namespace KDScorpionEngineTests.Utils
             var expected = new Vector(1.25290489f, -0.996605396f);
 
             //Act
-            var actual = Tools.RotateAround(vectorToRotate, origin, angle);
+            var actual = vectorToRotate.RotateAround(origin, angle);
 
             //Assert
             Assert.AreEqual(expected.X, actual.X);
@@ -34,7 +33,7 @@ namespace KDScorpionEngineTests.Utils
             var expected = new Vector(-2.07106781f, 5f);
 
             //Act
-            var actual = Tools.RotateAround(vectorToRotate, origin, angle, false);
+            var actual = vectorToRotate.RotateAround(origin, angle, false);
 
             //Assert
             Assert.AreEqual(expected.X, actual.X);

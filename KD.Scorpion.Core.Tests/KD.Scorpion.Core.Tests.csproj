@@ -67,6 +67,7 @@
     <Compile Include="Exceptions\PluginMustImplementInterfaceExceptionTests.cs" />
     <Compile Include="Exceptions\PluginNotFoundExceptionTests.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethodTests.cs" />
     <Compile Include="Fakes\FakeTexture.cs" />
     <Compile Include="Graphics\GameColorTests.cs" />
     <Compile Include="Graphics\GameTextTests.cs" />

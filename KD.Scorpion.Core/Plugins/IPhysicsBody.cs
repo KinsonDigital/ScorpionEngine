@@ -14,6 +14,9 @@ namespace KDScorpionCore.Plugins
 
         float Y { get; set; }
 
+        /// <summary>
+        /// Gets or sets the angle of the physics body in degrees.
+        /// </summary>
         float Angle { get; set; }
 
         float Density { get; set; }

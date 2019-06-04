@@ -39,7 +39,7 @@ namespace ScorpTestGame
             };
 
             _thrusterPosition = new Vector(Position.X, Position.Y + 22.5f);
-            _thrusterPosition = Tools.RotateAround(_thrusterPosition, Position, Angle);
+            _thrusterPosition = _thrusterPosition.RotateAround(Position, Angle);
 
             var colors = new GameColor[]
             {
@@ -61,9 +61,9 @@ namespace ScorpTestGame
                 GreenMax = 209,
                 BlueMin = 0,
                 BlueMax = 0,
-                SizeMin = 0.5f,
-                SizeMax = 1f,
-                LifeTimeMax = 2000,
+                SizeMin = 0.2f,
+                SizeMax = 0.3f,
+                LifeTimeMax = 250,
                 VelocityXMin = -1.5f,
                 VelocityXMax = 1.5f,
                 VelocityYMin = -1.5f,
@@ -77,7 +77,7 @@ namespace ScorpTestGame
                 MoveFowardKey = KeyCodes.Up,
                 RotateCWKey = KeyCodes.Right,
                 RotateCCWKey = KeyCodes.Left,
-                Enabled = false
+                Enabled = true
             };
             
             Behaviors.Add(_movementBehavior);
@@ -106,15 +106,14 @@ namespace ScorpTestGame
 
             //Update the spawn position of the thruster particels
             _thrusterPosition = new Vector(Position.X, Position.Y + 22.5f);
-            _thrusterPosition = Tools.RotateAround(_thrusterPosition, Position, Angle);
-            //_particleEngine.SpawnLocation = _thrusterPosition;//KEEP
+            _thrusterPosition = _thrusterPosition.RotateAround(Position, Angle);
 
-            _particleEngine.SpawnLocation = new Vector(200, 200);
+            _particleEngine.SpawnLocation = _thrusterPosition;
 
-            //_particleEngine.Enabled = _movementBehavior.IsMovingForward;
+            _particleEngine.Enabled = _movementBehavior.IsMovingForward;
+
+            _movementBehavior.Update(engineTime);
             _particleEngine.Update(engineTime);
-
-            _particleEngine.Enabled = _keyboard.IsKeyDown(KeyCodes.Up);
 
             base.Update(engineTime);
 

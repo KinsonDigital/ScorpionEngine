@@ -60,14 +60,14 @@ namespace KDScorpionCore
         /// </summary>
         /// <param name="vector">The vector to rotate.</param>
         /// <param name="origin">The vector to rotate the <paramref name="vector"/> around.</param>
-        /// <param name="angle">The angle in radians to rotate <paramref name="vector"/>.  Value must be positive.</param>
+        /// <param name="angle">The angle in degress to rotate <paramref name="vector"/>.  Value must be positive.</param>
         /// <returns></returns>
         public static Vector RotateAround(this Vector vector, Vector origin, float angle, bool clockWise = true)
         {
-            angle = clockWise ? angle : angle * -1;
+            var angleRadians = clockWise ? angle.ToRadians() : angle.ToRadians() * -1;
 
-            var cos = (float)Math.Cos(angle);
-            var sin = (float)Math.Sin(angle);
+            var cos = (float)Math.Cos(angleRadians);
+            var sin = (float)Math.Sin(angleRadians);
 
             var dx = vector.X - origin.X;//The delta x
             var dy = vector.Y - origin.Y;//The delta y

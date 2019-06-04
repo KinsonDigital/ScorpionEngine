@@ -3,7 +3,6 @@ using KDScorpionCore;
 using KDScorpionCore.Graphics;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Exceptions;
-using KDScorpionEngine.Utils;
 
 namespace KDScorpionEngine.Entities
 {
@@ -229,7 +228,7 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            _facingDirection = Tools.RotateAround(new Vector(0, -1), Vector.Zero, Body.InternalPhysicsBody.Angle);
+            _facingDirection = new Vector(0, -1).RotateAround(Vector.Zero, Body.InternalPhysicsBody.Angle);
 
             ProcessMovementStop();
 
