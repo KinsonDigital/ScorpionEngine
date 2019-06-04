@@ -220,9 +220,7 @@ namespace MonoScorpPlugin
         /// </summary>
         /// <param name="rect">The rectangle to render.</param>
         /// <param name="color">The color to render the rectangle.</param>
-        public void FillRect(Rect rect, byte[] color)
-        {
-        }
+        public void FillRect(Rect rect, byte[] color) =>_spriteBatch.FillRectangle(rect.ToRectangle(), color.ToColor());
 
 
         /// <summary>
