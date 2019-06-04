@@ -12,7 +12,5 @@ namespace KDScorpionCore
         string Text { get; set; }
 
         byte[] Color { get; set; }
-
-        T GetText<T>() where T : class;
     }
 }

@@ -153,7 +153,7 @@ namespace ParticleMaker
             {
                 var texture = _fileService.Load(path, _coreEngine.GraphicsDevice);
 
-                ParticleEngine.AddTexture(new CoreTexture(new ParticleTexture(texture.GetTextureAsClass<Texture2D>())));
+                ParticleEngine.AddTexture(new CoreTexture(new ParticleTexture(texture.GetData<Texture2D>(1))));
             }
         }
 

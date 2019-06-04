@@ -65,7 +65,7 @@ namespace MonoScorpPlugin
             var textureOrigin = new Vector2(texture.Width / 2f, texture.Height / 2f);
             var position = new Vector2(x, y);
 
-            _spriteBatch.Draw(texture.GetTextureAsClass<Texture2D>(), position, null, Color.White, 0, textureOrigin, 1f, SpriteEffects.None, 0f);
+            _spriteBatch.Draw(texture.GetData<Texture2D>(1), position, null, Color.White, 0, textureOrigin, 1f, SpriteEffects.None, 0f);
         }
 
 
@@ -82,7 +82,7 @@ namespace MonoScorpPlugin
             var textureOrigin = new Vector2(texture.Width / 2f, texture.Height / 2f);
             var position = new Vector2(x, y);
 
-            _spriteBatch.Draw(texture.GetTextureAsClass<Texture2D>(), position, null, Color.White, angle.ToRadians(), textureOrigin, 1f, SpriteEffects.None, 0f);
+            _spriteBatch.Draw(texture.GetData<Texture2D>(1), position, null, Color.White, angle.ToRadians(), textureOrigin, 1f, SpriteEffects.None, 0f);
         }
 
 
@@ -107,7 +107,7 @@ namespace MonoScorpPlugin
             var blue = color.Length >= 3 ? color[2] : 255;
             var alpha = color.Length >= 4 ? color[3] : 255;
 
-            _spriteBatch.Draw(texture.GetTextureAsClass<Texture2D>(), position, null, new Color(red, green, blue, alpha), angle.ToRadians(), textureOrigin, size, SpriteEffects.None, 0f);
+            _spriteBatch.Draw(texture.GetData<Texture2D>(1), position, null, new Color(red, green, blue, alpha), angle.ToRadians(), textureOrigin, size, SpriteEffects.None, 0f);
         }
 
 
@@ -125,7 +125,7 @@ namespace MonoScorpPlugin
             var textureOrigin = new Vector2(texture.Width / 2f, texture.Height / 2f);
             var position = new Vector2(x, y);
 
-            _spriteBatch.Draw(texture.GetTextureAsClass<Texture2D>(), position, srcRect, Color.Orange, 0, textureOrigin, 1, SpriteEffects.None, 0f);
+            _spriteBatch.Draw(texture.GetData<Texture2D>(1), position, srcRect, Color.Orange, 0, textureOrigin, 1, SpriteEffects.None, 0f);
         }
 
 
@@ -138,9 +138,10 @@ namespace MonoScorpPlugin
         /// <param name="y">The Y coordinate location on the screen to render.</param>
         public void Render(IText text, float x, float y)
         {
+            //TODO: Do text.Color index checks first
             var color = new Color(text.Color[0], text.Color[1], text.Color[2]);
 
-            _spriteBatch.DrawString(text.GetText<SpriteFont>(), text.Text, new Vector2(x, y), color);
+            _spriteBatch.DrawString(text.GetData<SpriteFont>(1), text.Text, new Vector2(x, y), color);
         }
 
 

@@ -32,13 +32,11 @@ namespace MonoScorpPlugin
         #region Public Methods
         public T GetData<T>(int option) where T : class
         {
-            return Font as T; 
-        }
+            if (option == 1)
+                return Font as T;
 
 
-        public T GetText<T>() where T : class
-        {
-            return Font as T;
+            throw new Exception($"The option '{option}' is not valid. \n\nValid options are 1.");
         }
 
 

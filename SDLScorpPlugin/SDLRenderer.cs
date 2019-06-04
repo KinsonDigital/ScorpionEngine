@@ -115,7 +115,7 @@ namespace SDLScorpPlugin
                 h = texture.Height
             };
 
-            var texturePtr = texture.GetTextureAsStruct<IntPtr>();
+            var texturePtr = texture.GetData<PointerContainer>(1).UnpackPointer();
 
             var red = color.Length >= 1 ? color[0] : (byte)255;
             var green = color.Length >= 2 ? color[1] : (byte)255;
@@ -161,7 +161,7 @@ namespace SDLScorpPlugin
                 h = texture.Height
             };
 
-            var texturePtr = texture.GetTextureAsStruct<IntPtr>();
+            var texturePtr = texture.GetData<PointerContainer>(1).UnpackPointer();
 
             SDL.SDL_RenderCopyEx(_rendererPtr, texturePtr, ref srcRect, ref destRect, 0.0, ref textureOrigin, SDL.SDL_RendererFlip.SDL_FLIP_NONE);
         }
@@ -176,7 +176,32 @@ namespace SDLScorpPlugin
         /// <param name="y">The Y coordinate location on the screen to render.</param>
         public void Render(IText text, float x, float y)
         {
-            
+            var texturePtr = text.GetData<PointerContainer>(1).UnpackPointer();
+
+            //TODO:  Check for color index values first
+            SDL.SDL_SetTextureColorMod(texturePtr, text.Color[0], text.Color[1], text.Color[2]);
+            SDL.SDL_SetTextureAlphaMod(texturePtr, text.Color[3]);
+            SDL.SDL_SetTextureBlendMode(texturePtr, SDL.SDL_BlendMode.SDL_BLENDMODE_BLEND);
+
+
+            var srcRect = new SDL.SDL_Rect()
+            {
+                x = 0,
+                y = 0,
+                w = text.Width,
+                h = text.Height
+            };
+
+            var destRect = new SDL.SDL_Rect()
+            {
+                x = (int)x,
+                y = (int)y,
+                w = text.Width,
+                h = text.Height
+            };
+
+            //Render texture to screen
+            SDL.SDL_RenderCopy(_rendererPtr, texturePtr, ref srcRect, ref destRect);
         }
 
 

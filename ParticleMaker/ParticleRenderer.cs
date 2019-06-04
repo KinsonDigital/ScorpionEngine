@@ -93,7 +93,7 @@ namespace ParticleMaker
             var blue = color.Length >= 3 ? color[2] : 255;
             var alpha = color.Length >= 4 ? color[3] : 255;
 
-            _spriteBatch.Draw(texture.GetTextureAsClass<Texture2D>(), position, null, new Color(red, green, blue, alpha), angle.ToRadians(), textureOrigin, size, SpriteEffects.None, 0f);
+            _spriteBatch.Draw(texture.GetData<Texture2D>(1), position, null, new Color(red, green, blue, alpha), angle.ToRadians(), textureOrigin, size, SpriteEffects.None, 0f);
         }
 
 

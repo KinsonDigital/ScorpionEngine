@@ -162,8 +162,8 @@ REM Make sure that a Fonts directory exists
 mkdir "$(TargetDir)Content\Fonts"
 
 
-REM Copy the Fonts content to the bin output folder
-xcopy "$(ProjectDir)Content\bin\Windows\Fonts" "$(TargetDir)Content\Fonts" /Y
+REM Copy the TTF Fonts content to the bin output folder
+xcopy "$(ProjectDir)Content\Fonts\*.ttf" "$(TargetDir)Content\Fonts" /Y
 
 
 REM Copy the MonoGame Engine plugin to the output folder

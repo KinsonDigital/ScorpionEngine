@@ -75,7 +75,6 @@ namespace SDLScorpPlugin
             }
         }
 
-        //TODO: Need to implement/create the SDLRenderer and use it here in this prop
         public IRenderer Renderer { get; private set; }
 
         public TimeStepType TimeStep { get; set; } = TimeStepType.Fixed;
@@ -262,8 +261,7 @@ namespace SDLScorpPlugin
 
                         OnUpdate?.Invoke(this, new OnUpdateEventArgs(engineTime));
 
-                        //TODO: NEED TO IMPLEMENT THE SDLRenderer CLASS FOR THE PARAM BELOW
-                        OnRender?.Invoke(this, new OnRenderEventArgs(null));
+                        OnRender?.Invoke(this, new OnRenderEventArgs(Renderer));
 
                         //Add the frame time to the list of previous frame times
                         _frameTimes.Enqueue((float)_timer.Elapsed.TotalMilliseconds);
@@ -293,8 +291,7 @@ namespace SDLScorpPlugin
 
                     OnUpdate?.Invoke(this, new OnUpdateEventArgs(engineTime));
 
-                    //TODO: NEED TO IMPLEMENT THE SDLRenderer CLASS FOR THE PARAM BELOW
-                    OnRender?.Invoke(this, new OnRenderEventArgs(null));
+                    OnRender?.Invoke(this, new OnRenderEventArgs(Renderer));
 
                     _timer.Stop();
 
