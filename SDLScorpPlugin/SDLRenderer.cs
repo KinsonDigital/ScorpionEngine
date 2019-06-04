@@ -111,8 +111,8 @@ namespace SDLScorpPlugin
             {
                 x = (int)x,//Texture X on screen
                 y = (int)y,//Texture Y on screen
-                w = texture.Width * 2,
-                h = texture.Height * 2
+                w = (int)(texture.Width * size),//Scaled occurding to size
+                h = (int)(texture.Height * size)
             };
 
             var texturePtr = texture.GetData<PointerContainer>(1).UnpackPointer();
@@ -122,7 +122,6 @@ namespace SDLScorpPlugin
             var blue = color.Length >= 3 ? color[2] : (byte)255;
             var alpha = color.Length >= 4 ? color[3] : (byte)255;
 
-            //SDL.SDL_RenderSetScale(_rendererPtr, size, size);
             SDL.SDL_SetTextureBlendMode(texturePtr, SDL.SDL_BlendMode.SDL_BLENDMODE_BLEND);
             SDL.SDL_SetTextureColorMod(texturePtr, red, green, blue);
             SDL.SDL_SetTextureAlphaMod(texturePtr, alpha);
