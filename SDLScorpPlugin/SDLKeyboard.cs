@@ -147,16 +147,9 @@ namespace SDLScorpPlugin
         /// </summary>
         public void UpdateCurrentState()
         {
-            while (SDL.SDL_PollEvent(out var e) != 0)
+            foreach (var key in SDLEngineCore.CurrentKeyboardState)
             {
-                if (e.type == SDL.SDL_EventType.SDL_KEYDOWN)
-                {
-                    _currentStateKeys[e.key.keysym.sym] = true;
-                }
-                else if (e.type == SDL.SDL_EventType.SDL_KEYUP)
-                {
-                    _currentStateKeys[e.key.keysym.sym] = false;
-                }
+                _currentStateKeys[key.Key] = key.Value;
             }
         }
 
@@ -173,16 +166,10 @@ namespace SDLScorpPlugin
         }
 
 
-        public void InjectData<T>(T data) where T : class
-        {
-            throw new NotImplementedException();
-        }
+        public void InjectData<T>(T data) where T : class => throw new NotImplementedException();
 
 
-        public T GetData<T>(int option) where T : class
-        {
-            throw new NotImplementedException();
-        }
+        public T GetData<T>(int option) where T : class => throw new NotImplementedException();
         #endregion
     }
 }

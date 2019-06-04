@@ -185,7 +185,6 @@ namespace SDLScorpPlugin
             SDL.SDL_SetTextureAlphaMod(texturePtr, text.Color[3]);
             SDL.SDL_SetTextureBlendMode(texturePtr, SDL.SDL_BlendMode.SDL_BLENDMODE_BLEND);
 
-
             var srcRect = new SDL.SDL_Rect()
             {
                 x = 0,

@@ -21,7 +21,6 @@ namespace SDLScorpPlugin
 
         #region Private Vars
         private static IntPtr _windowPtr = IntPtr.Zero;
-        private static IntPtr _rendererPtr = IntPtr.Zero;
         private Stopwatch _timer;
         private TimeSpan _lastFrameTime;
         private bool _isRunning;
@@ -39,6 +38,12 @@ namespace SDLScorpPlugin
 
 
         #region Props
+        /// <summary>
+        /// Holds a list of all the keys and there current state this frame.
+        /// </summary>
+        internal static Dictionary<SDL.SDL_Keycode, bool> CurrentKeyboardState { get; private set; } =
+            (from m in KeyboardKeyMapper.SDLToStandardMappings select m.Key).ToArray().ToDictionary(k => k, value => false);
+
         /// <summary>
         /// Gets or sets the width of the game window.
         /// </summary>
@@ -87,7 +92,7 @@ namespace SDLScorpPlugin
         /// <summary>
         /// Gets the renderer pointer.
         /// </summary>
-        internal static IntPtr RendererPointer => _rendererPtr;
+        internal static IntPtr RendererPointer { get; private set; } = IntPtr.Zero;
         #endregion
 
 
@@ -137,10 +142,10 @@ namespace SDLScorpPlugin
             if (option == 1)
             {
                 var ptrContainer = new PointerContainer();
-                ptrContainer.PackPointer(_rendererPtr);
+                ptrContainer.PackPointer(RendererPointer);
 
 
-                return _rendererPtr as T;
+                return RendererPointer as T;
             }
 
 
@@ -165,7 +170,7 @@ namespace SDLScorpPlugin
         /// </summary>
         public void Dispose()
         {
-            SDL.SDL_DestroyRenderer(_rendererPtr);
+            SDL.SDL_DestroyRenderer(RendererPointer);
             SDL.SDL_DestroyWindow(_windowPtr);
 
             //Quit SDL sub systems
@@ -208,21 +213,21 @@ namespace SDLScorpPlugin
                     var renderFlags = SDL.SDL_RendererFlags.SDL_RENDERER_ACCELERATED;
 
                     Renderer = new SDLRenderer();
-                    _rendererPtr = SDL.SDL_CreateRenderer(_windowPtr, -1, renderFlags);
+                    RendererPointer = SDL.SDL_CreateRenderer(_windowPtr, -1, renderFlags);
 
                     var ptrContainer = new PointerContainer();
-                    ptrContainer.PackPointer(_rendererPtr);
+                    ptrContainer.PackPointer(RendererPointer);
 
                     Renderer.InjectData(ptrContainer);
 
-                    if (_rendererPtr == IntPtr.Zero)
+                    if (RendererPointer == IntPtr.Zero)
                     {
                         throw new Exception($"Renderer could not be created! \n\nSDL_Error: {SDL.SDL_GetError()}");
                     }
                     else
                     {
                         //Initialize renderer color
-                        SDL.SDL_SetRenderDrawColor(_rendererPtr, 48, 48, 48, 255);
+                        SDL.SDL_SetRenderDrawColor(RendererPointer, 48, 48, 48, 255);
 
                         //Initialize PNG loading
                         var imgFlags = SDL_image.IMG_InitFlags.IMG_INIT_PNG;
@@ -250,6 +255,8 @@ namespace SDLScorpPlugin
 
             while (_isRunning)
             {
+                UpdateInputStates();
+
                 if (TimeStep == TimeStepType.Fixed)
                 {
                     if (_timer.Elapsed.TotalMilliseconds >= _targetFrameRate)
@@ -316,6 +323,25 @@ namespace SDLScorpPlugin
         /// Properly shuts down the engine and releases SDL resources.
         /// </summary>
         private void ShutDown() => Dispose();
+
+
+        /// <summary>
+        /// Updates the state of all the keyboard keys.
+        /// </summary>
+        private void UpdateInputStates()
+        {
+            while (SDL.SDL_PollEvent(out var e) != 0)
+            {
+                if (e.type == SDL.SDL_EventType.SDL_KEYDOWN)
+                {
+                    CurrentKeyboardState[e.key.keysym.sym] = true;
+                }
+                else if (e.type == SDL.SDL_EventType.SDL_KEYUP)
+                {
+                    CurrentKeyboardState[e.key.keysym.sym] = false;
+                }
+            }
+        }
         #endregion
     }
 }
