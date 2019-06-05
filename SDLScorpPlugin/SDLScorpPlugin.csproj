@@ -73,6 +73,7 @@
     <Compile Include="KeyboardKeyMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SDLContentLoader.cs" />
+    <Compile Include="SDLDebugDraw.cs" />
     <Compile Include="SDLEngineCore.cs" />
     <Compile Include="SDLEngineTime.cs" />
     <Compile Include="SDLKeyboard.cs" />

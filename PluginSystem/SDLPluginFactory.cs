@@ -24,7 +24,7 @@ namespace PluginSystem
         public IMouse CreateMouse() => new SDLMouse();
 
 
-        public IDebugDraw CreateDebugDraw() => null;
+        public IDebugDraw CreateDebugDraw() => new SDLDebugDraw();
 
 
         public IPhysicsBody CreatePhysicsBody() => new VelcroBody();

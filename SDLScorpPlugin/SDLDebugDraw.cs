@@ -1,15 +1,13 @@
-﻿using Microsoft.Xna.Framework;
-using KDScorpionCore;
+﻿using KDScorpionCore;
 using KDScorpionCore.Plugins;
 using System;
 
-namespace MonoScorpPlugin
+namespace SDLScorpPlugin
 {
-    //TODO: Need to get this imported into the GameEngine using DI
     /// <summary>
     /// Provides the ability to draw frames around a physics body shape for debugging purposes.
     /// </summary>
-    public class MonoDebugDraw : IDebugDraw
+    public class SDLDebugDraw : IDebugDraw
     {
         #region Public Methods
         /// <summary>
@@ -21,12 +19,12 @@ namespace MonoScorpPlugin
         {
             int max = body.XVertices.Length;
 
-            var origin = new Vector2(body.X, body.Y);
+            var origin = new Vector(body.X, body.Y);
 
             for (int i = 0; i < max; i++)
             {
-                var start = new Vector2(body.XVertices[i], body.YVertices[i]).ToVector().RotateAround(origin.ToVector(), body.Angle);
-                var stop = new Vector2(body.XVertices[i < max - 1 ? i + 1 : 0], body.YVertices[i < max - 1 ? i + 1 : 0]).ToVector().RotateAround(origin.ToVector(), body.Angle);
+                var start = new Vector(body.XVertices[i], body.YVertices[i]).RotateAround(origin, body.Angle);
+                var stop = new Vector(body.XVertices[i < max - 1 ? i + 1 : 0], body.YVertices[i < max - 1 ? i + 1 : 0]).RotateAround(origin, body.Angle);
 
                 //TODO: Try to add color as a parameter to this Render() method call
                 renderer.RenderLine(start.X, start.Y, stop.X, stop.Y);
