@@ -10,7 +10,9 @@ namespace KDScorpionCore
     /// </summary>
     public class DeferredActions : IEnumerable, IList<Action>
     {
-        private List<Action> _actions = new List<Action>();
+        #region Private Fields
+        private readonly List<Action> _actions = new List<Action>();
+        #endregion
 
 
         #region Props
@@ -98,6 +100,7 @@ namespace KDScorpionCore
         {
             _actions.CopyTo(array, arrayIndex);
         }
+
 
         /// <summary>
         /// Returns the enumerator to allow enumeration of the list of <see cref="Action"/>s.

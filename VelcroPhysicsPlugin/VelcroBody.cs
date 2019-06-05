@@ -12,7 +12,7 @@ namespace VelcroPhysicsPlugin
     //TODO: Add docs
     public class VelcroBody : IPhysicsBody
     {
-        private PhysicsBodySettings _tempSettings = new PhysicsBodySettings();
+        private readonly PhysicsBodySettings _tempSettings = new PhysicsBodySettings();
 
 
         #region Constructors
@@ -61,8 +61,8 @@ namespace VelcroPhysicsPlugin
                 else
                 {
                     //This gets the vertices as world vertices
-                    var xVertices = (from v in PolygonShape.Vertices.ToVelcroVectors()
-                                    select v.X + positionX).ToArray();
+                    var xVertices = (from v in PolygonShape.Vertices
+                                     select v.X + positionX).ToArray();
 
                     result.AddRange(xVertices.ToPixels());
                 }
@@ -87,7 +87,7 @@ namespace VelcroPhysicsPlugin
                 else
                 {
                     //This gets the vertices as world vertices
-                    var yVertices = (from v in PolygonShape.Vertices.ToVelcroVectors()
+                    var yVertices = (from v in PolygonShape.Vertices
                                      select v.Y + positionY).ToArray();
 
                     result.AddRange(yVertices.ToPixels());

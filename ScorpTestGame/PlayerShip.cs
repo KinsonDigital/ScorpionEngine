@@ -15,33 +15,36 @@ namespace ScorpTestGame
     /// </summary>
     public class PlayerShip : DynamicEntity
     {
-        private Keyboard _keyboard = new Keyboard();
-        private Mouse _mouse = new Mouse();
+        #region Private Fields
+        private readonly Keyboard _keyboard = new Keyboard();
+        private readonly Mouse _mouse = new Mouse();
         private Vector _thrusterPosition;
-        private ParticleEngine _particleEngine;
-        private MoveFowardKeyboardBehavior<PlayerShip> _movementBehavior;
+        private readonly ParticleEngine _particleEngine;
+        private readonly MoveFowardKeyboardBehavior<PlayerShip> _movementBehavior;
         private const float _particleVelocityMagnitudeMin = 0.25f;
         private const float _particleVelocityMagnitudeMax = 2;
-        private GameColor[] _orangeColors = new GameColor[]
+        private readonly GameColor[] _orangeColors = new GameColor[]
         {
             new GameColor(255, 255, 216, 0),
             new GameColor(255, 255, 0, 0),
             new GameColor(255, 255, 106, 0)
         };
-        private GameColor[] _blueColors = new GameColor[]
+        private readonly GameColor[] _blueColors = new GameColor[]
         {
             new GameColor(255, 0, 255, 255),
             new GameColor(255, 0, 38, 255),
             new GameColor(255, 0, 19, 127)
         };
-        private GameColor[] _purpleColors = new GameColor[]
+        private readonly GameColor[] _purpleColors = new GameColor[]
         {
             new GameColor(255, 255, 0, 220),
             new GameColor(255, 178, 0, 255),
             new GameColor(255, 87, 0, 127)
         };
+        #endregion
 
 
+        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="PlayerShip"/>.
         /// </summary>
@@ -89,8 +92,10 @@ namespace ScorpTestGame
             
             Behaviors.Add(_movementBehavior);
         }
+        #endregion
 
 
+        #region Public Methods
         public override void Initialize()
         {
             base.Initialize();
@@ -130,7 +135,6 @@ namespace ScorpTestGame
             if (_keyboard.IsKeyPressed(KeyCodes.Enter))
             {
                 _particleEngine.TintColors = _purpleColors;
-                //_mouse.SetPosition(Position);
             }
 
             if (_keyboard.IsKeyPressed(KeyCodes.RightShift))
@@ -174,5 +178,6 @@ namespace ScorpTestGame
 
             base.Render(renderer);
         }
+        #endregion
     }
 }

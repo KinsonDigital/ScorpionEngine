@@ -11,7 +11,7 @@ namespace KDScorpionEngine.Events
     [ExcludeFromCodeCoverage]
     public class OutOfBoundsTriggerEventsArgs : EventArgs
     {
-        #region Properties
+        #region Props
         /// <summary>
         /// Gets the entity that caused the trigger.
         /// </summary>

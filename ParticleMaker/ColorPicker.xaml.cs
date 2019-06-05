@@ -23,7 +23,7 @@ namespace ParticleMaker
         #endregion
 
 
-        #region Properties
+        #region Props
         /// <summary>
         /// Gets or sets the chosen color.
         /// </summary>

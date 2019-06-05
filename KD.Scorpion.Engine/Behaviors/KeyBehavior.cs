@@ -28,7 +28,7 @@ namespace KDScorpionEngine.Behaviors
 
         #region Fields
         private int _timeElapsed;//The engineTime elapsed since last frame
-        private Keyboard _keyboard;
+        private readonly Keyboard _keyboard;
         #endregion
 
 
@@ -62,7 +62,7 @@ namespace KDScorpionEngine.Behaviors
         #endregion
 
 
-        #region Properties
+        #region Props
         /// <summary>
         /// Gets or sets the key for the behavior.
         /// </summary>

@@ -10,11 +10,11 @@ namespace MonoScorpPlugin
     public class MonoEngineTime : IEngineTiming
     {
         #region Fields
-        private GameTime _gameTime;//The game time
+        private readonly GameTime _gameTime;//The game time
         #endregion
 
 
-        #region Properties
+        #region Props
         /// <summary>
         /// The amount of engine time since the game started.
         /// </summary>

@@ -12,7 +12,7 @@ namespace ScorpTestGame.Scenes
     {
         private PlayerShip _ship;
         private Keyboard _keyboard;
-        private Mouse _mouse = new Mouse();
+        private readonly Mouse _mouse = new Mouse();
         private UIText _shipPosition;
         private UIText _mousePosition;
 

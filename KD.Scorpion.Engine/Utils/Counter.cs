@@ -50,7 +50,7 @@ namespace KDScorpionEngine.Utils
         #endregion
 
 
-        #region Properties
+        #region Props
         /// <summary>
         /// Gets the current value of the counter.
         /// </summary>

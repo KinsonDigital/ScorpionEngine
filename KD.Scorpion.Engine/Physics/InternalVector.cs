@@ -2,7 +2,7 @@
 
 namespace KDScorpionEngine.Physics
 {
-    internal struct InternalVector : IVector
+    internal struct InternalVector
     {
         public InternalVector(float x, float y)
         {

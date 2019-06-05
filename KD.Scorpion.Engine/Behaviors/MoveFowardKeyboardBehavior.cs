@@ -11,13 +11,13 @@ namespace KDScorpionEngine.Behaviors
         private KeyBehavior _moveFowardKeyBehavior;
         private KeyBehavior _rotateCWKeyBehavior;
         private KeyBehavior _rotateCCWKeyBehavior;
-        private Keyboard _keyboard = new Keyboard();
-        private T _gameObject;
+        private readonly Keyboard _keyboard = new Keyboard();
+        private readonly T _gameObject;
         private readonly float _movementSpeed;
         private KeyCodes _moveFowardKey = KeyCodes.Up;
         private KeyCodes _rotateCWKey = KeyCodes.Right;
         private KeyCodes _rotateCCWKey = KeyCodes.Left;
-        private float _rotateSpeed;
+        private readonly float _rotateSpeed;
         #endregion
 
 

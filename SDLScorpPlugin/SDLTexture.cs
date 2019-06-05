@@ -9,9 +9,9 @@ namespace SDLScorpPlugin
     {
         #region Fields
         //TODO: This needs to be fixed.  SDL returns a pointer to a texture. Figure this out.
-        private IntPtr _texturePtr;
-        private int _width;
-        private int _height;
+        private readonly IntPtr _texturePtr;
+        private readonly int _width;
+        private readonly int _height;
         #endregion
 
 

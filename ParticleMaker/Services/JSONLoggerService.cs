@@ -8,8 +8,8 @@ namespace ParticleMaker.Services
     public class JSONLoggerService : ILoggerService
     {
         #region Fields
-        private IFileService _fileService;
-        private IDirectoryService _directoryService;
+        private readonly IFileService _fileService;
+        private readonly IDirectoryService _directoryService;
         private readonly string _logsDirectory;
         private readonly Dictionary<int, string> _monthNames = new Dictionary<int, string>()
         {

@@ -51,7 +51,7 @@ namespace KDScorpionEngine.Entities
         private IDebugDraw _debugDraw;
         private Vector _preInitPosition;
         private Vector[] _preInitVertices;
-        private float _preInitFriction;
+        private readonly float _preInitFriction;
         #endregion
 
 

@@ -2,8 +2,12 @@
 
 namespace KDScorpionCore
 {
+    /// <summary>
+    /// Adds various game loop events for a game engine.
+    /// </summary>
     public interface IEngineEvents
     {
+        #region Events
         /// Occurs once every frame before the OnDraw event before the OnDraw event is invoked.
         /// </summary>
         event EventHandler<OnUpdateEventArgs> OnUpdate;
@@ -22,5 +26,6 @@ namespace KDScorpionCore
         /// Occurs one time during game intialization after the OnInit event is fired.
         /// </summary>
         event EventHandler OnLoadContent;
+        #endregion
     }
 }

@@ -7,7 +7,7 @@ namespace KDScorpionCore
     /// </summary>
     public class OnUpdateEventArgs : EventArgs
     {
-        #region Properties
+        #region Props
         /// <summary>
         /// Holds elapsed time information of when the game loop last ran.
         /// </summary>
@@ -20,10 +20,7 @@ namespace KDScorpionCore
         /// Creates a new instance of <see cref="OnUpdateEventArgs"/>.
         /// </summary>
         /// <param name="engineTime">The game engine time.</param>
-        public OnUpdateEventArgs(IEngineTiming engineTime)
-        {
-            EngineTime = engineTime;
-        }
+        public OnUpdateEventArgs(IEngineTiming engineTime) => EngineTime = engineTime;
         #endregion
     }
 }

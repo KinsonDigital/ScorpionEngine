@@ -5,7 +5,7 @@ namespace KDScorpionCore.Content
 {
     public class ContentLoader
     {
-        IContentLoader _internalLoader;
+        readonly IContentLoader _internalLoader;
 
 
         public ContentLoader(IContentLoader contentLoader)

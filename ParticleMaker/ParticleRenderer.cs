@@ -15,7 +15,7 @@ namespace ParticleMaker
     public class ParticleRenderer : IRenderer
     {
         #region Fields
-        private SpriteBatch _spriteBatch;
+        private readonly SpriteBatch _spriteBatch;
         #endregion
 
 

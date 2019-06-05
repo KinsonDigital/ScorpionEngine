@@ -9,7 +9,7 @@ namespace MonoScorpPlugin
 {
     internal class MonoGame : Game, IEngineEvents
     {
-        private GraphicsDeviceManager _graphicsDeviceManager;
+        private readonly GraphicsDeviceManager _graphicsDeviceManager;
 
         #region Events
         /// <summary>

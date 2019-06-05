@@ -12,7 +12,7 @@ namespace ParticleMaker.UserControls
     public partial class ColorMinMax : UserControl
     {
         #region Fields
-        private static SolidColorBrush DEFAULT_COLOR = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+        private static readonly SolidColorBrush DEFAULT_COLOR = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
         #endregion
 
 

@@ -2,11 +2,17 @@
 
 namespace KDScorpionCore
 {
+    /// <summary>
+    /// Provides various methods for the <see cref="KDScorpionCore"/> library to utilize.
+    /// </summary>
     public static class ExtensionMethods
     {
+        #region Private Fields
         private const float PI = 3.1415926535897931f;
+        #endregion
 
 
+        #region Public Methods
         /// <summary>
         /// Converts the given radians value into degrees.
         /// </summary>
@@ -77,5 +83,6 @@ namespace KDScorpionCore
 
             return new Vector(x, y);
         }
+        #endregion
     }
 }

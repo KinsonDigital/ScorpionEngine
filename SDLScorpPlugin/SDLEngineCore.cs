@@ -24,7 +24,7 @@ namespace SDLScorpPlugin
         private TimeSpan _lastFrameTime;
         private bool _isRunning;
         private float _targetFrameRate = 1000f / 120f;
-        private Queue<float> _frameTimes = new Queue<float>();
+        private readonly Queue<float> _frameTimes = new Queue<float>();
         #endregion
 
 

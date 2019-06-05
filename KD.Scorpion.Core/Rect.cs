@@ -57,8 +57,14 @@
         /// </summary>
         public float Height { get; set; }
 
+        /// <summary>
+        /// Gets half of the <see cref="Rect"/>'s <see cref="Width"/>.
+        /// </summary>
         public float HalfWidth => Width / 2;
 
+        /// <summary>
+        /// Gets half of the <see cref="Rect"/>'s <see cref="Height"/>.
+        /// </summary>
         public float HalfHeight => Height / 2;
 
         /// <summary>
@@ -90,10 +96,7 @@
         /// <param name="x">The X component of the location that might be contained.</param>
         /// <param name="y">The Y component of the location that might be contained.</param>
         /// <returns></returns>
-        public bool Contains(float x, float y)
-        {
-            return x > Left && y > Top && x < Right && y < Bottom;
-        }
+        public bool Contains(float x, float y) => x > Left && y > Top && x < Right && y < Bottom;
 
 
         /// <summary>
@@ -101,10 +104,7 @@
         /// </summary>
         /// <param name="vector">The location that might be contained.</param>
         /// <returns></returns>
-        public bool Contains(Vector vector)
-        {
-            return vector.X > Left && vector.Y > Top && vector.X < Right && vector.Y < Bottom;
-        }
+        public bool Contains(Vector vector) => vector.X > Left && vector.Y > Top && vector.X < Right && vector.Y < Bottom;
         #endregion
     }
 }

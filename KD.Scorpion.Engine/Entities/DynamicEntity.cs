@@ -86,7 +86,7 @@ namespace KDScorpionEngine.Entities
         #endregion
 
 
-        #region Properties
+        #region Props
         public bool IsMoving
         {
             get

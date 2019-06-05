@@ -16,9 +16,9 @@ namespace ParticleMaker
     public class GraphicsEngine
     {
         #region Fields
-        private IFileService _fileService;
-        private IGraphicsEngineFactory _factory;
-        private ICoreEngine _coreEngine;
+        private readonly IFileService _fileService;
+        private readonly IGraphicsEngineFactory _factory;
+        private readonly ICoreEngine _coreEngine;
         private SpriteBatch _spriteBatch;
         private Renderer _renderer;
         private bool _shuttingDown = false;

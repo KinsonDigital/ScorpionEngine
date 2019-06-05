@@ -21,8 +21,8 @@ namespace KDParticleEngine
 
 
         #region Fields
-        private List<Particle> _particles;
-        private List<Texture> _textures = new List<Texture>();
+        private readonly List<Particle> _particles;
+        private readonly List<Texture> _textures = new List<Texture>();
         private int _totalParticlesAliveAtOnce = 10;
         private int _spawnRateElapsed = 0;
         private float _angleMin;

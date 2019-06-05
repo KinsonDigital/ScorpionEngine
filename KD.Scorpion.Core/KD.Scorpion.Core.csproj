@@ -79,7 +79,6 @@
     <Compile Include="Input\MouseInputState.cs" />
     <Compile Include="IRenderable.cs" />
     <Compile Include="IUpdatable.cs" />
-    <Compile Include="IVector.cs" />
     <Compile Include="OnRenderEventArgs.cs" />
     <Compile Include="Plugins\IPluginLibrary.cs" />
     <Compile Include="Plugins\PluginLibraryLoader.cs" />

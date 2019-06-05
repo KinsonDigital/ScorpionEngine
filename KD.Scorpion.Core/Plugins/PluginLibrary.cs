@@ -10,9 +10,9 @@ namespace KDScorpionCore.Plugins
     [ExcludeFromCodeCoverage]
     public class PluginLibrary : IPluginLibrary
     {
-        private Assembly _pluginAssembly;
-        private Container _container;
-        private IEnumerable<Type> _concretePluginTypes;
+        private readonly Assembly _pluginAssembly;
+        private readonly Container _container;
+        private readonly IEnumerable<Type> _concretePluginTypes;
 
 
         public PluginLibrary(string name)

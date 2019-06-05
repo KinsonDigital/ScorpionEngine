@@ -6,7 +6,7 @@ namespace MonoScorpPlugin
 {
     public class MonoEngineCore : IEngineCore
     {
-        private MonoGame _monoGame;
+        private readonly MonoGame _monoGame;
         private bool _isRunning;
 
         public event EventHandler<OnUpdateEventArgs> OnUpdate;

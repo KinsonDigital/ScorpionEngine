@@ -8,7 +8,7 @@ namespace KDScorpionEngine.Physics
 {
     public class PhysicsWorld
     {
-        private IPhysicsWorld _internalWorld;
+        private readonly IPhysicsWorld _internalWorld;
 
 
         public PhysicsWorld(Vector gravity)

@@ -49,7 +49,7 @@ namespace KDScorpionEngine
         #endregion
 
 
-        #region Properties
+        #region Props
         public SceneManager SceneManager { get; set; }
 
         public ContentLoader ContentLoader { get; set; }

@@ -12,7 +12,7 @@ namespace ParticleMaker.UserControls
     [ExcludeFromCodeCoverage]
     public partial class UserControlTestWindow : Window
     {
-        private MyViewModel _viewModel;
+        private readonly MyViewModel _viewModel;
 
         #region Constructors
         /// <summary>

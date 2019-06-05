@@ -12,9 +12,9 @@ namespace KDScorpionUI
     /// </summary>
     public class TextBox : IControl
     {
-        private Keyboard _keyboard = new Keyboard();
-        private string _leftText = string.Empty;
-        private string _rightText = string.Empty;
+        private readonly Keyboard _keyboard = new Keyboard();
+        private readonly string _leftText = string.Empty;
+        private readonly string _rightText = string.Empty;
         private GameText _visibleText;
         private static GameText _textRuler;//Used for measuring text with and height
         private string _allText;
@@ -29,7 +29,7 @@ namespace KDScorpionUI
         private int _rightSide;
         private int _leftSide;
         private int _lastDirectionOfTravel = 0;
-        private DeferredActions _deferredActions = new DeferredActions();
+        private readonly DeferredActions _deferredActions = new DeferredActions();
 
 
         #region Props

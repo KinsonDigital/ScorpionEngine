@@ -15,7 +15,7 @@ namespace KDScorpionUI
 
 
         #region Fields
-        private Mouse _mouse;
+        private readonly Mouse _mouse;
         private Rect _rect = new Rect();
         private bool _isMouseDown;
         #endregion
