@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using KDScorpionCore;
 using KDScorpionCore.Graphics;
-using KDScorpionCore.Plugins;
 using KDScorpionEngine.Entities;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngineTests.Fakes;

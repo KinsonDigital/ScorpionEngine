@@ -14,17 +14,8 @@ namespace SDLScorpPlugin
     public class SDLKeyboard : IKeyboard
     {
         #region Private Vars
-        /// <summary>
-        /// Holds a list of all the keys and there current state this frame.
-        /// </summary>
-        private readonly static Dictionary<SDL.SDL_Keycode, bool> _currentStateKeys =
-            (from m in KeyboardKeyMapper.SDLToStandardMappings select m.Key).ToArray().ToDictionary(k => k, value => false);
-
-        /// <summary>
-        /// Holds a list of all the keys and there state the previous frame.
-        /// </summary>
-        private readonly static Dictionary<SDL.SDL_Keycode, bool> _prevStateKeys =
-            (from m in KeyboardKeyMapper.SDLToStandardMappings select m.Key).ToArray().ToDictionary(k => k, value => false);
+        private readonly List<SDL.SDL_Keycode> _currentStateKeys = new List<SDL.SDL_Keycode>();
+        private readonly List<SDL.SDL_Keycode> _prevStateKeys = new List<SDL.SDL_Keycode>();
         #endregion
 
 
@@ -76,31 +67,21 @@ namespace SDLScorpPlugin
         /// Returns a value indicating if any keys are in the down position.
         /// </summary>
         /// <returns></returns>
-        public bool AreAnyKeysDown() => _currentStateKeys.Any(k => k.Value);
+        public bool AreAnyKeysDown() => _currentStateKeys.Count > 0;
 
 
         /// <summary>
         /// Returns all of the currently pressed keys of the keyboard for the current frame.
         /// </summary>
         /// <returns></returns>
-        public KeyCodes[] GetCurrentPressedKeys()
-        {
-            return (from k in _currentStateKeys
-                    where k.Value
-                    select KeyboardKeyMapper.ToStandardKeyCode(k.Key)).ToArray();
-        }
+        public KeyCodes[] GetCurrentPressedKeys() => KeyboardKeyMapper.ToStandardKeyCodes(_currentStateKeys.ToArray());
 
 
         /// <summary>
         /// Returns all of the previously pressed keys of the keyborad from the last frame.
         /// </summary>
         /// <returns></returns>
-        public KeyCodes[] GetPreviousPressedKeys()
-        {
-            return (from k in _prevStateKeys
-                    where k.Value
-                    select KeyboardKeyMapper.ToStandardKeyCode(k.Key)).ToArray();
-        }
+        public KeyCodes[] GetPreviousPressedKeys() => KeyboardKeyMapper.ToStandardKeyCodes(_prevStateKeys.ToArray());
 
 
         /// <summary>
@@ -108,13 +89,7 @@ namespace SDLScorpPlugin
         /// </summary>
         /// <param name="keys">The list of key codes to check.</param>
         /// <returns></returns>
-        public bool IsAnyKeyDown(KeyCodes[] keys)
-        {
-            var downKeys = (from k in _currentStateKeys where k.Value select k).ToArray();
-
-
-            return keys.Any(k => downKeys.Any(dk => dk.Key == KeyboardKeyMapper.ToSDLKeyCode((KeyCodes)k)));
-        }
+        public bool IsAnyKeyDown(KeyCodes[] keys) => keys.Any(k => _currentStateKeys.Contains(KeyboardKeyMapper.ToSDLKeyCode(k)));
 
 
         /// <summary>
@@ -122,7 +97,8 @@ namespace SDLScorpPlugin
         /// </summary>
         /// <param name="key">The key to check for.</param>
         /// <returns></returns>
-        public bool IsKeyDown(KeyCodes key) => _currentStateKeys[KeyboardKeyMapper.ToSDLKeyCode(key)];
+        //public bool IsKeyDown(KeyCodes key) => _currentStateKeys[KeyboardKeyMapper.ToSDLKeyCode(key)];
+        public bool IsKeyDown(KeyCodes key) => _currentStateKeys.Contains(KeyboardKeyMapper.ToSDLKeyCode(key));
 
 
         /// <summary>
@@ -138,8 +114,8 @@ namespace SDLScorpPlugin
         /// </summary>
         /// <param name="key">The key to check for.</param>
         /// <returns></returns>
-        public bool IsKeyPressed(KeyCodes key) => _currentStateKeys[KeyboardKeyMapper.ToSDLKeyCode(key)] == false &&
-            _prevStateKeys[KeyboardKeyMapper.ToSDLKeyCode(key)] == true;
+        public bool IsKeyPressed(KeyCodes key) => !_currentStateKeys.Contains(KeyboardKeyMapper.ToSDLKeyCode(key)) &&
+            _prevStateKeys.Contains(KeyboardKeyMapper.ToSDLKeyCode(key));
 
 
         /// <summary>
@@ -147,10 +123,8 @@ namespace SDLScorpPlugin
         /// </summary>
         public void UpdateCurrentState()
         {
-            foreach (var key in SDLEngineCore.CurrentKeyboardState)
-            {
-                _currentStateKeys[key.Key] = key.Value;
-            }
+            _currentStateKeys.Clear();
+            _currentStateKeys.AddRange(SDLEngineCore.CurrentKeyboardState);
         }
 
 
@@ -159,16 +133,25 @@ namespace SDLScorpPlugin
         /// </summary>
         public void UpdatePreviousState()
         {
-            foreach (var currentKey in SDLEngineCore.PreviousKeyboardState)
-            {
-                _prevStateKeys[currentKey.Key] = currentKey.Value;
-            }
+            _prevStateKeys.Clear();
+            _prevStateKeys.AddRange(SDLEngineCore.PreviousKeyboardState);
         }
 
 
+        /// <summary>
+        /// Injects any arbitrary data into the plugin for use.  Must be a class.
+        /// </summary>
+        /// <typeparam name="T">The type of data to inject.</typeparam>
+        /// <param name="data">The data to inject.</param>
         public void InjectData<T>(T data) where T : class => throw new NotImplementedException();
 
 
+        /// <summary>
+        /// Gets the data as the given type <typeparamref name="T"/>.
+        /// </summary>
+        /// <param name="option">Used to pass in options for the <see cref="GetData{T}(int)"/> implementation to process.</param>
+        /// <typeparam name="T">The type of data to get.</typeparam>
+        /// <returns></returns>
         public T GetData<T>(int option) where T : class => throw new NotImplementedException();
         #endregion
     }

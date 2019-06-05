@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace SDLScorpPlugin
 {
@@ -94,16 +93,14 @@ namespace SDLScorpPlugin
         internal static IntPtr RendererPointer { get; private set; } = IntPtr.Zero;
 
         /// <summary>
-        /// Holds a list of all the keys and there current state this frame.
+        /// Gets or sets the current state of the keyboard for the current frame.
         /// </summary>
-        internal static Dictionary<SDL.SDL_Keycode, bool> CurrentKeyboardState { get; private set; } =
-            (from m in KeyboardKeyMapper.SDLToStandardMappings select m.Key).ToArray().ToDictionary(k => k, value => false);
+        internal static List<SDL.SDL_Keycode> CurrentKeyboardState { get; set; } = new List<SDL.SDL_Keycode>();
 
         /// <summary>
-        /// Holds a list of all the keys and there previous state from the last frame.
+        /// Gets or sets the previous state of the keyboard for the previous frame.
         /// </summary>
-        internal static Dictionary<SDL.SDL_Keycode, bool> PreviousKeyboardState { get; private set; } =
-            (from m in KeyboardKeyMapper.SDLToStandardMappings select m.Key).ToArray().ToDictionary(k => k, value => false);
+        internal static List<SDL.SDL_Keycode> PreviousKeyboardState { get; set; } = new List<SDL.SDL_Keycode>();
 
         /// <summary>
         /// Gets the current state of the left mouse button.
@@ -207,6 +204,7 @@ namespace SDLScorpPlugin
         /// </summary>
         public void Dispose()
         {
+            _isRunning = false;
             SDL.SDL_DestroyRenderer(RendererPointer);
             SDL.SDL_DestroyWindow(WindowPtr);
 
@@ -361,12 +359,8 @@ namespace SDLScorpPlugin
 
         private void UpdatePreviousKeyboardState()
         {
-            PreviousKeyboardState = new Dictionary<SDL.SDL_Keycode, bool>(CurrentKeyboardState);
-
-            //foreach (var currentKey in CurrentKeyboardState)
-            //{
-            //    PreviousKeyboardState[currentKey.Key] = currentKey.Value;
-            //}
+            PreviousKeyboardState.Clear();
+            PreviousKeyboardState.AddRange(CurrentKeyboardState);
         }
 
 
@@ -381,20 +375,20 @@ namespace SDLScorpPlugin
         /// </summary>
         private void UpdateInputStates()
         {
-            var statePtr = SDL.SDL_GetKeyboardState(out _);
-
-            int[] keyStates = new int[1];
-            Marshal.Copy(statePtr, keyStates, 0, 1);
-
             while (SDL.SDL_PollEvent(out var e) != 0)
             {
-                if (e.type == SDL.SDL_EventType.SDL_KEYDOWN)
+                if (e.type == SDL.SDL_EventType.SDL_QUIT)
                 {
-                    CurrentKeyboardState[e.key.keysym.sym] = true;
+                    ShutDown();
+                }
+                else if (e.type == SDL.SDL_EventType.SDL_KEYDOWN)
+                {
+                    if (!CurrentKeyboardState.Contains(e.key.keysym.sym))
+                        CurrentKeyboardState.Add(e.key.keysym.sym);
                 }
                 else if (e.type == SDL.SDL_EventType.SDL_KEYUP)
                 {
-                    CurrentKeyboardState[e.key.keysym.sym] = false;
+                    CurrentKeyboardState.Remove(e.key.keysym.sym);
                 }
                 else if (e.type == SDL.SDL_EventType.SDL_MOUSEBUTTONDOWN)
                 {

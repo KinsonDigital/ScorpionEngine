@@ -1,5 +1,4 @@
-﻿using KDScorpionCore;
-using KDScorpionCore.Plugins;
+﻿using KDScorpionCore.Plugins;
 using SDLScorpPlugin;
 using System;
 using System.Collections.Generic;

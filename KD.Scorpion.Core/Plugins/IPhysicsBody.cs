@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace KDScorpionCore.Plugins
+﻿namespace KDScorpionCore.Plugins
 {
     //TODO: Add docs
     public interface IPhysicsBody : IPlugin

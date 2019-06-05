@@ -1,7 +1,6 @@
 ﻿using Moq;
 using NUnit.Framework;
 using KDScorpionCore.Graphics;
-using KDScorpionCoreTests.Fakes;
 
 namespace KDScorpionCoreTests.Graphics
 {

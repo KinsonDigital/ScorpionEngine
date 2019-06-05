@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SDLScorpPlugin
+﻿namespace SDLScorpPlugin
 {
     /// <summary>
     /// Represents the different types of game loops.

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace KDScorpionCore.Plugins
+﻿namespace KDScorpionCore.Plugins
 {
     /// <summary>
     /// Represents a single plugin item.

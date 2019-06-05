@@ -1,7 +1,6 @@
 ﻿using Moq;
 using NUnit.Framework;
 using KDScorpionCore;
-using KDScorpionCore.Plugins;
 using KDScorpionEngine.Entities;
 using KDScorpionEngineTests.Fakes;
 using System.Drawing;

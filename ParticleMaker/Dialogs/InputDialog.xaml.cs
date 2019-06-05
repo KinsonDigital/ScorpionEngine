@@ -2,7 +2,6 @@
 using System.Windows.Forms.Integration;
 using System.Windows.Input;
 using System.Linq;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace ParticleMaker.Dialogs

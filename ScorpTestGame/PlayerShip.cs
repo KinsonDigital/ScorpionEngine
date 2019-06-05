@@ -7,8 +7,6 @@ using KDScorpionCore.Input;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Entities;
 using KDScorpionEngine.Input;
-using KDScorpionEngine.Utils;
-using System.Threading;
 
 namespace ScorpTestGame
 {

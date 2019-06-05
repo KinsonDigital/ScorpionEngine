@@ -2,9 +2,7 @@
 using KDScorpionCore.Plugins;
 using SDL2;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace SDLScorpPlugin
 {

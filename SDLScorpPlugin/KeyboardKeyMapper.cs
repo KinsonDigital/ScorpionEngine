@@ -1,9 +1,7 @@
 ﻿using KDScorpionCore.Input;
 using SDL2;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SDLScorpPlugin
 {

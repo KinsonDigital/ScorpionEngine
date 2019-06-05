@@ -1,11 +1,8 @@
 ﻿using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
 using PluginSystem;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KDScorpionEngine.Input
 {
