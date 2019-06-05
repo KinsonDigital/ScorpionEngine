@@ -22,7 +22,7 @@ namespace PluginSystem
         public IKeyboard CreateKeyboard() => new SDLKeyboard();
 
 
-        public IMouse CreateMouse() => null;
+        public IMouse CreateMouse() => new SDLMouse();
 
 
         public IDebugDraw CreateDebugDraw() => null;

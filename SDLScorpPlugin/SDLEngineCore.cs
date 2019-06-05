@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace SDLScorpPlugin
@@ -20,11 +21,10 @@ namespace SDLScorpPlugin
 
 
         #region Private Vars
-        private static IntPtr _windowPtr = IntPtr.Zero;
         private Stopwatch _timer;
         private TimeSpan _lastFrameTime;
         private bool _isRunning;
-        private float _targetFrameRate = 1000f / 60f;
+        private float _targetFrameRate = 1000f / 120f;
         private Queue<float> _frameTimes = new Queue<float>();
         #endregion
 
@@ -39,26 +39,20 @@ namespace SDLScorpPlugin
 
         #region Props
         /// <summary>
-        /// Holds a list of all the keys and there current state this frame.
-        /// </summary>
-        internal static Dictionary<SDL.SDL_Keycode, bool> CurrentKeyboardState { get; private set; } =
-            (from m in KeyboardKeyMapper.SDLToStandardMappings select m.Key).ToArray().ToDictionary(k => k, value => false);
-
-        /// <summary>
         /// Gets or sets the width of the game window.
         /// </summary>
         public int WindowWidth
         {
             get
             {
-                SDL.SDL_GetWindowSize(_windowPtr, out int w, out _);
+                SDL.SDL_GetWindowSize(WindowPtr, out int w, out _);
 
                 return w;
             }
             set
             {
-                SDL.SDL_GetWindowSize(_windowPtr, out _, out int h);
-                SDL.SDL_SetWindowSize(_windowPtr, value, h);
+                SDL.SDL_GetWindowSize(WindowPtr, out _, out int h);
+                SDL.SDL_SetWindowSize(WindowPtr, value, h);
             }
         }
 
@@ -69,14 +63,14 @@ namespace SDLScorpPlugin
         {
             get
             {
-                SDL.SDL_GetWindowSize(_windowPtr, out _, out int h);
+                SDL.SDL_GetWindowSize(WindowPtr, out _, out int h);
 
                 return h;
             }
             set
             {
-                SDL.SDL_GetWindowSize(_windowPtr, out int w, out _);
-                SDL.SDL_SetWindowSize(_windowPtr, w, value);
+                SDL.SDL_GetWindowSize(WindowPtr, out int w, out _);
+                SDL.SDL_SetWindowSize(WindowPtr, w, value);
             }
         }
 
@@ -90,9 +84,46 @@ namespace SDLScorpPlugin
         public float CurrentFPS { get; private set; }
 
         /// <summary>
+        /// Gets the pointer to the window.
+        /// </summary>
+        internal static IntPtr WindowPtr { get; private set; } = IntPtr.Zero;
+
+        /// <summary>
         /// Gets the renderer pointer.
         /// </summary>
         internal static IntPtr RendererPointer { get; private set; } = IntPtr.Zero;
+
+        /// <summary>
+        /// Holds a list of all the keys and there current state this frame.
+        /// </summary>
+        internal static Dictionary<SDL.SDL_Keycode, bool> CurrentKeyboardState { get; private set; } =
+            (from m in KeyboardKeyMapper.SDLToStandardMappings select m.Key).ToArray().ToDictionary(k => k, value => false);
+
+        /// <summary>
+        /// Holds a list of all the keys and there previous state from the last frame.
+        /// </summary>
+        internal static Dictionary<SDL.SDL_Keycode, bool> PreviousKeyboardState { get; private set; } =
+            (from m in KeyboardKeyMapper.SDLToStandardMappings select m.Key).ToArray().ToDictionary(k => k, value => false);
+
+        /// <summary>
+        /// Gets the current state of the left mouse button.
+        /// </summary>
+        internal static bool CurrentLeftMouseButtonState { get; private set; }
+
+        /// <summary>
+        /// Gets the current state of the right mouse button.
+        /// </summary>
+        internal static bool CurrentRightMouseButtonState { get; private set; }
+
+        /// <summary>
+        /// Gets the current state of the middle mouse button.
+        /// </summary>
+        internal static bool CurrentMiddleMouseButtonState { get; private set; }
+
+        /// <summary>
+        /// Gets the current position of the mouse cursur in the game window.
+        /// </summary>
+        internal static Vector MousePosition { get; private set; }
         #endregion
 
 
@@ -139,17 +170,23 @@ namespace SDLScorpPlugin
         /// <returns></returns>
         public T GetData<T>(int option) where T : class
         {
+            var ptrContainer = new PointerContainer();
+
             if (option == 1)
             {
-                var ptrContainer = new PointerContainer();
                 ptrContainer.PackPointer(RendererPointer);
-
-
-                return RendererPointer as T;
+            }
+            else if (option == 2)
+            {
+                ptrContainer.PackPointer(WindowPtr);
+            }
+            else
+            {
+                throw new Exception($"Incorrect {nameof(option)} parameter in '{nameof(SDLEngineCore)}.{nameof(GetData)}()'");
             }
 
 
-            throw new Exception($"Incorrect requested data type in '{nameof(SDLEngineCore)}'");
+            return ptrContainer as T;
         }
 
 
@@ -171,7 +208,7 @@ namespace SDLScorpPlugin
         public void Dispose()
         {
             SDL.SDL_DestroyRenderer(RendererPointer);
-            SDL.SDL_DestroyWindow(_windowPtr);
+            SDL.SDL_DestroyWindow(WindowPtr);
 
             //Quit SDL sub systems
             SDL_ttf.TTF_Quit();
@@ -200,10 +237,10 @@ namespace SDLScorpPlugin
                     throw new Exception("Warning: Linear texture filtering not enabled!");
 
                 //Create window
-                _windowPtr = SDL.SDL_CreateWindow("SDL Tutorial", SDL.SDL_WINDOWPOS_CENTERED, SDL.SDL_WINDOWPOS_CENTERED,
+                WindowPtr = SDL.SDL_CreateWindow("SDL Tutorial", SDL.SDL_WINDOWPOS_CENTERED, SDL.SDL_WINDOWPOS_CENTERED,
                     640, 480, SDL.SDL_WindowFlags.SDL_WINDOW_SHOWN);
 
-                if (_windowPtr == IntPtr.Zero)
+                if (WindowPtr == IntPtr.Zero)
                 {
                     throw new Exception($"Window could not be created! \n\nSDL_Error: {SDL.SDL_GetError()}");
                 }
@@ -213,7 +250,7 @@ namespace SDLScorpPlugin
                     var renderFlags = SDL.SDL_RendererFlags.SDL_RENDERER_ACCELERATED;
 
                     Renderer = new SDLRenderer();
-                    RendererPointer = SDL.SDL_CreateRenderer(_windowPtr, -1, renderFlags);
+                    RendererPointer = SDL.SDL_CreateRenderer(WindowPtr, -1, renderFlags);
 
                     var ptrContainer = new PointerContainer();
                     ptrContainer.PackPointer(RendererPointer);
@@ -315,7 +352,21 @@ namespace SDLScorpPlugin
 
                     _timer.Start();
                 }
+
+                //Update the previous state of the keyboard
+                UpdatePreviousKeyboardState();
             }
+        }
+
+
+        private void UpdatePreviousKeyboardState()
+        {
+            PreviousKeyboardState = new Dictionary<SDL.SDL_Keycode, bool>(CurrentKeyboardState);
+
+            //foreach (var currentKey in CurrentKeyboardState)
+            //{
+            //    PreviousKeyboardState[currentKey.Key] = currentKey.Value;
+            //}
         }
 
 
@@ -330,6 +381,11 @@ namespace SDLScorpPlugin
         /// </summary>
         private void UpdateInputStates()
         {
+            var statePtr = SDL.SDL_GetKeyboardState(out _);
+
+            int[] keyStates = new int[1];
+            Marshal.Copy(statePtr, keyStates, 0, 1);
+
             while (SDL.SDL_PollEvent(out var e) != 0)
             {
                 if (e.type == SDL.SDL_EventType.SDL_KEYDOWN)
@@ -339,6 +395,22 @@ namespace SDLScorpPlugin
                 else if (e.type == SDL.SDL_EventType.SDL_KEYUP)
                 {
                     CurrentKeyboardState[e.key.keysym.sym] = false;
+                }
+                else if (e.type == SDL.SDL_EventType.SDL_MOUSEBUTTONDOWN)
+                {
+                    CurrentLeftMouseButtonState = e.button.button == 1 && e.button.state == 1;
+                    CurrentMiddleMouseButtonState = e.button.button == 2 && e.button.state == 1;
+                    CurrentRightMouseButtonState = e.button.button == 3 && e.button.state == 1;
+                }
+                else if (e.type == SDL.SDL_EventType.SDL_MOUSEBUTTONUP)
+                {
+                    CurrentLeftMouseButtonState = e.button.button == 1 && e.button.state == 1;
+                    CurrentMiddleMouseButtonState = e.button.button == 2 && e.button.state == 1;
+                    CurrentRightMouseButtonState = e.button.button == 3 && e.button.state == 1;
+                }
+                else if (e.type == SDL.SDL_EventType.SDL_MOUSEMOTION)
+                {
+                    MousePosition = new Vector(e.button.x, e.button.y);
                 }
             }
         }

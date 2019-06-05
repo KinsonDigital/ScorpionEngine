@@ -159,7 +159,7 @@ namespace SDLScorpPlugin
         /// </summary>
         public void UpdatePreviousState()
         {
-            foreach (var currentKey in _currentStateKeys)
+            foreach (var currentKey in SDLEngineCore.PreviousKeyboardState)
             {
                 _prevStateKeys[currentKey.Key] = currentKey.Value;
             }

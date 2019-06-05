@@ -76,6 +76,7 @@
     <Compile Include="SDLEngineCore.cs" />
     <Compile Include="SDLEngineTime.cs" />
     <Compile Include="SDLKeyboard.cs" />
+    <Compile Include="SDLMouse.cs" />
     <Compile Include="SDLRenderer.cs" />
     <Compile Include="SDLText.cs" />
     <Compile Include="SDLTexture.cs" />

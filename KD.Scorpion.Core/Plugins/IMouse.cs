@@ -3,8 +3,14 @@
     public interface IMouse : IPlugin
     {
         #region Props
+        /// <summary>
+        /// Gets sets the X position of the mouse in the game window.
+        /// </summary>
         int X { get; set; }
 
+        /// <summary>
+        /// Gets sets the Y position of the mouse in the game window.
+        /// </summary>
         int Y { get; set; }
         #endregion
 
@@ -42,10 +48,15 @@
         bool IsButtonPressed(int input);
 
 
-        //TODO: Add method docs
+        /// <summary>
+        /// Update the current state of the mouse.
+        /// </summary>
         void UpdateCurrentState();
 
 
+        /// <summary>
+        /// Update the previous state of the mouse.
+        /// </summary>
         void UpdatePreviousState();
         #endregion
     }
