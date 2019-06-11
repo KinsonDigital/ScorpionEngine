@@ -14,7 +14,7 @@ namespace KDParticleEngine
     /// Manages multiple <see cref="Particle"/>s with various settings that dictate
     /// how all of the <see cref="Particle"/>s behave and look on the screen.
     /// </summary>
-    public class ParticleEngine
+    public class ParticleEngine<ITexture> where ITexture : class
     {
         #region Public Events
         public event EventHandler<EventArgs> LivingParticlesCountChanged;
@@ -22,8 +22,8 @@ namespace KDParticleEngine
 
 
         #region Fields
-        private readonly List<Particle> _particles;
-        private readonly List<Texture> _textures = new List<Texture>();
+        private readonly List<Particle<ITexture>> _particles;
+        private readonly List<ITexture> _textures = new List<ITexture>();
         private int _totalParticlesAliveAtOnce = 10;
         private int _spawnRateElapsed = 0;
         private float _angleMin;
@@ -39,13 +39,16 @@ namespace KDParticleEngine
         /// </summary>
         public ParticleEngine(IRandomizerService randomizer)
         {
-            _particles = new List<Particle>();
+            _particles = new List<Particle<ITexture>>();
             Randomizer = randomizer;
         }
         #endregion
 
 
         #region Props
+        //TODO: Add code docs
+        public Particle<ITexture>[] Particles => _particles.ToArray();
+
         /// <summary>
         /// Gets or sets the randomizer used when generating new particles.
         /// </summary>
@@ -130,15 +133,13 @@ namespace KDParticleEngine
 
         /// <summary>
         /// Gets or sets the minimum size that a newly generated <see cref="Particle"/> will be.
-        /// The value of 1 will represent 100% or the normal size of the <see cref="Particle"/>
-        /// <see cref="Texture"/>s.
+        /// The value of 1 will represent 100% or the normal size of the <see cref="Particle"/> texture.
         /// </summary>
         public float SizeMin { get; set; } = 0.5f;
 
         /// <summary>
         /// Gets or sets the maximum size that a newly generated <see cref="Particle"/> will be.
-        /// The value of 1 will represent 100% or the normal size of the <see cref="Particle"/>
-        /// <see cref="Texture"/>s.
+        /// The value of 1 will represent 100% or the normal size of the <see cref="Particle"/> texture.
         /// </summary>
         public float SizeMax { get; set; } = 1.5f;
 
@@ -282,7 +283,7 @@ namespace KDParticleEngine
         /// Adds the given <paramref name="texture"/> to the engine.
         /// </summary>
         /// <param name="texture">The texture to add.</param>
-        public void AddTexture(Texture texture)
+        public void AddTexture(ITexture texture)
         {
             _textures.Add(texture);
             GenerateAllParticles();
@@ -293,7 +294,7 @@ namespace KDParticleEngine
         /// Adds the given <paramref name="textures"/> to the engine.
         /// </summary>
         /// <param name="textures">The list of textures to add.</param>
-        public void AddTextures(Texture[] textures)
+        public void AddTextures(ITexture[] textures)
         {
             _textures.AddRange(textures);
             GenerateAllParticles();
@@ -346,22 +347,6 @@ namespace KDParticleEngine
                     //Invoke the engine updated event
                     LivingParticlesCountChanged?.Invoke(this, new EventArgs());
                 }
-            }
-        }
-
-
-        /// <summary>
-        /// Renders all of the <see cref="Particle"/>s.
-        /// </summary>
-        /// <param name="renderer">Renders the <see cref="Particle"/>s to the screen.</param>
-        public void Render(Renderer renderer)
-        {
-            if (!Enabled)
-                return;
-
-            foreach (var particle in _particles)
-            {
-                particle.Render(renderer);
             }
         }
         #endregion
@@ -429,7 +414,7 @@ namespace KDParticleEngine
         /// range settings.
         /// </summary>
         /// <returns></returns>
-        private Particle GenerateParticle()
+        private Particle<ITexture> GenerateParticle()
         {
             var texture = GetRandomTexture();
 
@@ -447,7 +432,7 @@ namespace KDParticleEngine
 
             var lifeTime = GetRandomLifeTime();
 
-            return new Particle(texture, position, velocity, angle, angularVelocity, color, size, lifeTime);
+            return new Particle<ITexture>(texture, position, velocity, angle, angularVelocity, color, size, lifeTime);
         }
 
 
@@ -455,7 +440,7 @@ namespace KDParticleEngine
         /// Returns a randomly chosen <see cref="Texture"/> out of the total list of textures to use for a spawned <see cref="Particle"/>.
         /// </summary>
         /// <returns></returns>
-        private Texture GetRandomTexture()
+        private ITexture GetRandomTexture()
         {
             var result = Randomizer.GetValue(0, _textures.Count);
 
@@ -482,12 +467,7 @@ namespace KDParticleEngine
         /// Returns a random <see cref="Particle.Angle"/> for a spawned <see cref="Particle"/>.
         /// </summary>
         /// <returns></returns>
-        private float GetRandomAngle()
-        {
-            var result = Randomizer.GetValue(AngleMin, AngleMax);
-
-            return Randomizer.GetValue(AngleMin, AngleMax);
-        }
+        private float GetRandomAngle() => Randomizer.GetValue(AngleMin, AngleMax);
 
 
         /// <summary>

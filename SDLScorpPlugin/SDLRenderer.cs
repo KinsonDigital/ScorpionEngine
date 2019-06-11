@@ -90,7 +90,7 @@ namespace SDLScorpPlugin
         /// If element does not exist, the value 255 will be used.</param>
         public void Render(ITexture texture, float x, float y, float angle, float size, byte[] color)
         {
-            //NOTE: SDL takes the angle in degrees, not radiants.
+            //NOTE: SDL takes the angle in degrees, not radians.
 
             var textureOrigin = new SDL.SDL_Point()
             {
@@ -116,10 +116,10 @@ namespace SDLScorpPlugin
 
             var texturePtr = texture.GetData<PointerContainer>(1).UnpackPointer();
 
-            var red = color.Length >= 1 ? color[0] : (byte)255;
-            var green = color.Length >= 2 ? color[1] : (byte)255;
-            var blue = color.Length >= 3 ? color[2] : (byte)255;
-            var alpha = color.Length >= 4 ? color[3] : (byte)255;
+            var red = (byte)255;// color.Length >= 1 ? color[0] : (byte)255;
+            var green = (byte)0;// color.Length >= 2 ? color[1] : (byte)255;
+            var blue = (byte)0;//color.Length >= 3 ? color[2] : (byte)255;
+            var alpha = (byte)255;// color.Length >= 4 ? color[3] : (byte)255;
 
             SDL.SDL_SetTextureBlendMode(texturePtr, SDL.SDL_BlendMode.SDL_BLENDMODE_BLEND);
             SDL.SDL_SetTextureColorMod(texturePtr, red, green, blue);

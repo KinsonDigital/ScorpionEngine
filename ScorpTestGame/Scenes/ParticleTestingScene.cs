@@ -10,7 +10,7 @@ namespace ScorpTestGame.Scenes
 {
     public class ParticleTestingScene : GameScene
     {
-        private ParticleEngine _particleEngine;
+        private ParticleEngine<Texture> _particleEngine;
         private Mouse _mouse;
 
 
@@ -31,7 +31,7 @@ namespace ScorpTestGame.Scenes
                 new GameColor(255, 255, 106, 0)
             };
 
-            _particleEngine = new ParticleEngine(new RandomizerService())
+            _particleEngine = new ParticleEngine<Texture>(new RandomizerService())
             {
                 SpawnLocation = new Vector(400, 400),
                 UseRandomVelocity = true,
@@ -86,7 +86,10 @@ namespace ScorpTestGame.Scenes
 
         public override void Render(Renderer renderer)
         {
-            _particleEngine.Render(renderer);
+            foreach (var particle in _particleEngine.Particles)
+            {
+                renderer.Render(particle.Texture, particle.Position);
+            }
 
             base.Render(renderer);
         }
