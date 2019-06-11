@@ -312,13 +312,13 @@ namespace KDParticleEngine
         /// <summary>
         /// Updates all of the <see cref="Particle"/>s.
         /// </summary>
-        /// <param name="engineTime">The amount of time that has passed in the <see cref="Engine"/> since the last frame.</param>
-        public void Update(EngineTime engineTime)
+        /// <param name="timeElapsed">The amount of time that has passed in the <see cref="Engine"/> since the last frame.</param>
+        public void Update(TimeSpan timeElapsed)
         {
             if (!Enabled)
                 return;
 
-            _spawnRateElapsed += engineTime.ElapsedEngineTime.Milliseconds;
+            _spawnRateElapsed += (int)timeElapsed.TotalMilliseconds;
 
             //If the amount of time to spawn a new particle has passed
             if (_spawnRateElapsed >= _spawnRate)
@@ -336,7 +336,7 @@ namespace KDParticleEngine
                     continue;
 
                 //Update the current particle
-                _particles[i].Update(engineTime);
+                _particles[i].Update(timeElapsed);
 
                 //If the current particle's time to live has expired, kill the particle
                 if (_particles[i].LifeTime <= 0)

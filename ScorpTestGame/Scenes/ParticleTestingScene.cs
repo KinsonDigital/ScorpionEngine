@@ -74,7 +74,7 @@ namespace ScorpTestGame.Scenes
         {
             _mouse.UpdateCurrentState();
 
-            _particleEngine.Update(engineTime);
+            _particleEngine.Update(engineTime.ToTimeSpan());
 
             _particleEngine.SpawnLocation = new Vector(_mouse.X, _mouse.Y);
 

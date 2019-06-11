@@ -836,7 +836,7 @@ namespace ParticleMaker.Tests.ViewModels
             particleEngine.Randomizer = mockRandomizer.Object;
             particleEngine.AddTexture(new Texture(mockTexture.Object));
             particleEngine.TotalParticlesAliveAtOnce = 4;
-            particleEngine.Update(new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 11) });
+            particleEngine.Update(new TimeSpan(0, 0, 0, 0, 11));
 
             _engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine, mockFileService.Object);
             var particleManager = new ParticleManager(projIOService, mockDirService.Object, mockFileService.Object);

@@ -1,5 +1,6 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Graphics;
+using System;
 using System.Drawing;
 
 namespace KDParticleEngine
@@ -97,10 +98,10 @@ namespace KDParticleEngine
         /// <summary>
         /// Updates the <see cref="Particle"/>.
         /// </summary>
-        /// <param name="engineTime">The amount of time that the <see cref="Engine"/> has passed since the last frame.</param>
-        public void Update(EngineTime engineTime)
+        /// <param name="timeElapsed">The amount of time that the <see cref="Engine"/> has passed since the last frame.</param>
+        public void Update(TimeSpan timeElapsed)
         {
-            LifeTime -= engineTime.ElapsedEngineTime.Milliseconds;
+            LifeTime -= (int)timeElapsed.TotalMilliseconds;
             Position += Velocity;
             Angle += AngularVelocity;
         }

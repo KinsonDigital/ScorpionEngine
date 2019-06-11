@@ -1,4 +1,6 @@
-﻿using KDScorpionCore.Graphics;
+﻿using KDScorpionCore;
+using KDScorpionCore.Graphics;
+using System;
 using System.Drawing;
 using System.Linq;
 
@@ -24,6 +26,22 @@ namespace ScorpTestGame
         /// <param name="colors">The colors to convert.</param>
         /// <returns></returns>
         public static Color[] ToNETColors(this GameColor[] colors) => (from c in colors select c.ToNETColor()).ToArray();
+
+
+        /// <summary>
+        /// Converts the given <see cref="TimeSpan"/> to the type <see cref="EngineTime"/>.
+        /// </summary>
+        /// <param name="time">The time to convert.</param>
+        /// <returns></returns>
+        public static EngineTime ToEngineTime(this TimeSpan time) => new EngineTime() { ElapsedEngineTime = time, TotalEngineTime = new TimeSpan() };
+
+
+        /// <summary>
+        /// Converts the given <see cref="TimeSpan"/> to the type <see cref="EngineTime"/>.
+        /// </summary>
+        /// <param name="time">The time to convert.</param>
+        /// <returns></returns>
+        public static TimeSpan ToTimeSpan(this EngineTime time) => time.ElapsedEngineTime;
         #endregion
     }
 }

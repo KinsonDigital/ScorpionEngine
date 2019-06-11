@@ -167,7 +167,7 @@ namespace ParticleMaker
             if (_shuttingDown)
                 return;
 
-            ParticleEngine.Update(e.GameTime.ToEngineTime());
+            ParticleEngine.Update(e.GameTime.ElapsedGameTime);
         }
 
 

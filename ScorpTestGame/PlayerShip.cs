@@ -160,7 +160,7 @@ namespace ScorpTestGame
             _particleEngine.Enabled = _movementBehavior.IsMovingForward;
 
             _movementBehavior.Update(engineTime);
-            _particleEngine.Update(engineTime);
+            _particleEngine.Update(engineTime.ToTimeSpan());
 
             _mouse.UpdatePreviousState();
             _keyboard.UpdatePreviousState();
