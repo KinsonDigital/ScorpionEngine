@@ -37,7 +37,7 @@ namespace ScorpTestGame.Scenes
                 UseRandomVelocity = true,
                 TotalParticlesAliveAtOnce = 60,
                 UseColorsFromList = false,
-                TintColors = colors,
+                TintColors = colors.ToNETColors(),
                 RedMin = 255,
                 RedMax = 255,
                 GreenMin = 132,

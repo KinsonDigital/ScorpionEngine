@@ -2,20 +2,20 @@
 using System.Windows.Forms;
 using System.Windows.Threading;
 using System.Collections.ObjectModel;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Windows;
 using System.Linq;
 using KDParticleEngine;
-using KDScorpionCore.Graphics;
 using ParticleMaker.Management;
 using ParticleMaker.Dialogs;
 using ParticleMaker.UserControls;
 using ParticleMaker.Services;
 using ParticleMaker.CustomEventArgs;
 using ParticleMaker.Exceptions;
+
+using NETColor = System.Drawing.Color;
 using WPFMsgBox = System.Windows.MessageBox;
 using CoreVector = KDScorpionCore.Vector;
 using FolderDialogResult = System.Windows.Forms.DialogResult;
@@ -481,14 +481,11 @@ namespace ParticleMaker.ViewModels
             }
             set
             {
-                var result = new List<GameColor>();
-
-                foreach (var clr in value)
-                {
-                    result.Add(new GameColor(clr.ColorBrush.Color.A, clr.ColorBrush.Color.R, clr.ColorBrush.Color.G, clr.ColorBrush.Color.B));
-                }
-
-                _graphicsEngine.ParticleEngine.TintColors = result.ToArray();
+                _graphicsEngine.ParticleEngine.TintColors = (from c in value
+                                                             select NETColor.FromArgb(c.ColorBrush.Color.A,
+                                                                                      c.ColorBrush.Color.R,
+                                                                                      c.ColorBrush.Color.G,
+                                                                                      c.ColorBrush.Color.B)).ToArray();
                 SettingsChanged = true;
             }
         }

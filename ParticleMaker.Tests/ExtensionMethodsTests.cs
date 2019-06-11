@@ -1,8 +1,8 @@
-﻿using KDScorpionCore.Graphics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using System;
 using System.Windows.Media;
+using NETColor = System.Drawing.Color;
 using MediaColor = System.Windows.Media.Color;
 
 namespace ParticleMaker.Tests
@@ -30,7 +30,7 @@ namespace ParticleMaker.Tests
         public void ToColorItem_WhenInvoked_ReturnsCorrectColorItem()
         {
             //Arrange
-            var gameColor = new GameColor(44, 11, 22, 33);
+            var gameColor = NETColor.FromArgb(44, 11, 22, 33);
             var expected = new ColorItem()
             {
                 Id = 0,

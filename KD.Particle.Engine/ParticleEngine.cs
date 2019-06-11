@@ -3,6 +3,7 @@ using KDScorpionCore;
 using KDScorpionCore.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace KDParticleEngine
@@ -212,7 +213,7 @@ namespace KDParticleEngine
         /// randomly choose from when spawning a new <see cref="Particle"/>.
         /// Only used if the <see cref="UseColorsFromList"/> is set to true.
         /// </summary>
-        public GameColor[] TintColors { get; set; } = new GameColor[0];
+        public Color[] TintColors { get; set; } = new Color[0];
 
         /// <summary>
         /// Gets or sets the minimum value for the red component when randomly choosing
@@ -503,11 +504,11 @@ namespace KDParticleEngine
         /// Returns a random <see cref="Particle.TintColor"/> for a spawned <see cref="Particle"/>.
         /// </summary>
         /// <returns></returns>
-        private GameColor GetRandomColor()
+        private Color GetRandomColor()
         {
             if (UseColorsFromList)
             {
-                return TintColors == null || TintColors.Length == 0 ? new GameColor(255, 255, 255, 255) : TintColors[Randomizer.GetValue(0, TintColors.Length)];
+                return TintColors == null || TintColors.Length == 0 ? Color.FromArgb(255, 255, 255, 255) : TintColors[Randomizer.GetValue(0, TintColors.Length)];
             }
             else
             {
@@ -521,7 +522,7 @@ namespace KDParticleEngine
                     (byte)Randomizer.GetValue(BlueMin, BlueMax) :
                     (byte)Randomizer.GetValue(BlueMax, BlueMin);
 
-                return new GameColor(255, red, green, blue);
+                return Color.FromArgb(255, red, green, blue);
             }
         }
 
@@ -547,7 +548,6 @@ namespace KDParticleEngine
             if (LifeTimeMin <= LifeTimeMax)
                 return Randomizer.GetValue(LifeTimeMin, LifeTimeMax);
 
-            var myResult = Randomizer.GetValue(LifeTimeMin, LifeTimeMax);
 
             return Randomizer.GetValue(LifeTimeMax, LifeTimeMin);
         }
@@ -592,7 +592,7 @@ namespace KDParticleEngine
             TotalParticlesAliveAtOnce = setupData.TotalParticlesAliveAtOnce;
 
             UseColorsFromList = setupData.UseColorsFromList;
-            TintColors = setupData.Colors.ToGameColors();
+            TintColors = setupData.Colors;
         }
 
 
@@ -626,7 +626,7 @@ namespace KDParticleEngine
                 SpawnRateMin = SpawnRateMin,
                 SpawnRateMax = SpawnRateMax,
                 UseColorsFromList = UseColorsFromList,
-                Colors = TintColors.ToParticleColors()
+                Colors = TintColors
             };
         }
         #endregion

@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using NETColor = System.Drawing.Color;
 using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -57,8 +58,8 @@ namespace ParticleMaker
         /// </summary>
         /// <param name="clr">The color to convert.</param>
         /// <returns></returns>
-        public static ColorItem ToColorItem(this GameColor clr) =>
-            new ColorItem() { ColorBrush = new SolidColorBrush(MediaColor.FromArgb(clr.Alpha, clr.Red, clr.Green, clr.Blue)) };
+        public static ColorItem ToColorItem(this NETColor clr) =>
+            new ColorItem() { ColorBrush = new SolidColorBrush(MediaColor.FromArgb(clr.A, clr.R, clr.G, clr.B)) };
 
 
         /// <summary>

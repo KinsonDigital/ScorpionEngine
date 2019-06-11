@@ -1,5 +1,6 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Graphics;
+using System.Drawing;
 
 namespace KDParticleEngine
 {
@@ -21,7 +22,7 @@ namespace KDParticleEngine
         /// <param name="color">The color to tint the <see cref="Texture"/>.</param>
         /// <param name="size">The size of the <see cref="Particle"/>.</param>
         /// <param name="timeToLive">The amount of time in milliseconds for the particle to stay alive.</param>
-        public Particle(Texture texture, Vector position, Vector velocity, float angle, float angularVelocity, GameColor color, float size, int timeToLive)
+        public Particle(Texture texture, Vector position, Vector velocity, float angle, float angularVelocity, Color color, float size, int timeToLive)
         {
             Texture = texture;
             Position = position;
@@ -64,7 +65,7 @@ namespace KDParticleEngine
         /// <summary>
         /// Gets or sets the color that the <see cref="Texture"/> will be tinted.
         /// </summary>
-        public GameColor TintColor { get; set; }
+        public Color TintColor { get; set; }
 
         /// <summary>
         /// Gets or sets the sized of the <see cref="Particle"/>.
@@ -111,7 +112,9 @@ namespace KDParticleEngine
         /// <param name="renderer">Renders the particle.</param>
         public void Render(Renderer renderer)
         {
-            TintColor = new GameColor(255, TintColor.Red, TintColor.Green, TintColor.Blue);
+            TintColor = Color.FromArgb(255, TintColor.R, TintColor.G, TintColor.B);
+
+            //TODO: The renderer needs replacement  The rendering should not occur in the engine at all
             renderer.Render(Texture, Position.X, Position.Y, Angle, Size, TintColor);
         }
         #endregion

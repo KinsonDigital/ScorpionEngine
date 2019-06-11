@@ -68,7 +68,7 @@ namespace ScorpTestGame
                 UseRandomVelocity = true,
                 TotalParticlesAliveAtOnce = 40,
                 UseColorsFromList = true,
-                TintColors = _orangeColors,
+                TintColors = _orangeColors.ToNETColors(),
                 RedMin = 255,
                 RedMax = 255,
                 GreenMin = 132,
@@ -119,27 +119,27 @@ namespace ScorpTestGame
 
             if (_mouse.IsButtonPressed(InputButton.LeftButton))
             {
-                _particleEngine.TintColors = _orangeColors;
+                _particleEngine.TintColors = _orangeColors.ToNETColors();
             }
 
             if (_mouse.IsButtonPressed(InputButton.RightButton))
             {
-                _particleEngine.TintColors = _blueColors;
+                _particleEngine.TintColors = _blueColors.ToNETColors();
             }
 
             if (_mouse.IsButtonPressed(InputButton.MiddleButton))
             {
-                _particleEngine.TintColors = _purpleColors;
+                _particleEngine.TintColors = _purpleColors.ToNETColors();
             }
 
             if (_keyboard.IsKeyPressed(KeyCodes.Enter))
             {
-                _particleEngine.TintColors = _purpleColors;
+                _particleEngine.TintColors = _purpleColors.ToNETColors();
             }
 
             if (_keyboard.IsKeyPressed(KeyCodes.RightShift))
             {
-                _particleEngine.TintColors = _blueColors;
+                _particleEngine.TintColors = _blueColors.ToNETColors();
             }
 
 

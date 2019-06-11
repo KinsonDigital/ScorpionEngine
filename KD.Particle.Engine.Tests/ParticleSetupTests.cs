@@ -1,5 +1,6 @@
 ﻿using KDParticleEngine;
 using NUnit.Framework;
+using System.Drawing;
 
 namespace KD.Particle.Engine.Tests
 {
@@ -348,17 +349,17 @@ namespace KD.Particle.Engine.Tests
         {
             //Arrange
             var setup = new ParticleSetup();
-            var expected = new ParticleColor[]
+            var expected = new Color[]
             {
-                new ParticleColor() { Alpha = 44, Red = 11, Green = 22, Blue = 33 },
-                new ParticleColor() { Alpha = 88, Red = 55, Green = 66, Blue = 77 }
+                Color.FromArgb(44, 11, 22, 33),
+                Color.FromArgb(88, 55, 66, 77)
             };
 
             //Act
-            setup.Colors = new ParticleColor[]
+            setup.Colors = new Color[]
             {
-                new ParticleColor() { Alpha = 44, Red = 11, Green = 22, Blue = 33 },
-                new ParticleColor() { Alpha = 88, Red = 55, Green = 66, Blue = 77 }
+                Color.FromArgb(44, 11, 22, 33),
+                Color.FromArgb(88, 55, 66, 77)
             };
             var actual = setup.Colors;
 
