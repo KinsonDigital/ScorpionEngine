@@ -1,8 +1,10 @@
-﻿using KDScorpionCore.Plugins;
+﻿using KDScorpionCore.Input;
+using KDScorpionCore.Plugins;
+using PluginSystem;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace KDScorpionCore.Input
+namespace KDScorpionEngine.Input
 {
     /// <summary>
     /// Used to check the state of keyboard hardware keys.
@@ -80,10 +82,7 @@ namespace KDScorpionCore.Input
         /// <summary>
         /// Creates a new instance of <see cref="Keyboard"/> for tracking keyboard events.
         /// </summary>
-        public Keyboard()
-        {
-            InternalKeyboard = PluginSystem.EnginePlugins.LoadPlugin<IKeyboard>();
-        }
+        public Keyboard() => InternalKeyboard = Plugins.PluginFactory.CreateKeyboard();
         #endregion
 
 
@@ -411,15 +410,15 @@ namespace KDScorpionCore.Input
             }
             else
             {
-                if(_letterKeys.Contains(key))
+                if (_letterKeys.Contains(key))
                 {
                     return key.ToString().ToLower()[0];
                 }
-                else if(_symbolKeys.Contains(key))
+                else if (_symbolKeys.Contains(key))
                 {
                     return _noShiftModifierSymbolTextItems[key][0];
                 }
-                else if(_standardNumberKeys.Contains(key))
+                else if (_standardNumberKeys.Contains(key))
                 {
                     var keyString = key.ToString();
 

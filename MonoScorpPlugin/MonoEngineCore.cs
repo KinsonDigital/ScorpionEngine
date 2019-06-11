@@ -6,7 +6,7 @@ namespace MonoScorpPlugin
 {
     public class MonoEngineCore : IEngineCore
     {
-        private MonoGame _monoGame;
+        private readonly MonoGame _monoGame;
         private bool _isRunning;
 
         public event EventHandler<OnUpdateEventArgs> OnUpdate;
@@ -124,7 +124,7 @@ namespace MonoScorpPlugin
         }
 
 
-        public object GetData(string dataType)
+        public T GetData<T>(int option) where T : class
         {
             throw new NotImplementedException();
         }

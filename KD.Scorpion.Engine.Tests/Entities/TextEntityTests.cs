@@ -1,10 +1,10 @@
 ﻿using Moq;
 using NUnit.Framework;
 using KDScorpionCore;
-using KDScorpionCore.Plugins;
 using KDScorpionEngine.Entities;
 using KDScorpionEngineTests.Fakes;
 using System.Drawing;
+using PluginSystem;
 
 namespace KDScorpionEngineTests.Entities
 {
@@ -128,21 +128,18 @@ namespace KDScorpionEngineTests.Entities
         [SetUp]
         public void Setup()
         {
-            var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
-            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
+            var mockPluginFactory = new Mock<IPluginFactory>();
+            mockPluginFactory.Setup(m => m.CreatePhysicsBody(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
             {
                 return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[1], (float)ctorParams[2], (float)ctorParams[3]);
             });
 
-            PluginSystem.LoadPhysicsPluginLibrary(mockPhysicsPluginLibrary.Object);
+            Plugins.LoadPluginFactory(mockPluginFactory.Object);
         }
 
 
         [TearDown]
-        public void TearDown()
-        {
-            PluginSystem.ClearPlugins();
-        }
+        public void TearDown() => Plugins.UnloadPluginFactory();
         #endregion
     }
 }

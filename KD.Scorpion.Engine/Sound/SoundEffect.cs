@@ -22,7 +22,7 @@ namespace KDScorpionEngine.Sound
         //#endregion
 
 
-        //#region Properties
+        //#region Props
         ///// <summary>
         ///// Gets or sets a value indicating if the sound should loop back to the start and play again after the sound has ended.
         ///// </summary>

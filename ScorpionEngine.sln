@@ -43,7 +43,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		CodeCoverage.runsettings = CodeCoverage.runsettings
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDLScorpPlugin", "SDLScorpPlugin\SDLScorpPlugin.csproj", "{1F97CCF8-B83F-4C8E-9AC6-1CA576B627C5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDLScorpPlugin", "SDLScorpPlugin\SDLScorpPlugin.csproj", "{9D7AA70D-B35F-42B1-9FD1-CE12073861E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginSystem", "PluginSystem\PluginSystem.csproj", "{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -319,26 +321,46 @@ Global
 		{3234BD2E-D0F7-437B-BC68-8A23DF1A7E3C}.UserControlTesting|x64.Build.0 = Release|x64
 		{3234BD2E-D0F7-437B-BC68-8A23DF1A7E3C}.UserControlTesting|x86.ActiveCfg = Debug|x86
 		{3234BD2E-D0F7-437B-BC68-8A23DF1A7E3C}.UserControlTesting|x86.Build.0 = Debug|x86
-		{1F97CCF8-B83F-4C8E-9AC6-1CA576B627C5}.Debug(MonoGame)|x64.ActiveCfg = Debug|x64
-		{1F97CCF8-B83F-4C8E-9AC6-1CA576B627C5}.Debug(MonoGame)|x64.Build.0 = Debug|x64
-		{1F97CCF8-B83F-4C8E-9AC6-1CA576B627C5}.Debug(MonoGame)|x86.ActiveCfg = Debug|x86
-		{1F97CCF8-B83F-4C8E-9AC6-1CA576B627C5}.Debug(MonoGame)|x86.Build.0 = Debug|x86
-		{1F97CCF8-B83F-4C8E-9AC6-1CA576B627C5}.Debug(SDL)|x64.ActiveCfg = Debug|x64
-		{1F97CCF8-B83F-4C8E-9AC6-1CA576B627C5}.Debug(SDL)|x64.Build.0 = Debug|x64
-		{1F97CCF8-B83F-4C8E-9AC6-1CA576B627C5}.Debug(SDL)|x86.ActiveCfg = Debug|x86
-		{1F97CCF8-B83F-4C8E-9AC6-1CA576B627C5}.Debug(SDL)|x86.Build.0 = Debug|x86
-		{1F97CCF8-B83F-4C8E-9AC6-1CA576B627C5}.Release(MonoGame)|x64.ActiveCfg = Release|x64
-		{1F97CCF8-B83F-4C8E-9AC6-1CA576B627C5}.Release(MonoGame)|x64.Build.0 = Release|x64
-		{1F97CCF8-B83F-4C8E-9AC6-1CA576B627C5}.Release(MonoGame)|x86.ActiveCfg = Release|x86
-		{1F97CCF8-B83F-4C8E-9AC6-1CA576B627C5}.Release(MonoGame)|x86.Build.0 = Release|x86
-		{1F97CCF8-B83F-4C8E-9AC6-1CA576B627C5}.Release(SDL)|x64.ActiveCfg = Release|x64
-		{1F97CCF8-B83F-4C8E-9AC6-1CA576B627C5}.Release(SDL)|x64.Build.0 = Release|x64
-		{1F97CCF8-B83F-4C8E-9AC6-1CA576B627C5}.Release(SDL)|x86.ActiveCfg = Release|x86
-		{1F97CCF8-B83F-4C8E-9AC6-1CA576B627C5}.Release(SDL)|x86.Build.0 = Release|x86
-		{1F97CCF8-B83F-4C8E-9AC6-1CA576B627C5}.UserControlTesting|x64.ActiveCfg = Release|x64
-		{1F97CCF8-B83F-4C8E-9AC6-1CA576B627C5}.UserControlTesting|x64.Build.0 = Release|x64
-		{1F97CCF8-B83F-4C8E-9AC6-1CA576B627C5}.UserControlTesting|x86.ActiveCfg = Debug|x86
-		{1F97CCF8-B83F-4C8E-9AC6-1CA576B627C5}.UserControlTesting|x86.Build.0 = Debug|x86
+		{9D7AA70D-B35F-42B1-9FD1-CE12073861E9}.Debug(MonoGame)|x64.ActiveCfg = Debug|x64
+		{9D7AA70D-B35F-42B1-9FD1-CE12073861E9}.Debug(MonoGame)|x64.Build.0 = Debug|x64
+		{9D7AA70D-B35F-42B1-9FD1-CE12073861E9}.Debug(MonoGame)|x86.ActiveCfg = Debug|x86
+		{9D7AA70D-B35F-42B1-9FD1-CE12073861E9}.Debug(MonoGame)|x86.Build.0 = Debug|x86
+		{9D7AA70D-B35F-42B1-9FD1-CE12073861E9}.Debug(SDL)|x64.ActiveCfg = Debug|x64
+		{9D7AA70D-B35F-42B1-9FD1-CE12073861E9}.Debug(SDL)|x64.Build.0 = Debug|x64
+		{9D7AA70D-B35F-42B1-9FD1-CE12073861E9}.Debug(SDL)|x86.ActiveCfg = Debug|x86
+		{9D7AA70D-B35F-42B1-9FD1-CE12073861E9}.Debug(SDL)|x86.Build.0 = Debug|x86
+		{9D7AA70D-B35F-42B1-9FD1-CE12073861E9}.Release(MonoGame)|x64.ActiveCfg = Release|x64
+		{9D7AA70D-B35F-42B1-9FD1-CE12073861E9}.Release(MonoGame)|x64.Build.0 = Release|x64
+		{9D7AA70D-B35F-42B1-9FD1-CE12073861E9}.Release(MonoGame)|x86.ActiveCfg = Release|x86
+		{9D7AA70D-B35F-42B1-9FD1-CE12073861E9}.Release(MonoGame)|x86.Build.0 = Release|x86
+		{9D7AA70D-B35F-42B1-9FD1-CE12073861E9}.Release(SDL)|x64.ActiveCfg = Release|x64
+		{9D7AA70D-B35F-42B1-9FD1-CE12073861E9}.Release(SDL)|x64.Build.0 = Release|x64
+		{9D7AA70D-B35F-42B1-9FD1-CE12073861E9}.Release(SDL)|x86.ActiveCfg = Release|x86
+		{9D7AA70D-B35F-42B1-9FD1-CE12073861E9}.Release(SDL)|x86.Build.0 = Release|x86
+		{9D7AA70D-B35F-42B1-9FD1-CE12073861E9}.UserControlTesting|x64.ActiveCfg = Release|x64
+		{9D7AA70D-B35F-42B1-9FD1-CE12073861E9}.UserControlTesting|x64.Build.0 = Release|x64
+		{9D7AA70D-B35F-42B1-9FD1-CE12073861E9}.UserControlTesting|x86.ActiveCfg = Release|x86
+		{9D7AA70D-B35F-42B1-9FD1-CE12073861E9}.UserControlTesting|x86.Build.0 = Release|x86
+		{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}.Debug(MonoGame)|x64.ActiveCfg = Debug(MonoGame)|x64
+		{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}.Debug(MonoGame)|x64.Build.0 = Debug(MonoGame)|x64
+		{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}.Debug(MonoGame)|x86.ActiveCfg = Debug(MonoGame)|x86
+		{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}.Debug(MonoGame)|x86.Build.0 = Debug(MonoGame)|x86
+		{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}.Debug(SDL)|x64.ActiveCfg = Debug(SDL)|x64
+		{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}.Debug(SDL)|x64.Build.0 = Debug(SDL)|x64
+		{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}.Debug(SDL)|x86.ActiveCfg = Debug(SDL)|x86
+		{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}.Debug(SDL)|x86.Build.0 = Debug(SDL)|x86
+		{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}.Release(MonoGame)|x64.ActiveCfg = Release(MonoGame)|x64
+		{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}.Release(MonoGame)|x64.Build.0 = Release(MonoGame)|x64
+		{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}.Release(MonoGame)|x86.ActiveCfg = Release(MonoGame)|x86
+		{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}.Release(MonoGame)|x86.Build.0 = Release(MonoGame)|x86
+		{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}.Release(SDL)|x64.ActiveCfg = Release(SDL)|x64
+		{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}.Release(SDL)|x64.Build.0 = Release(SDL)|x64
+		{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}.Release(SDL)|x86.ActiveCfg = Release(SDL)|x86
+		{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}.Release(SDL)|x86.Build.0 = Release(SDL)|x86
+		{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}.UserControlTesting|x64.ActiveCfg = Release(SDL)|x64
+		{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}.UserControlTesting|x64.Build.0 = Release(SDL)|x64
+		{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}.UserControlTesting|x86.ActiveCfg = Release(SDL)|x86
+		{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}.UserControlTesting|x86.Build.0 = Release(SDL)|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

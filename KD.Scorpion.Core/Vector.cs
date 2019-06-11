@@ -48,10 +48,8 @@ namespace KDScorpionCore
         /// <param name="vectorA">The first vector.</param>
         /// <param name="vectorB">The second vector.</param>
         /// <returns></returns>
-        public static Vector operator -(Vector vectorA, Vector vectorB)
-        {
-            return new Vector(vectorA.X - vectorB.X, vectorA.Y - vectorB.Y);
-        }
+        public static Vector operator -(Vector vectorA, Vector vectorB) => new Vector(vectorA.X - vectorB.X, vectorA.Y - vectorB.Y);
+
 
         /// <summary>
         /// Subtracts the given <paramref name="scalar"/> to the X and Y componentes of the given <paramref name="vector"/>.
@@ -59,10 +57,8 @@ namespace KDScorpionCore
         /// <param name="vector">The vector to add the scalar to.</param>
         /// <param name="scalar">The scalar to add the vector to.</param>
         /// <returns></returns>
-        public static Vector operator -(Vector vector, float scalar)
-        {
-            return new Vector(vector.X - scalar, vector.Y - scalar);
-        }
+        public static Vector operator -(Vector vector, float scalar) => new Vector(vector.X - scalar, vector.Y - scalar);
+
 
         /// <summary>
         /// Adds the 2 given vectors.
@@ -70,10 +66,8 @@ namespace KDScorpionCore
         /// <param name="vectorA">The first vector.</param>
         /// <param name="vectorB">The second vector.</param>
         /// <returns></returns>
-        public static Vector operator +(Vector vectorA, Vector vectorB)
-        {
-            return new Vector(vectorA.X + vectorB.X, vectorA.Y + vectorB.Y);
-        }
+        public static Vector operator +(Vector vectorA, Vector vectorB) => new Vector(vectorA.X + vectorB.X, vectorA.Y + vectorB.Y);
+
 
         /// <summary>
         /// Adds the given <paramref name="scalar"/> to the X and Y componentes of the given <paramref name="vector"/>.
@@ -81,10 +75,8 @@ namespace KDScorpionCore
         /// <param name="vector">The vector to add the scalar to.</param>
         /// <param name="scalar">The scalar to add the vector to.</param>
         /// <returns></returns>
-        public static Vector operator +(Vector vector, float scalar)
-        {
-            return new Vector(vector.X + scalar, vector.Y + scalar);
-        }
+        public static Vector operator +(Vector vector, float scalar) => new Vector(vector.X + scalar, vector.Y + scalar);
+
 
         /// <summary>
         /// Multiplies the 2 given vectors, returning the Dot product.
@@ -101,16 +93,15 @@ namespace KDScorpionCore
             return vectorA;
         }
 
+
         /// <summary>
         /// Multiplies the given vector by the given scalar value.
         /// </summary>
         /// <param name="vector">The vector to multiply by the scalar value.</param>
         /// <param name="scalar">The scalar value to multiply by the vector.</param>
         /// <returns></returns>
-        public static Vector operator *(Vector vector, float scalar)
-        {
-            return new Vector(vector.X * scalar, vector.Y * scalar);
-        }
+        public static Vector operator *(Vector vector, float scalar) => new Vector(vector.X * scalar, vector.Y * scalar);
+
 
         /// <summary>
         /// Multiplies the given vector by the given scalar value.
@@ -118,14 +109,18 @@ namespace KDScorpionCore
         /// <param name="scalar">The scalar value to multiply by the vector.</param>
         /// <param name="vector">The vector to multiply by the scalar value.</param>
         /// <returns></returns>
-        public static Vector operator *(float mult, Vector v)
-        {
-            return new Vector(v.X * mult, v.Y * mult);
-        }
+        public static Vector operator *(float mult, Vector v) => new Vector(v.X * mult, v.Y * mult);
 
-        public static Vector operator /(Vector v, float divider)
+
+        /// <summary>
+        /// Divides the given <see cref="Vector"/> by the given <paramref name="divisor"/>
+        /// </summary>
+        /// <param name="v">The vector to divide by the divsor value.</param>
+        /// <param name="divisor">The divisor to use.</param>
+        /// <returns></returns>
+        public static Vector operator /(Vector v, float divisor)
         {
-            float factor = 1 / divider;
+            float factor = 1 / divisor;
             v.X *= factor;
             v.Y *= factor;
 
@@ -133,16 +128,15 @@ namespace KDScorpionCore
             return v;
         }
 
+
         /// <summary>
         /// Returns a value indicating if the 2 given <see cref="vector"/>s have the same component values.
         /// </summary>
         /// <param name="vectorA">The first vector in the comparison.</param>
         /// <param name="vectorB">The second vector in the comparison.</param>
         /// <returns></returns>
-        public static bool operator ==(Vector vectorA, Vector vectorB)
-        {
-            return vectorA.X == vectorB.X && vectorA.Y == vectorB.Y;
-        }
+        public static bool operator ==(Vector vectorA, Vector vectorB) => vectorA.X == vectorB.X && vectorA.Y == vectorB.Y;
+
 
         /// <summary>
         /// Returns a value indicating if the 2 given <see cref="vector"/>s have different component values.
@@ -150,10 +144,7 @@ namespace KDScorpionCore
         /// <param name="vectorA">The first vector in the comparison.</param>
         /// <param name="vectorB">The second vector in the comparison.</param>
         /// <returns></returns>
-        public static bool operator !=(Vector vectorA, Vector vectorB)
-        {
-            return !(vectorA == vectorB);
-        }
+        public static bool operator !=(Vector vectorA, Vector vectorB) => !(vectorA == vectorB);
         #endregion
 
 
@@ -162,10 +153,7 @@ namespace KDScorpionCore
         /// Returns a value indicating if this <see cref="Vector"/> is zero.
         /// </summary>
         /// <returns></returns>
-        public bool IsZero()
-        {
-            return X == 0 && Y == 0;
-        }
+        public bool IsZero() => X == 0 && Y == 0;
 
 
         /// <summary>
@@ -173,10 +161,7 @@ namespace KDScorpionCore
         /// </summary>
         /// <param name="vector">The vector use in the cross product calculation.</param>
         /// <returns></returns>
-        public float Cross(Vector vector)
-        {
-            return CalculateCrossProduct(this, vector);
-        }
+        public float Cross(Vector vector) => CalculateCrossProduct(this, vector);
 
 
         /// <summary>
@@ -185,20 +170,14 @@ namespace KDScorpionCore
         /// <param name="vectorA">The first vector.</param>
         /// <param name="vectorB">The second vector.</param>
         /// <returns></returns>
-        public static float Cross(Vector vectorA, Vector vectorB)
-        {
-            return CalculateCrossProduct(vectorA, vectorB);
-        }
+        public static float Cross(Vector vectorA, Vector vectorB) => CalculateCrossProduct(vectorA, vectorB);
 
 
         /// <summary>
         /// Returns the length of the <see cref="Vector"/>.
         /// </summary>
         /// <returns></returns>
-        public static float GetLength(Vector vector)
-        {
-            return (float)Math.Sqrt((vector.X * vector.X) + (vector.Y * vector.Y));
-        }
+        public static float GetLength(Vector vector) => (float)Math.Sqrt((vector.X * vector.X) + (vector.Y * vector.Y));
 
 
         /// <summary>
@@ -206,23 +185,14 @@ namespace KDScorpionCore
         /// </summary>
         /// <param name="obj">The object to check.</param>
         /// <returns></returns>
-        public override bool Equals(object obj)
-        {
-            var v = (Vector)obj;
-
-
-            return v.GetHashCode() == GetHashCode();
-        }
+        public override bool Equals(object obj) => ((Vector)obj).GetHashCode() == GetHashCode();
 
 
         /// <summary>
         /// Converts this <see cref="Vector"/> into its string representation.
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return $"X: {X}, Y: {Y}";
-        }
+        public override string ToString() => $"X: {X}, Y: {Y}";
 
 
         /// <summary>
@@ -230,10 +200,7 @@ namespace KDScorpionCore
         /// </summary>
         /// <param name="round">The amount to round the components of the <see cref="Vector"/>.</param>
         /// <returns></returns>
-        public string ToString(int round)
-        {
-            return $"X: {Math.Round(X, round)}, Y: {Math.Round(Y, round)}";
-        }
+        public string ToString(int round) => $"X: {Math.Round(X, round)}, Y: {Math.Round(Y, round)}";
 
 
         /// <summary>
@@ -294,10 +261,7 @@ namespace KDScorpionCore
         /// <param name="vectorA">The first vector to use.</param>
         /// <param name="vectorB">The second vector to use.</param>
         /// <returns></returns>
-        private static float CalculateCrossProduct(Vector vectorA, Vector vectorB)
-        {
-            return vectorA.X * vectorB.Y - vectorA.Y * vectorB.X;
-        }
+        private static float CalculateCrossProduct(Vector vectorA, Vector vectorB) => vectorA.X * vectorB.Y - vectorA.Y * vectorB.X;
         #endregion
     }
 }

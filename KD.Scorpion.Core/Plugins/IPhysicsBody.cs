@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace KDScorpionCore.Plugins
+﻿namespace KDScorpionCore.Plugins
 {
     //TODO: Add docs
     public interface IPhysicsBody : IPlugin
@@ -14,6 +12,9 @@ namespace KDScorpionCore.Plugins
 
         float Y { get; set; }
 
+        /// <summary>
+        /// Gets or sets the angle of the physics body in degrees.
+        /// </summary>
         float Angle { get; set; }
 
         float Density { get; set; }
@@ -37,9 +38,6 @@ namespace KDScorpionCore.Plugins
 
 
         #region Methods
-        void DataSender(Func<dynamic> dataSender);
-
-
         void ApplyLinearImpulse(float x, float y);
 
 

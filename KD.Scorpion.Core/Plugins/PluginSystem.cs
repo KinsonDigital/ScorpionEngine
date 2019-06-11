@@ -3,7 +3,7 @@
 namespace KDScorpionCore.Plugins
 {
     [ExcludeFromCodeCoverage]
-    internal static class PluginSystem
+    internal static class PluginSystemOLD
     {
         #region Props
         public static IPluginLibrary EnginePlugins { get; private set; }

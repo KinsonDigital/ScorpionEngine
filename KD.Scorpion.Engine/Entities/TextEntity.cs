@@ -25,7 +25,7 @@ namespace KDScorpionEngine.Entities
         #endregion
 
 
-        #region Properties
+        #region Props
         /// <summary>
         /// Gets or sets the text of this TextEntity.
         /// </summary>

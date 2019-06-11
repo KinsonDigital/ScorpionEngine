@@ -2,6 +2,7 @@
 using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Utils;
+using PluginSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +23,11 @@ namespace KDScorpionEngine.Input
 
 
         #region Fields
-        private IMouse _mouse;
+        private readonly IMouse _mouse;
         private Dictionary<InputButton, bool> _currentPressedButtons;//Holds the list of combo buttons and there down states
-        private StopWatch _buttonDownTimer;//Keeps track of how long the set input has been in the down position
-        private StopWatch _buttonReleaseTimer;//Keeps track of how long the set input has been in the up position
-        private Counter _counter;//Keeps track of the hit count of an input
+        private readonly StopWatch _buttonDownTimer;//Keeps track of how long the set input has been in the down position
+        private readonly StopWatch _buttonReleaseTimer;//Keeps track of how long the set input has been in the up position
+        private readonly Counter _counter;//Keeps track of the hit count of an input
         private bool _curState;//The current state of the set input
         private bool _prevState;//The previous state of the set input
         #endregion
@@ -39,7 +40,8 @@ namespace KDScorpionEngine.Input
         /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
         public MouseWatcher(bool enabled)
         {
-            _mouse = PluginSystem.EnginePlugins.LoadPlugin<IMouse>();
+            _mouse = Plugins.PluginFactory.CreateMouse();
+
             Enabled = enabled;
             ComboButtons = new List<InputButton>();
 

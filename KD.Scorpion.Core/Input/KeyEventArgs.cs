@@ -7,7 +7,7 @@ namespace KDScorpionCore.Input
     /// </summary>
     public class KeyEventArgs : EventArgs
     {
-        #region Properties
+        #region Props
         /// <summary>
         /// Gets the keys that was pressed.
         /// </summary>

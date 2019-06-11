@@ -46,18 +46,6 @@ namespace KDScorpionEngineTests.Fakes
         }
 
 
-        public object GetData(string dataType)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public void InjectData<T>(T data) where T : class
-        {
-            throw new NotImplementedException();
-        }
-
-
         public bool IsRunning()
         {
             return true;
@@ -77,6 +65,18 @@ namespace KDScorpionEngineTests.Fakes
 
 
         public void Stop()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public T GetData<T>(int option) where T : class
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void InjectData<T>(T data) where T : class
         {
             throw new NotImplementedException();
         }

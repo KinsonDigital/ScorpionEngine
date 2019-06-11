@@ -3,7 +3,7 @@ using KDParticleEngine.Services;
 using KDScorpionCore;
 using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
-using KDScorpionCore.Input;
+using KDScorpionEngine.Input;
 using KDScorpionEngine.Scene;
 
 namespace ScorpTestGame.Scenes

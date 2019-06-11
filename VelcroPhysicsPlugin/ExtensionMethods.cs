@@ -1,99 +1,53 @@
-﻿using KDScorpionCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using VelcroPhysics.Primitives;
-using VelcroPhysics.Shared;
 
 namespace VelcroPhysicsPlugin
 {
     public static class ExtensionMethods
     {
-        private const float PI = 3.1415926535897931f;
+        #region Private Fields
+        /// <summary>
+        /// The physics unit to pixel conversion value.
+        /// </summary>
         private const float unitToPixel = 100.0f;
+        /// <summary>
+        /// The pixel to unit conversion value.
+        /// </summary>
         private const float pixelToUnit = 1f / unitToPixel;
+        #endregion
 
 
-        public static float ToPixels(this float value)
-        {
-            return value * unitToPixel;
-        }
+        #region Public Methods
+        /// <summary>
+        /// Converts the given physics unit <paramref name="value"/> to pixel units.
+        /// </summary>
+        /// <param name="value">The unit value to convert.</param>
+        /// <returns></returns>
+        public static float ToPixels(this float value) => value * unitToPixel;
 
 
-        public static float ToPhysics(this float value)
-        {
-            return value * pixelToUnit;
-        }
+        /// <summary>
+        /// Converts the given pixel units <paramref name="value"/> to physics units.
+        /// </summary>
+        /// <param name="value">The pixel units to convert.</param>
+        /// <returns></returns>
+        public static float ToPhysics(this float value) => value * pixelToUnit;
 
         
-        public static float[] ToPixels(this float[] value)
-        {
-            return (from p in value select p.ToPixels()).ToArray();
-        }
+        /// <summary>
+        /// Converts all of the given physics <paramref name="values"/> to pixel values.
+        /// </summary>
+        /// <param name="values">The list of physics unit values to convert.</param>
+        /// <returns></returns>
+        public static float[] ToPixels(this float[] values) => (from p in values select p.ToPixels()).ToArray();
 
 
-        public static int ToPixels(this int value)
-        {
-            return (int)(value * unitToPixel);
-        }
-
-
-        public static int ToPhysics(this int value)
-        {
-            return (int)(value * pixelToUnit);
-        }
-
-
-        public static IVector ToPhysics(this IVector value)
-        {
-            value.X = value.X.ToPhysics();
-            value.Y = value.Y.ToPhysics();
-
-            return value;
-        }
-
-
-        public static IVector ToPixels(this IVector value)
-        {
-            value.X = ToPixels(value.X);
-            value.Y = ToPixels(value.Y);
-
-            return value;
-        }
-
-
-        public static Vector2 ToVelcroVector(this IVector value)
-        {
-            return new Vector2(value.X, value.Y);
-        }
-
-
-        public static VelcroVector ToVelcroVector(this Vector2 value)
-        {
-            return new VelcroVector(value.X, value.Y);
-        }
-
-
-        public static VelcroVector[] ToVelcroVector(this Vector2[] value)
-        {
-            return value.Select(v => v.ToVelcroVector()).ToArray();
-        }
-
-
-        public static VelcroVector[] ToVelcroVectors(this Vertices value)
-        {
-            var result = new List<VelcroVector>();
-
-            foreach (var v in value)
-            {
-                result.Add(v.ToVelcroVector());
-            }
-
-
-            return result.ToArray();
-        }
-
-
+        /// <summary>
+        /// Convers the given pixel unit <see cref="Vector2"/> <paramref name="value"/> to a 
+        /// physics unit <see cref="Vector2"/> value.
+        /// </summary>
+        /// <param name="value">The pixel unit vector to convert.</param>
+        /// <returns></returns>
         public static Vector2 ToPhysics(this Vector2 value)
         {
             value.X = value.X.ToPhysics();
@@ -102,92 +56,6 @@ namespace VelcroPhysicsPlugin
 
             return value;
         }
-
-
-        public static Vector2 ToPixels(this Vector2 value)
-        {
-            value.X = ToPixels(value.X);
-            value.Y = ToPixels(value.Y);
-
-            return value;
-        }
-
-
-        public static IVector[] ToPixels(this IVector[] value)
-        {
-            return (from v in value select v.ToPixels()).ToArray();
-        }
-
-
-        public static IVector[] ToPhysics(this IVector[] value)
-        {
-            return (from v in value select v.ToPhysics()).ToArray();
-        }
-
-
-        public static List<IVector> ToPixels(this List<IVector> value)
-        {
-            return (from v in value select v.ToPixels()).ToList();
-        }
-
-
-        public static List<IVector> ToPhysics(this List<IVector> value)
-        {
-            return (from v in value select v.ToPhysics()).ToList();
-        }
-
-
-        public static List<Vector2> ToPixels(this List<Vector2> value)
-        {
-            return (from v in value select v.ToPixels()).ToList();
-        }
-
-
-        public static List<Vector2> ToPhysics(this List<Vector2> value)
-        {
-            return (from v in value select v.ToPhysics()).ToList();
-        }
-
-
-        public static string ToString(this IVector value, int round)
-        {
-            return $"X: {Math.Round(value.X, round).ToString()} - Y: {Math.Round(value.Y, round).ToString()}";
-        }
-
-
-        public static string ToString(this Vector2 value, int round)
-        {
-            return $"X: {Math.Round(value.X, round).ToString()} - Y: {Math.Round(value.Y, round).ToString()}";
-        }
-
-
-        public static string ToString(this float value, int round)
-        {
-            return Math.Round(value, round).ToString();
-        }
-
-
-        public static float ToDegrees(this float radians)
-        {
-            return radians * 180.0f / PI;
-        }
-
-
-        public static float ToRadians(this float degrees)
-        {
-            return degrees * PI / 180f;
-        }
-
-
-        public static float ToDegrees(this int radians)
-        {
-            return ToDegrees((float)radians);
-        }
-
-
-        public static float ToRadians(this int degrees)
-        {
-            return ToRadians((float)degrees);
-        }
+        #endregion
     }
 }

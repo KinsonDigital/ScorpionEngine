@@ -1,14 +1,14 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
-using KDScorpionCore.Plugins;
 using KDScorpionEngine;
+using PluginSystem;
 
 namespace KDScorpionEngineTests.Fakes
 {
     public class FakeEngine : Engine
     {
-        public FakeEngine(IPluginLibrary enginePluginLib, IPluginLibrary physicsPluginLib) : base(enginePluginLib, physicsPluginLib)
+        public FakeEngine(IPluginFactory enginePluginLib) : base(enginePluginLib)
         {
         }
 

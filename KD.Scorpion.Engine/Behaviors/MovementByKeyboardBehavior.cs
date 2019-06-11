@@ -15,7 +15,7 @@ namespace KDScorpionEngine.Behaviors
         private KeyBehavior _moveLeftOnKeyDown;
         private KeyBehavior _moveUpOnKeyDown;
         private KeyBehavior _moveDownOnKeyDown;
-        private T _gameObject;
+        private readonly T _gameObject;
         private readonly float _movementSpeed;
         private KeyCodes _moveUpKey = KeyCodes.Up;
         private KeyCodes _moveDownKey = KeyCodes.Down;

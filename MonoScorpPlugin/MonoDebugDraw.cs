@@ -1,12 +1,22 @@
 ﻿using Microsoft.Xna.Framework;
+using KDScorpionCore;
 using KDScorpionCore.Plugins;
 using System;
 
 namespace MonoScorpPlugin
 {
     //TODO: Need to get this imported into the GameEngine using DI
+    /// <summary>
+    /// Provides the ability to draw frames around a physics body shape for debugging purposes.
+    /// </summary>
     public class MonoDebugDraw : IDebugDraw
     {
+        #region Public Methods
+        /// <summary>
+        /// Draws and outline around the given <paramref name="body"/> using the given <paramref name="renderer"/>.
+        /// </summary>
+        /// <param name="renderer">The renderer to use for rendering the outline/frame.</param>
+        /// <param name="body">The body to render the outline/frame around.</param>
         public void Draw(IRenderer renderer, IPhysicsBody body)
         {
             int max = body.XVertices.Length;
@@ -15,52 +25,30 @@ namespace MonoScorpPlugin
 
             for (int i = 0; i < max; i++)
             {
-                var start = RotateAround(new Vector2(body.XVertices[i], body.YVertices[i]), origin, body.Angle.ToRadians());
-                var stop = RotateAround(new Vector2(body.XVertices[i < max - 1 ? i + 1 : 0], body.YVertices[i < max - 1 ? i + 1 : 0]), origin, body.Angle.ToRadians());
+                var start = new Vector2(body.XVertices[i], body.YVertices[i]).ToVector().RotateAround(origin.ToVector(), body.Angle);
+                var stop = new Vector2(body.XVertices[i < max - 1 ? i + 1 : 0], body.YVertices[i < max - 1 ? i + 1 : 0]).ToVector().RotateAround(origin.ToVector(), body.Angle);
 
-                //TODO: Try to add color as a parameter to this
+                //TODO: Try to add color as a parameter to this Render() method call
                 renderer.RenderLine(start.X, start.Y, stop.X, stop.Y);
             }
         }
 
 
-        public object GetData(string dataType)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public void InjectData<T>(T data) where T : class
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        /// Gets the data as the given type <typeparamref name="T"/>.
+        /// </summary>
+        /// <param name="option">Used to pass in options for the <see cref="GetData{T}(int)"/> implementation to process.</param>
+        /// <typeparam name="T">The type of data to get.</typeparam>
+        /// <returns></returns>
+        public T GetData<T>(int option) where T : class => throw new NotImplementedException();
 
 
         /// <summary>
-        /// Rotates the <paramref name="vector"/> around the <paramref name="rotateOrigin"/> at the given <paramref name="angle"/>.
+        /// Injects any arbitrary data into the plugin for use.  Must be a class.
         /// </summary>
-        /// <param name="vector">The vector to rotate.</param>
-        /// <param name="origin">The vector to rotate the <paramref name="vector"/> around.</param>
-        /// <param name="angle">The angle in radians to rotate <paramref name="vector"/>.  Value must be positive.</param>
-        /// <returns></returns>
-        private static Vector2 RotateAround(Vector2 vector, Vector2 origin, float angle, bool clockWise = true)
-        {
-            angle = clockWise ? angle : angle * -1;
-
-            var cos = (float)Math.Cos(angle);
-            var sin = (float)Math.Sin(angle);
-
-            var dx = vector.X - origin.X;//The delta x
-            var dy = vector.Y - origin.Y;//The delta y
-
-            var tempX = dx * cos - dy * sin;
-            var tempY = dx * sin + dy * cos;
-
-            var x = tempX + origin.X;
-            var y = tempY + origin.Y;
-
-
-            return new Vector2(x, y);
-        }
+        /// <typeparam name="T">The type of data to inject.</typeparam>
+        /// <param name="data">The data to inject.</param>
+        public void InjectData<T>(T data) where T : class => throw new NotImplementedException();
+        #endregion
     }
 }

@@ -16,15 +16,13 @@ namespace MonoScorpPlugin
 
 
         #region Public Methods
-        public object GetData(string dataType)
+        public T GetData<T>(int option) where T : class
         {
-            throw new NotImplementedException();
-        }
+            if (option == 1)
+                return Texture as T;
 
 
-        public T GetTextureAsClass<T>() where T : class
-        {
-            return Texture as T;
+            throw new Exception($"The option '{option}' is not valid. \n\nValid options are 1.");
         }
 
 
@@ -35,12 +33,6 @@ namespace MonoScorpPlugin
                 throw new Exception($"Data getting injected into {nameof(MonoTexture)} is not of type {nameof(Texture2D)}.  Incorrect type is {data.GetType().ToString()}");
 
             Texture = data as Texture2D;
-        }
-
-
-        public T GetTextureAsStruct<T>() where T : struct
-        {
-            throw new NotImplementedException();
         }
         #endregion
     }

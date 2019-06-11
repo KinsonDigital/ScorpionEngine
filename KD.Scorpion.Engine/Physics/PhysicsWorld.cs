@@ -2,19 +2,20 @@
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Entities;
 using KDScorpionEngine.Exceptions;
+using PluginSystem;
 
 namespace KDScorpionEngine.Physics
 {
     public class PhysicsWorld
     {
-        private IPhysicsWorld _internalWorld;
+        private readonly IPhysicsWorld _internalWorld;
 
 
         public PhysicsWorld(Vector gravity)
         {
             object[] ctrParams = new object[] { gravity.X, gravity.Y };
 
-            _internalWorld = PluginSystem.PhysicsPlugins.LoadPlugin<IPhysicsWorld>(gravity.X, gravity.Y);
+            _internalWorld = Plugins.PluginFactory.CreatePhysicsWorld(ctrParams);
         }
 
 

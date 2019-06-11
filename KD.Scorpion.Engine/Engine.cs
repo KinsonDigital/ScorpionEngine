@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Diagnostics.CodeAnalysis;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Content;
+using PluginSystem;
 
 [assembly: InternalsVisibleTo(assemblyName: "ScorpionEngineTests", AllInternalsVisible = true)]
 
@@ -29,13 +30,8 @@ namespace KDScorpionEngine
         /// <paramref name="enginePluginLib">The plugin library used to mock engine plugins.</paramref>
         /// <paramref name="physicsPluginLib">The plugin library used to mock physics plugins.</paramref>
         /// </summary>
-        internal Engine(IPluginLibrary enginePluginLib, IPluginLibrary physicsPluginLib, bool loadPhysicsLibrary = true)
+        internal Engine(IPluginFactory enginePluginLib, bool loadPhysicsLibrary = true)
         {
-            PluginSystem.LoadEnginePluginLibrary(enginePluginLib);
-
-            if (loadPhysicsLibrary)
-                PluginSystem.LoadPhysicsPluginLibrary(physicsPluginLib);
-
             //Make sure that the Setup() method is called
             //This is to make sure that this class is testable for unit testing purposes.
             Setup();
@@ -48,21 +44,12 @@ namespace KDScorpionEngine
         [ExcludeFromCodeCoverage]
         public Engine(bool loadPhysicsLibrary = true)
         {
-#if MONOGAME
-            PluginSystem.LoadEnginePluginLibrary(new PluginLibrary("MonoScorpPlugin"));
-#elif SDL
-            PluginSystem.LoadEnginePluginLibrary(new PluginLibrary("SDLScorpPlugin"));
-#endif
-
-            if (loadPhysicsLibrary)
-                PluginSystem.LoadPhysicsPluginLibrary(new PluginLibrary("VelcroPhysicsPlugin"));
-
             Setup();
         }
         #endregion
 
 
-        #region Properties
+        #region Props
         public SceneManager SceneManager { get; set; }
 
         public ContentLoader ContentLoader { get; set; }
@@ -188,8 +175,11 @@ namespace KDScorpionEngine
         /// </summary>
         private void Setup()
         {
-            ContentLoader = new ContentLoader(PluginSystem.EnginePlugins.LoadPlugin<IContentLoader>());
-            _engineCore = PluginSystem.EnginePlugins.LoadPlugin<IEngineCore>();
+            Plugins.LoadPluginFactory();
+
+            ContentLoader = new ContentLoader(Plugins.PluginFactory.CreateContentLoader());
+            
+            _engineCore = Plugins.PluginFactory.CreateEngineCore();
 
             _engineCore.SetFPS(60);
 
@@ -201,6 +191,7 @@ namespace KDScorpionEngine
             SceneManager = new SceneManager(ContentLoader);
         }
 
+        
 
         private void _engineCore_OnInitialize(object sender, EventArgs e)
         {

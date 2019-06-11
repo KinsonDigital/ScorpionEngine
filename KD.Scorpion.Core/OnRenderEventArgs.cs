@@ -8,7 +8,7 @@ namespace KDScorpionCore
     /// </summary>
     public class OnRenderEventArgs : EventArgs
     {
-        #region Properties
+        #region Props
         /// <summary>
         /// Used to render to the screen.
         /// </summary>

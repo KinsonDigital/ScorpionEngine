@@ -30,7 +30,7 @@ namespace KDScorpionEngine.Content
         #endregion
 
 
-        #region Properties
+        #region Props
         /// <summary>
         /// Returns the value at the specified key.
         /// </summary>

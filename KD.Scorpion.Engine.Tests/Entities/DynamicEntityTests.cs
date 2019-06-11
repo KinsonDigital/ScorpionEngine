@@ -2,12 +2,12 @@
 using NUnit.Framework;
 using KDScorpionCore;
 using KDScorpionCore.Graphics;
-using KDScorpionCore.Plugins;
 using KDScorpionEngine.Entities;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngineTests.Fakes;
 using System;
 using System.Linq;
+using PluginSystem;
 
 namespace KDScorpionEngineTests.Entities
 {
@@ -342,16 +342,14 @@ namespace KDScorpionEngineTests.Entities
         public void Update_WhenInvokingWithNullBody_ThrowsException()
         {
             //Arrange
-            var mockPhysicsBody = new Mock<IPhysicsBody>();
-            mockPhysicsBody.Setup(m => m.ApplyAngularImpulse(It.IsAny<float>()));
-            mockPhysicsBody.Setup(m => m.ApplyLinearImpulse(It.IsAny<float>(), It.IsAny<float>()));
+            Plugins.UnloadPluginFactory();
 
             FakePhysicsBody nullPhysicsBody = null;
 
-            var mockPlugin = new Mock<IPluginLibrary>();
-            mockPlugin.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns(nullPhysicsBody);
+            var mockPluginFactory = new Mock<IPluginFactory>();
+            mockPluginFactory.Setup(m => m.CreatePhysicsBody(It.IsAny<object[]>())).Returns(nullPhysicsBody);
 
-            PluginSystem.LoadPhysicsPluginLibrary(mockPlugin.Object);
+            Plugins.LoadPluginFactory(mockPluginFactory.Object);
 
             var entity = new DynamicEntity();
 
@@ -1262,21 +1260,18 @@ namespace KDScorpionEngineTests.Entities
             if (ShouldSkipSetup())
                 return;
 
-            var mockPlugin = new Mock<IPluginLibrary>();
-            mockPlugin.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
+            var mockPluginFactory = new Mock<IPluginFactory>();
+            mockPluginFactory.Setup(m => m.CreatePhysicsBody(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
             {
                 return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[0]);
             });
 
-            PluginSystem.LoadPhysicsPluginLibrary(mockPlugin.Object);
+            Plugins.LoadPluginFactory(mockPluginFactory.Object);
         }
 
 
         [TearDown]
-        public void TearDown()
-        {
-            PluginSystem.ClearPlugins();
-        }
+        public void TearDown() => Plugins.UnloadPluginFactory();
         #endregion
 
 

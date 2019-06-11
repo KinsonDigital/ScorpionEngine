@@ -16,9 +16,9 @@ namespace ParticleMaker
     public class GraphicsEngine
     {
         #region Fields
-        private IFileService _fileService;
-        private IGraphicsEngineFactory _factory;
-        private ICoreEngine _coreEngine;
+        private readonly IFileService _fileService;
+        private readonly IGraphicsEngineFactory _factory;
+        private readonly ICoreEngine _coreEngine;
         private SpriteBatch _spriteBatch;
         private Renderer _renderer;
         private bool _shuttingDown = false;
@@ -153,7 +153,7 @@ namespace ParticleMaker
             {
                 var texture = _fileService.Load(path, _coreEngine.GraphicsDevice);
 
-                ParticleEngine.AddTexture(new CoreTexture(new ParticleTexture(texture.GetTextureAsClass<Texture2D>())));
+                ParticleEngine.AddTexture(new CoreTexture(new ParticleTexture(texture.GetData<Texture2D>(1))));
             }
         }
 

@@ -4,12 +4,10 @@ namespace KDScorpionCore.Graphics
 {
     public interface ITexture : IPlugin
     {
+        #region Props
         int Width { get; }
 
         int Height { get; }
-
-        T GetTextureAsClass<T>() where T : class;
-
-        T GetTextureAsStruct<T>() where T : struct;
+        #endregion
     }
 }

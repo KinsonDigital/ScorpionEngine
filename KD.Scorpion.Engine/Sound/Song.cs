@@ -20,7 +20,7 @@ namespace KDScorpionEngine.Sound
         //#endregion
 
 
-        //#region Properties
+        //#region Props
         ///// <summary>
         ///// Gets or sets a value indicating if the song will start playing at the begining after the song has reached its end.
         ///// </summary>

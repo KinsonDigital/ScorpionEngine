@@ -21,7 +21,7 @@ namespace ParticleMaker
         private static Window _self;
         private static CancellationTokenSource _setFocusTaskTokenSrc;
         private static Task _setFocusTask;
-        private MainViewModel _mainViewModel;
+        private readonly MainViewModel _mainViewModel;
         private bool _isMouseDown = false;
         #endregion
 

@@ -1,30 +1,11 @@
 ﻿using Moq;
 using NUnit.Framework;
 using KDScorpionCore.Graphics;
-using KDScorpionCoreTests.Fakes;
 
 namespace KDScorpionCoreTests.Graphics
 {
     public class TextureTests
     {
-        [Test]
-        public void GetTexture_WhenInvoking_ReturnsTexture()
-        {
-            //Arrange
-            var mockTexture = new Mock<ITexture>();
-            mockTexture.Setup(m => m.GetTextureAsClass<FakeTexture>()).Returns(new FakeTexture() { FakeData = 11 });
-            var texture = new Texture(mockTexture.Object);
-
-            var expected = new FakeTexture() { FakeData = 11 };
-
-            //Act
-            var actual = texture.GetTexture<FakeTexture>();
-
-            //Assert
-            Assert.AreEqual(expected.FakeData, actual.FakeData);
-        }
-
-
         [Test]
         public void Width_WhenGettingValue_ReturnsCorrectValue()
         {

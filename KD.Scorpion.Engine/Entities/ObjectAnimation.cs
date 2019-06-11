@@ -16,7 +16,7 @@ namespace KDScorpionEngine.Entities
         private int _fps = 10;//The frames per second that the animation will run at
         private int _elapsedTime;//The amount of time elapsed since the last animation frame was changed
         private int _currentFrame;//The current frame of the animation
-        private List<Rect> _frames = new List<Rect>();//The bounds of all the frames of the animation
+        private readonly List<Rect> _frames = new List<Rect>();//The bounds of all the frames of the animation
         #endregion
 
 
@@ -40,7 +40,7 @@ namespace KDScorpionEngine.Entities
         #endregion
 
 
-        #region Properties
+        #region Props
         /// <summary>
         /// Gets or sets the frames per second of the animation.
         /// </summary>

@@ -13,7 +13,7 @@ namespace KDScorpionCore.Plugins
 
         int WindowHeight { get; set; }
 
-        IRenderer Renderer { get; set; }
+        IRenderer Renderer { get; }
         #endregion
 
 

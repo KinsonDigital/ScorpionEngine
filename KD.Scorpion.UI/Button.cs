@@ -2,6 +2,7 @@
 using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Input;
+using KDScorpionEngine.Input;
 using System;
 
 namespace KDScorpionUI
@@ -14,7 +15,7 @@ namespace KDScorpionUI
 
 
         #region Fields
-        private Mouse _mouse;
+        private readonly Mouse _mouse;
         private Rect _rect = new Rect();
         private bool _isMouseDown;
         #endregion

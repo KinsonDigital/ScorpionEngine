@@ -69,7 +69,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VelcroBody.cs" />
     <Compile Include="VelcroWorld.cs" />
-    <Compile Include="VelcroVector.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KD.Scorpion.Core\KD.Scorpion.Core.csproj">

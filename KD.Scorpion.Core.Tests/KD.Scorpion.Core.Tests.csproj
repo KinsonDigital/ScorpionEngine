@@ -67,16 +67,15 @@
     <Compile Include="Exceptions\PluginMustImplementInterfaceExceptionTests.cs" />
     <Compile Include="Exceptions\PluginNotFoundExceptionTests.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="ExtensionMethodTests.cs" />
     <Compile Include="Fakes\FakeTexture.cs" />
     <Compile Include="Graphics\GameColorTests.cs" />
     <Compile Include="Graphics\GameTextTests.cs" />
     <Compile Include="Graphics\RendererTests.cs" />
     <Compile Include="Graphics\TextureTests.cs" />
-    <Compile Include="Input\KeyboardTests.cs" />
     <Compile Include="Input\KeyEventArgsTests.cs" />
     <Compile Include="Input\MouseEventArgsTests.cs" />
     <Compile Include="Input\MouseInputStateTests.cs" />
-    <Compile Include="Input\MouseTests.cs" />
     <Compile Include="OnRenderEventArgsTests.cs" />
     <Compile Include="OnUpdateEventArgsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

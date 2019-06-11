@@ -6,6 +6,7 @@ using KDScorpionCore.Plugins;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngine.Physics;
 using KDScorpionEngineTests.Fakes;
+using PluginSystem;
 
 namespace KDScorpionEngineTests.Physics
 {
@@ -16,12 +17,6 @@ namespace KDScorpionEngineTests.Physics
         public void Ctro_WhenInvoking_ReturnsGravity()
         {
             //Arrange
-            var mockInternalPhysicsWorld = new Mock<IPhysicsWorld>();
-            mockInternalPhysicsWorld.SetupGet(m => m.GravityX).Returns(2);
-            mockInternalPhysicsWorld.SetupGet(m => m.GravityY).Returns(4);
-
-            Helpers.SetupPluginLib<IPhysicsWorld, float, float>(mockInternalPhysicsWorld, PluginLibType.Physics);
-
             var gravity = new Vector(2, 4);
             var world = new PhysicsWorld(gravity);
             var expected = new Vector(2, 4);
@@ -38,23 +33,6 @@ namespace KDScorpionEngineTests.Physics
         public void AddEntity_WhenInvoking_DoesNotThrowNullRefException()
         {
             //Arrange
-            var mockPhysicsWorld = new Mock<IPhysicsWorld>();
-            var mockPhysicsBody = new Mock<IPhysicsBody>();
-            var mockPluginLib = new Mock<IPluginLibrary>();
-
-            //Mock method for creating a physics body
-            mockPluginLib.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns(() =>
-            {
-                return mockPhysicsBody.Object;
-            });
-
-            //Mock method for loading a physics world
-            mockPluginLib.Setup(m => m.LoadPlugin<IPhysicsWorld>(It.IsAny<float>(), It.IsAny<float>())).Returns(() =>
-            {
-                return mockPhysicsWorld.Object;
-            });
-
-            PluginSystem.LoadPhysicsPluginLibrary(mockPluginLib.Object);
             var mockTexture = new Mock<ITexture>();
 
             var texture = new Texture(mockTexture.Object);
@@ -79,23 +57,6 @@ namespace KDScorpionEngineTests.Physics
         public void AddEntity_WhenInvokingWhileNotInitialized_ThrowException()
         {
             //Arrange
-            var mockPhysicsWorld = new Mock<IPhysicsWorld>();
-            var mockPhysicsBody = new Mock<IPhysicsBody>();
-            var mockPluginLib = new Mock<IPluginLibrary>();
-
-            //Mock method for creating a physics body
-            mockPluginLib.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns(() =>
-            {
-                return mockPhysicsBody.Object;
-            });
-
-            //Mock method for loading a physics world
-            mockPluginLib.Setup(m => m.LoadPlugin<IPhysicsWorld>(It.IsAny<float>(), It.IsAny<float>())).Returns(() =>
-            {
-                return mockPhysicsWorld.Object;
-            });
-
-            PluginSystem.LoadPhysicsPluginLibrary(mockPluginLib.Object);
             var mockTexture = new Mock<ITexture>();
 
             var texture = new Texture(mockTexture.Object);
@@ -119,7 +80,6 @@ namespace KDScorpionEngineTests.Physics
         public void Update_WhenInvoking_DoesNotThrowNullRefException()
         {
             //Arrange
-            SetupPluginSystem();
             var world = new PhysicsWorld(Vector.Zero);
 
             //Act/Assert
@@ -132,33 +92,28 @@ namespace KDScorpionEngineTests.Physics
 
 
         #region Private Methods
-        private void SetupPluginSystem()
+        [SetUp]
+        public void Setup()
         {
             var mockPhysicsWorld = new Mock<IPhysicsWorld>();
+            mockPhysicsWorld.SetupGet(m => m.GravityX).Returns(2);
+            mockPhysicsWorld.SetupGet(m => m.GravityY).Returns(4);
+
             var mockPhysicsBody = new Mock<IPhysicsBody>();
-            var mockPluginLib = new Mock<IPluginLibrary>();
+            var mockPluginFactory = new Mock<IPluginFactory>();
 
             //Mock method for creating a physics body
-            mockPluginLib.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns(() =>
-            {
-                return mockPhysicsBody.Object;
-            });
+            mockPluginFactory.Setup(m => m.CreatePhysicsBody(It.IsAny<object[]>())).Returns(() => mockPhysicsBody.Object);
 
             //Mock method for loading a physics world
-            mockPluginLib.Setup(m => m.LoadPlugin<IPhysicsWorld>(It.IsAny<float>(), It.IsAny<float>())).Returns(() =>
-            {
-                return mockPhysicsWorld.Object;
-            });
+            mockPluginFactory.Setup(m => m.CreatePhysicsWorld(It.IsAny<float>(), It.IsAny<float>())).Returns(() => mockPhysicsWorld.Object);
 
-            PluginSystem.LoadPhysicsPluginLibrary(mockPluginLib.Object);
+            Plugins.LoadPluginFactory(mockPluginFactory.Object);
         }
         #endregion
 
 
         [TearDown]
-        public void TearDown()
-        {
-            PluginSystem.ClearPlugins();
-        }
+        public void TearDown() => Plugins.UnloadPluginFactory();
     }
 }

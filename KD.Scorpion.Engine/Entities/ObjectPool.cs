@@ -28,7 +28,7 @@ namespace KDScorpionEngine.Entities
         #endregion
 
 
-        #region Properties
+        #region Props
         /// <summary>
         /// Gets or sets the name of the entity pool.
         /// </summary>

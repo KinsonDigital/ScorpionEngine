@@ -2,7 +2,6 @@
 using System.Windows.Forms.Integration;
 using System.Windows.Input;
 using System.Linq;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace ParticleMaker.Dialogs
@@ -16,8 +15,8 @@ namespace ParticleMaker.Dialogs
         #region Fields
         private RelayCommand _okCommmand;
         private RelayCommand _cancelCommand;
-        private char[] _invalidCharacters;
-        private string[] _invalidValues;
+        private readonly char[] _invalidCharacters;
+        private readonly string[] _invalidValues;
         #endregion
 
 

@@ -34,20 +34,6 @@ namespace KDScorpionCore.Graphics
         }
 
 
-        public void FillCircle(Vector position, float radius, GameColor color)
-        {
-            InternalRenderer.FillCircle(position.X, position.Y, radius, new byte[] { color.Red, color.Green, color.Blue, color.Alpha });
-        }
-
-
-        public void Line(Vector start, Vector end, GameColor color)
-        {
-            var lineColor = new byte[] { color.Red, color.Green, color.Blue, color.Alpha };
-
-            InternalRenderer.RenderLine(start.X, start.Y, end.X, end.Y, lineColor);
-        }
-
-
         public void Render(Texture texture, float x, float y)
         {
             InternalRenderer.Render(texture.InternalTexture, x, y);
@@ -68,10 +54,8 @@ namespace KDScorpionCore.Graphics
 
 
         //Angle is in degrees
-        public void Render(Texture texture, float x, float y, float angle, float size, GameColor color)
-        {
-            InternalRenderer.Render(texture.InternalTexture, x, y, angle, size, color.Red, color.Green, color.Blue, color.Alpha);
-        }
+        public void Render(Texture texture, float x, float y, float angle, float size, GameColor color) => 
+            InternalRenderer.Render(texture.InternalTexture, x, y, angle, size, new[] { color.Red, color.Green, color.Blue, color.Alpha });
 
 
         public void RenderTextureArea(Texture texture, Rect area, Vector position)
@@ -112,6 +96,28 @@ namespace KDScorpionCore.Graphics
         public void Render(GameText text, Vector position, GameColor color)
         {
             Render(text, position.X, position.Y, color);
+        }
+
+
+        public void FillCircle(Vector position, float radius, GameColor color)
+        {
+            InternalRenderer.FillCircle(position.X, position.Y, radius, new byte[] { color.Red, color.Green, color.Blue, color.Alpha });
+        }
+
+
+        public void FillRect(Rect rect, GameColor color)
+        {
+            var colorData = new byte[] { color.Red, color.Green, color.Blue, color.Alpha };
+
+            InternalRenderer.FillRect(rect, colorData);
+        }
+
+
+        public void Line(Vector start, Vector end, GameColor color)
+        {
+            var lineColor = new byte[] { color.Red, color.Green, color.Blue, color.Alpha };
+
+            InternalRenderer.RenderLine(start.X, start.Y, end.X, end.Y, lineColor);
         }
         #endregion
     }

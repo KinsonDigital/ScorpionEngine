@@ -23,13 +23,5 @@
             InternalTexture = texture;
         }
         #endregion
-
-
-        #region Public Methods
-        public T GetTexture<T>() where T : class
-        {
-            return InternalTexture.GetTextureAsClass<T>();
-        }
-        #endregion
     }
 }

@@ -8,6 +8,7 @@ using KDScorpionEngine.Scene;
 using KDScorpionEngineTests.Fakes;
 using System;
 using KDScorpionEngine;
+using PluginSystem;
 
 namespace KDScorpionEngineTests.Scene
 {
@@ -290,19 +291,19 @@ namespace KDScorpionEngineTests.Scene
         {
             _mockPhysicsWorld = new Mock<IPhysicsWorld>();
 
-            var mockPhysicsPluginLib = new Mock<IPluginLibrary>();
-            mockPhysicsPluginLib.Setup(m => m.LoadPlugin<IPhysicsWorld>(It.IsAny<object[]>())).Returns((object[] ctorParams) => {
+            var mockPluginFactory = new Mock<IPluginFactory>();
+            mockPluginFactory.Setup(m => m.CreatePhysicsWorld(It.IsAny<object[]>())).Returns((object[] ctorParams) => {
                 return _mockPhysicsWorld.Object;
             });
 
-            PluginSystem.LoadPhysicsPluginLibrary(mockPhysicsPluginLib.Object);
+            Plugins.LoadPluginFactory(mockPluginFactory.Object);
         }
 
 
         [TearDown]
         public void TearDown()
         {
-            PluginSystem.ClearPlugins();
+            Plugins.UnloadPluginFactory();
             _mockPhysicsWorld = null;
         }
         #endregion

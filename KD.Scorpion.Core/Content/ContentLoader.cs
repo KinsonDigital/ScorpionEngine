@@ -3,17 +3,20 @@ using KDScorpionCore.Plugins;
 
 namespace KDScorpionCore.Content
 {
+    //TODO: Add docs to code
     public class ContentLoader
     {
-        IContentLoader _internalLoader;
+        #region Fields
+        private readonly IContentLoader _internalLoader;
+        #endregion
 
 
-        public ContentLoader(IContentLoader contentLoader)
-        {
-            _internalLoader = contentLoader;
-        }
+        #region Constructors
+        public ContentLoader(IContentLoader contentLoader) => _internalLoader = contentLoader;
+        #endregion
 
 
+        #region Props
         public string GamePath => _internalLoader.GamePath;
 
 
@@ -22,27 +25,17 @@ namespace KDScorpionCore.Content
             get => _internalLoader.ContentRootDirectory;
             set => _internalLoader.ContentRootDirectory = value;
         }
+        #endregion
 
 
-        public Texture LoadTexture(string textureName)
-        {
-            var result = new Texture(_internalLoader.LoadTexture<ITexture>(textureName));
+        #region Public Methods
+        public Texture LoadTexture(string textureName) => new Texture(_internalLoader.LoadTexture<ITexture>(textureName));
 
 
-            return result;
-        }
-
-
-        public GameText LoadText(string textName)
-        {
-            var result = new GameText
+        public GameText LoadText(string textName) => new GameText()
             {
                 InternalText = _internalLoader.LoadText<IText>(textName)
             };
-
-
-            return result;
-        }
+        #endregion
     }
-
 }

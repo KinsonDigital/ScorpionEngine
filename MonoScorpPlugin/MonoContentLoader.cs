@@ -9,10 +9,9 @@ namespace MonoScorpPlugin
 {
     public class MonoContentLoader : IContentLoader
     {
-        public MonoContentLoader()
-        {
-            ContentRootDirectory = $"{GamePath}\\Content";
-        }
+        #region Constructors
+        public MonoContentLoader() => ContentRootDirectory = $@"{GamePath}\Content";
+        #endregion
 
 
         #region Props
@@ -28,6 +27,7 @@ namespace MonoScorpPlugin
         #endregion
 
 
+        #region Public Methods
         public T LoadTexture<T>(string name) where T : class, ITexture
         {
             ITexture newTexture = new MonoTexture();
@@ -48,15 +48,10 @@ namespace MonoScorpPlugin
         }
 
 
-        public void InjectData<T>(T data) where T : class
-        {
-            throw new NotImplementedException();
-        }
+        public T GetData<T>(int option) where T : class => throw new NotImplementedException();
 
 
-        public object GetData(string dataType)
-        {
-            throw new NotImplementedException();
-        }
+        public void InjectData<T>(T data) where T : class => throw new NotImplementedException();
+        #endregion
     }
 }

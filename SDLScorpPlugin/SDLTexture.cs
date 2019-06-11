@@ -1,4 +1,5 @@
-﻿using KDScorpionCore.Graphics;
+﻿using KDScorpionCore;
+using KDScorpionCore.Graphics;
 using SDL2;
 using System;
 
@@ -8,9 +9,9 @@ namespace SDLScorpPlugin
     {
         #region Fields
         //TODO: This needs to be fixed.  SDL returns a pointer to a texture. Figure this out.
-        private IntPtr _texturePtr;
-        private int _width;
-        private int _height;
+        private readonly IntPtr _texturePtr;
+        private readonly int _width;
+        private readonly int _height;
         #endregion
 
 
@@ -33,26 +34,22 @@ namespace SDLScorpPlugin
 
 
         #region Public Methods
-        public object GetData(string dataType) => throw new NotImplementedException();
-
-
-        public T GetTextureAsClass<T>() where T : class => _texturePtr as T;
-
-
-        public T GetTextureAsStruct<T>() where T : struct
+        public T GetData<T>(int option) where T : class
         {
-            throw new NotImplementedException();
+            if (option == 1)
+            {
+                var ptrContainer = new PointerContainer();
+                ptrContainer.PackPointer(_texturePtr);
+
+
+                return ptrContainer as T;
+            }
+
+            throw new Exception($"The option '{option}' is not a valid option.");
         }
 
 
-        public void InjectData<T>(T data) where T : class
-        {
-            ////If the incoming data is not a monogame texture, throw an exception
-            //if (data.GetType() != typeof(SDLTexture))
-            //    throw new Exception($"Data getting injected into {nameof(SDLTexture)} is not of type {nameof(SFML.Graphics.Texture)}.  Incorrect type is {data.GetType().ToString()}");
-
-            //_texture = data as SDL.Texture;
-        }
+        public void InjectData<T>(T data) where T : class => throw new NotImplementedException();
         #endregion
     }
 }

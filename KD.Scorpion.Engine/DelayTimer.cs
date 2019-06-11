@@ -11,7 +11,7 @@ namespace KDScorpionEngine
     public class DelayTimer
     {
         #region Fields
-        private Timer _timer;//The timer to keep track of time.
+        private readonly Timer _timer;//The timer to keep track of time.
         private int _delayTime = 1000;//The amount of time to wait until the TimeExpired event is invoked.
         #endregion
 

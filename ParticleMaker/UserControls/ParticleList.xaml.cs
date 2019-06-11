@@ -20,9 +20,9 @@ namespace ParticleMaker.UserControls
     public partial class ParticleList : UserControl
     {
         #region Fields
-        private char[] _illegalCharacters = new[] { '\\', '/', ':', '*', '?', '\"', '<', '>', '|', '.' };
-        private Task _refreshTask;
-        private CancellationTokenSource _refreshTokenSrc;
+        private readonly char[] _illegalCharacters = new[] { '\\', '/', ':', '*', '?', '\"', '<', '>', '|', '.' };
+        private readonly Task _refreshTask;
+        private readonly CancellationTokenSource _refreshTokenSrc;
         #endregion
 
 

@@ -8,6 +8,7 @@ using KDScorpionCore.Plugins;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngine.Physics;
+using PluginSystem;
 
 namespace KDScorpionEngine.Entities
 {
@@ -50,7 +51,7 @@ namespace KDScorpionEngine.Entities
         private IDebugDraw _debugDraw;
         private Vector _preInitPosition;
         private Vector[] _preInitVertices;
-        private float _preInitFriction;
+        private readonly float _preInitFriction;
         #endregion
 
 
@@ -255,7 +256,7 @@ namespace KDScorpionEngine.Entities
             {
                 if (value)
                 {
-                    _debugDraw = PluginSystem.EnginePlugins.LoadPlugin<IDebugDraw>();
+                    _debugDraw = Plugins.PluginFactory.CreateDebugDraw();
                 }
                 else
                 {

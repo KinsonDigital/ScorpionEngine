@@ -14,7 +14,7 @@ namespace ParticleMaker.Management
     {
         #region Fields
         private readonly ProjectIOService _projIOService;
-        private IFileService _fileService;
+        private readonly IFileService _fileService;
         private readonly string _projectSettingsPath;
         private const string FILE_EXTENSION = ".projs";
         #endregion

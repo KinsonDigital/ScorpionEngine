@@ -1,7 +1,10 @@
-﻿using KDScorpionCore.Plugins;
+﻿using KDScorpionCore;
+using KDScorpionCore.Input;
+using KDScorpionCore.Plugins;
+using PluginSystem;
 using System;
 
-namespace KDScorpionCore.Input
+namespace KDScorpionEngine.Input
 {
     /// <summary>
     /// Tracks the state of the mouse.
@@ -42,19 +45,18 @@ namespace KDScorpionCore.Input
 
 
         #region Constructors
-        internal Mouse(IMouse mouse)
-        {
-            InternalMouse = mouse;
-        }
+        /// <summary>
+        /// Creates a new instance of <see cref="Mouse"/>.
+        /// ONLY USED FOR TESTING!!
+        /// </summary>
+        /// <param name="mouse">The mouse plugin to use.</param>
+        internal Mouse(IMouse mouse) => InternalMouse = mouse;
 
 
         /// <summary>
         /// Creates a new instance of <see cref="Mouse"/>.
         /// </summary>
-        public Mouse()
-        {
-            InternalMouse = PluginSystem.EnginePlugins.LoadPlugin<IMouse>();
-        }
+        public Mouse() => InternalMouse = Plugins.PluginFactory.CreateMouse();
         #endregion
 
 
@@ -62,10 +64,24 @@ namespace KDScorpionCore.Input
         internal IMouse InternalMouse { get; }
 
 
-        public int X => InternalMouse.X;
+        /// <summary>
+        /// Gets sets the X position of the mouse in the game window.
+        /// </summary>
+        public int X
+        {
+            get => InternalMouse.X;
+            set => InternalMouse.X = value;
+        }
 
 
-        public int Y => InternalMouse.Y;
+        /// <summary>
+        /// Gets sets the Y position of the mouse in the game window.
+        /// </summary>
+        public int Y
+        {
+            get => InternalMouse.Y;
+            set => InternalMouse.Y = value;
+        }
         #endregion
 
 
@@ -214,5 +230,4 @@ namespace KDScorpionCore.Input
         }
         #endregion
     }
-
 }

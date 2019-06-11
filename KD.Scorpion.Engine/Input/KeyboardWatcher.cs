@@ -2,6 +2,7 @@
 using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Utils;
+using PluginSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace KDScorpionEngine.Input
 
 
         #region Fields
-        private IKeyboard _keyboard;
+        private readonly IKeyboard _keyboard;
         private Dictionary<KeyCodes, bool> _currentPressedKeys;//Holds the list of comboKeys and there down states
         protected Counter _counter;//Keeps track of the hit count of an input
         protected bool _curState;//The current state of the set input
@@ -39,7 +40,8 @@ namespace KDScorpionEngine.Input
         /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
         public KeyboardWatcher(bool enabled)
         {
-            _keyboard = PluginSystem.EnginePlugins.LoadPlugin<IKeyboard>();
+            //_keyboard = PluginSystem.EnginePlugins.LoadPlugin<IKeyboard>();//TODO: To be removed.
+            _keyboard = Plugins.PluginFactory.CreateKeyboard();
             Enabled = enabled;
             ComboKeys = new List<KeyCodes>();
 

@@ -7,7 +7,7 @@ namespace KDScorpionCore.Input
     /// </summary>
     public class MouseEventArgs : EventArgs
     {
-        #region Properties
+        #region Props
         /// <summary>
         /// Gets the state of the mouse.
         /// </summary>

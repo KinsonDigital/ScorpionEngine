@@ -12,7 +12,7 @@ namespace ParticleMaker
     public class CoreEngine : Game, ICoreEngine
     {
         #region Fields
-        private GraphicsDeviceManager _graphics;
+        private readonly GraphicsDeviceManager _graphics;
         private int _renderWidth = 400;
         private int _renderHeight = 400;
         #endregion

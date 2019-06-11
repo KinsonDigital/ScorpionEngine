@@ -1,11 +1,13 @@
-﻿using Moq;
-using NUnit.Framework;
+﻿using KDScorpionCore;
 using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
+using KDScorpionEngine.Input;
+using Moq;
+using NUnit.Framework;
+using PluginSystem;
 using System;
-using KDScorpionCore;
 
-namespace KDScorpionCoreTests.Input
+namespace KDScorpionEngineTests.Input
 {
     public class MouseTests
     {
@@ -51,17 +53,18 @@ namespace KDScorpionCoreTests.Input
 
         #region Method Tests
         [Test]
-        public void Ctor_WhenInvoked_InvokesInternalLoadPluginMethod()
+        public void Ctor_WhenInvoked_InvokesCreateMouseMethod()
         {
             //Arrange
-            var mockPluginLibrary = new Mock<IPluginLibrary>();
-            PluginSystem.LoadEnginePluginLibrary(mockPluginLibrary.Object);
+            var mockPluginFactory = new Mock<IPluginFactory>();
+
+            Plugins.LoadPluginFactory(mockPluginFactory.Object);
 
             //Act
             var mouse = new Mouse();
 
             //Assert
-            mockPluginLibrary.Verify(m => m.LoadPlugin<IMouse>(), Times.Once());
+            mockPluginFactory.Verify(m => m.CreateMouse(), Times.Once());
         }
 
 
@@ -391,9 +394,6 @@ namespace KDScorpionCoreTests.Input
         #endregion
 
         [TearDown]
-        public void TearDown()
-        {
-            PluginSystem.ClearPlugins();
-        }
+        public void TearDown() => Plugins.UnloadPluginFactory();
     }
 }
