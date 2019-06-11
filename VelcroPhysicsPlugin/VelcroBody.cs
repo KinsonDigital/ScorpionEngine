@@ -252,22 +252,14 @@ namespace VelcroPhysicsPlugin
 
 
         #region Public Methods
-        public void ApplyLinearImpulse(float x, float y)
-        {
-            PolygonBody.ApplyLinearImpulse(new Vector2(x.ToPhysics(), y.ToPhysics()));
-        }
+        public void ApplyLinearImpulse(float x, float y) => PolygonBody.ApplyLinearImpulse(new Vector2(x.ToPhysics(), y.ToPhysics()));
 
 
-        public void ApplyAngularImpulse(float value)
-        {
-            PolygonBody.ApplyAngularImpulse(value.ToPhysics());
-        }
+        public void ApplyAngularImpulse(float value) => PolygonBody.ApplyAngularImpulse(value.ToPhysics());
 
 
-        public void ApplyForce(float forceX, float forceY, float worldLocationX, float worldLocationY)
-        {
+        public void ApplyForce(float forceX, float forceY, float worldLocationX, float worldLocationY) =>
             PolygonBody.ApplyForce(new Vector2(forceX.ToPhysics(), forceY.ToPhysics()), new Vector2(worldLocationX.ToPhysics(), worldLocationY.ToPhysics()));
-        }
 
 
         public T GetData<T>(int option) where T : class

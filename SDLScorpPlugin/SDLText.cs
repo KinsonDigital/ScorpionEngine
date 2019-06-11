@@ -98,10 +98,7 @@ namespace SDLScorpPlugin
         }
 
 
-        public void InjectData<T>(T data) where T : class
-        {
-            throw new NotImplementedException();
-        }
+        public void InjectData<T>(T data) where T : class => throw new NotImplementedException();
         #endregion
     }
 }

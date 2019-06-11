@@ -9,6 +9,11 @@ namespace MonoScorpPlugin
 {
     public class MonoContentLoader : IContentLoader
     {
+        #region Constructors
+        public MonoContentLoader() => ContentRootDirectory = $@"{GamePath}\Content";
+        #endregion
+
+
         #region Props
         /// <summary>
         /// Gets the path to the executable game.
@@ -22,11 +27,7 @@ namespace MonoScorpPlugin
         #endregion
 
 
-        #region Constructors
-        public MonoContentLoader() => ContentRootDirectory = $@"{GamePath}\Content";
-        #endregion
-
-
+        #region Public Methods
         public T LoadTexture<T>(string name) where T : class, ITexture
         {
             ITexture newTexture = new MonoTexture();
@@ -47,15 +48,10 @@ namespace MonoScorpPlugin
         }
 
 
-        public T GetData<T>(int option) where T : class
-        {
-            throw new NotImplementedException();
-        }
+        public T GetData<T>(int option) where T : class => throw new NotImplementedException();
 
 
-        public void InjectData<T>(T data) where T : class
-        {
-            throw new NotImplementedException();
-        }
+        public void InjectData<T>(T data) where T : class => throw new NotImplementedException();
+        #endregion
     }
 }

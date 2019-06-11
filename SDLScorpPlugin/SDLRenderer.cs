@@ -22,10 +22,7 @@ namespace SDLScorpPlugin
         /// Starts the process of rendering a batch of <see cref="Texture"/>s, <see cref="GameText"/> items
         /// or primitives.  This method must be invoked before rendering.
         /// </summary>
-        public void Start()
-        {
-            _beginInvoked = true;
-        }
+        public void Start() => _beginInvoked = true;
 
 
         /// <summary>
