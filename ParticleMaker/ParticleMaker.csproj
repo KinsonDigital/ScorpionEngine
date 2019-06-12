@@ -104,6 +104,10 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SDL2-CS, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>SDL2\SDL2-CS.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -160,6 +164,7 @@
     <Compile Include="Exceptions\ParticleDoesNotExistException.cs" />
     <Compile Include="Exceptions\ParticleSetupAlreadyExistsException.cs" />
     <Compile Include="Exceptions\ParticleSetupDoesNotExistException.cs" />
+    <Compile Include="GraphicsEngine_NEW.cs" />
     <Compile Include="Management\DeploymentSetting.cs" />
     <Compile Include="DesignData\MainWindowData.cs" />
     <Compile Include="CustomEventArgs\UpdateEventArgs.cs" />
@@ -368,7 +373,6 @@
       <Link>Main.layerdiagram</Link>
       <Visible>False</Visible>
     </AdditionalFiles>
-    <None Include="ParticleMaker_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -470,6 +474,23 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="SDL2\libjpeg-9.dll" />
+    <Content Include="SDL2\libpng16-16.dll" />
+    <Content Include="SDL2\libtiff-5.dll" />
+    <Content Include="SDL2\libwebp-7.dll" />
+    <Content Include="SDL2\SDL2-CS.dll" />
+    <Content Include="SDL2\SDL2_image.dll" />
+    <Content Include="SDL2\zlib1.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>REM Copy the SDL2 libraries to the output folder
+copy "$(ProjectDir)SDL2\libjpeg-9.dll" "$(TargetDir)libjpeg-9.dll" /Y
+copy "$(ProjectDir)SDL2\libpng16-16.dll" "$(TargetDir)libpng16-16.dll" /Y
+copy "$(ProjectDir)SDL2\libtiff-5.dll" "$(TargetDir)libtiff-5.dll" /Y
+copy "$(ProjectDir)SDL2\libwebp-7.dll" "$(TargetDir)libwebp-7.dll" /Y
+copy "$(ProjectDir)SDL2\SDL2_image.dll" "$(TargetDir)SDL2_image.dll" /Y
+copy "$(ProjectDir)SDL2\zlib1.dll" "$(TargetDir)zlib1.dll" /Y</PostBuildEvent>
+  </PropertyGroup>
 </Project>
