@@ -1,5 +1,4 @@
-﻿using SDL2;
-using System;
+﻿using System;
 using System.Drawing;
 
 namespace ParticleMaker

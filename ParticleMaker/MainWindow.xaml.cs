@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using System.ComponentModel;
@@ -7,9 +8,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using System.Threading;
 using WinMsgBox = System.Windows.MessageBox;
-using CoreVector = KDScorpionCore.Vector;
-using System.Drawing;
-using System.Windows.Interop;
 
 namespace ParticleMaker
 {

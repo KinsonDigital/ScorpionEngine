@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using ParticleMaker.Exceptions;
-using SDL2;
+﻿using SDL2;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;

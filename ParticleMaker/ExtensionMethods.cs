@@ -1,7 +1,4 @@
-﻿using KDScorpionCore;
-using KDScorpionCore.Graphics;
-using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -14,7 +11,6 @@ using System.Windows;
 using NETColor = System.Drawing.Color;
 using System.Windows.Forms;
 using System.Windows.Media;
-using System.Windows.Threading;
 using MediaColor = System.Windows.Media.Color;
 
 namespace ParticleMaker
@@ -60,14 +56,6 @@ namespace ParticleMaker
         /// <returns></returns>
         public static ColorItem ToColorItem(this NETColor clr) =>
             new ColorItem() { ColorBrush = new SolidColorBrush(MediaColor.FromArgb(clr.A, clr.R, clr.G, clr.B)) };
-
-
-        /// <summary>
-        /// Converts the givent <paramref name="gameTime"/> to the type <see cref="EngineTime"/>.
-        /// </summary>
-        /// <param name="gameTime">The <see cref="GameTime"/> object to convert.</param>
-        /// <returns></returns>
-        public static EngineTime ToEngineTime(this GameTime gameTime) => new EngineTime() { ElapsedEngineTime = gameTime.ElapsedGameTime };
 
 
         /// <summary>
@@ -169,43 +157,6 @@ namespace ParticleMaker
 
 
             return result;
-        }
-
-
-        /// <summary>
-        /// Hides the game window.
-        /// </summary>
-        /// <param name="window">The window to hide.</param>
-        [ExcludeFromCodeCoverage]
-        public static void Hide(this GameWindow window)
-        {
-            var windowHandle = window?.Handle == null ? null : window?.Handle;
-
-            if (windowHandle == null)
-                return;
-
-            _tokenSrc = new CancellationTokenSource();
-
-            _hideWindowTask = new Task(() =>
-            {
-                while (!_tokenSrc.IsCancellationRequested)
-                {
-                    Dispatcher.CurrentDispatcher.Invoke(() =>
-                    {
-                        _tokenSrc.Token.WaitHandle.WaitOne(62);
-
-                        var objWrapper = new object();
-                        var handle = new HandleRef(objWrapper, windowHandle.Value);
-
-                        SetWindowLong32(handle, GWL_EXSTYLE, ~WS_EX_APPWINDOW);
-                        ShowWindow(handle.Handle, SW_HIDE);
-
-                        _tokenSrc.Cancel();
-                    });
-                }
-            });
-
-            _hideWindowTask.Start();
         }
 
 

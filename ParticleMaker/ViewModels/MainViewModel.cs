@@ -3,11 +3,8 @@ using System.Windows.Forms;
 using System.Windows.Threading;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
-using System.Threading;
 using System.Windows;
 using System.Linq;
-using KDParticleEngine;
 using ParticleMaker.Management;
 using ParticleMaker.Dialogs;
 using ParticleMaker.UserControls;
@@ -17,7 +14,6 @@ using ParticleMaker.Exceptions;
 
 using NETColor = System.Drawing.Color;
 using WPFMsgBox = System.Windows.MessageBox;
-using CoreVector = KDScorpionCore.Vector;
 using FolderDialogResult = System.Windows.Forms.DialogResult;
 using System.Drawing;
 
