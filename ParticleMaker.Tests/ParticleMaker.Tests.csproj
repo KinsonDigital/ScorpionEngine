@@ -120,7 +120,6 @@
     <Compile Include="ColorItemTests.cs" />
     <Compile Include="CustomEventArgs\DeploySetupEventArgsTests.cs" />
     <Compile Include="CustomEventArgs\ItemEventArgsTests.cs" />
-    <Compile Include="CustomEventArgs\DrawEventArgsTests.cs" />
     <Compile Include="CustomEventArgs\RenameItemEventArgsTests.cs" />
     <Compile Include="Dialogs\ProjectItemTests.cs" />
     <Compile Include="Exceptions\ExceptionHandlerTests.cs" />
@@ -141,7 +140,6 @@
     <Compile Include="Management\ProjectSettingsTests.cs" />
     <Compile Include="Management\SetupManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CustomEventArgs\UpdateEventArgsTests.cs" />
     <Compile Include="CustomEventArgs\ValueChangedEventArgsTests.cs" />
     <Compile Include="RelayCommandTests.cs" />
     <Compile Include="Management\ProjectSettingsManagerTests.cs" />

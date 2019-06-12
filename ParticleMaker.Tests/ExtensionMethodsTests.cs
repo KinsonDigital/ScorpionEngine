@@ -47,24 +47,6 @@ namespace ParticleMaker.Tests
 
 
         [Test]
-        public void ToEngineTime_WhenInvoked_ReturnsCorrectValue()
-        {
-            //Arrange
-            var gameTime = new GameTime()
-            {
-                ElapsedGameTime = new TimeSpan(11, 22, 33, 44, 55)
-            };
-            var expected = new TimeSpan(11, 22, 33, 44, 55);
-
-            //Act
-            var actual = gameTime.ToEngineTime();
-
-            //Assert
-            Assert.AreEqual(expected, actual.ElapsedEngineTime);
-        }
-
-
-        [Test]
         public void Join_WhenInvokingWithItemExclude_ReturnsCorrectValue()
         {
             //Arrange

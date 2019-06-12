@@ -23,7 +23,6 @@ namespace ParticleMaker.Tests.ViewModels
         #region Fields
         private GraphicsEngine _engine;
         private MainViewModel _viewModel;
-        private Mock<ICoreEngine> _mockCoreEngine;
         #endregion
 
 
@@ -767,47 +766,15 @@ namespace ParticleMaker.Tests.ViewModels
         #endregion
 
 
-        #region Method Tests
-        [Test]
-        public void StartEngine_WhenInvoking_InvokesCoreEngineRunMethod()
-        {
-            //Act
-            _viewModel.StartEngine();
-            Thread.Sleep(500);//Wait for the startup task to run its code.
-
-            //Assert
-            _mockCoreEngine.Verify(m => m.Start(), Times.Once());
-        }
-
-
-        [Test]
-        public void ShutdownEngine_WhenInvoked_InvokesCoreEngineExitMethod()
-        {
-            //Act
-            _viewModel.ShutdownEngine();
-
-            //Assert
-            _mockCoreEngine.Verify(m => m.Stop(), Times.Once());
-        }
-        #endregion
-
-
         #region Private Methods
         [SetUp]
         public void Setup()
         {
-            _mockCoreEngine = new Mock<ICoreEngine>();
-            _mockCoreEngine.SetupGet(p => p.RenderSurfaceHandle).Returns(new IntPtr(1234));
-            _mockCoreEngine.SetupProperty(m => m.RenderWidth);
-            _mockCoreEngine.SetupProperty(m => m.RenderHeight);
-
-            var mockEngineFactory = new Mock<IGraphicsEngineFactory>();
-            mockEngineFactory.SetupGet(p => p.CoreEngine).Returns(_mockCoreEngine.Object);
             var mockTexture = new Mock<ITexture>();
 
             var getValueResult = 10f;
 
-            var particleEngine = new ParticleEngine(null);
+            var particleEngine = new ParticleEngine<ParticleTexture>(null);
 
             var mockRandomizer = new Mock<IRandomizerService>();
             //Mock out the GetValue(float, float) overload
@@ -834,11 +801,11 @@ namespace ParticleMaker.Tests.ViewModels
             var setupDeployService = new SetupDeployService(mockDirService.Object, mockFileService.Object);
 
             particleEngine.Randomizer = mockRandomizer.Object;
-            particleEngine.AddTexture(new Texture(mockTexture.Object));
+            particleEngine.AddTexture(new ParticleTexture(IntPtr.Zero, 0, 0));
             particleEngine.TotalParticlesAliveAtOnce = 4;
             particleEngine.Update(new TimeSpan(0, 0, 0, 0, 11));
 
-            _engine = new GraphicsEngine(mockEngineFactory.Object, particleEngine, mockFileService.Object);
+            _engine = new GraphicsEngine(particleEngine, mockFileService.Object);
             var particleManager = new ParticleManager(projIOService, mockDirService.Object, mockFileService.Object);
 
             _viewModel = new MainViewModel(_engine, It.IsAny<ProjectManager>(), It.IsAny<ProjectSettingsManager>(), It.IsAny<SetupManager>(), setupDeployService, particleManager)
