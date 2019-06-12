@@ -6,6 +6,8 @@ using ParticleMaker.CustomEventArgs;
 using ParticleMaker.Services;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
+using MonoColor = Microsoft.Xna.Framework.Color;
 using CoreTexture = KDScorpionCore.Graphics.Texture;
 
 namespace ParticleMaker
@@ -180,7 +182,7 @@ namespace ParticleMaker
             if (_shuttingDown)
                 return;
 
-            _coreEngine.GraphicsDevice.Clear(new Color(40, 40, 40, 255));
+            _coreEngine.GraphicsDevice.Clear(new MonoColor(40, 40, 40, 255));
 
             if (TexturePaths.Length <= 0)
                 return;

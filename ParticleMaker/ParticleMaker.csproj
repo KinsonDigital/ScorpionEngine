@@ -152,6 +152,7 @@
     <Compile Include="Dialogs\ThumbnailViewerDialog.xaml.cs">
       <DependentUpon>ThumbnailViewerDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\ExceptionMessage.cs" />
     <Compile Include="Exceptions\ExceptionHandler.cs" />
     <Compile Include="Exceptions\ExceptionMessageBox.xaml.cs">
@@ -179,6 +180,9 @@
     <Compile Include="Management\ParticleManager.cs" />
     <Compile Include="Management\ProjectSettings.cs" />
     <Compile Include="Management\SetupManager.cs" />
+    <Compile Include="ParticleRenderer_NEW.cs" />
+    <Compile Include="ParticleTexture_NEW.cs" />
+    <Compile Include="PointerContainer.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="Services\DirectoryService.cs" />
     <Compile Include="Services\ExtensionMethods.cs" />
