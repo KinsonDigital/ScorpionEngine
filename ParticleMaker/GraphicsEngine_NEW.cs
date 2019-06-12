@@ -17,6 +17,8 @@ namespace ParticleMaker
         #region Fields
         private static IntPtr _windowPtr;
         private Stopwatch _timer;
+        private Task _loopTask;
+        private CancellationTokenSource _tokenSrc;
         private TimeSpan _lastFrameTime;
         private bool _isRunning;
         private bool _isPaused;
@@ -99,7 +101,15 @@ namespace ParticleMaker
 
             InitEngine();
             Initialize();
-            Run();
+
+            _tokenSrc = new CancellationTokenSource();
+
+            _loopTask = new Task(() =>
+            {
+                Run();
+            }, _tokenSrc.Token);
+
+            _loopTask.Start();
         }
 
 
@@ -107,10 +117,19 @@ namespace ParticleMaker
         {
             _timer.Stop();
             _isRunning = false;
+            _tokenSrc.Cancel();
+            _tokenSrc.Dispose();
+            _loopTask.Dispose();
+            _tokenSrc = null;
+            _loopTask = null;
         }
 
 
-        public void Play() => _isPaused = false;
+        public void Play()
+        {
+            _isPaused = false;
+            Initialize();
+        }
 
 
         public void Pause(bool clearSurface = false)
@@ -146,6 +165,9 @@ namespace ParticleMaker
         //TODO: Add method docs
         private void Render()
         {
+            SDL.SDL_SetRenderDrawColor(Renderer, 48, 48, 48, 255);
+            SDL.SDL_RenderClear(Renderer);
+
             foreach (var particle in ParticleEngine.Particles)
             {
                 var textureOrigin = new SDL.SDL_Point()
@@ -175,12 +197,15 @@ namespace ParticleMaker
                 SDL.SDL_SetTextureAlphaMod(particle.Texture.TexturePointer, particle.TintColor.A);
                 SDL.SDL_RenderCopyEx(Renderer, particle.Texture.TexturePointer, ref srcRect, ref destRect, particle.Angle, ref textureOrigin, SDL.SDL_RendererFlip.SDL_FLIP_NONE);
             }
+
+            SDL.SDL_RenderPresent(Renderer);
         }
 
 
         private void Run()
         {
             _isRunning = true;
+
             _timer = new Stopwatch();
             _timer.Start();
 
@@ -189,7 +214,10 @@ namespace ParticleMaker
                 CheckSDLEvents();
 
                 if (_isPaused)
+                {
+                    Thread.Sleep(1000);
                     continue;
+                }
 
                 if (TimeStep == TimeStepType.Fixed)
                 {
