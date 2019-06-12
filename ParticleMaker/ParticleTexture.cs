@@ -1,57 +1,32 @@
-﻿using KDScorpionCore.Graphics;
-using Microsoft.Xna.Framework.Graphics;
+﻿using SDL2;
 using System;
-using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
 
 namespace ParticleMaker
 {
-    /// <summary>
-    /// Represents a single texture particle for a particle engine.
-    /// </summary>
-    [ExcludeFromCodeCoverage]
-    public class ParticleTexture : ITexture
+    public class ParticleTexture
     {
-        #region Fields
-        private readonly Texture2D _texture;
-        #endregion
+        public ParticleTexture(IntPtr texturePtr, int width, int height)
+        {
+            TexturePointer = texturePtr;
+            Width = width;
+            Height = height;
+        }
 
+        public string Name { get; set; }
 
-        #region Constructors
-        /// <summary>
-        /// Creates a new <see cref="ParticleTexture"/>.
-        /// </summary>
-        public ParticleTexture(Texture2D texture) => _texture = texture;
-        #endregion
+        public IntPtr TexturePointer { get; set; }
 
+        public int X { get; set; }
 
-        #region Props
-        /// <summary>
-        /// Gets the width of the <see cref="ParticleTexture"/>.
-        /// </summary>
-        public int Width => _texture.Width;
+        public int Y { get; set; }
 
-        /// <summary>
-        /// Gets the height of the <see cref="ParticleTexture"/>.
-        /// </summary>
-        public int Height => _texture.Height;
-        #endregion
+        public Color Color { get; set; }
 
+        public int Width { get; private set; }
 
-        #region Public Methods
-        /// <summary>
-        /// Gets data.  WARNING!! NOT IMPLEMENTED.
-        /// </summary>
-        /// <param name="dataType">The type of data to get.</param>
-        /// <returns></returns>
-        public T GetData<T>(int option) where T : class => throw new NotImplementedException();
+        public int Height { get; private set; }
 
-
-        /// <summary>
-        /// Injects data.  WARNING!! NOT IMPLEMENTED.
-        /// </summary>
-        /// <param name="data">The data to inject.</param>
-        /// <returns></returns>
-        public void InjectData<T>(T data) where T : class => throw new NotImplementedException();
-        #endregion
+        public override int GetHashCode() => Name.GetHashCode();
     }
 }

@@ -13,38 +13,16 @@ namespace ParticleMaker.Services
     [ExcludeFromCodeCoverage]
     public static class ExtensionMethods
     {
-        //TODO: Remove this
         /// <summary>
-        /// Loads a file at the given <paramref name="path"/> using the given <paramref name="grfxDevice"/>.
-        /// </summary>
-        /// <param name="service">The service to extend.</param>
-        /// <param name="path">The directory path to the file.</param>
-        /// <param name="grfxDevice">Used to load the particle texture from disk.</param>
-        /// <returns></returns>
-        public static ParticleTexture Load(this IFileService service, string path, GraphicsDevice grfxDevice)
-        {
-            if (service.Exists(path))
-            {
-                using (var file = File.OpenRead(path))
-                {
-                    return new ParticleTexture(Texture2D.FromStream(grfxDevice, file));
-                }
-            }
-
-            throw new ParticleDoesNotExistException();
-        }
-
-
-        /// <summary>
-        /// Loads a <see cref="ParticleRenderer_NEW"/> at the given <paramref name="path"/>.
+        /// Loads a <see cref="ParticleRenderer"/> at the given <paramref name="path"/>.
         /// </summary>
         /// <param name="service">The service used to load the particle texture.</param>
         /// <param name="path">The path to the texture file.</param>
         /// <returns></returns>
-        public static ParticleTexture_NEW Load(this IFileService service, string path)
+        public static ParticleTexture Load(this IFileService service, string path)
         {
-            if (GraphicsEngine_NEW.Renderer == IntPtr.Zero)
-                throw new Exception($"No render surface handle has been set.  Use the {nameof(GraphicsEngine_NEW.SetRenderSurface)}() method to set the surface handle.");
+            if (GraphicsEngine.Renderer == IntPtr.Zero)
+                throw new Exception($"No render surface handle has been set.  Use the {nameof(GraphicsEngine.SetRenderSurface)}() method to set the surface handle.");
 
             if (!service.Exists(path))
                 throw new FileNotFoundException("The particle file at the given path was not found.", path);
@@ -59,7 +37,7 @@ namespace ParticleMaker.Services
             else
             {
                 //Create texture from surface pixels
-                var texturePtr = SDL.SDL_CreateTextureFromSurface(GraphicsEngine_NEW.Renderer, loadedSurface);
+                var texturePtr = SDL.SDL_CreateTextureFromSurface(GraphicsEngine.Renderer, loadedSurface);
 
                 if (texturePtr == IntPtr.Zero)
                     throw new Exception($"Unable to create texture from {path}! SDL Error: {SDL.SDL_GetError()}");
@@ -69,7 +47,7 @@ namespace ParticleMaker.Services
                 //Get rid of old loaded surface
                 SDL.SDL_FreeSurface(loadedSurface);
 
-                return new ParticleTexture_NEW(texturePtr, width, height);
+                return new ParticleTexture(texturePtr, width, height);
             }
         }
     }
