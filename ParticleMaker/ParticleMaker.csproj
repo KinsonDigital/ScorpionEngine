@@ -484,17 +484,20 @@
     <Content Include="SDL2\libtiff-5.dll" />
     <Content Include="SDL2\libwebp-7.dll" />
     <Content Include="SDL2\SDL2-CS.dll" />
+    <Content Include="SDL2\SDL2.dll" />
     <Content Include="SDL2\SDL2_image.dll" />
     <Content Include="SDL2\zlib1.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>REM Copy the SDL2 libraries to the output folder
+copy "$(ProjectDir)SDL2\SDL2.dll" "$(TargetDir)SDL2.dll" /Y
 copy "$(ProjectDir)SDL2\libjpeg-9.dll" "$(TargetDir)libjpeg-9.dll" /Y
 copy "$(ProjectDir)SDL2\libpng16-16.dll" "$(TargetDir)libpng16-16.dll" /Y
 copy "$(ProjectDir)SDL2\libtiff-5.dll" "$(TargetDir)libtiff-5.dll" /Y
 copy "$(ProjectDir)SDL2\libwebp-7.dll" "$(TargetDir)libwebp-7.dll" /Y
+copy "$(ProjectDir)SDL2\zlib1.dll" "$(TargetDir)zlib1.dll" /Y
 copy "$(ProjectDir)SDL2\SDL2_image.dll" "$(TargetDir)SDL2_image.dll" /Y
-copy "$(ProjectDir)SDL2\zlib1.dll" "$(TargetDir)zlib1.dll" /Y</PostBuildEvent>
+</PostBuildEvent>
   </PropertyGroup>
 </Project>
