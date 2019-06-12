@@ -2,6 +2,7 @@
 
 [assembly: InternalsVisibleTo(assemblyName: "ScorpionCoreTests", AllInternalsVisible = true)]
 [assembly: InternalsVisibleTo(assemblyName: "ScorpionEngineTests", AllInternalsVisible = true)]
+[assembly: InternalsVisibleTo(assemblyName: "ScorpionEngine", AllInternalsVisible = true)]
 
 namespace PluginSystem
 {

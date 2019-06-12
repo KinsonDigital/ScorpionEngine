@@ -164,6 +164,7 @@
     <Compile Include="Exceptions\ParticleSetupAlreadyExistsException.cs" />
     <Compile Include="Exceptions\ParticleSetupDoesNotExistException.cs" />
     <Compile Include="GraphicsEngine.cs" />
+    <Compile Include="IEngineCore.cs" />
     <Compile Include="Management\DeploymentSetting.cs" />
     <Compile Include="DesignData\MainWindowData.cs" />
     <Compile Include="Exceptions\ContentDoesNotExistException.cs" />
@@ -181,6 +182,7 @@
     <Compile Include="RenderSurface.xaml.cs">
       <DependentUpon>RenderSurface.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SDLEngineCore.cs" />
     <Compile Include="Services\DirectoryService.cs" />
     <Compile Include="Services\ExtensionMethods.cs" />
     <Compile Include="Services\IFileService.cs" />

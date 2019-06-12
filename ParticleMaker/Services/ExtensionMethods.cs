@@ -19,7 +19,7 @@ namespace ParticleMaker.Services
         /// <returns></returns>
         public static ParticleTexture Load(this IFileService service, string path)
         {
-            if (GraphicsEngine.Renderer == IntPtr.Zero)
+            if (GraphicsEngine.RenderPointer == IntPtr.Zero)
                 throw new Exception($"No render surface handle has been set.  Use the {nameof(GraphicsEngine.SetRenderSurface)}() method to set the surface handle.");
 
             if (!service.Exists(path))
@@ -35,7 +35,7 @@ namespace ParticleMaker.Services
             else
             {
                 //Create texture from surface pixels
-                var texturePtr = SDL.SDL_CreateTextureFromSurface(GraphicsEngine.Renderer, loadedSurface);
+                var texturePtr = SDL.SDL_CreateTextureFromSurface(GraphicsEngine.RenderPointer, loadedSurface);
 
                 if (texturePtr == IntPtr.Zero)
                     throw new Exception($"Unable to create texture from {path}! SDL Error: {SDL.SDL_GetError()}");

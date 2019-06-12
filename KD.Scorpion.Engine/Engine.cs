@@ -32,6 +32,7 @@ namespace KDScorpionEngine
         /// </summary>
         internal Engine(IPluginFactory enginePluginLib, bool loadPhysicsLibrary = true)
         {
+            Plugins.LoadPluginFactory(enginePluginLib);
             //Make sure that the Setup() method is called
             //This is to make sure that this class is testable for unit testing purposes.
             Setup();
@@ -44,6 +45,7 @@ namespace KDScorpionEngine
         [ExcludeFromCodeCoverage]
         public Engine(bool loadPhysicsLibrary = true)
         {
+            Plugins.LoadPluginFactory();
             Setup();
         }
         #endregion
@@ -175,8 +177,6 @@ namespace KDScorpionEngine
         /// </summary>
         private void Setup()
         {
-            Plugins.LoadPluginFactory();
-
             ContentLoader = new ContentLoader(Plugins.PluginFactory.CreateContentLoader());
             
             _engineCore = Plugins.PluginFactory.CreateEngineCore();

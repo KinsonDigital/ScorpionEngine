@@ -16,7 +16,7 @@ namespace ParticleMaker.Tests
         {
             //Arrange
             var angle = 45.45f;
-            var expected = 0.79325217f;
+            var expected = 0.79325211f;
 
             //Act
             var actual = angle.ToRadians();

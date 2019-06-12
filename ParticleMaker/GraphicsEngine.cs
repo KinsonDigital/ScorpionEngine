@@ -24,6 +24,7 @@ namespace ParticleMaker
         private Queue<float> _frameTimes = new Queue<float>();
         private IFileService _fileService;
         private IntPtr _renderSurfaceHandle;
+        private ICoreEngine _engineCore;
         #endregion
 
 
@@ -31,8 +32,9 @@ namespace ParticleMaker
         /// <summary>
         /// Creates a new instance of <see cref="GraphicsEngine"/>.
         /// </summary>
-        public GraphicsEngine(ParticleEngine<ParticleTexture> particleEngine, IFileService fileService)
+        public GraphicsEngine(ICoreEngine engineCore, ParticleEngine<ParticleTexture> particleEngine, IFileService fileService)
         {
+            _engineCore = engineCore;
             ParticleEngine = particleEngine;
             _fileService = fileService;
         }
@@ -42,7 +44,7 @@ namespace ParticleMaker
         #region Props
         public ParticleEngine<ParticleTexture> ParticleEngine { get; set; }
 
-        public static IntPtr Renderer { get; private set; }
+        public static IntPtr RenderPointer { get; private set; }
 
         public static float CurrentFPS { get; private set; }
 
@@ -163,8 +165,8 @@ namespace ParticleMaker
         //TODO: Add method docs
         private void Render()
         {
-            SDL.SDL_SetRenderDrawColor(Renderer, 48, 48, 48, 255);
-            SDL.SDL_RenderClear(Renderer);
+            SDL.SDL_SetRenderDrawColor(RenderPointer, 48, 48, 48, 255);
+            SDL.SDL_RenderClear(RenderPointer);
 
             foreach (var particle in ParticleEngine.Particles)
             {
@@ -193,10 +195,10 @@ namespace ParticleMaker
                 SDL.SDL_SetTextureBlendMode(particle.Texture.TexturePointer, SDL.SDL_BlendMode.SDL_BLENDMODE_BLEND);
                 SDL.SDL_SetTextureColorMod(particle.Texture.TexturePointer, particle.TintColor.R, particle.TintColor.G, particle.TintColor.B);
                 SDL.SDL_SetTextureAlphaMod(particle.Texture.TexturePointer, particle.TintColor.A);
-                SDL.SDL_RenderCopyEx(Renderer, particle.Texture.TexturePointer, ref srcRect, ref destRect, particle.Angle, ref textureOrigin, SDL.SDL_RendererFlip.SDL_FLIP_NONE);
+                SDL.SDL_RenderCopyEx(RenderPointer, particle.Texture.TexturePointer, ref srcRect, ref destRect, particle.Angle, ref textureOrigin, SDL.SDL_RendererFlip.SDL_FLIP_NONE);
             }
 
-            SDL.SDL_RenderPresent(Renderer);
+            SDL.SDL_RenderPresent(RenderPointer);
         }
 
 
@@ -305,16 +307,16 @@ namespace ParticleMaker
                 {
                     //Create vsynced renderer for window
                     var renderFlags = SDL.SDL_RendererFlags.SDL_RENDERER_ACCELERATED;
-                    Renderer = SDL.SDL_CreateRenderer(_windowPtr, -1, renderFlags);
+                    RenderPointer = SDL.SDL_CreateRenderer(_windowPtr, -1, renderFlags);
 
-                    if (Renderer == IntPtr.Zero)
+                    if (RenderPointer == IntPtr.Zero)
                     {
                         throw new Exception($"Renderer could not be created! SDL Error: {SDL.SDL_GetError()}");
                     }
                     else
                     {
                         //Initialize renderer color
-                        SDL.SDL_SetRenderDrawColor(Renderer, 48, 48, 48, 255);
+                        SDL.SDL_SetRenderDrawColor(RenderPointer, 48, 48, 48, 255);
 
                         //Initialize PNG loading
                         var imgFlags = SDL_image.IMG_InitFlags.IMG_INIT_PNG;
@@ -329,7 +331,7 @@ namespace ParticleMaker
 
         private void ShutDown()
         {
-            SDL.SDL_DestroyRenderer(Renderer);
+            SDL.SDL_DestroyRenderer(RenderPointer);
             SDL.SDL_DestroyWindow(_windowPtr);
             SDL.SDL_Quit();
         }

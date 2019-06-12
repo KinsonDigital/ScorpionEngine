@@ -35,84 +35,6 @@ namespace KDScorpionEngineTests
             //Assert
             Assert.NotNull(actual);
         }
-
-
-        [Test]
-        public void Ctor_WhenInvoking_SetsEngineCore()
-        {
-            //Arrange
-            var engine = new Engine(_mockPluginFactory.Object);
-            var expected = true;
-
-            //Act
-            var actual = engine.Running;
-
-            //Assert
-            Assert.AreEqual(expected, actual);
-        }
-
-
-        [Test]
-        public void Ctor_WhenInvoking_SetsUpOnIntializeEvent()
-        {
-            //Arrange
-            var engine = new Engine(_mockPluginFactory.Object);
-            var expected = true;
-
-            //Act
-            var actual = engine.Running;
-
-            //Assert
-            Assert.AreEqual(expected, actual);
-        }
-
-
-        [Test]
-        public void Ctor_WhenInvoking_SetsUpEngineCoreEvents()
-        {
-            //Arrange
-            var mockRenderer = new Mock<IRenderer>();
-            var fakeEngineCore = new FakeEngineCore
-            {
-                Renderer = mockRenderer.Object
-            };
-
-            var mockKeyboard = new Mock<IKeyboard>();
-            var mockPluginFactory = new Mock<IPluginFactory>();
-            mockPluginFactory.Setup(m => m.CreateEngineCore()).Returns(fakeEngineCore);
-            mockPluginFactory.Setup(m => m.CreateKeyboard()).Returns(mockKeyboard.Object);
-            mockPluginFactory.Setup(m => m.CreateRenderer()).Returns(mockRenderer.Object);
-
-            var mockScene = new Mock<IScene>();
-            mockScene.SetupGet(m => m.Id).Returns(10);
-
-            Plugins.LoadPluginFactory(mockPluginFactory.Object);
-
-            var manager = new SceneManager(_contentLoader)
-            {
-                mockScene.Object
-            };
-            manager.SetCurrentSceneID(10);
-
-            var engine = new FakeEngine(mockPluginFactory.Object)
-            {
-                SceneManager = manager
-            };
-            var expected = true;
-
-            //Act
-            fakeEngineCore.InvokeAllEvents();
-            var actualInitInvoked = engine.InitInvoked;
-            var actualLoadInvoked = engine.LoadContentInvoked;
-            var actualUpdateInvoked = engine.UpdateInvoked;
-            var actualRenderInvoked = engine.RenderInvoked;
-
-            //Assert
-            Assert.AreEqual(expected, actualInitInvoked);
-            Assert.AreEqual(expected, actualLoadInvoked);
-            Assert.AreEqual(expected, actualUpdateInvoked);
-            Assert.AreEqual(expected, actualRenderInvoked);
-        }
         #endregion
 
 
@@ -174,6 +96,7 @@ namespace KDScorpionEngineTests
 
             //Act
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
+            engine.Start();
             engine.Update(engineTime);
             var actual = Engine.CurrentFPS;
 
@@ -186,7 +109,6 @@ namespace KDScorpionEngineTests
         public void WindowWidth_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var engine = new Engine(_mockPluginFactory.Object);
             var expected = 123;
 
             //Act
@@ -202,7 +124,6 @@ namespace KDScorpionEngineTests
         public void WindowHeight_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var engine = new Engine(_mockPluginFactory.Object);
             var expected = 123;
 
             //Act
