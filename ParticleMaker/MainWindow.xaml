@@ -45,7 +45,6 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition x:Name="RenderColumn" Width="*" MinWidth="400"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
@@ -270,17 +269,6 @@
         </StackPanel>
 
 
-        <!--RENDER SURFACE-->
-        <WindowsFormsHost Name="WinFormsHost" Grid.Row="1" Grid.Column="1" d:DesignWidth="400" d:DesignHeight="400"
-                          d:DataContext="{d:DesignData Source=/DesignData/MainWIndowData.xaml}"
-                          Width="{Binding Path=RenderSurfaceWidth}" Height="{Binding Path=RenderSurfaceHeight}">
-            <WindowsFormsHost.Child>
-                <wf:PictureBox x:Name="RenderSurface" MouseDown="RenderSurface_MouseDown"
-                               MouseUp="RenderSurface_MouseUp" MouseMove="RenderSurface_MouseMove"/>
-            </WindowsFormsHost.Child>
-        </WindowsFormsHost>
-
-
         <!--RANDOMIZATION SETTINGS-->
         <Grid Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left">
             <Grid.RowDefinitions>
@@ -367,8 +355,8 @@
                         </StackPanel>
                     </StatusBarItem>
 
-                    <StatusBarItem Style="{StaticResource ProjectLoadedStyle}">
-                        <!--TOTAL LIVING PARTICLES-->
+                    <!--TOTAL LIVING PARTICLES-->
+                    <StatusBarItem Style="{StaticResource ProjectLoadedStyle}" Width="175">
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Total Living Particles:" FontWeight="Bold"/>
                             <Label Content="{Binding Path=TotalLivingParticles}"/>
@@ -376,7 +364,7 @@
                     </StatusBarItem>
 
                     <!--TOTAL DEAD PARTICLES-->
-                    <StatusBarItem Style="{StaticResource ProjectLoadedStyle}">
+                    <StatusBarItem Style="{StaticResource ProjectLoadedStyle}" Width="175">
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Total Dead Particles:" FontWeight="Bold"/>
                             <Label Content="{Binding Path=TotalDeadParticles}"/>

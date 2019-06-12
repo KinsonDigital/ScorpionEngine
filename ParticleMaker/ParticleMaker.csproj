@@ -184,6 +184,9 @@
     <Compile Include="ParticleTexture_NEW.cs" />
     <Compile Include="PointerContainer.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="RenderSurface.xaml.cs">
+      <DependentUpon>RenderSurface.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\DirectoryService.cs" />
     <Compile Include="Services\ExtensionMethods.cs" />
     <Compile Include="Services\IFileService.cs" />
@@ -271,6 +274,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Exceptions\ExceptionMessageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RenderSurface.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -129,6 +129,8 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public Control RenderSurface { get; set; }
 
+        public IntPtr RenderSurfacePointer { get; set; }
+
         /// <summary>
         /// Gets or sets the dispatcher of the UI thread.
         /// </summary>
@@ -804,50 +806,59 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public void StartEngine()
         {
-            _cancelTokenSrc = new CancellationTokenSource();
+            _graphicsEngineNEW.SetRenderSurface(RenderSurfacePointer);
+            _graphicsEngineNEW.ParticleEngine.LivingParticlesCountChanged += _particleEngine_LivingParticlesCountChanged;
+            _graphicsEngineNEW.ParticleEngine.SpawnLocation = new PointF(200, 200);
 
-            _startupTask = new Task(() =>
-            {
-                //If the cancellation has not been requested, keep processing.
-                while (!_cancelTokenSrc.IsCancellationRequested)
-                {
-                    _cancelTokenSrc.Token.WaitHandle.WaitOne(250);
+            //NOTE: This line of code will not continue execution until the Monogame framework
+            //has stopped running
+            _graphicsEngineNEW.Start();
 
-                    var taskAction = new Action(() =>
-                    {
-                        if (_cancelTokenSrc.IsCancellationRequested == false && RenderSurface != null && RenderSurface.Handle != IntPtr.Zero)
-                        {
-                            _cancelTokenSrc.Cancel();
 
-                            _graphicsEngineNEW.SetRenderSurface(RenderSurface.Handle);
-                            _graphicsEngineNEW.ParticleEngine.LivingParticlesCountChanged += _particleEngine_LivingParticlesCountChanged;
-                            _graphicsEngineNEW.ParticleEngine.SpawnLocation = new PointF(200, 200);
+            //_cancelTokenSrc = new CancellationTokenSource();
 
-                            //NOTE: This line of code will not continue execution until the Monogame framework
-                            //has stopped running
-                            _graphicsEngineNEW.Start();
-                        }
-                    });
+            //_startupTask = new Task(() =>
+            //{
+            //    //If the cancellation has not been requested, keep processing.
+            //    while (!_cancelTokenSrc.IsCancellationRequested)
+            //    {
+            //        _cancelTokenSrc.Token.WaitHandle.WaitOne(250);
 
-                    if (UIDispatcher == null)
-                    {
-                        taskAction();
-                    }
-                    else
-                    {
-                        UIDispatcher.Invoke(taskAction);
-                    }
-                }
-            }, _cancelTokenSrc.Token);
+            //        var taskAction = new Action(() =>
+            //        {
+            //            if (_cancelTokenSrc.IsCancellationRequested == false && RenderSurface != null && RenderSurface.Handle != IntPtr.Zero)
+            //            {
+            //                _cancelTokenSrc.Cancel();
 
-            _startupTask.Start();
+            //                _graphicsEngineNEW.SetRenderSurface(RenderSurface.Handle);
+            //                _graphicsEngineNEW.ParticleEngine.LivingParticlesCountChanged += _particleEngine_LivingParticlesCountChanged;
+            //                _graphicsEngineNEW.ParticleEngine.SpawnLocation = new PointF(200, 200);
 
-            /*This is here to set focus back to the main window.  The monogame window created and hidden
-             * shows up after the main window loads.  After the monogame window hides itself, the main window
-             * is left in a state of not being in focus due to the last window that was in focus being the
-             * monogame window.  This puts the main window back into focus.
-             */
-            ParticleMaker.MainWindow.SetFocus();
+            //                //NOTE: This line of code will not continue execution until the Monogame framework
+            //                //has stopped running
+            //                _graphicsEngineNEW.Start();
+            //            }
+            //        });
+
+            //        if (UIDispatcher == null)
+            //        {
+            //            taskAction();
+            //        }
+            //        else
+            //        {
+            //            UIDispatcher.Invoke(taskAction);
+            //        }
+            //    }
+            //}, _cancelTokenSrc.Token);
+
+            //_startupTask.Start();
+
+            ///*This is here to set focus back to the main window.  The monogame window created and hidden
+            // * shows up after the main window loads.  After the monogame window hides itself, the main window
+            // * is left in a state of not being in focus due to the last window that was in focus being the
+            // * monogame window.  This puts the main window back into focus.
+            // */
+            //ParticleMaker.MainWindow.SetFocus();
         }
 
 
