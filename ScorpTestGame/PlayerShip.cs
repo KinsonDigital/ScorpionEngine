@@ -19,7 +19,7 @@ namespace ScorpTestGame
         private readonly Keyboard _keyboard = new Keyboard();
         private readonly Mouse _mouse = new Mouse();
         private Vector _thrusterPosition;
-        private readonly ParticleEngine _particleEngine;
+        private readonly ParticleEngine<Texture> _particleEngine;
         private readonly MoveFowardKeyboardBehavior<PlayerShip> _movementBehavior;
         private const float _particleVelocityMagnitudeMin = 0.25f;
         private const float _particleVelocityMagnitudeMax = 2;
@@ -52,7 +52,7 @@ namespace ScorpTestGame
         {
             DebugDrawEnabled = true;
             AngularDeceleration = 100f;
-            Position = new Vector(500, 300);
+            Position = new Vector(300, 250);
 
             //Ship vertices
             Vertices = new Vector[3]
@@ -62,13 +62,13 @@ namespace ScorpTestGame
                 new Vector(-21, 21)
             };
 
-            _particleEngine = new ParticleEngine(new RandomizerService())
-            { 
-                SpawnLocation = _thrusterPosition,
+            _particleEngine = new ParticleEngine<Texture>(new RandomizerService())
+            {
+                SpawnLocation = _thrusterPosition.ToPointF(),
                 UseRandomVelocity = true,
                 TotalParticlesAliveAtOnce = 40,
                 UseColorsFromList = true,
-                TintColors = _orangeColors,
+                TintColors = _orangeColors.ToNETColors(),
                 RedMin = 255,
                 RedMax = 255,
                 GreenMin = 132,
@@ -89,7 +89,7 @@ namespace ScorpTestGame
                 RotateCCWKey = KeyCodes.Left,
                 Enabled = true
             };
-            
+
             Behaviors.Add(_movementBehavior);
         }
         #endregion
@@ -119,27 +119,27 @@ namespace ScorpTestGame
 
             if (_mouse.IsButtonPressed(InputButton.LeftButton))
             {
-                _particleEngine.TintColors = _orangeColors;
+                _particleEngine.TintColors = _orangeColors.ToNETColors();
             }
 
             if (_mouse.IsButtonPressed(InputButton.RightButton))
             {
-                _particleEngine.TintColors = _blueColors;
+                _particleEngine.TintColors = _blueColors.ToNETColors();
             }
 
             if (_mouse.IsButtonPressed(InputButton.MiddleButton))
             {
-                _particleEngine.TintColors = _purpleColors;
+                _particleEngine.TintColors = _purpleColors.ToNETColors();
             }
 
             if (_keyboard.IsKeyPressed(KeyCodes.Enter))
             {
-                _particleEngine.TintColors = _purpleColors;
+                _particleEngine.TintColors = _purpleColors.ToNETColors();
             }
 
             if (_keyboard.IsKeyPressed(KeyCodes.RightShift))
             {
-                _particleEngine.TintColors = _blueColors;
+                _particleEngine.TintColors = _blueColors.ToNETColors();
             }
 
 
@@ -155,12 +155,12 @@ namespace ScorpTestGame
             _particleEngine.VelocityYMin = rotatedParticleMin.Y;
             _particleEngine.VelocityYMax = rotatedParticleMax.Y;
 
-            _particleEngine.SpawnLocation = _thrusterPosition;
+            _particleEngine.SpawnLocation = _thrusterPosition.ToPointF();
 
             _particleEngine.Enabled = _movementBehavior.IsMovingForward;
 
             _movementBehavior.Update(engineTime);
-            _particleEngine.Update(engineTime);
+            _particleEngine.Update(engineTime.ToTimeSpan());
 
             _mouse.UpdatePreviousState();
             _keyboard.UpdatePreviousState();
@@ -171,10 +171,14 @@ namespace ScorpTestGame
 
         public override void Render(Renderer renderer)
         {
-            _particleEngine.Render(renderer);
+            if (_particleEngine.Enabled)
+            {
+                foreach (var particle in _particleEngine.Particles)
+                {
+                    renderer.RennderParticle(particle);
+                }
+            }
 
-            renderer.FillRect(new Rect(100, 100, 20, 20), new GameColor(255, 255, 255, 255));
-            renderer.FillRect(new Rect(110, 110, 1, 1), new GameColor(255, 0, 0, 0));
 
             base.Render(renderer);
         }

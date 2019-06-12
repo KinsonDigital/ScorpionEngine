@@ -61,7 +61,7 @@ namespace SDLScorpPlugin
         /// <param name="texture">The texture to render.</param>
         /// <param name="x">The X coordinate location on the screen to render.</param>
         /// <param name="y">The Y coordinate location on the screen to render.</param>
-        public void Render(ITexture texture, float x, float y) => Render(texture, x, y, 0f, 0f, new byte[] { 255, 255, 255, 255 });
+        public void Render(ITexture texture, float x, float y) => Render(texture, x, y, 0f, 1f, new byte[] { 255, 255, 255, 255 });
 
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace SDLScorpPlugin
         /// If element does not exist, the value 255 will be used.</param>
         public void Render(ITexture texture, float x, float y, float angle, float size, byte[] color)
         {
-            //NOTE: SDL takes the angle in degrees, not radiants.
+            //NOTE: SDL takes the angle in degrees, not radians.
 
             var textureOrigin = new SDL.SDL_Point()
             {

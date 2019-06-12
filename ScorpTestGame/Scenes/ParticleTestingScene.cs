@@ -5,12 +5,13 @@ using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
 using KDScorpionEngine.Input;
 using KDScorpionEngine.Scene;
+using System.Drawing;
 
 namespace ScorpTestGame.Scenes
 {
     public class ParticleTestingScene : GameScene
     {
-        private ParticleEngine _particleEngine;
+        private ParticleEngine<Texture> _particleEngine;
         private Mouse _mouse;
 
 
@@ -31,13 +32,13 @@ namespace ScorpTestGame.Scenes
                 new GameColor(255, 255, 106, 0)
             };
 
-            _particleEngine = new ParticleEngine(new RandomizerService())
+            _particleEngine = new ParticleEngine<Texture>(new RandomizerService())
             {
-                SpawnLocation = new Vector(400, 400),
+                SpawnLocation = new PointF(400, 400),
                 UseRandomVelocity = true,
                 TotalParticlesAliveAtOnce = 60,
                 UseColorsFromList = false,
-                TintColors = colors,
+                TintColors = colors.ToNETColors(),
                 RedMin = 255,
                 RedMax = 255,
                 GreenMin = 132,
@@ -74,9 +75,9 @@ namespace ScorpTestGame.Scenes
         {
             _mouse.UpdateCurrentState();
 
-            _particleEngine.Update(engineTime);
+            _particleEngine.Update(engineTime.ToTimeSpan());
 
-            _particleEngine.SpawnLocation = new Vector(_mouse.X, _mouse.Y);
+            _particleEngine.SpawnLocation = new PointF(_mouse.X, _mouse.Y);
 
             _mouse.UpdatePreviousState();
 
@@ -86,7 +87,10 @@ namespace ScorpTestGame.Scenes
 
         public override void Render(Renderer renderer)
         {
-            _particleEngine.Render(renderer);
+            foreach (var particle in _particleEngine.Particles)
+            {
+                renderer.Render(particle.Texture, particle.Position.ToVector());
+            }
 
             base.Render(renderer);
         }

@@ -1,5 +1,5 @@
-﻿using KDScorpionCore;
-using KDScorpionCore.Graphics;
+﻿using System;
+using System.Drawing;
 
 namespace KDParticleEngine
 {
@@ -7,7 +7,7 @@ namespace KDParticleEngine
     /// Represents a single particle with various properties that dictate how the <see cref="Particle"/>
     /// behaves and looks on the screen.
     /// </summary>
-    public class Particle
+    public class Particle<ITexture> where ITexture : class
     {
         #region Constructors
         /// <summary>
@@ -21,7 +21,7 @@ namespace KDParticleEngine
         /// <param name="color">The color to tint the <see cref="Texture"/>.</param>
         /// <param name="size">The size of the <see cref="Particle"/>.</param>
         /// <param name="timeToLive">The amount of time in milliseconds for the particle to stay alive.</param>
-        public Particle(Texture texture, Vector position, Vector velocity, float angle, float angularVelocity, GameColor color, float size, int timeToLive)
+        public Particle(ITexture texture, PointF position, PointF velocity, float angle, float angularVelocity, Color color, float size, int timeToLive)
         {
             Texture = texture;
             Position = position;
@@ -39,17 +39,17 @@ namespace KDParticleEngine
         /// <summary>
         /// Gets or sets the texture of the <see cref="Particle"/>.
         /// </summary>
-        public Texture Texture { get; set; }
+        public ITexture Texture { get; set; }
 
         /// <summary>
         /// Gets or sets the position of the <see cref="Particle"/>.
         /// </summary>
-        public Vector Position { get; set; }
+        public PointF Position { get; set; }
 
         /// <summary>
         /// Gets or sets the velocity of the <see cref="Particle"/>.
         /// </summary>
-        public Vector Velocity { get; set; }
+        public PointF Velocity { get; set; }
 
         /// <summary>
         /// Gets or sets the angle that the <see cref="Particle"/> is at when first spawned.
@@ -64,7 +64,7 @@ namespace KDParticleEngine
         /// <summary>
         /// Gets or sets the color that the <see cref="Texture"/> will be tinted.
         /// </summary>
-        public GameColor TintColor { get; set; }
+        public Color TintColor { get; set; }
 
         /// <summary>
         /// Gets or sets the sized of the <see cref="Particle"/>.
@@ -96,23 +96,12 @@ namespace KDParticleEngine
         /// <summary>
         /// Updates the <see cref="Particle"/>.
         /// </summary>
-        /// <param name="engineTime">The amount of time that the <see cref="Engine"/> has passed since the last frame.</param>
-        public void Update(EngineTime engineTime)
+        /// <param name="timeElapsed">The amount of time that the <see cref="Engine"/> has passed since the last frame.</param>
+        public void Update(TimeSpan timeElapsed)
         {
-            LifeTime -= engineTime.ElapsedEngineTime.Milliseconds;
-            Position += Velocity;
+            LifeTime -= (int)timeElapsed.TotalMilliseconds;
+            Position = Position.Add(Velocity);
             Angle += AngularVelocity;
-        }
-
-
-        /// <summary>
-        /// Renders the particle to the screen.
-        /// </summary>
-        /// <param name="renderer">Renders the particle.</param>
-        public void Render(Renderer renderer)
-        {
-            TintColor = new GameColor(255, TintColor.Red, TintColor.Green, TintColor.Blue);
-            renderer.Render(Texture, Position.X, Position.Y, Angle, Size, TintColor);
         }
         #endregion
     }

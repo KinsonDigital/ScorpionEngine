@@ -32,7 +32,7 @@ namespace ParticleMaker
         /// <param name="factory">The factory used to get <see cref="GraphicsEngine"/> dependencies and services.</param>
         /// <param name="particleEngine">The particle engine that manages the particles behaviors.</param>
         /// <param name="fileService">The file service used to manage particle texture files.</param>
-        public GraphicsEngine(IGraphicsEngineFactory factory, ParticleEngine particleEngine, IFileService fileService)
+        public GraphicsEngine(IGraphicsEngineFactory factory, ParticleEngine<ParticleTexture> particleEngine, IFileService fileService)
         {
             _fileService = fileService;
 
@@ -66,7 +66,7 @@ namespace ParticleMaker
         /// <summary>
         /// Gets or sets the particle engine managing the particles.
         /// </summary>
-        public ParticleEngine ParticleEngine { get; set; }
+        public ParticleEngine<ParticleTexture> ParticleEngine { get; set; }
 
         /// <summary>
         /// Gets or sets the width of the render surface that the graphics are rendering to.
@@ -153,7 +153,7 @@ namespace ParticleMaker
             {
                 var texture = _fileService.Load(path, _coreEngine.GraphicsDevice);
 
-                ParticleEngine.AddTexture(new CoreTexture(new ParticleTexture(texture.GetData<Texture2D>(1))));
+                ParticleEngine.AddTexture(texture);
             }
         }
 
@@ -167,7 +167,7 @@ namespace ParticleMaker
             if (_shuttingDown)
                 return;
 
-            ParticleEngine.Update(e.GameTime.ToEngineTime());
+            ParticleEngine.Update(e.GameTime.ElapsedGameTime);
         }
 
 
@@ -187,7 +187,8 @@ namespace ParticleMaker
 
             _spriteBatch.Begin();
 
-            ParticleEngine.Render(_renderer);
+            //TODO: To be replace with new rendering system and its dependency on ScorpionCore and ScorpionEngine removed
+            //ParticleEngine.Render(_renderer);
 
             _spriteBatch.End();
         }

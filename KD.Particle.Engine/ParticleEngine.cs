@@ -1,8 +1,7 @@
 ﻿using KDParticleEngine.Services;
-using KDScorpionCore;
-using KDScorpionCore.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace KDParticleEngine
@@ -13,7 +12,7 @@ namespace KDParticleEngine
     /// Manages multiple <see cref="Particle"/>s with various settings that dictate
     /// how all of the <see cref="Particle"/>s behave and look on the screen.
     /// </summary>
-    public class ParticleEngine
+    public class ParticleEngine<ITexture> where ITexture : class
     {
         #region Public Events
         public event EventHandler<EventArgs> LivingParticlesCountChanged;
@@ -21,8 +20,8 @@ namespace KDParticleEngine
 
 
         #region Fields
-        private readonly List<Particle> _particles;
-        private readonly List<Texture> _textures = new List<Texture>();
+        private readonly List<Particle<ITexture>> _particles;
+        private readonly List<ITexture> _textures = new List<ITexture>();
         private int _totalParticlesAliveAtOnce = 10;
         private int _spawnRateElapsed = 0;
         private float _angleMin;
@@ -38,13 +37,16 @@ namespace KDParticleEngine
         /// </summary>
         public ParticleEngine(IRandomizerService randomizer)
         {
-            _particles = new List<Particle>();
+            _particles = new List<Particle<ITexture>>();
             Randomizer = randomizer;
         }
         #endregion
 
 
         #region Props
+        //TODO: Add code docs
+        public Particle<ITexture>[] Particles => _particles.ToArray();
+
         /// <summary>
         /// Gets or sets the randomizer used when generating new particles.
         /// </summary>
@@ -74,7 +76,7 @@ namespace KDParticleEngine
         /// <summary>
         /// Gets or sets the location on the screen of where to spawn the <see cref="Particle"/>s.
         /// </summary>
-        public Vector SpawnLocation { get; set; }
+        public PointF SpawnLocation { get; set; }
 
         /// <summary>
         /// Gets or sets the total number of <see cref="Particle"/>s that can be alive at once.
@@ -129,15 +131,13 @@ namespace KDParticleEngine
 
         /// <summary>
         /// Gets or sets the minimum size that a newly generated <see cref="Particle"/> will be.
-        /// The value of 1 will represent 100% or the normal size of the <see cref="Particle"/>
-        /// <see cref="Texture"/>s.
+        /// The value of 1 will represent 100% or the normal size of the <see cref="Particle"/> texture.
         /// </summary>
         public float SizeMin { get; set; } = 0.5f;
 
         /// <summary>
         /// Gets or sets the maximum size that a newly generated <see cref="Particle"/> will be.
-        /// The value of 1 will represent 100% or the normal size of the <see cref="Particle"/>
-        /// <see cref="Texture"/>s.
+        /// The value of 1 will represent 100% or the normal size of the <see cref="Particle"/> texture.
         /// </summary>
         public float SizeMax { get; set; } = 1.5f;
 
@@ -182,7 +182,7 @@ namespace KDParticleEngine
         /// when the <see cref="UseRandomVelocity"/> property is set to false.
         /// <seealso cref="UseRandomVelocity"/>
         /// </summary>
-        public Vector ParticleVelocity { get; set; } = new Vector(0, 1);
+        public PointF ParticleVelocity { get; set; } = new PointF(0, 1);
 
         /// <summary>
         /// Gets or sets a value indicating if the <see cref="ParticleEngine"/> will
@@ -212,7 +212,7 @@ namespace KDParticleEngine
         /// randomly choose from when spawning a new <see cref="Particle"/>.
         /// Only used if the <see cref="UseColorsFromList"/> is set to true.
         /// </summary>
-        public GameColor[] TintColors { get; set; } = new GameColor[0];
+        public Color[] TintColors { get; set; } = new Color[0];
 
         /// <summary>
         /// Gets or sets the minimum value for the red component when randomly choosing
@@ -281,7 +281,7 @@ namespace KDParticleEngine
         /// Adds the given <paramref name="texture"/> to the engine.
         /// </summary>
         /// <param name="texture">The texture to add.</param>
-        public void AddTexture(Texture texture)
+        public void AddTexture(ITexture texture)
         {
             _textures.Add(texture);
             GenerateAllParticles();
@@ -292,7 +292,7 @@ namespace KDParticleEngine
         /// Adds the given <paramref name="textures"/> to the engine.
         /// </summary>
         /// <param name="textures">The list of textures to add.</param>
-        public void AddTextures(Texture[] textures)
+        public void AddTextures(ITexture[] textures)
         {
             _textures.AddRange(textures);
             GenerateAllParticles();
@@ -311,13 +311,13 @@ namespace KDParticleEngine
         /// <summary>
         /// Updates all of the <see cref="Particle"/>s.
         /// </summary>
-        /// <param name="engineTime">The amount of time that has passed in the <see cref="Engine"/> since the last frame.</param>
-        public void Update(EngineTime engineTime)
+        /// <param name="timeElapsed">The amount of time that has passed in the <see cref="Engine"/> since the last frame.</param>
+        public void Update(TimeSpan timeElapsed)
         {
             if (!Enabled)
                 return;
 
-            _spawnRateElapsed += engineTime.ElapsedEngineTime.Milliseconds;
+            _spawnRateElapsed += (int)timeElapsed.TotalMilliseconds;
 
             //If the amount of time to spawn a new particle has passed
             if (_spawnRateElapsed >= _spawnRate)
@@ -335,7 +335,7 @@ namespace KDParticleEngine
                     continue;
 
                 //Update the current particle
-                _particles[i].Update(engineTime);
+                _particles[i].Update(timeElapsed);
 
                 //If the current particle's time to live has expired, kill the particle
                 if (_particles[i].LifeTime <= 0)
@@ -345,22 +345,6 @@ namespace KDParticleEngine
                     //Invoke the engine updated event
                     LivingParticlesCountChanged?.Invoke(this, new EventArgs());
                 }
-            }
-        }
-
-
-        /// <summary>
-        /// Renders all of the <see cref="Particle"/>s.
-        /// </summary>
-        /// <param name="renderer">Renders the <see cref="Particle"/>s to the screen.</param>
-        public void Render(Renderer renderer)
-        {
-            if (!Enabled)
-                return;
-
-            foreach (var particle in _particles)
-            {
-                particle.Render(renderer);
             }
         }
         #endregion
@@ -428,7 +412,7 @@ namespace KDParticleEngine
         /// range settings.
         /// </summary>
         /// <returns></returns>
-        private Particle GenerateParticle()
+        private Particle<ITexture> GenerateParticle()
         {
             var texture = GetRandomTexture();
 
@@ -446,7 +430,7 @@ namespace KDParticleEngine
 
             var lifeTime = GetRandomLifeTime();
 
-            return new Particle(texture, position, velocity, angle, angularVelocity, color, size, lifeTime);
+            return new Particle<ITexture>(texture, position, velocity, angle, angularVelocity, color, size, lifeTime);
         }
 
 
@@ -454,7 +438,7 @@ namespace KDParticleEngine
         /// Returns a randomly chosen <see cref="Texture"/> out of the total list of textures to use for a spawned <see cref="Particle"/>.
         /// </summary>
         /// <returns></returns>
-        private Texture GetRandomTexture()
+        private ITexture GetRandomTexture()
         {
             var result = Randomizer.GetValue(0, _textures.Count);
 
@@ -467,12 +451,12 @@ namespace KDParticleEngine
         /// Returns a random <see cref="Particle.Velocity"/> for a spawned <see cref="Particle"/>.
         /// </summary>
         /// <returns></returns>
-        private Vector GetRandomVelocity()
+        private PointF GetRandomVelocity()
         {
             var velXRandomResult = Randomizer.GetValue(VelocityXMin, VelocityXMax);
             var velYRandomResult = Randomizer.GetValue(VelocityYMin, VelocityYMax);
 
-            return new Vector(velXRandomResult,
+            return new PointF(velXRandomResult,
                               velYRandomResult);
         }
 
@@ -481,12 +465,7 @@ namespace KDParticleEngine
         /// Returns a random <see cref="Particle.Angle"/> for a spawned <see cref="Particle"/>.
         /// </summary>
         /// <returns></returns>
-        private float GetRandomAngle()
-        {
-            var result = Randomizer.GetValue(AngleMin, AngleMax);
-
-            return Randomizer.GetValue(AngleMin, AngleMax);
-        }
+        private float GetRandomAngle() => Randomizer.GetValue(AngleMin, AngleMax);
 
 
         /// <summary>
@@ -503,11 +482,11 @@ namespace KDParticleEngine
         /// Returns a random <see cref="Particle.TintColor"/> for a spawned <see cref="Particle"/>.
         /// </summary>
         /// <returns></returns>
-        private GameColor GetRandomColor()
+        private Color GetRandomColor()
         {
             if (UseColorsFromList)
             {
-                return TintColors == null || TintColors.Length == 0 ? new GameColor(255, 255, 255, 255) : TintColors[Randomizer.GetValue(0, TintColors.Length)];
+                return TintColors == null || TintColors.Length == 0 ? Color.FromArgb(255, 255, 255, 255) : TintColors[Randomizer.GetValue(0, TintColors.Length)];
             }
             else
             {
@@ -521,7 +500,7 @@ namespace KDParticleEngine
                     (byte)Randomizer.GetValue(BlueMin, BlueMax) :
                     (byte)Randomizer.GetValue(BlueMax, BlueMin);
 
-                return new GameColor(255, red, green, blue);
+                return Color.FromArgb(255, red, green, blue);
             }
         }
 
@@ -547,7 +526,6 @@ namespace KDParticleEngine
             if (LifeTimeMin <= LifeTimeMax)
                 return Randomizer.GetValue(LifeTimeMin, LifeTimeMax);
 
-            var myResult = Randomizer.GetValue(LifeTimeMin, LifeTimeMax);
 
             return Randomizer.GetValue(LifeTimeMax, LifeTimeMin);
         }
@@ -592,7 +570,7 @@ namespace KDParticleEngine
             TotalParticlesAliveAtOnce = setupData.TotalParticlesAliveAtOnce;
 
             UseColorsFromList = setupData.UseColorsFromList;
-            TintColors = setupData.Colors.ToGameColors();
+            TintColors = setupData.Colors;
         }
 
 
@@ -626,7 +604,7 @@ namespace KDParticleEngine
                 SpawnRateMin = SpawnRateMin,
                 SpawnRateMax = SpawnRateMax,
                 UseColorsFromList = UseColorsFromList,
-                Colors = TintColors.ToParticleColors()
+                Colors = TintColors
             };
         }
         #endregion

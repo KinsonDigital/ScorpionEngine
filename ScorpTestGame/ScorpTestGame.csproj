@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Scenes\Level1.cs" />
     <Compile Include="PlayerShip.cs" />
     <Compile Include="Program.cs" />

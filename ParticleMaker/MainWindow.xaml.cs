@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using WinMsgBox = System.Windows.MessageBox;
 using CoreVector = KDScorpionCore.Vector;
+using System.Drawing;
 
 namespace ParticleMaker
 {
@@ -131,7 +132,7 @@ namespace ParticleMaker
         private void RenderSurface_MouseMove(object sender, MouseEventArgs e)
         {
             if (_isMouseDown)
-                _mainViewModel.SpawnLocation = new CoreVector(e.X, e.Y);
+                _mainViewModel.SpawnLocation = new PointF(e.X, e.Y);
         }
         #endregion
     }

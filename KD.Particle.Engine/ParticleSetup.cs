@@ -1,4 +1,6 @@
-﻿namespace KDParticleEngine
+﻿using System.Drawing;
+
+namespace KDParticleEngine
 {
     /// <summary>
     /// Holds the particle setup settings data for the <see cref="ParticleEngine"/> to consume.
@@ -119,11 +121,11 @@
         /// <summary>
         /// Gets or sets the list of colors to randomly choose from.
         /// </summary>
-        public ParticleColor[] Colors { get; set; } = new ParticleColor[]
+        public Color[] Colors { get; set; } = new Color[]
         {
-            new ParticleColor() { Alpha = 255, Red = 255, Green = 0, Blue = 0 },
-            new ParticleColor() { Alpha = 255, Red = 0, Green = 255, Blue = 0 },
-            new ParticleColor() { Alpha = 255, Red = 0, Green = 0, Blue = 255 }
+            Color.FromArgb(255, 255, 0, 0 ),
+            Color.FromArgb(255, 0, 255, 0 ),
+            Color.FromArgb(255, 0, 0, 255 )
         };
         #endregion
     }

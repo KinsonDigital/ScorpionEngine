@@ -1,7 +1,6 @@
-﻿using KDScorpionCore.Graphics;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
 
 namespace KDParticleEngine
 {
@@ -42,63 +41,12 @@ namespace KDParticleEngine
 
 
         /// <summary>
-        /// Converts this <see cref="ParticleColor"/> to a <see cref="GameColor"/>.
+        /// Adds the given <paramref name="point"/>'s X and Y components to this point and returns the result.
         /// </summary>
-        /// <param name="color">The color to convert.</param>
+        /// <param name="otherPoint">The current point to add the given point to.</param>
+        /// <param name="point">The point to add to this point.</param>
         /// <returns></returns>
-        public static GameColor ToGameColor(this ParticleColor color)
-        {
-            return new GameColor(color.Alpha, color.Red, color.Green, color.Blue);
-        }
-
-
-        /// <summary>
-        /// Converts all of the given <see cref="ParticleColor"/>s to <see cref="GameColor"/>s.
-        /// </summary>
-        /// <param name="colors">The list of colors to convert.</param>
-        /// <returns></returns>
-        public static GameColor[] ToGameColors(this ParticleColor[] colors)
-        {
-            var result = new List<GameColor>();
-
-            foreach (var clr in colors)
-            {
-                result.Add(clr.ToGameColor());
-            }
-
-
-            return result.ToArray();
-        }
-
-
-        /// <summary>
-        /// Converts this <see cref="ParticleColor"/> to a <see cref="GameColor"/>.
-        /// </summary>
-        /// <param name="color">The color to convert.</param>
-        /// <returns></returns>
-        public static ParticleColor ToParticleColor(this GameColor color)
-        {
-            return new ParticleColor(color.Alpha, color.Red, color.Green, color.Blue);
-        }
-
-
-        /// <summary>
-        /// Converts all of the given <see cref="ParticleColor"/>s to <see cref="GameColor"/>s.
-        /// </summary>
-        /// <param name="colors">The list of colors to convert.</param>
-        /// <returns></returns>
-        public static ParticleColor[] ToParticleColors(this GameColor[] colors)
-        {
-            var result = new List<ParticleColor>();
-
-            foreach (var clr in colors)
-            {
-                result.Add(clr.ToParticleColor());
-            }
-
-
-            return result.ToArray();
-        }
+        public static PointF Add(this PointF otherPoint, PointF point) => new PointF(otherPoint.X + point.X, otherPoint.Y + point.Y);
         #endregion
     }
 }
