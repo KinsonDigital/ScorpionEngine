@@ -19,6 +19,7 @@ using NETColor = System.Drawing.Color;
 using WPFMsgBox = System.Windows.MessageBox;
 using CoreVector = KDScorpionCore.Vector;
 using FolderDialogResult = System.Windows.Forms.DialogResult;
+using System.Drawing;
 
 namespace ParticleMaker.ViewModels
 {
@@ -94,7 +95,7 @@ namespace ParticleMaker.ViewModels
         /// <summary>
         /// Gets or sets the spawn location of the particles on the rendering surface.
         /// </summary>
-        public CoreVector SpawnLocation
+        public PointF SpawnLocation
         {
             get => _graphicsEngine.ParticleEngine.SpawnLocation;
             set => _graphicsEngine.ParticleEngine.SpawnLocation = value;
@@ -818,7 +819,7 @@ namespace ParticleMaker.ViewModels
 
                             _graphicsEngine.RenderSurfaceHandle = RenderSurface.Handle;
                             _graphicsEngine.ParticleEngine.LivingParticlesCountChanged += _particleEngine_LivingParticlesCountChanged;
-                            _graphicsEngine.ParticleEngine.SpawnLocation = new CoreVector(200, 200);
+                            _graphicsEngine.ParticleEngine.SpawnLocation = new PointF(200, 200);
 
                             //NOTE: This line of code will not continue execution until the Monogame framework
                             //has stopped running

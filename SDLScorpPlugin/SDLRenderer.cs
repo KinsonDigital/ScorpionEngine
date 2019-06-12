@@ -61,7 +61,7 @@ namespace SDLScorpPlugin
         /// <param name="texture">The texture to render.</param>
         /// <param name="x">The X coordinate location on the screen to render.</param>
         /// <param name="y">The Y coordinate location on the screen to render.</param>
-        public void Render(ITexture texture, float x, float y) => Render(texture, x, y, 0f, 0f, new byte[] { 255, 255, 255, 255 });
+        public void Render(ITexture texture, float x, float y) => Render(texture, x, y, 0f, 1f, new byte[] { 255, 255, 255, 255 });
 
 
         /// <summary>
@@ -116,10 +116,10 @@ namespace SDLScorpPlugin
 
             var texturePtr = texture.GetData<PointerContainer>(1).UnpackPointer();
 
-            var red = (byte)255;// color.Length >= 1 ? color[0] : (byte)255;
-            var green = (byte)0;// color.Length >= 2 ? color[1] : (byte)255;
-            var blue = (byte)0;//color.Length >= 3 ? color[2] : (byte)255;
-            var alpha = (byte)255;// color.Length >= 4 ? color[3] : (byte)255;
+            var red = color.Length >= 1 ? color[0] : (byte)255;
+            var green = color.Length >= 2 ? color[1] : (byte)255;
+            var blue = color.Length >= 3 ? color[2] : (byte)255;
+            var alpha = color.Length >= 4 ? color[3] : (byte)255;
 
             SDL.SDL_SetTextureBlendMode(texturePtr, SDL.SDL_BlendMode.SDL_BLENDMODE_BLEND);
             SDL.SDL_SetTextureColorMod(texturePtr, red, green, blue);

@@ -76,11 +76,5 @@
       <Visible>False</Visible>
     </AdditionalFiles>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\KD.Scorpion.Core\KD.Scorpion.Core.csproj">
-      <Project>{3e136a13-190c-4390-9e74-8849022852f6}</Project>
-      <Name>KD.Scorpion.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

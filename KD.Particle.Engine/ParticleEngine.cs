@@ -1,6 +1,4 @@
 ﻿using KDParticleEngine.Services;
-using KDScorpionCore;
-using KDScorpionCore.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -78,7 +76,7 @@ namespace KDParticleEngine
         /// <summary>
         /// Gets or sets the location on the screen of where to spawn the <see cref="Particle"/>s.
         /// </summary>
-        public Vector SpawnLocation { get; set; }
+        public PointF SpawnLocation { get; set; }
 
         /// <summary>
         /// Gets or sets the total number of <see cref="Particle"/>s that can be alive at once.
@@ -184,7 +182,7 @@ namespace KDParticleEngine
         /// when the <see cref="UseRandomVelocity"/> property is set to false.
         /// <seealso cref="UseRandomVelocity"/>
         /// </summary>
-        public Vector ParticleVelocity { get; set; } = new Vector(0, 1);
+        public PointF ParticleVelocity { get; set; } = new PointF(0, 1);
 
         /// <summary>
         /// Gets or sets a value indicating if the <see cref="ParticleEngine"/> will
@@ -453,12 +451,12 @@ namespace KDParticleEngine
         /// Returns a random <see cref="Particle.Velocity"/> for a spawned <see cref="Particle"/>.
         /// </summary>
         /// <returns></returns>
-        private Vector GetRandomVelocity()
+        private PointF GetRandomVelocity()
         {
             var velXRandomResult = Randomizer.GetValue(VelocityXMin, VelocityXMax);
             var velYRandomResult = Randomizer.GetValue(VelocityYMin, VelocityYMax);
 
-            return new Vector(velXRandomResult,
+            return new PointF(velXRandomResult,
                               velYRandomResult);
         }
 

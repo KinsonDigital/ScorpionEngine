@@ -5,6 +5,7 @@ using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
 using KDScorpionEngine.Input;
 using KDScorpionEngine.Scene;
+using System.Drawing;
 
 namespace ScorpTestGame.Scenes
 {
@@ -33,7 +34,7 @@ namespace ScorpTestGame.Scenes
 
             _particleEngine = new ParticleEngine<Texture>(new RandomizerService())
             {
-                SpawnLocation = new Vector(400, 400),
+                SpawnLocation = new PointF(400, 400),
                 UseRandomVelocity = true,
                 TotalParticlesAliveAtOnce = 60,
                 UseColorsFromList = false,
@@ -76,7 +77,7 @@ namespace ScorpTestGame.Scenes
 
             _particleEngine.Update(engineTime.ToTimeSpan());
 
-            _particleEngine.SpawnLocation = new Vector(_mouse.X, _mouse.Y);
+            _particleEngine.SpawnLocation = new PointF(_mouse.X, _mouse.Y);
 
             _mouse.UpdatePreviousState();
 
@@ -88,7 +89,7 @@ namespace ScorpTestGame.Scenes
         {
             foreach (var particle in _particleEngine.Particles)
             {
-                renderer.Render(particle.Texture, particle.Position);
+                renderer.Render(particle.Texture, particle.Position.ToVector());
             }
 
             base.Render(renderer);

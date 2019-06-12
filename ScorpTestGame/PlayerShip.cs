@@ -52,7 +52,7 @@ namespace ScorpTestGame
         {
             DebugDrawEnabled = true;
             AngularDeceleration = 100f;
-            Position = new Vector(500, 300);
+            Position = new Vector(300, 250);
 
             //Ship vertices
             Vertices = new Vector[3]
@@ -63,11 +63,11 @@ namespace ScorpTestGame
             };
 
             _particleEngine = new ParticleEngine<Texture>(new RandomizerService())
-            { 
-                SpawnLocation = _thrusterPosition,
+            {
+                SpawnLocation = _thrusterPosition.ToPointF(),
                 UseRandomVelocity = true,
                 TotalParticlesAliveAtOnce = 40,
-                UseColorsFromList = false,
+                UseColorsFromList = true,
                 TintColors = _orangeColors.ToNETColors(),
                 RedMin = 255,
                 RedMax = 255,
@@ -89,7 +89,7 @@ namespace ScorpTestGame
                 RotateCCWKey = KeyCodes.Left,
                 Enabled = true
             };
-            
+
             Behaviors.Add(_movementBehavior);
         }
         #endregion
@@ -155,7 +155,7 @@ namespace ScorpTestGame
             _particleEngine.VelocityYMin = rotatedParticleMin.Y;
             _particleEngine.VelocityYMax = rotatedParticleMax.Y;
 
-            _particleEngine.SpawnLocation = new Vector(200, 200);// _thrusterPosition;
+            _particleEngine.SpawnLocation = _thrusterPosition.ToPointF();
 
             _particleEngine.Enabled = _movementBehavior.IsMovingForward;
 
@@ -175,12 +175,10 @@ namespace ScorpTestGame
             {
                 foreach (var particle in _particleEngine.Particles)
                 {
-                    renderer.Render(particle.Texture, _particleEngine.SpawnLocation);
+                    renderer.RennderParticle(particle);
                 }
             }
 
-            renderer.FillRect(new Rect(100, 100, 20, 20), new GameColor(255, 255, 255, 255));
-            renderer.FillRect(new Rect(110, 110, 1, 1), new GameColor(255, 0, 0, 0));
 
             base.Render(renderer);
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
 
 namespace KDParticleEngine
 {
@@ -37,6 +38,15 @@ namespace KDParticleEngine
         {
             return random.NextDouble() <= 0.5f;
         }
+
+
+        /// <summary>
+        /// Adds the given <paramref name="point"/>'s X and Y components to this point and returns the result.
+        /// </summary>
+        /// <param name="otherPoint">The current point to add the given point to.</param>
+        /// <param name="point">The point to add to this point.</param>
+        /// <returns></returns>
+        public static PointF Add(this PointF otherPoint, PointF point) => new PointF(otherPoint.X + point.X, otherPoint.Y + point.Y);
         #endregion
     }
 }
