@@ -92,7 +92,7 @@ namespace ParticleMaker
                 }
             }, _dockRenderWindowTokenSrc.Token);
 
-            _mainViewModel.RenderSurfacePointer = _renderSurface.WindowHandle;
+            _mainViewModel.RenderSurfaceHandle = _renderSurface.WindowHandle;
 
             _mainViewModel.UIDispatcher = Dispatcher;
 

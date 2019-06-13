@@ -122,48 +122,13 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public Control RenderSurface { get; set; }
 
-        public IntPtr RenderSurfacePointer { get; set; }
+        public IntPtr RenderSurfaceHandle { get; set; }
 
         /// <summary>
         /// Gets or sets the dispatcher of the UI thread.
         /// </summary>
         public Dispatcher UIDispatcher { get; set; }
 
-        /// <summary>
-        /// Gets or sets the width of the render surface.
-        /// </summary>
-        public int RenderSurfaceWidth
-        {
-            get => _graphicsEngine.Width.WidthToPoints();
-            set
-            {
-                _graphicsEngine.Pause();
-
-                _graphicsEngine.Width = value.WidthToPixels();
-
-                _graphicsEngine.Play();
-
-                NotifyPropChange();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the height of the render surface.
-        /// </summary>
-        public int RenderSurfaceHeight
-        {
-            get => _graphicsEngine.Height.HeightToPoints();
-            set
-            {
-                _graphicsEngine.Pause();
-
-                _graphicsEngine.Height = value.HeightToPixels();
-
-                _graphicsEngine.Play();
-
-                NotifyPropChange();
-            }
-        }
 
         /// <summary>
         /// Gets or sets the total number of particles that can be alive at any time.
@@ -799,11 +764,10 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public void StartEngine()
         {
-            _graphicsEngine.SetRenderSurface(RenderSurfacePointer);
             _graphicsEngine.ParticleEngine.LivingParticlesCountChanged += _particleEngine_LivingParticlesCountChanged;
             _graphicsEngine.ParticleEngine.SpawnLocation = new PointF(200, 200);
 
-            _graphicsEngine.Start();
+            _graphicsEngine.Start(RenderSurfaceHandle);
         }
 
 

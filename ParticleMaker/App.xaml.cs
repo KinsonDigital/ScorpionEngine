@@ -35,6 +35,7 @@ namespace ParticleMaker
             DIContainer.Register<ProjectIOService>();
             DIContainer.Register<IRandomizerService, RandomizerService>();
             DIContainer.Register<ParticleEngine<ParticleTexture>>();
+            DIContainer.Register<IRenderer, SDLRenderer>();
             DIContainer.Register<GraphicsEngine>();
 
             DIContainer.Register<ProjectSettingsManager>();
