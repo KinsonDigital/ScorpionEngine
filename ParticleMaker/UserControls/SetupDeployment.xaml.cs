@@ -176,9 +176,12 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void RefreshAction()
         {
-            while(!_refreshTokenSrc.IsCancellationRequested)
+            while (!_refreshTokenSrc.IsCancellationRequested)
             {
                 _refreshTokenSrc.Token.WaitHandle.WaitOne(2000);
+
+                if (App.IsShuttingDown)
+                    _refreshTokenSrc.Cancel();
 
                 Refresh();
             }

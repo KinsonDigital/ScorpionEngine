@@ -193,6 +193,10 @@ namespace ParticleMaker
         {
             SDL.SDL_DestroyRenderer(_renderPtr);
             SDL.SDL_DestroyWindow(_sdlWindowPtr);
+            _renderPtr = IntPtr.Zero;
+            _sdlWindowPtr = IntPtr.Zero;
+
+            SDL_image.IMG_Quit();
             SDL.SDL_Quit();
         }
         #endregion

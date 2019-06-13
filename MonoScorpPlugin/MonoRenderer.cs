@@ -241,6 +241,12 @@ namespace MonoScorpPlugin
         /// </summary>
         /// <param name="pointer"></param>
         public T GetData<T>(int option) where T : class => throw new NotImplementedException();
+
+
+        /// <summary>
+        /// Propertly disposes of the <see cref="SpriteBatch"/>.
+        /// </summary>
+        public void Dispose() => _spriteBatch.Dispose();
         #endregion
     }
 }

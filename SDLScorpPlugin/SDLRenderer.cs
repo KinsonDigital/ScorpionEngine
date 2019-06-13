@@ -354,6 +354,12 @@ namespace SDLScorpPlugin
 
             return ptrContainer as T;
         }
+
+
+        /// <summary>
+        /// Properly destroys the SDL renderer.
+        /// </summary>
+        public void Dispose() => SDL.SDL_DestroyRenderer(_rendererPtr);
         #endregion
     }
 }

@@ -1,11 +1,12 @@
 ﻿using KDScorpionCore.Graphics;
+using System;
 
 namespace KDScorpionCore.Plugins
 {
     /// <summary>
     /// Provides methods for rendering textures, text and primitives to the screen.
     /// </summary>
-    public interface IRenderer : IPlugin
+    public interface IRenderer : IPlugin, IDisposable
     {
         #region Methods
         /// <summary>
