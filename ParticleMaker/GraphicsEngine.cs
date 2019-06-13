@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ParticleMaker
 {
-    public class GraphicsEngine
+    public class GraphicsEngine : IDisposable
     {
         #region Fields
         private Stopwatch _timer;
@@ -93,13 +93,8 @@ namespace ParticleMaker
         /// </summary>
         public void Stop()
         {
-            _timer?.Stop();
             _isRunning = false;
-            _tokenSrc?.Cancel();
-            _tokenSrc?.Dispose();
-            _loopTask?.Dispose();
-            _tokenSrc = null;
-            _loopTask = null;
+            _renderer.ShutDown();
         }
 
 
@@ -133,6 +128,22 @@ namespace ParticleMaker
             {
                 ParticleEngine.AddTexture(_renderer.LoadTexture(path));
             }
+        }
+
+
+        /// <summary>
+        /// Frees renderer resources and shuts down the engine.
+        /// </summary>
+        public void Dispose()
+        {
+            _timer?.Stop();
+            _tokenSrc?.Cancel();
+            _tokenSrc?.Dispose();
+            _loopTask?.Dispose();
+            _tokenSrc = null;
+            _loopTask = null;
+
+            _renderer.Dispose();
         }
         #endregion
 
