@@ -1409,6 +1409,16 @@ namespace ParticleMaker.ViewModels
 
                 _particleManager.DeleteParticle(CurrentOpenProject, CurrentLoadedSetup, eventArgs.Name);
 
+                //Find and remove the particle from the particle engine
+                for (int i = 0; i < _graphicsEngine.ParticleEngine.Count; i++)
+                {
+                    if (_graphicsEngine.ParticleEngine[i].Name == eventArgs.Name)
+                    {
+                        _graphicsEngine.ParticleEngine.Remove(_graphicsEngine.ParticleEngine[i]);
+                        break;
+                    }
+                }
+
                 UpdateParticleList();
 
                 _graphicsEngine.Play();

@@ -109,7 +109,10 @@ namespace ParticleMaker
                 //Get rid of old loaded surface
                 SDL.SDL_FreeSurface(loadedSurface);
 
-                return new ParticleTexture(texturePtr, width, height);
+                return new ParticleTexture(texturePtr, width, height)
+                {
+                    Name = Path.GetFileNameWithoutExtension(path)
+                };
             }
         }
 
