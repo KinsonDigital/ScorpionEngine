@@ -106,7 +106,7 @@ namespace ScorpTestGame
         {
             Texture = contentLoader.LoadTexture(@"Ship");
 
-            _particleEngine.AddTexture(contentLoader.LoadTexture(@"Particles\Triangle"));
+            _particleEngine.Add(contentLoader.LoadTexture(@"Particles\Triangle"));
 
             base.LoadContent(contentLoader);
         }

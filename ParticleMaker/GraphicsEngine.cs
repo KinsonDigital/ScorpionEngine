@@ -126,7 +126,7 @@ namespace ParticleMaker
         {
             foreach (var path in TexturePaths)
             {
-                ParticleEngine.AddTexture(_renderer.LoadTexture(path));
+                ParticleEngine.Add(_renderer.LoadTexture(path), (texture) => ParticleEngine.Any(p => p.Name == texture.Name));
             }
         }
 
@@ -161,6 +161,9 @@ namespace ParticleMaker
         /// </summary>
         private void Render()
         {
+            if (ParticleEngine.Particles.Length <= 0)
+                return;
+
             _renderer.Begin();
 
             foreach (var particle in ParticleEngine.Particles)

@@ -762,7 +762,7 @@ namespace ParticleMaker.Tests.ViewModels
             var setupDeployService = new SetupDeployService(mockDirService.Object, mockFileService.Object);
 
             particleEngine.Randomizer = mockRandomizer.Object;
-            particleEngine.AddTexture(new ParticleTexture(IntPtr.Zero, 0, 0));
+            particleEngine.Add(new ParticleTexture(IntPtr.Zero, 0, 0));
             particleEngine.TotalParticlesAliveAtOnce = 4;
             particleEngine.Update(new TimeSpan(0, 0, 0, 0, 11));
 

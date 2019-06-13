@@ -1,5 +1,6 @@
 ﻿using KDParticleEngine.Services;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace KDParticleEngine
     /// Manages multiple <see cref="Particle"/>s with various settings that dictate
     /// how all of the <see cref="Particle"/>s behave and look on the screen.
     /// </summary>
-    public class ParticleEngine<ITexture> where ITexture : class
+    public class ParticleEngine<ITexture> : IList<ITexture> where ITexture : class
     {
         #region Public Events
         public event EventHandler<EventArgs> LivingParticlesCountChanged;
@@ -44,6 +45,17 @@ namespace KDParticleEngine
 
 
         #region Props
+        /// <summary>
+        /// Get and set a texture by its index.
+        /// </summary>
+        /// <param name="i">The index value of the item to get or set.</param>
+        /// <returns></returns>
+        public ITexture this[int i]
+        {
+            get => _textures[i];
+            set => _textures[i] = value;
+        }
+
         //TODO: Add code docs
         public Particle<ITexture>[] Particles => _particles.ToArray();
 
@@ -273,16 +285,59 @@ namespace KDParticleEngine
         /// spawning new <see cref="Particle"/>.
         /// </summary>
         public float VelocityYMax { get; set; } = 1f;
+
+        /// <summary>
+        /// Returns a value indicating if the list of <see cref="ParticleEngine{ITexture}"/>
+        /// <see cref="ITexture"/>s is readonly.
+        /// </summary>
+        public bool IsReadOnly => false;
+
+        /// <summary>
+        /// Returns a value indicating if the list of <see cref="ParticleEngine{ITexture}"/>
+        /// <see cref="ITexture"/>s has a fixed size.
+        /// </summary>
+        public bool IsFixedSize => false;
+
+        /// <summary>
+        /// Returns the total number of <see cref="ParticleEngine{ITexture}"/> <see cref="ITexture"/>s.
+        /// </summary>
+        public int Count => _textures.Count;
+
+        /// <summary>
+        /// Gets or sets the syncronization object for multi-threaded operations.
+        /// </summary>
+        public object SyncRoot { get; set; }
+
+        /// <summary>
+        /// Returns a value indicating if the list of <see cref="ITexture"/>s is syncrhonized
+        /// for multi-threaded operations.
+        /// </summary>
+        public bool IsSynchronized => false;
         #endregion
 
 
         #region Public Methods
         /// <summary>
-        /// Adds the given <paramref name="texture"/> to the engine.
+        /// Adds the given texture to the <see cref="ParticleEngine{ITexture}"/>.
         /// </summary>
         /// <param name="texture">The texture to add.</param>
-        public void AddTexture(ITexture texture)
+        public void Add(ITexture texture)
         {
+            _textures.Add(texture);
+            GenerateAllParticles();
+        }
+
+
+        /// <summary>
+        /// Adds the given texture to the <see cref="ParticleEngine{ITexture}"/>.
+        /// </summary>
+        /// <param name="texture">The texture to add.</param>
+        /// <param name="predicate">Returns true or false depending if the given texture already exists in the <see cref="ParticleEngine{ITexture}"/>.</param>
+        public void Add(ITexture texture, Predicate<ITexture> predicate)
+        {
+            if (predicate(texture))
+                return;
+
             _textures.Add(texture);
             GenerateAllParticles();
         }
@@ -300,12 +355,80 @@ namespace KDParticleEngine
 
 
         /// <summary>
-        /// Clears all of the textures.
+        /// Returns a value indicating if the given <paramref name="texture"/> is in the particle engine.
         /// </summary>
-        public void ClearTextures()
+        /// <param name="texture">The texture to check for.</param>
+        /// <returns></returns>
+        public bool Contains(ITexture texture) => _textures.Contains(texture);
+
+
+        /// <summary>
+        /// Clears all of the <see cref="ITexture"/>s from the <see cref="ParticleEngine{ITexture}"/>.
+        /// </summary>
+        public void Clear() => _textures.Clear();
+
+
+        /// <summary>
+        /// Returns the index location of the given <paramref name="texture"/>.
+        /// </summary>
+        /// <param name="texture">The texture to get the index of.</param>
+        /// <returns></returns>
+        public int IndexOf(ITexture texture) => _textures.IndexOf(texture);
+
+
+        /// <summary>
+        /// Inserts the given <paramref name="texture"/> at the given <paramref name="index"/>
+        /// in the list of <see cref="ITexture"/>s in the <see cref="ParticleEngine{ITexture}"/>.
+        /// </summary>
+        /// <param name="index">The index location to insert the <see cref="ITexture"/> at.</param>
+        /// <param name="texture">The texture to insert.</param>
+        public void Insert(int index, ITexture texture) => _textures.Insert(index, texture);
+
+
+        /// <summary>
+        /// Removes the given <paramref name="texture"/> from the <see cref="ParticleEngine{ITexture}"/>.
+        /// Returns true if the <paramref name="texture"/> was successfully removed.
+        /// </summary>
+        /// <param name="texture">The texture to remove.</param>
+        /// <returns></returns>
+        public bool Remove(ITexture texture)
         {
-            _textures.Clear();
+            var totalBeforeRemoval = _textures.Count;
+            _textures.Remove(texture);
+
+
+            return _textures.Count < totalBeforeRemoval;
         }
+
+
+        /// <summary>
+        /// Removes a texture located at the given <paramref name="index"/>.
+        /// </summary>
+        /// <param name="index">The index of the texture to remove.</param>
+        public void RemoveAt(int index) => _textures.RemoveAt(index);
+
+
+        /// <summary>
+        /// Copies the all of the <see cref="ParticleEngine{ITexture}"/> <see cref="ITexture"/>s
+        /// to the given <paramref name="array"/> starting at the index in the given <paramref name="array"/>.
+        /// </summary>
+        /// <param name="array">The array to copy the <see cref="ITexture"/>s to.</param>
+        /// <param name="index">The starting index of the target array to start the copy process at.</param>
+        public void CopyTo(ITexture[] array, int index) => _textures.CopyTo(array, index);
+
+
+        /// <summary>
+        /// Returns the enumerator of the list of <see cref="ParticleEngine{ITexture}"/> textures.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator<ITexture> GetEnumerator() => _textures.GetEnumerator();
+
+
+        /// <summary>
+        /// Returns the enumerator of the list of <see cref="ParticleEngine{ITexture}"/> textures.
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator IEnumerable.GetEnumerator() => _textures.GetEnumerator();
 
 
         /// <summary>
