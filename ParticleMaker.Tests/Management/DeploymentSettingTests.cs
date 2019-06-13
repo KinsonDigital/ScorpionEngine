@@ -101,7 +101,7 @@ namespace ParticleMaker.Tests.Management
                 DeployPath = @"C:\deploy-location"
             };
 
-            var expected = 1528961070;
+            var expected = -1555220724;
 
             //Act
             var actual = setting.GetHashCode();

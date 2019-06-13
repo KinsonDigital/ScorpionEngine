@@ -1,27 +1,25 @@
 ﻿using KDParticleEngine;
-using KDScorpionCore.Graphics;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ParticleMaker.CustomEventArgs;
-using ParticleMaker.Services;
 using System;
-using System.Diagnostics.CodeAnalysis;
-using CoreTexture = KDScorpionCore.Graphics.Texture;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ParticleMaker
 {
-    /// <summary>
-    /// Drives the graphics of the particles being rendered to the screen.
-    /// </summary>
     public class GraphicsEngine
     {
         #region Fields
-        private readonly IFileService _fileService;
-        private readonly IGraphicsEngineFactory _factory;
-        private readonly ICoreEngine _coreEngine;
-        private SpriteBatch _spriteBatch;
-        private Renderer _renderer;
-        private bool _shuttingDown = false;
+        private Stopwatch _timer;
+        private Task _loopTask;
+        private CancellationTokenSource _tokenSrc;
+        private TimeSpan _lastFrameTime;
+        private bool _isRunning;
+        private bool _isPaused;
+        private static float _targetFrameRate = 1000f / 60f;
+        private Queue<float> _frameTimes = new Queue<float>();
+        private IRenderer _renderer;
         #endregion
 
 
@@ -29,25 +27,11 @@ namespace ParticleMaker
         /// <summary>
         /// Creates a new instance of <see cref="GraphicsEngine"/>.
         /// </summary>
-        /// <param name="factory">The factory used to get <see cref="GraphicsEngine"/> dependencies and services.</param>
-        /// <param name="particleEngine">The particle engine that manages the particles behaviors.</param>
-        /// <param name="fileService">The file service used to manage particle texture files.</param>
-        public GraphicsEngine(IGraphicsEngineFactory factory, ParticleEngine<ParticleTexture> particleEngine, IFileService fileService)
+        /// <param name="renderer">The renderer used to render textures to the screen.</param>
+        /// <param name="particleEngine">The particle engine that manages the particles.</param>
+        public GraphicsEngine(IRenderer renderer, ParticleEngine<ParticleTexture> particleEngine)
         {
-            _fileService = fileService;
-
-            _factory = factory;
-            
-            _coreEngine = _factory.CoreEngine;
-
-            if (_coreEngine != null)
-            {
-                _coreEngine.OnLoadContent += _coreEngine_OnLoadContent;
-                _coreEngine.OnUpdate += _coreEngine_OnUpdate;
-                _coreEngine.OnDraw += _coreEngine_OnDraw;
-                _coreEngine.OnUnLoadContent += _coreEngine_OnUnLoadContent;
-            }
-
+            _renderer = renderer;
             ParticleEngine = particleEngine;
         }
         #endregion
@@ -55,41 +39,25 @@ namespace ParticleMaker
 
         #region Props
         /// <summary>
-        /// The handle to the render sturface of where to render the particle graphics.
-        /// </summary>
-        public IntPtr RenderSurfaceHandle
-        {
-            get => _coreEngine.RenderSurfaceHandle;
-            set => _coreEngine.RenderSurfaceHandle = value;
-        }
-
-        /// <summary>
-        /// Gets or sets the particle engine managing the particles.
+        /// The particle engine that manages the particles.
         /// </summary>
         public ParticleEngine<ParticleTexture> ParticleEngine { get; set; }
 
         /// <summary>
-        /// Gets or sets the width of the render surface that the graphics are rendering to.
+        /// The current frames per second that the engine is running at.
         /// </summary>
-        public int Width
-        {
-            get => _coreEngine.RenderWidth;
-            set => _coreEngine.RenderWidth = value;
-        }
+        public static float CurrentFPS { get; private set; }
 
         /// <summary>
-        /// Gets or sets the height of the render surface that the graphics are rendering to.
+        /// The desired frames per second the engine should run at.
         /// </summary>
-        public int Height
+        public static float DesiredFPS
         {
-            get => _coreEngine.RenderHeight;
-            set => _coreEngine.RenderHeight = value;
+            get => 1000f / _targetFrameRate;
+            set => _targetFrameRate = 1000f / value;
         }
 
-        /// <summary>
-        /// Gets a value indicating if the engine is running or paused.
-        /// </summary>
-        public bool IsRunning => _coreEngine.IsRunning;
+        public static TimeStepType TimeStep { get; set; } = TimeStepType.Fixed;
 
         /// <summary>
         /// This list of paths to all of the texture to load and render.
@@ -100,108 +68,161 @@ namespace ParticleMaker
 
         #region Public Methods
         /// <summary>
-        /// Starts the <see cref="GraphicsEngine"/>.
+        /// Stars the engine.
         /// </summary>
-        public void Start()
+        /// <param name="windowHandle"></param>
+        public void Start(IntPtr windowHandle)
         {
-            //NOTE: This method will not exit until the monogame object has exited
-            if (RenderSurfaceHandle == IntPtr.Zero)
-                throw new Exception($"You must set the rendering surface handle before starting the {nameof(GraphicsEngine)}");
+            _renderer.Init(windowHandle);
 
-            _coreEngine.OriginalWindow.Hide();
-            _coreEngine.Start();
+            Initialize();
+
+            _tokenSrc = new CancellationTokenSource();
+
+            _loopTask = new Task(() =>
+            {
+                Run();
+            }, _tokenSrc.Token);
+
+            _loopTask.Start();
         }
 
 
         /// <summary>
-        /// Stops the graphics engine.
+        /// Stops the engine.
         /// </summary>
         public void Stop()
         {
-            _shuttingDown = true;
-
-            _coreEngine.Dispose();
-            _coreEngine.Stop();
+            _timer?.Stop();
+            _isRunning = false;
+            _tokenSrc?.Cancel();
+            _tokenSrc?.Dispose();
+            _loopTask?.Dispose();
+            _tokenSrc = null;
+            _loopTask = null;
         }
 
 
         /// <summary>
-        /// Unpauses the graphics engine.
+        /// Plays the engine.
         /// </summary>
-        public void Play() => _coreEngine.Play();
+        public void Play()
+        {
+            _isPaused = false;
+            Initialize();
+        }
 
 
         /// <summary>
         /// Pauses the engine.
         /// </summary>
-        public void Pause(bool clearSurface = false) => _coreEngine?.Pause(clearSurface);
+        /// <param name="clearSurface">If true, the surface will be cleared on pause.</param>
+        public void Pause(bool clearSurface = false)
+        {
+            //TODO: Add code to clear the surface before pausing
+            _isPaused = true;
+        }
+
+
+        /// <summary>
+        /// Initializes the <see cref="GraphicsEngine"/>.
+        /// </summary>
+        public virtual void Initialize()
+        {
+            foreach (var path in TexturePaths)
+            {
+                ParticleEngine.AddTexture(_renderer.LoadTexture(path));
+            }
+        }
         #endregion
 
 
-        #region Event Methods
+        #region Private Methods
         /// <summary>
-        /// Loads the content for the <see cref="GraphicsEngine"/> to render.
+        /// Updates the particle engine.
         /// </summary>
-        [ExcludeFromCodeCoverage]
-        private void _coreEngine_OnLoadContent(object sender, EventArgs e)
+        /// <param name="elapsedTime">The amount of time that passed for this frame.</param>
+        private void Update(TimeSpan elapsedTime) => ParticleEngine.Update(elapsedTime);
+
+
+        /// <summary>
+        /// Renders the particles to the screen.
+        /// </summary>
+        private void Render()
         {
-            _renderer = _factory.NewRenderer();
+            _renderer.Begin();
 
-            _spriteBatch = _factory.SpriteBatch;
-
-            foreach (var path in TexturePaths)
+            foreach (var particle in ParticleEngine.Particles)
             {
-                var texture = _fileService.Load(path, _coreEngine.GraphicsDevice);
-
-                ParticleEngine.AddTexture(texture);
+                _renderer.Render(particle);
             }
+
+            _renderer.End();
         }
 
 
-        /// <summary>
-        /// Updates the <see cref="GraphicsEngine"/>.
-        /// </summary>
-        [ExcludeFromCodeCoverage]
-        private void _coreEngine_OnUpdate(object sender, UpdateEventArgs e)
+        private void Run()
         {
-            if (_shuttingDown)
-                return;
+            _isRunning = true;
 
-            ParticleEngine.Update(e.GameTime.ElapsedGameTime);
-        }
+            _timer = new Stopwatch();
+            _timer.Start();
 
+            while (_isRunning)
+            {
+                if (_isPaused)
+                {
+                    Thread.Sleep(1000);
+                    continue;
+                }
 
-        /// <summary>
-        /// Renders the partical graphics to the screen.
-        /// </summary>
-        [ExcludeFromCodeCoverage]
-        private void _coreEngine_OnDraw(object sender, DrawEventArgs e)
-        {
-            if (_shuttingDown)
-                return;
+                if (TimeStep == TimeStepType.Fixed)
+                {
+                    if (_timer.Elapsed.TotalMilliseconds >= _targetFrameRate)
+                    {
+                        Update(_timer.Elapsed);
+                        Render();
 
-            _coreEngine.GraphicsDevice.Clear(new Color(40, 40, 40, 255));
+                        //Add the frame time to the list of previous frame times
+                        _frameTimes.Enqueue((float)_timer.Elapsed.TotalMilliseconds);
 
-            if (TexturePaths.Length <= 0)
-                return;
+                        //If the list is full, dequeue the oldest item
+                        if (_frameTimes.Count >= 100)
+                            _frameTimes.Dequeue();
 
-            _spriteBatch.Begin();
+                        //Calculate the average frames per second
+                        CurrentFPS = (float)Math.Round(1000f / _frameTimes.Average(), 2);
 
-            //TODO: To be replace with new rendering system and its dependency on ScorpionCore and ScorpionEngine removed
-            //ParticleEngine.Render(_renderer);
+                        _timer.Restart();
+                    }
+                }
+                else if (TimeStep == TimeStepType.Variable)
+                {
+                    var currentFrameTime = _timer.Elapsed;
+                    var elapsed = currentFrameTime - _lastFrameTime;
 
-            _spriteBatch.End();
-        }
+                    _lastFrameTime = currentFrameTime;
 
+                    Update(elapsed);
+                    Render();
 
-        /// <summary>
-        /// Disposes of the sprite batch when unloading content.
-        /// </summary>
-        [ExcludeFromCodeCoverage]
-        private void _coreEngine_OnUnLoadContent(object sender, EventArgs e)
-        {
-            _spriteBatch?.Dispose();
-            ParticleEngine.ClearTextures();
+                    _timer.Stop();
+
+                    //Add the frame time to the list of previous frame times
+                    _frameTimes.Enqueue((float)elapsed.TotalMilliseconds);
+
+                    //If the list is full, dequeue the oldest item
+                    if (_frameTimes.Count >= 100)
+                        _frameTimes.Dequeue();
+
+                    //Calculate the average frames per second
+                    CurrentFPS = (float)Math.Round(1000f / _frameTimes.Average(), 2);
+
+                    _timer.Start();
+                }
+            }
+
+            _renderer.ShutDown();
         }
         #endregion
     }

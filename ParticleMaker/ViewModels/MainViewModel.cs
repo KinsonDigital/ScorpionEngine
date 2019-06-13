@@ -3,11 +3,8 @@ using System.Windows.Forms;
 using System.Windows.Threading;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
-using System.Threading;
 using System.Windows;
 using System.Linq;
-using KDParticleEngine;
 using ParticleMaker.Management;
 using ParticleMaker.Dialogs;
 using ParticleMaker.UserControls;
@@ -17,7 +14,6 @@ using ParticleMaker.Exceptions;
 
 using NETColor = System.Drawing.Color;
 using WPFMsgBox = System.Windows.MessageBox;
-using CoreVector = KDScorpionCore.Vector;
 using FolderDialogResult = System.Windows.Forms.DialogResult;
 using System.Drawing;
 
@@ -30,17 +26,15 @@ namespace ParticleMaker.ViewModels
     {
         #region Private Fields
         private readonly char[] _illegalCharacters = new[] { '\\', '/', ':', '*', '?', '\"', '<', '>', '|', '.' };
-        private readonly GraphicsEngine _graphicsEngine;
+        private readonly GraphicsEngine _graphicsEngine;//TODO: Rename
         private readonly ProjectManager _projectManager;
         private readonly ProjectSettingsManager _projectSettingsManager;
         private readonly SetupManager _setupManager;
         private readonly SetupDeployService _setupDeployService;
         private readonly ParticleManager _particleManager;
-        private CancellationTokenSource _cancelTokenSrc;
-        private Task _startupTask;
+        private ProjectSettings _projectSettings;
         private RelayCommand _newProjectCommand;
         private RelayCommand _openProjectCommand;
-        private ProjectSettings _projectSettings;
         private RelayCommand _setupItemSelectedCommand;
         private RelayCommand _addSetupCommand;
         private RelayCommand _renameProjectCommand;
@@ -75,6 +69,7 @@ namespace ParticleMaker.ViewModels
             ProjectSettingsManager projectSettingsManager, SetupManager setupManager,
             SetupDeployService setupDeployService, ParticleManager particleManager)
         {
+            //_graphicsEngine = graphicsEngine;//TODO: Remove
             _graphicsEngine = graphicsEngine;
             _projectManager = projectManager;
             _projectSettingsManager = projectSettingsManager;
@@ -127,46 +122,13 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public Control RenderSurface { get; set; }
 
+        public IntPtr RenderSurfaceHandle { get; set; }
+
         /// <summary>
         /// Gets or sets the dispatcher of the UI thread.
         /// </summary>
         public Dispatcher UIDispatcher { get; set; }
 
-        /// <summary>
-        /// Gets or sets the width of the render surface.
-        /// </summary>
-        public int RenderSurfaceWidth
-        {
-            get => _graphicsEngine.Width.WidthToPoints();
-            set
-            {
-                _graphicsEngine.Pause();
-
-                _graphicsEngine.Width = value.WidthToPixels();
-
-                _graphicsEngine.Play();
-
-                NotifyPropChange();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the height of the render surface.
-        /// </summary>
-        public int RenderSurfaceHeight
-        {
-            get => _graphicsEngine.Height.HeightToPoints();
-            set
-            {
-                _graphicsEngine.Pause();
-
-                _graphicsEngine.Height = value.HeightToPixels();
-
-                _graphicsEngine.Play();
-
-                NotifyPropChange();
-            }
-        }
 
         /// <summary>
         /// Gets or sets the total number of particles that can be alive at any time.
@@ -802,62 +764,17 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public void StartEngine()
         {
-            _cancelTokenSrc = new CancellationTokenSource();
+            _graphicsEngine.ParticleEngine.LivingParticlesCountChanged += _particleEngine_LivingParticlesCountChanged;
+            _graphicsEngine.ParticleEngine.SpawnLocation = new PointF(200, 200);
 
-            _startupTask = new Task(() =>
-            {
-                //If the cancellation has not been requested, keep processing.
-                while (!_cancelTokenSrc.IsCancellationRequested)
-                {
-                    _cancelTokenSrc.Token.WaitHandle.WaitOne(250);
-
-                    Action taskAction = new Action(() =>
-                    {
-                        if (_cancelTokenSrc.IsCancellationRequested == false && RenderSurface != null && RenderSurface.Handle != IntPtr.Zero)
-                        {
-                            _cancelTokenSrc.Cancel();
-
-                            _graphicsEngine.RenderSurfaceHandle = RenderSurface.Handle;
-                            _graphicsEngine.ParticleEngine.LivingParticlesCountChanged += _particleEngine_LivingParticlesCountChanged;
-                            _graphicsEngine.ParticleEngine.SpawnLocation = new PointF(200, 200);
-
-                            //NOTE: This line of code will not continue execution until the Monogame framework
-                            //has stopped running
-                            _graphicsEngine.Start();
-                        }
-                    });
-
-                    if (UIDispatcher == null)
-                    {
-                        taskAction();
-                    }
-                    else
-                    {
-                        UIDispatcher.Invoke(taskAction);
-                    }
-                }
-            }, _cancelTokenSrc.Token);
-
-            _startupTask.Start();
-
-            /*This is here to set focus back to the main window.  The monogame window created and hidden
-             * shows up after the main window loads.  After the monogame window hides itself, the main window
-             * is left in a state of not being in focus due to the last window that was in focus being the
-             * monogame window.  This puts the main window back into focus.
-             */
-            ParticleMaker.MainWindow.SetFocus();
+            _graphicsEngine.Start(RenderSurfaceHandle);
         }
 
 
         /// <summary>
         /// Shuts down the graphics engine.
         /// </summary>
-        public void ShutdownEngine()
-        {
-            _cancelTokenSrc?.Cancel();
-
-            _graphicsEngine.Stop();
-        }
+        public void ShutdownEngine() => _graphicsEngine.Stop();
         #endregion
 
 
@@ -1310,8 +1227,6 @@ namespace ParticleMaker.ViewModels
                 SetupDeploymentPath = deployPath;
 
                 UpdateParticleList();
-
-                _graphicsEngine.TexturePaths = (from p in Particles select p.FilePath).ToArray();
 
                 var propNames = setupData.GetPropertyNames().ToList();
 

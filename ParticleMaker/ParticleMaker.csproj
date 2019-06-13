@@ -82,6 +82,8 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
+    <NoWarn>
+    </NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -104,6 +106,10 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SDL2-CS, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>SDL2\SDL2-CS.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -131,11 +137,9 @@
     <Compile Include="ColorPicker.xaml.cs">
       <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CoreEngine.cs" />
     <Compile Include="CustomEventArgs\AddParticleEventArgs.cs" />
     <Compile Include="CustomEventArgs\DeploySetupEventArgs.cs" />
     <Compile Include="CustomEventArgs\ItemEventArgs.cs" />
-    <Compile Include="CustomEventArgs\DrawEventArgs.cs" />
     <Compile Include="CustomEventArgs\RenameItemEventArgs.cs" />
     <Compile Include="Dialogs\DesignData\DialogData.cs" />
     <Compile Include="Dialogs\InputDialog.xaml.cs">
@@ -148,6 +152,7 @@
     <Compile Include="Dialogs\ThumbnailViewerDialog.xaml.cs">
       <DependentUpon>ThumbnailViewerDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\ExceptionMessage.cs" />
     <Compile Include="Exceptions\ExceptionHandler.cs" />
     <Compile Include="Exceptions\ExceptionMessageBox.xaml.cs">
@@ -160,23 +165,25 @@
     <Compile Include="Exceptions\ParticleDoesNotExistException.cs" />
     <Compile Include="Exceptions\ParticleSetupAlreadyExistsException.cs" />
     <Compile Include="Exceptions\ParticleSetupDoesNotExistException.cs" />
+    <Compile Include="GraphicsEngine.cs" />
+    <Compile Include="IRenderer.cs" />
     <Compile Include="Management\DeploymentSetting.cs" />
     <Compile Include="DesignData\MainWindowData.cs" />
-    <Compile Include="CustomEventArgs\UpdateEventArgs.cs" />
     <Compile Include="Exceptions\ContentDoesNotExistException.cs" />
     <Compile Include="Exceptions\IllegalProjectNameException.cs" />
     <Compile Include="Exceptions\ProjectAlreadyExistsException.cs" />
     <Compile Include="Exceptions\ProjectDoesNotExistException.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="GraphicsEngineFactory.cs" />
-    <Compile Include="ICoreEngine.cs" />
-    <Compile Include="IGraphicsEngineFactory.cs" />
     <Compile Include="Management\ParticleManager.cs" />
     <Compile Include="Management\ProjectSettings.cs" />
     <Compile Include="Management\SetupManager.cs" />
+    <Compile Include="ParticleTexture.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="RenderSurface.xaml.cs">
+      <DependentUpon>RenderSurface.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SDLRenderer.cs" />
     <Compile Include="Services\DirectoryService.cs" />
-    <Compile Include="Services\ExtensionMethods.cs" />
     <Compile Include="Services\IFileService.cs" />
     <Compile Include="Services\ILoggerService.cs" />
     <Compile Include="Services\JSONFileService.cs" />
@@ -265,6 +272,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="RenderSurface.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\ColorList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -313,7 +324,6 @@
       <DependentUpon>NumericUpDown.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="GraphicsEngine.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -344,9 +354,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ParticleRenderer.cs" />
-    <Compile Include="ParticleTexture.cs" />
-    <Compile Include="Primitives2D.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -368,7 +375,6 @@
       <Link>Main.layerdiagram</Link>
       <Visible>False</Visible>
     </AdditionalFiles>
-    <None Include="ParticleMaker_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -381,27 +387,17 @@
     <PackageReference Include="Extended.Wpf.Toolkit">
       <Version>3.5.0</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.DependencyValidation.Analyzers">
-      <Version>0.9.0</Version>
-    </PackageReference>
-    <PackageReference Include="MonoGame.Framework.WindowsDX">
-      <Version>3.7.1.189</Version>
-    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.1</Version>
+      <Version>12.0.2</Version>
     </PackageReference>
     <PackageReference Include="SimpleInjector">
-      <Version>4.4.3</Version>
+      <Version>4.6.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KD.Particle.Engine\KD.Particle.Engine.csproj">
       <Project>{6595ff25-b463-480d-9f26-c73c66c2d5f0}</Project>
       <Name>KD.Particle.Engine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\KD.Scorpion.Core\KD.Scorpion.Core.csproj">
-      <Project>{3E136A13-190C-4390-9E74-8849022852F6}</Project>
-      <Name>KD.Scorpion.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -470,6 +466,26 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="SDL2\libjpeg-9.dll" />
+    <Content Include="SDL2\libpng16-16.dll" />
+    <Content Include="SDL2\libtiff-5.dll" />
+    <Content Include="SDL2\libwebp-7.dll" />
+    <Content Include="SDL2\SDL2-CS.dll" />
+    <Content Include="SDL2\SDL2.dll" />
+    <Content Include="SDL2\SDL2_image.dll" />
+    <Content Include="SDL2\zlib1.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>REM Copy the SDL2 libraries to the output folder
+copy "$(ProjectDir)SDL2\SDL2.dll" "$(TargetDir)SDL2.dll" /Y
+copy "$(ProjectDir)SDL2\libjpeg-9.dll" "$(TargetDir)libjpeg-9.dll" /Y
+copy "$(ProjectDir)SDL2\libpng16-16.dll" "$(TargetDir)libpng16-16.dll" /Y
+copy "$(ProjectDir)SDL2\libtiff-5.dll" "$(TargetDir)libtiff-5.dll" /Y
+copy "$(ProjectDir)SDL2\libwebp-7.dll" "$(TargetDir)libwebp-7.dll" /Y
+copy "$(ProjectDir)SDL2\zlib1.dll" "$(TargetDir)zlib1.dll" /Y
+copy "$(ProjectDir)SDL2\SDL2_image.dll" "$(TargetDir)SDL2_image.dll" /Y
+</PostBuildEvent>
+  </PropertyGroup>
 </Project>

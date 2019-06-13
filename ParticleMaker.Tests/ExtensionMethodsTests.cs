@@ -16,7 +16,7 @@ namespace ParticleMaker.Tests
         {
             //Arrange
             var angle = 45.45f;
-            var expected = 0.79325217f;
+            var expected = 0.79325211f;
 
             //Act
             var actual = angle.ToRadians();
@@ -43,24 +43,6 @@ namespace ParticleMaker.Tests
             //Assert
             Assert.AreEqual(expected.Id, actual.Id);
             Assert.AreEqual(expected.ColorBrush.Color, actual.ColorBrush.Color);
-        }
-
-
-        [Test]
-        public void ToEngineTime_WhenInvoked_ReturnsCorrectValue()
-        {
-            //Arrange
-            var gameTime = new GameTime()
-            {
-                ElapsedGameTime = new TimeSpan(11, 22, 33, 44, 55)
-            };
-            var expected = new TimeSpan(11, 22, 33, 44, 55);
-
-            //Act
-            var actual = gameTime.ToEngineTime();
-
-            //Assert
-            Assert.AreEqual(expected, actual.ElapsedEngineTime);
         }
 
 

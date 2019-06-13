@@ -99,7 +99,7 @@ namespace KDScorpionEngineTests
             //Arrange
             var vector = new Vector(0, 0);
 
-            var expected = new Vector(6.62790775f, -1.88112736f);
+            var expected = new Vector(5f, -2.07106781f);
 
             //Act
             var actual = vector.RotateAround(new Vector(5, 5), 45f, true);
@@ -115,7 +115,7 @@ namespace KDScorpionEngineTests
             //Arrange
             var vector = new Vector(0, 0);
 
-            var expected = new Vector(-1.88112736f, 6.62790775f);
+            var expected = new Vector(-2.07106781f, 5f);
 
             //Act
             var actual = vector.RotateAround(new Vector(5, 5), 45f, false);

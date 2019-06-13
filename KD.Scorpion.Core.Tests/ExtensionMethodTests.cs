@@ -12,7 +12,7 @@ namespace KDScorpionCoreTests
             var vectorToRotate = new Vector(0, 0);
             var origin = new Vector(5, 5);
             var angle = 13f;
-            var expected = new Vector(1.25290489f, -0.996605396f);
+            var expected = new Vector(1.25290489f, -0.996605873f);
 
             //Act
             var actual = vectorToRotate.RotateAround(origin, angle);

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using System.ComponentModel;
@@ -7,8 +8,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using System.Threading;
 using WinMsgBox = System.Windows.MessageBox;
-using CoreVector = KDScorpionCore.Vector;
-using System.Drawing;
 
 namespace ParticleMaker
 {
@@ -20,11 +19,13 @@ namespace ParticleMaker
     {
         #region Fields
         private static Window _self;
-        private static CancellationTokenSource _setFocusTaskTokenSrc;
-        private static Task _setFocusTask;
+        private static CancellationTokenSource _dockRenderWindowTokenSrc;
+        private static Task _dockRenderWindowTask;
         private readonly MainViewModel _mainViewModel;
+        private RenderSurface _renderSurface;
         private bool _isMouseDown = false;
         #endregion
+
 
         #region Constructors
         /// <summary>
@@ -52,6 +53,7 @@ namespace ParticleMaker
         /// <param name="e"></param>
         protected override void OnClosing(CancelEventArgs e)
         {
+            _dockRenderWindowTokenSrc.Cancel();
             if (_mainViewModel.SettingsChanged)
             {
                 var msgResult = WinMsgBox.Show("You have unsaved settings.  Save first?", "Save Changes", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -67,50 +69,39 @@ namespace ParticleMaker
         #endregion
 
 
-        #region Public Methods
-        /// <summary>
-        /// Sets the window in focus.
-        /// </summary>
-        public static void SetFocus()
-        {
-            _setFocusTaskTokenSrc = new CancellationTokenSource();
-            var totalAttempts = 0;
-
-            _setFocusTask = new Task(() =>
-            {
-                while (!_setFocusTaskTokenSrc.IsCancellationRequested)
-                {
-                    _setFocusTaskTokenSrc.Token.WaitHandle.WaitOne(250);
-
-                    _self.Dispatcher.Invoke(() =>
-                    {
-                        _self.Focus();
-                        totalAttempts += 1;
-                    });
-
-                    if (totalAttempts >= 4)
-                        _setFocusTaskTokenSrc.Cancel();
-                }
-            });
-
-            _setFocusTask.Start();
-        }
-        #endregion
-
-
         #region Private Methods
         /// <summary>
         /// Creates the <see cref="MainViewModel"/> with default settings.
         /// </summary>
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            _mainViewModel.RenderSurface = (WinFormsHost.Child as PictureBox);
+            _renderSurface = new RenderSurface();
+            DockRenderWindow();//Dock it once so it doesn't look like it teleports
+            _renderSurface.Show();
+
+            _dockRenderWindowTokenSrc = new CancellationTokenSource();
+            _dockRenderWindowTask = new Task(() =>
+            {
+                while(!_dockRenderWindowTokenSrc.IsCancellationRequested)
+                {
+                    Thread.Sleep(62);
+                    Dispatcher.Invoke(() =>
+                    {
+                        DockRenderWindow();
+                    });
+                }
+            }, _dockRenderWindowTokenSrc.Token);
+
+            _mainViewModel.RenderSurfaceHandle = _renderSurface.WindowHandle;
+
             _mainViewModel.UIDispatcher = Dispatcher;
 
             _mainViewModel.StartEngine();
             _mainViewModel.Pause.Execute(null);
             
             DataContext = _mainViewModel;
+
+            _dockRenderWindowTask.Start();
         }
 
 
@@ -133,6 +124,17 @@ namespace ParticleMaker
         {
             if (_isMouseDown)
                 _mainViewModel.SpawnLocation = new PointF(e.X, e.Y);
+        }
+
+
+        public void DockRenderWindow()
+        {
+            _renderSurface.Left = Left + (Width - 10);
+            _renderSurface.Top = Top;
+            _renderSurface.Width = Width;
+            _renderSurface.Height = Height - 7;
+
+            _renderSurface.Topmost = IsActive;
         }
         #endregion
     }
