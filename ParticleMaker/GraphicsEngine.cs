@@ -93,11 +93,11 @@ namespace ParticleMaker
         /// </summary>
         public void Stop()
         {
-            _timer.Stop();
+            _timer?.Stop();
             _isRunning = false;
-            _tokenSrc.Cancel();
-            _tokenSrc.Dispose();
-            _loopTask.Dispose();
+            _tokenSrc?.Cancel();
+            _tokenSrc?.Dispose();
+            _loopTask?.Dispose();
             _tokenSrc = null;
             _loopTask = null;
         }

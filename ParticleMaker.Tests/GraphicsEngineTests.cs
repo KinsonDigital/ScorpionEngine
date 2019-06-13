@@ -1,4 +1,6 @@
 ﻿using KDParticleEngine;
+using KDParticleEngine.Services;
+using Moq;
 using NUnit.Framework;
 
 namespace ParticleMaker.Tests
@@ -17,36 +19,6 @@ namespace ParticleMaker.Tests
             //Assert
             Assert.AreEqual(_particleEngine, _engine.ParticleEngine);
         }
-
-
-        [Test]
-        public void Width_WhenGettingSettingValue_ReturnsCorrectValue()
-        {
-            //Arrange
-            var expected = 1234;
-
-            //Act
-            _engine.Width = 1234;
-            var actual = _engine.Width;
-
-            //Assert
-            Assert.AreEqual(expected, actual);
-        }
-
-
-        [Test]
-        public void Height_WhenGettingSettingValue_ReturnsCorrectValue()
-        {
-            //Arrange
-            var expected = 1234;
-
-            //Act
-            _engine.Height = 1234;
-            var actual = _engine.Height;
-
-            //Assert
-            Assert.AreEqual(expected, actual);
-        }
         #endregion
 
 
@@ -58,12 +30,17 @@ namespace ParticleMaker.Tests
         [SetUp]
         public void Setup()
         {
+            _particleEngine = new ParticleEngine<ParticleTexture>(new Mock<IRandomizerService>().Object);
+
+            _engine = new GraphicsEngine(new Mock<IRenderer>().Object, _particleEngine);
         }
 
 
         [TearDown]
         public void TearDown()
         {
+            _particleEngine = null;
+            _engine = null;
         }
         #endregion
     }

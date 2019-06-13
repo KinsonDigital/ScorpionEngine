@@ -65,7 +65,7 @@ namespace ParticleMaker.Tests.UserControls
             //Arrange
             var itemA = new PathItem() { FilePath = "test-item-A" };
 
-            var expected = 1930328289;
+            var expected = -928514204;
 
             //Act
             var actual = itemA.GetHashCode();

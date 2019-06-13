@@ -1,7 +1,5 @@
 ﻿using KDParticleEngine;
 using KDParticleEngine.Services;
-using KDScorpionCore;
-using KDScorpionCore.Graphics;
 using Moq;
 using NUnit.Framework;
 using ParticleMaker.Management;
@@ -71,7 +69,7 @@ namespace ParticleMaker.Tests.ViewModels
         public void NewProject_WhenGettingValue_DoesNotReturnNull()
         {
             //Act
-            var actual = _viewModel.NewProject != null;
+            var actual = _viewModel.NewProject;
 
             //Assert
             Assert.NotNull(actual);
@@ -87,36 +85,6 @@ namespace ParticleMaker.Tests.ViewModels
             //Act
             _viewModel.RenderSurface = expected;
             var actual = _viewModel.RenderSurface;
-
-            //Assert
-            Assert.AreEqual(expected, actual);
-        }
-
-
-        [Test]
-        public void RenderSurfaceWidth_WhenSettingValue_ReturnsCorrectValue()
-        {
-            //Arrange
-            var expected = 1234;
-
-            //Act
-            _viewModel.RenderSurfaceWidth = 1234;
-            var actual = _viewModel.RenderSurfaceWidth;
-
-            //Assert
-            Assert.AreEqual(expected, actual);
-        }
-
-
-        [Test]
-        public void RenderSurfaceHeight_WhenSettingValue_ReturnsCorrectValue()
-        {
-            //Arrange
-            var expected = 1234;
-
-            //Act
-            _viewModel.RenderSurfaceHeight = 1234;
-            var actual = _viewModel.RenderSurfaceHeight;
 
             //Assert
             Assert.AreEqual(expected, actual);
@@ -501,7 +469,7 @@ namespace ParticleMaker.Tests.ViewModels
             //Assert
             Assert.AreEqual(expected, actual);
         }
-        
+
 
         [Test]
         public void UIDispatcher_WhenSettingValue_ReturnsCorrectValue()
@@ -564,28 +532,22 @@ namespace ParticleMaker.Tests.ViewModels
         [Test]
         public void OpenProject_WhenGettingValue_DoesNotReturnNull()
         {
-            //Arrange
-            var expected = true;
-
             //Act
-            var actual = _viewModel.OpenProject != null;
+            var actual = _viewModel.OpenProject;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.NotNull(actual);
         }
 
 
         [Test]
         public void SetupItemSelected_WhenGettingValue_DoesNotReturnNull()
         {
-            //Arrange
-            var expected = true;
-
             //Act
-            var actual = _viewModel.SetupItemSelected != null;
+            var actual = _viewModel.SetupItemSelected;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.NotNull(actual);
         }
 
 
@@ -692,7 +654,7 @@ namespace ParticleMaker.Tests.ViewModels
         public void UpdateDeploymentPath_WhenGettingValue_DoesNotReturnNull()
         {
             //Act
-            var actual = _viewModel.UpdateDeploymentPath != null;
+            var actual = _viewModel.UpdateDeploymentPath;
 
             //Assert
             Assert.NotNull(actual);
@@ -703,7 +665,7 @@ namespace ParticleMaker.Tests.ViewModels
         public void DeploySetup_WhenGettingValue_DoesNotReturnNull()
         {
             //Act
-            var actual = _viewModel.DeploySetup != null;
+            var actual = _viewModel.DeploySetup;
 
             //Assert
             Assert.NotNull(actual);
@@ -714,7 +676,7 @@ namespace ParticleMaker.Tests.ViewModels
         public void RenameSetup_WhenGettingValue_DoesNotReturnNull()
         {
             //Act
-            var actual = _viewModel.RenameSetup != null;
+            var actual = _viewModel.RenameSetup;
 
             //Assert
             Assert.NotNull(actual);
@@ -725,7 +687,7 @@ namespace ParticleMaker.Tests.ViewModels
         public void DeleteSetup_WhenGettingValue_DoesNotReturnNull()
         {
             //Act
-            var actual = _viewModel.DeleteSetup != null;
+            var actual = _viewModel.DeleteSetup;
 
             //Assert
             Assert.NotNull(actual);
@@ -736,7 +698,7 @@ namespace ParticleMaker.Tests.ViewModels
         public void AddParticle_WhenGettingValue_DoesNotReturnNull()
         {
             //Act
-            var actual = _viewModel.AddParticle != null;
+            var actual = _viewModel.AddParticle;
 
             //Assert
             Assert.NotNull(actual);
@@ -747,7 +709,7 @@ namespace ParticleMaker.Tests.ViewModels
         public void RenameParticle_WhenGettingValue_DoesNotReturnNull()
         {
             //Act
-            var actual = _viewModel.RenameParticle != null;
+            var actual = _viewModel.RenameParticle;
 
             //Assert
             Assert.NotNull(actual);
@@ -758,7 +720,7 @@ namespace ParticleMaker.Tests.ViewModels
         public void DeleteParticle_WhenGettingValue_DoesNotReturnNull()
         {
             //Act
-            var actual = _viewModel.DeleteParticle != null;
+            var actual = _viewModel.DeleteParticle;
 
             //Assert
             Assert.NotNull(actual);
@@ -770,8 +732,6 @@ namespace ParticleMaker.Tests.ViewModels
         [SetUp]
         public void Setup()
         {
-            var mockTexture = new Mock<ITexture>();
-
             var getValueResult = 10f;
 
             var particleEngine = new ParticleEngine<ParticleTexture>(null);
@@ -796,6 +756,7 @@ namespace ParticleMaker.Tests.ViewModels
 
             var mockDirService = new Mock<IDirectoryService>();
             var mockFileService = new Mock<IFileService>();
+            var mockRenderer = new Mock<IRenderer>();
             var projIOService = new ProjectIOService(mockDirService.Object, mockFileService.Object);
 
             var setupDeployService = new SetupDeployService(mockDirService.Object, mockFileService.Object);
@@ -805,7 +766,7 @@ namespace ParticleMaker.Tests.ViewModels
             particleEngine.TotalParticlesAliveAtOnce = 4;
             particleEngine.Update(new TimeSpan(0, 0, 0, 0, 11));
 
-            _engine = new GraphicsEngine(particleEngine, mockFileService.Object);
+            _engine = new GraphicsEngine(mockRenderer.Object, particleEngine);
             var particleManager = new ParticleManager(projIOService, mockDirService.Object, mockFileService.Object);
 
             _viewModel = new MainViewModel(_engine, It.IsAny<ProjectManager>(), It.IsAny<ProjectSettingsManager>(), It.IsAny<SetupManager>(), setupDeployService, particleManager)

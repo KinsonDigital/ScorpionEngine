@@ -165,10 +165,6 @@
       <Project>{6595FF25-B463-480D-9F26-C73C66C2D5F0}</Project>
       <Name>KD.Particle.Engine</Name>
     </ProjectReference>
-    <ProjectReference Include="..\KD.Scorpion.Core\KD.Scorpion.Core.csproj">
-      <Project>{3E136A13-190C-4390-9E74-8849022852F6}</Project>
-      <Name>KD.Scorpion.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ParticleMaker\ParticleMaker.csproj">
       <Project>{222dd082-ba5b-4750-8246-0677e3fda2a3}</Project>
       <Name>ParticleMaker</Name>
