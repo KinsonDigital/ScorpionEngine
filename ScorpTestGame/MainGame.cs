@@ -1,7 +1,7 @@
 using KDScorpionCore;
 using KDScorpionCore.Content;
-using KDScorpionCore.Graphics;
 using KDScorpionEngine;
+using KDScorpionEngine.Graphics;
 using KDScorpionEngine.Scene;
 using ScorpTestGame.Scenes;
 
@@ -56,7 +56,7 @@ namespace ScorpTestGame
         }
 
 
-        public override void Render(Renderer renderer)
+        public override void Render(GameRenderer renderer)
         {
             base.Render(renderer);
         }

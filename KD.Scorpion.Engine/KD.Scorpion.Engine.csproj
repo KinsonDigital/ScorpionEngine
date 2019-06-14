@@ -110,6 +110,7 @@
     <Compile Include="Exceptions\EntityNotInitializedException.cs" />
     <Compile Include="Exceptions\MissingVerticesException.cs" />
     <Compile Include="Exceptions\SceneNotFoundException.cs" />
+    <Compile Include="Graphics\GameRenderer.cs" />
     <Compile Include="Input\IInputWatcher.cs" />
     <Compile Include="Input\Keyboard.cs" />
     <Compile Include="Input\Mouse.cs" />

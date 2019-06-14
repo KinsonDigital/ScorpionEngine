@@ -4,10 +4,12 @@ namespace KDScorpionCore.Graphics
 {
     public class Renderer
     {
+        #region Constructors
         public Renderer(IRenderer renderer)
         {
             InternalRenderer = renderer;
         }
+        #endregion
 
 
         #region Props

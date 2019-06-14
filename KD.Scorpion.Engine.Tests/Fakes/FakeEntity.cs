@@ -62,14 +62,6 @@ namespace KDScorpionEngineTests.Fakes
         }
 
 
-        public override void Render(Renderer renderer)
-        {
-            RenderInvoked = true;
-
-            base.Render(renderer);
-        }
-
-
         public override string ToString()
         {
             return base.ToString();

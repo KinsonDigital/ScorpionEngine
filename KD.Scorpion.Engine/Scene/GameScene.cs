@@ -1,7 +1,7 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Content;
-using KDScorpionCore.Graphics;
 using KDScorpionEngine.Entities;
+using KDScorpionEngine.Graphics;
 using KDScorpionEngine.Physics;
 using System.Collections.Generic;
 
@@ -111,10 +111,11 @@ namespace KDScorpionEngine.Scene
         /// Renders the <see cref="GameScene"/>.
         /// </summary>
         /// <param name="renderer">The renderer to use for rendering.</param>
-        public virtual void Render(Renderer renderer)
+        public virtual void Render(GameRenderer renderer)
         {
             foreach (var entity in Entities)
             {
+                renderer.Render(entity);
                 entity.Render(renderer);
             }
 

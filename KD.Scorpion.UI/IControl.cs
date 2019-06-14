@@ -5,7 +5,7 @@ namespace KDScorpionUI
     /// <summary>
     /// A user interface object that can be updated and rendered to the screen.
     /// </summary>
-    interface IControl : IUpdatable, IRenderable, IInitialize, IContentLoadable
+    interface IControl : IUpdatable, IInitialize, IContentLoadable
     {
         #region Props
         /// <summary>

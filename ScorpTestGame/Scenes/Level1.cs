@@ -5,6 +5,7 @@ using KDScorpionCore.Content;
 using KDScorpionCore;
 using KDScorpionUI;
 using KDScorpionEngine.Input;
+using KDScorpionEngine.Graphics;
 
 namespace ScorpTestGame.Scenes
 {
@@ -86,9 +87,9 @@ namespace ScorpTestGame.Scenes
         }
 
 
-        public override void Render(Renderer renderer)
+        public override void Render(GameRenderer renderer)
         {
-            _ship.Render(renderer);
+            renderer.Render(_ship);
 
             _shipPosition.Render(renderer);
             _mousePosition.Render(renderer);

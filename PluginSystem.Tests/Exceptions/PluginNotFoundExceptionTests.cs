@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using PluginSystem.Exceptions;
 
 namespace PluginSystem.Exceptions
 {

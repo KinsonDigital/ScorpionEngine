@@ -3,6 +3,7 @@ using KDParticleEngine.Services;
 using KDScorpionCore;
 using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
+using KDScorpionEngine.Graphics;
 using KDScorpionEngine.Input;
 using KDScorpionEngine.Scene;
 using System.Drawing;
@@ -85,7 +86,7 @@ namespace ScorpTestGame.Scenes
         }
 
 
-        public override void Render(Renderer renderer)
+        public override void Render(GameRenderer renderer)
         {
             foreach (var particle in _particleEngine.Particles)
             {

@@ -1,7 +1,7 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Content;
-using KDScorpionCore.Graphics;
 using KDScorpionEngine;
+using KDScorpionEngine.Graphics;
 using PluginSystem;
 
 namespace KDScorpionEngineTests.Fakes
@@ -43,7 +43,7 @@ namespace KDScorpionEngineTests.Fakes
         }
 
 
-        public override void Render(Renderer renderer)
+        public override void Render(GameRenderer renderer)
         {
             RenderInvoked = true;
         }

@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using KDScorpionCore;
 using KDScorpionCore.Content;
-using KDScorpionCore.Graphics;
 using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Exceptions;
@@ -10,6 +9,7 @@ using KDScorpionEngine.Scene;
 using System;
 using KDScorpionEngine;
 using PluginSystem;
+using KDScorpionEngine.Graphics;
 
 namespace KDScorpionEngineTests.Scene
 {
@@ -1615,7 +1615,7 @@ namespace KDScorpionEngineTests.Scene
 
             Assert.Throws<SceneNotFoundException>(() =>
             {
-                manager.Render(It.IsAny<Renderer>());
+                manager.Render(It.IsAny<GameRenderer>());
             });
         }
 
@@ -1635,10 +1635,10 @@ namespace KDScorpionEngineTests.Scene
             };
 
             //Act
-            manager.Render(It.IsAny<Renderer>());
+            manager.Render(It.IsAny<GameRenderer>());
 
             //Assert
-            mockScene.Verify(m => m.Render(It.IsAny<Renderer>()), Times.Once());
+            mockScene.Verify(m => m.Render(It.IsAny<GameRenderer>()), Times.Once());
         }
 
 
@@ -1658,7 +1658,7 @@ namespace KDScorpionEngineTests.Scene
             //Act/Assert
             AssertExt.DoesNotThrow<SceneNotFoundException>(() =>
             {
-                manager.Render(It.IsAny<Renderer>());
+                manager.Render(It.IsAny<GameRenderer>());
             });
         }
 
