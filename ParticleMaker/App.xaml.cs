@@ -69,7 +69,6 @@ namespace ParticleMaker
         #endregion
 
 
-
         #region Private Methods
         /// <summary>
         /// Starts up the application.
