@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo(assemblyName: "ScorpionEngineTests", AllInternalsVisible = true)]
 
 namespace PluginSystem
 {
@@ -39,6 +42,7 @@ namespace PluginSystem
 
                 return _enginePluginLib;
             }
+            internal set => _enginePluginLib = value;
         }
 
         /// <summary>
@@ -57,6 +61,7 @@ namespace PluginSystem
 
                 return _physicsPluginLib;
             }
+            internal set => _physicsPluginLib = value;
         }
         #endregion
     }

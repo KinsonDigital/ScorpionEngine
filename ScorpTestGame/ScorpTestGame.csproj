@@ -71,10 +71,6 @@
     <Compile Include="Scenes\ParticleTestingScene.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AdditionalFiles Include="..\ScorpionCore.DepGraph\Main.layerdiagram">
-      <Link>Main.layerdiagram</Link>
-      <Visible>False</Visible>
-    </AdditionalFiles>
     <None Include="App.config" />
     <None Include="Content\Content.mgcb" />
     <Content Include="Content\Fonts\MyGameText.spritefont" />

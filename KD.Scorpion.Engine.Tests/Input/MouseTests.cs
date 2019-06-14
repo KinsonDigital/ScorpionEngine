@@ -56,15 +56,15 @@ namespace KDScorpionEngineTests.Input
         public void Ctor_WhenInvoked_InvokesCreateMouseMethod()
         {
             //Arrange
-            var mockPluginFactory = new Mock<IPluginFactory>();
+            var mockEnginePluginLibrary = new Mock<IPluginLibrary>();
 
-            Plugins.LoadPluginFactory(mockPluginFactory.Object);
+            Plugins.EnginePlugins = mockEnginePluginLibrary.Object;
 
             //Act
             var mouse = new Mouse();
 
             //Assert
-            mockPluginFactory.Verify(m => m.CreateMouse(), Times.Once());
+            mockEnginePluginLibrary.Verify(m => m.LoadPlugin<IMouse>(), Times.Once());
         }
 
 
@@ -394,6 +394,6 @@ namespace KDScorpionEngineTests.Input
         #endregion
 
         [TearDown]
-        public void TearDown() => Plugins.UnloadPluginFactory();
+        public void TearDown() => Plugins.EnginePlugins = null;
     }
 }

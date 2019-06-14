@@ -8,7 +8,7 @@ namespace KDScorpionEngineTests.Fakes
 {
     public class FakeEngine : Engine
     {
-        public FakeEngine(IPluginFactory enginePluginLib) : base(enginePluginLib)
+        public FakeEngine(IPluginLibrary enginePluginLib) : base(enginePluginLib)
         {
         }
 

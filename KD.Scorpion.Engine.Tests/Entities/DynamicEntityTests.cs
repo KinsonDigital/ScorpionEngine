@@ -8,6 +8,7 @@ using KDScorpionEngineTests.Fakes;
 using System;
 using System.Linq;
 using PluginSystem;
+using KDScorpionCore.Plugins;
 
 namespace KDScorpionEngineTests.Entities
 {
@@ -342,14 +343,14 @@ namespace KDScorpionEngineTests.Entities
         public void Update_WhenInvokingWithNullBody_ThrowsException()
         {
             //Arrange
-            Plugins.UnloadPluginFactory();
+            Plugins.PhysicsPlugins = null;
 
             FakePhysicsBody nullPhysicsBody = null;
 
-            var mockPluginFactory = new Mock<IPluginFactory>();
-            mockPluginFactory.Setup(m => m.CreatePhysicsBody(It.IsAny<object[]>())).Returns(nullPhysicsBody);
+            var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
+            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns(nullPhysicsBody);
 
-            Plugins.LoadPluginFactory(mockPluginFactory.Object);
+            Plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
 
             var entity = new DynamicEntity();
 
@@ -1260,18 +1261,18 @@ namespace KDScorpionEngineTests.Entities
             if (ShouldSkipSetup())
                 return;
 
-            var mockPluginFactory = new Mock<IPluginFactory>();
-            mockPluginFactory.Setup(m => m.CreatePhysicsBody(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
+            var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
+            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
             {
                 return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[0]);
             });
 
-            Plugins.LoadPluginFactory(mockPluginFactory.Object);
+            Plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
         }
 
 
         [TearDown]
-        public void TearDown() => Plugins.UnloadPluginFactory();
+        public void TearDown() => Plugins.PhysicsPlugins = null;
         #endregion
 
 

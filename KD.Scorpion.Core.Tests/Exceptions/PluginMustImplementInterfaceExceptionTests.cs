@@ -1,41 +1,40 @@
 ﻿using NUnit.Framework;
-using KDScorpionCore.Exceptions;
 using KDScorpionCore.Plugins;
 
 namespace KDScorpionCoreTests.Exceptions
 {
-    [TestFixture]
-    public class PluginMustImplementInterfaceExceptionTests
-    {
-        #region Constructor Tests
-        [Test]
-        public void Ctor_WhenInvokingWithNoParam_CorrectlySetsExceptionMessage()
-        {
-            //Arrange
-            var expected = $"The plugin must implement the {nameof(IPlugin)} interface.";
-            var exception = new PluginMustImplementInterfaceException();
+    //[TestFixture]
+    //public class PluginMustImplementInterfaceExceptionTests
+    //{
+    //    #region Constructor Tests
+    //    [Test]
+    //    public void Ctor_WhenInvokingWithNoParam_CorrectlySetsExceptionMessage()
+    //    {
+    //        //Arrange
+    //        var expected = $"The plugin must implement the {nameof(IPlugin)} interface.";
+    //        var exception = new PluginMustImplementInterfaceException();
 
-            //Act
-            var actual = exception.Message;
+    //        //Act
+    //        var actual = exception.Message;
 
-            //Assert
-            Assert.AreEqual(expected, actual);
-        }
+    //        //Assert
+    //        Assert.AreEqual(expected, actual);
+    //    }
 
 
-        [Test]
-        public void Ctor_WhenInvokingWithNameParam_CorrectlySetsExceptionMessage()
-        {
-            //Arrange
-            var expected = $"The plugin TestPlugin must implement the {nameof(IPlugin)} interface.";
-            var exception = new PluginMustImplementInterfaceException("TestPlugin");
+    //    [Test]
+    //    public void Ctor_WhenInvokingWithNameParam_CorrectlySetsExceptionMessage()
+    //    {
+    //        //Arrange
+    //        var expected = $"The plugin TestPlugin must implement the {nameof(IPlugin)} interface.";
+    //        var exception = new PluginMustImplementInterfaceException("TestPlugin");
 
-            //Act
-            var actual = exception.Message;
+    //        //Act
+    //        var actual = exception.Message;
 
-            //Assert
-            Assert.AreEqual(expected, actual);
-        }
-        #endregion
-    }
+    //        //Assert
+    //        Assert.AreEqual(expected, actual);
+    //    }
+    //    #endregion
+    //}
 }

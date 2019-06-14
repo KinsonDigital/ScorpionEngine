@@ -10,7 +10,11 @@ namespace KDScorpionEngineTests.Physics
 {
     public class PhysicsBodyTests
     {
+        #region Private Fields
         private Mock<IPhysicsBody> _mockInternalPhysicsBody;
+        #endregion
+
+
         #region Prop Tests
         [Test]
         public void Vertices_WhenGettingAndSettingValue_GetsCorrectValue()
@@ -18,11 +22,11 @@ namespace KDScorpionEngineTests.Physics
             //Arrange
             TearDown();
 
-            var mockPluginLib = new Mock<IPluginFactory>();
-            mockPluginLib.Setup(m => m.CreatePhysicsBody(It.IsAny<object[]>())).Returns((object[] ctrParams) =>
+            var mockPluginLib = new Mock<IPluginLibrary>();
+            mockPluginLib.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctrParams) =>
                 new FakePhysicsBody((float[])ctrParams[0], (float[])ctrParams[1]));
 
-            Plugins.LoadPluginFactory(mockPluginLib.Object);
+            Plugins.PhysicsPlugins = mockPluginLib.Object;
 
             var expectedVertices = new Vector[]
             {
@@ -259,15 +263,15 @@ namespace KDScorpionEngineTests.Physics
             _mockInternalPhysicsBody.SetupProperty(m => m.LinearVelocityX);
             _mockInternalPhysicsBody.SetupProperty(m => m.LinearVelocityY);
 
-            var mockPluginLib = new Mock<IPluginFactory>();
-            mockPluginLib.Setup(m => m.CreatePhysicsBody(It.IsAny<float>())).Returns(() => _mockInternalPhysicsBody.Object);
+            var mockPluginLib = new Mock<IPluginLibrary>();
+            mockPluginLib.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<float>())).Returns(() => _mockInternalPhysicsBody.Object);
 
-            Plugins.LoadPluginFactory(mockPluginLib.Object);
+            Plugins.PhysicsPlugins = mockPluginLib.Object;
         }
 
 
         [TearDown]
-        public void TearDown() => Plugins.UnloadPluginFactory();
+        public void TearDown() => Plugins.PhysicsPlugins = null;
         #endregion
     }
 }

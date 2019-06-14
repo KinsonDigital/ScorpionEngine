@@ -15,7 +15,7 @@ namespace KDScorpionEngineTests.Input
     {
         #region Private Fields
         private Mock<IMouse> _mockMouse;
-        private Mock<IPluginFactory> _mockPluginFactory;
+        private Mock<IPluginLibrary> _mockPluginLibrary;
         #endregion
 
 
@@ -37,7 +37,7 @@ namespace KDScorpionEngineTests.Input
             Assert.AreEqual(expectedEnabled, actualEnabled);
             Assert.AreEqual(expectedComboButtons, actualComboButtons);
             AssertExt.IsNullOrZeroField(mouseWatcher, "_mouse");
-            _mockPluginFactory.Verify(m => m.CreateMouse(), Times.Once());
+            _mockPluginLibrary.Verify(m => m.LoadPlugin<IMouse>(), Times.Once());
         }
         #endregion
 
@@ -583,15 +583,16 @@ namespace KDScorpionEngineTests.Input
             _mockMouse = new Mock<IMouse>();
             _mockMouse.Setup(m => m.IsButtonPressed((int)InputButton.LeftButton)).Returns(true);
 
-            _mockPluginFactory = new Mock<IPluginFactory>();
-            _mockPluginFactory.Setup(m => m.CreateMouse()).Returns(() => _mockMouse.Object);
+            _mockPluginLibrary = new Mock<IPluginLibrary>();
+            _mockPluginLibrary.Setup(m => m.LoadPlugin<IMouse>()).Returns(() => _mockMouse.Object);
 
-            Plugins.LoadPluginFactory(_mockPluginFactory.Object);
+
+            Plugins.EnginePlugins = _mockPluginLibrary.Object;
         }
 
 
         [TearDown]
-        public void TearDown() => Plugins.UnloadPluginFactory();
+        public void TearDown() => Plugins.EnginePlugins = null;
         #endregion
     }
 }

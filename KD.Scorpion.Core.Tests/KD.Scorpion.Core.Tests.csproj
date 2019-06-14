@@ -103,15 +103,13 @@
       <Project>{3E136A13-190C-4390-9E74-8849022852F6}</Project>
       <Name>KD.Scorpion.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PluginSystem\PluginSystem.csproj">
+      <Project>{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}</Project>
+      <Name>PluginSystem</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Plugins\" />
-  </ItemGroup>
-  <ItemGroup>
-    <AdditionalFiles Include="..\ScorpionCore.DepGraph\Main.layerdiagram">
-      <Link>Main.layerdiagram</Link>
-      <Visible>False</Visible>
-    </AdditionalFiles>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -590,15 +590,15 @@ namespace KDScorpionEngineTests.Input
         {
             _mockKeyboard = new Mock<IKeyboard>();
 
-            var mockPluginLib = new Mock<IPluginFactory>();
-            mockPluginLib.Setup(m => m.CreateKeyboard()).Returns(() => _mockKeyboard.Object);
+            var mockPluginLib = new Mock<IPluginLibrary>();
+            mockPluginLib.Setup(m => m.LoadPlugin<IKeyboard>()).Returns(() => _mockKeyboard.Object);
 
-            Plugins.LoadPluginFactory(mockPluginLib.Object);
+            Plugins.EnginePlugins = mockPluginLib.Object;
         }
 
 
         [TearDown]
-        public void TearDown() => Plugins.UnloadPluginFactory();
+        public void TearDown() => Plugins.EnginePlugins = null;
         #endregion
     }
 }

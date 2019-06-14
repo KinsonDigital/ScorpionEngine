@@ -14,7 +14,7 @@ namespace KDScorpionEngineTests.Input
     public class KeyBehaviorTests
     {
         #region Private Fields
-        private Mock<IPluginFactory> _pluginFactory;
+        private Mock<IPluginLibrary> _pluginLibrary;
         #endregion
 
 
@@ -43,7 +43,7 @@ namespace KDScorpionEngineTests.Input
             var behavior = new KeyBehavior(true, null);
 
             //Assert
-            _pluginFactory.Verify(m => m.CreateKeyboard(), Times.Once());
+            _pluginLibrary.Verify(m => m.LoadPlugin<IKeyboard>(), Times.Once());
         }
 
 
@@ -70,15 +70,15 @@ namespace KDScorpionEngineTests.Input
         {
             //Arrange
             var mockCoreKeyboard = new Mock<IKeyboard>();
-            var mockPluginFactory = new Mock<IPluginFactory>();
+            var mockPluginLibrary = new Mock<IPluginLibrary>();
 
-            Plugins.LoadPluginFactory(mockPluginFactory.Object);
+            Plugins.EnginePlugins = mockPluginLibrary.Object;
 
             //Act
             var behavior = new KeyBehavior(KeyCodes.Space, true, null);
 
             //Assert
-            mockPluginFactory.Verify(m => m.CreateKeyboard(), Times.Once());
+            mockPluginLibrary.Verify(m => m.LoadPlugin<IKeyboard>(), Times.Once());
         }
         #endregion
 
@@ -495,10 +495,10 @@ namespace KDScorpionEngineTests.Input
         public void Setup()
         {
             var mockCoreKeyboard = new Mock<IKeyboard>();
-            _pluginFactory = new Mock<IPluginFactory>();
-            _pluginFactory.Setup(m => m.CreateKeyboard()).Returns(mockCoreKeyboard.Object);
+            _pluginLibrary = new Mock<IPluginLibrary>();
+            _pluginLibrary.Setup(m => m.LoadPlugin<IKeyboard>()).Returns(mockCoreKeyboard.Object);
 
-            Plugins.LoadPluginFactory(_pluginFactory.Object);
+            Plugins.EnginePlugins = _pluginLibrary.Object;
         }
         #endregion
     }

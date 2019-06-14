@@ -787,20 +787,18 @@ namespace KDScorpionEngineTests.Entities
             var mockContentLoader = new Mock<IContentLoader>();
             _contentLoader = new ContentLoader(mockContentLoader.Object);
 
-            var mockPluginFactory = new Mock<IPluginFactory>();
-            mockPluginFactory.Setup(m => m.CreatePhysicsBody(It.IsAny<object[]>())).Returns((object[] ctorParams) => _mockPhysicsBody.Object);
+            var mockPhysicsPluginLibrary= new Mock<IPluginLibrary>();
+            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) => _mockPhysicsBody.Object);
+            Plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
 
-            mockPluginFactory.Setup(m => m.CreateDebugDraw()).Returns(() =>
-            {
-                return _mockDebugDraw.Object;
-            });
-
-            Plugins.LoadPluginFactory(mockPluginFactory.Object);
+            var mockEnginePluginLibrary = new Mock<IPluginLibrary>();
+            mockEnginePluginLibrary.Setup(m => m.LoadPlugin<IDebugDraw>()).Returns(() => _mockDebugDraw.Object);
+            Plugins.EnginePlugins = mockEnginePluginLibrary.Object;
         }
 
 
         [TearDown]
-        public void TearDown() => Plugins.UnloadPluginFactory();
+        public void TearDown() => Plugins.EnginePlugins = null;
         #endregion
 
 

@@ -100,20 +100,20 @@ namespace KDScorpionEngineTests.Physics
             mockPhysicsWorld.SetupGet(m => m.GravityY).Returns(4);
 
             var mockPhysicsBody = new Mock<IPhysicsBody>();
-            var mockPluginFactory = new Mock<IPluginFactory>();
+            var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
 
             //Mock method for creating a physics body
-            mockPluginFactory.Setup(m => m.CreatePhysicsBody(It.IsAny<object[]>())).Returns(() => mockPhysicsBody.Object);
+            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns(() => mockPhysicsBody.Object);
 
             //Mock method for loading a physics world
-            mockPluginFactory.Setup(m => m.CreatePhysicsWorld(It.IsAny<float>(), It.IsAny<float>())).Returns(() => mockPhysicsWorld.Object);
+            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsWorld>(It.IsAny<float>(), It.IsAny<float>())).Returns(() => mockPhysicsWorld.Object);
 
-            Plugins.LoadPluginFactory(mockPluginFactory.Object);
+            Plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
         }
         #endregion
 
 
         [TearDown]
-        public void TearDown() => Plugins.UnloadPluginFactory();
+        public void TearDown() => Plugins.PhysicsPlugins = null;
     }
 }
