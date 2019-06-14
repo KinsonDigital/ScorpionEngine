@@ -89,8 +89,6 @@ namespace ScorpTestGame.Scenes
 
         public override void Render(GameRenderer renderer)
         {
-            renderer.Render(_ship);
-
             _shipPosition.Render(renderer);
             _mousePosition.Render(renderer);
 
