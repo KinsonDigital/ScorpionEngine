@@ -1,4 +1,5 @@
-﻿using PluginSystem;
+﻿using KDScorpionCore.Graphics;
+using PluginSystem;
 
 namespace KDScorpionCore.Plugins
 {
@@ -9,11 +10,20 @@ namespace KDScorpionCore.Plugins
     {
         #region Methods
         /// <summary>
-        /// Draws and outline around the given <paramref name="body"/> using the given <paramref name="renderer"/>.
+        /// Draws a white outline around the given <paramref name="body"/> using the given <paramref name="renderer"/>.
         /// </summary>
         /// <param name="renderer">The renderer to use for rendering the outline/frame.</param>
         /// <param name="body">The body to render the outline/frame around.</param>
         void Draw(IRenderer renderer, IPhysicsBody body);
+
+
+        /// <summary>
+        /// Draws an outline using the given <paramref name="color"/> around the given <paramref name="body"/> using the given <paramref name="renderer"/>.
+        /// </summary>
+        /// <param name="renderer">The renderer to use for rendering the outline/frame.</param>
+        /// <param name="body">The body to render the outline/frame around.</param>
+        /// <param name="color">The color of the outline</param>
+        void Draw(IRenderer renderer, IPhysicsBody body, GameColor color);
         #endregion
     }
 }

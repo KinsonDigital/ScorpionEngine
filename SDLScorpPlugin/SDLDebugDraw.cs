@@ -1,4 +1,5 @@
 ﻿using KDScorpionCore;
+using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
 using System;
 
@@ -11,7 +12,7 @@ namespace SDLScorpPlugin
     {
         #region Public Methods
         /// <summary>
-        /// Draws and outline around the given <paramref name="body"/> using the given <paramref name="renderer"/>.
+        /// Draws a white outline around the given <paramref name="body"/> using the given <paramref name="renderer"/>.
         /// </summary>
         /// <param name="renderer">The renderer to use for rendering the outline/frame.</param>
         /// <param name="body">The body to render the outline/frame around.</param>
@@ -26,8 +27,30 @@ namespace SDLScorpPlugin
                 var start = new Vector(body.XVertices[i], body.YVertices[i]).RotateAround(origin, body.Angle);
                 var stop = new Vector(body.XVertices[i < max - 1 ? i + 1 : 0], body.YVertices[i < max - 1 ? i + 1 : 0]).RotateAround(origin, body.Angle);
 
-                //TODO: Try to add color as a parameter to this Render() method call
                 renderer.RenderLine(start.X, start.Y, stop.X, stop.Y);
+            }
+        }
+
+
+        /// <summary>
+        /// Draws an outline using the given <paramref name="color"/> around the given <paramref name="body"/> using the given <paramref name="renderer"/>.
+        /// </summary>
+        /// <param name="renderer">The renderer to use for rendering the outline/frame.</param>
+        /// <param name="body">The body to render the outline/frame around.</param>
+        /// <param name="color">The color of the outline</param>
+        public void Draw(IRenderer renderer, IPhysicsBody body, GameColor color)
+        {
+            int max = body.XVertices.Length;
+
+            var origin = new Vector(body.X, body.Y);
+
+            for (int i = 0; i < max; i++)
+            {
+                var start = new Vector(body.XVertices[i], body.YVertices[i]).RotateAround(origin, body.Angle);
+                var stop = new Vector(body.XVertices[i < max - 1 ? i + 1 : 0], body.YVertices[i < max - 1 ? i + 1 : 0]).RotateAround(origin, body.Angle);
+                var lineColor = new byte[4] { color.Red, color.Green, color.Blue, color.Alpha };
+
+                renderer.RenderLine(start.X, start.Y, stop.X, stop.Y, lineColor);
             }
         }
 

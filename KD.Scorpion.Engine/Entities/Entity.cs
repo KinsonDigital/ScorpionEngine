@@ -246,6 +246,9 @@ namespace KDScorpionEngine.Entities
             set => _texture = value;
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating if the debug draw outlines should be rendered.
+        /// </summary>
         public bool DebugDrawEnabled
         {
             get
@@ -273,6 +276,11 @@ namespace KDScorpionEngine.Entities
         public bool IsInitialized { get; private set; }
 
         public bool ContentLoaded { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the color of the debug draw outlines.
+        /// </summary>
+        public GameColor DebugDrawColor { get; set; } = new GameColor(255, 255, 255, 255);
         #endregion
 
 
@@ -321,7 +329,7 @@ namespace KDScorpionEngine.Entities
 
             //Render the physics bodies vertices to show its shape for debugging purposes
             if (DebugDrawEnabled)
-                _debugDraw.Draw(renderer.InternalRenderer, Body.InternalPhysicsBody);
+                _debugDraw.Draw(renderer.InternalRenderer, Body.InternalPhysicsBody, DebugDrawColor);
         }
         #endregion
 
