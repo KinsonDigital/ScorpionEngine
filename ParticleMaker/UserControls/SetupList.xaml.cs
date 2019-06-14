@@ -17,7 +17,7 @@ namespace ParticleMaker.UserControls
     /// Interaction logic for SetupList.xaml
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public partial class SetupList : UserControl, IDisposable
+    public partial class SetupList : UserControl
     {
         #region Fields
         private readonly char[] _illegalCharacters = new[] { '\\', '/', ':', '*', '?', '\"', '<', '>', '|', '.' };
@@ -194,12 +194,6 @@ namespace ParticleMaker.UserControls
                 if (item.Command == null)
                     item.Command = new RelayCommand((param) => ItemSelectedCommand?.Execute(param), (param) => true);
             }
-        }
-
-
-        public void Dispose()
-        {
-            _refreshTokenSrc.Cancel();
         }
         #endregion
 

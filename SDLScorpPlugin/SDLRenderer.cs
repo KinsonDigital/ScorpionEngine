@@ -356,6 +356,7 @@ namespace SDLScorpPlugin
         }
 
 
+        //TODO: Make sure that this method is being invoked.
         /// <summary>
         /// Properly destroys the SDL renderer.
         /// </summary>

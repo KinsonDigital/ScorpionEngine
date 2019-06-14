@@ -64,8 +64,11 @@ namespace ParticleMaker
             }
 
             _mainViewModel.ShutdownEngine();
+            _mainViewModel.Dispose();
 
             App.IsShuttingDown = true;
+
+            _renderSurface.Close();
 
             base.OnClosing(e);
         }
@@ -93,8 +96,6 @@ namespace ParticleMaker
                         DockRenderWindow();
                     });
                 }
-
-                var stop = true;
             }, _dockRenderWindowTokenSrc.Token);
 
             _mainViewModel.RenderSurfaceHandle = _renderSurface.WindowHandle;
