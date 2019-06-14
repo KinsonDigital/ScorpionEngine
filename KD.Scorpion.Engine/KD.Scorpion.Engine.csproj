@@ -153,9 +153,7 @@
     <Compile Include="Utils\Enums.cs" />
     <Compile Include="Utils\StopWatch.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Graphics\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\KD.Scorpion.Core\KD.Scorpion.Core.csproj">
       <Project>{3e136a13-190c-4390-9e74-8849022852f6}</Project>
