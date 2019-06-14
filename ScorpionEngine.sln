@@ -48,6 +48,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDLScorpPlugin", "SDLScorpP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginSystem", "PluginSystem\PluginSystem.csproj", "{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginSystem.Tests", "PluginSystem.Tests\PluginSystem.Tests.csproj", "{E05F5FEA-9AC6-427C-8D5F-70E3780ED23B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug(MonoGame)|x64 = Debug(MonoGame)|x64
@@ -362,6 +364,26 @@ Global
 		{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}.UserControlTesting|x64.Build.0 = Release(SDL)|x64
 		{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}.UserControlTesting|x86.ActiveCfg = Release(SDL)|x86
 		{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}.UserControlTesting|x86.Build.0 = Release(SDL)|x86
+		{E05F5FEA-9AC6-427C-8D5F-70E3780ED23B}.Debug(MonoGame)|x64.ActiveCfg = Debug|x64
+		{E05F5FEA-9AC6-427C-8D5F-70E3780ED23B}.Debug(MonoGame)|x64.Build.0 = Debug|x64
+		{E05F5FEA-9AC6-427C-8D5F-70E3780ED23B}.Debug(MonoGame)|x86.ActiveCfg = Debug|x86
+		{E05F5FEA-9AC6-427C-8D5F-70E3780ED23B}.Debug(MonoGame)|x86.Build.0 = Debug|x86
+		{E05F5FEA-9AC6-427C-8D5F-70E3780ED23B}.Debug(SDL)|x64.ActiveCfg = Debug|x64
+		{E05F5FEA-9AC6-427C-8D5F-70E3780ED23B}.Debug(SDL)|x64.Build.0 = Debug|x64
+		{E05F5FEA-9AC6-427C-8D5F-70E3780ED23B}.Debug(SDL)|x86.ActiveCfg = Debug|x86
+		{E05F5FEA-9AC6-427C-8D5F-70E3780ED23B}.Debug(SDL)|x86.Build.0 = Debug|x86
+		{E05F5FEA-9AC6-427C-8D5F-70E3780ED23B}.Release(MonoGame)|x64.ActiveCfg = Release|x64
+		{E05F5FEA-9AC6-427C-8D5F-70E3780ED23B}.Release(MonoGame)|x64.Build.0 = Release|x64
+		{E05F5FEA-9AC6-427C-8D5F-70E3780ED23B}.Release(MonoGame)|x86.ActiveCfg = Release|x86
+		{E05F5FEA-9AC6-427C-8D5F-70E3780ED23B}.Release(MonoGame)|x86.Build.0 = Release|x86
+		{E05F5FEA-9AC6-427C-8D5F-70E3780ED23B}.Release(SDL)|x64.ActiveCfg = Release|x64
+		{E05F5FEA-9AC6-427C-8D5F-70E3780ED23B}.Release(SDL)|x64.Build.0 = Release|x64
+		{E05F5FEA-9AC6-427C-8D5F-70E3780ED23B}.Release(SDL)|x86.ActiveCfg = Release|x86
+		{E05F5FEA-9AC6-427C-8D5F-70E3780ED23B}.Release(SDL)|x86.Build.0 = Release|x86
+		{E05F5FEA-9AC6-427C-8D5F-70E3780ED23B}.UserControlTesting|x64.ActiveCfg = Release|x64
+		{E05F5FEA-9AC6-427C-8D5F-70E3780ED23B}.UserControlTesting|x64.Build.0 = Release|x64
+		{E05F5FEA-9AC6-427C-8D5F-70E3780ED23B}.UserControlTesting|x86.ActiveCfg = Release|x86
+		{E05F5FEA-9AC6-427C-8D5F-70E3780ED23B}.UserControlTesting|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -372,6 +394,7 @@ Global
 		{36ABBA84-5FB3-4652-868F-590D342BDE2D} = {EE8A8A20-A4DF-49FA-9456-480274CD7BFA}
 		{3C349F0B-CF7E-4401-834D-A1B44C8F64D0} = {EE8A8A20-A4DF-49FA-9456-480274CD7BFA}
 		{3234BD2E-D0F7-437B-BC68-8A23DF1A7E3C} = {EE8A8A20-A4DF-49FA-9456-480274CD7BFA}
+		{E05F5FEA-9AC6-427C-8D5F-70E3780ED23B} = {EE8A8A20-A4DF-49FA-9456-480274CD7BFA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F10604E0-0DA6-44B3-A9BD-8D95EA21E67F}
