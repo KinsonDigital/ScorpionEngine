@@ -22,7 +22,7 @@ namespace ParticleMaker.ViewModels
     /// <summary>
     /// The main view model for the application.
     /// </summary>
-    public class MainViewModel : ViewModel
+    public class MainViewModel : ViewModel, IDisposable
     {
         #region Private Fields
         private readonly char[] _illegalCharacters = new[] { '\\', '/', ':', '*', '?', '\"', '<', '>', '|', '.' };
@@ -775,6 +775,12 @@ namespace ParticleMaker.ViewModels
         /// Shuts down the graphics engine.
         /// </summary>
         public void ShutdownEngine() => _graphicsEngine.Stop();
+
+
+        /// <summary>
+        /// Disposes of all the textures in the <see cref="KDParticleEngine.ParticleEngine{ITexture}"/>.
+        /// </summary>
+        public void Dispose() => _graphicsEngine.ParticleEngine.ToList().ForEach(texture => texture.Dispose());
         #endregion
 
 
@@ -1414,7 +1420,16 @@ namespace ParticleMaker.ViewModels
                 {
                     if (_graphicsEngine.ParticleEngine[i].Name == eventArgs.Name)
                     {
-                        _graphicsEngine.ParticleEngine.Remove(_graphicsEngine.ParticleEngine[i]);
+                        var particleTexture = _graphicsEngine.ParticleEngine[i];
+
+                        var success = _graphicsEngine.ParticleEngine.Remove(_graphicsEngine.ParticleEngine[i]);
+
+                        if (success)
+                        {
+                            particleTexture.Dispose();
+                            particleTexture = null;
+                        }
+
                         break;
                     }
                 }

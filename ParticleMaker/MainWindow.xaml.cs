@@ -54,6 +54,7 @@ namespace ParticleMaker
         protected override void OnClosing(CancelEventArgs e)
         {
             _dockRenderWindowTokenSrc.Cancel();
+
             if (_mainViewModel.SettingsChanged)
             {
                 var msgResult = WinMsgBox.Show("You have unsaved settings.  Save first?", "Save Changes", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -63,6 +64,11 @@ namespace ParticleMaker
             }
 
             _mainViewModel.ShutdownEngine();
+            _mainViewModel.Dispose();
+
+            App.IsShuttingDown = true;
+
+            _renderSurface.Close();
 
             base.OnClosing(e);
         }
@@ -82,7 +88,7 @@ namespace ParticleMaker
             _dockRenderWindowTokenSrc = new CancellationTokenSource();
             _dockRenderWindowTask = new Task(() =>
             {
-                while(!_dockRenderWindowTokenSrc.IsCancellationRequested)
+                while (!_dockRenderWindowTokenSrc.IsCancellationRequested)
                 {
                     Thread.Sleep(62);
                     Dispatcher.Invoke(() =>

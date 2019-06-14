@@ -61,6 +61,11 @@ namespace ParticleMaker
         /// Gets the current version of the application.
         /// </summary>
         public static string Version => $"v{FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion}";
+
+        /// <summary>
+        /// Gets a value indicating if the application is shutting down.
+        /// </summary>
+        public static bool IsShuttingDown { get; set; }
         #endregion
 
 
