@@ -5,7 +5,6 @@
 
 namespace KDScorpionCore.Graphics
 {
-
     public class Texture
     {
         #region Props

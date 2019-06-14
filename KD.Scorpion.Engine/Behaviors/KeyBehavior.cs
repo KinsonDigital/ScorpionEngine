@@ -39,11 +39,7 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         public KeyBehavior(bool enabled = false, Keyboard keyboard = null)
         {
-            //_keyboard = keyboard == null ?
-            //    Pluginsys
-            _keyboard = keyboard == null ?
-                new Keyboard(Plugins.EnginePlugins.LoadPlugin<IKeyboard>()) :
-                keyboard;
+            _keyboard = keyboard ?? new Keyboard(Plugins.EnginePlugins.LoadPlugin<IKeyboard>());
 
             Enabled = enabled;
         }
@@ -55,9 +51,7 @@ namespace KDScorpionEngine.Behaviors
         /// <param name="key">The assigned keyboard key of the behavior.</param>
         public KeyBehavior(KeyCodes key, bool enabled = false, Keyboard keyboard = null)
         {
-            _keyboard = keyboard == null ?
-                new Keyboard(Plugins.EnginePlugins.LoadPlugin<IKeyboard>()) :
-                keyboard;
+            _keyboard = keyboard ?? new Keyboard(Plugins.EnginePlugins.LoadPlugin<IKeyboard>());
 
             Key = key;
             Enabled = enabled;
