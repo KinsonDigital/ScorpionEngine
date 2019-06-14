@@ -321,7 +321,7 @@ namespace KDScorpionEngine.Entities
 
             //Render the physics bodies vertices to show its shape for debugging purposes
             if (DebugDrawEnabled)
-                _debugDraw.Draw(renderer.InternalRenderer, Body.InternalPhysicsBody);
+                _debugDraw.Draw(renderer.InternalRenderer, Body.InternalPhysicsBody, new GameColor(255, 255, 10, 10));
         }
         #endregion
 
