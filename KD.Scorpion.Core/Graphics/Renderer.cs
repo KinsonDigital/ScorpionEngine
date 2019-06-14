@@ -11,7 +11,7 @@ namespace KDScorpionCore.Graphics
 
 
         #region Props
-        internal IRenderer InternalRenderer { get; set; }
+        public IRenderer InternalRenderer { get; set; }
         #endregion
 
 

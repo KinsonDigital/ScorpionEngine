@@ -2,6 +2,7 @@
 using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Input;
+using KDScorpionCore.Plugins;
 using KDScorpionEngine.Events;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngine.Input;
@@ -40,7 +41,7 @@ namespace KDScorpionEngine.Scene
         public SceneManager(ContentLoader contentLoader)
         {
             _contentLoader = contentLoader;
-            _keyboard = new Keyboard(Plugins.PluginFactory.CreateKeyboard());
+            _keyboard = new Keyboard(Plugins.EnginePlugins.LoadPlugin<IKeyboard>());
         }
         #endregion
 

@@ -2,16 +2,16 @@
 using System.Linq;
 using System.IO;
 using System.Reflection;
-using KDScorpionCore.Exceptions;
 using System.Runtime.CompilerServices;
 using System.Diagnostics.CodeAnalysis;
+using PluginSystem.Exceptions;
 
 [assembly: InternalsVisibleTo(assemblyName: "ScorpionCoreTests", AllInternalsVisible = true)]
 [assembly: InternalsVisibleTo(assemblyName: "ScorpionEngineTests", AllInternalsVisible = true)]
 [assembly: InternalsVisibleTo(assemblyName: "ScorpionUITests", AllInternalsVisible = true)]
 [assembly: InternalsVisibleTo(assemblyName: "ScorpionEngine", AllInternalsVisible = true)]
 
-namespace KDScorpionCore.Plugins
+namespace PluginSystem
 {
     /// <summary>
     /// Loads plugin assemblies for use.
@@ -42,7 +42,7 @@ namespace KDScorpionCore.Plugins
             catch (Exception ex)
             {
                 if(ex is FileNotFoundException || ex is ArgumentNullException)
-                    throw new PluginNotFoundException(pluginLibraryName, $"{pluginLibraryName}");
+                    throw new PluginNotFoundException(pluginLibraryName, $"{pluginLibraryName}.dll");
 
                 return null;
             }

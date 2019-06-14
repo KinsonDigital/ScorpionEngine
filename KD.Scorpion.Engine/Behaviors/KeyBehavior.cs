@@ -1,6 +1,7 @@
 ﻿using System;
 using KDScorpionCore;
 using KDScorpionCore.Input;
+using KDScorpionCore.Plugins;
 using KDScorpionEngine.Input;
 using PluginSystem;
 
@@ -38,8 +39,10 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         public KeyBehavior(bool enabled = false, Keyboard keyboard = null)
         {
+            //_keyboard = keyboard == null ?
+            //    Pluginsys
             _keyboard = keyboard == null ?
-                new Keyboard(Plugins.PluginFactory.CreateKeyboard()) :
+                new Keyboard(Plugins.EnginePlugins.LoadPlugin<IKeyboard>()) :
                 keyboard;
 
             Enabled = enabled;
@@ -53,7 +56,7 @@ namespace KDScorpionEngine.Behaviors
         public KeyBehavior(KeyCodes key, bool enabled = false, Keyboard keyboard = null)
         {
             _keyboard = keyboard == null ?
-                new Keyboard(Plugins.PluginFactory.CreateKeyboard()) :
+                new Keyboard(Plugins.EnginePlugins.LoadPlugin<IKeyboard>()) :
                 keyboard;
 
             Key = key;

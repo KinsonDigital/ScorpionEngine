@@ -95,6 +95,10 @@
       <Project>{3e136a13-190c-4390-9e74-8849022852f6}</Project>
       <Name>KD.Scorpion.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PluginSystem\PluginSystem.csproj">
+      <Project>{116a0dd5-d8a0-44b8-9634-cd59bfd6b99d}</Project>
+      <Name>PluginSystem</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

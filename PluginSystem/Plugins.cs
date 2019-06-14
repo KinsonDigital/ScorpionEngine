@@ -1,45 +1,63 @@
-﻿using System.Runtime.CompilerServices;
-
-[assembly: InternalsVisibleTo(assemblyName: "ScorpionCoreTests", AllInternalsVisible = true)]
-[assembly: InternalsVisibleTo(assemblyName: "ScorpionEngineTests", AllInternalsVisible = true)]
-[assembly: InternalsVisibleTo(assemblyName: "ScorpionEngine", AllInternalsVisible = true)]
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace PluginSystem
 {
+    [ExcludeFromCodeCoverage]
     public static class Plugins
     {
+        #region Private Fields
+        private static IPluginLibrary _enginePluginLib;
+        private static IPluginLibrary _physicsPluginLib;
+        #endregion
+
+
         #region Props
         /// <summary>
-        /// The loaded plugin factory.
+        /// Gets or sets the name of the engine plugin library.
         /// </summary>
-        public static IPluginFactory PluginFactory { get; private set; }
-        #endregion
+        public static string EngineLibraryPluginName { get; set; } = LibChooser.EnginePluginLibraryName;
 
-
-        #region Public Methods
-        public static void LoadPluginFactory()
+        /// <summary>
+        /// Gets or sets the name of the engine plugin library.
+        /// </summary>
+        public static string PhysicsLibraryPluginName { get; set; } = LibChooser.PhysicsPLuginLibraryName;
+        
+        /// <summary>
+        /// Gets the loaded engine plugin library.
+        /// </summary>
+        public static IPluginLibrary EnginePlugins
         {
-#if MONOGAME
-            PluginFactory = new MonoPluginFactory();
-#elif SDL
-            PluginFactory = new SDLPluginFactory();
-#endif
+            get
+            {
+                if (string.IsNullOrEmpty(EngineLibraryPluginName))
+                    throw new Exception($"The {nameof(EngineLibraryPluginName)} property must be set to the name of the plugin properly load the engine plugin library.");
+
+                if (_enginePluginLib is null)
+                    _enginePluginLib = new PluginLibrary(PluginLibraryLoader.LoadPluginLibrary(EngineLibraryPluginName));
+
+
+                return _enginePluginLib;
+            }
         }
 
-
         /// <summary>
-        /// Unloads the currently loaded plugin factory.
+        /// Gets the loaded physics plugin library.
         /// </summary>
-        public static void UnloadPluginFactory() => PluginFactory = null;
-        #endregion
+        public static IPluginLibrary PhysicsPlugins
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(PhysicsLibraryPluginName))
+                    throw new Exception($"The {nameof(PhysicsLibraryPluginName)} property must be set to the name of the plugin to load to properly load the physics plugin library.");
+
+                if (_physicsPluginLib is null)
+                    _physicsPluginLib = new PluginLibrary(PluginLibraryLoader.LoadPluginLibrary(PhysicsLibraryPluginName));
 
 
-        #region Internal Methods
-        /// <summary>
-        /// Loads a plugin factory.  This is used for unit testing only.
-        /// </summary>
-        /// <param name="factory">The plugin factory to load.</param>
-        internal static void LoadPluginFactory(IPluginFactory factory) => PluginFactory = factory;
+                return _physicsPluginLib;
+            }
+        }
         #endregion
-    }   
+    }
 }

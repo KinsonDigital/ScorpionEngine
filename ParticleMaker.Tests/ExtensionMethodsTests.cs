@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using NUnit.Framework;
-using System;
+﻿using NUnit.Framework;
 using System.Windows.Media;
 using NETColor = System.Drawing.Color;
 using MediaColor = System.Windows.Media.Color;

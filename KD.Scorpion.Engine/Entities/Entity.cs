@@ -256,7 +256,7 @@ namespace KDScorpionEngine.Entities
             {
                 if (value)
                 {
-                    _debugDraw = Plugins.PluginFactory.CreateDebugDraw();
+                    _debugDraw = Plugins.EnginePlugins.LoadPlugin<IDebugDraw>();
                 }
                 else
                 {

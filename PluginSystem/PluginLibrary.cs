@@ -1,53 +1,60 @@
-﻿using SimpleInjector;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
+using SimpleInjector;
 
-namespace KDScorpionCore.Plugins
+namespace PluginSystem
 {
+    /// <summary>
+    /// Represents a library with various plugins of functionality that can be loaded and used 
+    /// in an application.
+    /// </summary>
     [ExcludeFromCodeCoverage]
     public class PluginLibrary : IPluginLibrary
     {
+        #region Private Fields
         private readonly Assembly _pluginAssembly;
-        private readonly Container _container;
-        private readonly IEnumerable<Type> _concretePluginTypes;
+        private readonly Container _container = new Container();
+        private IEnumerable<Type> _concretePluginTypes;
+        #endregion
 
 
+        #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="PluginLibrary"/>.
+        /// </summary>
+        /// <param name="name">The name of the plugin library to load.</param>
         public PluginLibrary(string name)
         {
             Name = name;
 
-            _container = new Container();
-
             //Load the plugin assembly.
             _pluginAssembly = PluginLibraryLoader.LoadPluginLibrary(name);
 
-            //Get all of the compatible plugin types to register
-            _concretePluginTypes = _container.GetTypesToRegister<IPlugin>(_pluginAssembly);
-
-            //Throw an exception if there are no concrete types in the plugin library to use.
-            if (_concretePluginTypes.ToArray().Length <= 0)
-            {
-                //TODO: Create a better custom exception for the exception below
-                throw new Exception($"The plugin library '{Name}' does not have any acceptable plugin classes to be loaded.");
-            }
-
-            //Register all of the plugin types with the IoC container for instantiation
-            foreach (var concreteType in _concretePluginTypes)
-            {
-                var serviceInterface = GetPluginInterface(concreteType);
-
-                //If the concrete type is valid for registration
-                if(ValidForRegistration(concreteType))
-                    _container.Register(serviceInterface, concreteType);
-            }
+            CheckAndRegisterAssembly();
         }
 
 
+        /// <summary>
+        /// Creates a new instance of <see cref="PluginLibrary"/>.
+        /// </summary>
+        /// <param name="pluginAssembly">The plugin assembly to load.</param>
+        public PluginLibrary(Assembly pluginAssembly)
+        {
+            Name = pluginAssembly.GetName().Name;
+            _pluginAssembly = pluginAssembly;
+            CheckAndRegisterAssembly();
+        }
+        #endregion
+
+
         #region Props
-        public string Name { get; set; }
+        /// <summary>
+        /// Gets the name of the plugin assembly.
+        /// </summary>
+        public string Name { get; private set; }
         #endregion
 
 
@@ -57,10 +64,7 @@ namespace KDScorpionCore.Plugins
         /// </summary>
         /// <typeparam name="T">The type of plugin to load.</typeparam>
         /// <returns></returns>
-        public T LoadPlugin<T>() where T : class, IPlugin
-        {
-            return _container.GetInstance<T>();
-        }
+        public T LoadPlugin<T>() where T : class, IPlugin => _container.GetInstance<T>();
 
 
         /// <summary>
@@ -82,6 +86,33 @@ namespace KDScorpionCore.Plugins
 
 
         #region Private Methods
+        /// <summary>
+        /// Checks and registers up the plugin assembly.
+        /// </summary>
+        private void CheckAndRegisterAssembly()
+        {
+            //Get all of the compatible plugin types to register
+            _concretePluginTypes = _container.GetTypesToRegister<IPlugin>(_pluginAssembly);
+
+            //Throw an exception if there are no concrete types in the plugin library to use.
+            if (_concretePluginTypes.ToArray().Length <= 0)
+            {
+                //TODO: Create a better custom exception for the exception below
+                throw new Exception($"The plugin library '{Name}' does not have any acceptable plugin classes to be loaded.");
+            }
+
+            //Register all of the plugin types with the IoC container for instantiation
+            foreach (var concreteType in _concretePluginTypes)
+            {
+                var serviceInterface = GetPluginInterface(concreteType);
+
+                //If the concrete type is valid for registration
+                if (ValidForRegistration(concreteType))
+                    _container.Register(serviceInterface, concreteType);
+            }
+        }
+
+
         /// <summary>
         /// Gets the interfce type that the given <paramref name="concreteType"/> implements.
         /// </summary>

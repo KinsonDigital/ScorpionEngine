@@ -1,4 +1,4 @@
-﻿namespace KDScorpionCore.Plugins
+﻿namespace PluginSystem
 {
     /// <summary>
     /// Represents a single plugin item.
