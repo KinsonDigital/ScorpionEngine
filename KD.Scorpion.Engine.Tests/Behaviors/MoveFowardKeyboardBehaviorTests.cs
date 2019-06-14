@@ -149,19 +149,26 @@ namespace KDScorpionEngineTests.Behaviors
             var entityXVertices = new[] { 10f, 20f, 30f };
             var entityYVertices = new[] { 10f, 20f, 30f };
 
-            var mockPluginFactory = new Mock<IPluginFactory>();
-            mockPluginFactory.Setup(m => m.CreateKeyboard()).Returns(_mockKeyboard.Object);
-            mockPluginFactory.Setup(m => m.CreatePhysicsBody(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
+            var mockEnginePluginLibrary = new Mock<IPluginLibrary>();
+            mockEnginePluginLibrary.Setup(m => m.LoadPlugin<IKeyboard>()).Returns(_mockKeyboard.Object);
+            Plugins.EnginePlugins = mockEnginePluginLibrary.Object;
+
+            var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
+            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
             {
                 return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[1]);
             });
 
-            Plugins.LoadPluginFactory(mockPluginFactory.Object);
+            Plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
         }
 
 
         [TearDown]
-        public void TearDown() => Plugins.UnloadPluginFactory();
+        public void TearDown()
+        {
+            Plugins.EnginePlugins = null;
+            Plugins.PhysicsPlugins = null;
+        }
         #endregion
     }
 }

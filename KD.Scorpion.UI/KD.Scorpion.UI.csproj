@@ -80,12 +80,6 @@
   <ItemGroup>
     <Folder Include="Core\" />
   </ItemGroup>
-  <ItemGroup>
-    <AdditionalFiles Include="..\ScorpionCore.DepGraph\Main.layerdiagram">
-      <Link>Main.layerdiagram</Link>
-      <Visible>False</Visible>
-    </AdditionalFiles>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>REM Copy the MonoGame Engine plugin to the output folder

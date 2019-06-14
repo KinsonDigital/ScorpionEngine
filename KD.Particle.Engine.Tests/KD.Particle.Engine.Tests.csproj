@@ -89,10 +89,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AdditionalFiles Include="..\ScorpionCore.DepGraph\Main.layerdiagram">
-      <Link>Main.layerdiagram</Link>
-      <Visible>False</Visible>
-    </AdditionalFiles>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>

@@ -5,6 +5,7 @@ using KDScorpionEngine.Entities;
 using KDScorpionEngineTests.Fakes;
 using System.Drawing;
 using PluginSystem;
+using KDScorpionCore.Plugins;
 
 namespace KDScorpionEngineTests.Entities
 {
@@ -128,18 +129,18 @@ namespace KDScorpionEngineTests.Entities
         [SetUp]
         public void Setup()
         {
-            var mockPluginFactory = new Mock<IPluginFactory>();
-            mockPluginFactory.Setup(m => m.CreatePhysicsBody(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
+            var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
+            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
             {
                 return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[1], (float)ctorParams[2], (float)ctorParams[3]);
             });
 
-            Plugins.LoadPluginFactory(mockPluginFactory.Object);
+            Plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
         }
 
 
         [TearDown]
-        public void TearDown() => Plugins.UnloadPluginFactory();
+        public void TearDown() => Plugins.PhysicsPlugins = null;
         #endregion
     }
 }

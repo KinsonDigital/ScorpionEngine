@@ -17,7 +17,7 @@ namespace KDScorpionEngineTests.Scene
     public class SceneManagerTests
     {
         #region Fields
-        private Mock<IPluginFactory> _mockPluginFactory;
+        private Mock<IPluginLibrary> _mockPluginLibrary;
         private IContentLoader _mockCoreLoader;
         private ContentLoader _contentLoader;
         #endregion
@@ -31,7 +31,7 @@ namespace KDScorpionEngineTests.Scene
             var manager = new SceneManager(_contentLoader);
 
             //Assert
-            _mockPluginFactory.Verify(m => m.CreateKeyboard(), Times.Once());
+            _mockPluginLibrary.Verify(m => m.LoadPlugin<IKeyboard>(), Times.Once());
         }
         #endregion
 
@@ -1835,18 +1835,18 @@ namespace KDScorpionEngineTests.Scene
             mockCoreKeyboard.Setup(m => m.IsKeyPressed(KeyCodes.Right)).Returns(true);
             mockCoreKeyboard.Setup(m => m.IsKeyPressed(KeyCodes.Left)).Returns(true);
 
-            _mockPluginFactory = new Mock<IPluginFactory>();
-            _mockPluginFactory.Setup(m => m.CreateKeyboard()).Returns(mockCoreKeyboard.Object);
+            _mockPluginLibrary = new Mock<IPluginLibrary>();
+            _mockPluginLibrary.Setup(m => m.LoadPlugin<IKeyboard>()).Returns(mockCoreKeyboard.Object);
 
-            Plugins.LoadPluginFactory(_mockPluginFactory.Object);
+            Plugins.EnginePlugins = _mockPluginLibrary.Object;
         }
 
 
         [TearDown]
         public void TearDown()
         {
-            Plugins.UnloadPluginFactory();
-            _mockPluginFactory = null;
+            Plugins.EnginePlugins = null;
+            _mockPluginLibrary = null;
         }
         #endregion
 

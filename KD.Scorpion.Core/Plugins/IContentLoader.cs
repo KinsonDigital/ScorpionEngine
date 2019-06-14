@@ -1,4 +1,5 @@
 ﻿using KDScorpionCore.Graphics;
+using PluginSystem;
 
 namespace KDScorpionCore.Plugins
 {

@@ -1,4 +1,6 @@
-﻿namespace KDScorpionCore.Plugins
+﻿using PluginSystem;
+
+namespace KDScorpionCore.Plugins
 {
     /// <summary>
     /// Provides the ability to draw frames around a physics body shape for debugging purposes.

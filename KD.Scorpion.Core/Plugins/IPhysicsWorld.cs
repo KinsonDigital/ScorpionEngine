@@ -1,4 +1,6 @@
-﻿namespace KDScorpionCore.Plugins
+﻿using PluginSystem;
+
+namespace KDScorpionCore.Plugins
 {
     public interface IPhysicsWorld : IPlugin
     {

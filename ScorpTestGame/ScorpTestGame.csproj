@@ -71,10 +71,6 @@
     <Compile Include="Scenes\ParticleTestingScene.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AdditionalFiles Include="..\ScorpionCore.DepGraph\Main.layerdiagram">
-      <Link>Main.layerdiagram</Link>
-      <Visible>False</Visible>
-    </AdditionalFiles>
     <None Include="App.config" />
     <None Include="Content\Content.mgcb" />
     <Content Include="Content\Fonts\MyGameText.spritefont" />
@@ -144,6 +140,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SimpleInjector">
+      <Version>4.6.0</Version>
+    </PackageReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>REM Make sure that a Graphics directory exists
@@ -152,6 +153,14 @@ mkdir "$(TargetDir)Content\Graphics"
 
 REM Copy the graphics content to the bin output folder
 xcopy "$(ProjectDir)Content\Graphics" "$(TargetDir)Content\Graphics" /Y/E
+
+
+REM Copy the MonoGame Graphics XNB content to the bin output folder
+xcopy "$(ProjectDir)Content\bin\Windows\Graphics\*.xnb" "$(TargetDir)Content\Graphics\*.xnb" /Y/E
+
+
+REM Copy the MonoGame Fonts XNB content to the bin output folder
+xcopy "$(ProjectDir)Content\bin\Windows\Fonts\*.xnb" "$(TargetDir)Content\Fonts\*.xnb" /Y/E
 
 
 REM Make sure that a Fonts directory exists
@@ -168,14 +177,13 @@ copy "$(SolutionDir)MonoScorpPlugin\bin\$(PlatformName)\Debug\MonoScorpPlugin.pd
 
 
 REM Copy the SDL Engine plugin to the output folder
-copy "$(SolutionDir)SDLScorpPlugin\bin\$(PlatformName)\$(ConfigurationName)\netstandard2.0\SDLScorpPlugin.dll" "$(TargetDir)SDLScorpPlugin.dll" /Y
-copy "$(SolutionDir)SDLScorpPlugin\bin\$(PlatformName)\$(ConfigurationName)\netstandard2.0\SDLScorpPlugin.pdb" "$(TargetDir)SDLScorpPlugin.pdb" /Y
+copy "$(SolutionDir)SDLScorpPlugin\bin\$(PlatformName)\$(ConfigurationName)\SDLScorpPlugin.dll" "$(TargetDir)SDLScorpPlugin.dll" /Y
+copy "$(SolutionDir)SDLScorpPlugin\bin\$(PlatformName)\$(ConfigurationName)\SDLScorpPlugin.pdb" "$(TargetDir)SDLScorpPlugin.pdb" /Y
 
 
 REM Copy the SDL-CS C# wrapper library to the output folder
-REM copy "$(SolutionDir)SDLScorpPlugin\Libs\SDLNet\$(PlatformName)\SDL2-CS.dll" "$(TargetDir)SDL2-CS.dll" /Y
-copy "S:\Software Development\GitHub-Repos\SDL2-CS\bin\Debug\x64\netstandard2.0\SDL2-CS.dll" "$(TargetDir)SDL2-CS.dll"
-copy "S:\Software Development\GitHub-Repos\SDL2-CS\bin\Debug\x64\netstandard2.0\SDL2-CS.pdb" "$(TargetDir)SDL2-CS.pdb"
+copy "$(SolutionDir)SDLScorpPlugin\Libs\SDLNet\$(PlatformName)\SDL2-CS.dll" "$(TargetDir)SDL2-CS.dll"
+
 
 REM Copy the native SDL2 library to the output folder
 copy "$(SolutionDir)SDLScorpPlugin\Libs\SDL\$(PlatformName)\SDL2.dll" "$(TargetDir)SDL2.dll" /Y
@@ -204,7 +212,6 @@ copy "$(SolutionDir)VelcroPhysicsPlugin\bin\$(PlatformName)\Debug\VelcroPhysicsP
 REM Copy the Main Velcro Physics Library to the output folder
 del "$(TargetDir)VelcroPhysics.dll" /F /Q
 copy "$(SolutionDir)VelcroPhysicsPlugin\bin\$(PlatformName)\Debug\VelcroPhysics.dll" "$(TargetDir)VelcroPhysics.dll"
-copy "$(SolutionDir)VelcroPhysicsPlugin\bin\$(PlatformName)\Debug\VelcroPhysics.pdb" "$(TargetDir)VelcroPhysics.pdb"
 
 
 REM Copy the MonoGame.Framework.dll file to the output directory

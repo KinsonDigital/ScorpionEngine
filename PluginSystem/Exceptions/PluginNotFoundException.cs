@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace KDScorpionCore.Exceptions
+namespace PluginSystem.Exceptions
 {
     /// <summary>
     /// Thrown when a plugin cannot be found.

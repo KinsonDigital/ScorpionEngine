@@ -371,10 +371,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <AdditionalFiles Include="..\ScorpionCore.DepGraph\Main.layerdiagram">
-      <Link>Main.layerdiagram</Link>
-      <Visible>False</Visible>
-    </AdditionalFiles>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -467,14 +463,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SDL2\libjpeg-9.dll" />
-    <Content Include="SDL2\libpng16-16.dll" />
-    <Content Include="SDL2\libtiff-5.dll" />
-    <Content Include="SDL2\libwebp-7.dll" />
-    <Content Include="SDL2\SDL2-CS.dll" />
-    <Content Include="SDL2\SDL2.dll" />
-    <Content Include="SDL2\SDL2_image.dll" />
-    <Content Include="SDL2\zlib1.dll" />
+    <None Include="SDL2\libjpeg-9.dll" />
+    <None Include="SDL2\libpng16-16.dll" />
+    <None Include="SDL2\libtiff-5.dll" />
+    <None Include="SDL2\libwebp-7.dll" />
+    <None Include="SDL2\SDL2-CS.dll" />
+    <None Include="SDL2\SDL2.dll" />
+    <None Include="SDL2\SDL2_image.dll" />
+    <None Include="SDL2\zlib1.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

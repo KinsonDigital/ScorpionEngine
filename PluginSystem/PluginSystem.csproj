@@ -96,29 +96,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IPluginFactory.cs" />
-    <Compile Include="MonoPluginFactory.cs" />
+    <Compile Include="Exceptions\PluginMustImplementInterfaceException.cs" />
+    <Compile Include="Exceptions\PluginNotFoundException.cs" />
+    <Compile Include="IPlugin.cs" />
+    <Compile Include="LibChooser.cs" />
+    <Compile Include="IPluginLibrary.cs" />
+    <Compile Include="PluginLibrary.cs" />
+    <Compile Include="PluginLibraryLoader.cs" />
     <Compile Include="Plugins.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SDLPluginFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\KD.Scorpion.Core\KD.Scorpion.Core.csproj">
-      <Project>{3e136a13-190c-4390-9e74-8849022852f6}</Project>
-      <Name>KD.Scorpion.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MonoScorpPlugin\MonoScorpPlugin.csproj">
-      <Project>{ace87e11-8fac-4caa-bf5a-a237fe88bb9e}</Project>
-      <Name>MonoScorpPlugin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SDLScorpPlugin\SDLScorpPlugin.csproj">
-      <Project>{9d7aa70d-b35f-42b1-9fd1-ce12073861e9}</Project>
-      <Name>SDLScorpPlugin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\VelcroPhysicsPlugin\VelcroPhysicsPlugin.csproj">
-      <Project>{f60b40e1-4239-4329-9825-11925d349f7e}</Project>
-      <Name>VelcroPhysicsPlugin</Name>
-    </ProjectReference>
+    <PackageReference Include="SimpleInjector">
+      <Version>4.6.0</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -291,19 +291,19 @@ namespace KDScorpionEngineTests.Scene
         {
             _mockPhysicsWorld = new Mock<IPhysicsWorld>();
 
-            var mockPluginFactory = new Mock<IPluginFactory>();
-            mockPluginFactory.Setup(m => m.CreatePhysicsWorld(It.IsAny<object[]>())).Returns((object[] ctorParams) => {
+            var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
+            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsWorld>(It.IsAny<object[]>())).Returns((object[] ctorParams) => {
                 return _mockPhysicsWorld.Object;
             });
 
-            Plugins.LoadPluginFactory(mockPluginFactory.Object);
+            Plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
         }
 
 
         [TearDown]
         public void TearDown()
         {
-            Plugins.UnloadPluginFactory();
+            Plugins.PhysicsPlugins = null;
             _mockPhysicsWorld = null;
         }
         #endregion

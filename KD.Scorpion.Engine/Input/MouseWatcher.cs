@@ -40,7 +40,7 @@ namespace KDScorpionEngine.Input
         /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
         public MouseWatcher(bool enabled)
         {
-            _mouse = Plugins.PluginFactory.CreateMouse();
+            _mouse = Plugins.EnginePlugins.LoadPlugin<IMouse>();
 
             Enabled = enabled;
             ComboButtons = new List<InputButton>();

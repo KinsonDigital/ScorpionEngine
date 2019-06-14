@@ -91,12 +91,6 @@
       <Name>KD.Scorpion.UI</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <AdditionalFiles Include="..\ScorpionCore.DepGraph\Main.layerdiagram">
-      <Link>Main.layerdiagram</Link>
-      <Visible>False</Visible>
-    </AdditionalFiles>
-  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

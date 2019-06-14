@@ -17,7 +17,7 @@ namespace KDScorpionEngineTests
         #region Fields
         private ContentLoader _contentLoader;
         private Mock<IEngineCore> _mockEngineCore;
-        private Mock<IPluginFactory> _mockPluginFactory;
+        private Mock<IPluginLibrary> _mockPluginLibrary;
         private Mock<IPluginLibrary> _mockPhysicsPluginLib;
         #endregion
 
@@ -27,7 +27,7 @@ namespace KDScorpionEngineTests
         public void Ctor_WhenInvoking_SetsContentLoader()
         {
             //Arrange
-            var engine = new Engine(_mockPluginFactory.Object);
+            var engine = new Engine(_mockPluginLibrary.Object);
 
             //Act
             var actual = engine.ContentLoader;
@@ -43,7 +43,7 @@ namespace KDScorpionEngineTests
         public void SceneManager_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var engine = new Engine(_mockPluginFactory.Object);
+            var engine = new Engine(_mockPluginLibrary.Object);
             var manager = new SceneManager(_contentLoader);
             var expected = manager;
 
@@ -60,7 +60,7 @@ namespace KDScorpionEngineTests
         public void ContentLoader_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var engine = new Engine(_mockPluginFactory.Object);
+            var engine = new Engine(_mockPluginLibrary.Object);
             var expected = _contentLoader;
 
             //Act
@@ -76,7 +76,7 @@ namespace KDScorpionEngineTests
         public void Running_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var engine = new Engine(_mockPluginFactory.Object);
+            var engine = new Engine(_mockPluginLibrary.Object);
             var expected = true;
 
             //Act
@@ -91,7 +91,7 @@ namespace KDScorpionEngineTests
         public void CurrentFPS_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var engine = new Engine(_mockPluginFactory.Object);
+            var engine = new Engine(_mockPluginLibrary.Object);
             var expected = 62.5f;
 
             //Act
@@ -141,7 +141,7 @@ namespace KDScorpionEngineTests
         public void Start_WhenInvoked_InvokesEngineCoreStart()
         {
             //Arrange
-            var engine = new Engine(_mockPluginFactory.Object);
+            var engine = new Engine(_mockPluginLibrary.Object);
 
             //Act
             engine.Start();
@@ -155,7 +155,7 @@ namespace KDScorpionEngineTests
         public void Start_WhenInvokedWithNullEngineCore_DoesNotThrowException()
         {
             //Arrange
-            var engine = new Engine(_mockPluginFactory.Object);
+            var engine = new Engine(_mockPluginLibrary.Object);
 
             engine.SetFieldNull("_engineCore");
 
@@ -168,7 +168,7 @@ namespace KDScorpionEngineTests
         public void Stop_WhenInvoked_InvokesEngineCoreStop()
         {
             //Arrange
-            var engine = new Engine(_mockPluginFactory.Object);
+            var engine = new Engine(_mockPluginLibrary.Object);
 
             //Act
             engine.Stop();
@@ -182,7 +182,7 @@ namespace KDScorpionEngineTests
         public void Stop_WhenInvokedWithNullEngineCore_DoesNotThrowException()
         {
             //Arrange
-            var engine = new Engine(_mockPluginFactory.Object);
+            var engine = new Engine(_mockPluginLibrary.Object);
 
             engine.SetFieldNull("_engineCore");
 
@@ -195,7 +195,7 @@ namespace KDScorpionEngineTests
         public void Update_WhenInvokingWhileRunning_SetsCurrentFPSProp()
         {
             //Arrange
-            var engine = new Engine(_mockPluginFactory.Object);
+            var engine = new Engine(_mockPluginLibrary.Object);
             var expected = 62.5f;
 
             //Act
@@ -214,7 +214,7 @@ namespace KDScorpionEngineTests
             //Arrange
             PauseEngineCore();
 
-            var engine = new Engine(_mockPluginFactory.Object);
+            var engine = new Engine(_mockPluginLibrary.Object);
             var expected = 0f;
             Engine.CurrentFPS = 0;
 
@@ -235,12 +235,12 @@ namespace KDScorpionEngineTests
             TearDown();
 
             var fakeEngineCore = new FakeEngineCore();
-            var mockPluginFactory = new Mock<IPluginFactory>();
-            mockPluginFactory.Setup(m => m.CreateEngineCore()).Returns(fakeEngineCore);
+            var mockPluginLibrary = new Mock<IPluginLibrary>();
+            mockPluginLibrary.Setup(m => m.LoadPlugin<IEngineCore>()).Returns(fakeEngineCore);
 
-            Plugins.LoadPluginFactory(mockPluginFactory.Object);
+            Plugins.EnginePlugins = mockPluginLibrary.Object;
 
-            var engine = new FakeEngine(mockPluginFactory.Object);
+            var engine = new FakeEngine(mockPluginLibrary.Object);
             var expected = true;
 
             //Act
@@ -267,22 +267,21 @@ namespace KDScorpionEngineTests
 
             var mockKeyboard = new Mock<IKeyboard>();
 
-            _mockPluginFactory = new Mock<IPluginFactory>();
-            _mockPluginFactory.Setup(m => m.CreateContentLoader()).Returns(mockContentLoader.Object);
-            _mockPluginFactory.Setup(m => m.CreateEngineCore()).Returns(_mockEngineCore.Object);
-            _mockPluginFactory.Setup(m => m.CreateKeyboard()).Returns(mockKeyboard.Object);
+            _mockPluginLibrary = new Mock<IPluginLibrary>();
+            _mockPluginLibrary.Setup(m => m.LoadPlugin<IContentLoader>()).Returns(mockContentLoader.Object);
+            _mockPluginLibrary.Setup(m => m.LoadPlugin<IEngineCore>()).Returns(_mockEngineCore.Object);
+            _mockPluginLibrary.Setup(m => m.LoadPlugin<IKeyboard>()).Returns(mockKeyboard.Object);
 
-            Plugins.LoadPluginFactory(_mockPluginFactory.Object);
+            Plugins.EnginePlugins = _mockPluginLibrary.Object;
         }
 
 
         [TearDown]
         public void TearDown()
         {
-            Plugins.UnloadPluginFactory();
-
+            Plugins.EnginePlugins = null;
             _contentLoader = null;
-            _mockPluginFactory = null;
+            _mockPluginLibrary = null;
             _mockPhysicsPluginLib = null;
         }
         #endregion

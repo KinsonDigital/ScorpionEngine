@@ -1,4 +1,4 @@
-﻿using KDScorpionCore.Plugins;
+﻿using PluginSystem;
 
 namespace KDScorpionCore
 {

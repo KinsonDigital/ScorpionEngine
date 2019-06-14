@@ -1,4 +1,9 @@
-﻿namespace KDScorpionCore.Graphics
+﻿using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo(assemblyName: "ScorpionEngineTests", AllInternalsVisible = true)]
+[assembly: InternalsVisibleTo(assemblyName: "ScorpionCoreTests", AllInternalsVisible = true)]
+
+namespace KDScorpionCore.Graphics
 {
     public class Texture
     {

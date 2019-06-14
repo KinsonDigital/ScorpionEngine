@@ -27,7 +27,7 @@ namespace KDScorpionEngine.Physics
             ctorParams[7] = restitution;
             ctorParams[8] = isStatic;
 
-            InternalPhysicsBody = Plugins.PluginFactory.CreatePhysicsBody(ctorParams);
+            InternalPhysicsBody = Plugins.PhysicsPlugins.LoadPlugin<IPhysicsBody>(ctorParams);
         }
 
 

@@ -2,16 +2,16 @@
 using System.Linq;
 using System.IO;
 using System.Reflection;
-using KDScorpionCore.Exceptions;
 using System.Runtime.CompilerServices;
 using System.Diagnostics.CodeAnalysis;
+using PluginSystem.Exceptions;
 
 [assembly: InternalsVisibleTo(assemblyName: "ScorpionCoreTests", AllInternalsVisible = true)]
 [assembly: InternalsVisibleTo(assemblyName: "ScorpionEngineTests", AllInternalsVisible = true)]
 [assembly: InternalsVisibleTo(assemblyName: "ScorpionUITests", AllInternalsVisible = true)]
 [assembly: InternalsVisibleTo(assemblyName: "ScorpionEngine", AllInternalsVisible = true)]
 
-namespace KDScorpionCore.Plugins
+namespace PluginSystem
 {
     /// <summary>
     /// Loads plugin assemblies for use.

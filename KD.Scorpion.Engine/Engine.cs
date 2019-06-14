@@ -30,9 +30,10 @@ namespace KDScorpionEngine
         /// <paramref name="enginePluginLib">The plugin library used to mock engine plugins.</paramref>
         /// <paramref name="physicsPluginLib">The plugin library used to mock physics plugins.</paramref>
         /// </summary>
-        internal Engine(IPluginFactory enginePluginLib, bool loadPhysicsLibrary = true)
+        internal Engine(IPluginLibrary enginePluginLib, bool loadPhysicsLibrary = true)
         {
-            Plugins.LoadPluginFactory(enginePluginLib);
+            //TODO: Figure out what to do here with the first param
+
             //Make sure that the Setup() method is called
             //This is to make sure that this class is testable for unit testing purposes.
             Setup();
@@ -43,11 +44,7 @@ namespace KDScorpionEngine
         /// Creates an instance of engine.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        public Engine(bool loadPhysicsLibrary = true)
-        {
-            Plugins.LoadPluginFactory();
-            Setup();
-        }
+        public Engine(bool loadPhysicsLibrary = true) => Setup();
         #endregion
 
 
@@ -177,9 +174,9 @@ namespace KDScorpionEngine
         /// </summary>
         private void Setup()
         {
-            ContentLoader = new ContentLoader(Plugins.PluginFactory.CreateContentLoader());
-            
-            _engineCore = Plugins.PluginFactory.CreateEngineCore();
+            ContentLoader = new ContentLoader(Plugins.EnginePlugins.LoadPlugin<IContentLoader>());
+
+            _engineCore = Plugins.EnginePlugins.LoadPlugin<IEngineCore>();
 
             _engineCore.SetFPS(60);
 
@@ -190,7 +187,6 @@ namespace KDScorpionEngine
 
             SceneManager = new SceneManager(ContentLoader);
         }
-
         
 
         private void _engineCore_OnInitialize(object sender, EventArgs e)

@@ -1,10 +1,9 @@
-﻿using KDScorpionCore.Plugins;
-using System;
+﻿using System;
 
-namespace KDScorpionCore.Exceptions
+namespace PluginSystem.Exceptions
 {
     /// <summary>
-    /// Thrown when a plugin does not implement the <see cref="Plugins.IPlugin"/> interface.
+    /// Thrown when a plugin does not implement the IPlugin interface.
     /// </summary>
     public class PluginMustImplementInterfaceException : Exception
     {

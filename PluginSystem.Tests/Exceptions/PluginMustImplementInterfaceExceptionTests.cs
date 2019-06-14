@@ -1,8 +1,6 @@
 ﻿using NUnit.Framework;
-using KDScorpionCore.Exceptions;
-using KDScorpionCore.Plugins;
 
-namespace KDScorpionCoreTests.Exceptions
+namespace PluginSystem.Exceptions
 {
     [TestFixture]
     public class PluginMustImplementInterfaceExceptionTests
@@ -12,7 +10,7 @@ namespace KDScorpionCoreTests.Exceptions
         public void Ctor_WhenInvokingWithNoParam_CorrectlySetsExceptionMessage()
         {
             //Arrange
-            var expected = $"The plugin must implement the {nameof(IPlugin)} interface.";
+            var expected = $"The plugin must implement the IPlugin interface.";
             var exception = new PluginMustImplementInterfaceException();
 
             //Act
@@ -27,7 +25,7 @@ namespace KDScorpionCoreTests.Exceptions
         public void Ctor_WhenInvokingWithNameParam_CorrectlySetsExceptionMessage()
         {
             //Arrange
-            var expected = $"The plugin TestPlugin must implement the {nameof(IPlugin)} interface.";
+            var expected = $"The plugin TestPlugin must implement the IPlugin interface.";
             var exception = new PluginMustImplementInterfaceException("TestPlugin");
 
             //Act
