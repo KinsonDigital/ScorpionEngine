@@ -1,10 +1,10 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Content;
-using KDScorpionCore.Graphics;
 using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Events;
 using KDScorpionEngine.Exceptions;
+using KDScorpionEngine.Graphics;
 using KDScorpionEngine.Input;
 using PluginSystem;
 using System;
@@ -574,7 +574,7 @@ namespace KDScorpionEngine.Scene
         /// Calls the currently enabled <see cref="IScene"/> render method.
         /// </summary>
         /// <param name="renderer">The renderer to use for rendering.</param>
-        public void Render(Renderer renderer)
+        public void Render(GameRenderer renderer)
         {
             if (_scenes.Count <= 0)
                 return;

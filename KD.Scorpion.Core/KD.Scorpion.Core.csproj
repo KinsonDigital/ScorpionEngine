@@ -75,7 +75,6 @@
     <Compile Include="Input\KeyEventArgs.cs" />
     <Compile Include="Input\MouseEventArgs.cs" />
     <Compile Include="Input\MouseInputState.cs" />
-    <Compile Include="IRenderable.cs" />
     <Compile Include="IUpdatable.cs" />
     <Compile Include="OnRenderEventArgs.cs" />
     <Compile Include="IEngineEvents.cs" />

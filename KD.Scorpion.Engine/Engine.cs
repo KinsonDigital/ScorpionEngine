@@ -4,9 +4,9 @@ using KDScorpionCore.Plugins;
 using KDScorpionEngine.Scene;
 using System.Runtime.CompilerServices;
 using System.Diagnostics.CodeAnalysis;
-using KDScorpionCore.Graphics;
 using KDScorpionCore.Content;
 using PluginSystem;
+using KDScorpionEngine.Graphics;
 
 [assembly: InternalsVisibleTo(assemblyName: "ScorpionEngineTests", AllInternalsVisible = true)]
 
@@ -20,7 +20,7 @@ namespace KDScorpionEngine
         #region Fields
         private static IEngineCore _engineCore;
         private static int _prevElapsedTime;
-        private Renderer _renderer;
+        private GameRenderer _renderer;
         #endregion
 
 
@@ -139,7 +139,7 @@ namespace KDScorpionEngine
         /// Draws the game world.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        public virtual void Render(Renderer renderer)
+        public virtual void Render(GameRenderer renderer)
         {
             SceneManager.Render(renderer);
         }
@@ -217,7 +217,7 @@ namespace KDScorpionEngine
         {
             //TODO: Look into this.  This should not be created every single time
             //the render method is called. This is not performant.
-            _renderer = new Renderer(e.Renderer);
+            _renderer = new GameRenderer(e.Renderer);
 
             _renderer.Clear(50, 50, 50, 255);
 

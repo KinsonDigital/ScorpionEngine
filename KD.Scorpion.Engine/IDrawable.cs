@@ -1,6 +1,4 @@
-﻿
-
-using KDScorpionCore.Graphics;
+﻿using KDScorpionEngine.Graphics;
 
 namespace KDScorpionEngine
 {
@@ -13,6 +11,6 @@ namespace KDScorpionEngine
         /// Renders things to the screen.
         /// </summary>
         /// <param name="renderer">The rederer to use for rendering.</param>
-        void Render(Renderer renderer);
+        void Render(GameRenderer renderer);
     }
 }

@@ -2,13 +2,13 @@
 using NUnit.Framework;
 using KDScorpionCore;
 using KDScorpionCore.Content;
-using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Scene;
 using KDScorpionEngineTests.Fakes;
 using System;
 using KDScorpionEngine;
 using PluginSystem;
+using KDScorpionEngine.Graphics;
 
 namespace KDScorpionEngineTests.Scene
 {
@@ -271,7 +271,7 @@ namespace KDScorpionEngineTests.Scene
             scene.AddEntity(entityB, false);
 
             var mockCoreRenderer = new Mock<IRenderer>();
-            var renderer = new Renderer(mockCoreRenderer.Object);
+            var renderer = new GameRenderer(mockCoreRenderer.Object);
 
             var expected = true;
 

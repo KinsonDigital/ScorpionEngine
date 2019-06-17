@@ -1,5 +1,5 @@
 ﻿using KDScorpionCore;
-using KDScorpionCore.Graphics;
+using KDScorpionEngine.Graphics;
 using KDScorpionEngine.Scene;
 
 namespace KDScorpionEngineTests.Fakes
@@ -11,7 +11,7 @@ namespace KDScorpionEngineTests.Fakes
         }
 
 
-        public override void Render(Renderer renderer)
+        public override void Render(GameRenderer renderer)
         {
             IsRenderingScene = true;
 

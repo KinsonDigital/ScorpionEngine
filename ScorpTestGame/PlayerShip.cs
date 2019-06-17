@@ -6,6 +6,7 @@ using KDScorpionCore.Graphics;
 using KDScorpionCore.Input;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Entities;
+using KDScorpionEngine.Graphics;
 using KDScorpionEngine.Input;
 
 namespace ScorpTestGame
@@ -50,7 +51,6 @@ namespace ScorpTestGame
         /// </summary>
         public PlayerShip() : base(friction: 0f)
         {
-            DebugDrawEnabled = true;
             AngularDeceleration = 100f;
             Position = new Vector(300, 250);
 
@@ -169,7 +169,7 @@ namespace ScorpTestGame
         }
 
 
-        public override void Render(Renderer renderer)
+        public override void Render(GameRenderer renderer)
         {
             if (_particleEngine.Enabled)
             {
@@ -178,9 +178,6 @@ namespace ScorpTestGame
                     renderer.RennderParticle(particle);
                 }
             }
-
-
-            base.Render(renderer);
         }
         #endregion
     }

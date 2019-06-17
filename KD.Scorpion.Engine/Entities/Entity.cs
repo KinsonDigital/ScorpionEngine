@@ -4,11 +4,10 @@ using KDScorpionCore;
 using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Input;
-using KDScorpionCore.Plugins;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Exceptions;
+using KDScorpionEngine.Graphics;
 using KDScorpionEngine.Physics;
-using PluginSystem;
 
 namespace KDScorpionEngine.Entities
 {
@@ -17,7 +16,7 @@ namespace KDScorpionEngine.Entities
     /// Represents an imovable game object with a texture, and a location.  
     /// Great for static objects that never move such as walls, a tree, etc.
     /// </summary>
-    public abstract class Entity : IUpdatable, IRenderable, IInitialize, IContentLoadable
+    public abstract class Entity : IUpdatable, IInitialize, IContentLoadable
     {
         #region Events
         /// <summary>
@@ -46,9 +45,8 @@ namespace KDScorpionEngine.Entities
         private bool _visible = true;//True if the entity will be drawn
         protected bool _usesPhysics = true;
         protected EngineTime _engineTime;
-        private Vector _origin = Vector.Zero;
         protected Texture _texture;
-        private IDebugDraw _debugDraw;
+        
         private Vector _preInitPosition;
         private Vector[] _preInitVertices;
         private readonly float _preInitFriction;
@@ -248,25 +246,9 @@ namespace KDScorpionEngine.Entities
 
         /// <summary>
         /// Gets or sets a value indicating if the debug draw outlines should be rendered.
+        /// Set to true by default for game development purposes.
         /// </summary>
-        public bool DebugDrawEnabled
-        {
-            get
-            {
-                return _debugDraw != null;
-            }
-            set
-            {
-                if (value)
-                {
-                    _debugDraw = Plugins.EnginePlugins.LoadPlugin<IDebugDraw>();
-                }
-                else
-                {
-                    _debugDraw = null;
-                }
-            }
-        }
+        public bool DebugDrawEnabled { get; set; } = true;
 
         internal PhysicsBody Body { get; set; }
 
@@ -298,10 +280,7 @@ namespace KDScorpionEngine.Entities
         }
 
 
-        public virtual void LoadContent(ContentLoader contentLoader)
-        {
-            ContentLoaded = true;
-        }
+        public virtual void LoadContent(ContentLoader contentLoader) => ContentLoaded = true;
 
 
         /// <summary>
@@ -316,29 +295,15 @@ namespace KDScorpionEngine.Entities
                 behavior.Update(_engineTime);
             }
         }
-
-
-        /// <summary>
-        /// Renders the game object.
-        /// </summary>
-        /// <param name="renderer">The render used to render the object texture.</param>
-        public virtual void Render(Renderer renderer)
-        {
-            if (_texture != null && Visible)
-                renderer.Render(_texture, Position.X, Position.Y, Body.InternalPhysicsBody.Angle);
-
-            //Render the physics bodies vertices to show its shape for debugging purposes
-            if (DebugDrawEnabled)
-                _debugDraw.Draw(renderer.InternalRenderer, Body.InternalPhysicsBody, DebugDrawColor);
-        }
         #endregion
 
 
         #region Private Methods
-        private void CreateBody(Vector[] vertices, Vector position, bool isStatic)
-        {
+        private void CreateBody(Vector[] vertices, Vector position, bool isStatic) =>
             Body = new PhysicsBody(vertices, position, isStatic: isStatic, friction: _preInitFriction);
-        }
+
+
+        public virtual void Render(GameRenderer renderer) { }
         #endregion
     }
 }
