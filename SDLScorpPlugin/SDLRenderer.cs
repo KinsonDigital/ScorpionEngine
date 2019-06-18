@@ -108,8 +108,8 @@ namespace SDLScorpPlugin
 
             var destRect = new SDL.SDL_Rect()
             {
-                x = (int)(x - texture.Width / 2),//Texture X on screen
-                y = (int)(y - texture.Height / 2),//Texture Y on screen
+                x = (int)(x - (texture.Width / 2)),//Texture X on screen
+                y = (int)(y - (texture.Height / 2)),//Texture Y on screen
                 w = (int)(texture.Width * size),//Scaled occurding to size
                 h = (int)(texture.Height * size)
             };

@@ -8,6 +8,8 @@ using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Entities;
 using KDScorpionEngine.Graphics;
 using KDScorpionEngine.Input;
+using System.Drawing;
+using System.Linq;
 
 namespace ScorpTestGame
 {
@@ -53,6 +55,7 @@ namespace ScorpTestGame
         {
             AngularDeceleration = 100f;
             Position = new Vector(300, 250);
+            Angle = 45;
 
             //Ship vertices
             Vertices = new Vector[3]
@@ -66,7 +69,7 @@ namespace ScorpTestGame
             {
                 SpawnLocation = _thrusterPosition.ToPointF(),
                 UseRandomVelocity = true,
-                TotalParticlesAliveAtOnce = 40,
+                TotalParticlesAliveAtOnce = 10,
                 UseColorsFromList = true,
                 TintColors = _orangeColors.ToNETColors(),
                 RedMin = 255,
@@ -145,11 +148,13 @@ namespace ScorpTestGame
 
             //Update the spawn position of the thruster particels
             _thrusterPosition = new Vector(Position.X, Position.Y + 22.5f);
-            _thrusterPosition = _thrusterPosition.RotateAround(Position, Angle);
+            _thrusterPosition = new Vector(200, 200);// _thrusterPosition.RotateAround(Position, Angle);
+
 
             //Update the X and Y velocity of the particles
             var rotatedParticleMin = new Vector(0, _particleVelocityMagnitudeMin).RotateAround(Vector.Zero, Angle);
             var rotatedParticleMax = new Vector(0, _particleVelocityMagnitudeMax).RotateAround(Vector.Zero, Angle);
+
             _particleEngine.VelocityXMin = rotatedParticleMin.X;
             _particleEngine.VelocityXMax = rotatedParticleMax.X;
             _particleEngine.VelocityYMin = rotatedParticleMin.Y;
@@ -157,9 +162,12 @@ namespace ScorpTestGame
 
             _particleEngine.SpawnLocation = _thrusterPosition.ToPointF();
 
-            _particleEngine.Enabled = _movementBehavior.IsMovingForward;
+            _particleEngine.Enabled = true;// _movementBehavior.IsMovingForward;
 
             _movementBehavior.Update(engineTime);
+
+            _particleEngine.Particles.ToList().ForEach(p => p.Velocity = new PointF(0, 0));//DEBUG
+
             _particleEngine.Update(engineTime.ToTimeSpan());
 
             _mouse.UpdatePreviousState();
@@ -175,7 +183,7 @@ namespace ScorpTestGame
             {
                 foreach (var particle in _particleEngine.Particles)
                 {
-                    renderer.RennderParticle(particle);
+                    renderer.RenderParticle(particle);
                 }
             }
         }

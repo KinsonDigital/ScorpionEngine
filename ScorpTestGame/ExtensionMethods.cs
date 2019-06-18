@@ -74,7 +74,7 @@ namespace ScorpTestGame
         /// </summary>
         /// <param name="renderer">The renderer to use to render the particle.</param>
         /// <param name="particle">The particle to render.</param>
-        public static void RennderParticle(this Renderer renderer, Particle<Texture> particle)
+        public static void RenderParticle(this Renderer renderer, Particle<Texture> particle)
         {
             renderer.Render(particle.Texture, particle.Position.X, particle.Position.Y, particle.Angle, particle.Size, particle.TintColor.ToGameColor());
         }
