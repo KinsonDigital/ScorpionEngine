@@ -8,8 +8,6 @@ using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Entities;
 using KDScorpionEngine.Graphics;
 using KDScorpionEngine.Input;
-using System.Drawing;
-using System.Linq;
 
 namespace ScorpTestGame
 {
@@ -69,7 +67,7 @@ namespace ScorpTestGame
             {
                 SpawnLocation = _thrusterPosition.ToPointF(),
                 UseRandomVelocity = true,
-                TotalParticlesAliveAtOnce = 10,
+                TotalParticlesAliveAtOnce = 40,
                 UseColorsFromList = true,
                 TintColors = _orangeColors.ToNETColors(),
                 RedMin = 255,
@@ -148,7 +146,7 @@ namespace ScorpTestGame
 
             //Update the spawn position of the thruster particels
             _thrusterPosition = new Vector(Position.X, Position.Y + 22.5f);
-            _thrusterPosition = new Vector(200, 200);// _thrusterPosition.RotateAround(Position, Angle);
+            _thrusterPosition = _thrusterPosition.RotateAround(Position, Angle);
 
 
             //Update the X and Y velocity of the particles
@@ -162,11 +160,9 @@ namespace ScorpTestGame
 
             _particleEngine.SpawnLocation = _thrusterPosition.ToPointF();
 
-            _particleEngine.Enabled = true;// _movementBehavior.IsMovingForward;
+            _particleEngine.Enabled = _movementBehavior.IsMovingForward;
 
             _movementBehavior.Update(engineTime);
-
-            _particleEngine.Particles.ToList().ForEach(p => p.Velocity = new PointF(0, 0));//DEBUG
 
             _particleEngine.Update(engineTime.ToTimeSpan());
 

@@ -92,8 +92,6 @@ namespace ScorpTestGame.Scenes
             _shipPosition.Render(renderer);
             _mousePosition.Render(renderer);
 
-            renderer.FillRect(new Rect(200, 200, 25, 25), new GameColor(255, 255, 255, 255));
-
             base.Render(renderer);
         }
 
