@@ -3,7 +3,8 @@ using NUnit.Framework;
 
 namespace KDScorpionCoreTests
 {
-    class ExtensionMethodTests
+    [TestFixture]
+    public class ExtensionMethodTests
     {
         [Test]
         public void RotateAround_WhenInvoked_ReturnsCorrectResult()

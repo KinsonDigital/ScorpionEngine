@@ -53,6 +53,7 @@ namespace ScorpTestGame
         {
             AngularDeceleration = 100f;
             Position = new Vector(300, 250);
+            Angle = 45;
 
             //Ship vertices
             Vertices = new Vector[3]
@@ -147,9 +148,11 @@ namespace ScorpTestGame
             _thrusterPosition = new Vector(Position.X, Position.Y + 22.5f);
             _thrusterPosition = _thrusterPosition.RotateAround(Position, Angle);
 
+
             //Update the X and Y velocity of the particles
             var rotatedParticleMin = new Vector(0, _particleVelocityMagnitudeMin).RotateAround(Vector.Zero, Angle);
             var rotatedParticleMax = new Vector(0, _particleVelocityMagnitudeMax).RotateAround(Vector.Zero, Angle);
+
             _particleEngine.VelocityXMin = rotatedParticleMin.X;
             _particleEngine.VelocityXMax = rotatedParticleMax.X;
             _particleEngine.VelocityYMin = rotatedParticleMin.Y;
@@ -160,6 +163,7 @@ namespace ScorpTestGame
             _particleEngine.Enabled = _movementBehavior.IsMovingForward;
 
             _movementBehavior.Update(engineTime);
+
             _particleEngine.Update(engineTime.ToTimeSpan());
 
             _mouse.UpdatePreviousState();
@@ -175,7 +179,7 @@ namespace ScorpTestGame
             {
                 foreach (var particle in _particleEngine.Particles)
                 {
-                    renderer.RennderParticle(particle);
+                    renderer.RenderParticle(particle);
                 }
             }
         }
