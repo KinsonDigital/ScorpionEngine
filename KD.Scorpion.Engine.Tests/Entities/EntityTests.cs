@@ -1,5 +1,6 @@
-﻿using Moq;
-using NUnit.Framework;
+﻿using System;
+using Moq;
+using Xunit;
 using KDScorpionCore;
 using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
@@ -7,23 +8,45 @@ using KDScorpionCore.Plugins;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngineTests.Fakes;
-using System;
 using PluginSystem;
 
 namespace KDScorpionEngineTests.Entities
 {
-    [TestFixture]
-    public class EntityTests
+    public class EntityTests : IDisposable
     {
-        private Mock<IPhysicsBody> _mockPhysicsBody;
         #region Fields
+        private Mock<IPhysicsBody> _mockPhysicsBody;
         private Mock<IDebugDraw> _mockDebugDraw;
         private ContentLoader _contentLoader;
         #endregion
 
 
+        #region Constructors
+        public EntityTests()
+        {
+            _mockPhysicsBody = new Mock<IPhysicsBody>();
+            _mockPhysicsBody.Setup(m => m.XVertices).Returns(new float[] { -50, 50, 50, -50 });
+            _mockPhysicsBody.Setup(m => m.YVertices).Returns(new float[] { -50, -50, 50, 50 });
+
+            _mockDebugDraw = new Mock<IDebugDraw>();
+            _mockDebugDraw.Setup(m => m.Draw(It.IsAny<IRenderer>(), It.IsAny<IPhysicsBody>()));
+
+            var mockContentLoader = new Mock<IContentLoader>();
+            _contentLoader = new ContentLoader(mockContentLoader.Object);
+
+            var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
+            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) => _mockPhysicsBody.Object);
+            Plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
+
+            var mockEnginePluginLibrary = new Mock<IPluginLibrary>();
+            mockEnginePluginLibrary.Setup(m => m.LoadPlugin<IDebugDraw>()).Returns(() => _mockDebugDraw.Object);
+            Plugins.EnginePlugins = mockEnginePluginLibrary.Object;
+        }
+        #endregion
+
+
         #region Constructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokingWithStaticBodyValue_ProperlySetsBodyAsStatic()
         {
             //Arrange
@@ -34,11 +57,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = fakeEntity.IsStatic;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokingWithPositionParam_ProperlySetsPositionProperty()
         {
             //Arrange
@@ -49,11 +72,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = fakeEntity.Position;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokingWithTexture_ProperlySetsUpObject()
         {
             //Arrange
@@ -79,7 +102,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokingWithVertices_ProperlySetsUpObject()
         {
             //Arrange
@@ -100,11 +123,11 @@ namespace KDScorpionEngineTests.Entities
             var actualPosition = fakeEntity.Position;
 
             //Assert
-            Assert.AreEqual(expectedPosition, actualPosition);
+            Assert.Equal(expectedPosition, actualPosition);
         }
 
 
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokingWithTextureAndVertices_ProperlySetsUpObject()
         {
             //Arrange
@@ -136,13 +159,13 @@ namespace KDScorpionEngineTests.Entities
 
             //Assert
             Assert.NotNull(actualTexture);
-            Assert.AreEqual(expectedPosition, actualPosition);
+            Assert.Equal(expectedPosition, actualPosition);
         }
         #endregion
 
 
         #region Prop Tests
-        [Test]
+        [Fact]
         public void Behaviors_WhenCreatingEntity_PropertyInstantiated()
         {
             //Arrange
@@ -157,7 +180,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void Visible_WhenGettingAndSettingValue_ValueProperlySet()
         {
             //Arrange
@@ -173,11 +196,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = fakeEntity.Visible;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Visible_WhenSettingValue_InvokesOnHideEvent()
         {
             //Arrange
@@ -195,7 +218,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void Visible_WhenSettingValue_InvokesOnShowEvent()
         {
             //Arrange
@@ -216,7 +239,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void Visible_WhenGoingFromInvisibleToVisible_InvokesOnShowEvent()
         {
             //Arrange
@@ -237,7 +260,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void Visible_WhenGoingFromInvisibleToVisible_DoesNotInvokesOnShowEvent()
         {
             //Arrange
@@ -258,7 +281,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void Bounds_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -271,11 +294,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = fakeEntity.Bounds;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void BoundsWidth_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -288,11 +311,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = fakeEntity.BoundsWidth;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void BoundsWidth_WhenGettingValueWithNullBody_ReturnsZero()
         {
             //Arrange
@@ -309,11 +332,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = fakeEntity.BoundsWidth;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void BoundsHeight_WhenGettingValueWithNullBody_ReturnsZero()
         {
             //Arrange
@@ -330,11 +353,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = fakeEntity.BoundsHeight;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void BoundsHeight_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -348,11 +371,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = fakeEntity.BoundsHeight;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void BoundsHalfWidth_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -366,11 +389,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = fakeEntity.BoundsHalfWidth;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void BoundsHalfHeight_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -383,11 +406,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = fakeEntity.BoundsHalfHeight;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Texture_WhenSettingAndeGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -405,7 +428,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void DebugDrawEnabled_WhenSettingToTrue_ReturnsTrue()
         {
             //Arrange
@@ -430,11 +453,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = fakeEntity.DebugDrawEnabled;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void DebugDrawEnabled_WhenSettingToFalse_ReturnsFalse()
         {
             //Arrange
@@ -459,11 +482,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = fakeEntity.DebugDrawEnabled;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Behaviors_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -482,11 +505,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = fakeEntity.Behaviors;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Position_WhenSettingValueAfterInitalized_ReturnsCorrectValue()
         {
             //Arrange
@@ -503,11 +526,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = fakeEntity.Position;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Position_WhenSettingValueBeforeInitialized_ReturnsCorrectValue()
         {
             //Arrange
@@ -522,11 +545,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = fakeEntity.Position;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Vertices_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -543,11 +566,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Vertices;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Vertices_WhenSettingValueAfterInit_ThrowsException()
         {
             //Arrange
@@ -565,7 +588,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void Vertices_WhenGettingValueBeforeInit_ReturnsCorrectVallue()
         {
             //Arrange
@@ -588,11 +611,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Vertices;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Vertices_WhenGettingValueBeforeAfterInit_ReturnsCorrectVallue()
         {
             //Arrange
@@ -618,13 +641,13 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Vertices;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Method Tests
-        [Test]
+        [Fact]
         public void OnUpdate_WhenInvoked_UpdatesBehaviors()
         {
             //Arrange
@@ -642,7 +665,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void Initialize_WhenInvokingWithNullVertices_ThrowsException()
         {
             //Arrange
@@ -654,7 +677,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void LoadContent_WhenInvoked_SetsContentLoadedPropToTrue()
         {
             //Arange
@@ -666,37 +689,13 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.ContentLoaded;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Public Methods
-        [SetUp]
-        public void Setup()
-        {
-            _mockPhysicsBody = new Mock<IPhysicsBody>();
-            _mockPhysicsBody.Setup(m => m.XVertices).Returns(new float[] { -50, 50, 50, -50 });
-            _mockPhysicsBody.Setup(m => m.YVertices).Returns(new float[] { -50, -50, 50, 50 });
-
-            _mockDebugDraw = new Mock<IDebugDraw>();
-            _mockDebugDraw.Setup(m => m.Draw(It.IsAny<IRenderer>(), It.IsAny<IPhysicsBody>()));
-
-            var mockContentLoader = new Mock<IContentLoader>();
-            _contentLoader = new ContentLoader(mockContentLoader.Object);
-
-            var mockPhysicsPluginLibrary= new Mock<IPluginLibrary>();
-            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) => _mockPhysicsBody.Object);
-            Plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
-
-            var mockEnginePluginLibrary = new Mock<IPluginLibrary>();
-            mockEnginePluginLibrary.Setup(m => m.LoadPlugin<IDebugDraw>()).Returns(() => _mockDebugDraw.Object);
-            Plugins.EnginePlugins = mockEnginePluginLibrary.Object;
-        }
-
-
-        [TearDown]
-        public void TearDown() => Plugins.EnginePlugins = null;
+        public void Dispose() => Plugins.EnginePlugins = null;
         #endregion
 
 
