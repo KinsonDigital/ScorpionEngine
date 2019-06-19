@@ -78,21 +78,15 @@ namespace KDScorpionCoreTests.Graphics
         public void Render_WhenUsingGameTextAndXAndYAndGameColor_InternalRenderMethodInvoked()
         {
             //Arrange
-            var mockText = new Mock<IText>();
-            mockText.SetupGet(m => m.Color).Returns(new byte[] { 11, 22, 33, 44 });
             var mockInternalRenderer = new Mock<IRenderer>();
 
             var renderer = new Renderer(mockInternalRenderer.Object);
-            var gameColor = It.IsAny<GameColor>();
-            var expected = new GameColor(44, 11, 22, 33);
 
             //Act
-            renderer.Render(_gameText, It.IsAny<float>(), It.IsAny<float>(), gameColor);
-            var actual = _gameText.Color;
+            renderer.Render(_gameText, It.IsAny<float>(), It.IsAny<float>(), It.IsAny<GameColor>());
 
             //Assert
-            mockInternalRenderer.Verify(m => m.Render(_gameText.InternalText, It.IsAny<float>(), It.IsAny<float>()), Times.Once());
-            Assert.AreEqual(expected, actual);
+            mockInternalRenderer.Verify(m => m.Render(_gameText.InternalText, It.IsAny<float>(), It.IsAny<float>(), It.IsAny<GameColor>()), Times.Once());
         }
 
 
@@ -137,7 +131,7 @@ namespace KDScorpionCoreTests.Graphics
             renderer.Clear(It.IsAny<byte>(), It.IsAny<byte>(), It.IsAny<byte>(), It.IsAny<byte>());
 
             //Assert
-            mockInternalRenderer.Verify(m => m.Clear(It.IsAny<byte>(), It.IsAny<byte>(), It.IsAny<byte>(), It.IsAny<byte>()), Times.Once());
+            mockInternalRenderer.Verify(m => m.Clear(It.IsAny<GameColor>()), Times.Once());
         }
 
 
@@ -152,7 +146,7 @@ namespace KDScorpionCoreTests.Graphics
             renderer.FillCircle(It.IsAny<Vector>(), It.IsAny<float>(), It.IsAny<GameColor>());
 
             //Assert
-            mockInternalRenderer.Verify(m => m.FillCircle(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<byte[]>()), Times.Once());
+            mockInternalRenderer.Verify(m => m.FillCircle(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<GameColor>()), Times.Once());
         }
         #endregion
 
@@ -166,7 +160,7 @@ namespace KDScorpionCoreTests.Graphics
             _texture = new Texture(mockTexture.Object);
 
             var mockText = new Mock<IText>();
-            mockText.SetupGet(m => m.Color).Returns(new byte[] { 11, 22, 33, 44 });
+            mockText.SetupGet(m => m.Color).Returns(new GameColor(11, 22, 33, 44));
             _gameText = new GameText()
             {
                 InternalText = mockText.Object

@@ -2,6 +2,9 @@
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Entities;
 using PluginSystem;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo(assemblyName: "ScorpionEngineTests", AllInternalsVisible = true)]
 
 namespace KDScorpionEngine.Graphics
 {
@@ -14,13 +17,14 @@ namespace KDScorpionEngine.Graphics
         private readonly IDebugDraw _debugDraw;
         #endregion
 
+        internal string KinsonDigital { get; set;}
 
         #region Constructrons
         /// <summary>
         /// Creates a new instance of <see cref="GameRenderer"/>.
         /// </summary>
         /// <param name="renderer">The internal renderer implementation provided by a plugin.</param>
-        public GameRenderer(IRenderer renderer) : base(renderer) => _debugDraw = Plugins.EnginePlugins.LoadPlugin<IDebugDraw>();
+        public GameRenderer(IRenderer renderer, IDebugDraw debugDraw = null) : base(renderer) => _debugDraw = debugDraw;
         #endregion
 
 

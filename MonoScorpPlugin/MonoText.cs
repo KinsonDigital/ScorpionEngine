@@ -1,4 +1,5 @@
 ﻿using KDScorpionCore;
+using KDScorpionCore.Graphics;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
@@ -21,7 +22,7 @@ namespace MonoScorpPlugin
         /// Element 3: Blue
         /// Element 4: Alpha
         /// </summary>
-        public byte[] Color { get; set; } = new byte[] { 255, 255, 255, 255 };
+        public GameColor Color { get; set; } = new GameColor(255, 255, 255, 255);
 
         internal SpriteFont Font { get; private set; }
 

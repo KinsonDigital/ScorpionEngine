@@ -14,26 +14,14 @@
             }
         }
 
-        public int Width
-        {
-            get => InternalText.Width;
-        }
+        public int Width => InternalText.Width;
 
-        public int Height
-        {
-            get => InternalText.Height;
-        }
+        public int Height => InternalText.Height;
 
         public GameColor Color
         {
-            get => new GameColor(InternalText.Color[3], InternalText.Color[0], InternalText.Color[1], InternalText.Color[2]);
-            set
-            {
-                InternalText.Color[0] = value.Red;
-                InternalText.Color[1] = value.Green;
-                InternalText.Color[2] = value.Blue;
-                InternalText.Color[3] = value.Alpha;
-            }
+            get =>InternalText.Color;
+            set => InternalText.Color = value;
         }
         #endregion
 
@@ -44,21 +32,12 @@
         /// <param name="textA">The first object.</param>
         /// <param name="textB">The second object.</param>
         /// <returns></returns>
-        public static string operator +(GameText textA, GameText textB)
-        {
-            return $"{textA.Text}{textB.Text}";
-        }
+        public static string operator +(GameText textA, GameText textB) => $"{textA.Text}{textB.Text}";
 
 
-        public static string operator +(GameText textA, string textB)
-        {
-            return $"{textA.Text}{textB}";
-        }
+        public static string operator +(GameText textA, string textB) => $"{textA.Text}{textB}";
 
 
-        public static string operator +(string textA, GameText textB)
-        {
-            return $"{textA}{textB.Text}";
-        }
+        public static string operator +(string textA, GameText textB) => $"{textA}{textB.Text}";
     }
 }

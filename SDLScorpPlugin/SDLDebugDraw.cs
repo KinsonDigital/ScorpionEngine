@@ -48,9 +48,8 @@ namespace SDLScorpPlugin
             {
                 var start = new Vector(body.XVertices[i], body.YVertices[i]).RotateAround(origin, body.Angle);
                 var stop = new Vector(body.XVertices[i < max - 1 ? i + 1 : 0], body.YVertices[i < max - 1 ? i + 1 : 0]).RotateAround(origin, body.Angle);
-                var lineColor = new byte[4] { color.Red, color.Green, color.Blue, color.Alpha };
 
-                renderer.RenderLine(start.X, start.Y, stop.X, stop.Y, lineColor);
+                renderer.RenderLine(start.X, start.Y, stop.X, stop.Y, color);
             }
         }
 

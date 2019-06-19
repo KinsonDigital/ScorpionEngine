@@ -94,7 +94,7 @@ namespace KDScorpionCoreTests.Graphics
         {
             //Arrange
             var mockInternalText = new Mock<IText>();
-            mockInternalText.SetupProperty(m => m.Color, new byte[] { 0, 0, 0, 0 });
+            mockInternalText.SetupProperty(m => m.Color, new GameColor(0, 0, 0, 0));
             var gameText = new GameText()
             {
                 InternalText = mockInternalText.Object

@@ -9,6 +9,8 @@ using System;
 using KDScorpionEngine;
 using PluginSystem;
 using KDScorpionEngine.Graphics;
+using KDScorpionEngine.Physics;
+using KDScorpionCore.Graphics;
 
 namespace KDScorpionEngineTests.Scene
 {
@@ -263,16 +265,27 @@ namespace KDScorpionEngineTests.Scene
         public void Render_WhenInvoking_InvokesAllEntityRenderMethods()
         {
             //Arrange
-            var entityA = new FakeEntity(false);
-            var entityB = new FakeEntity(false);
+            var mockPhysicsBody = new Mock<IPhysicsBody>();
+            var mockTexture = new Mock<ITexture>();
+            
+            var entityA = new FakeEntity(false)
+            {
+                Body = new PhysicsBody(mockPhysicsBody.Object),
+                Texture = new Texture(mockTexture.Object)
+            };
+
+            var entityB = new FakeEntity(false)
+            {
+                Body = new PhysicsBody(mockPhysicsBody.Object),
+                Texture = new Texture(mockTexture.Object)
+            };
 
             var scene = new FakeGameScene(Vector.Zero);
             scene.AddEntity(entityA, false);
             scene.AddEntity(entityB, false);
 
-            var mockCoreRenderer = new Mock<IRenderer>();
-            var renderer = new GameRenderer(mockCoreRenderer.Object);
-
+            var renderer = new GameRenderer(new Mock<IRenderer>().Object, new Mock<IDebugDraw>().Object);
+            
             var expected = true;
 
             //Act

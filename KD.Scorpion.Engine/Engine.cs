@@ -217,7 +217,7 @@ namespace KDScorpionEngine
         {
             //TODO: Look into this.  This should not be created every single time
             //the render method is called. This is not performant.
-            _renderer = new GameRenderer(e.Renderer);
+            _renderer = new GameRenderer(e.Renderer, Plugins.EnginePlugins.LoadPlugin<IDebugDraw>());
 
             _renderer.Clear(50, 50, 50, 255);
 
