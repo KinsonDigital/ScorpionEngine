@@ -81,7 +81,7 @@
     <Compile Include="Exceptions\IdAlreadyExistsExceptionTests.cs" />
     <Compile Include="Exceptions\IdNotFoundExceptionTests.cs" />
     <Compile Include="Exceptions\MissingVerticesExceptionTests.cs" />
-    <Compile Include="Exceptions\NameNotFoundException.cs" />
+    <Compile Include="Exceptions\NameNotFoundExceptionTests.cs" />
     <Compile Include="Exceptions\SceneNotFoundExceptionTests.cs" />
     <Compile Include="ExtensionMethodTests.cs" />
     <Compile Include="Fakes\FakeBehavior.cs" />
