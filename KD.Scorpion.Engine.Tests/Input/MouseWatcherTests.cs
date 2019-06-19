@@ -1,17 +1,17 @@
-﻿using Moq;
-using NUnit.Framework;
+﻿using System;
+using System.Collections.Generic;
+using Moq;
+using Xunit;
 using KDScorpionCore;
 using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Input;
-using System;
-using System.Collections.Generic;
 using KDScorpionEngine;
 using PluginSystem;
 
 namespace KDScorpionEngineTests.Input
 {
-    public class MouseWatcherTests
+    public class MouseWatcherTests : IDisposable
     {
         #region Private Fields
         private Mock<IMouse> _mockMouse;
@@ -19,8 +19,23 @@ namespace KDScorpionEngineTests.Input
         #endregion
 
 
+        #region Constructors
+        public MouseWatcherTests()
+        {
+            _mockMouse = new Mock<IMouse>();
+            _mockMouse.Setup(m => m.IsButtonPressed((int)InputButton.LeftButton)).Returns(true);
+
+            _mockPluginLibrary = new Mock<IPluginLibrary>();
+            _mockPluginLibrary.Setup(m => m.LoadPlugin<IMouse>()).Returns(() => _mockMouse.Object);
+
+
+            Plugins.EnginePlugins = _mockPluginLibrary.Object;
+        }
+        #endregion
+
+
         #region Constructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenUsingEnabled_CorrectlyPerformSetup()
         {
             //Arrange
@@ -34,8 +49,8 @@ namespace KDScorpionEngineTests.Input
             var actualComboButtons = mouseWatcher.ComboButtons;
 
             //Assert
-            Assert.AreEqual(expectedEnabled, actualEnabled);
-            Assert.AreEqual(expectedComboButtons, actualComboButtons);
+            Assert.Equal(expectedEnabled, actualEnabled);
+            Assert.Equal(expectedComboButtons, actualComboButtons);
             AssertExt.IsNullOrZeroField(mouseWatcher, "_mouse");
             _mockPluginLibrary.Verify(m => m.LoadPlugin<IMouse>(), Times.Once());
         }
@@ -43,7 +58,7 @@ namespace KDScorpionEngineTests.Input
 
 
         #region Prop Tests
-        [Test]
+        [Fact]
         public void Button_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -57,11 +72,11 @@ namespace KDScorpionEngineTests.Input
             var actual = mouseWatcher.Button;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void CurrentHitCountPercentage_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -84,11 +99,11 @@ namespace KDScorpionEngineTests.Input
             var actual = mouseWatcher.CurrentHitCountPercentage;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void DownElapsedResetMode_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -103,11 +118,11 @@ namespace KDScorpionEngineTests.Input
             var actual = mouseWatcher.DownElapsedResetMode;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void HitCountResetMode_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -122,11 +137,11 @@ namespace KDScorpionEngineTests.Input
             var actual = mouseWatcher.HitCountResetMode;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void ComboButtons_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -149,11 +164,11 @@ namespace KDScorpionEngineTests.Input
             var actual = mouseWatcher.ComboButtons;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void InputDownElapsedMS_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -166,11 +181,11 @@ namespace KDScorpionEngineTests.Input
             var actual = mouseWatcher.InputDownElapsedMS;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void InputDownElapsedSeconds_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -186,11 +201,11 @@ namespace KDScorpionEngineTests.Input
             var actual = mouseWatcher.InputDownElapsedSeconds;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void InputReleasedElapsedMS_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -203,11 +218,11 @@ namespace KDScorpionEngineTests.Input
             var actual = mouseWatcher.InputReleasedElapsedMS;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void InputReleasedElapsedSeconds_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -227,11 +242,11 @@ namespace KDScorpionEngineTests.Input
             var actual = Math.Round(mouseWatcher.InputReleasedElapsedSeconds, 3);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void InputDownTimeOut_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -246,11 +261,11 @@ namespace KDScorpionEngineTests.Input
             var actual = mouseWatcher.InputDownTimeOut;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void InputReleasedTimeOut_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -265,11 +280,11 @@ namespace KDScorpionEngineTests.Input
             var actual = mouseWatcher.InputReleasedTimeout;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void ReleasedElapsedResetMode_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -284,13 +299,13 @@ namespace KDScorpionEngineTests.Input
             var actual = mouseWatcher.ReleasedElapsedResetMode;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Method Tests
-        [Test]
+        [Fact]
         public void Update_WhenInvokingWithNullOnInputHitCountReachedEvent_RunsWithNoNullReferenceExceptions()
         {
             //Arrange
@@ -308,7 +323,7 @@ namespace KDScorpionEngineTests.Input
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvokingWhileCountingWithNullCounter_RunsWithNoNullReferenceExceptions()
         {
             //Arrange
@@ -328,7 +343,7 @@ namespace KDScorpionEngineTests.Input
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvokingWithProperButtonState_ResetsDownTimerAndStartsButtonUpTimer()
         {
             //Arrange
@@ -352,12 +367,12 @@ namespace KDScorpionEngineTests.Input
             var actualUpTimerElapsed = mouseWatcher.InputReleasedElapsedMS;
 
             //Assert
-            Assert.AreEqual(expectedDownTimerElapsed, actualDownTimerElapsed);
-            Assert.AreEqual(expectedUpTimerElapsed, actualUpTimerElapsed);
+            Assert.Equal(expectedDownTimerElapsed, actualDownTimerElapsed);
+            Assert.Equal(expectedUpTimerElapsed, actualUpTimerElapsed);
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenDisabled_DoNotUpdateAnything()
         {
             //Arrange
@@ -396,15 +411,15 @@ namespace KDScorpionEngineTests.Input
             var actualCurrentHitCount = mouseWatcher.CurrentHitCount;
 
             //Assert
-            Assert.AreEqual(expectedCurrentHitCount, actualCurrentHitCount);
-            Assert.AreEqual(expectedInputHitCountReachedEventInvoked, actualInputHitCountReachedEventInvoked);
-            Assert.AreEqual(expectedInputDownTimeOutEventInvoked, actualInputDownTimeOutEventInvoked);
-            Assert.AreEqual(expectedInputReleasedTimeOutEventInvoked, actualInputReleasedTimeOutEventInvoked);
-            Assert.AreEqual(expectedInputComboPressedEventInvoked, actualInputComboPressedEventInvoked);
+            Assert.Equal(expectedCurrentHitCount, actualCurrentHitCount);
+            Assert.Equal(expectedInputHitCountReachedEventInvoked, actualInputHitCountReachedEventInvoked);
+            Assert.Equal(expectedInputDownTimeOutEventInvoked, actualInputDownTimeOutEventInvoked);
+            Assert.Equal(expectedInputReleasedTimeOutEventInvoked, actualInputReleasedTimeOutEventInvoked);
+            Assert.Equal(expectedInputComboPressedEventInvoked, actualInputComboPressedEventInvoked);
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenUpdating_InvokesHitCountReachedEvent()
         {
             //Arrange
@@ -427,11 +442,11 @@ namespace KDScorpionEngineTests.Input
             mouseWatcher.Update(engineTime);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenUpdating_InvokesInputDownTimeoutEvent()
         {
             //Arrange
@@ -452,11 +467,11 @@ namespace KDScorpionEngineTests.Input
             mouseWatcher.Update(engineTime);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenUpdatingWithNullInputDownTimeoutEvent_ShouldNotThrowNullRefException()
         {
             //Arrange
@@ -478,7 +493,7 @@ namespace KDScorpionEngineTests.Input
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenUpdating_InvokesInputReleaseTimeoutEvent()
         {
             //Arrange
@@ -499,11 +514,11 @@ namespace KDScorpionEngineTests.Input
             mouseWatcher.Update(engineTime);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenUpdatingWithNullInputReleasedTimeoutEvent_ShouldNotThrowNullRefException()
         {
             //Arrange
@@ -525,7 +540,7 @@ namespace KDScorpionEngineTests.Input
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvokingWithSetComboButtons_InvokesOnInputComboPressedEvent()
         {
             //Arrange
@@ -549,11 +564,11 @@ namespace KDScorpionEngineTests.Input
             mouseWatcher.Update(new EngineTime());
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvokingWithNullOnInputComboPressedEvent_DoesNotThrowNullException()
         {
             //Arrange
@@ -576,23 +591,8 @@ namespace KDScorpionEngineTests.Input
         #endregion
 
 
-        #region Setup & TearDown
-        [SetUp]
-        public void Setup()
-        {
-            _mockMouse = new Mock<IMouse>();
-            _mockMouse.Setup(m => m.IsButtonPressed((int)InputButton.LeftButton)).Returns(true);
-
-            _mockPluginLibrary = new Mock<IPluginLibrary>();
-            _mockPluginLibrary.Setup(m => m.LoadPlugin<IMouse>()).Returns(() => _mockMouse.Object);
-
-
-            Plugins.EnginePlugins = _mockPluginLibrary.Object;
-        }
-
-
-        [TearDown]
-        public void TearDown() => Plugins.EnginePlugins = null;
+        #region Public Methods
+        public void Dispose() => Plugins.EnginePlugins = null;
         #endregion
     }
 }
