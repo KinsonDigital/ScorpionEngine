@@ -1,12 +1,13 @@
 ﻿using Moq;
-using NUnit.Framework;
+using Xunit;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
 using KDScorpionCore;
+using System;
 
 namespace KDScorpionCoreTests.Graphics
 {
-    public class RendererTests
+    public class RendererTests : IDisposable
     {
         #region Fields
         private Texture _texture;
@@ -14,8 +15,25 @@ namespace KDScorpionCoreTests.Graphics
         #endregion
 
 
+        #region Constructors
+        public RendererTests()
+        {
+            var mockTexture = new Mock<ITexture>();
+
+            _texture = new Texture(mockTexture.Object);
+
+            var mockText = new Mock<IText>();
+            mockText.SetupGet(m => m.Color).Returns(new GameColor(11, 22, 33, 44));
+            _gameText = new GameText()
+            {
+                InternalText = mockText.Object
+            };
+        }
+        #endregion
+
+
         #region Method Tests
-        [Test]
+        [Fact]
         public void Render_WhenUsingTextureAndXAndY_InvokesInteralRenderMethod()
         {
             //Arrange
@@ -30,7 +48,7 @@ namespace KDScorpionCoreTests.Graphics
         }
 
 
-        [Test]
+        [Fact]
         public void Render_WhenUsingTextureAndXAndYAndAngle_InvokesInteralRenderMethod()
         {
             //Arrange
@@ -45,7 +63,7 @@ namespace KDScorpionCoreTests.Graphics
         }
 
 
-        [Test]
+        [Fact]
         public void Render_WhenUsingTextureAndVector_InvokesInteralRenderMethod()
         {
             //Arrange
@@ -61,7 +79,7 @@ namespace KDScorpionCoreTests.Graphics
         }
 
 
-        [Test]
+        [Fact]
         public void Render_WhenUsingGameTextAndXAndY_InternalRenderMethodInvoked()
         {
             //Arrange
@@ -74,7 +92,7 @@ namespace KDScorpionCoreTests.Graphics
         }
 
 
-        [Test]
+        [Fact]
         public void Render_WhenUsingGameTextAndXAndYAndGameColor_InternalRenderMethodInvoked()
         {
             //Arrange
@@ -90,7 +108,7 @@ namespace KDScorpionCoreTests.Graphics
         }
 
 
-        [Test]
+        [Fact]
         public void Start_WhenInvoking_InvokesInternalRendererStart()
         {
             //Arrange
@@ -105,7 +123,7 @@ namespace KDScorpionCoreTests.Graphics
         }
 
 
-        [Test]
+        [Fact]
         public void Stop_WhenInvoking_InvokesInternalRendererStart()
         {
             //Arrange
@@ -120,7 +138,7 @@ namespace KDScorpionCoreTests.Graphics
         }
 
 
-        [Test]
+        [Fact]
         public void Clear_WhenInvoking_InvokesInternalClear()
         {
             //Arrange
@@ -135,7 +153,7 @@ namespace KDScorpionCoreTests.Graphics
         }
 
 
-        [Test]
+        [Fact]
         public void FillCircle_WhenInvoking_InvokesInternalFillCircle()
         {
             //Arrange
@@ -152,27 +170,7 @@ namespace KDScorpionCoreTests.Graphics
 
 
         #region Public Methods
-        [SetUp]
-        public void Setup()
-        {
-            var mockTexture = new Mock<ITexture>();
-
-            _texture = new Texture(mockTexture.Object);
-
-            var mockText = new Mock<IText>();
-            mockText.SetupGet(m => m.Color).Returns(new GameColor(11, 22, 33, 44));
-            _gameText = new GameText()
-            {
-                InternalText = mockText.Object
-            };
-        }
-
-
-        [TearDown]
-        public void TearDown()
-        {
-            _texture = null;
-        }
+        public void Dispose() => _texture = null;
         #endregion
     }
 }
