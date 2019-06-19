@@ -1,19 +1,33 @@
 ﻿using Moq;
-using NUnit.Framework;
+using Xunit;
 using KDScorpionCore;
 using KDScorpionEngine.Entities;
 using KDScorpionEngineTests.Fakes;
 using System.Drawing;
 using PluginSystem;
 using KDScorpionCore.Plugins;
+using System;
 
 namespace KDScorpionEngineTests.Entities
 {
-    [TestFixture]
-    public class TextEntityTests
+    public class TextEntityTests : IDisposable
     {
+        #region Constructors
+        public TextEntityTests()
+        {
+            var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
+            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
+            {
+                return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[1], (float)ctorParams[2], (float)ctorParams[3]);
+            });
+
+            Plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
+        }
+        #endregion
+
+
         #region Constructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvoking_CorrectlySetsTextProp()
         {
             //Arrange
@@ -24,11 +38,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Text;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Ctor_WhenInvoking_CorrectlySetsForeColorProp()
         {
             //Arrange
@@ -39,11 +53,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.ForeColor;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Ctor_WhenInvoking_CorrectlySetsBackColorProp()
         {
             //Arrange
@@ -54,11 +68,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.BackColor;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Ctor_WhenInvoking_CorrectlySetsPositionProp()
         {
             //Arrange
@@ -70,13 +84,13 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Position;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Prop Tests
-        [Test]
+        [Fact]
         public void Text_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -88,11 +102,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Text;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void ForeColor_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -104,11 +118,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.ForeColor;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void BackColor_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -120,27 +134,13 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.BackColor;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Public Methods
-        [SetUp]
-        public void Setup()
-        {
-            var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
-            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
-            {
-                return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[1], (float)ctorParams[2], (float)ctorParams[3]);
-            });
-
-            Plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
-        }
-
-
-        [TearDown]
-        public void TearDown() => Plugins.PhysicsPlugins = null;
+        public void Dispose() => Plugins.PhysicsPlugins = null;
         #endregion
     }
 }
