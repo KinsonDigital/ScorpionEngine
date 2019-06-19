@@ -1,4 +1,5 @@
-﻿using PluginSystem;
+﻿using KDScorpionCore.Graphics;
+using PluginSystem;
 
 namespace KDScorpionCore
 {
@@ -26,7 +27,7 @@ namespace KDScorpionCore
         /// <summary>
         /// Gets the color of the text.
         /// </summary>
-        byte[] Color { get; set; }
+        GameColor Color { get; set; }
         #endregion
     }
 }

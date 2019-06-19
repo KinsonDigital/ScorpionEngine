@@ -162,13 +162,16 @@ namespace SDLScorpPlugin
         /// <param name="texture">The texture to render.</param>
         /// <param name="x">The X coordinate location on the screen to render.</param>
         /// <param name="y">The Y coordinate location on the screen to render.</param>
-        public void Render(IText text, float x, float y)
+        public void Render(IText text, float x, float y) => Render(text, x, y, text.Color);
+
+
+        public void Render(IText text, float x, float y, GameColor color)
         {
             var texturePtr = text.GetData<PointerContainer>(1).UnpackPointer();
 
             //TODO:  Check for color index values first
-            SDL.SDL_SetTextureColorMod(texturePtr, text.Color[0], text.Color[1], text.Color[2]);
-            SDL.SDL_SetTextureAlphaMod(texturePtr, text.Color[3]);
+            SDL.SDL_SetTextureColorMod(texturePtr, color.Red, color.Green, color.Blue);
+            SDL.SDL_SetTextureAlphaMod(texturePtr, color.Alpha);
             SDL.SDL_SetTextureBlendMode(texturePtr, SDL.SDL_BlendMode.SDL_BLENDMODE_BLEND);
 
             var srcRect = new SDL.SDL_Rect()

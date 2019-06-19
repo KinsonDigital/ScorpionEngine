@@ -76,6 +76,17 @@ namespace KDScorpionCore.Plugins
 
 
         /// <summary>
+        /// Renders the given text at the given <paramref name="x"/> and <paramref name="y"/>
+        /// location and using the given <paramref name="color"/>.
+        /// </summary>
+        /// <param name="text">The text to render.</param>
+        /// <param name="x">The X coordinate location of where to render the text.</param>
+        /// <param name="y">The Y coordinate location of where to render the text.</param>
+        /// <param name="color">The color to render the text.</param>
+        void Render(IText text, float x, float y, GameColor color);
+
+
+        /// <summary>
         /// Renders an area of the given <paramref name="texture"/> at the given <paramref name="x"/>
         /// and <paramref name="y"/> location.
         /// </summary>

@@ -1,6 +1,7 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Graphics;
 using KDScorpionEngine.Entities;
+using KDScorpionEngine.Graphics;
 
 namespace KDScorpionEngineTests.Fakes
 {
@@ -60,6 +61,9 @@ namespace KDScorpionEngineTests.Fakes
 
             base.Update(engineTime);
         }
+
+
+        public override void Render(GameRenderer renderer) => RenderInvoked = true;
 
 
         public override string ToString()

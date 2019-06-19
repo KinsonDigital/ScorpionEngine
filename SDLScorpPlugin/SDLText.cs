@@ -1,4 +1,5 @@
 ﻿using KDScorpionCore;
+using KDScorpionCore.Graphics;
 using SDL2;
 using System;
 
@@ -17,7 +18,7 @@ namespace SDLScorpPlugin
         public SDLText(IntPtr fontPtr, string text)
         {
             _fontPtr = fontPtr;
-            Color = new byte[] { 255, 255, 255, 255 };
+            Color = new GameColor(255, 255, 255, 255);
             Text = text;
         }
         #endregion
@@ -33,10 +34,10 @@ namespace SDLScorpPlugin
 
                 var color = new SDL.SDL_Color()
                 {
-                    r = Color.Length >= 1 ? Color[0] : (byte)255,
-                    g = Color.Length >= 2 ? Color[1] : (byte)255,
-                    b = Color.Length >= 3 ? Color[2] : (byte)255,
-                    a = Color.Length >= 4 ? Color[3] : (byte)255,
+                    r = Color.Red,
+                    g = Color.Green,
+                    b = Color.Blue,
+                    a = Color.Alpha,
                 };
 
                 //Create a surface for which to render the text to
@@ -75,7 +76,7 @@ namespace SDLScorpPlugin
             }
         }
 
-        public byte[] Color { get; set; }
+        public GameColor Color { get; set; }
         #endregion
 
 

@@ -18,7 +18,6 @@ namespace KDScorpionEngineTests
         private ContentLoader _contentLoader;
         private Mock<IEngineCore> _mockEngineCore;
         private Mock<IPluginLibrary> _mockPluginLibrary;
-        private Mock<IPluginLibrary> _mockPhysicsPluginLib;
         #endregion
 
 
@@ -282,7 +281,6 @@ namespace KDScorpionEngineTests
             Plugins.EnginePlugins = null;
             _contentLoader = null;
             _mockPluginLibrary = null;
-            _mockPhysicsPluginLib = null;
         }
         #endregion
 

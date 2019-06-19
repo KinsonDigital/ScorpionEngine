@@ -8,6 +8,14 @@ namespace KDScorpionEngine.Physics
 {
     public class PhysicsBody
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="PhysicsBody"/> using the given <paramref name="internalPhysicsBody"/>.
+        /// NOTE: This is only used for unit testing.
+        /// </summary>
+        /// <param name="internalPhysicsBody"></param>
+        internal PhysicsBody(IPhysicsBody internalPhysicsBody) => InternalPhysicsBody = internalPhysicsBody;
+
+
         public PhysicsBody(Vector[] vertices, Vector position, float angle = 0, float density = 1, float friction = 0.2f, float restitution = 0, bool isStatic = false)
         {
             object[] ctorParams = new object[9];

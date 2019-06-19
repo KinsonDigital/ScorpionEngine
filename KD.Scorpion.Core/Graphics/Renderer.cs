@@ -51,21 +51,15 @@ namespace KDScorpionCore.Graphics
             InternalRenderer.Render(text.InternalText, x, y);
 
 
-        public void Render(GameText text, float x, float y, GameColor color)
-        {
-            //Temporarily hold the original color of the game text
-            var tempColor = text.Color;
-
-            //Set the color to the new requested render color
-            text.Color = color;
-
-            //Render the text.
-            //Internally, the InternalRenderer is going to use the color of the InternalText.
-            InternalRenderer.Render(text.InternalText, x, y);
-
-            //Reset the game text color back to its original color
-            text.Color = tempColor;
-        }
+        /// <summary>
+        /// Renders the given text at the given <paramref name="x"/> and <paramref name="y"/>
+        /// location and using the given <paramref name="color"/>.
+        /// </summary>
+        /// <param name="text">The text to render.</param>
+        /// <param name="x">The X coordinate location of where to render the text.</param>
+        /// <param name="y">The Y coordinate location of where to render the text.</param>
+        /// <param name="color">The color to render the text.</param>
+        public void Render(GameText text, float x, float y, GameColor color) => InternalRenderer.Render(text.InternalText, x, y, color);
 
 
         public void Render(GameText text, Vector position) => Render(text, position.X, position.Y);

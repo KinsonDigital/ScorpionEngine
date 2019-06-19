@@ -28,7 +28,7 @@ namespace MonoScorpPlugin
         /// </summary>
         /// <param name="color">The array of colors to convert.</param>
         /// <returns></returns>
-        public static Color ToGameColor(this GameColor color) =>
+        public static Color ToXNAColor(this GameColor color) =>
             new Color(color.Red, color.Green, color.Blue, color.Alpha);
     }
 }

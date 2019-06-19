@@ -119,13 +119,12 @@ namespace MonoScorpPlugin
         /// <param name="texture">The texture to render.</param>
         /// <param name="x">The X coordinate location on the screen to render.</param>
         /// <param name="y">The Y coordinate location on the screen to render.</param>
-        public void Render(IText text, float x, float y)
-        {
-            //TODO: Do text.Color index checks first
-            var color = new Color(text.Color[0], text.Color[1], text.Color[2]);
+        public void Render(IText text, float x, float y) => Render(text, x, y, text.Color);
 
-            _spriteBatch.DrawString(text.GetData<SpriteFont>(1), text.Text, new Vector2(x, y), color);
-        }
+
+        public void Render(IText text, float x, float y, GameColor color) =>
+            _spriteBatch.DrawString(text.GetData<SpriteFont>(1), text.Text, new Vector2(x, y), color.ToXNAColor());
+
 
 
         /// <summary>
@@ -170,7 +169,7 @@ namespace MonoScorpPlugin
         /// </summary>
         /// <param name="rect">The rectangle to render.</param>
         /// <param name="color">The color of the rectangle.</param>
-        public void FillRect(Rect rect, GameColor color) => _spriteBatch.FillRectangle(rect.ToRectangle(), color.ToGameColor());
+        public void FillRect(Rect rect, GameColor color) => _spriteBatch.FillRectangle(rect.ToRectangle(), color.ToXNAColor());
 
 
         /// <summary>
