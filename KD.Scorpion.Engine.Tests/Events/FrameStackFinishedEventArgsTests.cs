@@ -1,13 +1,12 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using KDScorpionEngine.Events;
 
 namespace KDScorpionEngineTests.Events
 {
-    [TestFixture]
     public class FrameStackFinishedEventArgsTests
     {
         #region Constructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvoking_SetTotalFramesRanProp()
         {
             //Arrange
@@ -18,13 +17,13 @@ namespace KDScorpionEngineTests.Events
             var actual = eventArgs.TotalFramesRan;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Prop Tests
-        [Test]
+        [Fact]
         public void TotalFramesRan_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -36,7 +35,7 @@ namespace KDScorpionEngineTests.Events
             var actual = eventArgs.TotalFramesRan;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
