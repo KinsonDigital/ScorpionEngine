@@ -1,14 +1,14 @@
 ﻿using Moq;
-using NUnit.Framework;
 using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
 using KDScorpionCore;
+using Xunit;
+using System;
 
 namespace KDScorpionCoreTests.Content
 {
-    [TestFixture]
-    public class ContentLoaderTests
+    public class ContentLoaderTests : IDisposable
     {
         #region Fields
         private IContentLoader _contentLoader;
@@ -16,91 +16,8 @@ namespace KDScorpionCoreTests.Content
         #endregion
 
 
-        #region Constructor Tests
-        [Test]
-        public void Ctor_WhenInvoking_SetsInternalLoader()
-        {
-            //Arrange
-            var loader = new ContentLoader(_contentLoader);
-            var expected = "RootDir";
-
-            //Act
-            loader.ContentRootDirectory = "RootDir";
-            var actual = loader.ContentRootDirectory;
-
-            //Assert
-            Assert.AreEqual(expected, actual);
-        }
-        #endregion
-
-
-        #region Prop Tests
-        [Test]
-        public void GamePath_WhenGettingValue_ReturnsCorrectValue()
-        {
-            //Arrange
-            var loader = new ContentLoader(_contentLoader);
-            var expected = "GamePath";
-
-            //Act
-            var actual = loader.GamePath;
-
-            //Assert
-            Assert.AreEqual(expected, actual);
-        }
-
-        [Test]
-        public void ContentRootDirectory_WhenGettingAndSettingValue_ReturnsCorrectValue()
-        {
-            //Arrange
-            var loader = new ContentLoader(_contentLoader);
-            var expected = "MyRootDir";
-
-            //Act
-            loader.ContentRootDirectory = "MyRootDir";
-            var actual = loader.ContentRootDirectory;
-
-            //Assert
-            Assert.AreEqual(expected, actual);
-        }
-        #endregion
-
-
-        #region Public Methods
-        [Test]
-        public void LoadTexture_WhenInvoked_ReturnsTexture()
-        {
-            //Arrange
-            var loader = new ContentLoader(_contentLoader);
-
-            //Act
-            var actual = loader.LoadTexture("TextureName");
-
-            //Assert
-            Assert.NotNull(actual);
-            _mockCoreContentLoader.Verify(m => m.LoadTexture<ITexture>(It.IsAny<string>()), Times.Once());
-        }
-
-
-        [Test]
-        public void LoadText_WhenInvoked_ReturnsText()
-        {
-            //Arrange
-            var loader = new ContentLoader(_contentLoader);
-
-            //Act
-            var actual = loader.LoadText("TextName");
-
-            //Assert
-            Assert.NotNull(actual);
-            _mockCoreContentLoader.Verify(m => m.LoadText<IText>(It.IsAny<string>()), Times.Once());
-        }
-        #endregion
-
-
-        #region Public Methods
-        [SetUp]
-        public void Setup()
+        #region Constructors
+        public ContentLoaderTests()
         {
             var mockTexture = new Mock<ITexture>();
             var mockText = new Mock<IText>();
@@ -119,13 +36,92 @@ namespace KDScorpionCoreTests.Content
 
             _contentLoader = _mockCoreContentLoader.Object;
         }
+        #endregion
 
-
-        [TearDown]
-        public void TearDown()
+        #region Constructor Tests
+        [Fact]
+        public void Ctor_WhenInvoking_SetsInternalLoader()
         {
-            _contentLoader = null;
+            //Arrange
+            var loader = new ContentLoader(_contentLoader);
+            var expected = "RootDir";
+
+            //Act
+            loader.ContentRootDirectory = "RootDir";
+            var actual = loader.ContentRootDirectory;
+
+            //Assert
+            Assert.Equal(expected, actual);
         }
+        #endregion
+
+
+        #region Prop Tests
+        [Fact]
+        public void GamePath_WhenGettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var loader = new ContentLoader(_contentLoader);
+            var expected = "GamePath";
+
+            //Act
+            var actual = loader.GamePath;
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void ContentRootDirectory_WhenGettingAndSettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var loader = new ContentLoader(_contentLoader);
+            var expected = "MyRootDir";
+
+            //Act
+            loader.ContentRootDirectory = "MyRootDir";
+            var actual = loader.ContentRootDirectory;
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+        #endregion
+
+
+        #region Public Methods
+        [Fact]
+        public void LoadTexture_WhenInvoked_ReturnsTexture()
+        {
+            //Arrange
+            var loader = new ContentLoader(_contentLoader);
+
+            //Act
+            var actual = loader.LoadTexture("TextureName");
+
+            //Assert
+            Assert.NotNull(actual);
+            _mockCoreContentLoader.Verify(m => m.LoadTexture<ITexture>(It.IsAny<string>()), Times.Once());
+        }
+
+
+        [Fact]
+        public void LoadText_WhenInvoked_ReturnsText()
+        {
+            //Arrange
+            var loader = new ContentLoader(_contentLoader);
+
+            //Act
+            var actual = loader.LoadText("TextName");
+
+            //Assert
+            Assert.NotNull(actual);
+            _mockCoreContentLoader.Verify(m => m.LoadText<IText>(It.IsAny<string>()), Times.Once());
+        }
+        #endregion
+
+
+        #region Public Methods
+        public void Dispose() => _contentLoader = null;
         #endregion
     }
 }

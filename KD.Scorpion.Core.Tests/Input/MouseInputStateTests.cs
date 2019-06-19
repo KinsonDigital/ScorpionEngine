@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using KDScorpionCore.Input;
 using KDScorpionCore;
 
@@ -6,7 +6,7 @@ namespace KDScorpionCoreTests.Input
 {
     public class MouseInputStateTests
     {
-        [Test]
+        [Fact]
         public void Position_WhenSettingAndGettingValue_GetsAndSetsCorrectValue()
         {
             //Arrange
@@ -18,11 +18,11 @@ namespace KDScorpionCoreTests.Input
             var actual = state.Position;
 
             //Arrange
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void ScrollWheelValue_WhenSettingAndGettingValue_GetsAndSetsCorrectValue()
         {
             //Arrange
@@ -34,11 +34,11 @@ namespace KDScorpionCoreTests.Input
             var actual = state.ScrollWheelValue;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void X_WhenSettingAndGettingValue_GetsAndSetsCorrectValue()
         {
             //Arrange
@@ -50,11 +50,11 @@ namespace KDScorpionCoreTests.Input
             var actual = state.X;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Y_WhenSettingAndGettingValue_GetsAndSetsCorrectValue()
         {
             //Arrange
@@ -66,11 +66,11 @@ namespace KDScorpionCoreTests.Input
             var actual = state.Y;
 
             //Assert
-            Assert.AreEqual(eYpected, actual);
+            Assert.Equal(eYpected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void LeftButtonDown_WhenSettingAndGettingValue_GetsAndSetsCorrectValue()
         {
             //Arrange
@@ -82,11 +82,11 @@ namespace KDScorpionCoreTests.Input
             var actual = state.LeftButtonDown;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void RightButtonDown_WhenSettingAndGettingValue_GetsAndSetsCorrectValue()
         {
             //Arrange
@@ -98,11 +98,11 @@ namespace KDScorpionCoreTests.Input
             var actual = state.RightButtonDown;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void MiddleButtonDown_WhenSettingAndGettingValue_GetsAndSetsCorrectValue()
         {
             //Arrange
@@ -114,7 +114,7 @@ namespace KDScorpionCoreTests.Input
             var actual = state.MiddleButtonDown;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
     }
 }

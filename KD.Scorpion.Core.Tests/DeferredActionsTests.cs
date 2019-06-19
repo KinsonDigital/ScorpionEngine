@@ -1,14 +1,13 @@
-﻿using KDScorpionCore;
-using NUnit.Framework;
-using System;
+﻿using System;
+using KDScorpionCore;
+using Xunit;
 
 namespace KDScorpionCoreTests
 {
-    [TestFixture]
     public class DeferredActionsTests
     {
         #region Method Tests
-        [Test]
+        [Fact]
         public void Add_WhenInvoking_AddsItem()
         {
             //Arrange
@@ -21,11 +20,11 @@ namespace KDScorpionCoreTests
             var actual = actions.Count;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Clear_WhenInvoking_RemovesAllItems()
         {
             //Arrange
@@ -39,11 +38,11 @@ namespace KDScorpionCoreTests
             var actual = actions.Count;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Contains_WhenInvoking_ReturnsTrue()
         {
             //Arrange
@@ -56,11 +55,11 @@ namespace KDScorpionCoreTests
             var actual = actions.Contains(testAction);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void CopyTo_WhenInvoking_CorrectlyCopysToArray()
         {
             //Arrange
@@ -82,11 +81,11 @@ namespace KDScorpionCoreTests
             var actual = deferredActions;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void IndexOf_WhenInvoking_ReturnsCorrectIndex()
         {
             //Arrange
@@ -101,11 +100,11 @@ namespace KDScorpionCoreTests
             var actual = actions.IndexOf(testActionB);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Insert_WhenInvoking_CorrectlyInsertsItem()
         {
             //Arrange
@@ -123,11 +122,11 @@ namespace KDScorpionCoreTests
             var actual = actions[1];
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Remove_WhenInvoking_CorrectlyRemovesItem()
         {
             //Arrange
@@ -146,11 +145,11 @@ namespace KDScorpionCoreTests
             var actual = actions.Count;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void RemoveAt_WhenInvoking_CorrectlyRemovesItem()
         {
             //Arrange
@@ -169,13 +168,13 @@ namespace KDScorpionCoreTests
             var actual = actions.Count;
 
             //Assert
-            Assert.AreEqual(expected, actual);
-            Assert.AreEqual((Action)testActionA, actions[0]);
-            Assert.AreEqual((Action)testActionC, actions[1]);
+            Assert.Equal(expected, actual);
+            Assert.Equal((Action)testActionA, actions[0]);
+            Assert.Equal((Action)testActionC, actions[1]);
         }
 
 
-        [Test]
+        [Fact]
         public void ExecuteAll_WhenInvoking_ExecutesAllActions()
         {
             //Arrange
@@ -196,15 +195,15 @@ namespace KDScorpionCoreTests
             var actualCount = actions.Count;
             
             //Assert
-            Assert.AreEqual(expectedActionAExecuted, actualActionAExecuted);
-            Assert.AreEqual(expectedActionBExecuted, actualActionBExecuted);
-            Assert.AreEqual(expectedCount, actualCount);
+            Assert.Equal(expectedActionAExecuted, actualActionAExecuted);
+            Assert.Equal(expectedActionBExecuted, actualActionBExecuted);
+            Assert.Equal(expectedCount, actualCount);
         }
         #endregion
 
 
         #region Prop Tests
-        [Test]
+        [Fact]
         public void Count_WhenGettingValue_ReturnsCorrectResult()
         {
             //Arrange
@@ -217,11 +216,11 @@ namespace KDScorpionCoreTests
             var actual = actions.Count;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void IsReadOnly_WhenGettingValue_ReturnsCorrectResult()
         {
             //Arrange
@@ -232,11 +231,11 @@ namespace KDScorpionCoreTests
             var actual = actions.IsReadOnly;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void IndexProp_WhenGettingAndSettingValue_ReturnsCorrectAction()
         {
             //Arrange
@@ -254,7 +253,7 @@ namespace KDScorpionCoreTests
             var actual = actions[0];
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }

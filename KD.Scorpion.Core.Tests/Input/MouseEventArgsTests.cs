@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using KDScorpionCore.Input;
 using KDScorpionCore;
 
@@ -6,7 +6,7 @@ namespace KDScorpionCoreTests.Input
 {
     public class MouseEventArgsTests
     {
-        [Test]
+        [Fact]
         public void Ctor_WhenInvoking_SetsMouseInputStatePropValue()
         {
             //Arrange
@@ -32,7 +32,7 @@ namespace KDScorpionCoreTests.Input
             var actual = mouseEventArgs.State;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
     }
 }
