@@ -1,13 +1,12 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using KDScorpionCore.Input;
 
 namespace KDScorpionCoreTests.Input
 {
-    [TestFixture]
     public class KeyEventArgsTests
     {
         #region Constructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvoking_SetsKeysProp()
         {
             //Arrange
@@ -22,13 +21,13 @@ namespace KDScorpionCoreTests.Input
             var actual = eventArgs.Keys;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Prop Tests
-        [Test]
+        [Fact]
         public void Keys_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -46,7 +45,7 @@ namespace KDScorpionCoreTests.Input
             var actual = eventArgs.Keys;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
