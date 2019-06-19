@@ -1,15 +1,14 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using KDScorpionEngine.Entities;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngine.Physics;
 
 namespace KDScorpionEngineTests.Exceptions
 {
-    [TestFixture]
     public class EntityNotInitializedExceptionTests
     {
         #region Constructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokingWithNoParams_CorrectlySetsExceptionMessage()
         {
             //Arrange
@@ -20,11 +19,11 @@ namespace KDScorpionEngineTests.Exceptions
             var actual = exception.Message;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokingWithMessageParam_CorrectlySetsExceptionMessage()
         {
             //Arrange
@@ -35,7 +34,7 @@ namespace KDScorpionEngineTests.Exceptions
             var actual = exception.Message;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
