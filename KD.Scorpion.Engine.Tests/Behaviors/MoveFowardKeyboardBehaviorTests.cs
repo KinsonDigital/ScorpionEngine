@@ -1,26 +1,48 @@
-﻿using Moq;
-using NUnit.Framework;
+﻿using System;
+using Moq;
+using Xunit;
 using KDScorpionCore;
 using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Entities;
 using KDScorpionEngineTests.Fakes;
-using System;
 using PluginSystem;
 
 namespace KDScorpionEngineTests.Behaviors
 {
-    [TestFixture]
-    public class MoveFowardKeyboardBehaviorTests
+    public class MoveFowardKeyboardBehaviorTests : IDisposable
     {
         #region Private Fields
         private Mock<IKeyboard> _mockKeyboard;
         #endregion
 
 
+        #region Constructors
+        public MoveFowardKeyboardBehaviorTests()
+        {
+            _mockKeyboard = new Mock<IKeyboard>();
+
+            var entityXVertices = new[] { 10f, 20f, 30f };
+            var entityYVertices = new[] { 10f, 20f, 30f };
+
+            var mockEnginePluginLibrary = new Mock<IPluginLibrary>();
+            mockEnginePluginLibrary.Setup(m => m.LoadPlugin<IKeyboard>()).Returns(_mockKeyboard.Object);
+            Plugins.EnginePlugins = mockEnginePluginLibrary.Object;
+
+            var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
+            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
+            {
+                return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[1]);
+            });
+
+            Plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
+        }
+        #endregion
+
+
         #region Prop Tests
-        [Test]
+        [Fact]
         public void MoveFowardKey_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -33,11 +55,11 @@ namespace KDScorpionEngineTests.Behaviors
             var actual = behavior.MoveFowardKey;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void RotateCWKey_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -50,11 +72,11 @@ namespace KDScorpionEngineTests.Behaviors
             var actual = behavior.RotateCWKey;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void RotateCCWKey_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -67,11 +89,11 @@ namespace KDScorpionEngineTests.Behaviors
             var actual = behavior.RotateCCWKey;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void IsMovingFoward_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -88,13 +110,13 @@ namespace KDScorpionEngineTests.Behaviors
             var actual = behavior.IsMovingForward;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Method Tests
-        [Test]
+        [Fact]
         public void Update_WhenInvoked_InvokesEntityRotateCW()
         {
             //Arrange
@@ -114,11 +136,11 @@ namespace KDScorpionEngineTests.Behaviors
             var actual = entity.Angle;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvoked_InvokesEntityRotateCCW()
         {
             //Arrange
@@ -135,36 +157,13 @@ namespace KDScorpionEngineTests.Behaviors
             var actual = entity.Angle;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Public Methods
-        [SetUp]
-        public void Setup()
-        {
-            _mockKeyboard = new Mock<IKeyboard>();
-
-            var entityXVertices = new[] { 10f, 20f, 30f };
-            var entityYVertices = new[] { 10f, 20f, 30f };
-
-            var mockEnginePluginLibrary = new Mock<IPluginLibrary>();
-            mockEnginePluginLibrary.Setup(m => m.LoadPlugin<IKeyboard>()).Returns(_mockKeyboard.Object);
-            Plugins.EnginePlugins = mockEnginePluginLibrary.Object;
-
-            var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
-            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
-            {
-                return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[1]);
-            });
-
-            Plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
-        }
-
-
-        [TearDown]
-        public void TearDown()
+        public void Dispose()
         {
             Plugins.EnginePlugins = null;
             Plugins.PhysicsPlugins = null;
