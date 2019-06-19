@@ -1,5 +1,5 @@
 ﻿using Moq;
-using NUnit.Framework;
+using Xunit;
 using KDScorpionCore;
 using KDScorpionCore.Graphics;
 using KDScorpionEngine.Behaviors;
@@ -10,11 +10,10 @@ using KDScorpionCore.Plugins;
 
 namespace KDScorpionEngineTests.Entities
 {
-    [TestFixture]
     public class StaticEntityTests
     {
         #region Constructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvoking_PropertlyConstructsObject()
         {
             //Arrange
@@ -36,13 +35,13 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Position;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Method Tests
-        [Test]
+        [Fact]
         public void Update_WhenInvoking_UpdatesBehavior()
         {
             //Arrange
