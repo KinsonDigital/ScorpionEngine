@@ -1,13 +1,12 @@
 ﻿using KDScorpionCore;
-using NUnit.Framework;
+using Xunit;
 
 namespace KDScorpionCoreTests
 {
-    [TestFixture]
     public class RectTests
     {
         #region Constructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokingWithXAndYAndWidthAndHeight_SetsXAndYProps()
         {
             //Arrange
@@ -20,14 +19,14 @@ namespace KDScorpionCoreTests
             var actualHeight = rect.Height;
 
             //Assert
-            Assert.AreEqual(expectedWidth, actualWidth);
-            Assert.AreEqual(expectedHeight, actualHeight);
+            Assert.Equal(expectedWidth, actualWidth);
+            Assert.Equal(expectedHeight, actualHeight);
         }
         #endregion
 
 
         #region Prop Tests
-        [Test]
+        [Fact]
         public void X_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -39,11 +38,11 @@ namespace KDScorpionCoreTests
             var actual = rect.X;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Y_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -55,11 +54,11 @@ namespace KDScorpionCoreTests
             var actual = rect.Y;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Position_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -71,11 +70,11 @@ namespace KDScorpionCoreTests
             var actual = rect.Position;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Width_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -87,11 +86,11 @@ namespace KDScorpionCoreTests
             var actual = rect.Width;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Height_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -103,11 +102,11 @@ namespace KDScorpionCoreTests
             var actual = rect.Height;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Left_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -121,11 +120,11 @@ namespace KDScorpionCoreTests
             var actual = rect.Left;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Right_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -140,11 +139,11 @@ namespace KDScorpionCoreTests
             var actual = rect.Right;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Top_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -158,11 +157,11 @@ namespace KDScorpionCoreTests
             var actual = rect.Top;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Bottom_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -177,13 +176,13 @@ namespace KDScorpionCoreTests
             var actual = rect.Bottom;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Method Tests
-        [Test]
+        [Fact]
         public void Contains_WhenContainingXAndY_ReturnsTrue()
         {
             //Arrange
@@ -198,11 +197,11 @@ namespace KDScorpionCoreTests
             var actual = rect.Contains(5.5f, 5.5f);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Contains_WhenNotContainingXAndY_ReturnsFalse()
         {
             //Arrange
@@ -217,11 +216,11 @@ namespace KDScorpionCoreTests
             var actual = rect.Contains(50.5f, 50.50f);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Contains_WhenContainingVector_ReturnsTrue()
         {
             //Arrange
@@ -237,11 +236,11 @@ namespace KDScorpionCoreTests
             var actual = rect.Contains(location);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Contains_WhenNotContainingVector_ReturnsFalse()
         {
             //Arrange
@@ -257,7 +256,7 @@ namespace KDScorpionCoreTests
             var actual = rect.Contains(location);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
