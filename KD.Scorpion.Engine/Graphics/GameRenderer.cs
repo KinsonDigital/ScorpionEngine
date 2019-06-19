@@ -1,7 +1,6 @@
 ﻿using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Entities;
-using PluginSystem;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo(assemblyName: "ScorpionEngineTests", AllInternalsVisible = true)]

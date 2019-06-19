@@ -1,22 +1,34 @@
-﻿using Moq;
-using NUnit.Framework;
+﻿using System;
+using Moq;
+using Xunit;
 using KDScorpionCore;
 using KDScorpionCore.Graphics;
 using KDScorpionEngine.Entities;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngineTests.Fakes;
-using System;
-using System.Linq;
 using PluginSystem;
 using KDScorpionCore.Plugins;
 
 namespace KDScorpionEngineTests.Entities
 {
-    [TestFixture]
-    public class DynamicEntityTests
+    public class DynamicEntityTests : IDisposable
     {
+        #region Constructors
+        public DynamicEntityTests()
+        {
+            var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
+            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
+            {
+                return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[0]);
+            });
+
+            Plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
+        }
+        #endregion
+
+
         #region Constructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokingWithTextureAndPosition_CreatesAllBehaviors()
         {
             //Arrange
@@ -28,11 +40,11 @@ namespace KDScorpionEngineTests.Entities
             var actualTotalBehaviors = entity.Behaviors.Count;
 
             //Assert
-            Assert.AreEqual(expectedTotalBehaviors, actualTotalBehaviors);
+            Assert.Equal(expectedTotalBehaviors, actualTotalBehaviors);
         }
 
 
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokingWithNoParams_CreatesAllBehaviors()
         {
             //Arrange
@@ -43,11 +55,11 @@ namespace KDScorpionEngineTests.Entities
             var actualTotalBehaviors = entity.Behaviors.Count;
 
             //Assert
-            Assert.AreEqual(expectedTotalBehaviors, actualTotalBehaviors);
+            Assert.Equal(expectedTotalBehaviors, actualTotalBehaviors);
         }
 
 
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokingWithFrictionParam_CreatesAllBehaviors()
         {
             //Arrange
@@ -58,11 +70,11 @@ namespace KDScorpionEngineTests.Entities
             var actualTotalBehaviors = entity.Behaviors.Count;
 
             //Assert
-            Assert.AreEqual(expectedTotalBehaviors, actualTotalBehaviors);
+            Assert.Equal(expectedTotalBehaviors, actualTotalBehaviors);
         }
 
 
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokingWithPosition_CreatesAllBehaviors()
         {
             //Arrange
@@ -73,11 +85,11 @@ namespace KDScorpionEngineTests.Entities
             var actualTotalBehaviors = entity.Behaviors.Count;
 
             //Assert
-            Assert.AreEqual(expectedTotalBehaviors, actualTotalBehaviors);
+            Assert.Equal(expectedTotalBehaviors, actualTotalBehaviors);
         }
 
 
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokingWithVerticesAndPosition_CreatesAllBehaviors()
         {
             //Arrange
@@ -96,11 +108,11 @@ namespace KDScorpionEngineTests.Entities
             var actualTotalBehaviors = entity.Behaviors.Count;
 
             //Assert
-            Assert.AreEqual(expectedTotalBehaviors, actualTotalBehaviors);
+            Assert.Equal(expectedTotalBehaviors, actualTotalBehaviors);
         }
 
 
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokingWithTextureAndVerticesAndPosition_CreatesAllBehaviors()
         {
             //Arrange
@@ -120,13 +132,13 @@ namespace KDScorpionEngineTests.Entities
             var actualTotalBehaviors = entity.Behaviors.Count;
 
             //Assert
-            Assert.AreEqual(expectedTotalBehaviors, actualTotalBehaviors);
+            Assert.Equal(expectedTotalBehaviors, actualTotalBehaviors);
         }
         #endregion
 
 
         #region Prop Tests
-        [Test]
+        [Fact]
         public void IsMoving_WhenGettingValueWhenBodyIsNotMoving_ValueShouldReturnFalse()
         {
             //Arrange
@@ -139,11 +151,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.IsMoving;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void IsMoving_WhenGettingValueWhenBodyPerformingLinearMovement_ValueShouldReturnTrue()
         {
             //Arrange
@@ -158,11 +170,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.IsMoving;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void IsMoving_WhenGettingValueWhenBodyPerformingAngularMovement_ValueShouldReturnTrue()
         {
             //Arrange
@@ -177,11 +189,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.IsMoving;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void RotationEnabled_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -194,11 +206,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.RotationEnabled;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Angle_WhenGettingAndSettingValueAfterInitialize_ReturnsCorrectValue()
         {
             //Arrange
@@ -212,11 +224,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Angle;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Angle_WhenGettingAndSettingValueBeforeInitialize_ReturnsCorrectValue()
         {
             //Arrange
@@ -229,11 +241,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Angle;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void MaxLinearSpeed_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -246,11 +258,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.MaxLinearSpeed;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void MaxRotationSpeed_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -263,11 +275,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.MaxRotationSpeed;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void LinearDeceleration_WhenGettingAndSettingValueAfterInitialize_ReturnsCorrectValue()
         {
             //Arrange
@@ -281,11 +293,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.LinearDeceleration;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void LinearDeceleration_WhenGettingAndSettingValueBeforeInitialize_ReturnsCorrectValue()
         {
             //Arrange
@@ -298,11 +310,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.LinearDeceleration;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void AngularDeceleration_WhenGettingAndSettingValueAfterInitialize_ReturnsCorrectValue()
         {
             //Arrange
@@ -316,11 +328,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.AngularDeceleration;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void AngularDeceleration_WhenGettingAndSettingValueBeforeInitialize_ReturnsCorrectValue()
         {
             //Arrange
@@ -333,13 +345,13 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.AngularDeceleration;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Method Tests
-        [Test]
+        [Fact]
         public void Update_WhenInvokingWithNullBody_ThrowsException()
         {
             //Arrange
@@ -362,7 +374,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvoking_ShouldHaveEntityStopAfterMovementInXDirection()
         {
             //Arrange
@@ -380,11 +392,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.IsMoving;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvoking_ShouldHaveEntityStopAfterMovementInYDirection()
         {
             //Arrange
@@ -402,11 +414,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.IsMoving;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvoking_ShouldHaveEntityStopAfterMovementInXAndYDirection()
         {
             //Arrange
@@ -431,11 +443,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.IsMoving;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvokingWithMovingEntity_ShouldStopBodyWhenStopMovementIsInvoked()
         {
             //Arrange
@@ -460,11 +472,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.IsMoving;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void MoveRight_WhenInvokingWithParam_CorrectlySetsLinearVelocity()
         {
             //Arrange
@@ -479,11 +491,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.LinearVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void MoveRight_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
         {
             //Arrange
@@ -498,11 +510,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.LinearVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void MoveRight_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -513,7 +525,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void MoveRight_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -524,7 +536,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void MoveLeft_WhenInvokingWithParam_CorrectlySetsLinearVelocity()
         {
             //Arrange
@@ -539,11 +551,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.LinearVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void MoveLeft_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
         {
             //Arrange
@@ -558,11 +570,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.LinearVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void MoveLeft_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -573,7 +585,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void MoveLeft_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -584,7 +596,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void MoveUp_WhenInvokingWithParam_CorrectlySetsLinearVelocity()
         {
             //Arrange
@@ -599,11 +611,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.LinearVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void MoveUp_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
         {
             //Arrange
@@ -618,11 +630,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.LinearVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void MoveUp_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -633,7 +645,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void MoveUp_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -644,7 +656,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void MoveDown_WhenInvokingWithParam_CorrectlySetsLinearVelocity()
         {
             //Arrange
@@ -659,11 +671,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.LinearVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void MoveDown_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
         {
             //Arrange
@@ -678,11 +690,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.LinearVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void MoveDown_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -693,7 +705,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void MoveDown_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -704,7 +716,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void MoveUpRight_WhenInvokingWithParam_CorrectlySetsLinearVelocity()
         {
             //Arrange
@@ -719,11 +731,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.LinearVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void MoveUpRight_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
         {
             //Arrange
@@ -738,11 +750,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.LinearVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void MoveUpRight_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -753,7 +765,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void MoveUpRight_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -764,7 +776,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void MoveUpLeft_WhenInvokingWithParam_CorrectlySetsLinearVelocity()
         {
             //Arrange
@@ -779,11 +791,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.LinearVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void MoveUpLeft_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
         {
             //Arrange
@@ -798,11 +810,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.LinearVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void MoveUpLeft_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -813,7 +825,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void MoveUpLeft_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -824,7 +836,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void MoveDownRight_WhenInvokingWithParam_CorrectlySetsLinearVelocity()
         {
             //Arrange
@@ -839,11 +851,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.LinearVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void MoveDownRight_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
         {
             //Arrange
@@ -858,11 +870,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.LinearVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void MoveDownRight_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -873,7 +885,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void MoveDownRight_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -884,7 +896,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void MoveDownLeft_WhenInvokingWithParam_CorrectlySetsLinearVelocity()
         {
             //Arrange
@@ -899,11 +911,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.LinearVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void MoveDownLeft_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
         {
             //Arrange
@@ -918,11 +930,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.LinearVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void MoveDownLeft_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -933,7 +945,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void MoveDownLeft_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -944,7 +956,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void MoveAtSetSpeed_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
         {
             //Arrange
@@ -963,11 +975,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.LinearVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void MoveAtSetSpeed_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -978,7 +990,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void MoveAtSetAngle_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
         {
             //Arrange
@@ -998,11 +1010,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.LinearVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void MoveAtSetAngle_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -1013,7 +1025,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void RotateCW_WithNoParams_ProperlySetsAngularVelocity()
         {
             //Arrange
@@ -1027,11 +1039,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.AngularVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void RotateCW_WithParam_ProperlySetsAngularVelocity()
         {
             //Arrange
@@ -1045,11 +1057,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.AngularVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void RotateCW_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -1060,7 +1072,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void RotateCW_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -1071,7 +1083,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void RotateCCW_WithNoParams_ProperlySetsAngularVelocity()
         {
             //Arrange
@@ -1085,11 +1097,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.AngularVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void RotateCCW_WithParam_ProperlySetsAngularVelocity()
         {
             //Arrange
@@ -1103,11 +1115,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.AngularVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void RotateCCW_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -1118,7 +1130,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void RotateCCW_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -1129,7 +1141,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void StopMovement_WhenInvoked_ProperlySetsLinearVelocity()
         {
             //Arrange
@@ -1146,11 +1158,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.LinearVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void StopRotation_WhenInvoked_ProperlySetsAngularVelocity()
         {
             //Arrange
@@ -1167,11 +1179,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.AngularVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void StopRotation_WhenInvokedWithNullBody_ThrowsException()
         {
             //Arrange
@@ -1184,7 +1196,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Test]
+        [Fact]
         public void DynamicEntity_WhenMoving_MaintainsMaxMovementLimit()
         {
             //Arrange
@@ -1203,11 +1215,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.LinearVelocity.X;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void DynamicEntity_WhenMoving_MaintainsMaxAngularLimit()
         {
             //Arrange
@@ -1226,11 +1238,11 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.AngularVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Initialize_WhenInvokingWhileAlreadyInitialized_MaintainsMaxAngularLimit()
         {
             //Arrange
@@ -1249,30 +1261,13 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.AngularVelocity;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Public Methods
-        [SetUp]
-        public void Setup()
-        {
-            if (ShouldSkipSetup())
-                return;
-
-            var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
-            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
-            {
-                return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[0]);
-            });
-
-            Plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
-        }
-
-
-        [TearDown]
-        public void TearDown() => Plugins.PhysicsPlugins = null;
+        public void Dispose() => Plugins.PhysicsPlugins = null;
         #endregion
 
 
@@ -1285,17 +1280,6 @@ namespace KDScorpionEngineTests.Entities
 
 
             return new Texture(mockTexture.Object);
-        }
-
-
-        private static bool ShouldSkipSetup()
-        {
-            var testCategories = TestContext.CurrentContext.Test.Properties["Category"];
-
-            bool skipSetup = testCategories != null && testCategories.Contains("SKIP_SETUP");
-
-
-            return skipSetup;
         }
         #endregion
     }
