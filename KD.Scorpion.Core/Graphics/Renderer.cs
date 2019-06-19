@@ -18,58 +18,37 @@ namespace KDScorpionCore.Graphics
 
 
         #region Public Methods
-        public void Clear(byte red, byte green, byte blue, byte alpha)
-        {
-            InternalRenderer.Clear(red, green, blue, alpha);
-        }
+        public void Clear(byte red, byte green, byte blue, byte alpha) => InternalRenderer.Clear(new GameColor(alpha, red, green, blue));
 
 
-        public void Start()
-        {
-            InternalRenderer.Start();
-        }
+        public void Start() => InternalRenderer.Start();
 
 
-        public void End()
-        {
-            InternalRenderer.End();
-        }
+        public void End() => InternalRenderer.End();
 
 
-        public void Render(Texture texture, float x, float y)
-        {
-            InternalRenderer.Render(texture.InternalTexture, x, y);
-        }
+        public void Render(Texture texture, float x, float y) => InternalRenderer.Render(texture.InternalTexture, x, y);
 
 
-        public void Render(Texture texture, Vector position)
-        {
-            Render(texture, position.X, position.Y);
-        }
+        public void Render(Texture texture, Vector position) => Render(texture, position.X, position.Y);
 
 
         //Angle is in degrees
-        public void Render(Texture texture, float x, float y, float angle)
-        {
+        public void Render(Texture texture, float x, float y, float angle) => 
             InternalRenderer.Render(texture.InternalTexture, x, y, angle);
-        }
 
 
         //Angle is in degrees
         public void Render(Texture texture, float x, float y, float angle, float size, GameColor color) => 
-            InternalRenderer.Render(texture.InternalTexture, x, y, angle, size, new[] { color.Red, color.Green, color.Blue, color.Alpha });
+            InternalRenderer.Render(texture.InternalTexture, x, y, angle, size, color);
 
 
-        public void RenderTextureArea(Texture texture, Rect area, Vector position)
-        {
+        public void RenderTextureArea(Texture texture, Rect area, Vector position) => 
             InternalRenderer.RenderTextureArea(texture.InternalTexture, area, position.X, position.Y);
-        }
 
 
-        public void Render(GameText text, float x, float y)
-        {
+        public void Render(GameText text, float x, float y) =>
             InternalRenderer.Render(text.InternalText, x, y);
-        }
 
 
         public void Render(GameText text, float x, float y, GameColor color)
@@ -89,38 +68,20 @@ namespace KDScorpionCore.Graphics
         }
 
 
-        public void Render(GameText text, Vector position)
-        {
-            Render(text, position.X, position.Y);
-        }
+        public void Render(GameText text, Vector position) => Render(text, position.X, position.Y);
 
 
-        public void Render(GameText text, Vector position, GameColor color)
-        {
-            Render(text, position.X, position.Y, color);
-        }
+        public void Render(GameText text, Vector position, GameColor color) => Render(text, position.X, position.Y, color);
 
 
-        public void FillCircle(Vector position, float radius, GameColor color)
-        {
-            InternalRenderer.FillCircle(position.X, position.Y, radius, new byte[] { color.Red, color.Green, color.Blue, color.Alpha });
-        }
+        public void FillCircle(Vector position, float radius, GameColor color) => 
+            InternalRenderer.FillCircle(position.X, position.Y, radius, color);
 
 
-        public void FillRect(Rect rect, GameColor color)
-        {
-            var colorData = new byte[] { color.Red, color.Green, color.Blue, color.Alpha };
-
-            InternalRenderer.FillRect(rect, colorData);
-        }
+        public void FillRect(Rect rect, GameColor color) => InternalRenderer.FillRect(rect, color);
 
 
-        public void Line(Vector start, Vector end, GameColor color)
-        {
-            var lineColor = new byte[] { color.Red, color.Green, color.Blue, color.Alpha };
-
-            InternalRenderer.RenderLine(start.X, start.Y, end.X, end.Y, lineColor);
-        }
+        public void Line(Vector start, Vector end, GameColor color) => InternalRenderer.RenderLine(start.X, start.Y, end.X, end.Y, color);
         #endregion
     }
 }

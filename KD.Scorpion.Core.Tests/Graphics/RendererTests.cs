@@ -137,7 +137,7 @@ namespace KDScorpionCoreTests.Graphics
             renderer.Clear(It.IsAny<byte>(), It.IsAny<byte>(), It.IsAny<byte>(), It.IsAny<byte>());
 
             //Assert
-            mockInternalRenderer.Verify(m => m.Clear(It.IsAny<byte>(), It.IsAny<byte>(), It.IsAny<byte>(), It.IsAny<byte>()), Times.Once());
+            mockInternalRenderer.Verify(m => m.Clear(It.IsAny<GameColor>()), Times.Once());
         }
 
 
@@ -152,7 +152,7 @@ namespace KDScorpionCoreTests.Graphics
             renderer.FillCircle(It.IsAny<Vector>(), It.IsAny<float>(), It.IsAny<GameColor>());
 
             //Assert
-            mockInternalRenderer.Verify(m => m.FillCircle(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<byte[]>()), Times.Once());
+            mockInternalRenderer.Verify(m => m.FillCircle(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<GameColor>()), Times.Once());
         }
         #endregion
 

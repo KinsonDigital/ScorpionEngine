@@ -40,16 +40,12 @@ namespace SDLScorpPlugin
 
 
         /// <summary>
-        /// Clears the screen to the color using the given color components of
-        /// <paramref name="red"/>, <paramref name="green"/>, <paramref name="blue"/> and <paramref name="alpha"/>.
+        /// Clears the screen to the given color.
         /// </summary>
-        /// <param name="red">The red component of the color to clearn the screen to.</param>
-        /// <param name="green">The green component of the color to clearn the screen to.</param>
-        /// <param name="blue">The blue component of the color to clearn the screen to.</param>
-        /// <param name="alpha">The alpha component of the color to clearn the screen to.</param>
-        public void Clear(byte red, byte green, byte blue, byte alpha)
+        /// <param name="color">The color to clear the screen to.</param>
+        public void Clear(GameColor color)
         {
-            SDL.SDL_SetRenderDrawColor(_rendererPtr, red, green, blue, alpha);
+            SDL.SDL_SetRenderDrawColor(_rendererPtr, color.Red, color.Green, color.Blue, color.Alpha);
             SDL.SDL_RenderClear(_rendererPtr);
         }
 
@@ -61,7 +57,7 @@ namespace SDLScorpPlugin
         /// <param name="texture">The texture to render.</param>
         /// <param name="x">The X coordinate location on the screen to render.</param>
         /// <param name="y">The Y coordinate location on the screen to render.</param>
-        public void Render(ITexture texture, float x, float y) => Render(texture, x, y, 0f, 1f, new byte[] { 255, 255, 255, 255 });
+        public void Render(ITexture texture, float x, float y) => Render(texture, x, y, 0f, 1f, new GameColor(255, 255, 255, 255));
 
 
         /// <summary>
@@ -73,7 +69,7 @@ namespace SDLScorpPlugin
         /// <param name="x">The X coordinate location on the screen to render.</param>
         /// <param name="y">The Y coordinate location on the screen to render.</param>
         /// <param name="angle">The angle in degrees to rotate the texture to.</param>
-        public void Render(ITexture texture, float x, float y, float angle) => Render(texture, x, y, angle, 1f, new byte[] { 255, 255, 255, 255 });
+        public void Render(ITexture texture, float x, float y, float angle) => Render(texture, x, y, angle, 1f, new GameColor(255, 255, 255, 255));
 
 
         /// <summary>
@@ -85,10 +81,8 @@ namespace SDLScorpPlugin
         /// <param name="x">The X coordinate location on the screen to render.</param>
         /// <param name="y">The Y coordinate location on the screen to render.</param>
         /// <param name="angle">The angle in degrees to rotate the texture to.</param>
-        /// <param name="color">The array of color components of the color to add to the texture.
-        /// Only aloud to have 4 elements or less.  Any more than 4 elements will throw an exception.
-        /// If element does not exist, the value 255 will be used.</param>
-        public void Render(ITexture texture, float x, float y, float angle, float size, byte[] color)
+        /// <param name="color">The color to apply to the texture.</param>
+        public void Render(ITexture texture, float x, float y, float angle, float size, GameColor color)
         {
             //NOTE: SDL takes the angle in degrees, not radians.
 
@@ -116,14 +110,9 @@ namespace SDLScorpPlugin
 
             var texturePtr = texture.GetData<PointerContainer>(1).UnpackPointer();
 
-            var red = color.Length >= 1 ? color[0] : (byte)255;
-            var green = color.Length >= 2 ? color[1] : (byte)255;
-            var blue = color.Length >= 3 ? color[2] : (byte)255;
-            var alpha = color.Length >= 4 ? color[3] : (byte)255;
-
             SDL.SDL_SetTextureBlendMode(texturePtr, SDL.SDL_BlendMode.SDL_BLENDMODE_BLEND);
-            SDL.SDL_SetTextureColorMod(texturePtr, red, green, blue);
-            SDL.SDL_SetTextureAlphaMod(texturePtr, alpha);
+            SDL.SDL_SetTextureColorMod(texturePtr, color.Red, color.Green, color.Blue);
+            SDL.SDL_SetTextureAlphaMod(texturePtr, color.Alpha);
             SDL.SDL_RenderCopyEx(_rendererPtr, texturePtr, ref srcRect, ref destRect, angle, ref textureOrigin, SDL.SDL_RendererFlip.SDL_FLIP_NONE);
         }
 
@@ -211,7 +200,7 @@ namespace SDLScorpPlugin
         /// <param name="lineStopX">The ending X coordinate of the line.</param>
         /// <param name="lineStopY">The ending Y coordinate of the line.</param>
         public void RenderLine(float lineStartX, float lineStartY, float lineStopX, float lineStopY) =>
-            RenderLine(lineStartX, lineStartY, lineStopX, lineStopY, new byte[] { 255, 255, 255, 255 });
+            RenderLine(lineStartX, lineStartY, lineStopX, lineStopY, new GameColor(255, 255, 255, 255));
 
 
         /// <summary>
@@ -221,15 +210,10 @@ namespace SDLScorpPlugin
         /// <param name="lineStartY">The starting Y coordinate of the line.</param>
         /// <param name="lineStopX">The ending X coordinate of the line.</param>
         /// <param name="lineStopY">The ending Y coordinate of the line.</param>
-        /// <param name="color">The color of the line.  Must be a total of 4 color component channels consisting of
-        /// red, green, blue and alpha in that order.  A missing element will result in a default value of 255.</param>
-        public void RenderLine(float startX, float startY, float endX, float endY, byte[] color)
+        /// <param name="color">The color of the line.</param>
+        public void RenderLine(float startX, float startY, float endX, float endY, GameColor color)
         {
-            SDL.SDL_SetRenderDrawColor(_rendererPtr,
-                                       color == null || color.Length >= 1 ? color[0] : (byte)255,
-                                       color == null || color.Length >= 2 ? color[1] : (byte)255,
-                                       color == null || color.Length >= 3 ? color[2] : (byte)255,
-                                       color == null || color.Length >= 4 ? color[3] : (byte)255);
+            SDL.SDL_SetRenderDrawColor(_rendererPtr, color.Red, color.Green, color.Blue, color.Alpha);
 
             SDL.SDL_RenderDrawLine(_rendererPtr, (int)startX, (int)startY, (int)endX, (int)endY);
         }
@@ -243,17 +227,13 @@ namespace SDLScorpPlugin
         /// <param name="x">The X coordinate on the screen of where to render the circle.</param>
         /// <param name="y">The Y coordinate on the screen of where to render the circle.</param>
         /// <param name="radius">The radius of the circle.</param>
-        /// <param name="color">The color of the circle.  Must be a total of 4 color component channels consisting of
-        /// red, green, blue and alpha in that order.  A missing element will result in a default value of 255.</param>
-        public void FillCircle(float centerX, float centerY, float radius, byte[] color)
+        /// <param name="color">The color of the circle.</param>
+        public void FillCircle(float centerX, float centerY, float radius, GameColor color)
         {
-            /*Midpoint Algorith
+            /*Midpoint Algorithm
              * 1. https://stackoverflow.com/questions/38334081/howto-draw-circles-arcs-and-vector-graphics-in-sdl
              * 2. https://en.wikipedia.org/wiki/Midpoint_circle_algorithm#C_Example
              */
-
-            if (color == null || color.Length != 4)
-                throw new ArgumentException($"The argument '{nameof(color)}' must not be null and must have exactly 4 elements.");
 
             int diameter = (int)(radius * 2f);
 
@@ -266,11 +246,7 @@ namespace SDLScorpPlugin
             int centerXIntValue = (int)centerX;
             int centerYIntValue = (int)centerY;
 
-            SDL.SDL_SetRenderDrawColor(_rendererPtr,
-                                       color == null || color.Length >= 1 ? color[0] : (byte)255,
-                                       color == null || color.Length >= 2 ? color[1] : (byte)255,
-                                       color == null || color.Length >= 3 ? color[2] : (byte)255,
-                                       color == null || color.Length >= 4 ? color[3] : (byte)255);
+            SDL.SDL_SetRenderDrawColor(_rendererPtr, color.Red, color.Green, color.Blue, color.Alpha);
 
             while (x >= y)
             {
@@ -306,8 +282,8 @@ namespace SDLScorpPlugin
         /// and using the given <paramref name="color"/>.
         /// </summary>
         /// <param name="rect">The rectangle to render.</param>
-        /// <param name="color">The color to render the rectangle.</param> 
-        public void FillRect(Rect rect, byte[] color)
+        /// <param name="color">The color of the rectangle.</param> 
+        public void FillRect(Rect rect, GameColor color)
         {
             var sdlRect = new SDL.SDL_Rect()
             {
@@ -317,11 +293,7 @@ namespace SDLScorpPlugin
                 h = (int)rect.Height
             };
 
-            SDL.SDL_SetRenderDrawColor(_rendererPtr,
-                                       color == null || color.Length >= 1 ? color[0] : (byte)255,
-                                       color == null || color.Length >= 2 ? color[1] : (byte)255,
-                                       color == null || color.Length >= 3 ? color[2] : (byte)255,
-                                       color == null || color.Length >= 4 ? color[3] : (byte)255);
+            SDL.SDL_SetRenderDrawColor(_rendererPtr, color.Red, color.Green, color.Blue, color.Alpha);
             SDL.SDL_RenderFillRect(_rendererPtr, ref sdlRect);
         }
 
