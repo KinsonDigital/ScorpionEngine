@@ -1,12 +1,12 @@
-﻿using NUnit.Framework;
-using KDScorpionCore.Graphics;
+﻿using KDScorpionCore.Graphics;
+using Xunit;
 
 namespace KDScorpionCoreTests.Graphics
 {
     public class GameColorTests
     {
         #region Prop Tests
-        [Test]
+        [Fact]
         public void Red_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -17,11 +17,11 @@ namespace KDScorpionCoreTests.Graphics
             var actual = gameColor.Red;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Green_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -32,11 +32,11 @@ namespace KDScorpionCoreTests.Graphics
             var actual = gameColor.Green;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Blue_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -47,11 +47,11 @@ namespace KDScorpionCoreTests.Graphics
             var actual = gameColor.Blue;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Alpha_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -62,7 +62,7 @@ namespace KDScorpionCoreTests.Graphics
             var actual = gameColor.Alpha;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
