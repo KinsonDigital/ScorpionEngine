@@ -1,14 +1,13 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using KDScorpionCore;
 using KDScorpionEngine.Behaviors;
 
 namespace KDScorpionEngineTests.Behaviors
 {
-    [TestFixture]
     public class LimitNumberBehaviorTests
     {
         #region Contructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvoking_CorrectlySetsLimitProp()
         {
             //Arrange
@@ -19,11 +18,11 @@ namespace KDScorpionEngineTests.Behaviors
             var actual = behavior.LimitValue;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Ctor_WhenInvoking_CorrectlySetsNameProp()
         {
             //Arrange
@@ -34,13 +33,13 @@ namespace KDScorpionEngineTests.Behaviors
             var actual = behavior.Name;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Method Tests
-        [Test]
+        [Fact]
         public void UpdateAction_WhenInvokingWithCurrentValueGreatorThanLimit_InvokesSetLimitAction()
         {
             //Arrange
@@ -54,11 +53,11 @@ namespace KDScorpionEngineTests.Behaviors
             behavior.UpdateAction(new EngineTime());
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void UpdateAction_WhenInvokingWithCurrentValueLessThanLimit_InvokesSetLimitAction()
         {
             //Arrange
@@ -72,11 +71,11 @@ namespace KDScorpionEngineTests.Behaviors
             behavior.UpdateAction(new EngineTime());
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void UpdateAction_WhenInvokingWithCurrentValueLessThanLimit_DoesNotInvokesSetLimitAction()
         {
             //Arrange
@@ -90,7 +89,7 @@ namespace KDScorpionEngineTests.Behaviors
             behavior.UpdateAction(new EngineTime());
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
