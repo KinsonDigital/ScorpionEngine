@@ -1,13 +1,12 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using KDScorpionEngine.Exceptions;
 
 namespace KDScorpionEngineTests.Exceptions
 {
-    [TestFixture]
     public class IdAlreadyExistsExceptionTests
     {
         #region Constructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokedWithNoParams_ProperlySetsExceptionMessage()
         {
             //Arrange
@@ -18,11 +17,11 @@ namespace KDScorpionEngineTests.Exceptions
             var actual = exception.Message;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokedWithSceneId_ProperlySetsExceptionMessage()
         {
             //Arrange
@@ -33,11 +32,11 @@ namespace KDScorpionEngineTests.Exceptions
             var actual = exception.Message;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokedMessage_ProperlySetsExceptionMessage()
         {
             //Arrange
@@ -48,7 +47,7 @@ namespace KDScorpionEngineTests.Exceptions
             var actual = exception.Message;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
