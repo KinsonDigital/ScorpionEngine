@@ -1,14 +1,14 @@
 ﻿using Moq;
-using NUnit.Framework;
 using KDScorpionCore.Graphics;
 using KDScorpionCore;
+using Xunit;
 
 namespace KDScorpionCoreTests.Graphics
 {
     public class GameTextTests
     {
         #region Prop Tests
-        [Test]
+        [Fact]
         public void Text_WhenSettingValue_ProperlyReturnsInternalValue()
         {
             //Arrange
@@ -24,11 +24,11 @@ namespace KDScorpionCoreTests.Graphics
             var actual = gameText.Text;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Text_WhenSettingValue_ProperlySetsInternalValue()
         {
             //Arrange
@@ -45,11 +45,11 @@ namespace KDScorpionCoreTests.Graphics
             var actual = gameText.Text;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Width_WhenSettingValue_ProperlyReturnsInternalValue()
         {
             //Arrange
@@ -65,11 +65,11 @@ namespace KDScorpionCoreTests.Graphics
             var actual = gameText.Width;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Height_WhenSettingValue_ProperlyReturnsInternalValue()
         {
             //Arrange
@@ -85,11 +85,11 @@ namespace KDScorpionCoreTests.Graphics
             var actual = gameText.Height;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Color_WhenSettingValue_ProperlySetsInternalValue()
         {
             //Arrange
@@ -106,13 +106,13 @@ namespace KDScorpionCoreTests.Graphics
             var actual = gameText.Color;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Overloaded Operator Tests
-        [Test]
+        [Fact]
         public void AddOperator_WhenAddingTwoObjects_ReturnsCorrectValue()
         {
             //Arrange
@@ -138,11 +138,11 @@ namespace KDScorpionCoreTests.Graphics
             var actual = textA + textB;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void AddOperator_WhenAddingObjectAndString_ReturnsCorrectValue()
         {
             //Arrange
@@ -160,11 +160,11 @@ namespace KDScorpionCoreTests.Graphics
             var actual = textA + "World";
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void AddOperator_WhenAddingStringAndObject_ReturnsCorrectValue()
         {
             //Arrange
@@ -182,7 +182,7 @@ namespace KDScorpionCoreTests.Graphics
             var actual = "Hello " + textB;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
