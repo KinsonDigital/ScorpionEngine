@@ -1,12 +1,12 @@
 ﻿using Moq;
-using NUnit.Framework;
 using KDScorpionCore.Graphics;
+using Xunit;
 
 namespace KDScorpionCoreTests.Graphics
 {
     public class TextureTests
     {
-        [Test]
+        [Fact]
         public void Width_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -19,11 +19,11 @@ namespace KDScorpionCoreTests.Graphics
             var actual = texture.Width;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Height_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -37,7 +37,7 @@ namespace KDScorpionCoreTests.Graphics
             var actual = texture.Height;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
     }
 }
