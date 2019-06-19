@@ -1,15 +1,14 @@
 ﻿using Moq;
-using NUnit.Framework;
+using Xunit;
 using KDScorpionCore.Plugins;
 using KDScorpionCore;
 
 namespace KDScorpionCoreTests
 {
-    [TestFixture]
     public class OnRenderEventArgsTests
     {
         #region Constructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvoking_SetsRendererProp()
         {
             //Arrange
@@ -21,13 +20,13 @@ namespace KDScorpionCoreTests
             var actual = eventArgs.Renderer;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Prop Tests
-        [Test]
+        [Fact]
         public void Renderer_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -41,7 +40,7 @@ namespace KDScorpionCoreTests
             var actual = eventArgs.Renderer;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
