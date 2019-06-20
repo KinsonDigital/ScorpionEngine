@@ -6,7 +6,6 @@ using KDScorpionEngine.Events;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngine.Graphics;
 using KDScorpionEngine.Input;
-using PluginSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,10 +33,10 @@ namespace KDScorpionEngine.Scene
 
 
         #region Constructors
-        internal SceneManager(ContentLoader contentLoader, IPluginLibrary plugin)
+        internal SceneManager(ContentLoader contentLoader, IKeyboard keyboard)
         {
             _contentLoader = contentLoader;
-            _keyboard = new Keyboard(plugin.LoadPlugin<IKeyboard>());
+            _keyboard = new Keyboard(keyboard);
         }
 
 
