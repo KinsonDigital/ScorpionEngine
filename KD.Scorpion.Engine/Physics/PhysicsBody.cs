@@ -58,6 +58,11 @@ namespace KDScorpionEngine.Physics
 
                 return result.ToArray();
             }
+            set
+            {
+                InternalPhysicsBody.XVertices = (from v in value select v.X).ToArray();
+                InternalPhysicsBody.YVertices = (from v in value select v.Y).ToArray();
+            }
         }
 
         public float X

@@ -7,22 +7,19 @@ using System.Drawing;
 using PluginSystem;
 using KDScorpionCore.Plugins;
 using System;
+using KDScorpionEngine.Physics;
 
 namespace KDScorpionEngineTests.Entities
 {
     public class TextEntityTests : IDisposable
     {
-        #region Constructors
-        public TextEntityTests()
-        {
-            var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
-            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
-            {
-                return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[1], (float)ctorParams[2], (float)ctorParams[3]);
-            });
+        #region Private Fields
+        private Mock<IPhysicsBody> _mockPhysicsBody;
+        #endregion
 
-            Plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
-        }
+
+        #region Constructors
+        public TextEntityTests() => _mockPhysicsBody = new Mock<IPhysicsBody>();
         #endregion
 
 
@@ -76,8 +73,15 @@ namespace KDScorpionEngineTests.Entities
         public void Ctor_WhenInvoking_CorrectlySetsPositionProp()
         {
             //Arrange
-            var entity = new TextEntity("text", Color.Red, Color.Red, new Vector(11, 22));
+            _mockPhysicsBody.SetupProperty(p => p.X);
+            _mockPhysicsBody.SetupProperty(p => p.Y);
+
+            var entity = new TextEntity("text", Color.Red, Color.Red, new Vector(11, 22))
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
+
             var expected = new Vector(11, 22);
 
             //Act

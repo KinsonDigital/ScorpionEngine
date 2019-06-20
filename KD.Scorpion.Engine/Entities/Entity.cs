@@ -302,7 +302,15 @@ namespace KDScorpionEngine.Entities
         private void CreateBody(Vector[] vertices, Vector position, bool isStatic)
         {
             if (Body == null)
+            {
                 Body = new PhysicsBody(vertices, position, isStatic: isStatic, friction: _preInitFriction);
+            }
+            else
+            {
+                Body.Vertices = vertices;
+                Body.X = position.X;
+                Body.Y = position.Y;
+            }
         }
 
 
