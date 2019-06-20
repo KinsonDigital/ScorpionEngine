@@ -2,6 +2,7 @@
 using KDScorpionCore.Graphics;
 using KDScorpionEngine.Entities;
 using KDScorpionEngine.Graphics;
+using KDScorpionEngine.Physics;
 
 namespace KDScorpionEngineTests.Fakes
 {
@@ -30,7 +31,6 @@ namespace KDScorpionEngineTests.Fakes
 
         public FakeEntity(Texture texture, Vector[] polyVertices, Vector position) : base(texture, polyVertices, position, isStaticBody: false)
         {
-            Initialize();
         }
         #endregion
 

@@ -9,6 +9,7 @@ using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngineTests.Fakes;
 using PluginSystem;
+using KDScorpionEngine.Physics;
 
 namespace KDScorpionEngineTests.Entities
 {
@@ -85,7 +86,7 @@ namespace KDScorpionEngineTests.Entities
             mockTexture.SetupGet(m => m.Height).Returns(50);
 
             var texture = new Texture(mockTexture.Object);
-            var fakeEntity = new FakeEntity(texture, Vector.Zero);
+            var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>());
             var expectedVertices = new Vector[]
             {
                 new Vector(-50, -25),
@@ -153,7 +154,11 @@ namespace KDScorpionEngineTests.Entities
             var expectedPosition = new Vector(10, 15);
 
             //Act
-            var fakeEntity = new FakeEntity(texture, vertices, position);
+            var fakeEntity = new FakeEntity(CreateTexture(), vertices, position)
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
+
             var actualPosition = fakeEntity.Position;
             var actualTexture = fakeEntity.Texture;
 
@@ -169,8 +174,7 @@ namespace KDScorpionEngineTests.Entities
         public void Behaviors_WhenCreatingEntity_PropertyInstantiated()
         {
             //Arrange
-            var texture = CreateTexture();
-            var fakeEntity = new FakeEntity(texture, Vector.Zero);
+            var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>());
 
             //Act
             var actual = fakeEntity.Behaviors;
@@ -184,9 +188,7 @@ namespace KDScorpionEngineTests.Entities
         public void Visible_WhenGettingAndSettingValue_ValueProperlySet()
         {
             //Arrange
-            var texture = CreateTexture();
-
-            var fakeEntity = new FakeEntity(texture, Vector.Zero)
+            var fakeEntity = new FakeEntity(CreateTexture(), Vector.Zero)
             {
                 Visible = false
             };
@@ -204,9 +206,7 @@ namespace KDScorpionEngineTests.Entities
         public void Visible_WhenSettingValue_InvokesOnHideEvent()
         {
             //Arrange
-            var texture = CreateTexture();
-
-            var fakeEntity = new FakeEntity(texture, Vector.Zero);
+            var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>());
             var eventRaised = false;
             fakeEntity.OnHide += (sender, e) => { eventRaised = true; };
 
@@ -222,9 +222,7 @@ namespace KDScorpionEngineTests.Entities
         public void Visible_WhenSettingValue_InvokesOnShowEvent()
         {
             //Arrange
-            var texture = CreateTexture();
-
-            var fakeEntity = new FakeEntity(texture, Vector.Zero)
+            var fakeEntity = new FakeEntity(CreateTexture(), Vector.Zero)
             {
                 Visible = false
             };
@@ -243,9 +241,7 @@ namespace KDScorpionEngineTests.Entities
         public void Visible_WhenGoingFromInvisibleToVisible_InvokesOnShowEvent()
         {
             //Arrange
-            var texture = CreateTexture();
-
-            var fakeEntity = new FakeEntity(texture, Vector.Zero)
+            var fakeEntity = new FakeEntity(CreateTexture(), Vector.Zero)
             {
                 Visible = false
             };
@@ -264,9 +260,7 @@ namespace KDScorpionEngineTests.Entities
         public void Visible_WhenGoingFromInvisibleToVisible_DoesNotInvokesOnShowEvent()
         {
             //Arrange
-            var texture = CreateTexture();
-
-            var fakeEntity = new FakeEntity(texture, Vector.Zero)
+            var fakeEntity = new FakeEntity(CreateTexture(), Vector.Zero)
             {
                 Visible = true
             };
@@ -285,9 +279,12 @@ namespace KDScorpionEngineTests.Entities
         public void Bounds_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var texture = CreateTexture();
-            var fakeEntity = new FakeEntity(texture, new Vector(111, 222));
+            var fakeEntity = new FakeEntity(CreateTexture(), new Vector(111, 222))
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             fakeEntity.Initialize();
+
             var expected = new Rect(0, 0, 100, 100);
 
             //Act
@@ -302,8 +299,11 @@ namespace KDScorpionEngineTests.Entities
         public void BoundsWidth_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var texture = CreateTexture();
-            var fakeEntity = new FakeEntity(texture, Vector.Zero);
+            var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
+
             fakeEntity.Initialize();
             var expected = 100;
 
@@ -321,10 +321,12 @@ namespace KDScorpionEngineTests.Entities
             //Arrange
             float[] nums = null;
             _mockPhysicsBody.Setup(m => m.XVertices).Returns(nums);
-            _mockPhysicsBody.Setup(m => m.YVertices).Returns(nums);
 
-            var texture = CreateTexture();
-            var fakeEntity = new FakeEntity(texture, Vector.Zero);
+            var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
+
             fakeEntity.Initialize();
             var expected = 0;
 
@@ -341,11 +343,13 @@ namespace KDScorpionEngineTests.Entities
         {
             //Arrange
             float[] nums = null;
-            _mockPhysicsBody.Setup(m => m.XVertices).Returns(nums);
             _mockPhysicsBody.Setup(m => m.YVertices).Returns(nums);
 
-            var texture = CreateTexture();
-            var fakeEntity = new FakeEntity(texture, Vector.Zero);
+            var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
+
             fakeEntity.Initialize();
             var expected = 0;
 
@@ -361,9 +365,11 @@ namespace KDScorpionEngineTests.Entities
         public void BoundsHeight_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var texture = CreateTexture();
+            var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
 
-            var fakeEntity = new FakeEntity(texture, Vector.Zero);
             fakeEntity.Initialize();
             var expected = 100;
 
@@ -379,9 +385,11 @@ namespace KDScorpionEngineTests.Entities
         public void BoundsHalfWidth_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var texture = CreateTexture();
+            var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
 
-            var fakeEntity = new FakeEntity(texture, Vector.Zero);
             fakeEntity.Initialize();
             var expected = 50;
 
@@ -397,8 +405,11 @@ namespace KDScorpionEngineTests.Entities
         public void BoundsHalfHeight_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var texture = CreateTexture();
-            var fakeEntity = new FakeEntity(texture, Vector.Zero);
+            var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
+
             fakeEntity.Initialize();
             var expected = 50f;
 
@@ -414,13 +425,11 @@ namespace KDScorpionEngineTests.Entities
         public void Texture_WhenSettingAndeGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var texture = CreateTexture();
-
             Vector[] vertices = new[] { Vector.Zero };
-            var fakeEntity = new FakeEntity(vertices, Vector.Zero);
+            var fakeEntity = new FakeEntity(vertices, It.IsAny<Vector>());
 
             //Act
-            fakeEntity.Texture = texture;
+            fakeEntity.Texture = CreateTexture();
             var actual = fakeEntity.Texture;
 
             //Assert
@@ -442,10 +451,8 @@ namespace KDScorpionEngineTests.Entities
                 return mockDebugDraw.Object;
             });
 
-            var texture = CreateTexture();
-
             Vector[] vertices = new[] { Vector.Zero };
-            var fakeEntity = new FakeEntity(vertices, Vector.Zero);
+            var fakeEntity = new FakeEntity(vertices, It.IsAny<Vector>());
             var expected = true;
 
             //Act
@@ -471,10 +478,8 @@ namespace KDScorpionEngineTests.Entities
                 return mockDebugDraw.Object;
             });
 
-            var texture = CreateTexture();
-
             Vector[] vertices = new[] { Vector.Zero };
-            var fakeEntity = new FakeEntity(vertices, Vector.Zero);
+            var fakeEntity = new FakeEntity(vertices, It.IsAny<Vector>());
             var expected = false;
 
             //Act
@@ -493,8 +498,7 @@ namespace KDScorpionEngineTests.Entities
             var mockBehavior = new Mock<IBehavior>();
             var mockPhysicsBody = new Mock<IPhysicsBody>();
 
-            var texture = CreateTexture();
-            var fakeEntity = new FakeEntity(texture, Vector.Zero);
+            var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>());
             var expected = new EntityBehaviors
             {
                 mockBehavior.Object
@@ -516,9 +520,12 @@ namespace KDScorpionEngineTests.Entities
             _mockPhysicsBody.SetupProperty(m => m.X);
             _mockPhysicsBody.SetupProperty(m => m.Y);
 
-            var texture = CreateTexture();
-            var fakeEntity = new FakeEntity(texture, Vector.Zero);
+            var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             fakeEntity.Initialize();
+
             var expected = new Vector(123, 456);
 
             //Act
@@ -534,10 +541,7 @@ namespace KDScorpionEngineTests.Entities
         public void Position_WhenSettingValueBeforeInitialized_ReturnsCorrectValue()
         {
             //Arrange
-            var mockPhysicsBody = new Mock<IPhysicsBody>();
-
-            var texture = CreateTexture();
-            var fakeEntity = new FakeEntity(texture, Vector.Zero);
+            var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>());
             var expected = new Vector(123, 456);
 
             //Act
@@ -574,14 +578,18 @@ namespace KDScorpionEngineTests.Entities
         public void Vertices_WhenSettingValueAfterInit_ThrowsException()
         {
             //Arrange
-            var entity = new FakeEntity(true);
+            var entity = new FakeEntity(true)
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
+            entity.Initialize();
+
             var expected = new Vector[]
             {
                 new Vector(11, 22),
                 new Vector(33, 44),
                 new Vector(55, 66)
             };
-            entity.Initialize();
 
             //Act/Assert
             Assert.Throws<EntityAlreadyInitializedException>(() => entity.Vertices = expected);
@@ -599,7 +607,7 @@ namespace KDScorpionEngineTests.Entities
                 new Vector(55, 66)
             };
 
-            var entity = new FakeEntity(vertices, Vector.Zero);
+            var entity = new FakeEntity(vertices, It.IsAny<Vector>());
             var expected = new Vector[]
             {
                 new Vector(11, 22),
@@ -627,7 +635,11 @@ namespace KDScorpionEngineTests.Entities
                 new Vector(-50, 50)
             };
 
-            var entity = new FakeEntity(vertices, Vector.Zero);
+            var entity = new FakeEntity(vertices, It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
+
             var expected = new Vector[]
             {
                 new Vector(-50, -50),
@@ -652,8 +664,7 @@ namespace KDScorpionEngineTests.Entities
         {
             //Arrange
             var mockBehavior = new Mock<IBehavior>();
-            var texture = CreateTexture();
-            var fakeEntity = new FakeEntity(texture, Vector.Zero);
+            var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>());
             fakeEntity.Behaviors.Add(mockBehavior.Object);
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
 
@@ -670,7 +681,7 @@ namespace KDScorpionEngineTests.Entities
         {
             //Arrange
             Vector[] nullVertices = null;
-            var entity = new FakeEntity(nullVertices, Vector.Zero);
+            var entity = new FakeEntity(nullVertices, It.IsAny<Vector>());
 
             //Act/Assert
             Assert.Throws<MissingVerticesException>(() => entity.Initialize());
