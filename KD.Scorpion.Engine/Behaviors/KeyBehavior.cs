@@ -34,6 +34,9 @@ namespace KDScorpionEngine.Behaviors
 
 
         #region Constructors
+        internal KeyBehavior(IPluginLibrary plugin) => _keyboard = new Keyboard(plugin.LoadPlugin<IKeyboard>());
+
+
         /// <summary>
         /// Creates a new key behavior.
         /// </summary>

@@ -34,6 +34,9 @@ namespace KDScorpionEngine.Input
 
 
         #region Constructors
+        public KeyboardWatcher(IPluginLibrary plugin) => _keyboard = plugin.LoadPlugin<IKeyboard>();
+
+
         /// <summary>
         /// Creates an instance of KeyboardWatcher.
         /// </summary>

@@ -7,7 +7,6 @@ using KDScorpionCore.Plugins;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Entities;
 using PluginSystem;
-using KDScorpionEngineTests.Fakes;
 using KDScorpionEngine.Physics;
 using KDScorpionEngine;
 
@@ -18,6 +17,7 @@ namespace KDScorpionEngineTests.Behaviors
         #region Private Fields
         private Plugins_NEW _plugins;
         private Mock<IKeyboard> _mockCoreKeyboard;
+        private Mock<IPhysicsBody> _mockPhysicsBody;
         #endregion
 
 
@@ -25,20 +25,21 @@ namespace KDScorpionEngineTests.Behaviors
         public MovementByKeyboardBehaviorTests()
         {
             _plugins = new Plugins_NEW();
-            var mockEnginePluginLibrary = new Mock<IPluginLibrary>();
+
             _mockCoreKeyboard = new Mock<IKeyboard>();
+
+            var mockEnginePluginLibrary = new Mock<IPluginLibrary>();
             mockEnginePluginLibrary.Setup(m => m.LoadPlugin<IKeyboard>()).Returns(_mockCoreKeyboard.Object);
+
             _plugins.EnginePlugins = mockEnginePluginLibrary.Object;
 
             var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
 
-            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
-            {
-                return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[1], (float)ctorParams[2], (float)ctorParams[3]);
-            });
-            _plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
+            _mockPhysicsBody = new Mock<IPhysicsBody>();
+            _mockPhysicsBody.SetupProperty(m => m.X);
+            _mockPhysicsBody.SetupProperty(m => m.Y);
 
-            EnginePluginSystem.SetPlugin(_plugins);
+            _plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
         }
         #endregion
 
@@ -49,19 +50,24 @@ namespace KDScorpionEngineTests.Behaviors
         {
             //Arrange
             SetKeyboardKey(KeyCodes.Right);
-            var entity = new DynamicEntity(new Vector[0], Vector.Zero);
+            var entity = new DynamicEntity(It.IsAny<Vector[]>(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
 
-            entity.Initialize();
+            _mockPhysicsBody.Setup(m => m.ApplyForce(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>())).
+                Callback<float, float, float, float>((forceX, forceY, worldLocationX, worldLocationY) =>
+                {
+                    entity.Position = new Vector(10, It.IsAny<float>());
+                });
 
-            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(entity, 10f);
-            var expected = 10;
+            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(entity, It.IsAny<float>(), _plugins.EnginePlugins);
 
             //Act
             behavior.Update(new EngineTime());
-            var actual = entity.Position.X;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.Equal(10, entity.Position.X);
         }
 
 
@@ -70,17 +76,24 @@ namespace KDScorpionEngineTests.Behaviors
         {
             //Arrange
             SetKeyboardKey(KeyCodes.Left);
-            var entity = new DynamicEntity(new Vector[0], Vector.Zero);
-            entity.Initialize();
-            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(entity, 10f);
-            var expected = -10;
+            var entity = new DynamicEntity(It.IsAny<Vector[]>(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
+
+            _mockPhysicsBody.Setup(m => m.ApplyForce(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>())).
+                Callback<float, float, float, float>((forceX, forceY, worldLocationX, worldLocationY) =>
+                {
+                    entity.Position = new Vector(20, It.IsAny<float>());
+                });
+
+            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(entity, It.IsAny<float>(), _plugins.EnginePlugins);
 
             //Act
             behavior.Update(new EngineTime());
-            var actual = entity.Position.X;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.Equal(20, entity.Position.X);
         }
 
 
@@ -89,17 +102,24 @@ namespace KDScorpionEngineTests.Behaviors
         {
             //Arrange
             SetKeyboardKey(KeyCodes.Up);
-            var entity = new DynamicEntity(new Vector[0], Vector.Zero);
-            entity.Initialize();
-            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(entity, 10f);
-            var expected = -10;
+            var entity = new DynamicEntity(It.IsAny<Vector[]>(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
+
+            _mockPhysicsBody.Setup(m => m.ApplyForce(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>())).
+                Callback<float, float, float, float>((forceX, forceY, worldLocationX, worldLocationY) =>
+                {
+                    entity.Position = new Vector(It.IsAny<float>(), 15);
+                });
+
+            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(entity, It.IsAny<float>(), _plugins.EnginePlugins);
 
             //Act
             behavior.Update(new EngineTime());
-            var actual = entity.Position.Y;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.Equal(15, entity.Position.Y);
         }
 
 
@@ -108,17 +128,24 @@ namespace KDScorpionEngineTests.Behaviors
         {
             //Arrange
             SetKeyboardKey(KeyCodes.Down);
-            var entity = new DynamicEntity(new Vector[0], Vector.Zero);
-            entity.Initialize();
-            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(entity, 10f);
-            var expected = 10;
+            var entity = new DynamicEntity(It.IsAny<Vector[]>(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
+
+            _mockPhysicsBody.Setup(m => m.ApplyForce(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>())).
+                Callback<float, float, float, float>((forceX, forceY, worldLocationX, worldLocationY) =>
+                {
+                    entity.Position = new Vector(It.IsAny<float>(), 25);
+                });
+
+            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(entity, It.IsAny<float>(), _plugins.EnginePlugins);
 
             //Act
             behavior.Update(new EngineTime());
-            var actual = entity.Position.Y;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.Equal(25, entity.Position.Y);
         }
         #endregion
 
@@ -130,7 +157,7 @@ namespace KDScorpionEngineTests.Behaviors
             //Arrange
             SetKeyboardKey(It.IsAny<KeyCodes>());
             var mockEntity = new Mock<DynamicEntity>();
-            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(mockEntity.Object, 1);
+            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(mockEntity.Object, It.IsAny<float>(), _plugins.EnginePlugins);
             var expected = KeyCodes.W;
 
             //Act
@@ -148,7 +175,7 @@ namespace KDScorpionEngineTests.Behaviors
             //Arrange
             SetKeyboardKey(It.IsAny<KeyCodes>());
             var mockEntity = new Mock<DynamicEntity>();
-            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(mockEntity.Object, 1);
+            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(mockEntity.Object, It.IsAny<float>(), _plugins.EnginePlugins);
             var expected = KeyCodes.S;
 
             //Act
@@ -166,7 +193,7 @@ namespace KDScorpionEngineTests.Behaviors
             //Arrange
             SetKeyboardKey(It.IsAny<KeyCodes>());
             var mockEntity = new Mock<DynamicEntity>();
-            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(mockEntity.Object, 1);
+            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(mockEntity.Object, It.IsAny<float>(), _plugins.EnginePlugins);
             var expected = KeyCodes.S;
 
             //Act
@@ -184,7 +211,7 @@ namespace KDScorpionEngineTests.Behaviors
             //Arrange
             SetKeyboardKey(It.IsAny<KeyCodes>());
             var mockEntity = new Mock<DynamicEntity>();
-            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(mockEntity.Object, 1);
+            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(mockEntity.Object, It.IsAny<float>(), _plugins.EnginePlugins);
             var expected = KeyCodes.S;
 
             //Act
@@ -201,6 +228,7 @@ namespace KDScorpionEngineTests.Behaviors
         public void Dispose()
         {
             _mockCoreKeyboard = null;
+            _mockPhysicsBody = null;
             _plugins.EnginePlugins = null;
             _plugins.PhysicsPlugins = null;
             _plugins = null;

@@ -73,10 +73,7 @@ namespace KDScorpionEngine.Input
 
 
         #region Constructors
-        internal Keyboard(IKeyboard keyboard)
-        {
-            InternalKeyboard = keyboard;
-        }
+        internal Keyboard(IKeyboard keyboard) => InternalKeyboard = keyboard;
 
 
         /// <summary>

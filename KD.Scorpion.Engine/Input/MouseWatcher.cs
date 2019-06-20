@@ -34,6 +34,9 @@ namespace KDScorpionEngine.Input
 
 
         #region Constructor
+        internal MouseWatcher(bool enabled, IPluginLibrary plugin) => _mouse = plugin.LoadPlugin<IMouse>();
+
+
         /// <summary>
         /// Creates an instance of MouseWatcher.
         /// </summary>

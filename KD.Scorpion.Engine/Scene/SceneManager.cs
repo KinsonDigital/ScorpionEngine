@@ -34,6 +34,13 @@ namespace KDScorpionEngine.Scene
 
 
         #region Constructors
+        internal SceneManager(ContentLoader contentLoader, IPluginLibrary plugin)
+        {
+            _contentLoader = contentLoader;
+            _keyboard = new Keyboard(plugin.LoadPlugin<IKeyboard>());
+        }
+
+
         /// <summary>
         /// Creates a new instance of <see cref="SceneManager"/>.
         /// <paramref name="contentLoader">The content manager user to load and unload content.</paramref>

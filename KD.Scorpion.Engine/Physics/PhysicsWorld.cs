@@ -11,12 +11,11 @@ namespace KDScorpionEngine.Physics
         private readonly IPhysicsWorld _internalWorld;
 
 
-        public PhysicsWorld(Vector gravity)
-        {
-            object[] ctrParams = new object[] { gravity.X, gravity.Y };
+        internal PhysicsWorld(Vector gravity, IPluginLibrary plugin) => plugin.LoadPlugin<IPhysicsWorld>(new object[] { gravity.X, gravity.Y });
 
-            _internalWorld = EnginePluginSystem.Plugins.PhysicsPlugins.LoadPlugin<IPhysicsWorld>(ctrParams);
-        }
+
+        public PhysicsWorld(Vector gravity) =>
+            _internalWorld = EnginePluginSystem.Plugins.PhysicsPlugins.LoadPlugin<IPhysicsWorld>(new object[] { gravity.X, gravity.Y });
 
 
         public Vector Gravity => new Vector(_internalWorld.GravityX, _internalWorld.GravityY);
@@ -35,9 +34,6 @@ namespace KDScorpionEngine.Physics
         }
 
 
-        public void Update(float dt)
-        {
-            _internalWorld.Update(dt);
-        }
+        public void Update(float dt) => _internalWorld.Update(dt);
     }
 }
