@@ -53,22 +53,6 @@ namespace KDScorpionEngineTests.Input
 
         #region Method Tests
         [Test]
-        public void Ctor_WhenInvoked_InvokesCreateMouseMethod()
-        {
-            //Arrange
-            var mockEnginePluginLibrary = new Mock<IPluginLibrary>();
-
-            Plugins.EnginePlugins = mockEnginePluginLibrary.Object;
-
-            //Act
-            var mouse = new Mouse();
-
-            //Assert
-            mockEnginePluginLibrary.Verify(m => m.LoadPlugin<IMouse>(), Times.Once());
-        }
-
-
-        [Test]
         public void Ctor_WhenInvoked_ProperlySetsInternalMouse()
         {
             //Arrange
