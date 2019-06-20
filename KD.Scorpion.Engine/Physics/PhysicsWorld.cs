@@ -2,7 +2,6 @@
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Entities;
 using KDScorpionEngine.Exceptions;
-using PluginSystem;
 
 namespace KDScorpionEngine.Physics
 {
@@ -11,7 +10,7 @@ namespace KDScorpionEngine.Physics
         private readonly IPhysicsWorld _internalWorld;
 
 
-        internal PhysicsWorld(Vector gravity, IPluginLibrary plugin) => plugin.LoadPlugin<IPhysicsWorld>(new object[] { gravity.X, gravity.Y });
+        internal PhysicsWorld(Vector gravity, IPhysicsWorld physicsWorld) => _internalWorld = physicsWorld;
 
 
         public PhysicsWorld(Vector gravity) =>

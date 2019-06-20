@@ -3,7 +3,6 @@ using KDScorpionCore;
 using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Input;
-using PluginSystem;
 
 namespace KDScorpionEngine.Behaviors
 {
@@ -34,7 +33,7 @@ namespace KDScorpionEngine.Behaviors
 
 
         #region Constructors
-        internal KeyBehavior(IPluginLibrary plugin) => _keyboard = new Keyboard(plugin.LoadPlugin<IKeyboard>());
+        internal KeyBehavior(IKeyboard keyboard) => _keyboard = new Keyboard(keyboard);
 
 
         /// <summary>

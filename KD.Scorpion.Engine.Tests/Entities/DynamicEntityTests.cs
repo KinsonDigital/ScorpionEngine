@@ -8,21 +8,36 @@ using KDScorpionEngine.Exceptions;
 using KDScorpionEngineTests.Fakes;
 using PluginSystem;
 using KDScorpionCore.Plugins;
+using KDScorpionEngine.Physics;
 
 namespace KDScorpionEngineTests.Entities
 {
     public class DynamicEntityTests : IDisposable
     {
+        #region Private Fields
+        private Mock<IPhysicsBody> _mockPhysicsBody;
+        #endregion
+
+
         #region Constructors
         public DynamicEntityTests()
         {
-            var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
-            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
+            _mockPhysicsBody = new Mock<IPhysicsBody>();
+            _mockPhysicsBody.SetupProperty(p => p.Angle);
+            _mockPhysicsBody.SetupProperty(p => p.AngularDeceleration);
+            _mockPhysicsBody.SetupProperty(p => p.AngularVelocity);
+            _mockPhysicsBody.SetupProperty(p => p.LinearVelocityX);
+            _mockPhysicsBody.SetupProperty(p => p.LinearVelocityY);
+            _mockPhysicsBody.Setup(m => m.ApplyForce(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>()))
+                .Callback<float, float, float, float>((forceX, forceY, worldLocationX, worldLocationY) =>
+                {
+                    _mockPhysicsBody.Object.LinearVelocityX = forceX;
+                    _mockPhysicsBody.Object.LinearVelocityY = forceY;
+                });
+            _mockPhysicsBody.Setup(m => m.ApplyAngularImpulse(It.IsAny<float>())).Callback<float>((value) =>
             {
-                return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[0]);
+                _mockPhysicsBody.Object.AngularVelocity = value;
             });
-
-            Plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
         }
         #endregion
 
@@ -32,11 +47,10 @@ namespace KDScorpionEngineTests.Entities
         public void Ctor_WhenInvokingWithTextureAndPosition_CreatesAllBehaviors()
         {
             //Arrange
-            var texture = CreateTexture();
             int expectedTotalBehaviors = 6;
 
             //Act
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
             var actualTotalBehaviors = entity.Behaviors.Count;
 
             //Assert
@@ -104,7 +118,7 @@ namespace KDScorpionEngineTests.Entities
             int expectedTotalBehaviors = 6;
 
             //Act
-            var entity = new DynamicEntity(vertices, Vector.Zero);
+            var entity = new DynamicEntity(vertices, It.IsAny<Vector>());
             var actualTotalBehaviors = entity.Behaviors.Count;
 
             //Assert
@@ -116,7 +130,6 @@ namespace KDScorpionEngineTests.Entities
         public void Ctor_WhenInvokingWithTextureAndVerticesAndPosition_CreatesAllBehaviors()
         {
             //Arrange
-            var texture = CreateTexture();
             var vertices = new Vector[]
             {
                 new Vector(11, 22),
@@ -128,7 +141,7 @@ namespace KDScorpionEngineTests.Entities
             int expectedTotalBehaviors = 6;
 
             //Act
-            var entity = new DynamicEntity(texture, vertices, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), vertices, It.IsAny<Vector>());
             var actualTotalBehaviors = entity.Behaviors.Count;
 
             //Assert
@@ -142,9 +155,12 @@ namespace KDScorpionEngineTests.Entities
         public void IsMoving_WhenGettingValueWhenBodyIsNotMoving_ValueShouldReturnFalse()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
+
             var expected = false;
 
             //Act
@@ -159,8 +175,13 @@ namespace KDScorpionEngineTests.Entities
         public void IsMoving_WhenGettingValueWhenBodyPerformingLinearMovement_ValueShouldReturnTrue()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            _mockPhysicsBody.SetupProperty(p => p.LinearVelocityX);
+            _mockPhysicsBody.SetupProperty(p => p.LinearVelocityY);
+
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
             entity.Body.LinearVelocity = new Vector(11, 22);
 
@@ -178,8 +199,18 @@ namespace KDScorpionEngineTests.Entities
         public void IsMoving_WhenGettingValueWhenBodyPerformingAngularMovement_ValueShouldReturnTrue()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            _mockPhysicsBody.SetupProperty(p => p.AngularVelocity);
+            _mockPhysicsBody.SetupProperty(p => p.Angle);
+            _mockPhysicsBody.Setup(m => m.ApplyAngularImpulse(It.IsAny<float>())).Callback<float>((value) =>
+            {
+                _mockPhysicsBody.Object.AngularVelocity = 1;
+            });
+
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
+
             entity.Initialize();
             entity.RotateCW();
 
@@ -197,8 +228,7 @@ namespace KDScorpionEngineTests.Entities
         public void RotationEnabled_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
             var expected = true;
 
             //Act
@@ -214,9 +244,12 @@ namespace KDScorpionEngineTests.Entities
         public void Angle_WhenGettingAndSettingValueAfterInitialize_ReturnsCorrectValue()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
+
             var expected = 45.45f;
 
             //Act
@@ -232,8 +265,7 @@ namespace KDScorpionEngineTests.Entities
         public void Angle_WhenGettingAndSettingValueBeforeInitialize_ReturnsCorrectValue()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
             var expected = 45.45f;
 
             //Act
@@ -249,8 +281,7 @@ namespace KDScorpionEngineTests.Entities
         public void MaxLinearSpeed_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
             var expected = 123.456f;
 
             //Act
@@ -266,8 +297,7 @@ namespace KDScorpionEngineTests.Entities
         public void MaxRotationSpeed_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
             var expected = 123.456f;
 
             //Act
@@ -283,8 +313,13 @@ namespace KDScorpionEngineTests.Entities
         public void LinearDeceleration_WhenGettingAndSettingValueAfterInitialize_ReturnsCorrectValue()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            _mockPhysicsBody.SetupProperty(p => p.LinearDeceleration);
+
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
+
             entity.Initialize();
             var expected = 123.456f;
 
@@ -301,8 +336,13 @@ namespace KDScorpionEngineTests.Entities
         public void LinearDeceleration_WhenGettingAndSettingValueBeforeInitialize_ReturnsCorrectValue()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            _mockPhysicsBody.SetupProperty(p => p.LinearDeceleration);
+
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
+
             var expected = 123.456f;
 
             //Act
@@ -318,8 +358,10 @@ namespace KDScorpionEngineTests.Entities
         public void AngularDeceleration_WhenGettingAndSettingValueAfterInitialize_ReturnsCorrectValue()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
             var expected = 123.456f;
 
@@ -336,8 +378,7 @@ namespace KDScorpionEngineTests.Entities
         public void AngularDeceleration_WhenGettingAndSettingValueBeforeInitialize_ReturnsCorrectValue()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
             var expected = 123.456f;
 
             //Act
@@ -378,9 +419,19 @@ namespace KDScorpionEngineTests.Entities
         public void Update_WhenInvoking_ShouldHaveEntityStopAfterMovementInXDirection()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            _mockPhysicsBody.Object.LinearVelocityX = 100;
+            _mockPhysicsBody.Setup(m => m.ApplyForce(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>()))
+                .Callback<float, float, float, float>((forceX, forceY, worldLocationX, worldLocationY) =>
+                {
+                    _mockPhysicsBody.Object.LinearVelocityX = 0;
+                });
+
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
+
             var expected = false;
 
             //Act
@@ -400,9 +451,20 @@ namespace KDScorpionEngineTests.Entities
         public void Update_WhenInvoking_ShouldHaveEntityStopAfterMovementInYDirection()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            _mockPhysicsBody.Object.LinearVelocityY = 100;
+            _mockPhysicsBody.Setup(m => m.ApplyForce(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>()))
+                .Callback<float, float, float, float>((forceX, forceY, worldLocationX, worldLocationY) =>
+                {
+                    _mockPhysicsBody.Object.LinearVelocityY = 0;
+                });
+
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
+
             entity.Initialize();
+
             var expected = false;
 
             //Act
@@ -410,35 +472,6 @@ namespace KDScorpionEngineTests.Entities
             entity.StopMovement();
             entity.MoveDown();
             entity.Update(engineTime);
-
-            var actual = entity.IsMoving;
-
-            //Assert
-            Assert.Equal(expected, actual);
-        }
-
-
-        [Fact]
-        public void Update_WhenInvoking_ShouldHaveEntityStopAfterMovementInXAndYDirection()
-        {
-            //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero)
-            {
-                SpeedX = 100,
-                SpeedY = 100,
-                RotateSpeed = 100
-            };
-            entity.Initialize();
-            var expected = false;
-
-            //Act
-            var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 0) };
-            entity.StopMovement();
-            entity.MoveRight();
-            entity.MoveDown();
-            entity.Update(engineTime);
-            //entity.Update(engineTime);
 
             var actual = entity.IsMoving;
 
@@ -451,22 +484,35 @@ namespace KDScorpionEngineTests.Entities
         public void Update_WhenInvokingWithMovingEntity_ShouldStopBodyWhenStopMovementIsInvoked()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero)
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
             {
                 SpeedX = 10,
                 SpeedY = 10,
                 RotateSpeed = 100
             };
+
+            _mockPhysicsBody.Setup(m => m.ApplyForce(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>()))
+                .Callback<float, float, float, float>((forceX, forceY, worldLocationX, worldLocationY) =>
+                {
+                    _mockPhysicsBody.Object.LinearVelocityX = entity.IsEntityStopping ? 0 : forceX;
+                    _mockPhysicsBody.Object.LinearVelocityY = entity.IsEntityStopping ? 0 : forceY;
+                });
+
+            _mockPhysicsBody.Setup(m => m.ApplyAngularImpulse(It.IsAny<float>())).Callback<float>((value) =>
+            {
+                _mockPhysicsBody.Object.AngularVelocity = entity.IsEntityStopping ? 0 : value;
+            });
+
+            entity.Body = new PhysicsBody(_mockPhysicsBody.Object);
             entity.Initialize();
             var expected = false;
 
             //Act
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
-            entity.StopMovement();
             entity.MoveRight();
             entity.MoveDown();
             entity.RotateCW(1);
+            entity.StopMovement();
             entity.Update(engineTime);
 
             var actual = entity.IsMoving;
@@ -480,8 +526,10 @@ namespace KDScorpionEngineTests.Entities
         public void MoveRight_WhenInvokingWithParam_CorrectlySetsLinearVelocity()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
             var expected = new Vector(123.456f, 0);
 
@@ -499,8 +547,10 @@ namespace KDScorpionEngineTests.Entities
         public void MoveRight_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
             var expected = new Vector(0.25f, 0);
 
@@ -518,7 +568,7 @@ namespace KDScorpionEngineTests.Entities
         public void MoveRight_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
-            var entity = new DynamicEntity(CreateTexture(), Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveRight());
@@ -529,7 +579,7 @@ namespace KDScorpionEngineTests.Entities
         public void MoveRight_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
             //Arrange
-            var entity = new DynamicEntity(CreateTexture(), Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveRight(10));
@@ -540,8 +590,10 @@ namespace KDScorpionEngineTests.Entities
         public void MoveLeft_WhenInvokingWithParam_CorrectlySetsLinearVelocity()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
             var expected = new Vector(-123.456f, 0);
 
@@ -559,8 +611,10 @@ namespace KDScorpionEngineTests.Entities
         public void MoveLeft_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
             var expected = new Vector(-0.25f, 0);
 
@@ -578,7 +632,7 @@ namespace KDScorpionEngineTests.Entities
         public void MoveLeft_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
-            var entity = new DynamicEntity(CreateTexture(), Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveLeft());
@@ -589,7 +643,7 @@ namespace KDScorpionEngineTests.Entities
         public void MoveLeft_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
             //Arrange
-            var entity = new DynamicEntity(CreateTexture(), Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveLeft(10));
@@ -600,8 +654,10 @@ namespace KDScorpionEngineTests.Entities
         public void MoveUp_WhenInvokingWithParam_CorrectlySetsLinearVelocity()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
             var expected = new Vector(0, -123.456f);
 
@@ -619,8 +675,10 @@ namespace KDScorpionEngineTests.Entities
         public void MoveUp_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
             var expected = new Vector(0, -0.25f);
 
@@ -638,7 +696,7 @@ namespace KDScorpionEngineTests.Entities
         public void MoveUp_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
-            var entity = new DynamicEntity(CreateTexture(), Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveUp());
@@ -649,7 +707,7 @@ namespace KDScorpionEngineTests.Entities
         public void MoveUp_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
             //Arrange
-            var entity = new DynamicEntity(CreateTexture(), Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveUp(10));
@@ -660,8 +718,10 @@ namespace KDScorpionEngineTests.Entities
         public void MoveDown_WhenInvokingWithParam_CorrectlySetsLinearVelocity()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
             var expected = new Vector(0, 123.456f);
 
@@ -679,8 +739,10 @@ namespace KDScorpionEngineTests.Entities
         public void MoveDown_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
             var expected = new Vector(0, 0.25f);
 
@@ -698,7 +760,7 @@ namespace KDScorpionEngineTests.Entities
         public void MoveDown_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
-            var entity = new DynamicEntity(CreateTexture(), Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveDown());
@@ -709,7 +771,7 @@ namespace KDScorpionEngineTests.Entities
         public void MoveDown_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
             //Arrange
-            var entity = new DynamicEntity(CreateTexture(), Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveDown(10));
@@ -720,8 +782,10 @@ namespace KDScorpionEngineTests.Entities
         public void MoveUpRight_WhenInvokingWithParam_CorrectlySetsLinearVelocity()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
             var expected = new Vector(-123.456f, 123.456f);
 
@@ -739,8 +803,10 @@ namespace KDScorpionEngineTests.Entities
         public void MoveUpRight_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
             var expected = new Vector(-0.25f, 0.25f);
 
@@ -758,7 +824,7 @@ namespace KDScorpionEngineTests.Entities
         public void MoveUpRight_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
-            var entity = new DynamicEntity(CreateTexture(), Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveUpRight());
@@ -769,7 +835,7 @@ namespace KDScorpionEngineTests.Entities
         public void MoveUpRight_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
             //Arrange
-            var entity = new DynamicEntity(CreateTexture(), Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveUpRight(10));
@@ -780,9 +846,12 @@ namespace KDScorpionEngineTests.Entities
         public void MoveUpLeft_WhenInvokingWithParam_CorrectlySetsLinearVelocity()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
+
             var expected = new Vector(-123.456f, -123.456f);
 
             //Act
@@ -799,9 +868,12 @@ namespace KDScorpionEngineTests.Entities
         public void MoveUpLeft_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
+
             var expected = new Vector(-0.25f, -0.25f);
 
             //Act
@@ -818,7 +890,7 @@ namespace KDScorpionEngineTests.Entities
         public void MoveUpLeft_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
-            var entity = new DynamicEntity(CreateTexture(), Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveUpLeft());
@@ -829,7 +901,7 @@ namespace KDScorpionEngineTests.Entities
         public void MoveUpLeft_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
             //Arrange
-            var entity = new DynamicEntity(CreateTexture(), Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveUpLeft(10));
@@ -840,9 +912,12 @@ namespace KDScorpionEngineTests.Entities
         public void MoveDownRight_WhenInvokingWithParam_CorrectlySetsLinearVelocity()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
+
             var expected = new Vector(123.456f, 123.456f);
 
             //Act
@@ -859,9 +934,12 @@ namespace KDScorpionEngineTests.Entities
         public void MoveDownRight_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
+
             var expected = new Vector(0.25f, 0.25f);
 
             //Act
@@ -878,7 +956,7 @@ namespace KDScorpionEngineTests.Entities
         public void MoveDownRight_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
-            var entity = new DynamicEntity(CreateTexture(), Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveDownRight());
@@ -889,7 +967,7 @@ namespace KDScorpionEngineTests.Entities
         public void MoveDownRight_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
             //Arrange
-            var entity = new DynamicEntity(CreateTexture(), Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveDownRight(10));
@@ -900,9 +978,12 @@ namespace KDScorpionEngineTests.Entities
         public void MoveDownLeft_WhenInvokingWithParam_CorrectlySetsLinearVelocity()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
+
             var expected = new Vector(-123.456f, 123.456f);
 
             //Act
@@ -919,9 +1000,12 @@ namespace KDScorpionEngineTests.Entities
         public void MoveDownLeft_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
+
             var expected = new Vector(-0.25f, 0.25f);
 
             //Act
@@ -938,7 +1022,7 @@ namespace KDScorpionEngineTests.Entities
         public void MoveDownLeft_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
-            var entity = new DynamicEntity(CreateTexture(), Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveDownLeft());
@@ -949,7 +1033,7 @@ namespace KDScorpionEngineTests.Entities
         public void MoveDownLeft_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
             //Arrange
-            var entity = new DynamicEntity(CreateTexture(), Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveDownLeft(10));
@@ -960,12 +1044,13 @@ namespace KDScorpionEngineTests.Entities
         public void MoveAtSetSpeed_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero)
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
             {
+                Body = new PhysicsBody(_mockPhysicsBody.Object),
                 SpeedX = 123.456f,
                 SpeedY = 456.123f
             };
+
             entity.Initialize();
             var expected = new Vector(123.456f, 456.123f);
 
@@ -983,7 +1068,7 @@ namespace KDScorpionEngineTests.Entities
         public void MoveAtSetSpeed_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
-            var entity = new DynamicEntity(CreateTexture(), Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveAtSetSpeed());
@@ -994,9 +1079,9 @@ namespace KDScorpionEngineTests.Entities
         public void MoveAtSetAngle_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero)
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
             {
+                Body = new PhysicsBody(_mockPhysicsBody.Object),
                 Angle = 45f
             };
             entity.Initialize();
@@ -1004,7 +1089,7 @@ namespace KDScorpionEngineTests.Entities
 
             //Act
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
-            entity.MoveAtSetAngle(50);
+            entity.MoveAtSetAngle(45);
             entity.Update(engineTime);
 
             var actual = entity.Body.LinearVelocity;
@@ -1018,7 +1103,7 @@ namespace KDScorpionEngineTests.Entities
         public void MoveAtSetAngle_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
             //Arrange
-            var entity = new DynamicEntity(CreateTexture(), Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveAtSetAngle(10));
@@ -1029,8 +1114,10 @@ namespace KDScorpionEngineTests.Entities
         public void RotateCW_WithNoParams_ProperlySetsAngularVelocity()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
             var expected = 1f;
 
@@ -1047,8 +1134,10 @@ namespace KDScorpionEngineTests.Entities
         public void RotateCW_WithParam_ProperlySetsAngularVelocity()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
             var expected = 123f;
 
@@ -1065,7 +1154,7 @@ namespace KDScorpionEngineTests.Entities
         public void RotateCW_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
-            var entity = new DynamicEntity(CreateTexture(), Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.RotateCW());
@@ -1076,7 +1165,7 @@ namespace KDScorpionEngineTests.Entities
         public void RotateCW_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
             //Arrange
-            var entity = new DynamicEntity(CreateTexture(), Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.RotateCW(10));
@@ -1087,8 +1176,10 @@ namespace KDScorpionEngineTests.Entities
         public void RotateCCW_WithNoParams_ProperlySetsAngularVelocity()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
             var expected = -1f;
 
@@ -1105,9 +1196,10 @@ namespace KDScorpionEngineTests.Entities
         public void RotateCCW_WithParam_ProperlySetsAngularVelocity()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
-            entity.Initialize();
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            }; entity.Initialize();
             var expected = -123f;
 
             //Act
@@ -1123,7 +1215,7 @@ namespace KDScorpionEngineTests.Entities
         public void RotateCCW_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
-            var entity = new DynamicEntity(CreateTexture(), Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.RotateCCW());
@@ -1134,7 +1226,7 @@ namespace KDScorpionEngineTests.Entities
         public void RotateCCW_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
             //Arrange
-            var entity = new DynamicEntity(CreateTexture(), Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.RotateCCW(10));
@@ -1145,8 +1237,17 @@ namespace KDScorpionEngineTests.Entities
         public void StopMovement_WhenInvoked_ProperlySetsLinearVelocity()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            _mockPhysicsBody.Setup(m => m.ApplyForce(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>()))
+                .Callback<float, float, float, float>((forceX, forceY, worldLocationX, worldLocationY) =>
+                {
+                    _mockPhysicsBody.Object.LinearVelocityX = 0;
+                    _mockPhysicsBody.Object.LinearVelocityY = 0;
+                });
+
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
             entity.Initialize();
             var expected = Vector.Zero;
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
@@ -1166,8 +1267,16 @@ namespace KDScorpionEngineTests.Entities
         public void StopRotation_WhenInvoked_ProperlySetsAngularVelocity()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            _mockPhysicsBody.Setup(m => m.ApplyAngularImpulse(It.IsAny<float>())).Callback<float>((value) =>
+            {
+                _mockPhysicsBody.Object.AngularVelocity = value;
+            });
+
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
+            {
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
+            };
+
             entity.Initialize();
             var expected = 0f;
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
@@ -1187,8 +1296,7 @@ namespace KDScorpionEngineTests.Entities
         public void StopRotation_WhenInvokedWithNullBody_ThrowsException()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
 
             //Act/Assert
@@ -1200,12 +1308,14 @@ namespace KDScorpionEngineTests.Entities
         public void DynamicEntity_WhenMoving_MaintainsMaxMovementLimit()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero)
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
             {
                 MaxLinearSpeed = 20f
             };
+
+            entity.Body = new PhysicsBody(_mockPhysicsBody.Object);
             entity.Initialize();
+
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
             var expected = 20f;
 
@@ -1220,14 +1330,17 @@ namespace KDScorpionEngineTests.Entities
 
 
         [Fact]
-        public void DynamicEntity_WhenMoving_MaintainsMaxAngularLimit()
+        public void DynamicEntity_WhenMoving_MaintainsMaxRotationSpeed()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero)
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>());
+            _mockPhysicsBody.Setup(m => m.ApplyAngularImpulse(It.IsAny<float>())).Callback<float>((value) =>
             {
-                MaxRotationSpeed = 10
-            };
+                entity.Angle = value;
+            });
+            entity.Body = new PhysicsBody(_mockPhysicsBody.Object);
+            entity.MaxRotationSpeed = 10;
+
             entity.Initialize();
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
             var expected = 10f;
@@ -1235,7 +1348,7 @@ namespace KDScorpionEngineTests.Entities
             //Act
             entity.RotateCW(20);
             entity.Update(engineTime);
-            var actual = entity.Body.AngularVelocity;
+            var actual = entity.MaxRotationSpeed;
 
             //Assert
             Assert.Equal(expected, actual);
@@ -1246,19 +1359,26 @@ namespace KDScorpionEngineTests.Entities
         public void Initialize_WhenInvokingWhileAlreadyInitialized_MaintainsMaxAngularLimit()
         {
             //Arrange
-            var texture = CreateTexture();
-            var entity = new DynamicEntity(texture, Vector.Zero)
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>())
             {
                 MaxRotationSpeed = 10
             };
+
+            _mockPhysicsBody.Setup(m => m.ApplyAngularImpulse(It.IsAny<float>())).Callback<float>((value) =>
+            {
+                entity.Angle = 340;
+            });
+
+            entity.Body = new PhysicsBody(_mockPhysicsBody.Object);
             entity.Initialize();
+
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
             var expected = 10f;
 
             //Act
-            entity.RotateCW(20);
+            entity.RotateCW(It.IsAny<float>());
             entity.Update(engineTime);
-            var actual = entity.Body.AngularVelocity;
+            var actual = entity.MaxRotationSpeed;
 
             //Assert
             Assert.Equal(expected, actual);

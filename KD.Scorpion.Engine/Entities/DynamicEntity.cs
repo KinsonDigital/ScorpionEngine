@@ -21,7 +21,6 @@ namespace KDScorpionEngine.Entities
         private LimitNumberBehavior _moveUpVelocityMaxBehavior;
         private LimitNumberBehavior _rotateCWVelocityMaxBehavior;
         private LimitNumberBehavior _rotateCCWVelocityMaxBehavior;
-        private bool _stopMovement;
         private float _preInitAngle;
         private float _preInitLinearDeceleration;
         private float _preInitAngularDeceleration;
@@ -199,6 +198,11 @@ namespace KDScorpionEngine.Entities
                 }
             }
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating if the <see cref="Entity"/> is in the process of stopping.
+        /// </summary>
+        public bool IsEntityStopping { get; set; }
         #endregion
 
 
@@ -529,7 +533,7 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         public void StopMovement()
         {
-            _stopMovement = true;
+            IsEntityStopping = true;
         }
 
 
@@ -550,7 +554,7 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         private void ProcessMovementStop()
         {
-            if (_stopMovement)
+            if (IsEntityStopping)
             {
                 //If the body is still moving in the Y direction
                 if (Body.InternalPhysicsBody.LinearVelocityY != 0)
@@ -571,7 +575,7 @@ namespace KDScorpionEngine.Entities
                 //If the body has stopped moving, set the flag back to false
                 if (Body.InternalPhysicsBody.LinearVelocityX == 0 && Body.InternalPhysicsBody.LinearVelocityY == 0 &&
                     Body.AngularVelocity == 0)
-                    _stopMovement = false;
+                    IsEntityStopping = false;
             }
         }
         #endregion
