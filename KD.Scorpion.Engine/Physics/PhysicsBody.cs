@@ -1,6 +1,7 @@
-﻿using KDScorpionCore;
+using KDScorpionCore;
 using KDScorpionCore.Plugins;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace KDScorpionEngine.Physics
@@ -15,6 +16,7 @@ namespace KDScorpionEngine.Physics
         internal PhysicsBody(IPhysicsBody internalPhysicsBody) => InternalPhysicsBody = internalPhysicsBody;
 
 
+        [ExcludeFromCodeCoverage]
         public PhysicsBody(Vector[] vertices, Vector position, float angle = 0, float density = 1, float friction = 0.2f, float restitution = 0, bool isStatic = false)
         {
             object[] ctorParams = new object[9];
