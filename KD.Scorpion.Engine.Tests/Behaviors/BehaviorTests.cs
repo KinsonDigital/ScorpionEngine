@@ -1,93 +1,93 @@
-﻿using Xunit;
-using KDScorpionCore;
+﻿using KDScorpionCore;
 using KDScorpionEngineTests.Fakes;
+using Xunit;
 
 namespace KDScorpionEngineTests.Behaviors
 {
-    //public class BehaviorTests
-    //{
-    //    #region Prop Tests
-    //    [Fact]
-    //    public void Enabled_WhenSettingToFalse_ReturnsFalse()
-    //    {
-    //        //Arrange
-    //        var behavior = new FakeBehavior(setupAction: false);
-    //        var expected = false;
+    public class BehaviorTests
+    {
+        #region Prop Tests
+        [Fact]
+        public void Enabled_WhenSettingToFalse_ReturnsFalse()
+        {
+            //Arrange
+            var behavior = new FakeBehavior(setupAction: false);
+            var expected = false;
 
-    //        //Act
-    //        behavior.Enabled = false;
-    //        var actual = behavior.Enabled;
+            //Act
+            behavior.Enabled = false;
+            var actual = behavior.Enabled;
 
-    //        //Assert
-    //        Assert.Equal(expected, actual);
-    //    }
-
-
-    //    [Fact]
-    //    public void Name_WhenGettingAndSettingValue_ReturnsCorrectValue()
-    //    {
-    //        //Arrange
-    //        var behavior = new FakeBehavior(setupAction: false);
-    //        var expected = "John Doe";
-
-    //        //Act
-    //        behavior.Name = "John Doe";
-    //        var actual = behavior.Name;
-
-    //        //Assert
-    //        Assert.Equal(expected, actual);
-    //    }
-    //    #endregion
+            //Assert
+            Assert.Equal(expected, actual);
+        }
 
 
-    //    #region Method Tests
-    //    [Fact]
-    //    public void Update_WhenInvokedWhileDisabled_DoesNotInvokeBehaviorAction()
-    //    {
-    //        //Arrange
-    //        var behavior = new FakeBehavior(setupAction: true);
-    //        var expected = false;
+        [Fact]
+        public void Name_WhenGettingAndSettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var behavior = new FakeBehavior(setupAction: false);
+            var expected = "John Doe";
 
-    //        //Act
-    //        behavior.Enabled = false;
-    //        behavior.Update(new EngineTime());
-    //        var actual = behavior.UpdateActionInvoked;
-            
-    //        //Assert
-    //        Assert.Equal(expected, actual);
-    //    }
+            //Act
+            behavior.Name = "John Doe";
+            var actual = behavior.Name;
 
-
-    //    [Fact]
-    //    public void Update_WhenInvokedWithNoSetupAction_DoesNotInvokeAction()
-    //    {
-    //        //Arrange
-    //        var behavior = new FakeBehavior(setupAction: false);
-    //        var expected = false;
-
-    //        //Act
-    //        behavior.Update(new EngineTime());
-    //        var actual = behavior.UpdateActionInvoked;
-
-    //        //Assert
-    //        Assert.Equal(expected, actual);
-    //    }
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+        #endregion
 
 
-    //    [Fact]
-    //    public void Update_WhenInvokedWithSetupActionAndEnabled_InvokesAction()
-    //    {
-    //        //Arrange
-    //        var behavior = new FakeBehavior(setupAction: true);
-    //        var expected = true;
+        #region Method Tests
+        [Fact]
+        public void Update_WhenInvokedWhileDisabled_DoesNotInvokeBehaviorAction()
+        {
+            //Arrange
+            var behavior = new FakeBehavior(setupAction: true);
+            var expected = false;
 
-    //        //Act
-    //        behavior.Update(new EngineTime());
-    //        var actual = behavior.UpdateActionInvoked;
+            //Act
+            behavior.Enabled = false;
+            behavior.Update(new EngineTime());
+            var actual = behavior.UpdateActionInvoked;
 
-    //        //Assert
-    //        Assert.Equal(expected, actual);
-    //    }
-    //    #endregion
-    //}
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+
+        [Fact]
+        public void Update_WhenInvokedWithNoSetupAction_DoesNotInvokeAction()
+        {
+            //Arrange
+            var behavior = new FakeBehavior(setupAction: false);
+            var expected = false;
+
+            //Act
+            behavior.Update(new EngineTime());
+            var actual = behavior.UpdateActionInvoked;
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+
+        [Fact]
+        public void Update_WhenInvokedWithSetupActionAndEnabled_InvokesAction()
+        {
+            //Arrange
+            var behavior = new FakeBehavior(setupAction: true);
+            var expected = true;
+
+            //Act
+            behavior.Update(new EngineTime());
+            var actual = behavior.UpdateActionInvoked;
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+        #endregion
+    }
 }
