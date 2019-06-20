@@ -1,29 +1,32 @@
-﻿using Moq;
-using NUnit.Framework;
+﻿using System;
+using Moq;
+using Xunit;
 using KDScorpionCore;
 using KDScorpionCore.Content;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Scene;
 using KDScorpionEngineTests.Fakes;
-using System;
 using KDScorpionEngine;
-using PluginSystem;
 using KDScorpionEngine.Graphics;
 using KDScorpionEngine.Physics;
 using KDScorpionCore.Graphics;
 
 namespace KDScorpionEngineTests.Scene
 {
-    [TestFixture]
-    public class GameSceneTests
+    public class GameSceneTests : IDisposable
     {
         #region Fields
         private Mock<IPhysicsWorld> _mockPhysicsWorld;
         #endregion
 
 
+        #region Constructors
+        public GameSceneTests() => _mockPhysicsWorld = new Mock<IPhysicsWorld>();
+        #endregion
+
+
         #region Constructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvoking_CreatePhysicsWorld()
         {
             //Arrange
@@ -39,7 +42,7 @@ namespace KDScorpionEngineTests.Scene
 
 
         #region Prop Tests
-        [Test]
+        [Fact]
         public void Name_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -51,11 +54,11 @@ namespace KDScorpionEngineTests.Scene
             var actual = scene.Name;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void ContentLoaded_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -67,11 +70,11 @@ namespace KDScorpionEngineTests.Scene
             var actual = scene.ContentLoaded;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void TimeManager_WhenGettingValue_NotNull()
         {
             //Arrange
@@ -85,7 +88,7 @@ namespace KDScorpionEngineTests.Scene
         }
 
 
-        [Test]
+        [Fact]
         public void Initialized_WhenGettingValueAfterInitialized_ReturnsTrue()
         {
             //Arrange
@@ -97,11 +100,11 @@ namespace KDScorpionEngineTests.Scene
             var actual = scene.Initialized;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Active_WhenGettingAndSettingValue_ReturnsTrue()
         {
             //Arrange
@@ -113,11 +116,11 @@ namespace KDScorpionEngineTests.Scene
             var actual = scene.Active;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void IsRenderingScene_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -129,11 +132,11 @@ namespace KDScorpionEngineTests.Scene
             var actual = scene.IsRenderingScene;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Id_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -145,13 +148,13 @@ namespace KDScorpionEngineTests.Scene
             var actual = scene.Id;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Method Tests
-        [Test]
+        [Fact]
         public void LoadContent_WhenInvoked_SetsContentLoadedToTrue()
         {
             //Arrange
@@ -165,11 +168,11 @@ namespace KDScorpionEngineTests.Scene
             var actual = scene.ContentLoaded;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void UnloadContent_WhenInvoked_SetsContentLoadedToFalse()
         {
             //Arrange
@@ -186,11 +189,11 @@ namespace KDScorpionEngineTests.Scene
             var actual = scene.ContentLoaded;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvoking_InvokesTimeManagerUpdate()
         {
             //Arrange
@@ -209,7 +212,7 @@ namespace KDScorpionEngineTests.Scene
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvoking_InvokesPhyiscsWorldUpdate()
         {
             //Arrange
@@ -225,7 +228,7 @@ namespace KDScorpionEngineTests.Scene
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvoking_InvokesEntityUpdate()
         {
             //Arrange
@@ -246,11 +249,11 @@ namespace KDScorpionEngineTests.Scene
             var actual = entity.UpdateInvoked;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvokingWithNullTimeManager_DoesNotThrowException()
         {
             //Arrange
@@ -267,7 +270,7 @@ namespace KDScorpionEngineTests.Scene
         }
 
 
-        [Test]
+        [Fact]
         public void Render_WhenInvoking_InvokesAllEntityRenderMethods()
         {
             //Arrange
@@ -299,32 +302,13 @@ namespace KDScorpionEngineTests.Scene
             var actual = entityA.RenderInvoked && entityB.RenderInvoked;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Public Methods
-        [SetUp]
-        public void Setup()
-        {
-            _mockPhysicsWorld = new Mock<IPhysicsWorld>();
-
-            var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
-            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsWorld>(It.IsAny<object[]>())).Returns((object[] ctorParams) => {
-                return _mockPhysicsWorld.Object;
-            });
-
-            Plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
-        }
-
-
-        [TearDown]
-        public void TearDown()
-        {
-            Plugins.PhysicsPlugins = null;
-            _mockPhysicsWorld = null;
-        }
+        public void Dispose() => _mockPhysicsWorld = null;
         #endregion
     }
 }
