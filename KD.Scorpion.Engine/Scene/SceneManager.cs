@@ -41,7 +41,7 @@ namespace KDScorpionEngine.Scene
         public SceneManager(ContentLoader contentLoader)
         {
             _contentLoader = contentLoader;
-            _keyboard = new Keyboard(Plugins.EnginePlugins.LoadPlugin<IKeyboard>());
+            _keyboard = new Keyboard(EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IKeyboard>());
         }
         #endregion
 

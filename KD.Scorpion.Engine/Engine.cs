@@ -32,7 +32,12 @@ namespace KDScorpionEngine
         /// </summary>
         internal Engine(IPluginLibrary enginePluginLib, bool loadPhysicsLibrary = true)
         {
-            //TODO: Figure out what to do here with the first param
+            var plugins = new Plugins_NEW()
+            {
+                EnginePlugins = enginePluginLib
+            };
+
+            EnginePluginSystem.SetPlugin(plugins);
 
             //Make sure that the Setup() method is called
             //This is to make sure that this class is testable for unit testing purposes.
@@ -44,7 +49,13 @@ namespace KDScorpionEngine
         /// Creates an instance of engine.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        public Engine(bool loadPhysicsLibrary = true) => Setup();
+        public Engine(bool loadPhysicsLibrary = true)
+        {
+            var plugins = new Plugins_NEW();
+            EnginePluginSystem.SetPlugin(plugins);
+
+            Setup();
+        }
         #endregion
 
 
@@ -174,9 +185,9 @@ namespace KDScorpionEngine
         /// </summary>
         private void Setup()
         {
-            ContentLoader = new ContentLoader(Plugins.EnginePlugins.LoadPlugin<IContentLoader>());
+            ContentLoader = new ContentLoader(EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IContentLoader>());
 
-            _engineCore = Plugins.EnginePlugins.LoadPlugin<IEngineCore>();
+            _engineCore = EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IEngineCore>();
 
             _engineCore.SetFPS(60);
 
@@ -217,7 +228,7 @@ namespace KDScorpionEngine
         {
             //TODO: Look into this.  This should not be created every single time
             //the render method is called. This is not performant.
-            _renderer = new GameRenderer(e.Renderer, Plugins.EnginePlugins.LoadPlugin<IDebugDraw>());
+            _renderer = new GameRenderer(e.Renderer, EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IDebugDraw>());
 
             _renderer.Clear(50, 50, 50, 255);
 

@@ -82,7 +82,7 @@ namespace KDScorpionEngine.Input
         /// <summary>
         /// Creates a new instance of <see cref="Keyboard"/> for tracking keyboard events.
         /// </summary>
-        public Keyboard() => InternalKeyboard = Plugins.EnginePlugins.LoadPlugin<IKeyboard>();
+        public Keyboard() => InternalKeyboard = EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IKeyboard>();
         #endregion
 
 

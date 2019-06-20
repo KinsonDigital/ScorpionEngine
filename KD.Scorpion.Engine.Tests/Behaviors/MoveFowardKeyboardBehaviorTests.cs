@@ -8,12 +8,14 @@ using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Entities;
 using KDScorpionEngineTests.Fakes;
 using PluginSystem;
+using KDScorpionEngine;
 
 namespace KDScorpionEngineTests.Behaviors
 {
     public class MoveFowardKeyboardBehaviorTests : IDisposable
     {
         #region Private Fields
+        private Plugins_NEW _plugins;
         private Mock<IKeyboard> _mockKeyboard;
         #endregion
 
@@ -21,6 +23,7 @@ namespace KDScorpionEngineTests.Behaviors
         #region Constructors
         public MoveFowardKeyboardBehaviorTests()
         {
+            _plugins = new Plugins_NEW();
             _mockKeyboard = new Mock<IKeyboard>();
 
             var entityXVertices = new[] { 10f, 20f, 30f };
@@ -28,15 +31,16 @@ namespace KDScorpionEngineTests.Behaviors
 
             var mockEnginePluginLibrary = new Mock<IPluginLibrary>();
             mockEnginePluginLibrary.Setup(m => m.LoadPlugin<IKeyboard>()).Returns(_mockKeyboard.Object);
-            Plugins.EnginePlugins = mockEnginePluginLibrary.Object;
+            _plugins.EnginePlugins = mockEnginePluginLibrary.Object;
 
             var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
             mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
             {
                 return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[1]);
             });
+            _plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
 
-            Plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
+            EnginePluginSystem.SetPlugin(_plugins);
         }
         #endregion
 
@@ -165,8 +169,9 @@ namespace KDScorpionEngineTests.Behaviors
         #region Public Methods
         public void Dispose()
         {
-            Plugins.EnginePlugins = null;
-            Plugins.PhysicsPlugins = null;
+            _mockKeyboard = null;
+            _plugins = null;
+            EnginePluginSystem.ClearPlugin();
         }
         #endregion
     }

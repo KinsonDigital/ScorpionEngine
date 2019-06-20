@@ -15,7 +15,7 @@ namespace KDScorpionEngine.Physics
         {
             object[] ctrParams = new object[] { gravity.X, gravity.Y };
 
-            _internalWorld = Plugins.PhysicsPlugins.LoadPlugin<IPhysicsWorld>(ctrParams);
+            _internalWorld = EnginePluginSystem.Plugins.PhysicsPlugins.LoadPlugin<IPhysicsWorld>(ctrParams);
         }
 
 
