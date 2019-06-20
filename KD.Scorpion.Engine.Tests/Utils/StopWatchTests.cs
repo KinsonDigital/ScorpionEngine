@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using KDScorpionCore;
 using KDScorpionEngine.Utils;
 using System;
@@ -9,7 +9,7 @@ namespace KDScorpionEngineTests.Utils
     public class StopWatchTests
     {
         #region Method Tests
-        [Test]
+        [Fact]
         public void Start_WhenStarting_SetsRunningToTrue()
         {
             //Arrange
@@ -21,11 +21,11 @@ namespace KDScorpionEngineTests.Utils
             var actual = stopWatch.Running;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Stop_WhenStoping_SetsRunningToFalse()
         {
             //Arrange
@@ -37,11 +37,11 @@ namespace KDScorpionEngineTests.Utils
             var actual = stopWatch.Running;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Reset_WhenReseting_SetElapsedToZeroAndRunningToFalse()
         {
             //Arrange
@@ -58,12 +58,12 @@ namespace KDScorpionEngineTests.Utils
             var actualElapsedMS = stopWatch.ElapsedMS;
 
             //Assert
-            Assert.AreEqual(expectedElapsedMS, actualElapsedMS);
-            Assert.AreEqual(expectedRunning, actualRunning);
+            Assert.Equal(expectedElapsedMS, actualElapsedMS);
+            Assert.Equal(expectedRunning, actualRunning);
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvokingWithResetTypeAsAuto_ResetStopWatch()
         {
             //Arrange
@@ -82,12 +82,12 @@ namespace KDScorpionEngineTests.Utils
             var actualRunning = stopWatch.Running;
 
             //Assert
-            Assert.AreEqual(expectedElapsedMS, actualElapsedMS);
-            Assert.AreEqual(expectedRunning, actualRunning);
+            Assert.Equal(expectedElapsedMS, actualElapsedMS);
+            Assert.Equal(expectedRunning, actualRunning);
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvoking_OnTimeElapsedEventInvoked()
         {
             //Arrange
@@ -106,13 +106,13 @@ namespace KDScorpionEngineTests.Utils
             stopWatch.Update(engineTime);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Prop Tests
-        [Test]
+        [Fact]
         public void ResetMode_WhenSettingValue_ValueIsSetCorrectly()
         {
             //Arrange
@@ -124,11 +124,11 @@ namespace KDScorpionEngineTests.Utils
             var actual = stopWatch.ResetMode;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void TimeOut_WhenUsingNegativeValue_SetsValueToZero()
         {
             //Arrange
@@ -140,11 +140,11 @@ namespace KDScorpionEngineTests.Utils
             var actual = stopWatch.TimeOut;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void TimeOut_WhenUsingPositiveValue_SetsValueToIncomingValue()
         {
             //Arrange
@@ -156,11 +156,11 @@ namespace KDScorpionEngineTests.Utils
             var actual = stopWatch.TimeOut;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void ElapsedSeconds_WhenSettingValue_ConvertsSecondsToMilliseconds()
         {
             //Arrange
@@ -177,7 +177,7 @@ namespace KDScorpionEngineTests.Utils
             var actual = stopWatch.ElapsedSeconds;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
