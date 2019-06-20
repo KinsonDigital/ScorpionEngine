@@ -1,7 +1,6 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
-using PluginSystem;
 using System;
 
 namespace KDScorpionEngine.Input

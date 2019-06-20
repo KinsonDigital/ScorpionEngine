@@ -2,7 +2,6 @@
 using Xunit;
 using KDScorpionCore;
 using KDScorpionEngine.Entities;
-using KDScorpionEngineTests.Fakes;
 using System.Drawing;
 using PluginSystem;
 using KDScorpionCore.Plugins;

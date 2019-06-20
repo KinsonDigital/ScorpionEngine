@@ -2,7 +2,6 @@
 using KDScorpionCore.Graphics;
 using KDScorpionEngine.Entities;
 using KDScorpionEngine.Graphics;
-using KDScorpionEngine.Physics;
 
 namespace KDScorpionEngineTests.Fakes
 {

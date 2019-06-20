@@ -1,6 +1,5 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Plugins;
-using PluginSystem;
 using System.Collections.Generic;
 using System.Linq;
 

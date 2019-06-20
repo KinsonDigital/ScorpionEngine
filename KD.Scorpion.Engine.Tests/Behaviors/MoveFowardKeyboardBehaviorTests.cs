@@ -6,9 +6,6 @@ using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Entities;
-using KDScorpionEngineTests.Fakes;
-using PluginSystem;
-using KDScorpionEngine;
 using KDScorpionEngine.Physics;
 
 namespace KDScorpionEngineTests.Behaviors
