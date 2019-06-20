@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using KDScorpionEngine;
 using KDScorpionEngine.Utils;
 using System;
@@ -9,7 +9,7 @@ namespace KDScorpionEngineTests.Utils
     public class CounterTests
     {
         #region Method Tests
-        [Test]
+        [Fact]
         public void Count_WhenInvoked_IncrementsValue()
         {
             //Arrange
@@ -21,11 +21,11 @@ namespace KDScorpionEngineTests.Utils
             var actual = counter.Value;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Count_WhenMaxReached_InvokesMaxReachedEvent()
         {
             //Arrange
@@ -43,11 +43,11 @@ namespace KDScorpionEngineTests.Utils
             counter.Count();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Count_WhenResetTypeSetToAutoAndMaxReached_InvokeReset()
         {
             //Arrange
@@ -61,11 +61,11 @@ namespace KDScorpionEngineTests.Utils
             var actual = counter.Value;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Count_WhenResetTypeSetToManualAndMaxReached_DoNotInvokeReset()
         {
             //Arrange
@@ -82,11 +82,11 @@ namespace KDScorpionEngineTests.Utils
             var actual = counter.Value;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Count_WhenDecrementingAndGreaterThanMin_DoNotInvokedMinReachedEvent()
         {
             //Arrange
@@ -104,12 +104,12 @@ namespace KDScorpionEngineTests.Utils
             var actualValue = counter.Value;
 
             //Assert
-            Assert.AreEqual(expectedValue, actualValue);
-            Assert.AreEqual(expectedMinReached, actualMinReached);
+            Assert.Equal(expectedValue, actualValue);
+            Assert.Equal(expectedMinReached, actualMinReached);
         }
 
 
-        [Test]
+        [Fact]
         public void Count_WhenInvoked_DecrementsValue()
         {
             //Arrange
@@ -125,11 +125,11 @@ namespace KDScorpionEngineTests.Utils
             var actual = counter.Value;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Count_WhenMaxReached_InvokesMinReachedEvent()
         {
             //Arrange
@@ -150,11 +150,11 @@ namespace KDScorpionEngineTests.Utils
             counter.Count();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Count_WhenResetTypeSetToAutoAndMinReached_InvokeReset()
         {
             //Arrange
@@ -169,11 +169,11 @@ namespace KDScorpionEngineTests.Utils
             var actual = counter.Value;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Count_WhenSettingInvalidCountType_ThrowsException()
         {
             //Arrange
@@ -184,11 +184,11 @@ namespace KDScorpionEngineTests.Utils
 
             //Act/Assert
             var actual = Assert.Throws<Exception>(() => counter.Count() );
-            Assert.AreEqual($"The {nameof(counter.CountDirection)} is set to an invalid enum value.", actual.Message);
+            Assert.Equal($"The {nameof(counter.CountDirection)} is set to an invalid enum value.", actual.Message);
         }
 
 
-        [Test]
+        [Fact]
         public void Reset_WhenSettingInvalidCountType_ThrowsException()
         {
             //Arrange
@@ -199,13 +199,13 @@ namespace KDScorpionEngineTests.Utils
 
             //Act/Assert
             var actual = Assert.Throws<Exception>(() => counter.Reset());
-            Assert.AreEqual($"The {nameof(counter.CountDirection)} is set to an invalid enum value.", actual.Message);
+            Assert.Equal($"The {nameof(counter.CountDirection)} is set to an invalid enum value.", actual.Message);
         }
         #endregion
 
 
         #region Prop Tests
-        [Test]
+        [Fact]
         public void Min_WhenSettingMinMoreThanMax_ThrowsException()
         {
             //Arrange
@@ -213,11 +213,11 @@ namespace KDScorpionEngineTests.Utils
 
             //Act/Assert
             var actual = Assert.Throws<Exception>(() => counter.Min = 5);
-            Assert.AreEqual($"The min value of 5 cannot be greater than max value of 4.", actual.Message);
+            Assert.Equal($"The min value of 5 cannot be greater than max value of 4.", actual.Message);
         }
 
 
-        [Test]
+        [Fact]
         public void Min_WhenSettingMinLessThanMax_ProperlySetsValue()
         {
             //Arrange
@@ -228,11 +228,11 @@ namespace KDScorpionEngineTests.Utils
             counter.Min = 3;
             var actual = counter.Min;
 
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Max_WhenSettingMaxLessThanMin_ThrowsException()
         {
             //Arrange
@@ -240,11 +240,11 @@ namespace KDScorpionEngineTests.Utils
 
             //Act/Assert
             var actual = Assert.Throws<Exception>(() => counter.Max = 0);
-            Assert.AreEqual($"The max value of 0 cannot be less than min value of 1.", actual.Message);
+            Assert.Equal($"The max value of 0 cannot be less than min value of 1.", actual.Message);
         }
 
 
-        [Test]
+        [Fact]
         public void Max_WhenSettingMaxMoreThanMin_ProperlySetsValue()
         {
             //Arrange
@@ -255,7 +255,7 @@ namespace KDScorpionEngineTests.Utils
             counter.Max = 3;
             var actual = counter.Max;
 
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
