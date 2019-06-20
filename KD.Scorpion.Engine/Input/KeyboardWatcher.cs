@@ -34,7 +34,22 @@ namespace KDScorpionEngine.Input
 
 
         #region Constructors
-        public KeyboardWatcher(IPluginLibrary plugin) => _keyboard = plugin.LoadPlugin<IKeyboard>();
+        public KeyboardWatcher(bool enabled, IKeyboard keyboard)
+        {
+            _keyboard = keyboard;
+            Enabled = enabled;
+            ComboKeys = new List<KeyCodes>();
+
+            //Setup stop watches
+            _counter = new Counter(0, 10, 1);
+            _keyDownTimer = new StopWatch(1000);
+            _keyDownTimer.OnTimeElapsed += _keyDownTimer_OnTimeElapsed;
+            _keyDownTimer.Start();
+
+            _keyReleasedTimer = new StopWatch(1000);
+            _keyReleasedTimer.OnTimeElapsed += _keyUpTimer_OnTimeElapsed;
+            _keyReleasedTimer.Start();
+        }
 
 
         /// <summary>
