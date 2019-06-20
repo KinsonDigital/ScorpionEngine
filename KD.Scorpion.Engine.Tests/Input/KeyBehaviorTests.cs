@@ -7,28 +7,11 @@ using KDScorpionCore.Plugins;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine;
 using KDScorpionEngine.Input;
-using PluginSystem;
 
 namespace KDScorpionEngineTests.Input
 {
-    public class KeyBehaviorTests : IDisposable
+    public class KeyBehaviorTests
     {
-        #region Private Fields
-        private Mock<IPluginLibrary> _pluginLibrary;
-        #endregion
-
-
-        #region Constructors
-        public KeyBehaviorTests()
-        {
-            _pluginLibrary = new Mock<IPluginLibrary>();
-            _pluginLibrary.Setup(m => m.LoadPlugin<IKeyboard>()).Returns(new Mock<IKeyboard>().Object);
-
-            Plugins.EnginePlugins = _pluginLibrary.Object;
-        }
-        #endregion
-
-
         #region Constructors
         [Fact]
         public void Ctor_SingleParamValue_SetsPropsCorrectly()
@@ -47,18 +30,6 @@ namespace KDScorpionEngineTests.Input
 
 
         [Fact]
-        public void Ctor_SingleParamValueWithNullKeyboard_InternallyLoadsPlugin()
-        {
-            //Arrange
-            //Act
-            var behavior = new KeyBehavior(true, null);
-
-            //Assert
-            _pluginLibrary.Verify(m => m.LoadPlugin<IKeyboard>(), Times.Once());
-        }
-
-
-        [Fact]
         public void Ctor_TwoParamValues_SetsPropsCorrectly()
         {
             //Arrange
@@ -73,23 +44,6 @@ namespace KDScorpionEngineTests.Input
             //Assert
             Assert.Equal(expectedEnabled, behavior.Enabled);
             Assert.Equal(expectedKey, behavior.Key);
-        }
-
-
-        [Fact]
-        public void Ctor_TwoParamValuesWithNullKeyboard_InternallyLoadsPlugin()
-        {
-            //Arrange
-            var mockCoreKeyboard = new Mock<IKeyboard>();
-            var mockPluginLibrary = new Mock<IPluginLibrary>();
-
-            Plugins.EnginePlugins = mockPluginLibrary.Object;
-
-            //Act
-            var behavior = new KeyBehavior(KeyCodes.Space, true, null);
-
-            //Assert
-            mockPluginLibrary.Verify(m => m.LoadPlugin<IKeyboard>(), Times.Once());
         }
         #endregion
 
@@ -498,11 +452,6 @@ namespace KDScorpionEngineTests.Input
                 keyBehavior.Update(new EngineTime());
             });
         }
-        #endregion
-
-
-        #region Public Methods
-        public void Dispose() => _pluginLibrary = null;
         #endregion
     }
 }
