@@ -1,13 +1,12 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using System.Windows.Media;
 
 namespace ParticleMaker.CustomEventArgs
 {
-    [TestFixture]
     public class ColorItemClickedEventArgsTests
     {
         #region Constructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvoking_ProperlySetsProperties()
         {
             //Arrange
@@ -20,8 +19,8 @@ namespace ParticleMaker.CustomEventArgs
             var actualColor = eventArgs.Color;
 
             //Assert
-            Assert.AreEqual(expectedId, actualId);
-            Assert.AreEqual(expectedColor, actualColor);
+            Assert.Equal(expectedId, actualId);
+            Assert.Equal(expectedColor, actualColor);
         }
         #endregion
     }
