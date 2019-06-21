@@ -1,12 +1,11 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 
 namespace ParticleMaker.CustomEventArgs
 {
-    [TestFixture]
     public class ValueChangedEventArgsTests
     {
         #region Prop Tests
-        [Test]
+        [Fact]
         public void OldValue_WhenGettingSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -21,11 +20,11 @@ namespace ParticleMaker.CustomEventArgs
             var actual = eventArgs.OldValue;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void NewValue_WhenGettingSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -40,7 +39,7 @@ namespace ParticleMaker.CustomEventArgs
             var actual = eventArgs.NewValue;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
