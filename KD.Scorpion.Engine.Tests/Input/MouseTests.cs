@@ -1,18 +1,18 @@
-﻿using KDScorpionCore;
+﻿using System;
+using Moq;
+using Xunit;
+using KDScorpionCore;
 using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Input;
-using Moq;
-using NUnit.Framework;
 using PluginSystem;
-using System;
 
 namespace KDScorpionEngineTests.Input
 {
     public class MouseTests
     {
         #region Prop Tests
-        [Test]
+        [Fact]
         public void X_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -27,11 +27,11 @@ namespace KDScorpionEngineTests.Input
             var actual = mouse.X;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Y_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -46,13 +46,13 @@ namespace KDScorpionEngineTests.Input
             var actual = mouse.Y;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Method Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvoked_ProperlySetsInternalMouse()
         {
             //Arrange
@@ -66,7 +66,7 @@ namespace KDScorpionEngineTests.Input
         }
 
 
-        [Test]
+        [Fact]
         public void IsButtonDown_WhenInvoked_InvokesInternalIsButtonDownMethod()
         {
             //Arrange
@@ -81,7 +81,7 @@ namespace KDScorpionEngineTests.Input
         }
 
 
-        [Test]
+        [Fact]
         public void IsButtonUp_WhenInvoked_InvokesInternalIsButtonUpMethod()
         {
             //Arrange
@@ -96,7 +96,7 @@ namespace KDScorpionEngineTests.Input
         }
 
 
-        [Test]
+        [Fact]
         public void IsButtonPressed_WhenInvoked_InvokesInternalIsButtonPressedMethod()
         {
             //Arrange
@@ -111,7 +111,7 @@ namespace KDScorpionEngineTests.Input
         }
 
 
-        [Test]
+        [Fact]
         public void SetPosition_WhenInvokedUsingIntParams_InvokesInternalSetPositionMethod()
         {
             //Arrange
@@ -126,7 +126,7 @@ namespace KDScorpionEngineTests.Input
         }
 
 
-        [Test]
+        [Fact]
         public void SetPosition_WhenInvokedUsingVectorParam_InvokesInternalSetPositionMethod()
         {
             //Arrange
@@ -141,7 +141,7 @@ namespace KDScorpionEngineTests.Input
         }
 
 
-        [Test]
+        [Fact]
         public void UpdateCurrentState_WhenInvoked_InternalUpdateInvoked()
         {
             //Arrange
@@ -156,7 +156,7 @@ namespace KDScorpionEngineTests.Input
         }
 
 
-        [Test]
+        [Fact]
         public void UpdateCurrentState_WhenInvokedWithLeftButtonDown_OnLeftButtonDownEventInvoked()
         {
             //Arrange
@@ -172,11 +172,11 @@ namespace KDScorpionEngineTests.Input
             mouse.UpdateCurrentState();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void UpdateCurrentState_WhenInvokedWithLeftButtonDownAndNullEvent_NoEventInvoked()
         {
             //Arrange
@@ -190,7 +190,7 @@ namespace KDScorpionEngineTests.Input
         }
 
 
-        [Test]
+        [Fact]
         public void UpdateCurrentState_WhenInvokedWithLeftButtonPressed_OnLeftButtonPressedEventInvoked()
         {
             //Arrange
@@ -206,11 +206,11 @@ namespace KDScorpionEngineTests.Input
             mouse.UpdateCurrentState();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void UpdateCurrentState_WhenInvokedWithLeftButtonPressedAndNullEvent_NoEventInvoked()
         {
             //Arrange
@@ -224,7 +224,7 @@ namespace KDScorpionEngineTests.Input
         }
 
 
-        [Test]
+        [Fact]
         public void UpdateCurrentState_WhenInvokedWithRightButtonDown_OnRightButtonDownEventInvoked()
         {
             //Arrange
@@ -240,11 +240,11 @@ namespace KDScorpionEngineTests.Input
             mouse.UpdateCurrentState();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void UpdateCurrentState_WhenInvokedWithRightButtonDownAndNullEvent_NoEventInvoked()
         {
             //Arrange
@@ -258,7 +258,7 @@ namespace KDScorpionEngineTests.Input
         }
 
 
-        [Test]
+        [Fact]
         public void UpdateCurrentState_WhenInvokedWithRightButtonPressed_OnRightButtonPressedEventInvoked()
         {
             //Arrange
@@ -274,11 +274,11 @@ namespace KDScorpionEngineTests.Input
             mouse.UpdateCurrentState();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void UpdateCurrentState_WhenInvokedWithRightButtonPressedAndNullEvent_NoEventInvoked()
         {
             //Arrange
@@ -292,7 +292,7 @@ namespace KDScorpionEngineTests.Input
         }
 
 
-        [Test]
+        [Fact]
         public void UpdateCurrentState_WhenInvokedWithMiddleButtonDown_OnMiddleButtonDownEventInvoked()
         {
             //Arrange
@@ -308,11 +308,11 @@ namespace KDScorpionEngineTests.Input
             mouse.UpdateCurrentState();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void UpdateCurrentState_WhenInvokedWithMiddleButtonDownAndNullEvent_NoEventInvoked()
         {
             //Arrange
@@ -326,7 +326,7 @@ namespace KDScorpionEngineTests.Input
         }
 
 
-        [Test]
+        [Fact]
         public void UpdateCurrentState_WhenInvokedWithMiddleButtonPressed_OnMiddleButtonPressedEventInvoked()
         {
             //Arrange
@@ -342,11 +342,11 @@ namespace KDScorpionEngineTests.Input
             mouse.UpdateCurrentState();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void UpdateCurrentState_WhenInvokedWithMiddleButtonPressedAndNullEvent_NoEventInvoked()
         {
             //Arrange
@@ -360,7 +360,7 @@ namespace KDScorpionEngineTests.Input
         }
 
 
-        [Test]
+        [Fact]
         public void UpdatePreviousState_WhenInvoked_InvokesInternalUpdateMethod()
         {
             //Arrange
@@ -376,8 +376,5 @@ namespace KDScorpionEngineTests.Input
             mockMouse.Verify(m => m.UpdatePreviousState(), Times.Once());
         }
         #endregion
-
-        [TearDown]
-        public void TearDown() => Plugins.EnginePlugins = null;
     }
 }
