@@ -1,14 +1,13 @@
 ﻿using KDParticleEngine;
-using NUnit.Framework;
+using Xunit;
 using System;
 
 namespace KDParticleEngineTests
 {
-    [TestFixture]
     public class ExtensionMethodsTests
     {
         #region Method Tests
-        [Test]
+        [Fact]
         public void Next_WhenInvoked_ReturnsValueWithinMinAndMax()
         {
             //Arrange
@@ -20,7 +19,7 @@ namespace KDParticleEngineTests
             var actual = randomNum >= 50f && randomNum <= 100f;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
