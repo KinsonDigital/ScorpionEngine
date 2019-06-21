@@ -1,13 +1,12 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using ParticleMaker.Exceptions;
 
 namespace ParticleMaker.Tests.Exceptions
 {
-    [TestFixture]
     public class ContentDoesNotExistExceptionTests
     {
         #region Constructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokingNoParamOverload_SetsCorrectExceptionMsg()
         {
             //Arrange
@@ -18,11 +17,11 @@ namespace ParticleMaker.Tests.Exceptions
             var actual = exception.Message;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokingWithParamOverload_SetsCorrectExceptionMsg()
         {
             //Arrange
@@ -34,7 +33,7 @@ namespace ParticleMaker.Tests.Exceptions
             var actual = exception.Message;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
