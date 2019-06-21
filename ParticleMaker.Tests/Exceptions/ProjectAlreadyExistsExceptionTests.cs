@@ -1,13 +1,12 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using ParticleMaker.Exceptions;
 
 namespace ParticleMaker.Tests.Exceptions
 {
-    [TestFixture]
     public class ProjectAlreadyExistsExceptionTests
     {
         #region Constructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokingWithNoParam_CreatesCorrectExceptionMessage()
         {
             //Arrange
@@ -18,11 +17,11 @@ namespace ParticleMaker.Tests.Exceptions
             var actual = exception.Message;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokingWithParam_CreatesCorrectExceptionMessage()
         {
             //Arrange
@@ -33,7 +32,7 @@ namespace ParticleMaker.Tests.Exceptions
             var actual = exception.Message;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
