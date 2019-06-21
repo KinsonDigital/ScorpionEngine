@@ -1,8 +1,7 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 
 namespace KDParticleEngineTests
 {
-    [TestFixture]
     public class ParticleEngineTests
     {
     }
