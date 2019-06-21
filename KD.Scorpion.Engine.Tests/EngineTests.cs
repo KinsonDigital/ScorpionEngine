@@ -1,32 +1,44 @@
-﻿using Moq;
-using NUnit.Framework;
+﻿using System;
+using Moq;
+using Xunit;
 using KDScorpionCore;
 using KDScorpionCore.Content;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Scene;
 using KDScorpionEngineTests.Fakes;
-using System;
 using KDScorpionEngine;
-using PluginSystem;
 
 namespace KDScorpionEngineTests
 {
-    [TestFixture]
-    public class EngineTests
+    public class EngineTests : IDisposable
     {
         #region Fields
-        private ContentLoader _contentLoader;
+        private Mock<IContentLoader> _mockContentLoader;
         private Mock<IEngineCore> _mockEngineCore;
-        private Mock<IPluginLibrary> _mockPluginLibrary;
+        private Mock<IKeyboard> _mockKeyboard;
+        #endregion
+
+
+        #region Constructors
+        public EngineTests()
+        {
+            _mockKeyboard = new Mock<IKeyboard>();
+            _mockContentLoader = new Mock<IContentLoader>();
+
+            _mockEngineCore = new Mock<IEngineCore>();
+            _mockEngineCore.Setup(m => m.IsRunning()).Returns(true);
+            _mockEngineCore.SetupProperty(m => m.WindowWidth);
+            _mockEngineCore.SetupProperty(m => m.WindowHeight);
+        }
         #endregion
 
 
         #region Constructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvoking_SetsContentLoader()
         {
             //Arrange
-            var engine = new Engine(_mockPluginLibrary.Object);
+            var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
 
             //Act
             var actual = engine.ContentLoader;
@@ -38,12 +50,12 @@ namespace KDScorpionEngineTests
 
 
         #region Prop Tests
-        [Test]
+        [Fact]
         public void SceneManager_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var engine = new Engine(_mockPluginLibrary.Object);
-            var manager = new SceneManager(_contentLoader);
+            var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
+            var manager = new SceneManager(new ContentLoader(_mockContentLoader.Object), _mockKeyboard.Object);
             var expected = manager;
 
             //Act
@@ -51,46 +63,47 @@ namespace KDScorpionEngineTests
             var actual = engine.SceneManager;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void ContentLoader_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var engine = new Engine(_mockPluginLibrary.Object);
-            var expected = _contentLoader;
+            var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
+            var contentLoader = new ContentLoader(_mockContentLoader.Object);
+            var expected = contentLoader;
 
             //Act
-            engine.ContentLoader = _contentLoader;
+            engine.ContentLoader = contentLoader;
             var actual = engine.ContentLoader;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Running_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var engine = new Engine(_mockPluginLibrary.Object);
+            var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
             var expected = true;
 
             //Act
             var actual = engine.Running;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void CurrentFPS_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var engine = new Engine(_mockPluginLibrary.Object);
+            var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
             var expected = 62.5f;
 
             //Act
@@ -100,11 +113,11 @@ namespace KDScorpionEngineTests
             var actual = Engine.CurrentFPS;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void WindowWidth_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -115,11 +128,11 @@ namespace KDScorpionEngineTests
             var actual = Engine.WindowWidth;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void WindowHeight_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -130,17 +143,17 @@ namespace KDScorpionEngineTests
             var actual = Engine.WindowHeight;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Method Tests
-        [Test]
+        [Fact]
         public void Start_WhenInvoked_InvokesEngineCoreStart()
         {
             //Arrange
-            var engine = new Engine(_mockPluginLibrary.Object);
+            var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
 
             //Act
             engine.Start();
@@ -150,11 +163,11 @@ namespace KDScorpionEngineTests
         }
 
 
-        [Test]
+        [Fact]
         public void Start_WhenInvokedWithNullEngineCore_DoesNotThrowException()
         {
             //Arrange
-            var engine = new Engine(_mockPluginLibrary.Object);
+            var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
 
             engine.SetFieldNull("_engineCore");
 
@@ -163,11 +176,11 @@ namespace KDScorpionEngineTests
         }
 
 
-        [Test]
+        [Fact]
         public void Stop_WhenInvoked_InvokesEngineCoreStop()
         {
             //Arrange
-            var engine = new Engine(_mockPluginLibrary.Object);
+            var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
 
             //Act
             engine.Stop();
@@ -177,11 +190,11 @@ namespace KDScorpionEngineTests
         }
 
 
-        [Test]
+        [Fact]
         public void Stop_WhenInvokedWithNullEngineCore_DoesNotThrowException()
         {
             //Arrange
-            var engine = new Engine(_mockPluginLibrary.Object);
+            var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
 
             engine.SetFieldNull("_engineCore");
 
@@ -190,11 +203,11 @@ namespace KDScorpionEngineTests
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvokingWhileRunning_SetsCurrentFPSProp()
         {
             //Arrange
-            var engine = new Engine(_mockPluginLibrary.Object);
+            var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
             var expected = 62.5f;
 
             //Act
@@ -203,17 +216,17 @@ namespace KDScorpionEngineTests
             var actual = Engine.CurrentFPS;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvokingWhileNotRunning_DoesNotSetCurrentFPSProp()
         {
             //Arrange
-            PauseEngineCore();
+            _mockEngineCore.Setup(m => m.IsRunning()).Returns(false);
 
-            var engine = new Engine(_mockPluginLibrary.Object);
+            var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
             var expected = 0f;
             Engine.CurrentFPS = 0;
 
@@ -223,73 +236,27 @@ namespace KDScorpionEngineTests
             var actual = Engine.CurrentFPS;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Dispose_WhenInvoking_DisposesEngineCore()
         {
             //Arrange
-            TearDown();
-
-            var fakeEngineCore = new FakeEngineCore();
-            var mockPluginLibrary = new Mock<IPluginLibrary>();
-            mockPluginLibrary.Setup(m => m.LoadPlugin<IEngineCore>()).Returns(fakeEngineCore);
-
-            Plugins.EnginePlugins = mockPluginLibrary.Object;
-
-            var engine = new FakeEngine(mockPluginLibrary.Object);
-            var expected = true;
+            var engine = new FakeEngine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
 
             //Act
             engine.Dispose();
-            var actual = fakeEngineCore.DisposeInvoked;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            _mockEngineCore.Verify(m => m.Dispose(), Times.Once());
         }
         #endregion
 
 
-        #region Public Methods
-        [SetUp]
-        public void Setup()
-        {
-            var mockContentLoader = new Mock<IContentLoader>();
-            _contentLoader = new ContentLoader(mockContentLoader.Object);
-
-            _mockEngineCore = new Mock<IEngineCore>();
-            _mockEngineCore.Setup(m => m.IsRunning()).Returns(true);
-            _mockEngineCore.SetupProperty(m => m.WindowWidth);
-            _mockEngineCore.SetupProperty(m => m.WindowHeight);
-
-            var mockKeyboard = new Mock<IKeyboard>();
-
-            _mockPluginLibrary = new Mock<IPluginLibrary>();
-            _mockPluginLibrary.Setup(m => m.LoadPlugin<IContentLoader>()).Returns(mockContentLoader.Object);
-            _mockPluginLibrary.Setup(m => m.LoadPlugin<IEngineCore>()).Returns(_mockEngineCore.Object);
-            _mockPluginLibrary.Setup(m => m.LoadPlugin<IKeyboard>()).Returns(mockKeyboard.Object);
-
-            Plugins.EnginePlugins = _mockPluginLibrary.Object;
-        }
-
-
-        [TearDown]
-        public void TearDown()
-        {
-            Plugins.EnginePlugins = null;
-            _contentLoader = null;
-            _mockPluginLibrary = null;
-        }
-        #endregion
-
-
-        #region Private Methods
-        private void PauseEngineCore()
-        {
-            _mockEngineCore.Setup(m => m.IsRunning()).Returns(false);
-        }
+        #region Public Methods       
+        public void Dispose() => _mockEngineCore.Setup(m => m.IsRunning()).Returns(false);
         #endregion
     }
 }

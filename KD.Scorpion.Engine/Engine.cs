@@ -27,34 +27,36 @@ namespace KDScorpionEngine
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="Engine"/> for the purpose of unit testing.
-        /// <paramref name="enginePluginLib">The plugin library used to mock engine plugins.</paramref>
-        /// <paramref name="physicsPluginLib">The plugin library used to mock physics plugins.</paramref>
+        /// <paramref name="contentLoader">The content loader.</paramref>
+        /// <paramref name="engineCore">The engine core.</paramref>
+        /// <paramref name="keyboard">The keyboard.</paramref>
+        /// <paramref name="loadPhysicsLibrary">True if the physics library should be loaded.</paramref>
         /// </summary>
-        internal Engine(IPluginLibrary enginePluginLib, bool loadPhysicsLibrary = true)
+        internal Engine(IContentLoader contentLoader, IEngineCore engineCore, IKeyboard keyboard, bool loadPhysicsLibrary = true)
         {
-            var plugins = new Plugins_NEW()
-            {
-                EnginePlugins = enginePluginLib
-            };
-
-            EnginePluginSystem.SetPlugin(plugins);
+            ContentLoader = new ContentLoader(contentLoader);
+            SceneManager = new SceneManager(ContentLoader, keyboard);
 
             //Make sure that the Setup() method is called
             //This is to make sure that this class is testable for unit testing purposes.
-            Setup();
+            SetupEngineCore(engineCore);
         }
 
 
         /// <summary>
         /// Creates an instance of engine.
         /// </summary>
+        /// <paramref name="loadPhysicsLibrary">True if the physics library should be loaded.</paramref>
         [ExcludeFromCodeCoverage]
         public Engine(bool loadPhysicsLibrary = true)
         {
             var plugins = new Plugins_NEW();
             EnginePluginSystem.SetPlugin(plugins);
 
-            Setup();
+            ContentLoader = new ContentLoader(EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IContentLoader>());
+            SceneManager = new SceneManager(ContentLoader);
+
+            SetupEngineCore(EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IEngineCore>());
         }
         #endregion
 
@@ -159,10 +161,7 @@ namespace KDScorpionEngine
         /// <summary>
         /// Disposes of the engine.
         /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-        }
+        public void Dispose() => Dispose(true);
         #endregion
 
 
@@ -171,7 +170,7 @@ namespace KDScorpionEngine
         /// Disposes of the internal engine components.
         /// </summary>
         /// <param name="disposing">True if the internal engine components should be disposed of.</param>
-        private static void Dispose(bool disposing)
+        private static void Dispose(bool _)
         {
             if (_engineCore != null)
                 _engineCore.Dispose();
@@ -183,20 +182,14 @@ namespace KDScorpionEngine
         /// <summary>
         /// Sets up the engine.
         /// </summary>
-        private void Setup()
+        private void SetupEngineCore(IEngineCore engineCore)
         {
-            ContentLoader = new ContentLoader(EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IContentLoader>());
-
-            _engineCore = EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IEngineCore>();
-
+            _engineCore = engineCore;
             _engineCore.SetFPS(60);
-
             _engineCore.OnInitialize += _engineCore_OnInitialize;
             _engineCore.OnLoadContent += _engineCore_OnLoadContent;
             _engineCore.OnUpdate += _engineCore_OnUpdate;
             _engineCore.OnRender += _engineCore_OnRender;
-
-            SceneManager = new SceneManager(ContentLoader);
         }
         
 
