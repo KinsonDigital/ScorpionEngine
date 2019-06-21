@@ -145,7 +145,7 @@
     <Compile Include="Exceptions\ParticleSetupDoesNotExistExceptionTests.cs" />
     <Compile Include="Management\DeploymentSettingTests.cs" />
     <Compile Include="Exceptions\ContentDoesNotExistExceptionTests.cs" />
-    <Compile Include="Exceptions\IllegalProjectNameExceptionException.cs" />
+    <Compile Include="Exceptions\IllegalProjectNameExceptionTests.cs" />
     <Compile Include="Exceptions\ProjectAlreadyExistsExceptionTests.cs" />
     <Compile Include="Exceptions\ProjectDoesNotExistExistExceptionTests.cs" />
     <Compile Include="ExtensionMethodsTests.cs" />
