@@ -114,6 +114,7 @@
     <Compile Include="Input\IInputWatcher.cs" />
     <Compile Include="Input\Keyboard.cs" />
     <Compile Include="Input\Mouse.cs" />
+    <Compile Include="EnginePluginSystem.cs" />
     <Compile Include="Utils\Counter.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Events\FrameStackFinishedEventArgs.cs" />

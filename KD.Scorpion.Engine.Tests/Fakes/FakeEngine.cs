@@ -1,5 +1,6 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Content;
+using KDScorpionCore.Plugins;
 using KDScorpionEngine;
 using KDScorpionEngine.Graphics;
 using PluginSystem;
@@ -8,7 +9,7 @@ namespace KDScorpionEngineTests.Fakes
 {
     public class FakeEngine : Engine
     {
-        public FakeEngine(IPluginLibrary enginePluginLib) : base(enginePluginLib)
+        public FakeEngine(IContentLoader contentLoader, IEngineCore engineCore, IKeyboard keyboard) : base(contentLoader, engineCore, keyboard)
         {
         }
 

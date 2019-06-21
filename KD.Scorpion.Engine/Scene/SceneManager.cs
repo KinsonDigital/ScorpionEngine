@@ -6,7 +6,6 @@ using KDScorpionEngine.Events;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngine.Graphics;
 using KDScorpionEngine.Input;
-using PluginSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,6 +33,13 @@ namespace KDScorpionEngine.Scene
 
 
         #region Constructors
+        internal SceneManager(ContentLoader contentLoader, IKeyboard keyboard)
+        {
+            _contentLoader = contentLoader;
+            _keyboard = new Keyboard(keyboard);
+        }
+
+
         /// <summary>
         /// Creates a new instance of <see cref="SceneManager"/>.
         /// <paramref name="contentLoader">The content manager user to load and unload content.</paramref>
@@ -41,7 +47,7 @@ namespace KDScorpionEngine.Scene
         public SceneManager(ContentLoader contentLoader)
         {
             _contentLoader = contentLoader;
-            _keyboard = new Keyboard(Plugins.EnginePlugins.LoadPlugin<IKeyboard>());
+            _keyboard = new Keyboard(EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IKeyboard>());
         }
         #endregion
 

@@ -1,15 +1,14 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using KDScorpionCore;
 using KDScorpionEngine.Scene;
 using System;
 
 namespace KDScorpionEngineTests.Scene
 {
-    [TestFixture]
     public class SceneTimeManagerTests
     {
         #region Prop Tests
-        [Test]
+        [Fact]
         public void ElapsedFrameTime_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -21,11 +20,11 @@ namespace KDScorpionEngineTests.Scene
             var actual = manager.ElapsedFrameTime;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void ElapsedFramesForStack_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -37,11 +36,11 @@ namespace KDScorpionEngineTests.Scene
             var actual = manager.ElapsedFramesForStack;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void FrameTime_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -53,11 +52,11 @@ namespace KDScorpionEngineTests.Scene
             var actual = manager.FrameTime;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Paused_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -69,11 +68,11 @@ namespace KDScorpionEngineTests.Scene
             var actual = manager.Paused;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void TotalFramesRan_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -85,11 +84,11 @@ namespace KDScorpionEngineTests.Scene
             var actual = manager.TotalFramesRan;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Mode_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -101,13 +100,13 @@ namespace KDScorpionEngineTests.Scene
             var actual = manager.Mode;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Method Tests
-        [Test]
+        [Fact]
         public void Update_WhenInvokingInContinuousMode_IncrementsTotalFramsRan()
         {
             //Arrange
@@ -120,11 +119,11 @@ namespace KDScorpionEngineTests.Scene
             var actual = manager.TotalFramesRan;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvokingInFrameStackMode_UpdatesElapsedFrameTimeProp()
         {
             //Arrange
@@ -140,11 +139,11 @@ namespace KDScorpionEngineTests.Scene
             var actual = manager.ElapsedFrameTime;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvokingInFrameStackMode_ResetsElapsedFrameTimeProp()
         {
             //Arrange
@@ -162,11 +161,11 @@ namespace KDScorpionEngineTests.Scene
             var actual = manager.ElapsedFrameTime;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvokingInFrameStackMode_IncrementsElapsedFramesPerStackProp()
         {
             //Arrange
@@ -184,11 +183,11 @@ namespace KDScorpionEngineTests.Scene
             var actual = manager.ElapsedFramesForStack;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvokingInFrameStackMode_IncrementsTotalFramesRanProp()
         {
             //Arrange
@@ -206,11 +205,11 @@ namespace KDScorpionEngineTests.Scene
             var actual = manager.TotalFramesRan;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvokingInFrameStackMode_ResetElapsedFramesForStackPropToZero()
         {
             //Arrange
@@ -232,11 +231,11 @@ namespace KDScorpionEngineTests.Scene
             var actual = manager.ElapsedFramesForStack;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvokingInFrameStackMode_SetPausedToTrue()
         {
             //Arrange
@@ -258,11 +257,11 @@ namespace KDScorpionEngineTests.Scene
             var actual = manager.Paused;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvokingInFrameStackMode_InvokesFrameStackFinishedEvent()
         {
             //Arrange
@@ -285,11 +284,11 @@ namespace KDScorpionEngineTests.Scene
             }
 
             //Assert
-            Assert.AreEqual(expectedEventInvoked, actualEventInvoked);
+            Assert.Equal(expectedEventInvoked, actualEventInvoked);
         }
 
 
-        [Test]
+        [Fact]
         public void RunFrameStack_WhenInvokingInFrameStackMode_PauseSetToFalse()
         {
             //Arrange
@@ -305,11 +304,11 @@ namespace KDScorpionEngineTests.Scene
             var actual = manager.Paused;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void RunFrames_WhenInvokingInContinuousMode_PauseStaysSetToTrue()
         {
             //Arrange
@@ -325,11 +324,11 @@ namespace KDScorpionEngineTests.Scene
             var actual = manager.Paused;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void RunFrames_WhenInvokingWithInternalCallbackNotNull_SetsFramesPerStackToCorrectValue()
         {
             //Arrange
@@ -349,7 +348,7 @@ namespace KDScorpionEngineTests.Scene
             var actual = manager.FramesPerStack;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }

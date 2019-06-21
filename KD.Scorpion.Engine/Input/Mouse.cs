@@ -1,7 +1,6 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
-using PluginSystem;
 using System;
 
 namespace KDScorpionEngine.Input
@@ -56,7 +55,7 @@ namespace KDScorpionEngine.Input
         /// <summary>
         /// Creates a new instance of <see cref="Mouse"/>.
         /// </summary>
-        public Mouse() => InternalMouse = Plugins.EnginePlugins.LoadPlugin<IMouse>();
+        public Mouse() => InternalMouse = EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IMouse>();
         #endregion
 
 

@@ -1,12 +1,11 @@
 ﻿using KDScorpionCore;
-using NUnit.Framework;
+using Xunit;
 
 namespace KDScorpionCoreTests
 {
-    [TestFixture]
     public class ExtensionMethodTests
     {
-        [Test]
+        [Fact]
         public void RotateAround_WhenInvoked_ReturnsCorrectResult()
         {
             //Arrange
@@ -19,12 +18,12 @@ namespace KDScorpionCoreTests
             var actual = vectorToRotate.RotateAround(origin, angle);
 
             //Assert
-            Assert.AreEqual(expected.X, actual.X);
-            Assert.AreEqual(expected.Y, actual.Y);
+            Assert.Equal(expected.X, actual.X);
+            Assert.Equal(expected.Y, actual.Y);
         }
 
 
-        [Test]
+        [Fact]
         public void RotateAround_WhenInvokedWithClockwiseFalse_ReturnsCorrectResult()
         {
             //Arrange
@@ -37,8 +36,8 @@ namespace KDScorpionCoreTests
             var actual = vectorToRotate.RotateAround(origin, angle, false);
 
             //Assert
-            Assert.AreEqual(expected.X, actual.X);
-            Assert.AreEqual(expected.Y, actual.Y);
+            Assert.Equal(expected.X, actual.X);
+            Assert.Equal(expected.Y, actual.Y);
         }
     }
 }

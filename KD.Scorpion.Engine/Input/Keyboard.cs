@@ -1,7 +1,7 @@
 ﻿using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
-using PluginSystem;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace KDScorpionEngine.Input
@@ -73,16 +73,14 @@ namespace KDScorpionEngine.Input
 
 
         #region Constructors
-        internal Keyboard(IKeyboard keyboard)
-        {
-            InternalKeyboard = keyboard;
-        }
+        internal Keyboard(IKeyboard keyboard) => InternalKeyboard = keyboard;
 
 
         /// <summary>
         /// Creates a new instance of <see cref="Keyboard"/> for tracking keyboard events.
         /// </summary>
-        public Keyboard() => InternalKeyboard = Plugins.EnginePlugins.LoadPlugin<IKeyboard>();
+        [ExcludeFromCodeCoverage]
+        public Keyboard() => InternalKeyboard = EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IKeyboard>();
         #endregion
 
 

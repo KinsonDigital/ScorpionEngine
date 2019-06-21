@@ -1,14 +1,13 @@
-﻿using NUnit.Framework;
-using KDScorpionEngine.Behaviors;
+﻿using KDScorpionEngine.Behaviors;
 using KDScorpionEngineTests.Fakes;
+using Xunit;
 
 namespace KDScorpionEngineTests.Behaviors
 {
-    [TestFixture]
     public class EntityBehaviorTests
     {
         #region Prop Tests
-        [Test]
+        [Fact]
         public void Count_WhenGettingValueWithItems_ReturnsCorrectCount()
         {
             //Arrange
@@ -23,11 +22,11 @@ namespace KDScorpionEngineTests.Behaviors
             var actual = behaviors.Count;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void IsReadOnly_WhenGettingValue_ReturnsFalse()
         {
             //Arrange
@@ -38,11 +37,11 @@ namespace KDScorpionEngineTests.Behaviors
             var actual = behaviors.IsReadOnly;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void SetIndexItem_WhenGettingValue_ReturnsFalse()
         {
             //Arrange
@@ -58,12 +57,12 @@ namespace KDScorpionEngineTests.Behaviors
             var actualContains = behaviors.Contains(behavior);
 
             //Assert
-            Assert.AreEqual(expectedCount, actualCount);
-            Assert.AreEqual(expectedContains, actualContains);
+            Assert.Equal(expectedCount, actualCount);
+            Assert.Equal(expectedContains, actualContains);
         }
 
 
-        [Test]
+        [Fact]
         public void GetItemByIndex_WhenGettingValue_ReturnsCorrectItem()
         {
             //Arrange
@@ -76,13 +75,13 @@ namespace KDScorpionEngineTests.Behaviors
             var actual = behaviors[1];
 
             //Assert
-            Assert.AreEqual(behavior, actual);
+            Assert.Equal(behavior, actual);
         }
         #endregion
 
 
         #region Method Tests
-        [Test]
+        [Fact]
         public void Clear_WhenInvokingWithItems_RemovesAllItems()
         {
             //Arrange
@@ -98,11 +97,11 @@ namespace KDScorpionEngineTests.Behaviors
             var actual = behaviors.Count;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Contains_WhenInvokingWithContainedItem_ReturnsTrue()
         {
             //Arrange
@@ -115,11 +114,11 @@ namespace KDScorpionEngineTests.Behaviors
             var actual = behaviors.Contains(behavior);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void IndexOf_WhenInvoking_ReturnsCorrectIndex()
         {
             //Arrange
@@ -136,11 +135,11 @@ namespace KDScorpionEngineTests.Behaviors
             var actual = behaviors.IndexOf(behavior);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Insert_WhenInvoking_ProperlyInsertsItem()
         {
             //Arrange
@@ -157,11 +156,11 @@ namespace KDScorpionEngineTests.Behaviors
             var actual = behaviors.IndexOf(behavior);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Remove_WhenInvoking_RemovesCorrectItem()
         {
             //Arrange
@@ -179,11 +178,11 @@ namespace KDScorpionEngineTests.Behaviors
             var actual = behaviors.Contains(behavior);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void RemoveAt_WhenInvoking_RemovesCorrectItem()
         {
             //Arrange
@@ -201,11 +200,11 @@ namespace KDScorpionEngineTests.Behaviors
             var actual = behaviors.Contains(behavior);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void CopyTo_WhenInvoking_CorrectlyCopiesItem()
         {
             //Arrange
@@ -226,11 +225,11 @@ namespace KDScorpionEngineTests.Behaviors
             behaviors.CopyTo(actual, 0);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void GetEnumerator_WhenInvoking_DoesNotReturnNull()
         {
             //Arrange

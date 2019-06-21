@@ -2,7 +2,6 @@
 using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Utils;
-using PluginSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,13 +33,32 @@ namespace KDScorpionEngine.Input
 
 
         #region Constructor
+        internal MouseWatcher(bool enabled, IMouse mouse)
+        {
+            _mouse = mouse;
+
+            Enabled = enabled;
+            ComboButtons = new List<InputButton>();
+
+            //Setup stop watches
+            _counter = new Counter(0, 10, 1);
+            _buttonDownTimer = new StopWatch(1000);
+            _buttonDownTimer.OnTimeElapsed += _buttonDownTimer_OnTimeElapsed;
+            _buttonDownTimer.Start();
+
+            _buttonReleaseTimer = new StopWatch(1000);
+            _buttonReleaseTimer.OnTimeElapsed += _buttonReleasedTimer_OnTimeElapsed;
+            _buttonReleaseTimer.Start();
+        }
+
+
         /// <summary>
         /// Creates an instance of MouseWatcher.
         /// </summary>
         /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
         public MouseWatcher(bool enabled)
         {
-            _mouse = Plugins.EnginePlugins.LoadPlugin<IMouse>();
+            _mouse = EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IMouse>();
 
             Enabled = enabled;
             ComboButtons = new List<InputButton>();

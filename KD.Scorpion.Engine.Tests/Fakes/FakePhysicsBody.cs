@@ -68,7 +68,7 @@ namespace KDScorpionEngineTests.Fakes
 
         public void ApplyForce(float forceX, float forceY, float worldLocationX, float worldLocationY)
         {
-            X = forceX;
+            X = worldLocationX + forceX;
             Y = forceY;
             LinearVelocityX += forceX;
             LinearVelocityY += forceY;

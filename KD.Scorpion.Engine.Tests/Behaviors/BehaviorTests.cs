@@ -1,14 +1,13 @@
-﻿using NUnit.Framework;
-using KDScorpionCore;
+﻿using KDScorpionCore;
 using KDScorpionEngineTests.Fakes;
+using Xunit;
 
 namespace KDScorpionEngineTests.Behaviors
 {
-    [TestFixture]
     public class BehaviorTests
     {
         #region Prop Tests
-        [Test]
+        [Fact]
         public void Enabled_WhenSettingToFalse_ReturnsFalse()
         {
             //Arrange
@@ -20,11 +19,11 @@ namespace KDScorpionEngineTests.Behaviors
             var actual = behavior.Enabled;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Name_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -36,13 +35,13 @@ namespace KDScorpionEngineTests.Behaviors
             var actual = behavior.Name;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Method Tests
-        [Test]
+        [Fact]
         public void Update_WhenInvokedWhileDisabled_DoesNotInvokeBehaviorAction()
         {
             //Arrange
@@ -53,13 +52,13 @@ namespace KDScorpionEngineTests.Behaviors
             behavior.Enabled = false;
             behavior.Update(new EngineTime());
             var actual = behavior.UpdateActionInvoked;
-            
+
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvokedWithNoSetupAction_DoesNotInvokeAction()
         {
             //Arrange
@@ -71,11 +70,11 @@ namespace KDScorpionEngineTests.Behaviors
             var actual = behavior.UpdateActionInvoked;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Update_WhenInvokedWithSetupActionAndEnabled_InvokesAction()
         {
             //Arrange
@@ -87,7 +86,7 @@ namespace KDScorpionEngineTests.Behaviors
             var actual = behavior.UpdateActionInvoked;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }

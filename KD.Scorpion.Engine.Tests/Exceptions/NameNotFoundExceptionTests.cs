@@ -1,13 +1,12 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using KDScorpionEngine.Exceptions;
 
 namespace KDScorpionEngineTests.Exceptions
 {
-    [TestFixture]
     public class NameNotFoundExceptionTests
     {
         #region Constructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokingWithNoParams_ProperlySetsExceptionMessage()
         {
             //Arrange
@@ -18,11 +17,11 @@ namespace KDScorpionEngineTests.Exceptions
             var actual = exception.Message;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokingWithMessage_ProperlySetsExceptionMessage()
         {
             //Arrange
@@ -33,7 +32,7 @@ namespace KDScorpionEngineTests.Exceptions
             var actual = exception.Message;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }

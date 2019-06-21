@@ -1,7 +1,7 @@
-﻿using KDScorpionCore;
+using KDScorpionCore;
 using KDScorpionCore.Plugins;
-using PluginSystem;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace KDScorpionEngine.Physics
@@ -16,6 +16,7 @@ namespace KDScorpionEngine.Physics
         internal PhysicsBody(IPhysicsBody internalPhysicsBody) => InternalPhysicsBody = internalPhysicsBody;
 
 
+        [ExcludeFromCodeCoverage]
         public PhysicsBody(Vector[] vertices, Vector position, float angle = 0, float density = 1, float friction = 0.2f, float restitution = 0, bool isStatic = false)
         {
             object[] ctorParams = new object[9];
@@ -35,7 +36,7 @@ namespace KDScorpionEngine.Physics
             ctorParams[7] = restitution;
             ctorParams[8] = isStatic;
 
-            InternalPhysicsBody = Plugins.PhysicsPlugins.LoadPlugin<IPhysicsBody>(ctorParams);
+            InternalPhysicsBody = EnginePluginSystem.Plugins.PhysicsPlugins.LoadPlugin<IPhysicsBody>(ctorParams);
         }
 
 
@@ -57,6 +58,11 @@ namespace KDScorpionEngine.Physics
 
 
                 return result.ToArray();
+            }
+            set
+            {
+                InternalPhysicsBody.XVertices = (from v in value select v.X).ToArray();
+                InternalPhysicsBody.YVertices = (from v in value select v.Y).ToArray();
             }
         }
 

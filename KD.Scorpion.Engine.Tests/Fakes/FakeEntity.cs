@@ -30,7 +30,6 @@ namespace KDScorpionEngineTests.Fakes
 
         public FakeEntity(Texture texture, Vector[] polyVertices, Vector position) : base(texture, polyVertices, position, isStaticBody: false)
         {
-            Initialize();
         }
         #endregion
 

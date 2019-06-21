@@ -1,13 +1,12 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using KDScorpionEngine.Events;
 
 namespace KDScorpionEngineTests.Events
 {
-    [TestFixture]
     public class SceneChangedEventArgsTests
     {
         #region Constructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvoking_SetsPreviousSceneProp()
         {
             //Arrange
@@ -18,11 +17,11 @@ namespace KDScorpionEngineTests.Events
             var actual = eventArgs.PreviousScene;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Ctor_WhenInvoking_SetsCurrentSceneProp()
         {
             //Arrange
@@ -33,7 +32,7 @@ namespace KDScorpionEngineTests.Events
             var actual = eventArgs.CurrentScene;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }

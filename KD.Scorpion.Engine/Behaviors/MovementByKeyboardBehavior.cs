@@ -1,5 +1,6 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Input;
+using KDScorpionCore.Plugins;
 using KDScorpionEngine.Entities;
 
 namespace KDScorpionEngine.Behaviors
@@ -25,6 +26,19 @@ namespace KDScorpionEngine.Behaviors
 
 
         #region Constructors
+        internal MovementByKeyboardBehavior(T entity, float movementSpeed, IKeyboard keyboard)
+        {
+            _movementSpeed = movementSpeed;
+
+            CreateBehaviors(keyboard);
+            SetupBehaviors();
+
+            _gameObject = entity;
+
+            SetUpdateAction(UpdateAction);
+        }
+
+
         /// <summary>
         /// Creates a new instance of <see cref="MovementByKeyboardBehavior{T}"/>.
         /// </summary>
@@ -35,6 +49,7 @@ namespace KDScorpionEngine.Behaviors
             _movementSpeed = movementSpeed;
 
             CreateBehaviors();
+            SetupBehaviors();
 
             _gameObject = entity;
 
@@ -56,7 +71,7 @@ namespace KDScorpionEngine.Behaviors
             set
             {
                 _moveUpKey = value;
-                CreateBehaviors();
+                SetupBehaviors();
             }
         }
 
@@ -72,7 +87,7 @@ namespace KDScorpionEngine.Behaviors
             set
             {
                 _moveDownKey = value;
-                CreateBehaviors();
+                SetupBehaviors();
             }
         }
 
@@ -88,7 +103,7 @@ namespace KDScorpionEngine.Behaviors
             set
             {
                 _moveLeftKey = value;
-                CreateBehaviors();
+                SetupBehaviors();
             }
         }
 
@@ -104,7 +119,7 @@ namespace KDScorpionEngine.Behaviors
             set
             {
                 _moveRightKey = value;
-                CreateBehaviors();
+                SetupBehaviors();
             }
         }
         #endregion
@@ -129,23 +144,49 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         private void CreateBehaviors()
         {
-            //Setup the move right key behavior
             _moveRightOnKeyDown = new KeyBehavior(_moveRightKey, true);
+            _moveLeftOnKeyDown = new KeyBehavior(_moveLeftKey, true);
+            _moveUpOnKeyDown = new KeyBehavior(_moveUpKey, true);
+            _moveDownOnKeyDown = new KeyBehavior(_moveDownKey, true);
+        }
+
+
+        /// <summary>
+        /// Creates all of the behaviors but only for testing.
+        /// </summary>
+        /// <param name="keyboard">The keyboard implementation to use.</param>
+        private void CreateBehaviors(IKeyboard keyboard)
+        {
+            _moveRightOnKeyDown = new KeyBehavior(keyboard);
+            _moveLeftOnKeyDown = new KeyBehavior(keyboard);
+            _moveUpOnKeyDown = new KeyBehavior(keyboard);
+            _moveDownOnKeyDown = new KeyBehavior(keyboard);
+        }
+
+
+        /// <summary>
+        /// Sets up the behaviors.
+        /// </summary>
+        private void SetupBehaviors()
+        {
+            //Setup the move right key behavior
+            _moveRightOnKeyDown.Key = _moveRightKey;
             _moveRightOnKeyDown.KeyDownEvent += MoveRight_KeyDown;
             _moveRightOnKeyDown.BehaviorType = KeyBehaviorType.KeyDownContinuous;
 
             //Setup the move left key behavior
-            _moveLeftOnKeyDown = new KeyBehavior(_moveLeftKey, true);
+            _moveLeftOnKeyDown.Key = _moveLeftKey;
             _moveLeftOnKeyDown.KeyDownEvent += MoveLeft_KeyDown;
             _moveLeftOnKeyDown.BehaviorType = KeyBehaviorType.KeyDownContinuous;
 
             //Setup the move up key behavior
-            _moveUpOnKeyDown = new KeyBehavior(_moveUpKey, true);
+            _moveUpOnKeyDown.Key = _moveUpKey;
             _moveUpOnKeyDown.KeyDownEvent += MoveUp_KeyDown;
             _moveUpOnKeyDown.BehaviorType = KeyBehaviorType.KeyDownContinuous;
 
+
             //Setup the move down key behavior
-            _moveDownOnKeyDown = new KeyBehavior(_moveDownKey, true);
+            _moveDownOnKeyDown.Key = _moveDownKey;
             _moveDownOnKeyDown.KeyDownEvent += MoveDown_KeyDown;
             _moveDownOnKeyDown.BehaviorType = KeyBehaviorType.KeyDownContinuous;
         }

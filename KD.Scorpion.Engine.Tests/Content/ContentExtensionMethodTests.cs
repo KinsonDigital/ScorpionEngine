@@ -1,13 +1,12 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using KDScorpionEngine.Content;
 
 namespace KDScorpionEngineTests.Content
 {
-    [TestFixture]
     public class ContentExtensionMethodTests
     {
         #region Method Tests
-        [Test]
+        [Fact]
         public void IsLetter_WhenInvokedWithUpperCaseLetter_ReturnsTrue()
         {
             //Arrange
@@ -18,11 +17,11 @@ namespace KDScorpionEngineTests.Content
             var actual = letter.IsLetter();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void IsLetter_WhenInvokedWithLowerCaseLetter_ReturnsTrue()
         {
             //Arrange
@@ -33,11 +32,11 @@ namespace KDScorpionEngineTests.Content
             var actual = letter.IsLetter();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void IsLetter_WhenInvokedWithNumber_ReturnsFalse()
         {
             //Arrange
@@ -48,11 +47,11 @@ namespace KDScorpionEngineTests.Content
             var actual = digit.IsLetter();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void IsNumber_WhenInvokedWithNumber_ReturnsTrue()
         {
             //Arrange
@@ -63,11 +62,11 @@ namespace KDScorpionEngineTests.Content
             var actual = digit.IsNumber();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void IsNumber_WhenInvokedWithLetter_ReturnsFalse()
         {
             //Arrange
@@ -78,11 +77,11 @@ namespace KDScorpionEngineTests.Content
             var actual = letter.IsNumber();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void GetFirstOccurentOfNumber_WhenInvokedWithNumberInString_ReturnsCorrectIndex()
         {
             //Arrange
@@ -93,11 +92,11 @@ namespace KDScorpionEngineTests.Content
             var actual = data.GetFirstOccurentOfNumber();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void GetFirstOccurentOfNumber_WhenInvokedWithNoNumbersInString_ReturnsCorrectValue()
         {
             //Arrange
@@ -108,11 +107,11 @@ namespace KDScorpionEngineTests.Content
             var actual = data.GetFirstOccurentOfNumber();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void HasNumbers_WhenInvokedWithNumbers_ReturnsTrue()
         {
             //Arrange
@@ -123,11 +122,11 @@ namespace KDScorpionEngineTests.Content
             var actual = data.HasNumbers();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void ContainsOnlyLettersAndNumbers_WhenInvokedWithNoSymbols_ReturnsTrue()
         {
             //Arrange
@@ -138,11 +137,11 @@ namespace KDScorpionEngineTests.Content
             var actual = data.ContainsOnlyLettersAndNumbers();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void ContainsOnlyLettersAndNumbers_WhenInvokedWithSymbols_ReturnsTrue()
         {
             //Arrange
@@ -153,7 +152,7 @@ namespace KDScorpionEngineTests.Content
             var actual = data.ContainsOnlyLettersAndNumbers();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }

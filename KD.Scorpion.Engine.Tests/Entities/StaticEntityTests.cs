@@ -1,5 +1,5 @@
 ﻿using Moq;
-using NUnit.Framework;
+using Xunit;
 using KDScorpionCore;
 using KDScorpionCore.Graphics;
 using KDScorpionEngine.Behaviors;
@@ -7,42 +7,42 @@ using KDScorpionEngine.Entities;
 using KDScorpionEngineTests.Fakes;
 using PluginSystem;
 using KDScorpionCore.Plugins;
+using KDScorpionEngine.Physics;
 
 namespace KDScorpionEngineTests.Entities
 {
-    [TestFixture]
     public class StaticEntityTests
     {
         #region Constructor Tests
-        [Test]
-        public void Ctor_WhenInvoking_PropertlyConstructsObject()
+        [Fact]
+        public void Ctor_WhenInvoking_ProperlyConstructsObject()
         {
             //Arrange
-            var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
-            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
-            {
-                return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[1], (float)ctorParams[2], (float)ctorParams[3]);
-            });
-
-            Plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
+            var mockPhysicsBody = new Mock<IPhysicsBody>();
+            mockPhysicsBody.SetupProperty(p => p.X);
+            mockPhysicsBody.SetupProperty(p => p.Y);
 
             var mockTexture = new Mock<ITexture>();
             var texture = new Texture(mockTexture.Object);
-            var entity = new StaticEntity(texture, new Vector(123, 456));
+            var entity = new StaticEntity(texture, new Vector(123, 456))
+            {
+                Body = new PhysicsBody(mockPhysicsBody.Object)
+            };
             entity.Initialize();
+
             var expected = new Vector(123, 456);
 
             //Act
             var actual = entity.Position;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Method Tests
-        [Test]
+        [Fact]
         public void Update_WhenInvoking_UpdatesBehavior()
         {
             //Arrange

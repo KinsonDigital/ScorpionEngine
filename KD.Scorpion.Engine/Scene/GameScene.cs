@@ -1,5 +1,6 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Content;
+using KDScorpionCore.Plugins;
 using KDScorpionEngine.Entities;
 using KDScorpionEngine.Graphics;
 using KDScorpionEngine.Physics;
@@ -10,10 +11,10 @@ namespace KDScorpionEngine.Scene
     public abstract class GameScene : IScene
     {
         #region Constructors
-        public GameScene(Vector gravity)
-        {
-            PhysicsWorld = new PhysicsWorld(gravity);
-        }
+        internal GameScene(Vector gravity, IPhysicsWorld physicsWorld) => PhysicsWorld = new PhysicsWorld(gravity, physicsWorld);
+
+
+        public GameScene(Vector gravity) => PhysicsWorld = new PhysicsWorld(gravity);
         #endregion
 
 

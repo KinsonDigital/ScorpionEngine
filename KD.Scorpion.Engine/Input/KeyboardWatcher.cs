@@ -2,7 +2,6 @@
 using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Utils;
-using PluginSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,13 +33,31 @@ namespace KDScorpionEngine.Input
 
 
         #region Constructors
+        public KeyboardWatcher(bool enabled, IKeyboard keyboard)
+        {
+            _keyboard = keyboard;
+            Enabled = enabled;
+            ComboKeys = new List<KeyCodes>();
+
+            //Setup stop watches
+            _counter = new Counter(0, 10, 1);
+            _keyDownTimer = new StopWatch(1000);
+            _keyDownTimer.OnTimeElapsed += _keyDownTimer_OnTimeElapsed;
+            _keyDownTimer.Start();
+
+            _keyReleasedTimer = new StopWatch(1000);
+            _keyReleasedTimer.OnTimeElapsed += _keyUpTimer_OnTimeElapsed;
+            _keyReleasedTimer.Start();
+        }
+
+
         /// <summary>
         /// Creates an instance of KeyboardWatcher.
         /// </summary>
         /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
         public KeyboardWatcher(bool enabled)
         {
-            _keyboard = Plugins.EnginePlugins.LoadPlugin<IKeyboard>();
+            _keyboard = EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IKeyboard>();
             Enabled = enabled;
             ComboKeys = new List<KeyCodes>();
 
