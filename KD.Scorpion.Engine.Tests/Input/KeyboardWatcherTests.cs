@@ -42,7 +42,6 @@ namespace KDScorpionEngineTests.Input
             //Assert
             Assert.Equal(expectedEnabled, actualEnabled);
             Assert.Equal(expectedComboButtons, actualComboButtons);
-            AssertExt.IsNullOrZeroField(keyboardWatcher, "_keyboard");
         }
         #endregion
 

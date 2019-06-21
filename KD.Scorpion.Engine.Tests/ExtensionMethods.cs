@@ -68,48 +68,5 @@ namespace KDScorpionEngineTests
 
             return foundField.FieldType.IsPrimitive;
         }
-
-
-        public static bool IsNullOrZeroField(this object fieldContainer, string name)
-        {
-            var foundField = fieldContainer.GetField(name);
-
-            if (foundField.FieldType.IsPrimitive)
-            {
-                switch (foundField.FieldType)
-                {
-                    case Type intType when intType == typeof(int):
-                        return (int)foundField.GetValue(null) == 0;
-                    case Type uintType when uintType == typeof(uint):
-                        return (int)foundField.GetValue(null) == 0;
-                    case Type longType when longType == typeof(long):
-                        return (long)foundField.GetValue(null) == 0;
-                    case Type ulongType when ulongType == typeof(ulong):
-                        return (ulong)foundField.GetValue(null) == 0;
-                    case Type shortType when shortType == typeof(short):
-                        return (short)foundField.GetValue(null) == 0;
-                    case Type ushortType when ushortType == typeof(ushort):
-                        return (ushort)foundField.GetValue(null) == 0;
-                    case Type byteType when byteType == typeof(byte):
-                        return (byte)foundField.GetValue(null) == 0;
-                    case Type sbyteType when sbyteType == typeof(sbyte):
-                        return (sbyte)foundField.GetValue(null) == 0;
-                    case Type charType when charType == typeof(char):
-                        return (char)foundField.GetValue(null) == 0;
-                    case Type floatType when floatType == typeof(float):
-                        return (float)foundField.GetValue(null) == 0.0f;
-                    case Type decimalType when decimalType == typeof(decimal):
-                        return (decimal)foundField.GetValue(null) == 0.0m;
-                    case Type doubleType when doubleType == typeof(double):
-                        return (double)foundField.GetValue(null) == 0.0;
-                    default:
-                        throw new Exception($"The field of type {foundField.FieldType.Name} is unknown.");
-                }
-            } 
-            else
-            {
-                return foundField.GetValue(fieldContainer) == null;
-            }
-        }
     }
 }

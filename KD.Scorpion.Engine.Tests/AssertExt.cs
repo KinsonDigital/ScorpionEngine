@@ -1,11 +1,17 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using System;
-
+using System.Diagnostics.CodeAnalysis;
 
 namespace KDScorpionEngineTests
 {
+    [ExcludeFromCodeCoverage]
     public static class AssertExt
     {
+        /// <summary>
+        /// Asserts if an <see cref="Exception"/> was not thrown.
+        /// </summary>
+        /// <typeparam name="T">The type of <see cref="Exception"/>.</typeparam>
+        /// <param name="action">The action to catch the exception against.</param>
         public static void DoesNotThrow<T>(Action action) where T : Exception
         {
             try
@@ -19,6 +25,10 @@ namespace KDScorpionEngineTests
         }
 
 
+        /// <summary>
+        /// Asserts if an action does not throw a null reference exception.
+        /// </summary>
+        /// <param name="action">The action to catch the exception against.</param>
         public static void DoesNotThrowNullReference(Action action)
         {
             try
@@ -35,21 +45,6 @@ namespace KDScorpionEngineTests
                 {
                     Assert.True(true);
                 }
-            }
-        }
-
-
-        public static void IsNullOrZeroField(object fieldContainer, string name)
-        {
-            try
-            {
-                var result = fieldContainer.IsNullOrZeroField(name);
-
-                Assert.True(true);
-            }
-            catch (Exception ex)
-            {
-                Assert.True(false, ex.Message);
             }
         }
     }
