@@ -1,13 +1,12 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using ParticleMaker.Exceptions;
 
 namespace ParticleMaker.Tests.Exceptions
 {
-    [TestFixture]
     public class InvalidCommandActionParamTypeExceptionTests
     {
         #region Constructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvoked_ProperlyCreatesExceptionMessage()
         {
             //Arrange
@@ -19,7 +18,7 @@ namespace ParticleMaker.Tests.Exceptions
             var actual = exception.Message;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
