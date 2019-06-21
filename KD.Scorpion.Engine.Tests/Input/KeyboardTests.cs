@@ -1,5 +1,5 @@
 ﻿using Moq;
-using NUnit.Framework;
+using Xunit;
 using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Input;
@@ -9,7 +9,7 @@ namespace KDScorpionEngineTests.Input
     public class KeyboardTests
     {
         #region Method Tests
-        [Test]
+        [Fact]
         public void GetCurrentPressedKeys_WhenInvoking_ReturnsCorrectPressedKeys()
         {
             //Arrange
@@ -25,12 +25,12 @@ namespace KDScorpionEngineTests.Input
             var actual = keyboard.GetCurrentPressedKeys();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
             mockKeyboard.Verify(m => m.GetCurrentPressedKeys(), Times.Once());
         }
 
 
-        [Test]
+        [Fact]
         public void GetPreviousPressedKeys_WhenInvoking_ReturnsCorrectPressedKeys()
         {
             //Arrange
@@ -45,12 +45,12 @@ namespace KDScorpionEngineTests.Input
             var actual = keyboard.GetPreviousPressedKeys();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
             mockKeyboard.Verify(m => m.GetPreviousPressedKeys(), Times.Once());
         }
 
 
-        [Test]
+        [Fact]
         public void IsKeyDown_WhenInvoking_InternalMethodInvoked()
         {
             //Arrange
@@ -66,7 +66,7 @@ namespace KDScorpionEngineTests.Input
         }
 
 
-        [Test]
+        [Fact]
         public void IsKeyUp_WhenInvoking_InternalMethodInvoked()
         {
             //Arrange
@@ -82,7 +82,7 @@ namespace KDScorpionEngineTests.Input
         }
 
 
-        [Test]
+        [Fact]
         public void IsKeyPressed_WhenInvoking_InternalMethodInvoked()
         {
             //Arrange
@@ -98,7 +98,7 @@ namespace KDScorpionEngineTests.Input
         }
 
 
-        [Test]
+        [Fact]
         public void UpdateCurrentState_WhenInvoking_InternalMethodInvoked()
         {
             //Arrange
@@ -113,7 +113,7 @@ namespace KDScorpionEngineTests.Input
         }
 
 
-        [Test]
+        [Fact]
         public void UpdatePreviousState_WhenInvoking_InternalMethodInvoked()
         {
             //Arrange
@@ -128,5 +128,4 @@ namespace KDScorpionEngineTests.Input
         }
         #endregion
     }
-
 }
