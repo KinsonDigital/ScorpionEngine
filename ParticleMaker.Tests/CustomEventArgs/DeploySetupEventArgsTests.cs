@@ -1,13 +1,12 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using ParticleMaker.CustomEventArgs;
 
 namespace ParticleMaker.Tests.CustomEventArgs
 {
-    [TestFixture]
     public class DeploySetupEventArgsTests
     {
         #region Constructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvoking_CreatesCorrectExceptionMessage()
         {
             //Arrange
@@ -18,7 +17,7 @@ namespace ParticleMaker.Tests.CustomEventArgs
             var actual = exception.DeploymentPath;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
