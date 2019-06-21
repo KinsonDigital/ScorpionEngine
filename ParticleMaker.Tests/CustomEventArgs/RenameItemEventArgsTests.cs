@@ -1,13 +1,12 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using ParticleMaker.CustomEventArgs;
 
 namespace ParticleMaker.Tests.CustomEventArgs
 {
-    [TestFixture]
     public class RenameItemEventArgsTests
     {
         #region Constructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvoking_ProperlySetsPropValues()
         {
             //Arrange
@@ -20,14 +19,14 @@ namespace ParticleMaker.Tests.CustomEventArgs
             var actualOldPath = eventArgs.OldPath;
 
             //Assert
-            Assert.AreEqual(expectedOldName, actualOldName);
-            Assert.AreEqual(expectedOldPath, actualOldPath);
+            Assert.Equal(expectedOldName, actualOldName);
+            Assert.Equal(expectedOldPath, actualOldPath);
         }
         #endregion
 
 
         #region Prop Tests
-        [Test]
+        [Fact]
         public void OldName_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -39,11 +38,11 @@ namespace ParticleMaker.Tests.CustomEventArgs
             var actual = eventArgs.OldName;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void NewName_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -55,11 +54,11 @@ namespace ParticleMaker.Tests.CustomEventArgs
             var actual = eventArgs.NewName;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void OldPath_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -71,11 +70,11 @@ namespace ParticleMaker.Tests.CustomEventArgs
             var actual = eventArgs.OldPath;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void NewPath_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -87,7 +86,7 @@ namespace ParticleMaker.Tests.CustomEventArgs
             var actual = eventArgs.NewPath;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
