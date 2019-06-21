@@ -1,14 +1,13 @@
-﻿using Moq;
-using NUnit.Framework;
+﻿using System;
+using Moq;
+using Xunit;
 using ParticleMaker.Exceptions;
 using ParticleMaker.Management;
 using ParticleMaker.Services;
-using System;
 
 namespace ParticleMaker.Tests.Management
 {
-    [TestFixture]
-    public class ParticleManagerTests
+    public class ParticleManagerTests : IDisposable
     {
         #region Fields
         private Mock<IDirectoryService> _mockProjIODirService;
@@ -17,8 +16,18 @@ namespace ParticleMaker.Tests.Management
         #endregion
 
 
+        #region Constructors
+        public ParticleManagerTests()
+        {
+            _mockProjIODirService = new Mock<IDirectoryService>();
+            _mockProjIOFileService = new Mock<IFileService>();
+            _projIOService = new ProjectIOService(_mockProjIODirService.Object, _mockProjIOFileService.Object);
+        }
+        #endregion
+
+
         #region Method Tests
-        [Test]
+        [Fact]
         public void AddParticle_WhenInvoked_AddsParticleToSetup()
         {
             //Arrange
@@ -41,7 +50,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void AddParticle_WhenInvoked_BuildsCorrectDestinationPath()
         {
             //Arrange
@@ -72,11 +81,11 @@ namespace ParticleMaker.Tests.Management
             manager.AddParticle("test-project", "test-setup", @"C:\temp\test-particle.png");
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void AddParticle_WhenInvokedWithNoExistingProject_ThrowsException()
         {
             //Arrange
@@ -95,7 +104,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void AddParticle_WhenInvokedWithNullProjectName_ThrowsException()
         {
             //Arrange
@@ -114,7 +123,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void AddParticle_WhenInvokedWithNoExistingSetup_ThrowsException()
         {
             //Arrange
@@ -136,7 +145,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void AddParticle_WhenInvokedWithNullSetupName_ThrowsException()
         {
             //Arrange
@@ -158,7 +167,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void RenameParticle_WhenInvoked_RenamesParticle()
         {
             //Arrange
@@ -181,7 +190,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void RenameParticle_WhenInvoked_BuildsCorrectDestinationPath()
         {
             //Arrange
@@ -212,11 +221,11 @@ namespace ParticleMaker.Tests.Management
             manager.RenameParticle("test-project", "test-setup", "test-particle", "new-particle");
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void RenameParticle_WhenInvokedWithNoExistingProject_ThrowsException()
         {
             //Arrange
@@ -235,7 +244,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void RenameParticle_WhenInvokedWithNullProjectName_ThrowsException()
         {
             //Arrange
@@ -254,7 +263,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void RenameParticle_WhenInvokedWithNoExistingSetup_ThrowsException()
         {
             //Arrange
@@ -276,7 +285,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void RenameParticle_WhenInvokeWithNullSetupName_ThrowsException()
         {
             //Arrange
@@ -298,7 +307,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void DeleteParticle_WhenInvoked_DeletesParticle()
         {
             //Arrange
@@ -321,7 +330,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void DeleteParticle_WhenInvoked_BuildsCorrectDestinationPath()
         {
             //Arrange
@@ -352,11 +361,11 @@ namespace ParticleMaker.Tests.Management
             manager.DeleteParticle("test-project", "test-setup", "test-particle");
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void DeleteParticle_WhenInvokedWithNoExistingProject_ThrowsException()
         {
             //Arrange
@@ -375,7 +384,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void DeleteParticle_WhenInvokedWithNullProjectName_ThrowsException()
         {
             //Arrange
@@ -394,7 +403,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void DeleteParticle_WhenInvokedWithNoExistingSetup_ThrowsException()
         {
             //Arrange
@@ -416,7 +425,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void DeleteParticle_WhenInvokedWithNullSetupName_ThrowsException()
         {
             //Arrange
@@ -438,7 +447,7 @@ namespace ParticleMaker.Tests.Management
         }
         
 
-        [Test]
+        [Fact]
         public void GetParticlePaths_WhenInvoked_ReturnsListOfParticlePaths()
         {
             //Arrange
@@ -466,7 +475,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void GetParticlePaths_WhenInvoked_BuildsCorrectDestinationPath()
         {
             //Arrange
@@ -501,11 +510,11 @@ namespace ParticleMaker.Tests.Management
             manager.GetParticlePaths("test-project", "test-setup");
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void GetParticlePaths_WhenInvokedWithNoExistingProject_ThrowsException()
         {
             var mockDirectoryService = new Mock<IDirectoryService>();
@@ -524,7 +533,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void GetParticlePaths_WhenInvokedWithNullProjectName_ThrowsException()
         {
             //Arrange
@@ -544,7 +553,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void GetParticlePaths_WhenInvokedWithNoExistingSetup_ThrowsException()
         {
             //Arrange
@@ -566,7 +575,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void GetParticlePaths_WhenInvokedWithNullSetupName_ThrowsException()
         {
             //Arrange
@@ -590,17 +599,7 @@ namespace ParticleMaker.Tests.Management
 
 
         #region SetUp & TearDown
-        [SetUp]
-        public void Setup()
-        {
-            _mockProjIODirService = new Mock<IDirectoryService>();
-            _mockProjIOFileService = new Mock<IFileService>();
-            _projIOService = new ProjectIOService(_mockProjIODirService.Object, _mockProjIOFileService.Object);
-        }
-
-
-        [TearDown]
-        public void TearDown()
+        public void Dispose()
         {
             _mockProjIODirService = null;
             _mockProjIOFileService = null;
