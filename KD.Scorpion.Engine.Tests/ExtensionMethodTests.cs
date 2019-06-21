@@ -1,15 +1,14 @@
-﻿using NUnit.Framework;
+﻿using System;
+using Xunit;
 using KDScorpionCore;
-using System;
 using KDScorpionEngine;
 
 namespace KDScorpionEngineTests
 {
-    [TestFixture]
     public class ExtensionMethodTests
     {
         #region Method Tests
-        [Test]
+        [Fact]
         public void ToDegress_WhenInvoking_ReturnsCorrectValue()
         {
             //Arrange
@@ -19,11 +18,11 @@ namespace KDScorpionEngineTests
             var actual = 0.785398185f.ToDegrees();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void ToRadians_WhenInvoking_ReturnsCorrectValue()
         {
             //Arrange
@@ -33,11 +32,11 @@ namespace KDScorpionEngineTests
             var actual = 45f.ToRadians();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void ForcePositive_WhenNegative_ReturnsPositiveResult()
         {
             //Arrange
@@ -47,11 +46,11 @@ namespace KDScorpionEngineTests
             var actual = (-10f).ForcePositive();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void ForcePositive_WhenPositive_ReturnsPositiveResult()
         {
             //Arrange
@@ -61,11 +60,11 @@ namespace KDScorpionEngineTests
             var actual = (10f).ForcePositive();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void ForceNegative_WhenNegative_ReturnsNegativeResult()
         {
             //Arrange
@@ -75,11 +74,11 @@ namespace KDScorpionEngineTests
             var actual = (-10f).ForceNegative();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void ForceNegative_WhenPositive_ReturnsNegativeResult()
         {
             //Arrange
@@ -89,11 +88,11 @@ namespace KDScorpionEngineTests
             var actual = (10f).ForceNegative();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void RotateAround_WhenRotatingClockWise_ReturnsCorrectResult()
         {
             //Arrange
@@ -105,11 +104,11 @@ namespace KDScorpionEngineTests
             var actual = vector.RotateAround(new Vector(5, 5), 45f, true);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void RotateAround_WhenRotatingCounterClockWise_ReturnsCorrectResult()
         {
             //Arrange
@@ -121,11 +120,11 @@ namespace KDScorpionEngineTests
             var actual = vector.RotateAround(new Vector(5, 5), 45f, false);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Next_WhenInvoking_ReturnsValidValueWithinRange()
         {
             //Arrange
@@ -144,7 +143,7 @@ namespace KDScorpionEngineTests
             }
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
