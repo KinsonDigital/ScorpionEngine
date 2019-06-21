@@ -1,14 +1,13 @@
 ﻿using KDParticleEngine;
-using NUnit.Framework;
+using Xunit;
 using System.Drawing;
 
 namespace KD.Particle.Engine.Tests
 {
-    [TestFixture]
     public class ParticleSetupTests
     {
         #region Prop Tests
-        [Test]
+        [Fact]
         public void RedMin_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -20,11 +19,11 @@ namespace KD.Particle.Engine.Tests
             var actual = setup.RedMin;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void RedMax_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -36,11 +35,11 @@ namespace KD.Particle.Engine.Tests
             var actual = setup.RedMax;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void GreenMin_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -52,11 +51,11 @@ namespace KD.Particle.Engine.Tests
             var actual = setup.GreenMin;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void GreenMax_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -68,11 +67,11 @@ namespace KD.Particle.Engine.Tests
             var actual = setup.GreenMax;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void BlueMin_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -84,11 +83,11 @@ namespace KD.Particle.Engine.Tests
             var actual = setup.BlueMin;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void BlueMax_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -100,11 +99,11 @@ namespace KD.Particle.Engine.Tests
             var actual = setup.BlueMax;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void SizeMin_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -116,11 +115,11 @@ namespace KD.Particle.Engine.Tests
             var actual = setup.SizeMin;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void SizeMax_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -132,11 +131,11 @@ namespace KD.Particle.Engine.Tests
             var actual = setup.SizeMax;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void AngleMin_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -148,11 +147,11 @@ namespace KD.Particle.Engine.Tests
             var actual = setup.AngleMin;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void AngleMax_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -164,11 +163,11 @@ namespace KD.Particle.Engine.Tests
             var actual = setup.AngleMax;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void AngularVelocityMin_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -180,11 +179,11 @@ namespace KD.Particle.Engine.Tests
             var actual = setup.AngularVelocityMin;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void AngularVelocityMax_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -196,11 +195,11 @@ namespace KD.Particle.Engine.Tests
             var actual = setup.AngularVelocityMax;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void VelocityXMin_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -212,11 +211,11 @@ namespace KD.Particle.Engine.Tests
             var actual = setup.VelocityXMin;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void VelocityXMax_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -228,11 +227,11 @@ namespace KD.Particle.Engine.Tests
             var actual = setup.VelocityXMax;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void VelocityYMin_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -244,11 +243,11 @@ namespace KD.Particle.Engine.Tests
             var actual = setup.VelocityYMin;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void VelocityYMax_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -260,11 +259,11 @@ namespace KD.Particle.Engine.Tests
             var actual = setup.VelocityYMax;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void LifetimeMin_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -276,11 +275,11 @@ namespace KD.Particle.Engine.Tests
             var actual = setup.LifeTimeMin;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void LifetimeMax_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -292,11 +291,11 @@ namespace KD.Particle.Engine.Tests
             var actual = setup.LifeTimeMax;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void SpawnRateMin_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -308,11 +307,11 @@ namespace KD.Particle.Engine.Tests
             var actual = setup.SpawnRateMin;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void SpawnRateMax_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -324,11 +323,11 @@ namespace KD.Particle.Engine.Tests
             var actual = setup.SpawnRateMax;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void UseColorsFromList_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -340,11 +339,11 @@ namespace KD.Particle.Engine.Tests
             var actual = setup.UseColorsFromList;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Colors_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -364,7 +363,7 @@ namespace KD.Particle.Engine.Tests
             var actual = setup.Colors;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
