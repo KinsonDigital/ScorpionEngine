@@ -1,12 +1,11 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 
 namespace PluginSystem.Exceptions
 {
-    [TestFixture]
     public class PluginMustImplementInterfaceExceptionTests
     {
         #region Constructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokingWithNoParam_CorrectlySetsExceptionMessage()
         {
             //Arrange
@@ -17,11 +16,11 @@ namespace PluginSystem.Exceptions
             var actual = exception.Message;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokingWithNameParam_CorrectlySetsExceptionMessage()
         {
             //Arrange
@@ -32,7 +31,7 @@ namespace PluginSystem.Exceptions
             var actual = exception.Message;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
