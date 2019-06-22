@@ -1,14 +1,13 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using ParticleMaker.ValueConverters;
 using System.Globalization;
 
 namespace ParticleMaker.Tests.UserControls.ValueConverters
 {
-    [TestFixture]
     public class PathToNameConverterTests
     {
         #region Method Tests
-        [Test]
+        [Fact]
         public void Convert_WhenInvoked_ReturnsCorrectValue()
         {
             //Arrange
@@ -19,11 +18,11 @@ namespace ParticleMaker.Tests.UserControls.ValueConverters
             var actual = converter.Convert(@"C:\temp\test-file.dat", typeof(string), null, CultureInfo.GetCultures(CultureTypes.AllCultures)[0]);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Convert_WhenInvokedWithNoExtension_ReturnsEmpty()
         {
             //Arrange
@@ -33,11 +32,11 @@ namespace ParticleMaker.Tests.UserControls.ValueConverters
             var actual = converter.Convert(@"C:\temp\test-file", typeof(string), null, CultureInfo.GetCultures(CultureTypes.AllCultures)[0]);
 
             //Assert
-            Assert.AreEqual(string.Empty, actual);
+            Assert.Equal(string.Empty, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Convert_WhenInvokedWithNullData_ReturnsEmpty()
         {
             //Arrange
@@ -47,11 +46,11 @@ namespace ParticleMaker.Tests.UserControls.ValueConverters
             var actual = converter.Convert(null, typeof(string), null, CultureInfo.GetCultures(CultureTypes.AllCultures)[0]);
 
             //Assert
-            Assert.AreEqual(string.Empty, actual);
+            Assert.Equal(string.Empty, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void ConvertBack_WhenInvoked_ReturnSameData()
         {
             //Arrange
@@ -62,7 +61,7 @@ namespace ParticleMaker.Tests.UserControls.ValueConverters
             var actual = converter.ConvertBack(@"C:\temp\test-file.dat", typeof(string), null, CultureInfo.GetCultures(CultureTypes.AllCultures)[0]);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
