@@ -35,7 +35,7 @@ Included items must then not match any entries in the exclude list to remain inc
               <Exclude>
                 <ModulePath>.*CPPUnitTestFramework.*</ModulePath>
                 <ModulePath>.*\Moq.dll</ModulePath>
-                <ModulePath>.*nunit.*</ModulePath>
+                <ModulePath>.*sdl2-cs.dll</ModulePath>
                 <ModulePath>.*ScorpionCoreTests.dll</ModulePath>
                 <ModulePath>.*ScorpionEngineTests.dll</ModulePath>
                 <ModulePath>.*ScorpionTests.dll</ModulePath>
