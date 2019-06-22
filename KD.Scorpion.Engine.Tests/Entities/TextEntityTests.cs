@@ -143,7 +143,7 @@ namespace KDScorpionEngineTests.Entities
 
 
         #region Public Methods
-        public void Dispose() => Plugins.PhysicsPlugins = null;
+        public void Dispose() => _mockPhysicsBody = null;
         #endregion
     }
 }

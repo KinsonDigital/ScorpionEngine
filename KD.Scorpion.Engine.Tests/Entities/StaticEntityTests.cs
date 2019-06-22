@@ -52,8 +52,6 @@ namespace KDScorpionEngineTests.Entities
                 return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[1], (float)ctorParams[2], (float)ctorParams[3]);
             });
 
-            Plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
-
             var mockTexture = new Mock<ITexture>();
             var mockBehavior = new Mock<IBehavior>();
             var texture = new Texture(mockTexture.Object);

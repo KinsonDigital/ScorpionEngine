@@ -14,7 +14,7 @@ namespace KDScorpionEngineTests.Input
     public class KeyboardWatcherTests : IDisposable
     {
         #region Private Fields
-        private readonly Mock<IKeyboard> _mockKeyboard;
+        private Mock<IKeyboard> _mockKeyboard;
         #endregion
 
 
@@ -592,7 +592,7 @@ namespace KDScorpionEngineTests.Input
 
 
         #region Public Methods
-        public void Dispose() => Plugins.EnginePlugins = null;
+        public void Dispose() => _mockKeyboard = null;
         #endregion
     }
 }

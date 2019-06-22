@@ -37,11 +37,9 @@ namespace KDScorpionEngineTests.Entities
 
             var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
             mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) => _mockPhysicsBody.Object);
-            Plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
 
             var mockEnginePluginLibrary = new Mock<IPluginLibrary>();
             mockEnginePluginLibrary.Setup(m => m.LoadPlugin<IDebugDraw>()).Returns(() => _mockDebugDraw.Object);
-            Plugins.EnginePlugins = mockEnginePluginLibrary.Object;
         }
         #endregion
 
@@ -706,7 +704,12 @@ namespace KDScorpionEngineTests.Entities
 
 
         #region Public Methods
-        public void Dispose() => Plugins.EnginePlugins = null;
+        public void Dispose()
+        {
+            _mockPhysicsBody = null;
+            _mockDebugDraw = null;
+            _contentLoader = null;
+        }
         #endregion
 
 

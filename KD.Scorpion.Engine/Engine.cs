@@ -50,7 +50,7 @@ namespace KDScorpionEngine
         [ExcludeFromCodeCoverage]
         public Engine(bool loadPhysicsLibrary = true)
         {
-            var plugins = new Plugins_NEW();
+            var plugins = new Plugins();
             EnginePluginSystem.SetPlugin(plugins);
 
             ContentLoader = new ContentLoader(EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IContentLoader>());

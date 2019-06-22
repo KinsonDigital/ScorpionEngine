@@ -396,14 +396,10 @@ namespace KDScorpionEngineTests.Entities
         public void Update_WhenInvokingWithNullBody_ThrowsException()
         {
             //Arrange
-            Plugins.PhysicsPlugins = null;
-
             FakePhysicsBody nullPhysicsBody = null;
 
             var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
             mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns(nullPhysicsBody);
-
-            Plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
 
             var entity = new DynamicEntity();
 
@@ -1387,7 +1383,7 @@ namespace KDScorpionEngineTests.Entities
 
 
         #region Public Methods
-        public void Dispose() => Plugins.PhysicsPlugins = null;
+        public void Dispose() => _mockPhysicsBody = null;
         #endregion
 
 

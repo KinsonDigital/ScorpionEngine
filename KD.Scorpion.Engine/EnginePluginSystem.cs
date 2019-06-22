@@ -5,10 +5,10 @@ namespace KDScorpionEngine
 {
     public static class EnginePluginSystem
     {
-        private static Plugins_NEW _plugins;
+        private static Plugins _plugins;
 
 
-        public static Plugins_NEW Plugins
+        public static Plugins Plugins
         {
             get
             {
@@ -21,7 +21,7 @@ namespace KDScorpionEngine
         }
 
 
-        public static void SetPlugin(Plugins_NEW plugins) => _plugins = plugins;
+        public static void SetPlugin(Plugins plugins) => _plugins = plugins;
 
 
         public static void ClearPlugin() => _plugins = null;

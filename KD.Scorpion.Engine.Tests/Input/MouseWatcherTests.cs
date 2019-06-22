@@ -583,7 +583,7 @@ namespace KDScorpionEngineTests.Input
 
 
         #region Public Methods
-        public void Dispose() => Plugins.EnginePlugins = null;
+        public void Dispose() => _mockMouse = null;
         #endregion
     }
 }
