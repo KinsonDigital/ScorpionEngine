@@ -1,14 +1,13 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using ParticleMaker.Services;
 using System;
 
 namespace ParticleMaker.Tests.Services
 {
-    [TestFixture]
     public class LogTests
     {
         #region Prop Tests
-        [Test]
+        [Fact]
         public void Data_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -20,11 +19,11 @@ namespace ParticleMaker.Tests.Services
             var actual = log.Data;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void DateTime_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -36,11 +35,11 @@ namespace ParticleMaker.Tests.Services
             var actual = log.DateTimeStamp;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void ErrorNumber_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -52,11 +51,11 @@ namespace ParticleMaker.Tests.Services
             var actual = log.ErrorNumber;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void IsError_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -68,7 +67,7 @@ namespace ParticleMaker.Tests.Services
             var actual = log.IsError;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
