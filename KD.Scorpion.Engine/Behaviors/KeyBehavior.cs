@@ -33,16 +33,36 @@ namespace KDScorpionEngine.Behaviors
 
 
         #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="KeyBehavior"/> for unit testing purposes.
+        /// </summary>
+        /// <param name="enabled">True if the behavior should be enabled.</param>
+        /// <param name="keyboard">The keyboard to inject.</param>
+        internal KeyBehavior(bool enabled, IKeyboard keyboard)
+        {
+            Enabled = enabled;
+            _keyboard = new Keyboard(keyboard);
+        }
+
+
+        /// <summary>
+        /// Creates a new instance of <see cref="KeyBehavior"/> for unit testing purposes.
+        /// </summary>
+        /// <param name="keyboard">The keyboard to inject.</param>
         internal KeyBehavior(IKeyboard keyboard) => _keyboard = new Keyboard(keyboard);
 
 
         /// <summary>
-        /// Creates a new key behavior.
+        /// Creates a new instance of <see cref="KeyBehavior"/> for unit testing purposes.
         /// </summary>
-        public KeyBehavior(bool enabled = false, Keyboard keyboard = null)
+        /// <param name="key">The key to set the behavior to.</param>
+        /// <param name="enabled">True if the behavior should be enabled.</param>
+        /// <param name="keyboard">The keyboard to inject.</param>
+        internal KeyBehavior(KeyCodes key, bool enabled, IKeyboard keyboard)
         {
-            _keyboard = keyboard ?? new Keyboard(EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IKeyboard>());
+            _keyboard = new Keyboard(keyboard);
 
+            Key = key;
             Enabled = enabled;
         }
 
