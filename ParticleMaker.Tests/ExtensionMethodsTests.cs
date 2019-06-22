@@ -1,15 +1,14 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using System.Windows.Media;
 using NETColor = System.Drawing.Color;
 using MediaColor = System.Windows.Media.Color;
 
 namespace ParticleMaker.Tests
 {
-    [TestFixture]
     public class ExtensionMethodsTests
     {
         #region Method Tests
-        [Test]
+        [Fact]
         public void ToRadians_WhenInvoking_ReturnsCorrectValue()
         {
             //Arrange
@@ -20,11 +19,11 @@ namespace ParticleMaker.Tests
             var actual = angle.ToRadians();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void ToColorItem_WhenInvoked_ReturnsCorrectColorItem()
         {
             //Arrange
@@ -39,12 +38,12 @@ namespace ParticleMaker.Tests
             var actual = gameColor.ToColorItem();
 
             //Assert
-            Assert.AreEqual(expected.Id, actual.Id);
-            Assert.AreEqual(expected.ColorBrush.Color, actual.ColorBrush.Color);
+            Assert.Equal(expected.Id, actual.Id);
+            Assert.Equal(expected.ColorBrush.Color, actual.ColorBrush.Color);
         }
 
 
-        [Test]
+        [Fact]
         public void Join_WhenInvokingWithItemExclude_ReturnsCorrectValue()
         {
             //Arrange
@@ -61,11 +60,11 @@ namespace ParticleMaker.Tests
             var actual = items.Join("file-a.txt");
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Join_WhenInvokingWithNoExclude_ReturnsCorrectValue()
         {
             //Arrange
@@ -82,11 +81,11 @@ namespace ParticleMaker.Tests
             var actual = items.Join();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void GetPropertyNames_WhenInvoked_ReturnsCorrectNames()
         {
             //Arrange
@@ -108,7 +107,7 @@ namespace ParticleMaker.Tests
             var actual = testObject.GetPropertyNames();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
