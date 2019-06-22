@@ -1,16 +1,15 @@
-﻿using Moq;
-using NUnit.Framework;
-using ParticleMaker.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Moq;
+using Xunit;
+using ParticleMaker.Services;
 
 namespace ParticleMaker.Tests.Services
 {
-    [TestFixture]
     public class JSONLoggingServiceTests
     {
         #region Method Tests
-        [Test]
+        [Fact]
         public void Log_WhenInvoking_InvokesDirServiceExistsMethod()
         {
             //Arrange
@@ -27,7 +26,7 @@ namespace ParticleMaker.Tests.Services
         }
 
 
-        [Test]
+        [Fact]
         public void Log_WhenLogLogsDirectoryDoesNotExist_InvokesDirServiceCreateMethod()
         {
             //Arrange
@@ -44,7 +43,7 @@ namespace ParticleMaker.Tests.Services
         }
 
 
-        [Test]
+        [Fact]
         public void Log_WhenLogFileDoesNotExist_InvokesFileServiceCreateMethod()
         {
             //Arrange
@@ -61,7 +60,7 @@ namespace ParticleMaker.Tests.Services
         }
 
 
-        [Test]
+        [Fact]
         public void Log_WhenLogFileDoesNotExist_BuildsProperPath()
         {
             //Arrange
@@ -84,11 +83,11 @@ namespace ParticleMaker.Tests.Services
             service.Log("test-data", new DateTime(2019, 2, 20));
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Log_WhenInvoked_InvokesFileServiceExistsMethod()
         {
             //Arrange
@@ -105,7 +104,7 @@ namespace ParticleMaker.Tests.Services
         }
 
 
-        [Test]
+        [Fact]
         public void Log_WhenLogFileDoesExist_InvokesFileServiceLoadMethod()
         {
             //Arrange
@@ -128,7 +127,7 @@ namespace ParticleMaker.Tests.Services
         }
 
 
-        [Test]
+        [Fact]
         public void Log_WhenLogFileDoesExist_InvokesFileServiceSaveMethod()
         {
             //Arrange
@@ -151,7 +150,7 @@ namespace ParticleMaker.Tests.Services
         }
 
 
-        [Test]
+        [Fact]
         public void LogError_WhenInvoking_InvokesDirServiceExistsMethod()
         {
             //Arrange
@@ -168,7 +167,7 @@ namespace ParticleMaker.Tests.Services
         }
 
 
-        [Test]
+        [Fact]
         public void LogError_WhenLogLogsDirectoryDoesNotExist_InvokesDirServiceCreateMethod()
         {
             //Arrange
@@ -185,7 +184,7 @@ namespace ParticleMaker.Tests.Services
         }
 
 
-        [Test]
+        [Fact]
         public void LogError_WhenLogFileDoesNotExist_InvokesFileServiceCreateMethod()
         {
             //Arrange
@@ -202,7 +201,7 @@ namespace ParticleMaker.Tests.Services
         }
 
 
-        [Test]
+        [Fact]
         public void LogError_WhenLogFileDoesNotExist_BuildsProperPath()
         {
             //Arrange
@@ -225,11 +224,11 @@ namespace ParticleMaker.Tests.Services
             service.LogError("test-data", new DateTime(2019, 2, 20), 1234);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void LogError_WhenCheckingIfLogFileExists_BuildsProperPath()
         {
             //Arrange
@@ -252,11 +251,11 @@ namespace ParticleMaker.Tests.Services
             service.LogError("test-data", new DateTime(2019, 2, 20), 1234);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void LogError_WhenInvoked_InvokesFileServiceExistsMethod()
         {
             //Arrange
@@ -273,7 +272,7 @@ namespace ParticleMaker.Tests.Services
         }
 
 
-        [Test]
+        [Fact]
         public void LogError_WhenLogFileDoesExist_InvokesFileServiceLoadMethod()
         {
             //Arrange
@@ -296,7 +295,7 @@ namespace ParticleMaker.Tests.Services
         }
 
 
-        [Test]
+        [Fact]
         public void LogError_WhenLogFileDoesExist_InvokesFileServiceSaveMethod()
         {
             //Arrange
