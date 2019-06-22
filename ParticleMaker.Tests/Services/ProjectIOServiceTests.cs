@@ -1,15 +1,14 @@
 ﻿using Moq;
-using NUnit.Framework;
+using Xunit;
 using ParticleMaker.Services;
 using System;
 
 namespace ParticleMaker.Tests.Services
 {
-    [TestFixture]
     public class ProjectIOServiceTests
     {
         #region Method Tests
-        [Test]
+        [Fact]
         public void CheckRootProjectsFolder_WhenInvokingWhenDirectoryExists_DoesNotCreateFolder()
         {
             //Arrange
@@ -26,7 +25,7 @@ namespace ParticleMaker.Tests.Services
         }
 
 
-        [Test]
+        [Fact]
         public void CheckRootProjectsFolder_WhenInvokingWhenDirectoryDoesNotExist_CreatesFolder()
         {
             //Arrange
@@ -43,7 +42,7 @@ namespace ParticleMaker.Tests.Services
         }
 
 
-        [Test]
+        [Fact]
         public void ProjectExists_WhenInvokingWithExitingPath_ReturnsTrue()
         {
             //Arrange
@@ -60,11 +59,11 @@ namespace ParticleMaker.Tests.Services
             var actual = service.ProjectExists("test-project");
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void CheckRootSetupsFolder_WhenInvoked_ChecksIfDirectoryExists()
         {
             //Arrange
@@ -82,7 +81,7 @@ namespace ParticleMaker.Tests.Services
         }
 
 
-        [Test]
+        [Fact]
         public void CheckRootSetupsFolder_WhenInvokedWithNonExistingDirectory_CreatesSetupDirectory()
         {
             //Arrange
@@ -100,7 +99,7 @@ namespace ParticleMaker.Tests.Services
         }
 
 
-        [Test]
+        [Fact]
         public void CheckRootSetupsFolder_WhenInvoked_BuildsCorrectSetupsPath()
         {
             //Arrange
@@ -126,11 +125,11 @@ namespace ParticleMaker.Tests.Services
             projIOService.CheckRootSetupsFolder("test-project");
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void ContainsIllegalCharacters_WhenInvokingWithIllegalCharacters_ReturnsTrue()
         {
             //Arrange
@@ -145,11 +144,11 @@ namespace ParticleMaker.Tests.Services
             var actual = service.ContainsIllegalCharacters(@"test*item");
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void ContainsIllegalCharacters_WhenInvokingWithNoIllegalCharacters_ReturnsFalse()
         {
             //Arrange
@@ -164,11 +163,11 @@ namespace ParticleMaker.Tests.Services
             var actual = service.ContainsIllegalCharacters(@"testitem");
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void SetupExists_WhenInvoked_ChecksIfDirectoryExists()
         {
             //Arrange
@@ -185,7 +184,7 @@ namespace ParticleMaker.Tests.Services
         }
 
 
-        [Test]
+        [Fact]
         public void SetupExists_WhenInvoked_ChecksIfFileExists()
         {
             //Arrange
