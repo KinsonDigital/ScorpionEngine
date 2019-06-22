@@ -1,13 +1,12 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using System.Windows.Media;
 
 namespace ParticleMaker.Tests
 {
-    [TestFixture]
     public class ColorItemTests
     {
         #region Prop Tests
-        [Test]
+        [Fact]
         public void Id_WhenGettingSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -19,11 +18,11 @@ namespace ParticleMaker.Tests
             var actual = colorItem.Id;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void ColorBrush_WhenGettingSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -35,13 +34,13 @@ namespace ParticleMaker.Tests
             var actual = colorItem.ColorBrush;
 
             //Assert
-            Assert.AreEqual(expected.Color, actual.Color);
+            Assert.Equal(expected.Color, actual.Color);
         }
         #endregion
 
 
         #region Methods Tests
-        [Test]
+        [Fact]
         public void ToString_WhenInvoking_ReturnsCorrectStringValue()
         {
             //Arrange
@@ -57,11 +56,11 @@ namespace ParticleMaker.Tests
             var actual = colorItem.ToString();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Equals_WhenInvokingAgainstNullObject_ReturnsFalse()
         {
             //Arrange
@@ -77,11 +76,11 @@ namespace ParticleMaker.Tests
             var actual = colorItem.Equals(otherItem);
 
             //Assert
-            Assert.IsFalse(actual);
+            Assert.False(actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Equals_WhenInvokingAgainstEqualObject_ReturnsTrue()
         {
             //Arrange
@@ -101,11 +100,11 @@ namespace ParticleMaker.Tests
             var actual = colorItemA.Equals(colorItemB);
 
             //Assert
-            Assert.IsTrue(actual);
+            Assert.True(actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Equals_WhenInvokingAgainstNotEqualObject_ReturnsTrue()
         {
             //Arrange
@@ -129,7 +128,7 @@ namespace ParticleMaker.Tests
         }
 
 
-        [Test]
+        [Fact]
         public void GetHashCode_WhenInvoking_ReturnsCorrectValue()
         {
             //Arrange
@@ -145,7 +144,7 @@ namespace ParticleMaker.Tests
             var actual = colorItem.GetHashCode();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
