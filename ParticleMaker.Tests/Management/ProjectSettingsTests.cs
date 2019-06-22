@@ -1,13 +1,12 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using ParticleMaker.Management;
 
 namespace ParticleMaker.Tests.Management
 {
-    [TestFixture]
     public class ProjectSettingsTests
     {
         #region Prop Tests
-        [Test]
+        [Fact]
         public void SetupDeploySettings_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -36,11 +35,11 @@ namespace ParticleMaker.Tests.Management
             var actual = projSettings.SetupDeploySettings;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void ProjectName_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -52,7 +51,7 @@ namespace ParticleMaker.Tests.Management
             var actual = settings.ProjectName;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
