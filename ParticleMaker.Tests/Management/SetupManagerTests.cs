@@ -1,15 +1,14 @@
+using System;
 using KDParticleEngine;
 using Moq;
-using NUnit.Framework;
+using Xunit;
 using ParticleMaker.Exceptions;
 using ParticleMaker.Management;
 using ParticleMaker.Services;
-using System;
 
 namespace ParticleMaker.Tests.Management
 {
-    [TestFixture]
-    public class SetupManagerTests
+    public class SetupManagerTests : IDisposable
     {
         #region Fields
         private Mock<IDirectoryService> _mockProjIODirService;
@@ -18,8 +17,19 @@ namespace ParticleMaker.Tests.Management
         #endregion
 
 
+        #region Constructors
+        public SetupManagerTests()
+        {
+            _mockProjIODirService = new Mock<IDirectoryService>();
+            _mockProjIOFileService = new Mock<IFileService>();
+
+            _projIOService = new ProjectIOService(_mockProjIODirService.Object, _mockProjIOFileService.Object);
+        }
+        #endregion
+
+
         #region Method Tests
-        [Test]
+        [Fact]
         public void GetSetupNames_WhenInvokingWithNonExistingProject_ThrowsException()
         {
             //Arrange
@@ -29,14 +39,14 @@ namespace ParticleMaker.Tests.Management
             var manager = new SetupManager(_projIOService, mockDirService.Object, It.IsAny<IFileService>());
 
             //Act & Assert
-            Assert.Throws(typeof(ProjectDoesNotExistException), () =>
+            Assert.Throws<ProjectDoesNotExistException>(() =>
             {
                 manager.GetSetupNames(It.IsAny<string>());
             });
         }
 
 
-        [Test]
+        [Fact]
         public void GetSetupNames_WhenInvoking_ReturnsCorrectNames()
         {
             //Arrange
@@ -68,11 +78,11 @@ namespace ParticleMaker.Tests.Management
             var actual = manager.GetSetupNames("test-project");
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void GetSetupNames_WhenInvoked_BuildsCorrectProjectPath()
         {
             //Arrange
@@ -101,11 +111,11 @@ namespace ParticleMaker.Tests.Management
             manager.GetSetupNames("test-project");
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void GetSetupPaths_WhenInvoking_ReturnsCorrectPaths()
         {
             //Arrange
@@ -138,11 +148,11 @@ namespace ParticleMaker.Tests.Management
             };
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void GetSetupPaths_WhenInvoking_ChecksIfSetupsFolderExists()
         {
             //Arrange
@@ -159,7 +169,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void GetSetupPaths_WhenInvokingWithNoSetupsFolder_CreatesProjectSetupsFolder()
         {
             //Arrange
@@ -174,7 +184,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Create_WhenInvoking_CreatesSetupFile()
         {
             //Arrange
@@ -194,7 +204,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Create_WhenInvoking_BuildsCorrectSetupPath()
         {
             //Arrange
@@ -220,11 +230,11 @@ namespace ParticleMaker.Tests.Management
             manager.Create("test-project", "test-setup");
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Create_WhenInvoking_ChecksIfProjectSetupsFolderExists()
         {
             //Arrange
@@ -245,7 +255,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Create_WhenInvokingWithNoProjectSetupsFolder_CreatesProjectSetupFolder()
         {
             //Arrange
@@ -273,7 +283,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Create_WhenInvokingWithNonExistingProject_ThrowsException()
         {
             //Arrange
@@ -291,7 +301,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Create_WhenInvokingWithIllegalSetupName_ThrowsException()
         {
             //Arrange
@@ -311,7 +321,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Create_WhenInvokingWithAlreadyExistingSetupFile_ThrowsException()
         {
             //Arrange
@@ -333,7 +343,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Load_WhenInvoking_BuildsCorrectSetupPath()
         {
             //Arrange
@@ -363,11 +373,11 @@ namespace ParticleMaker.Tests.Management
             manager.Load("test-project", "setup-A");
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Load_WhenInvoked_InvokesFileServiceLoadMethod()
         {
             //Arrange
@@ -390,7 +400,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Load_WhenInvokedWithNonExistingProject_ThrowsException()
         {
             //Arrange
@@ -407,7 +417,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Load_WhenInvokedWithNonExistingSetup_ThrowsException()
         {
             //Arrange
@@ -429,7 +439,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Load_WhenInvoked_ChecksIfProjectSetupsFolderExists()
         {
             //Arrange
@@ -451,7 +461,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Load_WhenInvokedWithNoProjectSetupsFolder_CreatesProjectSetupsFolder()
         {
             //Arrange
@@ -480,7 +490,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Save_WhenInvoking_SavesSetupFile()
         {
             //Arrange
@@ -501,7 +511,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Save_WhenInvoking_BuildsCorrectSetupPath()
         {
             //Arrange
@@ -527,11 +537,11 @@ namespace ParticleMaker.Tests.Management
             manager.Save("test-project", "test-setup", It.IsAny<ParticleSetup>());
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Save_WhenInvokingWithNonExistingProject_ThrowsException()
         {
             //Arrange
@@ -548,7 +558,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Save_WhenInvokingWithIllegalSetupName_ThrowsException()
         {
             //Arrange
@@ -567,7 +577,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Save_WhenInvoked_ChecksIfProjectSetupsFolderExists()
         {
             //Arrange
@@ -589,7 +599,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Save_WhenInvokedWithNoProjectSetupsFolder_CreatesProjectSetupsFolder()
         {
             //Arrange
@@ -617,7 +627,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Rename_WhenInvoking_RenamesSetupFile()
         {
             //Arrange
@@ -641,7 +651,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Rename_WhenInvoking_BuildsCorrectSetupPath()
         {
             //Arrange
@@ -668,11 +678,11 @@ namespace ParticleMaker.Tests.Management
             manager.Rename("test-project", "old-setup-name", "new-setup-name");
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Rename_WhenInvokingWithNonExistingProject_ThrowsException()
         {
             //Arrange
@@ -689,7 +699,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Rename_WhenInvokingWithNonExistingSetup_ThrowsException()
         {
             //Arrange
@@ -711,7 +721,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Rename_WhenInvokingWithSetupName_ThrowsException()
         {
             //Arrange
@@ -733,7 +743,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Rename_WhenInvoked_ChecksIfProjectSetupsFolderExists()
         {
             //Arrange
@@ -755,7 +765,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Rename_WhenInvokedWithNoProjectSetupsFolder_CreatesProjectSetupsFolder()
         {
             //Arrange
@@ -783,7 +793,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Delete_WhenInvoking_DeletesSetup()
         {
             //Arrange
@@ -806,7 +816,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Delete_WhenInvoking_BuildsCorrectDeletePath()
         {
             //Arrange
@@ -834,11 +844,11 @@ namespace ParticleMaker.Tests.Management
             manager.Delete("test-project", "test-setup");
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Delete_WhenInvokingWithNonExistingProject_ThrowsException()
         {
             //Arrange
@@ -857,7 +867,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Delete_WhenInvokingWithNonExistingSetup_ThrowsException()
         {
             //Arrange
@@ -878,7 +888,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Delete_WhenInvoked_ChecksIfProjectSetupsFolderExists()
         {
             //Arrange
@@ -900,7 +910,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Delete_WhenInvokedWithNoProjectSetupsFolder_CreatesProjectSetupsFolder()
         {
             //Arrange
@@ -930,19 +940,8 @@ namespace ParticleMaker.Tests.Management
         #endregion
 
 
-        #region SetUp & TearDown
-        [SetUp]
-        public void SetUp()
-        {
-            _mockProjIODirService = new Mock<IDirectoryService>();
-            _mockProjIOFileService = new Mock<IFileService>();
-
-            _projIOService = new ProjectIOService(_mockProjIODirService.Object, _mockProjIOFileService.Object);
-        }
-
-
-        [TearDown]
-        public void TearDown()
+        #region Public Methods
+        public void Dispose()
         {
             _mockProjIODirService = null;
             _mockProjIOFileService = null;

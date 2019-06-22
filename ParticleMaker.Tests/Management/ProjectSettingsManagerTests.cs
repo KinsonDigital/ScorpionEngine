@@ -1,15 +1,14 @@
-﻿using Moq;
-using NUnit.Framework;
+﻿using System;
+using System.Linq;
+using Moq;
+using Xunit;
 using ParticleMaker.Exceptions;
 using ParticleMaker.Management;
 using ParticleMaker.Services;
-using System;
-using System.Linq;
 
 namespace ParticleMaker.Tests.Management
 {
-    [TestFixture]
-    public class ProjectSettingsManagerTests
+    public class ProjectSettingsManagerTests : IDisposable
     {
         #region Fields
         private Mock<IDirectoryService> _mockProjDirService;
@@ -19,8 +18,31 @@ namespace ParticleMaker.Tests.Management
         #endregion
 
 
+        #region Constructors
+        public ProjectSettingsManagerTests()
+        {
+            _mockProjDirService = new Mock<IDirectoryService>();
+            _mockProjFileService = new Mock<IFileService>();
+
+            _projIOService = new ProjectIOService(_mockProjDirService.Object, _mockProjFileService.Object);
+
+            _testProjectSettings = new ProjectSettings()
+            {
+                ProjectName = "test-project",
+                SetupDeploySettings = new[] {
+                    new DeploymentSetting()
+                    {
+                        SetupName = "test-setup",
+                        DeployPath = @"C:\Temp\Projects\test-project\test-project-settings.json"
+                    }
+                }
+            };
+        }
+        #endregion
+
+
         #region Method Tests
-        [Test]
+        [Fact]
         public void Save_WhenInvoking_CreatesSettingsFile()
         {
             //Arrange
@@ -41,7 +63,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Save_WhenInvokingWithNonExistingProject_ThrowsException()
         {
             //Arrange
@@ -58,7 +80,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Save_WhenInvokingWithProjectNameWithIllegalCharacters_ThrowsException()
         {
             //Arrange
@@ -79,7 +101,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Load_WhenInvoking_LoadsData()
         {
             //Arrange
@@ -112,7 +134,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Load_WhenInvokingWithNullSetupDeploySettings_CreatesEmptyDeploySettingsList()
         {
             //Arrange
@@ -134,11 +156,11 @@ namespace ParticleMaker.Tests.Management
             var actual = manager.Load("test-project").SetupDeploySettings;
 
             //Assert
-            Assert.IsNotNull(actual);
+            Assert.NotNull(actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Load_WhenInvoking_CorrectlyBuildsPath()
         {
             //Arrange
@@ -174,11 +196,11 @@ namespace ParticleMaker.Tests.Management
                 new string[0];
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Load_WhenInvokingWithNonExistingProject_ThrowsException()
         {
             //Arrange
@@ -196,7 +218,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Rename_WhenInvokingWithNonExistingProject_ThrowsException()
         {
             //Arrange
@@ -214,7 +236,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Rename_WhenInvoking_InvokesFileServiceRenameMethod()
         {
             //Arrange
@@ -235,7 +257,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Rename_WhenInvoking_BuildsCorrectOldPath()
         {
             //Arrange
@@ -260,11 +282,11 @@ namespace ParticleMaker.Tests.Management
             manager.Rename("test-project", It.IsAny<string>());
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Rename_WhenInvoking_BuildsCorrectNewName()
         {
             //Arrange
@@ -287,11 +309,11 @@ namespace ParticleMaker.Tests.Management
             manager.Rename("old-project", "new-project");
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void RenameDeploymentSetupName_WhenInvoked_LoadsProjectSettingFile()
         {
             //Arrange
@@ -316,7 +338,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void RenameDeploymentSetupName_WhenInvoked_BuildsCorrectFilePath()
         {
             //Arrange
@@ -349,11 +371,11 @@ namespace ParticleMaker.Tests.Management
             manager.RenameDeploymentSetupName("test-project", "test-setup", "new-setup");
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void RenameDeploymentSetupName_WhenInvokedWithExistingProject_ProjectExists()
         {
             //Arrange
@@ -378,7 +400,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void RenameDeploymentSetupName_WhenInvoked_SavesSettingsDataBeingUpdated()
         {
             //Arrange
@@ -409,11 +431,11 @@ namespace ParticleMaker.Tests.Management
             manager.RenameDeploymentSetupName("test-project", "test-setup", "new-setup");
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void RenameDeploymentSetupName_WhenInvoked_SavesSettingsFileChanges()
         {
             //Arrange
@@ -438,7 +460,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void RenameDeploymentSetupName_WhenInvokedWithNoSetupData_ThrowsException()
         {
             //Arrange
@@ -468,31 +490,8 @@ namespace ParticleMaker.Tests.Management
         #endregion
 
 
-        #region Setup Teardown Methods
-        [SetUp]
-        public void Setup()
-        {
-            _mockProjDirService = new Mock<IDirectoryService>();
-            _mockProjFileService = new Mock<IFileService>();
-
-            _projIOService = new ProjectIOService(_mockProjDirService.Object, _mockProjFileService.Object);
-
-            _testProjectSettings = new ProjectSettings()
-            {
-                ProjectName = "test-project",
-                SetupDeploySettings = new[] {
-                    new DeploymentSetting()
-                    {
-                        SetupName = "test-setup",
-                        DeployPath = @"C:\Temp\Projects\test-project\test-project-settings.json"
-                    }
-                }
-            };
-        }
-
-
-        [TearDown]
-        public void TearDown()
+        #region Public Methods
+        public void Dispose()
         {
             _testProjectSettings = null;
             _mockProjDirService = null;

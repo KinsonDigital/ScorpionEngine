@@ -1,13 +1,12 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using ParticleMaker.Dialogs;
 
 namespace ParticleMaker.Tests.Dialogs
 {
-    [TestFixture]
     public class ProjectItemTests
     {
         #region Prop Tests
-        [Test]
+        [Fact]
         public void Name_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -19,11 +18,11 @@ namespace ParticleMaker.Tests.Dialogs
             var actual = item.Name;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Exists_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -35,7 +34,7 @@ namespace ParticleMaker.Tests.Dialogs
             var actual = item.Exists;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }

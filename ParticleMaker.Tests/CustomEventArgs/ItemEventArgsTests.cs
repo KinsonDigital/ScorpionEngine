@@ -1,13 +1,12 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using ParticleMaker.CustomEventArgs;
 
 namespace ParticleMaker.Tests.CustomEventArgs
 {
-    [TestFixture]
     public class ItemEventArgsTests
     {
         #region Constructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvoking_ProperlySetsPropValues()
         {
             //Arrange
@@ -20,14 +19,14 @@ namespace ParticleMaker.Tests.CustomEventArgs
             var actualPath = eventArgs.Path;
 
             //Assert
-            Assert.AreEqual(expectedName, actualName);
-            Assert.AreEqual(expectedPath, actualPath);
+            Assert.Equal(expectedName, actualName);
+            Assert.Equal(expectedPath, actualPath);
         }
         #endregion
 
 
         #region Prop Tests
-        [Test]
+        [Fact]
         public void Name_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -39,11 +38,11 @@ namespace ParticleMaker.Tests.CustomEventArgs
             var actual = eventArgs.Name;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Path_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -55,7 +54,7 @@ namespace ParticleMaker.Tests.CustomEventArgs
             var actual = eventArgs.Path;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }

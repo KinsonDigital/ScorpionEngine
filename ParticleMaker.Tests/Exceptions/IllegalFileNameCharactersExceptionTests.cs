@@ -1,13 +1,12 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using ParticleMaker.Exceptions;
 
 namespace ParticleMaker.Tests.Exceptions
 {
-    [TestFixture]
     public class IllegalFileNameCharactersExceptionTests
     {
         #region Constructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvoking_CreatesCorrectErrorMessage()
         {
             //Arrange
@@ -18,7 +17,7 @@ namespace ParticleMaker.Tests.Exceptions
             var act = exception.Message;
 
             //Assert
-            Assert.AreEqual(expected, act);
+            Assert.Equal(expected, act);
         }
         #endregion
     }

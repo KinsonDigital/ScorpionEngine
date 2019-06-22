@@ -1,5 +1,5 @@
 ﻿using Moq;
-using NUnit.Framework;
+using Xunit;
 using ParticleMaker.Exceptions;
 using ParticleMaker.Services;
 using System;
@@ -7,11 +7,10 @@ using System.IO;
 
 namespace ParticleMaker.Tests.Services
 {
-    [TestFixture]
     public class SetupDeployServiceTests
     {
         #region Method Tests
-        [Test]
+        [Fact]
         public void Deploy_WhenInvoked_DeploysSetup()
         {
             //Arrange
@@ -31,7 +30,7 @@ namespace ParticleMaker.Tests.Services
         }
 
 
-        [Test]
+        [Fact]
         public void Deploy_WhenInvoked_BuildsCorrectSetupPath()
         {
             //Arrange
@@ -55,11 +54,11 @@ namespace ParticleMaker.Tests.Services
             deployService.Deploy("test-project", "test-setup", @"C:\temp");
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Deploy_WhenInvoked_ChecksForExistingProjectSetupsFolder()
         {
             //Arrange
@@ -78,7 +77,7 @@ namespace ParticleMaker.Tests.Services
         }
 
 
-        [Test]
+        [Fact]
         public void Deploy_WhenInvokedWithNonExistingProjectSetupsFolder_CreatesProjectSetupsFolder()
         {
             //Arrange
@@ -104,7 +103,7 @@ namespace ParticleMaker.Tests.Services
         }
 
 
-        [Test]
+        [Fact]
         public void Deploy_WhenInvokedWithInvalidDestinationPath_ThrowsException()
         {
             //Arrange
@@ -122,14 +121,14 @@ namespace ParticleMaker.Tests.Services
             var deployService = new SetupDeployService(mockDirService.Object, mockFileService.Object);
 
             //Act & Assert
-            Assert.Throws(typeof(DirectoryNotFoundException), () =>
+            Assert.Throws<DirectoryNotFoundException>(() =>
             {
                 deployService.Deploy("test-project", "test-setup", @"C:\temp");
             });
         }
 
 
-        [Test]
+        [Fact]
         public void Deploy_WhenInvokedWithNonExistingProject_ThrowsException()
         {
             //Arrange
@@ -141,14 +140,14 @@ namespace ParticleMaker.Tests.Services
             var deployService = new SetupDeployService(mockDirService.Object, mockFileService.Object);
 
             //Act & Assert
-            Assert.Throws(typeof(ProjectDoesNotExistException), () =>
+            Assert.Throws<ProjectDoesNotExistException>(() =>
             {
                 deployService.Deploy("test-project", "test-setup", @"C:\temp");
             });
         }
 
 
-        [Test]
+        [Fact]
         public void Deploy_WhenInvokedWithNullProjectName_ThrowsException()
         {
             //Arrange
@@ -160,7 +159,7 @@ namespace ParticleMaker.Tests.Services
             var deployService = new SetupDeployService(mockDirService.Object, mockFileService.Object);
 
             //Act & Assert
-            Assert.Throws(typeof(ProjectDoesNotExistException), () =>
+            Assert.Throws<ProjectDoesNotExistException>(() =>
             {
                 deployService.Deploy(null, "test-setup", @"C:\temp");
             });

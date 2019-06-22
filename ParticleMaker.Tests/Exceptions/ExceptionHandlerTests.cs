@@ -1,14 +1,13 @@
-﻿using Moq;
-using NUnit.Framework;
+﻿using System;
+using System.Windows;
+using Moq;
+using Xunit;
 using ParticleMaker.Exceptions;
 using ParticleMaker.Services;
-using System;
-using System.Windows;
 
 namespace ParticleMaker.Tests.Exceptions
 {
-    [TestFixture]
-    public class ExceptionHandlerTests
+    public class ExceptionHandlerTests : IDisposable
     {
         #region Fields
         private Mock<ILoggerService> _mockLoggerService;
@@ -16,8 +15,20 @@ namespace ParticleMaker.Tests.Exceptions
         #endregion
 
 
+        #region Constructors
+        public ExceptionHandlerTests()
+        {
+            _mockLoggerService = new Mock<ILoggerService>();
+            _mockExceptionMessage = new Mock<IExceptionMessage>();
+
+            ExceptionHandler.Logger = _mockLoggerService.Object;
+            ExceptionHandler.ExceptionMessageBox = _mockExceptionMessage.Object;
+        }
+        #endregion
+
+
         #region Prop Tests
-        [Test]
+        [Fact]
         public void LoggingEnabled_WhenGettingValueWithLoggerSet_ReturnsTrue()
         {
             //Arrange
@@ -29,11 +40,11 @@ namespace ParticleMaker.Tests.Exceptions
             ExceptionHandler.LoggingEnabled = true;
 
             //Assert
-            Assert.IsTrue(ExceptionHandler.LoggingEnabled);
+            Assert.True(ExceptionHandler.LoggingEnabled);
         }
 
 
-        [Test]
+        [Fact]
         public void LoggingEnabled_WhenGettingValueWithLoggerNotSet_ReturnsFalse()
         {
             //Act
@@ -41,22 +52,22 @@ namespace ParticleMaker.Tests.Exceptions
             ExceptionHandler.LoggingEnabled = true;
 
             //Assert
-            Assert.IsFalse(ExceptionHandler.LoggingEnabled);
+            Assert.False(ExceptionHandler.LoggingEnabled);
         }
 
 
-        [Test]
+        [Fact]
         public void ShowMessageBoxEnabled_WhenGettingValueWithExceptionMessageBoxSet_ReturnsTrue()
         {
             //Act
             ExceptionHandler.ShowMessageBoxEnabled = true;
 
             //Assert
-            Assert.IsTrue(ExceptionHandler.ShowMessageBoxEnabled);
+            Assert.True(ExceptionHandler.ShowMessageBoxEnabled);
         }
 
 
-        [Test]
+        [Fact]
         public void ShowMessageBoxEnabled_WhenGettingValueWithExceptionMessageBoxNotSet_ReturnsFalse()
         {
             //Act
@@ -64,29 +75,29 @@ namespace ParticleMaker.Tests.Exceptions
             ExceptionHandler.ShowMessageBoxEnabled = true;
 
             //Assert
-            Assert.IsFalse(ExceptionHandler.ShowMessageBoxEnabled);
+            Assert.False(ExceptionHandler.ShowMessageBoxEnabled);
         }
 
 
-        [Test]
+        [Fact]
         public void Logger_WhenSettingValue_ReturnsCorrectValue()
         {
             //Assert
-            Assert.IsNotNull(ExceptionHandler.Logger);
+            Assert.NotNull(ExceptionHandler.Logger);
         }
 
 
-        [Test]
+        [Fact]
         public void ExceptionMessageBox_WhenSettingValue_ReturnsCorrectValue()
         {
             //Assert
-            Assert.IsNotNull(ExceptionHandler.ExceptionMessageBox);
+            Assert.NotNull(ExceptionHandler.ExceptionMessageBox);
         }
         #endregion
 
 
         #region Method Tests
-        [Test]
+        [Fact]
         public void Handle_WhenInvokedWithLoggerSetAndEnabled_InvokesLogErrorMethod()
         {
             //Arrange
@@ -101,7 +112,7 @@ namespace ParticleMaker.Tests.Exceptions
         }
 
 
-        [Test]
+        [Fact]
         public void Handle_WhenInvokedWithLoggerAndExceptionmessageBoxSetAndEnabled_InvokesLogErrorMethod()
         {
             //Arrange
@@ -109,7 +120,7 @@ namespace ParticleMaker.Tests.Exceptions
             ExceptionHandler.LoggingEnabled = true;
 
             //Act & Assert
-            Assert.Throws(typeof(NullReferenceException), () =>
+            Assert.Throws<NullReferenceException>(() =>
             {
                 ExceptionHandler.Handle(new NullReferenceException());
             });
@@ -118,18 +129,18 @@ namespace ParticleMaker.Tests.Exceptions
         }
 
 
-        [Test]
+        [Fact]
         public void Handle_WhenInvokedWithExceptionMessageBoxNotSetAndDisabled_RethrowsException()
         {
             //Act & Assert
-            Assert.Throws(typeof(NullReferenceException), () =>
+            Assert.Throws<NullReferenceException>(() =>
             {
                ExceptionHandler.Handle(new NullReferenceException());
             });
         }
 
 
-        [Test]
+        [Fact]
         public void Handle_WhenInvokedWithMessageBoxSetAndEnabled_InvokesShowMessageMethod()
         {
             //Arrange
@@ -145,20 +156,8 @@ namespace ParticleMaker.Tests.Exceptions
         #endregion
 
 
-        #region Private Methods
-        [SetUp]
-        public void Setup()
-        {
-            _mockLoggerService = new Mock<ILoggerService>();
-            _mockExceptionMessage = new Mock<IExceptionMessage>();
-
-            ExceptionHandler.Logger = _mockLoggerService.Object;
-            ExceptionHandler.ExceptionMessageBox = _mockExceptionMessage.Object;
-        }
-
-
-        [TearDown]
-        public void TearDown()
+        #region Public Methods
+        public void Dispose()
         {
             ExceptionHandler.Logger = null;
             ExceptionHandler.LoggingEnabled = false;

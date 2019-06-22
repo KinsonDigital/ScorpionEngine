@@ -1,14 +1,13 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using ParticleMaker.UserControls;
 using System.Windows.Media;
 
 namespace ParticleMaker.Tests.UserControls
 {
-    [TestFixture]
     public class ExtensionMethodsTests
     {
         #region Method Tests
-        [Test]
+        [Fact]
         public void ToNegativeBrush_WhenInvoked_ReturnsCorrectValue()
         {
             //Arrange
@@ -19,11 +18,11 @@ namespace ParticleMaker.Tests.UserControls
             var actual = color.ToNegativeBrush().Color;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void ToNegative_WhenInvoked_ReturnsCorrectValue()
         {
             //Arrange
@@ -34,7 +33,7 @@ namespace ParticleMaker.Tests.UserControls
             var actual = brush.ToNegative().Color;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }

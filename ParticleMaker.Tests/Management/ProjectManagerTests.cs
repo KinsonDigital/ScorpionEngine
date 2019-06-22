@@ -1,14 +1,14 @@
-﻿using Moq;
-using NUnit.Framework;
+﻿using System;
+using System.Linq;
+using Moq;
+using Xunit;
 using ParticleMaker.Exceptions;
 using ParticleMaker.Management;
 using ParticleMaker.Services;
-using System.Linq;
 
 namespace ParticleMaker.Tests.Management
 {
-    [TestFixture]
-    public class ProjectManagerTests
+    public class ProjectManagerTests : IDisposable
     {
         #region Fields
         private Mock<IDirectoryService> _mockProjDirService;
@@ -17,8 +17,19 @@ namespace ParticleMaker.Tests.Management
         #endregion
 
 
+        #region Constructors
+        public ProjectManagerTests()
+        {
+            _mockProjDirService = new Mock<IDirectoryService>();
+            _mockProjFileService = new Mock<IFileService>();
+
+            _projIOService = new ProjectIOService(_mockProjDirService.Object, _mockProjFileService.Object);
+        }
+        #endregion
+
+
         #region Prop Tests
-        [Test]
+        [Fact]
         public void Projects_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -50,11 +61,11 @@ namespace ParticleMaker.Tests.Management
             var actual = manager.Projects;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void ProjectPaths_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -95,11 +106,11 @@ namespace ParticleMaker.Tests.Management
             var actual = manager.ProjectPaths;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void ProjectPaths_WhenGettingValue_InvokesDirectoryServiceExistsMethod()
         {
             //Arrange
@@ -113,7 +124,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void ProjectPaths_WhenGettingValueWhileDirectoryDoesNotExist_InvokesDirectoryServiceCreateMethod()
         {
             //Arrange
@@ -127,7 +138,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Projects_WhenGettingValue_InvokesDirectoryServiceExistsMethod()
         {
             //Arrange
@@ -141,7 +152,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Projects_WhenGettingValueWhileDirectoryDoesNotExist_InvokesDirectoryServiceCreateMethod()
         {
             //Arrange
@@ -157,7 +168,7 @@ namespace ParticleMaker.Tests.Management
 
 
         #region Method Tests
-        [Test]
+        [Fact]
         public void Create_WhenInvokingWithAlreadyExistingProject_ThrowsException()
         {
             //Arrange
@@ -177,7 +188,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Create_WhenInvokingWithIllegalProjectName_ThrowsException()
         {
             //Arrange
@@ -198,7 +209,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Create_WhenInvokingWithEmptyParam_ThrowsException()
         {
             //Arrange
@@ -217,7 +228,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Create_WhenInvokingWithARootProjectsFolder_CreatesProjectFolder()
         {
             //Arrange
@@ -249,7 +260,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Delete_WhenInvokedWithNonExistingProject_ThrowsException()
         {
             //Arrange
@@ -270,7 +281,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Delete_WhenInvokedWithExistingProject_DeletesProject()
         {
             //Arrange
@@ -291,7 +302,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Rename_WhenInvokingWithNonExistingProject_ThrowsException()
         {
             //Arrange
@@ -305,14 +316,14 @@ namespace ParticleMaker.Tests.Management
             var manager = new ProjectManager(projSettingsManager, _projIOService, mockDirService.Object, mockFileService.Object);
 
             //Act & Assert
-            Assert.Throws(typeof(ProjectDoesNotExistException), () =>
+            Assert.Throws<ProjectDoesNotExistException>(() =>
             {
                 manager.Rename("old-name", "new-name");
             });
         }
 
 
-        [Test]
+        [Fact]
         public void Rename_WhenInvokingWithIllegalProjectName_ThrowsException()
         {
             //Arrange
@@ -326,14 +337,14 @@ namespace ParticleMaker.Tests.Management
             var manager = new ProjectManager(projSettingsManager, _projIOService, mockDirService.Object, mockFileService.Object);
 
             //Act & Assert
-            Assert.Throws(typeof(IllegalProjectNameException), () =>
+            Assert.Throws<IllegalProjectNameException>(() =>
             {
                 manager.Rename("old-name", "**new|name**");
             });
         }
 
 
-        [Test]
+        [Fact]
         public void Rename_WhenInvokingWithNullProjectName_ThrowsException()
         {
             //Arrange
@@ -345,14 +356,14 @@ namespace ParticleMaker.Tests.Management
             var anager = new ProjectManager(projSettingsManager, _projIOService, mockDirService.Object, new Mock<IFileService>().Object);
 
             //Act & Assert
-            Assert.Throws(typeof(IllegalProjectNameException), () =>
+            Assert.Throws<IllegalProjectNameException>(() =>
             {
                 anager.Rename("old-name", null);
             });
         }
 
 
-        [Test]
+        [Fact]
         public void Rename_WhenInvokedWithExistingProject_RenamesProject()
         {
             //Arrange
@@ -373,7 +384,7 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        [Test]
+        [Fact]
         public void Exists_WhenInvokingWithExistingDirectory_ReturnsTrue()
         {
             //Arrange
@@ -392,24 +403,13 @@ namespace ParticleMaker.Tests.Management
             var actual = manager.Exists("test-project");
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region SetUp & TearDown
-        [SetUp]
-        public void SetUp()
-        {
-            _mockProjDirService = new Mock<IDirectoryService>();
-            _mockProjFileService = new Mock<IFileService>();
-
-            _projIOService = new ProjectIOService(_mockProjDirService.Object, _mockProjFileService.Object);
-        }
-
-
-        [TearDown]
-        public void TearDown()
+        public void Dispose()
         {
             _mockProjDirService = null;
             _mockProjFileService = null;

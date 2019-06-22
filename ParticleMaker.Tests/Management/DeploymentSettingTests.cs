@@ -1,13 +1,12 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using ParticleMaker.Management;
 
 namespace ParticleMaker.Tests.Management
 {
-    [TestFixture]
     public class DeploymentSettingTests
     {
         #region Prop Tests
-        [Test]
+        [Fact]
         public void SetupName_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -19,11 +18,11 @@ namespace ParticleMaker.Tests.Management
             var actual = setting.SetupName;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void DeployPath_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -35,13 +34,13 @@ namespace ParticleMaker.Tests.Management
             var actual = setting.DeployPath;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Method Tests
-        [Test]
+        [Fact]
         public void Equals_WhenInvokingWithIdenticalObjects_ReturnsTrue()
         {
             //Arrange
@@ -62,11 +61,11 @@ namespace ParticleMaker.Tests.Management
             var actual = settingA.Equals(settingB);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Equals_WhenInvokingWithNoIdenticalObjects_ReturnsFalse()
         {
             //Arrange
@@ -87,11 +86,11 @@ namespace ParticleMaker.Tests.Management
             var actual = settingA.Equals(settingB);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void GetHashCode_WhenInvoking_ReturnsCorrectValue()
         {
             //Arrange
@@ -107,7 +106,7 @@ namespace ParticleMaker.Tests.Management
             var actual = setting.GetHashCode();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }

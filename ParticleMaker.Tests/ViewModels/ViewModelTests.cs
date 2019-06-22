@@ -1,12 +1,11 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 
 namespace ParticleMaker.Tests.ViewModels
 {
-    [TestFixture]
     public class ViewModelTests
     {
         #region Method Tests
-        [Test]
+        [Fact]
         public void NotifyPropChange_WhenInvoked_InvokesPropertyChangedEvent()
         {
             //Arrange
@@ -24,11 +23,11 @@ namespace ParticleMaker.Tests.ViewModels
             viewModel.TestPropA = 4321;
 
             //Assert
-            Assert.IsTrue(actual);
+            Assert.True(actual);
         }
 
 
-        [Test]
+        [Fact]
         public void NotifyAllPropChanges_WhenInvoked_InvokesPropertyChangedEvent()
         {
             //Arrange
@@ -50,7 +49,7 @@ namespace ParticleMaker.Tests.ViewModels
             var actual = invokeCount == 2;
 
             //Assert
-            Assert.IsTrue(actual);
+            Assert.True(actual);
         }
         #endregion
     }

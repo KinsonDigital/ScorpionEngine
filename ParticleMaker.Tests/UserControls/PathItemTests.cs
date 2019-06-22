@@ -1,13 +1,12 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using ParticleMaker.UserControls;
 
 namespace ParticleMaker.Tests.UserControls
 {
-    [TestFixture]
     public class PathItemTests
     {
         #region Prop Tests
-        [Test]
+        [Fact]
         public void FilePath_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -19,13 +18,13 @@ namespace ParticleMaker.Tests.UserControls
             var actual = item.FilePath;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
 
 
         #region Method Tests
-        [Test]
+        [Fact]
         public void Equals_WhenInvokingWithEqualItem_ReturnsTrue()
         {
             //Arrange
@@ -38,11 +37,11 @@ namespace ParticleMaker.Tests.UserControls
             var actual = itemA.Equals(itemB);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Equals_WhenInvokingWithIncorrectObjectType_ReturnsFalse()
         {
             //Arrange
@@ -55,11 +54,11 @@ namespace ParticleMaker.Tests.UserControls
             var actual = itemA.Equals(itemB);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void GetHashCode_WhenInvoking_ReturnsCorrectValue()
         {
             //Arrange
@@ -71,7 +70,7 @@ namespace ParticleMaker.Tests.UserControls
             var actual = itemA.GetHashCode();
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }

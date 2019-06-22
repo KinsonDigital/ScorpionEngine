@@ -1,39 +1,39 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using ParticleMaker.Exceptions;
+using System;
 
 namespace ParticleMaker.Tests.Exceptions
 {
-    [TestFixture]
-    class ProjectDoesNotExistExistExceptionTests
+    public class IllegalProjectNameExceptionTests : Exception
     {
         #region Constructor Tests
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokingWithNoParam_CreatesCorrectExceptionMessage()
         {
             //Arrange
-            var exception = new ProjectDoesNotExistException();
-            var expected = "The project does not exist.";
+            var expected = "Illegal project name.  Cannot not use characters \\/:*?\"<>|";
 
             //Act
+            var exception = new IllegalProjectNameException();
             var actual = exception.Message;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Ctor_WhenInvokingWithParam_CreatesCorrectExceptionMessage()
         {
             //Arrange
-            var exception = new ProjectDoesNotExistException("test-project");
-            var expected = "The project 'test-project' does not exist.";
+            var expected = "The project 'test*-pro|ject'.  Cannot not use characters \\/:*?\"<>|";
 
             //Act
+            var exception = new IllegalProjectNameException("test*-pro|ject");
             var actual = exception.Message;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }

@@ -1,12 +1,11 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 
 namespace ParticleMaker.Tests
 {
-    [TestFixture]
     public class RelayCommandTests
     {
         #region Method Tests
-        [Test]
+        [Fact]
         public void CanExecute_WhenInvoking_ExecutesCanAction()
         {
             //Arrange
@@ -17,11 +16,11 @@ namespace ParticleMaker.Tests
             var actual = command.CanExecute(null);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
 
-        [Test]
+        [Fact]
         public void Execute_WhenInvoking_ActionIsInvoked()
         {
             //Arrange
@@ -33,7 +32,7 @@ namespace ParticleMaker.Tests
             command.Execute(null);
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
         #endregion
     }
