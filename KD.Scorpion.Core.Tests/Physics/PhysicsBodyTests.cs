@@ -3,15 +3,16 @@ using Moq;
 using Xunit;
 using KDScorpionCore;
 using KDScorpionCore.Plugins;
-using KDScorpionEngine.Physics;
 using PluginSystem;
 
-namespace KDScorpionEngineTests.Physics
+namespace KDScorpionCoreTests.Physics
 {
     public class PhysicsBodyTests : IDisposable
     {
         #region Private Fields
+        private Mock<IPluginLibrary> _mockPhysicsPluginLib;
         private Mock<IPhysicsBody> _mockPhysicsBody;
+        private Plugins _plugins;
         #endregion
 
 
@@ -32,6 +33,16 @@ namespace KDScorpionEngineTests.Physics
             _mockPhysicsBody.SetupProperty(m => m.LinearVelocityY);
             _mockPhysicsBody.SetupProperty(m => m.XVertices);
             _mockPhysicsBody.SetupProperty(m => m.YVertices);
+
+            _mockPhysicsPluginLib = new Mock<IPluginLibrary>();
+            _mockPhysicsPluginLib.Setup(m => m.LoadPlugin<IPhysicsBody>()).Returns(_mockPhysicsBody.Object);
+
+            _plugins = new Plugins()
+            {
+                PhysicsPlugins = _mockPhysicsPluginLib.Object
+            };
+
+            EnginePluginSystem.SetPlugins(_plugins);
         }
         #endregion
 
@@ -51,7 +62,7 @@ namespace KDScorpionEngineTests.Physics
             _mockPhysicsBody.SetupGet(p => p.YVertices).Returns(new float[] { 22, 44, 66 });
 
             //Act
-            var body = new PhysicsBody(_mockPhysicsBody.Object);
+            var body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>());
             var actualVertices = body.Vertices;
 
             //Assert
@@ -65,7 +76,7 @@ namespace KDScorpionEngineTests.Physics
         {
             //Arrange
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
-            var body = new PhysicsBody(_mockPhysicsBody.Object)
+            var body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
             {
                 InternalPhysicsBody = _mockPhysicsBody.Object
             };
@@ -85,7 +96,7 @@ namespace KDScorpionEngineTests.Physics
         {
             //Arrange
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
-            var body = new PhysicsBody(_mockPhysicsBody.Object)
+            var body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
             {
                 InternalPhysicsBody = _mockPhysicsBody.Object
             };
@@ -105,7 +116,7 @@ namespace KDScorpionEngineTests.Physics
         {
             //Arrange
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
-            var body = new PhysicsBody(_mockPhysicsBody.Object)
+            var body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
             {
                 InternalPhysicsBody = _mockPhysicsBody.Object
             };
@@ -125,7 +136,7 @@ namespace KDScorpionEngineTests.Physics
         {
             //Arrange
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
-            var body = new PhysicsBody(_mockPhysicsBody.Object)
+            var body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
             {
                 InternalPhysicsBody = _mockPhysicsBody.Object
             };
@@ -145,7 +156,7 @@ namespace KDScorpionEngineTests.Physics
         {
             //Arrange
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
-            var body = new PhysicsBody(_mockPhysicsBody.Object)
+            var body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
             {
                 InternalPhysicsBody = _mockPhysicsBody.Object
             };
@@ -165,7 +176,7 @@ namespace KDScorpionEngineTests.Physics
         {
             //Arrange
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
-            var body = new PhysicsBody(_mockPhysicsBody.Object)
+            var body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
             {
                 InternalPhysicsBody = _mockPhysicsBody.Object
             };
@@ -185,7 +196,7 @@ namespace KDScorpionEngineTests.Physics
         {
             //Arrange
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
-            var body = new PhysicsBody(_mockPhysicsBody.Object)
+            var body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
             {
                 InternalPhysicsBody = _mockPhysicsBody.Object
             };
@@ -205,7 +216,7 @@ namespace KDScorpionEngineTests.Physics
         {
             //Arrange
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
-            var body = new PhysicsBody(_mockPhysicsBody.Object)
+            var body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
             {
                 InternalPhysicsBody = _mockPhysicsBody.Object
             };
@@ -225,7 +236,7 @@ namespace KDScorpionEngineTests.Physics
         {
             //Arrange
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
-            var body = new PhysicsBody(_mockPhysicsBody.Object)
+            var body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
             {
                 InternalPhysicsBody = _mockPhysicsBody.Object
             };
@@ -245,7 +256,7 @@ namespace KDScorpionEngineTests.Physics
         {
             //Arrange
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
-            var body = new PhysicsBody(_mockPhysicsBody.Object)
+            var body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
             {
                 InternalPhysicsBody = _mockPhysicsBody.Object
             };
@@ -262,7 +273,13 @@ namespace KDScorpionEngineTests.Physics
 
 
         #region Public Methods
-        public void Dispose() => _mockPhysicsBody = null;
+        public void Dispose()
+        {
+            _mockPhysicsBody = null;
+            _mockPhysicsPluginLib = null;
+            _plugins = null;
+            EnginePluginSystem.ClearPlugins();
+        }
         #endregion
     }
 }

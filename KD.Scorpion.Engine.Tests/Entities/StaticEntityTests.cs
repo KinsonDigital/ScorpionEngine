@@ -8,25 +8,49 @@ using KDScorpionEngineTests.Fakes;
 using PluginSystem;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Physics;
+using System;
+using KDScorpionEngine;
 
 namespace KDScorpionEngineTests.Entities
 {
-    public class StaticEntityTests
+    public class StaticEntityTests : IDisposable
     {
+        #region Private Fields
+        private Mock<IPhysicsBody> _mockPhysicsBody;
+        private Mock<IPluginLibrary> _mockPhysicsPluginLib;
+        private Plugins _plugins;
+        #endregion
+
+
+        #region Constructors
+        public StaticEntityTests()
+        {
+            _mockPhysicsBody = new Mock<IPhysicsBody>();
+            _mockPhysicsBody.SetupProperty(p => p.X);
+            _mockPhysicsBody.SetupProperty(p => p.Y);
+
+            _mockPhysicsPluginLib = new Mock<IPluginLibrary>();
+            _mockPhysicsPluginLib.Setup(m => m.LoadPlugin<IPhysicsBody>()).Returns(_mockPhysicsBody.Object);
+
+            _plugins = new Plugins()
+            {
+                PhysicsPlugins = _mockPhysicsPluginLib.Object
+            };
+
+            EnginePluginSystem.SetPlugins(_plugins);
+        }
+        #endregion
+
+
         #region Constructor Tests
         [Fact]
         public void Ctor_WhenInvoking_ProperlyConstructsObject()
         {
             //Arrange
-            var mockPhysicsBody = new Mock<IPhysicsBody>();
-            mockPhysicsBody.SetupProperty(p => p.X);
-            mockPhysicsBody.SetupProperty(p => p.Y);
-
             var mockTexture = new Mock<ITexture>();
-            var texture = new Texture(mockTexture.Object);
-            var entity = new StaticEntity(texture, new Vector(123, 456))
+            var entity = new StaticEntity(new Texture(mockTexture.Object), new Vector(123, 456))
             {
-                Body = new PhysicsBody(mockPhysicsBody.Object)
+                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
             };
             entity.Initialize();
 
@@ -63,6 +87,17 @@ namespace KDScorpionEngineTests.Entities
 
             //Assert
             mockBehavior.Verify(m => m.Update(It.IsAny<EngineTime>()), Times.Once());
+        }
+        #endregion
+
+
+        #region Public Methods
+        public void Dispose()
+        {
+            _mockPhysicsBody = null;
+            _mockPhysicsPluginLib = null;
+            _plugins = null;
+            EnginePluginSystem.ClearPlugins();
         }
         #endregion
     }

@@ -1,4 +1,4 @@
-﻿namespace KDScorpionEngine.Physics
+﻿namespace KDScorpionCore.Physics
 {
     internal struct InternalVector
     {

@@ -77,7 +77,7 @@ namespace KDScorpionEngineTests.Entities
 
             var entity = new TextEntity("text", Color.Red, Color.Red, new Vector(11, 22))
             {
-                Body = new PhysicsBody(_mockPhysicsBody.Object)
+                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
             };
             entity.Initialize();
 

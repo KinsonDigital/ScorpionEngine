@@ -4,10 +4,10 @@ using KDScorpionCore;
 using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Input;
+using KDScorpionCore.Physics;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngine.Graphics;
-using KDScorpionEngine.Physics;
 
 namespace KDScorpionEngine.Entities
 {

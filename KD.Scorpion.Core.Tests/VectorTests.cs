@@ -1,7 +1,6 @@
 ﻿using Xunit;
-using KDScorpionCore;
 
-namespace KDScorpionEngineTests.Physics
+namespace KDScorpionCore
 {
     public class VectorTests
     {

@@ -35,7 +35,7 @@ namespace KDScorpionEngine
         internal Engine(IContentLoader contentLoader, IEngineCore engineCore, IKeyboard keyboard, bool loadPhysicsLibrary = true)
         {
             ContentLoader = new ContentLoader(contentLoader);
-            SceneManager = new SceneManager(ContentLoader, keyboard);
+            SceneManager = new SceneManager(ContentLoader);
 
             //Make sure that the Setup() method is called
             //This is to make sure that this class is testable for unit testing purposes.
@@ -51,7 +51,7 @@ namespace KDScorpionEngine
         public Engine(bool loadPhysicsLibrary = true)
         {
             var plugins = new Plugins();
-            EnginePluginSystem.SetPlugin(plugins);
+            EnginePluginSystem.SetPlugins(plugins);
 
             ContentLoader = new ContentLoader(EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IContentLoader>());
             SceneManager = new SceneManager(ContentLoader);

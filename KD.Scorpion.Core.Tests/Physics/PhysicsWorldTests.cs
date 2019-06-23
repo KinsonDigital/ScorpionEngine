@@ -6,15 +6,19 @@ using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngine.Physics;
-using KDScorpionEngineTests.Fakes;
+using PluginSystem;
+using KDScorpionEngine;
+using KDScorpionCore.Physics;
 
-namespace KDScorpionEngineTests.Physics
+namespace KDScorpionCoreTests.Physics
 {
     public class PhysicsWorldTests : IDisposable
     {
         #region Private Fields
         private Mock<IPhysicsWorld> _mockPhysicsWorld;
         private Mock<IPhysicsBody> _mockPhysicsBody;
+        private Mock<IPluginLibrary> _mockPhysicsPluginLib;
+        private Plugins _plugins;
         #endregion
 
 
@@ -26,6 +30,16 @@ namespace KDScorpionEngineTests.Physics
             _mockPhysicsWorld.SetupGet(m => m.GravityY).Returns(4);
 
             _mockPhysicsBody = new Mock<IPhysicsBody>();
+
+            _mockPhysicsPluginLib = new Mock<IPluginLibrary>();
+            _mockPhysicsPluginLib.Setup(m => m.LoadPlugin<IPhysicsBody>()).Returns(_mockPhysicsBody.Object);
+
+            _plugins = new Plugins()
+            {
+                PhysicsPlugins = _mockPhysicsPluginLib.Object
+            };
+
+            EnginePluginSystem.SetPlugins(_plugins);
         }
         #endregion
 
@@ -55,7 +69,7 @@ namespace KDScorpionEngineTests.Physics
 
             var texture = new Texture(mockTexture.Object);
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
-            var body = new PhysicsBody(_mockPhysicsBody.Object);
+            var body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>());
             var entity = new FakeEntity(texture: texture, position: Vector.Zero)
             {
                 Body = body
@@ -79,7 +93,7 @@ namespace KDScorpionEngineTests.Physics
 
             var texture = new Texture(mockTexture.Object);
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
-            var body = new PhysicsBody(new Mock<IPhysicsBody>().Object);
+            var body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>());
             var entity = new FakeEntity(texture: texture, position: Vector.Zero)
             {
                 Body = body
@@ -110,7 +124,14 @@ namespace KDScorpionEngineTests.Physics
 
 
         #region Public Methods
-        public void Dispose() => _mockPhysicsWorld = null;
+        public void Dispose()
+        {
+            _mockPhysicsBody = null;
+            _mockPhysicsWorld = null;
+            _mockPhysicsPluginLib = null;
+            _plugins = null;
+            EnginePluginSystem.ClearPlugins();
+        }
         #endregion
     }
 }

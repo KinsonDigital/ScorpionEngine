@@ -4,7 +4,7 @@ using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Input;
 
-namespace KDScorpionEngineTests.Input
+namespace KDScorpionCoreTests.Input
 {
     public class KeyboardTests
     {

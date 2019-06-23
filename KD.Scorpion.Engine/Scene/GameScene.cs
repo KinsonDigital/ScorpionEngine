@@ -1,9 +1,9 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Content;
+using KDScorpionCore.Physics;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Entities;
 using KDScorpionEngine.Graphics;
-using KDScorpionEngine.Physics;
 using System.Collections.Generic;
 
 namespace KDScorpionEngine.Scene
@@ -11,9 +11,6 @@ namespace KDScorpionEngine.Scene
     public abstract class GameScene : IScene
     {
         #region Constructors
-        internal GameScene(Vector gravity, IPhysicsWorld physicsWorld) => PhysicsWorld = new PhysicsWorld(gravity, physicsWorld);
-
-
         public GameScene(Vector gravity) => PhysicsWorld = new PhysicsWorld(gravity);
         #endregion
 
@@ -129,7 +126,7 @@ namespace KDScorpionEngine.Scene
         public void AddEntity(Entity entity, bool addToPhysics = true)
         {
             if(addToPhysics)
-                PhysicsWorld.AddEntity(entity);
+                PhysicsWorld.AddEntity(entity.Body.InternalPhysicsBody);
 
             Entities.Add(entity);
         }

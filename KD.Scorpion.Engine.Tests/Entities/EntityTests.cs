@@ -10,15 +10,19 @@ using KDScorpionEngine.Exceptions;
 using KDScorpionEngineTests.Fakes;
 using PluginSystem;
 using KDScorpionEngine.Physics;
+using KDScorpionEngine;
 
 namespace KDScorpionEngineTests.Entities
 {
     public class EntityTests : IDisposable
     {
         #region Fields
+        private Mock<IPluginLibrary> _mockEnginePluginLib;
+        private Mock<IPluginLibrary> _mockPhysicsPluginLib;
         private Mock<IPhysicsBody> _mockPhysicsBody;
         private Mock<IDebugDraw> _mockDebugDraw;
         private ContentLoader _contentLoader;
+        private Plugins _plugins;
         #endregion
 
 
@@ -35,11 +39,19 @@ namespace KDScorpionEngineTests.Entities
             var mockContentLoader = new Mock<IContentLoader>();
             _contentLoader = new ContentLoader(mockContentLoader.Object);
 
-            var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
-            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) => _mockPhysicsBody.Object);
+            _mockEnginePluginLib = new Mock<IPluginLibrary>();
+            _mockEnginePluginLib.Setup(m => m.LoadPlugin<IDebugDraw>()).Returns(() => _mockDebugDraw.Object);
 
-            var mockEnginePluginLibrary = new Mock<IPluginLibrary>();
-            mockEnginePluginLibrary.Setup(m => m.LoadPlugin<IDebugDraw>()).Returns(() => _mockDebugDraw.Object);
+            _mockPhysicsPluginLib = new Mock<IPluginLibrary>();
+            _mockPhysicsPluginLib.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) => _mockPhysicsBody.Object);
+
+            _plugins = new Plugins()
+            {
+                EnginePlugins = _mockEnginePluginLib.Object,
+                PhysicsPlugins = _mockPhysicsPluginLib.Object
+            };
+
+            EnginePluginSystem.SetPlugins(_plugins);
         }
         #endregion
 
@@ -154,7 +166,7 @@ namespace KDScorpionEngineTests.Entities
             //Act
             var fakeEntity = new FakeEntity(CreateTexture(), vertices, position)
             {
-                Body = new PhysicsBody(_mockPhysicsBody.Object)
+                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
             };
 
             var actualPosition = fakeEntity.Position;
@@ -279,7 +291,7 @@ namespace KDScorpionEngineTests.Entities
             //Arrange
             var fakeEntity = new FakeEntity(CreateTexture(), new Vector(111, 222))
             {
-                Body = new PhysicsBody(_mockPhysicsBody.Object)
+                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
             };
             fakeEntity.Initialize();
 
@@ -299,7 +311,7 @@ namespace KDScorpionEngineTests.Entities
             //Arrange
             var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>())
             {
-                Body = new PhysicsBody(_mockPhysicsBody.Object)
+                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
             };
 
             fakeEntity.Initialize();
@@ -322,7 +334,7 @@ namespace KDScorpionEngineTests.Entities
 
             var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>())
             {
-                Body = new PhysicsBody(_mockPhysicsBody.Object)
+                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
             };
 
             fakeEntity.Initialize();
@@ -345,7 +357,7 @@ namespace KDScorpionEngineTests.Entities
 
             var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>())
             {
-                Body = new PhysicsBody(_mockPhysicsBody.Object)
+                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
             };
 
             fakeEntity.Initialize();
@@ -365,7 +377,7 @@ namespace KDScorpionEngineTests.Entities
             //Arrange
             var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>())
             {
-                Body = new PhysicsBody(_mockPhysicsBody.Object)
+                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
             };
 
             fakeEntity.Initialize();
@@ -385,7 +397,7 @@ namespace KDScorpionEngineTests.Entities
             //Arrange
             var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>())
             {
-                Body = new PhysicsBody(_mockPhysicsBody.Object)
+                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
             };
 
             fakeEntity.Initialize();
@@ -405,7 +417,7 @@ namespace KDScorpionEngineTests.Entities
             //Arrange
             var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>())
             {
-                Body = new PhysicsBody(_mockPhysicsBody.Object)
+                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
             };
 
             fakeEntity.Initialize();
@@ -520,7 +532,7 @@ namespace KDScorpionEngineTests.Entities
 
             var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>())
             {
-                Body = new PhysicsBody(_mockPhysicsBody.Object)
+                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
             };
             fakeEntity.Initialize();
 
@@ -578,7 +590,7 @@ namespace KDScorpionEngineTests.Entities
             //Arrange
             var entity = new FakeEntity(true)
             {
-                Body = new PhysicsBody(_mockPhysicsBody.Object)
+                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
             };
             entity.Initialize();
 
@@ -635,7 +647,7 @@ namespace KDScorpionEngineTests.Entities
 
             var entity = new FakeEntity(vertices, It.IsAny<Vector>())
             {
-                Body = new PhysicsBody(_mockPhysicsBody.Object)
+                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
             };
 
             var expected = new Vector[]
@@ -709,6 +721,11 @@ namespace KDScorpionEngineTests.Entities
             _mockPhysicsBody = null;
             _mockDebugDraw = null;
             _contentLoader = null;
+            _mockEnginePluginLib = null;
+            _mockPhysicsPluginLib = null;
+            _plugins = null;
+
+            EnginePluginSystem.ClearPlugins();
         }
         #endregion
 

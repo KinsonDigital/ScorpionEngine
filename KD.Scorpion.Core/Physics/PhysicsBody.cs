@@ -1,22 +1,11 @@
-using KDScorpionCore;
 using KDScorpionCore.Plugins;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace KDScorpionEngine.Physics
+namespace KDScorpionCore.Physics
 {
     public class PhysicsBody
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="PhysicsBody"/> using the given <paramref name="internalPhysicsBody"/>.
-        /// NOTE: This is only used for unit testing.
-        /// </summary>
-        /// <param name="internalPhysicsBody"></param>
-        internal PhysicsBody(IPhysicsBody internalPhysicsBody) => InternalPhysicsBody = internalPhysicsBody;
-
-
-        [ExcludeFromCodeCoverage]
         public PhysicsBody(Vector[] vertices, Vector position, float angle = 0, float density = 1, float friction = 0.2f, float restitution = 0, bool isStatic = false)
         {
             object[] ctorParams = new object[9];
@@ -40,7 +29,10 @@ namespace KDScorpionEngine.Physics
         }
 
 
-        internal IPhysicsBody InternalPhysicsBody { get; set; }
+        //TODO: This used to be internal. This has been moved to the Core lib from the Engine lib. Engine needs access so this had
+        //do be changed to public.  This means the dev will see IPhysicsBody.  This needs to be hidden from the dev somehow.
+        //Maybe exposing the internals of Core to the Engine lib.
+        public IPhysicsBody InternalPhysicsBody { get; set; }
 
         public Vector[] Vertices
         {

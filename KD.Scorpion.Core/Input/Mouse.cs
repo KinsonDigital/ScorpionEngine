@@ -3,7 +3,7 @@ using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
 using System;
 
-namespace KDScorpionEngine.Input
+namespace KDScorpionCore.Input
 {
     /// <summary>
     /// Tracks the state of the mouse.

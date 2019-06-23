@@ -236,7 +236,7 @@ namespace KDScorpionEngineTests.Scene
 
             var entity = new FakeEntity(new Vector[0], Vector.Zero)
             {
-                Body = new PhysicsBody(mockPhysicsBody.Object)
+                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
             };
 
             var scene = new FakeGameScene(Vector.Zero, _mockPhysicsWorld.Object);
@@ -279,13 +279,13 @@ namespace KDScorpionEngineTests.Scene
             
             var entityA = new FakeEntity(false)
             {
-                Body = new PhysicsBody(mockPhysicsBody.Object),
+                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>()),
                 Texture = new Texture(mockTexture.Object)
             };
 
             var entityB = new FakeEntity(false)
             {
-                Body = new PhysicsBody(mockPhysicsBody.Object),
+                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>()),
                 Texture = new Texture(mockTexture.Object)
             };
 

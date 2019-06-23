@@ -1,9 +1,6 @@
-﻿using KDScorpionCore;
-using KDScorpionCore.Plugins;
-using KDScorpionEngine.Entities;
-using KDScorpionEngine.Exceptions;
+﻿using KDScorpionCore.Plugins;
 
-namespace KDScorpionEngine.Physics
+namespace KDScorpionCore.Physics
 {
     public class PhysicsWorld
     {
@@ -20,16 +17,10 @@ namespace KDScorpionEngine.Physics
         public Vector Gravity => new Vector(_internalWorld.GravityX, _internalWorld.GravityY);
 
 
-        public void AddEntity(Entity entity)
+        public void AddEntity(IPhysicsBody body)
         {
             //Only add it to the physics world if the entity has been initialized.
-            if (entity.IsInitialized)
-            {
-                _internalWorld.AddBody(entity.Body.InternalPhysicsBody);
-                return;
-            }
-
-            throw new EntityNotInitializedException();
+            _internalWorld.AddBody(body);
         }
 
 
