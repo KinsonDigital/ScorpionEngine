@@ -33,7 +33,7 @@ namespace KDScorpionEngine
         internal Engine(IContentLoader contentLoader, IEngineCore engineCore, IKeyboard keyboard, bool loadPhysicsLibrary = true)
         {
             ContentLoader = new ContentLoader(contentLoader);
-            SceneManager = new SceneManager(ContentLoader);
+            SceneManager = new SceneManager(contentLoader, keyboard);
 
             SetupEngineCore(engineCore);
         }
@@ -58,9 +58,9 @@ namespace KDScorpionEngine
 
 
         #region Props
-        public SceneManager SceneManager { get; set; }
+        public SceneManager SceneManager { get; private set; }
 
-        public ContentLoader ContentLoader { get; set; }
+        public ContentLoader ContentLoader { get; private set; }
 
         /// <summary>
         /// Gets a value indicating that the game engine is currently running.

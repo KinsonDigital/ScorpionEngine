@@ -6,6 +6,7 @@ using System.Drawing;
 using KDScorpionCore.Plugins;
 using System;
 using KDScorpionCore.Physics;
+using PluginSystem;
 
 namespace KDScorpionEngineTests.Entities
 {
@@ -13,11 +14,28 @@ namespace KDScorpionEngineTests.Entities
     {
         #region Private Fields
         private Mock<IPhysicsBody> _mockPhysicsBody;
+        private Mock<IPluginLibrary> _mockPhysicsPluginLib;
+        private Plugins _plugins;
         #endregion
 
 
         #region Constructors
-        public TextEntityTests() => _mockPhysicsBody = new Mock<IPhysicsBody>();
+        public TextEntityTests()
+        {
+            _mockPhysicsBody = new Mock<IPhysicsBody>();
+            _mockPhysicsBody.SetupProperty(p => p.X);
+            _mockPhysicsBody.SetupProperty(p => p.Y);
+
+            _mockPhysicsPluginLib = new Mock<IPluginLibrary>();
+            _mockPhysicsPluginLib.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns<object[]>((ctrParams) => _mockPhysicsBody.Object);
+
+            _plugins = new Plugins()
+            {
+                PhysicsPlugins = _mockPhysicsPluginLib.Object
+            };
+
+            CorePluginSystem.SetPlugins(_plugins);
+        }
         #endregion
 
 
@@ -71,12 +89,16 @@ namespace KDScorpionEngineTests.Entities
         public void Ctor_WhenInvoking_CorrectlySetsPositionProp()
         {
             //Arrange
-            _mockPhysicsBody.SetupProperty(p => p.X);
-            _mockPhysicsBody.SetupProperty(p => p.Y);
+            var vertices = new Vector[]
+            {
+                Vector.Zero,
+                Vector.Zero,
+                Vector.Zero
+            };
 
             var entity = new TextEntity("text", Color.Red, Color.Red, new Vector(11, 22))
             {
-                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
+                Body = new PhysicsBody(vertices, It.IsAny<Vector>())
             };
             entity.Initialize();
 

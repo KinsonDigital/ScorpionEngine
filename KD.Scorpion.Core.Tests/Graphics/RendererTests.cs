@@ -42,13 +42,13 @@ namespace KDScorpionCoreTests.Graphics
         {
             //Arrange
             var mockTexture = new Mock<ITexture>();
-            var mockInternalRenderer = new Mock<IRenderer>();
+            var mockRenderer = new Mock<IRenderer>();
 
-            var renderer = new Renderer(new Mock<IRenderer>().Object, _debugDraw.Object);
+            var renderer = new Renderer(mockRenderer.Object, _debugDraw.Object);
 
             //Assert
             renderer.Render(_texture, It.IsAny<float>(), It.IsAny<float>());
-            mockInternalRenderer.Verify(m => m.Render(_texture.InternalTexture, It.IsAny<float>(), It.IsAny<float>()), Times.Once());
+            mockRenderer.Verify(m => m.Render(_texture.InternalTexture, It.IsAny<float>(), It.IsAny<float>()), Times.Once());
         }
 
 

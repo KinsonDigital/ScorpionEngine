@@ -27,9 +27,11 @@ namespace KDScorpionEngineTests.Entities
             _mockPhysicsBody = new Mock<IPhysicsBody>();
             _mockPhysicsBody.SetupProperty(p => p.X);
             _mockPhysicsBody.SetupProperty(p => p.Y);
+            _mockPhysicsBody.SetupProperty(p => p.XVertices);
+            _mockPhysicsBody.SetupProperty(p => p.YVertices);
 
             _mockPhysicsPluginLib = new Mock<IPluginLibrary>();
-            _mockPhysicsPluginLib.Setup(m => m.LoadPlugin<IPhysicsBody>()).Returns(_mockPhysicsBody.Object);
+            _mockPhysicsPluginLib.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns<object[]>((ctrParams) => _mockPhysicsBody.Object);
 
             _plugins = new Plugins()
             {
@@ -46,10 +48,11 @@ namespace KDScorpionEngineTests.Entities
         public void Ctor_WhenInvoking_ProperlyConstructsObject()
         {
             //Arrange
+            var vertices = new Vector[] { Vector.Zero, Vector.Zero, Vector.Zero };
             var mockTexture = new Mock<ITexture>();
             var entity = new StaticEntity(new Texture(mockTexture.Object), new Vector(123, 456))
             {
-                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
+                Body = new PhysicsBody(vertices, It.IsAny<Vector>())
             };
             entity.Initialize();
 

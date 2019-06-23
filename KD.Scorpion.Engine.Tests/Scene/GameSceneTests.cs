@@ -17,11 +17,16 @@ namespace KDScorpionEngineTests.Scene
     {
         #region Fields
         private Mock<IPhysicsWorld> _mockPhysicsWorld;
+        private Mock<IPhysicsBody> _mockPhysicsBody;
         #endregion
 
 
         #region Constructors
-        public GameSceneTests() => _mockPhysicsWorld = new Mock<IPhysicsWorld>();
+        public GameSceneTests()
+        {
+            _mockPhysicsWorld = new Mock<IPhysicsWorld>();
+            _mockPhysicsBody = new Mock<IPhysicsBody>();
+        }
         #endregion
 
 
@@ -30,7 +35,7 @@ namespace KDScorpionEngineTests.Scene
         public void Ctor_WhenInvoking_CreatePhysicsWorld()
         {
             //Arrange
-            var scene = new FakeGameScene(Vector.Zero, _mockPhysicsWorld.Object);
+            new FakeGameScene(Vector.Zero, _mockPhysicsWorld.Object);
 
             //Act
             var actual = GameScene.PhysicsWorld;
@@ -232,11 +237,9 @@ namespace KDScorpionEngineTests.Scene
         public void Update_WhenInvoking_InvokesEntityUpdate()
         {
             //Arrange
-            var mockPhysicsBody = new Mock<IPhysicsBody>();
-
             var entity = new FakeEntity(new Vector[0], Vector.Zero)
             {
-                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
+                Body = new PhysicsBody(_mockPhysicsBody.Object)
             };
 
             var scene = new FakeGameScene(Vector.Zero, _mockPhysicsWorld.Object);
@@ -274,18 +277,17 @@ namespace KDScorpionEngineTests.Scene
         public void Render_WhenInvoking_InvokesAllEntityRenderMethods()
         {
             //Arrange
-            var mockPhysicsBody = new Mock<IPhysicsBody>();
             var mockTexture = new Mock<ITexture>();
             
             var entityA = new FakeEntity(false)
             {
-                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>()),
+                Body = new PhysicsBody(_mockPhysicsBody.Object),
                 Texture = new Texture(mockTexture.Object)
             };
 
             var entityB = new FakeEntity(false)
             {
-                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>()),
+                Body = new PhysicsBody(_mockPhysicsBody.Object),
                 Texture = new Texture(mockTexture.Object)
             };
 
@@ -293,7 +295,7 @@ namespace KDScorpionEngineTests.Scene
             scene.AddEntity(entityA, false);
             scene.AddEntity(entityB, false);
 
-            var renderer = new GameRenderer();
+            var renderer = new GameRenderer(new Mock<IRenderer>().Object, new Mock<IDebugDraw>().Object);
             
             var expected = true;
 

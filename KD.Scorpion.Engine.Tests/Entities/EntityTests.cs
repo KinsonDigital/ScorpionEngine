@@ -18,6 +18,7 @@ namespace KDScorpionEngineTests.Entities
         #region Fields
         private Mock<IPluginLibrary> _mockEnginePluginLib;
         private Mock<IPluginLibrary> _mockPhysicsPluginLib;
+        private Vector[] _vertices;
         private Mock<IPhysicsBody> _mockPhysicsBody;
         private Mock<IDebugDraw> _mockDebugDraw;
         private ContentLoader _contentLoader;
@@ -28,6 +29,13 @@ namespace KDScorpionEngineTests.Entities
         #region Constructors
         public EntityTests()
         {
+            _vertices = new Vector[]
+            {
+                Vector.Zero,
+                Vector.Zero,
+                Vector.Zero
+            };
+
             _mockPhysicsBody = new Mock<IPhysicsBody>();
             _mockPhysicsBody.Setup(m => m.XVertices).Returns(new float[] { -50, 50, 50, -50 });
             _mockPhysicsBody.Setup(m => m.YVertices).Returns(new float[] { -50, -50, 50, 50 });
@@ -165,7 +173,7 @@ namespace KDScorpionEngineTests.Entities
             //Act
             var fakeEntity = new FakeEntity(CreateTexture(), vertices, position)
             {
-                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
+                Body = new PhysicsBody(_vertices, It.IsAny<Vector>())
             };
 
             var actualPosition = fakeEntity.Position;
@@ -290,7 +298,7 @@ namespace KDScorpionEngineTests.Entities
             //Arrange
             var fakeEntity = new FakeEntity(CreateTexture(), new Vector(111, 222))
             {
-                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
+                Body = new PhysicsBody(_vertices, It.IsAny<Vector>())
             };
             fakeEntity.Initialize();
 
@@ -310,7 +318,7 @@ namespace KDScorpionEngineTests.Entities
             //Arrange
             var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>())
             {
-                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
+                Body = new PhysicsBody(_vertices, It.IsAny<Vector>())
             };
 
             fakeEntity.Initialize();
@@ -333,7 +341,7 @@ namespace KDScorpionEngineTests.Entities
 
             var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>())
             {
-                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
+                Body = new PhysicsBody(_vertices, It.IsAny<Vector>())
             };
 
             fakeEntity.Initialize();
@@ -356,7 +364,7 @@ namespace KDScorpionEngineTests.Entities
 
             var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>())
             {
-                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
+                Body = new PhysicsBody(_vertices, It.IsAny<Vector>())
             };
 
             fakeEntity.Initialize();
@@ -376,7 +384,7 @@ namespace KDScorpionEngineTests.Entities
             //Arrange
             var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>())
             {
-                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
+                Body = new PhysicsBody(_vertices, It.IsAny<Vector>())
             };
 
             fakeEntity.Initialize();
@@ -396,7 +404,7 @@ namespace KDScorpionEngineTests.Entities
             //Arrange
             var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>())
             {
-                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
+                Body = new PhysicsBody(_vertices, It.IsAny<Vector>())
             };
 
             fakeEntity.Initialize();
@@ -416,7 +424,7 @@ namespace KDScorpionEngineTests.Entities
             //Arrange
             var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>())
             {
-                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
+                Body = new PhysicsBody(_vertices, It.IsAny<Vector>())
             };
 
             fakeEntity.Initialize();
@@ -531,7 +539,7 @@ namespace KDScorpionEngineTests.Entities
 
             var fakeEntity = new FakeEntity(CreateTexture(), It.IsAny<Vector>())
             {
-                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
+                Body = new PhysicsBody(_vertices, It.IsAny<Vector>())
             };
             fakeEntity.Initialize();
 
@@ -589,7 +597,7 @@ namespace KDScorpionEngineTests.Entities
             //Arrange
             var entity = new FakeEntity(true)
             {
-                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
+                Body = new PhysicsBody(_vertices, It.IsAny<Vector>())
             };
             entity.Initialize();
 
@@ -646,7 +654,7 @@ namespace KDScorpionEngineTests.Entities
 
             var entity = new FakeEntity(vertices, It.IsAny<Vector>())
             {
-                Body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>())
+                Body = new PhysicsBody(_vertices, It.IsAny<Vector>())
             };
 
             var expected = new Vector[]

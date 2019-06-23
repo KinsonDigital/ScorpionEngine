@@ -1,4 +1,5 @@
 ﻿using KDScorpionCore.Graphics;
+using KDScorpionCore.Plugins;
 using KDScorpionEngine.Entities;
 
 namespace KDScorpionEngine.Graphics
@@ -9,6 +10,8 @@ namespace KDScorpionEngine.Graphics
     public class GameRenderer : Renderer
     {
         #region Constructors
+        internal GameRenderer(IRenderer renderer, IDebugDraw debugDraw) : base(renderer, debugDraw) { }
+
         /// <summary>
         /// Creates a new instance of <see cref="GameRenderer"/>.
         /// </summary>

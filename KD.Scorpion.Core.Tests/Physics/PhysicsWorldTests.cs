@@ -66,7 +66,7 @@ namespace KDScorpionCoreTests.Physics
 
             var texture = new Texture(mockTexture.Object);
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
-            var body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>());
+            var body = new PhysicsBody(_mockPhysicsBody.Object);
             var world = new PhysicsWorld(_mockPhysicsWorld.Object);
 
             //Act/Assert

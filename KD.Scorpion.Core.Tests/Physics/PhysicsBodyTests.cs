@@ -63,7 +63,7 @@ namespace KDScorpionCoreTests.Physics
             _mockPhysicsBody.SetupGet(p => p.YVertices).Returns(new float[] { 22, 44, 66 });
 
             //Act
-            var body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>());
+            var body = new PhysicsBody(_mockPhysicsBody.Object);
             var actualVertices = body.Vertices;
 
             //Assert

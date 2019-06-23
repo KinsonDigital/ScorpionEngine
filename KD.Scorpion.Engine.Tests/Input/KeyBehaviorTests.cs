@@ -40,14 +40,11 @@ namespace KDScorpionEngineTests.Input
         [Fact]
         public void Ctor_SingleParamValue_SetsPropsCorrectly()
         {
-            //Arrange
-            var expected = true;
-
             //Act
-            var behavior = new KeyBehavior(It.IsAny<KeyCodes>());
+            var behavior = new KeyBehavior(KeyCodes.X);
 
             //Assert
-            Assert.Equal(expected, behavior.Enabled);
+            Assert.Equal(KeyCodes.X, behavior.Key);
         }
 
 

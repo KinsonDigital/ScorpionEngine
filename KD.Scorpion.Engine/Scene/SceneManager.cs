@@ -1,6 +1,7 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Content;
 using KDScorpionCore.Input;
+using KDScorpionCore.Plugins;
 using KDScorpionEngine.Events;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngine.Graphics;
@@ -32,6 +33,13 @@ namespace KDScorpionEngine.Scene
 
 
         #region Constructors
+        internal SceneManager(IContentLoader contentLoader, IKeyboard keyboard)
+        {
+            _contentLoader = new ContentLoader(contentLoader);
+            _keyboard = new Keyboard(keyboard);
+        }
+
+
         /// <summary>
         /// Creates a new instance of <see cref="SceneManager"/>.
         /// <paramref name="contentLoader">The content manager user to load and unload content.</paramref>

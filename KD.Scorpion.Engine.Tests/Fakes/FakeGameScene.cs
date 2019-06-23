@@ -7,7 +7,7 @@ namespace KDScorpionEngineTests.Fakes
 {
     public class FakeGameScene : GameScene
     {
-        public FakeGameScene(Vector gravity, IPhysicsWorld physicsWorld) : base(gravity)
+        public FakeGameScene(Vector gravity, IPhysicsWorld physicsWorld) : base(physicsWorld)
         {
         }
 
