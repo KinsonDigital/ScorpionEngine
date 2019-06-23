@@ -8,7 +8,7 @@ namespace KDScorpionEngine.Graphics
     /// </summary>
     public class GameRenderer : Renderer
     {
-        #region Constructrons
+        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="GameRenderer"/>.
         /// </summary>

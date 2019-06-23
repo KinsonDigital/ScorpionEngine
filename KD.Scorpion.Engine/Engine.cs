@@ -191,6 +191,10 @@ namespace KDScorpionEngine
 
         private void _engineCore_OnInitialize(object sender, EventArgs e)
         {
+            _renderer = new GameRenderer
+            {
+                InternalRenderer = _engineCore.Renderer
+            };
             Init();
         }
 
@@ -215,10 +219,6 @@ namespace KDScorpionEngine
 
         private void _engineCore_OnRender(object sender, OnRenderEventArgs e)
         {
-            //TODO: Look into this.  This should not be created every single time
-            //the render method is called. This is not performant.
-            _renderer = new GameRenderer();
-
             _renderer.Clear(50, 50, 50, 255);
 
             _renderer.Start();

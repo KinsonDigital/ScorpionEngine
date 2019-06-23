@@ -22,7 +22,11 @@ namespace SDLScorpPlugin
         /// Starts the process of rendering a batch of <see cref="ITexture"/>s, <see cref="IText"/> items
         /// or primitives.  This method must be invoked before rendering.
         /// </summary>
-        public void Start() => _beginInvoked = true;
+        public void Start()
+        {
+            CheckRenderPointer();
+            _beginInvoked = true;
+        }
 
 
         /// <summary>
@@ -30,6 +34,8 @@ namespace SDLScorpPlugin
         /// </summary>
         public void End()
         {
+            CheckRenderPointer();
+
             if (!_beginInvoked)
                 throw new Exception($"The '{nameof(Start)}' method must be invoked first before the '{nameof(End)}' method.");
 
@@ -45,6 +51,8 @@ namespace SDLScorpPlugin
         /// <param name="color">The color to clear the screen to.</param>
         public void Clear(GameColor color)
         {
+            CheckRenderPointer();
+
             SDL.SDL_SetRenderDrawColor(_rendererPtr, color.Red, color.Green, color.Blue, color.Alpha);
             SDL.SDL_RenderClear(_rendererPtr);
         }
@@ -84,8 +92,9 @@ namespace SDLScorpPlugin
         /// <param name="color">The color to apply to the texture.</param>
         public void Render(ITexture texture, float x, float y, float angle, float size, GameColor color)
         {
-            //NOTE: SDL takes the angle in degrees, not radians.
+            CheckRenderPointer();
 
+            //NOTE: SDL takes the angle in degrees, not radians.
             var textureOrigin = new SDL.SDL_Point()
             {
                 x = (int)((texture.Width * size) / 2f),
@@ -127,6 +136,8 @@ namespace SDLScorpPlugin
         /// <param name="y">The Y coordinate location on the screen to render.</param>
         public void RenderTextureArea(ITexture texture, Rect area, float x, float y)
         {
+            CheckRenderPointer();
+
             var textureOrigin = new SDL.SDL_Point()
             {
                 x = texture.Width / 2,
@@ -167,6 +178,8 @@ namespace SDLScorpPlugin
 
         public void Render(IText text, float x, float y, GameColor color)
         {
+            CheckRenderPointer();
+
             var texturePtr = text.GetData<PointerContainer>(1).UnpackPointer();
 
             //TODO:  Check for color index values first
@@ -202,8 +215,11 @@ namespace SDLScorpPlugin
         /// <param name="lineStartY">The starting Y coordinate of the line.</param>
         /// <param name="lineStopX">The ending X coordinate of the line.</param>
         /// <param name="lineStopY">The ending Y coordinate of the line.</param>
-        public void RenderLine(float lineStartX, float lineStartY, float lineStopX, float lineStopY) =>
+        public void RenderLine(float lineStartX, float lineStartY, float lineStopX, float lineStopY)
+        {
+            CheckRenderPointer();
             RenderLine(lineStartX, lineStartY, lineStopX, lineStopY, new GameColor(255, 255, 255, 255));
+        }
 
 
         /// <summary>
@@ -216,6 +232,8 @@ namespace SDLScorpPlugin
         /// <param name="color">The color of the line.</param>
         public void RenderLine(float startX, float startY, float endX, float endY, GameColor color)
         {
+            CheckRenderPointer();
+
             SDL.SDL_SetRenderDrawColor(_rendererPtr, color.Red, color.Green, color.Blue, color.Alpha);
 
             SDL.SDL_RenderDrawLine(_rendererPtr, (int)startX, (int)startY, (int)endX, (int)endY);
@@ -233,6 +251,8 @@ namespace SDLScorpPlugin
         /// <param name="color">The color of the circle.</param>
         public void FillCircle(float centerX, float centerY, float radius, GameColor color)
         {
+            CheckRenderPointer();
+
             /*Midpoint Algorithm
              * 1. https://stackoverflow.com/questions/38334081/howto-draw-circles-arcs-and-vector-graphics-in-sdl
              * 2. https://en.wikipedia.org/wiki/Midpoint_circle_algorithm#C_Example
@@ -336,6 +356,15 @@ namespace SDLScorpPlugin
         /// Properly destroys the SDL renderer.
         /// </summary>
         public void Dispose() => SDL.SDL_DestroyRenderer(_rendererPtr);
+        #endregion
+
+
+        #region Private Methods
+        private void CheckRenderPointer()
+        {
+            if (_rendererPtr == IntPtr.Zero)
+                throw new Exception("The SDL renderer does not have an intialized renderer pointer.");
+        }
         #endregion
     }
 }
