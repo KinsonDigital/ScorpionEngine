@@ -6,6 +6,10 @@ namespace KDScorpionCore.Physics
 {
     public class PhysicsBody
     {
+        #region Constructors
+        internal PhysicsBody(IPhysicsBody body) => InternalPhysicsBody = body;
+
+
         public PhysicsBody(Vector[] vertices, Vector position, float angle = 0, float density = 1, float friction = 0.2f, float restitution = 0, bool isStatic = false)
         {
             object[] ctorParams = new object[9];
@@ -25,14 +29,13 @@ namespace KDScorpionCore.Physics
             ctorParams[7] = restitution;
             ctorParams[8] = isStatic;
 
-            InternalPhysicsBody = EnginePluginSystem.Plugins.PhysicsPlugins.LoadPlugin<IPhysicsBody>(ctorParams);
+            InternalPhysicsBody = CorePluginSystem.Plugins.PhysicsPlugins.LoadPlugin<IPhysicsBody>(ctorParams);
         }
+        #endregion
 
 
-        //TODO: This used to be internal. This has been moved to the Core lib from the Engine lib. Engine needs access so this had
-        //do be changed to public.  This means the dev will see IPhysicsBody.  This needs to be hidden from the dev somehow.
-        //Maybe exposing the internals of Core to the Engine lib.
-        public IPhysicsBody InternalPhysicsBody { get; set; }
+        #region Props
+        internal IPhysicsBody InternalPhysicsBody { get; private set; }
 
         public Vector[] Vertices
         {
@@ -122,5 +125,6 @@ namespace KDScorpionCore.Physics
             get => InternalPhysicsBody.AngularVelocity;
             set => InternalPhysicsBody.AngularVelocity = value;
         }
+        #endregion
     }
 }

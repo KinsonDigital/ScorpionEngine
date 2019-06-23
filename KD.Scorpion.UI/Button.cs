@@ -2,7 +2,6 @@
 using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Input;
-using KDScorpionEngine.Input;
 using System;
 
 namespace KDScorpionUI

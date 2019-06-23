@@ -2,13 +2,11 @@
 using KDScorpionCore;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Scene;
-using System.Runtime.CompilerServices;
 using System.Diagnostics.CodeAnalysis;
 using KDScorpionCore.Content;
 using PluginSystem;
 using KDScorpionEngine.Graphics;
 
-[assembly: InternalsVisibleTo(assemblyName: "ScorpionEngineTests", AllInternalsVisible = true)]
 
 namespace KDScorpionEngine
 {
@@ -37,8 +35,6 @@ namespace KDScorpionEngine
             ContentLoader = new ContentLoader(contentLoader);
             SceneManager = new SceneManager(ContentLoader);
 
-            //Make sure that the Setup() method is called
-            //This is to make sure that this class is testable for unit testing purposes.
             SetupEngineCore(engineCore);
         }
 
@@ -51,12 +47,12 @@ namespace KDScorpionEngine
         public Engine(bool loadPhysicsLibrary = true)
         {
             var plugins = new Plugins();
-            EnginePluginSystem.SetPlugins(plugins);
+            CorePluginSystem.SetPlugins(plugins);
 
-            ContentLoader = new ContentLoader(EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IContentLoader>());
+            ContentLoader = new ContentLoader();
             SceneManager = new SceneManager(ContentLoader);
 
-            SetupEngineCore(EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IEngineCore>());
+            SetupEngineCore(CorePluginSystem.Plugins.EnginePlugins.LoadPlugin<IEngineCore>());
         }
         #endregion
 
@@ -221,7 +217,7 @@ namespace KDScorpionEngine
         {
             //TODO: Look into this.  This should not be created every single time
             //the render method is called. This is not performant.
-            _renderer = new GameRenderer(e.Renderer, EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IDebugDraw>());
+            _renderer = new GameRenderer();
 
             _renderer.Clear(50, 50, 50, 255);
 

@@ -57,7 +57,7 @@ namespace KDScorpionEngine.Input
         /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
         public KeyboardWatcher(bool enabled)
         {
-            _keyboard = EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IKeyboard>();
+            _keyboard = CorePluginSystem.Plugins.EnginePlugins.LoadPlugin<IKeyboard>();
             Enabled = enabled;
             ComboKeys = new List<KeyCodes>();
 

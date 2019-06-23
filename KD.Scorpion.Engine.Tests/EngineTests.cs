@@ -55,7 +55,7 @@ namespace KDScorpionEngineTests
         {
             //Arrange
             var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
-            var manager = new SceneManager(new ContentLoader(_mockContentLoader.Object), _mockKeyboard.Object);
+            var manager = new SceneManager(new ContentLoader(_mockContentLoader.Object));
             var expected = manager;
 
             //Act

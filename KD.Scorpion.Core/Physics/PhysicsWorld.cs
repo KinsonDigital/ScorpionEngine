@@ -4,20 +4,27 @@ namespace KDScorpionCore.Physics
 {
     public class PhysicsWorld
     {
+        #region Private Fields
         private readonly IPhysicsWorld _internalWorld;
+        #endregion
 
 
-        internal PhysicsWorld(Vector gravity, IPhysicsWorld physicsWorld) => _internalWorld = physicsWorld;
+        #region Constructors
+        internal PhysicsWorld(IPhysicsWorld physicsWorld) => _internalWorld = physicsWorld;
 
 
         public PhysicsWorld(Vector gravity) =>
-            _internalWorld = EnginePluginSystem.Plugins.PhysicsPlugins.LoadPlugin<IPhysicsWorld>(new object[] { gravity.X, gravity.Y });
+            _internalWorld = CorePluginSystem.Plugins.PhysicsPlugins.LoadPlugin<IPhysicsWorld>(new object[] { gravity.X, gravity.Y });
+        #endregion
 
 
+        #region Props
         public Vector Gravity => new Vector(_internalWorld.GravityX, _internalWorld.GravityY);
+        #endregion
 
 
-        public void AddEntity(IPhysicsBody body)
+        #region Public Methods
+        public void AddBody(IPhysicsBody body)
         {
             //Only add it to the physics world if the entity has been initialized.
             _internalWorld.AddBody(body);
@@ -25,5 +32,6 @@ namespace KDScorpionCore.Physics
 
 
         public void Update(float dt) => _internalWorld.Update(dt);
+        #endregion
     }
 }

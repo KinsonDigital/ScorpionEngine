@@ -6,9 +6,8 @@ using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Entities;
-using KDScorpionEngine.Physics;
 using PluginSystem;
-using KDScorpionEngine;
+using KDScorpionCore.Physics;
 
 namespace KDScorpionEngineTests.Behaviors
 {
@@ -55,7 +54,7 @@ namespace KDScorpionEngineTests.Behaviors
                 PhysicsPlugins = _mockPhysicsPluginLib.Object
             };
 
-            EnginePluginSystem.SetPlugins(_plugins);
+            CorePluginSystem.SetPlugins(_plugins);
         }
         #endregion
 
@@ -198,7 +197,7 @@ namespace KDScorpionEngineTests.Behaviors
             _mockPhysicsBody = null;
             _mockPhysicsPluginLib = null;
             _plugins = null;
-            EnginePluginSystem.ClearPlugins();
+            CorePluginSystem.ClearPlugins();
         }
         #endregion
     }

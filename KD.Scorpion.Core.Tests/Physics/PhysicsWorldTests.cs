@@ -4,10 +4,7 @@ using Xunit;
 using KDScorpionCore;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
-using KDScorpionEngine.Exceptions;
-using KDScorpionEngine.Physics;
 using PluginSystem;
-using KDScorpionEngine;
 using KDScorpionCore.Physics;
 
 namespace KDScorpionCoreTests.Physics
@@ -39,7 +36,7 @@ namespace KDScorpionCoreTests.Physics
                 PhysicsPlugins = _mockPhysicsPluginLib.Object
             };
 
-            EnginePluginSystem.SetPlugins(_plugins);
+            CorePluginSystem.SetPlugins(_plugins);
         }
         #endregion
 
@@ -50,7 +47,7 @@ namespace KDScorpionCoreTests.Physics
         {
             //Arrange
             var gravity = new Vector(2, 4);
-            var world = new PhysicsWorld(gravity, _mockPhysicsWorld.Object);
+            var world = new PhysicsWorld(_mockPhysicsWorld.Object);
             var expected = new Vector(2, 4);
 
             //Act
@@ -62,7 +59,7 @@ namespace KDScorpionCoreTests.Physics
 
 
         [Fact]
-        public void AddEntity_WhenInvoking_DoesNotThrowNullRefException()
+        public void AddBody_WhenInvoking_DoesNotThrowNullRefException()
         {
             //Arrange
             var mockTexture = new Mock<ITexture>();
@@ -70,41 +67,13 @@ namespace KDScorpionCoreTests.Physics
             var texture = new Texture(mockTexture.Object);
             var vertices = new Vector[] { Vector.Zero, Vector.Zero };
             var body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>());
-            var entity = new FakeEntity(texture: texture, position: Vector.Zero)
-            {
-                Body = body
-            };
-            entity.Initialize();
-            var world = new PhysicsWorld(Vector.Zero, _mockPhysicsWorld.Object);
+            var world = new PhysicsWorld(_mockPhysicsWorld.Object);
 
             //Act/Assert
-            AssertExt.DoesNotThrowNullReference(() =>
+            AssertExt.DoesNotThrowNullReference((Action)(() =>
             {
-                world.AddEntity(entity);
-            });
-        }
-
-
-        [Fact]
-        public void AddEntity_WhenInvokingWhileNotInitialized_ThrowException()
-        {
-            //Arrange
-            var mockTexture = new Mock<ITexture>();
-
-            var texture = new Texture(mockTexture.Object);
-            var vertices = new Vector[] { Vector.Zero, Vector.Zero };
-            var body = new PhysicsBody(It.IsAny<Vector[]>(), It.IsAny<Vector>());
-            var entity = new FakeEntity(texture: texture, position: Vector.Zero)
-            {
-                Body = body
-            };
-            var world = new PhysicsWorld(Vector.Zero, _mockPhysicsWorld.Object);
-
-            //Act/Assert
-            Assert.Throws<EntityNotInitializedException>(() =>
-            {
-                world.AddEntity(entity);
-            });
+                world.AddBody(body.InternalPhysicsBody);
+            }));
         }
 
 
@@ -112,7 +81,7 @@ namespace KDScorpionCoreTests.Physics
         public void Update_WhenInvoking_DoesNotThrowNullRefException()
         {
             //Arrange
-            var world = new PhysicsWorld(Vector.Zero, _mockPhysicsWorld.Object);
+            var world = new PhysicsWorld(_mockPhysicsWorld.Object);
 
             //Act/Assert
             AssertExt.DoesNotThrowNullReference(() =>
@@ -130,7 +99,7 @@ namespace KDScorpionCoreTests.Physics
             _mockPhysicsWorld = null;
             _mockPhysicsPluginLib = null;
             _plugins = null;
-            EnginePluginSystem.ClearPlugins();
+            CorePluginSystem.ClearPlugins();
         }
         #endregion
     }

@@ -2,7 +2,7 @@
 
 namespace KDScorpionCore.Plugins
 {
-    public static class EnginePluginSystem
+    public static class CorePluginSystem
     {
         private static PluginSystem.Plugins _plugins;
 

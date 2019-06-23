@@ -31,7 +31,7 @@ namespace KDScorpionEngineTests.Input
                 EnginePlugins = _mockEnginePluginLib.Object
             };
 
-            EnginePluginSystem.SetPlugins(_plugins);
+            CorePluginSystem.SetPlugins(_plugins);
         }
         #endregion
 
@@ -445,7 +445,7 @@ namespace KDScorpionEngineTests.Input
             _mockCoreKeyboard = null;
             _mockEnginePluginLib = null;
             _plugins = null;
-            EnginePluginSystem.ClearPlugins();
+            CorePluginSystem.ClearPlugins();
         }
         #endregion
     }

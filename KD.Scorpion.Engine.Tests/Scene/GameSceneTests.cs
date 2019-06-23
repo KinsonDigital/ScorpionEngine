@@ -8,8 +8,8 @@ using KDScorpionEngine.Scene;
 using KDScorpionEngineTests.Fakes;
 using KDScorpionEngine;
 using KDScorpionEngine.Graphics;
-using KDScorpionEngine.Physics;
 using KDScorpionCore.Graphics;
+using KDScorpionCore.Physics;
 
 namespace KDScorpionEngineTests.Scene
 {
@@ -293,7 +293,7 @@ namespace KDScorpionEngineTests.Scene
             scene.AddEntity(entityA, false);
             scene.AddEntity(entityB, false);
 
-            var renderer = new GameRenderer(new Mock<IRenderer>().Object, new Mock<IDebugDraw>().Object);
+            var renderer = new GameRenderer();
             
             var expected = true;
 

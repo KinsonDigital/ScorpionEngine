@@ -1,7 +1,6 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Content;
 using KDScorpionCore.Physics;
-using KDScorpionCore.Plugins;
 using KDScorpionEngine.Entities;
 using KDScorpionEngine.Graphics;
 using System.Collections.Generic;
@@ -126,7 +125,7 @@ namespace KDScorpionEngine.Scene
         public void AddEntity(Entity entity, bool addToPhysics = true)
         {
             if(addToPhysics)
-                PhysicsWorld.AddEntity(entity.Body.InternalPhysicsBody);
+                PhysicsWorld.AddBody(entity.Body.InternalPhysicsBody);
 
             Entities.Add(entity);
         }

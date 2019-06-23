@@ -1,8 +1,4 @@
-﻿using KDScorpionCore;
-using KDScorpionEngine.Behaviors;
-using Xunit;
-
-namespace KDScorpionEngineTests.Behaviors
+﻿namespace KDScorpionEngineTests.Behaviors
 {
     public class LimitNumberBehaviorTests
     {

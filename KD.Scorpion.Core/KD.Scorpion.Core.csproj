@@ -90,7 +90,7 @@
     <Compile Include="Physics\InternalVector.cs" />
     <Compile Include="Physics\PhysicsBody.cs" />
     <Compile Include="Physics\PhysicsWorld.cs" />
-    <Compile Include="Plugins\EnginePluginSystem.cs" />
+    <Compile Include="Plugins\CorePluginSystem.cs" />
     <Compile Include="Plugins\IContentLoader.cs" />
     <Compile Include="Plugins\IDebugDraw.cs" />
     <Compile Include="Plugins\IEngineCore.cs" />

@@ -3,10 +3,9 @@ using Xunit;
 using KDScorpionCore;
 using KDScorpionEngine.Entities;
 using System.Drawing;
-using PluginSystem;
 using KDScorpionCore.Plugins;
 using System;
-using KDScorpionEngine.Physics;
+using KDScorpionCore.Physics;
 
 namespace KDScorpionEngineTests.Entities
 {

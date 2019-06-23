@@ -7,7 +7,6 @@ using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Input;
 using KDScorpionEngine;
-using PluginSystem;
 
 namespace KDScorpionEngineTests.Input
 {

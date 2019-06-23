@@ -1,8 +1,4 @@
-﻿using KDScorpionEngine.Behaviors;
-using KDScorpionEngineTests.Fakes;
-using Xunit;
-
-namespace KDScorpionEngineTests.Behaviors
+﻿namespace KDScorpionEngineTests.Behaviors
 {
     public class EntityBehaviorTests
     {
