@@ -46,15 +46,9 @@ namespace KDScorpionEngine
         [ExcludeFromCodeCoverage]
         public Engine(bool loadPhysicsLibrary = true)
         {
-            var plugins = new Plugins();
-            CorePluginSystem.SetPlugins(plugins);
-
+            SetupEngineCore(Core.Start());
             ContentLoader = new ContentLoader();
             SceneManager = new SceneManager(ContentLoader);
-
-            //TODO: Figure out a way to not have to use the corepluginsystem from ScorpionCore.
-            //The idea is to have only the core library types deal with loading the plugins.
-            SetupEngineCore(CorePluginSystem.Plugins.EnginePlugins.LoadPlugin<IEngineCore>());
         }
         #endregion
 
