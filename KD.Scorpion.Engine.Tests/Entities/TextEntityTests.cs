@@ -1,6 +1,5 @@
 ﻿using Moq;
 using Xunit;
-using KDScorpionCore;
 using KDScorpionEngine.Entities;
 using KDScorpionCore.Plugins;
 using System;

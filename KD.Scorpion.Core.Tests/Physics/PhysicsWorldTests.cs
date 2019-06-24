@@ -4,7 +4,6 @@ using Xunit;
 using KDScorpionCore;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
-using PluginSystem;
 using KDScorpionCore.Physics;
 
 namespace KDScorpionCoreTests.Physics
