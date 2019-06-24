@@ -7,7 +7,6 @@ using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Input;
 using KDScorpionEngine;
-using PluginSystem;
 
 namespace KDScorpionEngineTests.Input
 {
@@ -583,7 +582,7 @@ namespace KDScorpionEngineTests.Input
 
 
         #region Public Methods
-        public void Dispose() => Plugins.EnginePlugins = null;
+        public void Dispose() => _mockMouse = null;
         #endregion
     }
 }

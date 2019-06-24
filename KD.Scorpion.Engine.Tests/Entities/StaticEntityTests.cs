@@ -7,36 +7,41 @@ using KDScorpionEngine.Entities;
 using KDScorpionEngineTests.Fakes;
 using PluginSystem;
 using KDScorpionCore.Plugins;
-using KDScorpionEngine.Physics;
+using System;
 
 namespace KDScorpionEngineTests.Entities
 {
-    public class StaticEntityTests
+    public class StaticEntityTests : IDisposable
     {
+        #region Private Fields
+        private Mock<IPhysicsBody> _mockPhysicsBody;
+        #endregion
+
+
+        #region Constructors
+        public StaticEntityTests()
+        {
+            _mockPhysicsBody = new Mock<IPhysicsBody>();
+            _mockPhysicsBody.SetupProperty(p => p.X);
+            _mockPhysicsBody.SetupProperty(p => p.Y);
+            _mockPhysicsBody.SetupProperty(p => p.XVertices);
+            _mockPhysicsBody.SetupProperty(p => p.YVertices);
+        }
+        #endregion
+
+
         #region Constructor Tests
         [Fact]
         public void Ctor_WhenInvoking_ProperlyConstructsObject()
         {
             //Arrange
-            var mockPhysicsBody = new Mock<IPhysicsBody>();
-            mockPhysicsBody.SetupProperty(p => p.X);
-            mockPhysicsBody.SetupProperty(p => p.Y);
-
-            var mockTexture = new Mock<ITexture>();
-            var texture = new Texture(mockTexture.Object);
-            var entity = new StaticEntity(texture, new Vector(123, 456))
-            {
-                Body = new PhysicsBody(mockPhysicsBody.Object)
-            };
+            var entity = new StaticEntity(_mockPhysicsBody.Object);
             entity.Initialize();
 
-            var expected = new Vector(123, 456);
-
-            //Act
-            var actual = entity.Position;
-
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.NotNull(entity.Body);
+            Assert.Equal(Vector.Zero, entity.Position);
+            Assert.False(entity.IsStatic);
         }
         #endregion
 
@@ -52,8 +57,6 @@ namespace KDScorpionEngineTests.Entities
                 return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[1], (float)ctorParams[2], (float)ctorParams[3]);
             });
 
-            Plugins.PhysicsPlugins = mockPhysicsPluginLibrary.Object;
-
             var mockTexture = new Mock<ITexture>();
             var mockBehavior = new Mock<IBehavior>();
             var texture = new Texture(mockTexture.Object);
@@ -66,6 +69,11 @@ namespace KDScorpionEngineTests.Entities
             //Assert
             mockBehavior.Verify(m => m.Update(It.IsAny<EngineTime>()), Times.Once());
         }
+        #endregion
+
+
+        #region Public Methods
+        public void Dispose() => _mockPhysicsBody = null;
         #endregion
     }
 }

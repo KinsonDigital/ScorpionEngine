@@ -6,6 +6,7 @@ using KDScorpionCore;
 using KDScorpionUI;
 using KDScorpionEngine.Input;
 using KDScorpionEngine.Graphics;
+using KDScorpionCore.Input;
 
 namespace ScorpTestGame.Scenes
 {

@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace KDParticleEngineTests
+﻿namespace KDParticleEngineTests
 {
     public class ParticleEngineTests
     {

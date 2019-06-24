@@ -1,5 +1,5 @@
-﻿using KDScorpionEngine.Entities;
-using KDScorpionEngine.Physics;
+﻿using KDScorpionCore.Physics;
+using KDScorpionEngine.Entities;
 using System;
 
 namespace KDScorpionEngine.Exceptions

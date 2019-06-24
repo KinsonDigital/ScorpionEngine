@@ -33,9 +33,9 @@ namespace KDScorpionEngine.Scene
 
 
         #region Constructors
-        internal SceneManager(ContentLoader contentLoader, IKeyboard keyboard)
+        internal SceneManager(IContentLoader contentLoader, IKeyboard keyboard)
         {
-            _contentLoader = contentLoader;
+            _contentLoader = new ContentLoader(contentLoader);
             _keyboard = new Keyboard(keyboard);
         }
 
@@ -47,7 +47,7 @@ namespace KDScorpionEngine.Scene
         public SceneManager(ContentLoader contentLoader)
         {
             _contentLoader = contentLoader;
-            _keyboard = new Keyboard(EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IKeyboard>());
+            _keyboard = new Keyboard();
         }
         #endregion
 

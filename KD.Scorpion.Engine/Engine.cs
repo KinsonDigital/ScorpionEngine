@@ -2,13 +2,10 @@
 using KDScorpionCore;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Scene;
-using System.Runtime.CompilerServices;
 using System.Diagnostics.CodeAnalysis;
 using KDScorpionCore.Content;
-using PluginSystem;
 using KDScorpionEngine.Graphics;
 
-[assembly: InternalsVisibleTo(assemblyName: "ScorpionEngineTests", AllInternalsVisible = true)]
 
 namespace KDScorpionEngine
 {
@@ -35,10 +32,8 @@ namespace KDScorpionEngine
         internal Engine(IContentLoader contentLoader, IEngineCore engineCore, IKeyboard keyboard, bool loadPhysicsLibrary = true)
         {
             ContentLoader = new ContentLoader(contentLoader);
-            SceneManager = new SceneManager(ContentLoader, keyboard);
+            SceneManager = new SceneManager(contentLoader, keyboard);
 
-            //Make sure that the Setup() method is called
-            //This is to make sure that this class is testable for unit testing purposes.
             SetupEngineCore(engineCore);
         }
 
@@ -50,21 +45,17 @@ namespace KDScorpionEngine
         [ExcludeFromCodeCoverage]
         public Engine(bool loadPhysicsLibrary = true)
         {
-            var plugins = new Plugins_NEW();
-            EnginePluginSystem.SetPlugin(plugins);
-
-            ContentLoader = new ContentLoader(EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IContentLoader>());
+            SetupEngineCore(Core.Start());
+            ContentLoader = new ContentLoader();
             SceneManager = new SceneManager(ContentLoader);
-
-            SetupEngineCore(EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IEngineCore>());
         }
         #endregion
 
 
         #region Props
-        public SceneManager SceneManager { get; set; }
+        public SceneManager SceneManager { get; private set; }
 
-        public ContentLoader ContentLoader { get; set; }
+        public ContentLoader ContentLoader { get; private set; }
 
         /// <summary>
         /// Gets a value indicating that the game engine is currently running.
@@ -195,6 +186,10 @@ namespace KDScorpionEngine
 
         private void _engineCore_OnInitialize(object sender, EventArgs e)
         {
+            _renderer = new GameRenderer
+            {
+                InternalRenderer = _engineCore.Renderer
+            };
             Init();
         }
 
@@ -219,10 +214,6 @@ namespace KDScorpionEngine
 
         private void _engineCore_OnRender(object sender, OnRenderEventArgs e)
         {
-            //TODO: Look into this.  This should not be created every single time
-            //the render method is called. This is not performant.
-            _renderer = new GameRenderer(e.Renderer, EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IDebugDraw>());
-
             _renderer.Clear(50, 50, 50, 255);
 
             _renderer.Start();

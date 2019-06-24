@@ -25,12 +25,12 @@ namespace SDLScorpPlugin
         {
             var texturePath = $@"{ContentRootDirectory}\Graphics\{name}.png";
 
-            //The final optimized image
-            var newTexturePtr = IntPtr.Zero;
 
             //Load image at specified path
             var loadedSurface = SDL_image.IMG_Load(texturePath);
 
+            //The final optimized image
+            IntPtr newTexturePtr;
             if (loadedSurface == IntPtr.Zero)
             {
                 throw new Exception($"Unable to load image {texturePath}! \n\nSDL Error: {SDL.SDL_GetError()}");

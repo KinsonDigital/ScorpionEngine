@@ -28,22 +28,16 @@ namespace KDScorpionEngine.Behaviors
 
         #region Fields
         private int _timeElapsed;//The engineTime elapsed since last frame
-        private readonly Keyboard _keyboard;
+        private Keyboard _keyboard;
         #endregion
 
 
         #region Constructors
-        internal KeyBehavior(IKeyboard keyboard) => _keyboard = new Keyboard(keyboard);
-
-
-        /// <summary>
-        /// Creates a new key behavior.
-        /// </summary>
-        public KeyBehavior(bool enabled = false, Keyboard keyboard = null)
+        internal KeyBehavior(IKeyboard keyboard)
         {
-            _keyboard = keyboard ?? new Keyboard(EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IKeyboard>());
+            _keyboard = new Keyboard(keyboard);
 
-            Enabled = enabled;
+            Setup(KeyCodes.X, true);
         }
 
 
@@ -51,13 +45,7 @@ namespace KDScorpionEngine.Behaviors
         /// Creates a new key behavior.
         /// </summary>
         /// <param name="key">The assigned keyboard key of the behavior.</param>
-        public KeyBehavior(KeyCodes key, bool enabled = false, Keyboard keyboard = null)
-        {
-            _keyboard = keyboard ?? new Keyboard(EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IKeyboard>());
-
-            Key = key;
-            Enabled = enabled;
-        }
+        public KeyBehavior(KeyCodes key, bool enabled = false) => Setup(key, enabled);
         #endregion
 
 
@@ -177,6 +165,18 @@ namespace KDScorpionEngine.Behaviors
             #endregion
 
             _keyboard.UpdatePreviousState();
+        }
+        #endregion
+
+
+        #region Private Methods
+        private void Setup(KeyCodes key, bool enabled)
+        {
+            if (_keyboard == null)
+                _keyboard = new Keyboard();
+
+            Key = key;
+            Enabled = enabled;
         }
         #endregion
     }

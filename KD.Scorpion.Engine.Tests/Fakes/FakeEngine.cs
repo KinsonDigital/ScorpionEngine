@@ -3,7 +3,6 @@ using KDScorpionCore.Content;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine;
 using KDScorpionEngine.Graphics;
-using PluginSystem;
 
 namespace KDScorpionEngineTests.Fakes
 {

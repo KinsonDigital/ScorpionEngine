@@ -17,20 +17,22 @@ namespace KDScorpionEngine.Behaviors
         private KeyBehavior _moveUpOnKeyDown;
         private KeyBehavior _moveDownOnKeyDown;
         private readonly T _gameObject;
-        private readonly float _movementSpeed;
         private KeyCodes _moveUpKey = KeyCodes.Up;
         private KeyCodes _moveDownKey = KeyCodes.Down;
         private KeyCodes _moveLeftKey = KeyCodes.Left;
         private KeyCodes _moveRightKey = KeyCodes.Right;
+        private bool _injectKeyboard;
+        private IKeyboard _internalKeyboard;
         #endregion
 
 
         #region Constructors
-        internal MovementByKeyboardBehavior(T entity, float movementSpeed, IKeyboard keyboard)
+        internal MovementByKeyboardBehavior(IKeyboard keyboard, T entity)
         {
-            _movementSpeed = movementSpeed;
+            _injectKeyboard = true;
+            _internalKeyboard = keyboard;
 
-            CreateBehaviors(keyboard);
+            CreateBehaviors();
             SetupBehaviors();
 
             _gameObject = entity;
@@ -46,7 +48,7 @@ namespace KDScorpionEngine.Behaviors
         /// <param name="movementSpeed">The movement speed that the <see cref="DynamicEntity"/> will move at.</param>
         public MovementByKeyboardBehavior(T entity, float movementSpeed)
         {
-            _movementSpeed = movementSpeed;
+            LinearSpeed = movementSpeed;
 
             CreateBehaviors();
             SetupBehaviors();
@@ -122,6 +124,9 @@ namespace KDScorpionEngine.Behaviors
                 SetupBehaviors();
             }
         }
+
+
+        public float LinearSpeed { get; set; }
         #endregion
 
 
@@ -144,23 +149,21 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         private void CreateBehaviors()
         {
-            _moveRightOnKeyDown = new KeyBehavior(_moveRightKey, true);
-            _moveLeftOnKeyDown = new KeyBehavior(_moveLeftKey, true);
-            _moveUpOnKeyDown = new KeyBehavior(_moveUpKey, true);
-            _moveDownOnKeyDown = new KeyBehavior(_moveDownKey, true);
-        }
+            _moveRightOnKeyDown = _injectKeyboard ?
+                new KeyBehavior(_internalKeyboard) :
+                new KeyBehavior(_moveRightKey, true);
 
+            _moveLeftOnKeyDown = _injectKeyboard ?
+                new KeyBehavior(_internalKeyboard) :
+                new KeyBehavior(_moveLeftKey, true);
 
-        /// <summary>
-        /// Creates all of the behaviors but only for testing.
-        /// </summary>
-        /// <param name="keyboard">The keyboard implementation to use.</param>
-        private void CreateBehaviors(IKeyboard keyboard)
-        {
-            _moveRightOnKeyDown = new KeyBehavior(keyboard);
-            _moveLeftOnKeyDown = new KeyBehavior(keyboard);
-            _moveUpOnKeyDown = new KeyBehavior(keyboard);
-            _moveDownOnKeyDown = new KeyBehavior(keyboard);
+            _moveUpOnKeyDown = _injectKeyboard ?
+                new KeyBehavior(_internalKeyboard) :
+                new KeyBehavior(_moveUpKey, true);
+
+            _moveDownOnKeyDown = _injectKeyboard ?
+                new KeyBehavior(_internalKeyboard) :
+                new KeyBehavior(_moveDownKey, true);
         }
 
 
@@ -196,37 +199,25 @@ namespace KDScorpionEngine.Behaviors
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> to the right.
         /// </summary>
-        private void MoveRight_KeyDown(object sender, KeyEventArgs e)
-        {
-            _gameObject.MoveRight(_movementSpeed);
-        }
+        private void MoveRight_KeyDown(object sender, KeyEventArgs e) => _gameObject.MoveRight(LinearSpeed);
 
 
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> to the left.
         /// </summary>
-        private void MoveLeft_KeyDown(object sender, KeyEventArgs e)
-        {
-            _gameObject.MoveLeft(_movementSpeed);
-        }
+        private void MoveLeft_KeyDown(object sender, KeyEventArgs e) => _gameObject.MoveLeft(LinearSpeed);
 
 
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> up.
         /// </summary>
-        private void MoveUp_KeyDown(object sender, KeyEventArgs e)
-        {
-            _gameObject.MoveUp(_movementSpeed);
-        }
+        private void MoveUp_KeyDown(object sender, KeyEventArgs e) => _gameObject.MoveUp(LinearSpeed);
 
 
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> down.
         /// </summary>
-        private void MoveDown_KeyDown(object sender, KeyEventArgs e)
-        {
-            _gameObject.MoveDown(_movementSpeed);
-        }
+        private void MoveDown_KeyDown(object sender, KeyEventArgs e) => _gameObject.MoveDown(LinearSpeed);
         #endregion
         #endregion
     }

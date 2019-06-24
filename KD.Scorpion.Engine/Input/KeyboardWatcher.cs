@@ -22,7 +22,7 @@ namespace KDScorpionEngine.Input
 
 
         #region Fields
-        private readonly IKeyboard _keyboard;
+        private readonly Keyboard _keyboard;
         private Dictionary<KeyCodes, bool> _currentPressedKeys;//Holds the list of comboKeys and there down states
         protected Counter _counter;//Keeps track of the hit count of an input
         protected bool _curState;//The current state of the set input
@@ -33,43 +33,26 @@ namespace KDScorpionEngine.Input
 
 
         #region Constructors
-        public KeyboardWatcher(bool enabled, IKeyboard keyboard)
+        /// <summary>
+        /// Creates a new instance of <see cref="KeyboardWatcher"/>.
+        /// NOTE: This is only used for unit testing.
+        /// </summary>
+        /// <param name="keyboard">The mocked keyboard to inject for testing purposes.</param>
+        internal KeyboardWatcher(IKeyboard keyboard)
         {
-            _keyboard = keyboard;
-            Enabled = enabled;
-            ComboKeys = new List<KeyCodes>();
-
-            //Setup stop watches
-            _counter = new Counter(0, 10, 1);
-            _keyDownTimer = new StopWatch(1000);
-            _keyDownTimer.OnTimeElapsed += _keyDownTimer_OnTimeElapsed;
-            _keyDownTimer.Start();
-
-            _keyReleasedTimer = new StopWatch(1000);
-            _keyReleasedTimer.OnTimeElapsed += _keyUpTimer_OnTimeElapsed;
-            _keyReleasedTimer.Start();
+            _keyboard = new Keyboard(keyboard);
+            Setup(true);
         }
 
 
         /// <summary>
         /// Creates an instance of KeyboardWatcher.
         /// </summary>
-        /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
+        /// <param name="enabled">Set to true or false to enable or disable the watcher when created.</param>
         public KeyboardWatcher(bool enabled)
         {
-            _keyboard = EnginePluginSystem.Plugins.EnginePlugins.LoadPlugin<IKeyboard>();
-            Enabled = enabled;
-            ComboKeys = new List<KeyCodes>();
-
-            //Setup stop watches
-            _counter = new Counter(0, 10, 1);
-            _keyDownTimer = new StopWatch(1000);
-            _keyDownTimer.OnTimeElapsed += _keyDownTimer_OnTimeElapsed;
-            _keyDownTimer.Start();
-
-            _keyReleasedTimer = new StopWatch(1000);
-            _keyReleasedTimer.OnTimeElapsed += _keyUpTimer_OnTimeElapsed;
-            _keyReleasedTimer.Start();
+            _keyboard = new Keyboard();
+            Setup(enabled);
         }
         #endregion
 
@@ -244,6 +227,27 @@ namespace KDScorpionEngine.Input
 
 
         #region Private Methods
+        /// <summary>
+        /// Sets up the <see cref="KeyboardWatcher"/>.
+        /// </summary>
+        /// <param name="enabled">Set to true or false to enable or disable the watcher when created.</param>
+        private void Setup(bool enabled)
+        {
+            Enabled = enabled;
+            ComboKeys = new List<KeyCodes>();
+
+            //Setup stop watches
+            _counter = new Counter(0, 10, 1);
+            _keyDownTimer = new StopWatch(1000);
+            _keyDownTimer.OnTimeElapsed += _keyDownTimer_OnTimeElapsed;
+            _keyDownTimer.Start();
+
+            _keyReleasedTimer = new StopWatch(1000);
+            _keyReleasedTimer.OnTimeElapsed += _keyUpTimer_OnTimeElapsed;
+            _keyReleasedTimer.Start();
+        }
+
+
         /// <summary>
         /// Creates the list of pressed keys from the given list of keys
         /// </summary>

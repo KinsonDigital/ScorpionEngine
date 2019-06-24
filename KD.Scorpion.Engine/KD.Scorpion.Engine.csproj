@@ -112,9 +112,6 @@
     <Compile Include="Exceptions\SceneNotFoundException.cs" />
     <Compile Include="Graphics\GameRenderer.cs" />
     <Compile Include="Input\IInputWatcher.cs" />
-    <Compile Include="Input\Keyboard.cs" />
-    <Compile Include="Input\Mouse.cs" />
-    <Compile Include="EnginePluginSystem.cs" />
     <Compile Include="Utils\Counter.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Events\FrameStackFinishedEventArgs.cs" />
@@ -127,9 +124,6 @@
     <Compile Include="Behaviors\IBehavior.cs" />
     <Compile Include="ITimeManager.cs" />
     <Compile Include="Entities\StaticEntity.cs" />
-    <Compile Include="Physics\InternalVector.cs" />
-    <Compile Include="Physics\PhysicsBody.cs" />
-    <Compile Include="Physics\PhysicsWorld.cs" />
     <Compile Include="Scene\GameScene.cs" />
     <Compile Include="Scene\IScene.cs" />
     <Compile Include="Scene\SceneManager.cs" />
@@ -138,8 +132,6 @@
     <Compile Include="DelayTimer.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Events\OutOfBoundsTriggerEventsArgs.cs" />
-    <Compile Include="Sound\Song.cs" />
-    <Compile Include="Sound\SoundEffect.cs" />
     <Compile Include="Input\KeyboardWatcher.cs" />
     <Compile Include="Input\MouseWatcher.cs" />
     <Compile Include="IUpdatable.cs" />

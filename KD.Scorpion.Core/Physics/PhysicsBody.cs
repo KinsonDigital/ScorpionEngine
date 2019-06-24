@@ -1,22 +1,15 @@
-using KDScorpionCore;
 using KDScorpionCore.Plugins;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace KDScorpionEngine.Physics
+namespace KDScorpionCore.Physics
 {
     public class PhysicsBody
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="PhysicsBody"/> using the given <paramref name="internalPhysicsBody"/>.
-        /// NOTE: This is only used for unit testing.
-        /// </summary>
-        /// <param name="internalPhysicsBody"></param>
-        internal PhysicsBody(IPhysicsBody internalPhysicsBody) => InternalPhysicsBody = internalPhysicsBody;
+        #region Constructors
+        internal PhysicsBody(IPhysicsBody body) => InternalPhysicsBody = body;
 
 
-        [ExcludeFromCodeCoverage]
         public PhysicsBody(Vector[] vertices, Vector position, float angle = 0, float density = 1, float friction = 0.2f, float restitution = 0, bool isStatic = false)
         {
             object[] ctorParams = new object[9];
@@ -36,11 +29,13 @@ namespace KDScorpionEngine.Physics
             ctorParams[7] = restitution;
             ctorParams[8] = isStatic;
 
-            InternalPhysicsBody = EnginePluginSystem.Plugins.PhysicsPlugins.LoadPlugin<IPhysicsBody>(ctorParams);
+            InternalPhysicsBody = CorePluginSystem.Plugins.PhysicsPlugins.LoadPlugin<IPhysicsBody>(ctorParams);
         }
+        #endregion
 
 
-        internal IPhysicsBody InternalPhysicsBody { get; set; }
+        #region Props
+        internal IPhysicsBody InternalPhysicsBody { get; private set; }
 
         public Vector[] Vertices
         {
@@ -130,5 +125,6 @@ namespace KDScorpionEngine.Physics
             get => InternalPhysicsBody.AngularVelocity;
             set => InternalPhysicsBody.AngularVelocity = value;
         }
+        #endregion
     }
 }

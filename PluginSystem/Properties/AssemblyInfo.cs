@@ -1,5 +1,11 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+
+[assembly: InternalsVisibleTo(assemblyName: "ScorpionCoreTests", AllInternalsVisible = true)]
+[assembly: InternalsVisibleTo(assemblyName: "ScorpionEngineTests", AllInternalsVisible = true)]
+[assembly: InternalsVisibleTo(assemblyName: "ScorpionUITests", AllInternalsVisible = true)]
+[assembly: InternalsVisibleTo(assemblyName: "ScorpionEngine", AllInternalsVisible = true)]
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information

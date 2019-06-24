@@ -4,10 +4,8 @@ using Xunit;
 using KDScorpionCore;
 using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
-using KDScorpionEngine.Input;
-using PluginSystem;
 
-namespace KDScorpionEngineTests.Input
+namespace KDScorpionCoreTests.Input
 {
     public class MouseTests
     {

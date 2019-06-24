@@ -12,7 +12,9 @@ namespace KDScorpionCore.Content
 
 
         #region Constructors
-        public ContentLoader(IContentLoader contentLoader) => _internalLoader = contentLoader;
+        internal ContentLoader(IContentLoader contentLoader) => _internalLoader = contentLoader;
+
+        public ContentLoader() => _internalLoader = CorePluginSystem.Plugins.EnginePlugins.LoadPlugin<IContentLoader>();
         #endregion
 
 

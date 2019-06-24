@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using KDScorpionCore;
 using KDScorpionCore.Graphics;
+using KDScorpionCore.Plugins;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Exceptions;
 
@@ -25,35 +26,43 @@ namespace KDScorpionEngine.Entities
         private float _preInitLinearDeceleration;
         private float _preInitAngularDeceleration;
         private float _maxLinearSpeed;
+        private const float DEFAULT_MAX_SPEED = 40f;
         #endregion
 
 
         #region Constructors
+        internal DynamicEntity(IPhysicsBody body) : base(body)
+        {
+            SetupMaxLinearBehaviors(DEFAULT_MAX_SPEED);
+            SetupMaxRotationBehaviors(DEFAULT_MAX_SPEED);
+        }
+
+
         public DynamicEntity()
         {
-            SetupMaxLinearBehaviors(10f);
-            SetupMaxRotationBehaviors(10f);
+            SetupMaxLinearBehaviors(DEFAULT_MAX_SPEED);
+            SetupMaxRotationBehaviors(DEFAULT_MAX_SPEED);
         }
 
 
         public DynamicEntity(float friction = 0.2f) : base(friction: friction)
         {
-            SetupMaxLinearBehaviors(40f);
-            SetupMaxRotationBehaviors(40f);
+            SetupMaxLinearBehaviors(DEFAULT_MAX_SPEED);
+            SetupMaxRotationBehaviors(DEFAULT_MAX_SPEED);
         }
 
 
         public DynamicEntity(Vector position, float friction = 0.2f) : base(position, friction)
         {
-            SetupMaxLinearBehaviors(40f);
-            SetupMaxRotationBehaviors(40f);
+            SetupMaxLinearBehaviors(DEFAULT_MAX_SPEED);
+            SetupMaxRotationBehaviors(DEFAULT_MAX_SPEED);
         }
 
 
         public DynamicEntity(Texture texture, Vector position, float friction = 0.2f) : base(texture, position, friction)
         {
-            SetupMaxLinearBehaviors(40f);
-            SetupMaxRotationBehaviors(40f);
+            SetupMaxLinearBehaviors(DEFAULT_MAX_SPEED);
+            SetupMaxRotationBehaviors(DEFAULT_MAX_SPEED);
         }
 
 
@@ -65,8 +74,8 @@ namespace KDScorpionEngine.Entities
         /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
         public DynamicEntity(Vector[] vertices, Vector position, float friction = 0.2f) : base(vertices, position, friction)
         {
-            SetupMaxLinearBehaviors(40f);
-            SetupMaxRotationBehaviors(40f);
+            SetupMaxLinearBehaviors(DEFAULT_MAX_SPEED);
+            SetupMaxRotationBehaviors(DEFAULT_MAX_SPEED);
         }
 
 
@@ -79,8 +88,8 @@ namespace KDScorpionEngine.Entities
         /// polygon will be used for the shape of the object.  The vertices must be in CCW(count clockwise) direction.</param>
         public DynamicEntity(Texture texture, Vector[] polyVertices, Vector position, float friction = 0.2f) : base(texture, polyVertices, position, friction)
         {
-            SetupMaxLinearBehaviors(40f);
-            SetupMaxRotationBehaviors(40f);
+            SetupMaxLinearBehaviors(DEFAULT_MAX_SPEED);
+            SetupMaxRotationBehaviors(DEFAULT_MAX_SPEED);
         }
         #endregion
 

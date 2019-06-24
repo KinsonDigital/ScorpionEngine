@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
-
-[assembly: InternalsVisibleTo(assemblyName: "ScorpionEngineTests", AllInternalsVisible = true)]
 
 namespace PluginSystem
 {
     [ExcludeFromCodeCoverage]
-    public static class Plugins
+    public class Plugins
     {
         #region Private Fields
-        private static IPluginLibrary _enginePluginLib;
-        private static IPluginLibrary _physicsPluginLib;
+        private IPluginLibrary _enginePluginLib;
+        private IPluginLibrary _physicsPluginLib;
         #endregion
 
 
@@ -19,17 +16,17 @@ namespace PluginSystem
         /// <summary>
         /// Gets or sets the name of the engine plugin library.
         /// </summary>
-        public static string EngineLibraryPluginName { get; set; } = LibChooser.EnginePluginLibraryName;
+        public string EngineLibraryPluginName { get; set; } = LibChooser.EnginePluginLibraryName;
 
         /// <summary>
         /// Gets or sets the name of the engine plugin library.
         /// </summary>
-        public static string PhysicsLibraryPluginName { get; set; } = LibChooser.PhysicsPLuginLibraryName;
-        
+        public string PhysicsLibraryPluginName { get; set; } = LibChooser.PhysicsPLuginLibraryName;
+
         /// <summary>
         /// Gets the loaded engine plugin library.
         /// </summary>
-        public static IPluginLibrary EnginePlugins
+        public IPluginLibrary EnginePlugins
         {
             get
             {
@@ -48,7 +45,7 @@ namespace PluginSystem
         /// <summary>
         /// Gets the loaded physics plugin library.
         /// </summary>
-        public static IPluginLibrary PhysicsPlugins
+        public IPluginLibrary PhysicsPlugins
         {
             get
             {

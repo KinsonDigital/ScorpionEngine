@@ -4,16 +4,29 @@ namespace KDScorpionCore.Graphics
 {
     public class Renderer
     {
+        #region Private Fields
+        private readonly IDebugDraw _debugDraw;
+        #endregion
+
+
         #region Constructors
-        public Renderer(IRenderer renderer)
+        internal Renderer(IRenderer renderer, IDebugDraw debugDraw)
         {
             InternalRenderer = renderer;
+            _debugDraw = debugDraw;
+        }
+
+
+        public Renderer()
+        {
+            InternalRenderer = CorePluginSystem.Plugins.EnginePlugins.LoadPlugin<IRenderer>();
+            _debugDraw = CorePluginSystem.Plugins.EnginePlugins.LoadPlugin<IDebugDraw>();
         }
         #endregion
 
 
         #region Props
-        public IRenderer InternalRenderer { get; set; }
+        internal IRenderer InternalRenderer { get; set; }
         #endregion
 
 
@@ -66,6 +79,9 @@ namespace KDScorpionCore.Graphics
 
 
         public void Render(GameText text, Vector position, GameColor color) => Render(text, position.X, position.Y, color);
+
+
+        public void RenderDebugDraw(IPhysicsBody body, GameColor color) => _debugDraw.Draw(InternalRenderer, body, color);
 
 
         public void FillCircle(Vector position, float radius, GameColor color) => 

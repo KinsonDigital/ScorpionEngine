@@ -9,8 +9,9 @@ namespace KDScorpionCoreTests.Graphics
 {
     public class RendererTests : IDisposable
     {
-        #region Fields
+        #region Private Fields
         private Texture _texture;
+        private Mock<IDebugDraw> _debugDraw;
         private GameText _gameText;
         #endregion
 
@@ -24,6 +25,9 @@ namespace KDScorpionCoreTests.Graphics
 
             var mockText = new Mock<IText>();
             mockText.SetupGet(m => m.Color).Returns(new GameColor(11, 22, 33, 44));
+
+            _debugDraw = new Mock<IDebugDraw>();
+
             _gameText = new GameText()
             {
                 InternalText = mockText.Object
@@ -38,13 +42,13 @@ namespace KDScorpionCoreTests.Graphics
         {
             //Arrange
             var mockTexture = new Mock<ITexture>();
-            var mockInternalRenderer = new Mock<IRenderer>();
+            var mockRenderer = new Mock<IRenderer>();
 
-            var renderer = new Renderer(mockInternalRenderer.Object);
+            var renderer = new Renderer(mockRenderer.Object, _debugDraw.Object);
 
             //Assert
             renderer.Render(_texture, It.IsAny<float>(), It.IsAny<float>());
-            mockInternalRenderer.Verify(m => m.Render(_texture.InternalTexture, It.IsAny<float>(), It.IsAny<float>()), Times.Once());
+            mockRenderer.Verify(m => m.Render(_texture.InternalTexture, It.IsAny<float>(), It.IsAny<float>()), Times.Once());
         }
 
 
@@ -55,7 +59,7 @@ namespace KDScorpionCoreTests.Graphics
             var mockTexture = new Mock<ITexture>();
             var mockInternalRenderer = new Mock<IRenderer>();
 
-            var renderer = new Renderer(mockInternalRenderer.Object);
+            var renderer = new Renderer(mockInternalRenderer.Object, _debugDraw.Object);
 
             //Assert
             renderer.Render(_texture, It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>());
@@ -69,7 +73,7 @@ namespace KDScorpionCoreTests.Graphics
             //Arrange
             var mockInternalRenderer = new Mock<IRenderer>();
            
-            var renderer = new Renderer(mockInternalRenderer.Object);
+            var renderer = new Renderer(mockInternalRenderer.Object, _debugDraw.Object);
 
             //Act
             renderer.Render(_texture, It.IsAny<Vector>());
@@ -84,7 +88,7 @@ namespace KDScorpionCoreTests.Graphics
         {
             //Arrange
             var mockInternalRenderer = new Mock<IRenderer>();
-            var renderer = new Renderer(mockInternalRenderer.Object);
+            var renderer = new Renderer(mockInternalRenderer.Object, _debugDraw.Object);
 
             //Assert
             renderer.Render(_gameText, It.IsAny<float>(), It.IsAny<float>());
@@ -98,7 +102,7 @@ namespace KDScorpionCoreTests.Graphics
             //Arrange
             var mockInternalRenderer = new Mock<IRenderer>();
 
-            var renderer = new Renderer(mockInternalRenderer.Object);
+            var renderer = new Renderer(mockInternalRenderer.Object, _debugDraw.Object);
 
             //Act
             renderer.Render(_gameText, It.IsAny<float>(), It.IsAny<float>(), It.IsAny<GameColor>());
@@ -113,7 +117,7 @@ namespace KDScorpionCoreTests.Graphics
         {
             //Arrange
             var mockInternalRenderer = new Mock<IRenderer>();
-            var renderer = new Renderer(mockInternalRenderer.Object);
+            var renderer = new Renderer(mockInternalRenderer.Object, _debugDraw.Object);
 
             //Act
             renderer.Start();
@@ -128,7 +132,7 @@ namespace KDScorpionCoreTests.Graphics
         {
             //Arrange
             var mockInternalRenderer = new Mock<IRenderer>();
-            var renderer = new Renderer(mockInternalRenderer.Object);
+            var renderer = new Renderer(mockInternalRenderer.Object, _debugDraw.Object);
 
             //Act
             renderer.End();
@@ -143,7 +147,7 @@ namespace KDScorpionCoreTests.Graphics
         {
             //Arrange
             var mockInternalRenderer = new Mock<IRenderer>();
-            var renderer = new Renderer(mockInternalRenderer.Object);
+            var renderer = new Renderer(mockInternalRenderer.Object, _debugDraw.Object);
 
             //Act
             renderer.Clear(It.IsAny<byte>(), It.IsAny<byte>(), It.IsAny<byte>(), It.IsAny<byte>());
@@ -158,7 +162,7 @@ namespace KDScorpionCoreTests.Graphics
         {
             //Arrange
             var mockInternalRenderer = new Mock<IRenderer>();
-            var renderer = new Renderer(mockInternalRenderer.Object);
+            var renderer = new Renderer(mockInternalRenderer.Object, _debugDraw.Object);
 
             //Act
             renderer.FillCircle(It.IsAny<Vector>(), It.IsAny<float>(), It.IsAny<GameColor>());

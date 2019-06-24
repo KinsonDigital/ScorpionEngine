@@ -105,7 +105,6 @@
     <Compile Include="PluginLibrary.cs" />
     <Compile Include="PluginLibraryLoader.cs" />
     <Compile Include="Plugins.cs" />
-    <Compile Include="Plugins_NEW.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

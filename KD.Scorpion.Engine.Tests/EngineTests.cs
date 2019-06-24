@@ -2,9 +2,7 @@
 using Moq;
 using Xunit;
 using KDScorpionCore;
-using KDScorpionCore.Content;
 using KDScorpionCore.Plugins;
-using KDScorpionEngine.Scene;
 using KDScorpionEngineTests.Fakes;
 using KDScorpionEngine;
 
@@ -51,36 +49,24 @@ namespace KDScorpionEngineTests
 
         #region Prop Tests
         [Fact]
-        public void SceneManager_WhenGettingAndSettingValue_ReturnsCorrectValue()
+        public void SceneManager_WhenGettingValue_IsNotNull()
         {
             //Arrange
             var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
-            var manager = new SceneManager(new ContentLoader(_mockContentLoader.Object), _mockKeyboard.Object);
-            var expected = manager;
-
-            //Act
-            engine.SceneManager = manager;
-            var actual = engine.SceneManager;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.NotNull(engine.SceneManager);
         }
 
 
         [Fact]
-        public void ContentLoader_WhenGettingAndSettingValue_ReturnsCorrectValue()
+        public void ContentLoader_WhenGettingValue_IsNotNull()
         {
             //Arrange
             var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
-            var contentLoader = new ContentLoader(_mockContentLoader.Object);
-            var expected = contentLoader;
-
-            //Act
-            engine.ContentLoader = contentLoader;
-            var actual = engine.ContentLoader;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.NotNull(engine.ContentLoader);
         }
 
 
@@ -256,7 +242,7 @@ namespace KDScorpionEngineTests
 
 
         #region Public Methods       
-        public void Dispose() => _mockEngineCore.Setup(m => m.IsRunning()).Returns(false);
+        public void Dispose() => _mockEngineCore = null;
         #endregion
     }
 }
