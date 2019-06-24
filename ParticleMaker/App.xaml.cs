@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
 using SimpleInjector;
 using KDParticleEngine;
 using KDParticleEngine.Services;
@@ -11,8 +10,6 @@ using ParticleMaker.ViewModels;
 using ParticleMaker.UserControls;//KEEP THIS. SHOWS USED WHEN IN UserControlTesting mode
 using System.Reflection;
 using System.Diagnostics;
-
-[assembly: InternalsVisibleTo(assemblyName: "ParticleMaker.Tests", AllInternalsVisible = true)]
 
 namespace ParticleMaker
 {
