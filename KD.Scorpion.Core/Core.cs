@@ -5,7 +5,7 @@ namespace KDScorpionCore
     /// <summary>
     /// Loads up and boostraps the core plugin system.
     /// </summary>
-    public static class Core
+    internal static class Core
     {
         #region Public Methods
         /// <summary>
