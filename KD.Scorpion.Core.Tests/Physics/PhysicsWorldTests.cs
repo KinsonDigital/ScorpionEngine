@@ -14,8 +14,6 @@ namespace KDScorpionCoreTests.Physics
         #region Private Fields
         private Mock<IPhysicsWorld> _mockPhysicsWorld;
         private Mock<IPhysicsBody> _mockPhysicsBody;
-        private Mock<IPluginLibrary> _mockPhysicsPluginLib;
-        private Plugins _plugins;
         #endregion
 
 
@@ -27,16 +25,6 @@ namespace KDScorpionCoreTests.Physics
             _mockPhysicsWorld.SetupGet(m => m.GravityY).Returns(4);
 
             _mockPhysicsBody = new Mock<IPhysicsBody>();
-
-            _mockPhysicsPluginLib = new Mock<IPluginLibrary>();
-            _mockPhysicsPluginLib.Setup(m => m.LoadPlugin<IPhysicsBody>()).Returns(_mockPhysicsBody.Object);
-
-            _plugins = new Plugins()
-            {
-                PhysicsPlugins = _mockPhysicsPluginLib.Object
-            };
-
-            CorePluginSystem.SetPlugins(_plugins);
         }
         #endregion
 
@@ -46,7 +34,6 @@ namespace KDScorpionCoreTests.Physics
         public void Ctro_WhenInvoking_ReturnsGravity()
         {
             //Arrange
-            var gravity = new Vector(2, 4);
             var world = new PhysicsWorld(_mockPhysicsWorld.Object);
             var expected = new Vector(2, 4);
 
@@ -97,9 +84,6 @@ namespace KDScorpionCoreTests.Physics
         {
             _mockPhysicsBody = null;
             _mockPhysicsWorld = null;
-            _mockPhysicsPluginLib = null;
-            _plugins = null;
-            CorePluginSystem.ClearPlugins();
         }
         #endregion
     }

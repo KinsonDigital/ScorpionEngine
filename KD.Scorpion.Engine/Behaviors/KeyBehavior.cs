@@ -1,6 +1,7 @@
 ﻿using System;
 using KDScorpionCore;
 using KDScorpionCore.Input;
+using KDScorpionCore.Plugins;
 using KDScorpionEngine.Input;
 
 namespace KDScorpionEngine.Behaviors
@@ -27,22 +28,24 @@ namespace KDScorpionEngine.Behaviors
 
         #region Fields
         private int _timeElapsed;//The engineTime elapsed since last frame
-        private readonly Keyboard _keyboard;
+        private Keyboard _keyboard;
         #endregion
 
 
         #region Constructors
+        internal KeyBehavior(IKeyboard keyboard)
+        {
+            _keyboard = new Keyboard(keyboard);
+
+            Setup(KeyCodes.X, true);
+        }
+
+
         /// <summary>
         /// Creates a new key behavior.
         /// </summary>
         /// <param name="key">The assigned keyboard key of the behavior.</param>
-        public KeyBehavior(KeyCodes key, bool enabled = false)
-        {
-            _keyboard = new Keyboard();
-
-            Key = key;
-            Enabled = enabled;
-        }
+        public KeyBehavior(KeyCodes key, bool enabled = false) => Setup(key, enabled);
         #endregion
 
 
@@ -162,6 +165,18 @@ namespace KDScorpionEngine.Behaviors
             #endregion
 
             _keyboard.UpdatePreviousState();
+        }
+        #endregion
+
+
+        #region Private Methods
+        private void Setup(KeyCodes key, bool enabled)
+        {
+            if (_keyboard == null)
+                _keyboard = new Keyboard();
+
+            Key = key;
+            Enabled = enabled;
         }
         #endregion
     }

@@ -2,12 +2,9 @@
 using Moq;
 using Xunit;
 using KDScorpionCore;
-using KDScorpionCore.Content;
 using KDScorpionCore.Plugins;
-using KDScorpionEngine.Scene;
 using KDScorpionEngineTests.Fakes;
 using KDScorpionEngine;
-using PluginSystem;
 
 namespace KDScorpionEngineTests
 {
@@ -17,8 +14,6 @@ namespace KDScorpionEngineTests
         private Mock<IContentLoader> _mockContentLoader;
         private Mock<IEngineCore> _mockEngineCore;
         private Mock<IKeyboard> _mockKeyboard;
-        private Plugins _plugins;
-        private Mock<IPluginLibrary> _mockEnginePluginLib;
         #endregion
 
 
@@ -32,11 +27,6 @@ namespace KDScorpionEngineTests
             _mockEngineCore.Setup(m => m.IsRunning()).Returns(true);
             _mockEngineCore.SetupProperty(m => m.WindowWidth);
             _mockEngineCore.SetupProperty(m => m.WindowHeight);
-
-            _mockEnginePluginLib = new Mock<IPluginLibrary>();
-            _mockEnginePluginLib.Setup(m => m.LoadPlugin<IKeyboard>()).Returns(_mockKeyboard.Object);
-
-            CorePluginSystem.SetPlugins(_plugins);
         }
         #endregion
 
@@ -252,7 +242,7 @@ namespace KDScorpionEngineTests
 
 
         #region Public Methods       
-        public void Dispose() => _mockEngineCore.Setup(m => m.IsRunning()).Returns(false);
+        public void Dispose() => _mockEngineCore = null;
         #endregion
     }
 }

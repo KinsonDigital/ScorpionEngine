@@ -5,6 +5,7 @@ using KDScorpionCore.Content;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Input;
 using KDScorpionCore.Physics;
+using KDScorpionCore.Plugins;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngine.Graphics;
@@ -46,28 +47,32 @@ namespace KDScorpionEngine.Entities
         protected bool _usesPhysics = true;
         protected EngineTime _engineTime;
         protected Texture _texture;
-        
         private Vector _preInitPosition;
         private Vector[] _preInitVertices;
-        private readonly float _preInitFriction;
+        private float _preInitFriction;
         #endregion
 
 
         #region Constructors
+        internal Entity(IPhysicsBody body)
+        {
+            Body = body == null ? null : new PhysicsBody(body);
+            Setup(null, Vector.Zero, 0f, false);
+        }
+
+
         public Entity(float friction = 0.2f, bool isStaticBody = false)
         {
             _preInitVertices = new [] { Vector.Zero, Vector.Zero, Vector.Zero };
-            IsStatic = isStaticBody;
-            _preInitFriction = friction;
+
+            Setup(_preInitVertices, Vector.Zero, friction, isStaticBody);
         }
 
 
         public Entity(Vector position, float friction = 0.2f, bool isStaticBody = false)
         {
             _preInitVertices = new[] { Vector.Zero, Vector.Zero, Vector.Zero };
-            _preInitPosition = position;
-            IsStatic = isStaticBody;
-            _preInitFriction = friction;
+            Setup(_preInitVertices, position, friction, isStaticBody);
         }
 
 
@@ -85,28 +90,19 @@ namespace KDScorpionEngine.Entities
                 new Vector(position.X + halfWidth, position.Y + halfHeight),
                 new Vector(position.X - halfWidth, position.Y + halfHeight),
             };
-            _preInitPosition = position;
-            IsStatic = isStaticBody;
-            _preInitFriction = friction;
+
+            Setup(_preInitVertices, position, friction, IsStatic);
         }
 
 
-        public Entity(Vector[] polyVertices, Vector position, float friction = 0.2f, bool isStaticBody = false)
-        {
-            _preInitVertices = polyVertices;
-            _preInitPosition = position;
-            IsStatic = isStaticBody;
-            _preInitFriction = friction;
-        }
+        public Entity(Vector[] polyVertices, Vector position, float friction = 0.2f, bool isStaticBody = false) =>
+            Setup(polyVertices, position, friction, isStaticBody);
 
 
         public Entity(Texture texture, Vector[] polyVertices, Vector position, float friction = 0.2f, bool isStaticBody = false)
         {
             _texture = texture;
-            _preInitVertices = polyVertices;
-            _preInitPosition = position;
-            IsStatic = isStaticBody;
-            _preInitFriction = friction;
+            Setup(polyVertices, position, friction, isStaticBody);
         }
         #endregion
 
@@ -189,6 +185,7 @@ namespace KDScorpionEngine.Entities
             }
             set
             {
+                //The vertices of the entity cannot be set after it has been initialized
                 if (IsInitialized)
                     throw new EntityAlreadyInitializedException();
 
@@ -299,6 +296,15 @@ namespace KDScorpionEngine.Entities
 
 
         #region Private Methods
+        private void Setup(Vector[] polyVertices, Vector position, float friction = 0.2f, bool isStaticBody = false)
+        {
+            _preInitVertices = polyVertices ?? (new Vector[0]);
+            _preInitPosition = position == null ? Vector.Zero : position;
+            IsStatic = isStaticBody;
+            _preInitFriction = friction;
+        }
+
+
         private void CreateBody(Vector[] vertices, Vector position, bool isStatic)
         {
             if (Body == null)

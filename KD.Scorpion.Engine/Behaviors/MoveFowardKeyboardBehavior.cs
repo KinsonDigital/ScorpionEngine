@@ -1,5 +1,6 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Input;
+using KDScorpionCore.Plugins;
 using KDScorpionEngine.Entities;
 using KDScorpionEngine.Input;
 
@@ -13,15 +14,30 @@ namespace KDScorpionEngine.Behaviors
         private KeyBehavior _rotateCCWKeyBehavior;
         private readonly Keyboard _keyboard;
         private readonly T _gameObject;
-        private readonly float _movementSpeed;
         private KeyCodes _moveFowardKey = KeyCodes.Up;
         private KeyCodes _rotateCWKey = KeyCodes.Right;
         private KeyCodes _rotateCCWKey = KeyCodes.Left;
-        private readonly float _rotateSpeed;
+        private bool _injectKeyboard;
+        private IKeyboard _internalKeyboard;
         #endregion
 
 
         #region Constructors
+        internal MoveFowardKeyboardBehavior(IKeyboard keyboard, T entity)
+        {
+            _injectKeyboard = true;
+            _internalKeyboard = keyboard;
+            _keyboard = new Keyboard(keyboard);
+
+            CreateBehaviors();
+            SetupBehaviors();
+
+            _gameObject = entity;
+
+            SetUpdateAction(UpdateAction);
+        }
+
+
         /// <summary>
         /// Creates a new instance of <see cref="MovementByKeyboardBehavior{T}"/>.
         /// </summary>
@@ -31,8 +47,8 @@ namespace KDScorpionEngine.Behaviors
         public MoveFowardKeyboardBehavior(T entity, float linearSpeed, float angularSpeed)
         {
             _keyboard = new Keyboard();
-            _movementSpeed = linearSpeed;
-            _rotateSpeed = angularSpeed;
+            LinearSpeed = linearSpeed;
+            AngularSpeed = angularSpeed;
 
             CreateBehaviors();
             SetupBehaviors();
@@ -88,6 +104,16 @@ namespace KDScorpionEngine.Behaviors
         /// Gets a value indicating if the attempt to move foward is true.
         /// </summary>
         public bool IsMovingForward { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the linear speed of the entity.
+        /// </summary>
+        public float LinearSpeed { get; set; }
+
+        /// <summary>
+        /// Gets or sets the angular speed of the entity.
+        /// </summary>
+        public float AngularSpeed { get; set; }
         #endregion
 
 
@@ -116,15 +142,21 @@ namespace KDScorpionEngine.Behaviors
         private void CreateBehaviors()
         {
             //Setup the move foward key behavior
-            _moveFowardKeyBehavior = new KeyBehavior(_moveFowardKey, true);
+            _moveFowardKeyBehavior = _injectKeyboard ?
+                new KeyBehavior(_internalKeyboard) :
+                new KeyBehavior(_moveFowardKey, true);
             _moveFowardKeyBehavior.KeyDownEvent += MoveFoward_KeyDown;
 
             //Setup the rotate clockwise key behavior
-            _rotateCWKeyBehavior = new KeyBehavior(_rotateCWKey, true);
+            _rotateCWKeyBehavior = _injectKeyboard ?
+                new KeyBehavior(_internalKeyboard) :
+                new KeyBehavior(_rotateCWKey, true);
             _rotateCWKeyBehavior.KeyDownEvent += RotateCW_KeyDown;
 
             //Setup the rotate counter clockwise key behavior
-            _rotateCCWKeyBehavior = new KeyBehavior(_rotateCCWKey, true);
+            _rotateCCWKeyBehavior = _injectKeyboard ?
+                new KeyBehavior(_internalKeyboard) :
+                new KeyBehavior(_rotateCCWKey, true);
             _rotateCCWKeyBehavior.KeyDownEvent += RotateCCW_KeyDown;
         }
 
@@ -155,7 +187,7 @@ namespace KDScorpionEngine.Behaviors
         private void MoveFoward_KeyDown(object sender, KeyEventArgs e)
         {
             IsMovingForward = true;
-            _gameObject.MoveAtSetAngle(_movementSpeed);
+            _gameObject.MoveAtSetAngle(LinearSpeed);
         }
 
 
@@ -164,7 +196,7 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         private void RotateCW_KeyDown(object sender, KeyEventArgs e)
         {
-            _gameObject.RotateCW(_rotateSpeed);
+            _gameObject.RotateCW(AngularSpeed);
         }
 
 
@@ -173,7 +205,7 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         private void RotateCCW_KeyDown(object sender, KeyEventArgs e)
         {
-            _gameObject.RotateCCW(_rotateSpeed);
+            _gameObject.RotateCCW(AngularSpeed);
         }
         #endregion
         #endregion

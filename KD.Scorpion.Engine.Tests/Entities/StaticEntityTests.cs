@@ -8,7 +8,6 @@ using KDScorpionEngineTests.Fakes;
 using PluginSystem;
 using KDScorpionCore.Plugins;
 using System;
-using KDScorpionCore.Physics;
 
 namespace KDScorpionEngineTests.Entities
 {
@@ -16,8 +15,6 @@ namespace KDScorpionEngineTests.Entities
     {
         #region Private Fields
         private Mock<IPhysicsBody> _mockPhysicsBody;
-        private Mock<IPluginLibrary> _mockPhysicsPluginLib;
-        private Plugins _plugins;
         #endregion
 
 
@@ -29,16 +26,6 @@ namespace KDScorpionEngineTests.Entities
             _mockPhysicsBody.SetupProperty(p => p.Y);
             _mockPhysicsBody.SetupProperty(p => p.XVertices);
             _mockPhysicsBody.SetupProperty(p => p.YVertices);
-
-            _mockPhysicsPluginLib = new Mock<IPluginLibrary>();
-            _mockPhysicsPluginLib.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns<object[]>((ctrParams) => _mockPhysicsBody.Object);
-
-            _plugins = new Plugins()
-            {
-                PhysicsPlugins = _mockPhysicsPluginLib.Object
-            };
-
-            CorePluginSystem.SetPlugins(_plugins);
         }
         #endregion
 
@@ -48,21 +35,13 @@ namespace KDScorpionEngineTests.Entities
         public void Ctor_WhenInvoking_ProperlyConstructsObject()
         {
             //Arrange
-            var vertices = new Vector[] { Vector.Zero, Vector.Zero, Vector.Zero };
-            var mockTexture = new Mock<ITexture>();
-            var entity = new StaticEntity(new Texture(mockTexture.Object), new Vector(123, 456))
-            {
-                Body = new PhysicsBody(vertices, It.IsAny<Vector>())
-            };
+            var entity = new StaticEntity(_mockPhysicsBody.Object);
             entity.Initialize();
 
-            var expected = new Vector(123, 456);
-
-            //Act
-            var actual = entity.Position;
-
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.NotNull(entity.Body);
+            Assert.Equal(Vector.Zero, entity.Position);
+            Assert.False(entity.IsStatic);
         }
         #endregion
 
@@ -94,13 +73,7 @@ namespace KDScorpionEngineTests.Entities
 
 
         #region Public Methods
-        public void Dispose()
-        {
-            _mockPhysicsBody = null;
-            _mockPhysicsPluginLib = null;
-            _plugins = null;
-            CorePluginSystem.ClearPlugins();
-        }
+        public void Dispose() => _mockPhysicsBody = null;
         #endregion
     }
 }

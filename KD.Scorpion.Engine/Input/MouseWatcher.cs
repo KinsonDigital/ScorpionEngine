@@ -22,7 +22,7 @@ namespace KDScorpionEngine.Input
 
 
         #region Fields
-        private readonly IMouse _mouse;
+        private readonly Mouse _mouse;
         private Dictionary<InputButton, bool> _currentPressedButtons;//Holds the list of combo buttons and there down states
         private readonly StopWatch _buttonDownTimer;//Keeps track of how long the set input has been in the down position
         private readonly StopWatch _buttonReleaseTimer;//Keeps track of how long the set input has been in the up position
@@ -35,7 +35,7 @@ namespace KDScorpionEngine.Input
         #region Constructor
         internal MouseWatcher(bool enabled, IMouse mouse)
         {
-            _mouse = mouse;
+            _mouse = new Mouse(mouse);
 
             Enabled = enabled;
             ComboButtons = new List<InputButton>();
@@ -58,7 +58,7 @@ namespace KDScorpionEngine.Input
         /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
         public MouseWatcher(bool enabled)
         {
-            _mouse = CorePluginSystem.Plugins.EnginePlugins.LoadPlugin<IMouse>();
+            _mouse = new Mouse();
 
             Enabled = enabled;
             ComboButtons = new List<InputButton>();
@@ -155,12 +155,12 @@ namespace KDScorpionEngine.Input
             _buttonReleaseTimer.Update(engineTime);
 
             //Get the current state of the button
-            _curState = _mouse.IsButtonDown((int)Button);
+            _curState = _mouse.IsButtonDown(Button);
 
 
             #region Hit Count Code
             //If the counter is not null
-            if (_mouse.IsButtonPressed((int)Button))
+            if (_mouse.IsButtonPressed(Button))
             {
                 //If the max is reached, invoke the OnInputHitCountReached event and reset it back to 0
                 if (_counter != null && _counter.Value == HitCountMax)
@@ -181,7 +181,7 @@ namespace KDScorpionEngine.Input
 
             #region Timing Code
             //As long as the button is down, continue to keep the button release timer reset to 0
-            if (_mouse.IsButtonDown((int)Button))
+            if (_mouse.IsButtonDown(Button))
                 _buttonReleaseTimer.Reset();
 
             //If the button is not pressed down and the button was pressed down last frame,
@@ -204,7 +204,7 @@ namespace KDScorpionEngine.Input
                 //Set the state of all of the pressed buttons
                 foreach (var button in buttons)
                 {
-                    _currentPressedButtons[button] = _mouse.IsButtonDown((int)button);
+                    _currentPressedButtons[button] = _mouse.IsButtonDown(button);
                 }
 
                 //If all of the buttons are pressed down
@@ -223,7 +223,7 @@ namespace KDScorpionEngine.Input
         #region Private Event Methods
         private void _buttonDownTimer_OnTimeElapsed(object sender, EventArgs e)
         {
-            if (_mouse.IsButtonDown((int)Button))
+            if (_mouse.IsButtonDown(Button))
             {
                 //If the reset mode is set to auto, reset the time elapsed
                 if (DownElapsedResetMode == ResetType.Auto)
@@ -236,7 +236,7 @@ namespace KDScorpionEngine.Input
 
         private void _buttonReleasedTimer_OnTimeElapsed(object sender, EventArgs e)
         {
-            if (_mouse.IsButtonUp((int)Button))
+            if (_mouse.IsButtonUp(Button))
             {
                 //If the reset mode is set to auto, reset the time elapsed
                 if (ReleasedElapsedResetMode == ResetType.Auto)

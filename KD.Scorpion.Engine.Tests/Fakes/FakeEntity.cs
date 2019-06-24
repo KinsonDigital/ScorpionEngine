@@ -1,5 +1,6 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Graphics;
+using KDScorpionCore.Plugins;
 using KDScorpionEngine.Entities;
 using KDScorpionEngine.Graphics;
 
@@ -18,7 +19,7 @@ namespace KDScorpionEngineTests.Fakes
         }
 
 
-        public FakeEntity(Texture texture, Vector position) : base(texture, position, isStaticBody: false)
+        public FakeEntity(IPhysicsBody body) : base(body)
         {
         }
 
