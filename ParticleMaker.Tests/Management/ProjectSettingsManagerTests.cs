@@ -73,7 +73,7 @@ namespace ParticleMaker.Tests.Management
 
             var manager = new ProjectSettingsManager(_projIOService, mockFileService.Object);
             //Act & Assert
-            Assert.Throws(typeof(ProjectDoesNotExistException), () =>
+            Assert.Throws<ProjectDoesNotExistException>(() =>
             {
                manager.Save(It.IsAny<string>(), It.IsAny<ProjectSettings>());
             });
@@ -94,7 +94,7 @@ namespace ParticleMaker.Tests.Management
             var settings = new ProjectSettings() { ProjectName = "<illegalname>" };
 
             //Act & Assert
-            Assert.Throws(typeof(IllegalFileNameCharactersException), () =>
+            Assert.Throws<IllegalFileNameCharactersException>(() =>
             {
                 manager.Save("test-project", settings);
             });
@@ -211,7 +211,7 @@ namespace ParticleMaker.Tests.Management
             var manager = new ProjectSettingsManager(_projIOService, mockFileService.Object);
 
             //Act & Assert
-            Assert.Throws(typeof(ProjectDoesNotExistException), () =>
+            Assert.Throws<ProjectDoesNotExistException>(() =>
             {
                 manager.Load(It.IsAny<string>());
             });
@@ -229,7 +229,7 @@ namespace ParticleMaker.Tests.Management
             var manager = new ProjectSettingsManager(_projIOService, mockFileService.Object);
 
             //Act & Assert
-            Assert.Throws(typeof(ProjectDoesNotExistException), () =>
+            Assert.Throws<ProjectDoesNotExistException>(() =>
             {
                 manager.Rename(It.IsAny<string>(), It.IsAny<string>());
             });

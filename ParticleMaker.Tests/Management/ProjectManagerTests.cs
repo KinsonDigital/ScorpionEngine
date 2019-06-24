@@ -181,7 +181,7 @@ namespace ParticleMaker.Tests.Management
             var manager = new ProjectManager(projSettingsManager, _projIOService, mockDirService.Object, mockFileService.Object);
 
             //Act & Assert
-            Assert.Throws(typeof(ProjectAlreadyExistsException), () =>
+            Assert.Throws<ProjectAlreadyExistsException>(() =>
             {
                 manager.Create(It.IsAny<string>());
             });
@@ -202,7 +202,7 @@ namespace ParticleMaker.Tests.Management
             var manager = new ProjectManager(projSettingsManager, _projIOService, mockDirService.Object, mockFileService.Object);
 
             //Act & Assert
-            Assert.Throws(typeof(IllegalProjectNameException), () =>
+            Assert.Throws<IllegalProjectNameException>(() =>
             {
                 manager.Create("**new|name**");
             });
@@ -221,7 +221,7 @@ namespace ParticleMaker.Tests.Management
             var service = new ProjectManager(projSettingsManager, _projIOService, mockDirService.Object, new Mock<IFileService>().Object);
 
             //Act & Assert
-            Assert.Throws(typeof(IllegalProjectNameException), () =>
+            Assert.Throws<IllegalProjectNameException>(() =>
             {
                 service.Create("");
             });
@@ -274,7 +274,7 @@ namespace ParticleMaker.Tests.Management
             var manager = new ProjectManager(projSettingsManager, _projIOService, mockDirService.Object, mockFileService.Object);
 
             //Act & Assert
-            Assert.Throws(typeof(ProjectDoesNotExistException), () =>
+            Assert.Throws<ProjectDoesNotExistException>(() =>
             {
                 manager.Delete("test-project");
             });
