@@ -8,7 +8,7 @@ namespace KDParticleEngineTests
     {
         #region Method Tests
         [Fact]
-        public void Next_WhenInvoked_ReturnsValueWithinMinAndMax()
+        public void Next_WhenInvokedWithMinLessThanMax_ReturnsValueWithinMinAndMax()
         {
             //Arrange
             var random = new Random();
@@ -17,6 +17,21 @@ namespace KDParticleEngineTests
             //Act
             var randomNum = random.Next(50f, 100f);
             var actual = randomNum >= 50f && randomNum <= 100f;
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+
+        [Fact]
+        public void Next_WhenInvokedWithMinMoreThanMax_ReturnsMaxValue()
+        {
+            //Arrange
+            var random = new Random();
+            var expected = 98f;
+
+            //Act
+            var actual = random.Next(124f, 98f);
 
             //Assert
             Assert.Equal(expected, actual);

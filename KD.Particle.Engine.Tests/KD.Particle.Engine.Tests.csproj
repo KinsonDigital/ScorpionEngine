@@ -110,6 +110,10 @@
       <Project>{3E136A13-190C-4390-9E74-8849022852F6}</Project>
       <Name>KD.Scorpion.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PluginSystem\PluginSystem.csproj">
+      <Project>{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}</Project>
+      <Name>PluginSystem</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />

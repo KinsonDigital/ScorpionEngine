@@ -124,9 +124,10 @@ namespace ParticleMaker
         /// </summary>
         public virtual void Initialize()
         {
+            //If any of the textures do not already exist in the engine, add the texture
             foreach (var path in TexturePaths)
             {
-                ParticleEngine.Add(_renderer.LoadTexture(path), (texture) => ParticleEngine.Any(p => p.Name == texture.Name));
+                ParticleEngine.Add(_renderer.LoadTexture(path), (texture) => ParticleEngine.Any(p => p.Name != texture.Name));
             }
         }
 

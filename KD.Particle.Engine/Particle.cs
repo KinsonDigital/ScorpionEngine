@@ -20,8 +20,8 @@ namespace KDParticleEngine
         /// <param name="angularVelocity">The speed at which the particle is rotating.</param>
         /// <param name="color">The color to tint the <see cref="Texture"/>.</param>
         /// <param name="size">The size of the <see cref="Particle"/>.</param>
-        /// <param name="timeToLive">The amount of time in milliseconds for the particle to stay alive.</param>
-        public Particle(ITexture texture, PointF position, PointF velocity, float angle, float angularVelocity, Color color, float size, int timeToLive)
+        /// <param name="lifeTime">The amount of time in milliseconds for the particle to stay alive.</param>
+        public Particle(ITexture texture, PointF position, PointF velocity, float angle, float angularVelocity, Color color, float size, int lifeTime)
         {
             Texture = texture;
             Position = position;
@@ -30,7 +30,7 @@ namespace KDParticleEngine
             AngularVelocity = angularVelocity;
             TintColor = color;
             Size = size;
-            LifeTime = timeToLive;
+            LifeTime = lifeTime;
         }
         #endregion
 

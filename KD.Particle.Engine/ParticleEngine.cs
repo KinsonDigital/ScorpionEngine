@@ -62,7 +62,7 @@ namespace KDParticleEngine
         /// <summary>
         /// Gets or sets the randomizer used when generating new particles.
         /// </summary>
-        public IRandomizerService Randomizer { get; set; }
+        public IRandomizerService Randomizer { get; private set; }
 
         /// <summary>
         /// Gets or sets a value indicating if the engine is enabled or disabled.
@@ -112,8 +112,9 @@ namespace KDParticleEngine
             get => _angleMin;
             set
             {
-                _angleMin = value < 0 ? 360 : value;
-                _angleMin = value > 360 ? 0 : value;
+                _angleMin = value;
+                _angleMin = _angleMin < 0 ? 360 : _angleMin;
+                _angleMin = _angleMin > 360 ? 0 : _angleMin;
             }
         }
 
@@ -126,8 +127,9 @@ namespace KDParticleEngine
             get => _angleMax;
             set
             {
-                _angleMax = value < 0 ? 360 : value;
-                _angleMax = value > 360 ? 0 : value;
+                _angleMax = value;
+                _angleMax = _angleMax < 0 ? 360 : _angleMax;
+                _angleMax = _angleMax > 360 ? 0 : _angleMax;
             }
         }
 
@@ -329,13 +331,14 @@ namespace KDParticleEngine
 
 
         /// <summary>
-        /// Adds the given texture to the <see cref="ParticleEngine{ITexture}"/>.
+        /// Adds the given texture to the <see cref="ParticleEngine{ITexture}"/> as long as the
+        /// given <paramref name="predicate"/> returns true.
         /// </summary>
         /// <param name="texture">The texture to add.</param>
-        /// <param name="predicate">Returns true or false depending if the given texture already exists in the <see cref="ParticleEngine{ITexture}"/>.</param>
+        /// <param name="predicate">Returning true will add the texture to the <see cref="ParticleEngine{ITexture}"/>.</param>
         public void Add(ITexture texture, Predicate<ITexture> predicate)
         {
-            if (predicate(texture))
+            if (!predicate(texture))
                 return;
 
             _textures.Add(texture);
@@ -347,7 +350,7 @@ namespace KDParticleEngine
         /// Adds the given <paramref name="textures"/> to the engine.
         /// </summary>
         /// <param name="textures">The list of textures to add.</param>
-        public void AddTextures(ITexture[] textures)
+        public void Add(ITexture[] textures)
         {
             _textures.AddRange(textures);
             GenerateAllParticles();

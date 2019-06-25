@@ -66,7 +66,7 @@ namespace ScorpTestGame.Scenes
                 contentLoader.LoadTexture(@"Particles\ShipThruster")
             };
 
-            _particleEngine.AddTextures(textures);
+            _particleEngine.Add(textures);
 
             base.LoadContent(contentLoader);
         }
