@@ -470,7 +470,7 @@ namespace KDParticleEngine
             {
                 if (_particles[i].IsDead)
                     continue;
-
+                
                 //Update the current particle
                 _particles[i].Update(timeElapsed);
 
@@ -575,13 +575,7 @@ namespace KDParticleEngine
         /// Returns a randomly chosen <see cref="Texture"/> out of the total list of textures to use for a spawned <see cref="Particle"/>.
         /// </summary>
         /// <returns></returns>
-        private ITexture GetRandomTexture()
-        {
-            var result = Randomizer.GetValue(0, _textures.Count);
-
-
-            return _textures[result >= 0 && result <= _textures.Count ? result : 0];
-        }
+        private ITexture GetRandomTexture() => _textures[Randomizer.GetValue(0, _textures.Count)];
 
 
         /// <summary>
