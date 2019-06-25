@@ -448,6 +448,44 @@ namespace KDParticleEngineTests
 
         #region Method Tests
         [Fact]
+        public void Update_WhenInvokedWhileDisabled_DoesNotGenerateParticles()
+        {
+            //Arrange
+            _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Returns(1000);
+            _engine.Add(new Mock<ITexture>().Object);
+            _engine.Enabled = false;
+            _engine.KillAllParticles();
+
+            //Act
+            _engine.Update(new TimeSpan(0, 0, 0, 0, 30));
+
+            //Assert
+            Assert.Equal(0, _engine.TotalLivingParticles);
+        }
+
+
+        [Fact]
+        public void Update_WhenInvokedWithAllDeadParticles_CountChangedEventNeverFired()
+        {
+            //Arrange
+            _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Returns(-10);
+            _engine.Add(new Mock<ITexture>().Object);
+
+            _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Returns(5000);
+
+            //Act
+            _engine.Update(new TimeSpan(0, 0, 0, 0, 30));
+            _engine.KillAllParticles();
+            _engine.Update(new TimeSpan(0, 0, 0, 0, 30));
+            var eventInvoked = false;
+            _engine.LivingParticlesCountChanged += (sender, e) => eventInvoked = true;
+
+            //Assert
+            Assert.False(eventInvoked);
+        }
+
+
+        [Fact]
         public void Add_WhenInvoked_AddsTextureToEngine()
         {
             //Arrange
@@ -521,7 +559,6 @@ namespace KDParticleEngineTests
             //Assert
             Assert.True(actual);
         }
-
         #endregion
     }
 }

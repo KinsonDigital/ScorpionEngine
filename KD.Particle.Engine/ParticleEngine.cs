@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Linq;
 
@@ -76,12 +77,7 @@ namespace KDParticleEngine
 
                 //If the engine is disabled, kill all the particles
                 if (!_enabled)
-                {
-                    for (int i = 0; i < _particles.Count; i++)
-                    {
-                        _particles[i].IsDead = true;
-                    }
-                }
+                    KillAllParticles();
             }
         }
 
@@ -358,16 +354,24 @@ namespace KDParticleEngine
 
 
         /// <summary>
+        /// Kills all of the particles.
+        /// </summary>
+        public void KillAllParticles() => _particles.ForEach(p => p.IsDead = true);
+
+
+        /// <summary>
         /// Returns a value indicating if the given <paramref name="texture"/> is in the particle engine.
         /// </summary>
         /// <param name="texture">The texture to check for.</param>
         /// <returns></returns>
+        [ExcludeFromCodeCoverage]
         public bool Contains(ITexture texture) => _textures.Contains(texture);
 
 
         /// <summary>
         /// Clears all of the <see cref="ITexture"/>s from the <see cref="ParticleEngine{ITexture}"/>.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         public void Clear() => _textures.Clear();
 
 
@@ -376,6 +380,7 @@ namespace KDParticleEngine
         /// </summary>
         /// <param name="texture">The texture to get the index of.</param>
         /// <returns></returns>
+        [ExcludeFromCodeCoverage]
         public int IndexOf(ITexture texture) => _textures.IndexOf(texture);
 
 
@@ -385,6 +390,7 @@ namespace KDParticleEngine
         /// </summary>
         /// <param name="index">The index location to insert the <see cref="ITexture"/> at.</param>
         /// <param name="texture">The texture to insert.</param>
+        [ExcludeFromCodeCoverage]
         public void Insert(int index, ITexture texture) => _textures.Insert(index, texture);
 
 
@@ -394,6 +400,7 @@ namespace KDParticleEngine
         /// </summary>
         /// <param name="texture">The texture to remove.</param>
         /// <returns></returns>
+        [ExcludeFromCodeCoverage]
         public bool Remove(ITexture texture)
         {
             var totalBeforeRemoval = _textures.Count;
@@ -408,6 +415,7 @@ namespace KDParticleEngine
         /// Removes a texture located at the given <paramref name="index"/>.
         /// </summary>
         /// <param name="index">The index of the texture to remove.</param>
+        [ExcludeFromCodeCoverage]
         public void RemoveAt(int index) => _textures.RemoveAt(index);
 
 
@@ -417,6 +425,7 @@ namespace KDParticleEngine
         /// </summary>
         /// <param name="array">The array to copy the <see cref="ITexture"/>s to.</param>
         /// <param name="index">The starting index of the target array to start the copy process at.</param>
+        [ExcludeFromCodeCoverage]
         public void CopyTo(ITexture[] array, int index) => _textures.CopyTo(array, index);
 
 
@@ -424,6 +433,7 @@ namespace KDParticleEngine
         /// Returns the enumerator of the list of <see cref="ParticleEngine{ITexture}"/> textures.
         /// </summary>
         /// <returns></returns>
+        [ExcludeFromCodeCoverage]
         public IEnumerator<ITexture> GetEnumerator() => _textures.GetEnumerator();
 
 
@@ -431,6 +441,7 @@ namespace KDParticleEngine
         /// Returns the enumerator of the list of <see cref="ParticleEngine{ITexture}"/> textures.
         /// </summary>
         /// <returns></returns>
+        [ExcludeFromCodeCoverage]
         IEnumerator IEnumerable.GetEnumerator() => _textures.GetEnumerator();
 
 
