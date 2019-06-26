@@ -254,17 +254,6 @@ namespace KDParticleEngineTests
 
 
         [Fact]
-        public void Update_WhenInvokingWithNullEvent_DoesNotThrowException()
-        {
-            //Arrange
-            _engine.Add(new Mock<ITexture>().Object);
-
-            //Act/Assert
-            DoesNotThrowNullReference(() => _engine.Update(new TimeSpan(0, 0, 0, 0, 30)));
-        }
-
-
-        [Fact]
         public void UseRandomVelocity_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -272,6 +261,17 @@ namespace KDParticleEngineTests
 
             //Assert
             Assert.False(_engine.UseRandomVelocity);
+        }
+
+
+        [Fact]
+        public void ParticleVelocity_WhenSettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            _engine.ParticleVelocity = new PointF(11, 22);
+
+            //Assert
+            Assert.Equal(new PointF(11, 22), _engine.ParticleVelocity);
         }
 
 
@@ -674,7 +674,7 @@ namespace KDParticleEngineTests
 
 
         [Fact]
-        public void Update_WhenInvokedWithAllDeadParticles_CountChangedEventNeverFired()
+        public void Update_WhenInvokingWithAllDeadParticles_CountChangedEventNeverFired()
         {
             //Arrange
             _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Returns(0);
@@ -691,6 +691,53 @@ namespace KDParticleEngineTests
 
             //Assert
             Assert.False(eventInvoked);
+        }
+
+
+        [Fact]
+        public void Update_WhenInvokingWithNullEvent_DoesNotThrowException()
+        {
+            //Arrange
+            _engine.Add(new Mock<ITexture>().Object);
+
+            //Act/Assert
+            DoesNotThrowNullReference(() => _engine.Update(new TimeSpan(0, 0, 0, 0, 30)));
+        }
+
+
+        [Fact]
+        public void Update_WhenInvokingWithDeadParticles_SetsParticleProps()
+        {
+            //Arrange
+            _mockRandomizerService.Setup(m => m.FlipCoin()).Returns(true);
+            _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Returns(0);
+            _engine.Add(new Mock<ITexture>().Object);
+            _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Returns(10);
+            _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<float>(), It.IsAny<float>())).Returns(10);
+            _engine.KillAllParticles();
+
+            //Act
+            _engine.Particles[0].Texture = null;
+            _engine.Particles[0].Position = PointF.Empty;
+            _engine.Particles[0].Velocity = PointF.Empty;
+            _engine.Particles[0].Angle = -10;
+            _engine.Particles[0].AngularVelocity = -10;
+            _engine.Particles[0].TintColor = Color.Empty;
+            _engine.Particles[0].Size = -10;
+            _engine.Particles[0].LifeTime = -10;
+            _engine.Particles[0].IsAlive = false;
+
+            _engine.Update(new TimeSpan(0, 0, 0, 0, 30));
+
+            //Assert
+            Assert.NotNull(_engine.Particles[0].Texture);
+            Assert.NotEqual(PointF.Empty, _engine.Particles[0].Position);
+            Assert.NotEqual(PointF.Empty, _engine.Particles[0].Velocity);
+            Assert.NotEqual(-10, _engine.Particles[0].Angle);
+            Assert.NotEqual(-10, _engine.Particles[0].AngularVelocity);
+            Assert.NotEqual(Color.Empty, _engine.Particles[0].TintColor);
+            Assert.NotEqual(-10, _engine.Particles[0].Size);
+            Assert.NotEqual(-10, _engine.Particles[0].LifeTime);
         }
 
 
@@ -753,6 +800,68 @@ namespace KDParticleEngineTests
             Assert.True(_engine.UseColorsFromList);
             Assert.Equal(new Color[] { Color.FromArgb(11, 22, 33, 44) }, _engine.TintColors);
         }
+
+
+        [Fact]
+        public void GenerateParticleSetup_WhenInvoked_ProperlySetusUpEngine()
+        {
+            //Arrange
+            var setupData = new ParticleSetup()
+            {
+                RedMin = 1,
+                RedMax = 2,
+                GreenMin = 3,
+                GreenMax = 4,
+                BlueMin = 5,
+                BlueMax = 6,
+                SizeMin = 7,
+                SizeMax = 8,
+                AngleMin = 9,
+                AngleMax = 10,
+                AngularVelocityMin = 11,
+                AngularVelocityMax = 22,
+                VelocityXMin = 33,
+                VelocityXMax = 44,
+                VelocityYMin = 55,
+                VelocityYMax = 66,
+                LifeTimeMin = 77,
+                LifeTimeMax = 88,
+                SpawnRateMin = 99,
+                SpawnRateMax = 100,
+                TotalParticlesAliveAtOnce = 111,
+                UseColorsFromList = true,
+                Colors = new Color[] { Color.FromArgb(11, 22, 33, 44) }
+            };
+
+            //Act
+            _engine.ApplySetup(setupData);
+            var actual = _engine.GenerateParticleSetup();
+
+            //Assert
+            Assert.Equal(1, actual.RedMin);
+            Assert.Equal(2, actual.RedMax);
+            Assert.Equal(3, actual.GreenMin);
+            Assert.Equal(4, actual.GreenMax);
+            Assert.Equal(5, actual.BlueMin);
+            Assert.Equal(6, actual.BlueMax);
+            Assert.Equal(7, actual.SizeMin);
+            Assert.Equal(8, actual.SizeMax);
+            Assert.Equal(9, actual.AngleMin);
+            Assert.Equal(10, actual.AngleMax);
+            Assert.Equal(11, actual.AngularVelocityMin);
+            Assert.Equal(22, actual.AngularVelocityMax);
+            Assert.Equal(33, actual.VelocityXMin);
+            Assert.Equal(44, actual.VelocityXMax);
+            Assert.Equal(55, actual.VelocityYMin);
+            Assert.Equal(66, actual.VelocityYMax);
+            Assert.Equal(77, actual.LifeTimeMin);
+            Assert.Equal(88, actual.LifeTimeMax);
+            Assert.Equal(99, actual.SpawnRateMin);
+            Assert.Equal(100, actual.SpawnRateMax);
+            Assert.Equal(111, actual.TotalParticlesAliveAtOnce);
+            Assert.True(actual.UseColorsFromList);
+            Assert.Equal(new Color[] { Color.FromArgb(11, 22, 33, 44) }, actual.Colors);
+        }
         #endregion
 
 
@@ -779,6 +888,7 @@ namespace KDParticleEngineTests
                 }
             }
         }
+
 
         public void Dispose()
         {

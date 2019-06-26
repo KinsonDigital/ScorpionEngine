@@ -27,9 +27,10 @@ namespace ParticleMaker.Tests.ViewModels
         {
             var getValueResult = 10f;
 
-            var particleEngine = new ParticleEngine<ParticleTexture>(null);
 
             var mockRandomizer = new Mock<IRandomizerService>();
+            var particleEngine = new ParticleEngine<ParticleTexture>(mockRandomizer.Object);
+
             //Mock out the GetValue(float, float) overload
             mockRandomizer.Setup(m => m.GetValue(It.IsAny<float>(), It.IsAny<float>())).Callback<float, float>((min, max) =>
             {
@@ -39,13 +40,11 @@ namespace ParticleMaker.Tests.ViewModels
             }).Returns(getValueResult);
 
             //Mock out the GetValue(int, int) overload
-            mockRandomizer.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Callback<int, int>((min, max) =>
-            {
-                getValueResult = particleEngine.TotalLivingParticles < 2 ? 10 : 30;
-            }).Returns(() =>
-            {
-                return (int)getValueResult;
-            });
+            mockRandomizer.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Returns(0);
+
+            particleEngine.Add(new ParticleTexture(IntPtr.Zero, 0, 0));
+            particleEngine.TotalParticlesAliveAtOnce = 4;
+            particleEngine.Update(new TimeSpan(0, 0, 0, 0, 11));
 
             var mockDirService = new Mock<IDirectoryService>();
             var mockFileService = new Mock<IFileService>();
@@ -53,11 +52,6 @@ namespace ParticleMaker.Tests.ViewModels
             var projIOService = new ProjectIOService(mockDirService.Object, mockFileService.Object);
 
             var setupDeployService = new SetupDeployService(mockDirService.Object, mockFileService.Object);
-
-            particleEngine.Randomizer = mockRandomizer.Object;
-            particleEngine.Add(new ParticleTexture(IntPtr.Zero, 0, 0));
-            particleEngine.TotalParticlesAliveAtOnce = 4;
-            particleEngine.Update(new TimeSpan(0, 0, 0, 0, 11));
 
             _engine = new GraphicsEngine(mockRenderer.Object, particleEngine);
             var particleManager = new ParticleManager(projIOService, mockDirService.Object, mockFileService.Object);
@@ -156,7 +150,7 @@ namespace ParticleMaker.Tests.ViewModels
         public void TotalLivingParticles_WhenGettingValue_ValueIsCorrect()
         {
             //Arrange
-            var expected = 2;
+            var expected = 0;
 
             //Act
             var actual = _viewModel.TotalLivingParticles;
@@ -170,7 +164,7 @@ namespace ParticleMaker.Tests.ViewModels
         public void TotalDeadParticles_WhenGettingValue_ValueIsCorrect()
         {
             //Arrange
-            var expected = 2;
+            var expected = 4;
 
             //Act
             var actual = _viewModel.TotalDeadParticles;

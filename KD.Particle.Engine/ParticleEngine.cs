@@ -51,6 +51,7 @@ namespace KDParticleEngine
         /// </summary>
         /// <param name="i">The index value of the item to get or set.</param>
         /// <returns></returns>
+        [ExcludeFromCodeCoverage]
         public ITexture this[int i]
         {
             get => _textures[i];
@@ -575,7 +576,13 @@ namespace KDParticleEngine
         /// Returns a randomly chosen <see cref="Texture"/> out of the total list of textures to use for a spawned <see cref="Particle"/>.
         /// </summary>
         /// <returns></returns>
-        private ITexture GetRandomTexture() => _textures[Randomizer.GetValue(0, _textures.Count)];
+        private ITexture GetRandomTexture()
+        {
+            var result = Randomizer.GetValue(0, _textures.Count);
+
+
+            return _textures[result >= 0 && result <= _textures.Count ? result : 0];
+        }
 
 
         /// <summary>
