@@ -674,20 +674,34 @@ namespace KDParticleEngineTests
 
 
         [Fact]
-        public void Update_WhenInvokingWithAllDeadParticles_CountChangedEventNeverFired()
+        public void Update_WhenInvokingWhileExpiredParticleLifeTime_LivingParticlesCountChangeEventFires()
         {
             //Arrange
             _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Returns(0);
             _engine.Add(new Mock<ITexture>().Object);
 
-            _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Returns(5000);
+            //Act
+            var eventInvoked = false;
+            _engine.KillAllParticles();
+            _engine.LivingParticlesCountChanged += (sender, e) => eventInvoked = true;
+            _engine.Update(new TimeSpan(0, 0, 0, 0, 30));
+
+            //Assert
+            Assert.True(eventInvoked);
+        }
+
+        [Fact]
+        public void Update_WhenInvokingWithUnexpiredParticleLifeTime_LivingParticlesCountChangeEventNeverFires()
+        {
+            //Arrange
+            _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Returns(1000);
+            _engine.Add(new Mock<ITexture>().Object);
+            _engine.PreParticleUpdate = () => _engine.KillAllParticles();
 
             //Act
-            _engine.Update(new TimeSpan(0, 0, 0, 0, 30));
-            _engine.KillAllParticles();
-            _engine.Update(new TimeSpan(0, 0, 0, 0, 30));
             var eventInvoked = false;
             _engine.LivingParticlesCountChanged += (sender, e) => eventInvoked = true;
+            _engine.Update(new TimeSpan(0, 0, 0, 0, 30));
 
             //Assert
             Assert.False(eventInvoked);
@@ -738,6 +752,88 @@ namespace KDParticleEngineTests
             Assert.NotEqual(Color.Empty, _engine.Particles[0].TintColor);
             Assert.NotEqual(-10, _engine.Particles[0].Size);
             Assert.NotEqual(-10, _engine.Particles[0].LifeTime);
+        }
+
+
+        [Fact]
+        public void Update_WhenInvokingUseColorsFromListFalse_CorrectlySetsColor()
+        {
+            //Arrange
+            _engine.Add(new Mock<ITexture>().Object);
+            _engine.RedMin = 20;
+            _engine.RedMax = 10;
+            _engine.GreenMin = 20;
+            _engine.GreenMax = 10;
+            _engine.BlueMin = 20;
+            _engine.BlueMax = 10;
+
+            _engine.KillAllParticles();
+
+            //Act
+            _engine.Particles[0].TintColor = Color.Empty;
+            _engine.Update(new TimeSpan(0, 0, 0, 0, 30));
+
+            //Assert
+            Assert.NotEqual(Color.Empty, _engine.Particles[0].TintColor);
+        }
+
+
+        [Fact]
+        public void Update_WhenInvokingWithUseColorsFromListTrueAndTintColorsNotNull_CorrectlySetsColor()
+        {
+            //Arrange
+            _mockRandomizerService.Setup(m => m.FlipCoin()).Returns(true);
+            _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Returns(0);
+            _engine.UseColorsFromList = true;
+            _engine.TintColors = new Color[] { Color.FromArgb(255, 11, 22, 33) };
+            _engine.Add(new Mock<ITexture>().Object);
+            _engine.KillAllParticles();
+
+            //Act
+            _engine.Particles[0].TintColor = Color.Empty;
+            _engine.Update(new TimeSpan(0, 0, 0, 0, 30));
+
+            //Assert
+            Assert.NotEqual(Color.Empty, _engine.Particles[0].TintColor);
+        }
+
+
+        [Fact]
+        public void Update_WhenInvokingWithUseColorsFromListTrueAndTintColorsNull_CorrectlySetsColor()
+        {
+            //Arrange
+            _mockRandomizerService.Setup(m => m.FlipCoin()).Returns(true);
+            _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Returns(0);
+            _engine.UseColorsFromList = true;
+            _engine.TintColors = null;
+            _engine.Add(new Mock<ITexture>().Object);
+            _engine.KillAllParticles();
+
+            //Act
+            _engine.Particles[0].TintColor = Color.Empty;
+            _engine.Update(new TimeSpan(0, 0, 0, 0, 30));
+
+            //Assert
+            Assert.NotEqual(Color.Empty, _engine.Particles[0].TintColor);
+        }
+
+
+        [Fact]
+        public void Update_WhenInvokingUseRandomVelocityFalse_CorrectlySetsParticleVelocity()
+        {
+            //Arrange
+            _mockRandomizerService.Setup(m => m.FlipCoin()).Returns(true);
+            _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Returns(0);
+            _engine.UseRandomVelocity = false;
+            _engine.ParticleVelocity = new Point(11, 22);
+            _engine.Add(new Mock<ITexture>().Object);
+            _engine.KillAllParticles();
+
+            //Act
+            _engine.Update(new TimeSpan(0, 0, 0, 0, 30));
+
+            //Assert
+            Assert.Equal(new PointF(11, 22), _engine.Particles[0].Velocity);
         }
 
 

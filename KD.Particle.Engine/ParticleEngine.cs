@@ -312,6 +312,13 @@ namespace KDParticleEngine
         /// for multi-threaded operations.
         /// </summary>
         public bool IsSynchronized => false;
+
+        /// <summary>
+        /// Gets or stets the custom process to occurr right before the particles
+        /// update when the engine update process is invoked.  Will be invoked as long
+        /// as the action is not null.
+        /// </summary>
+        public Action PreParticleUpdate { get; set; }
         #endregion
 
 
@@ -466,6 +473,8 @@ namespace KDParticleEngine
 
                 _spawnRateElapsed = 0;
             }
+
+            PreParticleUpdate?.Invoke();
 
             for (int i = 0; i < _particles.Count; i++)
             {
