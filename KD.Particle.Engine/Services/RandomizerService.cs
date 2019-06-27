@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace KDParticleEngine.Services
 { 
@@ -28,6 +29,7 @@ namespace KDParticleEngine.Services
         /// Returns a true/false value that represents the flip of a coin.
         /// </summary>
         /// <returns></returns>
+        [ExcludeFromCodeCoverage]
         public bool FlipCoin() => _random.NextDouble() <= 0.5f;
 
 
@@ -46,11 +48,11 @@ namespace KDParticleEngine.Services
 
             if (minValueAsInt > maxValueAsInt)
             {
-                return _random.Next(maxValueAsInt, minValueAsInt) / 1000f;
+                return (float)Math.Round(_random.Next(maxValueAsInt, minValueAsInt) / 1000f, 3);
             }
             else
             {
-                return _random.Next(minValueAsInt, maxValueAsInt) / 1000f;
+                return (float)Math.Round(_random.Next(minValueAsInt, maxValueAsInt) / 1000f, 3);
             }
         }
 
@@ -64,7 +66,8 @@ namespace KDParticleEngine.Services
         /// <param name="maxValue">The inclusive maximum value of the range to randomly choose from.</param>
         /// <returns></returns>
         public double GetValue(double minValue, double maxValue) =>
-            GetValue((float)(minValue + 0.001), (float)(maxValue + 0.001));
+            //Add 0.001 so that way the max value is inclusive.
+            GetValue((float)minValue, (float)maxValue);
 
 
         /// <summary>
@@ -77,6 +80,7 @@ namespace KDParticleEngine.Services
         /// <returns></returns>
         public int GetValue(int minValue, int maxValue)
         {
+            //Add 1 so that way the max value is inclusive.
             return minValue > maxValue ?
                 _random.Next(maxValue, minValue + 1) :
                 _random.Next(minValue, maxValue + 1);

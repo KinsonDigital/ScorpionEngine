@@ -453,6 +453,17 @@ namespace KDParticleEngineTests
             //Assert
             Assert.False(_engine.IsSynchronized);
         }
+
+
+        [Fact]
+        public void TotalParticlesAliveAtOnce_WhenSettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            _engine.TotalParticlesAliveAtOnce = 100;
+
+            //Assert
+            Assert.Equal(100, _engine.TotalParticlesAliveAtOnce);
+        }
         #endregion
 
 
