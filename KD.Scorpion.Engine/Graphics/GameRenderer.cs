@@ -1,6 +1,7 @@
 ﻿using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Entities;
+using System.Diagnostics.CodeAnalysis;
 
 namespace KDScorpionEngine.Graphics
 {
@@ -16,6 +17,7 @@ namespace KDScorpionEngine.Graphics
         /// Creates a new instance of <see cref="GameRenderer"/>.
         /// </summary>
         /// <param name="renderer">The internal renderer implementation provided by a plugin.</param>
+        [ExcludeFromCodeCoverage]
         public GameRenderer() { }
         #endregion
 

@@ -1,6 +1,7 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
+using System.Diagnostics.CodeAnalysis;
 
 namespace KDScorpionEngine.Entities
 {
@@ -19,6 +20,7 @@ namespace KDScorpionEngine.Entities
         /// <param name="text">The text of the font texture.</param>
         /// <param name="foreColor">The color of the text.</param>
         /// <param name="backColor">The color of the background behind the text.</param>
+        [ExcludeFromCodeCoverage]
         public TextEntity(string text, GameColor foreColor, GameColor backColor, Vector position) : base(new Vector[0], position: position) =>
             Setup(text, foreColor, backColor);
         #endregion

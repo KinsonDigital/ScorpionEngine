@@ -3,13 +3,23 @@ using KDScorpionCore.Content;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine;
 using KDScorpionEngine.Graphics;
+using Moq;
 
 namespace KDScorpionEngineTests.Fakes
 {
     public class FakeEngine : Engine
     {
+        private IEngineCore _fakeEngineCore;
+
+
         public FakeEngine(IContentLoader contentLoader, IEngineCore engineCore, IKeyboard keyboard) : base(contentLoader, engineCore, keyboard)
         {
+            _fakeEngineCore = engineCore;
+
+            engineCore.OnInitialize += (sender, e) => Init();
+            engineCore.OnLoadContent += (sender, e) => LoadContent(ContentLoader);
+            engineCore.OnUpdate += (sender, e) => Update(new EngineTime());
+            engineCore.OnRender += (sender, e) => Render(new GameRenderer(new Mock<IRenderer>().Object, new Mock<IDebugDraw>().Object));
         }
 
 
@@ -25,6 +35,12 @@ namespace KDScorpionEngineTests.Fakes
 
 
         #region Public Methods
+        public void Start()
+        {
+            _fakeEngineCore.Start();
+        }
+
+
         public override void Init()
         {
             InitInvoked = true;

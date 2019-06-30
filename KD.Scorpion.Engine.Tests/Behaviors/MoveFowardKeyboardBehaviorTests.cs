@@ -104,6 +104,20 @@ namespace KDScorpionEngineTests.Behaviors
             //Assert
             Assert.True(behavior.IsMovingForward);
         }
+
+
+        [Fact]
+        public void LinearSpeed_WhenSettingValue_ReturnsCorrectValue()
+        {
+            //Act
+            var behavior = new MoveFowardKeyboardBehavior<DynamicEntity>(It.IsAny<IKeyboard>(), It.IsAny<DynamicEntity>())
+            {
+                LinearSpeed = 12
+            };
+
+            //Assert
+            Assert.Equal(12, behavior.LinearSpeed);
+        }
         #endregion
 
 

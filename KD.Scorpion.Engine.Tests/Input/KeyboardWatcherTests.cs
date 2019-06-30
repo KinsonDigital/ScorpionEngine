@@ -539,7 +539,7 @@ namespace KDScorpionEngineTests.Input
 
 
         [Fact]
-        public void Update_WhenInvokingWithSetComboButtons_InvokesOnInputComboPressedEvent()
+        public void Update_WhenInvokingWithOnInputComboPressedNotNullAndSetComboKeys_InvokesOnInputComboPressedEvent()
         {
             //Arrange
             _mockKeyboard.Setup(m => m.IsKeyDown(KeyCodes.Left)).Returns(true);

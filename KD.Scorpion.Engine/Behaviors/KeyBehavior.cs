@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using KDScorpionCore;
 using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
@@ -44,6 +45,7 @@ namespace KDScorpionEngine.Behaviors
         /// Creates a new key behavior.
         /// </summary>
         /// <param name="key">The assigned keyboard key of the behavior.</param>
+        [ExcludeFromCodeCoverage]
         public KeyBehavior(KeyCodes key, bool enabled = false) => Setup(key, enabled);
         #endregion
 
@@ -106,7 +108,7 @@ namespace KDScorpionEngine.Behaviors
 
             _keyboard.UpdateCurrentState();
 
-            #region button Behavior Code
+            #region Button Behavior Code
             //Invoke the KeyDown or KeyUp events depending on the setup behavior
             switch (BehaviorType)
             {
@@ -169,10 +171,14 @@ namespace KDScorpionEngine.Behaviors
 
 
         #region Private Methods
+        /// <summary>
+        /// Sets up the <see cref="KeyBehavior"/>.
+        /// </summary>
+        /// <param name="key">The key to set to the behavior.</param>
+        /// <param name="enabled">Enabled if set to true.</param>
         private void Setup(KeyCodes key, bool enabled)
         {
-            if (_keyboard == null)
-                _keyboard = new Keyboard();
+            _keyboard = _keyboard == null ? new Keyboard() : _keyboard;
 
             Key = key;
             Enabled = enabled;

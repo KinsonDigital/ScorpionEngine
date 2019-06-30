@@ -43,6 +43,7 @@ namespace KDScorpionEngine.Scene
         /// Creates a new instance of <see cref="SceneManager"/>.
         /// <paramref name="contentLoader">The content manager user to load and unload content.</paramref>
         /// </summary>
+        [ExcludeFromCodeCoverage]
         public SceneManager(ContentLoader contentLoader)
         {
             _contentLoader = contentLoader;

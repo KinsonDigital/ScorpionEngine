@@ -601,11 +601,22 @@ namespace KDScorpionEngine.Entities
             //Force the speed to a positive number if it is negative
             maxSpeed = maxSpeed.ForcePositive();
 
-            _moveUpVelocityMaxBehavior = new LimitNumberBehavior(GetLinearYValue, SetLinearYValue, maxSpeed * -1, nameof(_moveUpVelocityMaxBehavior));
-            _moveDownVelocityMaxBehavior = new LimitNumberBehavior(GetLinearYValue, SetLinearYValue, maxSpeed, nameof(_moveDownVelocityMaxBehavior));
-
-            _moveRightVelocityMaxBehavior = new LimitNumberBehavior(GetLinearXValue, SetLinearXValue, maxSpeed, nameof(_moveRightVelocityMaxBehavior));
-            _moveLeftVelocityMaxBehavior = new LimitNumberBehavior(GetLinearXValue, SetLinearXValue, maxSpeed * -1, nameof(_moveLeftVelocityMaxBehavior));
+            _moveUpVelocityMaxBehavior = new LimitNumberBehavior(GetLinearYValue, SetLinearYValue, maxSpeed * -1, nameof(_moveUpVelocityMaxBehavior))
+            {
+                Name = $"{nameof(DynamicEntity)}.{nameof(LimitNumberBehavior)} => {"{ "}{nameof(_moveUpVelocityMaxBehavior)}{" }"}"
+            };
+            _moveDownVelocityMaxBehavior = new LimitNumberBehavior(GetLinearYValue, SetLinearYValue, maxSpeed, nameof(_moveDownVelocityMaxBehavior))
+            {
+                Name = $"{nameof(DynamicEntity)}.{nameof(LimitNumberBehavior)} => {"{ "}{nameof(_moveDownVelocityMaxBehavior)}{" }"}"
+            };
+            _moveRightVelocityMaxBehavior = new LimitNumberBehavior(GetLinearXValue, SetLinearXValue, maxSpeed, nameof(_moveRightVelocityMaxBehavior))
+            {
+                Name = $"{nameof(DynamicEntity)}.{nameof(LimitNumberBehavior)} => {"{ "}{nameof(_moveRightVelocityMaxBehavior)}{" }"}"
+            };
+            _moveLeftVelocityMaxBehavior = new LimitNumberBehavior(GetLinearXValue, SetLinearXValue, maxSpeed * -1, nameof(_moveLeftVelocityMaxBehavior))
+            {
+                Name = $"{nameof(DynamicEntity)}.{nameof(LimitNumberBehavior)} => {"{ "}{nameof(_moveLeftVelocityMaxBehavior)}{" }"}"
+            };
 
             Behaviors.Add(_moveUpVelocityMaxBehavior);
             Behaviors.Add(_moveDownVelocityMaxBehavior);
@@ -619,8 +630,14 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         private void SetupMaxRotationBehaviors(float maxSpeed)
         {
-            _rotateCWVelocityMaxBehavior = new LimitNumberBehavior(GetAngularValue, SetAngularValue, maxSpeed);
-            _rotateCCWVelocityMaxBehavior = new LimitNumberBehavior(GetAngularValue, SetAngularValue, maxSpeed * -1);
+            _rotateCWVelocityMaxBehavior = new LimitNumberBehavior(GetAngularValue, SetAngularValue, maxSpeed)
+            {
+                Name = $"{nameof(DynamicEntity)}.{nameof(LimitNumberBehavior)} => {"{ "}{nameof(_rotateCWVelocityMaxBehavior)}{" }"}"
+            };
+            _rotateCCWVelocityMaxBehavior = new LimitNumberBehavior(GetAngularValue, SetAngularValue, maxSpeed.ForceNegative())
+            {
+                Name = $"{nameof(DynamicEntity)}.{nameof(LimitNumberBehavior)} => {"{ "}{nameof(_rotateCCWVelocityMaxBehavior)}{" }"}"
+            };
 
             Behaviors.Add(_rotateCWVelocityMaxBehavior);
             Behaviors.Add(_rotateCCWVelocityMaxBehavior);

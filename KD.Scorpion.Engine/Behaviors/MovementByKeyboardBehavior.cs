@@ -2,6 +2,7 @@
 using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Entities;
+using System.Diagnostics.CodeAnalysis;
 
 namespace KDScorpionEngine.Behaviors
 {
@@ -21,18 +22,13 @@ namespace KDScorpionEngine.Behaviors
         private KeyCodes _moveDownKey = KeyCodes.Down;
         private KeyCodes _moveLeftKey = KeyCodes.Left;
         private KeyCodes _moveRightKey = KeyCodes.Right;
-        private bool _injectKeyboard;
-        private IKeyboard _internalKeyboard;
         #endregion
 
 
         #region Constructors
         internal MovementByKeyboardBehavior(IKeyboard keyboard, T entity)
         {
-            _injectKeyboard = true;
-            _internalKeyboard = keyboard;
-
-            CreateBehaviors();
+            CreateBehaviors(keyboard);
             SetupBehaviors();
 
             _gameObject = entity;
@@ -46,6 +42,7 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         /// <param name="entity">The <see cref="DynamicEntity"/> to perform keyboard movement behavior upon.</param>
         /// <param name="movementSpeed">The movement speed that the <see cref="DynamicEntity"/> will move at.</param>
+        [ExcludeFromCodeCoverage]
         public MovementByKeyboardBehavior(T entity, float movementSpeed)
         {
             LinearSpeed = movementSpeed;
@@ -147,23 +144,26 @@ namespace KDScorpionEngine.Behaviors
         /// <summary>
         /// Creates all of the keyboard behaviors that deal with <see cref="DynamicEntity"/> movement.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         private void CreateBehaviors()
         {
-            _moveRightOnKeyDown = _injectKeyboard ?
-                new KeyBehavior(_internalKeyboard) :
-                new KeyBehavior(_moveRightKey, true);
+            _moveRightOnKeyDown = new KeyBehavior(_moveRightKey, true);
+            _moveLeftOnKeyDown = new KeyBehavior(_moveLeftKey, true);
+            _moveUpOnKeyDown = new KeyBehavior(_moveUpKey, true);
+            _moveDownOnKeyDown = new KeyBehavior(_moveDownKey, true);
+        }
 
-            _moveLeftOnKeyDown = _injectKeyboard ?
-                new KeyBehavior(_internalKeyboard) :
-                new KeyBehavior(_moveLeftKey, true);
 
-            _moveUpOnKeyDown = _injectKeyboard ?
-                new KeyBehavior(_internalKeyboard) :
-                new KeyBehavior(_moveUpKey, true);
-
-            _moveDownOnKeyDown = _injectKeyboard ?
-                new KeyBehavior(_internalKeyboard) :
-                new KeyBehavior(_moveDownKey, true);
+        /// <summary>
+        /// Sets up all of the KeyBehaviors using the given <paramref name="keyboard"/>
+        /// </summary>
+        /// <param name="keyboard">The keyboard to inject into the behaviors for testing.</param>
+        private void CreateBehaviors(IKeyboard keyboard)
+        {
+            _moveRightOnKeyDown = new KeyBehavior(keyboard);
+            _moveLeftOnKeyDown = new KeyBehavior(keyboard);
+            _moveUpOnKeyDown = new KeyBehavior(keyboard);
+            _moveDownOnKeyDown = new KeyBehavior(keyboard);
         }
 
 

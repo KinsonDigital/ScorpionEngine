@@ -4,6 +4,7 @@ using KDScorpionCore.Plugins;
 using KDScorpionEngine.Utils;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace KDScorpionEngine.Input
@@ -24,9 +25,9 @@ namespace KDScorpionEngine.Input
         #region Fields
         private readonly Mouse _mouse;
         private Dictionary<InputButton, bool> _currentPressedButtons;//Holds the list of combo buttons and there down states
-        private readonly StopWatch _buttonDownTimer;//Keeps track of how long the set input has been in the down position
-        private readonly StopWatch _buttonReleaseTimer;//Keeps track of how long the set input has been in the up position
-        private readonly Counter _counter;//Keeps track of the hit count of an input
+        private StopWatch _buttonDownTimer;//Keeps track of how long the set input has been in the down position
+        private StopWatch _buttonReleaseTimer;//Keeps track of how long the set input has been in the up position
+        private Counter _counter;//Keeps track of the hit count of an input
         private bool _curState;//The current state of the set input
         private bool _prevState;//The previous state of the set input
         #endregion
@@ -36,19 +37,7 @@ namespace KDScorpionEngine.Input
         internal MouseWatcher(bool enabled, IMouse mouse)
         {
             _mouse = new Mouse(mouse);
-
-            Enabled = enabled;
-            ComboButtons = new List<InputButton>();
-
-            //Setup stop watches
-            _counter = new Counter(0, 10, 1);
-            _buttonDownTimer = new StopWatch(1000);
-            _buttonDownTimer.OnTimeElapsed += _buttonDownTimer_OnTimeElapsed;
-            _buttonDownTimer.Start();
-
-            _buttonReleaseTimer = new StopWatch(1000);
-            _buttonReleaseTimer.OnTimeElapsed += _buttonReleasedTimer_OnTimeElapsed;
-            _buttonReleaseTimer.Start();
+            Setup(enabled);
         }
 
 
@@ -56,22 +45,11 @@ namespace KDScorpionEngine.Input
         /// Creates an instance of MouseWatcher.
         /// </summary>
         /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
+        [ExcludeFromCodeCoverage]
         public MouseWatcher(bool enabled)
         {
             _mouse = new Mouse();
-
-            Enabled = enabled;
-            ComboButtons = new List<InputButton>();
-
-            //Setup stop watches
-            _counter = new Counter(0, 10, 1);
-            _buttonDownTimer = new StopWatch(1000);
-            _buttonDownTimer.OnTimeElapsed += _buttonDownTimer_OnTimeElapsed;
-            _buttonDownTimer.Start();
-
-            _buttonReleaseTimer = new StopWatch(1000);
-            _buttonReleaseTimer.OnTimeElapsed += _buttonReleasedTimer_OnTimeElapsed;
-            _buttonReleaseTimer.Start();
+            Setup(enabled);
         }
         #endregion
 
@@ -271,6 +249,27 @@ namespace KDScorpionEngine.Input
                         _currentPressedButtons.Add(button, false);
                 }
             }
+        }
+
+
+        /// <summary>
+        /// Sets up the <see cref="MouseWatcher"/>.
+        /// </summary>
+        /// <param name="enabled">If true, the mouse watcher will be enabled.</param>
+        private void Setup(bool enabled)
+        {
+            Enabled = enabled;
+            ComboButtons = new List<InputButton>();
+
+            //Setup stop watches
+            _counter = new Counter(0, 10, 1);
+            _buttonDownTimer = new StopWatch(1000);
+            _buttonDownTimer.OnTimeElapsed += _buttonDownTimer_OnTimeElapsed;
+            _buttonDownTimer.Start();
+
+            _buttonReleaseTimer = new StopWatch(1000);
+            _buttonReleaseTimer.OnTimeElapsed += _buttonReleasedTimer_OnTimeElapsed;
+            _buttonReleaseTimer.Start();
         }
         #endregion
     }
