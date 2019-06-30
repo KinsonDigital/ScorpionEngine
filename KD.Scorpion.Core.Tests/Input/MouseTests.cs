@@ -15,13 +15,14 @@ namespace KDScorpionCoreTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IMouse>();
-            mockMouse.SetupGet(m => m.X).Returns(1234);
+            mockMouse.SetupProperty(p => p.X);
 
             var mouse = new Mouse(mockMouse.Object);
 
             var expected = 1234;
 
             //Act
+            mouse.X = 1234;
             var actual = mouse.X;
 
             //Assert
@@ -34,13 +35,14 @@ namespace KDScorpionCoreTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IMouse>();
-            mockMouse.SetupGet(m => m.Y).Returns(5678);
+            mockMouse.SetupProperty(p => p.Y);
 
             var mouse = new Mouse(mockMouse.Object);
 
             var expected = 5678;
 
             //Act
+            mouse.Y = 5678;
             var actual = mouse.Y;
 
             //Assert

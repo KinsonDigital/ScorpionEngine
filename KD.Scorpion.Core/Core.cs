@@ -1,10 +1,12 @@
 ﻿using KDScorpionCore.Plugins;
+using System.Diagnostics.CodeAnalysis;
 
 namespace KDScorpionCore
 {
     /// <summary>
     /// Loads up and boostraps the core plugin system.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     internal static class Core
     {
         #region Public Methods

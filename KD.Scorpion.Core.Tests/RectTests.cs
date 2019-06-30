@@ -107,6 +107,34 @@ namespace KDScorpionCoreTests
 
 
         [Fact]
+        public void HalfWidth_WhenGettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var rect = new Rect();
+
+            //Act
+            rect.Width = 10.5f;
+
+            //Assert
+            Assert.Equal(5.25f, rect.HalfWidth);
+        }
+
+
+        [Fact]
+        public void HalfHeight_WhenGettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var rect = new Rect();
+
+            //Act
+            rect.Height = 10.5f;
+
+            //Assert
+            Assert.Equal(5.25f, rect.HalfHeight);
+        }
+
+
+        [Fact]
         public void Left_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange

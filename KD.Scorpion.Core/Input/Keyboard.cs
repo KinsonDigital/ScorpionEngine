@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace KDScorpionEngine.Input
+namespace KDScorpionCore.Input
 {
     /// <summary>
     /// Used to check the state of keyboard hardware keys.
@@ -32,7 +32,6 @@ namespace KDScorpionEngine.Input
 
         private static readonly KeyCodes[] _numpadNumberKeys = new[]
         {
-            KeyCodes.NumPad0, KeyCodes.NumPad0,
             KeyCodes.NumPad0, KeyCodes.NumPad1, KeyCodes.NumPad2,
             KeyCodes.NumPad3, KeyCodes.NumPad4, KeyCodes.NumPad5,
             KeyCodes.NumPad6, KeyCodes.NumPad7, KeyCodes.NumPad8,
@@ -48,26 +47,43 @@ namespace KDScorpionEngine.Input
             KeyCodes.Divide, KeyCodes.Multiply, KeyCodes.Subtract, KeyCodes.Add
         };
 
-        private static readonly Dictionary<KeyCodes, string> _noShiftModifierSymbolTextItems = new Dictionary<KeyCodes, string>()
+        private static readonly KeyCodes[] _numpadSymbolKeys = new[]
         {
-            { KeyCodes.OemPlus, "=" }, { KeyCodes.OemComma, "," }, { KeyCodes.OemMinus, "-" },
-            { KeyCodes.OemPeriod, "." }, { KeyCodes.OemQuestion, "/" }, { KeyCodes.OemTilde, "`" },
-            { KeyCodes.OemPipe, "\\" }, { KeyCodes.OemOpenBrackets, "[" }, { KeyCodes.OemCloseBrackets, "]" },
-            { KeyCodes.OemQuotes, "'" }, { KeyCodes.OemSemicolon, ";" }, { KeyCodes.Decimal, "." },
-            { KeyCodes.Divide, "/" }, { KeyCodes.Multiply, "*" }, { KeyCodes.Subtract, "-" },
-            { KeyCodes.Add, "+" }
+            KeyCodes.Decimal, KeyCodes.Add, KeyCodes.Subtract, KeyCodes.Multiply, KeyCodes.Divide
         };
 
-        private static readonly Dictionary<KeyCodes, string> _withShiftModifierSymbolTextItems = new Dictionary<KeyCodes, string>()
+        private static readonly Dictionary<KeyCodes, char> _noShiftStandardNumberCharacters = new Dictionary<KeyCodes, char>()
         {
-            { KeyCodes.OemPlus, "+" }, { KeyCodes.OemComma, "<" }, { KeyCodes.OemMinus, "_" },
-            { KeyCodes.OemPeriod, ">" }, { KeyCodes.OemQuestion, "?" }, { KeyCodes.OemTilde, "~" },
-            { KeyCodes.OemPipe, "|" }, { KeyCodes.OemOpenBrackets, "{" }, { KeyCodes.OemCloseBrackets, "}" },
-            { KeyCodes.OemQuotes, "\"" }, { KeyCodes.OemSemicolon, ":" }, { KeyCodes.D1, "!" },
-            { KeyCodes.D2, "@" }, { KeyCodes.D3, "#" }, { KeyCodes.D4, "$" }, { KeyCodes.D5, "%" },
-            { KeyCodes.D6, "^" }, { KeyCodes.D7, "&" }, { KeyCodes.D8, "*" }, { KeyCodes.D9, "(" },
-            { KeyCodes.D0, ")" }, { KeyCodes.Divide, "/" }, { KeyCodes.Multiply, "*" }, { KeyCodes.Subtract, "-" },
-            { KeyCodes.Add, "+" }
+            { KeyCodes.D0 , '0'}, { KeyCodes.D1 , '1'}, { KeyCodes.D2 , '2'},
+            { KeyCodes.D3 , '3'}, { KeyCodes.D4 , '4'}, { KeyCodes.D5 , '5'},
+            { KeyCodes.D6 , '6'}, { KeyCodes.D7 , '7'}, { KeyCodes.D8 , '8'}, { KeyCodes.D9 , '9'},
+        };
+
+        private static readonly Dictionary<KeyCodes, char> _numpadSymbolCharacters = new Dictionary<KeyCodes, char>()
+        {
+            { KeyCodes.Decimal, '.' }, { KeyCodes.Add, '+' }, { KeyCodes.Subtract, '-' }, { KeyCodes.Multiply, '*' }, { KeyCodes.Divide, '/' }
+        };
+
+        private static readonly Dictionary<KeyCodes, char> _noShiftSymbolCharacters = new Dictionary<KeyCodes, char>()
+        {
+            { KeyCodes.OemPlus, '=' }, { KeyCodes.OemComma, ',' }, { KeyCodes.OemMinus, '-' },
+            { KeyCodes.OemPeriod, '.' }, { KeyCodes.OemQuestion, '/' }, { KeyCodes.OemTilde, '`' },
+            { KeyCodes.OemPipe, '\\' }, { KeyCodes.OemOpenBrackets, '[' }, { KeyCodes.OemCloseBrackets, ']' },
+            { KeyCodes.OemQuotes, '\'' }, { KeyCodes.OemSemicolon, ';' }, { KeyCodes.Decimal, '.' },
+            { KeyCodes.Divide, '/' }, { KeyCodes.Multiply, '*' }, { KeyCodes.Subtract, '-' },
+            { KeyCodes.Add, '+' }
+        };
+
+        private static readonly Dictionary<KeyCodes, char> _withShiftSymbolCharacters = new Dictionary<KeyCodes, char>()
+        {
+            { KeyCodes.OemPlus, '+' }, { KeyCodes.OemComma, '<' }, { KeyCodes.OemMinus, '_' },
+            { KeyCodes.OemPeriod, '>' }, { KeyCodes.OemQuestion, '?' }, { KeyCodes.OemTilde, '~' },
+            { KeyCodes.OemPipe, '|' }, { KeyCodes.OemOpenBrackets, '{' }, { KeyCodes.OemCloseBrackets, '}' },
+            { KeyCodes.OemQuotes, '\'' }, { KeyCodes.OemSemicolon, ':' }, { KeyCodes.D1, '!' },
+            { KeyCodes.D2, '@' }, { KeyCodes.D3, '#' }, { KeyCodes.D4, '$' }, { KeyCodes.D5, '%' },
+            { KeyCodes.D6, '^' }, { KeyCodes.D7, '&' }, { KeyCodes.D8, '*' }, { KeyCodes.D9, '(' },
+            { KeyCodes.D0, ')' }, { KeyCodes.Divide, '/' }, { KeyCodes.Multiply, '*' }, { KeyCodes.Subtract, '-' },
+            { KeyCodes.Add, '+' }
         };
         #endregion
 
@@ -159,10 +175,7 @@ namespace KDScorpionEngine.Input
         /// Gets a value indicating if any keys are in the down position.
         /// </summary>
         /// <returns></returns>
-        public bool AreAnyKeysDown()
-        {
-            return InternalKeyboard.AreAnyKeysDown();
-        }
+        public bool AreAnyKeysDown() => InternalKeyboard.AreAnyKeysDown();
 
 
         /// <summary>
@@ -170,18 +183,7 @@ namespace KDScorpionEngine.Input
         /// </summary>
         /// <param name="keys">The list of key codes to check.</param>
         /// <returns></returns>
-        public bool IsAnyKeyDown(KeyCodes[] keys)
-        {
-            var keyCodes = new List<int>();
-
-            foreach (var key in keys)
-            {
-                keyCodes.Add((int)key);
-            }
-
-
-            return InternalKeyboard.IsAnyKeyDown(keys);
-        }
+        public bool IsAnyKeyDown(KeyCodes[] keys) => InternalKeyboard.IsAnyKeyDown(keys);
 
 
         /// <summary>
@@ -393,34 +395,28 @@ namespace KDScorpionEngine.Input
             {
                 if (_letterKeys.Contains(key))
                 {
-                    return key.ToString()[0];
+                    return key == KeyCodes.Space ? ' ' : key.ToString().ToLower()[0];
                 }
-                else if (_symbolKeys.Contains(key))
+                else if (_standardNumberKeys.Contains(key) || _symbolKeys.Contains(key))
                 {
-                    return _withShiftModifierSymbolTextItems[key][0];
-                }
-                else if (_standardNumberKeys.Contains(key))
-                {
-                    var keyString = key.ToString();
-
-                    return keyString[keyString.Length - 1];
+                    //When the shift key is down, the standard number keys and symbol keys body return symbols.
+                    return _withShiftSymbolCharacters[key];
                 }
             }
             else
             {
                 if (_letterKeys.Contains(key))
                 {
-                    return key.ToString().ToLower()[0];
+                    return key.ToString()[0];
                 }
                 else if (_symbolKeys.Contains(key))
                 {
-                    return _noShiftModifierSymbolTextItems[key][0];
+                    return _noShiftSymbolCharacters[key];
                 }
                 else if (_standardNumberKeys.Contains(key))
                 {
-                    var keyString = key.ToString();
-
-                    return keyString[keyString.Length - 1];
+                    //When the shift is is up, the standard number keys return numbers.
+                    return _noShiftStandardNumberCharacters[key];
                 }
             }
 
@@ -455,7 +451,11 @@ namespace KDScorpionEngine.Input
         /// <returns></returns>
         public bool IsDeleteKeyPressed()
         {
-            return IsKeyPressed(KeyCodes.Delete) || (IsAnyShiftKeyDown() && IsKeyPressed(KeyCodes.Decimal));
+            var isKeyPressed = IsKeyPressed(KeyCodes.Delete);
+            var anyShiftDown = IsAnyShiftKeyDown();
+            var isNumpadDelPressed = IsKeyPressed(KeyCodes.Decimal);
+
+            return isKeyPressed || (anyShiftDown && isNumpadDelPressed);
         }
 
 

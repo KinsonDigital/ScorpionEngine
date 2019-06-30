@@ -1,4 +1,5 @@
 ﻿using KDScorpionCore.Plugins;
+using System.Diagnostics.CodeAnalysis;
 
 namespace KDScorpionCore.Graphics
 {
@@ -17,6 +18,7 @@ namespace KDScorpionCore.Graphics
         }
 
 
+        [ExcludeFromCodeCoverage]
         public Renderer()
         {
             InternalRenderer = CorePluginSystem.Plugins.EnginePlugins.LoadPlugin<IRenderer>();

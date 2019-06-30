@@ -1,4 +1,6 @@
-﻿namespace PluginSystem
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace PluginSystem
 {
     /// <summary>
     /// Chooses the name of the engine and physics libraries based on the chosen build platform.
@@ -9,6 +11,7 @@
         /// <summary>
         /// Gets the name of the Scorpion Core plugin library.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         public static string EnginePluginLibraryName
         {
             get

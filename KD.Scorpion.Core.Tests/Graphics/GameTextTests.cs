@@ -9,31 +9,32 @@ namespace KDScorpionCoreTests.Graphics
     {
         #region Prop Tests
         [Fact]
-        public void Text_WhenSettingValue_ProperlyReturnsInternalValue()
+        public void Text_WhenSettingNullValue_ReturnsCorrectValue()
         {
             //Arrange
             var mockInternalText = new Mock<IText>();
-            mockInternalText.Setup(m => m.Text).Returns("Hello World");
+            mockInternalText.SetupProperty(m => m.Text);
+
             var gameText = new GameText()
             {
                 InternalText = mockInternalText.Object
             };
-            var expected = "Hello World";
 
             //Act
-            var actual = gameText.Text;
+            gameText.Text = null;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.Equal("", gameText.Text);
         }
 
 
         [Fact]
-        public void Text_WhenSettingValue_ProperlySetsInternalValue()
+        public void Text_WhenGettingAndSettingValue_ProperlyReturnsAndSetsInternalValue()
         {
             //Arrange
             var mockInternalText = new Mock<IText>();
-            mockInternalText.SetupProperty(m => m.Text, "");
+            mockInternalText.SetupProperty(m => m.Text);
+
             var gameText = new GameText()
             {
                 InternalText = mockInternalText.Object
@@ -46,6 +47,7 @@ namespace KDScorpionCoreTests.Graphics
 
             //Assert
             Assert.Equal(expected, actual);
+            mockInternalText.VerifySet(p => p.Text = "Hello World", Times.Once());
         }
 
 
@@ -107,6 +109,29 @@ namespace KDScorpionCoreTests.Graphics
 
             //Assert
             Assert.Equal(expected, actual);
+        }
+
+
+        [Fact]
+        public void Color_WhenComparingColorsThatAreNotEqual_ReturnsFalse()
+        {
+            //Arrange
+            var colorA = new GameColor(4, 1, 2, 3);
+            var colorB = new GameColor(44, 11, 22, 33);
+
+            //Act & Assert
+            Assert.NotEqual(colorA, colorB);
+        }
+
+
+        [Fact]
+        public void GetHashCode_WhenInvoking_ReturnsCorrectCode()
+        {
+            //Arrange
+            var color = new GameColor(4, 1, 2, 3);
+
+            //Act & Assert
+            Assert.Equal(1778121426, color.GetHashCode());
         }
         #endregion
 

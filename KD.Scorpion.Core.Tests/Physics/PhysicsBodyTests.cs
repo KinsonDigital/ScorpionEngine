@@ -4,6 +4,7 @@ using Xunit;
 using KDScorpionCore;
 using KDScorpionCore.Plugins;
 using KDScorpionCore.Physics;
+using System.Linq;
 
 namespace KDScorpionCoreTests.Physics
 {
@@ -37,7 +38,29 @@ namespace KDScorpionCoreTests.Physics
 
         #region Prop Tests
         [Fact]
-        public void Vertices_WhenGettingAndSettingValue_GetsCorrectValue()
+        public void Vertices_WhenSettingValue_SetsValues()
+        {
+            //Arrange
+            var expectedVertices = new Vector[]
+            {
+                new Vector(11, 22),
+                new Vector(33, 44),
+                new Vector(55, 66),
+            };
+
+            //Act
+            var body = new PhysicsBody(_mockPhysicsBody.Object)
+            {
+                Vertices = expectedVertices
+            };
+
+            //Assert
+            _mockPhysicsBody.VerifySet(p => p.XVertices = expectedVertices.Select(v => v.X).ToArray(), Times.Once());
+        }
+
+
+        [Fact]
+        public void Vertices_WhenGettingValue_GetsCorrectValue()
         {
             //Arrange
             var expectedVertices = new Vector[]
@@ -56,6 +79,32 @@ namespace KDScorpionCoreTests.Physics
             //Assert
             Assert.NotNull(actualVertices);
             Assert.Equal(expectedVertices, actualVertices);
+        }
+
+
+        [Fact]
+        public void Vertices_WhenGettingValueWithNullBodyVertices_ReturnsNull()
+        {
+            //Arrange
+            float[] nullResult = null;
+            _mockPhysicsBody.SetupGet(p => p.XVertices).Returns(nullResult);
+            _mockPhysicsBody.SetupGet(p => p.YVertices).Returns(nullResult);
+
+            var expectedVertices = new Vector[]
+            {
+                new Vector(11, 22),
+                new Vector(33, 44),
+                new Vector(55, 66),
+            };
+
+            //Act
+            var body = new PhysicsBody(_mockPhysicsBody.Object)
+            {
+                Vertices = expectedVertices
+            };
+
+            //Assert
+            Assert.Null(body.Vertices);
         }
 
 

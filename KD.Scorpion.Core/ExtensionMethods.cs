@@ -40,10 +40,7 @@ namespace KDScorpionCore
         /// </summary>
         /// <param name="value">The value to force.</param>
         /// <returns></returns>
-        public static float ForcePositive(this float value)
-        {
-            return value < 0 ? value * -1 : value;
-        }
+        public static float ForcePositive(this float value) => value < 0 ? value * -1 : value;
 
 
         /// <summary>
@@ -51,10 +48,7 @@ namespace KDScorpionCore
         /// </summary>
         /// <param name="value">The value to force.</param>
         /// <returns></returns>
-        public static float ForceNegative(this float value)
-        {
-            return value > 0 ? value * -1 : value;
-        }
+        public static float ForceNegative(this float value) => value > 0 ? value * -1 : value;
 
 
         /// <summary>

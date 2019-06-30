@@ -1,5 +1,6 @@
 ﻿using KDScorpionCore.Plugins;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace KDScorpionCore.Input
 {
@@ -53,6 +54,7 @@ namespace KDScorpionCore.Input
         /// <summary>
         /// Creates a new instance of <see cref="Mouse"/>.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         public Mouse() => InternalMouse = CorePluginSystem.Plugins.EnginePlugins.LoadPlugin<IMouse>();
         #endregion
 
