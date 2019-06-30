@@ -7,7 +7,6 @@ using KDScorpionCore.Input;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Entities;
 using KDScorpionEngine.Graphics;
-using KDScorpionEngine.Input;
 
 namespace ScorpTestGame
 {
@@ -51,16 +50,18 @@ namespace ScorpTestGame
         /// </summary>
         public PlayerShip() : base(friction: 0f)
         {
+            DebugDrawEnabled = false;
             AngularDeceleration = 100f;
             Position = new Vector(300, 250);
             Angle = 45;
+            
 
             //Ship vertices
             Vertices = new Vector[3]
             {
-                new Vector(0, -21),
-                new Vector(21, 21),
-                new Vector(-21, 21)
+                new Vector(0, -22),
+                new Vector(23, 22),
+                new Vector(-23, 22)
             };
 
             _particleEngine = new ParticleEngine<Texture>(new RandomizerService())
@@ -83,7 +84,7 @@ namespace ScorpTestGame
                 AngularVelocityMax = 2
             };
 
-            _movementBehavior = new MoveFowardKeyboardBehavior<PlayerShip>(this, 2f, 0.25f)
+            _movementBehavior = new MoveFowardKeyboardBehavior<PlayerShip>(this, 1f, 0.12f)
             {
                 MoveFowardKey = KeyCodes.Up,
                 RotateCWKey = KeyCodes.Right,
@@ -145,7 +146,7 @@ namespace ScorpTestGame
 
 
             //Update the spawn position of the thruster particels
-            _thrusterPosition = new Vector(Position.X, Position.Y + 22.5f);
+            _thrusterPosition = new Vector(Position.X, Position.Y + 11);
             _thrusterPosition = _thrusterPosition.RotateAround(Position, Angle);
 
 

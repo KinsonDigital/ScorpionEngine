@@ -1,5 +1,4 @@
-﻿using KDScorpionCore.Input;
-using KDScorpionCore.Plugins;
+﻿using KDScorpionCore.Plugins;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;

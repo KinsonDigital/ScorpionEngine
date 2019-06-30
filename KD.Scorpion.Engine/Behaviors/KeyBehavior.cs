@@ -2,7 +2,6 @@
 using KDScorpionCore;
 using KDScorpionCore.Input;
 using KDScorpionCore.Plugins;
-using KDScorpionEngine.Input;
 
 namespace KDScorpionEngine.Behaviors
 {

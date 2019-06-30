@@ -587,10 +587,10 @@ namespace KDParticleEngine
         /// <returns></returns>
         private ITexture GetRandomTexture()
         {
-            var result = Randomizer.GetValue(0, _textures.Count);
+            var result = Randomizer.GetValue(0, _textures.Count - 1);
 
 
-            return _textures[result >= 0 && result <= _textures.Count ? result : 0];
+            return _textures[result >= 0 && result <= _textures.Count - 1 ? result : 0];
         }
 
 
@@ -633,7 +633,7 @@ namespace KDParticleEngine
         {
             if (UseColorsFromList)
             {
-                return TintColors == null || TintColors.Length == 0 ? Color.FromArgb(255, 255, 255, 255) : TintColors[Randomizer.GetValue(0, TintColors.Length)];
+                return TintColors == null || TintColors.Length == 0 ? Color.FromArgb(255, 255, 255, 255) : TintColors[Randomizer.GetValue(0, TintColors.Length - 1)];
             }
             else
             {
