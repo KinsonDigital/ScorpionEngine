@@ -1,5 +1,6 @@
 ﻿using SDL2;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 
 namespace ParticleMaker
@@ -44,6 +45,7 @@ namespace ParticleMaker
         /// <summary>
         /// Properly disposes of the <see cref="ParticleTexture"/>.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         public void Dispose() => SDL.SDL_DestroyTexture(TexturePointer);
         #endregion
     }

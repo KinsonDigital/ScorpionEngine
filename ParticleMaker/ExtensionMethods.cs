@@ -206,104 +206,104 @@ namespace ParticleMaker
         }
 
 
-        /// <summary>
-        /// Converts the given width <paramref name="value"/> from WPF points to pixels.
-        /// </summary>
-        /// <param name="value">The value to convert.</param>
-        /// <returns></returns>
-        public static int WidthToPixels(this int value) => (int)(value * Screen.PrimaryScreen.WorkingArea.Width / SystemParameters.WorkArea.Width);
+        ///// <summary>
+        ///// Converts the given width <paramref name="value"/> from WPF points to pixels.
+        ///// </summary>
+        ///// <param name="value">The value to convert.</param>
+        ///// <returns></returns>
+        //public static int WidthToPixels(this int value) => (int)(value * Screen.PrimaryScreen.WorkingArea.Width / SystemParameters.WorkArea.Width);
 
 
-        /// <summary>
-        /// Converts the given height <paramref name="value"/> from WPF points to pixels.
-        /// </summary>
-        /// <param name="value">The value to convert.</param>
-        /// <returns></returns>
-        public static int HeightToPixels(this int value) => (int)(value * Screen.PrimaryScreen.WorkingArea.Height / SystemParameters.WorkArea.Height);
+        ///// <summary>
+        ///// Converts the given height <paramref name="value"/> from WPF points to pixels.
+        ///// </summary>
+        ///// <param name="value">The value to convert.</param>
+        ///// <returns></returns>
+        //public static int HeightToPixels(this int value) => (int)(value * Screen.PrimaryScreen.WorkingArea.Height / SystemParameters.WorkArea.Height);
 
 
-        /// <summary>
-        /// Converts the given width <paramref name="value"/> from pixels to WPF points.
-        /// </summary>
-        /// <param name="value">The value to convert.</param>
-        /// <returns></returns>
-        public static int WidthToPoints(this int value) => (int)(value * SystemParameters.WorkArea.Width / Screen.PrimaryScreen.WorkingArea.Width);
+        ///// <summary>
+        ///// Converts the given width <paramref name="value"/> from pixels to WPF points.
+        ///// </summary>
+        ///// <param name="value">The value to convert.</param>
+        ///// <returns></returns>
+        //public static int WidthToPoints(this int value) => (int)(value * SystemParameters.WorkArea.Width / Screen.PrimaryScreen.WorkingArea.Width);
 
 
-        /// <summary>
-        /// Converts the given height <paramref name="value"/> from pixels to WPF points.
-        /// </summary>
-        /// <param name="value">The value to convert.</param>
-        /// <returns></returns>
-        public static int HeightToPoints(this int value) => (int)(value * SystemParameters.WorkArea.Width / Screen.PrimaryScreen.WorkingArea.Width);
+        ///// <summary>
+        ///// Converts the given height <paramref name="value"/> from pixels to WPF points.
+        ///// </summary>
+        ///// <param name="value">The value to convert.</param>
+        ///// <returns></returns>
+        //public static int HeightToPoints(this int value) => (int)(value * SystemParameters.WorkArea.Width / Screen.PrimaryScreen.WorkingArea.Width);
 
 
-        /// <summary>
-        /// Converts the given width <paramref name="value"/> from WPF points to pixels.
-        /// </summary>
-        /// <param name="value">The value to convert.</param>
-        /// <returns></returns>
-        public static double WidthToPixels(this double value) => value * Screen.PrimaryScreen.WorkingArea.Width / SystemParameters.WorkArea.Width;
+        ///// <summary>
+        ///// Converts the given width <paramref name="value"/> from WPF points to pixels.
+        ///// </summary>
+        ///// <param name="value">The value to convert.</param>
+        ///// <returns></returns>
+        //public static double WidthToPixels(this double value) => value * Screen.PrimaryScreen.WorkingArea.Width / SystemParameters.WorkArea.Width;
 
 
-        /// <summary>
-        /// Converts the given height <paramref name="value"/> from WPF points to pixels.
-        /// </summary>
-        /// <param name="value">The value to convert.</param>
-        /// <returns></returns>
-        public static double HeightToPixels(this double value) => value * Screen.PrimaryScreen.WorkingArea.Height / SystemParameters.WorkArea.Height;
+        ///// <summary>
+        ///// Converts the given height <paramref name="value"/> from WPF points to pixels.
+        ///// </summary>
+        ///// <param name="value">The value to convert.</param>
+        ///// <returns></returns>
+        //public static double HeightToPixels(this double value) => value * Screen.PrimaryScreen.WorkingArea.Height / SystemParameters.WorkArea.Height;
 
 
-        /// <summary>
-        /// Converts the given width <paramref name="value"/> from pixels to WPF points.
-        /// </summary>
-        /// <param name="value">The value to convert.</param>
-        /// <returns></returns>
-        public static double WidthToPoints(this double value) => value * SystemParameters.WorkArea.Width / Screen.PrimaryScreen.WorkingArea.Width;
+        ///// <summary>
+        ///// Converts the given width <paramref name="value"/> from pixels to WPF points.
+        ///// </summary>
+        ///// <param name="value">The value to convert.</param>
+        ///// <returns></returns>
+        //public static double WidthToPoints(this double value) => value * SystemParameters.WorkArea.Width / Screen.PrimaryScreen.WorkingArea.Width;
 
 
-        /// <summary>
-        /// Converts the given height <paramref name="value"/> from pixels to WPF points.
-        /// </summary>
-        /// <param name="value">The value to convert.</param>
-        /// <returns></returns>
-        public static double HeightToPoints(this double value) => value * SystemParameters.WorkArea.Width / Screen.PrimaryScreen.WorkingArea.Width;
+        ///// <summary>
+        ///// Converts the given height <paramref name="value"/> from pixels to WPF points.
+        ///// </summary>
+        ///// <param name="value">The value to convert.</param>
+        ///// <returns></returns>
+        //public static double HeightToPoints(this double value) => value * SystemParameters.WorkArea.Width / Screen.PrimaryScreen.WorkingArea.Width;
 
 
-        /// <summary>
-        /// Converts the element width from WPF points to pixels.
-        /// </summary>
-        /// <param name="value">The value to convert.</param>
-        /// <returns></returns>
-        [ExcludeFromCodeCoverage]
-        public static double WidthToPixels(this FrameworkElement element) => element.Width.WidthToPixels();
+        ///// <summary>
+        ///// Converts the element width from WPF points to pixels.
+        ///// </summary>
+        ///// <param name="value">The value to convert.</param>
+        ///// <returns></returns>
+        //[ExcludeFromCodeCoverage]
+        //public static double WidthToPixels(this FrameworkElement element) => element.Width.WidthToPixels();
 
 
-        /// <summary>
-        /// Converts the element height from WPF points to pixels.
-        /// </summary>
-        /// <param name="value">The value to convert.</param>
-        /// <returns></returns>
-        [ExcludeFromCodeCoverage]
-        public static double HeightToPixels(this FrameworkElement element) => element.Height.HeightToPixels();
+        ///// <summary>
+        ///// Converts the element height from WPF points to pixels.
+        ///// </summary>
+        ///// <param name="value">The value to convert.</param>
+        ///// <returns></returns>
+        //[ExcludeFromCodeCoverage]
+        //public static double HeightToPixels(this FrameworkElement element) => element.Height.HeightToPixels();
 
 
-        /// <summary>
-        /// Converts the element width from pixels to WPF points.
-        /// </summary>
-        /// <param name="value">The value to convert.</param>
-        /// <returns></returns>
-        [ExcludeFromCodeCoverage]
-        public static double WidthToPoints(this FrameworkElement element) => element.Height.WidthToPoints();
+        ///// <summary>
+        ///// Converts the element width from pixels to WPF points.
+        ///// </summary>
+        ///// <param name="value">The value to convert.</param>
+        ///// <returns></returns>
+        //[ExcludeFromCodeCoverage]
+        //public static double WidthToPoints(this FrameworkElement element) => element.Height.WidthToPoints();
 
 
-        /// <summary>
-        /// Converts the element height from pixels to WPF points.
-        /// </summary>
-        /// <param name="value">The value to convert.</param>
-        /// <returns></returns>
-        [ExcludeFromCodeCoverage]
-        public static double HeightToPoints(this FrameworkElement element) => element.Height.HeightToPoints();
+        ///// <summary>
+        ///// Converts the element height from pixels to WPF points.
+        ///// </summary>
+        ///// <param name="value">The value to convert.</param>
+        ///// <returns></returns>
+        //[ExcludeFromCodeCoverage]
+        //public static double HeightToPoints(this FrameworkElement element) => element.Height.HeightToPoints();
         #endregion
     }
 }

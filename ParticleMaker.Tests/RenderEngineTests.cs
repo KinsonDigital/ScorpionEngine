@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using KDParticleEngine;
 using KDParticleEngine.Services;
 using Moq;
@@ -75,20 +77,6 @@ namespace ParticleMaker.Tests
 
         #region Method Tests
         [Fact]
-        public void Start_WhenInvokedWhilePaused_InvokesTimingServiceStart()
-        {
-            //Arrange
-            _mockTimingService.SetupGet(p => p.IsPaused).Returns(true);
-
-            //Act
-            _engine.Start();
-
-            //Assert
-            _mockTimingService.Verify(m => m.Start(), Times.Once());
-        }
-
-
-        [Fact]
         public async void Start_WhenInvoked_LoadesTexture()
         {
             //Arrange
@@ -106,7 +94,7 @@ namespace ParticleMaker.Tests
 
 
         [Fact]
-        public void Render_WhenInvoked_InvokesRendererBeginAndEnd()
+        public async void Render_WhenInvoked_InvokesRendererBeginAndEnd()
         {
             //Arrange
             _mockTimingService.SetupGet(p => p.TotalMilliseconds).Returns(1000);
@@ -115,9 +103,8 @@ namespace ParticleMaker.Tests
 
             //Act
             _engine.ParticleEngine.Add(texture);
-            var startTask = _engine.Start();
-
-            startTask.Wait();
+            Task theTask = _engine.Start();
+            await theTask;
 
             //Assert
             _mockRenderer.Verify(m => m.Begin(), Times.Once());
@@ -126,7 +113,7 @@ namespace ParticleMaker.Tests
 
 
         [Fact]
-        public void Render_WhenInvokedWithZeroParticles_RendererBeginAndEndNotInvoked()
+        public async void Render_WhenInvokedWithZeroParticles_RendererBeginAndEndNotInvoked()
         {
             //Arrange
             _particleEngine.TotalParticlesAliveAtOnce = 0;
@@ -135,14 +122,23 @@ namespace ParticleMaker.Tests
             var texture = new ParticleTexture(It.IsAny<IntPtr>(), It.IsAny<int>(), It.IsAny<int>());
 
             //Act
-            _engine.ParticleEngine.Add(texture);
-            var startTask = _engine.Start();
-
-            startTask.Wait();
+            //_engine.ParticleEngine.Add(texture);
+            await _engine.Start();
 
             //Assert
             _mockRenderer.Verify(m => m.Begin(), Times.Never());
             _mockRenderer.Verify(m => m.End(), Times.Never());
+        }
+
+
+        [Fact]
+        public void SetRenderWindow_WhenInvoked_InvokesRendererInit()
+        {
+            //Arrange
+            _engine.SetRenderWindow(It.IsAny<IntPtr>());
+
+            //Assert
+            _mockRenderer.Verify(m => m.Init(It.IsAny<IntPtr>()), Times.Once());
         }
         #endregion
 

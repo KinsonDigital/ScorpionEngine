@@ -598,7 +598,7 @@ namespace ParticleMaker.Tests.Management
         #endregion
 
 
-        #region SetUp & TearDown
+        #region Public Methods
         public void Dispose()
         {
             _mockProjIODirService = null;

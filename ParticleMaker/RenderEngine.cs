@@ -13,7 +13,7 @@ namespace ParticleMaker
         #region Fields
         private Task _loopTask;
         private CancellationTokenSource _tokenSrc;
-        private static float _targetFrameRate = 1000f / 60f;
+        private float _targetFrameRate = 1000f / 60f;
         private readonly IRenderer _renderer;
         private ITimingService _timingService;
         #endregion
@@ -76,29 +76,41 @@ namespace ParticleMaker
         /// <param name="windowHandle"></param>
         public Task Start()
         {
-            //If the engine is currently paused, just start it back up again
-            if (_timingService.IsPaused)
+            if (TaskIsRunning())
             {
-                _timingService.Start();
-                return _loopTask;
+                //If the engine is currently paused, just start it back up again
+                if (_timingService.IsPaused)
+                    _timingService.Start();
             }
-
-            if (_tokenSrc != null && _loopTask != null && _loopTask.Status == TaskStatus.Running)
-                return _loopTask;
-
-            LoadTextures();
-
-            _tokenSrc = new CancellationTokenSource();
-
-            _loopTask = new Task(() =>
+            else
             {
-                Run();
-            }, _tokenSrc.Token);
+                LoadTextures();
 
-            _loopTask.Start();
+                _tokenSrc = new CancellationTokenSource();
+
+                _loopTask = new Task(() =>
+                {
+                    Run();
+                }, _tokenSrc.Token);
+
+                _loopTask.Start();
+            }
 
 
             return _loopTask;
+        }
+
+
+        private bool TaskIsRunning()
+        {
+            if (_loopTask != null && _loopTask.Status == TaskStatus.Running)
+                return true;
+
+            if (_tokenSrc != null && !_tokenSrc.IsCancellationRequested)
+                return true;
+
+
+            return false;
         }
 
 
@@ -190,6 +202,8 @@ namespace ParticleMaker
         //[ExcludeFromCodeCoverage]
         private void Run()
         {
+            _timingService.Start();
+
             while (!_tokenSrc.IsCancellationRequested)
             {
                 if (IsPaused)

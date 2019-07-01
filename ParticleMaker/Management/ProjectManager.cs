@@ -55,7 +55,8 @@ namespace ParticleMaker.Management
             {
                 _projIOService.CheckRootProjectsFolder();
 
-                return _directoryService.GetDirectories(_projectsPath).Where(d =>
+
+                return _directoryService.GetDirectories(_projectsPath)?.Where(d =>
                 {
                     return !string.IsNullOrEmpty(d) && d.Split('\\').Length > 0;
                 }).Select(d =>
@@ -68,31 +69,22 @@ namespace ParticleMaker.Management
         }
 
         /// <summary>
-        /// Gets all of the directory paths to all of the projects.
+        /// Gets all of the directory paths to all of the project files.
         /// </summary>
-        public string[] ProjectPaths
+        public string[] ProjectFilePaths
         {
             get
             {
                 _projIOService.CheckRootProjectsFolder();
 
-                var projPaths = _directoryService.GetDirectories(_projectsPath);
-                var validPaths = new List<string>();
 
-                foreach (var path in projPaths)
+                return _directoryService.GetDirectories(_projectsPath).Where(path =>
                 {
-                    var dirSections = path.Split('\\');
+                    var dirSections = path == null ? new string[0] : path.Split('\\');
                     var dir = dirSections.Length >= 1 ? dirSections[dirSections.Length - 1] : string.Empty;
 
-                    if (string.IsNullOrEmpty(dir))
-                        continue;
-
-                    if (_fileService.Exists($@"{path}\{dir}{PROJ_FILE_EXTENSION}"))
-                        validPaths.Add(path);
-                }
-
-
-                return validPaths.ToArray();
+                    return !string.IsNullOrEmpty(dir) && _fileService.Exists($@"{path}\{dir}{PROJ_FILE_EXTENSION}");
+                }).Select(d => d).ToArray();
             }
         }
         #endregion

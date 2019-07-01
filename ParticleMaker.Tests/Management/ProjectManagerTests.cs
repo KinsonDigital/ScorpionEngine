@@ -5,6 +5,8 @@ using Xunit;
 using ParticleMaker.Exceptions;
 using ParticleMaker.Management;
 using ParticleMaker.Services;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace ParticleMaker.Tests.Management
 {
@@ -30,7 +32,7 @@ namespace ParticleMaker.Tests.Management
 
         #region Prop Tests
         [Fact]
-        public void Projects_WhenGettingValue_ReturnsCorrectValue()
+        public void Projects_WhenGettingValueWithDirectories_ReturnsCorrectValue()
         {
             //Arrange
             var mockFileService = new Mock<IFileService>();
@@ -66,44 +68,94 @@ namespace ParticleMaker.Tests.Management
 
 
         [Fact]
-        public void ProjectPaths_WhenGettingValue_ReturnsCorrectValue()
+        public void Projects_WhenGettingValueWithNoDirectories_ReturnsCorrectValue()
         {
             //Arrange
-            var valueProjPaths = new[]
-            {
-                @"C:\temp\projects\my-dir-a\my-dir-a.projs",
-                @"C:\temp\projects\my-dir-b\my-dir-b.projs",
-                @"C:\temp\projects\my-dir-c\my-dir-c.projs",
-            };
+            var mockFileService = new Mock<IFileService>();
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.GetDirectories(It.IsAny<string>())).Returns(() => null);
 
+            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockFileService.Object);
+
+            var manager = new ProjectManager(projSettingsManager, _projIOService, mockDirService.Object, mockFileService.Object);
+
+            //Act & Assert
+            Assert.Null(manager.Projects);
+        }
+
+
+        [Fact]
+        public void Projects_WhenGettingValueWithEmptyDirectories_ReturnsCorrectValue()
+        {
+            //Arrange
+            var mockFileService = new Mock<IFileService>();
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.GetDirectories(It.IsAny<string>())).Returns(() => new[] { "" });
+
+            var projSettingsManager = new ProjectSettingsManager(_projIOService, mockFileService.Object);
+
+            var manager = new ProjectManager(projSettingsManager, _projIOService, mockDirService.Object, mockFileService.Object);
+
+            //Act
+            var actual = manager.Projects.Length;
+
+            //Assert
+            Assert.Equal(0, actual);
+        }
+
+
+        [Theory]
+        [MemberData(nameof(ProjectDirsAndFilePaths))]
+        public void ProjectFilePaths_WhenGettingValue_ReturnsCorrectValue(string projDir, string projFile)
+        {
+            //Arrange
             var mockDirService = new Mock<IDirectoryService>();
             mockDirService.Setup(m => m.GetDirectories(It.IsAny<string>())).Returns(() =>
             {
-                return new[]
-                {
-                    @"C:\temp\projects\my-dir-a",
-                    @"C:\temp\projects\my-dir-b",
-                    @"C:\temp\projects\my-dir-c",
-                };
+                return new[] { projDir };
             });
 
             var mockFileService = new Mock<IFileService>();
             mockFileService.Setup(m => m.Exists(It.IsAny<string>())).Returns<string>((path) =>
             {
-                return valueProjPaths.Contains(path);
+                return new[] { projFile }.Contains(path);
             });
                 
             var manager = new ProjectManager(It.IsAny<ProjectSettingsManager>(), _projIOService, mockDirService.Object, mockFileService.Object);
 
-            var expected = new []
-            {
-                @"C:\temp\projects\my-dir-a",
-                @"C:\temp\projects\my-dir-b",
-                @"C:\temp\projects\my-dir-c",
-            };
+            var expected = string.IsNullOrEmpty(projDir) ? new string [0] : new [] { projDir };
 
             //Act
-            var actual = manager.ProjectPaths;
+            var actual = manager.ProjectFilePaths;
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+
+        //[Theory]
+        //[MemberData(nameof(ProjectDirsAndFilePaths))]
+        public void ProjectFilePaths_WhenGettingValueWithEmptyDirectories_ReturnsCorrectValue(string projDir, string projFile)
+        {
+            //Arrange
+            var mockDirService = new Mock<IDirectoryService>();
+            mockDirService.Setup(m => m.GetDirectories(It.IsAny<string>())).Returns(() =>
+            {
+                return new[] { projDir };
+            });
+
+            var mockFileService = new Mock<IFileService>();
+            mockFileService.Setup(m => m.Exists(It.IsAny<string>())).Returns<string>((path) =>
+            {
+                return new[] { projFile }.Contains(path);
+            });
+
+            var manager = new ProjectManager(It.IsAny<ProjectSettingsManager>(), _projIOService, mockDirService.Object, mockFileService.Object);
+
+            var expected = new[] { projDir };
+
+            //Act
+            var actual = manager.ProjectFilePaths;
 
             //Assert
             Assert.Equal(expected, actual);
@@ -111,13 +163,13 @@ namespace ParticleMaker.Tests.Management
 
 
         [Fact]
-        public void ProjectPaths_WhenGettingValue_InvokesDirectoryServiceExistsMethod()
+        public void ProjectFilePaths_WhenGettingValue_InvokesDirectoryServiceExistsMethod()
         {
             //Arrange
             var manager = new ProjectManager(It.IsAny<ProjectSettingsManager>(), _projIOService, new Mock<IDirectoryService>().Object, new Mock<IFileService>().Object);
 
             //Act
-            var actual = manager.ProjectPaths;
+            var actual = manager.ProjectFilePaths;
 
             //Assert
             _mockProjDirService.Verify(m => m.Exists(It.IsAny<string>()), Times.Exactly(2));
@@ -125,13 +177,13 @@ namespace ParticleMaker.Tests.Management
 
 
         [Fact]
-        public void ProjectPaths_WhenGettingValueWhileDirectoryDoesNotExist_InvokesDirectoryServiceCreateMethod()
+        public void ProjectFilePaths_WhenGettingValueWhileDirectoryDoesNotExist_InvokesDirectoryServiceCreateMethod()
         {
             //Arrange
             var manager = new ProjectManager(It.IsAny<ProjectSettingsManager>(), _projIOService, new Mock<IDirectoryService>().Object, new Mock<IFileService>().Object);
 
             //Act
-            var actual = manager.ProjectPaths;
+            var actual = manager.ProjectFilePaths;
 
             //Assert
             _mockProjDirService.Verify(m => m.Create(It.IsAny<string>()), Times.Exactly(2));
@@ -408,7 +460,24 @@ namespace ParticleMaker.Tests.Management
         #endregion
 
 
-        #region SetUp & TearDown
+        #region Test Data
+        /*
+            @"C:\temp\projects\my-dir-a\my-dir-a.projs",
+            @"C:\temp\projects\my-dir-b\my-dir-b.projs",
+            @"C:\temp\projects\my-dir-c\my-dir-c.projs",
+         */
+        public static IEnumerable<object[]> ProjectDirsAndFilePaths => new List<object[]>()
+        {
+            new object[] { @"C:\temp\projects\my-dir-a", @"C:\temp\projects\my-dir-a\my-dir-a.projs" },
+            new object[] { @"C:\temp\projects\my-dir-b", @"C:\temp\projects\my-dir-b\my-dir-b.projs" },
+            new object[] { @"C:\temp\projects\my-dir-c", @"C:\temp\projects\my-dir-c\my-dir-c.projs" },
+            new object[] { "", "" },
+            new object[] { null, null }
+        };
+        #endregion
+
+
+        #region Public Methods
         public void Dispose()
         {
             _mockProjDirService = null;

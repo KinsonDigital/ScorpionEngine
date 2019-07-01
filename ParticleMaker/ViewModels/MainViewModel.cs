@@ -891,7 +891,7 @@ namespace ParticleMaker.ViewModels
                 var projectListDialog = new ProjectListDialog("Open Project")
                 {
                     Owner = MainWindow,
-                    ProjectPaths = _projectManager.ProjectPaths
+                    ProjectPaths = _projectManager.ProjectFilePaths
                 };
 
                 var dialogResult = projectListDialog.ShowDialog();
@@ -931,7 +931,7 @@ namespace ParticleMaker.ViewModels
                 var projectListDialog = new ProjectListDialog("Select Project To Rename")
                 {
                     Owner = MainWindow,
-                    ProjectPaths = _projectManager.ProjectPaths
+                    ProjectPaths = _projectManager.ProjectFilePaths
                 };
 
                 var projectListDialogResult = projectListDialog.ShowDialog();
@@ -995,7 +995,7 @@ namespace ParticleMaker.ViewModels
                 var projListDialog = new ProjectListDialog("Delete Project")
                 {
                     Owner = MainWindow,
-                    ProjectPaths = _projectManager.ProjectPaths
+                    ProjectPaths = _projectManager.ProjectFilePaths
                 };
 
                 if (projListDialog.ShowDialog() == true)
