@@ -1,7 +1,7 @@
 ﻿using KDParticleEngine;
+using ParticleMaker.Services;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,7 +11,6 @@ namespace ParticleMaker
     public class GraphicsEngine : IDisposable
     {
         #region Fields
-        private Stopwatch _timer;
         private Task _loopTask;
         private CancellationTokenSource _tokenSrc;
         private TimeSpan _lastFrameTime;
@@ -20,6 +19,7 @@ namespace ParticleMaker
         private static float _targetFrameRate = 1000f / 60f;
         private Queue<float> _frameTimes = new Queue<float>();
         private IRenderer _renderer;
+        private IStopWatchService _stopWatch;
         #endregion
 
 
@@ -29,10 +29,11 @@ namespace ParticleMaker
         /// </summary>
         /// <param name="renderer">The renderer used to render textures to the screen.</param>
         /// <param name="particleEngine">The particle engine that manages the particles.</param>
-        public GraphicsEngine(IRenderer renderer, ParticleEngine<ParticleTexture> particleEngine)
+        public GraphicsEngine(IRenderer renderer, ParticleEngine<ParticleTexture> particleEngine, IStopWatchService stopWatchService)
         {
             _renderer = renderer;
             ParticleEngine = particleEngine;
+            _stopWatch = stopWatchService;
         }
         #endregion
 
@@ -51,7 +52,7 @@ namespace ParticleMaker
         /// <summary>
         /// The desired frames per second the engine should run at.
         /// </summary>
-        public static float DesiredFPS
+        public static float TargetFrameRate
         {
             get => 1000f / _targetFrameRate;
             set => _targetFrameRate = 1000f / value;
@@ -127,7 +128,10 @@ namespace ParticleMaker
             //If any of the textures do not already exist in the engine, add the texture
             foreach (var path in TexturePaths)
             {
-                ParticleEngine.Add(_renderer.LoadTexture(path), (texture) => ParticleEngine.Any(p => p.Name != texture.Name));
+                ParticleEngine.Add(_renderer.LoadTexture(path), (texture) => ParticleEngine.Any(p =>
+                {
+                    return p.Name != texture.Name;
+                }));
             }
         }
 
@@ -137,7 +141,7 @@ namespace ParticleMaker
         /// </summary>
         public void Dispose()
         {
-            _timer?.Stop();
+            _stopWatch?.Stop();
             _tokenSrc?.Cancel();
             _tokenSrc?.Dispose();
             _loopTask?.Dispose();
@@ -180,8 +184,7 @@ namespace ParticleMaker
         {
             _isRunning = true;
 
-            _timer = new Stopwatch();
-            _timer.Start();
+            _stopWatch.Start();
 
             while (_isRunning)
             {
@@ -193,13 +196,13 @@ namespace ParticleMaker
 
                 if (TimeStep == TimeStepType.Fixed)
                 {
-                    if (_timer.Elapsed.TotalMilliseconds >= _targetFrameRate)
+                    if (_stopWatch.TotalMilliseconds >= _targetFrameRate)
                     {
-                        Update(_timer.Elapsed);
+                        Update(_stopWatch.Elapsed);
                         Render();
 
                         //Add the frame time to the list of previous frame times
-                        _frameTimes.Enqueue((float)_timer.Elapsed.TotalMilliseconds);
+                        _frameTimes.Enqueue(_stopWatch.TotalMilliseconds);
 
                         //If the list is full, dequeue the oldest item
                         if (_frameTimes.Count >= 100)
@@ -208,12 +211,12 @@ namespace ParticleMaker
                         //Calculate the average frames per second
                         CurrentFPS = (float)Math.Round(1000f / _frameTimes.Average(), 2);
 
-                        _timer.Restart();
+                        _stopWatch.Restart();
                     }
                 }
                 else if (TimeStep == TimeStepType.Variable)
                 {
-                    var currentFrameTime = _timer.Elapsed;
+                    var currentFrameTime = _stopWatch.Elapsed;
                     var elapsed = currentFrameTime - _lastFrameTime;
 
                     _lastFrameTime = currentFrameTime;
@@ -221,7 +224,7 @@ namespace ParticleMaker
                     Update(elapsed);
                     Render();
 
-                    _timer.Stop();
+                    _stopWatch.Stop();
 
                     //Add the frame time to the list of previous frame times
                     _frameTimes.Enqueue((float)elapsed.TotalMilliseconds);
@@ -233,7 +236,7 @@ namespace ParticleMaker
                     //Calculate the average frames per second
                     CurrentFPS = (float)Math.Round(1000f / _frameTimes.Average(), 2);
 
-                    _timer.Start();
+                    _stopWatch.Start();
                 }
             }
 

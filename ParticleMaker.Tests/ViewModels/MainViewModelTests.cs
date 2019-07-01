@@ -19,6 +19,7 @@ namespace ParticleMaker.Tests.ViewModels
         #region Fields
         private GraphicsEngine _engine;
         private MainViewModel _viewModel;
+        private ParticleTexture _texture;
         #endregion
 
 
@@ -26,7 +27,6 @@ namespace ParticleMaker.Tests.ViewModels
         public MainViewModelTests()
         {
             var getValueResult = 10f;
-
 
             var mockRandomizer = new Mock<IRandomizerService>();
             var particleEngine = new ParticleEngine<ParticleTexture>(mockRandomizer.Object);
@@ -42,7 +42,9 @@ namespace ParticleMaker.Tests.ViewModels
             //Mock out the GetValue(int, int) overload
             mockRandomizer.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Returns(0);
 
-            particleEngine.Add(new ParticleTexture(IntPtr.Zero, 0, 0));
+            _texture = new ParticleTexture(IntPtr.Zero, 0, 0);
+
+            particleEngine.Add(_texture);
             particleEngine.TotalParticlesAliveAtOnce = 4;
             particleEngine.Update(new TimeSpan(0, 0, 0, 0, 11));
 
@@ -53,7 +55,7 @@ namespace ParticleMaker.Tests.ViewModels
 
             var setupDeployService = new SetupDeployService(mockDirService.Object, mockFileService.Object);
 
-            _engine = new GraphicsEngine(mockRenderer.Object, particleEngine);
+            _engine = new GraphicsEngine(mockRenderer.Object, particleEngine, new Mock<IStopWatchService>().Object);
             var particleManager = new ParticleManager(projIOService, mockDirService.Object, mockFileService.Object);
 
             _viewModel = new MainViewModel(_engine, It.IsAny<ProjectManager>(), It.IsAny<ProjectSettingsManager>(), It.IsAny<SetupManager>(), setupDeployService, particleManager)
@@ -764,6 +766,16 @@ namespace ParticleMaker.Tests.ViewModels
 
             //Assert
             Assert.NotNull(actual);
+        }
+        #endregion
+
+
+        #region Method Tests
+        [Fact]
+        public void Dispost_WhenInvoked_DiposesOfTextures()
+        {
+            //Arrange
+
         }
         #endregion
 

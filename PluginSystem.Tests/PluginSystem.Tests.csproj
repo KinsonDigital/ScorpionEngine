@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="Exceptions\PluginMustImplementInterfaceExceptionTests.cs" />
     <Compile Include="Exceptions\PluginNotFoundExceptionTests.cs" />
+    <Compile Include="LibChooserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

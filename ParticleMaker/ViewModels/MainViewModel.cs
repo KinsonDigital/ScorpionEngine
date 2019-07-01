@@ -129,7 +129,6 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public Dispatcher UIDispatcher { get; set; }
 
-
         /// <summary>
         /// Gets or sets the total number of particles that can be alive at any time.
         /// </summary>

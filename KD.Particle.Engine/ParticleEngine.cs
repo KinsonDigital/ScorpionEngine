@@ -342,7 +342,7 @@ namespace KDParticleEngine
         /// <param name="predicate">Returning true will add the texture to the <see cref="ParticleEngine{ITexture}"/>.</param>
         public void Add(ITexture texture, Predicate<ITexture> predicate)
         {
-            if (!predicate(texture))
+            if (_textures.Count > 0 && !predicate(texture))
                 return;
 
             _textures.Add(texture);
