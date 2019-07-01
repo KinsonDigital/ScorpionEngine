@@ -166,7 +166,7 @@
     <Compile Include="Exceptions\ParticleDoesNotExistException.cs" />
     <Compile Include="Exceptions\ParticleSetupAlreadyExistsException.cs" />
     <Compile Include="Exceptions\ParticleSetupDoesNotExistException.cs" />
-    <Compile Include="GraphicsEngine.cs" />
+    <Compile Include="RenderEngine.cs" />
     <Compile Include="IRenderer.cs" />
     <Compile Include="Management\DeploymentSetting.cs" />
     <Compile Include="DesignData\MainWindowData.cs" />
@@ -187,7 +187,7 @@
     <Compile Include="Services\DirectoryService.cs" />
     <Compile Include="Services\IFileService.cs" />
     <Compile Include="Services\ILoggerService.cs" />
-    <Compile Include="Services\IStopWatchService.cs" />
+    <Compile Include="Services\ITimingService.cs" />
     <Compile Include="Services\JSONFileService.cs" />
     <Compile Include="CustomEventArgs\ColorItemClickedEventArgs.cs" />
     <Compile Include="Services\IDirectoryService.cs" />
@@ -198,7 +198,7 @@
     <Compile Include="Services\LogData.cs" />
     <Compile Include="Services\ProjectIOService.cs" />
     <Compile Include="Services\SetupDeployService.cs" />
-    <Compile Include="Services\StopWatchService.cs" />
+    <Compile Include="Services\TimingService.cs" />
     <Compile Include="UserControls\ColorList.xaml.cs">
       <DependentUpon>ColorList.xaml</DependentUpon>
     </Compile>

@@ -17,7 +17,7 @@ namespace ParticleMaker.Tests.ViewModels
     public class MainViewModelTests : IDisposable
     {
         #region Fields
-        private GraphicsEngine _engine;
+        private RenderEngine _engine;
         private MainViewModel _viewModel;
         private ParticleTexture _texture;
         #endregion
@@ -55,7 +55,7 @@ namespace ParticleMaker.Tests.ViewModels
 
             var setupDeployService = new SetupDeployService(mockDirService.Object, mockFileService.Object);
 
-            _engine = new GraphicsEngine(mockRenderer.Object, particleEngine, new Mock<IStopWatchService>().Object);
+            _engine = new RenderEngine(mockRenderer.Object, particleEngine, new Mock<ITimingService>().Object);
             var particleManager = new ParticleManager(projIOService, mockDirService.Object, mockFileService.Object);
 
             _viewModel = new MainViewModel(_engine, It.IsAny<ProjectManager>(), It.IsAny<ProjectSettingsManager>(), It.IsAny<SetupManager>(), setupDeployService, particleManager)
@@ -636,13 +636,13 @@ namespace ParticleMaker.Tests.ViewModels
 
 
         [Fact]
-        public void Play_WhenGettingValue_DoesNotReturnNull()
+        public void Start_WhenGettingValue_DoesNotReturnNull()
         {
             //Arrange
             var expected = true;
 
             //Act
-            var actual = _viewModel.Play != null;
+            var actual = _viewModel.Start != null;
 
             //Assert
             Assert.Equal(expected, actual);
@@ -783,7 +783,7 @@ namespace ParticleMaker.Tests.ViewModels
         #region Public Methods
         public void Dispose()
         {
-            _viewModel.ShutdownEngine();
+            _viewModel.StopEngine();
             _engine = null;
         }
         #endregion
