@@ -5,7 +5,6 @@ using Xunit;
 using ParticleMaker.Exceptions;
 using ParticleMaker.Management;
 using ParticleMaker.Services;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace ParticleMaker.Tests.Management

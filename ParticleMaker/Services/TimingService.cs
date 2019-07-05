@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace ParticleMaker.Services
 {
@@ -15,6 +15,7 @@ namespace ParticleMaker.Services
 
 
         #region Props
+        [ExcludeFromCodeCoverage]
         public float TotalMilliseconds => (float)_timer.Elapsed.TotalMilliseconds;
 
         public TimeSpan Elapsed => new TimeSpan(0, 0, 0, 0, (int)TotalMilliseconds);
@@ -32,15 +33,19 @@ namespace ParticleMaker.Services
 
 
         #region Public Methods
+        [ExcludeFromCodeCoverage]
         public void Start() => _timer.Start();
 
 
+        [ExcludeFromCodeCoverage]
         public void Stop() => _timer.Stop();
 
 
+        [ExcludeFromCodeCoverage]
         public void Pause() => _timer.Stop();
 
 
+        [ExcludeFromCodeCoverage]
         public void Wait() => Thread.Sleep(WaitTime);
 
 
@@ -50,7 +55,7 @@ namespace ParticleMaker.Services
 
             FrameTimings.Enqueue(_timer.Elapsed.TotalMilliseconds);
 
-            if (FrameTimings.Count >= TotalFrameTimes)
+            if (FrameTimings.Count >= TotalFrameTimes + 1)
                 FrameTimings.Dequeue();
 
             FPS = (float)Math.Round(1000f / FrameTimings.Average(), 2);

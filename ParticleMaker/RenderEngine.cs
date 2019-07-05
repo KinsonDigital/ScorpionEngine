@@ -1,7 +1,6 @@
 ﻿using KDParticleEngine;
 using ParticleMaker.Services;
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -35,6 +34,11 @@ namespace ParticleMaker
 
 
         #region Props
+        /// <summary>
+        /// Gets the handle to the rendering window/surface.
+        /// </summary>
+        public IntPtr WindowHandle => _renderer.WindowHandle;
+
         /// <summary>
         /// The particle engine that manages the particles.
         /// </summary>

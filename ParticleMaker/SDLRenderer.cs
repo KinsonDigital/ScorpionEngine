@@ -17,6 +17,11 @@ namespace ParticleMaker
         #endregion
 
 
+        #region Props
+        public IntPtr WindowHandle { get; private set; }
+        #endregion
+
+
         #region Public Methods
         /// <summary>
         /// Initializes the renderer.
@@ -50,6 +55,8 @@ namespace ParticleMaker
                     }
                     else
                     {
+                        WindowHandle = windowHandle;
+
                         //Create vsynced renderer for window
                         var renderFlags = SDL.SDL_RendererFlags.SDL_RENDERER_ACCELERATED;
 

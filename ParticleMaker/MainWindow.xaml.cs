@@ -103,11 +103,6 @@ namespace ParticleMaker
             _mainViewModel.UIDispatcher = Dispatcher;
 
             _mainViewModel.InitEngine();
-            _mainViewModel.StartEngine();
-
-            //TODO: Possibly remove this
-            //_mainViewModel.StartEngine();
-            //_mainViewModel.Pause.Execute(null);
 
             DataContext = _mainViewModel;
 

@@ -9,7 +9,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using NETColor = System.Drawing.Color;
-using System.Windows.Forms;
 using System.Windows.Media;
 using MediaColor = System.Windows.Media.Color;
 

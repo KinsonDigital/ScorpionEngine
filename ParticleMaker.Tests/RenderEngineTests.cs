@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Threading.Tasks;
 using KDParticleEngine;
 using KDParticleEngine.Services;
@@ -86,6 +85,25 @@ namespace ParticleMaker.Tests
             _engine.TexturePaths = new[] { texturePath };
 
             //Act
+            await _engine.Start();
+
+            //Assert
+            _mockRenderer.Verify(m => m.LoadTexture(texturePath), Times.Once());
+        }
+
+
+        [Fact]
+        public async void Start_WhenInvokedWhileRunning_UnPausesEngine()
+        {
+            //Arrange
+            _mockTimingService.SetupGet(p => p.TotalMilliseconds).Returns(1000);
+            _mockTimingService.SetupGet(m => m.IsPaused).Returns(true);
+            //_mockTimingService.Setup(m => m.Record()).Callback(() => _engine.Pause());
+            var texturePath = @"C:\temp\texture-A.png";
+            _engine.TexturePaths = new[] { texturePath };
+
+            //Act
+            await _engine.Start();
             await _engine.Start();
 
             //Assert

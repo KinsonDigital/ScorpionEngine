@@ -121,7 +121,14 @@ namespace ParticleMaker.ViewModels
         /// </summary>
         public Control RenderSurface { get; set; }
 
-        public IntPtr RenderSurfaceHandle { get; set; }
+        /// <summary>
+        /// Gets the handle to the rendering surface.
+        /// </summary>
+        public IntPtr RenderSurfaceHandle
+        {
+            get => _renderEngine.WindowHandle;
+            set => _renderEngine.SetRenderWindow(value);
+        }
 
         /// <summary>
         /// Gets or sets the dispatcher of the UI thread.
@@ -757,19 +764,16 @@ namespace ParticleMaker.ViewModels
 
 
         #region Public Methods
-        public void InitEngine() => _renderEngine.SetRenderWindow(RenderSurfaceHandle);
-
-
-        /// <summary>
-        /// Starts the graphics engine to start the rendering process.
-        /// </summary>
-        public void StartEngine()
+        public void InitEngine()
         {
+            if (RenderSurfaceHandle == IntPtr.Zero)
+                throw new Exception("The render surface handle must not be set to a pointer of zero.");
+
+            //Unsubscribe before suscribing.  This will make sure that we do not have multiple subscribtions 
+            //which would result in the assigne method invoking more than once.
+            _renderEngine.ParticleEngine.LivingParticlesCountChanged -= _particleEngine_LivingParticlesCountChanged;
             _renderEngine.ParticleEngine.LivingParticlesCountChanged += _particleEngine_LivingParticlesCountChanged;
             _renderEngine.ParticleEngine.SpawnLocation = new PointF(200, 200);
-
-            //TODO: Do not start the engine.  Leave it paused.
-            //_renderEngine.Start();
         }
 
 
@@ -782,6 +786,7 @@ namespace ParticleMaker.ViewModels
         /// <summary>
         /// Disposes of all the textures in the <see cref="KDParticleEngine.ParticleEngine{ITexture}"/>.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         public void Dispose() => _renderEngine.ParticleEngine.ToList().ForEach(texture => texture.Dispose());
         #endregion
 
@@ -1084,6 +1089,7 @@ namespace ParticleMaker.ViewModels
         /// Exits the application.
         /// </summary>
         /// <param name="param"></param>
+        [ExcludeFromCodeCoverage]
         private void ExitAppExecute(object param)
         {
             try

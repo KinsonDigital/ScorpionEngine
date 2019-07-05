@@ -112,6 +112,7 @@
     <Compile Include="Exceptions\ParticleDoesNotExistExceptionTests.cs" />
     <Compile Include="Exceptions\ParticleSetupAlreadyExistsExceptionTests.cs" />
     <Compile Include="Exceptions\ParticleSetupDoesNotExistExceptionTests.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Management\DeploymentSettingTests.cs" />
     <Compile Include="Exceptions\ContentDoesNotExistExceptionTests.cs" />
     <Compile Include="Exceptions\IllegalProjectNameExceptionTests.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Services\LogTests.cs" />
     <Compile Include="Services\ProjectIOServiceTests.cs" />
     <Compile Include="Services\SetupDeployServiceTests.cs" />
+    <Compile Include="Services\TimingServiceTests.cs" />
     <Compile Include="UserControls\ExtensionMethodsTests.cs" />
     <Compile Include="UserControls\PathItemTests.cs" />
     <Compile Include="UserControls\ValueConverters\PathToNameConverterTests.cs" />

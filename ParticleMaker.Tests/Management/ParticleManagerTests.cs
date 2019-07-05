@@ -4,6 +4,7 @@ using Xunit;
 using ParticleMaker.Exceptions;
 using ParticleMaker.Management;
 using ParticleMaker.Services;
+using System.Collections.Generic;
 
 namespace ParticleMaker.Tests.Management
 {
@@ -51,7 +52,7 @@ namespace ParticleMaker.Tests.Management
 
 
         [Fact]
-        public void AddParticle_WhenInvoked_BuildsCorrectDestinationPath()
+        public void AddParticle_WhenInvoked_BuildsCorrectParticlePath()
         {
             //Arrange
             _mockProjIODirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
@@ -191,7 +192,7 @@ namespace ParticleMaker.Tests.Management
 
 
         [Fact]
-        public void RenameParticle_WhenInvoked_BuildsCorrectDestinationPath()
+        public void RenameParticle_WhenInvoked_BuildsCorrectParticlePath()
         {
             //Arrange
             _mockProjIODirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
@@ -331,7 +332,7 @@ namespace ParticleMaker.Tests.Management
 
 
         [Fact]
-        public void DeleteParticle_WhenInvoked_BuildsCorrectDestinationPath()
+        public void DeleteParticle_WhenInvoked_BuildsCorrectParticlePath()
         {
             //Arrange
             _mockProjIODirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
@@ -445,10 +446,12 @@ namespace ParticleMaker.Tests.Management
                 manager.DeleteParticle("test-project", null, "test-particle");
             });
         }
-        
 
-        [Fact]
-        public void GetParticlePaths_WhenInvoked_ReturnsListOfParticlePaths()
+
+        //[Fact]
+        [Theory]
+        [MemberData(nameof(ParticlePathData))]
+        public void GetParticlePaths_WhenInvoked_ReturnsListOfParticlePaths(string particlePath)
         {
             //Arrange
             _mockProjIODirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
@@ -456,11 +459,7 @@ namespace ParticleMaker.Tests.Management
 
             var mockDirectoryService = new Mock<IDirectoryService>();
             mockDirectoryService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
-            mockDirectoryService.Setup(m => m.GetFiles(It.IsAny<string>())).Returns(new string[]
-            {
-                @"C:\temp\particle1.png",
-                @"C:\temp\particle2.png"
-            });
+            mockDirectoryService.Setup(m => m.GetFiles(It.IsAny<string>())).Returns(new string[] { particlePath });
 
             var mockFileService = new Mock<IFileService>();
             mockFileService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
@@ -476,7 +475,7 @@ namespace ParticleMaker.Tests.Management
 
 
         [Fact]
-        public void GetParticlePaths_WhenInvoked_BuildsCorrectDestinationPath()
+        public void GetParticlePaths_WhenInvoked_BuildsCorrectParticlePath()
         {
             //Arrange
             _mockProjIODirService.Setup(m => m.Exists(It.IsAny<string>())).Returns(true);
@@ -494,11 +493,7 @@ namespace ParticleMaker.Tests.Management
                     "" :
                     sections[1];
 
-                return new string[]
-                {
-                    @"C:\temp\particle1.png",
-                    @"C:\temp\particle2.png"
-                };
+                return new string[0];
             });
 
             var mockFileService = new Mock<IFileService>();
@@ -595,6 +590,16 @@ namespace ParticleMaker.Tests.Management
                 manager.GetParticlePaths("test-project", null);
             });
         }
+        #endregion
+
+
+        #region Test Data
+        public static IEnumerable<object[]> ParticlePathData => new List<object[]>
+        {
+            new object[] { @"C:\temp\particle1.png" },
+            new object[] { @"C:\temp\particle2" },
+            new object[] { "" }
+        };
         #endregion
 
 
