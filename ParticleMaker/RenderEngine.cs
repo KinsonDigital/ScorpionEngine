@@ -2,19 +2,21 @@
 using ParticleMaker.Services;
 using System;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+//TODO: Remove
+//using System.Threading;
+//using System.Threading.Tasks;
 
 namespace ParticleMaker
 {
     public class RenderEngine : IDisposable
     {
         #region Fields
-        private Task _loopTask;
-        private CancellationTokenSource _tokenSrc;
-        private float _targetFrameRate = 1000f / 60f;
+        //private Task _loopTask;
+        //private CancellationTokenSource _tokenSrc;
         private readonly IRenderer _renderer;
         private ITimingService _timingService;
+        private readonly ITaskManagerService _taskService;
+        private float _targetFrameRate = 1000f / 60f;
         #endregion
 
 
@@ -24,11 +26,12 @@ namespace ParticleMaker
         /// </summary>
         /// <param name="renderer">The renderer used to render textures to the screen.</param>
         /// <param name="particleEngine">The particle engine that manages the particles.</param>
-        public RenderEngine(IRenderer renderer, ParticleEngine<ParticleTexture> particleEngine, ITimingService timingService)
+        public RenderEngine(IRenderer renderer, ParticleEngine<ParticleTexture> particleEngine, ITimingService timingService, ITaskManagerService taskService)
         {
             _renderer = renderer;
             ParticleEngine = particleEngine;
             _timingService = timingService;
+            _taskService = taskService;
         }
         #endregion
 
@@ -78,9 +81,11 @@ namespace ParticleMaker
         /// Stars the engine.
         /// </summary>
         /// <param name="windowHandle"></param>
-        public Task Start()
+        //public Task Start()
+        public void Start()
         {
-            if (TaskIsRunning())
+            //if (TaskIsRunning())
+            if (_taskService.IsRunning)
             {
                 //If the engine is currently paused, just start it back up again
                 if (_timingService.IsPaused)
@@ -90,32 +95,30 @@ namespace ParticleMaker
             {
                 LoadTextures();
 
-                _tokenSrc = new CancellationTokenSource();
+                _taskService.Start(Run);
+                //_tokenSrc = new CancellationTokenSource();
 
-                _loopTask = new Task(() =>
-                {
-                    Run();
-                }, _tokenSrc.Token);
+                //_loopTask = new Task(() =>
+                //{
+                //    Run();
+                //}, _tokenSrc.Token);
 
-                _loopTask.Start();
+                //_loopTask.Start();
             }
-
-
-            return _loopTask;
         }
 
 
-        private bool TaskIsRunning()
-        {
-            if (_loopTask != null && _loopTask.Status == TaskStatus.Running)
-                return true;
+        //private bool TaskIsRunning()
+        //{
+        //    if (_loopTask != null && _loopTask.Status == TaskStatus.Running)
+        //        return true;
 
-            if (_tokenSrc != null && !_tokenSrc.IsCancellationRequested)
-                return true;
+        //    if (_tokenSrc != null && !_tokenSrc.IsCancellationRequested)
+        //        return true;
 
 
-            return false;
-        }
+        //    return false;
+        //}
 
 
         /// <summary>
@@ -124,7 +127,7 @@ namespace ParticleMaker
         public void Stop()
         {
             ParticleEngine.Clear();
-            _tokenSrc?.Cancel();
+            _taskService.Cancel();
         }
 
 
@@ -148,13 +151,14 @@ namespace ParticleMaker
             _renderer.Dispose();
 
             _timingService = null;
+            _taskService.Dispose();
 
-            _tokenSrc?.Cancel();
-            _tokenSrc?.Dispose();
-            _tokenSrc = null;
+            //_tokenSrc?.Cancel();
+            //_tokenSrc?.Dispose();
+            //_tokenSrc = null;
 
-            _loopTask?.Dispose();
-            _loopTask = null;
+            //_loopTask?.Dispose();
+            //_loopTask = null;
         }
         #endregion
 
@@ -203,12 +207,12 @@ namespace ParticleMaker
         }
         
 
-        //[ExcludeFromCodeCoverage]
-        private void Run()
+        internal void Run()
         {
             _timingService.Start();
 
-            while (!_tokenSrc.IsCancellationRequested)
+            //while (!_tokenSrc.IsCancellationRequested)
+            while (!_taskService.CancelPending)
             {
                 if (IsPaused)
                 {

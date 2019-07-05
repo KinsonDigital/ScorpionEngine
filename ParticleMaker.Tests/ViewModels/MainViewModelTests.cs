@@ -63,7 +63,9 @@ namespace ParticleMaker.Tests.ViewModels
 
             var setupDeployService = new SetupDeployService(mockDirService.Object, mockFileService.Object);
 
-            _engine = new RenderEngine(_mockRenderer.Object, particleEngine, new Mock<ITimingService>().Object);
+            var mockTaskManagerService = new Mock<ITaskManagerService>();
+
+            _engine = new RenderEngine(_mockRenderer.Object, particleEngine, new Mock<ITimingService>().Object, mockTaskManagerService.Object);
             var particleManager = new ParticleManager(projIOService, mockDirService.Object, mockFileService.Object);
 
             _viewModel = new MainViewModel(_engine, It.IsAny<ProjectManager>(), It.IsAny<ProjectSettingsManager>(), It.IsAny<SetupManager>(), setupDeployService, particleManager);

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using KDParticleEngine;
 using KDParticleEngine.Services;
 using Moq;
@@ -14,6 +13,7 @@ namespace ParticleMaker.Tests
         private ParticleEngine<ParticleTexture> _particleEngine;
         private Mock<IRenderer> _mockRenderer;
         private Mock<ITimingService> _mockTimingService;
+        private Mock<ITaskManagerService> _mockTaskService;
         private RenderEngine _engine;
         #endregion
 
@@ -22,11 +22,11 @@ namespace ParticleMaker.Tests
         public RenderEngineTests()
         {
             _particleEngine = new ParticleEngine<ParticleTexture>(new Mock<IRandomizerService>().Object);
-
             _mockRenderer = new Mock<IRenderer>();
             _mockTimingService = new Mock<ITimingService>();
+            _mockTaskService = new Mock<ITaskManagerService>();
 
-            _engine = new RenderEngine(_mockRenderer.Object, _particleEngine, _mockTimingService.Object);
+            _engine = new RenderEngine(_mockRenderer.Object, _particleEngine, _mockTimingService.Object, _mockTaskService.Object);
         }
         #endregion
 
@@ -76,7 +76,7 @@ namespace ParticleMaker.Tests
 
         #region Method Tests
         [Fact]
-        public async void Start_WhenInvoked_LoadesTexture()
+        public void Start_WhenInvoked_LoadesTexture()
         {
             //Arrange
             _mockTimingService.SetupGet(p => p.TotalMilliseconds).Returns(1000);
@@ -85,7 +85,7 @@ namespace ParticleMaker.Tests
             _engine.TexturePaths = new[] { texturePath };
 
             //Act
-            await _engine.Start();
+            _engine.Start();
 
             //Assert
             _mockRenderer.Verify(m => m.LoadTexture(texturePath), Times.Once());
@@ -93,36 +93,39 @@ namespace ParticleMaker.Tests
 
 
         [Fact]
-        public async void Start_WhenInvokedWhileRunning_UnPausesEngine()
+        public void Start_WhenInvokedWhileRunning_UnPausesEngine()
         {
             //Arrange
+            _mockTaskService.SetupGet(p => p.IsRunning).Returns(true);
             _mockTimingService.SetupGet(p => p.TotalMilliseconds).Returns(1000);
             _mockTimingService.SetupGet(m => m.IsPaused).Returns(true);
-            //_mockTimingService.Setup(m => m.Record()).Callback(() => _engine.Pause());
             var texturePath = @"C:\temp\texture-A.png";
             _engine.TexturePaths = new[] { texturePath };
 
             //Act
-            await _engine.Start();
-            await _engine.Start();
+            _engine.Start();
 
             //Assert
-            _mockRenderer.Verify(m => m.LoadTexture(texturePath), Times.Once());
+            _mockTimingService.Verify(m => m.Start(), Times.Once());
         }
 
 
         [Fact]
-        public async void Render_WhenInvoked_InvokesRendererBeginAndEnd()
+        public void RenderEngine_WhenInvoked_InvokesRendererBeginAndEnd()
         {
             //Arrange
+            var cancelPending = false;
             _mockTimingService.SetupGet(p => p.TotalMilliseconds).Returns(1000);
             _mockTimingService.Setup(m => m.Record()).Callback(() => _engine.Stop());
+            _mockTaskService.SetupGet(p => p.CancelPending).Returns(() => cancelPending);
+            _mockTaskService.Setup(m => m.Start(It.IsAny<Action>())).Callback(() => _engine.Run());
+            _mockRenderer.Setup(m => m.End()).Callback(() => cancelPending = true);
+
             var texture = new ParticleTexture(It.IsAny<IntPtr>(), It.IsAny<int>(), It.IsAny<int>());
 
             //Act
             _engine.ParticleEngine.Add(texture);
-            Task theTask = _engine.Start();
-            await theTask;
+            _engine.Start();
 
             //Assert
             _mockRenderer.Verify(m => m.Begin(), Times.Once());
@@ -131,21 +134,40 @@ namespace ParticleMaker.Tests
 
 
         [Fact]
-        public async void Render_WhenInvokedWithZeroParticles_RendererBeginAndEndNotInvoked()
+        public void RenderEngine_WhenInvokedWithZeroParticles_RendererBeginAndEndNotInvoked()
         {
             //Arrange
-            _particleEngine.TotalParticlesAliveAtOnce = 0;
+            var cancelPending = false;
+            _mockTaskService.SetupGet(p => p.CancelPending).Returns(() => cancelPending);
+            _mockTaskService.Setup(m => m.Start(It.IsAny<Action>())).Callback(() => _engine.Run());
             _mockTimingService.SetupGet(p => p.TotalMilliseconds).Returns(1000);
-            _mockTimingService.Setup(m => m.Record()).Callback(() => _engine.Stop());
-            var texture = new ParticleTexture(It.IsAny<IntPtr>(), It.IsAny<int>(), It.IsAny<int>());
+            _mockTimingService.Setup(m => m.Record()).Callback(() => cancelPending = true);
+            _particleEngine.TotalParticlesAliveAtOnce = 0;
 
             //Act
-            //_engine.ParticleEngine.Add(texture);
-            await _engine.Start();
+            _engine.Start();
 
             //Assert
             _mockRenderer.Verify(m => m.Begin(), Times.Never());
             _mockRenderer.Verify(m => m.End(), Times.Never());
+        }
+
+
+        [Fact]
+        public void RenderEngine_WhenPaused_InvokesTimingServiceWait()
+        {
+            //Arrange
+            var cancelPending = false;
+            _mockTaskService.SetupGet(p => p.CancelPending).Returns(() => cancelPending);
+            _mockTaskService.Setup(m => m.Start(It.IsAny<Action>())).Callback(() => _engine.Run());
+            _mockTimingService.SetupGet(p => p.IsPaused).Returns(true);
+            _mockTimingService.Setup(m => m.Wait()).Callback(() => cancelPending = true);
+
+            //Act
+            _engine.Start();
+
+            //Assert
+            _mockTimingService.Verify(m => m.Wait(), Times.Once());
         }
 
 

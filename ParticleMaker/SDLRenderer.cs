@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using KDParticleEngine;
 using SDL2;
@@ -8,6 +9,7 @@ namespace ParticleMaker
     /// <summary>
     /// Renders graphics to a render target using <see cref="SDL2"/>.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class SDLRenderer : IRenderer
     {
         #region Private Fields
