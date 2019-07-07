@@ -9,6 +9,8 @@ using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngineTests.Fakes;
 using PluginSystem;
+using KDScorpionEngine.Entities;
+using KDScorpionEngine.Graphics;
 
 namespace KDScorpionEngineTests.Entities
 {
@@ -343,29 +345,13 @@ namespace KDScorpionEngineTests.Entities
 
 
         [Fact]
-        public void DebugDrawEnabled_WhenSettingToTrue_ReturnsTrue()
+        public void DebugDrawEnabled_WhenGettingDefaultValue_ReturnsTrue()
         {
             //Arrange
-            var mockPhysicsBody = new Mock<IPhysicsBody>();
-            var mockEnginePluginLib = new Mock<IPluginLibrary>();
+            var fakeEntity = new FakeEntity(null);
 
-            var mockDebugDraw = new Mock<IDebugDraw>();
-
-            mockEnginePluginLib.Setup(m => m.LoadPlugin<IDebugDraw>()).Returns(() =>
-            {
-                return mockDebugDraw.Object;
-            });
-
-            Vector[] vertices = new[] { Vector.Zero };
-            var fakeEntity = new FakeEntity(vertices, It.IsAny<Vector>());
-            var expected = true;
-
-            //Act
-            fakeEntity.DebugDrawEnabled = true;
-            var actual = fakeEntity.DebugDrawEnabled;
-
-            //Assert
-            Assert.Equal(expected, actual);
+            //Act & Assert
+            Assert.True(fakeEntity.DebugDrawEnabled);
         }
 
 
@@ -373,26 +359,27 @@ namespace KDScorpionEngineTests.Entities
         public void DebugDrawEnabled_WhenSettingToFalse_ReturnsFalse()
         {
             //Arrange
-            var mockPhysicsBody = new Mock<IPhysicsBody>();
-            var mockEnginePluginLib = new Mock<IPluginLibrary>();
-
-            var mockDebugDraw = new Mock<IDebugDraw>();
-
-            mockEnginePluginLib.Setup(m => m.LoadPlugin<IDebugDraw>()).Returns(() =>
+            var fakeEntity = new FakeEntity(null)
             {
-                return mockDebugDraw.Object;
-            });
+                DebugDrawEnabled = false
+            };
 
-            Vector[] vertices = new[] { Vector.Zero };
-            var fakeEntity = new FakeEntity(vertices, It.IsAny<Vector>());
-            var expected = false;
+            //Act & Assert
+            Assert.False(fakeEntity.DebugDrawEnabled);
+        }
+
+
+        [Fact]
+        public void DebugDrawColor_WhenSettingValue_ReturnsCorrectValue()
+        {
+            //Arrange
+            var fakeEntity = new FakeEntity(null);
 
             //Act
-            fakeEntity.DebugDrawEnabled = false;
-            var actual = fakeEntity.DebugDrawEnabled;
-
+            fakeEntity.DebugDrawColor = new GameColor(11, 22, 33, 44);
+            
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.Equal(new GameColor(11, 22, 33, 44), fakeEntity.DebugDrawColor);
         }
 
 

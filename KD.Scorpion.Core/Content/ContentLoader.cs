@@ -1,5 +1,6 @@
 ﻿using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
+using System.Diagnostics.CodeAnalysis;
 
 namespace KDScorpionCore.Content
 {
@@ -14,6 +15,8 @@ namespace KDScorpionCore.Content
         #region Constructors
         internal ContentLoader(IContentLoader contentLoader) => _internalLoader = contentLoader;
 
+
+        [ExcludeFromCodeCoverage]
         public ContentLoader() => _internalLoader = CorePluginSystem.Plugins.EnginePlugins.LoadPlugin<IContentLoader>();
         #endregion
 

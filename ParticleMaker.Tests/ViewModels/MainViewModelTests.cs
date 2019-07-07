@@ -11,14 +11,19 @@ using ParticleMaker.Management;
 using ParticleMaker.Services;
 using ParticleMaker.UserControls;
 using ParticleMaker.ViewModels;
+using System.Drawing;
+using MediaColor = System.Windows.Media.Color;
 
 namespace ParticleMaker.Tests.ViewModels
 {
     public class MainViewModelTests : IDisposable
     {
         #region Fields
-        private GraphicsEngine _engine;
-        private MainViewModel _viewModel;
+        private RenderEngine _engine;
+        private readonly Mock<IRenderer> _mockRenderer;
+        private readonly MainViewModel _viewModel;
+        private readonly ParticleTexture _texture;
+        private IntPtr _renderHandle;
         #endregion
 
 
@@ -27,9 +32,9 @@ namespace ParticleMaker.Tests.ViewModels
         {
             var getValueResult = 10f;
 
-            var particleEngine = new ParticleEngine<ParticleTexture>(null);
-
             var mockRandomizer = new Mock<IRandomizerService>();
+            var particleEngine = new ParticleEngine<ParticleTexture>(mockRandomizer.Object);
+
             //Mock out the GetValue(float, float) overload
             mockRandomizer.Setup(m => m.GetValue(It.IsAny<float>(), It.IsAny<float>())).Callback<float, float>((min, max) =>
             {
@@ -39,33 +44,31 @@ namespace ParticleMaker.Tests.ViewModels
             }).Returns(getValueResult);
 
             //Mock out the GetValue(int, int) overload
-            mockRandomizer.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Callback<int, int>((min, max) =>
-            {
-                getValueResult = particleEngine.TotalLivingParticles < 2 ? 10 : 30;
-            }).Returns(() =>
-            {
-                return (int)getValueResult;
-            });
+            mockRandomizer.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Returns(0);
+
+            _texture = new ParticleTexture(IntPtr.Zero, 0, 0);
+
+            particleEngine.Add(_texture);
+            particleEngine.TotalParticlesAliveAtOnce = 4;
+            particleEngine.Update(new TimeSpan(0, 0, 0, 0, 11));
 
             var mockDirService = new Mock<IDirectoryService>();
             var mockFileService = new Mock<IFileService>();
-            var mockRenderer = new Mock<IRenderer>();
+
+            _mockRenderer = new Mock<IRenderer>();
+            _mockRenderer.Setup(m => m.Init(It.IsAny<IntPtr>())).Callback<IntPtr>((value) => _renderHandle = value);
+            _mockRenderer.SetupGet(p => p.WindowHandle).Returns(() => _renderHandle);
+
             var projIOService = new ProjectIOService(mockDirService.Object, mockFileService.Object);
 
             var setupDeployService = new SetupDeployService(mockDirService.Object, mockFileService.Object);
 
-            particleEngine.Randomizer = mockRandomizer.Object;
-            particleEngine.Add(new ParticleTexture(IntPtr.Zero, 0, 0));
-            particleEngine.TotalParticlesAliveAtOnce = 4;
-            particleEngine.Update(new TimeSpan(0, 0, 0, 0, 11));
+            var mockTaskManagerService = new Mock<ITaskManagerService>();
 
-            _engine = new GraphicsEngine(mockRenderer.Object, particleEngine);
+            _engine = new RenderEngine(_mockRenderer.Object, particleEngine, new Mock<ITimingService>().Object, mockTaskManagerService.Object);
             var particleManager = new ParticleManager(projIOService, mockDirService.Object, mockFileService.Object);
 
-            _viewModel = new MainViewModel(_engine, It.IsAny<ProjectManager>(), It.IsAny<ProjectSettingsManager>(), It.IsAny<SetupManager>(), setupDeployService, particleManager)
-            {
-                RenderSurface = new PictureBox()
-            };
+            _viewModel = new MainViewModel(_engine, It.IsAny<ProjectManager>(), It.IsAny<ProjectSettingsManager>(), It.IsAny<SetupManager>(), setupDeployService, particleManager);
         }
         #endregion
 
@@ -96,6 +99,25 @@ namespace ParticleMaker.Tests.ViewModels
 
 
         [Fact]
+        public void Particles_WhenSettingValue_ReturnsCorrectValue()
+        {
+            //Act
+            _viewModel.Particles = new PathItem[2]
+            {
+                new PathItem() { FilePath = "Path-1" },
+                new PathItem() { FilePath = "Path-2" }
+            };
+
+            //Assert
+            Assert.Equal(new PathItem[2]
+            {
+                new PathItem() { FilePath = "Path-1" },
+                new PathItem() { FilePath = "Path-2" }
+            }, _viewModel.Particles);
+        }
+
+
+        [Fact]
         public void SettingsChanged_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -108,6 +130,25 @@ namespace ParticleMaker.Tests.ViewModels
 
             //Assert
             Assert.Equal(expected, actual);
+        }
+
+
+        [Fact]
+        public void ApplicationVersion_WhenGettingValue_StartsWithLetterV()
+        {
+            //Act # Arrange
+            Assert.Equal('v', _viewModel.ApplicationVersion[0]);
+        }
+
+
+        [Fact]
+        public void SpawnLocation_WhenSettingValue_ReturnsCorrectValue()
+        {
+            //Act
+            _viewModel.SpawnLocation = new PointF(123, 456);
+
+            //Assert
+            Assert.Equal(new PointF(123, 456), _viewModel.SpawnLocation);
         }
 
 
@@ -138,6 +179,17 @@ namespace ParticleMaker.Tests.ViewModels
 
 
         [Fact]
+        public void RenderSurfaceHandle_WhenSettingValue_ReturnsCorrectValue()
+        {
+            //Act
+            _viewModel.RenderSurfaceHandle = new IntPtr(123);
+
+            //Assert
+            Assert.Equal(new IntPtr(123), _viewModel.RenderSurfaceHandle);
+        }
+
+
+        [Fact]
         public void TotalParticles_WhenSettingValue_ReturnsCorrectValue()
         {
             //Arrange
@@ -156,7 +208,7 @@ namespace ParticleMaker.Tests.ViewModels
         public void TotalLivingParticles_WhenGettingValue_ValueIsCorrect()
         {
             //Arrange
-            var expected = 2;
+            var expected = 0;
 
             //Act
             var actual = _viewModel.TotalLivingParticles;
@@ -170,7 +222,7 @@ namespace ParticleMaker.Tests.ViewModels
         public void TotalDeadParticles_WhenGettingValue_ValueIsCorrect()
         {
             //Arrange
-            var expected = 2;
+            var expected = 4;
 
             //Act
             var actual = _viewModel.TotalDeadParticles;
@@ -503,10 +555,10 @@ namespace ParticleMaker.Tests.ViewModels
             {
                 new ColorItem()
                 {
-                    ColorBrush = new SolidColorBrush(Color.FromArgb(11, 22, 33, 44))
+                    ColorBrush = new SolidColorBrush(MediaColor.FromArgb(11, 22, 33, 44))
                 }
             };
-            var expected = Color.FromArgb(11, 22, 33, 44);
+            var expected = MediaColor.FromArgb(11, 22, 33, 44);
 
             //Act
             _viewModel.Colors = colors;
@@ -640,13 +692,13 @@ namespace ParticleMaker.Tests.ViewModels
 
 
         [Fact]
-        public void Play_WhenGettingValue_DoesNotReturnNull()
+        public void Start_WhenGettingValue_DoesNotReturnNull()
         {
             //Arrange
             var expected = true;
 
             //Act
-            var actual = _viewModel.Play != null;
+            var actual = _viewModel.Start != null;
 
             //Assert
             Assert.Equal(expected, actual);
@@ -693,6 +745,17 @@ namespace ParticleMaker.Tests.ViewModels
 
             //Assert
             Assert.Equal(expected, actual);
+        }
+
+
+        [Fact]
+        public void SetupDeploymentPath_WhenSettingValue_ReturnsCorrectValue()
+        {
+            //Act
+            _viewModel.SetupDeploymentPath = "TestPath";
+
+            //Assert
+            Assert.Equal("TestPath", _viewModel.SetupDeploymentPath);
         }
 
 
@@ -771,13 +834,70 @@ namespace ParticleMaker.Tests.ViewModels
             //Assert
             Assert.NotNull(actual);
         }
+
+
+        [Fact]
+        public void ExitApp_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Act
+            var actual = _viewModel.ExitApp;
+
+            //Assert
+            Assert.NotNull(actual);
+        }
+
+
+        [Fact]
+        public void CloseProject_WhenGettingValue_DoesNotReturnNull()
+        {
+            //Act
+            var actual = _viewModel.CloseProject;
+
+            //Assert
+            Assert.NotNull(actual);
+        }
+        #endregion
+
+
+        #region Method Tests
+        [Fact]
+        public void InitEngine_WhenInvokedWithEmptyPointer_ThrowsException()
+        {
+            //Act & Assert
+            Assert.Throws<Exception>(() =>
+            {
+                _viewModel.InitEngine();
+            });
+        }
+
+
+        [Fact]
+        public void InitEngine_WhenInvokedWithValidPointer_ProperlySetsSpawnLocation()
+        {
+            //Arrange
+            _viewModel.RenderSurfaceHandle = new IntPtr(123);
+            
+            //Act
+            _viewModel.InitEngine();
+
+            //Assert
+            Assert.Equal(new PointF(200, 200), _viewModel.SpawnLocation);
+        }
+
+
+        [Fact]
+        public void Dispose_WhenInvoked_DiposesOfTextures()
+        {
+            //Arrange
+
+        }
         #endregion
 
 
         #region Public Methods
         public void Dispose()
         {
-            _viewModel.ShutdownEngine();
+            _viewModel.StopEngine();
             _engine = null;
         }
         #endregion

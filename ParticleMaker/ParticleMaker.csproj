@@ -12,7 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
@@ -166,7 +166,7 @@
     <Compile Include="Exceptions\ParticleDoesNotExistException.cs" />
     <Compile Include="Exceptions\ParticleSetupAlreadyExistsException.cs" />
     <Compile Include="Exceptions\ParticleSetupDoesNotExistException.cs" />
-    <Compile Include="GraphicsEngine.cs" />
+    <Compile Include="RenderEngine.cs" />
     <Compile Include="IRenderer.cs" />
     <Compile Include="Management\DeploymentSetting.cs" />
     <Compile Include="DesignData\MainWindowData.cs" />
@@ -187,6 +187,8 @@
     <Compile Include="Services\DirectoryService.cs" />
     <Compile Include="Services\IFileService.cs" />
     <Compile Include="Services\ILoggerService.cs" />
+    <Compile Include="Services\ITaskManagerService.cs" />
+    <Compile Include="Services\ITimingService.cs" />
     <Compile Include="Services\JSONFileService.cs" />
     <Compile Include="CustomEventArgs\ColorItemClickedEventArgs.cs" />
     <Compile Include="Services\IDirectoryService.cs" />
@@ -197,6 +199,8 @@
     <Compile Include="Services\LogData.cs" />
     <Compile Include="Services\ProjectIOService.cs" />
     <Compile Include="Services\SetupDeployService.cs" />
+    <Compile Include="Services\TaskManagerService.cs" />
+    <Compile Include="Services\TimingService.cs" />
     <Compile Include="UserControls\ColorList.xaml.cs">
       <DependentUpon>ColorList.xaml</DependentUpon>
     </Compile>

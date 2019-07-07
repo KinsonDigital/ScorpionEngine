@@ -60,7 +60,7 @@ namespace KDScorpionEngineTests.Fakes
 
         public void Start()
         {
-            throw new NotImplementedException();
+            OnInitialize.Invoke(null, null);
         }
 
 

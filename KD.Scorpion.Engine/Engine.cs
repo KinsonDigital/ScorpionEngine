@@ -184,6 +184,7 @@ namespace KDScorpionEngine
         }
         
 
+        [ExcludeFromCodeCoverage]
         private void _engineCore_OnInitialize(object sender, EventArgs e)
         {
             _renderer = new GameRenderer
@@ -194,12 +195,14 @@ namespace KDScorpionEngine
         }
 
 
+        [ExcludeFromCodeCoverage]
         private void _engineCore_OnLoadContent(object sender, EventArgs e)
         {
             LoadContent(ContentLoader);
         }
 
 
+        [ExcludeFromCodeCoverage]
         private void _engineCore_OnUpdate(object sender, OnUpdateEventArgs e)
         {
             var engineTime = new EngineTime()
@@ -212,6 +215,7 @@ namespace KDScorpionEngine
         }
 
 
+        [ExcludeFromCodeCoverage]
         private void _engineCore_OnRender(object sender, OnRenderEventArgs e)
         {
             _renderer.Clear(50, 50, 50, 255);

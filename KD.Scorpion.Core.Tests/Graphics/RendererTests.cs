@@ -11,7 +11,7 @@ namespace KDScorpionCoreTests.Graphics
     {
         #region Private Fields
         private Texture _texture;
-        private Mock<IDebugDraw> _debugDraw;
+        private Mock<IDebugDraw> _mockDebugDraw;
         private GameText _gameText;
         #endregion
 
@@ -26,7 +26,7 @@ namespace KDScorpionCoreTests.Graphics
             var mockText = new Mock<IText>();
             mockText.SetupGet(m => m.Color).Returns(new GameColor(11, 22, 33, 44));
 
-            _debugDraw = new Mock<IDebugDraw>();
+            _mockDebugDraw = new Mock<IDebugDraw>();
 
             _gameText = new GameText()
             {
@@ -44,7 +44,7 @@ namespace KDScorpionCoreTests.Graphics
             var mockTexture = new Mock<ITexture>();
             var mockRenderer = new Mock<IRenderer>();
 
-            var renderer = new Renderer(mockRenderer.Object, _debugDraw.Object);
+            var renderer = new Renderer(mockRenderer.Object, _mockDebugDraw.Object);
 
             //Assert
             renderer.Render(_texture, It.IsAny<float>(), It.IsAny<float>());
@@ -57,13 +57,13 @@ namespace KDScorpionCoreTests.Graphics
         {
             //Arrange
             var mockTexture = new Mock<ITexture>();
-            var mockInternalRenderer = new Mock<IRenderer>();
+            var mockRenderer = new Mock<IRenderer>();
 
-            var renderer = new Renderer(mockInternalRenderer.Object, _debugDraw.Object);
+            var renderer = new Renderer(mockRenderer.Object, _mockDebugDraw.Object);
 
             //Assert
             renderer.Render(_texture, It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>());
-            mockInternalRenderer.Verify(m => m.Render(_texture.InternalTexture, It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>()), Times.Once());
+            mockRenderer.Verify(m => m.Render(_texture.InternalTexture, It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>()), Times.Once());
         }
 
 
@@ -71,15 +71,15 @@ namespace KDScorpionCoreTests.Graphics
         public void Render_WhenUsingTextureAndVector_InvokesInteralRenderMethod()
         {
             //Arrange
-            var mockInternalRenderer = new Mock<IRenderer>();
+            var mockRenderer = new Mock<IRenderer>();
            
-            var renderer = new Renderer(mockInternalRenderer.Object, _debugDraw.Object);
+            var renderer = new Renderer(mockRenderer.Object, _mockDebugDraw.Object);
 
             //Act
             renderer.Render(_texture, It.IsAny<Vector>());
 
             //Assert
-            mockInternalRenderer.Verify(m => m.Render(It.IsAny<ITexture>(), It.IsAny<float>(), It.IsAny<float>()), Times.Once());
+            mockRenderer.Verify(m => m.Render(It.IsAny<ITexture>(), It.IsAny<float>(), It.IsAny<float>()), Times.Once());
         }
 
 
@@ -87,12 +87,12 @@ namespace KDScorpionCoreTests.Graphics
         public void Render_WhenUsingGameTextAndXAndY_InternalRenderMethodInvoked()
         {
             //Arrange
-            var mockInternalRenderer = new Mock<IRenderer>();
-            var renderer = new Renderer(mockInternalRenderer.Object, _debugDraw.Object);
+            var mockRenderer = new Mock<IRenderer>();
+            var renderer = new Renderer(mockRenderer.Object, _mockDebugDraw.Object);
 
             //Assert
             renderer.Render(_gameText, It.IsAny<float>(), It.IsAny<float>());
-            mockInternalRenderer.Verify(m => m.Render(_gameText.InternalText, It.IsAny<float>(), It.IsAny<float>()), Times.Once());
+            mockRenderer.Verify(m => m.Render(_gameText.InternalText, It.IsAny<float>(), It.IsAny<float>()), Times.Once());
         }
 
 
@@ -100,15 +100,89 @@ namespace KDScorpionCoreTests.Graphics
         public void Render_WhenUsingGameTextAndXAndYAndGameColor_InternalRenderMethodInvoked()
         {
             //Arrange
-            var mockInternalRenderer = new Mock<IRenderer>();
-
-            var renderer = new Renderer(mockInternalRenderer.Object, _debugDraw.Object);
+            var mockRenderer = new Mock<IRenderer>();
+            var renderer = new Renderer(mockRenderer.Object, _mockDebugDraw.Object);
 
             //Act
             renderer.Render(_gameText, It.IsAny<float>(), It.IsAny<float>(), It.IsAny<GameColor>());
 
             //Assert
-            mockInternalRenderer.Verify(m => m.Render(_gameText.InternalText, It.IsAny<float>(), It.IsAny<float>(), It.IsAny<GameColor>()), Times.Once());
+            mockRenderer.Verify(m => m.Render(_gameText.InternalText, It.IsAny<float>(), It.IsAny<float>(), It.IsAny<GameColor>()), Times.Once());
+        }
+
+
+        [Fact]
+        public void Render_WhenInvokingSixParamOverload_InvokesInternalMethod()
+        {
+            //Arrange
+            var mockRenderer = new Mock<IRenderer>();
+            var renderer = new Renderer(mockRenderer.Object, _mockDebugDraw.Object);
+
+            //Act
+            renderer.Render(_texture, It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<GameColor>());
+
+            //Assert
+            mockRenderer.Verify(m => m.Render(It.IsAny<ITexture>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<GameColor>()), Times.Once());
+        }
+
+
+        [Fact]
+        public void Render_WhenInvokingWithTextPositionAndColor_InvokesInternalRenderMethod()
+        {
+            //Arrange
+            var mockRenderer = new Mock<IRenderer>();
+            var renderer = new Renderer(mockRenderer.Object, _mockDebugDraw.Object);
+
+            //Act
+            renderer.Render(_gameText, It.IsAny<Vector>(), It.IsAny<GameColor>());
+
+            //Assert
+            mockRenderer.Verify(m => m.Render(It.IsAny<IText>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<GameColor>()), Times.Once());
+        }
+
+
+        [Fact]
+        public void Render_WhenInvokingWithTextAndPosition_InvokesInternalRenderMethod()
+        {
+            //Arrange
+            var mockRenderer = new Mock<IRenderer>();
+            var renderer = new Renderer(mockRenderer.Object, _mockDebugDraw.Object);
+
+            //Act
+            renderer.Render(_gameText, It.IsAny<Vector>());
+
+            //Assert
+            mockRenderer.Verify(m => m.Render(It.IsAny<IText>(), It.IsAny<float>(), It.IsAny<float>()), Times.Once());
+        }
+
+
+        [Fact]
+        public void Line_WhenInvoking_InvokesInternalRenderer()
+        {
+            //Act
+            var mockRenderer = new Mock<IRenderer>();
+            var renderer = new Renderer(mockRenderer.Object, _mockDebugDraw.Object);
+
+            //Act
+            renderer.Line(It.IsAny<Vector>(), It.IsAny<Vector>(), It.IsAny<GameColor>());
+
+            //Assert
+            mockRenderer.Verify(m => m.RenderLine(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<GameColor>()), Times.Once());
+        }
+
+
+        [Fact]
+        public void FillRect_WhenInvoking_InvokesInternalRenderer()
+        {
+            //Act
+            var mockRenderer = new Mock<IRenderer>();
+            var renderer = new Renderer(mockRenderer.Object, _mockDebugDraw.Object);
+
+            //Act
+            renderer.FillRect(It.IsAny<Rect>(), It.IsAny<GameColor>());
+
+            //Assert
+            mockRenderer.Verify(m => m.FillRect(It.IsAny<Rect>(), It.IsAny<GameColor>()), Times.Once());
         }
 
 
@@ -116,14 +190,14 @@ namespace KDScorpionCoreTests.Graphics
         public void Start_WhenInvoking_InvokesInternalRendererStart()
         {
             //Arrange
-            var mockInternalRenderer = new Mock<IRenderer>();
-            var renderer = new Renderer(mockInternalRenderer.Object, _debugDraw.Object);
+            var mockRenderer = new Mock<IRenderer>();
+            var renderer = new Renderer(mockRenderer.Object, _mockDebugDraw.Object);
 
             //Act
             renderer.Start();
 
             //Assert
-            mockInternalRenderer.Verify(m => m.Start(), Times.Once());
+            mockRenderer.Verify(m => m.Start(), Times.Once());
         }
 
 
@@ -131,14 +205,14 @@ namespace KDScorpionCoreTests.Graphics
         public void Stop_WhenInvoking_InvokesInternalRendererStart()
         {
             //Arrange
-            var mockInternalRenderer = new Mock<IRenderer>();
-            var renderer = new Renderer(mockInternalRenderer.Object, _debugDraw.Object);
+            var mockRenderer = new Mock<IRenderer>();
+            var renderer = new Renderer(mockRenderer.Object, _mockDebugDraw.Object);
 
             //Act
             renderer.End();
 
             //Assert
-            mockInternalRenderer.Verify(m => m.End(), Times.Once());
+            mockRenderer.Verify(m => m.End(), Times.Once());
         }
 
 
@@ -146,14 +220,14 @@ namespace KDScorpionCoreTests.Graphics
         public void Clear_WhenInvoking_InvokesInternalClear()
         {
             //Arrange
-            var mockInternalRenderer = new Mock<IRenderer>();
-            var renderer = new Renderer(mockInternalRenderer.Object, _debugDraw.Object);
+            var mockRenderer = new Mock<IRenderer>();
+            var renderer = new Renderer(mockRenderer.Object, _mockDebugDraw.Object);
 
             //Act
             renderer.Clear(It.IsAny<byte>(), It.IsAny<byte>(), It.IsAny<byte>(), It.IsAny<byte>());
 
             //Assert
-            mockInternalRenderer.Verify(m => m.Clear(It.IsAny<GameColor>()), Times.Once());
+            mockRenderer.Verify(m => m.Clear(It.IsAny<GameColor>()), Times.Once());
         }
 
 
@@ -161,14 +235,44 @@ namespace KDScorpionCoreTests.Graphics
         public void FillCircle_WhenInvoking_InvokesInternalFillCircle()
         {
             //Arrange
-            var mockInternalRenderer = new Mock<IRenderer>();
-            var renderer = new Renderer(mockInternalRenderer.Object, _debugDraw.Object);
+            var mockRenderer = new Mock<IRenderer>();
+            var renderer = new Renderer(mockRenderer.Object, _mockDebugDraw.Object);
 
             //Act
             renderer.FillCircle(It.IsAny<Vector>(), It.IsAny<float>(), It.IsAny<GameColor>());
 
             //Assert
-            mockInternalRenderer.Verify(m => m.FillCircle(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<GameColor>()), Times.Once());
+            mockRenderer.Verify(m => m.FillCircle(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<GameColor>()), Times.Once());
+        }
+
+
+        [Fact]
+        public void RenderTextureArea_WhenInvoked_InvokesInternalRenderTextureAreaMethod()
+        {
+            //Arrange
+            var mockRenderer = new Mock<IRenderer>();
+            var renderer = new Renderer(mockRenderer.Object, _mockDebugDraw.Object);
+            
+            //Act
+            renderer.RenderTextureArea(_texture, It.IsAny<Rect>(), It.IsAny<Vector>());
+
+            //Assert
+            mockRenderer.Verify(m => m.RenderTextureArea(It.IsAny<ITexture>(), It.IsAny<Rect>(), It.IsAny<float>(), It.IsAny<float>()), Times.Once());
+        }
+
+
+        [Fact]
+        public void RenderDebugDraw_WhenInvoked_InvokesDebugDrawMethod()
+        {
+            //Arrange
+            var mockRenderer = new Mock<IRenderer>();
+            var renderer = new Renderer(mockRenderer.Object, _mockDebugDraw.Object);
+
+            //Act
+            renderer.RenderDebugDraw(It.IsAny<IPhysicsBody>(), It.IsAny<GameColor>());
+
+            //Assert
+            _mockDebugDraw.Verify(m => m.Draw(It.IsAny<IRenderer>(), It.IsAny<IPhysicsBody>(), It.IsAny<GameColor>()), Times.Once());
         }
         #endregion
 

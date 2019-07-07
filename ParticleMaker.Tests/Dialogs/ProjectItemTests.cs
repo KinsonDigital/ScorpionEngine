@@ -37,5 +37,62 @@ namespace ParticleMaker.Tests.Dialogs
             Assert.Equal(expected, actual);
         }
         #endregion
+
+
+        #region Method Tests
+        [Fact]
+        public void Equals_WhenInvokedWithEqualItem_ReturnsTrue()
+        {
+            //Arrange
+            var itemA = new ProjectItem()
+            {
+                Exists = true,
+                Name = "item"
+            };
+            var itemB = new ProjectItem()
+            {
+                Exists = true,
+                Name = "item"
+            };
+
+            //Act & Assert
+            Assert.True(itemA.Equals(itemB));
+        }
+
+
+        [Fact]
+        public void Equals_WhenInvokedWithUnequalItem_ReturnsFalse()
+        {
+            //Arrange
+            var itemA = new ProjectItem()
+            {
+                Exists = true,
+                Name = "itemA"
+            };
+            var itemB = new ProjectItem()
+            {
+                Exists = true,
+                Name = "itemB"
+            };
+
+            //Act & Assert
+            Assert.False(itemA.Equals(itemB));
+        }
+
+
+        [Fact]
+        public void GetHashCode_WhenInvoked_ReturnsCorrectValue()
+        {
+            //Arrange
+            var item = new ProjectItem()
+            {
+                Exists = true,
+                Name = "item"
+            };
+
+            //Act & Assert
+            Assert.Equal(-1126421578, item.GetHashCode());
+        }
+        #endregion
     }
 }

@@ -18,8 +18,8 @@
         /// A random value will be chosen between the min and max values no matter which value is less than 
         /// or greater than the other.
         /// </summary>
-        /// <param name="minValue">The minimum value of the range to randomly choose from.</param>
-        /// <param name="maxValue">The maximum value of the range to randomly choose from.</param>
+        /// <param name="minValue">The inclusive minimum value of the range to randomly choose from.</param>
+        /// <param name="maxValue">The inclusive maximum value of the range to randomly choose from.</param>
         /// <returns></returns>
         double GetValue(double minValue, double maxValue);
 
@@ -29,8 +29,8 @@
         /// A random value will be chosen between the min and max values no matter which value is less than 
         /// or greater than the other.
         /// </summary>
-        /// <param name="minValue">The minimum value of the range to randomly choose from.</param>
-        /// <param name="maxValue">The maximum value of the range to randomly choose from.</param>
+        /// <param name="minValue">The inclusive minimum value of the range to randomly choose from.</param>
+        /// <param name="maxValue">The inclusive maximum value of the range to randomly choose from.</param>
         /// <returns></returns>
         float GetValue(float minValue, float maxValue);
 
@@ -40,8 +40,8 @@
         /// A random value will be chosen between the min and max values no matter which value is less than 
         /// or greater than the other.
         /// </summary>
-        /// <param name="minValue">The minimum value of the range to randomly choose from.</param>
-        /// <param name="maxValue">The maximum value of the range to randomly choose from.</param>
+        /// <param name="minValue">The inclusive minimum value of the range to randomly choose from.</param>
+        /// <param name="maxValue">The inclusive maximum value of the range to randomly choose from.</param>
         /// <returns></returns>
         int GetValue(int minValue, int maxValue);
         #endregion

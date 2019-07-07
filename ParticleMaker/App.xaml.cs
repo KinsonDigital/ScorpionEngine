@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
 using SimpleInjector;
 using KDParticleEngine;
 using KDParticleEngine.Services;
@@ -11,8 +10,6 @@ using ParticleMaker.ViewModels;
 using ParticleMaker.UserControls;//KEEP THIS. SHOWS USED WHEN IN UserControlTesting mode
 using System.Reflection;
 using System.Diagnostics;
-
-[assembly: InternalsVisibleTo(assemblyName: "ParticleMaker.Tests", AllInternalsVisible = true)]
 
 namespace ParticleMaker
 {
@@ -36,7 +33,9 @@ namespace ParticleMaker
             DIContainer.Register<IRandomizerService, RandomizerService>();
             DIContainer.Register<ParticleEngine<ParticleTexture>>();
             DIContainer.Register<IRenderer, SDLRenderer>();
-            DIContainer.Register<GraphicsEngine>();
+            DIContainer.Register<RenderEngine>();
+            DIContainer.Register<ITimingService, TimingService>();
+            DIContainer.Register<ITaskManagerService, TaskManagerService>();
 
             DIContainer.Register<ProjectSettingsManager>();
             DIContainer.Register<SetupManager>();

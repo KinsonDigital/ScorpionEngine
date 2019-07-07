@@ -39,7 +39,9 @@ Included items must then not match any entries in the exclude list to remain inc
                 <ModulePath>.*ScorpionCoreTests.dll</ModulePath>
                 <ModulePath>.*ScorpionEngineTests.dll</ModulePath>
                 <ModulePath>.*ScorpionTests.dll</ModulePath>
-                <ModulePath>.*ParticleMaker.Tests.dll</ModulePath>
+                <ModulePath>.*ParticleMakerTests.dll</ModulePath>
+                <ModulePath>.*PluginSystemTests.dll</ModulePath>
+                <ModulePath>.*KDParticleEngineTests.dll</ModulePath>
               </Exclude>
             </ModulePaths>
 

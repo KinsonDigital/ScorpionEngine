@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using KDParticleEngine;
 using SDL2;
@@ -8,12 +9,18 @@ namespace ParticleMaker
     /// <summary>
     /// Renders graphics to a render target using <see cref="SDL2"/>.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class SDLRenderer : IRenderer
     {
         #region Private Fields
         private IntPtr _sdlWindowPtr;//The pointer to the SDL render target window
         private IntPtr _renderPtr;//The pointer to the SDL renderer
         private bool _beginInvokedFirst;//Keeps track if the Begin() method has been invoked
+        #endregion
+
+
+        #region Props
+        public IntPtr WindowHandle { get; private set; }
         #endregion
 
 
@@ -50,6 +57,8 @@ namespace ParticleMaker
                     }
                     else
                     {
+                        WindowHandle = windowHandle;
+
                         //Create vsynced renderer for window
                         var renderFlags = SDL.SDL_RendererFlags.SDL_RENDERER_ACCELERATED;
 

@@ -6,6 +6,42 @@ namespace KDScorpionCoreTests
     public class ExtensionMethodTests
     {
         [Fact]
+        public void ForcePositive_WhenUsingNegativeValue_ReturnsPositiveValue()
+        {
+            Assert.Equal(123f, (-123f).ForcePositive());
+        }
+
+
+        [Fact]
+        public void ForcePositive_WhenUsingPositiveValue_ReturnsPositiveValue()
+        {
+            Assert.Equal(123f, 123f.ForcePositive());
+        }
+
+
+        [Fact]
+        public void ForceNegative_WhenUsingPositiveValue_ReturnsNegativeValue()
+        {
+            Assert.Equal(-123f, 123f.ForceNegative());
+        }
+
+
+        [Fact]
+        public void ForceNegative_WhenUsingNegativeValue_ReturnsNegativeValue()
+        {
+            Assert.Equal(-123f, (-123f).ForceNegative());
+        }
+
+
+        [Fact]
+        public void ToRadians_WhenInvoking_ReturnsCorrectValue()
+        {
+            //Act/Assert
+            Assert.Equal(70710.06f, 1234.1234f.ToDegrees());
+        }
+
+
+        [Fact]
         public void RotateAround_WhenInvoked_ReturnsCorrectResult()
         {
             //Arrange

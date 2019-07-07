@@ -1,4 +1,5 @@
 ﻿using ParticleMaker.ViewModels;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ParticleMaker.Tests.ViewModels
 {
@@ -16,6 +17,7 @@ namespace ParticleMaker.Tests.ViewModels
         #region Props
         public int TestPropA
         {
+            [ExcludeFromCodeCoverage]
             get => _testPropA;
             set
             {
@@ -27,6 +29,7 @@ namespace ParticleMaker.Tests.ViewModels
 
         public int TestPropB
         {
+            [ExcludeFromCodeCoverage]
             get => _testPropB;
             set
             {

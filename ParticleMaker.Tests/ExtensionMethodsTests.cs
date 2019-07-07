@@ -9,6 +9,14 @@ namespace ParticleMaker.Tests
     {
         #region Method Tests
         [Fact]
+        public void ToLowerCase_WhenInvoked_ReturnsCorrectValue()
+        {
+            //Act & Assert
+            Assert.Equal(new[] { "hello", "world" }, new[] { "HELLO", "WORLD" }.ToLowerCase());
+        }
+
+
+        [Fact]
         public void ToRadians_WhenInvoking_ReturnsCorrectValue()
         {
             //Arrange

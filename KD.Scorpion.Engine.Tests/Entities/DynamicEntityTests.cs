@@ -154,6 +154,21 @@ namespace KDScorpionEngineTests.Entities
             //Assert
             Assert.Equal(expectedTotalBehaviors, actualTotalBehaviors);
         }
+
+
+        [Fact]
+        public void Ctor_WhenInvokingWithTextureAndPositionAndFriction_CreatesAllBehaviors()
+        {
+            //Arrange
+            int expectedTotalBehaviors = 6;
+
+            //Act
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>(), 1f);
+            var actualTotalBehaviors = entity.Behaviors.Count;
+
+            //Assert
+            Assert.Equal(expectedTotalBehaviors, actualTotalBehaviors);
+        }
         #endregion
 
 
@@ -493,6 +508,29 @@ namespace KDScorpionEngineTests.Entities
 
             //Assert
             Assert.Equal(expected, actual);
+        }
+
+
+        [Fact]
+        public void Update_WhenInvoked_MaintainsMaxAngularVelocity()
+        {
+            //Arrange
+            _mockPhysicsBody.Setup(m => m.ApplyAngularImpulse(It.IsAny<float>())).Callback<float>((value) =>
+            {
+                _mockPhysicsBody.Object.AngularVelocity = 10;
+            });
+            var entity = new DynamicEntity(_mockPhysicsBody.Object);
+
+            entity.Initialize();
+            entity.MaxRotationSpeed = 8;
+
+            //Act
+            var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
+            entity.RotateCW();
+            entity.Update(engineTime);
+
+            //Assert
+            Assert.Equal(8, entity.Body.AngularVelocity);
         }
 
 
@@ -1157,6 +1195,11 @@ namespace KDScorpionEngineTests.Entities
                     _mockPhysicsBody.Object.LinearVelocityY = 0;
                 });
 
+            _mockPhysicsBody.Setup(m => m.ApplyAngularImpulse(It.IsAny<float>())).Callback<float>((value) =>
+            {
+                _mockPhysicsBody.Object.AngularVelocity = 0;
+            });
+
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
             var expected = Vector.Zero;
@@ -1164,6 +1207,7 @@ namespace KDScorpionEngineTests.Entities
 
             //Act
             entity.MoveDownRight();
+            entity.RotateCW();
             entity.StopMovement();
             entity.Update(engineTime);
             var actual = entity.Body.LinearVelocity;

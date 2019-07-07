@@ -8,6 +8,11 @@ namespace ParticleMaker
     /// </summary>
     public interface IRenderer : IDisposable
     {
+        #region Props
+        IntPtr WindowHandle { get; }
+        #endregion
+
+
         #region Methods
         /// <summary>
         /// Initializes the renderer.

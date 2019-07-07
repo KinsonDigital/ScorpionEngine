@@ -63,7 +63,7 @@ namespace ParticleMaker
                     _mainViewModel.SaveSetup.Execute(null);
             }
 
-            _mainViewModel.ShutdownEngine();
+            _mainViewModel.StopEngine();
             _mainViewModel.Dispose();
 
             App.IsShuttingDown = true;
@@ -102,9 +102,8 @@ namespace ParticleMaker
 
             _mainViewModel.UIDispatcher = Dispatcher;
 
-            _mainViewModel.StartEngine();
-            _mainViewModel.Pause.Execute(null);
-            
+            _mainViewModel.InitEngine();
+
             DataContext = _mainViewModel;
 
             _dockRenderWindowTask.Start();

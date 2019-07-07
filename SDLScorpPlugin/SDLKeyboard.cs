@@ -97,7 +97,6 @@ namespace SDLScorpPlugin
         /// </summary>
         /// <param name="key">The key to check for.</param>
         /// <returns></returns>
-        //public bool IsKeyDown(KeyCodes key) => _currentStateKeys[KeyboardKeyMapper.ToSDLKeyCode(key)];
         public bool IsKeyDown(KeyCodes key) => _currentStateKeys.Contains(KeyboardKeyMapper.ToSDLKeyCode(key));
 
 

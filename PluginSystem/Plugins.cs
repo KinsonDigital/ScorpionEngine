@@ -28,6 +28,7 @@ namespace PluginSystem
         /// </summary>
         public IPluginLibrary EnginePlugins
         {
+            [ExcludeFromCodeCoverage]
             get
             {
                 if (string.IsNullOrEmpty(EngineLibraryPluginName))
@@ -47,6 +48,7 @@ namespace PluginSystem
         /// </summary>
         public IPluginLibrary PhysicsPlugins
         {
+            [ExcludeFromCodeCoverage]
             get
             {
                 if (string.IsNullOrEmpty(PhysicsLibraryPluginName))

@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace KDParticleEngine.Services
 { 
@@ -28,10 +29,8 @@ namespace KDParticleEngine.Services
         /// Returns a true/false value that represents the flip of a coin.
         /// </summary>
         /// <returns></returns>
-        public bool FlipCoin()
-        {
-            return _random.NextDouble() <= 0.5f;
-        }
+        [ExcludeFromCodeCoverage]
+        public bool FlipCoin() => _random.NextDouble() <= 0.5f;
 
 
         /// <summary>
@@ -39,21 +38,21 @@ namespace KDParticleEngine.Services
         /// A random value will be chosen between the min and max values no matter which value is less than 
         /// or greater than the other.
         /// </summary>
-        /// <param name="minValue">The minimum value of the range to randomly choose from.</param>
-        /// <param name="maxValue">The maximum value of the range to randomly choose from.</param>
+        /// <param name="minValue">The inclusive minimum value of the range to randomly choose from.</param>
+        /// <param name="maxValue">The inclusive maximum value of the range to randomly choose from.</param>
         /// <returns></returns>
         public float GetValue(float minValue, float maxValue)
         {
-            var minValueAsInt = (int)(minValue * 1000);
-            var maxValueAsInt = (int)(maxValue * 1000);
+            var minValueAsInt = (int)((minValue + 0.001f) * 1000);
+            var maxValueAsInt = (int)((maxValue + 0.001f) * 1000);
 
             if (minValueAsInt > maxValueAsInt)
             {
-                return _random.Next(maxValueAsInt, minValueAsInt) / 1000f;
+                return (float)Math.Round(_random.Next(maxValueAsInt, minValueAsInt) / 1000f, 3);
             }
             else
             {
-                return _random.Next(minValueAsInt, maxValueAsInt) / 1000f;
+                return (float)Math.Round(_random.Next(minValueAsInt, maxValueAsInt) / 1000f, 3);
             }
         }
 
@@ -63,13 +62,12 @@ namespace KDParticleEngine.Services
         /// A random value will be chosen between the min and max values no matter which value is less than 
         /// or greater than the other.
         /// </summary>
-        /// <param name="minValue">The minimum value of the range to randomly choose from.</param>
-        /// <param name="maxValue">The maximum value of the range to randomly choose from.</param>
+        /// <param name="minValue">The inclusive minimum value of the range to randomly choose from.</param>
+        /// <param name="maxValue">The inclusive maximum value of the range to randomly choose from.</param>
         /// <returns></returns>
-        public double GetValue(double minValue, double maxValue)
-        {
-            return GetValue((float)minValue, (float)maxValue);
-        }
+        public double GetValue(double minValue, double maxValue) =>
+            //Add 0.001 so that way the max value is inclusive.
+            GetValue((float)minValue, (float)maxValue);
 
 
         /// <summary>
@@ -77,14 +75,15 @@ namespace KDParticleEngine.Services
         /// A random value will be chosen between the min and max values no matter which value is less than 
         /// or greater than the other.
         /// </summary>
-        /// <param name="minValue">The minimum value of the range to randomly choose from.</param>
-        /// <param name="maxValue">The maximum value of the range to randomly choose from.</param>
+        /// <param name="minValue">The inclusive minimum value of the range to randomly choose from.</param>
+        /// <param name="maxValue">The inclusive maximum value of the range to randomly choose from.</param>
         /// <returns></returns>
         public int GetValue(int minValue, int maxValue)
         {
+            //Add 1 so that way the max value is inclusive.
             return minValue > maxValue ?
-                _random.Next(maxValue, minValue) :
-                _random.Next(minValue, maxValue);
+                _random.Next(maxValue, minValue + 1) :
+                _random.Next(minValue, maxValue + 1);
         }
         #endregion
     }

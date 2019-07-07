@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Linq;
 
@@ -13,7 +14,7 @@ namespace KDParticleEngine
     /// Manages multiple <see cref="Particle"/>s with various settings that dictate
     /// how all of the <see cref="Particle"/>s behave and look on the screen.
     /// </summary>
-    public class ParticleEngine<ITexture> : IList<ITexture> where ITexture : class
+    public class ParticleEngine<Texture> : IList<Texture> where Texture : class
     {
         #region Public Events
         public event EventHandler<EventArgs> LivingParticlesCountChanged;
@@ -21,8 +22,8 @@ namespace KDParticleEngine
 
 
         #region Fields
-        private readonly List<Particle<ITexture>> _particles;
-        private readonly List<ITexture> _textures = new List<ITexture>();
+        private readonly List<Particle<Texture>> _particles;
+        private readonly List<Texture> _textures = new List<Texture>();
         private int _totalParticlesAliveAtOnce = 10;
         private int _spawnRateElapsed = 0;
         private float _angleMin;
@@ -38,7 +39,7 @@ namespace KDParticleEngine
         /// </summary>
         public ParticleEngine(IRandomizerService randomizer)
         {
-            _particles = new List<Particle<ITexture>>();
+            _particles = new List<Particle<Texture>>();
             Randomizer = randomizer;
         }
         #endregion
@@ -50,19 +51,20 @@ namespace KDParticleEngine
         /// </summary>
         /// <param name="i">The index value of the item to get or set.</param>
         /// <returns></returns>
-        public ITexture this[int i]
+        [ExcludeFromCodeCoverage]
+        public Texture this[int i]
         {
             get => _textures[i];
             set => _textures[i] = value;
         }
 
         //TODO: Add code docs
-        public Particle<ITexture>[] Particles => _particles.ToArray();
+        public Particle<Texture>[] Particles => _particles.ToArray();
 
         /// <summary>
         /// Gets or sets the randomizer used when generating new particles.
         /// </summary>
-        public IRandomizerService Randomizer { get; set; }
+        public IRandomizerService Randomizer { get; private set; }
 
         /// <summary>
         /// Gets or sets a value indicating if the engine is enabled or disabled.
@@ -76,12 +78,7 @@ namespace KDParticleEngine
 
                 //If the engine is disabled, kill all the particles
                 if (!_enabled)
-                {
-                    for (int i = 0; i < _particles.Count; i++)
-                    {
-                        _particles[i].IsDead = true;
-                    }
-                }
+                    KillAllParticles();
             }
         }
 
@@ -112,8 +109,9 @@ namespace KDParticleEngine
             get => _angleMin;
             set
             {
-                _angleMin = value < 0 ? 360 : value;
-                _angleMin = value > 360 ? 0 : value;
+                _angleMin = value;
+                _angleMin = _angleMin < 0 ? 360 : _angleMin;
+                _angleMin = _angleMin > 360 ? 0 : _angleMin;
             }
         }
 
@@ -126,8 +124,9 @@ namespace KDParticleEngine
             get => _angleMax;
             set
             {
-                _angleMax = value < 0 ? 360 : value;
-                _angleMax = value > 360 ? 0 : value;
+                _angleMax = value;
+                _angleMax = _angleMax < 0 ? 360 : _angleMax;
+                _angleMax = _angleMax > 360 ? 0 : _angleMax;
             }
         }
 
@@ -288,18 +287,18 @@ namespace KDParticleEngine
 
         /// <summary>
         /// Returns a value indicating if the list of <see cref="ParticleEngine{ITexture}"/>
-        /// <see cref="ITexture"/>s is readonly.
+        /// <see cref="Texture"/>s is readonly.
         /// </summary>
         public bool IsReadOnly => false;
 
         /// <summary>
         /// Returns a value indicating if the list of <see cref="ParticleEngine{ITexture}"/>
-        /// <see cref="ITexture"/>s has a fixed size.
+        /// <see cref="Texture"/>s has a fixed size.
         /// </summary>
         public bool IsFixedSize => false;
 
         /// <summary>
-        /// Returns the total number of <see cref="ParticleEngine{ITexture}"/> <see cref="ITexture"/>s.
+        /// Returns the total number of <see cref="ParticleEngine{ITexture}"/> <see cref="Texture"/>s.
         /// </summary>
         public int Count => _textures.Count;
 
@@ -309,10 +308,17 @@ namespace KDParticleEngine
         public object SyncRoot { get; set; }
 
         /// <summary>
-        /// Returns a value indicating if the list of <see cref="ITexture"/>s is syncrhonized
+        /// Returns a value indicating if the list of <see cref="Texture"/>s is syncrhonized
         /// for multi-threaded operations.
         /// </summary>
         public bool IsSynchronized => false;
+
+        /// <summary>
+        /// Gets or stets the custom process to occurr right before the particles
+        /// update when the engine update process is invoked.  Will be invoked as long
+        /// as the action is not null.
+        /// </summary>
+        public Action PreParticleUpdate { get; set; }
         #endregion
 
 
@@ -321,7 +327,7 @@ namespace KDParticleEngine
         /// Adds the given texture to the <see cref="ParticleEngine{ITexture}"/>.
         /// </summary>
         /// <param name="texture">The texture to add.</param>
-        public void Add(ITexture texture)
+        public void Add(Texture texture)
         {
             _textures.Add(texture);
             GenerateAllParticles();
@@ -329,13 +335,14 @@ namespace KDParticleEngine
 
 
         /// <summary>
-        /// Adds the given texture to the <see cref="ParticleEngine{ITexture}"/>.
+        /// Adds the given texture to the <see cref="ParticleEngine{ITexture}"/> as long as the
+        /// given <paramref name="predicate"/> returns true.
         /// </summary>
         /// <param name="texture">The texture to add.</param>
-        /// <param name="predicate">Returns true or false depending if the given texture already exists in the <see cref="ParticleEngine{ITexture}"/>.</param>
-        public void Add(ITexture texture, Predicate<ITexture> predicate)
+        /// <param name="predicate">Returning true will add the texture to the <see cref="ParticleEngine{ITexture}"/>.</param>
+        public void Add(Texture texture, Predicate<Texture> predicate)
         {
-            if (predicate(texture))
+            if (!predicate(texture))
                 return;
 
             _textures.Add(texture);
@@ -347,7 +354,7 @@ namespace KDParticleEngine
         /// Adds the given <paramref name="textures"/> to the engine.
         /// </summary>
         /// <param name="textures">The list of textures to add.</param>
-        public void AddTextures(ITexture[] textures)
+        public void Add(Texture[] textures)
         {
             _textures.AddRange(textures);
             GenerateAllParticles();
@@ -355,16 +362,24 @@ namespace KDParticleEngine
 
 
         /// <summary>
+        /// Kills all of the particles.
+        /// </summary>
+        public void KillAllParticles() => _particles.ForEach(p => p.IsDead = true);
+
+
+        /// <summary>
         /// Returns a value indicating if the given <paramref name="texture"/> is in the particle engine.
         /// </summary>
         /// <param name="texture">The texture to check for.</param>
         /// <returns></returns>
-        public bool Contains(ITexture texture) => _textures.Contains(texture);
+        [ExcludeFromCodeCoverage]
+        public bool Contains(Texture texture) => _textures.Contains(texture);
 
 
         /// <summary>
-        /// Clears all of the <see cref="ITexture"/>s from the <see cref="ParticleEngine{ITexture}"/>.
+        /// Clears all of the <see cref="Texture"/>s from the <see cref="ParticleEngine{ITexture}"/>.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         public void Clear() => _textures.Clear();
 
 
@@ -373,16 +388,18 @@ namespace KDParticleEngine
         /// </summary>
         /// <param name="texture">The texture to get the index of.</param>
         /// <returns></returns>
-        public int IndexOf(ITexture texture) => _textures.IndexOf(texture);
+        [ExcludeFromCodeCoverage]
+        public int IndexOf(Texture texture) => _textures.IndexOf(texture);
 
 
         /// <summary>
         /// Inserts the given <paramref name="texture"/> at the given <paramref name="index"/>
-        /// in the list of <see cref="ITexture"/>s in the <see cref="ParticleEngine{ITexture}"/>.
+        /// in the list of <see cref="Texture"/>s in the <see cref="ParticleEngine{ITexture}"/>.
         /// </summary>
-        /// <param name="index">The index location to insert the <see cref="ITexture"/> at.</param>
+        /// <param name="index">The index location to insert the <see cref="Texture"/> at.</param>
         /// <param name="texture">The texture to insert.</param>
-        public void Insert(int index, ITexture texture) => _textures.Insert(index, texture);
+        [ExcludeFromCodeCoverage]
+        public void Insert(int index, Texture texture) => _textures.Insert(index, texture);
 
 
         /// <summary>
@@ -391,7 +408,8 @@ namespace KDParticleEngine
         /// </summary>
         /// <param name="texture">The texture to remove.</param>
         /// <returns></returns>
-        public bool Remove(ITexture texture)
+        [ExcludeFromCodeCoverage]
+        public bool Remove(Texture texture)
         {
             var totalBeforeRemoval = _textures.Count;
             _textures.Remove(texture);
@@ -405,29 +423,33 @@ namespace KDParticleEngine
         /// Removes a texture located at the given <paramref name="index"/>.
         /// </summary>
         /// <param name="index">The index of the texture to remove.</param>
+        [ExcludeFromCodeCoverage]
         public void RemoveAt(int index) => _textures.RemoveAt(index);
 
 
         /// <summary>
-        /// Copies the all of the <see cref="ParticleEngine{ITexture}"/> <see cref="ITexture"/>s
+        /// Copies the all of the <see cref="ParticleEngine{ITexture}"/> <see cref="Texture"/>s
         /// to the given <paramref name="array"/> starting at the index in the given <paramref name="array"/>.
         /// </summary>
-        /// <param name="array">The array to copy the <see cref="ITexture"/>s to.</param>
+        /// <param name="array">The array to copy the <see cref="Texture"/>s to.</param>
         /// <param name="index">The starting index of the target array to start the copy process at.</param>
-        public void CopyTo(ITexture[] array, int index) => _textures.CopyTo(array, index);
+        [ExcludeFromCodeCoverage]
+        public void CopyTo(Texture[] array, int index) => _textures.CopyTo(array, index);
 
 
         /// <summary>
         /// Returns the enumerator of the list of <see cref="ParticleEngine{ITexture}"/> textures.
         /// </summary>
         /// <returns></returns>
-        public IEnumerator<ITexture> GetEnumerator() => _textures.GetEnumerator();
+        [ExcludeFromCodeCoverage]
+        public IEnumerator<Texture> GetEnumerator() => _textures.GetEnumerator();
 
 
         /// <summary>
         /// Returns the enumerator of the list of <see cref="ParticleEngine{ITexture}"/> textures.
         /// </summary>
         /// <returns></returns>
+        [ExcludeFromCodeCoverage]
         IEnumerator IEnumerable.GetEnumerator() => _textures.GetEnumerator();
 
 
@@ -452,11 +474,13 @@ namespace KDParticleEngine
                 _spawnRateElapsed = 0;
             }
 
+            PreParticleUpdate?.Invoke();
+
             for (int i = 0; i < _particles.Count; i++)
             {
                 if (_particles[i].IsDead)
                     continue;
-
+                
                 //Update the current particle
                 _particles[i].Update(timeElapsed);
 
@@ -535,7 +559,7 @@ namespace KDParticleEngine
         /// range settings.
         /// </summary>
         /// <returns></returns>
-        private Particle<ITexture> GenerateParticle()
+        private Particle<Texture> GenerateParticle()
         {
             var texture = GetRandomTexture();
 
@@ -553,7 +577,7 @@ namespace KDParticleEngine
 
             var lifeTime = GetRandomLifeTime();
 
-            return new Particle<ITexture>(texture, position, velocity, angle, angularVelocity, color, size, lifeTime);
+            return new Particle<Texture>(texture, position, velocity, angle, angularVelocity, color, size, lifeTime);
         }
 
 
@@ -561,12 +585,12 @@ namespace KDParticleEngine
         /// Returns a randomly chosen <see cref="Texture"/> out of the total list of textures to use for a spawned <see cref="Particle"/>.
         /// </summary>
         /// <returns></returns>
-        private ITexture GetRandomTexture()
+        private Texture GetRandomTexture()
         {
-            var result = Randomizer.GetValue(0, _textures.Count);
+            var result = Randomizer.GetValue(0, _textures.Count - 1);
 
 
-            return _textures[result >= 0 && result <= _textures.Count ? result : 0];
+            return _textures[result >= 0 && result <= _textures.Count - 1 ? result : 0];
         }
 
 
@@ -609,7 +633,7 @@ namespace KDParticleEngine
         {
             if (UseColorsFromList)
             {
-                return TintColors == null || TintColors.Length == 0 ? Color.FromArgb(255, 255, 255, 255) : TintColors[Randomizer.GetValue(0, TintColors.Length)];
+                return TintColors == null || TintColors.Length == 0 ? Color.FromArgb(255, 255, 255, 255) : TintColors[Randomizer.GetValue(0, TintColors.Length - 1)];
             }
             else
             {

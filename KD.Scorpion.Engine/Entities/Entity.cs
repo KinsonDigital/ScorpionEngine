@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using KDScorpionCore;
 using KDScorpionCore.Content;
@@ -269,9 +270,6 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         public virtual void Initialize()
         {
-            if (_preInitVertices == null)
-                throw new MissingVerticesException();
-
             CreateBody(_preInitVertices, _preInitPosition, IsStatic);
             IsInitialized = true;
         }
@@ -304,7 +302,7 @@ namespace KDScorpionEngine.Entities
             _preInitFriction = friction;
         }
 
-
+        [ExcludeFromCodeCoverage]
         private void CreateBody(Vector[] vertices, Vector position, bool isStatic)
         {
             if (Body == null)
@@ -320,6 +318,7 @@ namespace KDScorpionEngine.Entities
         }
 
 
+        [ExcludeFromCodeCoverage]
         public virtual void Render(GameRenderer renderer) { }
         #endregion
     }

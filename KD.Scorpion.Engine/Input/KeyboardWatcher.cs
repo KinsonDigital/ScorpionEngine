@@ -4,6 +4,7 @@ using KDScorpionCore.Plugins;
 using KDScorpionEngine.Utils;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace KDScorpionEngine.Input
@@ -49,6 +50,7 @@ namespace KDScorpionEngine.Input
         /// Creates an instance of KeyboardWatcher.
         /// </summary>
         /// <param name="enabled">Set to true or false to enable or disable the watcher when created.</param>
+        [ExcludeFromCodeCoverage]
         public KeyboardWatcher(bool enabled)
         {
             _keyboard = new Keyboard();
@@ -183,7 +185,7 @@ namespace KDScorpionEngine.Input
                 {
                     _currentPressedKeys[key] = _keyboard.IsKeyDown(key);
                 }
-
+                
                 //If all of the keys are pressed down
                 if (_currentPressedKeys.Count > 0 && _currentPressedKeys.All(key => key.Value))
                     OnInputComboPressed?.Invoke(this, new EventArgs());

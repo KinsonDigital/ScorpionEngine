@@ -5,6 +5,7 @@ using KDScorpionCore.Plugins;
 using KDScorpionEngine.Entities;
 using KDScorpionEngine.Graphics;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace KDScorpionEngine.Scene
 {
@@ -14,6 +15,7 @@ namespace KDScorpionEngine.Scene
         internal GameScene(IPhysicsWorld physicsWorld) => PhysicsWorld = new PhysicsWorld(physicsWorld);
 
 
+        [ExcludeFromCodeCoverage]
         public GameScene(Vector gravity) => PhysicsWorld = new PhysicsWorld(gravity);
         #endregion
 
