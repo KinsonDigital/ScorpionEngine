@@ -132,8 +132,8 @@ namespace ParticleMaker.Tests.Management
         }
 
 
-        //[Theory]
-        //[MemberData(nameof(ProjectDirsAndFilePaths))]
+        [Theory]
+        [MemberData(nameof(ProjectDirsAndFilePaths))]
         public void ProjectFilePaths_WhenGettingValueWithEmptyDirectories_ReturnsCorrectValue(string projDir, string projFile)
         {
             //Arrange
