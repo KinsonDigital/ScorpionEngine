@@ -1,5 +1,4 @@
 using System;
-using KDParticleEngine;
 using Moq;
 using Xunit;
 using ParticleMaker.Exceptions;

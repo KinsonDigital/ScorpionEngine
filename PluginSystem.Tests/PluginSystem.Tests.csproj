@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <ApplicationIcon />
+    <OutputType>Library</OutputType>
     <IsPackable>false</IsPackable>
 
     <Platforms>x86;x64</Platforms>
@@ -11,7 +13,8 @@
     <Version>1.0.0</Version>
     <FileVersion>1.0.0</FileVersion>
     <Company>Kinson Digital</Company>
-    <AssemblyName>ScorpionCoreTests</AssemblyName>
+    <AssemblyName>PluginSystemTests</AssemblyName>
+    <RootNamespace>PluginSystemTests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
