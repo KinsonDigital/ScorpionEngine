@@ -35,7 +35,7 @@ namespace KDScorpionEngineTests.Fakes
 
 
         #region Public Methods
-        public void Start()
+        public new void Start()
         {
             _fakeEngineCore.Start();
         }

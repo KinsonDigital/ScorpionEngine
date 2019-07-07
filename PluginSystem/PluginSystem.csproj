@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Platforms>x86;x64</Platforms>
-    <Configurations>Debug(SDL);Release(SDL);Debug(MonoGame);Release(MonoGame)</Configurations>    
+    <Configurations>Debug-SDL;Release-SDL;Debug-MonoGame;Release-MonoGame</Configurations>    
     <AssemblyTitle>PluginSystem</AssemblyTitle>
     <Product>Kinson Digital - PluginSystem</Product>
     <Copyright>Copyright © 2018</Copyright>
@@ -12,42 +12,42 @@
     <Company>Kinson Digital</Company>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug(SDL)|x86'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-SDL|x86'">
     <Optimize>false</Optimize>
     <DefineConstants>TRACE;SDL</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug(MonoGame)|x86'">
-    <Optimize>false</Optimize>
-    <DefineConstants>TRACE;MONOGAME</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug(SDL)|x64'">
-    <Optimize>false</Optimize>
-    <DefineConstants>TRACE;SDL</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug(MonoGame)|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-MonoGame|x86'">
     <Optimize>false</Optimize>
     <DefineConstants>TRACE;MONOGAME</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release(SDL)|x86'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-SDL|x64'">
+    <Optimize>false</Optimize>
+    <DefineConstants>TRACE;SDL</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-MonoGame|x64'">
+    <Optimize>false</Optimize>
+    <DefineConstants>TRACE;MONOGAME</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-SDL|x86'">
     <Optimize>true</Optimize>
     <DefineConstants>TRACE;SDL</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release(MonoGame)|x86'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-MonoGame|x86'">
     <Optimize>true</Optimize>
     <DefineConstants>TRACE;MONOGAME</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release(SDL)|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-SDL|x64'">
     <Optimize>true</Optimize>
     <DefineConstants>TRACE;SDL</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release(MonoGame)|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-MonoGame|x64'">
     <Optimize>true</Optimize>
     <DefineConstants>TRACE;MONOGAME</DefineConstants>
   </PropertyGroup>
