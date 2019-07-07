@@ -9,8 +9,8 @@
     <Version>0.9.0</Version>
     <FileVersion>0.9.0</FileVersion>
     <Company>Kinson Digital</Company>
-    <RootNamespace>KDScorpionEngine</RootNamespace>
-    <AssemblyName>ScorpionEngine</AssemblyName>
+    <RootNamespace>KDParticleEngine</RootNamespace>
+    <AssemblyName>ParticleEngine</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

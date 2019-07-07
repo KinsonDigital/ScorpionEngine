@@ -1,221 +1,26 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BBBB08DB-2035-43DB-820E-3492CEFF0A42}</ProjectGuid>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <Platforms>x86;x64</Platforms>
+    <ApplicationIcon />
     <OutputType>WinExe</OutputType>
-    <RootNamespace>ScorpTestGame</RootNamespace>
+    <AssemblyTitle>ScorpTestGame</AssemblyTitle>
+    <Product>Kinson Digital - ScorpTestGame</Product>
+    <Copyright>Copyright © 2018</Copyright>
+    <Version>1.0.0</Version>
+    <FileVersion>1.0.0</FileVersion>
+    <Company>Kinson Digital</Company>
     <AssemblyName>ScorpTestGame</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup>
     <StartupObject />
+    <RootNamespace>KDScorpTestGame</RootNamespace>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\KD.Particle.Engine\KD.Particle.Engine.csproj" />
+    <ProjectReference Include="..\KD.Scorpion.Core\KD.Scorpion.Core.csproj" />
+    <ProjectReference Include="..\KD.Scorpion.Engine\KD.Scorpion.Engine.csproj" />
+    <ProjectReference Include="..\KD.Scorpion.UI\KD.Scorpion.UI.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="Scenes\Level1.cs" />
-    <Compile Include="PlayerShip.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MainGame.cs" />
-    <Compile Include="Scenes\ParticleTestingScene.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="Content\Content.mgcb" />
-    <Content Include="Content\Fonts\MyGameText.spritefont" />
-    <None Include="Content\Sound\Music\Eye Embedded.ogg" />
-    <None Include="libopenal.1.dylib">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="libSDL2-2.0.0.dylib">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MonoGame.Framework.dll.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="x64\libopenal.so.1">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="x64\libSDL2-2.0.so.0">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="x86\libopenal.so.1">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="x86\libSDL2-2.0.so.0">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\KD.Particle.Engine\KD.Particle.Engine.csproj">
-      <Project>{6595ff25-b463-480d-9f26-c73c66c2d5f0}</Project>
-      <Name>KD.Particle.Engine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\KD.Scorpion.Core\KD.Scorpion.Core.csproj">
-      <Project>{3E136A13-190C-4390-9E74-8849022852F6}</Project>
-      <Name>KD.Scorpion.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\KD.Scorpion.Engine\KD.Scorpion.Engine.csproj">
-      <Project>{91495c38-9695-4905-b5d9-0debb25e1a0f}</Project>
-      <Name>KD.Scorpion.Engine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\KD.Scorpion.UI\KD.Scorpion.UI.csproj">
-      <Project>{ef70de07-de6f-40c6-af90-32e02090592c}</Project>
-      <Name>KD.Scorpion.UI</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\AtlasData\CharacterAtlasData.xml" />
-    <Content Include="Content\Graphics\BottomWall.png" />
-    <Content Include="Content\Graphics\Enemy.png" />
-    <Content Include="Content\Graphics\GreenRectangle.png" />
-    <Content Include="Content\Graphics\LongRectangle.png" />
-    <Content Include="Content\Graphics\Particles\Circle.png" />
-    <Content Include="Content\Graphics\Particles\ShipThruster.png" />
-    <Content Include="Content\Graphics\Particles\Triangle.png" />
-    <Content Include="Content\Graphics\Rock.png" />
-    <Content Include="Content\Graphics\Ship.png" />
-    <Content Include="Content\Sound\SoundEffects\Laser.wav" />
-    <Content Include="x64\SDL2.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x64\soft_oal.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x86\SDL2.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x86\soft_oal.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="SimpleInjector">
-      <Version>4.6.0</Version>
-    </PackageReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>REM Make sure that a Graphics directory exists
-mkdir "$(TargetDir)Content\Graphics"
 
-
-REM Copy the graphics content to the bin output folder
-xcopy "$(ProjectDir)Content\Graphics" "$(TargetDir)Content\Graphics" /Y/E
-
-
-REM Copy the MonoGame Graphics XNB content to the bin output folder
-xcopy "$(ProjectDir)Content\bin\Windows\Graphics\*.xnb" "$(TargetDir)Content\Graphics\*.xnb" /Y/E
-
-
-REM Copy the MonoGame Fonts XNB content to the bin output folder
-xcopy "$(ProjectDir)Content\bin\Windows\Fonts\*.xnb" "$(TargetDir)Content\Fonts\*.xnb" /Y/E
-
-
-REM Make sure that a Fonts directory exists
-mkdir "$(TargetDir)Content\Fonts"
-
-
-REM Copy the TTF Fonts content to the bin output folder
-xcopy "$(ProjectDir)Content\Fonts\*.ttf" "$(TargetDir)Content\Fonts" /Y
-
-
-REM Copy the MonoGame Engine plugin to the output folder
-copy "$(SolutionDir)MonoScorpPlugin\bin\$(PlatformName)\Debug\MonoScorpPlugin.dll" "$(TargetDir)MonoScorpPlugin.dll" /Y
-copy "$(SolutionDir)MonoScorpPlugin\bin\$(PlatformName)\Debug\MonoScorpPlugin.pdb" "$(TargetDir)MonoScorpPlugin.pdb" /Y
-
-
-REM Copy the SDL Engine plugin to the output folder
-copy "$(SolutionDir)SDLScorpPlugin\bin\$(PlatformName)\$(ConfigurationName)\SDLScorpPlugin.dll" "$(TargetDir)SDLScorpPlugin.dll" /Y
-copy "$(SolutionDir)SDLScorpPlugin\bin\$(PlatformName)\$(ConfigurationName)\SDLScorpPlugin.pdb" "$(TargetDir)SDLScorpPlugin.pdb" /Y
-
-
-REM Copy the SDL-CS C# wrapper library to the output folder
-copy "$(SolutionDir)SDLScorpPlugin\Libs\SDLNet\$(PlatformName)\SDL2-CS.dll" "$(TargetDir)SDL2-CS.dll"
-
-
-REM Copy the native SDL2 library to the output folder
-copy "$(SolutionDir)SDLScorpPlugin\Libs\SDL\$(PlatformName)\SDL2.dll" "$(TargetDir)SDL2.dll" /Y
-
-
-REM Copy the native SDL2 imaging required libraries to the output folder
-copy "$(SolutionDir)SDLScorpPlugin\Libs\SDL-Image\$(PlatformName)\SDL2_image.dll" "$(TargetDir)SDL2_image.dll" /Y
-copy "$(SolutionDir)SDLScorpPlugin\Libs\SDL-Image\$(PlatformName)\libjpeg-9.dll" "$(TargetDir)libjpeg-9.dll" /Y
-copy "$(SolutionDir)SDLScorpPlugin\Libs\SDL-Image\$(PlatformName)\libpng16-16.dll" "$(TargetDir)libpng16-16.dll" /Y
-copy "$(SolutionDir)SDLScorpPlugin\Libs\SDL-Image\$(PlatformName)\libtiff-5.dll" "$(TargetDir)libtiff-5.dll" /Y
-copy "$(SolutionDir)SDLScorpPlugin\Libs\SDL-Image\$(PlatformName)\libwebp-7.dll" "$(TargetDir)libwebp-7.dll" /Y
-copy "$(SolutionDir)SDLScorpPlugin\Libs\SDL-Image\$(PlatformName)\zlib1.dll" "$(TargetDir)zlib1.dll" /Y
-
-
-REM Copy the native SDL libraries for dealing with fonts and rendering text
-copy "$(SolutionDir)SDLScorpPlugin\Libs\SDL-TTF\$(PlatformName)\SDL2_ttf.dll" "$(TargetDir)SDL2_ttf.dll"
-copy "$(SolutionDir)SDLScorpPlugin\Libs\SDL-TTF\$(PlatformName)\libfreetype-6.dll" "$(TargetDir)libfreetype-6.dll"
-
-
-REM Copy the Velcro Physics Plugin to the output folder
-del "$(TargetDir)VelcroPhysicsPlugin.dll" /F /Q
-copy "$(SolutionDir)VelcroPhysicsPlugin\bin\$(PlatformName)\Debug\VelcroPhysicsPlugin.dll" "$(TargetDir)VelcroPhysicsPlugin.dll"
-copy "$(SolutionDir)VelcroPhysicsPlugin\bin\$(PlatformName)\Debug\VelcroPhysicsPlugin.pdb" "$(TargetDir)VelcroPhysicsPlugin.pdb"
-
-
-REM Copy the Main Velcro Physics Library to the output folder
-del "$(TargetDir)VelcroPhysics.dll" /F /Q
-copy "$(SolutionDir)VelcroPhysicsPlugin\bin\$(PlatformName)\Debug\VelcroPhysics.dll" "$(TargetDir)VelcroPhysics.dll"
-
-
-REM Copy the MonoGame.Framework.dll file to the output directory
-del  "$(TargetDir)MonoGame.Framework.dll" /F /Q
-copy "$(SolutionDir)MonoScorpPlugin\bin\$(PlatformName)\Debug\MonoGame.Framework.dll" "$(TargetDir)MonoGame.Framework.dll"</PostBuildEvent>
-  </PropertyGroup>
 </Project>
