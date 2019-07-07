@@ -38,6 +38,7 @@ namespace KDScorpionCoreTests.Content
         }
         #endregion
 
+
         #region Constructor Tests
         [Fact]
         public void Ctor_WhenInvoking_SetsInternalLoader()
