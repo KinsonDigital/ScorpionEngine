@@ -34,7 +34,6 @@ namespace ParticleMaker.UserControls
         public static readonly DependencyProperty RenderWidthProperty =
             DependencyProperty.Register(nameof(RenderWidth), typeof(int), typeof(RenderSize), new PropertyMetadata(0));
 
-
         /// <summary>
         /// Gets or sets the height of the <see cref="RenderSize"/>.
         /// </summary>
