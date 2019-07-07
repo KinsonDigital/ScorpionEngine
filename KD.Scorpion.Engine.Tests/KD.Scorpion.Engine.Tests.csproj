@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -118,7 +118,7 @@
       <Name>KD.Scorpion.Engine</Name>
     </ProjectReference>
     <ProjectReference Include="..\PluginSystem\PluginSystem.csproj">
-      <Project>{116A0DD5-D8A0-44B8-9634-CD59BFD6B99D}</Project>
+      <Project>{116a0dd5-d8a0-44b8-9634-cd59bfd6b99d}</Project>
       <Name>PluginSystem</Name>
     </ProjectReference>
   </ItemGroup>
