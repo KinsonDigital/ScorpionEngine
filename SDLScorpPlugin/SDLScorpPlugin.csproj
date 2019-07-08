@@ -1,87 +1,60 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9D7AA70D-B35F-42B1-9FD1-CE12073861E9}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SDLScorpPlugin</RootNamespace>
-    <AssemblyName>SDLScorpPlugin</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Platforms>x86;x64</Platforms>
+    <AssemblyTitle>SDLScorpPlugin</AssemblyTitle>
+    <Product>Kinson Digital - SDL Scorpion Plugin</Product>
+    <Copyright>Copyright © 2018</Copyright>
+    <Version>0.9.0</Version>
+    <FileVersion>0.9.0</FileVersion>
+    <Company>Kinson Digital</Company>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
-    <Reference Include="SDL2-CS, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libs\SDLNet\AnyCPU\SDL2-CS.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
+    <None Remove="Libs\SDL-Image\x64\libjpeg-9.dll" />
+    <None Remove="Libs\SDL-Image\x64\libpng16-16.dll" />
+    <None Remove="Libs\SDL-Image\x64\libtiff-5.dll" />
+    <None Remove="Libs\SDL-Image\x64\libwebp-7.dll" />
+    <None Remove="Libs\SDL-Image\x64\SDL2_image.dll" />
+    <None Remove="Libs\SDL-Image\x64\zlib1.dll" />
+    <None Remove="Libs\SDL-Image\x86\libjpeg-9.dll" />
+    <None Remove="Libs\SDL-Image\x86\libpng16-16.dll" />
+    <None Remove="Libs\SDL-Image\x86\libtiff-5.dll" />
+    <None Remove="Libs\SDL-Image\x86\libwebp-7.dll" />
+    <None Remove="Libs\SDL-Image\x86\SDL2_image.dll" />
+    <None Remove="Libs\SDL-Image\x86\zlib1.dll" />
+    <None Remove="Libs\SDL-Mixer\x64\libFLAC-8.dll" />
+    <None Remove="Libs\SDL-Mixer\x64\libmodplug-1.dll" />
+    <None Remove="Libs\SDL-Mixer\x64\libmpg123-0.dll" />
+    <None Remove="Libs\SDL-Mixer\x64\libogg-0.dll" />
+    <None Remove="Libs\SDL-Mixer\x64\libopus-0.dll" />
+    <None Remove="Libs\SDL-Mixer\x64\libopusfile-0.dll" />
+    <None Remove="Libs\SDL-Mixer\x64\libvorbis-0.dll" />
+    <None Remove="Libs\SDL-Mixer\x64\libvorbisfile-3.dll" />
+    <None Remove="Libs\SDL-Mixer\x64\SDL2_mixer.dll" />
+    <None Remove="Libs\SDL-Mixer\x86\libFLAC-8.dll" />
+    <None Remove="Libs\SDL-Mixer\x86\libmodplug-1.dll" />
+    <None Remove="Libs\SDL-Mixer\x86\libmpg123-0.dll" />
+    <None Remove="Libs\SDL-Mixer\x86\libogg-0.dll" />
+    <None Remove="Libs\SDL-Mixer\x86\libopus-0.dll" />
+    <None Remove="Libs\SDL-Mixer\x86\libopusfile-0.dll" />
+    <None Remove="Libs\SDL-Mixer\x86\libvorbis-0.dll" />
+    <None Remove="Libs\SDL-Mixer\x86\libvorbisfile-3.dll" />
+    <None Remove="Libs\SDL-Mixer\x86\SDL2_mixer.dll" />
+    <None Remove="Libs\SDL-TTF\x64\libfreetype-6.dll" />
+    <None Remove="Libs\SDL-TTF\x64\SDL2_ttf.dll" />
+    <None Remove="Libs\SDL-TTF\x64\zlib1.dll" />
+    <None Remove="Libs\SDL-TTF\x86\libfreetype-6.dll" />
+    <None Remove="Libs\SDL-TTF\x86\SDL2_ttf.dll" />
+    <None Remove="Libs\SDL-TTF\x86\zlib1.dll" />
+    <None Remove="Libs\SDLNet\AnyCPU\SDL2-CS.dll" />
+    <None Remove="Libs\SDLNet\x64\SDL2-CS.dll" />
+    <None Remove="Libs\SDLNet\x86\SDL2-CS.dll" />
+    <None Remove="Libs\SDL\x64\SDL2.dll" />
+    <None Remove="Libs\SDL\x86\SDL2.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Enums.cs" />
-    <Compile Include="KeyboardKeyMapper.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SDLContentLoader.cs" />
-    <Compile Include="SDLDebugDraw.cs" />
-    <Compile Include="SDLEngineCore.cs" />
-    <Compile Include="SDLEngineTime.cs" />
-    <Compile Include="SDLKeyboard.cs" />
-    <Compile Include="SDLMouse.cs" />
-    <Compile Include="SDLRenderer.cs" />
-    <Compile Include="SDLText.cs" />
-    <Compile Include="SDLTexture.cs" />
-  </ItemGroup>
+
   <ItemGroup>
     <Content Include="Libs\SDL-Image\x64\libjpeg-9.dll" />
     <Content Include="Libs\SDL-Image\x64\libpng16-16.dll" />
@@ -125,15 +98,20 @@
     <Content Include="Libs\SDL\x64\SDL2.dll" />
     <Content Include="Libs\SDL\x86\SDL2.dll" />
   </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\KD.Scorpion.Core\KD.Scorpion.Core.csproj">
-      <Project>{3e136a13-190c-4390-9e74-8849022852f6}</Project>
-      <Name>KD.Scorpion.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PluginSystem\PluginSystem.csproj">
-      <Project>{116a0dd5-d8a0-44b8-9634-cd59bfd6b99d}</Project>
-      <Name>PluginSystem</Name>
-    </ProjectReference>
+    <PackageReference Include="SimpleInjector" Version="4.6.0" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\KD.Scorpion.Core\KD.Scorpion.Core.csproj" />
+    <ProjectReference Include="..\PluginSystem\PluginSystem.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SDL2-CS">
+      <HintPath>Libs\SDLNet\x64\SDL2-CS.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

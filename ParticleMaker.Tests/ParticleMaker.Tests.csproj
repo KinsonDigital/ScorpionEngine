@@ -9,7 +9,7 @@
     <ProjectGuid>{3234BD2E-D0F7-437B-BC68-8A23DF1A7E3C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ParticleMaker.Tests</RootNamespace>
+    <RootNamespace>ParticleMakerTests</RootNamespace>
     <AssemblyName>ParticleMakerTests</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -148,7 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KD.Particle.Engine\KD.Particle.Engine.csproj">
-      <Project>{6595FF25-B463-480D-9F26-C73C66C2D5F0}</Project>
+      <Project>{6595ff25-b463-480d-9f26-c73c66c2d5f0}</Project>
       <Name>KD.Particle.Engine</Name>
     </ProjectReference>
     <ProjectReference Include="..\ParticleMaker\ParticleMaker.csproj">
