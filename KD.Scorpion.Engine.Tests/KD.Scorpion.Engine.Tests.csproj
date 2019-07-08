@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <Platforms>x86;x64</Platforms>
-    <ApplicationIcon />
+    <IsPackable>false</IsPackable>    
     <OutputType>Library</OutputType>
     <AssemblyTitle>ScorpionEngineTests</AssemblyTitle>
     <Product>Kinson Digital - Scorpion Engine Tests</Product>
@@ -17,6 +17,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
     <PackageReference Include="Moq" Version="4.12.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
