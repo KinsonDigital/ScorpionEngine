@@ -28,6 +28,12 @@ namespace ParticleMaker
         /// Gets or sets the chosen color.
         /// </summary>
         public Color ChosenColor { get; set; }
+
+        private float ChosenRedValue { get; set; }
+
+        private byte ChosenGreenValue { get; set; }
+
+        private byte ChosenBlueValue { get; set; }
         #endregion
 
 

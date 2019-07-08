@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:userCtrls="clr-namespace:ParticleMaker.UserControls"
         mc:Ignorable="d" Title="Choose a Color" ShowInTaskbar="False" ResizeMode="NoResize"
         SizeToContent="WidthAndHeight" Topmost="True" WindowStartupLocation="CenterScreen"
         Name="this">
@@ -17,6 +18,17 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <Grid Grid.Row="0" Background="PaleGoldenrod" Height="100">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <userCtrls:NumericUpDown Grid.Column="0" Min="0" Max="255"
+                                     Value="{Binding Path=Chosen}"/>
+        </Grid>
+        
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Name="OkButton" Width="75" Height="25" Margin="10"
                     Content="Ok" Click="OkButton_Click"/>
