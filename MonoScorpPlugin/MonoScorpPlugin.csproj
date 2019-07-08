@@ -21,4 +21,18 @@
     <ProjectReference Include="..\PluginSystem\PluginSystem.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Libs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Libs\MonoGame.Framework.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy &quot;$(ProjectDir)Libs\MonoGame.Framework.dll&quot; &quot;$(TargetDir)MonoGame.Framework.dll&quot; /Y" />
+  </Target>
+
 </Project>

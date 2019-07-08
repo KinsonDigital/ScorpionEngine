@@ -10,6 +10,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonoScorpPlugin", "MonoScorpPlugin\MonoScorpPlugin.csproj", "{19122F88-8270-43BF-8557-2A11FDC5A474}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScorpTestGame", "ScorpTestGame\ScorpTestGame.csproj", "{47CD6544-B970-4F7A-A508-0CCC1F306FB0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{19122F88-8270-43BF-8557-2A11FDC5A474} = {19122F88-8270-43BF-8557-2A11FDC5A474}
+		{DB173CA2-8CCD-453B-82F2-38B6B88757D2} = {DB173CA2-8CCD-453B-82F2-38B6B88757D2}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KD.Scorpion.UI", "KD.Scorpion.UI\KD.Scorpion.UI.csproj", "{DCF9C343-2789-427C-881B-52805446DAC1}"
 EndProject
