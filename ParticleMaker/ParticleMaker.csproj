@@ -17,6 +17,10 @@
     <RootNamespace>ParticleMaker</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DefineConstants>TRACE;WINDOWS;LINUX</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="Icons\Add.png" />
     <None Remove="Icons\ColorDropper.png" />

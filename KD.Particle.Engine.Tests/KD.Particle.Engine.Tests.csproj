@@ -3,8 +3,6 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <Platforms>x86;x64</Platforms>
-    <ApplicationIcon />
-    <OutputType>Library</OutputType>
     <AssemblyTitle>ParticleEngineTests</AssemblyTitle>
     <Product>Kinson Digital - Particle Engine Tests</Product>
     <Copyright>Copyright © 2018</Copyright>

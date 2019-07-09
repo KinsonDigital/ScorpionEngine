@@ -157,7 +157,18 @@ namespace ParticleMaker.Tests.Management
             var actual = manager.ProjectFilePaths;
 
             //Assert
-            Assert.Equal(expected, actual);
+            if (string.IsNullOrEmpty(projDir) && string.IsNullOrEmpty(projFile))
+            {
+                Assert.Equal(new string[0], actual);
+            }
+            else if (projDir == null && projFile == null)
+            {
+                Assert.Equal(new string[0], actual);
+            }
+            else
+            {
+                Assert.Equal(expected, actual);
+            }
         }
 
 
