@@ -251,10 +251,10 @@ Global
 		{222DD082-BA5B-4750-8246-0677E3FDA2A3}.Release-SDL|x64.Build.0 = Release|x64
 		{222DD082-BA5B-4750-8246-0677E3FDA2A3}.Release-SDL|x86.ActiveCfg = Release|x86
 		{222DD082-BA5B-4750-8246-0677E3FDA2A3}.Release-SDL|x86.Build.0 = Release|x86
-		{222DD082-BA5B-4750-8246-0677E3FDA2A3}.UserControlTesting|x64.ActiveCfg = UserControlTesting|x64
-		{222DD082-BA5B-4750-8246-0677E3FDA2A3}.UserControlTesting|x64.Build.0 = UserControlTesting|x64
-		{222DD082-BA5B-4750-8246-0677E3FDA2A3}.UserControlTesting|x86.ActiveCfg = UserControlTesting|x86
-		{222DD082-BA5B-4750-8246-0677E3FDA2A3}.UserControlTesting|x86.Build.0 = UserControlTesting|x86
+		{222DD082-BA5B-4750-8246-0677E3FDA2A3}.UserControlTesting|x64.ActiveCfg = Release|x64
+		{222DD082-BA5B-4750-8246-0677E3FDA2A3}.UserControlTesting|x64.Build.0 = Release|x64
+		{222DD082-BA5B-4750-8246-0677E3FDA2A3}.UserControlTesting|x86.ActiveCfg = Release|x86
+		{222DD082-BA5B-4750-8246-0677E3FDA2A3}.UserControlTesting|x86.Build.0 = Release|x86
 		{DAD8EA90-BF2B-4A57-86F4-4176342EEB8C}.Debug-MonoGame|x64.ActiveCfg = Debug|x64
 		{DAD8EA90-BF2B-4A57-86F4-4176342EEB8C}.Debug-MonoGame|x64.Build.0 = Debug|x64
 		{DAD8EA90-BF2B-4A57-86F4-4176342EEB8C}.Debug-MonoGame|x86.ActiveCfg = Debug|x86
