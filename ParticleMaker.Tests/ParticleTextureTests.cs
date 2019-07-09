@@ -103,7 +103,7 @@ namespace ParticleMaker.Tests
             texture.Name = "TestName";
 
             //Act & Assert
-            Assert.Equal(1548496081, texture.GetHashCode());
+            Assert.NotEqual(0, texture.GetHashCode());
         }
         #endregion
     }

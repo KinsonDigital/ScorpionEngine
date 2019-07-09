@@ -91,7 +91,7 @@ namespace ParticleMaker.Tests.Dialogs
             };
 
             //Act & Assert
-            Assert.Equal(-1126421578, item.GetHashCode());
+            Assert.NotEqual(0, item.GetHashCode());
         }
         #endregion
     }
