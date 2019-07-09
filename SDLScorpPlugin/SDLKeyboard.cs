@@ -31,92 +31,38 @@ namespace SDLScorpPlugin
         public bool NumLockOn => (SDL.SDL_GetModState() & SDL.SDL_Keymod.KMOD_NUM) == SDL.SDL_Keymod.KMOD_NUM;
 
         /// <summary>
-        /// Gets a value indicating if the left shift key is being pressed.
+        /// Gets a value indicating if the left shift key is being held down.
         /// </summary>
         public bool IsLeftShiftDown => (SDL.SDL_GetModState() & SDL.SDL_Keymod.KMOD_LSHIFT) == SDL.SDL_Keymod.KMOD_LSHIFT;
 
         /// <summary>
-        /// Gets a value indicating if the right shift key is being pressed.
+        /// Gets a value indicating if the right shift key is being held down.
         /// </summary>
         public bool IsRightShiftDown => (SDL.SDL_GetModState() & SDL.SDL_Keymod.KMOD_RSHIFT) == SDL.SDL_Keymod.KMOD_RSHIFT;
 
         /// <summary>
-        /// Gets a value indicating if the left control key is being pressed down.
+        /// Gets a value indicating if the left control key is being held down.
         /// </summary>
         public bool IsLeftCtrlDown => (SDL.SDL_GetModState() & SDL.SDL_Keymod.KMOD_LCTRL) == SDL.SDL_Keymod.KMOD_LCTRL;
 
         /// <summary>
-        /// Gets a value indicating if the right control key is being pressed down.
+        /// Gets a value indicating if the right control key is being held down.
         /// </summary>
         public bool IsRightCtrlDown => (SDL.SDL_GetModState() & SDL.SDL_Keymod.KMOD_RCTRL) == SDL.SDL_Keymod.KMOD_RCTRL;
 
         /// <summary>
-        /// Gets a value indicating if the left alt key is being pressed down.
+        /// Gets a value indicating if the left alt key is being held down.
         /// </summary>
         public bool IsLeftAltDown => (SDL.SDL_GetModState() & SDL.SDL_Keymod.KMOD_LALT) == SDL.SDL_Keymod.KMOD_LALT;
 
         /// <summary>
-        /// Gets a value indicating if the right alt key is being pressed down.
+        /// Gets a value indicating if the right alt key is being held down.
         /// </summary>
         public bool IsRightAltDown => (SDL.SDL_GetModState() & SDL.SDL_Keymod.KMOD_RALT) == SDL.SDL_Keymod.KMOD_RALT;
         #endregion
 
 
         #region Public Methods
-        /// <summary>
-        /// Returns a value indicating if any keys are in the down position.
-        /// </summary>
-        /// <returns></returns>
-        public bool AreAnyKeysDown() => _currentStateKeys.Count > 0;
-
-
-        /// <summary>
-        /// Returns all of the currently pressed keys of the keyboard for the current frame.
-        /// </summary>
-        /// <returns></returns>
-        public KeyCodes[] GetCurrentPressedKeys() => KeyboardKeyMapper.ToStandardKeyCodes(_currentStateKeys.ToArray());
-
-
-        /// <summary>
-        /// Returns all of the previously pressed keys of the keyborad from the last frame.
-        /// </summary>
-        /// <returns></returns>
-        public KeyCodes[] GetPreviousPressedKeys() => KeyboardKeyMapper.ToStandardKeyCodes(_prevStateKeys.ToArray());
-
-
-        /// <summary>
-        /// Returns a value indicating if any of the given key codes are being held down.
-        /// </summary>
-        /// <param name="keys">The list of key codes to check.</param>
-        /// <returns></returns>
-        public bool IsAnyKeyDown(KeyCodes[] keys) => keys.Any(k => _currentStateKeys.Contains(KeyboardKeyMapper.ToSDLKeyCode(k)));
-
-
-        /// <summary>
-        /// Returns true if the given key is in the down position.
-        /// </summary>
-        /// <param name="key">The key to check for.</param>
-        /// <returns></returns>
-        public bool IsKeyDown(KeyCodes key) => _currentStateKeys.Contains(KeyboardKeyMapper.ToSDLKeyCode(key));
-
-
-        /// <summary>
-        /// Returns true if the given key is in the up position.
-        /// </summary>
-        /// <param name="key">The key to check for.</param>
-        /// <returns></returns>
-        public bool IsKeyUp(KeyCodes key) => !IsKeyDown(key);
-
-
-        /// <summary>
-        /// Returns true if the given key has been put into the down position then released to the up position.
-        /// </summary>
-        /// <param name="key">The key to check for.</param>
-        /// <returns></returns>
-        public bool IsKeyPressed(KeyCodes key) => !_currentStateKeys.Contains(KeyboardKeyMapper.ToSDLKeyCode(key)) &&
-            _prevStateKeys.Contains(KeyboardKeyMapper.ToSDLKeyCode(key));
-
-
         /// <summary>
         /// Update the current state of the keyboard.
         /// </summary>
@@ -135,6 +81,60 @@ namespace SDLScorpPlugin
             _prevStateKeys.Clear();
             _prevStateKeys.AddRange(SDLEngineCore.PreviousKeyboardState);
         }
+
+
+        /// <summary>
+        /// Returns a value indicating if any keys are in the down position.
+        /// </summary>
+        /// <returns></returns>
+        public bool AreAnyKeysDown() => _currentStateKeys.Count > 0;
+
+
+        /// <summary>
+        /// Returns a value indicating if any of the given key codes are being held in the down position.
+        /// </summary>
+        /// <param name="keys">The list of key codes to check.</param>
+        /// <returns></returns>
+        public bool AreKeysDown(KeyCodes[] keys) => keys.Any(k => _currentStateKeys.Contains(KeyboardKeyMapper.ToSDLKeyCode(k)));
+
+
+        /// <summary>
+        /// Returns true if the given key is in the down position.
+        /// </summary>
+        /// <param name="key">The key to check.</param>
+        /// <returns></returns>
+        public bool IsKeyDown(KeyCodes key) => _currentStateKeys.Contains(KeyboardKeyMapper.ToSDLKeyCode(key));
+
+
+        /// <summary>
+        /// Returns true if the given key is in the up position.
+        /// </summary>
+        /// <param name="key">The key to check.</param>
+        /// <returns></returns>
+        public bool IsKeyUp(KeyCodes key) => !IsKeyDown(key);
+
+
+        /// <summary>
+        /// Returns true if the given key has been put into the down position then released to the up position.
+        /// </summary>
+        /// <param name="key">The key to check.</param>
+        /// <returns></returns>
+        public bool IsKeyPressed(KeyCodes key) => !_currentStateKeys.Contains(KeyboardKeyMapper.ToSDLKeyCode(key)) &&
+            _prevStateKeys.Contains(KeyboardKeyMapper.ToSDLKeyCode(key));
+
+
+        /// <summary>
+        /// Returns all of the currently pressed keys of the keyboard for the current frame.
+        /// </summary>
+        /// <returns></returns>
+        public KeyCodes[] GetCurrentPressedKeys() => KeyboardKeyMapper.ToStandardKeyCodes(_currentStateKeys.ToArray());
+
+
+        /// <summary>
+        /// Returns all of the previously pressed keys of the keyborad from the last frame.
+        /// </summary>
+        /// <returns></returns>
+        public KeyCodes[] GetPreviousPressedKeys() => KeyboardKeyMapper.ToStandardKeyCodes(_prevStateKeys.ToArray());
 
 
         /// <summary>

@@ -182,7 +182,7 @@ namespace KDScorpionCore.Input
         /// </summary>
         /// <param name="keys">The list of key codes to check.</param>
         /// <returns></returns>
-        public bool IsAnyKeyDown(KeyCodes[] keys) => InternalKeyboard.IsAnyKeyDown(keys);
+        public bool IsAnyKeyDown(KeyCodes[] keys) => InternalKeyboard.AreKeysDown(keys);
 
 
         /// <summary>

@@ -124,9 +124,6 @@ namespace SDLScorpPlugin
 
 
         #region Public Methods
-        /// <summary>
-        /// Starts up the game engine.
-        /// </summary>
         public void Start()
         {
             InitEngine();
@@ -135,9 +132,6 @@ namespace SDLScorpPlugin
         }
 
 
-        /// <summary>
-        /// Stops shuts down the game engine.
-        /// </summary>
         public void Stop()
         {
             _timer.Stop();
@@ -145,25 +139,18 @@ namespace SDLScorpPlugin
         }
 
 
-        /// <summary>
-        /// Gets a value indicating if the engine is currently running.
-        /// </summary>
-        /// <returns></returns>
         public bool IsRunning() => _isRunning;
 
 
-        /// <summary>
-        /// Sets the FPS of the engine to run at the given <paramref name="value"/>.
-        /// </summary>
-        /// <param name="value">The value to set the FPS at.</param>
         public void SetFPS(float value) => _targetFrameRate = 1000f / value;
 
 
-        /// <summary>
-        /// Gets any arbitrary data needed for use.
-        /// </summary>
-        /// <typeparam name="T">The type of data to get.</typeparam>
-        /// <returns></returns>
+        public void InjectData<T>(T data) where T : class
+        {
+            throw new NotImplementedException();
+        }
+
+
         public T GetData<T>(int option) where T : class
         {
             var ptrContainer = new PointerContainer();
@@ -183,17 +170,6 @@ namespace SDLScorpPlugin
 
 
             return ptrContainer as T;
-        }
-
-
-        /// <summary>
-        /// Injects any arbitrary data into the plugin for use.  Must be a class.
-        /// </summary>
-        /// <typeparam name="T">The type of data to inject.</typeparam>
-        /// <param name="data">The data to inject.</param>
-        public void InjectData<T>(T data) where T : class
-        {
-            throw new NotImplementedException();
         }
 
 

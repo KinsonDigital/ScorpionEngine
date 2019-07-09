@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Input;
+using XNAMouse = Microsoft.Xna.Framework.Input.Mouse;
 using KDScorpionCore.Plugins;
+using KDScorpionCore.Input;
 
 namespace MonoScorpPlugin
 {
@@ -14,7 +16,7 @@ namespace MonoScorpPlugin
 
         #region Props
         /// <summary>
-        /// Gets the X position of the mouse.
+        /// Gets sets the X position of the mouse.
         /// </summary>
         public int X
         {
@@ -23,7 +25,7 @@ namespace MonoScorpPlugin
         }
 
         /// <summary>
-        /// Gets the Y position of the mouse.
+        /// Gets sets the Y position of the mouse.
         /// </summary>
         public int Y
         {
@@ -33,55 +35,42 @@ namespace MonoScorpPlugin
         #endregion
 
 
-        #region Protected Methods
+        #region Public Methods
         /// <summary>
         /// Update the current state of the mouse.
         /// </summary>
-        public void UpdateCurrentState()
-        {
-            //Get the state of the mouse and save it as the current state
-            _currentState = Mouse.GetState();
-        }
+        public void UpdateCurrentState() => _currentState = XNAMouse.GetState();
 
 
         /// <summary>
         /// Update the previous state of the mouse.
         /// </summary>
-        public void UpdatePreviousState()
-        {
-            //Update the previous state
-            _previousState = _currentState;
-        }
-        #endregion
+        public void UpdatePreviousState() => _previousState = _currentState;
 
 
-        #region Public Methods
         /// <summary>
-        /// Sets the position of the mouse.
+        /// Sets the position of the mouse using the given <paramref name="x"/> and <paramref name="y"/> values.
         /// </summary>
-        /// <param name="x">The horizontal position to set the mouse to over the game window.</param>
-        /// <param name="y">The vertical position to set the mouse to over the game window.</param>
-        public void SetPosition(int x, int y)
-        {
-            Mouse.SetPosition(x, y);
-        }
+        /// <param name="x">The horizontal X position to set the mouse in the game window.</param>
+        /// <param name="y">The vertical Y position to set the mouse in the game window.</param>
+        public void SetPosition(int x, int y) => XNAMouse.SetPosition(x, y);
 
 
         /// <summary>
         /// Returns true if the given input is in the down position.
         /// </summary>
-        /// <param name="input">The input to check for.</param>
+        /// <param name="input">The input button to check.</param>
         /// <returns></returns>
-        public bool IsButtonDown(int input)
+        public bool IsButtonDown(InputButton input)
         {
             //Return the down state of the given mouse input
             switch (input)
             {
-                case 1://Left button
+                case InputButton.LeftButton:
                     return _currentState.LeftButton == ButtonState.Pressed;
-                case 2://Right button
+                case InputButton.RightButton:
                     return _currentState.RightButton == ButtonState.Pressed;
-                case 3://Middle button
+                case InputButton.MiddleButton:
                     return _currentState.MiddleButton == ButtonState.Pressed;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(input), input, null);
@@ -90,42 +79,28 @@ namespace MonoScorpPlugin
 
 
         /// <summary>
-        /// Returns true if the given input is in the up position.
+        /// Returns true if the given <paramref name="inputButton"/> is in the up position.
         /// </summary>
-        /// <param name="input">The input to check for.</param>
+        /// <param name="inputButton">The input button to check.</param>
         /// <returns></returns>
-        public bool IsButtonUp(int input)
-        {
-            //Return the up state of the given mouse input
-            switch (input)
-            {
-                case 1://Left button
-                    return _currentState.LeftButton == ButtonState.Released;
-                case 2://Right button
-                    return _currentState.RightButton == ButtonState.Released;
-                case 3://Middle button
-                    return _currentState.MiddleButton == ButtonState.Released;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(input), input, null);
-            }
-        }
+        public bool IsButtonUp(InputButton input) => !IsButtonDown(input);
 
 
         /// <summary>
-        /// Returns true if the given mouse input has been released from the down position.
+        /// Returns true if the given mouse <paramref name="inputButton"/> has been released from the down position.
         /// </summary>
-        /// <param name="input">The mouse input to check for.</param>
+        /// <param name="inputButton">The input button to check.</param>
         /// <returns></returns>
-        public bool IsButtonPressed(int input)
+        public bool IsButtonPressed(InputButton input)
         {
             //Check the given input to see if it has been released from the down position
             switch (input)
             {
-                case 1://Left button
+                case InputButton.LeftButton:
                     return _currentState.LeftButton == ButtonState.Released && _previousState.LeftButton == ButtonState.Pressed;
-                case 2://Right button
+                case InputButton.RightButton:
                     return _currentState.RightButton == ButtonState.Released && _previousState.RightButton == ButtonState.Pressed;
-                case 3://Middle button
+                case InputButton.MiddleButton:
                     return _currentState.MiddleButton == ButtonState.Released && _previousState.MiddleButton == ButtonState.Pressed;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(input), input, null);
@@ -133,16 +108,21 @@ namespace MonoScorpPlugin
         }
 
 
-        public void InjectData<T>(T data) where T : class
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        /// Injects any arbitrary data into the plugin for use.  Must be a class.
+        /// </summary>
+        /// <typeparam name="T">The type of data to inject.</typeparam>
+        /// <param name="data">The data to inject.</param>
+        public void InjectData<T>(T data) where T : class => throw new NotImplementedException();
 
 
-        public T GetData<T>(int option) where T : class
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        /// Gets the data as the given type <typeparamref name="T"/>.
+        /// </summary>
+        /// <param name="option">Used to pass in options for the <see cref="GetData{T}(int)"/> implementation to process.</param>
+        /// <typeparam name="T">The type of data to get.</typeparam>
+        /// <returns></returns>
+        public T GetData<T>(int option) where T : class => throw new NotImplementedException();
         #endregion
     }
 }

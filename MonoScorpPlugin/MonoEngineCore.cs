@@ -82,6 +82,18 @@ namespace MonoScorpPlugin
         }
 
 
+        public void InjectData<T>(T data) where T : class
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public T GetData<T>(int option) where T : class
+        {
+            throw new NotImplementedException();
+        }
+
+
         public void Dispose()
         {
         }
@@ -115,18 +127,6 @@ namespace MonoScorpPlugin
         private void _monoGame_OnRender(object sender, OnRenderEventArgs e)
         {
             OnRender?.Invoke(sender, e);
-        }
-
-
-        public void InjectData<T>(T data) where T : class
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public T GetData<T>(int option) where T : class
-        {
-            throw new NotImplementedException();
         }
         #endregion
     }
