@@ -59,7 +59,7 @@ namespace ParticleMaker.UserControls
                 colors.Add(new ColorItem()
                 {
                     Id = newId,
-                    ColorBrush = new SolidColorBrush(colorPicker.ChosenColor)
+                    ColorBrush = new SolidColorBrush(colorPicker.ChosenColorBrush.Color)
                 });
 
                 Colors = colors.ToArray();
@@ -85,7 +85,7 @@ namespace ParticleMaker.UserControls
                         Colors[i] = new ColorItem()
                         {
                             Id = e.Id,
-                            ColorBrush = new SolidColorBrush(colorPicker.ChosenColor)
+                            ColorBrush = new SolidColorBrush(colorPicker.ChosenColorBrush.Color)
                         };
 
                         SetValue(ColorsProperty, Colors);

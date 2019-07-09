@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace ParticleMaker.UserControls
 {
@@ -32,12 +33,11 @@ namespace ParticleMaker.UserControls
         #region Private Methods
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
-            _viewModel.TotalParticlesAliveAtOnce = 51;
-            _viewModel.UpdateBindings();
+            var colorPickerDialog = new ColorPicker(Color.FromArgb(255, 255, 100, 50));
+
+            colorPickerDialog.ShowDialog();
         }
         #endregion
-
-
 
 
         public int MaxValue
