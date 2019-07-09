@@ -2,8 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <ApplicationIcon />
-    <OutputType>Library</OutputType>
     <IsPackable>false</IsPackable>
     <Platforms>x86;x64</Platforms>
     <AssemblyTitle>PluginSystemTests</AssemblyTitle>

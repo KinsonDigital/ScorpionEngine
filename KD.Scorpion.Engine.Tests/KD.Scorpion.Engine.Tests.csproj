@@ -4,7 +4,6 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <Platforms>x86;x64</Platforms>
     <IsPackable>false</IsPackable>    
-    <OutputType>Library</OutputType>
     <AssemblyTitle>ScorpionEngineTests</AssemblyTitle>
     <Product>Kinson Digital - Scorpion Engine Tests</Product>
     <Copyright>Copyright © 2018</Copyright>

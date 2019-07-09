@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <Platforms>x86;x64</Platforms>
-    <OutputType>Library</OutputType>
     <IsPackable>false</IsPackable>
     <AssemblyTitle>ScorpionCoreTests</AssemblyTitle>
     <Product>Kinson Digital - Scorpion Core Unit Tests</Product>

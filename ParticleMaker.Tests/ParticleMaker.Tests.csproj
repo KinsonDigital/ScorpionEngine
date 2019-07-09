@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
-    <OutputType>Library</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <Platforms>x86;x64</Platforms>
     <AssemblyTitle>ParticleMakerTests</AssemblyTitle>
@@ -23,6 +22,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\KD.Particle.Engine\KD.Particle.Engine.csproj" />
+    <ProjectReference Include="..\ParticleMaker\ParticleMaker.csproj" />
   </ItemGroup>
 
 </Project>

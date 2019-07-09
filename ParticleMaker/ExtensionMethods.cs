@@ -36,6 +36,7 @@ namespace ParticleMaker
         private const float PI = 3.1415926535897931f;
         private static CancellationTokenSource _tokenSrc;
         private static Task _hideWindowTask;
+        private static char[] _windowsIllegalCharacters = new[] { '\\', '/', ':', '*', '?', '"', '<', '>', '|' };
         #endregion
 
 
@@ -168,6 +169,12 @@ namespace ParticleMaker
         public static bool ContainsIllegalFileNameCharacters(this string value)
         {
             var characters = Path.GetInvalidPathChars();
+
+#if WINDOWS
+            var allCharacters = new List<char>(characters);
+            allCharacters.AddRange(_windowsIllegalCharacters);
+            characters = allCharacters.ToArray();
+#endif
 
             foreach (var c in characters)
             {

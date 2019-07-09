@@ -4,6 +4,7 @@ using Xunit;
 using ParticleMaker.Exceptions;
 using ParticleMaker.Management;
 using ParticleMaker.Services;
+using KDParticleEngine;
 
 namespace ParticleMaker.Tests.Management
 {

@@ -62,15 +62,10 @@ namespace ParticleMaker.Tests.UserControls
         public void GetHashCode_WhenInvoking_ReturnsCorrectValue()
         {
             //Arrange
-            var itemA = new PathItem() { FilePath = "test-item-A" };
-
-            var expected = -928514204;
-
-            //Act
-            var actual = itemA.GetHashCode();
+            var item = new PathItem() { FilePath = "test-item-A" };
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.NotEqual(0, item.GetHashCode());
         }
         #endregion
     }
