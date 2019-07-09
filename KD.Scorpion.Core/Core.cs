@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace KDScorpionCore
 {
     /// <summary>
-    /// Loads up and boostraps the core plugin system.
+    /// Loads up and boostraps the <see cref="CorePluginSystem"/>.
     /// </summary>
     [ExcludeFromCodeCoverage]
     internal static class Core

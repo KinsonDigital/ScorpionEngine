@@ -18,7 +18,7 @@ namespace KDScorpionCore.Plugins
 
 
         /// <summary>
-        /// Stops the batching process and renders all of the batches textures to the screen.
+        /// Stops the batching process and renders all of the batched textures to the screen.
         /// </summary>
         void End();
 
@@ -98,7 +98,7 @@ namespace KDScorpionCore.Plugins
 
 
         /// <summary>
-        /// Renders a line using the given start and stop X and Y coordinates.
+        /// Renders a line using the given start and stop coordinates.
         /// </summary>
         /// <param name="lineStartX">The starting X coordinate of the line.</param>
         /// <param name="lineStartY">The starting Y coordinate of the line.</param>
