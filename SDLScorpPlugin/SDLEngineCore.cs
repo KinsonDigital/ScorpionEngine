@@ -8,6 +8,10 @@ using System.Linq;
 
 namespace SDLScorpPlugin
 {
+    /// <summary>
+    /// Provides the core of a game engine which facilitates how the engine starts, stops,
+    /// manages time and how the game loop runs.
+    /// </summary>
     public class SDLEngineCore : IEngineCore
     {
         #region Public Events
@@ -18,7 +22,7 @@ namespace SDLScorpPlugin
         #endregion
 
 
-        #region Private Vars
+        #region Private Fields
         private Stopwatch _timer;
         private TimeSpan _lastFrameTime;
         private bool _isRunning;
@@ -55,7 +59,7 @@ namespace SDLScorpPlugin
         }
 
         /// <summary>
-        /// Gets or sts the height of the game window.
+        /// Gets or sets the height of the game window.
         /// </summary>
         public int WindowHeight
         {
@@ -72,6 +76,9 @@ namespace SDLScorpPlugin
             }
         }
 
+        /// <summary>
+        /// Gets or sets the renderer that renders graphics to the window.
+        /// </summary>
         public IRenderer Renderer { get; private set; }
 
         public TimeStepType TimeStep { get; set; } = TimeStepType.Fixed;
@@ -124,6 +131,9 @@ namespace SDLScorpPlugin
 
 
         #region Public Methods
+        /// <summary>
+        /// Starts the engine.
+        /// </summary>
         public void Start()
         {
             InitEngine();
@@ -132,6 +142,9 @@ namespace SDLScorpPlugin
         }
 
 
+        /// <summary>
+        /// Stops the engine.
+        /// </summary>
         public void Stop()
         {
             _timer.Stop();
@@ -139,18 +152,37 @@ namespace SDLScorpPlugin
         }
 
 
-        public bool IsRunning() => _isRunning;
-
-
+        /// <summary>
+        /// Sets how many frames the engine will process per second.
+        /// </summary>
+        /// <param name="value">The total number of frames.</param>
         public void SetFPS(float value) => _targetFrameRate = 1000f / value;
 
 
+        /// <summary>
+        /// Returns true if the engine is running.
+        /// </summary>
+        /// <returns></returns>
+        public bool IsRunning() => _isRunning;
+
+
+        /// <summary>
+        /// Injects any arbitrary data into the plugin for use.  Must be a class.
+        /// </summary>
+        /// <typeparam name="T">The type of data to inject.</typeparam>
+        /// <param name="data">The data to inject.</param>
         public void InjectData<T>(T data) where T : class
         {
             throw new NotImplementedException();
         }
 
 
+        /// <summary>
+        /// Gets the data as the given type <typeparamref name="T"/>.
+        /// </summary>
+        /// <param name="option">Used to pass in options for the <see cref="GetData{T}(int)"/> implementation to process.</param>
+        /// <typeparam name="T">The type of data to get.</typeparam>
+        /// <returns></returns>
         public T GetData<T>(int option) where T : class
         {
             var ptrContainer = new PointerContainer();
@@ -174,8 +206,7 @@ namespace SDLScorpPlugin
 
 
         /// <summary>
-        /// Properly disposes of the engine by disposing of any
-        /// SDL resources.
+        /// Disposes of the <see cref="SDLEngineCore"/>.
         /// </summary>
         public void Dispose()
         {
@@ -327,15 +358,9 @@ namespace SDLScorpPlugin
                 }
 
                 //Update the previous state of the keyboard
-                UpdatePreviousKeyboardState();
+                PreviousKeyboardState.Clear();
+                PreviousKeyboardState.AddRange(CurrentKeyboardState);
             }
-        }
-
-
-        private void UpdatePreviousKeyboardState()
-        {
-            PreviousKeyboardState.Clear();
-            PreviousKeyboardState.AddRange(CurrentKeyboardState);
         }
 
 

@@ -10,7 +10,7 @@ using VelcroPhysics.Primitives;
 namespace VelcroPhysicsPlugin
 {
     
-       /// <summary>
+    /// <summary>
     /// Represents a body in a world that obeys physics.
     /// </summary>
     public class VelcroBody : IPhysicsBody

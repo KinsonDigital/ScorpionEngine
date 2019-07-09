@@ -21,7 +21,7 @@ namespace KDScorpionEngineTests.Input
         public MouseWatcherTests()
         {
             _mockMouse = new Mock<IMouse>();
-            _mockMouse.Setup(m => m.IsButtonPressed((int)InputButton.LeftButton)).Returns(true);
+            _mockMouse.Setup(m => m.IsButtonPressed(InputButton.LeftButton)).Returns(true);
         }
         #endregion
 
@@ -216,7 +216,7 @@ namespace KDScorpionEngineTests.Input
         public void InputReleasedElapsedSeconds_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            _mockMouse.Setup(m => m.IsButtonDown((int)InputButton.MiddleButton)).Returns(false);
+            _mockMouse.Setup(m => m.IsButtonDown(InputButton.MiddleButton)).Returns(false);
 
             var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
             {
@@ -337,7 +337,7 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenInvokingWithProperButtonState_ResetsDownTimerAndStartsButtonUpTimer()
         {
             //Arrange
-            _mockMouse.Setup(m => m.IsButtonDown((int)InputButton.LeftButton)).Returns(true);
+            _mockMouse.Setup(m => m.IsButtonDown(InputButton.LeftButton)).Returns(true);
 
             var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
             {
@@ -350,7 +350,7 @@ namespace KDScorpionEngineTests.Input
 
             //Act/Assert
             mouseWatcher.Update(engineTime);//Run once to get the internal states.
-            _mockMouse.Setup(m => m.IsButtonDown((int)InputButton.LeftButton)).Returns(false);//Return false to simulate that the button is not down
+            _mockMouse.Setup(m => m.IsButtonDown(InputButton.LeftButton)).Returns(false);//Return false to simulate that the button is not down
             mouseWatcher.Update(engineTime);//Run update again to set the current and previous states different
             mouseWatcher.Update(engineTime);
             var actualDownTimerElapsed = mouseWatcher.InputDownElapsedMS;
@@ -366,9 +366,9 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenDisabled_DoNotUpdateAnything()
         {
             //Arrange
-            _mockMouse.Setup(m => m.IsButtonDown((int)InputButton.LeftButton)).Returns(true);
-            _mockMouse.Setup(m => m.IsButtonUp((int)InputButton.LeftButton)).Returns(true);
-            _mockMouse.Setup(m => m.IsButtonPressed((int)InputButton.LeftButton)).Returns(true);
+            _mockMouse.Setup(m => m.IsButtonDown(InputButton.LeftButton)).Returns(true);
+            _mockMouse.Setup(m => m.IsButtonUp(InputButton.LeftButton)).Returns(true);
+            _mockMouse.Setup(m => m.IsButtonPressed(InputButton.LeftButton)).Returns(true);
 
             var expectedCurrentHitCount = 0;
             var expectedInputHitCountReachedEventInvoked = false;
@@ -413,7 +413,7 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenUpdating_InvokesHitCountReachedEvent()
         {
             //Arrange
-            _mockMouse.Setup(m => m.IsButtonPressed((int)InputButton.LeftButton)).Returns(true);
+            _mockMouse.Setup(m => m.IsButtonPressed(InputButton.LeftButton)).Returns(true);
 
             var expected = true;
             var actual = false;
@@ -440,7 +440,7 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenUpdating_InvokesInputDownTimeoutEvent()
         {
             //Arrange
-            _mockMouse.Setup(m => m.IsButtonDown((int)InputButton.LeftButton)).Returns(true);
+            _mockMouse.Setup(m => m.IsButtonDown(InputButton.LeftButton)).Returns(true);
 
             var expected = true;
             var actual = false;
@@ -465,7 +465,7 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenUpdatingWithNullInputDownTimeoutEvent_ShouldNotThrowNullRefException()
         {
             //Arrange
-            _mockMouse.Setup(m => m.IsButtonDown((int)InputButton.LeftButton)).Returns(true);
+            _mockMouse.Setup(m => m.IsButtonDown(InputButton.LeftButton)).Returns(true);
 
             var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
             {
@@ -487,7 +487,7 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenUpdating_InvokesInputReleaseTimeoutEvent()
         {
             //Arrange
-            _mockMouse.Setup(m => m.IsButtonUp((int)InputButton.RightButton)).Returns(true);
+            _mockMouse.Setup(m => m.IsButtonUp(InputButton.RightButton)).Returns(true);
 
             var expected = true;
             var actual = false;
@@ -512,7 +512,7 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenUpdatingWithNullInputReleasedTimeoutEvent_ShouldNotThrowNullRefException()
         {
             //Arrange
-            _mockMouse.Setup(m => m.IsButtonUp((int)InputButton.RightButton)).Returns(true);
+            _mockMouse.Setup(m => m.IsButtonUp(InputButton.RightButton)).Returns(true);
 
             var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
             {
@@ -534,8 +534,8 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenInvokingWithSetComboButtons_InvokesOnInputComboPressedEvent()
         {
             //Arrange
-            _mockMouse.Setup(m => m.IsButtonDown((int)InputButton.LeftButton)).Returns(true);
-            _mockMouse.Setup(m => m.IsButtonDown((int)InputButton.RightButton)).Returns(true);
+            _mockMouse.Setup(m => m.IsButtonDown(InputButton.LeftButton)).Returns(true);
+            _mockMouse.Setup(m => m.IsButtonDown(InputButton.RightButton)).Returns(true);
 
             var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
             {
@@ -562,8 +562,8 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenInvokingWithNullOnInputComboPressedEvent_DoesNotThrowNullException()
         {
             //Arrange
-            _mockMouse.Setup(m => m.IsButtonDown((int)InputButton.LeftButton)).Returns(true);
-            _mockMouse.Setup(m => m.IsButtonDown((int)InputButton.RightButton)).Returns(true);
+            _mockMouse.Setup(m => m.IsButtonDown(InputButton.LeftButton)).Returns(true);
+            _mockMouse.Setup(m => m.IsButtonDown(InputButton.RightButton)).Returns(true);
 
             var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
             {

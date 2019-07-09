@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace KDScorpionCore.Physics
 {
+    /// <summary>
+    /// Represents a body in a world that obeys physics.
+    /// </summary>
     public class PhysicsBody
     {
         #region Private Fields
@@ -43,6 +46,9 @@ namespace KDScorpionCore.Physics
 
 
         #region Props
+        /// <summary>
+        /// The internal physics engine body.
+        /// </summary>
         internal IPhysicsBody InternalPhysicsBody
         {
             [ExcludeFromCodeCoverage]
@@ -57,6 +63,9 @@ namespace KDScorpionCore.Physics
             private set => _internalPhysicsBody = value;
         }
 
+        /// <summary>
+        /// Gets or sets the vertices that maake up the shape of the body.
+        /// </summary>
         public Vector[] Vertices
         {
             get
@@ -81,12 +90,18 @@ namespace KDScorpionCore.Physics
             }
         }
 
+        /// <summary>
+        /// The X coordinate of the body's location.
+        /// </summary>
         public float X
         {
             get => InternalPhysicsBody.X;
             set => InternalPhysicsBody.X = value;
         }
 
+        /// <summary>
+        /// The Y coordinate of the body's location.
+        /// </summary>
         public float Y
         {
             get => InternalPhysicsBody.Y;
@@ -94,42 +109,45 @@ namespace KDScorpionCore.Physics
         }
 
         //In Degrees
+        /// <summary>
+        /// Gets or sets the angle of the body in degrees.
+        /// </summary>
         public float Angle
         {
             get => InternalPhysicsBody.Angle;
             set => InternalPhysicsBody.Angle = value;
         }
 
+        /// <summary>
+        /// Gets or sets the density of the body.
+        /// </summary>
         public float Density
         {
             get => InternalPhysicsBody.Density;
             set => InternalPhysicsBody.Density = value;
         }
 
+        /// <summary>
+        /// Gets or sets the friction of the body.
+        /// </summary>
         public float Friction
         {
             get => InternalPhysicsBody.Friction;
             set => InternalPhysicsBody.Friction = value;
         }
 
+        /// <summary>
+        /// Gets or sets the restitution(bounciness) of the body.
+        /// </summary>
         public float Restitution
         {
             get => InternalPhysicsBody.Restitution;
             set => InternalPhysicsBody.Restitution = value;
         }
 
-        public float LinearDeceleration
-        {
-            get => InternalPhysicsBody.LinearDeceleration;
-            set => InternalPhysicsBody.LinearDeceleration = value;
-        }
-
-        public float AngularDeceleration
-        {
-            get => InternalPhysicsBody.AngularDeceleration;
-            set => InternalPhysicsBody.AngularDeceleration = value;
-        }
-
+        /// <summary>
+        /// Gets or sets the linear velocity in the Y plane.
+        /// </summary>
         public Vector LinearVelocity
         {
             get => new Vector(InternalPhysicsBody.LinearVelocityX, InternalPhysicsBody.LinearVelocityY);
@@ -140,10 +158,31 @@ namespace KDScorpionCore.Physics
             }
         }
 
+        /// <summary>
+        /// Gets or sets the angular velocity.
+        /// </summary>
         public float AngularVelocity
         {
             get => InternalPhysicsBody.AngularVelocity;
             set => InternalPhysicsBody.AngularVelocity = value;
+        }
+
+        /// <summary>
+        /// Gets or sets the linear deceleration.
+        /// </summary>
+        public float LinearDeceleration
+        {
+            get => InternalPhysicsBody.LinearDeceleration;
+            set => InternalPhysicsBody.LinearDeceleration = value;
+        }
+
+        /// <summary>
+        /// Gets or sets the angular desceleration.
+        /// </summary>
+        public float AngularDeceleration
+        {
+            get => InternalPhysicsBody.AngularDeceleration;
+            set => InternalPhysicsBody.AngularDeceleration = value;
         }
         #endregion
 
@@ -164,13 +203,13 @@ namespace KDScorpionCore.Physics
             _ctorParams = new object[9];
 
             //Setup the vertices
-            var verticesParam = new List<InternalVector>();
+            //var verticesParam = new List<InternalVector>();
 
-            foreach (var vector in vertices)
-                verticesParam.Add(new InternalVector(vector.X, vector.Y));
+            //foreach (var vector in vertices)
+            //    verticesParam.Add(new InternalVector(vector.X, vector.Y));
 
-            _ctorParams[0] = (from v in verticesParam.ToArray() select v.X).ToArray();
-            _ctorParams[1] = (from v in verticesParam.ToArray() select v.Y).ToArray();
+            _ctorParams[0] = (from v in vertices select v.X).ToArray();
+            _ctorParams[1] = (from v in vertices select v.Y).ToArray();
             _ctorParams[2] = position.X;
             _ctorParams[3] = position.Y;
             _ctorParams[4] = angle;

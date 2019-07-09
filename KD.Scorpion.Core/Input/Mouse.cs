@@ -92,7 +92,7 @@ namespace KDScorpionCore.Input
         /// <returns></returns>
         public bool IsButtonDown(InputButton input)
         {
-            return InternalMouse.IsButtonDown((int)input);
+            return InternalMouse.IsButtonDown(input);
         }
 
 
@@ -103,7 +103,7 @@ namespace KDScorpionCore.Input
         /// <returns></returns>
         public bool IsButtonUp(InputButton input)
         {
-            return InternalMouse.IsButtonUp((int)input);
+            return InternalMouse.IsButtonUp(input);
         }
 
 
@@ -114,7 +114,7 @@ namespace KDScorpionCore.Input
         /// <returns></returns>
         public bool IsButtonPressed(InputButton input)
         {
-            return InternalMouse.IsButtonPressed((int)input);
+            return InternalMouse.IsButtonPressed(input);
         }
 
 
@@ -148,7 +148,7 @@ namespace KDScorpionCore.Input
 
             #region Left Mouse Button
             //If the left mouse button has been pressed down
-            if (InternalMouse.IsButtonDown((int)InputButton.LeftButton))
+            if (InternalMouse.IsButtonDown(InputButton.LeftButton))
             {
                 //Invoke the OnLeftButtonDown event and send the current state of the mouse
                 OnLeftButtonDown?.Invoke(this, new MouseEventArgs(new MouseInputState()
@@ -160,7 +160,7 @@ namespace KDScorpionCore.Input
             }
 
             //If the left mouse button has been pressed
-            if (InternalMouse.IsButtonPressed((int)InputButton.LeftButton))
+            if (InternalMouse.IsButtonPressed(InputButton.LeftButton))
             {
                 OnLeftButtonPressed?.Invoke(this, new MouseEventArgs(new MouseInputState()
                 {
@@ -172,7 +172,7 @@ namespace KDScorpionCore.Input
 
             #region Right Mouse Button
             //If the right mouse button has been pressed down
-            if (InternalMouse.IsButtonDown((int)InputButton.RightButton))
+            if (InternalMouse.IsButtonDown(InputButton.RightButton))
             {
                 //Invoke the OnRightButtonDown event and send the current state of the mouse
                 OnRightButtonDown?.Invoke(this, new MouseEventArgs(new MouseInputState()
@@ -184,7 +184,7 @@ namespace KDScorpionCore.Input
             }
 
             //If the right mouse button has been pressed
-            if (InternalMouse.IsButtonPressed((int)InputButton.RightButton))
+            if (InternalMouse.IsButtonPressed(InputButton.RightButton))
             {
                 OnRightButtonPressed?.Invoke(this, new MouseEventArgs(new MouseInputState()
                 {
@@ -196,7 +196,7 @@ namespace KDScorpionCore.Input
 
             #region Middle Mouse Button
             //If the middle mouse button has been pressed down
-            if (InternalMouse.IsButtonDown((int)InputButton.MiddleButton))
+            if (InternalMouse.IsButtonDown(InputButton.MiddleButton))
             {
                 //Invoke the OnMiddleButtonDown event and send the current state of the mouse
                 OnMiddleButtonDown?.Invoke(this, new MouseEventArgs(new MouseInputState()
@@ -208,7 +208,7 @@ namespace KDScorpionCore.Input
             }
 
             //If the middle mouse button has been pressed
-            if (InternalMouse.IsButtonPressed((int)InputButton.MiddleButton))
+            if (InternalMouse.IsButtonPressed(InputButton.MiddleButton))
             {
                 OnMiddleButtonPressed?.Invoke(this, new MouseEventArgs(new MouseInputState()
                 {

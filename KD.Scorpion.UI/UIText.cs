@@ -9,7 +9,7 @@ namespace KDScorpionUI
     public class UIText
     {
 
-        #region Private Vars
+        #region Private Fields
         private int _elapsedTime;//The amount of time that has elapsed since the last frame in miliseconds.
         private bool _updateText;//Indicates if the text can be updated.  Only updated if the UpdateFrequency value is >= to the elapsed time
         private GameText _labelText;

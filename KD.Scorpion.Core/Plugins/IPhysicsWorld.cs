@@ -24,7 +24,7 @@ namespace KDScorpionCore.Plugins
         /// <summary>
         /// Updates the physics world.
         /// </summary>
-        /// <param name="dt">The time that has passed this frame.</param>
+        /// <param name="dt">The time passed in milliseconds since the last frame.</param>
         void Update(float dt);
 
 

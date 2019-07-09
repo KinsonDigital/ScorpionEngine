@@ -77,7 +77,7 @@ namespace KDScorpionCoreTests.Input
             mouse.IsButtonDown(It.IsAny<InputButton>());
 
             //Assert
-            mockMouse.Verify(m => m.IsButtonDown(It.IsAny<int>()), Times.Once());
+            mockMouse.Verify(m => m.IsButtonDown(It.IsAny<InputButton>()), Times.Once());
         }
 
 
@@ -92,7 +92,7 @@ namespace KDScorpionCoreTests.Input
             mouse.IsButtonUp(It.IsAny<InputButton>());
 
             //Assert
-            mockMouse.Verify(m => m.IsButtonUp(It.IsAny<int>()), Times.Once());
+            mockMouse.Verify(m => m.IsButtonUp(It.IsAny<InputButton>()), Times.Once());
         }
 
 
@@ -107,7 +107,7 @@ namespace KDScorpionCoreTests.Input
             mouse.IsButtonPressed(It.IsAny<InputButton>());
 
             //Assert
-            mockMouse.Verify(m => m.IsButtonPressed(It.IsAny<int>()), Times.Once());
+            mockMouse.Verify(m => m.IsButtonPressed(It.IsAny<InputButton>()), Times.Once());
         }
 
 
@@ -161,7 +161,7 @@ namespace KDScorpionCoreTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IMouse>();
-            mockMouse.Setup(m => m.IsButtonDown((int)InputButton.LeftButton)).Returns(true);
+            mockMouse.Setup(m => m.IsButtonDown(InputButton.LeftButton)).Returns(true);
 
             var mouse = new Mouse(mockMouse.Object);
             var expected = true;
@@ -181,7 +181,7 @@ namespace KDScorpionCoreTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IMouse>();
-            mockMouse.Setup(m => m.IsButtonDown((int)InputButton.LeftButton)).Returns(true);
+            mockMouse.Setup(m => m.IsButtonDown(InputButton.LeftButton)).Returns(true);
 
             var mouse = new Mouse(mockMouse.Object);
 
@@ -195,7 +195,7 @@ namespace KDScorpionCoreTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IMouse>();
-            mockMouse.Setup(m => m.IsButtonPressed((int)InputButton.LeftButton)).Returns(true);
+            mockMouse.Setup(m => m.IsButtonPressed(InputButton.LeftButton)).Returns(true);
 
             var mouse = new Mouse(mockMouse.Object);
             var expected = true;
@@ -215,7 +215,7 @@ namespace KDScorpionCoreTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IMouse>();
-            mockMouse.Setup(m => m.IsButtonPressed((int)InputButton.LeftButton)).Returns(true);
+            mockMouse.Setup(m => m.IsButtonPressed(InputButton.LeftButton)).Returns(true);
 
             var mouse = new Mouse(mockMouse.Object);
 
@@ -229,7 +229,7 @@ namespace KDScorpionCoreTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IMouse>();
-            mockMouse.Setup(m => m.IsButtonDown((int)InputButton.RightButton)).Returns(true);
+            mockMouse.Setup(m => m.IsButtonDown(InputButton.RightButton)).Returns(true);
 
             var mouse = new Mouse(mockMouse.Object);
             var expected = true;
@@ -249,7 +249,7 @@ namespace KDScorpionCoreTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IMouse>();
-            mockMouse.Setup(m => m.IsButtonDown((int)InputButton.RightButton)).Returns(true);
+            mockMouse.Setup(m => m.IsButtonDown(InputButton.RightButton)).Returns(true);
 
             var mouse = new Mouse(mockMouse.Object);
 
@@ -263,7 +263,7 @@ namespace KDScorpionCoreTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IMouse>();
-            mockMouse.Setup(m => m.IsButtonPressed((int)InputButton.RightButton)).Returns(true);
+            mockMouse.Setup(m => m.IsButtonPressed(InputButton.RightButton)).Returns(true);
 
             var mouse = new Mouse(mockMouse.Object);
             var expected = true;
@@ -283,7 +283,7 @@ namespace KDScorpionCoreTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IMouse>();
-            mockMouse.Setup(m => m.IsButtonPressed((int)InputButton.RightButton)).Returns(true);
+            mockMouse.Setup(m => m.IsButtonPressed(InputButton.RightButton)).Returns(true);
 
             var mouse = new Mouse(mockMouse.Object);
 
@@ -297,7 +297,7 @@ namespace KDScorpionCoreTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IMouse>();
-            mockMouse.Setup(m => m.IsButtonDown((int)InputButton.MiddleButton)).Returns(true);
+            mockMouse.Setup(m => m.IsButtonDown(InputButton.MiddleButton)).Returns(true);
 
             var mouse = new Mouse(mockMouse.Object);
             var expected = true;
@@ -317,7 +317,7 @@ namespace KDScorpionCoreTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IMouse>();
-            mockMouse.Setup(m => m.IsButtonDown((int)InputButton.MiddleButton)).Returns(true);
+            mockMouse.Setup(m => m.IsButtonDown(InputButton.MiddleButton)).Returns(true);
 
             var mouse = new Mouse(mockMouse.Object);
 
@@ -331,7 +331,7 @@ namespace KDScorpionCoreTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IMouse>();
-            mockMouse.Setup(m => m.IsButtonPressed((int)InputButton.MiddleButton)).Returns(true);
+            mockMouse.Setup(m => m.IsButtonPressed(InputButton.MiddleButton)).Returns(true);
 
             var mouse = new Mouse(mockMouse.Object);
             var expected = true;
@@ -351,7 +351,7 @@ namespace KDScorpionCoreTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IMouse>();
-            mockMouse.Setup(m => m.IsButtonPressed((int)InputButton.MiddleButton)).Returns(true);
+            mockMouse.Setup(m => m.IsButtonPressed(InputButton.MiddleButton)).Returns(true);
 
             var mouse = new Mouse(mockMouse.Object);
 
@@ -365,7 +365,7 @@ namespace KDScorpionCoreTests.Input
         {
             //Arrange
             var mockMouse = new Mock<IMouse>();
-            mockMouse.Setup(m => m.IsButtonPressed((int)InputButton.MiddleButton)).Returns(true);
+            mockMouse.Setup(m => m.IsButtonPressed(InputButton.MiddleButton)).Returns(true);
 
             var mouse = new Mouse(mockMouse.Object);
 

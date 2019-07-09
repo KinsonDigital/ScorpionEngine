@@ -13,7 +13,7 @@ namespace SDLScorpPlugin
     /// </summary>
     public class SDLKeyboard : IKeyboard
     {
-        #region Private Vars
+        #region Private Fields
         private readonly List<SDL.SDL_Keycode> _currentStateKeys = new List<SDL.SDL_Keycode>();
         private readonly List<SDL.SDL_Keycode> _prevStateKeys = new List<SDL.SDL_Keycode>();
         #endregion
