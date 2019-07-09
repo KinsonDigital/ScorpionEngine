@@ -203,6 +203,26 @@ namespace ParticleMaker
 
             return result.ToArray();
         }
+
+
+        /// <summary>
+        /// Converts the given value to a byte value.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        /// <returns></returns>
+        public static byte ToByte(this float value)
+        {
+            var byteValue = (int)Math.Round(value);
+
+            if (byteValue > 255)
+                return 255;
+
+            if (byteValue < 0)
+                return 0;
+
+
+            return (byte)byteValue;
+        }
         #endregion
     }
 }

@@ -3,10 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:wpfTools="http://schemas.xceed.com/wpf/xaml/toolkit"
-        mc:Ignorable="d" Title="Choose a Color" ShowInTaskbar="False" ResizeMode="NoResize"
+        xmlns:userCtrls="clr-namespace:ParticleMaker.UserControls"
+        mc:Ignorable="d" Title="Choose a Color" ShowInTaskbar="False"
         SizeToContent="WidthAndHeight" Topmost="True" WindowStartupLocation="CenterScreen"
-        Name="this">
+        Name="this" ResizeMode="NoResize">
 
     <Grid DataContext="{Binding ElementName=this}">
         <Grid.ColumnDefinitions>
@@ -14,14 +14,50 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <wpfTools:ColorCanvas Grid.ColumnSpan="2" Grid.Row="0" Width="240"
-                              HorizontalAlignment="Left" SelectedColor="{Binding Path=ChosenColor}"/>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Vertical" Grid.Row="0">
+                <userCtrls:NumericUpDown Min="0" Max="255" Margin="5" LabelText="Red"
+                                         Value="{Binding Path=ChosenRedValue, Mode=TwoWay}"/>
+
+                <Slider Value="{Binding Path=ChosenRedValue, Mode=TwoWay}" Grid.Row="1" MinWidth="70"
+                        Minimum="0" Maximum="255" SmallChange="5" LargeChange="25"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Grid.Row="1">
+                <userCtrls:NumericUpDown Min="0" Max="255" Margin="5" LabelText="Green"
+                                         Value="{Binding Path=ChosenGreenValue, Mode=TwoWay}"/>
+
+                <Slider Value="{Binding Path=ChosenGreenValue, Mode=TwoWay}" Grid.Row="1" MinWidth="70"
+                        Minimum="0" Maximum="255" SmallChange="5" LargeChange="25"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Grid.Row="2">
+                <userCtrls:NumericUpDown Min="0" Max="255" Margin="5" LabelText="Blue"
+                                         Value="{Binding Path=ChosenBlueValue, Mode=TwoWay}"/>
+
+                <Slider Value="{Binding Path=ChosenBlueValue, Mode=TwoWay}" Grid.Row="1" MinWidth="70"
+                        Minimum="0" Maximum="255" SmallChange="5" LargeChange="25"/>
+            </StackPanel>
+            
+            <Rectangle Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Fill="{Binding Path=ChosenColorBrush}" Margin="5"/>
+        </Grid>
+        
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button Name="OkButton" Width="75" Height="25" Margin="10"
                     Content="Ok" Click="OkButton_Click"/>
 
