@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace KDScorpionCore.Input
 {
     /// <summary>
-    /// Tracks the state of the mouse.
+    /// Provides functionality for the mouse.
     /// </summary>
     public class Mouse
     {

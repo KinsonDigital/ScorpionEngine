@@ -24,7 +24,7 @@ namespace MonoScorpPlugin
         /// Starts the process of rendering a batch of <see cref="Texture"/>s, <see cref="GameText"/> items
         /// or primitives.  This method must be invoked before rendering.
         /// </summary>
-        public void Start() => _spriteBatch.Begin();
+        public void Begin() => _spriteBatch.Begin();
 
 
         /// <summary>

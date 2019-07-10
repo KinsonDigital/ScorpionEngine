@@ -22,7 +22,7 @@ namespace SDLScorpPlugin
         /// Starts the process of rendering a batch of <see cref="Texture"/>s, <see cref="GameText"/> items
         /// or primitives.  This method must be invoked before rendering.
         /// </summary>
-        public void Start()
+        public void Begin()
         {
             CheckRenderPointer();
             _beginInvoked = true;
@@ -37,7 +37,7 @@ namespace SDLScorpPlugin
             CheckRenderPointer();
 
             if (!_beginInvoked)
-                throw new Exception($"The '{nameof(Start)}' method must be invoked first before the '{nameof(End)}' method.");
+                throw new Exception($"The '{nameof(Begin)}' method must be invoked first before the '{nameof(End)}' method.");
 
             SDL.SDL_RenderPresent(_rendererPtr);
 

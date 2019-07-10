@@ -6,7 +6,7 @@ using System.Linq;
 namespace KDScorpionCore.Input
 {
     /// <summary>
-    /// Used to check the state of keyboard hardware keys.
+    /// Provides functionality for the keyboard.
     /// </summary>
     public class Keyboard
     {

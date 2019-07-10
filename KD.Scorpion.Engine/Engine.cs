@@ -177,15 +177,15 @@ namespace KDScorpionEngine
         {
             _engineCore = engineCore;
             _engineCore.SetFPS(60);
-            _engineCore.OnInitialize += _engineCore_OnInitialize;
-            _engineCore.OnLoadContent += _engineCore_OnLoadContent;
-            _engineCore.OnUpdate += _engineCore_OnUpdate;
-            _engineCore.OnRender += _engineCore_OnRender;
+            _engineCore.OnInitialize += EngineCore_OnInitialize;
+            _engineCore.OnLoadContent += EngineCore_OnLoadContent;
+            _engineCore.OnUpdate += EngineCore_OnUpdate;
+            _engineCore.OnRender += EngineCore_OnRender;
         }
         
 
         [ExcludeFromCodeCoverage]
-        private void _engineCore_OnInitialize(object sender, EventArgs e)
+        private void EngineCore_OnInitialize(object sender, EventArgs e)
         {
             _renderer = new GameRenderer
             {
@@ -196,14 +196,14 @@ namespace KDScorpionEngine
 
 
         [ExcludeFromCodeCoverage]
-        private void _engineCore_OnLoadContent(object sender, EventArgs e)
+        private void EngineCore_OnLoadContent(object sender, EventArgs e)
         {
             LoadContent(ContentLoader);
         }
 
 
         [ExcludeFromCodeCoverage]
-        private void _engineCore_OnUpdate(object sender, OnUpdateEventArgs e)
+        private void EngineCore_OnUpdate(object sender, OnUpdateEventArgs e)
         {
             var engineTime = new EngineTime()
             {
@@ -216,11 +216,11 @@ namespace KDScorpionEngine
 
 
         [ExcludeFromCodeCoverage]
-        private void _engineCore_OnRender(object sender, OnRenderEventArgs e)
+        private void EngineCore_OnRender(object sender, OnRenderEventArgs e)
         {
-            _renderer.Clear(50, 50, 50, 255);
+            _renderer.Clear(255, 50, 50, 50);
 
-            _renderer.Start();
+            _renderer.Begin();
 
             Render(_renderer);
 
