@@ -72,7 +72,7 @@ namespace ParticleMaker.Tests.Services
             {
                 var sections = path.Split(new[] { "\\" }, StringSplitOptions.None);
 
-                actual = sections.Length > 0 ? sections[sections.Length - 1] : "";
+                actual = sections.Length > 0 ? sections[^1] : "";
             });
 
             var mockDirectoryService = new Mock<IDirectoryService>();
@@ -213,7 +213,7 @@ namespace ParticleMaker.Tests.Services
             {
                 var sections = path.Split(new[] { "\\" }, StringSplitOptions.None);
 
-                actual = sections.Length > 0 ? sections[sections.Length - 1] : "";
+                actual = sections.Length > 0 ? sections[^1] : "";
             });
 
             var mockDirectoryService = new Mock<IDirectoryService>();
@@ -240,7 +240,7 @@ namespace ParticleMaker.Tests.Services
             {
                 var sections = path.Split(new[] { "\\" }, StringSplitOptions.None);
 
-                actual = sections.Length > 0 ? sections[sections.Length - 1] : "";
+                actual = sections.Length > 0 ? sections[^1] : "";
             });
 
             var mockDirectoryService = new Mock<IDirectoryService>();

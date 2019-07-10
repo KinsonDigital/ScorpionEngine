@@ -209,7 +209,7 @@ namespace ParticleMaker.UserControls
                 var sections = s.FilePath.Split('\\');
 
                 if (sections.Length > 0)
-                    return Path.GetFileNameWithoutExtension(sections[sections.Length - 1]);
+                    return Path.GetFileNameWithoutExtension(sections[^1]);
 
 
                 return "";
@@ -271,7 +271,7 @@ namespace ParticleMaker.UserControls
             var itemSections = SelectedItem.FilePath.Split('\\');
 
             if (itemSections.Length >= 1)
-                ItemSelectedCommand?.Execute(itemSections[itemSections.Length - 1]);
+                ItemSelectedCommand?.Execute(itemSections[^1]);
         }
 
 
@@ -316,22 +316,6 @@ namespace ParticleMaker.UserControls
 
                 if (item.SaveClickedCommand == null)
                     item.SaveClickedCommand = new RelayCommand(SaveCommandExecute, (param) => true);
-            }
-        }
-
-
-        /// <summary>
-        /// Destroys all of the list item commands.
-        /// </summary>
-        private void DestroyCommands()
-        {
-            var listItems = SetupListBox.FindVisualChildren<SetupListItem>().ToArray();
-
-            foreach (var item in listItems)
-            {
-                item.RenameClickedCommand = null;
-                item.DeleteClickedCommand = null;
-                item.SaveClickedCommand = null;
             }
         }
 

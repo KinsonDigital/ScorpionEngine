@@ -14,7 +14,6 @@ namespace KDScorpionEngineTests.Entities
     public class DynamicEntityTests : IDisposable
     {
         #region Private Fields
-        private Vector[] _vertices;
         private Mock<IPhysicsBody> _mockPhysicsBody;
         #endregion
 
@@ -22,13 +21,6 @@ namespace KDScorpionEngineTests.Entities
         #region Constructors
         public DynamicEntityTests()
         {
-            _vertices = new Vector[]
-            {
-                Vector.Zero,
-                Vector.Zero,
-                Vector.Zero
-            };
-
             _mockPhysicsBody = new Mock<IPhysicsBody>();
             _mockPhysicsBody.SetupProperty(p => p.Angle);
             _mockPhysicsBody.SetupProperty(p => p.AngularDeceleration);

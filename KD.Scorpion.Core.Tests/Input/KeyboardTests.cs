@@ -596,7 +596,7 @@ namespace KDScorpionCoreTests.Input
             var actual = keyboard.KeyToChar(KeyCodes.CapsLock);
 
             //Assert
-            Assert.Equal('~', actual);
+            Assert.Equal((char)0, actual);
         }
 
 
@@ -610,7 +610,7 @@ namespace KDScorpionCoreTests.Input
             var actual = keyboard.KeyToChar(KeyCodes.CapsLock);
 
             //Assert
-            Assert.Equal('~', actual);
+            Assert.Equal((char)0, actual);
         }
 
 

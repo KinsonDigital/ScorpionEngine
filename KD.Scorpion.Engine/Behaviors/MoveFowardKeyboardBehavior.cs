@@ -167,16 +167,22 @@ namespace KDScorpionEngine.Behaviors
         /// <param name="keyboard">The keyboard to inject into the behaviors for testing.</param>
         private void CreateBehaviors(IKeyboard keyboard)
         {
-            _moveFowardKeyBehavior = new KeyBehavior(keyboard);
-            _moveFowardKeyBehavior.Key = _moveFowardKey;
+            _moveFowardKeyBehavior = new KeyBehavior(keyboard)
+            {
+                Key = _moveFowardKey
+            };
             _moveFowardKeyBehavior.KeyDownEvent += MoveFoward_KeyDown;
 
-            _rotateCWKeyBehavior = new KeyBehavior(keyboard);
-            _rotateCWKeyBehavior.Key = _rotateCWKey;
+            _rotateCWKeyBehavior = new KeyBehavior(keyboard)
+            {
+                Key = _rotateCWKey
+            };
             _rotateCWKeyBehavior.KeyDownEvent += RotateCW_KeyDown;
 
-            _rotateCCWKeyBehavior = new KeyBehavior(keyboard);
-            _rotateCCWKeyBehavior.Key = _rotateCCWKey;
+            _rotateCCWKeyBehavior = new KeyBehavior(keyboard)
+            {
+                Key = _rotateCCWKey
+            };
             _rotateCCWKeyBehavior.KeyDownEvent += RotateCCW_KeyDown;
         }
 

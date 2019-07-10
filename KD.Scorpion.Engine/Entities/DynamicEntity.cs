@@ -15,7 +15,6 @@ namespace KDScorpionEngine.Entities
     {
         #region Fields
         private Vector _facingDirection = new Vector(0, -1);
-        private readonly Dictionary<Direction, bool> _linearMovementLocks = new Dictionary<Direction, bool>();//Holds the lock states for the 8 linear movements.  True means locked.
         private LimitNumberBehavior _moveRightVelocityMaxBehavior;
         private LimitNumberBehavior _moveLeftVelocityMaxBehavior;
         private LimitNumberBehavior _moveDownVelocityMaxBehavior;

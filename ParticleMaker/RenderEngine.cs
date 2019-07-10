@@ -134,12 +134,7 @@ namespace ParticleMaker
         /// <summary>
         /// Pauses the engine.
         /// </summary>
-        /// <param name="clearSurface">If true, the surface will be cleared on pause.</param>
-        public void Pause(bool clearSurface = false)
-        {
-            //TODO: Add code to clear the surface before pausing
-            _timingService.Pause();
-        }
+        public void Pause() => _timingService.Pause();
         
 
         /// <summary>

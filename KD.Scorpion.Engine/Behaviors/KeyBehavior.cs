@@ -178,7 +178,7 @@ namespace KDScorpionEngine.Behaviors
         /// <param name="enabled">Enabled if set to true.</param>
         private void Setup(KeyCodes key, bool enabled)
         {
-            _keyboard = _keyboard == null ? new Keyboard() : _keyboard;
+            _keyboard = _keyboard ?? new Keyboard();
 
             Key = key;
             Enabled = enabled;

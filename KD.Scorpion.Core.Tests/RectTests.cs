@@ -109,11 +109,11 @@ namespace KDScorpionCoreTests
         [Fact]
         public void HalfWidth_WhenGettingValue_ReturnsCorrectValue()
         {
-            //Arrange
-            var rect = new Rect();
-
-            //Act
-            rect.Width = 10.5f;
+            //Arrange & Act
+            var rect = new Rect
+            {
+                Width = 10.5f
+            };
 
             //Assert
             Assert.Equal(5.25f, rect.HalfWidth);
@@ -123,11 +123,11 @@ namespace KDScorpionCoreTests
         [Fact]
         public void HalfHeight_WhenGettingValue_ReturnsCorrectValue()
         {
-            //Arrange
-            var rect = new Rect();
-
-            //Act
-            rect.Height = 10.5f;
+            //Arrange & Act
+            var rect = new Rect
+            {
+                Height = 10.5f
+            };
 
             //Assert
             Assert.Equal(5.25f, rect.HalfHeight);

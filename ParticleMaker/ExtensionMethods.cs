@@ -29,14 +29,8 @@ namespace ParticleMaker
 
 
         #region Fields
-        private const int GWL_EXSTYLE = -20;
-        private const int WS_EX_APPWINDOW = 0x40000;
-        private const int SW_HIDE = 0x00;
-        private const int SW_SHOW = 0x05;
         private const float PI = 3.1415926535897931f;
-        private static CancellationTokenSource _tokenSrc;
-        private static Task _hideWindowTask;
-        private static char[] _windowsIllegalCharacters = new[] { '\\', '/', ':', '*', '?', '"', '<', '>', '|' };
+        private static readonly char[] _windowsIllegalCharacters = new[] { '\\', '/', ':', '*', '?', '"', '<', '>', '|' };
         #endregion
 
 

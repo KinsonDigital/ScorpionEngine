@@ -15,7 +15,7 @@ namespace KDScorpionEngineTests.Scene
     public class SceneManagerTests : IDisposable
     {
         #region Fields
-        private Mock<IContentLoader> _contentLoader;
+        private readonly Mock<IContentLoader> _contentLoader;
         private Mock<IKeyboard> _mockKeyboard;
         #endregion
 
@@ -455,10 +455,11 @@ namespace KDScorpionEngineTests.Scene
             var sceneA = mockSceneA.Object;
             var sceneB = mockSceneB.Object;
 
-            var manager = new SceneManager(_contentLoader.Object, _mockKeyboard.Object);
-
             //Act
-            manager.Add(sceneA);
+            var manager = new SceneManager(_contentLoader.Object, _mockKeyboard.Object)
+            {
+                sceneA
+            };
 
             //Assert
             Assert.Throws<IdAlreadyExistsException>(() =>
@@ -675,11 +676,12 @@ namespace KDScorpionEngineTests.Scene
             var sceneB = mockSceneB.Object;
             sceneB.Id = 200;
 
-            var manager = new SceneManager(_contentLoader.Object, _mockKeyboard.Object);
-
             //Act
-            manager.Add(sceneA);
-            manager.Add(sceneB);
+            var manager = new SceneManager(_contentLoader.Object, _mockKeyboard.Object)
+            {
+                sceneA,
+                sceneB
+            };
 
             //Assert
             Assert.Throws<IdNotFoundException>(() => manager.SetCurrentSceneID(1000));
@@ -767,11 +769,12 @@ namespace KDScorpionEngineTests.Scene
             mockSceneB.SetupProperty(m => m.Id);
             mockSceneB.Object.Id = -1;
 
-            var manager = new SceneManager(_contentLoader.Object, _mockKeyboard.Object);
-
             //Act
-            manager.Add(mockSceneA.Object);
-            manager.Add(mockSceneB.Object);
+            var manager = new SceneManager(_contentLoader.Object, _mockKeyboard.Object)
+            {
+                mockSceneA.Object,
+                mockSceneB.Object
+            };
             mockSceneB.Object.Id = 22;
 
             //Assert

@@ -123,8 +123,6 @@ namespace ParticleMaker.UserControls
 
             var newColor = ((SolidColorBrush)e.NewValue).Color;
 
-            var negativeForecolor = Color.FromArgb(255, (byte)(255 - newColor.R), (byte)(255 - newColor.G), (byte)(255 - newColor.B));
-
             ctrl.TextForecolor = newColor.ToNegativeBrush();
         }
 

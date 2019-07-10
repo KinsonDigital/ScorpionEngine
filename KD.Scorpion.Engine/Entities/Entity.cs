@@ -92,7 +92,7 @@ namespace KDScorpionEngine.Entities
                 new Vector(position.X - halfWidth, position.Y + halfHeight),
             };
 
-            Setup(_preInitVertices, position, friction, IsStatic);
+            Setup(_preInitVertices, position, friction, isStaticBody);
         }
 
 

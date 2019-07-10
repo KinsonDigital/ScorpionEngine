@@ -11,8 +11,8 @@ namespace KDScorpionCoreTests.Graphics
     {
         #region Private Fields
         private Texture _texture;
-        private Mock<IDebugDraw> _mockDebugDraw;
-        private GameText _gameText;
+        private readonly Mock<IDebugDraw> _mockDebugDraw;
+        private readonly GameText _gameText;
         #endregion
 
 

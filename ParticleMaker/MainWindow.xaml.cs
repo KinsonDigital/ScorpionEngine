@@ -18,7 +18,6 @@ namespace ParticleMaker
     public partial class MainWindow : Window
     {
         #region Fields
-        private static Window _self;
         private static CancellationTokenSource _dockRenderWindowTokenSrc;
         private static Task _dockRenderWindowTask;
         private readonly MainViewModel _mainViewModel;
@@ -41,7 +40,6 @@ namespace ParticleMaker
             InitializeComponent();
 
             Loaded += MainWindow_Loaded;
-            _self = this;
         }
         #endregion
 

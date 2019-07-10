@@ -9,7 +9,7 @@ namespace KDScorpionEngineTests.Fakes
 {
     public class FakeEngine : Engine
     {
-        private IEngineCore _fakeEngineCore;
+        private readonly IEngineCore _fakeEngineCore;
 
 
         public FakeEngine(IContentLoader contentLoader, IEngineCore engineCore, IKeyboard keyboard) : base(contentLoader, engineCore, keyboard)

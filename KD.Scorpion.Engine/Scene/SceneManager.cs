@@ -268,12 +268,7 @@ namespace KDScorpionEngine.Scene
         /// </summary>
         /// <param name="scene">The <see cref="IScene"/> to check for.</param>
         /// <returns></returns>
-        public bool Contains(IScene scene)
-        {
-            var contains = _scenes.Contains(scene);
-
-            return _scenes.Contains(scene);
-        }
+        public bool Contains(IScene scene) => _scenes.Contains(scene);
 
 
         /// <summary>

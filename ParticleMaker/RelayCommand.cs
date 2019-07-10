@@ -21,6 +21,7 @@ namespace ParticleMaker
         #region Fields
         private readonly Action<object> _executeAction;
         private readonly Func<object, bool> _canExecuteAction;
+        private bool _ignoreCanExecute;
         #endregion
 
 
@@ -48,13 +49,41 @@ namespace ParticleMaker
         #endregion
 
 
+        #region Props
+        /// <summary>
+        /// Gets or sets a value indicating if the can execute functionality should be ignored.
+        /// If set to true, the command will always execute.
+        /// </summary>
+        public bool IgnoreCanExecute
+        {
+            get => _ignoreCanExecute;
+            set
+            {
+                var originalValue = _ignoreCanExecute;
+
+                _ignoreCanExecute = value;
+
+                if (originalValue != value)
+                    CanExecuteChanged?.Invoke(this, new EventArgs());
+            }
+        }
+        #endregion
+
+
         #region Public Methods
         /// <summary>
         /// Returns a value indicating if the <see cref="RelayCommand"/> can execute its action.
         /// </summary>
         /// <param name="parameter">The incoming data.</param>
         /// <returns></returns>
-        public bool CanExecute(object parameter) => _canExecuteAction(parameter);
+        public bool CanExecute(object parameter)
+        {
+            if (_ignoreCanExecute)
+                return true;
+
+
+            return _canExecuteAction(parameter);
+        }
 
 
         /// <summary>

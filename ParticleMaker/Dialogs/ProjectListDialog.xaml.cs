@@ -223,8 +223,7 @@ namespace ParticleMaker.Dialogs
 
             if (dialog == null)
                 return;
-
-            if (!(e.NewValue is string[] newValue))
+            if (!(e.NewValue is string[]))
                 return;
 
             dialog.Refresh();
@@ -309,7 +308,7 @@ namespace ParticleMaker.Dialogs
 
                 if (sections.Length > 0)
                 {
-                    var projName = sections[sections.Length - 1];
+                    var projName = sections[^1];
                     var pathExists = Directory.Exists(path);
 
                     paths.Add(new ProjectItem()

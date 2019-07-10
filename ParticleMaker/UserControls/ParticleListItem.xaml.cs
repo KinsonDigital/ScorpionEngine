@@ -131,7 +131,7 @@ namespace ParticleMaker.UserControls
             var dirExists = DesignerProperties.GetIsInDesignMode(this) ? true : Directory.Exists(Path.GetDirectoryName(ParticleFilePath));
             var pathSections = string.IsNullOrEmpty(ParticleFilePath) || !dirExists ? new string[0] : ParticleFilePath.Split('\\');
 
-            ParticleName = pathSections.Length >= 1 ? Path.GetFileNameWithoutExtension(pathSections[pathSections.Length - 1]) : "";
+            ParticleName = pathSections.Length >= 1 ? Path.GetFileNameWithoutExtension(pathSections[^1]) : "";
 
             HasError = !dirExists || DesignerProperties.GetIsInDesignMode(this) ? false : !File.Exists(ParticleFilePath);
 

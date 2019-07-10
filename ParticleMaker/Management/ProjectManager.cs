@@ -62,7 +62,7 @@ namespace ParticleMaker.Management
                 {
                     var sections = d.Split('\\');
 
-                    return sections[sections.Length - 1];
+                    return sections[^1];
                 }).ToArray();
             }
         }
@@ -80,7 +80,7 @@ namespace ParticleMaker.Management
                 return _directoryService.GetDirectories(_projectsPath).Where(path =>
                 {
                     var dirSections = path == null ? new string[0] : path.Split('\\');
-                    var dir = dirSections.Length >= 1 ? dirSections[dirSections.Length - 1] : string.Empty;
+                    var dir = dirSections.Length >= 1 ? dirSections[^1] : string.Empty;
 
                     return !string.IsNullOrEmpty(dir) && _fileService.Exists($@"{path}\{dir}{PROJ_FILE_EXTENSION}");
                 }).Select(d => d).ToArray();
@@ -154,8 +154,6 @@ namespace ParticleMaker.Management
 
             if (_directoryService.Exists(oldProjectDir))
             {
-                var newProjecDir = $@"{_projectsPath}\{newName}";
-
                 _directoryService.Rename(oldProjectDir, newName);
             }
             else

@@ -58,7 +58,6 @@ namespace KDScorpionEngineTests.Input
         public void IsDown_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            var asdfbehavior = new KeyBehavior(_mockCoreKeyboard.Object);
             var behavior = new KeyBehavior(_mockCoreKeyboard.Object)
             {
                 Key = KeyCodes.Space
@@ -393,11 +392,11 @@ namespace KDScorpionEngineTests.Input
         [Fact]
         public void Update_WhenInvokedWithIncorrectBehaviorType_ThrowsException()
         {
-            //Arrange
-            var keyBehavior = new KeyBehavior(_mockCoreKeyboard.Object);
-
-            //Act
-            keyBehavior.BehaviorType = (KeyBehaviorType)123;
+            //Arrange & Act
+            var keyBehavior = new KeyBehavior(_mockCoreKeyboard.Object)
+            {
+                BehaviorType = (KeyBehaviorType)123
+            };
 
             //Assert
             Assert.Throws<Exception>(() =>
