@@ -3,7 +3,7 @@
 namespace KDScorpionCore.Input
 {
     /// <summary>
-    /// Holds information about the keys down event.
+    /// Holds information about the keys that are pressed down.
     /// </summary>
     public class KeyEventArgs : EventArgs
     {
@@ -17,13 +17,10 @@ namespace KDScorpionCore.Input
 
         #region Constructor
         /// <summary>
-        /// Creates a new instance of KeyEventArgs.
+        /// Creates a new instance of <see cref="KeyEventArgs"/>.
         /// </summary>
-        /// <param name="keys">The key that has to do with the event.</param>
-        public KeyEventArgs(KeyCodes[] keys)
-        {
-            Keys = keys;
-        }
+        /// <param name="keys">The list of keys that are in the down position.</param>
+        public KeyEventArgs(KeyCodes[] keys) => Keys = keys;
         #endregion
     }
 }

@@ -291,7 +291,7 @@ namespace KDScorpionCoreTests.Input
             keyboard.IsAnyKeyDown(new KeyCodes[] { KeyCodes.X, KeyCodes.Z });
 
             //Assert
-            _mockKeyboard.Verify(m => m.IsAnyKeyDown(It.IsAny<KeyCodes[]>()), Times.Once());
+            _mockKeyboard.Verify(m => m.AreKeysDown(It.IsAny<KeyCodes[]>()), Times.Once());
         }
 
 

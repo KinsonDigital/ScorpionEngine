@@ -21,14 +21,14 @@ namespace MonoScorpPlugin
 
         #region Public Methods
         /// <summary>
-        /// Starts the process of rendering a batch of <see cref="ITexture"/>s, <see cref="IText"/> items
+        /// Starts the process of rendering a batch of <see cref="Texture"/>s, <see cref="GameText"/> items
         /// or primitives.  This method must be invoked before rendering.
         /// </summary>
-        public void Start() => _spriteBatch.Begin();
+        public void Begin() => _spriteBatch.Begin();
 
 
         /// <summary>
-        /// Stops the batching process and renders all of the batches textures to the screen.
+        /// Stops the batching process and renders all of the batched textures to the screen.
         /// </summary>
         public void End() => _spriteBatch.End();
 
@@ -58,8 +58,9 @@ namespace MonoScorpPlugin
 
         /// <summary>
         /// Renders the given <paramref name="texture"/> at the given <paramref name="x"/>
-        /// and <paramref name="y"/> location and rotates the texture to the given 
+        /// and <paramref name="y"/> location and rotates the texture to the given
         /// <paramref name="angle"/> in degrees.
+        /// </summary>
         /// <param name="texture">The texture to render.</param>
         /// <param name="x">The X coordinate location on the screen to render.</param>
         /// <param name="y">The Y coordinate location on the screen to render.</param>
@@ -75,8 +76,9 @@ namespace MonoScorpPlugin
 
         /// <summary>
         /// Renders the given <paramref name="texture"/> at the given <paramref name="x"/>
-        /// and <paramref name="y"/> location and rotates the texture to the given 
+        /// and <paramref name="y"/> location and rotates the texture to the given
         /// <paramref name="angle"/> in degrees.
+        /// </summary>
         /// <param name="texture">The texture to render.</param>
         /// <param name="x">The X coordinate location on the screen to render.</param>
         /// <param name="y">The Y coordinate location on the screen to render.</param>
@@ -92,6 +94,28 @@ namespace MonoScorpPlugin
                 angle.ToRadians(), textureOrigin, 
                 size, SpriteEffects.None, 0f);
         }
+
+
+        /// <summary>
+        /// Renders the given <paramref name="text"/> at the given <paramref name="x"/>
+        /// and <paramref name="y"/> location.
+        /// </summary>
+        /// <param name="texture">The texture to render.</param>
+        /// <param name="x">The X coordinate location on the screen to render.</param>
+        /// <param name="y">The Y coordinate location on the screen to render.</param>
+        public void Render(IText text, float x, float y) => Render(text, x, y, text.Color);
+
+
+        /// <summary>
+        /// Renders the given text at the given <paramref name="x"/> and <paramref name="y"/>
+        /// location and using the given <paramref name="color"/>.
+        /// </summary>
+        /// <param name="text">The text to render.</param>
+        /// <param name="x">The X coordinate location of where to render the text.</param>
+        /// <param name="y">The Y coordinate location of where to render the text.</param>
+        /// <param name="color">The color to render the text.</param>
+        public void Render(IText text, float x, float y, GameColor color) =>
+            _spriteBatch.DrawString(text.GetData<SpriteFont>(1), text.Text, new Vector2(x, y), color.ToXNAColor());
 
 
         /// <summary>
@@ -113,22 +137,7 @@ namespace MonoScorpPlugin
 
 
         /// <summary>
-        /// Renders the given <paramref name="text"/> at the given <paramref name="x"/>
-        /// and <paramref name="y"/> location.
-        /// </summary>
-        /// <param name="texture">The texture to render.</param>
-        /// <param name="x">The X coordinate location on the screen to render.</param>
-        /// <param name="y">The Y coordinate location on the screen to render.</param>
-        public void Render(IText text, float x, float y) => Render(text, x, y, text.Color);
-
-
-        public void Render(IText text, float x, float y, GameColor color) =>
-            _spriteBatch.DrawString(text.GetData<SpriteFont>(1), text.Text, new Vector2(x, y), color.ToXNAColor());
-
-
-
-        /// <summary>
-        /// Renders a line using the given start and stop X and Y coordinates.
+        /// Renders a line using the given start and stop coordinates.
         /// </summary>
         /// <param name="lineStartX">The starting X coordinate of the line.</param>
         /// <param name="lineStartY">The starting Y coordinate of the line.</param>
@@ -186,14 +195,15 @@ namespace MonoScorpPlugin
 
 
         /// <summary>
-        /// Injects a pointer into the plugin for use.
+        /// Gets any arbitrary data needed for use.
         /// </summary>
-        /// <param name="pointer"></param>
+        /// <typeparam name="T">The type of data to get.</typeparam>
+        /// <returns></returns>
         public T GetData<T>(int option) where T : class => throw new NotImplementedException();
 
 
         /// <summary>
-        /// Propertly disposes of the <see cref="SpriteBatch"/>.
+        /// Properly destroys the SDL renderer.
         /// </summary>
         public void Dispose() => _spriteBatch.Dispose();
         #endregion

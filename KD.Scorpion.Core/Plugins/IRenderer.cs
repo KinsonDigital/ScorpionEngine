@@ -11,14 +11,14 @@ namespace KDScorpionCore.Plugins
     {
         #region Methods
         /// <summary>
-        /// Starts the process of rendering a batch of <see cref="Texture"/>s, <see cref="GameText"/> items
+        /// Starts the process of rendering a batch of <see cref="ITexture"/>s, <see cref="IText"/> items
         /// or primitives.  This method must be invoked before rendering.
         /// </summary>
-        void Start();
+        void Begin();
 
 
         /// <summary>
-        /// Stops the batching process and renders all of the batches textures to the screen.
+        /// Stops the batching process and renders all of the batched textures to the screen.
         /// </summary>
         void End();
 
@@ -35,8 +35,8 @@ namespace KDScorpionCore.Plugins
         /// and <paramref name="y"/> location.
         /// </summary>
         /// <param name="texture">The texture to render.</param>
-        /// <param name="x">The X coordinate location on the screen to render.</param>
-        /// <param name="y">The Y coordinate location on the screen to render.</param>
+        /// <param name="x">The X coordinate position on the surface to render.</param>
+        /// <param name="y">The Y coordinate position on the surface to render.</param>
         void Render(ITexture texture, float x, float y);
 
 
@@ -46,8 +46,8 @@ namespace KDScorpionCore.Plugins
         /// <paramref name="angle"/> in degrees.
         /// </summary>
         /// <param name="texture">The texture to render.</param>
-        /// <param name="x">The X coordinate location on the screen to render.</param>
-        /// <param name="y">The Y coordinate location on the screen to render.</param>
+        /// <param name="x">The X coordinate position on the surface to render.</param>
+        /// <param name="y">The Y coordinate position on the surface to render.</param>
         /// <param name="angle">The angle in degrees to rotate the texture to.</param>
         void Render(ITexture texture, float x, float y, float angle);
 
@@ -58,8 +58,8 @@ namespace KDScorpionCore.Plugins
         /// <paramref name="angle"/> in degrees.
         /// </summary>
         /// <param name="texture">The texture to render.</param>
-        /// <param name="x">The X coordinate location on the screen to render.</param>
-        /// <param name="y">The Y coordinate location on the screen to render.</param>
+        /// <param name="x">The X coordinate position on the surface to render.</param>
+        /// <param name="y">The Y coordinate position on the surface to render.</param>
         /// <param name="angle">The angle in degrees to rotate the texture to.</param>
         /// <param name="color">The color to apply to the texture.</param>
         void Render(ITexture texture, float x, float y, float angle, float size, GameColor color);
@@ -70,8 +70,8 @@ namespace KDScorpionCore.Plugins
         /// and <paramref name="y"/> location.
         /// </summary>
         /// <param name="texture">The texture to render.</param>
-        /// <param name="x">The X coordinate location on the screen to render.</param>
-        /// <param name="y">The Y coordinate location on the screen to render.</param>
+        /// <param name="x">The X coordinate position on the surface to render.</param>
+        /// <param name="y">The Y coordinate position on the surface to render.</param>
         void Render(IText text, float x, float y);
 
 
@@ -92,13 +92,13 @@ namespace KDScorpionCore.Plugins
         /// </summary>
         /// <param name="texture">The texture to render.</param>
         /// <param name="area">The area/section of the texture to render.</param>
-        /// <param name="x">The X coordinate location on the screen to render.</param>
-        /// <param name="y">The Y coordinate location on the screen to render.</param>
+        /// <param name="x">The X coordinate position on the surface to render.</param>
+        /// <param name="y">The Y coordinate position on the surface to render.</param>
         void RenderTextureArea(ITexture texture, Rect area, float x, float y);
 
 
         /// <summary>
-        /// Renders a line using the given start and stop X and Y coordinates.
+        /// Renders a line using the given start and stop coordinates.
         /// </summary>
         /// <param name="lineStartX">The starting X coordinate of the line.</param>
         /// <param name="lineStartY">The starting Y coordinate of the line.</param>

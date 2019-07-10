@@ -1,12 +1,12 @@
 ﻿namespace KDScorpionCore
 {
     /// <summary>
-    /// Represents different ways that an <see cref="IScene"/> should run.
+    /// Represents different ways that a scene should run.
     /// </summary>
     public enum RunMode
     {
         /// <summary>
-        /// This makes an <see cref="IScene"/> run continously.  Used for standard game running through frames.
+        /// This makes an scene run continously.  Used for standard game running through frames.
         /// </summary>
         Continuous = 1,
 

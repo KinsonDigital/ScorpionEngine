@@ -9,19 +9,37 @@ using VelcroPhysics.Primitives;
 
 namespace VelcroPhysicsPlugin
 {
-    //TODO: Add docs
+    
+    /// <summary>
+    /// Represents a body in a world that obeys physics.
+    /// </summary>
     public class VelcroBody : IPhysicsBody
     {
+        #region Private Fields
         private readonly PhysicsBodySettings _tempSettings = new PhysicsBodySettings();
+        #endregion
 
 
         #region Constructors
-        public VelcroBody()
-        {
-            //This must be here for the plugin system to work
-        }
+        /// <summary>
+        /// Creates a new instance of <see cref="VelcroBody"/>.
+        /// This must be here for the plugin system to work.
+        /// </summary>
+        public VelcroBody() { }
 
 
+        /// <summary>
+        /// Creates a new instance of <see cref="VelcroBody"/>.
+        /// </summary>
+        /// <param name="xVertices">The X vertices of the body's shape.</param>
+        /// <param name="yVertices">The Y vertices of the body's shape.</param>
+        /// <param name="xPosition">The X location of the body.</param>
+        /// <param name="yPosition">The Y location of the body.</param>
+        /// <param name="angle">The angle of the body.</param>
+        /// <param name="density">The density of the body.</param>
+        /// <param name="friction">The friction of the body.</param>
+        /// <param name="restitution">The restituion(bounciness) of the body.</param>
+        /// <param name="isStatic">True if the body is a static body.  False for dynamice.</param>
         public VelcroBody(float[] xVertices, float[] yVertices, float xPosition, float yPosition, float angle, float density = 1, float friction = 0.2f, float restitution = 0, bool isStatic = false)
         {
             if (xVertices.Length != yVertices.Length)
@@ -47,6 +65,9 @@ namespace VelcroPhysicsPlugin
 
         public DeferredActions AfterAddedToWorldActions { get; set; } = new DeferredActions();
 
+        /// <summary>
+        /// The X vertices of the body's shape.
+        /// </summary>
         public float[] XVertices
         {
             get
@@ -73,6 +94,9 @@ namespace VelcroPhysicsPlugin
             set { }
         }
 
+        /// <summary>
+        /// The X vertices of the body's shape.
+        /// </summary>
         public float[] YVertices
         {
             get
@@ -99,6 +123,9 @@ namespace VelcroPhysicsPlugin
             set { }
         }
 
+        /// <summary>
+        /// The X coordinate of the body's location.
+        /// </summary>
         public float X
         {
             get => PolygonBody == null ? _tempSettings.XPosition : PolygonBody.Position.X.ToPixels();
@@ -111,6 +138,9 @@ namespace VelcroPhysicsPlugin
             }
         }
 
+        /// <summary>
+        /// The Y coordinate of the body's location.
+        /// </summary>
         public float Y
         {
             get => PolygonBody == null ? _tempSettings.YPosition : PolygonBody.Position.Y.ToPixels();
@@ -124,7 +154,7 @@ namespace VelcroPhysicsPlugin
         }
 
         /// <summary>
-        /// Gets the angle of the body in degrees.
+        /// Gets or sets the angle of the body in degrees.
         /// </summary>
         public float Angle
         {
@@ -147,6 +177,9 @@ namespace VelcroPhysicsPlugin
             }
         }
 
+        /// <summary>
+        /// Gets or sets the density of the body.
+        /// </summary>
         public float Density
         {
             get => PolygonShape == null ? _tempSettings.Density : PolygonShape.Density;
@@ -157,12 +190,18 @@ namespace VelcroPhysicsPlugin
             }
         }
 
+        /// <summary>
+        /// Gets or sets the friction of the body.
+        /// </summary>
         public float Friction
         {
             get => _tempSettings.Friction;
             set => PolygonBody.Friction = value;
         }
 
+        /// <summary>
+        /// Gets or sets the restitution(bounciness) of the body.
+        /// </summary>
         public float Restitution
         {
             get => _tempSettings.Restitution;
@@ -184,6 +223,9 @@ namespace VelcroPhysicsPlugin
             }
         }
 
+        /// <summary>
+        /// Gets or sets the linear velocity in the X plane.
+        /// </summary>
         public float LinearVelocityX
         {
             get => PolygonBody.LinearVelocity.X.ToPixels();
@@ -193,6 +235,9 @@ namespace VelcroPhysicsPlugin
             }
         }
 
+        /// <summary>
+        /// Gets or sets the linear velocity in the Y plane.
+        /// </summary>
         public float LinearVelocityY
         {
             get => PolygonBody.LinearVelocity.Y.ToPixels();
@@ -202,6 +247,9 @@ namespace VelcroPhysicsPlugin
             }
         }
 
+        /// <summary>
+        /// Gets or sets the linear deceleration.
+        /// </summary>
         public float LinearDeceleration
         {
             get => PolygonBody.LinearDamping.ToPixels();
@@ -221,6 +269,9 @@ namespace VelcroPhysicsPlugin
             }
         }
 
+        /// <summary>
+        /// Gets or sets the angular velocity.
+        /// </summary>
         public float AngularVelocity
         {
             get => PolygonBody.AngularVelocity.ToPixels();
@@ -230,6 +281,9 @@ namespace VelcroPhysicsPlugin
             }
         }
 
+        /// <summary>
+        /// Gets or sets the angular desceleration.
+        /// </summary>
         public float AngularDeceleration
         {
             get => PolygonBody.AngularDamping.ToPixels();
@@ -252,16 +306,63 @@ namespace VelcroPhysicsPlugin
 
 
         #region Public Methods
+        /// <summary>
+        /// Applies a linear impulse to the body using the location using
+        /// the given <paramref name="x"/> and <paramref name="y"/>.
+        /// </summary>
+        /// <param name="x">The X coordinate of the location to apply the impulse.</param>
+        /// <param name="y">The Y coordinate of the location to apply the impulse.</param>
         public void ApplyLinearImpulse(float x, float y) => PolygonBody.ApplyLinearImpulse(new Vector2(x.ToPhysics(), y.ToPhysics()));
 
 
+        /// <summary>
+        /// Applies an angular impulse to the body using the location using
+        /// the given <paramref name="x"/> and <paramref name="y"/>.
+        /// </summary>
+        /// <param name="x">The X coordinate of the location to apply the impulse.</param>
+        /// <param name="y">The Y coordinate of the location to apply the impulse.</param>
         public void ApplyAngularImpulse(float value) => PolygonBody.ApplyAngularImpulse(value.ToPhysics());
 
 
+        /// <summary>
+        /// Applies a force to the body in the X and Y planes at the given world location.
+        /// </summary>
+        /// <param name="forceX">The force to apply in the X direction.</param>
+        /// <param name="forceY">The force to apply in the Y direction.</param>
+        /// <param name="worldLocationX">The location in the world of where to apply this force.</param>
+        /// <param name="worldLocationY">The location in the world of where to apply this force.</param>
         public void ApplyForce(float forceX, float forceY, float worldLocationX, float worldLocationY) =>
             PolygonBody.ApplyForce(new Vector2(forceX.ToPhysics(), forceY.ToPhysics()), new Vector2(worldLocationX.ToPhysics(), worldLocationY.ToPhysics()));
 
 
+        /// <summary>
+        /// Injects any arbitrary data into the plugin for use.  Must be a class.
+        /// </summary>
+        /// <typeparam name="T">The type of data to inject.</typeparam>
+        /// <param name="data">The data to inject.</param>
+        public void InjectData<T>(T data) where T : class
+        {
+            if (data.GetType() == typeof(Body))
+            {
+                PolygonBody = data as Body;
+            }
+            else if (data.GetType() == typeof(PolygonShape))
+            {
+                PolygonShape = data as PolygonShape;
+            }
+            else
+            {
+                throw new Exception($"Data getting injected into {nameof(VelcroBody)} is not of type {nameof(Body)} or {nameof(PolygonShape)}.  Incorrect type is {data.GetType().ToString()}");
+            }
+        }
+
+
+        /// <summary>
+        /// Gets the data as the given type <typeparamref name="T"/>.
+        /// </summary>
+        /// <param name="option">Used to pass in options for the <see cref="GetData{T}(int)"/> implementation to process.</param>
+        /// <typeparam name="T">The type of data to get.</typeparam>
+        /// <returns></returns>
         public T GetData<T>(int option) where T : class
         {
             if (option == 100)
@@ -271,23 +372,6 @@ namespace VelcroPhysicsPlugin
             else
             {
                 throw new Exception($"Do not recognize the option '{option}'");
-            }
-        }
-
-
-        public void InjectData<T>(T data) where T : class
-        {
-            if (data.GetType() == typeof(Body))
-            {
-                PolygonBody = data as Body;
-            }
-            else if(data.GetType() == typeof(PolygonShape))
-            {
-                PolygonShape = data as PolygonShape;
-            }
-            else
-            {
-                throw new Exception($"Data getting injected into {nameof(VelcroBody)} is not of type {nameof(Body)} or {nameof(PolygonShape)}.  Incorrect type is {data.GetType().ToString()}");
             }
         }
         #endregion

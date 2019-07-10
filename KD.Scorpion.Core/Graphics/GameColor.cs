@@ -7,7 +7,7 @@
     {
         #region Constructors
         /// <summary>
-        /// Returns a new instance of <see cref="GameColor"/>.
+        /// Creates a new instance of <see cref="GameColor"/>.
         /// </summary>
         /// <param name="alpha">The alpa component.</param>
         /// <param name="red">The red component.</param>
@@ -56,6 +56,7 @@
         public override bool Equals(object obj)
         {
             var clrObj = (GameColor)obj;
+
 
             return Alpha == clrObj.Alpha && Red == clrObj.Red && Green == clrObj.Green && Blue == clrObj.Blue;
         }

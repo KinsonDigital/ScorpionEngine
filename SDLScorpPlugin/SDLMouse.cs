@@ -1,4 +1,5 @@
-﻿using KDScorpionCore.Plugins;
+﻿using KDScorpionCore.Input;
+using KDScorpionCore.Plugins;
 using SDL2;
 using System;
 
@@ -18,7 +19,7 @@ namespace SDLScorpPlugin
 
         #region Props
         /// <summary>
-        /// Gets or sets the X position of the mouse in the game window.
+        /// Gets sets the X position of the mouse.
         /// </summary>
         public int X
         {
@@ -27,7 +28,7 @@ namespace SDLScorpPlugin
         }
 
         /// <summary>
-        /// Gets or sets the Y position of the mouse in the game window.
+        /// Gets sets the Y position of the mouse.
         /// </summary>
         public int Y
         {
@@ -38,66 +39,6 @@ namespace SDLScorpPlugin
 
 
         #region Public Methods
-        /// <summary>
-        /// Returns true if the given input is in the down position.
-        /// </summary>
-        /// <param name="input">The input to check for.</param>
-        /// <returns></returns>
-        public bool IsButtonDown(int input)
-        {
-            //Return the down state of the given mouse input
-            switch (input)
-            {
-                case 1://Left button
-                    return _currentLeftButtonState;
-                case 2://Right button
-                    return _currentRightButtonState;
-                case 3://Middle button
-                    return _currentMiddleButtonState;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(input), input, null);
-            }
-        }
-
-
-        /// <summary>
-        /// Returns true if the given input is in the up position.
-        /// </summary>
-        /// <param name="input">The input to check for.</param>
-        /// <returns></returns>
-        public bool IsButtonUp(int input) => !IsButtonDown(input);
-
-
-        /// <summary>
-        /// Returns true if the given mouse input has been released from the down position.
-        /// </summary>
-        /// <param name="input">The mouse input to check for.</param>
-        /// <returns></returns>
-        public bool IsButtonPressed(int input)
-        {
-            //Return the pressed state of the given mouse input
-            switch (input)
-            {
-                case 1://Left button
-                    return !_currentLeftButtonState && _prevLeftButtonState;
-                case 2://Right button
-                    return !_currentRightButtonState && _prevRightButtonState;
-                case 3://Middle button
-                    return !_currentMiddleButtonState && _prevMiddleButtonState;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(input), input, null);
-            }
-        }
-
-
-        /// <summary>
-        /// Sets the position of the mouse.
-        /// </summary>
-        /// <param name="x">The horizontal position to set the mouse to over the game window.</param>
-        /// <param name="y">The vertical position to set the mouse to over the game window.</param>
-        public void SetPosition(int x, int y) => SDL.SDL_WarpMouseInWindow(SDLEngineCore.WindowPtr, x, y);
-
-
         /// <summary>
         /// Update the current state of the mouse.
         /// </summary>
@@ -121,20 +62,80 @@ namespace SDLScorpPlugin
 
 
         /// <summary>
-        /// Injects <see cref="SDLMouse"/> related data into the plugin for use.  Must be a class.
+        /// Sets the position of the mouse using the given <paramref name="x"/> and <paramref name="y"/> values.
         /// </summary>
-        /// <typeparam name="T">The type of data to inject.</typeparam>
-        /// <param name="data">The data to inject.</param>
-        public T GetData<T>(int option) where T : class => throw new NotImplementedException();
+        /// <param name="x">The horizontal X position to set the mouse in the game window.</param>
+        /// <param name="y">The vertical Y position to set the mouse in the game window.</param>
+        public void SetPosition(int x, int y) => SDL.SDL_WarpMouseInWindow(SDLEngineCore.WindowPtr, x, y);
 
 
         /// <summary>
-        /// Gets <see cref="SDLMouse"/> related data as the given type <typeparamref name="T"/>.
+        /// Returns true if the given input is in the down position.
+        /// </summary>
+        /// <param name="input">The input to check.</param>
+        /// <returns></returns>
+        public bool IsButtonDown(InputButton input)
+        {
+            //Return the down state of the given mouse input
+            switch (input)
+            {
+                case InputButton.LeftButton:
+                    return _currentLeftButtonState;
+                case InputButton.RightButton:
+                    return _currentRightButtonState;
+                case InputButton.MiddleButton:
+                    return _currentMiddleButtonState;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(input), input, null);
+            }
+        }
+
+
+        /// <summary>
+        /// Returns true if the given <paramref name="inputButton"/> is in the up position.
+        /// </summary>
+        /// <param name="inputButton">The input button to check.</param>
+        /// <returns></returns>
+        public bool IsButtonUp(InputButton input) => !IsButtonDown(input);
+
+
+        /// <summary>
+        /// Returns true if the given mouse <paramref name="inputButton"/> has been released from the down position.
+        /// </summary>
+        /// <param name="inputButton">The input button to check.</param>
+        /// <returns></returns>
+        public bool IsButtonPressed(InputButton input)
+        {
+            //Return the pressed state of the given mouse input
+            switch (input)
+            {
+                case InputButton.RightButton:
+                    return !_currentLeftButtonState && _prevLeftButtonState;
+                case InputButton.LeftButton:
+                    return !_currentRightButtonState && _prevRightButtonState;
+                case InputButton.MiddleButton:
+                    return !_currentMiddleButtonState && _prevMiddleButtonState;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(input), input, null);
+            }
+        }
+
+
+        /// <summary>
+        /// Injects any arbitrary data into the plugin for use.  Must be a class.
+        /// </summary>
+        /// <typeparam name="T">The type of data to inject.</typeparam>
+        /// <param name="data">The data to inject.</param>
+        public void InjectData<T>(T data) where T : class => throw new NotImplementedException();
+
+
+        /// <summary>
+        /// Gets the data as the given type <typeparamref name="T"/>.
         /// </summary>
         /// <param name="option">Used to pass in options for the <see cref="GetData{T}(int)"/> implementation to process.</param>
         /// <typeparam name="T">The type of data to get.</typeparam>
         /// <returns></returns>
-        public void InjectData<T>(T data) where T : class => throw new NotImplementedException();
+        public T GetData<T>(int option) where T : class => throw new NotImplementedException();
         #endregion
     }
 }

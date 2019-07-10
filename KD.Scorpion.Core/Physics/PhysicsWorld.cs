@@ -3,6 +3,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace KDScorpionCore.Physics
 {
+    /// <summary>
+    /// Represents a world with simulated physics.
+    /// </summary>
     public class PhysicsWorld
     {
         #region Private Fields
@@ -33,11 +36,18 @@ namespace KDScorpionCore.Physics
 
 
         #region Props
+        /// <summary>
+        /// Gets the worlds gravity.
+        /// </summary>
         public Vector Gravity => new Vector(_internalWorld.GravityX, _internalWorld.GravityY);
         #endregion
 
 
         #region Public Methods
+        /// <summary>
+        /// Adds the given <paramref name="body"/> to the world.
+        /// </summary>
+        /// <param name="body">The body to add.</param>
         public void AddBody(IPhysicsBody body)
         {
             //Only add it to the physics world if the entity has been initialized.
@@ -45,6 +55,10 @@ namespace KDScorpionCore.Physics
         }
 
 
+        /// <summary>
+        /// Updates the physics world to keep the physics simulation moving ahead.
+        /// </summary>
+        /// <param name="dt">The time passed in milliseconds since the last frame.</param>
         public void Update(float dt) => _internalWorld.Update(dt);
         #endregion
     }

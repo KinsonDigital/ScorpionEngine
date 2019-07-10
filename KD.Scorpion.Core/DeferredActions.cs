@@ -47,7 +47,7 @@ namespace KDScorpionCore
 
         #region Public Methods
         /// <summary>
-        /// Executes all of the <see cref="Action"/>s.  Each item will be destroyed after execution.
+        /// Executes all of the <see cref="Action"/>s.  Each <see cref="Action"/> will be destroyed after execution.
         /// </summary>
         public void ExecuteAll()
         {
@@ -64,19 +64,15 @@ namespace KDScorpionCore
         /// Adds the given <paramref name="action"/> to the list.
         /// </summary>
         /// <param name="action">An action to be added.</param>
-        public void Add(Action action)
-        {
-            _actions.Add(action);
-        }
+        [ExcludeFromCodeCoverage]
+        public void Add(Action action) => _actions.Add(action);
 
 
         /// <summary>
         /// Removes all of the <see cref="Action"/>s.
         /// </summary>
-        public void Clear()
-        {
-            _actions.Clear();
-        }
+        [ExcludeFromCodeCoverage]
+        public void Clear() => _actions.Clear();
 
 
         /// <summary>
@@ -84,22 +80,18 @@ namespace KDScorpionCore
         /// </summary>
         /// <param name="action">The action to check for.</param>
         /// <returns></returns>
-        public bool Contains(Action action)
-        {
-            return _actions.Contains(action);
-        }
+        [ExcludeFromCodeCoverage]
+        public bool Contains(Action action) => _actions.Contains(action);
 
 
         /// <summary>
-        /// Copies <see cref="Action"/>s starting at the given <paramref name="arrayIndex"/> to 
+        /// Copies the <see cref="Action"/>s starting at the given <paramref name="arrayIndex"/> to 
         /// the given destination <paramref name="array"/>.
         /// </summary>
         /// <param name="array">The destination array to copy the items to.</param>
         /// <param name="arrayIndex">The starting index at which to start copying the items.</param>
-        public void CopyTo(Action[] array, int arrayIndex)
-        {
-            _actions.CopyTo(array, arrayIndex);
-        }
+        [ExcludeFromCodeCoverage]
+        public void CopyTo(Action[] array, int arrayIndex) => _actions.CopyTo(array, arrayIndex);
 
 
         /// <summary>
@@ -120,10 +112,8 @@ namespace KDScorpionCore
         /// </summary>
         /// <param name="action">The action to get the index of.</param>
         /// <returns></returns>
-        public int IndexOf(Action action)
-        {
-            return _actions.IndexOf(action);
-        }
+        [ExcludeFromCodeCoverage]
+        public int IndexOf(Action action) => _actions.IndexOf(action);
 
 
         /// <summary>
@@ -131,10 +121,8 @@ namespace KDScorpionCore
         /// </summary>
         /// <param name="index">The index location to insert the action at.</param>
         /// <param name="action">The action to insert.</param>
-        public void Insert(int index, Action action)
-        {
-            _actions.Insert(index, action);
-        }
+        [ExcludeFromCodeCoverage]
+        public void Insert(int index, Action action) => _actions.Insert(index, action);
 
 
         /// <summary>
@@ -142,20 +130,16 @@ namespace KDScorpionCore
         /// </summary>
         /// <param name="action">The action to remove.</param>
         /// <returns></returns>
-        public bool Remove(Action action)
-        {
-            return _actions.Remove(action);
-        }
+        [ExcludeFromCodeCoverage]
+        public bool Remove(Action action) => _actions.Remove(action);
 
 
         /// <summary>
         /// Removes the action that is located at the given <paramref name="index"/>.
         /// </summary>
         /// <param name="index">The index location of the action.</param>
-        public void RemoveAt(int index)
-        {
-            _actions.RemoveAt(index);
-        }
+        [ExcludeFromCodeCoverage]
+        public void RemoveAt(int index) => _actions.RemoveAt(index);
 
 
         /// <summary>
@@ -163,10 +147,7 @@ namespace KDScorpionCore
         /// </summary>
         /// <returns></returns>
         [ExcludeFromCodeCoverage]
-        IEnumerator<Action> IEnumerable<Action>.GetEnumerator()
-        {
-            return _actions.GetEnumerator();
-        }
+        IEnumerator<Action> IEnumerable<Action>.GetEnumerator() => _actions.GetEnumerator();
         #endregion
     }
 }

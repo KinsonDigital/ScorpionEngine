@@ -24,7 +24,7 @@ namespace KDScorpionEngine.Scene
         #endregion
 
 
-        #region Private Vars
+        #region Private Fields
         private readonly ContentLoader _contentLoader;
         private readonly List<IScene> _scenes = new List<IScene>();//The list of scenes
         private readonly Keyboard _keyboard;

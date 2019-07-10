@@ -32,6 +32,9 @@ namespace KDScorpionCore
         /// </summary>
         public float Y { get; set; }
 
+        /// <summary>
+        /// Gets the length of the <see cref="Vector"/>.
+        /// </summary>
         public float Length => GetLength(this);
 
         /// <summary>

@@ -6,11 +6,14 @@ using System.Linq;
 namespace KDScorpionCore.Input
 {
     /// <summary>
-    /// Used to check the state of keyboard hardware keys.
+    /// Provides functionality for the keyboard.
     /// </summary>
     public class Keyboard
     {
         #region Pivate Fields
+        /// <summary>
+        /// The letter keys including the space bar.
+        /// </summary>
         private static readonly KeyCodes[] _letterKeys = new[]
         {
             KeyCodes.A, KeyCodes.B, KeyCodes.C, KeyCodes.D, KeyCodes.E,
@@ -21,6 +24,9 @@ namespace KDScorpionCore.Input
             KeyCodes.Z, KeyCodes.Space
         };
 
+        /// <summary>
+        /// The standard number keys above the letter keys.
+        /// </summary>
         private static readonly KeyCodes[] _standardNumberKeys = new[]
         {
             KeyCodes.D0, KeyCodes.D1, KeyCodes.D2,
@@ -29,6 +35,9 @@ namespace KDScorpionCore.Input
             KeyCodes.D9
         };
 
+        /// <summary>
+        /// The number keys on the numpad.
+        /// </summary>
         private static readonly KeyCodes[] _numpadNumberKeys = new[]
         {
             KeyCodes.NumPad0, KeyCodes.NumPad1, KeyCodes.NumPad2,
@@ -37,6 +46,9 @@ namespace KDScorpionCore.Input
             KeyCodes.NumPad9,
         };
 
+        /// <summary>
+        /// The symbol keys.
+        /// </summary>
         private static readonly KeyCodes[] _symbolKeys = new[]
         {
             KeyCodes.OemSemicolon, KeyCodes.OemPlus, KeyCodes.OemComma,
@@ -46,11 +58,9 @@ namespace KDScorpionCore.Input
             KeyCodes.Divide, KeyCodes.Multiply, KeyCodes.Subtract, KeyCodes.Add
         };
 
-        private static readonly KeyCodes[] _numpadSymbolKeys = new[]
-        {
-            KeyCodes.Decimal, KeyCodes.Add, KeyCodes.Subtract, KeyCodes.Multiply, KeyCodes.Divide
-        };
-
+        /// <summary>
+        /// The characters produced by the standard number keys when no shift modifier keys are pressed.
+        /// </summary>
         private static readonly Dictionary<KeyCodes, char> _noShiftStandardNumberCharacters = new Dictionary<KeyCodes, char>()
         {
             { KeyCodes.D0 , '0'}, { KeyCodes.D1 , '1'}, { KeyCodes.D2 , '2'},
@@ -58,11 +68,9 @@ namespace KDScorpionCore.Input
             { KeyCodes.D6 , '6'}, { KeyCodes.D7 , '7'}, { KeyCodes.D8 , '8'}, { KeyCodes.D9 , '9'},
         };
 
-        private static readonly Dictionary<KeyCodes, char> _numpadSymbolCharacters = new Dictionary<KeyCodes, char>()
-        {
-            { KeyCodes.Decimal, '.' }, { KeyCodes.Add, '+' }, { KeyCodes.Subtract, '-' }, { KeyCodes.Multiply, '*' }, { KeyCodes.Divide, '/' }
-        };
-
+        /// <summary>
+        /// The symbol keys produced by the keyboard when no shift modifier keys are pressed.
+        /// </summary>
         private static readonly Dictionary<KeyCodes, char> _noShiftSymbolCharacters = new Dictionary<KeyCodes, char>()
         {
             { KeyCodes.OemPlus, '=' }, { KeyCodes.OemComma, ',' }, { KeyCodes.OemMinus, '-' },
@@ -73,6 +81,9 @@ namespace KDScorpionCore.Input
             { KeyCodes.Add, '+' }
         };
 
+        /// <summary>
+        /// The symbol keys produced by the keyboard when any shift modifier keys are pressed.
+        /// </summary>
         private static readonly Dictionary<KeyCodes, char> _withShiftSymbolCharacters = new Dictionary<KeyCodes, char>()
         {
             { KeyCodes.OemPlus, '+' }, { KeyCodes.OemComma, '<' }, { KeyCodes.OemMinus, '_' },
@@ -88,11 +99,16 @@ namespace KDScorpionCore.Input
 
 
         #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="Keyboard"/>.
+        /// Used for unit testing.
+        /// </summary>
+        /// <param name="keyboard">The mocked keyboard to inject.</param>
         internal Keyboard(IKeyboard keyboard) => InternalKeyboard = keyboard;
 
 
         /// <summary>
-        /// Creates a new instance of <see cref="Keyboard"/> for tracking keyboard events.
+        /// Creates a new instance of <see cref="Keyboard"/>.
         /// </summary>
         [ExcludeFromCodeCoverage]
         public Keyboard() => InternalKeyboard = CorePluginSystem.Plugins.EnginePlugins.LoadPlugin<IKeyboard>();
@@ -152,22 +168,16 @@ namespace KDScorpionCore.Input
         /// Returns all of the currently pressed keys on the keyboard.
         /// </summary>
         /// <returns></returns>
-        public KeyCodes[] GetCurrentPressedKeys()
-        {
-            return (from k in InternalKeyboard.GetCurrentPressedKeys()
-                    select k).ToArray();
-        }
+        public KeyCodes[] GetCurrentPressedKeys() => (from k in InternalKeyboard.GetCurrentPressedKeys()
+                                                      select k).ToArray();
 
 
         /// <summary>
-        /// Returns all of the previously pressed keys from the last frame.
+        /// Returns all of the previously pressed keys from the last check.
         /// </summary>
         /// <returns></returns>
-        public KeyCodes[] GetPreviousPressedKeys()
-        {
-            return (from k in InternalKeyboard.GetPreviousPressedKeys()
-                    select k).ToArray();
-        }
+        public KeyCodes[] GetPreviousPressedKeys() => (from k in InternalKeyboard.GetPreviousPressedKeys()
+                                                       select k).ToArray();
 
 
         /// <summary>
@@ -178,48 +188,40 @@ namespace KDScorpionCore.Input
 
 
         /// <summary>
-        /// Returns a value indicating if any of the given key codes are being held down.
+        /// Returns a value indicating if any of the given key are in the down position.
         /// </summary>
         /// <param name="keys">The list of key codes to check.</param>
         /// <returns></returns>
-        public bool IsAnyKeyDown(KeyCodes[] keys) => InternalKeyboard.IsAnyKeyDown(keys);
+        public bool IsAnyKeyDown(KeyCodes[] keys) => InternalKeyboard.AreKeysDown(keys);
 
 
         /// <summary>
         /// Returns true if the given key is in the down position.
         /// </summary>
-        /// <param name="key">The key to check for.</param>
+        /// <param name="key">The key to check.</param>
         /// <returns></returns>
-        public bool IsKeyDown(KeyCodes key)
-        {
-            return InternalKeyboard.IsKeyDown(key);
-        }
+        public bool IsKeyDown(KeyCodes key) => InternalKeyboard.IsKeyDown(key);
 
 
         /// <summary>
         /// Returns true if the given key is in the up position.
         /// </summary>
-        /// <param name="key">The key to check for.</param>
+        /// <param name="key">The key to check.</param>
         /// <returns></returns>
-        public bool IsKeyUp(KeyCodes key)
-        {
-            return InternalKeyboard.IsKeyUp(key);
-        }
+        public bool IsKeyUp(KeyCodes key) => InternalKeyboard.IsKeyUp(key);
 
 
         /// <summary>
-        /// Returns true if the given key has been pressed down then let go.
+        /// Returns true if the given key has been pressed to the down position then let go
+        /// to the up position.
         /// </summary>
-        /// <param name="key">The key to check for.</param>
+        /// <param name="key">The key to check.</param>
         /// <returns></returns>
-        public bool IsKeyPressed(KeyCodes key)
-        {
-            return InternalKeyboard.IsKeyPressed(key);
-        }
+        public bool IsKeyPressed(KeyCodes key) => InternalKeyboard.IsKeyPressed(key);
 
 
         /// <summary>
-        /// Returns a value indicating if any letter keys were pressed down then let go.
+        /// Returns a value indicating if any letter keys have been fully pressed down then let go.
         /// </summary>
         /// <returns></returns>
         public bool AnyLettersPressed()
@@ -261,7 +263,7 @@ namespace KDScorpionCore.Input
 
         /// <summary>
         /// Returns a value indicating if any of the standard number keys
-        /// above the letter keys on the keyboard are being pressed down.
+        /// above the letter keys on the keyboard are in the down position.
         /// </summary>
         /// <returns></returns>
         public bool AnyStandardNumberKeysDown()
@@ -280,7 +282,7 @@ namespace KDScorpionCore.Input
 
         /// <summary>
         /// Returns a value indicating if any of the numpad number keys
-        /// are being pressed down.
+        /// are in the down position.
         /// </summary>
         /// <returns></returns>
         public bool AnyNumpadNumberKeysDown()
@@ -299,7 +301,8 @@ namespace KDScorpionCore.Input
 
         /// <summary>
         /// Returns a value indicating if any of the standard number keys
-        /// above the letter keys on the keyboard have been pressed.
+        /// above the letter keys on the keyboard have been pressed fully
+        /// to the down position then let go to the up position.
         /// </summary>
         /// <returns></returns>
         public bool AnyStandardNumberKeysPressed()
@@ -318,7 +321,8 @@ namespace KDScorpionCore.Input
 
         /// <summary>
         /// Returns a value indicating if any of the numpad number keys
-        /// are have been pressed.
+        /// are have been pressed fully to the down position then
+        /// let go to the up position.
         /// </summary>
         /// <returns></returns>
         public bool AnyNumpadNumberKeysPressed()
@@ -336,17 +340,16 @@ namespace KDScorpionCore.Input
 
 
         /// <summary>
-        /// Returns a value indicating if any number keys were pressed down then let go.
+        /// Returns a value indicating if any number keys were pressed down fully 
+        /// to the down position then let go to the up position.
         /// </summary>
         /// <returns></returns>
-        public bool AnyNumbersPressed()
-        {
-            return AnyStandardNumberKeysPressed() || AnyNumpadNumberKeysPressed();
-        }
+        public bool AnyNumbersPressed() => AnyStandardNumberKeysPressed() || AnyNumpadNumberKeysPressed();
 
 
         /// <summary>
-        /// Returns a value indicating if number keys were pressed down then let go, and returns which number was pressed
+        /// Returns a value indicating if number keys were pressed down fully to the
+        /// down position then let go to the up position.
         /// </summary>
         /// <param name="symbolKey">The number key that was pressed if found.</param>
         /// <returns></returns>
@@ -383,7 +386,7 @@ namespace KDScorpionCore.Input
 
         /// <summary>
         /// Returns the character equivalent of the given key if it was
-        /// a letter, number or symbol key.  Tilde(~) will be returned if not
+        /// a letter, number or symbol key.  The value of 0 will be returned if not
         /// a letter, number or symbol.
         /// </summary>
         /// <param name="key">The key to check.</param>
@@ -398,7 +401,7 @@ namespace KDScorpionCore.Input
                 }
                 else if (_standardNumberKeys.Contains(key) || _symbolKeys.Contains(key))
                 {
-                    //When the shift key is down, the standard number keys and symbol keys body return symbols.
+                    //When the shift key is down, the standard number keys and symbol keys return symbols.
                     return _withShiftSymbolCharacters[key];
                 }
             }
@@ -420,7 +423,7 @@ namespace KDScorpionCore.Input
             }
 
 
-            return '~';
+            return (char)0;
         }
 
 
@@ -428,62 +431,43 @@ namespace KDScorpionCore.Input
         /// Returns a value indicating if any of the shift keys are being pressed down.
         /// </summary>
         /// <returns></returns>
-        public bool IsAnyShiftKeyDown()
-        {
-            return InternalKeyboard.IsKeyDown(KeyCodes.LeftShift) || InternalKeyboard.IsKeyDown(KeyCodes.RightShift);
-        }
+        public bool IsAnyShiftKeyDown() =>
+            InternalKeyboard.IsKeyDown(KeyCodes.LeftShift) || InternalKeyboard.IsKeyDown(KeyCodes.RightShift);
 
 
         /// <summary>
         /// Returns a value indicating if any of the control keys are being pressed down.
         /// </summary>
         /// <returns></returns>
-        public bool IsAnyCtrlKeyDown()
-        {
-            return InternalKeyboard.IsLeftCtrlDown || InternalKeyboard.IsRightCtrlDown;
-        }
+        public bool IsAnyCtrlKeyDown() => InternalKeyboard.IsLeftCtrlDown || InternalKeyboard.IsRightCtrlDown;
 
 
         /// <summary>
         /// Returns a value indicating if the any of the delete keys have been fully pressed.
         /// </summary>
         /// <returns></returns>
-        public bool IsDeleteKeyPressed()
-        {
-            var isKeyPressed = IsKeyPressed(KeyCodes.Delete);
-            var anyShiftDown = IsAnyShiftKeyDown();
-            var isNumpadDelPressed = IsKeyPressed(KeyCodes.Decimal);
-
-            return isKeyPressed || (anyShiftDown && isNumpadDelPressed);
-        }
+        public bool IsDeleteKeyPressed() =>
+            IsKeyPressed(KeyCodes.Delete) || (IsAnyShiftKeyDown() && IsKeyPressed(KeyCodes.Decimal));
 
 
         /// <summary>
-        /// Returns a value indicating if the backspace key has been fully pressed.
+        /// Returns a value indicating if the backspace key has been fully
+        /// pressed to the down position then let go to the up position.
         /// </summary>
         /// <returns></returns>
-        public bool IsBackspaceKeyPressed()
-        {
-            return IsKeyPressed(KeyCodes.Back);
-        }
+        public bool IsBackspaceKeyPressed() => IsKeyPressed(KeyCodes.Back);
 
 
         /// <summary>
         /// Update the current state of the keyboard.
         /// </summary>
-        public void UpdateCurrentState()
-        {
-            InternalKeyboard.UpdateCurrentState();
-        }
+        public void UpdateCurrentState() => InternalKeyboard.UpdateCurrentState();
 
 
         /// <summary>
         /// Update the previous state of the keyboard.
         /// </summary>
-        public void UpdatePreviousState()
-        {
-            InternalKeyboard.UpdatePreviousState();
-        }
+        public void UpdatePreviousState() => InternalKeyboard.UpdatePreviousState();
         #endregion
     }
 }

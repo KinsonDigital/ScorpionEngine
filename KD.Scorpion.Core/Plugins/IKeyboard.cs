@@ -17,32 +17,32 @@ namespace KDScorpionCore.Plugins
         bool NumLockOn { get; }
 
         /// <summary>
-        /// Gets a value indicating if the left shift key is being pressed.
+        /// Gets a value indicating if the left shift key is being held down.
         /// </summary>
         bool IsLeftShiftDown { get; }
 
         /// <summary>
-        /// Gets a value indicating if the right shift key is being pressed.
+        /// Gets a value indicating if the right shift key is being held down.
         /// </summary>
         bool IsRightShiftDown { get; }
 
         /// <summary>
-        /// Gets a value indicating if the left control key is being pressed down.
+        /// Gets a value indicating if the left control key is being held down.
         /// </summary>
         bool IsLeftCtrlDown { get; }
 
         /// <summary>
-        /// Gets a value indicating if the right control key is being pressed down.
+        /// Gets a value indicating if the right control key is being held down.
         /// </summary>
         bool IsRightCtrlDown { get; }
 
         /// <summary>
-        /// Gets a value indicating if the left alt key is being pressed down.
+        /// Gets a value indicating if the left alt key is being held down.
         /// </summary>
         bool IsLeftAltDown { get; }
 
         /// <summary>
-        /// Gets a value indicating if the right alt key is being pressed down.
+        /// Gets a value indicating if the right alt key is being held down.
         /// </summary>
         bool IsRightAltDown { get; }
         #endregion
@@ -69,17 +69,17 @@ namespace KDScorpionCore.Plugins
 
 
         /// <summary>
-        /// Returns a value indicating if any of the given key codes are being held down.
+        /// Returns a value indicating if any of the given key codes are being held in the down position.
         /// </summary>
         /// <param name="keys">The list of key codes to check.</param>
         /// <returns></returns>
-        bool IsAnyKeyDown(KeyCodes[] keys);
+        bool AreKeysDown(KeyCodes[] keys);
 
 
         /// <summary>
         /// Returns true if the given key is in the down position.
         /// </summary>
-        /// <param name="key">The key to check for.</param>
+        /// <param name="key">The key to check.</param>
         /// <returns></returns>
         bool IsKeyDown(KeyCodes key);
 
@@ -87,7 +87,7 @@ namespace KDScorpionCore.Plugins
         /// <summary>
         /// Returns true if the given key is in the up position.
         /// </summary>
-        /// <param name="key">The key to check for.</param>
+        /// <param name="key">The key to check.</param>
         /// <returns></returns>
         bool IsKeyUp(KeyCodes key);
 
@@ -95,7 +95,7 @@ namespace KDScorpionCore.Plugins
         /// <summary>
         /// Returns true if the given key has been put into the down position then released to the up position.
         /// </summary>
-        /// <param name="key">The key to check for.</param>
+        /// <param name="key">The key to check.</param>
         /// <returns></returns>
         bool IsKeyPressed(KeyCodes key);
 

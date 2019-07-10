@@ -19,10 +19,10 @@ namespace SDLScorpPlugin
 
         #region Public Methods
         /// <summary>
-        /// Starts the process of rendering a batch of <see cref="ITexture"/>s, <see cref="IText"/> items
+        /// Starts the process of rendering a batch of <see cref="Texture"/>s, <see cref="GameText"/> items
         /// or primitives.  This method must be invoked before rendering.
         /// </summary>
-        public void Start()
+        public void Begin()
         {
             CheckRenderPointer();
             _beginInvoked = true;
@@ -30,14 +30,14 @@ namespace SDLScorpPlugin
 
 
         /// <summary>
-        /// Stops the batching process and renders all of the batches textures to the screen.
+        /// Stops the batching process and renders all of the batched textures to the screen.
         /// </summary>
         public void End()
         {
             CheckRenderPointer();
 
             if (!_beginInvoked)
-                throw new Exception($"The '{nameof(Start)}' method must be invoked first before the '{nameof(End)}' method.");
+                throw new Exception($"The '{nameof(Begin)}' method must be invoked first before the '{nameof(End)}' method.");
 
             SDL.SDL_RenderPresent(_rendererPtr);
 
@@ -127,6 +127,56 @@ namespace SDLScorpPlugin
 
 
         /// <summary>
+        /// Renders the given <paramref name="text"/> at the given <paramref name="x"/>
+        /// and <paramref name="y"/> location.
+        /// </summary>
+        /// <param name="texture">The texture to render.</param>
+        /// <param name="x">The X coordinate location on the screen to render.</param>
+        /// <param name="y">The Y coordinate location on the screen to render.</param>
+        public void Render(IText text, float x, float y) => Render(text, x, y, text.Color);
+
+
+        /// <summary>
+        /// Renders the given text at the given <paramref name="x"/> and <paramref name="y"/>
+        /// location and using the given <paramref name="color"/>.
+        /// </summary>
+        /// <param name="text">The text to render.</param>
+        /// <param name="x">The X coordinate location of where to render the text.</param>
+        /// <param name="y">The Y coordinate location of where to render the text.</param>
+        /// <param name="color">The color to render the text.</param>
+        public void Render(IText text, float x, float y, GameColor color)
+        {
+            CheckRenderPointer();
+
+            var texturePtr = text.GetData<PointerContainer>(1).UnpackPointer();
+
+            //TODO:  Check for color index values first
+            SDL.SDL_SetTextureColorMod(texturePtr, color.Red, color.Green, color.Blue);
+            SDL.SDL_SetTextureAlphaMod(texturePtr, color.Alpha);
+            SDL.SDL_SetTextureBlendMode(texturePtr, SDL.SDL_BlendMode.SDL_BLENDMODE_BLEND);
+
+            var srcRect = new SDL.SDL_Rect()
+            {
+                x = 0,
+                y = 0,
+                w = text.Width,
+                h = text.Height
+            };
+
+            var destRect = new SDL.SDL_Rect()
+            {
+                x = (int)x,
+                y = (int)y,
+                w = text.Width,
+                h = text.Height
+            };
+
+            //Render texture to screen
+            SDL.SDL_RenderCopy(_rendererPtr, texturePtr, ref srcRect, ref destRect);
+        }
+
+
+        /// <summary>
         /// Renders an area of the given <paramref name="texture"/> at the given <paramref name="x"/>
         /// and <paramref name="y"/> location.
         /// </summary>
@@ -167,49 +217,7 @@ namespace SDLScorpPlugin
 
 
         /// <summary>
-        /// Renders the given <paramref name="text"/> at the given <paramref name="x"/>
-        /// and <paramref name="y"/> location.
-        /// </summary>
-        /// <param name="texture">The texture to render.</param>
-        /// <param name="x">The X coordinate location on the screen to render.</param>
-        /// <param name="y">The Y coordinate location on the screen to render.</param>
-        public void Render(IText text, float x, float y) => Render(text, x, y, text.Color);
-
-
-        public void Render(IText text, float x, float y, GameColor color)
-        {
-            CheckRenderPointer();
-
-            var texturePtr = text.GetData<PointerContainer>(1).UnpackPointer();
-
-            //TODO:  Check for color index values first
-            SDL.SDL_SetTextureColorMod(texturePtr, color.Red, color.Green, color.Blue);
-            SDL.SDL_SetTextureAlphaMod(texturePtr, color.Alpha);
-            SDL.SDL_SetTextureBlendMode(texturePtr, SDL.SDL_BlendMode.SDL_BLENDMODE_BLEND);
-
-            var srcRect = new SDL.SDL_Rect()
-            {
-                x = 0,
-                y = 0,
-                w = text.Width,
-                h = text.Height
-            };
-
-            var destRect = new SDL.SDL_Rect()
-            {
-                x = (int)x,
-                y = (int)y,
-                w = text.Width,
-                h = text.Height
-            };
-
-            //Render texture to screen
-            SDL.SDL_RenderCopy(_rendererPtr, texturePtr, ref srcRect, ref destRect);
-        }
-
-
-        /// <summary>
-        /// Renders a line using the given start and stop X and Y coordinates.
+        /// Renders a line using the given start and stop coordinates.
         /// </summary>
         /// <param name="lineStartX">The starting X coordinate of the line.</param>
         /// <param name="lineStartY">The starting Y coordinate of the line.</param>
@@ -305,7 +313,7 @@ namespace SDLScorpPlugin
         /// and using the given <paramref name="color"/>.
         /// </summary>
         /// <param name="rect">The rectangle to render.</param>
-        /// <param name="color">The color of the rectangle.</param> 
+        /// <param name="color">The color of the rectangle.</param>
         public void FillRect(Rect rect, GameColor color)
         {
             var sdlRect = new SDL.SDL_Rect()
@@ -351,7 +359,6 @@ namespace SDLScorpPlugin
         }
 
 
-        //TODO: Make sure that this method is being invoked.
         /// <summary>
         /// Properly destroys the SDL renderer.
         /// </summary>

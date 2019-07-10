@@ -8,22 +8,22 @@ namespace KDScorpionCore
     public interface IEngineEvents
     {
         #region Events
-        /// Occurs once every frame before the OnDraw event before the OnDraw event is invoked.
+        /// Occurs once every frame before the OnDraw event before the <see cref="OnRender"/> event is invoked.
         /// </summary>
         event EventHandler<OnUpdateEventArgs> OnUpdate;
 
         /// <summary>
-        /// Occurs once every frame after the OnUpdate event has been been invoked.
+        /// Occurs once every frame after the <see cref="OnUpdate"/> event has been been invoked.
         /// </summary>
         event EventHandler<OnRenderEventArgs> OnRender;
 
         /// <summary>
-        /// Occurs one time during game initialization. This event is fired before the OnLoadContent event is fired. Add initialization code here.
+        /// Occurs one time during game initialization. This event is fired before the <see cref="OnLoadContent"/> event is fired. Add initialization code here.
         /// </summary>
         event EventHandler OnInitialize;
 
         /// <summary>
-        /// Occurs one time during game intialization after the OnInit event is fired.
+        /// Occurs one time during game intialization after the <see cref="OnInitialize"/> event is fired.
         /// </summary>
         event EventHandler OnLoadContent;
         #endregion

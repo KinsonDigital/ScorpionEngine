@@ -8,9 +8,6 @@ using KDScorpionCore.Plugins;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngineTests.Fakes;
-using PluginSystem;
-using KDScorpionEngine.Entities;
-using KDScorpionEngine.Graphics;
 
 namespace KDScorpionEngineTests.Entities
 {

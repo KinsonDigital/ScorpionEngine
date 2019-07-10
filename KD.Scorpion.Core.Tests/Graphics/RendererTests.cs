@@ -194,10 +194,10 @@ namespace KDScorpionCoreTests.Graphics
             var renderer = new Renderer(mockRenderer.Object, _mockDebugDraw.Object);
 
             //Act
-            renderer.Start();
+            renderer.Begin();
 
             //Assert
-            mockRenderer.Verify(m => m.Start(), Times.Once());
+            mockRenderer.Verify(m => m.Begin(), Times.Once());
         }
 
 
