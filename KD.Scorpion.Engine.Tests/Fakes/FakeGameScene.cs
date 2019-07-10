@@ -1,5 +1,4 @@
-﻿using KDScorpionCore;
-using KDScorpionCore.Plugins;
+﻿using KDScorpionCore.Plugins;
 using KDScorpionEngine.Graphics;
 using KDScorpionEngine.Scene;
 

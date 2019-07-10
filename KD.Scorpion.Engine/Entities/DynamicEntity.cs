@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using KDScorpionCore;
+﻿using KDScorpionCore;
 using KDScorpionCore.Graphics;
 using KDScorpionCore.Plugins;
 using KDScorpionEngine.Behaviors;

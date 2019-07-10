@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using NETColor = System.Drawing.Color;
 using System.Windows.Media;
@@ -19,15 +16,6 @@ namespace ParticleMaker
     /// </summary>
     public static class ExtensionMethods
     {
-        #region PInvoke Functions
-        [DllImport("user32.dll", EntryPoint = "SetWindowLong")]
-        private static extern int SetWindowLong32(HandleRef hWnd, int nIndex, int dwNewLong);
-
-        [DllImport("user32.dll")]
-        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-        #endregion
-
-
         #region Fields
         private const float PI = 3.1415926535897931f;
         private static readonly char[] _windowsIllegalCharacters = new[] { '\\', '/', ':', '*', '?', '"', '<', '>', '|' };

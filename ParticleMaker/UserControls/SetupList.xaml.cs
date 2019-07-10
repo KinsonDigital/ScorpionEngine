@@ -60,7 +60,6 @@ namespace ParticleMaker.UserControls
         public PathItem SelectedItem { get; private set; }
 
 
-        #region Dependency Props
         /// <summary>
         /// Gets or sets the list of setup paths.
         /// </summary>
@@ -155,7 +154,6 @@ namespace ParticleMaker.UserControls
         /// </summary>
         public static readonly DependencyProperty SaveItemCommandProperty =
             DependencyProperty.Register(nameof(SaveItemCommand), typeof(ICommand), typeof(SetupList), new PropertyMetadata(null));
-        #endregion
         #endregion
 
 
