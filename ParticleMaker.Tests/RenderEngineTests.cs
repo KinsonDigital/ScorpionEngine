@@ -13,7 +13,7 @@ namespace ParticleMaker.Tests
         private ParticleEngine<ParticleTexture> _particleEngine;
         private Mock<IRenderer> _mockRenderer;
         private Mock<ITimingService> _mockTimingService;
-        private Mock<ITaskManagerService> _mockTaskService;
+        private readonly Mock<ITaskManagerService> _mockTaskService;
         private RenderEngine _engine;
         #endregion
 

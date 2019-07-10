@@ -12,7 +12,7 @@ namespace KDScorpionCoreTests.Content
     {
         #region Fields
         private IContentLoader _contentLoader;
-        private Mock<IContentLoader> _mockCoreContentLoader = new Mock<IContentLoader>();
+        private readonly Mock<IContentLoader> _mockCoreContentLoader = new Mock<IContentLoader>();
         #endregion
 
 

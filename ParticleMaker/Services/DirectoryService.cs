@@ -73,7 +73,7 @@ namespace ParticleMaker.Services
 
             var dirs = path.Split('\\');
 
-            dirs[dirs.Length - 1] = newName;
+            dirs[^1] = newName;
 
             Directory.Move(path, dirs.Join());
         }

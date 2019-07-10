@@ -107,8 +107,6 @@ namespace KDScorpionUI
             renderer.Render(_visibleText, _textPosition, new GameColor(255, 0, 0, 0));
 
             //Render the end to cover any text that has passed the end of the render area
-            var textureLeft = Position.X - (Width / 2);
-
             var topLeftCorner = new Vector(Position.X - Width / 2, Position.Y - Height / 2);
 
             var areaWidth = Width - (_rightSide - topLeftCorner.X);
@@ -117,8 +115,6 @@ namespace KDScorpionUI
             var coverPosition = new Vector(454, 250);// new Vector(_rightSide, Position.Y);
 
             renderer.RenderTextureArea(Background, coverArea, coverPosition);
-
-            var cursorPositionX = _leftSide + CalcCursorXPos();
 
             //DEBUGGING
             //Render the dot at the right side line
@@ -325,12 +321,7 @@ namespace KDScorpionUI
         }
 
 
-        private bool IsPositionInLeftSection()
-        {
-            var allText = $"{_leftText}{_visibleText.Text}{_rightText}";
-
-            return _characterPosition <= _leftText.Length - 1;
-        }
+        private bool IsPositionInLeftSection() => _characterPosition <= _leftText.Length - 1;
 
 
         private bool IsPositionInCenterSection()
@@ -341,10 +332,7 @@ namespace KDScorpionUI
         }
 
 
-        private bool IsTextClipped()
-        {
-            return _allText != _visibleText.Text;
-        }
+        private bool IsTextClipped() => _allText != _visibleText.Text;
         #endregion
     }
 }

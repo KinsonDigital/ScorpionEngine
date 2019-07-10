@@ -165,7 +165,7 @@ namespace ParticleMaker.UserControls
             var dirExists = DesignerProperties.GetIsInDesignMode(this) ? true : Directory.Exists(SetupPath);
             var pathSections = string.IsNullOrEmpty(SetupPath) || !dirExists ? new string[0] : SetupPath.Split('\\');
 
-            SetupName = pathSections.Length >= 1 ? pathSections[pathSections.Length - 1] : "";
+            SetupName = pathSections.Length >= 1 ? pathSections[^1] : "";
 
             HasError = !dirExists;
         }

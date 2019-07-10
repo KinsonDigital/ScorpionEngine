@@ -22,10 +22,8 @@ namespace ParticleMaker.Services
         {
             var fileData = JsonConvert.SerializeObject(data);
 
-            using (var file = File.CreateText(path))
-            {
-                file.Write(fileData);
-            }
+            using var file = File.CreateText(path);
+            file.Write(fileData);
         }
 
 
@@ -39,10 +37,8 @@ namespace ParticleMaker.Services
         {
             var fileData = JsonConvert.SerializeObject(data);
 
-            using (var file = File.CreateText(path))
-            {
-                file.Write(fileData);
-            }
+            using var file = File.CreateText(path);
+            file.Write(fileData);
         }
 
 
@@ -54,17 +50,11 @@ namespace ParticleMaker.Services
         /// <returns>The data of type <typeparamref name="T"/>.</returns>
         public T Load<T>(string path) where T : class
         {
-            var jsonSerializer = new JsonSerializer();
+            using var streamReader = new StreamReader(path);
+            using var jsonReader = new JsonTextReader(streamReader);
+            var serializer = new JsonSerializer();
 
-            using (var streamReader = new StreamReader(path))
-            {
-                using (var jsonReader = new JsonTextReader(streamReader))
-                {
-                    var serializer = new JsonSerializer();
-
-                    return serializer.Deserialize<T>(jsonReader);
-                }
-            }
+            return serializer.Deserialize<T>(jsonReader);
         }
 
 

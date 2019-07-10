@@ -184,7 +184,7 @@ namespace ParticleMaker.Dialogs
         /// <summary>
         /// Prevents any invalid characters from entering the input text box.
         /// </summary>
-        private void InputTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e) => e.Handled = e.Text.Length > 0 && _invalidCharacters.Contains(e.Text[e.Text.Length - 1]);
+        private void InputTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e) => e.Handled = e.Text.Length > 0 && _invalidCharacters.Contains(e.Text[^1]);
 
 
         /// <summary>

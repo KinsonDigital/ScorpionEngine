@@ -10,8 +10,8 @@ namespace ParticleMaker.Tests.Exceptions
     public class ExceptionHandlerTests : IDisposable
     {
         #region Fields
-        private Mock<ILoggerService> _mockLoggerService;
-        private Mock<IExceptionMessage> _mockExceptionMessage;
+        private readonly Mock<ILoggerService> _mockLoggerService;
+        private readonly Mock<IExceptionMessage> _mockExceptionMessage;
         #endregion
 
 

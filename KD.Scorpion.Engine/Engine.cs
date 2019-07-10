@@ -27,9 +27,8 @@ namespace KDScorpionEngine
         /// <paramref name="contentLoader">The content loader.</paramref>
         /// <paramref name="engineCore">The engine core.</paramref>
         /// <paramref name="keyboard">The keyboard.</paramref>
-        /// <paramref name="loadPhysicsLibrary">True if the physics library should be loaded.</paramref>
         /// </summary>
-        internal Engine(IContentLoader contentLoader, IEngineCore engineCore, IKeyboard keyboard, bool loadPhysicsLibrary = true)
+        internal Engine(IContentLoader contentLoader, IEngineCore engineCore, IKeyboard keyboard)
         {
             ContentLoader = new ContentLoader(contentLoader);
             SceneManager = new SceneManager(contentLoader, keyboard);
@@ -41,9 +40,8 @@ namespace KDScorpionEngine
         /// <summary>
         /// Creates an instance of engine.
         /// </summary>
-        /// <paramref name="loadPhysicsLibrary">True if the physics library should be loaded.</paramref>
         [ExcludeFromCodeCoverage]
-        public Engine(bool loadPhysicsLibrary = true)
+        public Engine()
         {
             SetupEngineCore(Core.Start());
             ContentLoader = new ContentLoader();

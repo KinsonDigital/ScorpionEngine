@@ -111,7 +111,7 @@ namespace ParticleMaker.Tests.Services
             {
                 var pathSections = path.Split(new[] { "test-project" }, StringSplitOptions.None);
 
-                actual = pathSections.Length >= 1 ? pathSections[pathSections.Length - 1].Replace("\\", "") : string.Empty;
+                actual = pathSections.Length >= 1 ? pathSections[^1].Replace("\\", "") : string.Empty;
 
 
                 return true;

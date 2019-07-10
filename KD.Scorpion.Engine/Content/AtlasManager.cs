@@ -344,13 +344,6 @@ namespace KDScorpionEngine.Content
             }
             #endregion
         }
-
-
-        private static int GetIndex(string name)
-        {
-            //string number = name.get
-            return 0;
-        }
         #endregion
     }
 }

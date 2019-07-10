@@ -330,10 +330,12 @@ namespace KDScorpionEngineTests.Entities
         {
             //Arrange
             Vector[] vertices = new[] { Vector.Zero };
-            var fakeEntity = new FakeEntity(vertices, It.IsAny<Vector>());
+            var fakeEntity = new FakeEntity(vertices, It.IsAny<Vector>())
+            {
+                Texture = CreateTexture()
+            };
 
             //Act
-            fakeEntity.Texture = CreateTexture();
             var actual = fakeEntity.Texture;
 
             //Assert
@@ -369,12 +371,12 @@ namespace KDScorpionEngineTests.Entities
         [Fact]
         public void DebugDrawColor_WhenSettingValue_ReturnsCorrectValue()
         {
-            //Arrange
-            var fakeEntity = new FakeEntity(null);
+            //Arrange & Act
+            var fakeEntity = new FakeEntity(null)
+            {
+                DebugDrawColor = new GameColor(11, 22, 33, 44)
+            };
 
-            //Act
-            fakeEntity.DebugDrawColor = new GameColor(11, 22, 33, 44);
-            
             //Assert
             Assert.Equal(new GameColor(11, 22, 33, 44), fakeEntity.DebugDrawColor);
         }
@@ -476,7 +478,7 @@ namespace KDScorpionEngineTests.Entities
 
 
         [Fact]
-        public void Vertices_WhenGettingValueBeforeInit_ReturnsCorrectVallue()
+        public void Vertices_WhenGettingValueBeforeInit_ReturnsCorrectValue()
         {
             //Arrange
             var vertices = new Vector[]
@@ -503,17 +505,9 @@ namespace KDScorpionEngineTests.Entities
 
 
         [Fact]
-        public void Vertices_WhenGettingValueBeforeAfterInit_ReturnsCorrectVallue()
+        public void Vertices_WhenGettingValueBeforeAfterInit_ReturnsCorrectValue()
         {
             //Arrange
-            var vertices = new Vector[]
-            {
-                new Vector(-50, -50),
-                new Vector(50, -50),
-                new Vector(50, 50),
-                new Vector(-50, 50)
-            };
-
             var entity = new FakeEntity(_mockPhysicsBody.Object);
 
             var expected = new Vector[]

@@ -771,8 +771,8 @@ namespace ParticleMaker.ViewModels
 
             //Unsubscribe before suscribing.  This will make sure that we do not have multiple subscribtions 
             //which would result in the assigne method invoking more than once.
-            _renderEngine.ParticleEngine.LivingParticlesCountChanged -= _particleEngine_LivingParticlesCountChanged;
-            _renderEngine.ParticleEngine.LivingParticlesCountChanged += _particleEngine_LivingParticlesCountChanged;
+            _renderEngine.ParticleEngine.LivingParticlesCountChanged -= ParticleEngine_LivingParticlesCountChanged;
+            _renderEngine.ParticleEngine.LivingParticlesCountChanged += ParticleEngine_LivingParticlesCountChanged;
             _renderEngine.ParticleEngine.SpawnLocation = new PointF(200, 200);
         }
 
@@ -796,7 +796,7 @@ namespace ParticleMaker.ViewModels
         /// Updates the <see cref="TotalLivingParticles"/> property to update the UI.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        private void _particleEngine_LivingParticlesCountChanged(object sender, EventArgs e)
+        private void ParticleEngine_LivingParticlesCountChanged(object sender, EventArgs e)
         {
             NotifyPropChange(nameof(TotalLivingParticles));
             NotifyPropChange(nameof(TotalDeadParticles));
@@ -1018,7 +1018,7 @@ namespace ParticleMaker.ViewModels
                             ProjectSetups = null;
                             SetupDeploymentPath = string.Empty;
 
-                            _renderEngine.Pause(true);
+                            _renderEngine.Pause();
                         }
 
                         _projectManager.Delete(projListDialog.SelectedProject);
@@ -1430,10 +1430,7 @@ namespace ParticleMaker.ViewModels
                         var success = _renderEngine.ParticleEngine.Remove(_renderEngine.ParticleEngine[i]);
 
                         if (success)
-                        {
                             particleTexture.Dispose();
-                            particleTexture = null;
-                        }
 
                         break;
                     }
