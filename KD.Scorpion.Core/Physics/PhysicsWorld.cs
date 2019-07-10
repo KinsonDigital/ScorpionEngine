@@ -48,11 +48,7 @@ namespace KDScorpionCore.Physics
         /// Adds the given <paramref name="body"/> to the world.
         /// </summary>
         /// <param name="body">The body to add.</param>
-        public void AddBody(IPhysicsBody body)
-        {
-            //Only add it to the physics world if the entity has been initialized.
-            _internalWorld.AddBody(body);
-        }
+        public void AddBody(IPhysicsBody body) => _internalWorld.AddBody(body);
 
 
         /// <summary>

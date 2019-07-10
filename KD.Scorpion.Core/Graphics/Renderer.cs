@@ -57,6 +57,7 @@ namespace KDScorpionCore.Graphics
         /// <param name="blue">The blue component of the color.</param>
         public void Clear(byte alpha, byte red, byte green, byte blue) => Clear(new GameColor(alpha, red, green, blue));
 
+
         /// <summary>
         /// Clears the graphics surface to the given <paramref name="color"/>.
         /// </summary>

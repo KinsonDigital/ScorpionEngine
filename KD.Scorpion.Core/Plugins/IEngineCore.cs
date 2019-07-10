@@ -33,16 +33,19 @@ namespace KDScorpionCore.Plugins
         /// </summary>
         void Start();
 
+
         /// <summary>
         /// Stops the engine.
         /// </summary>
         void Stop();
+
 
         /// <summary>
         /// Sets how many frames the engine will process per second.
         /// </summary>
         /// <param name="value">The total number of frames.</param>
         void SetFPS(float value);
+
 
         /// <summary>
         /// Returns true if the engine is running.

@@ -26,6 +26,7 @@
         #endregion
 
 
+        #region Overloaded Operators
         /// <summary>
         /// Concatenates the text of 2 <see cref="GameText"/> objects.
         /// </summary>
@@ -39,5 +40,6 @@
 
 
         public static string operator +(string textA, GameText textB) => $"{textA}{textB.Text}";
+        #endregion
     }
 }

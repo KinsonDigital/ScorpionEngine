@@ -21,10 +21,7 @@ namespace KDScorpionCore
         /// Creates a new instance of <see cref="OnRenderEventArgs"/>.
         /// </summary>
         /// <param name="renderer">The game renderer.</param>
-        public OnRenderEventArgs(IRenderer renderer)
-        {
-            Renderer = renderer;
-        }
+        public OnRenderEventArgs(IRenderer renderer) => Renderer = renderer;
         #endregion
     }
 }

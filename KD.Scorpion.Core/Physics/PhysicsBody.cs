@@ -108,7 +108,6 @@ namespace KDScorpionCore.Physics
             set => InternalPhysicsBody.Y = value;
         }
 
-        //In Degrees
         /// <summary>
         /// Gets or sets the angle of the body in degrees.
         /// </summary>
@@ -201,12 +200,6 @@ namespace KDScorpionCore.Physics
         private void Setup(Vector[] vertices, Vector position, float angle, float density, float friction, float restitution, bool isStatic)
         {
             _ctorParams = new object[9];
-
-            //Setup the vertices
-            //var verticesParam = new List<InternalVector>();
-
-            //foreach (var vector in vertices)
-            //    verticesParam.Add(new InternalVector(vector.X, vector.Y));
 
             _ctorParams[0] = (from v in vertices select v.X).ToArray();
             _ctorParams[1] = (from v in vertices select v.Y).ToArray();
