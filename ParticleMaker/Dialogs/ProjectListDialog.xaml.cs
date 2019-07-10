@@ -59,7 +59,6 @@ namespace ParticleMaker.Dialogs
         #endregion
 
 
-        #region Dependency Props
         /// <summary>
         /// Gets or sets the paths to all of the projects.
         /// </summary>
@@ -102,7 +101,6 @@ namespace ParticleMaker.Dialogs
         /// </summary>
         public static readonly DependencyProperty SelectedProjectProperty =
             DependencyProperty.Register(nameof(SelectedProject), typeof(string), typeof(ProjectListDialog), new PropertyMetadata(""));
-        #endregion
 
 
         #region Private Methods

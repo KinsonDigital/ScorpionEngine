@@ -31,21 +31,6 @@ namespace ParticleMaker.Exceptions
 
 
         #region Props
-        #region Dependency Props
-        /// <summary>
-        /// Registers the <see cref="Message"/> property.
-        /// </summary>
-        private static readonly DependencyProperty MessageProperty =
-            DependencyProperty.Register(nameof(Message), typeof(string), typeof(ExceptionMessageBox), new PropertyMetadata(""));
-
-        /// <summary>
-        /// Registers the <see cref="StackTrace"/> property.
-        /// </summary>
-        private static readonly DependencyProperty StackTraceProperty =
-            DependencyProperty.Register(nameof(StackTrace), typeof(string), typeof(ExceptionMessageBox), new PropertyMetadata(""));
-        #endregion
-
-
         /// <summary>
         /// Gets or sets the exception message to be displayed.
         /// </summary>
@@ -56,6 +41,13 @@ namespace ParticleMaker.Exceptions
         }
 
         /// <summary>
+        /// Registers the <see cref="Message"/> property.
+        /// </summary>
+        private static readonly DependencyProperty MessageProperty =
+            DependencyProperty.Register(nameof(Message), typeof(string), typeof(ExceptionMessageBox), new PropertyMetadata(""));
+
+
+        /// <summary>
         /// Gets or sets the stack trace of the exception.
         /// </summary>
         private string StackTrace
@@ -63,6 +55,12 @@ namespace ParticleMaker.Exceptions
             get => (string)GetValue(StackTraceProperty);
             set => SetValue(StackTraceProperty, value);
         }
+
+        /// <summary>
+        /// Registers the <see cref="StackTrace"/> property.
+        /// </summary>
+        private static readonly DependencyProperty StackTraceProperty =
+            DependencyProperty.Register(nameof(StackTrace), typeof(string), typeof(ExceptionMessageBox), new PropertyMetadata(""));
         #endregion
 
 

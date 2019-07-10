@@ -45,15 +45,13 @@ namespace ParticleMaker.UserControls
         #endregion
 
 
-        #region Props
+        #region Dependency Props
         /// <summary>
         /// Gets the selected particle item in the list.
         /// </summary>
         public PathItem SelectedItem { get; private set; }
-        #endregion
 
 
-        #region Dependency Props
         /// <summary>
         /// Gets or sets the list of particle paths.
         /// </summary>

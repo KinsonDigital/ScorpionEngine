@@ -41,7 +41,7 @@ namespace ParticleMaker.UserControls
         #endregion
 
 
-        #region Dependency Props
+        #region Props
         /// <summary>
         /// Gets or sets the path to the setup file.
         /// Must be a full path with file name.
