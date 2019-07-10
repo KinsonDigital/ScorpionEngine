@@ -94,43 +94,43 @@
         /// </summary>
         Help = 47,
         /// <summary>
-        /// Used for miscellaneous characters; it can vary by keyboard.
+        /// The number 0 key or right parentheses key.
         /// </summary>
         D0 = 48,
         /// <summary>
-        /// Used for miscellaneous characters; it can vary by keyboard.
+        /// The number 0 key or exclamation point key.
         /// </summary>
         D1 = 49,
         /// <summary>
-        /// Used for miscellaneous characters; it can vary by keyboard.
+        /// The number 1 key or email at symbol key.
         /// </summary>
         D2 = 50,
         /// <summary>
-        /// Used for miscellaneous characters; it can vary by keyboard.
+        /// The number 3 key or hash/pound key.
         /// </summary>
         D3 = 51,
         /// <summary>
-        /// Used for miscellaneous characters; it can vary by keyboard.
+        /// The number 4 key or dollar sign key.
         /// </summary>
         D4 = 52,
         /// <summary>
-        /// Used for miscellaneous characters; it can vary by keyboard.
+        /// The number 5 key or percent symbol key.
         /// </summary>
         D5 = 53,
         /// <summary>
-        /// Used for miscellaneous characters; it can vary by keyboard.
+        /// The number 6 key or carrot symbol key.
         /// </summary>
         D6 = 54,
         /// <summary>
-        /// Used for miscellaneous characters; it can vary by keyboard.
+        /// The number 7 key or the ampersand key.
         /// </summary>
         D7 = 55,
         /// <summary>
-        /// Used for miscellaneous characters; it can vary by keyboard.
+        /// The number 8 key or the asterick key.
         /// </summary>
         D8 = 56,
         /// <summary>
-        /// Used for miscellaneous characters; it can vary by keyboard.
+        /// The number 9 key or the left parentheses key.
         /// </summary>
         D9 = 57,
         /// <summary>
@@ -254,43 +254,43 @@
         /// </summary>
         Sleep = 95,
         /// <summary>
-        /// Numeric keypad 0 key
+        /// Numpad number 0 key
         /// </summary>
         NumPad0 = 96,
         /// <summary>
-        /// Numeric keypad 1 key
+        /// Numpad number 1 key
         /// </summary>
         NumPad1 = 97,
         /// <summary>
-        /// Numeric keypad 2 key
+        /// Numpad number 2 key
         /// </summary>
         NumPad2 = 98,
         /// <summary>
-        /// Numeric keypad 3 key
+        /// Numpad number 3 key
         /// </summary>
         NumPad3 = 99,
         /// <summary>
-        /// Numeric keypad 4 key
+        /// Numpad number 4 key
         /// </summary>
         NumPad4 = 100,
         /// <summary>
-        /// Numeric keypad 5 key
+        /// Numpad number 5 key
         /// </summary>
         NumPad5 = 101,
         /// <summary>
-        /// Numeric keypad 6 key
+        /// Numpad number 6 key
         /// </summary>
         NumPad6 = 102,
         /// <summary>
-        /// Numeric keypad 7 key
+        /// Numpad number 7 key
         /// </summary>
         NumPad7 = 103,
         /// <summary>
-        /// Numeric keypad 8 key
+        /// Numpad number 8 key
         /// </summary>
         NumPad8 = 104,
         /// <summary>
-        /// Numeric keypad 9 key
+        /// Numpad number 9 key
         /// </summary>
         NumPad9 = 105,
         /// <summary>
@@ -650,6 +650,7 @@
         /// </summary>
         AnyKey = 1000
     }
+
 
     /// <summary>
     /// Represents the buttons on a mouse.

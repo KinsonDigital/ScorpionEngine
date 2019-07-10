@@ -36,10 +36,7 @@
         /// </summary>
         public Vector Position
         {
-            get
-            {
-                return new Vector(X, Y);
-            }
+            get => new Vector(X, Y);
             set
             {
                 X = (int)value.X;

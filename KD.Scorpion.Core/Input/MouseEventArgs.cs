@@ -20,10 +20,7 @@ namespace KDScorpionCore.Input
         /// Creates a new instance of MouseEventArgs.
         /// </summary>
         /// <param name="state">The state of the mouse.</param>
-        public MouseEventArgs(MouseInputState state)
-        {
-            State = state;
-        }
+        public MouseEventArgs(MouseInputState state) => State = state;
         #endregion
     }
 }
