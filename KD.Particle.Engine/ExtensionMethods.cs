@@ -34,10 +34,7 @@ namespace KDParticleEngine
         /// <param name="random">The random instance to use.</param>
         /// <returns></returns>
         [ExcludeFromCodeCoverage]
-        public static bool FlipCoin(this Random random)
-        {
-            return random.NextDouble() <= 0.5f;
-        }
+        public static bool FlipCoin(this Random random) => random.NextDouble() <= 0.5f;
 
 
         /// <summary>

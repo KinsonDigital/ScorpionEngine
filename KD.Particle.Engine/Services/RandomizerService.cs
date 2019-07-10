@@ -17,10 +17,7 @@ namespace KDParticleEngine.Services
         /// <summary>
         /// Creates a new instance of <see cref="RandomizerService"/>.
         /// </summary>
-        public RandomizerService()
-        {
-            _random = new Random();
-        }
+        public RandomizerService() => _random = new Random();
         #endregion
 
 
