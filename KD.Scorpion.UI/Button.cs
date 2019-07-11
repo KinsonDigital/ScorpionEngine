@@ -111,7 +111,7 @@ namespace KDScorpionUI
         /// <summary>
         /// Updates the <see cref="Button"/>.
         /// </summary>
-        /// <param name="engineTime">The amount of time that has passed in the engine since the last frame.</param>
+        /// <param name="engineTime">The game engine time.</param>
         public void Update(EngineTime engineTime)
         {
             ProcessMouse();

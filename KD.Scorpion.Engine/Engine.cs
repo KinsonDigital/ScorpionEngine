@@ -122,7 +122,7 @@ namespace KDScorpionEngine
         /// <summary>
         /// Updates the game world.
         /// </summary>
-        /// <param name="engineTime">The time passed since last frame and game start.</param>
+        /// <param name="engineTime">The game engine time.</param>
         public virtual void Update(EngineTime engineTime)
         {
             var currentTime = engineTime.ElapsedEngineTime.Milliseconds;

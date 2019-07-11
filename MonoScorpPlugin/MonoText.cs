@@ -25,8 +25,6 @@ namespace MonoScorpPlugin
         public GameColor Color { get; set; } = new GameColor(255, 255, 255, 255);
 
         internal SpriteFont Font { get; private set; }
-
-
         #endregion
 
 

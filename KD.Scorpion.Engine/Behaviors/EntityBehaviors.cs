@@ -1,9 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using KDScorpionEngine.Entities;
 
 namespace KDScorpionEngine.Behaviors
 {
+    /// <summary>
+    /// Manages a list of <see cref="Entity"/> behaviors.
+    /// </summary>
     [ExcludeFromCodeCoverage]
     public class EntityBehaviors : IEnumerable, IList<IBehavior>
     {
@@ -16,7 +20,7 @@ namespace KDScorpionEngine.Behaviors
         /// <summary>
         /// Gets an <see cref="IBehavior"/> at a specified index.
         /// </summary>
-        /// <param name="index">The index of of the item to retrieve.</param>
+        /// <param name="index">The index of of the item to return.</param>
         /// <returns></returns>
         public IBehavior this[int index]
         {

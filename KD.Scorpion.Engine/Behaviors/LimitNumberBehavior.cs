@@ -3,10 +3,15 @@ using System;
 
 namespace KDScorpionEngine.Behaviors
 {
+    /// <summary>
+    /// Limits a number to a set positive or negative value.
+    /// </summary>
     public class LimitNumberBehavior : Behavior
     {
+        #region Private Fields
         private readonly Func<float> _getValue;
         private readonly Action<float> _setLimit;
+        #endregion
 
 
         #region Constructors
@@ -29,12 +34,20 @@ namespace KDScorpionEngine.Behaviors
 
 
         #region Props
+        /// <summary>
+        /// Gets or sets the number to limit the number to.
+        /// </summary>
         public float LimitValue { get; set; }
         #endregion
 
 
-        #region Public Methods
-        public void UpdateAction(EngineTime engineTime)
+        #region Private Methods
+        /// <summary>
+        /// Then method to run that creates the number limiting behavior.  Executed when the <see cref="Behavior.Update(EngineTime)"/>
+        /// is executed.
+        /// </summary>
+        /// <param name="engineTime">The game engine time.</param>
+        private void UpdateAction(EngineTime engineTime)
         {
             var currentValue = _getValue();
 

@@ -233,7 +233,7 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// Updates the moveable object.
         /// </summary>
-        /// <param name="engineTime"></param>
+        /// <param name="engineTime">The game engine time.</param>
         public override void Update(EngineTime engineTime)
         {
             if (Body == null)

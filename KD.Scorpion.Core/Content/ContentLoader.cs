@@ -17,10 +17,10 @@ namespace KDScorpionCore.Content
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="ContentLoader"/>.
-        /// Used for unit testing.
+        /// USED FOR UNIT TESTING.
         /// </summary>
-        /// <param name="contentLoader">The mocked loader to inject.</param>
-        internal ContentLoader(IContentLoader contentLoader) => _internalLoader = contentLoader;
+        /// <param name="mockedContentLoader">The mocked content loader to inject.</param>
+        internal ContentLoader(IContentLoader mockedContentLoader) => _internalLoader = mockedContentLoader;
 
 
         /// <summary>

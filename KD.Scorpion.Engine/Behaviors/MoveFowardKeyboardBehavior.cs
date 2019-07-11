@@ -6,6 +6,11 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace KDScorpionEngine.Behaviors
 {
+    /// <summary>
+    /// Moves a <see cref="DynamicEntity"/> forward in the direction it is facing with added rotation
+    /// using the keyboard.
+    /// </summary>
+    /// <typeparam name="T">The type of <see cref="DynamicEntity"/> to move.</typeparam>
     public class MoveFowardKeyboardBehavior<T> : Behavior where T : DynamicEntity
     {
         #region Fields
@@ -23,19 +28,19 @@ namespace KDScorpionEngine.Behaviors
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="MovementByKeyboardBehavior{T}"/>
-        /// and injects the given <paramref name="keyboard"/> and <paramref name="entity"/>
+        /// and injects the given <paramref name="mockedKeyboard"/> and <paramref name="mockedEntity"/>
         /// for the purpose of unit testing.
         /// </summary>
-        /// <param name="keyboard">The mocked keyboard to inject for testing.</param>
-        /// <param name="entity">The mocked entity to use for testing.</param>
-        internal MoveFowardKeyboardBehavior(IKeyboard keyboard, T entity)
+        /// <param name="mockedKeyboard">The mocked keyboard to inject for testing.</param>
+        /// <param name="mockedEntity">The mocked entity to use for testing.</param>
+        internal MoveFowardKeyboardBehavior(IKeyboard mockedKeyboard, T mockedEntity)
         {
-            _keyboard = new Keyboard(keyboard);
+            _keyboard = new Keyboard(mockedKeyboard);
 
-            CreateBehaviors(keyboard);
+            CreateBehaviors(mockedKeyboard);
             SetupBehaviors();
 
-            _gameObject = entity;
+            _gameObject = mockedEntity;
 
             SetUpdateAction(UpdateAction);
         }
@@ -105,17 +110,17 @@ namespace KDScorpionEngine.Behaviors
         }
 
         /// <summary>
-        /// Gets a value indicating if the attempt to move foward is true.
+        /// Gets a value indicating if the <see cref="DynamicEntity"/> is moving forward in the direction it is facing.
         /// </summary>
         public bool IsMovingForward { get; private set; }
 
         /// <summary>
-        /// Gets or sets the linear speed of the entity.
+        /// Gets or sets the linear speed of the <see cref="DynamicEntity"/>.
         /// </summary>
         public float LinearSpeed { get; set; }
 
         /// <summary>
-        /// Gets or sets the angular speed of the entity.
+        /// Gets or sets the angular speed of the <see cref="DynamicEntity"/>.
         /// </summary>
         public float AngularSpeed { get; set; }
         #endregion
@@ -123,7 +128,7 @@ namespace KDScorpionEngine.Behaviors
 
         #region Private Methods
         /// <summary>
-        /// The action that will be invoked by the behavior.  This will update the other behaviors.
+        /// The action that will be invoked by the behavior.  This will update the other internal behaviors.
         /// </summary>
         /// <param name="engineTime">The game engine time.</param>
         private void UpdateAction(EngineTime engineTime)
@@ -161,8 +166,8 @@ namespace KDScorpionEngine.Behaviors
 
 
         /// <summary>
-        /// Creates all of the keyboard behaviors that deal with <see cref="DynamicEntity"/>
-        /// for unit testing.
+        /// Creates all of the keyboard behaviors that deal with <see cref="DynamicEntity"/>.
+        /// USED FOR UNIT TESTING.
         /// </summary>
         /// <param name="keyboard">The keyboard to inject into the behaviors for testing.</param>
         private void CreateBehaviors(IKeyboard keyboard)
@@ -220,19 +225,13 @@ namespace KDScorpionEngine.Behaviors
         /// <summary>
         /// Rotates the <see cref="DynamicEntity"/> clockwise.
         /// </summary>
-        private void RotateCW_KeyDown(object sender, KeyEventArgs e)
-        {
-            _gameObject.RotateCW(AngularSpeed);
-        }
+        private void RotateCW_KeyDown(object sender, KeyEventArgs e) => _gameObject.RotateCW(AngularSpeed);
 
 
         /// <summary>
         /// Rotates the <see cref="DynamicEntity"/> counter clockwise.
         /// </summary>
-        private void RotateCCW_KeyDown(object sender, KeyEventArgs e)
-        {
-            _gameObject.RotateCCW(AngularSpeed);
-        }
+        private void RotateCCW_KeyDown(object sender, KeyEventArgs e) => _gameObject.RotateCCW(AngularSpeed);
         #endregion
         #endregion
     }

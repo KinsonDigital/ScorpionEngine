@@ -554,7 +554,7 @@ namespace KDScorpionEngine.Scene
         /// <summary>
         /// Manages the <see cref="RunMode"/> settings and updates the currently enabled <see cref="IScene"/>.
         /// </summary>
-        /// <param name="engineTime">The frame time information of the last frame.</param>
+        /// <param name="engineTime">The game engine time.</param>
         public void Update(EngineTime engineTime)
         {
             ProcessKeys();

@@ -116,7 +116,7 @@ namespace KDScorpionEngine.Input
         /// <summary>
         /// Update the watcher state.
         /// </summary>
-        /// <param name="engineTime">The engine time info.</param>
+        /// <param name="engineTime">The game engine time.</param>
         public void Update(EngineTime engineTime)
         {
             //If disabled, exit

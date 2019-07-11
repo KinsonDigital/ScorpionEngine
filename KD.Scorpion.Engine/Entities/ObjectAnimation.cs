@@ -113,7 +113,7 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// Updates the animation.
         /// </summary>
-        /// <param name="engineTime">The engine time.</param>
+        /// <param name="engineTime">The game engine time.</param>
         public void Update(IEngineTiming engineTime)
         {
             switch (State)

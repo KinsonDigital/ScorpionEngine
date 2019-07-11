@@ -103,13 +103,13 @@ namespace KDScorpionEngine.Utils
             Stop();
 
             ElapsedMS = 0;
-        } 
+        }
 
 
         /// <summary>
         /// Updates the internal time of the stop watch.
         /// </summary>
-        /// <param name="engineTime">The engine time passed.</param>
+        /// <param name="engineTime">The game engine time.</param>
         public void Update(EngineTime engineTime)
         {
             //If the stopwatch is enabled, add the amount of time passed to the elapsed value

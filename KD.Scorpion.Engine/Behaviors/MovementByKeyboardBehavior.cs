@@ -7,7 +7,8 @@ using System.Diagnostics.CodeAnalysis;
 namespace KDScorpionEngine.Behaviors
 {
     /// <summary>
-    /// Creates a behavior that controls the left, right, up, and down movement of a <see cref="DynamicEntity"/>.
+    /// Creates a behavior that controls the left, right, up, and down movement of a
+    /// <see cref="DynamicEntity"/> using the keyboard.
     /// <typeparamref name="T">The type of <see cref="DynamicEntity"/> to apply the movement to.</typeparamref>
     /// </summary>
     public class MovementByKeyboardBehavior<T> : Behavior where T : DynamicEntity
@@ -26,12 +27,18 @@ namespace KDScorpionEngine.Behaviors
 
 
         #region Constructors
-        internal MovementByKeyboardBehavior(IKeyboard keyboard, T entity)
+        /// <summary>
+        /// Creates a new instance of <see cref="MovementByKeyboardBehavior{T}"/>.
+        /// USED FOR UNIT TESTING.
+        /// </summary>
+        /// <param name="mockedKeyboard">The mocked keyboard to inject.</param>
+        /// <param name="mockedEntity">The mocked entity to inject.</param>
+        internal MovementByKeyboardBehavior(IKeyboard mockedKeyboard, T mockedEntity)
         {
-            CreateBehaviors(keyboard);
+            CreateBehaviors(mockedKeyboard);
             SetupBehaviors();
 
-            _gameObject = entity;
+            _gameObject = mockedEntity;
 
             SetUpdateAction(UpdateAction);
         }
@@ -123,6 +130,9 @@ namespace KDScorpionEngine.Behaviors
         }
 
 
+        /// <summary>
+        /// Gets or sets the linear speed of the <see cref="DynamicEntity"/>.
+        /// </summary>
         public float LinearSpeed { get; set; }
         #endregion
 

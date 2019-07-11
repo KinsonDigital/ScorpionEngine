@@ -45,10 +45,10 @@ namespace KDScorpionCore.Input
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="Mouse"/>.
-        /// Used for unit testing.
+        /// USED FOR UNIT TESTING.
         /// </summary>
-        /// <param name="mouse">The mocked mouse to inject.</param>
-        internal Mouse(IMouse mouse) => InternalMouse = mouse;
+        /// <param name="mockedMouse">The mocked mouse to inject.</param>
+        internal Mouse(IMouse mockedMouse) => InternalMouse = mockedMouse;
 
 
         /// <summary>
