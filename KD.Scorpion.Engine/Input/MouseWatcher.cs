@@ -10,14 +10,31 @@ using System.Linq;
 namespace KDScorpionEngine.Input
 {
     /// <summary>
-    /// Watches a mouse button and invokes an event when the button is pressed a set amount of times.
+    /// Watches a mouse button for various events and behaviors such is how many times a button is pressed,
+    /// how long it is held down or how long it has been released.  Various events will be triggered when
+    /// these behaviours occur.
     /// </summary>
     public class MouseWatcher : IInputWatcher, IUpdatable
     {
         #region Public Event Handlers
+        /// <summary>
+        /// Invoked when the combo button setup has been pressed.
+        /// </summary>
         public event EventHandler OnInputComboPressed;
+
+        /// <summary>
+        /// Invoked when the set mouse button has been held in the down position for a set amount of time.
+        /// </summary>
         public event EventHandler OnInputDownTimeOut;
+
+        /// <summary>
+        /// Invoked when the set mouse button has been hit a set amount of times.
+        /// </summary>
         public event EventHandler OnInputHitCountReached;
+
+        /// <summary>
+        /// Invoked when the set mouse button has been released from the down position for a set amount of time.
+        /// </summary>
         public event EventHandler OnInputReleasedTimeOut;
         #endregion
 
@@ -34,6 +51,12 @@ namespace KDScorpionEngine.Input
 
 
         #region Constructor
+        /// <summary>
+        /// Creates a new instance of <see cref="MouseWatcher"/>.
+        /// USED FOR UNIT TESTING.
+        /// </summary>
+        /// <param name="enabled">True if the watcher should be enabled.</param>
+        /// <param name="mouse">The mocked mouse to inject.</param>
         internal MouseWatcher(bool enabled, IMouse mouse)
         {
             _mouse = new Mouse(mouse);
@@ -42,9 +65,9 @@ namespace KDScorpionEngine.Input
 
 
         /// <summary>
-        /// Creates an instance of MouseWatcher.
+        /// Creates an instance of <see cref="MouseWatcher"/>.
         /// </summary>
-        /// <param name="enabled">Set to true or false to enable or disable the watcher.</param>
+        /// <param name="enabled">Set to true to enable the watcher.</param>
         [ExcludeFromCodeCoverage]
         public MouseWatcher(bool enabled)
         {
@@ -56,15 +79,17 @@ namespace KDScorpionEngine.Input
 
         #region Props
         /// <summary>
+        /// Gets or sets a value indicating if the <see cref="MouseWatcher"/> is enabled.
+        /// </summary>
+        public bool Enabled { get; set; }
+
+        /// <summary>
         /// Gets or sets the list of combo buttons.
         /// </summary>
         public List<InputButton> ComboButtons
         {
-            get { return _currentPressedButtons.Keys.ToList(); }
-            set
-            {
-                CreateCurrentPressedButtons(value);
-            }
+            get => _currentPressedButtons.Keys.ToList();
+            set => CreateCurrentPressedButtons(value);
         }
 
         /// <summary>
@@ -72,49 +97,91 @@ namespace KDScorpionEngine.Input
         /// </summary>
         public InputButton Button { get; set; } = InputButton.None;
 
+        /// <summary>
+        /// Gets current amount of times that the set button has been hit.
+        /// </summary>
         public int CurrentHitCount => _counter.Value;
 
+        /// <summary>
+        /// Gets the current hit percentage that the button has been hit out of the total number of maximum tims to be hit.
+        /// </summary>
         public int CurrentHitCountPercentage => (int)(CurrentHitCount / (float)HitCountMax * 100f);
 
+        /// <summary>
+        /// Gets or sets the reset mode that the watcher will operate in.
+        /// <see cref="ResetType.Auto"/> will automatically reset the watcher for watching the amount of time the button is in the down position.
+        /// <see cref="ResetType.Manual"/> will only be reset if manually done so.
+        /// </summary>
         public ResetType DownElapsedResetMode { get; set; } = ResetType.Auto;
 
-        public bool Enabled { get; set; }
-
+        /// <summary>
+        /// Gets or sets the maximum amount of times that the set mouse button should be hit before 
+        /// invoking the <see cref="OnInputHitCountReached"/> event is reached.
+        /// </summary>
         public int HitCountMax
         {
             get => _counter.Max;
             set => _counter.Max = value;
         }
 
+        /// <summary>
+        /// Gets or sets the reset mode that the watcher's hit count will operate in.
+        /// <see cref="ResetType.Auto"/> will automatically reset the watcher for watching the hit count.
+        /// <see cref="ResetType.Manual"/> will only be reset if manually done so.
+        /// </summary>
         public ResetType HitCountResetMode { get; set; } = ResetType.Auto;
 
+        /// <summary>
+        /// Gets the amount of time in milliseconds that has elapsed that the button has been held in the down position.
+        /// </summary>
         public int InputDownElapsedMS => _buttonDownTimer.ElapsedMS;
 
+        /// <summary>
+        /// Gets the amount of time in seconds that has elapsed that the button has been held in the down position.
+        /// </summary>
         public float InputDownElapsedSeconds => _buttonReleaseTimer.ElapsedSeconds;
 
+        /// <summary>
+        /// The amount of time in milliseconds that the button should be held down before invoking the <see cref="OnInputDownTimeOut"/> event.
+        /// </summary>
         public int InputDownTimeOut
         {
             get => _buttonDownTimer.TimeOut;
             set => _buttonDownTimer.TimeOut = value;
         }
 
+        /// <summary>
+        /// Gets the amount of time in milliseconds that has elapsed that the button has been released and is in the up position.
+        /// </summary>
         public int InputReleasedElapsedMS => _buttonReleaseTimer.ElapsedMS;
 
+        /// <summary>
+        /// Gets the amount of time in seconds that has elapsed that the button has been released and is in the up position.
+        /// </summary>
         public float InputReleasedElapsedSeconds => _buttonReleaseTimer.ElapsedSeconds;
 
+        /// <summary>
+        /// The amount of time in milliseconds that the button should be released to the up position
+        /// after being released from the down position before invoking the <see cref="OnInputReleasedTimeOut"/> event.
+        /// </summary>
         public int InputReleasedTimeout
         {
             get => _buttonReleaseTimer.TimeOut;
             set => _buttonReleaseTimer.TimeOut = value;
         }
 
+        /// <summary>
+        /// Gets or sets the reset mode that the watcher's button released functionality will operate in.
+        /// <see cref="ResetType.Auto"/> will automatically reset the watcher for watching the button being released.
+        /// <see cref="ResetType.Manual"/> will only be reset if manually done so.
+        /// </summary>
         public ResetType ReleasedElapsedResetMode { get; set; } = ResetType.Auto;
         #endregion
 
 
         #region Public Methods
         /// <summary>
-        /// Update the watcher state.
+        /// Updates the <see cref="MouseWatcher"/>.
         /// </summary>
         /// <param name="engineTime">The game engine time.</param>
         public void Update(EngineTime engineTime)
@@ -199,7 +266,10 @@ namespace KDScorpionEngine.Input
 
 
         #region Private Event Methods
-        private void _buttonDownTimer_OnTimeElapsed(object sender, EventArgs e)
+        /// <summary>
+        /// Invoked when the button has been held down for a set amount of time.
+        /// </summary>
+        private void ButtonDownTimer_OnTimeElapsed(object sender, EventArgs e)
         {
             if (_mouse.IsButtonDown(Button))
             {
@@ -212,7 +282,10 @@ namespace KDScorpionEngine.Input
         }
 
 
-        private void _buttonReleasedTimer_OnTimeElapsed(object sender, EventArgs e)
+        /// <summary>
+        /// Invoked when the button has been released from the down position for a set amount of time.
+        /// </summary>
+        private void ButtonReleasedTimer_OnTimeElapsed(object sender, EventArgs e)
         {
             if (_mouse.IsButtonUp(Button))
             {
@@ -228,6 +301,27 @@ namespace KDScorpionEngine.Input
 
 
         #region Private Methods
+        /// <summary>
+        /// Sets up the <see cref="MouseWatcher"/>.
+        /// </summary>
+        /// <param name="enabled">If true, the mouse watcher will be enabled.</param>
+        private void Setup(bool enabled)
+        {
+            Enabled = enabled;
+            ComboButtons = new List<InputButton>();
+
+            //Setup stop watches
+            _counter = new Counter(0, 10, 1);
+            _buttonDownTimer = new StopWatch(1000);
+            _buttonDownTimer.OnTimeElapsed += ButtonDownTimer_OnTimeElapsed;
+            _buttonDownTimer.Start();
+
+            _buttonReleaseTimer = new StopWatch(1000);
+            _buttonReleaseTimer.OnTimeElapsed += ButtonReleasedTimer_OnTimeElapsed;
+            _buttonReleaseTimer.Start();
+        }
+
+
         /// <summary>
         /// Creates the list of pressed buttons from the given list of buttons.
         /// </summary>
@@ -249,27 +343,6 @@ namespace KDScorpionEngine.Input
                         _currentPressedButtons.Add(button, false);
                 }
             }
-        }
-
-
-        /// <summary>
-        /// Sets up the <see cref="MouseWatcher"/>.
-        /// </summary>
-        /// <param name="enabled">If true, the mouse watcher will be enabled.</param>
-        private void Setup(bool enabled)
-        {
-            Enabled = enabled;
-            ComboButtons = new List<InputButton>();
-
-            //Setup stop watches
-            _counter = new Counter(0, 10, 1);
-            _buttonDownTimer = new StopWatch(1000);
-            _buttonDownTimer.OnTimeElapsed += _buttonDownTimer_OnTimeElapsed;
-            _buttonDownTimer.Start();
-
-            _buttonReleaseTimer = new StopWatch(1000);
-            _buttonReleaseTimer.OnTimeElapsed += _buttonReleasedTimer_OnTimeElapsed;
-            _buttonReleaseTimer.Start();
         }
         #endregion
     }
