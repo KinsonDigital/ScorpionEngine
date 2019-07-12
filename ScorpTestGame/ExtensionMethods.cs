@@ -8,7 +8,7 @@ using System.Linq;
 namespace ScorpTestGame
 {
     /// <summary>
-    /// Provides simple utility methods.
+    /// Provides extensions to various things to help make better code.
     /// </summary>
     public static class ExtensionMethods
     {

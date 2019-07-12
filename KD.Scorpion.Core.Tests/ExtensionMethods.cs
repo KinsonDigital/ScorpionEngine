@@ -5,6 +5,9 @@ using System.Reflection;
 
 namespace KDScorpionCoreTests
 {
+    /// <summary>
+    /// Provides extensions to various things to help make better code.
+    /// </summary>
     [ExcludeFromCodeCoverage]
     public static class ExtensionMethods
     {
