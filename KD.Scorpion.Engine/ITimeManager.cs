@@ -16,17 +16,17 @@ namespace KDScorpionEngine
         /// <summary>
         /// Gets or sets the total frames that have elapsed.
         /// </summary>
-        int ElapsedFramesForStack { get; set; }
+        uint ElapsedFramesForStack { get; set; }
 
         /// <summary>
         /// Gets or sets the amount of frames to run per frame stack.
         /// </summary>
-        int FramesPerStack { get; set; }
+        uint FramesPerStack { get; set; }
 
         /// <summary> 
         /// Gets or sets the time in milliseconds that each frame should take. 
         /// NOTE: This is restricted to the incoming game engine frame time. If this time is less then the  
-        /// engine frame time, it will not work. 
+        /// engine updating this manager, then this will now work.
         /// </summary>
         int FrameTime { get; set; }
 
@@ -49,6 +49,17 @@ namespace KDScorpionEngine
 
         #region Methods
         /// <summary>
+        /// Plays the scene.
+        /// </summary>
+        void Play();
+
+
+        /// <summary>
+        /// Pauses the scene.
+        /// </summary>
+        void Pause();
+
+        /// <summary>
         /// Runs a complete stack of frames set by the <see cref="ITimeManager"/>.
         /// This will only work if the <see cref="Mode"/> is set to <see cref="RunMode.FrameStack"/>.
         /// </summary>
@@ -60,7 +71,7 @@ namespace KDScorpionEngine
         /// This will only work if the <see cref="Mode"/> is set to <see cref="RunMode.FrameStack"/>.
         /// </summary>
         /// <param name="frames">The number of frames to run.</param>
-        void RunFrames(int frames);
+        void RunFrames(uint frames);
         #endregion
     }
 }

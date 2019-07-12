@@ -18,7 +18,7 @@
         /// <summary>
         /// Gets the total number of frames that has ran.
         /// </summary>
-        public int TotalFramesRan { get; private set; }
+        public int TotalFramesRan { get; set; }
         #endregion
     }
 }

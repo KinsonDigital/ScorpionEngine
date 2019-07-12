@@ -34,7 +34,7 @@ namespace KDScorpionEngine.Scene
         bool IsRenderingScene { get; set; }
 
         /// <summary>
-        /// Gets or sets the id of the scene.
+        /// Gets or sets the ID of the scene.
         /// </summary>
         int Id { get; set; }
         #endregion
@@ -48,15 +48,16 @@ namespace KDScorpionEngine.Scene
 
 
         /// <summary>
-        /// Loads all content for the scene using the given <see cref="ContentManager"/>.
+        /// Loads all content for the scene using the given <paramref name="contentLoader"/>.
         /// </summary>
-        /// <param name="contentManager">The content manager to use for loading the scene's content.</param>
+        /// <param name="contentManager">The content loader to use for loading and unloading the scene's content.</param>
         void LoadContent(ContentLoader contentLoader);
 
 
         /// <summary>
-        /// Unloads all content for the scene using the given <see cref="ContentManager"/>.
+        /// Unloads all content for the scene using the given <paramref name="contentLoader"/>.
         /// </summary>
+        /// <param name="contentManager">The content loader to use for loading and unloading the scene's content.</param>
         void UnloadContent(ContentLoader contentLoader);
         #endregion
     }
