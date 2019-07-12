@@ -20,12 +20,12 @@ namespace KDScorpionEngine.Entities
     {
         #region Events
         /// <summary>
-        /// Fired when the game object is going from hidden to shown.
+        /// Occurs when the game object is going from hidden to shown.
         /// </summary>
         public event EventHandler OnShow;
 
         /// <summary>
-        /// Fired when the game object is shown to hidden.
+        /// Occurs when the game object is shown to hidden.
         /// </summary>
         public event EventHandler OnHide;
 

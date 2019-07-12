@@ -15,12 +15,12 @@ namespace ParticleMaker.UserControls
     {
         #region Public Events
         /// <summary>
-        /// Invoked when the edit color button has been clicked.
+        /// Occurs when the edit color button has been clicked.
         /// </summary>
         public event EventHandler<ColorItemClickedEventArgs> EditColorClicked;
 
         /// <summary>
-        /// Invoked when the delete color button has been clicked.
+        /// Occurs when the delete color button has been clicked.
         /// </summary>
         public event EventHandler<ColorItemClickedEventArgs> DeleteClicked;
         #endregion

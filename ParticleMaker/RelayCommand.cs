@@ -12,7 +12,7 @@ namespace ParticleMaker
     {
         #region Public Events
         /// <summary>
-        /// Invoked when the can execute status has changed
+        /// Occurs when the can execute status has changed
         /// </summary>
         public event EventHandler CanExecuteChanged;
         #endregion

@@ -7,7 +7,7 @@ namespace ParticleMaker.ViewModels
     {
         #region Public Events
         /// <summary>
-        /// Invoked when a property's value has changed.
+        /// Occurs when a property's value has changed.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion

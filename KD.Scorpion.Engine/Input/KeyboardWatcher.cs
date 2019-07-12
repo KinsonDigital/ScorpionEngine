@@ -18,22 +18,22 @@ namespace KDScorpionEngine.Input
     {
         #region Public Event Handlers
         /// <summary>
-        /// Invoked when the combo key setup has been pressed.
+        /// Occurs when the combo key setup has been pressed.
         /// </summary>
         public event EventHandler OnInputComboPressed;
 
         /// <summary>
-        /// Invoked when the set keyboard key has been held in the down position for a set amount of time.
+        /// Occurs when the set keyboard key has been held in the down position for a set amount of time.
         /// </summary>
         public event EventHandler OnInputDownTimeOut;
 
         /// <summary>
-        /// Invoked when the set keyboard key has been hit a set amount of times.
+        /// Occurs when the set keyboard key has been hit a set amount of times.
         /// </summary>
         public event EventHandler OnInputHitCountReached;
 
         /// <summary>
-        /// Invoked when the set keyboard key has been released from the down position for a set amount of time.
+        /// Occurs when the set keyboard key has been released from the down position for a set amount of time.
         /// </summary>
         public event EventHandler OnInputReleasedTimeOut;
         #endregion
@@ -265,7 +265,7 @@ namespace KDScorpionEngine.Input
 
         #region Private Event Methods
         /// <summary>
-        /// Invoked when the key has been held down for a set amount of time.
+        /// Occurs when the key has been held down for a set amount of time.
         /// </summary>
         private void KeyUpTimer_OnTimeElapsed(object sender, EventArgs e)
         {
@@ -281,7 +281,7 @@ namespace KDScorpionEngine.Input
 
 
         /// <summary>
-        /// Invoked when the key has been released from the down position for a set amount of time.
+        /// Occurs when the key has been released from the down position for a set amount of time.
         /// </summary>
         private void KeyDownTimer_OnTimeElapsed(object sender, EventArgs e)
         {

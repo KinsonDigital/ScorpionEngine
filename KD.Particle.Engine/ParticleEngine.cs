@@ -17,6 +17,9 @@ namespace KDParticleEngine
     public class ParticleEngine<Texture> : IList<Texture> where Texture : class
     {
         #region Public Events
+        /// <summary>
+        /// Occurs every time the total living particles has changed.
+        /// </summary>
         public event EventHandler<EventArgs> LivingParticlesCountChanged;
         #endregion
 

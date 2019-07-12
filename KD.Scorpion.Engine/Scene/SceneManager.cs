@@ -20,7 +20,7 @@ namespace KDScorpionEngine.Scene
     {
         #region Events
         /// <summary>
-        /// Invoked when the currently active scene has changed.
+        /// Occurs when the currently active scene has changed.
         /// </summary>
         public event EventHandler<SceneChangedEventArgs> SceneChanged;
         #endregion

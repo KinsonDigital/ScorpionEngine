@@ -18,22 +18,22 @@ namespace KDScorpionEngine.Input
     {
         #region Public Event Handlers
         /// <summary>
-        /// Invoked when the combo button setup has been pressed.
+        /// Occurs when the combo button setup has been pressed.
         /// </summary>
         public event EventHandler OnInputComboPressed;
 
         /// <summary>
-        /// Invoked when the set mouse button has been held in the down position for a set amount of time.
+        /// Occurs when the set mouse button has been held in the down position for a set amount of time.
         /// </summary>
         public event EventHandler OnInputDownTimeOut;
 
         /// <summary>
-        /// Invoked when the set mouse button has been hit a set amount of times.
+        /// Occurs when the set mouse button has been hit a set amount of times.
         /// </summary>
         public event EventHandler OnInputHitCountReached;
 
         /// <summary>
-        /// Invoked when the set mouse button has been released from the down position for a set amount of time.
+        /// Occurs when the set mouse button has been released from the down position for a set amount of time.
         /// </summary>
         public event EventHandler OnInputReleasedTimeOut;
         #endregion
@@ -267,7 +267,7 @@ namespace KDScorpionEngine.Input
 
         #region Private Event Methods
         /// <summary>
-        /// Invoked when the button has been held down for a set amount of time.
+        /// Occurs when the button has been held down for a set amount of time.
         /// </summary>
         private void ButtonDownTimer_OnTimeElapsed(object sender, EventArgs e)
         {
@@ -283,7 +283,7 @@ namespace KDScorpionEngine.Input
 
 
         /// <summary>
-        /// Invoked when the button has been released from the down position for a set amount of time.
+        /// Occurs when the button has been released from the down position for a set amount of time.
         /// </summary>
         private void ButtonReleasedTimer_OnTimeElapsed(object sender, EventArgs e)
         {

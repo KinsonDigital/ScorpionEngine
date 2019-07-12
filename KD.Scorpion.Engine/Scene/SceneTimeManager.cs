@@ -11,7 +11,7 @@ namespace KDScorpionEngine.Scene
     {
         #region Events
         /// <summary>
-        /// Invoked when the stack of set frames has finished processing.
+        /// Occurs when the stack of set frames has finished processing.
         /// </summary>
         public event EventHandler<FrameStackFinishedEventArgs> FrameStackFinished;
         #endregion

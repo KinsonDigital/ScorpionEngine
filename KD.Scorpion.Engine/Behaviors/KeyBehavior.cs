@@ -13,17 +13,17 @@ namespace KDScorpionEngine.Behaviors
     {
         #region Events
         /// <summary>
-        /// Invoked when a key has been pressed.
+        /// Occurs when a key has been pressed.
         /// </summary>
         public event EventHandler<KeyEventArgs> KeyDownEvent;
 
         /// <summary>
-        /// Invoked when a key has been released.
+        /// Occurs when a key has been released.
         /// </summary>
         public event EventHandler<KeyEventArgs> KeyUpEvent;
 
         /// <summary>
-        /// Invoked when a key has first been fully pressed down then released.
+        /// Occurs when a key has first been fully pressed down then released.
         /// </summary>
         public event EventHandler<KeyEventArgs> KeyPressEvent;
         #endregion

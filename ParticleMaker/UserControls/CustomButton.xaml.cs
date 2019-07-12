@@ -14,7 +14,7 @@ namespace ParticleMaker.UserControls
     {
         #region Events
         /// <summary>
-        /// Invoked when the button has been clicked by the mouse.
+        /// Occurs when the button has been clicked by the mouse.
         /// </summary>
         public event EventHandler<EventArgs> Click;
         #endregion
