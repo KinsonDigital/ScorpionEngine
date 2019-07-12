@@ -11,8 +11,10 @@ namespace KDScorpionEngine.Entities
     /// Represents a set amount of entities that can be used over and over.
     /// </summary>
     //TODO: Get this working and setup unit tests.  Wait for when you create a game for testing
+    //Also take the out of bounds concept and remove it from this class and create a custom
+    //behavior called OutOfBoundsBehavior.  This behavior can then be added to this class to pull off this concept.
     [ExcludeFromCodeCoverage]
-    public abstract class ObjectPool : IEnumerable
+    public abstract class EntityPool : IEnumerable
     {
         #region Delegates/Events
         /// <summary>
@@ -28,6 +30,14 @@ namespace KDScorpionEngine.Entities
         #endregion
 
 
+        #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="EntityPool"/>.
+        /// </summary>
+        public EntityPool() { }
+        #endregion
+
+
         #region Props
         /// <summary>
         /// Gets or sets the name of the entity pool.
@@ -35,31 +45,19 @@ namespace KDScorpionEngine.Entities
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or inserts a entity in the entity pool.
+        /// Gets or sets an entity in the entity pool.
         /// </summary>
         /// <returns></returns>
-        public DynamicEntity this[int index]//Indexer property
+        public DynamicEntity this[int index]
         {
-            get
-            {
-                return _objects[index];
-            }
-            set
-            {
-                _objects.Insert(index, value);
-            }
+            get => _objects[index];
+            set => _objects.Insert(index, value);
         }
 
         /// <summary>
         /// Gets total number of entities in the entity pool.
         /// </summary>
-        public int Count
-        {
-            get
-            {
-                return _objects.Count;
-            }
-        }
+        public int Count => _objects.Count;
 
         /// <summary>
         /// Gets or sets a value indicating if the out of bounds trigger will be processed for each entity.
@@ -79,25 +77,12 @@ namespace KDScorpionEngine.Entities
         #endregion
 
 
-        #region Constructors
-        /// <summary>
-        /// Creates a new pool of entities.
-        /// </summary>
-        public ObjectPool()
-        {
-        }
-        #endregion
-
-
         #region Public Methods
         /// <summary>
-        /// Adds the given GameObject to the entity pool.
+        /// Adds the given <paramref name="entity"/> to the entity pool.
         /// </summary>
-        /// <param name="obj">The GameObject to add.</param>
-        public void AddGameObject(DynamicEntity obj)
-        {
-            _objects.Add(obj);
-        }
+        /// <param name="entity">The entity to add.</param>
+        public void AddGameObject(DynamicEntity entity) => _objects.Add(entity);
         #endregion
 
 
@@ -118,15 +103,12 @@ namespace KDScorpionEngine.Entities
             }
         }
 
-
+        
         /// <summary>
         /// Sets bounds for the out of bounds trigger.
         /// </summary>
         /// <param name="bounds">The bounds used to invoke the out of bounds trigger for each entity.</param>
-        public void SetOutOfBoundsTrigger(Rect bounds)
-        {
-            _triggerBounds = bounds;
-        }
+        public void SetOutOfBoundsTrigger(Rect bounds) => _triggerBounds = bounds;
 
 
         /// <summary>
@@ -164,25 +146,19 @@ namespace KDScorpionEngine.Entities
 
 
         /// <summary>
-        /// Applies the given speed to an entity that are of the given description.
+        /// Applies the given speed to an entity that match the given <paramref name="thatAre"/> parameter.
         /// </summary>
-        /// <param name="thatAre">The description of the entity that the speed is to be applied to.</param>
+        /// <param name="thatAre">The state of the entity that the speed will be applied to.</param>
         /// <param name="speed">The speed to apply.</param>
-        public void ApplySpeedTo(EntitiesThatAre thatAre, Vector speed)
-        {
-            throw new NotImplementedException();
-        }
+        public void ApplySpeedTo(EntitiesThatAre thatAre, Vector speed) => throw new NotImplementedException();
 
 
         /// <summary>
-        /// Sets the given angle speed to entities that fit the given description.
+        /// Sets the given angle velocity to entities that fit the given description.
         /// </summary>
-        /// <param name="thatAre">The description of the entities that the setting applies to.</param>
-        /// <param name="angleSpeed">The setting to apply.</param>
-        public void ApplyAngleSpeedTo(EntitiesThatAre thatAre, int angleSpeed)
-        {
-            throw new NotImplementedException();
-        }
+        /// <param name="thatAre">The state of the entity that the velocity will be applied to.</param>
+        /// <param name="angleVelocity">The setting to apply.</param>
+        public void ApplyAngleVelocityTo(EntitiesThatAre thatAre, int angleVelocity) => throw new NotImplementedException();
         #endregion
 
 

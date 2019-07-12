@@ -11,13 +11,18 @@ namespace KDScorpionEngine.Entities
     public class TextEntity : Entity
     {
         #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="TextEntity"/>.
+        /// USED FOR UNIT TESTING.
+        /// </summary>
+        /// <param name="body">The mocked physics body to inject.</param>
         internal TextEntity(IPhysicsBody body) : base(body) => Setup(string.Empty, new GameColor(255, 0, 0, 0), new GameColor(0, 0, 0, 0));
 
 
         /// <summary>
-        /// Creates a new instance of TextEntity.
+        /// Creates a new instance of <see cref="TextEntity"/>.
         /// </summary>
-        /// <param name="text">The text of the font texture.</param>
+        /// <param name="text">The text of entity.</param>
         /// <param name="foreColor">The color of the text.</param>
         /// <param name="backColor">The color of the background behind the text.</param>
         [ExcludeFromCodeCoverage]
@@ -28,7 +33,7 @@ namespace KDScorpionEngine.Entities
 
         #region Props
         /// <summary>
-        /// Gets or sets the text of this TextEntity.
+        /// Gets or sets the text.
         /// </summary>
         public string Text { get; set; }
 

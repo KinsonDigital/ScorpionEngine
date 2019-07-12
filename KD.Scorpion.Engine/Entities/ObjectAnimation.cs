@@ -22,21 +22,10 @@ namespace KDScorpionEngine.Entities
 
         #region Constructors
         /// <summary>
-        /// Creates a new instance of Animation.
-        /// </summary>
-        public ObjectAnimation()
-        {
-            
-        }
-
-        /// <summary>
-        /// Creates a new instance of Animation.
+        /// Creates a new instance of <see cref="ObjectAnimation"/>.
         /// </summary>
         /// <param name="frameBounds">The bounds data for the animation.</param>
-        public ObjectAnimation(List<Rect> frameBounds)
-        {
-            _frames = frameBounds;
-        }
+        public ObjectAnimation(List<Rect> frameBounds) => _frames = frameBounds;
         #endregion
 
 
@@ -69,10 +58,7 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// Gets the frame bounds of the current frame.
         /// </summary>
-        public Rect CurrentFrameBounds
-        {
-            get { return _frames[_currentFrame]; }
-        }
+        public Rect CurrentFrameBounds => _frames[_currentFrame];
 
         /// <summary>
         /// Gets or sets a value indicating if the animation loops.
@@ -85,19 +71,13 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// Plays the animation.
         /// </summary>
-        public void Play()
-        {
-            State = AnimationState.Running;
-        }
+        public void Play() => State = AnimationState.Running;
 
 
         /// <summary>
         /// Pauses the animation.
         /// </summary>
-        public void Pause()
-        {
-            State = AnimationState.Paused;
-        }
+        public void Pause() => State = AnimationState.Paused;
 
 
         /// <summary>
