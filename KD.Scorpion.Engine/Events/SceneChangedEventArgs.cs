@@ -3,7 +3,7 @@
 namespace KDScorpionEngine.Events
 {
     /// <summary>
-    /// Holds information about the 
+    /// Holds information about when a scene changes.
     /// </summary>
     public class SceneChangedEventArgs : EventArgs
     {
@@ -26,7 +26,7 @@ namespace KDScorpionEngine.Events
         public string PreviousScene { get; private set; }
 
         /// <summary>
-        /// Gets the current scene that is now running.
+        /// Gets the current scene that is running.
         /// </summary>
         public string CurrentScene { get; private set; }
         #endregion
