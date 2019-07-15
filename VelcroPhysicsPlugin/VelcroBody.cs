@@ -6,13 +6,14 @@ using System.Collections.Generic;
 using VelcroPhysics.Collision.Shapes;
 using VelcroPhysics.Dynamics;
 using VelcroPhysics.Primitives;
+using System.Diagnostics.CodeAnalysis;
 
 namespace VelcroPhysicsPlugin
 {
-    
     /// <summary>
     /// Represents a body in a world that obeys physics.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class VelcroBody : IPhysicsBody
     {
         #region Private Fields
@@ -23,7 +24,7 @@ namespace VelcroPhysicsPlugin
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="VelcroBody"/>.
-        /// This must be here for the plugin system to work.
+        /// NOTE: Required for the plugin system to work. The IoC container must have a parameterless constructor.
         /// </summary>
         public VelcroBody() { }
 
@@ -59,10 +60,19 @@ namespace VelcroPhysicsPlugin
 
 
         #region Props
+        /// <summary>
+        /// Gets or sets the velcro body for internal use.
+        /// </summary>
         internal Body PolygonBody { get; set; }
 
+        /// <summary>
+        /// Gets or sets the shape of the polygon body for internal use.
+        /// </summary>
         internal PolygonShape PolygonShape { get; set; }
 
+        /// <summary>
+        /// The list of <see cref="DeferredActions"/> that will execute after the body has been added to a <see cref="World"/>.
+        /// </summary>
         public DeferredActions AfterAddedToWorldActions { get; set; } = new DeferredActions();
 
         /// <summary>
@@ -161,7 +171,7 @@ namespace VelcroPhysicsPlugin
             get => PolygonBody == null ? _tempSettings.Angle : PolygonBody.Rotation.ToDegrees();
             set
             {
-                if(PolygonBody == null)
+                if (PolygonBody == null)
                 {
                     AfterAddedToWorldActions.Add(() =>
                     {
@@ -185,8 +195,9 @@ namespace VelcroPhysicsPlugin
             get => PolygonShape == null ? _tempSettings.Density : PolygonShape.Density;
             set
             {
+                _tempSettings.Density = value;
                 //TODO: We might be able to change the density after its been added, look into this.
-                throw new Exception("Cannot set the density after the body has been add to the world");
+                throw new Exception("Cannot set the density after the body has been added to the world");
             }
         }
 
@@ -307,7 +318,7 @@ namespace VelcroPhysicsPlugin
 
         #region Public Methods
         /// <summary>
-        /// Applies a linear impulse to the body using the location using
+        /// Applies a linear impulse to the body using the
         /// the given <paramref name="x"/> and <paramref name="y"/>.
         /// </summary>
         /// <param name="x">The X coordinate of the location to apply the impulse.</param>
@@ -316,7 +327,7 @@ namespace VelcroPhysicsPlugin
 
 
         /// <summary>
-        /// Applies an angular impulse to the body using the location using
+        /// Applies an angular impulse to the body using
         /// the given <paramref name="x"/> and <paramref name="y"/>.
         /// </summary>
         /// <param name="x">The X coordinate of the location to apply the impulse.</param>

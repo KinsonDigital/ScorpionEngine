@@ -1,6 +1,7 @@
 ﻿using KDScorpionCore;
 using KDScorpionCore.Plugins;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using VelcroPhysics.Collision.Shapes;
 using VelcroPhysics.Dynamics;
 using VelcroPhysics.Factories;
@@ -12,32 +13,22 @@ namespace VelcroPhysicsPlugin
     /// <summary>
     /// Represents a world with simulated physics.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class VelcroWorld : IPhysicsWorld
     {
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="VelcroWorld"/>.
-        /// Required for the plugin system to work.  The IoC container must have a parameterless constructor
+        /// NOTE: Required for the plugin system to work. The IoC container must have a parameterless constructor.
         /// </summary>
         public VelcroWorld() { }
-
-
-        /// <summary>
-        /// Creates a new instance of <see cref="VelcroWorld"/>.
-        /// </summary>
-        /// <param name="gravityX">The gravity in the X plane.</param>
-        /// <param name="gravityY">The gravity in the Y plane.</param>
-        public VelcroWorld(float gravityX, float gravityY)
-        {
-            PhysicsWorld = new World(new Vector2(gravityX, gravityY));
-
-            GravityX = gravityX;
-            GravityY = gravityY;
-        }
         #endregion
 
 
         #region Props
+        /// <summary>
+        /// Gets or sets the velcro physics world that is used internally.
+        /// </summary>
         internal static World PhysicsWorld { get; set; }
 
         /// <summary>
@@ -56,11 +47,8 @@ namespace VelcroPhysicsPlugin
         /// <summary>
         /// Updates the physics world.
         /// </summary>
-        /// <param name="dt">The time that has passed this frame.</param>
-        public void Update(float dt)
-        {
-            PhysicsWorld.Step(dt);
-        }
+        /// <param name="dt">The time that has passed for the current frame.</param>
+        public void Update(float dt) => PhysicsWorld.Step(dt);
 
 
         /// <summary>
@@ -83,7 +71,7 @@ namespace VelcroPhysicsPlugin
             physicsBody.Friction = bodySettings.Friction;
             physicsBody.Restitution = bodySettings.Restitution;
             var polyShape = (PolygonShape)physicsBody.FixtureList[0].Shape;
-
+            
             body.InjectData(physicsBody);
             body.InjectData(polyShape);
 
