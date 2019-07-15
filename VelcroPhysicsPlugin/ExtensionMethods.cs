@@ -13,6 +13,7 @@ namespace VelcroPhysicsPlugin
         /// The physics unit to pixel conversion value.
         /// </summary>
         private const float unitToPixel = 100.0f;
+
         /// <summary>
         /// The pixel to unit conversion value.
         /// </summary>
@@ -24,7 +25,7 @@ namespace VelcroPhysicsPlugin
         /// <summary>
         /// Converts the given physics unit <paramref name="value"/> to pixel units.
         /// </summary>
-        /// <param name="value">The unit value to convert.</param>
+        /// <param name="value">The physics value to convert.</param>
         /// <returns></returns>
         public static float ToPixels(this float value) => value * unitToPixel;
 
@@ -40,25 +41,18 @@ namespace VelcroPhysicsPlugin
         /// <summary>
         /// Converts all of the given physics <paramref name="values"/> to pixel values.
         /// </summary>
-        /// <param name="values">The list of physics unit values to convert.</param>
+        /// <param name="values">The list of physics values to convert.</param>
         /// <returns></returns>
         public static float[] ToPixels(this float[] values) => (from p in values select p.ToPixels()).ToArray();
 
 
         /// <summary>
-        /// Convers the given pixel unit <see cref="Vector2"/> <paramref name="value"/> to a 
+        /// Converts the given pixel unit <see cref="Vector2"/> <paramref name="value"/> to a 
         /// physics unit <see cref="Vector2"/> value.
         /// </summary>
         /// <param name="value">The pixel unit vector to convert.</param>
         /// <returns></returns>
-        public static Vector2 ToPhysics(this Vector2 value)
-        {
-            value.X = value.X.ToPhysics();
-            value.Y = value.Y.ToPhysics();
-
-
-            return value;
-        }
+        public static Vector2 ToPhysics(this Vector2 value) => new Vector2(value.X.ToPhysics(), value.Y.ToPhysics());
         #endregion
     }
 }
