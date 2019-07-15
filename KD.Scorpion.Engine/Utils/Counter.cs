@@ -28,21 +28,29 @@ namespace KDScorpionEngine.Utils
 
         #region Constructors
         /// <summary>
-        /// Creates a new instance of Counter. The min cannot be greater then or equal to the max. If the min is higher then max or the max is less then the min, an ArgumentOutOfException will be thrown.
+        /// Creates a new instance of Counter. The min cannot be greater than or equal to the max.
         /// </summary>
         /// <param name="min">The minimum setting of the counter that the MinReachedWhenDecrementing event will be invoked.</param>
         /// <param name="max">The maximum setting of the counter to inoke the MaxReachedWhenIncrementing event will be invoked.</param>
         /// <param name="countAmount">The amount to increment or decrement the counter value when the Count method is called.</param>
         /// <param name="value">The value to start the counter at.  If larger or equal then max, then value will be set to 0.</param>
+        /// <exception cref="ArgumentOutOfRangeException">If the min is higher then max or the max is less then the min, an ArgumentOutOfException will be thrown.</exception>
         public Counter(int min, int max, int countAmount, int value = 0)
         {
             Value = value;
 
-            //Set the minimum
-            _min = min;
+            try
+            {
+                //Set the minimum
+                Min = min;
 
-            //Set the max
-            _max = max;
+                //Set the max
+                Max = max;
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentOutOfRangeException("The min must be less than the max.");
+            }
 
             //Set the count amount
             CountAmount = countAmount;
@@ -57,11 +65,11 @@ namespace KDScorpionEngine.Utils
         public int Value { get; private set; }
 
         /// <summary>
-        /// Gets the minmum amount that the counter will have to reach to invoke the MinReachedWhenDecrementing event.
+        /// Gets the minmum amount that the counter will have to reach to invoke the <see cref="MinReachedWhenDecrementing"/> event.
         /// </summary>
         public int Min
         {
-            get { return _min; }
+            get => _min;
             set
             {
                 //Make sure thataxhe min is then the max
@@ -73,14 +81,11 @@ namespace KDScorpionEngine.Utils
         }
 
         /// <summary>
-        /// Gets the maximum amount that the counter will have to reach to invoke the MaxReachedWhenIncrementing event.
+        /// Gets the maximum amount that the counter will have to reach to invoke the <see cref="MaxReachedWhenIncrementing"/> event.
         /// </summary>
         public int Max
         {
-            get
-            {
-                return _max;
-            }
+            get => _max;
             set
             {
                 //Make sure that the min is then the max
@@ -97,12 +102,12 @@ namespace KDScorpionEngine.Utils
         public int CountAmount { get; set; }
 
         /// <summary>
-        /// Gets or sets the reset mode.  If the mode is set to manual, the Reset method is the only way to reset the value back to 0.
+        /// Gets or sets the reset mode.  If the mode is set to manual, you must manually reset the counter using the <see cref="Reset"/>() method.
         /// </summary>
         public ResetType ResetMode { get; set; } = ResetType.Auto;
 
         /// <summary>
-        /// Gets or sets the direction to count.
+        /// Gets or sets the direction to count. Directions are either counting up or down.
         /// </summary>
         public CountType CountDirection { get; set; }
         #endregion
@@ -110,7 +115,8 @@ namespace KDScorpionEngine.Utils
 
         #region Public Methods
         /// <summary>
-        /// Increment or decrement the value by the CountAmount property value in the direction of the CountDirection property.
+        /// Increment or decrement the value by the <see cref="CountAmount"/> property value in the direction
+        /// of the <see cref="CountDirection"/> property value.
         /// </summary>
         public void Count()
         {
@@ -160,7 +166,7 @@ namespace KDScorpionEngine.Utils
             switch (CountDirection)
             {
                 case CountType.Increment:
-                   Value = Min;
+                    Value = Min;
                     break;
                 case CountType.Decrement:
                     Value = Max;
