@@ -24,7 +24,7 @@ namespace VelcroPhysicsPlugin
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="VelcroBody"/>.
-        /// NOTE: Required for the plugin system to work. The IoC container must have a parameterless constructor
+        /// NOTE: Required for the plugin system to work. The IoC container must have a parameterless constructor.
         /// </summary>
         public VelcroBody() { }
 

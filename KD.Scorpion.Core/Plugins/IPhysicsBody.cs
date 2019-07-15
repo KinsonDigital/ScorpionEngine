@@ -83,7 +83,7 @@ namespace KDScorpionCore.Plugins
         #region Methods
         /// <summary>
         /// Applies a linear impulse to the body using the
-        /// the given <paramref name="x"/> and <paramref name="y"/>.
+        /// the given <paramref name="x"/> and <paramref name="y"/> coordinates.
         /// </summary>
         /// <param name="x">The X coordinate of the location to apply the impulse.</param>
         /// <param name="y">The Y coordinate of the location to apply the impulse.</param>
@@ -92,7 +92,7 @@ namespace KDScorpionCore.Plugins
 
         /// <summary>
         /// Applies an angular impulse to the body using
-        /// the given <paramref name="x"/> and <paramref name="y"/>.
+        /// the given <paramref name="x"/> and <paramref name="y"/> coordinates.
         /// </summary>
         /// <param name="x">The X coordinate of the location to apply the impulse.</param>
         /// <param name="y">The Y coordinate of the location to apply the impulse.</param>
