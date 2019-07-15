@@ -4,14 +4,20 @@ using System;
 
 namespace KDScorpionEngine.Scene
 {
+    /// <summary>
+    /// Manages how a scene is updated and give the ability for the scene to be paused.
+    /// </summary>
     public class SceneTimeManager : ITimeManager
     {
         #region Events
+        /// <summary>
+        /// Occurs when the stack of set frames has finished processing.
+        /// </summary>
         public event EventHandler<FrameStackFinishedEventArgs> FrameStackFinished;
         #endregion
 
 
-        #region Fields
+        #region Private Fields
         private Action _frameStackCallback;//Invoked after a frame stack has been run
         #endregion
 
@@ -25,17 +31,17 @@ namespace KDScorpionEngine.Scene
         /// <summary>
         /// Gets or sets the total frames that have elapsed for the current frame stack.
         /// </summary>
-        public int ElapsedFramesForStack { get; set; } = 1;
+        public uint ElapsedFramesForStack { get; set; } = 1;
 
         /// <summary>
         /// Gets or sets the amount of frames to run per frame stack.
         /// </summary>
-        public int FramesPerStack { get; set; } = 50;
+        public uint FramesPerStack { get; set; } = 50;
 
         /// <summary> 
         /// Gets or sets the time in milliseconds that each frame should take. 
         /// NOTE: This is restricted to the incoming game engine frame time. If this time is less then the  
-        /// engine frame time, it will not work. 
+        /// engine updating this manager, then this will now work.
         /// </summary>
         public int FrameTime { get; set; } = 16;
 
@@ -50,7 +56,7 @@ namespace KDScorpionEngine.Scene
         public int TotalFramesRan { get; set; }
 
         /// <summary>
-        /// Gets or sets the mode that the system runs in.
+        /// Gets or sets the mode that the manager runs in.
         /// </summary>
         public RunMode Mode { get; set; } = RunMode.Continuous;
         #endregion
@@ -88,13 +94,11 @@ namespace KDScorpionEngine.Scene
                             ElapsedFramesForStack = 0;
                             Paused = true;
 
-                            var totalFramesRanForThisStack = FramesPerStack;
-
                             //Invoke the frame stack callback
                             _frameStackCallback?.Invoke();
 
                             //Invoke the frame stack finished event
-                            FrameStackFinished?.Invoke(this, new FrameStackFinishedEventArgs(totalFramesRanForThisStack));
+                            FrameStackFinished?.Invoke(this, new FrameStackFinishedEventArgs((int)FramesPerStack));
                         }
                     }
                 }
@@ -103,14 +107,22 @@ namespace KDScorpionEngine.Scene
 
 
         /// <summary>
-        /// Runs a complete stack of frames set by the <see cref="SceneTimeManager"/>.
-        /// This will only work if the <see cref="Mode"/> is set to <see cref="RunMode.FrameStack"/>.
+        /// Plays the scene.
         /// </summary>
-        public void RunFrameStack()
-        {
-            if (Mode == RunMode.FrameStack)
-                Paused = false;
-        }
+        public void Play() => Paused = false;
+
+
+        /// <summary>
+        /// Pauses the scene.
+        /// </summary>
+        public void Pause() => Paused = true;
+
+
+        /// <summary>
+        /// Runs a complete stack of frames set by the <see cref="SceneTimeManager"/>.
+        /// This will only work if the <see cref="Mode"/> is set to the value of <see cref="RunMode.FrameStack"/>.
+        /// </summary>
+        public void RunFrameStack() => Paused = Mode == RunMode.FrameStack ? false : Paused;
 
 
         /// <summary>
@@ -118,7 +130,7 @@ namespace KDScorpionEngine.Scene
         /// This will only work if the <see cref="Mode"/> is set to <see cref="RunMode.FrameStack"/>.
         /// </summary>
         /// <param name="frames">The number of frames to run.</param>
-        public void RunFrames(int frames)
+        public void RunFrames(uint frames)
         {
             //If the mode is not in frame stack mode or if the callback is not null.
             //If the callback is not null, that means a previous call is still running.

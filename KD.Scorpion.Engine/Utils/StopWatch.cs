@@ -16,7 +16,7 @@ namespace KDScorpionEngine.Utils
         #endregion
 
 
-        #region Fields
+        #region Private Fields
         private bool _enabled;
         private int _timeOut;
         #endregion
@@ -27,10 +27,7 @@ namespace KDScorpionEngine.Utils
         /// Creates a new instance of stopwatch.
         /// </summary>
         /// <param name="timeOut">The amount of time in milliseconds before the stopWatch OnTimeElapsed event is invoked.</param>
-        public StopWatch(int timeOut)
-        {
-            _timeOut = timeOut;
-        }
+        public StopWatch(int timeOut) => _timeOut = timeOut;
         #endregion
 
 
@@ -41,14 +38,8 @@ namespace KDScorpionEngine.Utils
         /// </summary>
         public int TimeOut
         {
-            get
-            {
-                return _timeOut;
-            }
-            set
-            {
-                _timeOut = value < 0 ? 1 : value;
-            }
+            get => _timeOut;
+            set => _timeOut = value < 0 ? 1 : value;
         }
 
         /// <summary>
@@ -101,15 +92,14 @@ namespace KDScorpionEngine.Utils
         public void Reset()
         {
             Stop();
-
             ElapsedMS = 0;
-        } 
+        }
 
 
         /// <summary>
         /// Updates the internal time of the stop watch.
         /// </summary>
-        /// <param name="engineTime">The engine time passed.</param>
+        /// <param name="engineTime">The game engine time.</param>
         public void Update(EngineTime engineTime)
         {
             //If the stopwatch is enabled, add the amount of time passed to the elapsed value

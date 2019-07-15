@@ -4,6 +4,9 @@ using System.Windows.Media;
 
 namespace ParticleMaker.Tests.UserControls
 {
+    /// <summary>
+    /// Provides extensions to various things to help make better code.
+    /// </summary>
     public class ExtensionMethodsTests
     {
         #region Method Tests

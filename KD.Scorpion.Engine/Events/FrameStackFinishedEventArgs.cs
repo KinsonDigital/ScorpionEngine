@@ -10,14 +10,14 @@
         /// Creates a new instance of <see cref="FrameStackFinishedEventArgs"/>.
         /// </summary>
         /// <param name="totalFramesRan">The total amount of frames that ran in the last frame stack.</param>
-        public FrameStackFinishedEventArgs(int totalFramesRan)
-        {
-            TotalFramesRan = totalFramesRan;
-        }
+        public FrameStackFinishedEventArgs(int totalFramesRan) => TotalFramesRan = totalFramesRan;
         #endregion
 
 
         #region Props
+        /// <summary>
+        /// Gets the total number of frames that has ran.
+        /// </summary>
         public int TotalFramesRan { get; set; }
         #endregion
     }

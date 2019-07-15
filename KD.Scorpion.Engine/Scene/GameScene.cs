@@ -9,12 +9,24 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace KDScorpionEngine.Scene
 {
+    /// <summary>
+    /// A game scene within a game that can hold various game entities and game related logic.
+    /// </summary>
     public abstract class GameScene : IScene
     {
         #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="GameScene"/>.
+        /// USED FOR UNIT TESTING.
+        /// </summary>
+        /// <param name="physicsWorld">The mocked physics world to inject.</param>
         internal GameScene(IPhysicsWorld physicsWorld) => PhysicsWorld = new PhysicsWorld(physicsWorld);
 
 
+        /// <summary>
+        /// Creates a enw instance of <see cref="GameScene"/>.
+        /// </summary>
+        /// <param name="gravity">The gravity of the scene.</param>
         [ExcludeFromCodeCoverage]
         public GameScene(Vector gravity) => PhysicsWorld = new PhysicsWorld(gravity);
         #endregion
@@ -27,12 +39,17 @@ namespace KDScorpionEngine.Scene
         public string Name { get; set; }
 
         /// <summary>
+        /// Gets or sets the ID of this <see cref="GameScene"/>.
+        /// </summary>
+        public int Id { get; set; } = -1;
+
+        /// <summary>
         /// Gets or sets a value indicating that the scene's content has been loaded.
         /// </summary>
         public bool ContentLoaded { get; set; }
 
         /// <summary>
-        /// Gets or sets the time manager that manges the scene's frame timing and run mode.
+        /// Gets or sets the time manager that manages the scene's frame timing and run mode.
         /// </summary>
         public ITimeManager TimeManager { get; set; } = new SceneTimeManager();
 
@@ -52,11 +69,15 @@ namespace KDScorpionEngine.Scene
         /// </summary>
         public bool IsRenderingScene { get; set; }
 
+        /// <summary>
+        /// Gets the list of entities added to this <see cref="GameScene"/>.
+        /// </summary>
         public List<Entity> Entities { get; } = new List<Entity>();
 
+        /// <summary>
+        /// The physics world attached to this <see cref="GameScene"/> that governs the physics of the game.
+        /// </summary>
         public static PhysicsWorld PhysicsWorld { get; set; }
-
-        public int Id { get; set; } = -1;
         #endregion
 
 
@@ -73,37 +94,28 @@ namespace KDScorpionEngine.Scene
 
 
         /// <summary>
-        /// Loads all content for the scene using the given <see cref="ContentManager"/>.
+        /// Loads all content using the given <paramref name="contentLoader"/>.
         /// </summary>
-        /// <param name="contentLoader">The content manager to use for loading the scene's content.</param>
-        public virtual void LoadContent(ContentLoader contentLoader)
-        {
-            ContentLoaded = true;
-        }
+        /// <param name="contentManager">The content loader to use for loading and unloading the scene's content.</param>
+        public virtual void LoadContent(ContentLoader contentLoader) => ContentLoaded = true;
 
 
         /// <summary>
-        /// Unloads all content for the scene.
+        /// Unloads all content using the given <paramref name="contentLoader"/>.
         /// </summary>
-        /// <param name="contentLoader">The content manager to use for loading the scene's content.</param>
-        public virtual void UnloadContent(ContentLoader contentLoader)
-        {
-            ContentLoaded = false;
-        }
+        /// <param name="contentManager">The content loader to use for loading and unloading the scene's content.</param>
+        public virtual void UnloadContent(ContentLoader contentLoader) => ContentLoaded = false;
 
 
         /// <summary>
-        /// Updates the game object.
+        /// Updates the <see cref="GameScene"/>.
         /// </summary>
         public virtual void Update(EngineTime engineTime)
         {
             TimeManager?.Update(engineTime);
 
             //Update all of the entities
-            foreach (var entity in Entities)
-            {
-                entity.Update(engineTime);
-            }
+            Entities.ForEach(e => e.Update(engineTime));
 
             //Update the physics world
             PhysicsWorld.Update((float)engineTime.ElapsedEngineTime.TotalSeconds);
@@ -113,7 +125,7 @@ namespace KDScorpionEngine.Scene
         /// <summary>
         /// Renders the <see cref="GameScene"/>.
         /// </summary>
-        /// <param name="renderer">The renderer to use for rendering.</param>
+        /// <param name="renderer">The renderer to use to render the scene.</param>
         public virtual void Render(GameRenderer renderer)
         {
             foreach (var entity in Entities)

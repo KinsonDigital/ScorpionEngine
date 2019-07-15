@@ -3,6 +3,9 @@ using VelcroPhysics.Primitives;
 
 namespace VelcroPhysicsPlugin
 {
+    /// <summary>
+    /// Provides extensions to various things to help make better code.
+    /// </summary>
     public static class ExtensionMethods
     {
         #region Private Fields

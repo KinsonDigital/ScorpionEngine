@@ -29,14 +29,13 @@ namespace KDScorpionEngineTests.Scene
         {
             //Arrange
             var manager = new SceneTimeManager();
-            var expected = 123;
 
             //Act
             manager.ElapsedFramesForStack = 123;
             var actual = manager.ElapsedFramesForStack;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.Equal(123u, actual);
         }
 
 
@@ -64,7 +63,7 @@ namespace KDScorpionEngineTests.Scene
             var expected = true;
 
             //Act
-            manager.Paused = true;
+            manager.Pause();
             var actual = manager.Paused;
 
             //Assert
@@ -174,7 +173,6 @@ namespace KDScorpionEngineTests.Scene
                 Mode = RunMode.FrameStack,
                 FrameTime = 16
             };
-            var expected = 2;
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 9) };
 
             //Act
@@ -183,7 +181,7 @@ namespace KDScorpionEngineTests.Scene
             var actual = manager.ElapsedFramesForStack;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.Equal(2u, actual);
         }
 
 
@@ -219,7 +217,6 @@ namespace KDScorpionEngineTests.Scene
                 FrameTime = 16,
                 FramesPerStack = 10
             };
-            var expected = 0;
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 9) };
 
             //Act
@@ -231,7 +228,7 @@ namespace KDScorpionEngineTests.Scene
             var actual = manager.ElapsedFramesForStack;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.Equal(0u, actual);
         }
 
 
@@ -294,9 +291,9 @@ namespace KDScorpionEngineTests.Scene
             //Arrange
             var manager = new SceneTimeManager()
             {
-                Mode = RunMode.FrameStack,
-                Paused = true
+                Mode = RunMode.FrameStack
             };
+            manager.Pause();
             var expected = false;
 
             //Act
@@ -315,8 +312,8 @@ namespace KDScorpionEngineTests.Scene
             var manager = new SceneTimeManager()
             {
                 Mode = RunMode.Continuous,
-                Paused = true
             };
+            manager.Pause();
             var expected = true;
 
             //Act
@@ -335,12 +332,11 @@ namespace KDScorpionEngineTests.Scene
             var manager = new SceneTimeManager()
             {
                 Mode = RunMode.FrameStack,
-                Paused = true,
                 FrameTime = 16,
                 FramesPerStack = 10
             };
+            manager.Pause();
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
-            var expected = 10;
 
             //Act
             manager.RunFrames(1);
@@ -348,7 +344,7 @@ namespace KDScorpionEngineTests.Scene
             var actual = manager.FramesPerStack;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.Equal(10u, actual);
         }
         #endregion
     }

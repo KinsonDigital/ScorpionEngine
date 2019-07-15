@@ -19,7 +19,7 @@ namespace ParticleMaker.UserControls
     [ExcludeFromCodeCoverage]
     public partial class SetupList : UserControl
     {
-        #region Fields
+        #region Private Fields
         private readonly char[] _illegalCharacters = new[] { '\\', '/', ':', '*', '?', '\"', '<', '>', '|', '.' };
         private readonly Task _refreshTask;
         private readonly CancellationTokenSource _refreshTokenSrc;

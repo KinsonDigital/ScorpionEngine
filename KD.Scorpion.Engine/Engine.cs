@@ -6,7 +6,6 @@ using System.Diagnostics.CodeAnalysis;
 using KDScorpionCore.Content;
 using KDScorpionEngine.Graphics;
 
-
 namespace KDScorpionEngine
 {
     /// <summary>
@@ -14,7 +13,7 @@ namespace KDScorpionEngine
     /// </summary>
     public class Engine : IDisposable
     {
-        #region Fields
+        #region Private Fields
         private static IEngineCore _engineCore;
         private static int _prevElapsedTime;
         private GameRenderer _renderer;
@@ -23,10 +22,11 @@ namespace KDScorpionEngine
 
         #region Constructors
         /// <summary>
-        /// Creates a new instance of <see cref="Engine"/> for the purpose of unit testing.
-        /// <paramref name="contentLoader">The content loader.</paramref>
-        /// <paramref name="engineCore">The engine core.</paramref>
-        /// <paramref name="keyboard">The keyboard.</paramref>
+        /// Creates a new instance of <see cref="Engine"/>.
+        /// <paramref name="contentLoader">The mocked content loader to inject.</paramref>
+        /// <paramref name="engineCore">The mocked engine core to inject.</paramref>
+        /// <paramref name="keyboard">The mocked keyboard to inject.</paramref>
+        /// USED FOR UNIT TESTING.
         /// </summary>
         internal Engine(IContentLoader contentLoader, IEngineCore engineCore, IKeyboard keyboard)
         {
@@ -38,7 +38,7 @@ namespace KDScorpionEngine
 
 
         /// <summary>
-        /// Creates an instance of engine.
+        /// Creates a new instance of <see cref="Engine"/>.
         /// </summary>
         [ExcludeFromCodeCoverage]
         public Engine()
@@ -51,8 +51,14 @@ namespace KDScorpionEngine
 
 
         #region Props
+        /// <summary>
+        /// Gets the <see cref="SceneManager"/> used to manage a game's scenes.
+        /// </summary>
         public SceneManager SceneManager { get; private set; }
 
+        /// <summary>
+        /// Gets the <see cref="ContentLoader"/> used to load and unload the games content.
+        /// </summary>
         public ContentLoader ContentLoader { get; private set; }
 
         /// <summary>
@@ -89,40 +95,33 @@ namespace KDScorpionEngine
         /// <summary>
         /// Starts the game engine.
         /// </summary>
-        public void Start()
-        {
-            _engineCore?.Start();
-        }
+        public void Start() => _engineCore?.Start();
 
 
-        public void Stop()
-        {
-            _engineCore?.Stop();
-        }
+        /// <summary>
+        /// Stops the game engine.
+        /// </summary>
+        public void Stop() => _engineCore?.Stop();
 
 
         /// <summary>
         /// Initializes the engine.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        public virtual void Init()
-        {
-        }
+        public virtual void Init() { }
 
 
         /// <summary>
         /// Loads all of the content.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        public virtual void LoadContent(ContentLoader contentLoader)
-        {
-        }
+        public virtual void LoadContent(ContentLoader contentLoader) { }
 
 
         /// <summary>
         /// Updates the game world.
         /// </summary>
-        /// <param name="engineTime">The time passed since last frame and game start.</param>
+        /// <param name="engineTime">The game engine time.</param>
         public virtual void Update(EngineTime engineTime)
         {
             var currentTime = engineTime.ElapsedEngineTime.Milliseconds;
@@ -141,10 +140,7 @@ namespace KDScorpionEngine
         /// Draws the game world.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        public virtual void Render(GameRenderer renderer)
-        {
-            SceneManager.Render(renderer);
-        }
+        public virtual void Render(GameRenderer renderer) => SceneManager.Render(renderer);
 
 
         /// <summary>
@@ -169,7 +165,7 @@ namespace KDScorpionEngine
 
         #region Private Methods
         /// <summary>
-        /// Sets up the engine.
+        /// Sets up the core of the engine.
         /// </summary>
         private void SetupEngineCore(IEngineCore engineCore)
         {
@@ -180,8 +176,11 @@ namespace KDScorpionEngine
             _engineCore.OnUpdate += EngineCore_OnUpdate;
             _engineCore.OnRender += EngineCore_OnRender;
         }
-        
 
+
+        /// <summary>
+        /// Occurs one time during game initialization. This event is fired before the <see cref="OnLoadContent"/> event is fired. Add initialization code here.
+        /// </summary>
         [ExcludeFromCodeCoverage]
         private void EngineCore_OnInitialize(object sender, EventArgs e)
         {
@@ -193,6 +192,9 @@ namespace KDScorpionEngine
         }
 
 
+        /// <summary>
+        /// Occurs one time during game intialization after the <see cref="OnInitialize"/> event is fired.
+        /// </summary>
         [ExcludeFromCodeCoverage]
         private void EngineCore_OnLoadContent(object sender, EventArgs e)
         {
@@ -200,6 +202,9 @@ namespace KDScorpionEngine
         }
 
 
+        /// <summary>
+        /// Occurs once every frame before the OnDraw event before the <see cref="OnRender"/> event is invoked.
+        /// </summary>
         [ExcludeFromCodeCoverage]
         private void EngineCore_OnUpdate(object sender, OnUpdateEventArgs e)
         {
@@ -213,6 +218,9 @@ namespace KDScorpionEngine
         }
 
 
+        /// <summary>
+        /// Occurs once every frame after the <see cref="OnUpdate"/> event has been been invoked.
+        /// </summary>
         [ExcludeFromCodeCoverage]
         private void EngineCore_OnRender(object sender, OnRenderEventArgs e)
         {

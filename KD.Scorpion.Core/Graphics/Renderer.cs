@@ -16,14 +16,14 @@ namespace KDScorpionCore.Graphics
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="Renderer"/>.
-        /// Used for unit testing.
+        /// USED FOR UNIT TESTING.
         /// </summary>
-        /// <param name="renderer">The mocked renderer to inject.</param>
-        /// <param name="debugDraw">The mocked debug draw object to inject.</param>
-        internal Renderer(IRenderer renderer, IDebugDraw debugDraw)
+        /// <param name="mockedRenderer">The mocked renderer to inject.</param>
+        /// <param name="mockedDebugDraw">The mocked debug draw object to inject.</param>
+        internal Renderer(IRenderer mockedRenderer, IDebugDraw mockedDebugDraw)
         {
-            InternalRenderer = renderer;
-            _debugDraw = debugDraw;
+            InternalRenderer = mockedRenderer;
+            _debugDraw = mockedDebugDraw;
         }
 
 
@@ -56,6 +56,7 @@ namespace KDScorpionCore.Graphics
         /// <param name="green">The green component of the color.</param>
         /// <param name="blue">The blue component of the color.</param>
         public void Clear(byte alpha, byte red, byte green, byte blue) => Clear(new GameColor(alpha, red, green, blue));
+
 
         /// <summary>
         /// Clears the graphics surface to the given <paramref name="color"/>.

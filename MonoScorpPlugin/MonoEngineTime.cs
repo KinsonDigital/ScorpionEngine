@@ -9,7 +9,7 @@ namespace MonoScorpPlugin
     /// </summary>
     public class MonoEngineTime : IEngineTiming
     {
-        #region Fields
+        #region Private Fields
         private readonly GameTime _gameTime;//The game time
         #endregion
 

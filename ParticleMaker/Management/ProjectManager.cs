@@ -11,7 +11,7 @@ namespace ParticleMaker.Management
     /// </summary>
     public class ProjectManager
     {
-        #region Fields
+        #region Private Fields
         private readonly ProjectSettingsManager _settingsManager;
         private readonly ProjectIOService _projIOService;
         private readonly IDirectoryService _directoryService;

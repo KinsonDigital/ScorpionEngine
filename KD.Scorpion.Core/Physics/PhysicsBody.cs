@@ -19,12 +19,12 @@ namespace KDScorpionCore.Physics
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="PhysicsBody"/> and
-        /// injects the given <paramref name="body"/> for mocking and unit testing.
+        /// injects the given <paramref name="mockedBody"/> for mocking and unit testing.
         /// </summary>
-        /// <param name="body">The mocked body to inject.</param>
-        internal PhysicsBody(IPhysicsBody body)
+        /// <param name="mockedBody">The mocked body to inject.</param>
+        internal PhysicsBody(IPhysicsBody mockedBody)
         {
-            InternalPhysicsBody = body;
+            InternalPhysicsBody = mockedBody;
             Setup(new Vector[1] { Vector.Zero }, Vector.Zero, 0, 1, 0.2f, 0, false);
         }
 
@@ -108,7 +108,6 @@ namespace KDScorpionCore.Physics
             set => InternalPhysicsBody.Y = value;
         }
 
-        //In Degrees
         /// <summary>
         /// Gets or sets the angle of the body in degrees.
         /// </summary>
@@ -201,12 +200,6 @@ namespace KDScorpionCore.Physics
         private void Setup(Vector[] vertices, Vector position, float angle, float density, float friction, float restitution, bool isStatic)
         {
             _ctorParams = new object[9];
-
-            //Setup the vertices
-            //var verticesParam = new List<InternalVector>();
-
-            //foreach (var vector in vertices)
-            //    verticesParam.Add(new InternalVector(vector.X, vector.Y));
 
             _ctorParams[0] = (from v in vertices select v.X).ToArray();
             _ctorParams[1] = (from v in vertices select v.Y).ToArray();

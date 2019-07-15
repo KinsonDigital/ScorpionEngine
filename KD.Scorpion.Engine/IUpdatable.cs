@@ -3,7 +3,7 @@
 namespace KDScorpionEngine
 {
     /// <summary>
-    /// Makes an object and updatable update for the game engine.
+    /// Makes an object an updatable for the game engine.
     /// </summary>
     public interface IUpdatable
     {

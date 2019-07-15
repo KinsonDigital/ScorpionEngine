@@ -17,11 +17,14 @@ namespace KDParticleEngine
     public class ParticleEngine<Texture> : IList<Texture> where Texture : class
     {
         #region Public Events
+        /// <summary>
+        /// Occurs every time the total living particles has changed.
+        /// </summary>
         public event EventHandler<EventArgs> LivingParticlesCountChanged;
         #endregion
 
 
-        #region Fields
+        #region Private Fields
         private readonly List<Particle<Texture>> _particles;
         private readonly List<Texture> _textures = new List<Texture>();
         private int _totalParticlesAliveAtOnce = 10;
@@ -577,6 +580,7 @@ namespace KDParticleEngine
 
             var lifeTime = GetRandomLifeTime();
 
+
             return new Particle<Texture>(texture, position, velocity, angle, angularVelocity, color, size, lifeTime);
         }
 
@@ -603,6 +607,7 @@ namespace KDParticleEngine
             var velXRandomResult = Randomizer.GetValue(VelocityXMin, VelocityXMax);
             var velYRandomResult = Randomizer.GetValue(VelocityYMin, VelocityYMax);
 
+
             return new PointF(velXRandomResult,
                               velYRandomResult);
         }
@@ -619,10 +624,7 @@ namespace KDParticleEngine
         /// Returns a random <see cref="Particle.AngularVelocity"/> for a spawned <see cref="Particle"/>.
         /// </summary>
         /// <returns></returns>
-        private float GetRandomAngularVelocity()
-        {
-            return Randomizer.GetValue(AngularVelocityMin, AngularVelocityMax) * (Randomizer.FlipCoin() ? 1 : -1);
-        }
+        private float GetRandomAngularVelocity() => Randomizer.GetValue(AngularVelocityMin, AngularVelocityMax) * (Randomizer.FlipCoin() ? 1 : -1);
 
 
         /// <summary>
@@ -656,10 +658,7 @@ namespace KDParticleEngine
         /// Returns a random <see cref="Particle.Size"/> for a spawned <see cref="Particle"/>.
         /// </summary>
         /// <returns></returns>
-        private float GetRandomSize()
-        {
-            return Randomizer.GetValue(SizeMin, SizeMax);
-        }
+        private float GetRandomSize() => Randomizer.GetValue(SizeMin, SizeMax);
 
 
         /// <summary>
@@ -725,9 +724,7 @@ namespace KDParticleEngine
         /// Generates a particle setup from the current settings of the <see cref="ParticleEngine"/>.
         /// </summary>
         /// <returns></returns>
-        public ParticleSetup GenerateParticleSetup()
-        {
-            return new ParticleSetup()
+        public ParticleSetup GenerateParticleSetup() => new ParticleSetup()
             {
                 RedMin = RedMin,
                 RedMax = RedMax,
@@ -753,7 +750,6 @@ namespace KDParticleEngine
                 UseColorsFromList = UseColorsFromList,
                 Colors = TintColors
             };
-        }
         #endregion
     }
 }

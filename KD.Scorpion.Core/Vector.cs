@@ -87,14 +87,7 @@ namespace KDScorpionCore
         /// <param name="vectorA">The first vector.</param>
         /// <param name="vectorB">The second vector.</param>
         /// <returns></returns>
-        public static Vector operator *(Vector vectorA, Vector vectorB)
-        {
-            vectorA.X *= vectorB.X;
-            vectorA.Y *= vectorB.Y;
-
-
-            return vectorA;
-        }
+        public static Vector operator *(Vector vectorA, Vector vectorB) => new Vector(vectorA.X * vectorB.X, vectorA.Y * vectorB.Y);
 
 
         /// <summary>
@@ -123,6 +116,7 @@ namespace KDScorpionCore
         /// <returns></returns>
         public static Vector operator /(Vector v, float divisor)
         {
+            //TODO: Try to convert this to a single liner and see any performance differences.
             float factor = 1 / divisor;
             v.X *= factor;
             v.Y *= factor;
@@ -246,14 +240,7 @@ namespace KDScorpionCore
         /// <param name="v">The vector to negate.</param>
         /// <returns></returns>
         /// <remarks>Negate means to set the sign of both components to its opposite sign.  Example: x:5,y:-6 = x:-5,y:6</remarks>
-        public static Vector Negate(Vector v)
-        {
-            v.X *= -1;
-            v.Y *= -1;
-
-
-            return v;
-        }
+        public static Vector Negate(Vector v) => new Vector(v.X *= -1, v.Y *= -1);
         #endregion
 
 

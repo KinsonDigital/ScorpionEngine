@@ -12,11 +12,11 @@ using MediaColor = System.Windows.Media.Color;
 namespace ParticleMaker
 {
     /// <summary>
-    /// Provides various extension methods for use throughout the application.
+    /// Provides extensions to various things to help make better code.
     /// </summary>
     public static class ExtensionMethods
     {
-        #region Fields
+        #region Private Fields
         private const float PI = 3.1415926535897931f;
         private static readonly char[] _windowsIllegalCharacters = new[] { '\\', '/', ':', '*', '?', '"', '<', '>', '|' };
         #endregion

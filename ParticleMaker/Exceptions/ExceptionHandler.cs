@@ -9,7 +9,7 @@ namespace ParticleMaker.Exceptions
     /// </summary>
     public static class ExceptionHandler
     {
-        #region Fields
+        #region Private Fields
         private static bool _loggingEnabled;
         private static bool _showMessageBoxEnabled;
         #endregion

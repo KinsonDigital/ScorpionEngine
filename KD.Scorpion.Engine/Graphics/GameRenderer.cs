@@ -6,17 +6,23 @@ using System.Diagnostics.CodeAnalysis;
 namespace KDScorpionEngine.Graphics
 {
     /// <summary>
-    /// Renders entities to the screen.
+    /// Renders entities to a graphics surface.
     /// </summary>
     public class GameRenderer : Renderer
     {
         #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="GameRenderer"/>.
+        /// USED FOR UNIT TESTING.
+        /// </summary>
+        /// <param name="renderer">The mocked renderer to inject.</param>
+        /// <param name="debugDraw">The mocked debug draw to inject</param>
         internal GameRenderer(IRenderer renderer, IDebugDraw debugDraw) : base(renderer, debugDraw) { }
+
 
         /// <summary>
         /// Creates a new instance of <see cref="GameRenderer"/>.
         /// </summary>
-        /// <param name="renderer">The internal renderer implementation provided by a plugin.</param>
         [ExcludeFromCodeCoverage]
         public GameRenderer() { }
         #endregion

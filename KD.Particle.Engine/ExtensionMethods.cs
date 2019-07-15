@@ -4,6 +4,9 @@ using System.Drawing;
 
 namespace KDParticleEngine
 {
+    /// <summary>
+    /// Provides extensions to various things to help make better code.
+    /// </summary>
     public static class ExtensionMethods
     {
         #region Public Methods
@@ -34,10 +37,7 @@ namespace KDParticleEngine
         /// <param name="random">The random instance to use.</param>
         /// <returns></returns>
         [ExcludeFromCodeCoverage]
-        public static bool FlipCoin(this Random random)
-        {
-            return random.NextDouble() <= 0.5f;
-        }
+        public static bool FlipCoin(this Random random) => random.NextDouble() <= 0.5f;
 
 
         /// <summary>

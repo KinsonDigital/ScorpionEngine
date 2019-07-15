@@ -17,7 +17,7 @@ namespace ParticleMaker
     [ExcludeFromCodeCoverage]
     public partial class MainWindow : Window
     {
-        #region Fields
+        #region Private Fields
         private static CancellationTokenSource _dockRenderWindowTokenSrc;
         private static Task _dockRenderWindowTask;
         private readonly MainViewModel _mainViewModel;

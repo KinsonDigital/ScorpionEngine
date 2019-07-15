@@ -101,10 +101,10 @@ namespace KDScorpionCore.Input
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="Keyboard"/>.
-        /// Used for unit testing.
+        /// USED FOR UNIT TESTING.
         /// </summary>
-        /// <param name="keyboard">The mocked keyboard to inject.</param>
-        internal Keyboard(IKeyboard keyboard) => InternalKeyboard = keyboard;
+        /// <param name="mockedKeyboard">The mocked keyboard to inject.</param>
+        internal Keyboard(IKeyboard mockedKeyboard) => InternalKeyboard = mockedKeyboard;
 
 
         /// <summary>

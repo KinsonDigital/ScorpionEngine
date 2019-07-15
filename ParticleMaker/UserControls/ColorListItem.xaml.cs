@@ -15,18 +15,18 @@ namespace ParticleMaker.UserControls
     {
         #region Public Events
         /// <summary>
-        /// Invoked when the edit color button has been clicked.
+        /// Occurs when the edit color button has been clicked.
         /// </summary>
         public event EventHandler<ColorItemClickedEventArgs> EditColorClicked;
 
         /// <summary>
-        /// Invoked when the delete color button has been clicked.
+        /// Occurs when the delete color button has been clicked.
         /// </summary>
         public event EventHandler<ColorItemClickedEventArgs> DeleteClicked;
         #endregion
 
 
-        #region Fields
+        #region Private Fields
         private static readonly SolidColorBrush DEFAULT_COLOR = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
         #endregion
 

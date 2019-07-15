@@ -3,7 +3,7 @@
 namespace KDScorpionCore
 {
     /// <summary>
-    /// Provides various methods for the <see cref="KDScorpionCore"/> library to utilize.
+    /// Provides extensions to various things to help make better code.
     /// </summary>
     public static class ExtensionMethods
     {

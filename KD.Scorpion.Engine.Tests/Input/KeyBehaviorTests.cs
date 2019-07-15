@@ -11,7 +11,7 @@ namespace KDScorpionEngineTests.Input
 {
     public class KeyBehaviorTests : IDisposable
     {
-        #region Fields
+        #region Private Fields
         private Mock<IKeyboard> _mockCoreKeyboard;
         #endregion
 

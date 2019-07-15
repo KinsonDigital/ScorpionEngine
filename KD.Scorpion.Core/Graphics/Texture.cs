@@ -27,8 +27,8 @@
         /// <summary>
         /// Creates a new instance of <see cref="Texture"/>.
         /// </summary>
-        /// <param name="texture">The texture implementation to inject.</param>
-        internal Texture(ITexture texture) => InternalTexture = texture;
+        /// <param name="mockedTexture">The mocked texture to inject.</param>
+        internal Texture(ITexture mockedTexture) => InternalTexture = mockedTexture;
         #endregion
     }
 }

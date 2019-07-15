@@ -7,7 +7,7 @@ namespace SDLScorpPlugin
 {
     public class SDLTexture : ITexture
     {
-        #region Fields
+        #region Private Fields
         //TODO: This needs to be fixed.  SDL returns a pointer to a texture. Figure this out.
         private readonly IntPtr _texturePtr;
         private readonly int _width;

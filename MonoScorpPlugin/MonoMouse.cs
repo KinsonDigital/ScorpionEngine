@@ -8,7 +8,7 @@ namespace MonoScorpPlugin
 {
     public class MonoMouse : IMouse
     {
-        #region Fields
+        #region Private Fields
         private MouseState _currentState;//The current state of the mouse
         private MouseState _previousState;//The previous state of the mouse on the last frame
         #endregion

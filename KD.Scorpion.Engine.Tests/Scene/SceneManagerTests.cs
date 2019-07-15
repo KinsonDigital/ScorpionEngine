@@ -14,7 +14,7 @@ namespace KDScorpionEngineTests.Scene
 {
     public class SceneManagerTests : IDisposable
     {
-        #region Fields
+        #region Private Fields
         private readonly Mock<IContentLoader> _contentLoader;
         private Mock<IKeyboard> _mockKeyboard;
         #endregion
@@ -1447,10 +1447,10 @@ namespace KDScorpionEngineTests.Scene
             };
 
             //Act
-            manager.RunFrames(It.IsAny<int>());
+            manager.RunFrames(It.IsAny<uint>());
 
             //Assert
-            mockTimeManager.Verify(m => m.RunFrames(It.IsAny<int>()), Times.Once());
+            mockTimeManager.Verify(m => m.RunFrames(It.IsAny<uint>()), Times.Once());
         }
 
 

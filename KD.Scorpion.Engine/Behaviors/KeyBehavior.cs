@@ -7,42 +7,49 @@ using KDScorpionCore.Plugins;
 namespace KDScorpionEngine.Behaviors
 {
     /// <summary>
-    /// Represents behavior of a key that can be pressed on the keyboard.
+    /// The behavior of a single key on a keyboard.
     /// </summary>
     public class KeyBehavior : IBehavior
     {
         #region Events
         /// <summary>
-        /// Invoked when a key has been pressed.
+        /// Occurs when a key has been pressed.
         /// </summary>
         public event EventHandler<KeyEventArgs> KeyDownEvent;
 
         /// <summary>
-        /// Invoked when a key has been released.
+        /// Occurs when a key has been released.
         /// </summary>
         public event EventHandler<KeyEventArgs> KeyUpEvent;
 
+        /// <summary>
+        /// Occurs when a key has first been fully pressed down then released.
+        /// </summary>
         public event EventHandler<KeyEventArgs> KeyPressEvent;
         #endregion
 
 
-        #region Fields
-        private int _timeElapsed;//The engineTime elapsed since last frame
+        #region Private Fields
+        private int _timeElapsed;//The time elapsed since last frame
         private Keyboard _keyboard;
         #endregion
 
 
         #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="KeyBehavior"/>.
+        /// USED FOR UNIT TESTING.
+        /// </summary>
+        /// <param name="keyboard">The mocked keyboard to inject.</param>
         internal KeyBehavior(IKeyboard keyboard)
         {
             _keyboard = new Keyboard(keyboard);
-
             Setup(KeyCodes.X, true);
         }
 
 
         /// <summary>
-        /// Creates a new key behavior.
+        /// Creates a new <see cref="KeyBehavior"/>.
         /// </summary>
         /// <param name="key">The assigned keyboard key of the behavior.</param>
         [ExcludeFromCodeCoverage]
@@ -63,14 +70,14 @@ namespace KDScorpionEngine.Behaviors
 
         /// <summary>
         /// Gets or sets the type of behavior of the KeyBehavior.
-        /// KeyDownContinuous will fire the key pressed event as long as the key is pressed down.
-        /// OnceOnKeyPress will fire the key only one engineTime when the key is pressed down.
-        /// OnceOnKeyRelease will fire the key only one engineTime when the key is released.
+        /// KeyDownContinuous will fire the key down event as long as the key is pressed down.
+        /// OnceOnKeyPress will fire the key only one time when the key is pressed down.
+        /// OnceOnKeyRelease will fire the key only one time when the key is released.
         /// </summary>
         public KeyBehaviorType BehaviorType { get; set; } = KeyBehaviorType.OnceOnDown;
 
         /// <summary>
-        /// Gets or sets the engineTime delay for a KeyDownEvent or KeyRelease event to be fired.
+        /// Gets or sets the amount of time for a KeyDownEvent or KeyRelease event to be fired.
         /// </summary>
         public int TimeDelay { get; set; } = 1000;
 
@@ -91,6 +98,10 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         public bool IsDown => _keyboard.IsKeyDown(Key);
 
+        /// <summary>
+        /// Gets or sets the name of the <see cref="KeyBehavior"/>.  The default
+        /// name will be 'KeyBehavior'.
+        /// </summary>
         public string Name { get; set; } = nameof(KeyBehavior);
         #endregion
 
@@ -99,7 +110,7 @@ namespace KDScorpionEngine.Behaviors
         /// <summary>
         /// Updates the key behavior.
         /// </summary>
-        /// <param name="engineTime">The game engineTime of the current frame.</param>
+        /// <param name="engineTime">The game engine time.</param>
         public void Update(EngineTime engineTime)
         {
             if (!Enabled) return;
@@ -134,24 +145,24 @@ namespace KDScorpionEngine.Behaviors
                     }
                     break;
                 case KeyBehaviorType.OnKeyDownTimeDelay:
-                    //If the engineTime has passed the set delay engineTime, fire the KeyDownEvent
+                    //If the time has passed the set delay time, fire the KeyDownEvent
                     if (_timeElapsed >= TimeDelay)
                     {
                         if (_keyboard.IsKeyDown(Key))
                             KeyDownEvent?.Invoke(this, new KeyEventArgs(new[] { Key }));
 
-                        //Reset the engineTime elapsed
+                        //Reset the time elapsed
                         _timeElapsed = 0;
                     }
                     break;
                 case KeyBehaviorType.OnKeyReleaseTimeDelay:
-                    //If the engineTime has passed the set delay engineTime, fire the KeyPressedEvent
+                    //If the time has passed the set delay time, fire the KeyPressedEvent
                     if (_timeElapsed >= TimeDelay)
                     {
                         if (_keyboard.IsKeyUp(Key))
                             KeyUpEvent?.Invoke(this, new KeyEventArgs(new[] { Key }));
 
-                        //Reset the engineTime elapsed
+                        //Reset the time elapsed
                         _timeElapsed = 0;
                     }
                     break;

@@ -17,17 +17,17 @@ namespace ParticleMaker.UserControls
     {
         #region Public Events
         /// <summary>
-        /// Invoked when the rename button has been clicked.
+        /// Occurs when the rename button has been clicked.
         /// </summary>
         public event EventHandler<RenameItemEventArgs> RenameClicked;
 
         /// <summary>
-        /// Invoked when the delete button is clicked.
+        /// Occurs when the delete button is clicked.
         /// </summary>
         public event EventHandler<ItemEventArgs> DeleteClicked;
 
         /// <summary>
-        /// Invoked when the save button is clicked.
+        /// Occurs when the save button is clicked.
         /// </summary>
         public event EventHandler<ItemEventArgs> SaveClicked;
         #endregion

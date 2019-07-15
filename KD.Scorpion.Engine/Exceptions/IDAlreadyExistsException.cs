@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace KDScorpionEngine.Exceptions
 {
     /// <summary>
@@ -12,27 +11,21 @@ namespace KDScorpionEngine.Exceptions
         /// <summary>
         /// Creates a new instance of <see cref="IdAlreadyExistsException"/>.
         /// </summary>
-        public IdAlreadyExistsException() : base("That id already exists.")
-        {
-        }
+        public IdAlreadyExistsException() : base("That id already exists.") { }
 
 
         /// <summary>
         /// Creates a new instance of <see cref="IdAlreadyExistsException"/>.
         /// </summary>
-        /// <param name="sceneId">The id of the scene that already exists.</param>
-        public IdAlreadyExistsException(int sceneId) : base($"The id '{sceneId}' already exists.")
-        {
-        }
+        /// <param name="id">The id that already exists.</param>
+        public IdAlreadyExistsException(int id) : base($"The id '{id}' already exists.") { }
 
 
         /// <summary>
         /// Creates a new instance of <see cref="IdAlreadyExistsException"/>.
         /// </summary>
         /// <param name="message">The message of the exception.</param>
-        public IdAlreadyExistsException(string message) : base(message)
-        {
-        }
+        public IdAlreadyExistsException(string message) : base(message) { }
         #endregion
     }
 }

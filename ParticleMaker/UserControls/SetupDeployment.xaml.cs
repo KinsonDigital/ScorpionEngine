@@ -21,18 +21,18 @@ namespace ParticleMaker.UserControls
     {
         #region Public Events
         /// <summary>
-        /// Inovked when the edit button has been clicked.
+        /// Occurs when the edit button has been clicked.
         /// </summary>
         public event EventHandler<DeploySetupEventArgs> EditClicked;
 
         /// <summary>
-        /// Invoked when the deploy setup button has been clicked.
+        /// Occurs when the deploy setup button has been clicked.
         /// </summary>
         public event EventHandler<DeploySetupEventArgs> DeployClicked;
         #endregion
 
 
-        #region Fields
+        #region Private Fields
         private readonly Task _refreshTask;
         private readonly CancellationTokenSource _refreshTokenSrc;
         #endregion

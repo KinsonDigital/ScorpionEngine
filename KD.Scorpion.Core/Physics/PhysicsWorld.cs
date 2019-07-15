@@ -18,9 +18,10 @@ namespace KDScorpionCore.Physics
         /// Creates a new instance of <see cref="PhysicsWorld"/> that will
         /// hold all instances of <see cref="PhysicsBody"/> objects and also
         /// control the physics of those bodies. Used for testing.
+        /// USED FOR UNIT TESTING.
         /// </summary>
-        /// <param name="physicsWorld">The mocked world object used for unit testing.</param>
-        internal PhysicsWorld(IPhysicsWorld physicsWorld) => _internalWorld = physicsWorld;
+        /// <param name="mockedPhysicsWorld">The mocked world to inject.</param>
+        internal PhysicsWorld(IPhysicsWorld mockedPhysicsWorld) => _internalWorld = mockedPhysicsWorld;
 
 
         /// <summary>
@@ -48,11 +49,7 @@ namespace KDScorpionCore.Physics
         /// Adds the given <paramref name="body"/> to the world.
         /// </summary>
         /// <param name="body">The body to add.</param>
-        public void AddBody(IPhysicsBody body)
-        {
-            //Only add it to the physics world if the entity has been initialized.
-            _internalWorld.AddBody(body);
-        }
+        public void AddBody(IPhysicsBody body) => _internalWorld.AddBody(body);
 
 
         /// <summary>

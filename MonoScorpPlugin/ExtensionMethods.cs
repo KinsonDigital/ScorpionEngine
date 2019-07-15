@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework;
 
 namespace MonoScorpPlugin
 {
+    /// <summary>
+    /// Provides extensions to various things to help make better code.
+    /// </summary>
     public static class ExtensionMethods
     {
         /// <summary>

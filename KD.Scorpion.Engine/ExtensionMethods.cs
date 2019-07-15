@@ -3,6 +3,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace KDScorpionEngine
 {
+    /// <summary>
+    /// Provides extensions to various things to help make better code.
+    /// </summary>
     public static class ExtensionMethods
     {
         /// <summary>
@@ -14,12 +17,7 @@ namespace KDScorpionEngine
         /// <returns></returns>
         public static float Next(this Random random, float minValue, float maxValue)
         {
-            var minValueAsInt = (int)(minValue * 1000);
-            var maxValueAsInt = (int)(maxValue * 1000);
-
-            var randomResult = random.Next(minValueAsInt, maxValueAsInt);
-
-            return randomResult / 1000f;
+            return random.Next((int)(minValue * 1000), (int)(maxValue * 1000)) / 1000f;
         }
 
 

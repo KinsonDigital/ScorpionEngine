@@ -7,7 +7,7 @@ namespace KDScorpionCore.Sound
     /// </summary>
     public class Song
     {
-        //#region Fields
+        //#region Private Fields
         //private Music _song;
         //#endregion
 

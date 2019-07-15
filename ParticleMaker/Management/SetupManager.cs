@@ -11,7 +11,7 @@ namespace ParticleMaker.Management
     /// </summary>
     public class SetupManager
     {
-        #region Fields
+        #region Private Fields
         private readonly ProjectIOService _projIOService;
         private readonly IDirectoryService _directoryService;
         private readonly IFileService _fileService;
