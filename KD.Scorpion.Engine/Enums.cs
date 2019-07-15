@@ -1,33 +1,6 @@
 ﻿namespace KDScorpionEngine
 {
     /// <summary>
-    /// The different types of origins to set.
-    /// </summary>
-    public enum OriginType
-    {
-        /// <summary>
-        /// Origin is in the center of the texture.
-        /// </summary>
-        Center = 1,
-        /// <summary>
-        /// Origin is at the top left corner of the texture.
-        /// </summary>
-        TopLeft = 2,
-        /// <summary>
-        /// Origin is at the top right corner of the texture.
-        /// </summary>
-        TopRight = 3,
-        /// <summary>
-        /// Origin is at the bottom left corner of the texture.
-        /// </summary>
-        BottomLeft = 4,
-        /// <summary>
-        /// Origin is at the bottom right corner of the texture.
-        /// </summary>
-        BottomRight = 5
-    }
-
-    /// <summary>
     /// Determines the type of the key behavior.
     /// </summary>
     public enum KeyBehaviorType
@@ -56,21 +29,6 @@
         /// The key release event will fire after any key has been released.
         /// </summary>
         OnAnyKeyPress = 6
-    }
-
-    /// <summary>
-    /// The source that the graphics of a GameObject will be drawn from.
-    /// </summary>
-    public enum GraphicContentSource
-    {
-        /// <summary>
-        /// A standard texture where the entire texture is used in the game object.
-        /// </summary>
-        Standard = 1,
-        /// <summary>
-        /// A texture atlas where only part of the texture is used that is loaded in the engine class.
-        /// </summary>
-        Atlas = 2
     }
 
     /// <summary>
@@ -129,21 +87,6 @@
         /// Any kind of entity.
         /// </summary>
         Anything = 3
-    }
-
-    /// <summary>
-    /// Represents the 2 different ways an entity can rotate.
-    /// </summary>
-    public enum RotationDirection 
-    {
-        /// <summary>
-        /// Rotates clockwise.
-        /// </summary>
-        Clockwise = 1,
-        /// <summary>
-        /// Rotates counter clockwise.
-        /// </summary>
-        CounterClockwise  = 2
     }
 
     /// <summary>

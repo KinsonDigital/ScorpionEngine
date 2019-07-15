@@ -14,7 +14,7 @@ namespace KDScorpionEngine.Content
     [ExcludeFromCodeCoverage]
     internal static class AtlasManager
     {
-        #region Fields
+        #region Private Fields
         private static readonly Dictionary<string, AtlasData> _allAtlasData = new Dictionary<string, AtlasData>();//The atlas data
         private static readonly Dictionary<string, ITexture> _allAtlasTextures = new Dictionary<string, ITexture>();//The atlas textures
         #endregion

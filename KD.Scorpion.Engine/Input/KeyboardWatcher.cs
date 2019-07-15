@@ -39,7 +39,7 @@ namespace KDScorpionEngine.Input
         #endregion
 
 
-        #region Fields
+        #region Private Fields
         private readonly Keyboard _keyboard;
         private Dictionary<KeyCodes, bool> _currentPressedKeys;//Holds the list of comboKeys and there down states
         protected Counter _counter;//Keeps track of the hit count of an input

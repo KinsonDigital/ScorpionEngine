@@ -8,7 +8,7 @@ namespace ParticleMaker.Services
     /// </summary>
     public class ProjectIOService
     {
-        #region Fields
+        #region Private Fields
         private readonly IDirectoryService _directoryService;
         private readonly IFileService _fileService;
         private static string _projectsPath;

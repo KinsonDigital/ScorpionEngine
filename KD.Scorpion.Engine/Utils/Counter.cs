@@ -20,7 +20,7 @@ namespace KDScorpionEngine.Utils
         #endregion
 
 
-        #region Fields
+        #region Private Fields
         private int _min;
         private int _max;
         #endregion
@@ -39,18 +39,11 @@ namespace KDScorpionEngine.Utils
         {
             Value = value;
 
-            try
-            {
-                //Set the minimum
-                Min = min;
-
-                //Set the max
-                Max = max;
-            }
-            catch (Exception ex)
-            {
+            if (min > max)
                 throw new ArgumentOutOfRangeException("The min must be less than the max.");
-            }
+
+            _min = min;
+            _max = max;
 
             //Set the count amount
             CountAmount = countAmount;

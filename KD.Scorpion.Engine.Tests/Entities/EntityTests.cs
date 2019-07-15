@@ -13,7 +13,7 @@ namespace KDScorpionEngineTests.Entities
 {
     public class EntityTests : IDisposable
     {
-        #region Fields
+        #region Private Fields
         private Mock<IPhysicsBody> _mockPhysicsBody;
         private Mock<IDebugDraw> _mockDebugDraw;
         private Mock<IContentLoader> _contentLoader;

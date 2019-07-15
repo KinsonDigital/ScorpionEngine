@@ -16,7 +16,7 @@ namespace KDScorpionEngine.Utils
         #endregion
 
 
-        #region Fields
+        #region Private Fields
         private bool _enabled;
         private int _timeOut;
         #endregion

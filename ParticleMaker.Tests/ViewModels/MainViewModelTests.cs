@@ -18,7 +18,7 @@ namespace ParticleMaker.Tests.ViewModels
 {
     public class MainViewModelTests : IDisposable
     {
-        #region Fields
+        #region Private Fields
         private RenderEngine _engine;
         private readonly Mock<IRenderer> _mockRenderer;
         private readonly MainViewModel _viewModel;

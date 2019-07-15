@@ -41,7 +41,7 @@ namespace KDScorpionEngine.Entities
         #endregion
 
 
-        #region Fields
+        #region Private Fields
         private bool _visible = true;//True if the entity will be drawn
         protected bool _usesPhysics = true;
         protected EngineTime _engineTime;

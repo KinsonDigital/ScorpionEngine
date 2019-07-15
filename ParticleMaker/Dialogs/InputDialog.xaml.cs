@@ -12,7 +12,7 @@ namespace ParticleMaker.Dialogs
     [ExcludeFromCodeCoverage]
     public partial class InputDialog : Window
     {
-        #region Fields
+        #region Private Fields
         private RelayCommand _okCommmand;
         private RelayCommand _cancelCommand;
         private readonly char[] _invalidCharacters;

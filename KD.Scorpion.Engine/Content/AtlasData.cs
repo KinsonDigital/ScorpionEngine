@@ -12,7 +12,7 @@ namespace KDScorpionEngine.Content
     [ExcludeFromCodeCoverage]
     internal class AtlasData
     {
-        #region Fields
+        #region Private Fields
         private readonly List<AtlasSpriteData> _atlasSprites;
         #endregion
 

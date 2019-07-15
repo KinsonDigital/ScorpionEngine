@@ -12,7 +12,7 @@ namespace KDScorpionEngine.Entities
     /// </summary>
     public class DynamicEntity : Entity
     {
-        #region Fields
+        #region Private Fields
         private Vector _facingDirection = new Vector(0, -1);
         private LimitNumberBehavior _moveRightVelocityMaxBehavior;
         private LimitNumberBehavior _moveLeftVelocityMaxBehavior;

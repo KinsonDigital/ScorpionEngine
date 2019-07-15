@@ -32,7 +32,7 @@ namespace ParticleMaker.UserControls
         #endregion
 
 
-        #region Fields
+        #region Private Fields
         private readonly Task _refreshTask;
         private readonly CancellationTokenSource _refreshTokenSrc;
         #endregion

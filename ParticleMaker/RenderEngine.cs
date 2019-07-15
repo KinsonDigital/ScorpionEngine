@@ -10,7 +10,7 @@ namespace ParticleMaker
 {
     public class RenderEngine : IDisposable
     {
-        #region Fields
+        #region Private Fields
         //private Task _loopTask;
         //private CancellationTokenSource _tokenSrc;
         private readonly IRenderer _renderer;

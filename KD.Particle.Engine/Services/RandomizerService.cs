@@ -8,7 +8,7 @@ namespace KDParticleEngine.Services
     /// </summary>
     public class RandomizerService : IRandomizerService
     {
-        #region Fields
+        #region Private Fields
         private readonly Random _random;
         #endregion
 

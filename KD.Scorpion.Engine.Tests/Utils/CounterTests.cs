@@ -8,6 +8,19 @@ namespace KDScorpionEngineTests.Utils
 {
     public class CounterTests
     {
+        #region Constructor Tests
+        [Fact]
+        public void Ctr_WhenInvokingWithMinLessThanMax_ThrowsException()
+        {
+            //Arrange, Act & Assert
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                new Counter(10, 1, 1);
+            });
+        }
+        #endregion
+
+
         #region Method Tests
         [Fact]
         public void Count_WhenInvoked_IncrementsValue()

@@ -8,7 +8,7 @@ namespace ParticleMaker.Tests.ViewModels
     /// </summary>
     public class ViewModelFake : ViewModel
     {
-        #region Fields
+        #region Private Fields
         private int _testPropA;
         private int _testPropB;
         #endregion

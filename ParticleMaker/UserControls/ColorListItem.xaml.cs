@@ -26,7 +26,7 @@ namespace ParticleMaker.UserControls
         #endregion
 
 
-        #region Fields
+        #region Private Fields
         private static readonly SolidColorBrush DEFAULT_COLOR = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
         #endregion
 

@@ -39,7 +39,7 @@ namespace KDScorpionEngine.Input
         #endregion
 
 
-        #region Fields
+        #region Private Fields
         private readonly Mouse _mouse;
         private Dictionary<InputButton, bool> _currentPressedButtons;//Holds the list of combo buttons and there down states
         private StopWatch _buttonDownTimer;//Keeps track of how long the set input has been in the down position

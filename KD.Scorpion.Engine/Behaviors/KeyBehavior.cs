@@ -29,7 +29,7 @@ namespace KDScorpionEngine.Behaviors
         #endregion
 
 
-        #region Fields
+        #region Private Fields
         private int _timeElapsed;//The time elapsed since last frame
         private Keyboard _keyboard;
         #endregion

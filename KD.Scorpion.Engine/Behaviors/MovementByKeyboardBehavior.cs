@@ -13,7 +13,7 @@ namespace KDScorpionEngine.Behaviors
     /// </summary>
     public class MovementByKeyboardBehavior<T> : Behavior where T : DynamicEntity
     {
-        #region Fields
+        #region Private Fields
         private KeyBehavior _moveRightOnKeyDown;
         private KeyBehavior _moveLeftOnKeyDown;
         private KeyBehavior _moveUpOnKeyDown;

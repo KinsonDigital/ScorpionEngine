@@ -17,7 +17,7 @@ namespace ParticleMaker.Dialogs
     [ExcludeFromCodeCoverage]
     public partial class ProjectListDialog : Window
     {
-        #region Fields
+        #region Private Fields
         private readonly CancellationTokenSource _tokenSrc;
         private readonly Task _autoRefreshTask;
         private bool _firstTimeRefreshed = true;

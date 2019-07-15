@@ -16,7 +16,7 @@ namespace ParticleMaker
     /// </summary>
     public static class ExtensionMethods
     {
-        #region Fields
+        #region Private Fields
         private const float PI = 3.1415926535897931f;
         private static readonly char[] _windowsIllegalCharacters = new[] { '\\', '/', ':', '*', '?', '"', '<', '>', '|' };
         #endregion

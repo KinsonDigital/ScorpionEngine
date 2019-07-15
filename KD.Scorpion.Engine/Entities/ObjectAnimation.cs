@@ -12,7 +12,7 @@ namespace KDScorpionEngine.Entities
     [ExcludeFromCodeCoverage]
     public class ObjectAnimation
     {
-        #region Fields
+        #region Private Fields
         private int _fps = 10;//The frames per second that the animation will run at
         private int _elapsedTime;//The amount of time elapsed since the last animation frame was changed
         private int _currentFrame;//The current frame of the animation

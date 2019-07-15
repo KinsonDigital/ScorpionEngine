@@ -9,7 +9,7 @@ namespace KDScorpionCore.Content
     /// </summary>
     public class ContentLoader
     {
-        #region Fields
+        #region Private Fields
         private readonly IContentLoader _internalLoader;
         #endregion
 

@@ -61,14 +61,14 @@ namespace KDScorpionEngine
 
         /// <summary>
         /// Runs a complete stack of frames set by the <see cref="ITimeManager"/>.
-        /// This will only work if the <see cref="Mode"/> is set to <see cref="RunMode.FrameStack"/>.
+        /// This will only work if the <see cref="Mode"/> property is set to <see cref="RunMode.FrameStack"/>.
         /// </summary>
         void RunFrameStack();
 
 
         /// <summary>
         /// Runs a set amount of frames given by the <paramref name="frames"/> param and pauses after.
-        /// This will only work if the <see cref="Mode"/> is set to <see cref="RunMode.FrameStack"/>.
+        /// This will only work if the <see cref="Mode"/> property is set to <see cref="RunMode.FrameStack"/>.
         /// </summary>
         /// <param name="frames">The number of frames to run.</param>
         void RunFrames(uint frames);

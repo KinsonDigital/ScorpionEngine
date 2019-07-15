@@ -7,7 +7,7 @@ namespace KDScorpionCore.Sound
     /// </summary>
     public class SoundEffect
     {
-        //#region Fields
+        //#region Private Fields
         //private Sound _sound;
         //#endregion
 

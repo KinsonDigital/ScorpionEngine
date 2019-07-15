@@ -17,7 +17,7 @@ namespace KDScorpionEngine.Scene
         #endregion
 
 
-        #region Fields
+        #region Private Fields
         private Action _frameStackCallback;//Invoked after a frame stack has been run
         #endregion
 

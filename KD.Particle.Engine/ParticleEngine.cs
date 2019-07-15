@@ -24,7 +24,7 @@ namespace KDParticleEngine
         #endregion
 
 
-        #region Fields
+        #region Private Fields
         private readonly List<Particle<Texture>> _particles;
         private readonly List<Texture> _textures = new List<Texture>();
         private int _totalParticlesAliveAtOnce = 10;

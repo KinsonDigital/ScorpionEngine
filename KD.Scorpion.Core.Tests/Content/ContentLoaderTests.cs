@@ -10,7 +10,7 @@ namespace KDScorpionCoreTests.Content
 {
     public class ContentLoaderTests : IDisposable
     {
-        #region Fields
+        #region Private Fields
         private IContentLoader _contentLoader;
         private readonly Mock<IContentLoader> _mockCoreContentLoader = new Mock<IContentLoader>();
         #endregion

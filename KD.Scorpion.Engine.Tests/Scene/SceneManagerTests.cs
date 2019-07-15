@@ -14,7 +14,7 @@ namespace KDScorpionEngineTests.Scene
 {
     public class SceneManagerTests : IDisposable
     {
-        #region Fields
+        #region Private Fields
         private readonly Mock<IContentLoader> _contentLoader;
         private Mock<IKeyboard> _mockKeyboard;
         #endregion

@@ -24,7 +24,7 @@ namespace KDScorpionEngine.Entities
         #endregion
 
 
-        #region Fields
+        #region Private Fields
         private readonly List<DynamicEntity> _objects = new List<DynamicEntity>();//The pool of objects to manage.
         private Rect _triggerBounds;//The bounds used to trigger the out of bounds trigger
         #endregion

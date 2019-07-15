@@ -15,7 +15,7 @@ namespace KDScorpionEngineTests.Scene
 {
     public class GameSceneTests : IDisposable
     {
-        #region Fields
+        #region Private Fields
         private Mock<IPhysicsWorld> _mockPhysicsWorld;
         private readonly Mock<IPhysicsBody> _mockPhysicsBody;
         #endregion

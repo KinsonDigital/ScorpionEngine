@@ -10,7 +10,7 @@ namespace KDScorpionEngineTests
 {
     public class EngineTests : IDisposable
     {
-        #region Fields
+        #region Private Fields
         private readonly Mock<IContentLoader> _mockContentLoader;
         private Mock<IEngineCore> _mockEngineCore;
         private readonly Mock<IKeyboard> _mockKeyboard;

@@ -7,10 +7,12 @@ namespace KDScorpionEngine
     /// </summary>
     public interface IDrawable
     {
+        #region Methods
         /// <summary>
-        /// Renders things to the screen.
+        /// Renders things to the graphics surface using the given <paramref name="renderer"/>.
         /// </summary>
         /// <param name="renderer">The rederer to use for rendering.</param>
         void Render(GameRenderer renderer);
+        #endregion
     }
 }

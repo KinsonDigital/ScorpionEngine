@@ -13,7 +13,7 @@ namespace KDScorpionEngine.Behaviors
     /// <typeparam name="T">The type of <see cref="DynamicEntity"/> to move.</typeparam>
     public class MoveFowardKeyboardBehavior<T> : Behavior where T : DynamicEntity
     {
-        #region Fields
+        #region Private Fields
         private KeyBehavior _moveFowardKeyBehavior;
         private KeyBehavior _rotateCWKeyBehavior;
         private KeyBehavior _rotateCCWKeyBehavior;

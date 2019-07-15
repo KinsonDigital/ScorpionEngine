@@ -9,7 +9,7 @@ namespace ParticleMaker.Services
     /// </summary>
     public class SetupDeployService
     {
-        #region Fields
+        #region Private Fields
         private readonly IDirectoryService _directoryService;
         private readonly IFileService _fileService;
         private readonly string _rootProjectsPath;

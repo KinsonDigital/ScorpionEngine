@@ -7,7 +7,7 @@ namespace ParticleMaker.Services
 {
     public class JSONLoggerService : ILoggerService
     {
-        #region Fields
+        #region Private Fields
         private readonly IFileService _fileService;
         private readonly IDirectoryService _directoryService;
         private readonly string _logsDirectory;

@@ -10,7 +10,7 @@ namespace ParticleMaker.Tests.Management
 {
     public class ParticleManagerTests : IDisposable
     {
-        #region Fields
+        #region Private Fields
         private Mock<IDirectoryService> _mockProjIODirService;
         private Mock<IFileService> _mockProjIOFileService;
         private ProjectIOService _projIOService;
