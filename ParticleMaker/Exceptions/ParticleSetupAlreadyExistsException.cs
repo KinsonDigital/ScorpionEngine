@@ -11,18 +11,14 @@ namespace ParticleMaker.Exceptions
         /// <summary>
         /// Creats a new instance of <see cref="ParticleSetupAlreadyExistsException"/>.
         /// </summary>
-        public ParticleSetupAlreadyExistsException() : base("The particle setup already exists.")
-        {
-        }
+        public ParticleSetupAlreadyExistsException() : base("The particle setup already exists.") { }
 
 
         /// <summary>
         /// Creats a new instance of <see cref="ParticleSetupAlreadyExistsException"/>.
         /// </summary>
         /// <param name="setupName">The name of the setup that already exists.</param>
-        public ParticleSetupAlreadyExistsException(string setupName) : base($"The particle setup with the name '{setupName}' already exists.")
-        {
-        }
+        public ParticleSetupAlreadyExistsException(string setupName) : base($"The particle setup with the name '{setupName}' already exists.") { }
         #endregion
     }
 }

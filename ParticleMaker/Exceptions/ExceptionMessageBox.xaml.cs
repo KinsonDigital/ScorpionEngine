@@ -5,7 +5,7 @@ using System.Windows;
 namespace ParticleMaker.Exceptions
 {
     /// <summary>
-    /// Interaction logic for ExceptionMessageBox.xaml
+    /// Interaction logic for <see cref="ExceptionMessageBox"/> dialog.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class ExceptionMessageBox : Window

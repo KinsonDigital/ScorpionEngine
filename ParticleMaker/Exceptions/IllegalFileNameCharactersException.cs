@@ -3,15 +3,15 @@
 namespace ParticleMaker.Exceptions
 {
     /// <summary>
-    /// Holds exception information about the use of illegal characters in a file name.
+    /// Thrown when a file name is illegal.
     /// </summary>
     public class IllegalFileNameCharactersException : Exception
     {
+        #region Constructors
         /// <summary>
-        /// Creates a new exception of <see cref="IllegalFileNameCharactersException"/>.
+        /// Creates a new instance of <see cref="IllegalFileNameCharactersException"/>.
         /// </summary>
-        public IllegalFileNameCharactersException() : base("The file name contains illegal characters.  The following characters are not aloud. \n'\\', '/', ':', '*', '?', '\"', '<', '>', '|', '.'")
-        {
-        }
+        public IllegalFileNameCharactersException() : base("The file name contains illegal characters.  The following characters are not aloud. \n'\\', '/', ':', '*', '?', '\"', '<', '>', '|', '.'") { }
+        #endregion
     }
 }

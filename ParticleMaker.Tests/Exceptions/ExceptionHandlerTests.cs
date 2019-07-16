@@ -151,7 +151,7 @@ namespace ParticleMaker.Tests.Exceptions
             ExceptionHandler.Handle(new NullReferenceException());
 
             //Assert
-            _mockExceptionMessage.Verify(m => m.ShowMessage(It.IsAny<NullReferenceException>(), It.IsAny<Window>()), Times.Once());
+            _mockExceptionMessage.Verify(m => m.ShowExceptionDialog(It.IsAny<NullReferenceException>(), It.IsAny<Window>()), Times.Once());
         }
         #endregion
 
