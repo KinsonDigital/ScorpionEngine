@@ -5,7 +5,7 @@ using System.Windows.Controls;
 namespace ParticleMaker.UserControls
 {
     /// <summary>
-    /// Interaction logic for RenderSize.xaml
+    /// Interaction logic for <see cref="RenderSize"/> control.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class RenderSize : UserControl

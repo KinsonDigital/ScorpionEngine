@@ -14,7 +14,7 @@ using System.Windows.Input;
 namespace ParticleMaker.UserControls
 {
     /// <summary>
-    /// Interaction logic for SetupList.xaml
+    /// Interaction logic for <see cref="SetupList"/> control.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class SetupList : UserControl
@@ -247,7 +247,7 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Updates the currently selected item when the internal list box selectd item changes.
+        /// Updates the currently selected item when the internal list box selected item changes.
         /// </summary>
         private void SetupListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

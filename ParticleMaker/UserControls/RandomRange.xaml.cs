@@ -5,7 +5,7 @@ using System.Windows.Controls;
 namespace ParticleMaker.UserControls
 {
     /// <summary>
-    /// Interaction logic for RandomRange.xaml
+    /// Interaction logic for <see cref="RandomRange"/> control.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class RandomRange : UserControl
@@ -45,7 +45,7 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
-        /// Registers the <see cref="MinLowerLimit"/>.
+        /// Registers the <see cref="MinLowerLimit"/> property.
         /// </summary>
         public static readonly DependencyProperty MinLowerLimitProperty =
             DependencyProperty.Register(nameof(MinLowerLimit), typeof(float), typeof(RandomRange), new PropertyMetadata(0f));
@@ -61,7 +61,7 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
-        /// Registers the <see cref="MinUpperLimit"/>.
+        /// Registers the <see cref="MinUpperLimit"/> property.
         /// </summary>
         public static readonly DependencyProperty MinUpperLimitProperty =
             DependencyProperty.Register(nameof(MinUpperLimit), typeof(float), typeof(RandomRange), new PropertyMetadata(10f));
@@ -100,7 +100,7 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Gets or sets the range maximum value.
+        /// Gets or sets the maximum value.
         /// </summary>
         public float MaxValue
         {
