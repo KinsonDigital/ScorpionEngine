@@ -3,6 +3,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace PluginSystem
 {
+    /// <summary>
+    /// Holds the plugin implementations from a loaded plugin library.
+    /// </summary>
     [ExcludeFromCodeCoverage]
     public class Plugins
     {
@@ -14,17 +17,17 @@ namespace PluginSystem
 
         #region Props
         /// <summary>
-        /// Gets or sets the name of the engine plugin library.
+        /// Gets or sets the name of the game engine plugin library.
         /// </summary>
         public string EngineLibraryPluginName { get; set; } = LibChooser.EnginePluginLibraryName;
 
         /// <summary>
-        /// Gets or sets the name of the engine plugin library.
+        /// Gets or sets the name of the physics engine plugin library.
         /// </summary>
         public string PhysicsLibraryPluginName { get; set; } = LibChooser.PhysicsPLuginLibraryName;
 
         /// <summary>
-        /// Gets the loaded engine plugin library.
+        /// Gets the loaded game engine plugin library.
         /// </summary>
         public IPluginLibrary EnginePlugins
         {
@@ -44,7 +47,7 @@ namespace PluginSystem
         }
 
         /// <summary>
-        /// Gets the loaded physics plugin library.
+        /// Gets the loaded physics engine plugin library.
         /// </summary>
         public IPluginLibrary PhysicsPlugins
         {

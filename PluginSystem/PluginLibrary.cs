@@ -26,6 +26,7 @@ namespace PluginSystem
         /// Creates a new instance of <see cref="PluginLibrary"/>.
         /// </summary>
         /// <param name="name">The name of the plugin library to load.</param>
+        /// <remarks>The <paramref name="name"/> param can be with or without the '.dll' extension.</remarks>
         public PluginLibrary(string name)
         {
             Name = name;
@@ -60,18 +61,19 @@ namespace PluginSystem
 
         #region Public Methods
         /// <summary>
-        /// Loads the concrete plugin that matches the given type <typeparamref name="T"/>.
+        /// Loads a concrete plugin that implements the <see cref="IPlugin"/> interface.
         /// </summary>
-        /// <typeparam name="T">The type of plugin to load.</typeparam>
+        /// <typeparam name="T">The type of plugin to load.  Must implement the <see cref="IPlugin"/> interface.</typeparam>
         /// <returns></returns>
         public T LoadPlugin<T>() where T : class, IPlugin => _container.GetInstance<T>();
 
 
         /// <summary>
-        /// Loads the concrete plugins that matche the given type <typeparamref name="T"/>.
+        /// Loads a concrete plugin that implements the <see cref="IPlugin"/> interface and sends in the
+        /// given <paramref name="paramItems"/> values when instantiating the plugin.
         /// </summary>
-        /// <typeparam name="T">The type of plugins to load.</typeparam>
-        /// <param name="paramItems"></param>
+        /// <typeparam name="T">The type of plugins to load.  Must implement the <see cref="IPlugin"/> interface.</typeparam>
+        /// <param name="paramItems">The list of parameters to send into the plugin.</param>
         /// <returns></returns>
         public T LoadPlugin<T>(params object[] paramItems) where T : class, IPlugin
         {
@@ -87,7 +89,7 @@ namespace PluginSystem
 
         #region Private Methods
         /// <summary>
-        /// Checks and registers up the plugin assembly.
+        /// Checks and registers the plugin assembly.
         /// </summary>
         private void CheckAndRegisterAssembly()
         {
@@ -104,7 +106,7 @@ namespace PluginSystem
             //Register all of the plugin types with the IoC container for instantiation
             foreach (var concreteType in _concretePluginTypes)
             {
-                var serviceInterface = GetPluginInterface(concreteType);
+                var serviceInterface = GetPluginInterfaceType(concreteType);
 
                 //If the concrete type is valid for registration
                 if (ValidForRegistration(concreteType))
@@ -114,11 +116,11 @@ namespace PluginSystem
 
 
         /// <summary>
-        /// Gets the interfce type that the given <paramref name="concreteType"/> implements.
+        /// Gets the interface type that the given <paramref name="concreteType"/> implements.
         /// </summary>
-        /// <param name="concreteType">The concrete type to pull the <see cref="IPlugin"/> interface from.</param>
+        /// <param name="concreteType">The concrete type that implements the <see cref="IPlugin"/> interface.</param>
         /// <returns></returns>
-        private Type GetPluginInterface(Type concreteType)
+        private Type GetPluginInterfaceType(Type concreteType)
         {
             return (from i in concreteType.GetInterfaces()
                     where i.Name != nameof(IPlugin) &&
@@ -128,7 +130,7 @@ namespace PluginSystem
 
 
         /// <summary>
-        /// Returns value indicating if the given <paramref name="type"/> is valid for IoC container registration.
+        /// Returns a value indicating if the given <paramref name="type"/> is valid for IoC container registration.
         /// </summary>
         /// <param name="type">The type to check.</param>
         /// <returns></returns>
@@ -143,7 +145,7 @@ namespace PluginSystem
         /// <summary>
         /// Returns the total number of constructors.
         /// </summary>
-        /// <param name="concreteType">The concreate type to check for the number of constructors on</param>
+        /// <param name="concreteType">The concreate type to check for the total number of constructors.</param>
         /// <returns></returns>
         private int TotalCtrs(Type concreteType)
         {

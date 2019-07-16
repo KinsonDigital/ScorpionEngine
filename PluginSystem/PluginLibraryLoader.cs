@@ -13,13 +13,18 @@ namespace PluginSystem
     [ExcludeFromCodeCoverage]
     internal static class PluginLibraryLoader
     {
+        #region Public Methods
         /// <summary>
         /// Loads the plugin assembly for use.
         /// </summary>
         /// <param name="pluginLibraryName">The name of the plugin assembly.</param>
+        /// <remarks>The <paramref name="pluginLibraryName"/> param can be with or without the '.dll' extension.</remarks>
         public static Assembly LoadPluginLibrary(string pluginLibraryName)
         {
             var pluginPath = AppDomain.CurrentDomain.BaseDirectory;
+
+            //If the name of the library contains the file extension, remove it
+            pluginLibraryName = pluginLibraryName.EndsWith(".dll") ? pluginLibraryName.Replace(".dll", "") : pluginLibraryName;
 
             var dirInfo = new DirectoryInfo(pluginPath);
 
@@ -44,5 +49,6 @@ namespace PluginSystem
 
             return pluginAssembly;
         }
+        #endregion
     }
 }

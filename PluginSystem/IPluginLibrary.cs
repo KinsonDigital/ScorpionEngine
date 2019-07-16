@@ -16,18 +16,19 @@
 
         #region Methods
         /// <summary>
-        /// Loads the concrete plugin that matches the given type <typeparamref name="T"/>.
+        /// Loads a concrete plugin that implements the <see cref="IPlugin"/> interface.
         /// </summary>
-        /// <typeparam name="T">The type of plugin to load.</typeparam>
+        /// <typeparam name="T">The type of plugin to load.  Must implement the <see cref="IPlugin"/> interface.</typeparam>
         /// <returns></returns>
         T LoadPlugin<T>() where T : class, IPlugin;
 
 
         /// <summary>
-        /// Loads the concrete plugins that matche the given type <typeparamref name="T"/>.
+        /// Loads a concrete plugin that implements the <see cref="IPlugin"/> interface and sends in the
+        /// given <paramref name="paramItems"/> values when instantiating the plugin.
         /// </summary>
-        /// <typeparam name="T">The type of plugins to load.</typeparam>
-        /// <param name="paramItems"></param>
+        /// <typeparam name="T">The type of plugin to load.  Must implement the <see cref="IPlugin"/> interface.</typeparam>
+        /// <param name="paramItems">The list of parameters to send into the plugin.</param>
         /// <returns></returns>
         T LoadPlugin<T>(params object[] paramItems) where T : class, IPlugin;
         #endregion
