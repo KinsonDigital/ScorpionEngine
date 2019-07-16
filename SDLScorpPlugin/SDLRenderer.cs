@@ -7,7 +7,7 @@ using System;
 namespace SDLScorpPlugin
 {
     /// <summary>
-    /// Provides methods for rendering textures, text and primitives to the screen.
+    /// Provides methods for rendering SDL textures, text and primitives to the screen.
     /// </summary>
     public class SDLRenderer : IRenderer
     {
@@ -332,8 +332,9 @@ namespace SDLScorpPlugin
         /// <summary>
         /// Injects any arbitrary data into the plugin for use.  Must be a class.
         /// </summary>
-        /// <typeparam name="T">The type of data to inject.</typeparam>
+        /// <typeparam name="T">The <see cref="PointerContainer"/> type to inject.</typeparam>
         /// <param name="data">The data to inject.</param>
+        /// <exception cref="Exception">Thrown if the '<paramref name="data"/>' parameter is not of type <see cref="PointerContainer"/>.</exception>
         public void InjectData<T>(T data) where T : class
         {
             //TODO: Replace this with a custom exception called InjectDataException class

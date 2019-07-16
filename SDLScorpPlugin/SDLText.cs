@@ -5,6 +5,9 @@ using System;
 
 namespace SDLScorpPlugin
 {
+    /// <summary>
+    /// Text that can be rendered to the graphics surface.
+    /// </summary>
     public class SDLText : IText
     {
         #region Private Fields
@@ -15,7 +18,12 @@ namespace SDLScorpPlugin
 
 
         #region Constructors
-        public SDLText(IntPtr fontPtr, string text)
+        /// <summary>
+        /// Creates a new instance of <see cref="SDLText"/>.
+        /// </summary>
+        /// <param name="fontPtr">The pointer to the SDL font.</param>
+        /// <param name="text">The text to render to the surface.</param>
+        internal SDLText(IntPtr fontPtr, string text)
         {
             _fontPtr = fontPtr;
             Color = new GameColor(255, 255, 255, 255);
@@ -25,6 +33,9 @@ namespace SDLScorpPlugin
 
 
         #region Props
+        /// <summary>
+        /// Gets or sets the text to be rendered to the graphics surface.
+        /// </summary>
         public string Text
         {
             get => _text;
@@ -54,6 +65,9 @@ namespace SDLScorpPlugin
             }
         }
 
+        /// <summary>
+        /// Gets the width of the text.
+        /// </summary>
         public int Width
         {
             get
@@ -65,6 +79,9 @@ namespace SDLScorpPlugin
             }
         }
 
+        /// <summary>
+        /// Gets the height of the text.
+        /// </summary>
         public int Height
         {
             get
@@ -76,11 +93,28 @@ namespace SDLScorpPlugin
             }
         }
 
+        /// <summary>
+        /// Gets or sets the color of the text.
+        /// </summary>
         public GameColor Color { get; set; }
         #endregion
 
 
         #region Public Methods
+        /// <summary>
+        /// Injects any arbitrary data into the plugin for use.  Must be a class.
+        /// </summary>
+        /// <typeparam name="T">The type of data to inject.</typeparam>
+        /// <param name="data">The data to inject.</param>
+        public void InjectData<T>(T data) where T : class => throw new NotImplementedException();
+
+
+        /// <summary>
+        /// Gets the data as the given type <typeparamref name="T"/>.
+        /// </summary>
+        /// <param name="option">Use the value of '1' if the data to return is of type <see cref="PointerContainer"/>.</param>
+        /// <typeparam name="T">The type of data to get.</typeparam>
+        /// <returns></returns>
         public T GetData<T>(int option) where T : class
         {
             if (option == 1)
@@ -97,9 +131,6 @@ namespace SDLScorpPlugin
             //TODO: Create a custome InvalidGetDataOptionException class.  Implement this for all GetData<T> implementations
             throw new Exception($"The option '{option}' is not valid. \n\nValid options are 1.");
         }
-
-
-        public void InjectData<T>(T data) where T : class => throw new NotImplementedException();
         #endregion
     }
 }

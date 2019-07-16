@@ -3,6 +3,9 @@ using PluginSystem;
 
 namespace KDScorpionCore.Plugins
 {
+    /// <summary>
+    /// Provides functionality to interact with the keyboard.
+    /// </summary>
     public interface IKeyboard : IPlugin
     {
         #region Props

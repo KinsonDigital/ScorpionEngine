@@ -4,7 +4,7 @@ using PluginSystem;
 namespace KDScorpionCore
 {
     /// <summary>
-    /// Text that can be rendered to the screen.
+    /// Text that can be rendered to the graphics surface.
     /// </summary>
     public interface IText : IPlugin
     {
@@ -20,12 +20,12 @@ namespace KDScorpionCore
         int Height { get; }
 
         /// <summary>
-        /// Gets the text.
+        /// Gets or sets the text.
         /// </summary>
         string Text { get; set; }
 
         /// <summary>
-        /// Gets the color of the text.
+        /// Gets or sets the color of the text.
         /// </summary>
         GameColor Color { get; set; }
         #endregion
