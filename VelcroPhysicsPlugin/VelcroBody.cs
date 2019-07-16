@@ -351,6 +351,7 @@ namespace VelcroPhysicsPlugin
         /// </summary>
         /// <typeparam name="T">The type of data to inject.</typeparam>
         /// <param name="data">The data to inject.</param>
+        /// <exception cref="Exception">Thrown if the '<paramref name="data"/>' parameter is not of type <see cref="Body"/> or <see cref="PolygonShape"/>.</exception>
         public void InjectData<T>(T data) where T : class
         {
             if (data.GetType() == typeof(Body))
@@ -363,7 +364,7 @@ namespace VelcroPhysicsPlugin
             }
             else
             {
-                throw new Exception($"Data getting injected into {nameof(VelcroBody)} is not of type {nameof(Body)} or {nameof(PolygonShape)}.  Incorrect type is {data.GetType().ToString()}");
+                throw new Exception($"Data getting injected into {nameof(VelcroBody)} is not of type {nameof(Body)} or {nameof(PolygonShape)}.  Incorrect type is '{data.GetType().ToString()}'");
             }
         }
 
@@ -373,17 +374,15 @@ namespace VelcroPhysicsPlugin
         /// </summary>
         /// <param name="option">Used to pass in options for the <see cref="GetData{T}(int)"/> implementation to process.</param>
         /// <typeparam name="T">The type of data to get.</typeparam>
-        /// <returns></returns>
+        /// <exception cref="Exception">Thrown if the <paramref name="option"/> value is not the value of
+        /// type '1' for the type <see cref="PhysicsBodySettings"/>.</exception>
         public T GetData<T>(int option) where T : class
         {
-            if (option == 100)
-            {
+            if (option == 1)
                 return _tempSettings as T;
-            }
-            else
-            {
-                throw new Exception($"Do not recognize the option '{option}'");
-            }
+
+
+            throw new Exception($"Do not recognize the option '{option}'");
         }
         #endregion
     }

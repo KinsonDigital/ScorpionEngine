@@ -196,10 +196,7 @@ namespace KDScorpionEngine
         /// Occurs one time during game intialization after the <see cref="OnInitialize"/> event is fired.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        private void EngineCore_OnLoadContent(object sender, EventArgs e)
-        {
-            LoadContent(ContentLoader);
-        }
+        private void EngineCore_OnLoadContent(object sender, EventArgs e) => LoadContent(ContentLoader);
 
 
         /// <summary>

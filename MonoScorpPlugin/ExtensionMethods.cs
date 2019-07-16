@@ -9,8 +9,9 @@ namespace MonoScorpPlugin
     /// </summary>
     public static class ExtensionMethods
     {
+        #region Public Methods
         /// <summary>
-        /// Converts the given <see cref="Microsoft.Xna.Framework.Vector2"/> to a <see cref="KDScorpionCore.Vector"/>.
+        /// Converts the given <see cref="Vector2"/> to a <see cref="Vector"/>.
         /// </summary>
         /// <param name="vector">The vector to convert.</param>
         /// <returns></returns>
@@ -18,7 +19,7 @@ namespace MonoScorpPlugin
 
 
         /// <summary>
-        /// Converts the given <see cref="KDScorpionCore.Rect"/> to a <see cref="Microsoft.Xna.Framework.Rectangle"/>.
+        /// Converts the given <see cref="Rect"/> to a <see cref="Rectangle"/>.
         /// </summary>
         /// <param name="rect">The rectangle to convert.</param>
         /// <returns></returns>
@@ -33,5 +34,6 @@ namespace MonoScorpPlugin
         /// <returns></returns>
         public static Color ToXNAColor(this GameColor color) =>
             new Color(color.Red, color.Green, color.Blue, color.Alpha);
+        #endregion
     }
 }

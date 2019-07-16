@@ -59,7 +59,8 @@ namespace SDLScorpPlugin
         /// </summary>
         /// <param name="option">Use the value of '1' if the data to return is of type <see cref="PointerContainer"/>.</param>
         /// <typeparam name="T">The type of data to get.</typeparam>
-        /// <returns></returns>
+        /// <exception cref="Exception">Thrown if the <paramref name="option"/> value is not the value of
+        /// type '1' for the type <see cref="PointerContainer"/>.</exception>
         public T GetData<T>(int option) where T : class
         {
             if (option == 1)

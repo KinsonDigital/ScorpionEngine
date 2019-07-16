@@ -6,6 +6,9 @@ using System.IO;
 
 namespace SDLScorpPlugin
 {
+    /// <summary>
+    /// Loads and unloads content using SDL.
+    /// </summary>
     public class SDLContentLoader : IContentLoader
     {
         #region Constructors
