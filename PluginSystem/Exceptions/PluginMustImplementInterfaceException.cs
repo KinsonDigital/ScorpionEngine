@@ -10,10 +10,7 @@ namespace PluginSystem.Exceptions
         /// <summary>
         /// Creates a new isntance of <see cref="PluginMustImplementInterfaceException"/>.
         /// </summary>
-        public PluginMustImplementInterfaceException()
-            : base($"The plugin must implement the {nameof(IPlugin)} interface.")
-        {
-        }
+        public PluginMustImplementInterfaceException() : base($"The plugin must implement the {nameof(IPlugin)} interface.") { }
 
 
         /// <summary>
@@ -21,8 +18,6 @@ namespace PluginSystem.Exceptions
         /// </summary>
         /// <param name="pluginName">The name of the plugin.</param>
         public PluginMustImplementInterfaceException(string pluginName)
-            : base($"The plugin {pluginName} must implement the {nameof(IPlugin)} interface.")
-        {
-        }
+            : base($"The plugin {pluginName} must implement the {nameof(IPlugin)} interface.") { }
     }
 }
