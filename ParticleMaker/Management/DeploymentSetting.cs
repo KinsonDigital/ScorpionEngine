@@ -22,11 +22,12 @@
         /// <summary>
         /// Returns a value indicating if this object is eqaul to another <see cref="DeploymentSetting"/> object.
         /// </summary>
-        /// <param name="obj"></param>
+        /// <param name="obj">The object to compare.</param>
         /// <returns></returns>
         public override bool Equals(object obj)
         {
             var otherObj = (DeploymentSetting)obj;
+
 
             return SetupName == otherObj.SetupName &&
                    DeployPath == otherObj.DeployPath;

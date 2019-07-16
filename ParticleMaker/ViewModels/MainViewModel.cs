@@ -1198,7 +1198,7 @@ namespace ParticleMaker.ViewModels
             if (dialogResult == MessageBoxResult.Yes)
             {
                 //Update the name of the setup in the list of setup deployment settings
-                _projectSettingsManager.RenameDeploymentSetupName(CurrentOpenProject, eventArgs.OldName, eventArgs.NewName);
+                _projectSettingsManager.RenameDeploymentSetup(CurrentOpenProject, eventArgs.OldName, eventArgs.NewName);
 
                 //Rename the setup folder and setup json file
                 _setupManager.Rename(CurrentOpenProject, eventArgs.OldName, eventArgs.NewName);

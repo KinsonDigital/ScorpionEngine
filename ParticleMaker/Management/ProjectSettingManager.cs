@@ -108,13 +108,13 @@ namespace ParticleMaker.Management
 
 
         /// <summary>
-        /// Renames the setup name for a setup that matches the given <paramref name="currentSetupName"/>
-        /// for a project that matches the given <paramref name="projectName"/>.
+        /// Renames a deployment setup from the given <paramref name="currentSetupName"/>
+        /// to the given <paramref name="newSetupName"/> in a project that matches the given <paramref name="projectName"/>.
         /// </summary>
         /// <param name="projectName">The name of the project that contains the <see cref="ProjectSettings"/>.</param>
         /// <param name="currentSetupName">The name of the setup to change.</param>
         /// <param name="newSetupName">The new name to change the <paramref name="currentSetupName"/> to.</param>
-        public void RenameDeploymentSetupName(string projectName, string currentSetupName, string newSetupName)
+        public void RenameDeploymentSetup(string projectName, string currentSetupName, string newSetupName)
         {
             if (_projIOService.ProjectExists(projectName))
             {
