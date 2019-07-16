@@ -45,7 +45,7 @@ namespace ParticleMaker.Services
 
         #region Public Methods
         /// <summary>
-        /// Starts the task and executes the given <paramref name="taskAction"/>
+        /// Starts the task and executes the given <paramref name="taskAction"/>.
         /// </summary>
         /// <param name="taskAction">The work to be performed by the task.</param>
         public void Start(Action taskAction)

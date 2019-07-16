@@ -5,6 +5,9 @@ using System.Reflection;
 
 namespace ParticleMaker.Services
 {
+    /// <summary>
+    /// Provides capibility to log information.
+    /// </summary>
     public class JSONLoggerService : ILoggerService
     {
         #region Private Fields
@@ -38,10 +41,10 @@ namespace ParticleMaker.Services
 
         #region Public Methods
         /// <summary>
-        /// Logs genral information using the given <paramref name="data"/>.
+        /// Logs general information using the given <paramref name="data"/>.
         /// </summary>
         /// <param name="data">The data/info to log.</param>
-        /// <param name="dateTime">The date time stamp of when the log will occur.</param>
+        /// <param name="dateTime">The date time stamp of when the event occured.</param>
         public void Log(string data, DateTime dateTime)
         {
             var monthName = _monthNames[dateTime.Month];
@@ -77,7 +80,7 @@ namespace ParticleMaker.Services
         /// Logs an error using the given information.
         /// </summary>
         /// <param name="data">The data/info to log.</param>
-        /// <param name="dateTime">The date time stamp of when the error has occured.</param>
+        /// <param name="dateTime">The date time stamp of when an error has occured.</param>
         /// <param name="errorNumber">The error number associated with the error.</param>
         public void LogError(string data, DateTime dateTime, int errorNumber)
         {
