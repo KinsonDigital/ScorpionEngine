@@ -81,6 +81,9 @@ namespace SDLScorpPlugin
         /// </summary>
         public IRenderer Renderer { get; private set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating the type of game loop to run.
+        /// </summary>
         public TimeStepType TimeStep { get; set; } = TimeStepType.Fixed;
 
         /// <summary>
@@ -171,10 +174,7 @@ namespace SDLScorpPlugin
         /// </summary>
         /// <typeparam name="T">The type of data to inject.</typeparam>
         /// <param name="data">The data to inject.</param>
-        public void InjectData<T>(T data) where T : class
-        {
-            throw new NotImplementedException();
-        }
+        public void InjectData<T>(T data) where T : class => throw new NotImplementedException();
 
 
         /// <summary>

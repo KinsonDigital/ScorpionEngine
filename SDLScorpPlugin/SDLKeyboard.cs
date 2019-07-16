@@ -8,8 +8,7 @@ using SDL2;
 namespace SDLScorpPlugin
 {
     /// <summary>
-    /// Used to check the state of the keyboard using the SDL
-    /// crossplatform library.
+    /// Provides functionality to interact with the keyboard using SDL.
     /// </summary>
     public class SDLKeyboard : IKeyboard
     {

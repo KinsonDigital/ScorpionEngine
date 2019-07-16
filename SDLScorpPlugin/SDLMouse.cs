@@ -5,6 +5,9 @@ using System;
 
 namespace SDLScorpPlugin
 {
+    /// <summary>
+    /// Provides mouse input using SDL.
+    /// </summary>
     public class SDLMouse : IMouse
     {
         #region Private Fields
@@ -62,7 +65,7 @@ namespace SDLScorpPlugin
 
 
         /// <summary>
-        /// Sets the position of the mouse using the given <paramref name="x"/> and <paramref name="y"/> values.
+        /// Sets the position of the mouse using the given <paramref name="x"/> and <paramref name="y"/> coordinate values.
         /// </summary>
         /// <param name="x">The horizontal X position to set the mouse in the game window.</param>
         /// <param name="y">The vertical Y position to set the mouse in the game window.</param>
@@ -70,7 +73,7 @@ namespace SDLScorpPlugin
 
 
         /// <summary>
-        /// Returns true if the given input is in the down position.
+        /// Returns true if the given <see cref="input"/> is in the down position.
         /// </summary>
         /// <param name="input">The input to check.</param>
         /// <returns></returns>
@@ -92,7 +95,7 @@ namespace SDLScorpPlugin
 
 
         /// <summary>
-        /// Returns true if the given <paramref name="inputButton"/> is in the up position.
+        /// Returns true if the given <paramref name="input"/> is in the up position.
         /// </summary>
         /// <param name="inputButton">The input button to check.</param>
         /// <returns></returns>
@@ -100,7 +103,7 @@ namespace SDLScorpPlugin
 
 
         /// <summary>
-        /// Returns true if the given mouse <paramref name="inputButton"/> has been released from the down position.
+        /// Returns true if the given mouse <paramref name="input"/> has been released from the down position.
         /// </summary>
         /// <param name="inputButton">The input button to check.</param>
         /// <returns></returns>
