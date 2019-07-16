@@ -14,8 +14,7 @@ namespace MonoScorpPlugin
     {
         #region Private Fields
         private static SpriteBatch _spriteBatch;
-        //This will treated as a MonoGame graphics device.
-        private static dynamic _graphicsDevice;
+        private static GraphicsDevice _graphicsDevice;
         #endregion
 
 
@@ -186,11 +185,16 @@ namespace MonoScorpPlugin
         /// </summary>
         /// <typeparam name="T">The type of data to inject.</typeparam>
         /// <param name="data">The data to inject.</param>
+        /// <exception cref="Exception">Thrown if the '<paramref name="data"/>' parameter is not of type <see cref="GraphicsDevice"/>.</exception>
         public void InjectData<T>(T data) where T : class
         {
-            _graphicsDevice = data;
+            //If the incoming data is not a monogame texture, throw an exception
+            if (data.GetType() != typeof(GraphicsDevice))
+                throw new Exception($"Data getting injected into {nameof(MonoRenderer)} is not of type {nameof(GraphicsDevice)}.  Incorrect type is '{data.GetType().ToString()}'");
 
-            _spriteBatch = new SpriteBatch(_graphicsDevice as GraphicsDevice);
+            _graphicsDevice = data as GraphicsDevice;
+
+            _spriteBatch = new SpriteBatch(_graphicsDevice);
         }
 
 

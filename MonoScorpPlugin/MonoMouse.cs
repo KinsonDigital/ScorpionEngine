@@ -6,6 +6,9 @@ using KDScorpionCore.Input;
 
 namespace MonoScorpPlugin
 {
+    /// <summary>
+    /// Provides mouse input using MonoGame.
+    /// </summary>
     public class MonoMouse : IMouse
     {
         #region Private Fields

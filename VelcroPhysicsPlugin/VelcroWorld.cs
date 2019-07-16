@@ -60,7 +60,7 @@ namespace VelcroPhysicsPlugin
         {
             var velVertices = new Vertices();
 
-            var bodySettings = body.GetData<PhysicsBodySettings>(100);
+            var bodySettings = body.GetData<PhysicsBodySettings>(1);
 
             for (int i = 0; i < bodySettings.XVertices.Length; i++)
             {

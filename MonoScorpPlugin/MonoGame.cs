@@ -7,9 +7,17 @@ using KDScorpionCore.Plugins;
 
 namespace MonoScorpPlugin
 {
+    /// <summary>
+    /// The internal implementation of a <see cref="Game"/> object from MonoGame.
+    /// This provides the functionality required to use MonoGame internally for this plugin
+    /// implementation.
+    /// </summary>
     internal class MonoGame : Game, IEngineEvents
     {
+        #region Private Fields
         private readonly GraphicsDeviceManager _graphicsDeviceManager;
+        #endregion
+
 
         #region Events
         /// <summary>
@@ -35,6 +43,9 @@ namespace MonoScorpPlugin
 
 
         #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="MonoGame"/>.
+        /// </summary>
         public MonoGame()
         {
             _graphicsDeviceManager = new GraphicsDeviceManager(this);
@@ -48,13 +59,21 @@ namespace MonoScorpPlugin
 
 
         #region Props
+        /// <summary>
+        /// Gets or sets the renderer implementation to render the <see cref="Texture2D"/>s and
+        /// <see cref="SpriteFont"/>s to the graphics surface.
+        /// </summary>
         public IRenderer Renderer { get; set; }
 
+        /// <summary>
+        /// Gets or sets the mono engine time implementation to pass into the public events of this class.
+        /// </summary>
         public MonoEngineTime EngineTime { get; set; }
 
+        /// <summary>
+        /// Gets the custom content manager to load and unload content.
+        /// </summary>
         public new static ContentManager Content { get; private set; }
-
-        public static GraphicsDevice MonoGraphicsDevice { get; set; }
 
         /// <summary>
         /// Gets or sets the width of the game window.
@@ -77,22 +96,22 @@ namespace MonoScorpPlugin
 
 
         #region Public Methods
-        public void Start()
-        {
-            Run(GameRunBehavior.Synchronous);
-        }
+        /// <summary>
+        /// Starts the <see cref="Game"/> engine.
+        /// </summary>
+        public void Start() => Run(GameRunBehavior.Synchronous);
 
-
-        public void SetFPS(float value)
-        {
-            TargetElapsedTime = TimeSpan.FromMilliseconds(1000f / value);
-        }
+        /// <summary>
+        /// Sets the frames per second to the given <paramref name="value"/>.
+        /// </summary>
+        /// <param name="value">The value to use.</param>
+        public void SetFPS(float value) => TargetElapsedTime = TimeSpan.FromMilliseconds(1000f / value);
         #endregion
 
 
         #region MonoGame Methods
         /// <summary>
-        /// Fires the OnInit event.  Runs game initialization code.
+        /// Fires the <see cref="OnInitialize"/> event.  Runs game initialization code.
         /// </summary>
         protected override void Initialize()
         {
@@ -106,7 +125,7 @@ namespace MonoScorpPlugin
 
 
         /// <summary>
-        /// Fires the OnLoadContent event.  Runs content loading code.
+        /// Fires the <see cref="OnLoadContent"/> event.  Runs content loading code.
         /// </summary>
         protected override void LoadContent()
         {
@@ -117,7 +136,7 @@ namespace MonoScorpPlugin
 
 
         /// <summary>
-        /// Fires the OnUpdate event to update game logic.
+        /// Fires the <see cref="OnUpdate"/> event to update game logic.
         /// </summary>
         /// <param name="gameTime">The current game time information.</param>
         protected override void Update(GameTime gameTime)
@@ -131,7 +150,7 @@ namespace MonoScorpPlugin
 
 
         /// <summary>
-        /// Fires the OnDraw event to render the graphics of the game.
+        /// Fires the <see cref="OnRender"/> event to render the graphics to the graphics surface.
         /// </summary>
         /// <param name="gameTime">The current game time information.</param>
         protected override void Draw(GameTime gameTime)

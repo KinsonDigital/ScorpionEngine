@@ -339,7 +339,7 @@ namespace SDLScorpPlugin
         {
             //TODO: Replace this with a custom exception called InjectDataException class
             if (data.GetType() != typeof(PointerContainer))
-                throw new Exception($"Data getting injected into {nameof(SDLRenderer)} is not of type {nameof(PointerContainer)}.  Incorrect type is {data.GetType().ToString()}");
+                throw new Exception($"Data getting injected into {nameof(SDLRenderer)} is not of type {nameof(PointerContainer)}.  Incorrect type is '{data.GetType().ToString()}'");
 
             _rendererPtr = (data as PointerContainer).UnpackPointer();
         }

@@ -105,20 +105,14 @@ namespace MonoScorpPlugin
         /// Sets how many frames the engine will process per second.
         /// </summary>
         /// <param name="value">The total number of frames.</param>
-        public void SetFPS(float value)
-        {
-            _monoGame.SetFPS(value);
-        }
+        public void SetFPS(float value) => _monoGame.SetFPS(value);
 
 
         /// <summary>
         /// Returns true if the engine is running.
         /// </summary>
         /// <returns></returns>
-        public bool IsRunning()
-        {
-            return _isRunning;
-        }
+        public bool IsRunning() => _isRunning;
 
 
         /// <summary>

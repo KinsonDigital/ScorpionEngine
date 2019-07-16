@@ -8,7 +8,7 @@ using System.Linq;
 namespace MonoScorpPlugin
 {
     /// <summary>
-    /// Used to check the keyboard for input.
+    /// Provides functionality to interact with the keyboard using MonoGame.
     /// </summary>
     public class MonoKeyboard : IKeyboard
     {
