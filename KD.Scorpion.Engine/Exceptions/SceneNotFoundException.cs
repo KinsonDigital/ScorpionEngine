@@ -11,8 +11,8 @@ namespace KDScorpionEngine.Exceptions
         /// <summary>
         /// Creates a new instance of <see cref="SceneNotFoundException"/>.
         /// </summary>
-        /// <param name="sceneId">The id of the scene that already exists.</param>
-        public SceneNotFoundException(int sceneId) : base($"The scene with the id of '{sceneId}' was not found.") { }
+        /// <param name="sceneId">The ID of the scene that already exists.</param>
+        public SceneNotFoundException(int sceneId) : base($"The scene with the ID of '{sceneId}' was not found.") { }
 
 
         /// <summary>

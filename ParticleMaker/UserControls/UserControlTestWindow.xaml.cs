@@ -48,7 +48,7 @@ namespace ParticleMaker.UserControls
 
         // Using a DependencyProperty as the backing store for MaxValue.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MaxValueProperty =
-            DependencyProperty.Register("MaxValue", typeof(int), typeof(UserControlTestWindow), new PropertyMetadata(4));
+            DependencyProperty.Register(nameof(MaxValue), typeof(int), typeof(UserControlTestWindow), new PropertyMetadata(4));
 
 
     }

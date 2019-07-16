@@ -1,7 +1,7 @@
 ﻿namespace ParticleMaker.CustomEventArgs
 {
     /// <summary>
-    /// Holds information about event when an add setup has been clicked.
+    /// Holds information about event when a particle has been added.
     /// </summary>
     public class AddParticleEventArgs
     {
@@ -16,7 +16,7 @@
 
         #region Props
         /// <summary>
-        /// Gets or sets the path to the particle to be added.
+        /// Gets the path to the particle to be added.
         /// </summary>
         public string ParticleFilePath { get; internal set; }
         #endregion

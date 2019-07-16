@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace ParticleMaker.Dialogs
 {
     /// <summary>
-    /// Interaction logic for InputDialog.xaml
+    /// Interaction logic for <see cref="InputDialog"/>.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class InputDialog : Window
@@ -55,7 +55,7 @@ namespace ParticleMaker.Dialogs
 
         #region Props
         /// <summary>
-        /// Gets or sets the command for the ok button.
+        /// Gets the command for the ok button.
         /// </summary>
         public RelayCommand OkCommand
         {
@@ -77,7 +77,7 @@ namespace ParticleMaker.Dialogs
         }
 
         /// <summary>
-        /// Gets or sets the command for the cancel button.
+        /// Gets the command for the cancel button.
         /// </summary>
         public RelayCommand CancelCommand
         {
@@ -101,13 +101,10 @@ namespace ParticleMaker.Dialogs
         public string InputResult => InputValue;
 
         /// <summary>
-        /// Gets or sets a value that indicates if the casing of the invalid values should
-        /// be ignored.
+        /// Gets or sets a value that indicates if the casing of the invalid values should be ignored.
         /// </summary>
         public bool IgnoreInvalidValueCasing { get; set; }
 
-
-        #region Dependency Props
         /// <summary>
         /// Gets or sets the <see cref="InputDialog"/>'s title.
         /// </summary>
@@ -171,7 +168,6 @@ namespace ParticleMaker.Dialogs
         private static readonly DependencyProperty ContainsInvalidValueProperty =
             DependencyProperty.Register(nameof(ContainsInvalidValue), typeof(bool), typeof(InputDialog), new PropertyMetadata(false));
         #endregion
-        #endregion
 
 
         #region Private Methods
@@ -200,7 +196,7 @@ namespace ParticleMaker.Dialogs
 
 
         /// <summary>
-        /// Processes key presses to add behavior to the dialog.
+        /// Processes key releases to add behavior to the dialog.
         /// </summary>
         private void KeyUpHandler(object sender, KeyEventArgs e)
         {

@@ -1,7 +1,7 @@
 ﻿namespace ParticleMaker.CustomEventArgs
 {
     /// <summary>
-    /// Holds information about an event of a setup item.
+    /// Holds information about an event of an item.
     /// </summary>
     public class ItemEventArgs
     {

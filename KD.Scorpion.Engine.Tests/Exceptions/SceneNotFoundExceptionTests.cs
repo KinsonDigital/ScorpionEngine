@@ -11,7 +11,7 @@ namespace KDScorpionEngineTests.Exceptions
         {
             //Arrange
             var sceneId = 10;
-            var expected = "The scene with the id of '10' was not found.";
+            var expected = "The scene with the ID of '10' was not found.";
 
             //Act
             var exception = new SceneNotFoundException(sceneId);

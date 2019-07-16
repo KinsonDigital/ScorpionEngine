@@ -12,7 +12,7 @@ using System.Windows.Input;
 namespace ParticleMaker.Dialogs
 {
     /// <summary>
-    /// Interaction logic for ProjectListDialog.xaml
+    /// Interaction logic for <see cref="ProjectListDialog"/>.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class ProjectListDialog : Window
@@ -59,6 +59,7 @@ namespace ParticleMaker.Dialogs
         #endregion
 
 
+        #region Props
         /// <summary>
         /// Gets or sets the paths to all of the projects.
         /// </summary>
@@ -85,7 +86,7 @@ namespace ParticleMaker.Dialogs
         }
 
         /// <summary>
-        /// Registers the <see cref="ProjectNames"/>.
+        /// Registers the <see cref="ProjectNames"/> property.
         /// </summary>
         protected static readonly DependencyProperty ProjectNamesProperty =
             DependencyProperty.Register(nameof(ProjectNames), typeof(ProjectItem[]), typeof(ProjectListDialog), new PropertyMetadata(new ProjectItem[0]));
@@ -101,6 +102,7 @@ namespace ParticleMaker.Dialogs
         /// </summary>
         public static readonly DependencyProperty SelectedProjectProperty =
             DependencyProperty.Register(nameof(SelectedProject), typeof(string), typeof(ProjectListDialog), new PropertyMetadata(""));
+        #endregion
 
 
         #region Private Methods
@@ -160,7 +162,7 @@ namespace ParticleMaker.Dialogs
 
 
         /// <summary>
-        /// Processes keyboard presses to add behavior to the dialog.
+        /// Processes keyboard key releases to add behavior to the dialog.
         /// </summary>
         private void KeyUpHandler(object sender, KeyEventArgs e)
         {
@@ -250,7 +252,6 @@ namespace ParticleMaker.Dialogs
         /// <summary>
         /// Refresh the UI based on the given list of <paramref name="projPaths"/>.
         /// </summary>
-        /// <param name="projPaths">The list of project paths.</param>
         private void Refresh()
         {
             var paths = ToProjectItems(ProjectPaths);
