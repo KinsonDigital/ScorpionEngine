@@ -119,7 +119,7 @@ namespace ParticleMaker
         /// Finds all of the children <see cref="UIElement"/>s of the given type <typeparamref name="T"/>
         /// that are contained by the given <paramref name="parent"/>.
         /// </summary>
-        /// <typeparam name="T">Any type that inherits <see cref="UIElement"/></typeparam>
+        /// <typeparam name="T">Any type that inherits <see cref="UIElement"/>.</typeparam>
         /// <param name="parent">The parent <see cref="DependencyObject"/> that contains the child elements.</param>
         /// <returns></returns>
         [ExcludeFromCodeCoverage]

@@ -30,8 +30,8 @@ namespace KDScorpionEngineTests
         /// <summary>
         /// Sets the value or reference type with the given <paramref name="name"/> to the value of 0 or null.
         /// </summary>
-        /// <param name="fieldContainer"></param>
-        /// <param name="name"></param>
+        /// <param name="fieldContainer">The object that contains the field to set to null.</param>
+        /// <param name="name">The name of the field in the <paramref name="fieldContainer"/>.</param>
         public static void SetFieldNull(this object fieldContainer, string name)
         {
             var foundField = fieldContainer.GetField(name);

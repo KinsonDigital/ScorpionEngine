@@ -67,8 +67,8 @@ namespace KDScorpionEngine.Behaviors
         /// Copies the <see cref="IBehavior"/>s to the given collection of <paramref name="behaviors"/>
         /// starting at the given <paramref name="index"/>.
         /// </summary>
-        /// <param name="behaviors"></param>
-        /// <param name="index"></param>
+        /// <param name="behaviors">The list of behaviors to copy the items to.</param>
+        /// <param name="index">The index of where to start copying the source items.</param>
         public void CopyTo(IBehavior[] behaviors, int index) => _items.CopyTo(behaviors, index);
 
 
@@ -82,7 +82,7 @@ namespace KDScorpionEngine.Behaviors
         /// <summary>
         /// Determines the index of the given <paramref name="item"/> in the collection of <see cref="IBehavior"/>s.
         /// </summary>
-        /// <param name="item"></param>
+        /// <param name="item">The item to get the index of.</param>
         /// <returns></returns>
         public int IndexOf(IBehavior item) => _items.IndexOf(item);
 

@@ -66,7 +66,7 @@ namespace KDScorpionEngine.Scene
         /// <summary>
         /// Updates the <see cref="SceneTimeManager"/>.
         /// </summary>
-        /// <param name="gameTime"></param>
+        /// <param name="gameTime">The engine time.</param>
         public void Update(EngineTime gameTime)
         {
             //Continous mode

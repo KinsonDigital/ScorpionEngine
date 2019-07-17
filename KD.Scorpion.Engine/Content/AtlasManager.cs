@@ -184,7 +184,7 @@ namespace KDScorpionEngine.Content
         /// <summary>
         /// Extracts the sub texture name from a formatted animating sub texture frame name.
         /// </summary>
-        /// <param name="frameName"></param>
+        /// <param name="frameName">The name of the frame.</param>
         /// <returns></returns>
         internal static int ExtractFrameNumber(string frameName)
         {

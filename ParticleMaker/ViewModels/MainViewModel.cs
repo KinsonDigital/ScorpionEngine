@@ -1093,7 +1093,7 @@ namespace ParticleMaker.ViewModels
         /// <summary>
         /// Exits the application.
         /// </summary>
-        /// <param name="param"></param>
+        /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
         [ExcludeFromCodeCoverage]
         private void ExitAppExecute(object param)
         {
