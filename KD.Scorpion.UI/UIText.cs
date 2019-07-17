@@ -4,7 +4,7 @@ using KDScorpionCore.Graphics;
 namespace KDScorpionUI
 {
     /// <summary>
-    /// Represents a single piece of text rendered to a screen.
+    /// Represents a single piece of text rendered to a graphics surface.
     /// </summary>
     public class UIText
     {
@@ -18,39 +18,24 @@ namespace KDScorpionUI
 
         #region Constructors
         /// <summary>
-        /// Creates a new instance of an <see cref="UIText"/> item.
+        /// Creates a new instance of <see cref="UIText"/>.
         /// </summary>
-        /// <param name="labelFont">The font used for the label section of the text item.</param>
-        /// <param name="valueFont">The font used for the value section of the text item.</param>
-        public UIText()
-        {
-            Position = Vector.Zero;
-        }
+        public UIText() => Position = Vector.Zero;
 
 
         /// <summary>
-        /// Creates a new instance of an <see cref="UIText"/> item.
+        /// Creates a new instance of <see cref="UIText"/>.
         /// </summary>
-        /// <param name="labelFont">The font used for the label section of the text item.</param>
-        /// <param name="valueFont">The font used for the value section of the text item.</param>
         /// <param name="position">The position to to render the text item.</param>
-        public UIText(Vector position)
-        {
-            Position = position;
-        }
+        public UIText(Vector position) => Position = position;
 
 
         /// <summary>
-        /// Creates a new instance of an <see cref="UGameText"/> item.
+        /// Creates a new instance of <see cref="UIText"/>.
         /// </summary>
-        /// <param name="labelFont">The font used for the label section of the text item.</param>
-        /// <param name="valueFont">The font used for the value section of the text item.</param>
         /// <param name="x">The X location of the text item.</param>
         /// <param name="y">The Y location of the text item.</param>
-        public UIText(int x = 0, int y = 0)
-        {
-            Position = new Vector(x, y);
-        }
+        public UIText(int x = 0, int y = 0) => Position = new Vector(x, y);
         #endregion
 
 
@@ -84,12 +69,12 @@ namespace KDScorpionUI
         }
 
         /// <summary>
-        /// Gets or sets the information of the stat to display.
+        /// Gets or sets the value section of the text.
         /// </summary>
         public GameText ValueText { get; set; }
 
         /// <summary>
-        /// Gets or sets the position of the text item.
+        /// Gets or sets the position of the text on the graphics surface.
         /// </summary>
         public Vector Position { get; set; }
 
@@ -104,70 +89,37 @@ namespace KDScorpionUI
         public int UpdateFrequency { get; set; } = 62;
 
         /// <summary>
-        /// Gets or sets the size of the text item. <see cref="Vector.X"/> is for the width and <see cref="Vector.Y"/> is for the height.
+        /// Gets or sets the size of the text. <see cref="Vector.X"/> is for the width and <see cref="Vector.Y"/> is for the height.
         /// </summary>
-        public Vector TextItemSize
-        {
-            get
-            {
-                return new Vector(Width, Height);
-            }
-        }
+        public Vector TextItemSize => new Vector(Width, Height);
 
         /// <summary>
-        /// Gets the width of the entire text item.
+        /// Gets the width of the entire text.
         /// </summary>
-        public int Width
-        {
-            get
-            {
-                return LabelText.Width + SectionSpacing + ValueText.Width;
-            }
-        }
+        public int Width => LabelText.Width + SectionSpacing + ValueText.Width;
 
         /// <summary>
         /// Gets the height of the entire text item.
         /// </summary>
-        public int Height
-        {
-            get
-            {
-                if (LabelText.Height > ValueText.Height)
-                    return LabelText.Height;
-
-                return ValueText.Height;
-            }
-        }
+        public int Height => LabelText.Height > ValueText.Height ? LabelText.Height : ValueText.Height;
 
         /// <summary>
-        /// Gets the location of the right side of the <see cref="UIText"/> item.
+        /// Gets the location of the right side of the <see cref="UIText"/>.
         /// </summary>
-        public int Right
-        {
-            get
-            {
-                return (int)Position.X + Width;
-            }
-        }
+        public int Right => (int)Position.X + Width;
 
         /// <summary>
-        /// Gets the location of the bottom of the <see cref="UIText"/> item.
+        /// Gets the location of the bottom of the <see cref="UIText"/>.
         /// </summary>
-        public int Bottom
-        {
-            get
-            {
-                return (int)Position.Y + Height;
-            }
-        }
+        public int Bottom => (int)Position.Y + Height;
 
         /// <summary>
-        /// Adds an additional amont to the vertical position of the label text section.
+        /// Adds an additional amount of space to the vertical position of the label section of the text.
         /// </summary>
         public int VerticalLabelOffset { get; set; } = 0;
 
         /// <summary>
-        /// Adds an additional amont to the vertical position of the value text section.
+        /// Adds an additional amount of space to the vertical position of the value section of the text.
         /// </summary>
         public int VerticalValueOffset { get; set; } = 0;
 
@@ -177,12 +129,12 @@ namespace KDScorpionUI
         public int SectionSpacing { get; set; } = 5;
 
         /// <summary>
-        /// Gets or sets the color of the label section of the text item.
+        /// Gets or sets the color of the label section of the text.
         /// </summary>
         public GameColor LabelColor { get; set; } = new GameColor(255, 0, 0, 0);
 
         /// <summary>
-        /// Gets or sets the color of the value section of the text item.
+        /// Gets or sets the color of the value section of the text.
         /// </summary>
         public GameColor ValueColor { get; set; } = new GameColor(255, 0, 0, 0);
 
@@ -200,6 +152,10 @@ namespace KDScorpionUI
 
 
         #region Public Methods
+        /// <summary>
+        /// Sets the text of the label section.
+        /// </summary>
+        /// <param name="text">The text to set the label section to.</param>
         public void SetLabelText(string text)
         {
             if (_updateText || UpdateFrequency == 0 || IgnoreUpdateFrequency)
@@ -210,6 +166,10 @@ namespace KDScorpionUI
         }
 
 
+        /// <summary>
+        /// Sets the text of the value section.
+        /// </summary>
+        /// <param name="text">The text to set the value section to.</param>
         public void SetValueText(string text)
         {
             if (_updateText || UpdateFrequency == 0 || IgnoreUpdateFrequency)
@@ -223,7 +183,7 @@ namespace KDScorpionUI
         /// <summary>
         /// Updates the text item. This helps keep the update frequency up to date.
         /// </summary>
-        /// <param name="gameTime">The frame time information of the last frame.</param>
+        /// <param name="gameTime">The game time of the last frame.</param>
         public void Update(IEngineTiming gameTime)
         {
             _elapsedTime += gameTime.ElapsedEngineTime.Milliseconds;
@@ -239,7 +199,7 @@ namespace KDScorpionUI
         /// <summary>
         /// Render the text item to the screen.
         /// </summary>
-        /// <param name="renderer">The sprite batch to use to render.</param>
+        /// <param name="renderer">The renderer to use to render the <see cref="UIText"/>.</param>
         public void Render(Renderer renderer)
         {
             renderer.Render(LabelText, Position.X, Position.Y + VerticalLabelOffset);

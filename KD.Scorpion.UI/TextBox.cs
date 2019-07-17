@@ -11,12 +11,11 @@ namespace KDScorpionUI
     /// </summary>
     public class TextBox : IControl
     {
+        #region Private Fields
         private readonly Keyboard _keyboard = new Keyboard();
         private readonly string _leftText = string.Empty;
-        private readonly string _rightText = string.Empty;
         private GameText _visibleText;
         private static GameText _textRuler;//Used for measuring text with and height
-        private string _allText;
         private int _visibleTextCharPosition;
         private int _charPosDelta;
         private Vector _textPosition;
@@ -29,46 +28,61 @@ namespace KDScorpionUI
         private int _leftSide;
         private int _lastDirectionOfTravel = 0;
         private readonly DeferredActions _deferredActions = new DeferredActions();
+        #endregion
+        
 
-
-        #region Props
-        public Vector Position { get; set; }
-
-        public int Width => Background.Width;
-
-        public int Height => Background.Height;
-
-        public Texture Background { get; set; }
-
-        public string FontName { get; set; }
-
-        public string Text
-        {
-            get
-            {
-                return _allText;
-            }
-            set
-            {
-                _allText = value;
-            }
-        }
+        #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="TextBox"/>.
+        /// </summary>
+        public TextBox() { }
         #endregion
 
 
-        #region Constructors
-        public TextBox()
-        {
-        }
+        #region Props
+        /// <summary>
+        /// Gets or sets the position of the text box.
+        /// </summary>
+        public Vector Position { get; set; }
+
+        /// <summary>
+        /// Gets the width of the <see cref="TextBox"/>.
+        /// </summary>
+        public int Width => Background.Width;
+
+        /// <summary>
+        /// Gets the height of the <see cref="TextBox"/>.
+        /// </summary>
+        public int Height => Background.Height;
+
+        /// <summary>
+        /// Gets the background UI of the <see cref="TextBox"/>.
+        /// </summary>
+        public Texture Background { get; set; }
+
+        /// <summary>
+        /// Gets or sets the font name of the <see cref="TextBox"/>.
+        /// </summary>
+        public string FontName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the text in the <see cref="TextBox"/>.
+        /// </summary>
+        public string Text { get; set; }
         #endregion
 
 
         #region Public Methods
-        public void Initialize()
-        {
-        }
+        /// <summary>
+        /// Initializes the <see cref="TextBox"/>.
+        /// </summary>
+        public void Initialize() { }
 
 
+        /// <summary>
+        /// Loads the content of the <see cref="TextBox"/>.
+        /// </summary>
+        /// <param name="contentLoader">The content loader used to load the content.</param>
         public void LoadContent(ContentLoader contentLoader)
         {
             _visibleText = contentLoader.LoadText(FontName);
@@ -78,6 +92,10 @@ namespace KDScorpionUI
         }
 
 
+        /// <summary>
+        /// Updates the texbox.
+        /// </summary>
+        /// <param name="engineTime">The game engine time.</param>
         public void Update(EngineTime engineTime)
         {
             UpdateSideLocations();
@@ -94,6 +112,10 @@ namespace KDScorpionUI
         }
 
 
+        /// <summary>
+        /// Renders the <see cref="TextBox"/> to the graphics surface.
+        /// </summary>
+        /// <param name="renderer">The renderer used to render the <see cref="TextBox"/>.</param>
         public void Render(Renderer renderer)
         {
             renderer.Render(Background, Position);
@@ -101,8 +123,8 @@ namespace KDScorpionUI
             //Update the X position of the text
             _textPosition = new Vector(_leftSide, Position.Y - _visibleText.Height / 2f);
 
-            //Render the text inside of the textbox
-            _visibleText.Text = ClipText(_allText);
+            //Render the text inside of the <see cref="TextBox"/>
+            _visibleText.Text = ClipText(Text);
 
             renderer.Render(_visibleText, _textPosition, new GameColor(255, 0, 0, 0));
 
@@ -144,6 +166,9 @@ namespace KDScorpionUI
 
 
         #region Private Methods
+        /// <summary>
+        /// Updates the locations of the left and right side of the <see cref="TextBox"/>.
+        /// </summary>
         private void UpdateSideLocations()
         {
             var halfWidth = Width / 2;
@@ -153,6 +178,9 @@ namespace KDScorpionUI
         }
 
 
+        /// <summary>
+        /// Processess any keyboard input inside of the <see cref="TextBox"/>.
+        /// </summary>
         private void ProcessKeys()
         {
             _keyboard.UpdateCurrentState();
@@ -161,7 +189,7 @@ namespace KDScorpionUI
             {
                 _lastDirectionOfTravel = 1;
 
-                _characterPosition = _characterPosition > _allText.Length - 1 ?
+                _characterPosition = _characterPosition > Text.Length - 1 ?
                     _characterPosition :
                     _characterPosition + 1;
 
@@ -206,11 +234,10 @@ namespace KDScorpionUI
                 if (_keyboard.IsKeyPressed(KeyCodes.Back) && _characterPosition > 0)
                 {
                     RemoveCharacterUsingBackspace();
-                    //_visibleText.Text = _visibleText.Text.Remove(_characterPosition, 1);
                 }
             }
 
-            //If a letter is pressed, add it to the textbox
+            //If a letter is pressed, add it to the <see cref="TextBox"/>
             if (_keyboard.AnyLettersPressed(out KeyCodes letter))
             {
                 var letterText = "";
@@ -245,41 +272,36 @@ namespace KDScorpionUI
         }
 
 
-        private Vector CalcCursorStart()
-        {
-            var cursorPositionX = _leftSide + CalcCursorXPos();
+        /// <summary>
+        /// Calculates the starting position of the cursor inside of the <see cref="TextBox"/>.
+        /// </summary>
+        /// <returns></returns>
+        private Vector CalcCursorStart() => new Vector(_leftSide + CalcCursorXPos(), Position.Y - (Background.Height / 2) + 3);
 
 
-            return new Vector(cursorPositionX, Position.Y - (Background.Height / 2) + 3);
-        }
+        /// <summary>
+        /// Calculates the stopping position of the cursor insdie of the <see cref="TextBox"/>.
+        /// </summary>
+        /// <returns></returns>
+        private Vector CalcCursorStop() => new Vector(_leftSide + CalcCursorXPos(), Position.Y + (Background.Height / 2) - 3);
 
 
-        private Vector CalcCursorStop()
-        {
-            var cursorPositionX = _leftSide + CalcCursorXPos();
+        /// <summary>
+        /// Removes the characters using the backspace key.
+        /// </summary>
+        private void RemoveCharacterUsingBackspace() => Text = Text.Remove(Text.IndexOf(_visibleText.Text) + _characterPosition - 1, 1);
 
 
-            return new Vector(cursorPositionX, Position.Y + (Background.Height / 2) - 3);
-        }
-
-
-        private void RemoveCharacterUsingBackspace()
-        {
-            var isTextClipped = IsTextClipped();
-
-            var visibleTextIndex = _allText.IndexOf(_visibleText.Text);
-            var charToRemoveIndex = visibleTextIndex + _characterPosition - 1;
-
-            _allText = _allText.Remove(charToRemoveIndex, 1);
-        }
-
-
+        /// <summary>
+        /// Calculates the cursor position inside of the <see cref="TextBox"/>.
+        /// </summary>
+        /// <returns></returns>
         private int CalcCursorXPos()
         {
             _textRuler.Text = string.Empty;
 
             //Update the text that is from the first letter up to the cursor position
-            _textRuler.Text = _allText.Substring(_charPosDelta, Math.Abs(_characterPosition - _charPosDelta));
+            _textRuler.Text = Text.Substring(_charPosDelta, Math.Abs(_characterPosition - _charPosDelta));
 
             var result = _textRuler.Width;
 
@@ -289,6 +311,12 @@ namespace KDScorpionUI
         }
 
 
+        /// <summary>
+        /// The amount of text to be clipped from the text box that is past
+        /// the right side of the <see cref="TextBox"/>.
+        /// </summary>
+        /// <param name="text">The text of the <see cref="TextBox"/>.</param>
+        /// <returns></returns>
         private string ClipText(string text)
         {
             _textRuler.Text = string.Empty;
@@ -301,7 +329,7 @@ namespace KDScorpionUI
 
             for (int i = startIndex; i < text.Length; i++)
             {
-                _textRuler.Text += _allText[i].ToString();
+                _textRuler.Text += Text[i].ToString();
 
                 //If the text is currently too wide to fit, remove one character
                 if (_textRuler.Width > textAreaWidth)
@@ -319,20 +347,6 @@ namespace KDScorpionUI
 
             return result;
         }
-
-
-        private bool IsPositionInLeftSection() => _characterPosition <= _leftText.Length - 1;
-
-
-        private bool IsPositionInCenterSection()
-        {
-            var combinedSections = $"{_leftText}{_visibleText.Text}";
-
-            return _characterPosition >= _leftText.Length - 1 && _characterPosition <= combinedSections.Length - 1;
-        }
-
-
-        private bool IsTextClipped() => _allText != _visibleText.Text;
         #endregion
     }
 }
