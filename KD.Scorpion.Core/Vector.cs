@@ -178,7 +178,7 @@ namespace KDScorpionCore
 
 
         /// <summary>
-        /// Checks if the given object is equal to this vector.
+        /// Checks if the given <paramref name="obj"/> is equal to this vector.
         /// </summary>
         /// <param name="obj">The object to check.</param>
         /// <returns></returns>

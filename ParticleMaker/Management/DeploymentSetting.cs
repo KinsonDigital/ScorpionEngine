@@ -20,7 +20,7 @@
 
         #region Public Methods
         /// <summary>
-        /// Returns a value indicating if this object is eqaul to another <see cref="DeploymentSetting"/> object.
+        /// Returns a value indicating if the given <paramref name="obj"/> is eqaul to another <see cref="DeploymentSetting"/> object.
         /// </summary>
         /// <param name="obj">The object to compare.</param>
         /// <returns></returns>
