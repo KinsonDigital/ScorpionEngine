@@ -3,6 +3,9 @@ using ParticleMaker.UserControls;
 
 namespace ParticleMaker.Tests.UserControls
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="PathItem"/> class.
+    /// </summary>
     public class PathItemTests
     {
         #region Prop Tests

@@ -11,6 +11,9 @@ using System;
 
 namespace KDScorpionEngineTests.Entities
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="StaticEntity"/> class.
+    /// </summary>
     public class StaticEntityTests : IDisposable
     {
         #region Private Fields

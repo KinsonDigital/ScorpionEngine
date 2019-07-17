@@ -12,6 +12,9 @@ using KDScorpionEngine.Graphics;
 
 namespace KDScorpionEngineTests.Scene
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="SceneManager"/> class.
+    /// </summary>
     public class SceneManagerTests : IDisposable
     {
         #region Private Fields

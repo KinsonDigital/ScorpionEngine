@@ -4,6 +4,9 @@ using Xunit;
 
 namespace ParticleMaker.Tests.Services
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="TimingService"/> class.
+    /// </summary>
     public class TimingServiceTests
     {
         #region Prop Tests

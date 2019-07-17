@@ -3,6 +3,9 @@ using System.Windows.Media;
 
 namespace ParticleMaker.CustomEventArgs
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="ColorItemClickedEventArgs"/> class.
+    /// </summary>
     public class ColorItemClickedEventArgsTests
     {
         #region Constructor Tests

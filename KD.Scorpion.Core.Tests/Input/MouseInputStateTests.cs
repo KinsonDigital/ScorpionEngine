@@ -4,6 +4,9 @@ using KDScorpionCore;
 
 namespace KDScorpionCoreTests.Input
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="MouseInputState"/> class.
+    /// </summary>
     public class MouseInputStateTests
     {
         [Fact]

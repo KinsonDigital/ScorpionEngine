@@ -7,6 +7,9 @@ using Xunit;
 
 namespace ParticleMaker.Tests
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="RenderEngine"/> class.
+    /// </summary>
     public class RenderEngineTests : IDisposable
     {
         #region Private Fields

@@ -3,6 +3,9 @@ using KDScorpionEngine.Exceptions;
 
 namespace KDScorpionEngineTests.Exceptions
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="IdAlreadyExistsException"/> class.
+    /// </summary>
     public class IdAlreadyExistsExceptionTests
     {
         #region Constructor Tests

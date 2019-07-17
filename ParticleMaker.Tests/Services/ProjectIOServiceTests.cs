@@ -5,6 +5,9 @@ using System;
 
 namespace ParticleMaker.Tests.Services
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="ProjectIOService"/> class.
+    /// </summary>
     public class ProjectIOServiceTests
     {
         #region Method Tests

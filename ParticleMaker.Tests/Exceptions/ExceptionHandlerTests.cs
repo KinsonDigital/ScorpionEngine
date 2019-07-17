@@ -7,6 +7,9 @@ using ParticleMaker.Services;
 
 namespace ParticleMaker.Tests.Exceptions
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="ExceptionHandler"/> class.
+    /// </summary>
     public class ExceptionHandlerTests : IDisposable
     {
         #region Private Fields

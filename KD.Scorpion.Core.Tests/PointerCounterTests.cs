@@ -4,6 +4,9 @@ using Xunit;
 
 namespace KDScorpionCoreTests
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="PointerContainer"/> class.
+    /// </summary>
     public class PointerCounterTests
     {
         [Fact]

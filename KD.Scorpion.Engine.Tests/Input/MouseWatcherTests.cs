@@ -10,6 +10,9 @@ using KDScorpionEngine;
 
 namespace KDScorpionEngineTests.Input
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="MouseWatcher"/> class.
+    /// </summary>
     public class MouseWatcherTests : IDisposable
     {
         #region Private Fields

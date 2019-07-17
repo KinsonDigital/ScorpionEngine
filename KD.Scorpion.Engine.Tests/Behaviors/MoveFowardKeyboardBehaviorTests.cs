@@ -9,6 +9,9 @@ using KDScorpionEngine.Entities;
 
 namespace KDScorpionEngineTests.Behaviors
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="MoveFowardKeyboardBehavior{T}"/> class.
+    /// </summary>
     public class MoveFowardKeyboardBehaviorTests : IDisposable
     {
         #region Private Fields

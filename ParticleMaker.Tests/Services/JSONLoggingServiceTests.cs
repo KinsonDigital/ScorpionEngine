@@ -6,6 +6,9 @@ using ParticleMaker.Services;
 
 namespace ParticleMaker.Tests.Services
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="JSONLoggerService"/> class.
+    /// </summary>
     public class JSONLoggingServiceTests
     {
         #region Method Tests

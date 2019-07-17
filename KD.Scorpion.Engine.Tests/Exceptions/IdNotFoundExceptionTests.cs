@@ -3,6 +3,9 @@ using KDScorpionEngine.Exceptions;
 
 namespace KDScorpionEngineTests.Exceptions
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="IdNotFoundException"/> class.
+    /// </summary>
     public class IdNotFoundExceptionTests
     {
         #region Constructor Tests

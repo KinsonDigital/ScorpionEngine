@@ -8,6 +8,9 @@ using System.Linq;
 
 namespace KDScorpionCoreTests.Physics
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="PhysicsBody"/> class.
+    /// </summary>
     public class PhysicsBodyTests : IDisposable
     {
         #region Private Fields

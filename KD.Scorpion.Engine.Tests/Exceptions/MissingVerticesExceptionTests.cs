@@ -4,6 +4,9 @@ using KDScorpionEngine.Exceptions;
 
 namespace KDScorpionEngineTests.Exceptions
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="MissingVerticesException"/> class.
+    /// </summary>
     public class MissingVerticesExceptionTests
     {
         #region Constructor Tests

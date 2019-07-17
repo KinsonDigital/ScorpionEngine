@@ -6,6 +6,9 @@ using System;
 
 namespace KDScorpionUI
 {
+    /// <summary>
+    /// A button that can be clicked and then execute some functionality.
+    /// </summary>
     public class Button : IControl
     {
         #region Events

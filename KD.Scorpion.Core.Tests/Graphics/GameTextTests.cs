@@ -5,6 +5,9 @@ using Xunit;
 
 namespace KDScorpionCoreTests.Graphics
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="GameText"/> class.
+    /// </summary>
     public class GameTextTests
     {
         #region Prop Tests

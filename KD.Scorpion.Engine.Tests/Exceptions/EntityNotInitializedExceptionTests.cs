@@ -5,6 +5,9 @@ using KDScorpionCore.Physics;
 
 namespace KDScorpionEngineTests.Exceptions
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="EntityNotInitializedException"/> class.
+    /// </summary>
     public class EntityNotInitializedExceptionTests
     {
         #region Constructor Tests

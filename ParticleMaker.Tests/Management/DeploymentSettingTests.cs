@@ -3,6 +3,9 @@ using ParticleMaker.Management;
 
 namespace ParticleMaker.Tests.Management
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="DeploymentSetting"/> class.
+    /// </summary>
     public class DeploymentSettingTests
     {
         #region Prop Tests

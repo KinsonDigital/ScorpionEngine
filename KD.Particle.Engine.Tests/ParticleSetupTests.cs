@@ -4,6 +4,9 @@ using System.Drawing;
 
 namespace KD.Particle.Engine.Tests
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="ParticleSetup"/> class.
+    /// </summary>
     public class ParticleSetupTests
     {
         #region Prop Tests

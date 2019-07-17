@@ -13,6 +13,9 @@ using KDScorpionCore.Physics;
 
 namespace KDScorpionEngineTests.Scene
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="GameScene"/> class.
+    /// </summary>
     public class GameSceneTests : IDisposable
     {
         #region Private Fields

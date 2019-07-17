@@ -4,6 +4,9 @@ using System.Globalization;
 
 namespace ParticleMaker.Tests.UserControls.ValueConverters
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="StringToBoolConverter"/> class.
+    /// </summary>
     public class StringToBoolConverterTests
     {
         #region Method Tests

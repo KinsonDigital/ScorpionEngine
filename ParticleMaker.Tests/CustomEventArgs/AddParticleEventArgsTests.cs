@@ -3,6 +3,9 @@ using ParticleMaker.CustomEventArgs;
 
 namespace ParticleMaker.Tests.CustomEventArgs
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="AddParticleEventArgs"/> class.
+    /// </summary>
     public class AddParticleEventArgsTests
     {
         #region Constructor Tests

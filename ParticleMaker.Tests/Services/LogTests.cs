@@ -4,6 +4,9 @@ using System;
 
 namespace ParticleMaker.Tests.Services
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="Log"/> class.
+    /// </summary>
     public class LogTests
     {
         #region Prop Tests

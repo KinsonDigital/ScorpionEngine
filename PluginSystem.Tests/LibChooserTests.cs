@@ -2,6 +2,9 @@
 
 namespace PluginSystem.Tests
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="LibChooser"/> class.
+    /// </summary>
     public class LibChooserTests
     {
         [Fact]

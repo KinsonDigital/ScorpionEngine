@@ -9,6 +9,9 @@ using Xunit;
 
 namespace KDParticleEngineTests
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="KDParticleEngine.ParticleEngine{Texture}"/> class.
+    /// </summary>
     public class ParticleEngineTests : IDisposable
     {
         #region Private Fields

@@ -2,6 +2,9 @@
 
 namespace PluginSystem.Exceptions
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="PluginMustImplementInterfaceException"/> class.
+    /// </summary>
     public class PluginMustImplementInterfaceExceptionTests
     {
         #region Constructor Tests

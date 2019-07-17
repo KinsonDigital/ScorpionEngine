@@ -6,6 +6,9 @@ using KDScorpionEngine.Graphics;
 
 namespace KDScorpionEngineTests.Fakes
 {
+    /// <summary>
+    /// Provides a fake implementation of the <see cref="KDScorpionEngine.Entities.Entity"/> abstract class.
+    /// </summary>
     public class FakeEntity : Entity
     {
         #region Constructors

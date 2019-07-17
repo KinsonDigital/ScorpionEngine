@@ -8,6 +8,9 @@ using System.Linq;
 
 namespace KDScorpionCoreTests.Input
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="Keyboard"/> class.
+    /// </summary>
     public class KeyboardTests : IDisposable
     {
         #region Private Fields

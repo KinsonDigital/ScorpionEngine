@@ -4,6 +4,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace KDScorpionEngineTests
 {
+    /// <summary>
+    /// Provides extensions for the <see cref="Assert"/> class.
+    /// </summary>
     [ExcludeFromCodeCoverage]
     public static class AssertExt
     {

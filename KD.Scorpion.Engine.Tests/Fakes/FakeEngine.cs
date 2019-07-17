@@ -7,6 +7,9 @@ using Moq;
 
 namespace KDScorpionEngineTests.Fakes
 {
+    /// <summary>
+    /// Provides a fake implementation of the <see cref="Engine"/> class.
+    /// </summary>
     public class FakeEngine : Engine
     {
         private readonly IEngineCore _fakeEngineCore;

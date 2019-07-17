@@ -7,6 +7,9 @@ using KDScorpionCore.Graphics;
 
 namespace KDScorpionEngineTests.Entities
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="TextEntity"/> class.
+    /// </summary>
     public class TextEntityTests : IDisposable
     {
         #region Private Fields

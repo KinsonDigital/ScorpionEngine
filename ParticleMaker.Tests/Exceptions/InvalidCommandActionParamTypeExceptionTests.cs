@@ -3,6 +3,9 @@ using ParticleMaker.Exceptions;
 
 namespace ParticleMaker.Tests.Exceptions
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="InvalidCommandActionParamTypeException"/> class.
+    /// </summary>
     public class InvalidCommandActionParamTypeExceptionTests
     {
         #region Constructor Tests

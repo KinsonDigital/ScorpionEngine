@@ -8,6 +8,9 @@ using ParticleMaker.Services;
 
 namespace ParticleMaker.Tests.Management
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="ProjectSettingsManager"/> class.
+    /// </summary>
     public class ProjectSettingsManagerTests : IDisposable
     {
         #region Private Fields

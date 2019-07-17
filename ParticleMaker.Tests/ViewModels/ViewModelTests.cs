@@ -2,6 +2,9 @@
 
 namespace ParticleMaker.Tests.ViewModels
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="ParticleMaker.ViewModels.ViewModel"/> class.
+    /// </summary>
     public class ViewModelTests
     {
         #region Method Tests

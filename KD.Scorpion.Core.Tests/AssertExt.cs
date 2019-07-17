@@ -3,6 +3,9 @@ using System;
 
 namespace KDScorpionCoreTests
 {
+    /// <summary>
+    /// Provides extensions to the <see cref="Assert"/> class.
+    /// </summary>
     public static class AssertExt
     {
         public static void DoesNotThrow<T>(Action action) where T : Exception

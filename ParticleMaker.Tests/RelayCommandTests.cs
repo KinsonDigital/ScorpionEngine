@@ -2,6 +2,9 @@
 
 namespace ParticleMaker.Tests
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="RelayCommand"/> class.
+    /// </summary>
     public class RelayCommandTests
     {
         #region Method Tests

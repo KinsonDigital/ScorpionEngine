@@ -4,6 +4,9 @@ using Xunit;
 
 namespace KDScorpionEngineTests.Behaviors
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="KDScorpionEngine.Behaviors.Behavior"/> class.
+    /// </summary>
     public class BehaviorTests
     {
         #region Prop Tests

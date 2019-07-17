@@ -16,6 +16,9 @@ using MediaColor = System.Windows.Media.Color;
 
 namespace ParticleMaker.Tests.ViewModels
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="MainViewModel"/> class.
+    /// </summary>
     public class MainViewModelTests : IDisposable
     {
         #region Private Fields

@@ -3,6 +3,9 @@ using KDScorpionEngine.Exceptions;
 
 namespace KDScorpionEngineTests.Exceptions
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="SceneNotFoundException"/> class.
+    /// </summary>
     public class SceneNotFoundExceptionTests
     {
         #region Constructor Tests

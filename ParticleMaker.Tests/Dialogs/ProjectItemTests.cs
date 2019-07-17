@@ -3,6 +3,9 @@ using ParticleMaker.Dialogs;
 
 namespace ParticleMaker.Tests.Dialogs
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="ProjectItem"/> class.
+    /// </summary>
     public class ProjectItemTests
     {
         #region Prop Tests

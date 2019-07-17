@@ -3,6 +3,9 @@ using KDScorpionEngine.Exceptions;
 
 namespace KDScorpionEngineTests.Exceptions
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="NameNotFoundException"/> class.
+    /// </summary>
     public class NameNotFoundExceptionTests
     {
         #region Constructor Tests
