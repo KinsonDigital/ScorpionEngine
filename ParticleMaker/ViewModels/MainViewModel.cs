@@ -5,17 +5,18 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Linq;
+using System.Drawing;
 using ParticleMaker.Management;
 using ParticleMaker.Dialogs;
 using ParticleMaker.UserControls;
 using ParticleMaker.Services;
 using ParticleMaker.CustomEventArgs;
 using ParticleMaker.Exceptions;
+using KDParticleEngine;
 
 using NETColor = System.Drawing.Color;
 using WPFMsgBox = System.Windows.MessageBox;
 using FolderDialogResult = System.Windows.Forms.DialogResult;
-using System.Drawing;
 
 namespace ParticleMaker.ViewModels
 {
@@ -26,7 +27,7 @@ namespace ParticleMaker.ViewModels
     {
         #region Private Fields
         private readonly char[] _illegalCharacters = new[] { '\\', '/', ':', '*', '?', '\"', '<', '>', '|', '.' };
-        private readonly RenderEngine _renderEngine;//TODO: Rename
+        private readonly RenderEngine _renderEngine;
         private readonly ProjectManager _projectManager;
         private readonly ProjectSettingsManager _projectSettingsManager;
         private readonly SetupManager _setupManager;
@@ -59,11 +60,12 @@ namespace ParticleMaker.ViewModels
         /// <summary>
         /// Creates a new instance of <see cref="MainViewModel"/>.
         /// </summary>
-        /// <param name="renderEngine">The graphics engine used to perform and drive the rendering.</param>
-        /// <param name="projectManager">Manages the project.</param>
+        /// <param name="renderEngine">The render engine used to perform and drive the rendering.</param>
+        /// <param name="projectManager">Manages the project data.</param>
         /// <param name="projectSettingsManager">Manages all of the project related settings.</param>
-        /// <param name="setupManager">Manages the setups within a project.</param>
+        /// <param name="setupManager">Manages setups within a project.</param>
         /// <param name="setupDeployService">The service responsible for deploying setups.</param>
+        /// <param name="particleManager">Manages particles.</param>
         [ExcludeFromCodeCoverage]
         public MainViewModel(RenderEngine renderEngine, ProjectManager projectManager,
             ProjectSettingsManager projectSettingsManager, SetupManager setupManager,
@@ -87,7 +89,7 @@ namespace ParticleMaker.ViewModels
         public string ApplicationVersion => App.Version;
 
         /// <summary>
-        /// Gets or sets the spawn location of the particles on the rendering surface.
+        /// Gets or sets the spawn location of the particles on the graphics surface.
         /// </summary>
         public PointF SpawnLocation
         {
@@ -106,18 +108,18 @@ namespace ParticleMaker.ViewModels
         public PathItem[] ProjectSetups { get; set; }
 
         /// <summary>
-        /// Gets or sets the list of setup particles.
+        /// Gets or sets the list of setup particle paths.
         /// </summary>
         public PathItem[] Particles { get; set; }
 
         /// <summary>
-        /// Gets or sets the window that will be the owner of any dialog windows.
+        /// Gets or sets the window that will be the owner of all dialog windows.
         /// </summary>
         [ExcludeFromCodeCoverage]
         public Window MainWindow { get; set; }
 
         /// <summary>
-        /// Gets or sets the surface that the particles will render to.
+        /// Gets or sets the surface that the particles will render on.
         /// </summary>
         public Control RenderSurface { get; set; }
 
@@ -136,7 +138,7 @@ namespace ParticleMaker.ViewModels
         public Dispatcher UIDispatcher { get; set; }
 
         /// <summary>
-        /// Gets or sets the total number of particles that can be alive at any time.
+        /// Gets or sets the total number of particles that can be alive at a particular time.
         /// </summary>
         public int TotalParticlesAliveAtOnce
         {
@@ -155,7 +157,7 @@ namespace ParticleMaker.ViewModels
         public int TotalDeadParticles => _renderEngine.ParticleEngine.TotalDeadParticles;
 
         /// <summary>
-        /// Gets or sets the minimum value of the red color component range that a <see cref="Particle"/> will be randomly set to.
+        /// Gets or sets the minimum value of the red color component that a <see cref="Particle"/> will be randomly colored to.
         /// </summary>
         public int RedMin
         {
@@ -168,7 +170,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the maximum value of the red color component range that a <see cref="Particle"/> will be randomly set to.
+        /// Gets or sets the maximum value of the red color component that a <see cref="Particle"/> will be randomly colored to.
         /// </summary>
         public int RedMax
         {
@@ -181,7 +183,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the minimum value of the green color component range that a <see cref="Particle"/> will be randomly set to.
+        /// Gets or sets the minimum value of the green color component that a <see cref="Particle"/> will be randomly colored to.
         /// </summary>
         public int GreenMin
         {
@@ -194,7 +196,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the maximum value of the green color component range that a <see cref="Particle"/> will be randomly set to.
+        /// Gets or sets the maximum value of the green color component that a <see cref="Particle"/> will be randomly colored to.
         /// </summary>
         public int GreenMax
         {
@@ -207,7 +209,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the minimum value of the blue color component range that a <see cref="Particle"/> will be randomly set to.
+        /// Gets or sets the minimum value of the blue color component that a <see cref="Particle"/> will be randomly colored to.
         /// </summary>
         public int BlueMin
         {
@@ -220,7 +222,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the maximum value of the blue color component range that a <see cref="Particle"/> will be randomly set to.
+        /// Gets or sets the maximum value of the blue color component that a <see cref="Particle"/> will be randomly colored to.
         /// </summary>
         public int BlueMax
         {
@@ -233,7 +235,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the minimum size of the range that a <see cref="Particle"/> will be randomly set to.
+        /// Gets or sets the minimum size that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public float SizeMin
         {
@@ -246,7 +248,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the maximum size of the range that a <see cref="Particle"/> will be randomly set to.
+        /// Gets or sets the maximum size that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public float SizeMax
         {
@@ -259,7 +261,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the minimum angle of the range that a <see cref="Particle"/> will be randomly set to.
+        /// Gets or sets the minimum angle that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public float AngleMin
         {
@@ -272,7 +274,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the maximum angle of the range that a <see cref="Particle"/> will be randomly set to.
+        /// Gets or sets the maximum angle that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public float AngleMax
         {
@@ -285,7 +287,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the minimum angular velocity of the range that a <see cref="Particle"/> be will randomly set to.
+        /// Gets or sets the minimum angular velocity that a <see cref="Particle"/> be will randomly set to.
         /// </summary>
         public float AngularVelocityMin
         {
@@ -298,7 +300,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the maximum angular velocity of the range that a <see cref="Particle"/> will be randomly set to.
+        /// Gets or sets the maximum angular velocity that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public float AngularVelocityMax
         {
@@ -311,7 +313,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the minimum X velocity of the range that a <see cref="Particle"/> will be randomly set to.
+        /// Gets or sets the minimum X velocity that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public float VelocityXMin
         {
@@ -324,7 +326,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the maximum X velocity of the range that a <see cref="Particle"/> will be randomly set to.
+        /// Gets or sets the maximum X velocity that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public float VelocityXMax
         {
@@ -337,7 +339,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the minimum X velocity of the range that a <see cref="Particle"/> will be randomly set to.
+        /// Gets or sets the minimum X velocity that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public float VelocityYMin
         {
@@ -350,7 +352,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the maximum Y velocity of the range that a <see cref="Particle"/> will be randomly set to.
+        /// Gets or sets the maximum Y velocity that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public float VelocityYMax
         {
@@ -363,7 +365,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the minimum life time of the range that a <see cref="Particle"/> will be randomly set to.
+        /// Gets or sets the minimum life time that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public int LifetimeMin
         {
@@ -376,7 +378,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the maximum life time of the range that a <see cref="Particle"/> will be randomly set to.
+        /// Gets or sets the maximum life time that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public int LifetimeMax
         {
@@ -389,7 +391,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the minimum spawn rate of the range that a <see cref="Particle"/> will be randomly set to.
+        /// Gets or sets the minimum spawn rate that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public int SpawnRateMin
         {
@@ -402,7 +404,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the maximum spawn rate of the range that a <see cref="Particle"/> will be randomly set to.
+        /// Gets or sets the maximum spawn rate that a <see cref="Particle"/> will be randomly set to.
         /// </summary>
         public int SpawnRateMax
         {
@@ -551,7 +553,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Ges the command that is used for opening a project.
+        /// Gets the command that is used for opening a project.
         /// </summary>
         public RelayCommand OpenProject
         {
@@ -566,7 +568,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Renames a project.
+        /// Gets the command that is used for renaming a project.
         /// </summary>
         public RelayCommand RenameProject
         {
@@ -581,7 +583,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Deletes a project.
+        /// Gets the command that is used for deleting a project.
         /// </summary>
         public RelayCommand DeleteProject
         {
@@ -596,7 +598,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets the command that adds a setup to the currently loaded project.
+        /// Gets the command that is used for adding a setup to the currently loaded project.
         /// </summary>
         public RelayCommand AddSetup
         {
@@ -611,7 +613,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Gets the command that saves the current setup.
+        /// Gets the command that is used for saving the currently setup.
         /// </summary>
         public RelayCommand SaveSetup
         {
@@ -626,7 +628,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Deploys the setup to the set deployment path.
+        /// Gets the command that is used for deploying a setup to a set deployment path.
         /// </summary>
         public RelayCommand DeploySetup
         {
@@ -641,7 +643,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Renames a setup.
+        /// Gets the command that is used for renaming a setup.
         /// </summary>
         public RelayCommand RenameSetup
         {
@@ -656,7 +658,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Updates the deployment path for a setup.
+        /// Gets the command that is used for updating the deployment path for a setup.
         /// </summary>
         public RelayCommand UpdateDeploymentPath
         {
@@ -671,7 +673,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Deletes a setup from a project.
+        /// Gets the command that is used for deleting a setup from a project.
         /// </summary>
         public RelayCommand DeleteSetup
         {
@@ -686,7 +688,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Adds a particle to a selected project setup.
+        /// Gets the command that is used for adding a particle to a selected project setup.
         /// </summary>
         public RelayCommand AddParticle
         {
@@ -701,7 +703,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Renames a particle in a project setup.
+        /// Gets the command that is used for renaming a particle in a project setup.
         /// </summary>
         public RelayCommand RenameParticle
         {
@@ -716,7 +718,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Deletes a particle in a project setup.
+        /// Gets the command that is used for deleting a particle in a project setup.
         /// </summary>
         public RelayCommand DeleteParticle
         {
@@ -731,7 +733,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Closes a loaded project.
+        /// Gets the command that is used for closing a loaded project.
         /// </summary>
         public RelayCommand CloseProject
         {
@@ -746,7 +748,7 @@ namespace ParticleMaker.ViewModels
         }
 
         /// <summary>
-        /// Exists the application.
+        /// Gets the command that is used for exiting the application.
         /// </summary>
         public RelayCommand ExitApp
         {
@@ -764,13 +766,16 @@ namespace ParticleMaker.ViewModels
 
 
         #region Public Methods
+        /// <summary>
+        /// Initializes the particle engine.
+        /// </summary>
         public void InitEngine()
         {
             if (RenderSurfaceHandle == IntPtr.Zero)
                 throw new Exception("The render surface handle must not be set to a pointer of zero.");
 
-            //Unsubscribe before suscribing.  This will make sure that we do not have multiple subscribtions 
-            //which would result in the assigne method invoking more than once.
+            /*NOTE: Unsubscribe before suscribing.  This will make sure that we do not have multiple subscriptions 
+            which would result in the assigne method invoking more than once.*/
             _renderEngine.ParticleEngine.LivingParticlesCountChanged -= ParticleEngine_LivingParticlesCountChanged;
             _renderEngine.ParticleEngine.LivingParticlesCountChanged += ParticleEngine_LivingParticlesCountChanged;
             _renderEngine.ParticleEngine.SpawnLocation = new PointF(200, 200);
@@ -778,13 +783,13 @@ namespace ParticleMaker.ViewModels
 
 
         /// <summary>
-        /// Shuts down the graphics engine.
+        /// Stops the render engine.
         /// </summary>
         public void StopEngine() => _renderEngine.Stop();
 
 
         /// <summary>
-        /// Disposes of all the textures in the <see cref="KDParticleEngine.ParticleEngine{ITexture}"/>.
+        /// Disposes of all the textures in the <see cref="ParticleEngine{ITexture}"/>.
         /// </summary>
         [ExcludeFromCodeCoverage]
         public void Dispose() => _renderEngine.ParticleEngine.ToList().ForEach(texture => texture.Dispose());
@@ -824,7 +829,7 @@ namespace ParticleMaker.ViewModels
 
         #region Command Execute Methods
         /// <summary>
-        /// Plays the particle rendering.
+        /// Starts the rendering of the particles..
         /// </summary>
         /// <param name="param">The incoming data upon execution of the <see cref="ICommand"/>.</param>
         [ExcludeFromCodeCoverage]
@@ -1150,7 +1155,7 @@ namespace ParticleMaker.ViewModels
 
 
         /// <summary>
-        /// Saves the current setup by using the the given <paramref name="param"/> as a name.
+        /// Saves the currently loaded setup.
         /// </summary>
         /// <param name="param">The param that is holding the setup to save.</param>
         [ExcludeFromCodeCoverage]
