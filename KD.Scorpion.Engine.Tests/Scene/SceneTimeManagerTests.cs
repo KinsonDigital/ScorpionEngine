@@ -5,6 +5,9 @@ using System;
 
 namespace KDScorpionEngineTests.Scene
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="SceneTimeManager"/> class.
+    /// </summary>
     public class SceneTimeManagerTests
     {
         #region Prop Tests

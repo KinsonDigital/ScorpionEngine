@@ -2,6 +2,9 @@
 
 namespace ParticleMaker.CustomEventArgs
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="ValueChangedEventArgs"/> class.
+    /// </summary>
     public class ValueChangedEventArgsTests
     {
         #region Prop Tests

@@ -1,8 +1,12 @@
 ﻿using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace ParticleMaker.ViewModels
 {
+    /// <summary>
+    /// A view model that is the base of all view models to hold data and logic for the application.
+    /// </summary>
     public abstract class ViewModel : INotifyPropertyChanged
     {
         #region Public Events
@@ -30,13 +34,7 @@ namespace ParticleMaker.ViewModels
         /// for all of the given <paramref name="propNames"/>.
         /// </summary>
         /// <param name="propNames">The list of property names of the properties to notify a change on.</param>
-        public void NotifyAllPropChanges(string[] propNames)
-        {
-            foreach (var name in propNames)
-            {
-                NotifyPropChange(name);
-            }
-        }
+        public void NotifyAllPropChanges(string[] propNames) => propNames.ToList().ForEach(n => NotifyPropChange(n));
         #endregion
     }
 }

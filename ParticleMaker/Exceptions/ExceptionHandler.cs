@@ -4,8 +4,7 @@ using ParticleMaker.Services;
 namespace ParticleMaker.Exceptions
 {
     /// <summary>
-    /// Handles exceptions that are thrown by displaying them to the user and 
-    /// logging them for later inspection.
+    /// Handles exceptions that are thrown by displaying them to the user and logging them.
     /// </summary>
     public static class ExceptionHandler
     {
@@ -55,7 +54,7 @@ namespace ParticleMaker.Exceptions
         {
             if (ShowMessageBoxEnabled)
             {
-                ExceptionMessageBox.ShowMessage(exception, null);
+                ExceptionMessageBox.ShowExceptionDialog(exception, null);
             }
             else
             {

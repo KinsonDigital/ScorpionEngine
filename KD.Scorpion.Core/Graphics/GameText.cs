@@ -1,5 +1,8 @@
 ﻿namespace KDScorpionCore.Graphics
 {
+    /// <summary>
+    /// Provides game text that can be rendered to a graphics surface.
+    /// </summary>
     public class GameText
     {
         #region Props

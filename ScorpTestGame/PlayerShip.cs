@@ -7,6 +7,7 @@ using KDScorpionCore.Input;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Entities;
 using KDScorpionEngine.Graphics;
+using System.Linq;
 
 namespace ScorpTestGame
 {
@@ -177,12 +178,7 @@ namespace ScorpTestGame
         public override void Render(GameRenderer renderer)
         {
             if (_particleEngine.Enabled)
-            {
-                foreach (var particle in _particleEngine.Particles)
-                {
-                    renderer.RenderParticle(particle);
-                }
-            }
+                _particleEngine.Particles.ToList().ForEach(p => renderer.RenderParticle(p));
         }
         #endregion
     }

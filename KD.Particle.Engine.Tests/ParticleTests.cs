@@ -7,6 +7,9 @@ using KDParticleEngine;
 
 namespace KD.Particle.Engine.Tests
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="Particle{ITexture}"/> class.
+    /// </summary>
     public class ParticleTests : IDisposable
     {
         #region Private Fields

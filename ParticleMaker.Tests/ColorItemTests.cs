@@ -3,6 +3,9 @@ using System.Windows.Media;
 
 namespace ParticleMaker.Tests
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="ColorItem"/> class.
+    /// </summary>
     public class ColorItemTests
     {
         #region Prop Tests

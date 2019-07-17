@@ -3,6 +3,9 @@ using ParticleMaker.Exceptions;
 
 namespace ParticleMaker.Tests.Exceptions
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="ProjectAlreadyExistsException"/> class.
+    /// </summary>
     public class ProjectAlreadyExistsExceptionTests
     {
         #region Constructor Tests

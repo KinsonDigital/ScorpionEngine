@@ -20,6 +20,9 @@ namespace ParticleMaker
 
 
         #region Props
+        /// <summary>
+        /// Gets the pointer/window handler of the window to render the graphics to.
+        /// </summary>
         public IntPtr WindowHandle { get; private set; }
         #endregion
 
@@ -86,9 +89,9 @@ namespace ParticleMaker
 
 
         /// <summary>
-        /// Loads texture file from disk and returns it as a <see cref="Particle{ITexture}"/>.
+        /// Loads a texture file from disk using the given <paramref name="path"/> and returns it as a <see cref="Particle{ITexture}"/>.
         /// </summary>
-        /// <param name="path">The path to the file.</param>
+        /// <param name="path">The path to the texture file.</param>
         /// <returns></returns>
         public ParticleTexture LoadTexture(string path)
         {
@@ -117,6 +120,7 @@ namespace ParticleMaker
 
                 //Get rid of old loaded surface
                 SDL.SDL_FreeSurface(loadedSurface);
+
 
                 return new ParticleTexture(texturePtr, width, height)
                 {
@@ -195,8 +199,8 @@ namespace ParticleMaker
 
 
         /// <summary>
-        /// Disposes of the <see cref="SDLRenderer"/>.  Invoking <see cref="ShutDown"/> will
-        /// also call this method.
+        /// Disposes of the <see cref="SDLRenderer"/>.
+        /// NOTE: Invoking <see cref="ShutDown"/> will also call this method.
         /// </summary>
         public void Dispose()
         {

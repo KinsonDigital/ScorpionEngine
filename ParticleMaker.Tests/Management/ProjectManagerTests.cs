@@ -9,6 +9,9 @@ using System.Collections.Generic;
 
 namespace ParticleMaker.Tests.Management
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="ProjectManager"/> class.
+    /// </summary>
     public class ProjectManagerTests : IDisposable
     {
         #region Private Fields

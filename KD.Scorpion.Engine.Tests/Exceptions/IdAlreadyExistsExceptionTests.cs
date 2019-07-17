@@ -3,6 +3,9 @@ using KDScorpionEngine.Exceptions;
 
 namespace KDScorpionEngineTests.Exceptions
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="IdAlreadyExistsException"/> class.
+    /// </summary>
     public class IdAlreadyExistsExceptionTests
     {
         #region Constructor Tests
@@ -10,7 +13,7 @@ namespace KDScorpionEngineTests.Exceptions
         public void Ctor_WhenInvokedWithNoParams_ProperlySetsExceptionMessage()
         {
             //Arrange
-            var expected = "That id already exists.";
+            var expected = "That ID already exists.";
 
             //Act
             var exception = new IdAlreadyExistsException();
@@ -25,7 +28,7 @@ namespace KDScorpionEngineTests.Exceptions
         public void Ctor_WhenInvokedWithSceneId_ProperlySetsExceptionMessage()
         {
             //Arrange
-            var expected = "The id '1234' already exists.";
+            var expected = "The ID '1234' already exists.";
 
             //Act
             var exception = new IdAlreadyExistsException(1234);

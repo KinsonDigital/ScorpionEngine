@@ -8,7 +8,7 @@ using System.Windows.Input;
 namespace ParticleMaker.UserControls
 {
     /// <summary>
-    /// Interaction logic for NumberBox.xaml
+    /// Interaction logic for the <see cref="NumberBox"/> control.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class NumberBox : UserControl

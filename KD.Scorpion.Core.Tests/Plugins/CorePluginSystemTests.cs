@@ -4,6 +4,9 @@ using Xunit;
 
 namespace KDScorpionCoreTests.Plugins
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="CorePluginSystem"/> class.
+    /// </summary>
     public class CorePluginSystemTests : IDisposable
     {
         #region Prop Tests

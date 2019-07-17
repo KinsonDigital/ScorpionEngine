@@ -14,7 +14,7 @@ using System.Windows.Input;
 namespace ParticleMaker.UserControls
 {
     /// <summary>
-    /// Interaction logic for ParticleList.xaml
+    /// Interaction logic for the <see cref="ParticleList"/> control.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class ParticleList : UserControl
@@ -50,7 +50,6 @@ namespace ParticleMaker.UserControls
         /// Gets the selected particle item in the list.
         /// </summary>
         public PathItem SelectedItem { get; private set; }
-
 
         /// <summary>
         /// Gets or sets the list of particle paths.
@@ -140,13 +139,10 @@ namespace ParticleMaker.UserControls
             if (_refreshTokenSrc.IsCancellationRequested)
                 return;
 
-            var particleItems = ParticleListBox.FindVisualChildren<ParticleListItem>().ToArray();
+            var particleItems = ParticleListBox.FindVisualChildren<ParticleListItem>().ToList();
 
             //Refresh each particle list item
-            foreach (var item in particleItems)
-            {
-                item.Refresh();
-            }
+            particleItems.ForEach(p => p.Refresh());
 
             SetupCommands();
         }
@@ -218,16 +214,16 @@ namespace ParticleMaker.UserControls
         /// </summary>
         private void SetupCommands()
         {
-            var listItems = ParticleListBox.FindVisualChildren<ParticleListItem>().ToArray();
+            var listItems = ParticleListBox.FindVisualChildren<ParticleListItem>().ToList();
 
-            foreach (var item in listItems)
+            listItems.ForEach(item =>
             {
                 if (item.RenameClickedCommand == null)
                     item.RenameClickedCommand = new RelayCommand(RenameItemCommandExecute, (param) => true);
 
                 if (item.DeleteClickedCommand == null)
                     item.DeleteClickedCommand = new RelayCommand(DeleteItemCommandExecute, (param) => true);
-            }
+            });
         }
 
 

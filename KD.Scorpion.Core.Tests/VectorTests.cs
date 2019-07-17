@@ -2,6 +2,9 @@
 
 namespace KDScorpionCore
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="Vector"/> class.
+    /// </summary>
     public class VectorTests
     {
         #region Prop Tests

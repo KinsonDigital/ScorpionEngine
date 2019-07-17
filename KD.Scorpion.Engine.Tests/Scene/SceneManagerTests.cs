@@ -12,6 +12,9 @@ using KDScorpionEngine.Graphics;
 
 namespace KDScorpionEngineTests.Scene
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="SceneManager"/> class.
+    /// </summary>
     public class SceneManagerTests : IDisposable
     {
         #region Private Fields
@@ -535,7 +538,7 @@ namespace KDScorpionEngineTests.Scene
             var sceneB = mockSceneB.Object;
             //Let the system choose the ID.  It should choose the lowest possible ID
             //out of all the id's.  The system should choose 1 as the ID.  This
-            //would be the lowest possible id between sceneA and sceneB's ID.
+            //would be the lowest possible ID between sceneA and sceneB's ID.
             sceneB.Id = -1;
 
             //Third item. ID = 2

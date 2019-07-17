@@ -27,4 +27,8 @@
   <ItemGroup>
     <ProjectReference Include="..\KD.Scorpion.Core\KD.Scorpion.Core.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Fakes\" />
+  </ItemGroup>
 </Project>

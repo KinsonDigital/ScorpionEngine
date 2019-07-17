@@ -3,6 +3,9 @@ using Xunit;
 
 namespace KDParticleEngineTests.Services
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="RandomizerService"/> class.
+    /// </summary>
     public class RandomizerServiceTests
     {
         [Theory]

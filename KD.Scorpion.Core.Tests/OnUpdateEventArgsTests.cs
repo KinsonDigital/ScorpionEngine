@@ -4,6 +4,9 @@ using Xunit;
 
 namespace KDScorpionCoreTests
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="OnUpdateEventArgs"/> class.
+    /// </summary>
     public class OnUpdateEventArgsTests
     {
         #region Constructor Tests

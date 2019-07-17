@@ -68,7 +68,7 @@ namespace KDScorpionEngine.Content
         /// <summary>
         /// Gets the all of the frames that have the given sub texture id.
         /// </summary>
-        /// <param name="subTextureID">The sub texture id of the frames to return.</param>
+        /// <param name="subTextureID">The sub texture ID of the frames to return.</param>
         /// <returns></returns>
         internal List<Rect> GetFrames(string subTextureID)
         {

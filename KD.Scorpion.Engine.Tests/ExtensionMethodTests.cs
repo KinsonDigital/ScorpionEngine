@@ -5,6 +5,9 @@ using KDScorpionEngine;
 
 namespace KDScorpionEngineTests
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="KDScorpionEngine.ExtensionMethods"/> class.
+    /// </summary>
     public class ExtensionMethodTests
     {
         #region Method Tests

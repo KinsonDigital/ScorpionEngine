@@ -8,7 +8,7 @@ using System.Windows.Input;
 namespace ParticleMaker.UserControls
 {
     /// <summary>
-    /// Interaction logic for ColorComponentValue.xaml
+    /// Interaction logic for the <see cref="ColorComponentValue"/> control.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class NumericUpDown : UserControl
@@ -157,7 +157,7 @@ namespace ParticleMaker.UserControls
         #endregion
 
 
-        #region Event Methods
+        #region Private Methods
         /// <summary>
         /// Increments the numeric up down value.
         /// </summary>
@@ -176,10 +176,8 @@ namespace ParticleMaker.UserControls
             Value -= Decrement;
             ValueNumberbox.MoveCaretToEnd();
         }
-        #endregion
 
 
-        #region Static Methods
         /// <summary>
         /// Sets the if the colon label separator is visible or hidden depending if the label text is null.
         /// </summary>
@@ -195,7 +193,7 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Restricts the value to the controls' <see cref="Min"/> and <see cref="Max"/> property values.
+        /// Restricts the value to the control's <see cref="Min"/> and <see cref="Max"/> property values.
         /// </summary>
         /// <param name="d">The dependency object that contains the property to coerce.</param>
         /// <param name="baseValue">The base value of the property that needs coercion.</param>
@@ -226,7 +224,7 @@ namespace ParticleMaker.UserControls
 
         /// <summary>
         /// Resets the <see cref="Value"/> property back to the <see cref="Min"/> if the 
-        /// <see cref="Value"/> is less then the <see cref="Min"/> when it is changed.
+        /// <see cref="Value"/> is less than the <see cref="Min"/> when it is changed.
         /// </summary>
         /// <param name="d">The dependency object that contains the property to coerce.</param>
         /// <param name="baseValue">The base value of the property that needs coercion.</param>
@@ -246,7 +244,7 @@ namespace ParticleMaker.UserControls
 
         /// <summary>
         /// Resets the <see cref="Value"/> property back to the <see cref="Max"/> if the 
-        /// <see cref="Value"/> is greater then the <see cref="Max"/> when it is changed.
+        /// <see cref="Value"/> is greater than the <see cref="Max"/> when it is changed.
         /// </summary>
         /// <param name="d">The dependency object that contains the property to coerce.</param>
         /// <param name="baseValue">The base value of the property that needs coercion.</param>

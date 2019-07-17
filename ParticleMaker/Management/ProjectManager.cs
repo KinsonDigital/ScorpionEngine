@@ -25,9 +25,10 @@ namespace ParticleMaker.Management
         /// <summary>
         /// Creates a new instance of <see cref="ProjectManager"/>.
         /// </summary>
-        /// <param name="settingsManager">The settings manager used to create project settings.</param>
+        /// <param name="settingsManager">The settings manager used to manage project settings.</param>
         /// <param name="projIOService">The service used to manage common project management tasks.</param>
         /// <param name="directoryService">The directory service used to manage the project directories.</param>
+        /// <param name="fileService">The file service used to manage project related files.</param>
         public ProjectManager(ProjectSettingsManager settingsManager, ProjectIOService projIOService, IDirectoryService directoryService, IFileService fileService)
         {
             _settingsManager = settingsManager;
@@ -140,7 +141,7 @@ namespace ParticleMaker.Management
 
 
         /// <summary>
-        /// Renames the project with the given <paramref name="name"/>.
+        /// Renames the project with the given <paramref name="name"/> to the given <paramref name="newName"/>.
         /// </summary>
         /// <param name="name">The name of the project to rename.</param>
         /// <param name="newName">The new name to give the project.</param>

@@ -34,7 +34,7 @@ namespace KDScorpionCore.Plugins
         /// <summary>
         /// Sets the loaded plugins for use.
         /// </summary>
-        /// <param name="plugins"></param>
+        /// <param name="plugins">The plugins to apply to the <see cref="CorePluginSystem"/>.</param>
         public static void SetPlugins(PluginSystem.Plugins plugins) => _plugins = plugins;
 
 

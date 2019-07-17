@@ -3,6 +3,9 @@ using KDScorpionCore.Input;
 
 namespace KDScorpionCoreTests.Input
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="KeyEventArgs"/> class.
+    /// </summary>
     public class KeyEventArgsTests
     {
         #region Constructor Tests

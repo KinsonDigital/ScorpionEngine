@@ -9,6 +9,9 @@ namespace ParticleMaker
     public interface IRenderer : IDisposable
     {
         #region Props
+        /// <summary>
+        /// Gets the pointer/window handler of the window to render the graphics to.
+        /// </summary>
         IntPtr WindowHandle { get; }
         #endregion
 
@@ -24,7 +27,7 @@ namespace ParticleMaker
         /// <summary>
         /// Loads texture file from disk and returns it as a <see cref="Particle{ITexture}"/>.
         /// </summary>
-        /// <param name="path">The path to the file.</param>
+        /// <param name="path">The path to the texture file.</param>
         /// <returns></returns>
         ParticleTexture LoadTexture(string path);
 
@@ -37,7 +40,7 @@ namespace ParticleMaker
 
 
         /// <summary>
-        /// Rendeers the given <paramref name="particle"/> to the render target.
+        /// Renders the given <paramref name="particle"/> to the render target.
         /// Each render call will be batched.
         /// </summary>
         /// <param name="particle">The particle to render.</param>

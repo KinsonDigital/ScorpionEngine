@@ -30,7 +30,7 @@ namespace KDScorpionEngine.Content
         /// <param name="data">The atlas data to add.</param>
         public static void AddAtlasData(string textureAtlasID, string atlasDataID,  ITexture texture, AtlasData data)
         {
-            //todo: possibly do not need this method, id is checked below
+            //todo: possibly do not need this method, ID is checked below
             CheckID(textureAtlasID);//See if the atlas has already been added
             
             //Check the atlas data to see if it has a valid format and structure
@@ -184,7 +184,7 @@ namespace KDScorpionEngine.Content
         /// <summary>
         /// Extracts the sub texture name from a formatted animating sub texture frame name.
         /// </summary>
-        /// <param name="frameName"></param>
+        /// <param name="frameName">The name of the frame.</param>
         /// <returns></returns>
         internal static int ExtractFrameNumber(string frameName)
         {
@@ -222,13 +222,13 @@ namespace KDScorpionEngine.Content
         /// <returns></returns>
         private static void CheckID(string id)
         {
-            //First check to see if the id is in the atlas data or atlas texture lists
+            //First check to see if the ID is in the atlas data or atlas texture lists
             if (_allAtlasData.Count <= 0 || _allAtlasTextures.Count <= 0) return;
 
             //todo: look into uncommenting this code
             //If there are items in the lists, check for item duplication
 //            if (_allAtlasData.key.Count(dataKey => dataKey == id) > 1 || _allAtlasTextures.key.Count(key => key == id) > 1)
-//                throw new Exception("The atlas data with the textureAtlasID \"" + id + "\" has already been added to the atlas manager.");
+//                throw new Exception("The atlas data with the textureAtlasID \"" + ID + "\" has already been added to the atlas manager.");
         }
 
 

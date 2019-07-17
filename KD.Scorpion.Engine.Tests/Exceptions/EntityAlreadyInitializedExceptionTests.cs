@@ -4,6 +4,9 @@ using KDScorpionEngine.Exceptions;
 
 namespace KDScorpionEngineTests.Exceptions
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="EntityAlreadyInitializedException"/> class.
+    /// </summary>
     public class EntityAlreadyInitializedExceptionTests
     {
         #region Constructor Tests

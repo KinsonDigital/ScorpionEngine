@@ -14,7 +14,7 @@ namespace ParticleMaker.Dialogs.DesignData
         public string DialogTitle { get; set; }
 
         /// <summary>
-        /// Ges or sets the message data.
+        /// Gets or sets the message data.
         /// </summary>
         public string Message { get; set; }
 

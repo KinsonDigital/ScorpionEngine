@@ -3,6 +3,9 @@ using KDScorpionEngine.Content;
 
 namespace KDScorpionEngineTests.Content
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="KDScorpionEngine.Content.ExtensionMethods"/> class.
+    /// </summary>
     public class ContentExtensionMethodTests
     {
         #region Method Tests

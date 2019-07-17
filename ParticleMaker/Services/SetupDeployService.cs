@@ -5,7 +5,7 @@ using System.Reflection;
 namespace ParticleMaker.Services
 {
     /// <summary>
-    /// Provides ability to deploy setups to destination locations on the hard drive.
+    /// Provides ability to deploy setups to destination locations.
     /// </summary>
     public class SetupDeployService
     {

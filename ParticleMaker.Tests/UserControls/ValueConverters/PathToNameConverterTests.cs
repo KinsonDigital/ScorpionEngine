@@ -4,6 +4,9 @@ using System.Globalization;
 
 namespace ParticleMaker.Tests.UserControls.ValueConverters
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="PathToNameConverter"/> class.
+    /// </summary>
     public class PathToNameConverterTests
     {
         #region Method Tests

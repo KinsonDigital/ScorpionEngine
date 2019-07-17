@@ -7,6 +7,9 @@ using System;
 
 namespace KDScorpionCoreTests.Graphics
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="Renderer"/> class.
+    /// </summary>
     public class RendererTests : IDisposable
     {
         #region Private Fields

@@ -11,6 +11,9 @@ using KDScorpionCore.Plugins;
 
 namespace KDScorpionEngineTests.Entities
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="DynamicEntity"/> class.
+    /// </summary>
     public class DynamicEntityTests : IDisposable
     {
         #region Private Fields

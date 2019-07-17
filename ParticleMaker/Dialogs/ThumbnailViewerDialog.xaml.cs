@@ -5,7 +5,7 @@ using System.Windows;
 namespace ParticleMaker.Dialogs
 {
     /// <summary>
-    /// Interaction logic for ThumbnailViewerDialog.xaml
+    /// Interaction logic for the <see cref="ThumbnailViewerDialog"/>.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class ThumbnailViewerDialog : Window
@@ -18,7 +18,6 @@ namespace ParticleMaker.Dialogs
         public ThumbnailViewerDialog(string title = "")
         {
             InitializeComponent();
-
             Title = title;
         }
         #endregion
@@ -38,11 +37,11 @@ namespace ParticleMaker.Dialogs
         /// Registers the <see cref="ThumbnailPath"/> property.
         /// </summary>
         public static readonly DependencyProperty ThumbnailPathProperty =
-            DependencyProperty.Register(nameof(ThumbnailPath), typeof(string), typeof(ThumbnailViewerDialog), new PropertyMetadata("", ThumbnailPathChanged));
+            DependencyProperty.Register(nameof(ThumbnailPath), typeof(string), typeof(ThumbnailViewerDialog), new PropertyMetadata("", ThumbnailPathChangedCallback));
 
 
         /// <summary>
-        /// Gets or sets a valid indicating if there is an error.
+        /// Gets or sets a value indicating if there is an error.
         /// </summary>
         protected bool HasError
         {
@@ -54,7 +53,7 @@ namespace ParticleMaker.Dialogs
         /// Registers the <see cref="HasError"/> property.
         /// </summary>
         protected static readonly DependencyProperty HasErrorProperty =
-            DependencyProperty.Register("HasError", typeof(bool), typeof(ThumbnailViewerDialog), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(HasError), typeof(bool), typeof(ThumbnailViewerDialog), new PropertyMetadata(false));
         #endregion
 
 
@@ -68,7 +67,7 @@ namespace ParticleMaker.Dialogs
         /// <summary>
         /// Updates the <see cref="HasError"/> property when the path changes.
         /// </summary>
-        private static void ThumbnailPathChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void ThumbnailPathChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var dialog = (ThumbnailViewerDialog)d;
 

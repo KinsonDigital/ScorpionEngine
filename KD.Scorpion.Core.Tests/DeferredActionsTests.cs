@@ -4,6 +4,9 @@ using Xunit;
 
 namespace KDScorpionCoreTests
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="DeferredActions"/> class.
+    /// </summary>
     public class DeferredActionsTests
     {
         #region Method Tests

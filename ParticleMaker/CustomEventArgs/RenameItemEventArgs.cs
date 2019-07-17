@@ -21,12 +21,12 @@
 
         #region Props
         /// <summary>
-        /// Gets or sets the name of the item.
+        /// Gets or sets the old name of the item.
         /// </summary>
         public string OldName { get; set; }
 
         /// <summary>
-        /// Gets or sets the new name.
+        /// Gets or sets the new name of the item.
         /// </summary>
         public string NewName { get; set; }
 

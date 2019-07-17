@@ -8,6 +8,9 @@ using KDScorpionCore.Physics;
 
 namespace KDScorpionCoreTests.Physics
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="PhysicsWorld"/> class.
+    /// </summary>
     public class PhysicsWorldTests : IDisposable
     {
         #region Private Fields

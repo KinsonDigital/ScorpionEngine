@@ -4,6 +4,9 @@ using Xunit;
 
 namespace KDScorpionCoreTests.Graphics
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="Texture"/> class.
+    /// </summary>
     public class TextureTests
     {
         [Fact]

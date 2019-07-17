@@ -6,6 +6,9 @@ using System;
 
 namespace KDScorpionEngineTests.Utils
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="Counter"/> class.
+    /// </summary>
     public class CounterTests
     {
         #region Constructor Tests

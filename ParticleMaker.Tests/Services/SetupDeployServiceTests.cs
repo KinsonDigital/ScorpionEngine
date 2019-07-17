@@ -7,6 +7,9 @@ using System.IO;
 
 namespace ParticleMaker.Tests.Services
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="SetupDeployService"/> class.
+    /// </summary>
     public class SetupDeployServiceTests
     {
         #region Method Tests

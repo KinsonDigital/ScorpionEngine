@@ -7,7 +7,7 @@ using System.Reflection;
 namespace ParticleMaker.Management
 {
     /// <summary>
-    /// Manages particle setup files for a project.
+    /// Manages particle setups for a project.
     /// </summary>
     public class SetupManager
     {
@@ -34,13 +34,15 @@ namespace ParticleMaker.Management
 
             _rootProjectsPath = $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Projects";
         }
+        #endregion
 
 
+        #region Public Methods
         /// <summary>
-        /// Gets a list of the setups in the project that matches the given <paramref name="projectName"/>.
+        /// Gets a list of the setups in a project that matches the given <paramref name="projectName"/>.
         /// </summary>
         /// <param name="projectName">The name of the project.</param>
-        /// <returns></returns>
+        /// <exception cref="ProjectDoesNotExistException">Thrown when a project with the given <paramref name="projectName"/> does not exist.</exception>
         public string[] GetSetupNames(string projectName)
         {
             if (_projIOService.ProjectExists(projectName))
@@ -52,10 +54,8 @@ namespace ParticleMaker.Management
 
             throw new ProjectDoesNotExistException(projectName);
         }
-        #endregion
 
 
-        #region Public Methods
         /// <summary>
         /// Returns a list of directory paths to all of the setups in the project that matches the given <paramref name="projectName"/>.
         /// </summary>
@@ -120,7 +120,8 @@ namespace ParticleMaker.Management
         /// </summary>
         /// <param name="projectName">The name of the project that the setup is located in.</param>
         /// <param name="setupName">The name of the setup.</param>
-        /// <returns></returns>
+        /// <exception cref="ProjectDoesNotExistException">Thrown if the given <paramref name="projectName"/> does not exist.</exception>
+        /// <exception cref="ParticleSetupDoesNotExistException">Thrown if the given <paramref name="setupName"/> does not exist.</exception>
         public ParticleSetup Load(string projectName, string setupName)
         {
             if (_projIOService.ProjectExists(projectName))
@@ -151,6 +152,8 @@ namespace ParticleMaker.Management
         /// <param name="projectName">The name of the project to save the setup to.</param>
         /// <param name="setupName">The name of the setup to save.</param>
         /// <param name="setup">The data to save to the setup.</param>
+        /// <exception cref="ProjectDoesNotExistException">Thrown if the given <paramref name="projectName"/> does not exist.</exception>
+        /// <exception cref="IllegalParticleSetupNameException">Thrown if the given <paramref name="setupName"/> is an illegal name.</exception>
         public void Save(string projectName, string setupName, ParticleSetup setup)
         {
             if (_projIOService.ProjectExists(projectName))
@@ -181,6 +184,9 @@ namespace ParticleMaker.Management
         /// </summary>
         /// <param name="setupName">The current name of the setup to rename.</param>
         /// <param name="newName">The new name to name the setup.</param>
+        /// <exception cref="IllegalParticleSetupNameException">Thrown if the given <paramref name="setupName"/> is an illegal name.</exception>
+        /// <exception cref="ProjectDoesNotExistException">Thrown if the given <paramref name="projectName"/> does not exist.</exception>
+        /// <exception cref="ParticleSetupDoesNotExistException">Thrown if the given <paramref name="setupName"/> does not exist.</exception>
         public void Rename(string projectName, string setupName, string newName)
         {
             if (_projIOService.ProjectExists(projectName))
@@ -218,9 +224,11 @@ namespace ParticleMaker.Management
 
 
         /// <summary>
-        /// Deletes the setup with the given <paramref name="setupName"/>.
+        /// Deletes the setup with the given <paramref name="setupName"/> in a project with the given <paramref name="projectName"/>.
         /// </summary>
         /// <param name="setupName">The name of the setup to delete.</param>
+        /// <exception cref="ParticleSetupDoesNotExistException">Thrown if the given <paramref name="setupName"/> does not exist.</exception>
+        /// <exception cref="ProjectDoesNotExistException">Thrown if the given <paramref name="projectName"/> does not exist.</exception>
         public void Delete(string projectName, string setupName)
         {
             if (_projIOService.ProjectExists(projectName))

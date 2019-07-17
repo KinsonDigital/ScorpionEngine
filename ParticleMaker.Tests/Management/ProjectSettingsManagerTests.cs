@@ -8,6 +8,9 @@ using ParticleMaker.Services;
 
 namespace ParticleMaker.Tests.Management
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="ProjectSettingsManager"/> class.
+    /// </summary>
     public class ProjectSettingsManagerTests : IDisposable
     {
         #region Private Fields
@@ -331,7 +334,7 @@ namespace ParticleMaker.Tests.Management
             var manager = new ProjectSettingsManager(_projIOService, mockFileService.Object);
 
             //Act
-            manager.RenameDeploymentSetupName("test-project", "test-setup", "new-setup");
+            manager.RenameDeploymentSetup("test-project", "test-setup", "new-setup");
 
             //Assert
             mockFileService.Verify(m => m.Load<ProjectSettings>(It.IsAny<string>()), Times.Once());
@@ -368,7 +371,7 @@ namespace ParticleMaker.Tests.Management
             var manager = new ProjectSettingsManager(_projIOService, mockFileService.Object);
 
             //Act
-            manager.RenameDeploymentSetupName("test-project", "test-setup", "new-setup");
+            manager.RenameDeploymentSetup("test-project", "test-setup", "new-setup");
 
             //Assert
             Assert.Equal(expected, actual);
@@ -393,7 +396,7 @@ namespace ParticleMaker.Tests.Management
             var manager = new ProjectSettingsManager(_projIOService, mockFileService.Object);
 
             //Act
-            manager.RenameDeploymentSetupName("test-project", "test-setup", "new-setup");
+            manager.RenameDeploymentSetup("test-project", "test-setup", "new-setup");
 
             //Assert
             _mockProjDirService.Verify(m => m.Exists(It.IsAny<string>()), Times.Once());
@@ -428,7 +431,7 @@ namespace ParticleMaker.Tests.Management
             var manager = new ProjectSettingsManager(_projIOService, mockFileService.Object);
 
             //Act
-            manager.RenameDeploymentSetupName("test-project", "test-setup", "new-setup");
+            manager.RenameDeploymentSetup("test-project", "test-setup", "new-setup");
 
             //Assert
             Assert.Equal(expected, actual);
@@ -453,7 +456,7 @@ namespace ParticleMaker.Tests.Management
             var manager = new ProjectSettingsManager(_projIOService, mockFileService.Object);
 
             //Act
-            manager.RenameDeploymentSetupName("test-project", "test-setup", "new-setup");
+            manager.RenameDeploymentSetup("test-project", "test-setup", "new-setup");
 
             //Assert
             mockFileService.Verify(m => m.Save(It.IsAny<string>(), It.IsAny<ProjectSettings>()), Times.Once());
@@ -484,7 +487,7 @@ namespace ParticleMaker.Tests.Management
             //Act & Assert
             Assert.Throws<Exception>(() =>
             {
-                manager.RenameDeploymentSetupName("test-project", "test-setup", "new-setup");
+                manager.RenameDeploymentSetup("test-project", "test-setup", "new-setup");
             });
         }
         #endregion

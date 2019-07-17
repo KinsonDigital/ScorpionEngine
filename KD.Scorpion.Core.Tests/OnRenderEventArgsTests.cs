@@ -5,6 +5,9 @@ using KDScorpionCore;
 
 namespace KDScorpionCoreTests
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="OnRenderEventArgs"/> class.
+    /// </summary>
     public class OnRenderEventArgsTests
     {
         #region Constructor Tests

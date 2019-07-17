@@ -3,6 +3,9 @@ using Xunit;
 
 namespace KDScorpionCoreTests
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="Rect"/> class.
+    /// </summary>
     public class RectTests
     {
         #region Constructor Tests

@@ -5,6 +5,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace KDScorpionEngineTests.Fakes
 {
+    /// <summary>
+    /// Provides a fake implementation of the <see cref="IPhysicsBody"/> interface.
+    /// </summary>
     [ExcludeFromCodeCoverage]
     public class FakePhysicsBody : IPhysicsBody
     {

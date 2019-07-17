@@ -8,7 +8,7 @@ using System.Windows.Media;
 namespace ParticleMaker.UserControls
 {
     /// <summary>
-    /// Interaction logic for ColorListItem.xaml
+    /// Interaction logic for the <see cref="ColorListItem"/> control.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class ColorListItem : UserControl
@@ -93,7 +93,7 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Gets or sets the Id of the <see cref="ColorListItem"/>.
+        /// Gets or sets the ID of the <see cref="ColorListItem"/>.
         /// </summary>
         public int Id
         {
@@ -112,7 +112,7 @@ namespace ParticleMaker.UserControls
         #region Private Methods
         /// <summary>
         /// Updates the forecolor to the negative value of the <see cref="ColorValue"/>.  This is to make sure
-        /// that no matter what the <see cref="ColorValue"/> is, the text can be seen.
+        /// that no matter what the <see cref="ColorValue"/> is the text can be seen.
         /// </summary>
         private static void ColorValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -121,9 +121,7 @@ namespace ParticleMaker.UserControls
             if (ctrl == null)
                 return;
 
-            var newColor = ((SolidColorBrush)e.NewValue).Color;
-
-            ctrl.TextForecolor = newColor.ToNegativeBrush();
+            ctrl.TextForecolor = ((SolidColorBrush)e.NewValue).Color.ToNegativeBrush();
         }
 
 

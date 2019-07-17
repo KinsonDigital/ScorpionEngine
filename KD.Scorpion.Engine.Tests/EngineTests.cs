@@ -8,6 +8,9 @@ using KDScorpionEngine;
 
 namespace KDScorpionEngineTests
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="Engine"/> class.
+    /// </summary>
     public class EngineTests : IDisposable
     {
         #region Private Fields

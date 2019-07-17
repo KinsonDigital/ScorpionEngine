@@ -8,6 +8,9 @@ using System.Linq;
 
 namespace KDScorpionCoreTests.Input
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="Keyboard"/> class.
+    /// </summary>
     public class KeyboardTests : IDisposable
     {
         #region Private Fields
@@ -364,10 +367,7 @@ namespace KDScorpionCoreTests.Input
             var numpadNumberKeys = (from k in NumpadNumberKeyData select (KeyCodes)k[0]).ToArray();
 
             //Setup all of the standard number keys to return false
-            foreach (var key in numpadNumberKeys)
-            {
-                _mockKeyboard.Setup(m => m.IsKeyPressed(key)).Returns(false);
-            }
+            numpadNumberKeys.ToList().ForEach(k => _mockKeyboard.Setup(m => m.IsKeyPressed(k)).Returns(false));
 
             _mockKeyboard.Setup(m => m.IsKeyPressed(numToCheck)).Returns(true);
             var keyboard = new Keyboard(_mockKeyboard.Object);
@@ -406,10 +406,7 @@ namespace KDScorpionCoreTests.Input
             var standardKeys = (from k in StandardNumberKeyData select (KeyCodes)k[0]).ToArray();
 
             //Setup all of the standard number keys to return false
-            foreach (var key in standardKeys)
-            {
-                _mockKeyboard.Setup(m => m.IsKeyPressed(key)).Returns(false);
-            }
+            standardKeys.ToList().ForEach(k => _mockKeyboard.Setup(m => m.IsKeyPressed(k)).Returns(false));
 
             _mockKeyboard.Setup(m => m.IsKeyPressed(numToCheck)).Returns(true);
             var keyboard = new Keyboard(_mockKeyboard.Object);
@@ -431,10 +428,7 @@ namespace KDScorpionCoreTests.Input
             var numpadKeys = (from k in NumpadNumberKeyData select (KeyCodes)k[0]).ToArray();
 
             //Setup all of the standard number keys to return false
-            foreach (var key in numpadKeys)
-            {
-                _mockKeyboard.Setup(m => m.IsKeyPressed(key)).Returns(false);
-            }
+            numpadKeys.ToList().ForEach(k => _mockKeyboard.Setup(m => m.IsKeyPressed(k)).Returns(false));
 
             _mockKeyboard.Setup(m => m.IsKeyPressed(numToCheck)).Returns(true);
             var keyboard = new Keyboard(_mockKeyboard.Object);
@@ -457,10 +451,7 @@ namespace KDScorpionCoreTests.Input
             var standardKeys = (from k in StandardNumberKeyData select (KeyCodes)k[0]).ToArray();
 
             //Setup all of the standard number keys to return false
-            foreach (var key in standardKeys)
-            {
-                _mockKeyboard.Setup(m => m.IsKeyPressed(key)).Returns(false);
-            }
+            standardKeys.ToList().ForEach(k => _mockKeyboard.Setup(m => m.IsKeyPressed(k)).Returns(false));
 
             _mockKeyboard.Setup(m => m.IsKeyPressed(numToCheck)).Returns(true);
             var keyboard = new Keyboard(_mockKeyboard.Object);

@@ -8,6 +8,9 @@ using KDParticleEngine;
 
 namespace ParticleMaker.Tests.Management
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="SetupManager"/> class.
+    /// </summary>
     public class SetupManagerTests : IDisposable
     {
         #region Private Fields

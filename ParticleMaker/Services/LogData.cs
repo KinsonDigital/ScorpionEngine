@@ -7,9 +7,11 @@ namespace ParticleMaker.Services
     /// </summary>
     public class LogData
     {
+        #region Props
         /// <summary>
         /// Gets or sets the list of logs.
         /// </summary>
         public List<Log> Logs { get; set; }
+        #endregion
     }
 }

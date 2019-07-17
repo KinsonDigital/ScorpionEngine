@@ -6,6 +6,9 @@ using KDScorpionEngine;
 
 namespace KDScorpionEngineTests.Utils
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="StopWatch"/> class.
+    /// </summary>
     public class StopWatchTests
     {
         #region Method Tests

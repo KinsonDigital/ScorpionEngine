@@ -18,7 +18,7 @@ namespace ParticleMaker.CustomEventArgs
 
         #region Props
         /// <summary>
-        /// Gets or sets the destination of where to deploy a setup.
+        /// Gets the destination of where to deploy a setup.
         /// </summary>
         public string DeploymentPath { get; private set; }
         #endregion

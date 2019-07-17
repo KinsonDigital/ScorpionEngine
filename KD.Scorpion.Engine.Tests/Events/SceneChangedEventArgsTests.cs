@@ -3,6 +3,9 @@ using KDScorpionEngine.Events;
 
 namespace KDScorpionEngineTests.Events
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="SceneChangedEventArgs"/> class.
+    /// </summary>
     public class SceneChangedEventArgsTests
     {
         #region Constructor Tests

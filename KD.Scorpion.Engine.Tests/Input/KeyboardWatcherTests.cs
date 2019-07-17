@@ -11,6 +11,9 @@ using PluginSystem;
 
 namespace KDScorpionEngineTests.Input
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="KeyboardWatcher"/> class.
+    /// </summary>
     public class KeyboardWatcherTests : IDisposable
     {
         #region Private Fields

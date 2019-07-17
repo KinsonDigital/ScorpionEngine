@@ -50,7 +50,7 @@ namespace KDParticleEngine
 
         #region Props
         /// <summary>
-        /// Get and set a texture by its index.
+        /// Gets and sets a texture by its index.
         /// </summary>
         /// <param name="i">The index value of the item to get or set.</param>
         /// <returns></returns>

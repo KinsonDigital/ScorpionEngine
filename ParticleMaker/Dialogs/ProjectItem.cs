@@ -3,7 +3,7 @@
 namespace ParticleMaker.Dialogs
 {
     /// <summary>
-    /// Represents a single project item with an exists indication value.
+    /// Represents a single project item.
     /// </summary>
     public class ProjectItem : IEquatable<ProjectItem>
     {
@@ -21,9 +21,11 @@ namespace ParticleMaker.Dialogs
 
 
         #region Public Methods
-        /// <summary>Indicates whether the given object is equal to another object of the same type.</summary>
-        /// <returns>true if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.</returns>
+        /// <summary>
+        /// Indicates whether the given <paramref name="obj"/> is equal to another object of the same type.
+        /// </summary>
         /// <param name="other">A <see cref="ProjectItem"/> object to compare with this object.</param>
+        /// <returns>True if the current object is equal to the '<paramref name="other"/>' parameter; otherwise, false.</returns>
         public bool Equals(ProjectItem other) => Name == other.Name && Exists == other.Exists;
 
 

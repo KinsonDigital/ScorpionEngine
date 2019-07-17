@@ -3,6 +3,9 @@ using KDScorpionEngine.Exceptions;
 
 namespace KDScorpionEngineTests.Exceptions
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="SceneNotFoundException"/> class.
+    /// </summary>
     public class SceneNotFoundExceptionTests
     {
         #region Constructor Tests
@@ -11,7 +14,7 @@ namespace KDScorpionEngineTests.Exceptions
         {
             //Arrange
             var sceneId = 10;
-            var expected = "The scene with the id of '10' was not found.";
+            var expected = "The scene with the ID of '10' was not found.";
 
             //Act
             var exception = new SceneNotFoundException(sceneId);

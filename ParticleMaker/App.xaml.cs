@@ -14,7 +14,7 @@ using System.Diagnostics;
 namespace ParticleMaker
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// Interaction logic for the application.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class App : Application
@@ -25,6 +25,7 @@ namespace ParticleMaker
         /// </summary>
         public App()
         {
+            //Registers and sets up the IoC container for dependency injection
             DIContainer = new Container();
 
             DIContainer.Register<IDirectoryService, DirectoryService>();

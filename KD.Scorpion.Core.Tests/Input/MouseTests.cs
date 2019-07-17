@@ -7,6 +7,9 @@ using KDScorpionCore.Plugins;
 
 namespace KDScorpionCoreTests.Input
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="Mouse"/> class.
+    /// </summary>
     public class MouseTests
     {
         #region Prop Tests

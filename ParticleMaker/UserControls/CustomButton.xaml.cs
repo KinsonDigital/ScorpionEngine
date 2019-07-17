@@ -7,7 +7,7 @@ using System.Windows.Input;
 namespace ParticleMaker.UserControls
 {
     /// <summary>
-    /// Interaction logic for CustomButton.xaml
+    /// Interaction logic for the <see cref="CustomButton"/> control.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class CustomButton : UserControl

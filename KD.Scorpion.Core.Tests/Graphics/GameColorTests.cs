@@ -3,6 +3,9 @@ using Xunit;
 
 namespace KDScorpionCoreTests.Graphics
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="GameColor"/> class.
+    /// </summary>
     public class GameColorTests
     {
         #region Prop Tests

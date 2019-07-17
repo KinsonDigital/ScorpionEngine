@@ -2,6 +2,9 @@
 
 namespace PluginSystem.Exceptions
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="PluginNotFoundException"/> class.
+    /// </summary>
     public class PluginNotFoundExceptionTests
     {
         #region Constructor Tests

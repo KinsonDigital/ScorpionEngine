@@ -14,7 +14,7 @@ using System.ComponentModel;
 namespace ParticleMaker.UserControls
 {
     /// <summary>
-    /// Interaction logic for SetupDeployment.xaml
+    /// Interaction logic for the <see cref="SetupDeployment"/> control.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class SetupDeployment : UserControl
@@ -58,7 +58,7 @@ namespace ParticleMaker.UserControls
 
         #region Props
         /// <summary>
-        /// Gets or sets the directory path to where a setup deployment will occur.
+        /// Gets or sets the directory path to where a setup will be deployed to.
         /// </summary>
         public string DeploymentPath
         {
@@ -107,7 +107,7 @@ namespace ParticleMaker.UserControls
 
         /// <summary>
         /// Gets or stes the a value indicating if the control has an error due to
-        /// and invalid <see cref="DeploymentPath"/>.
+        /// an invalid <see cref="DeploymentPath"/>.
         /// </summary>
         private bool HasError
         {

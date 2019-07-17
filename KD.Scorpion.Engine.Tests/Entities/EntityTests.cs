@@ -11,6 +11,9 @@ using KDScorpionEngineTests.Fakes;
 
 namespace KDScorpionEngineTests.Entities
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="KDScorpionEngine.Entities.Entity"/> class.
+    /// </summary>
     public class EntityTests : IDisposable
     {
         #region Private Fields

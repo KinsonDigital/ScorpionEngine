@@ -9,6 +9,9 @@ using KDScorpionEngine;
 
 namespace KDScorpionEngineTests.Input
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="KeyBehavior"/> class.
+    /// </summary>
     public class KeyBehaviorTests : IDisposable
     {
         #region Private Fields

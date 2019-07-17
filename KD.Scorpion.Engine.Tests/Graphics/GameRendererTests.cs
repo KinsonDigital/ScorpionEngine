@@ -7,6 +7,9 @@ using Xunit;
 
 namespace KDScorpionEngineTests.Graphics
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="GameRenderer"/> class.
+    /// </summary>
     public class GameRendererTests
     {
         [Fact]

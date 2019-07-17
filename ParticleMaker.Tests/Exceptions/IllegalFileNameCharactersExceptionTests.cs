@@ -3,6 +3,9 @@ using ParticleMaker.Exceptions;
 
 namespace ParticleMaker.Tests.Exceptions
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="IllegalFileNameCharactersException"/> class.
+    /// </summary>
     public class IllegalFileNameCharactersExceptionTests
     {
         #region Constructor Tests

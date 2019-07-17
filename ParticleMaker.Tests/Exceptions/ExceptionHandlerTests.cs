@@ -7,6 +7,9 @@ using ParticleMaker.Services;
 
 namespace ParticleMaker.Tests.Exceptions
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="ExceptionHandler"/> class.
+    /// </summary>
     public class ExceptionHandlerTests : IDisposable
     {
         #region Private Fields
@@ -151,7 +154,7 @@ namespace ParticleMaker.Tests.Exceptions
             ExceptionHandler.Handle(new NullReferenceException());
 
             //Assert
-            _mockExceptionMessage.Verify(m => m.ShowMessage(It.IsAny<NullReferenceException>(), It.IsAny<Window>()), Times.Once());
+            _mockExceptionMessage.Verify(m => m.ShowExceptionDialog(It.IsAny<NullReferenceException>(), It.IsAny<Window>()), Times.Once());
         }
         #endregion
 

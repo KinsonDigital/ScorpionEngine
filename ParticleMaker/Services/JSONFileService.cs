@@ -63,6 +63,7 @@ namespace ParticleMaker.Services
         /// </summary>
         /// <param name="path">The path to the file to rename.</param>
         /// <param name="newName">The new name to give the file.  Any file extensions will be ignored.</param>
+        /// <exception cref="ArgumentException">Thrown if the given <paramref name="path"/> has no extension.</exception>
         public void Rename(string path, string newName)
         {
             if (!Path.HasExtension(path))
@@ -88,7 +89,7 @@ namespace ParticleMaker.Services
         /// <summary>
         /// Deletes the file at the given <paramref name="path"/>.
         /// </summary>
-        /// <param name="path">The path to the file to delete.</param>
+        /// <param name="path">The path of the file to delete.</param>
         public void Delete(string path) => File.Delete(path);
 
 

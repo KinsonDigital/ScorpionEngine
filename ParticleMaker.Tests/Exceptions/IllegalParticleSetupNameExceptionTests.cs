@@ -3,6 +3,9 @@ using ParticleMaker.Exceptions;
 
 namespace ParticleMaker.Tests.Exceptions
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="IllegalParticleSetupNameException"/> class.
+    /// </summary>
     public class IllegalParticleSetupNameExceptionTests
     {
         #region Constructor Tests

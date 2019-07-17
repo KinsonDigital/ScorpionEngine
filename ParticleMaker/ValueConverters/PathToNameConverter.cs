@@ -6,15 +6,14 @@ using System.Windows.Data;
 namespace ParticleMaker.ValueConverters
 {
     /// <summary>
-    /// Converts incoming data from a binding from a file path to a file name without
-    /// the directories or file extension attached.
+    /// Converts incoming full file path to just the name of the file without the file extension.
     /// </summary>
     public class PathToNameConverter : IValueConverter
     {
         #region Public Methods
         /// <summary>
         /// Converts the given <paramref name="value"/> of the given <paramref name="targetType"/>
-        /// to a name.
+        /// to a file only name without the file extension.
         /// </summary>
         /// <param name="value">The incoming value.</param>
         /// <param name="targetType">The type of data incomging into the method.</param>

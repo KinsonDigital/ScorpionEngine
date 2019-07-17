@@ -3,6 +3,9 @@ using ParticleMaker.Exceptions;
 
 namespace ParticleMaker.Tests.Exceptions
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="ParticleDoesNotExistException"/> class.
+    /// </summary>
     public class ParticleDoesNotExistExceptionTests
     {
         #region Constructor Tests

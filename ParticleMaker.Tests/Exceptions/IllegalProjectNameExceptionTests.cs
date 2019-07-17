@@ -4,6 +4,9 @@ using System;
 
 namespace ParticleMaker.Tests.Exceptions
 {
+    /// <summary>
+    /// Unit tests to test the <see cref="IllegalProjectNameException"/> class.
+    /// </summary>
     public class IllegalProjectNameExceptionTests : Exception
     {
         #region Constructor Tests

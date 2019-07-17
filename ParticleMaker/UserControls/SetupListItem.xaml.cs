@@ -10,7 +10,7 @@ using System.Windows.Input;
 namespace ParticleMaker.UserControls
 {
     /// <summary>
-    /// Interaction logic for SetupListItem.xaml
+    /// Interaction logic for the <see cref="SetupListItem"/> control.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class SetupListItem : UserControl, IDisposable
@@ -43,8 +43,7 @@ namespace ParticleMaker.UserControls
 
         #region Props
         /// <summary>
-        /// Gets or sets the path to the setup file.
-        /// Must be a full path with file name.
+        /// Gets or sets the full path to the setup file.
         /// </summary>
         public string SetupPath
         {
@@ -53,7 +52,7 @@ namespace ParticleMaker.UserControls
         }
 
         /// <summary>
-        /// Registers the <see cref="SetupPath"/>.
+        /// Registers the <see cref="SetupPath"/> property.
         /// </summary>
         public static readonly DependencyProperty SetupPathProperty =
             DependencyProperty.Register(nameof(SetupPath), typeof(string), typeof(SetupListItem), new PropertyMetadata("", SetupFilePathChanged));
@@ -174,7 +173,7 @@ namespace ParticleMaker.UserControls
 
         #region Private Methods
         /// <summary>
-        /// Updates the setup name to be the file name without the extension
+        /// Updates the setup name to be the file name without the extension.
         /// </summary>
         private static void SetupFilePathChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

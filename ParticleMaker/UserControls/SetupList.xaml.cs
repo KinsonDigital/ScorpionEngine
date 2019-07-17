@@ -14,7 +14,7 @@ using System.Windows.Input;
 namespace ParticleMaker.UserControls
 {
     /// <summary>
-    /// Interaction logic for SetupList.xaml
+    /// Interaction logic for the <see cref="SetupList"/> control.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class SetupList : UserControl
@@ -185,13 +185,13 @@ namespace ParticleMaker.UserControls
             var setupListItems = SetupListBox.FindVisualChildren<SetupListItem>().ToArray();
 
             //Refresh each setup list item
-            foreach (var item in setupListItems)
+            setupListItems.ToList().ForEach(i =>
             {
-                item.Refresh();
+                i.Refresh();
 
-                if (item.Command == null)
-                    item.Command = new RelayCommand((param) => ItemSelectedCommand?.Execute(param), (param) => true);
-            }
+                if (i.Command == null)
+                    i.Command = new RelayCommand((param) => ItemSelectedCommand?.Execute(param), (param) => true);
+            });
         }
         #endregion
 
@@ -247,7 +247,7 @@ namespace ParticleMaker.UserControls
 
 
         /// <summary>
-        /// Updates the currently selected item when the internal list box selectd item changes.
+        /// Updates the currently selected item when the internal list box selected item changes.
         /// </summary>
         private void SetupListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -304,17 +304,17 @@ namespace ParticleMaker.UserControls
         {
             var listItems = SetupListBox.FindVisualChildren<SetupListItem>().ToArray();
 
-            foreach (var item in listItems)
+            listItems.ToList().ForEach(i =>
             {
-                if (item.RenameClickedCommand == null)
-                    item.RenameClickedCommand = new RelayCommand(RenameCommandExecute, (param) => true);
+                if (i.RenameClickedCommand == null)
+                    i.RenameClickedCommand = new RelayCommand(RenameCommandExecute, (param) => true);
 
-                if (item.DeleteClickedCommand == null)
-                    item.DeleteClickedCommand = new RelayCommand(DeleteCommandExecute, (param) => true);
+                if (i.DeleteClickedCommand == null)
+                    i.DeleteClickedCommand = new RelayCommand(DeleteCommandExecute, (param) => true);
 
-                if (item.SaveClickedCommand == null)
-                    item.SaveClickedCommand = new RelayCommand(SaveCommandExecute, (param) => true);
-            }
+                if (i.SaveClickedCommand == null)
+                    i.SaveClickedCommand = new RelayCommand(SaveCommandExecute, (param) => true);
+            });
         }
 
 

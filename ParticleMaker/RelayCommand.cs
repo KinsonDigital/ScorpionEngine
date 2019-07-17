@@ -5,14 +5,14 @@ using System.Windows.Input;
 namespace ParticleMaker
 {
     /// <summary>
-    /// Provides a command with the ability to set the execute and can exectue
+    /// Provides a command with the ability to set the execute and can execute
     /// code to be invoked as delegates.
     /// </summary>
     public class RelayCommand : ICommand
     {
         #region Public Events
         /// <summary>
-        /// Occurs when the can execute status has changed
+        /// Occurs when the can execute status has changed.
         /// </summary>
         public event EventHandler CanExecuteChanged;
         #endregion
@@ -29,15 +29,13 @@ namespace ParticleMaker
         /// <summary>
         /// Creates a new instance of <see cref="RelayCommand"/>.
         /// </summary>
+        /// <remarks>//This is here to satisfy a paramaterless constructor for design time data in xaml files.</remarks>
         [ExcludeFromCodeCoverage]
-        public RelayCommand()
-        {
-            //This is here to satisfy a paramaterless constructor for design time data in xaml files.
-        }
+        public RelayCommand() { }
 
 
         /// <summary>
-        /// Creates a new instance of <see cref="RelayCommand"/>
+        /// Creates a new instance of <see cref="RelayCommand"/>.
         /// </summary>
         /// <param name="execute">The action to execute when execution is attempted.</param>
         /// <param name="canExecute">Returns a value indicating if the action can be executed.</param>
@@ -51,7 +49,7 @@ namespace ParticleMaker
 
         #region Props
         /// <summary>
-        /// Gets or sets a value indicating if the can execute functionality should be ignored.
+        /// Gets or sets a value indicating if the execute functionality should be ignored.
         /// If set to true, the command will always execute.
         /// </summary>
         public bool IgnoreCanExecute
