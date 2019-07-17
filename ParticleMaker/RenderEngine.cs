@@ -2,17 +2,15 @@
 using ParticleMaker.Services;
 using System;
 using System.Linq;
-//TODO: Remove
-//using System.Threading;
-//using System.Threading.Tasks;
 
 namespace ParticleMaker
 {
+    /// <summary>
+    /// Renders particle graphics to a render surface.
+    /// </summary>
     public class RenderEngine : IDisposable
     {
         #region Private Fields
-        //private Task _loopTask;
-        //private CancellationTokenSource _tokenSrc;
         private readonly IRenderer _renderer;
         private ITimingService _timingService;
         private readonly ITaskManagerService _taskService;
@@ -26,6 +24,8 @@ namespace ParticleMaker
         /// </summary>
         /// <param name="renderer">The renderer used to render textures to the screen.</param>
         /// <param name="particleEngine">The particle engine that manages the particles.</param>
+        /// <param name="timingService">The service used to manage the timing of the engine.</param>
+        /// <param name="taskService">The service used to manage asynchronous tasks.</param>
         public RenderEngine(IRenderer renderer, ParticleEngine<ParticleTexture> particleEngine, ITimingService timingService, ITaskManagerService taskService)
         {
             _renderer = renderer;
@@ -38,7 +38,7 @@ namespace ParticleMaker
 
         #region Props
         /// <summary>
-        /// Gets the handle to the rendering window/surface.
+        /// Gets the pointer/window handle to the rendering surface.
         /// </summary>
         public IntPtr WindowHandle => _renderer.WindowHandle;
 
@@ -74,14 +74,17 @@ namespace ParticleMaker
 
 
         #region Public Methods
-        public void SetRenderWindow(IntPtr windowHandler) => _renderer.Init(windowHandler);
+        /// <summary>
+        /// Sets the pointer/window handle to the window that the <see cref="RenderEngine"/> will
+        /// render the particle graphics to.
+        /// </summary>
+        /// <param name="surfaceHandle">The pointer/handle to the rendering surface.</param>
+        public void SetRenderWindowHandle(IntPtr surfaceHandle) => _renderer.Init(surfaceHandle);
 
 
         /// <summary>
-        /// Stars the engine.
+        /// Starts the engine.
         /// </summary>
-        /// <param name="windowHandle"></param>
-        //public Task Start()
         public void Start()
         {
             //if (TaskIsRunning())
@@ -94,31 +97,9 @@ namespace ParticleMaker
             else
             {
                 LoadTextures();
-
                 _taskService.Start(Run);
-                //_tokenSrc = new CancellationTokenSource();
-
-                //_loopTask = new Task(() =>
-                //{
-                //    Run();
-                //}, _tokenSrc.Token);
-
-                //_loopTask.Start();
             }
         }
-
-
-        //private bool TaskIsRunning()
-        //{
-        //    if (_loopTask != null && _loopTask.Status == TaskStatus.Running)
-        //        return true;
-
-        //    if (_tokenSrc != null && !_tokenSrc.IsCancellationRequested)
-        //        return true;
-
-
-        //    return false;
-        //}
 
 
         /// <summary>
@@ -147,13 +128,6 @@ namespace ParticleMaker
 
             _timingService = null;
             _taskService.Dispose();
-
-            //_tokenSrc?.Cancel();
-            //_tokenSrc?.Dispose();
-            //_tokenSrc = null;
-
-            //_loopTask?.Dispose();
-            //_loopTask = null;
         }
         #endregion
 
@@ -162,17 +136,13 @@ namespace ParticleMaker
         /// <summary>
         /// Loads all of the textures.
         /// </summary>
-        private void LoadTextures()
-        {
+        private void LoadTextures() =>
             //If any of the textures do not already exist in the engine, add the texture
-            foreach (var path in TexturePaths)
+            TexturePaths.ToList().ForEach(p =>
             {
-                ParticleEngine.Add(_renderer.LoadTexture(path), (texture) =>
-                {
-                    return ParticleEngine.Count <= 0 || ParticleEngine.Any(p => p.Name != texture.Name);
-                });
-            }
-        }
+                ParticleEngine.Add(_renderer.LoadTexture(p), (texture) =>
+                    ParticleEngine.Count <= 0 || ParticleEngine.Any(p => p.Name != texture.Name));
+            });
 
 
         /// <summary>
@@ -193,20 +163,19 @@ namespace ParticleMaker
             _renderer.Begin();
 
             //Render all of the particles
-            foreach (var particle in ParticleEngine.Particles)
-            {
-                _renderer.Render(particle);
-            }
+            ParticleEngine.Particles.ToList().ForEach(p => _renderer.Render(p));
 
             _renderer.End();
         }
         
-
+        /// <summary>
+        /// The internal run method that is constantly rendering the graphics
+        /// to the rendering surface.
+        /// </summary>
         internal void Run()
         {
             _timingService.Start();
 
-            //while (!_tokenSrc.IsCancellationRequested)
             while (!_taskService.CancelPending)
             {
                 if (IsPaused)

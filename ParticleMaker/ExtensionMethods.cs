@@ -182,16 +182,7 @@ namespace ParticleMaker
         /// </summary>
         /// <param name="values">The string values to convert.</param>
         /// <returns></returns>
-        public static string[] ToLowerCase(this string[] values)
-        {
-            var result = new List<string>();
-
-            foreach (var value in values)
-                result.Add(value.ToLower());
-
-
-            return result.ToArray();
-        }
+        public static string[] ToLowerCase(this string[] values) => (from v in values select v.ToLower()).ToArray();
 
 
         /// <summary>

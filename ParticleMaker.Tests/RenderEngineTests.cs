@@ -175,7 +175,7 @@ namespace ParticleMaker.Tests
         public void SetRenderWindow_WhenInvoked_InvokesRendererInit()
         {
             //Arrange
-            _engine.SetRenderWindow(It.IsAny<IntPtr>());
+            _engine.SetRenderWindowHandle(It.IsAny<IntPtr>());
 
             //Assert
             _mockRenderer.Verify(m => m.Init(It.IsAny<IntPtr>()), Times.Once());

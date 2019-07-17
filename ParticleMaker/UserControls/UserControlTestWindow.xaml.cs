@@ -14,14 +14,7 @@ namespace ParticleMaker.UserControls
         /// <summary>
         /// Creates a new instance of <see cref="UserControlTestWindow"/>.
         /// </summary>
-        public UserControlTestWindow()
-        {
-            InitializeComponent();
-
-            _viewModel = new MyViewModel();
-
-            DataContext = _viewModel;
-        }
+        public UserControlTestWindow() => InitializeComponent();
         #endregion
 
 

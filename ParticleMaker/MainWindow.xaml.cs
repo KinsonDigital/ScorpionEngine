@@ -12,7 +12,7 @@ using WinMsgBox = System.Windows.MessageBox;
 namespace ParticleMaker
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for the <see cref="MainWindow"/>.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class MainWindow : Window
@@ -48,7 +48,6 @@ namespace ParticleMaker
         /// <summary>
         /// Shuts down the graphics engine before closing the window.
         /// </summary>
-        /// <param name="e"></param>
         protected override void OnClosing(CancelEventArgs e)
         {
             _dockRenderWindowTokenSrc.Cancel();
@@ -130,6 +129,9 @@ namespace ParticleMaker
         }
 
 
+        /// <summary>
+        /// Docks the rendering surface/window to the right side of the main window.
+        /// </summary>
         public void DockRenderWindow()
         {
             _renderSurface.Left = Left + (Width - 10);

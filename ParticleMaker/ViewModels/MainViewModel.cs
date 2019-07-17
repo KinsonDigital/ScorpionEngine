@@ -129,7 +129,7 @@ namespace ParticleMaker.ViewModels
         public IntPtr RenderSurfaceHandle
         {
             get => _renderEngine.WindowHandle;
-            set => _renderEngine.SetRenderWindow(value);
+            set => _renderEngine.SetRenderWindowHandle(value);
         }
 
         /// <summary>

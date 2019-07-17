@@ -29,7 +29,7 @@ namespace ParticleMaker
 
 
         /// <summary>
-        /// Returns a value indicating if the given obj and this object are equal.
+        /// Returns a value indicating if the given <paramref name="obj"/> and this object are equal.
         /// </summary>
         /// <param name="obj">The object to compare.</param>
         /// <returns></returns>

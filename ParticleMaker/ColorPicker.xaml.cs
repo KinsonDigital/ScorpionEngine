@@ -5,17 +5,21 @@ using System.Windows.Media;
 namespace ParticleMaker
 {
     /// <summary>
-    /// Interaction logic for ColorPicker.xaml
+    /// Interaction logic for the <see cref="ColorPicker"/> control.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class ColorPicker : Window
     {
+        #region Private Fields
         private static bool _skipUpdate = false;
+        #endregion
+
 
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="ColorPicker"/>.
         /// </summary>
+        /// <param name="color">The default color to set the <see cref="ColorPicker"/> to.</param>
         public ColorPicker(Color color)
         {
             ChosenColorBrush = new SolidColorBrush(Color.FromArgb(255, color.R, color.G, color.B));
@@ -98,7 +102,7 @@ namespace ParticleMaker
 
 
         /// <summary>
-        /// Cancels the color that was chosen by returned the dialog result of false.
+        /// Cancels dialog and sets the dialog result to false.
         /// </summary>
         private void CancelButton_Click(object sender, RoutedEventArgs e) => DialogResult = false;
 
