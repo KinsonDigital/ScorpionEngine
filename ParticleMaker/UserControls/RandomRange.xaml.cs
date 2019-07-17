@@ -5,7 +5,7 @@ using System.Windows.Controls;
 namespace ParticleMaker.UserControls
 {
     /// <summary>
-    /// Interaction logic for <see cref="RandomRange"/> control.
+    /// Interaction logic for the <see cref="RandomRange"/> control.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class RandomRange : UserControl

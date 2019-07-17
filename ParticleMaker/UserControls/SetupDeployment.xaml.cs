@@ -14,7 +14,7 @@ using System.ComponentModel;
 namespace ParticleMaker.UserControls
 {
     /// <summary>
-    /// Interaction logic for <see cref="SetupDeployment"/> control.
+    /// Interaction logic for the <see cref="SetupDeployment"/> control.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class SetupDeployment : UserControl

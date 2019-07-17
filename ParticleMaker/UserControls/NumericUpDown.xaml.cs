@@ -8,7 +8,7 @@ using System.Windows.Input;
 namespace ParticleMaker.UserControls
 {
     /// <summary>
-    /// Interaction logic for <see cref="ColorComponentValue"/> control.
+    /// Interaction logic for the <see cref="ColorComponentValue"/> control.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class NumericUpDown : UserControl

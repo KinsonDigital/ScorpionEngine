@@ -8,7 +8,7 @@ using System.Windows.Media;
 namespace ParticleMaker.UserControls
 {
     /// <summary>
-    /// Interaction logic for <see cref="ColorListItem"/> control.
+    /// Interaction logic for the <see cref="ColorListItem"/> control.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class ColorListItem : UserControl

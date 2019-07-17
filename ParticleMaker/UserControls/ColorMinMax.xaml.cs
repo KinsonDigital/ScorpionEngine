@@ -6,7 +6,7 @@ using System.Windows.Media;
 namespace ParticleMaker.UserControls
 {
     /// <summary>
-    /// Interaction logic for <see cref="ColorMinMax"/> control.
+    /// Interaction logic for the <see cref="ColorMinMax"/> control.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class ColorMinMax : UserControl

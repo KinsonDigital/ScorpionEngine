@@ -5,7 +5,7 @@ using System.Windows.Media;
 namespace ParticleMaker.UserControls
 {
     /// <summary>
-    /// Interaction logic for <see cref="UserControlTestWindow"/>.
+    /// Interaction logic for the <see cref="UserControlTestWindow"/>.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class UserControlTestWindow : Window

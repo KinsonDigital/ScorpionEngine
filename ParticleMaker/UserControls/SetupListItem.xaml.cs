@@ -10,7 +10,7 @@ using System.Windows.Input;
 namespace ParticleMaker.UserControls
 {
     /// <summary>
-    /// Interaction logic for <see cref="SetupListItem"/> control.
+    /// Interaction logic for the <see cref="SetupListItem"/> control.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class SetupListItem : UserControl, IDisposable

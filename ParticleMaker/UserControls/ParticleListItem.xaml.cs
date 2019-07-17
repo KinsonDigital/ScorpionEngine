@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 namespace ParticleMaker.UserControls
 {
     /// <summary>
-    /// Interaction logic for <see cref="ParticleListItem"/> control.
+    /// Interaction logic for the <see cref="ParticleListItem"/> control.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class ParticleListItem : UserControl

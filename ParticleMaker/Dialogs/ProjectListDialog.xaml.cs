@@ -12,7 +12,7 @@ using System.Windows.Input;
 namespace ParticleMaker.Dialogs
 {
     /// <summary>
-    /// Interaction logic for <see cref="ProjectListDialog"/>.
+    /// Interaction logic for the <see cref="ProjectListDialog"/>.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class ProjectListDialog : Window

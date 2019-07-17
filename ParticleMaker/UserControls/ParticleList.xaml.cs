@@ -14,7 +14,7 @@ using System.Windows.Input;
 namespace ParticleMaker.UserControls
 {
     /// <summary>
-    /// Interaction logic for <see cref="ParticleList"/> control.
+    /// Interaction logic for the <see cref="ParticleList"/> control.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class ParticleList : UserControl

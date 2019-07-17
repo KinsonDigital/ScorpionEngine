@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace ParticleMaker.Dialogs
 {
     /// <summary>
-    /// Interaction logic for <see cref="InputDialog"/>.
+    /// Interaction logic for the <see cref="InputDialog"/>.
     /// </summary>
     [ExcludeFromCodeCoverage]
     public partial class InputDialog : Window
