@@ -7,11 +7,14 @@ using System;
 namespace KDScorpionUI
 {
     /// <summary>
-    /// A button that can be clicked and then execute some functionality.
+    /// A button that can be clicked and execute functionality.
     /// </summary>
     public class Button : IControl
     {
         #region Events
+        /// <summary>
+        /// Occurs when the button has been clicked.
+        /// </summary>
         public event EventHandler<EventArgs> Click;
         #endregion
 
@@ -27,10 +30,7 @@ namespace KDScorpionUI
         /// <summary>
         /// Creates a new instance of <see cref="Button"/>.
         /// </summary>
-        public Button()
-        {
-            _mouse = new Mouse();
-        }
+        public Button() => _mouse = new Mouse();
         #endregion
 
 
@@ -41,7 +41,7 @@ namespace KDScorpionUI
         public Vector Position { get; set; }
 
         /// <summary>
-        /// Gets or sets the width of the <see cref="Button"/>.
+        /// Gets the width of the <see cref="Button"/>.
         /// </summary>
         public int Width
         {
@@ -57,7 +57,7 @@ namespace KDScorpionUI
         }
 
         /// <summary>
-        /// Gets or sets the height of the <see cref="Button"/>.
+        /// Gets the height of the <see cref="Button"/>.
         /// </summary>
         public int Height
         {
@@ -73,12 +73,12 @@ namespace KDScorpionUI
         }
 
         /// <summary>
-        /// Gets or sets the texture of the when the mouse is over the <see cref="Button"/>.
+        /// Gets or sets the texture when the mouse is over the <see cref="Button"/>.
         /// </summary>
         public Texture MouseOverTexture { get; set; }
 
         /// <summary>
-        /// Gets or sets the texture of the when the mouse is not over the <see cref="Button"/>.
+        /// Gets or sets the texture when the mouse is not over the <see cref="Button"/>.
         /// </summary>
         public Texture MouseNotOverTexture { get; set; }
 
@@ -89,7 +89,7 @@ namespace KDScorpionUI
         public Texture MouseDownTexture { get; set; }
 
         /// <summary>
-        /// Gets a value indicating if the mouse is over the button.
+        /// Gets a value indicating if the mouse is hovering over the button.
         /// </summary>
         public bool IsMouseOver { get; private set; }
 
@@ -101,14 +101,17 @@ namespace KDScorpionUI
 
 
         #region Public Methods
-        public void Initialize()
-        {
-        }
+        /// <summary>
+        /// Initializes the <see cref="Button"/>.
+        /// </summary>
+        public void Initialize() { }
 
 
-        public void LoadContent(ContentLoader contentLoader)
-        {
-        }
+        /// <summary>
+        /// Loads the content for the <see cref="Button"/>.
+        /// </summary>
+        /// <param name="contentLoader">The loader used to laod the content.</param>
+        public void LoadContent(ContentLoader contentLoader) { }
 
 
         /// <summary>
@@ -163,6 +166,9 @@ namespace KDScorpionUI
 
 
         #region Private Methods
+        /// <summary>
+        /// Processes any mouse input interaction with the <see cref="Button"/>.
+        /// </summary>
         private void ProcessMouse()
         {
             _mouse.UpdateCurrentState();
