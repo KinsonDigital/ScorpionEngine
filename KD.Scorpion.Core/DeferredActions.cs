@@ -51,11 +51,7 @@ namespace KDScorpionCore
         /// </summary>
         public void ExecuteAll()
         {
-            foreach (var action in _actions)
-            {
-                action();
-            }
-
+            _actions.ForEach(a => a());
             Clear();
         }
 

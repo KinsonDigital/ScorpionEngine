@@ -247,11 +247,8 @@ namespace KDScorpionEngine.Input
                 var buttons = new List<InputButton>(_currentPressedButtons.Keys);
 
                 //Set the state of all of the pressed buttons
-                foreach (var button in buttons)
-                {
-                    _currentPressedButtons[button] = _mouse.IsButtonDown(button);
-                }
-
+                buttons.ForEach(b => _currentPressedButtons[b] = _mouse.IsButtonDown(b));
+                
                 //If all of the buttons are pressed down
                 if (_currentPressedButtons.Count > 0 && _currentPressedButtons.All(button => button.Value))
                     OnInputComboPressed?.Invoke(this, new EventArgs());
@@ -335,13 +332,12 @@ namespace KDScorpionEngine.Input
                 _currentPressedButtons = new Dictionary<InputButton, bool>();
 
                 //Add all of the buttons to the combo buttons list dictionary
-                foreach (var button in buttons)
+                buttons.ToList().ForEach(b =>
                 {
                     //If the button has not alredy been added
-                    if(!_currentPressedButtons.ContainsKey(button))
-                        //Add the button to the dictionary
-                        _currentPressedButtons.Add(button, false);
-                }
+                    if (!_currentPressedButtons.ContainsKey(b))
+                        _currentPressedButtons.Add(b, false);
+                });
             }
         }
         #endregion

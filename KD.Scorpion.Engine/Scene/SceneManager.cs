@@ -315,15 +315,24 @@ namespace KDScorpionEngine.Scene
         /// </summary>
         public void LoadAllSceneContent()
         {
-            foreach (var scene in _scenes)
+            _scenes.ForEach(s =>
             {
-                if (scene.ContentLoaded)
-                    continue;
+                if (s.ContentLoaded)
+                    return;
 
-                scene.LoadContent(_contentLoader);
+                s.LoadContent(_contentLoader);
+                
+                s.ContentLoaded = true;
+            });
+            //foreach (var scene in _scenes)
+            //{
+            //    if (scene.ContentLoaded)
+            //        continue;
 
-                scene.ContentLoaded = true;
-            }
+            //    scene.LoadContent(_contentLoader);
+
+            //    scene.ContentLoaded = true;
+            //}
         }
 
 

@@ -245,10 +245,7 @@ namespace KDScorpionEngine.Input
                 var keys = new List<KeyCodes>(_currentPressedKeys.Keys);
 
                 //Set the state of all of the pressed keys
-                foreach (var key in keys)
-                {
-                    _currentPressedKeys[key] = _keyboard.IsKeyDown(key);
-                }
+                keys.ForEach(k => _currentPressedKeys[k] = _keyboard.IsKeyDown(k));
                 
                 //If all of the keys are pressed down
                 if (_currentPressedKeys.Count > 0 && _currentPressedKeys.All(key => key.Value))
@@ -333,13 +330,12 @@ namespace KDScorpionEngine.Input
                 _currentPressedKeys = new Dictionary<KeyCodes, bool>();
 
                 //Add all of the keys to the combo keys list dictionary
-                foreach (var key in keys)
+                keys.ToList().ForEach(k =>
                 {
                     //If the key has not already been added
-                    if(!_currentPressedKeys.ContainsKey(key))
-                        //Add the key to the dictionary
-                        _currentPressedKeys.Add(key, false);
-                }
+                    if (!_currentPressedKeys.ContainsKey(k))
+                        _currentPressedKeys.Add(k, false);
+                });
             }
         }
         #endregion

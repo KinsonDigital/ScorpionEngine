@@ -331,10 +331,7 @@ namespace KDScorpionEngine.Entities
         {
             _engineTime = engineTime;
 
-            foreach (IBehavior behavior in Behaviors)
-            {
-                behavior.Update(_engineTime);
-            }
+            Behaviors.ToList().ForEach(b => b.Update(_engineTime));
         }
         #endregion
 

@@ -104,14 +104,11 @@ namespace PluginSystem
             }
 
             //Register all of the plugin types with the IoC container for instantiation
-            foreach (var concreteType in _concretePluginTypes)
+            _concretePluginTypes.ToList().ForEach(t =>
             {
-                var serviceInterface = GetPluginInterfaceType(concreteType);
-
-                //If the concrete type is valid for registration
-                if (ValidForRegistration(concreteType))
-                    _container.Register(serviceInterface, concreteType);
-            }
+                if (ValidForRegistration(t))
+                    _container.Register(GetPluginInterfaceType(t), t);
+            });
         }
 
 

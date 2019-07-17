@@ -7,6 +7,7 @@ using KDScorpionCore.Input;
 using KDScorpionEngine.Graphics;
 using KDScorpionEngine.Scene;
 using System.Drawing;
+using System.Linq;
 
 namespace ScorpTestGame.Scenes
 {
@@ -88,10 +89,7 @@ namespace ScorpTestGame.Scenes
 
         public override void Render(GameRenderer renderer)
         {
-            foreach (var particle in _particleEngine.Particles)
-            {
-                renderer.Render(particle.Texture, particle.Position.ToVector());
-            }
+            _particleEngine.Particles.ToList().ForEach(p => renderer.Render(p.Texture, p.Position.ToVector()));
 
             base.Render(renderer);
         }

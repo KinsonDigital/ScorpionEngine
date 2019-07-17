@@ -301,22 +301,13 @@ namespace ParticleMaker.Dialogs
         {
             var paths = new List<ProjectItem>();
 
-            foreach (var path in projPaths)
+            projPaths.ToList().ForEach(p =>
             {
-                var sections = path.Split('\\');
+                var sections = p.Split('\\');
 
                 if (sections.Length > 0)
-                {
-                    var projName = sections[^1];
-                    var pathExists = Directory.Exists(path);
-
-                    paths.Add(new ProjectItem()
-                    {
-                        Name = projName,
-                        Exists = pathExists
-                    });
-                }
-            }
+                    paths.Add(new ProjectItem() { Name = sections[^1], Exists = Directory.Exists(p) });
+            });
 
 
             return paths.ToArray();
