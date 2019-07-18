@@ -3,7 +3,6 @@ using System.Drawing;
 using System.Linq;
 using KDParticleEngine;
 using KDParticleEngine.Services;
-using KDScorpionCore.Graphics;
 using Moq;
 using Xunit;
 
@@ -16,7 +15,7 @@ namespace KDParticleEngineTests
     {
         #region Private Fields
         private Mock<IRandomizerService> _mockRandomizerService;
-        private ParticleEngine<ITexture> _engine;
+        private ParticleEngine<IFakeTexture> _engine;
         #endregion
 
 
@@ -25,7 +24,7 @@ namespace KDParticleEngineTests
         {
             _mockRandomizerService = new Mock<IRandomizerService>();
 
-            _engine = new ParticleEngine<ITexture>(_mockRandomizerService.Object)
+            _engine = new ParticleEngine<IFakeTexture>(_mockRandomizerService.Object)
             {
                 TotalParticlesAliveAtOnce = 2,
                 SpawnRateMin = 10,
@@ -58,7 +57,7 @@ namespace KDParticleEngineTests
         public void Particles_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            _engine.Add(new Mock<ITexture>().Object);
+            _engine.Add(new Mock<IFakeTexture>().Object);
 
             //Act
             var actual = _engine.Particles.Length;
@@ -237,7 +236,7 @@ namespace KDParticleEngineTests
         public void TotalLivingParticles_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            _engine.Add(new Mock<ITexture>().Object);
+            _engine.Add(new Mock<IFakeTexture>().Object);
 
             //Assert
             Assert.Equal(2, _engine.TotalLivingParticles);
@@ -248,7 +247,7 @@ namespace KDParticleEngineTests
         public void TotalDeadParticles_WhenGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            _engine.Add(new Mock<ITexture>().Object);
+            _engine.Add(new Mock<IFakeTexture>().Object);
             _engine.Update(new TimeSpan(0, 0, 0, 0, 30));
 
             //Assert
@@ -430,7 +429,7 @@ namespace KDParticleEngineTests
         public void Count_WhenGettingValue_ReturnsCorrectValue()
         {
             //Act
-            _engine.Add(new Mock<ITexture>().Object);
+            _engine.Add(new Mock<IFakeTexture>().Object);
             var actual = _engine.Count;
 
             //Assert
@@ -476,7 +475,7 @@ namespace KDParticleEngineTests
         {
             //Arrange
             _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<float>(), It.IsAny<float>())).Returns(10);
-            var mockTexture = new Mock<ITexture>();
+            var mockTexture = new Mock<IFakeTexture>();
             _engine.UseRandomVelocity = false;
             _engine.Add(mockTexture.Object);
 
@@ -493,7 +492,7 @@ namespace KDParticleEngineTests
         {
             //Arrange
             _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<float>(), It.IsAny<float>())).Returns(10);
-            var mockTexture = new Mock<ITexture>();
+            var mockTexture = new Mock<IFakeTexture>();
             _engine.UseRandomVelocity = true;
             _engine.Add(mockTexture.Object);
 
@@ -509,7 +508,7 @@ namespace KDParticleEngineTests
         public void Add_WhenInvoked_AddsTextureToEngine()
         {
             //Arrange
-            var mockTexture = new Mock<ITexture>();
+            var mockTexture = new Mock<IFakeTexture>();
             _engine.Add(mockTexture.Object);
 
             //Act
@@ -525,7 +524,7 @@ namespace KDParticleEngineTests
         {
             //Arrange
             _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Returns(0);
-            var mockTexture = new Mock<ITexture>();
+            var mockTexture = new Mock<IFakeTexture>();
             _engine.Add(mockTexture.Object, (texture) => true);
 
             //Act
@@ -540,7 +539,7 @@ namespace KDParticleEngineTests
         public void Add_WhenInvokedWithPredicateReturningFalse_DoesNotAddTextureToEngine()
         {
             //Arrange
-            var mockTexture = new Mock<ITexture>();
+            var mockTexture = new Mock<IFakeTexture>();
             _engine.Add(mockTexture.Object, (texture) => false);
 
             //Act
@@ -555,9 +554,9 @@ namespace KDParticleEngineTests
         public void Add_WhenInvokedWithTextureArray_AddsAllTexturesToEngine()
         {
             //Arrange
-            var mockTextureA = new Mock<ITexture>();
-            var mockTextureB = new Mock<ITexture>();
-            _engine.Add(new ITexture[] { mockTextureA.Object, mockTextureB.Object });
+            var mockTextureA = new Mock<IFakeTexture>();
+            var mockTextureB = new Mock<IFakeTexture>();
+            _engine.Add(new IFakeTexture[] { mockTextureA.Object, mockTextureB.Object });
 
             //Act
             var actual = _engine.Count;
@@ -573,7 +572,7 @@ namespace KDParticleEngineTests
             //Arrange
             _mockRandomizerService.Setup(m => m.FlipCoin()).Returns(true);
             _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<float>(), It.IsAny<float>())).Returns(10);
-            _engine.Add(new Mock<ITexture>().Object);
+            _engine.Add(new Mock<IFakeTexture>().Object);
 
             //Assert
             Assert.Equal(10, _engine.Particles[0].AngularVelocity);
@@ -586,7 +585,7 @@ namespace KDParticleEngineTests
             //Arrange
             _mockRandomizerService.Setup(m => m.FlipCoin()).Returns(false);
             _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<float>(), It.IsAny<float>())).Returns(10);
-            _engine.Add(new Mock<ITexture>().Object);
+            _engine.Add(new Mock<IFakeTexture>().Object);
 
             //Assert
             Assert.Equal(-10, _engine.Particles[0].AngularVelocity);
@@ -597,7 +596,7 @@ namespace KDParticleEngineTests
         public void Contains_WhenInvokedWithAddedTexture_ReturnsTrue()
         {
             //Arrange
-            var mockTexture = new Mock<ITexture>();
+            var mockTexture = new Mock<IFakeTexture>();
             _engine.Add(mockTexture.Object);
 
             //Act
@@ -613,7 +612,7 @@ namespace KDParticleEngineTests
         {
             //Arrange
             _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Returns(0);
-            _engine.Add(new Mock<ITexture>().Object);
+            _engine.Add(new Mock<IFakeTexture>().Object);
             _engine.Enabled = false;
             _engine.KillAllParticles();
 
@@ -629,7 +628,7 @@ namespace KDParticleEngineTests
         public void Update_WhenInvokedWhenSpawnMinIsLessOrEqualToMax_ProperlyRandomizesValue()
         {
             //Arrange
-            _engine.Add(new Mock<ITexture>().Object);
+            _engine.Add(new Mock<IFakeTexture>().Object);
             _engine.SpawnRateMin = 2;
             _engine.SpawnRateMax = 6;
 
@@ -645,7 +644,7 @@ namespace KDParticleEngineTests
         public void Update_WhenInvokedWhenSpawnMaxIsGreaterThanMin_ProperlyRandomizesValue()
         {
             //Arrange
-            _engine.Add(new Mock<ITexture>().Object);
+            _engine.Add(new Mock<IFakeTexture>().Object);
             _engine.SpawnRateMin = 6;
             _engine.SpawnRateMax = 2;
 
@@ -665,7 +664,7 @@ namespace KDParticleEngineTests
             _engine.LifeTimeMax = 6;
 
             //Act
-            _engine.Add(new Mock<ITexture>().Object);
+            _engine.Add(new Mock<IFakeTexture>().Object);
 
             //Assert
             _mockRandomizerService.Verify(m => m.GetValue(2, 6), Times.AtLeast(1));
@@ -680,7 +679,7 @@ namespace KDParticleEngineTests
             _engine.LifeTimeMax = 2;
 
             //Act
-            _engine.Add(new Mock<ITexture>().Object);
+            _engine.Add(new Mock<IFakeTexture>().Object);
 
             //Assert
             _mockRandomizerService.Verify(m => m.GetValue(2, 6), Times.AtLeast(1));
@@ -692,7 +691,7 @@ namespace KDParticleEngineTests
         {
             //Arrange
             _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Returns(0);
-            _engine.Add(new Mock<ITexture>().Object);
+            _engine.Add(new Mock<IFakeTexture>().Object);
 
             //Act
             var eventInvoked = false;
@@ -709,7 +708,7 @@ namespace KDParticleEngineTests
         {
             //Arrange
             _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Returns(1000);
-            _engine.Add(new Mock<ITexture>().Object);
+            _engine.Add(new Mock<IFakeTexture>().Object);
             _engine.PreParticleUpdate = () => _engine.KillAllParticles();
 
             //Act
@@ -726,7 +725,7 @@ namespace KDParticleEngineTests
         public void Update_WhenInvokingWithNullEvent_DoesNotThrowException()
         {
             //Arrange
-            _engine.Add(new Mock<ITexture>().Object);
+            _engine.Add(new Mock<IFakeTexture>().Object);
 
             //Act/Assert
             DoesNotThrowNullReference(() => _engine.Update(new TimeSpan(0, 0, 0, 0, 30)));
@@ -739,7 +738,7 @@ namespace KDParticleEngineTests
             //Arrange
             _mockRandomizerService.Setup(m => m.FlipCoin()).Returns(true);
             _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Returns(0);
-            _engine.Add(new Mock<ITexture>().Object);
+            _engine.Add(new Mock<IFakeTexture>().Object);
             _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Returns(10);
             _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<float>(), It.IsAny<float>())).Returns(10);
             _engine.KillAllParticles();
@@ -773,7 +772,7 @@ namespace KDParticleEngineTests
         public void Update_WhenInvokingUseColorsFromListFalse_CorrectlySetsColor()
         {
             //Arrange
-            _engine.Add(new Mock<ITexture>().Object);
+            _engine.Add(new Mock<IFakeTexture>().Object);
             _engine.RedMin = 20;
             _engine.RedMax = 10;
             _engine.GreenMin = 20;
@@ -800,7 +799,7 @@ namespace KDParticleEngineTests
             _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Returns(0);
             _engine.UseColorsFromList = true;
             _engine.TintColors = new Color[] { Color.FromArgb(255, 11, 22, 33) };
-            _engine.Add(new Mock<ITexture>().Object);
+            _engine.Add(new Mock<IFakeTexture>().Object);
             _engine.KillAllParticles();
 
             //Act
@@ -820,7 +819,7 @@ namespace KDParticleEngineTests
             _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Returns(0);
             _engine.UseColorsFromList = true;
             _engine.TintColors = null;
-            _engine.Add(new Mock<ITexture>().Object);
+            _engine.Add(new Mock<IFakeTexture>().Object);
             _engine.KillAllParticles();
 
             //Act
@@ -840,7 +839,7 @@ namespace KDParticleEngineTests
             _mockRandomizerService.Setup(m => m.GetValue(It.IsAny<int>(), It.IsAny<int>())).Returns(0);
             _engine.UseRandomVelocity = false;
             _engine.ParticleVelocity = new Point(11, 22);
-            _engine.Add(new Mock<ITexture>().Object);
+            _engine.Add(new Mock<IFakeTexture>().Object);
             _engine.KillAllParticles();
 
             //Act
