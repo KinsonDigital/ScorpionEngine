@@ -19,9 +19,16 @@ namespace VelcroPhysicsPlugin
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="VelcroWorld"/>.
-        /// NOTE: Required for the plugin system to work. The IoC container must have a parameterless constructor.
         /// </summary>
-        public VelcroWorld() { }
+        /// <param name="gravityX">The gravity in the X plane.</param>
+        /// <param name="gravityY">The gravity in the Y plane.</param>
+        public VelcroWorld(float gravityX, float gravityY)
+        {
+            PhysicsWorld = new World(new Vector2(gravityX, gravityY));
+
+            GravityX = gravityX;
+            GravityY = gravityY;
+        }
         #endregion
 
 

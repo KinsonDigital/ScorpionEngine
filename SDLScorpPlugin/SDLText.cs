@@ -23,7 +23,7 @@ namespace SDLScorpPlugin
         /// </summary>
         /// <param name="fontPtr">The pointer to the SDL font.</param>
         /// <param name="text">The text to render to the surface.</param>
-        internal SDLText(IntPtr fontPtr, string text)
+        public SDLText(IntPtr fontPtr, string text)
         {
             _fontPtr = fontPtr;
             Color = new GameColor(255, 255, 255, 255);
