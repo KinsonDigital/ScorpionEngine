@@ -16,7 +16,7 @@ variables:
   buildConfiguration: "Debug-SDL"
   unitTestBuildConfiguration: "Debug"
   netSDKVersion: "3.0.100-preview7-012821"
-  unitTestProjectDir: "PluginSystemTesting"
+  unitTestProjectDir: "PluginSystem.Tests"
 
 steps:
 - task: NuGetToolInstaller@1
