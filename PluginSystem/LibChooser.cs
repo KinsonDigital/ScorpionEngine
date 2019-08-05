@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace PluginSystem
 {
@@ -7,6 +8,11 @@ namespace PluginSystem
     /// </summary>
     internal static class LibChooser
     {
+        #region Private Fields
+        private static string _enginePluginLibraryName;
+        #endregion
+
+
         #region Props
         /// <summary>
         /// Gets the name of the Scorpion Core plugin library.
@@ -16,11 +22,10 @@ namespace PluginSystem
         {
             get
             {
-#if SDL
-                return "SDLScorpPlugin";
-#elif MONOGAME
-                return "MonoScorpPlugin";
-#endif
+                SetLibNameAsSDL();
+                SetLibNameAsMonoGame();
+
+                return _enginePluginLibraryName;
             }
         }
 
@@ -28,6 +33,16 @@ namespace PluginSystem
         /// Gets the name of the Velcro Physics plugin library.
         /// </summary>
         public static string PhysicsPLuginLibraryName => "VelcroPhysicsPlugin";
+        #endregion
+
+
+        #region Private Methods
+        [Conditional("SDL")]
+        private static void SetLibNameAsSDL() => _enginePluginLibraryName = "SDLScorpPlugin";
+
+
+        [Conditional("MONOGAME")]
+        private static void SetLibNameAsMonoGame() => _enginePluginLibraryName = "MonoScorpPlugin";
         #endregion
     }
 }
