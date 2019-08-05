@@ -22,7 +22,7 @@ namespace SDLScorpPlugin
         /// Creates a new instance of <see cref="SDLTexture"/>.
         /// </summary>
         /// <param name="texturePtr">The pointer to the SDL texture.</param>
-        internal SDLTexture(IntPtr texturePtr)
+        public SDLTexture(IntPtr texturePtr)
         {
             _texturePtr = texturePtr;
 
