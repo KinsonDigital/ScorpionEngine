@@ -57,14 +57,14 @@ steps:
     solution: "**/$(unitTestProjectDir)/*.csproj"
     vsVersion: latest
 
-# - task: DotNetCoreCLI@2
-#   displayName: "Run Unit Tests"
-#   inputs:
-#     command: test
-#     projects: "**/$(unitTestProjectDir)/*.csproj"
-#     arguments: "--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura"
+- task: DotNetCoreCLI@2
+  displayName: "Run Unit Tests"
+  inputs:
+    command: test
+    projects: "**/$(unitTestProjectDir)/*.csproj"
+    arguments: "--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura"
 
-# - script:
-#   enabled: false
-#   displayName: "Install & Run Report Generator"
-#   dotnet tool install -g dotnet-reportgenerator-globaltool reportgenerator -reports:$(Build.SourcesDirectory)/$(unitTestProjectDir)/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/$(unitTestProjectDir) -reporttypes:HtmlInline_AzurePipelines;Cobertura
+- script:
+  enabled: false
+  displayName: "Install & Run Report Generator"
+  dotnet tool install -g dotnet-reportgenerator-globaltool reportgenerator -reports:$(Build.SourcesDirectory)/$(unitTestProjectDir)/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/$(unitTestProjectDir) -reporttypes:HtmlInline_AzurePipelines;Cobertura
