@@ -3,8 +3,8 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
 
-# trigger:
-#   - develop
+trigger:
+  - develop
 
 pool:
   name: "KinsonDigital"
@@ -25,6 +25,7 @@ steps:
     versionSpec: 5.2.0
 
 - task: UseDotNet@2
+  enabled: true
   displayName: "Use DotNet SDK 2.2.x"
   inputs:
     version: 2.2.x
@@ -34,22 +35,29 @@ steps:
   displayName: "Nuget Restore"
   inputs:
     command: restore
+    nugetConfigPath: "**/*.sln"
 
+# Disabled
 - task: VSBuild@1
+  enabled: false
   displayName: "Build PluginSystem Project"
   inputs:
     solution: "**/$(projectName)/*.csproj"
     platform: "$(buildPlatform)"
     configuration: "$(buildConfiguration)"
 
+# Disabled
 - task: UseDotNet@2
+  enabled: false
   displayName: "Use DotNet SDK 3.0.100 Preview 7"
   inputs:
     version: $(netSDKVersion)
     includePreviewVersions: true
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
+# Disabled
 - task: VSBuild@1
+  enabled: false
   displayName: "Build Plugin System Unit Testing Project"
   inputs:
     platform: "$(buildPlatform)"
@@ -57,14 +65,29 @@ steps:
     solution: "**/$(unitTestProjectDir)/*.csproj"
     vsVersion: latest
 
+- task: VSBuild@1
+  displayName: "Build Solution"
+  inputs:
+    platform: "x64"
+    configuration: "Debug-SDL"
+    solution: "$(Build.SourcesDirectory)/*.sln"
+    vsVersion: latest
+
 - task: DotNetCoreCLI@2
   displayName: "Run Unit Tests"
   inputs:
     command: test
-    projects: "**/$(unitTestProjectDir)/*.csproj"
+    # projects: "**/$(unitTestProjectDir)/*.csproj"
+    projects: "$(Build.SourcesDirectory)/*.sln"
     arguments: "--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura"
 
 - script: |
     dotnet tool install -g dotnet-reportgenerator-globaltool
-    reportgenerator -reports:$(Build.SourcesDirectory)/$(unitTestProjectDir)/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/$(unitTestProjectDir) -reporttypes:HtmlInline_AzurePipelines;Cobertura
+    reportgenerator -reports:$(Build.SourcesDirectory)/KD.Particle.Engine.Tests/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/$(unitTestProjectDir) -reporttypes:HtmlInline_AzurePipelines;Cobertura
   displayName: "Install & Run Report Generator"
+
+- task: PublishCodeCoverageResults@1
+  displayName: Publish Code Coverage Results
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: "$(Build.SourceDirectory)/CodeCoverage/Cobertura.xml"
