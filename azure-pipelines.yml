@@ -61,7 +61,7 @@ steps:
 #   displayName: "Run Unit Tests"
 #   inputs:
 #     command: test
-#     projects: "**\$(unitTestProjectDir)\*.csproj"
+#     projects: "**/$(unitTestProjectDir)/*.csproj"
 #     arguments: "--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura"
 
 # - script:
