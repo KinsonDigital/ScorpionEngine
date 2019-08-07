@@ -6,7 +6,7 @@
 
 variables:
   BuildPlatform: "x64"
-  BuildConfiguration: "Debug-SDL"
+  SDLBuildConfiguration: "Debug-SDL"
   UnitTestBuildConfiguration: "Debug"
 
 
@@ -44,9 +44,17 @@ jobs:
       displayName: "Build Solution"
       inputs:
         platform: "$(BuildPlatform)"
-        configuration: "Debug-SDL"
+        configuration: "$(SDLBuildConfiguration)"
         solution: "$(Build.SourcesDirectory)/*.sln"
         vsVersion: latest
+
+
+    - task: PublishBuildArtifacts@1
+      displayName: "Publish Particle Engine Build Artifacts"
+      inputs:
+        PathtoPublish: '$(Build.SourcesDirectory)\KD.Particle.Engine\bin\$(BuildPlatform)\Debug\netstandard2.0'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
 
 
 
@@ -71,7 +79,7 @@ jobs:
         configuration: $(UnitTestBuildConfiguration)
         command: test
         projects: "$(Build.SourcesDirectory)/*.sln"
-        arguments: "--configuration $(BuildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura"
+        arguments: "--configuration $(SDLBuildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura"
 
 
     - script: |
