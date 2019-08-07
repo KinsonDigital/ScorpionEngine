@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <IsPackable>false</IsPackable>
+
+    <Platforms>x86;x64</Platforms>
+    <AssemblyTitle>ScorpionUI</AssemblyTitle>
+    <Product>Kinson Digital - Scorpion UI</Product>
+    <Copyright>Copyright © 2018</Copyright>
+    <Version>0.9.0</Version>
+    <FileVersion>0.9.0</FileVersion>
+    <Company>Kinson Digital</Company>
+    <AssemblyName>ScorpionUI</AssemblyName>
+    <RootNamespace>KDScorpionUI</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.DotNet.Analyzers.Compatibility" Version="0.2.12-alpha">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\KD.Scorpion.Core\KD.Scorpion.Core.csproj" />
+  </ItemGroup>
+</Project>

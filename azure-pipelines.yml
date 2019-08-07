@@ -1,0 +1,87 @@
+# .NET Desktop
+# Build and run tests for .NET Desktop or Windows classic desktop solutions.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
+
+
+variables:
+  BuildPlatform: "x64"
+  BuildConfiguration: "Debug-SDL"
+  UnitTestBuildConfiguration: "Debug"
+
+
+
+
+jobs:
+  - job: Build_Job
+    displayName: "Build Job"
+    pool:
+      name: "KinsonDigital"
+      
+    steps:
+    - task: NuGetToolInstaller@1
+      displayName: "Use Nuget 5.2.0"
+      inputs:
+        versionSpec: 5.2.0
+
+
+    - task: UseDotNet@2
+      enabled: true
+      displayName: "Use DotNet SDK 2.2.x"
+      inputs:
+        version: 2.2.x
+        installationPath: "$(Agent.ToolsDirectory)/dotnet"
+
+
+    - task: NuGetCommand@2
+      displayName: "Nuget Restore"
+      inputs:
+        command: restore
+        nugetConfigPath: "**/*.sln"
+
+
+    - task: VSBuild@1
+      displayName: "Build Solution"
+      inputs:
+        platform: "$(BuildPlatform)"
+        configuration: "Debug-SDL"
+        solution: "$(Build.SourcesDirectory)/*.sln"
+        vsVersion: latest
+
+
+
+
+  - job: "Unit_Testing"
+    displayName: "Unit Testing"
+    dependsOn: Build_Job
+    pool:
+      name: "KinsonDigital"
+
+    steps:
+    - task: UseDotNet@2
+      inputs:
+        packageType: 'sdk'
+        version: '3.0.100-preview7-012821'
+        includePreviewVersions: true
+
+
+    - task: DotNetCoreCLI@2
+      displayName: "Run Unit Tests"
+      inputs:
+        configuration: $(UnitTestBuildConfiguration)
+        command: test
+        projects: "$(Build.SourcesDirectory)/*.sln"
+        arguments: "--configuration $(BuildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura"
+
+
+    - script: |
+        dotnet tool install -g dotnet-reportgenerator-globaltool
+        reportgenerator -reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:HtmlInline_AzurePipelines;Cobertura
+      displayName: "Install & Run Report Generator"
+
+
+    - task: PublishCodeCoverageResults@1
+      displayName: Publish Code Coverage Results
+      inputs:
+        codeCoverageTool: Cobertura
+        summaryFileLocation: "$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml"
