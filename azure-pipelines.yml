@@ -6,9 +6,9 @@
 
 variables:
   BuildPlatform: "x64"
-  SDLBuildConfiguration: "Debug-SDL"
-  UnitTestBuildConfiguration: "Debug"
-
+  SDLBuildConfiguration: "Release-SDL"
+  UnitTestBuildConfiguration: "Release"
+  ParticleEnginePackConfiguration: "Release"
 
 
 
@@ -49,47 +49,61 @@ jobs:
         vsVersion: latest
 
 
+    - task: NuGetCommand@2
+      displayName: "Create Particle Engine Nuget Package"
+      inputs:
+        command: "pack"
+        packagesToPack: "$(Build.SourcesDirectory)/KD.Particle.Engine/*.csproj"
+        configuration: $(ParticleEnginePackConfiguration)
+
+
     - task: PublishBuildArtifacts@1
       displayName: "Publish Particle Engine Build Artifacts"
       inputs:
-        PathtoPublish: '$(Build.SourcesDirectory)\KD.Particle.Engine\bin\$(BuildPlatform)\Debug\netstandard2.0'
-        ArtifactName: 'drop'
-        publishLocation: 'Container'
+        PathtoPublish: $(Build.SourcesDirectory)/KD.Particle.Engine/bin/$(BuildPlatform)/Debug/netstandard2.0
+        ArtifactName: "drop"
+        publishLocation: "Container"
 
 
-
-
-  - job: "Unit_Testing"
-    displayName: "Unit Testing"
-    dependsOn: Build_Job
-    pool:
-      name: "KinsonDigital"
-
-    steps:
-    - task: UseDotNet@2
+    - task: DownloadPipelineArtifact@2
+      displayName: "Download Particle Engine Build Artifact"
       inputs:
-        packageType: 'sdk'
-        version: '3.0.100-preview7-012821'
-        includePreviewVersions: true
+        buildType: "current"
+        targetPath: "$(Pipeline.Workspace)"
 
 
-    - task: DotNetCoreCLI@2
-      displayName: "Run Unit Tests"
-      inputs:
-        configuration: $(UnitTestBuildConfiguration)
-        command: test
-        projects: "$(Build.SourcesDirectory)/*.sln"
-        arguments: "--configuration $(SDLBuildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura"
+
+  # - job: "Unit_Testing"
+  #   displayName: "Unit Testing"
+  #   dependsOn: Build_Job
+  #   pool:
+  #     name: "KinsonDigital"
+
+  #   steps:
+  #   - task: UseDotNet@2
+  #     inputs:
+  #       packageType: "sdk"
+  #       version: "3.0.100-preview7-012821"
+  #       includePreviewVersions: true
 
 
-    - script: |
-        dotnet tool install -g dotnet-reportgenerator-globaltool
-        reportgenerator -reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:HtmlInline_AzurePipelines;Cobertura
-      displayName: "Install & Run Report Generator"
+  #   - task: DotNetCoreCLI@2
+  #     displayName: "Run Unit Tests"
+  #     inputs:
+  #       configuration: $(UnitTestBuildConfiguration)
+  #       command: test
+  #       projects: "$(Build.SourcesDirectory)/*.sln"
+  #       arguments: "--configuration $(SDLBuildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura"
 
 
-    - task: PublishCodeCoverageResults@1
-      displayName: Publish Code Coverage Results
-      inputs:
-        codeCoverageTool: Cobertura
-        summaryFileLocation: "$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml"
+  #   - script: |
+  #       dotnet tool install -g dotnet-reportgenerator-globaltool
+  #       reportgenerator -reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:HtmlInline_AzurePipelines;Cobertura
+  #     displayName: "Install & Run Report Generator"
+
+
+  #   - task: PublishCodeCoverageResults@1
+  #     displayName: Publish Code Coverage Results
+  #     inputs:
+  #       codeCoverageTool: Cobertura
+  #       summaryFileLocation: "$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml"
