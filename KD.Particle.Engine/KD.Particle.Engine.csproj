@@ -6,8 +6,8 @@
     <AssemblyTitle>ParticleEngine</AssemblyTitle>
     <Product>Kinson Digital - Particle Engine</Product>
     <Copyright>Copyright © 2018</Copyright>
-    <Version>0.9.0</Version>
-    <FileVersion>0.9.0</FileVersion>
+    <Version>0.9.1</Version>
+    <FileVersion>0.9.1.0</FileVersion>
     <Company>Kinson Digital</Company>
     <RootNamespace>KDParticleEngine</RootNamespace>
     <AssemblyName>ParticleEngine</AssemblyName>

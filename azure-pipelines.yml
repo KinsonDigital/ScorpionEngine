@@ -5,10 +5,19 @@
 
 
 variables:
-  BuildPlatform: "x64"
-  SDLBuildConfiguration: "Release-SDL"
-  UnitTestBuildConfiguration: "Release"
-  ParticleEnginePackConfiguration: "Release"
+  - group: "KinsonServer"
+  - name: BuildPlatform
+    value: "x64"
+  - name: SolutionBuildConfiguration
+    value: "Release-SDL"
+  - name: UnitTestBuildConfiguration
+    value: "Release"
+  - name: ParticleEngineConfiguration
+    value: "Release"
+  - name: ParticleEngineProjectDirName
+    value: "KD.Particle.Engine"
+  - name: TargetFramework
+    value: "netstandard2.0"
 
 
 
@@ -40,70 +49,98 @@ jobs:
         nugetConfigPath: "**/*.sln"
 
 
+    - task: DeleteFiles@1
+      displayName: "Clean Particle Engine Output Folder"
+      inputs:
+        SourceFolder: '$(Build.SourcesDirectory)\$(ParticleEngineProjectDirName)\bin\$(BuildPlatform)\Release\$(TargetFramework)'
+        Contents: '*.*'
+
+
     - task: VSBuild@1
       displayName: "Build Solution"
       inputs:
         platform: "$(BuildPlatform)"
-        configuration: "$(SDLBuildConfiguration)"
+        configuration: "Release-SDL"
         solution: "$(Build.SourcesDirectory)/*.sln"
         vsVersion: latest
 
 
-    - task: NuGetCommand@2
+    - task: DeleteFiles@1
+      displayName: "Delete Particle Engine Nuget Packages"
+      inputs:
+        SourceFolder: '$(Build.SourcesDirectory)\$(ParticleEngineProjectDirName)\bin\$(BuildPlatform)\Release'
+        Contents: '*.nupkg'
+
+
+    - task: VSBuild@1
       displayName: "Create Particle Engine Nuget Package"
       inputs:
-        command: "pack"
-        packagesToPack: "$(Build.SourcesDirectory)/KD.Particle.Engine/*.csproj"
-        configuration: $(ParticleEnginePackConfiguration)
+        solution: "**/KD.Particle.Engine/*.csproj"
+        msbuildArgs: "-t:pack"
+        platform: "x64"
+        configuration: "Release"
+
+
+    - task: CopyFiles@2
+      displayName: "Copy Particle Engine Nuget Package To Output"
+      inputs:
+        SourceFolder: '$(Build.SourcesDirectory)\$(ParticleEngineProjectDirName)\bin\$(BuildPlatform)\Release'
+        Contents: '*.nupkg'
+        TargetFolder: '$(Build.SourcesDirectory)\$(ParticleEngineProjectDirName)\bin\$(BuildPlatform)\Release\$(TargetFramework)'
+        OverWrite: true
+
+
+    - task: CopyFiles@2
+      displayName: "Copy Particle Engine Project File To Output"
+      inputs:
+        SourceFolder: '$(Build.SourcesDirectory)\$(ParticleEngineProjectDirName)'
+        Contents: '*.csproj'
+        TargetFolder: '$(Build.SourcesDirectory)\$(ParticleEngineProjectDirName)\bin\$(BuildPlatform)\Release\$(TargetFramework)'
+        OverWrite: true
 
 
     - task: PublishBuildArtifacts@1
       displayName: "Publish Particle Engine Build Artifacts"
       inputs:
-        PathtoPublish: $(Build.SourcesDirectory)/KD.Particle.Engine/bin/$(BuildPlatform)/Debug/netstandard2.0
+        PathtoPublish: $(Build.SourcesDirectory)/$(ParticleEngineProjectDirName)/bin/$(BuildPlatform)/$(ParticleEngineConfiguration)/$(TargetFramework)
         ArtifactName: "drop"
         publishLocation: "Container"
 
 
-    - task: DownloadPipelineArtifact@2
-      displayName: "Download Particle Engine Build Artifact"
+
+
+  - job: "Unit_Testing"
+    displayName: "Unit Testing"
+    dependsOn: Build_Job
+    pool:
+      name: "KinsonDigital"
+
+    steps:
+    - task: UseDotNet@2
+      displayName: "Use NET Core SDK 3.0.100 Preview 7"
       inputs:
-        buildType: "current"
-        targetPath: "$(Pipeline.Workspace)"
+        packageType: "sdk"
+        version: "3.0.100-preview7-012821"
+        includePreviewVersions: true
 
 
-
-  # - job: "Unit_Testing"
-  #   displayName: "Unit Testing"
-  #   dependsOn: Build_Job
-  #   pool:
-  #     name: "KinsonDigital"
-
-  #   steps:
-  #   - task: UseDotNet@2
-  #     inputs:
-  #       packageType: "sdk"
-  #       version: "3.0.100-preview7-012821"
-  #       includePreviewVersions: true
+    - task: DotNetCoreCLI@2
+      displayName: "Run Unit Tests"
+      inputs:
+        configuration: $(UnitTestBuildConfiguration)
+        command: test
+        projects: "$(Build.SourcesDirectory)/*.sln"
+        arguments: "--configuration $(SolutionBuildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura"
 
 
-  #   - task: DotNetCoreCLI@2
-  #     displayName: "Run Unit Tests"
-  #     inputs:
-  #       configuration: $(UnitTestBuildConfiguration)
-  #       command: test
-  #       projects: "$(Build.SourcesDirectory)/*.sln"
-  #       arguments: "--configuration $(SDLBuildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura"
+    - script: |
+        dotnet tool install -g dotnet-reportgenerator-globaltool
+        reportgenerator -reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:HtmlInline_AzurePipelines;Cobertura
+      displayName: "Install & Run Report Generator"
 
 
-  #   - script: |
-  #       dotnet tool install -g dotnet-reportgenerator-globaltool
-  #       reportgenerator -reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:HtmlInline_AzurePipelines;Cobertura
-  #     displayName: "Install & Run Report Generator"
-
-
-  #   - task: PublishCodeCoverageResults@1
-  #     displayName: Publish Code Coverage Results
-  #     inputs:
-  #       codeCoverageTool: Cobertura
-  #       summaryFileLocation: "$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml"
+    - task: PublishCodeCoverageResults@1
+      displayName: Publish Code Coverage Results
+      inputs:
+        codeCoverageTool: Cobertura
+        summaryFileLocation: "$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml"
