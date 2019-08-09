@@ -53,7 +53,7 @@ jobs:
       displayName: "Build Solution"
       inputs:
         platform: "$(BuildPlatform)"
-        configuration: "Release-SDL"
+        configuration: "$(SolutionBuildConfiguration)"
         solution: "$(Build.SourcesDirectory)/*.sln"
         vsVersion: latest
 
