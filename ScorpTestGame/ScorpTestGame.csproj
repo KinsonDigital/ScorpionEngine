@@ -24,10 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KD.Particle.Engine\KD.Particle.Engine.csproj" />
     <ProjectReference Include="..\KD.Scorpion.Core\KD.Scorpion.Core.csproj" />
     <ProjectReference Include="..\KD.Scorpion.Engine\KD.Scorpion.Engine.csproj" />
     <ProjectReference Include="..\KD.Scorpion.UI\KD.Scorpion.UI.csproj" />
+    <ProjectReference Include="..\ParticleEngine\KDParticleEngine\KD.Particle.Engine.csproj" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
