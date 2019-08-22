@@ -33,6 +33,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KD.Scorpion.Engine.Tests", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KD.Scorpion.Core.Tests", "KD.Scorpion.Core.Tests\KD.Scorpion.Core.Tests.csproj", "{5348F2FA-4FEB-4B3D-836D-D7F169FDD9EE}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KD.Particle.Engine", "ParticleEngine\KDParticleEngine\KD.Particle.Engine.csproj", "{243251D1-38A0-4894-AA3B-D3DEBD3769A9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KD.Particle.Engine.Tests", "ParticleEngine\KDParticleEngineTests\KD.Particle.Engine.Tests.csproj", "{7808EF5F-70FF-4475-9A81-96264258E512}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug-MonoGame|x64 = Debug-MonoGame|x64
@@ -287,6 +291,46 @@ Global
 		{5348F2FA-4FEB-4B3D-836D-D7F169FDD9EE}.UserControlTesting|x64.Build.0 = Debug|x64
 		{5348F2FA-4FEB-4B3D-836D-D7F169FDD9EE}.UserControlTesting|x86.ActiveCfg = Release|x86
 		{5348F2FA-4FEB-4B3D-836D-D7F169FDD9EE}.UserControlTesting|x86.Build.0 = Release|x86
+		{243251D1-38A0-4894-AA3B-D3DEBD3769A9}.Debug-MonoGame|x64.ActiveCfg = Debug|x64
+		{243251D1-38A0-4894-AA3B-D3DEBD3769A9}.Debug-MonoGame|x64.Build.0 = Debug|x64
+		{243251D1-38A0-4894-AA3B-D3DEBD3769A9}.Debug-MonoGame|x86.ActiveCfg = Debug|x86
+		{243251D1-38A0-4894-AA3B-D3DEBD3769A9}.Debug-MonoGame|x86.Build.0 = Debug|x86
+		{243251D1-38A0-4894-AA3B-D3DEBD3769A9}.Debug-SDL|x64.ActiveCfg = Debug|x64
+		{243251D1-38A0-4894-AA3B-D3DEBD3769A9}.Debug-SDL|x64.Build.0 = Debug|x64
+		{243251D1-38A0-4894-AA3B-D3DEBD3769A9}.Debug-SDL|x86.ActiveCfg = Debug|x86
+		{243251D1-38A0-4894-AA3B-D3DEBD3769A9}.Debug-SDL|x86.Build.0 = Debug|x86
+		{243251D1-38A0-4894-AA3B-D3DEBD3769A9}.Release-MonoGame|x64.ActiveCfg = Release|x64
+		{243251D1-38A0-4894-AA3B-D3DEBD3769A9}.Release-MonoGame|x64.Build.0 = Release|x64
+		{243251D1-38A0-4894-AA3B-D3DEBD3769A9}.Release-MonoGame|x86.ActiveCfg = Release|x86
+		{243251D1-38A0-4894-AA3B-D3DEBD3769A9}.Release-MonoGame|x86.Build.0 = Release|x86
+		{243251D1-38A0-4894-AA3B-D3DEBD3769A9}.Release-SDL|x64.ActiveCfg = Release|x64
+		{243251D1-38A0-4894-AA3B-D3DEBD3769A9}.Release-SDL|x64.Build.0 = Release|x64
+		{243251D1-38A0-4894-AA3B-D3DEBD3769A9}.Release-SDL|x86.ActiveCfg = Release|x86
+		{243251D1-38A0-4894-AA3B-D3DEBD3769A9}.Release-SDL|x86.Build.0 = Release|x86
+		{243251D1-38A0-4894-AA3B-D3DEBD3769A9}.UserControlTesting|x64.ActiveCfg = Release|x64
+		{243251D1-38A0-4894-AA3B-D3DEBD3769A9}.UserControlTesting|x64.Build.0 = Release|x64
+		{243251D1-38A0-4894-AA3B-D3DEBD3769A9}.UserControlTesting|x86.ActiveCfg = Release|x86
+		{243251D1-38A0-4894-AA3B-D3DEBD3769A9}.UserControlTesting|x86.Build.0 = Release|x86
+		{7808EF5F-70FF-4475-9A81-96264258E512}.Debug-MonoGame|x64.ActiveCfg = Debug|x64
+		{7808EF5F-70FF-4475-9A81-96264258E512}.Debug-MonoGame|x64.Build.0 = Debug|x64
+		{7808EF5F-70FF-4475-9A81-96264258E512}.Debug-MonoGame|x86.ActiveCfg = Debug|x86
+		{7808EF5F-70FF-4475-9A81-96264258E512}.Debug-MonoGame|x86.Build.0 = Debug|x86
+		{7808EF5F-70FF-4475-9A81-96264258E512}.Debug-SDL|x64.ActiveCfg = Debug|x64
+		{7808EF5F-70FF-4475-9A81-96264258E512}.Debug-SDL|x64.Build.0 = Debug|x64
+		{7808EF5F-70FF-4475-9A81-96264258E512}.Debug-SDL|x86.ActiveCfg = Debug|x86
+		{7808EF5F-70FF-4475-9A81-96264258E512}.Debug-SDL|x86.Build.0 = Debug|x86
+		{7808EF5F-70FF-4475-9A81-96264258E512}.Release-MonoGame|x64.ActiveCfg = Release|x64
+		{7808EF5F-70FF-4475-9A81-96264258E512}.Release-MonoGame|x64.Build.0 = Release|x64
+		{7808EF5F-70FF-4475-9A81-96264258E512}.Release-MonoGame|x86.ActiveCfg = Release|x86
+		{7808EF5F-70FF-4475-9A81-96264258E512}.Release-MonoGame|x86.Build.0 = Release|x86
+		{7808EF5F-70FF-4475-9A81-96264258E512}.Release-SDL|x64.ActiveCfg = Release|x64
+		{7808EF5F-70FF-4475-9A81-96264258E512}.Release-SDL|x64.Build.0 = Release|x64
+		{7808EF5F-70FF-4475-9A81-96264258E512}.Release-SDL|x86.ActiveCfg = Release|x86
+		{7808EF5F-70FF-4475-9A81-96264258E512}.Release-SDL|x86.Build.0 = Release|x86
+		{7808EF5F-70FF-4475-9A81-96264258E512}.UserControlTesting|x64.ActiveCfg = Release|x64
+		{7808EF5F-70FF-4475-9A81-96264258E512}.UserControlTesting|x64.Build.0 = Release|x64
+		{7808EF5F-70FF-4475-9A81-96264258E512}.UserControlTesting|x86.ActiveCfg = Release|x86
+		{7808EF5F-70FF-4475-9A81-96264258E512}.UserControlTesting|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -296,6 +340,7 @@ Global
 		{132C8707-AE48-462D-BD7F-786B567B4FE1} = {C12F7941-E834-4C6A-B3F6-E4DD58FF0CC8}
 		{9400C56B-2543-455F-B349-F878B0EEC4FC} = {C12F7941-E834-4C6A-B3F6-E4DD58FF0CC8}
 		{5348F2FA-4FEB-4B3D-836D-D7F169FDD9EE} = {C12F7941-E834-4C6A-B3F6-E4DD58FF0CC8}
+		{7808EF5F-70FF-4475-9A81-96264258E512} = {C12F7941-E834-4C6A-B3F6-E4DD58FF0CC8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5EA680D2-B81C-4C51-8F00-1D3B38E53609}
