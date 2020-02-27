@@ -1,17 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <Platforms>x86;x64</Platforms>
     <ApplicationIcon />
     <OutputType>WinExe</OutputType>
     <AssemblyTitle>ScorpTestGame</AssemblyTitle>
     <Product>Kinson Digital - ScorpTestGame</Product>
     <Copyright>Copyright © 2018</Copyright>
-    <Version>1.0.0</Version>
-    <FileVersion>1.0.0</FileVersion>
     <Company>Kinson Digital</Company>
     <AssemblyName>ScorpTestGame</AssemblyName>
+    <Version>0.1.0</Version>
+    <FileVersion>0.1.0</FileVersion>
+    <AssemblyVersion>0.1.0</AssemblyVersion>
     <StartupObject />
     <RootNamespace>KDScorpTestGame</RootNamespace>
   </PropertyGroup>
