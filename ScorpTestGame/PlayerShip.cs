@@ -65,25 +65,27 @@ namespace ScorpTestGame
                 new Vector(-23, 22)
             };
 
-            _particleEngine = new ParticleEngine<Texture>(new RandomizerService())
-            {
-                SpawnLocation = _thrusterPosition.ToPointF(),
-                UseRandomVelocity = true,
-                TotalParticlesAliveAtOnce = 40,
-                UseColorsFromList = true,
-                TintColors = _orangeColors.ToNETColors(),
-                RedMin = 255,
-                RedMax = 255,
-                GreenMin = 132,
-                GreenMax = 209,
-                BlueMin = 0,
-                BlueMax = 0,
-                SizeMin = 0.2f,
-                SizeMax = 0.3f,
-                LifeTimeMax = 250,
-                AngularVelocityMin = 0,
-                AngularVelocityMax = 2
-            };
+
+            //TODO: Figure out how to set all these values below with new particle engine changes
+            //_particleEngine = new ParticleEngine<Texture>(new RandomizerService())
+            //{
+                //SpawnLocation = _thrusterPosition.ToPointF(),
+                //UseRandomVelocity = true,
+                //TotalParticlesAliveAtOnce = 40,
+                //UseColorsFromList = true,
+                //TintColors = _orangeColors.ToNETColors(),
+                //RedMin = 255,
+                //RedMax = 255,
+                //GreenMin = 132,
+                //GreenMax = 209,
+                //BlueMin = 0,
+                //BlueMax = 0,
+                //SizeMin = 0.2f,
+                //SizeMax = 0.3f,
+                //LifeTimeMax = 250,
+                //AngularVelocityMin = 0,
+                //AngularVelocityMax = 2
+            //};
 
             _movementBehavior = new MoveFowardKeyboardBehavior<PlayerShip>(this, 1f, 0.12f)
             {
@@ -109,7 +111,8 @@ namespace ScorpTestGame
         {
             Texture = contentLoader.LoadTexture(@"Ship");
 
-            _particleEngine.Add(contentLoader.LoadTexture(@"Particles\Triangle"));
+            //TODO: Figure out how to add a texture with new particle engine changes
+            //_particleEngine.Add(contentLoader.LoadTexture(@"Particles\Triangle"));
 
             base.LoadContent(contentLoader);
         }
@@ -120,30 +123,31 @@ namespace ScorpTestGame
             _keyboard.UpdateCurrentState();
             _mouse.UpdateCurrentState();
 
-            if (_mouse.IsButtonPressed(InputButton.LeftButton))
-            {
-                _particleEngine.TintColors = _orangeColors.ToNETColors();
-            }
+            //TODO: Figure out how to accoomplish the code below with new particle engine changes
+            //if (_mouse.IsButtonPressed(InputButton.LeftButton))
+            //{
+            //    _particleEngine.TintColors = _orangeColors.ToNETColors();
+            //}
 
-            if (_mouse.IsButtonPressed(InputButton.RightButton))
-            {
-                _particleEngine.TintColors = _blueColors.ToNETColors();
-            }
+            //if (_mouse.IsButtonPressed(InputButton.RightButton))
+            //{
+            //    _particleEngine.TintColors = _blueColors.ToNETColors();
+            //}
 
-            if (_mouse.IsButtonPressed(InputButton.MiddleButton))
-            {
-                _particleEngine.TintColors = _purpleColors.ToNETColors();
-            }
+            //if (_mouse.IsButtonPressed(InputButton.MiddleButton))
+            //{
+            //    _particleEngine.TintColors = _purpleColors.ToNETColors();
+            //}
 
-            if (_keyboard.IsKeyPressed(KeyCodes.Enter))
-            {
-                _particleEngine.TintColors = _purpleColors.ToNETColors();
-            }
+            //if (_keyboard.IsKeyPressed(KeyCodes.Enter))
+            //{
+            //    _particleEngine.TintColors = _purpleColors.ToNETColors();
+            //}
 
-            if (_keyboard.IsKeyPressed(KeyCodes.RightShift))
-            {
-                _particleEngine.TintColors = _blueColors.ToNETColors();
-            }
+            //if (_keyboard.IsKeyPressed(KeyCodes.RightShift))
+            //{
+            //    _particleEngine.TintColors = _blueColors.ToNETColors();
+            //}
 
 
             //Update the spawn position of the thruster particels
@@ -155,12 +159,13 @@ namespace ScorpTestGame
             var rotatedParticleMin = new Vector(0, _particleVelocityMagnitudeMin).RotateAround(Vector.Zero, Angle);
             var rotatedParticleMax = new Vector(0, _particleVelocityMagnitudeMax).RotateAround(Vector.Zero, Angle);
 
-            _particleEngine.VelocityXMin = rotatedParticleMin.X;
-            _particleEngine.VelocityXMax = rotatedParticleMax.X;
-            _particleEngine.VelocityYMin = rotatedParticleMin.Y;
-            _particleEngine.VelocityYMax = rotatedParticleMax.Y;
+            //TODO: Figure out how to accoomplish the code below with new particle engine changes
+            //_particleEngine.VelocityXMin = rotatedParticleMin.X;
+            //_particleEngine.VelocityXMax = rotatedParticleMax.X;
+            //_particleEngine.VelocityYMin = rotatedParticleMin.Y;
+            //_particleEngine.VelocityYMax = rotatedParticleMax.Y;
 
-            _particleEngine.SpawnLocation = _thrusterPosition.ToPointF();
+            //_particleEngine.SpawnLocation = _thrusterPosition.ToPointF();
 
             _particleEngine.Enabled = _movementBehavior.IsMovingForward;
 
@@ -177,8 +182,9 @@ namespace ScorpTestGame
 
         public override void Render(GameRenderer renderer)
         {
-            if (_particleEngine.Enabled)
-                _particleEngine.Particles.ToList().ForEach(p => renderer.RenderParticle(p));
+            //TODO: Figure out how to accomplish the code below with new particle engine changes.
+            //if (_particleEngine.Enabled)
+            //    _particleEngine.Particles.ToList().ForEach(p => renderer.RenderParticle(p));
         }
         #endregion
     }
