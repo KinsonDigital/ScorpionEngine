@@ -34,27 +34,28 @@ namespace ScorpTestGame.Scenes
                 new GameColor(255, 255, 106, 0)
             };
 
-            _particleEngine = new ParticleEngine<Texture>(new RandomizerService())
-            {
-                SpawnLocation = new PointF(400, 400),
-                UseRandomVelocity = true,
-                TotalParticlesAliveAtOnce = 60,
-                UseColorsFromList = false,
-                TintColors = colors.ToNETColors(),
-                RedMin = 255,
-                RedMax = 255,
-                GreenMin = 132,
-                GreenMax = 209,
-                BlueMin = 0,
-                BlueMax = 0,
-                SizeMin = 0.05f,
-                SizeMax = 0.20f,
-                LifeTimeMax = 700,
-                VelocityXMin = -0.25f,
-                VelocityXMax = 0.25f,
-                VelocityYMin = 0,
-                VelocityYMax = 1f
-            };
+            //TODO: Figure out how to accomplish the code below with new particle engine changes.
+            //_particleEngine = new ParticleEngine<Texture>(new RandomizerService())
+            //{
+            //    SpawnLocation = new PointF(400, 400),
+            //    UseRandomVelocity = true,
+            //    TotalParticlesAliveAtOnce = 60,
+            //    UseColorsFromList = false,
+            //    TintColors = colors.ToNETColors(),
+            //    RedMin = 255,
+            //    RedMax = 255,
+            //    GreenMin = 132,
+            //    GreenMax = 209,
+            //    BlueMin = 0,
+            //    BlueMax = 0,
+            //    SizeMin = 0.05f,
+            //    SizeMax = 0.20f,
+            //    LifeTimeMax = 700,
+            //    VelocityXMin = -0.25f,
+            //    VelocityXMax = 0.25f,
+            //    VelocityYMin = 0,
+            //    VelocityYMax = 1f
+            //};
 
             base.Initialize();
         }
@@ -67,7 +68,8 @@ namespace ScorpTestGame.Scenes
                 contentLoader.LoadTexture(@"Particles\ShipThruster")
             };
 
-            _particleEngine.Add(textures);
+            //TODO: Figure out how to accomplish the code below with new particle engine changes.
+            //_particleEngine.Add(textures);
 
             base.LoadContent(contentLoader);
         }
@@ -79,7 +81,8 @@ namespace ScorpTestGame.Scenes
 
             _particleEngine.Update(engineTime.ToTimeSpan());
 
-            _particleEngine.SpawnLocation = new PointF(_mouse.X, _mouse.Y);
+            //TODO: Figure out how to accomplish the code below with new particle engine changes.
+            //_particleEngine.SpawnLocation = new PointF(_mouse.X, _mouse.Y);
 
             _mouse.UpdatePreviousState();
 
@@ -89,7 +92,8 @@ namespace ScorpTestGame.Scenes
 
         public override void Render(GameRenderer renderer)
         {
-            _particleEngine.Particles.ToList().ForEach(p => renderer.Render(p.Texture, p.Position.ToVector()));
+            //TODO: Figure out how to accomplish the code below with new particle engine changes.
+            //_particleEngine.Particles.ToList().ForEach(p => renderer.Render(p.Texture, p.Position.ToVector()));
 
             base.Render(renderer);
         }
