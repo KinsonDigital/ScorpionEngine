@@ -225,7 +225,7 @@ namespace KDScorpionEngine.Content
             //First check to see if the ID is in the atlas data or atlas texture lists
             if (_allAtlasData.Count <= 0 || _allAtlasTextures.Count <= 0) return;
 
-            //todo: look into uncommenting this code
+            //TODO: look into uncommenting this code
             //If there are items in the lists, check for item duplication
 //            if (_allAtlasData.key.Count(dataKey => dataKey == id) > 1 || _allAtlasTextures.key.Count(key => key == id) > 1)
 //                throw new Exception("The atlas data with the textureAtlasID \"" + ID + "\" has already been added to the atlas manager.");

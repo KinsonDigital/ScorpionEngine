@@ -24,7 +24,7 @@ namespace KDScorpionEngine.Content
         /// <param name="atlasSubTexutureData">The sub texture data of all of the sub textures in the atlas.</param>
         public AtlasData(List<AtlasSpriteData> atlasSubTexutureData)
         {
-            //todo: check to see if this copy by reference is needed
+            //TODO: check to see if this copy by reference is needed
             _atlasSprites = atlasSubTexutureData;
         }
         #endregion
