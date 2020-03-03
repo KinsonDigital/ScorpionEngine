@@ -129,7 +129,7 @@ namespace SDLScorpPlugin
             }
 
 
-            //TODO: Create a custome InvalidGetDataOptionException class.  Implement this for all GetData<T> implementations
+            //TODO: Create a custom InvalidGetDataOptionException class.  Implement this for all GetData<T> implementations
             throw new Exception($"The option '{option}' is not valid. \n\nValid options are 1.");
         }
         #endregion
