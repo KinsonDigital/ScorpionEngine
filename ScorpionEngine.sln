@@ -14,6 +14,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzureDevOps", "AzureDevOps", "{39784F7E-7E67-44A9-9052-0FF0A47DCD6D}"
 	ProjectSection(SolutionItems) = preProject
 		azure-pipelines-develop.yml = azure-pipelines-develop.yml
+		azure-pipelines-master.yml = azure-pipelines-master.yml
 	EndProjectSection
 EndProject
 Global
