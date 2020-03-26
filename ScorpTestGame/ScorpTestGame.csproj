@@ -27,7 +27,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\KD.Scorpion.Engine\KD.Scorpion.Engine.csproj" />
-    <ProjectReference Include="..\KD.Scorpion.UI\KD.Scorpion.UI.csproj" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

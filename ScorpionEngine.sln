@@ -5,13 +5,9 @@ VisualStudioVersion = 16.0.29025.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScorpTestGame", "ScorpTestGame\ScorpTestGame.csproj", "{47CD6544-B970-4F7A-A508-0CCC1F306FB0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KD.Scorpion.UI", "KD.Scorpion.UI\KD.Scorpion.UI.csproj", "{DCF9C343-2789-427C-881B-52805446DAC1}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KD.Scorpion.Engine", "KD.Scorpion.Engine\KD.Scorpion.Engine.csproj", "{EAA8F5F1-929B-4FF2-9292-6FCF7850A478}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{C12F7941-E834-4C6A-B3F6-E4DD58FF0CC8}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KD.ScorpionUI.Tests", "KD.Scorpion.UI.Tests\KD.ScorpionUI.Tests.csproj", "{DAD8EA90-BF2B-4A57-86F4-4176342EEB8C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KD.Scorpion.Engine.Tests", "KD.Scorpion.Engine.Tests\KD.Scorpion.Engine.Tests.csproj", "{9400C56B-2543-455F-B349-F878B0EEC4FC}"
 EndProject
@@ -49,26 +45,6 @@ Global
 		{47CD6544-B970-4F7A-A508-0CCC1F306FB0}.UserControlTesting|x64.Build.0 = Debug|x64
 		{47CD6544-B970-4F7A-A508-0CCC1F306FB0}.UserControlTesting|x86.ActiveCfg = Release|x86
 		{47CD6544-B970-4F7A-A508-0CCC1F306FB0}.UserControlTesting|x86.Build.0 = Release|x86
-		{DCF9C343-2789-427C-881B-52805446DAC1}.Debug-MonoGame|x64.ActiveCfg = Debug|x64
-		{DCF9C343-2789-427C-881B-52805446DAC1}.Debug-MonoGame|x64.Build.0 = Debug|x64
-		{DCF9C343-2789-427C-881B-52805446DAC1}.Debug-MonoGame|x86.ActiveCfg = Debug|x86
-		{DCF9C343-2789-427C-881B-52805446DAC1}.Debug-MonoGame|x86.Build.0 = Debug|x86
-		{DCF9C343-2789-427C-881B-52805446DAC1}.Debug-SDL|x64.ActiveCfg = Debug|x64
-		{DCF9C343-2789-427C-881B-52805446DAC1}.Debug-SDL|x64.Build.0 = Debug|x64
-		{DCF9C343-2789-427C-881B-52805446DAC1}.Debug-SDL|x86.ActiveCfg = Debug|x86
-		{DCF9C343-2789-427C-881B-52805446DAC1}.Debug-SDL|x86.Build.0 = Debug|x86
-		{DCF9C343-2789-427C-881B-52805446DAC1}.Release-MonoGame|x64.ActiveCfg = Release|x64
-		{DCF9C343-2789-427C-881B-52805446DAC1}.Release-MonoGame|x64.Build.0 = Release|x64
-		{DCF9C343-2789-427C-881B-52805446DAC1}.Release-MonoGame|x86.ActiveCfg = Release|x86
-		{DCF9C343-2789-427C-881B-52805446DAC1}.Release-MonoGame|x86.Build.0 = Release|x86
-		{DCF9C343-2789-427C-881B-52805446DAC1}.Release-SDL|x64.ActiveCfg = Release|x64
-		{DCF9C343-2789-427C-881B-52805446DAC1}.Release-SDL|x64.Build.0 = Release|x64
-		{DCF9C343-2789-427C-881B-52805446DAC1}.Release-SDL|x86.ActiveCfg = Release|x86
-		{DCF9C343-2789-427C-881B-52805446DAC1}.Release-SDL|x86.Build.0 = Release|x86
-		{DCF9C343-2789-427C-881B-52805446DAC1}.UserControlTesting|x64.ActiveCfg = Debug|x64
-		{DCF9C343-2789-427C-881B-52805446DAC1}.UserControlTesting|x64.Build.0 = Debug|x64
-		{DCF9C343-2789-427C-881B-52805446DAC1}.UserControlTesting|x86.ActiveCfg = Release|x86
-		{DCF9C343-2789-427C-881B-52805446DAC1}.UserControlTesting|x86.Build.0 = Release|x86
 		{EAA8F5F1-929B-4FF2-9292-6FCF7850A478}.Debug-MonoGame|x64.ActiveCfg = Debug|x64
 		{EAA8F5F1-929B-4FF2-9292-6FCF7850A478}.Debug-MonoGame|x64.Build.0 = Debug|x64
 		{EAA8F5F1-929B-4FF2-9292-6FCF7850A478}.Debug-MonoGame|x86.ActiveCfg = Debug|x86
@@ -89,26 +65,6 @@ Global
 		{EAA8F5F1-929B-4FF2-9292-6FCF7850A478}.UserControlTesting|x64.Build.0 = Debug|x64
 		{EAA8F5F1-929B-4FF2-9292-6FCF7850A478}.UserControlTesting|x86.ActiveCfg = Release|x86
 		{EAA8F5F1-929B-4FF2-9292-6FCF7850A478}.UserControlTesting|x86.Build.0 = Release|x86
-		{DAD8EA90-BF2B-4A57-86F4-4176342EEB8C}.Debug-MonoGame|x64.ActiveCfg = Debug|x64
-		{DAD8EA90-BF2B-4A57-86F4-4176342EEB8C}.Debug-MonoGame|x64.Build.0 = Debug|x64
-		{DAD8EA90-BF2B-4A57-86F4-4176342EEB8C}.Debug-MonoGame|x86.ActiveCfg = Debug|x86
-		{DAD8EA90-BF2B-4A57-86F4-4176342EEB8C}.Debug-MonoGame|x86.Build.0 = Debug|x86
-		{DAD8EA90-BF2B-4A57-86F4-4176342EEB8C}.Debug-SDL|x64.ActiveCfg = Debug|x64
-		{DAD8EA90-BF2B-4A57-86F4-4176342EEB8C}.Debug-SDL|x64.Build.0 = Debug|x64
-		{DAD8EA90-BF2B-4A57-86F4-4176342EEB8C}.Debug-SDL|x86.ActiveCfg = Debug|x86
-		{DAD8EA90-BF2B-4A57-86F4-4176342EEB8C}.Debug-SDL|x86.Build.0 = Debug|x86
-		{DAD8EA90-BF2B-4A57-86F4-4176342EEB8C}.Release-MonoGame|x64.ActiveCfg = Release|x64
-		{DAD8EA90-BF2B-4A57-86F4-4176342EEB8C}.Release-MonoGame|x64.Build.0 = Release|x64
-		{DAD8EA90-BF2B-4A57-86F4-4176342EEB8C}.Release-MonoGame|x86.ActiveCfg = Release|x86
-		{DAD8EA90-BF2B-4A57-86F4-4176342EEB8C}.Release-MonoGame|x86.Build.0 = Release|x86
-		{DAD8EA90-BF2B-4A57-86F4-4176342EEB8C}.Release-SDL|x64.ActiveCfg = Release|x64
-		{DAD8EA90-BF2B-4A57-86F4-4176342EEB8C}.Release-SDL|x64.Build.0 = Release|x64
-		{DAD8EA90-BF2B-4A57-86F4-4176342EEB8C}.Release-SDL|x86.ActiveCfg = Release|x86
-		{DAD8EA90-BF2B-4A57-86F4-4176342EEB8C}.Release-SDL|x86.Build.0 = Release|x86
-		{DAD8EA90-BF2B-4A57-86F4-4176342EEB8C}.UserControlTesting|x64.ActiveCfg = Debug|x64
-		{DAD8EA90-BF2B-4A57-86F4-4176342EEB8C}.UserControlTesting|x64.Build.0 = Debug|x64
-		{DAD8EA90-BF2B-4A57-86F4-4176342EEB8C}.UserControlTesting|x86.ActiveCfg = Release|x86
-		{DAD8EA90-BF2B-4A57-86F4-4176342EEB8C}.UserControlTesting|x86.Build.0 = Release|x86
 		{9400C56B-2543-455F-B349-F878B0EEC4FC}.Debug-MonoGame|x64.ActiveCfg = Debug|x64
 		{9400C56B-2543-455F-B349-F878B0EEC4FC}.Debug-MonoGame|x64.Build.0 = Debug|x64
 		{9400C56B-2543-455F-B349-F878B0EEC4FC}.Debug-MonoGame|x86.ActiveCfg = Debug|x86
@@ -134,7 +90,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{DAD8EA90-BF2B-4A57-86F4-4176342EEB8C} = {C12F7941-E834-4C6A-B3F6-E4DD58FF0CC8}
 		{9400C56B-2543-455F-B349-F878B0EEC4FC} = {C12F7941-E834-4C6A-B3F6-E4DD58FF0CC8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
