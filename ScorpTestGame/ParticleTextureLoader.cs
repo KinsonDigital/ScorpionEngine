@@ -1,6 +1,6 @@
 ﻿using KDParticleEngine;
-using KDScorpionCore.Content;
-using KDScorpionCore.Graphics;
+using Raptor.Content;
+using Raptor.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
