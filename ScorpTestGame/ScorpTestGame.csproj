@@ -27,6 +27,6 @@
 
   
   <ItemGroup>
-    <ProjectReference Include="..\KD.Scorpion.Engine\KD.Scorpion.Engine.csproj" />
+    <ProjectReference Include="..\KD.Scorpion.Engine\ScorpionEngine.csproj" />
   </ItemGroup>
 </Project>
