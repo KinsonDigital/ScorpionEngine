@@ -1,14 +1,14 @@
 ﻿using System;
 using Moq;
 using Xunit;
-using KDScorpionCore;
-using KDScorpionCore.Content;
-using KDScorpionCore.Input;
-using KDScorpionCore.Plugins;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngine.Scene;
 using KDScorpionEngine;
 using KDScorpionEngine.Graphics;
+using Raptor.Input;
+using Raptor.Plugins;
+using Raptor.Content;
+using Raptor;
 
 namespace KDScorpionEngineTests.Scene
 {

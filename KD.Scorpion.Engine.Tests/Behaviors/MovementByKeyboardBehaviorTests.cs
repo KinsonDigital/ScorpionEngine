@@ -1,11 +1,11 @@
 ﻿using System;
 using Moq;
 using Xunit;
-using KDScorpionCore;
-using KDScorpionCore.Input;
-using KDScorpionCore.Plugins;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Entities;
+using Raptor.Input;
+using Raptor.Plugins;
+using Raptor;
 
 namespace KDScorpionEngineTests.Behaviors
 {

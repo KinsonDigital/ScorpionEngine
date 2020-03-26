@@ -1,8 +1,8 @@
-﻿using KDScorpionCore;
-using KDScorpionCore.Graphics;
-using KDScorpionCore.Plugins;
-using KDScorpionEngine.Behaviors;
+﻿using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Exceptions;
+using Raptor;
+using Raptor.Graphics;
+using Raptor.Plugins;
 
 namespace KDScorpionEngine.Entities
 {

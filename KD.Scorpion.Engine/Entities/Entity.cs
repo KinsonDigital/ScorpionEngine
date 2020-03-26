@@ -1,15 +1,15 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using KDScorpionCore;
-using KDScorpionCore.Content;
-using KDScorpionCore.Graphics;
-using KDScorpionCore.Input;
-using KDScorpionCore.Physics;
-using KDScorpionCore.Plugins;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngine.Graphics;
+using Raptor;
+using Raptor.Content;
+using Raptor.Graphics;
+using Raptor.Input;
+using Raptor.Physics;
+using Raptor.Plugins;
 
 namespace KDScorpionEngine.Entities
 {

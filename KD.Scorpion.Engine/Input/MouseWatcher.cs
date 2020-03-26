@@ -1,7 +1,7 @@
-﻿using KDScorpionCore;
-using KDScorpionCore.Input;
-using KDScorpionCore.Plugins;
-using KDScorpionEngine.Utils;
+﻿using KDScorpionEngine.Utils;
+using Raptor;
+using Raptor.Input;
+using Raptor.Plugins;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;

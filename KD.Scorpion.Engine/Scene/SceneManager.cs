@@ -1,10 +1,10 @@
-﻿using KDScorpionCore;
-using KDScorpionCore.Content;
-using KDScorpionCore.Input;
-using KDScorpionCore.Plugins;
-using KDScorpionEngine.Events;
+﻿using KDScorpionEngine.Events;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngine.Graphics;
+using Raptor;
+using Raptor.Content;
+using Raptor.Input;
+using Raptor.Plugins;
 using System;
 using System.Collections;
 using System.Collections.Generic;

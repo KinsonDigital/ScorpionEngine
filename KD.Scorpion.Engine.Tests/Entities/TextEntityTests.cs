@@ -1,9 +1,9 @@
 ﻿using Moq;
 using Xunit;
 using KDScorpionEngine.Entities;
-using KDScorpionCore.Plugins;
 using System;
-using KDScorpionCore.Graphics;
+using Raptor.Graphics;
+using Raptor.Plugins;
 
 namespace KDScorpionEngineTests.Entities
 {

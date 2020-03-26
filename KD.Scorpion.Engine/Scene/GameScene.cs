@@ -1,9 +1,9 @@
-﻿using KDScorpionCore;
-using KDScorpionCore.Content;
-using KDScorpionCore.Physics;
-using KDScorpionCore.Plugins;
-using KDScorpionEngine.Entities;
+﻿using KDScorpionEngine.Entities;
 using KDScorpionEngine.Graphics;
+using Raptor;
+using Raptor.Content;
+using Raptor.Physics;
+using Raptor.Plugins;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 

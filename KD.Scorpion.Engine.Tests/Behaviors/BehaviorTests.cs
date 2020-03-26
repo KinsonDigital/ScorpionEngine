@@ -1,5 +1,5 @@
-﻿using KDScorpionCore;
-using KDScorpionEngineTests.Fakes;
+﻿using KDScorpionEngineTests.Fakes;
+using Raptor;
 using Xunit;
 
 namespace KDScorpionEngineTests.Behaviors

@@ -1,7 +1,7 @@
 ﻿using Xunit;
 using KDScorpionEngine.Entities;
 using KDScorpionEngine.Exceptions;
-using KDScorpionCore.Physics;
+using Raptor.Physics;
 
 namespace KDScorpionEngineTests.Exceptions
 {

@@ -1,6 +1,6 @@
-﻿using KDScorpionCore;
-using KDScorpionCore.Graphics;
-using KDScorpionCore.Plugins;
+﻿using Raptor;
+using Raptor.Graphics;
+using Raptor.Plugins;
 using System.Diagnostics.CodeAnalysis;
 
 namespace KDScorpionEngine.Entities

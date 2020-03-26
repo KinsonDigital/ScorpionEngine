@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using KDScorpionCore;
-using KDScorpionCore.Input;
-using KDScorpionCore.Plugins;
+using Raptor;
+using Raptor.Input;
+using Raptor.Plugins;
 
 namespace KDScorpionEngine.Behaviors
 {

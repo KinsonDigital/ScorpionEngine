@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using Moq;
 using Xunit;
-using KDScorpionCore;
-using KDScorpionCore.Input;
-using KDScorpionCore.Plugins;
 using KDScorpionEngine.Input;
 using KDScorpionEngine;
+using Raptor.Input;
+using Raptor;
+using Raptor.Plugins;
 
 namespace KDScorpionEngineTests.Input
 {

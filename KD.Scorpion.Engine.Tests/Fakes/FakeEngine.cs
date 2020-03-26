@@ -1,9 +1,9 @@
-﻿using KDScorpionCore;
-using KDScorpionCore.Content;
-using KDScorpionCore.Plugins;
-using KDScorpionEngine;
+﻿using KDScorpionEngine;
 using KDScorpionEngine.Graphics;
 using Moq;
+using Raptor;
+using Raptor.Content;
+using Raptor.Plugins;
 
 namespace KDScorpionEngineTests.Fakes
 {

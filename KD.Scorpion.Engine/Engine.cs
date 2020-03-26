@@ -1,10 +1,10 @@
 ﻿using System;
-using KDScorpionCore;
-using KDScorpionCore.Plugins;
 using KDScorpionEngine.Scene;
 using System.Diagnostics.CodeAnalysis;
-using KDScorpionCore.Content;
 using KDScorpionEngine.Graphics;
+using Raptor.Content;
+using Raptor;
+using Raptor.Plugins;
 
 namespace KDScorpionEngine
 {
@@ -43,7 +43,8 @@ namespace KDScorpionEngine
         [ExcludeFromCodeCoverage]
         public Engine()
         {
-            SetupEngineCore(Core.Start());
+            //TODO: This needs to be dealt with because Core does not exist anymore
+            //SetupEngineCore(Core.Start());
             ContentLoader = new ContentLoader();
             SceneManager = new SceneManager(ContentLoader);
         }

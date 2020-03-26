@@ -1,13 +1,13 @@
 ﻿using System;
 using Moq;
 using Xunit;
-using KDScorpionCore;
-using KDScorpionCore.Content;
-using KDScorpionCore.Graphics;
-using KDScorpionCore.Plugins;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngineTests.Fakes;
+using Raptor.Plugins;
+using Raptor;
+using Raptor.Graphics;
+using Raptor.Content;
 
 namespace KDScorpionEngineTests.Entities
 {

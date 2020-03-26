@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using Moq;
 using Xunit;
-using KDScorpionCore;
-using KDScorpionCore.Input;
-using KDScorpionCore.Plugins;
 using KDScorpionEngine.Input;
 using KDScorpionEngine;
-using PluginSystem;
+using Raptor.Input;
+using Raptor;
+using Raptor.Plugins;
 
 namespace KDScorpionEngineTests.Input
 {
@@ -573,12 +572,6 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenInvokingWithNullOnInputComboPressedEvent_DoesNotThrowNullException()
         {
             //Arrange
-            var mockPluginLib = new Mock<IPluginLibrary>();
-            mockPluginLib.Setup(m => m.LoadPlugin<IKeyboard>()).Returns(() =>
-            {
-                return _mockKeyboard.Object;
-            });
-
             var keyboardWatcher = new KeyboardWatcher(_mockKeyboard.Object)
             {
                 ComboKeys = new List<KeyCodes>()

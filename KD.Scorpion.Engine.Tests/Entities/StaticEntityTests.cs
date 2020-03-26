@@ -1,13 +1,12 @@
 ﻿using Moq;
 using Xunit;
-using KDScorpionCore;
-using KDScorpionCore.Graphics;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Entities;
 using KDScorpionEngineTests.Fakes;
-using PluginSystem;
-using KDScorpionCore.Plugins;
 using System;
+using Raptor;
+using Raptor.Graphics;
+using Raptor.Plugins;
 
 namespace KDScorpionEngineTests.Entities
 {
@@ -54,12 +53,6 @@ namespace KDScorpionEngineTests.Entities
         public void Update_WhenInvoking_UpdatesBehavior()
         {
             //Arrange
-            var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
-            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns((object[] ctorParams) =>
-            {
-                return new FakePhysicsBody((float[])ctorParams[0], (float[])ctorParams[1], (float)ctorParams[2], (float)ctorParams[3]);
-            });
-
             var mockTexture = new Mock<ITexture>();
             var mockBehavior = new Mock<IBehavior>();
             var texture = new Texture(mockTexture.Object);

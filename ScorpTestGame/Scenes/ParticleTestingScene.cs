@@ -1,11 +1,11 @@
 ﻿using KDParticleEngine;
 using KDParticleEngine.Services;
-using KDScorpionCore;
-using KDScorpionCore.Content;
-using KDScorpionCore.Graphics;
-using KDScorpionCore.Input;
 using KDScorpionEngine.Graphics;
 using KDScorpionEngine.Scene;
+using Raptor;
+using Raptor.Content;
+using Raptor.Graphics;
+using Raptor.Input;
 using System.Drawing;
 using System.Linq;
 

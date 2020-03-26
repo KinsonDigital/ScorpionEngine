@@ -1,13 +1,12 @@
 ﻿using System;
 using Moq;
 using Xunit;
-using KDScorpionCore;
-using KDScorpionCore.Graphics;
 using KDScorpionEngine.Entities;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngineTests.Fakes;
-using PluginSystem;
-using KDScorpionCore.Plugins;
+using Raptor.Plugins;
+using Raptor;
+using Raptor.Graphics;
 
 namespace KDScorpionEngineTests.Entities
 {
@@ -391,11 +390,6 @@ namespace KDScorpionEngineTests.Entities
         public void Update_WhenInvokingWithNullBody_ThrowsException()
         {
             //Arrange
-            FakePhysicsBody nullPhysicsBody = null;
-
-            var mockPhysicsPluginLibrary = new Mock<IPluginLibrary>();
-            mockPhysicsPluginLibrary.Setup(m => m.LoadPlugin<IPhysicsBody>(It.IsAny<object[]>())).Returns(nullPhysicsBody);
-
             var entity = new DynamicEntity();
 
             //Act/Assert

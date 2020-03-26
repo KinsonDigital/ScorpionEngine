@@ -1,10 +1,10 @@
 ﻿using System;
 using Moq;
 using Xunit;
-using KDScorpionCore;
-using KDScorpionCore.Plugins;
 using KDScorpionEngineTests.Fakes;
 using KDScorpionEngine;
+using Raptor.Plugins;
+using Raptor;
 
 namespace KDScorpionEngineTests
 {

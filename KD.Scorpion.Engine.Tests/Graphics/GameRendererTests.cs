@@ -1,8 +1,8 @@
-﻿using KDScorpionCore.Graphics;
-using KDScorpionCore.Plugins;
-using KDScorpionEngine.Graphics;
+﻿using KDScorpionEngine.Graphics;
 using KDScorpionEngineTests.Fakes;
 using Moq;
+using Raptor.Graphics;
+using Raptor.Plugins;
 using Xunit;
 
 namespace KDScorpionEngineTests.Graphics

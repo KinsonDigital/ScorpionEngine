@@ -1,7 +1,7 @@
 ﻿using Xunit;
-using KDScorpionCore;
 using KDScorpionEngine.Scene;
 using System;
+using Raptor;
 
 namespace KDScorpionEngineTests.Scene
 {
