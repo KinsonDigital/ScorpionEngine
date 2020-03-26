@@ -11,6 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{C12F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScorpionEngineTests", "ScorpionEngineTests\ScorpionEngineTests.csproj", "{9400C56B-2543-455F-B349-F878B0EEC4FC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzureDevOps", "AzureDevOps", "{39784F7E-7E67-44A9-9052-0FF0A47DCD6D}"
+	ProjectSection(SolutionItems) = preProject
+		azure-pipelines-develop.yml = azure-pipelines-develop.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug-Win|Any CPU = Debug-Win|Any CPU

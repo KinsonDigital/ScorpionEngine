@@ -42,7 +42,7 @@
     <!--If the runtimes directory does not exist, create one-->
     <MakeDir Directories="$(TargetDir)\runtimes" Condition="!Exists('$(TargetDir)runtimes')"/>
     
-    <Exec Command="xcopy &quot;$(RaptorPackagePath)*.dll&quot; &quot;$(TargetDir)runtimes&quot; /S"/>
+    <Exec Command="xcopy &quot;$(RaptorPackagePath)*.dll&quot; &quot;$(TargetDir)runtimes&quot; /Y /E"/>
   </Target>
 
 
