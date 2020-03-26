@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KD.Scorpion.Core\KD.Scorpion.Core.csproj" />
     <ProjectReference Include="..\PluginSystem\PluginSystem.csproj" />
   </ItemGroup>
 
