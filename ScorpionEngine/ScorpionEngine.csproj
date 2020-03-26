@@ -1,0 +1,61 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Platforms>AnyCPU</Platforms>
+    <RootNamespace>KDScorpionEngine</RootNamespace>
+    <AssemblyTitle>ScorpionEngine</AssemblyTitle>
+    <AssemblyName>ScorpionEngine</AssemblyName>
+    <Configurations>Debug-Win;Release-Win</Configurations>
+    <Product>Kinson Digital - Scorpion Engine</Product>
+    <Copyright>Copyright © 2018</Copyright>
+    <Company>Kinson Digital</Company>
+    <Version>0.2.0</Version>
+    <AssemblyVersion>0.2.0</AssemblyVersion>
+    <FileVersion>0.2.0</FileVersion>
+  </PropertyGroup>
+
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Win|AnyCPU'">
+    <Optimize>false</Optimize>
+    <OSPlatform>Windows</OSPlatform>
+  </PropertyGroup>
+
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Win|AnyCPU'">
+    <Optimize>true</Optimize>
+    <OSPlatform>Windows</OSPlatform>
+  </PropertyGroup>
+
+
+  <PropertyGroup>
+    <PackageId>KinsonDigital.ScorpionEngine.$(OSPlatform)</PackageId>
+    
+    <!-- Links that explain the Pkg<Package_Name> MSBuild property works
+     1. https://duanenewman.net/blog/post/a-better-way-to-override-references-with-packagereference/
+     2. https://www.patriksvensson.se/2019/09/how-to-find-a-nuget-package-path-from-msbuild -->
+    <RaptorPackagePath>$(PkgKinsonDigital_Raptor_Windows)\runtimes\</RaptorPackagePath>
+  </PropertyGroup>
+
+
+  <!--COPY NATIVE SDL LIBRARIES FROM LOCAL NUGET CACHE TO OUTPUT FOLDER-->
+  <Target Name="CopyNugetPackageNativeLibsToOutput" Condition="'$(ConfigurationName)|AnyCPU' == 'Debug-Win|AnyCPU' Or '$(ConfigurationName)|AnyCPU' == 'Release-Win|AnyCPU'" AfterTargets="Build">
+    <!--If the runtimes directory does not exist, create one-->
+    <MakeDir Directories="$(TargetDir)\runtimes" Condition="!Exists('$(TargetDir)runtimes')"/>
+    
+    <Exec Command="xcopy &quot;$(RaptorPackagePath)*.dll&quot; &quot;$(TargetDir)runtimes&quot; /Y /E"/>
+  </Target>
+
+
+  <ItemGroup>
+    <PackageReference Include="KinsonDigital.Raptor.Windows" Version="0.4.0" GeneratePathProperty="true"/>
+    <PackageReference Include="Microsoft.DotNet.Analyzers.Compatibility" Version="0.2.12-alpha">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+
+  <Target Name="Test" AfterTargets="Build">
+    <Exec Command="echo &quot;==> $(PkgKinsonDigital_Raptor_Windows)\&quot;"/>
+  </Target>
+</Project>

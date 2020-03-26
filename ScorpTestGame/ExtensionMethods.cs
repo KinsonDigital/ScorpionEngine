@@ -1,6 +1,6 @@
 ﻿using KDParticleEngine;
-using KDScorpionCore;
-using KDScorpionCore.Graphics;
+using Raptor;
+using Raptor.Graphics;
 using System;
 using System.Drawing;
 using System.Linq;
@@ -74,9 +74,11 @@ namespace ScorpTestGame
         /// </summary>
         /// <param name="renderer">The renderer to use to render the particle.</param>
         /// <param name="particle">The particle to render.</param>
-        public static void RenderParticle(this Renderer renderer, Particle<Texture> particle)
+        public static void RenderParticle(this Renderer renderer, Particle particle)
         {
-            renderer.Render(particle.Texture, particle.Position.X, particle.Position.Y, particle.Angle, particle.Size, particle.TintColor.ToGameColor());
+            //TODO: Figure out how to accomplish the code below with new particle engine changes.
+            //The particle does not hold the texture anymore.
+            //renderer.Render(particle.Texture, particle.Position.X, particle.Position.Y, particle.Angle, particle.Size, particle.TintColor.ToGameColor());
         }
         #endregion
     }
