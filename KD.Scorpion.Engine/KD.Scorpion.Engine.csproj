@@ -21,8 +21,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\PluginSystem\PluginSystem.csproj" />
-  </ItemGroup>
-
 </Project>
