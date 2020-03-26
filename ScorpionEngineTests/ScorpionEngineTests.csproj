@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Platforms>x86;x64</Platforms>
+    <Platforms>AnyCPU</Platforms>
     <IsPackable>false</IsPackable>    
     <AssemblyTitle>ScorpionEngineTests</AssemblyTitle>
     <Product>Kinson Digital - Scorpion Engine Tests</Product>
@@ -12,6 +12,7 @@
     <AssemblyName>ScorpionEngineTests</AssemblyName>
     <StartupObject />
     <RootNamespace>KDScorpionEngineTests</RootNamespace>
+    <Configurations>Debug-Win;Release-Win</Configurations>
   </PropertyGroup>
 
   
@@ -31,6 +32,6 @@
 
   
   <ItemGroup>
-    <ProjectReference Include="..\KD.Scorpion.Engine\ScorpionEngine.csproj" />
+    <ProjectReference Include="..\ScorpionEngine\ScorpionEngine.csproj" />
   </ItemGroup>
 </Project>
