@@ -5,6 +5,7 @@
     <ApplicationIcon />
     <OutputType>WinExe</OutputType>
     <AssemblyTitle>ScorpTestGame</AssemblyTitle>
+    <LangVersion>8.0</LangVersion>
     <Product>Kinson Digital - ScorpTestGame</Product>
     <Copyright>Copyright © 2018</Copyright>
     <Company>Kinson Digital</Company>

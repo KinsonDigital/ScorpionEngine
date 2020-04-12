@@ -5,6 +5,7 @@
     <RootNamespace>KDScorpionEngine</RootNamespace>
     <AssemblyTitle>ScorpionEngine</AssemblyTitle>
     <AssemblyName>ScorpionEngine</AssemblyName>
+    <LangVersion>8.0</LangVersion>
     <Configurations>Debug-Win;Release-Win</Configurations>
     <Product>Kinson Digital - Scorpion Engine</Product>
     <Copyright>Copyright © 2018</Copyright>
