@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29025.244
@@ -15,6 +15,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzureDevOps", "AzureDevOps"
 	ProjectSection(SolutionItems) = preProject
 		azure-pipelines-develop.yml = azure-pipelines-develop.yml
 		azure-pipelines-master.yml = azure-pipelines-master.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{3E70C554-DFDF-4258-BE0F-B23A9B56DC19}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		RELEASENOTES.md = RELEASENOTES.md
 	EndProjectSection
 EndProject
 Global
