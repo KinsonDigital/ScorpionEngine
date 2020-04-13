@@ -1,4 +1,4 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29025.244
@@ -8,6 +8,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScorpionEngine", "ScorpionEngine\ScorpionEngine.csproj", "{EAA8F5F1-929B-4FF2-9292-6FCF7850A478}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{C12F7941-E834-4C6A-B3F6-E4DD58FF0CC8}"
+	ProjectSection(SolutionItems) = preProject
+		ScorpionEngine.runsettings = ScorpionEngine.runsettings
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScorpionEngineTests", "ScorpionEngineTests\ScorpionEngineTests.csproj", "{9400C56B-2543-455F-B349-F878B0EEC4FC}"
 EndProject
