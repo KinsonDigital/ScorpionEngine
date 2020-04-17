@@ -7,6 +7,7 @@ using KDScorpionEngineTests.Fakes;
 using Raptor.Plugins;
 using Raptor;
 using Raptor.Graphics;
+using System.Numerics;
 
 namespace KDScorpionEngineTests.Entities
 {
@@ -96,7 +97,7 @@ namespace KDScorpionEngineTests.Entities
             int expectedTotalBehaviors = 6;
 
             //Act
-            var entity = new DynamicEntity(Vector.Zero);
+            var entity = new DynamicEntity(Vector2.Zero);
             var actualTotalBehaviors = entity.Behaviors.Count;
 
             //Assert
@@ -108,18 +109,18 @@ namespace KDScorpionEngineTests.Entities
         public void Ctor_WhenInvokingWithVerticesAndPosition_CreatesAllBehaviors()
         {
             //Arrange
-            var vertices = new Vector[]
+            var vertices = new Vector2[]
             {
-                new Vector(11, 22),
-                new Vector(33, 44),
-                new Vector(55, 66),
-                new Vector(77, 88)
+                new Vector2(11, 22),
+                new Vector2(33, 44),
+                new Vector2(55, 66),
+                new Vector2(77, 88)
             };
 
             int expectedTotalBehaviors = 6;
 
             //Act
-            var entity = new DynamicEntity(vertices, It.IsAny<Vector>());
+            var entity = new DynamicEntity(vertices, It.IsAny<Vector2>());
             var actualTotalBehaviors = entity.Behaviors.Count;
 
             //Assert
@@ -131,18 +132,18 @@ namespace KDScorpionEngineTests.Entities
         public void Ctor_WhenInvokingWithTextureAndVerticesAndPosition_CreatesAllBehaviors()
         {
             //Arrange
-            var vertices = new Vector[]
+            var vertices = new Vector2[]
             {
-                new Vector(11, 22),
-                new Vector(33, 44),
-                new Vector(55, 66),
-                new Vector(77, 88)
+                new Vector2(11, 22),
+                new Vector2(33, 44),
+                new Vector2(55, 66),
+                new Vector2(77, 88)
             };
 
             int expectedTotalBehaviors = 6;
 
             //Act
-            var entity = new DynamicEntity(CreateTexture(), vertices, It.IsAny<Vector>());
+            var entity = new DynamicEntity(CreateTexture(), vertices, It.IsAny<Vector2>());
             var actualTotalBehaviors = entity.Behaviors.Count;
 
             //Assert
@@ -157,7 +158,7 @@ namespace KDScorpionEngineTests.Entities
             int expectedTotalBehaviors = 6;
 
             //Act
-            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>(), 1f);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector2>(), 1f);
             var actualTotalBehaviors = entity.Behaviors.Count;
 
             //Assert
@@ -193,7 +194,7 @@ namespace KDScorpionEngineTests.Entities
 
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
-            entity.Body.LinearVelocity = new Vector(11, 22);
+            entity.Body.LinearVelocity = new Vector2(11, 22);
 
             var expected = true;
 
@@ -529,7 +530,7 @@ namespace KDScorpionEngineTests.Entities
             //Arrange
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
-            var expected = new Vector(123.456f, 0);
+            var expected = new Vector2(123.456f, 0);
 
             //Act
             entity.MoveRight(123.456f);
@@ -547,7 +548,7 @@ namespace KDScorpionEngineTests.Entities
             //Arrange
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
-            var expected = new Vector(0.25f, 0);
+            var expected = new Vector2(0.25f, 0);
 
             //Act
             entity.MoveRight();
@@ -587,7 +588,7 @@ namespace KDScorpionEngineTests.Entities
             //Arrange
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
-            var expected = new Vector(-123.456f, 0);
+            var expected = new Vector2(-123.456f, 0);
 
             //Act
             entity.MoveLeft(123.456f);
@@ -605,7 +606,7 @@ namespace KDScorpionEngineTests.Entities
             //Arrange
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
-            var expected = new Vector(-0.25f, 0);
+            var expected = new Vector2(-0.25f, 0);
 
             //Act
             entity.MoveLeft();
@@ -645,7 +646,7 @@ namespace KDScorpionEngineTests.Entities
             //Arrange
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
-            var expected = new Vector(0, -123.456f);
+            var expected = new Vector2(0, -123.456f);
 
             //Act
             entity.MoveUp(123.456f);
@@ -663,7 +664,7 @@ namespace KDScorpionEngineTests.Entities
             //Arrange
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
-            var expected = new Vector(0, -0.25f);
+            var expected = new Vector2(0, -0.25f);
 
             //Act
             entity.MoveUp();
@@ -703,7 +704,7 @@ namespace KDScorpionEngineTests.Entities
             //Arrange
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
-            var expected = new Vector(0, 123.456f);
+            var expected = new Vector2(0, 123.456f);
 
             //Act
             entity.MoveDown(123.456f);
@@ -721,7 +722,7 @@ namespace KDScorpionEngineTests.Entities
             //Arrange
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
-            var expected = new Vector(0, 0.25f);
+            var expected = new Vector2(0, 0.25f);
 
             //Act
             entity.MoveDown();
@@ -761,7 +762,7 @@ namespace KDScorpionEngineTests.Entities
             //Arrange
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
-            var expected = new Vector(-123.456f, 123.456f);
+            var expected = new Vector2(-123.456f, 123.456f);
 
             //Act
             entity.MoveUpRight(123.456f);
@@ -779,7 +780,7 @@ namespace KDScorpionEngineTests.Entities
             //Arrange
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
-            var expected = new Vector(-0.25f, 0.25f);
+            var expected = new Vector2(-0.25f, 0.25f);
 
             //Act
             entity.MoveUpRight();
@@ -820,7 +821,7 @@ namespace KDScorpionEngineTests.Entities
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
 
-            var expected = new Vector(-123.456f, -123.456f);
+            var expected = new Vector2(-123.456f, -123.456f);
 
             //Act
             entity.MoveUpLeft(123.456f);
@@ -839,7 +840,7 @@ namespace KDScorpionEngineTests.Entities
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
 
-            var expected = new Vector(-0.25f, -0.25f);
+            var expected = new Vector2(-0.25f, -0.25f);
 
             //Act
             entity.MoveUpLeft();
@@ -880,7 +881,7 @@ namespace KDScorpionEngineTests.Entities
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
 
-            var expected = new Vector(123.456f, 123.456f);
+            var expected = new Vector2(123.456f, 123.456f);
 
             //Act
             entity.MoveDownRight(123.456f);
@@ -899,7 +900,7 @@ namespace KDScorpionEngineTests.Entities
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
 
-            var expected = new Vector(0.25f, 0.25f);
+            var expected = new Vector2(0.25f, 0.25f);
 
             //Act
             entity.MoveDownRight();
@@ -940,7 +941,7 @@ namespace KDScorpionEngineTests.Entities
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
 
-            var expected = new Vector(-123.456f, 123.456f);
+            var expected = new Vector2(-123.456f, 123.456f);
 
             //Act
             entity.MoveDownLeft(123.456f);
@@ -959,7 +960,7 @@ namespace KDScorpionEngineTests.Entities
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
 
-            var expected = new Vector(-0.25f, 0.25f);
+            var expected = new Vector2(-0.25f, 0.25f);
 
             //Act
             entity.MoveDownLeft();
@@ -1004,7 +1005,7 @@ namespace KDScorpionEngineTests.Entities
             };
 
             entity.Initialize();
-            var expected = new Vector(123.456f, 456.123f);
+            var expected = new Vector2(123.456f, 456.123f);
 
             //Act
             entity.MoveAtSetSpeed();
@@ -1036,7 +1037,7 @@ namespace KDScorpionEngineTests.Entities
                 Angle = 45f
             };
             entity.Initialize();
-            var expected = new Vector(0, -40);
+            var expected = new Vector2(0, -40);
 
             //Act
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
@@ -1191,7 +1192,7 @@ namespace KDScorpionEngineTests.Entities
 
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
-            var expected = Vector.Zero;
+            var expected = Vector2.Zero;
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
 
             //Act

@@ -6,6 +6,7 @@ using Raptor.Graphics;
 using Raptor;
 using Raptor.Input;
 using Raptor.UI;
+using System.Numerics;
 
 namespace ScorpTestGame.Scenes
 {
@@ -18,7 +19,7 @@ namespace ScorpTestGame.Scenes
         private UIText _mousePosition;
 
 
-        public Level1() : base(new Vector(0f, 0f))
+        public Level1() : base(new Vector2(0f, 0f))
         {
             
         }
@@ -34,7 +35,7 @@ namespace ScorpTestGame.Scenes
             _shipPosition = new UIText();
             _mousePosition = new UIText()
             {
-                Position = new Vector(0, 20)
+                Position = new Vector2(0, 20)
             };
 
             AddEntity(_ship);

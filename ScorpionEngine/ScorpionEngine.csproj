@@ -41,14 +41,14 @@
   <!--COPY NATIVE SDL LIBRARIES FROM LOCAL NUGET CACHE TO OUTPUT FOLDER-->
   <Target Name="CopyNugetPackageNativeLibsToOutput" Condition="'$(ConfigurationName)|AnyCPU' == 'Debug-Win|AnyCPU' Or '$(ConfigurationName)|AnyCPU' == 'Release-Win|AnyCPU'" AfterTargets="Build">
     <!--If the runtimes directory does not exist, create one-->
-    <MakeDir Directories="$(TargetDir)\runtimes" Condition="!Exists('$(TargetDir)runtimes')"/>
+    <MakeDir Directories="$(TargetDir)\runtimes" Condition="!Exists('$(TargetDir)runtimes')" />
     
-    <Exec Command="xcopy &quot;$(RaptorPackagePath)*.dll&quot; &quot;$(TargetDir)runtimes&quot; /Y /E"/>
+    <Exec Command="xcopy &quot;$(RaptorPackagePath)*.dll&quot; &quot;$(TargetDir)runtimes&quot; /Y /E" />
   </Target>
 
 
   <ItemGroup>
-    <PackageReference Include="KinsonDigital.Raptor.Windows" Version="0.4.0" GeneratePathProperty="true"/>
+    <PackageReference Include="KinsonDigital.Raptor.Windows" Version="0.5.0" GeneratePathProperty="true" />
     <PackageReference Include="Microsoft.DotNet.Analyzers.Compatibility" Version="0.2.12-alpha">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -57,6 +57,6 @@
 
 
   <Target Name="Test" AfterTargets="Build">
-    <Exec Command="echo &quot;==> $(PkgKinsonDigital_Raptor_Windows)\&quot;"/>
+    <Exec Command="echo &quot;==&gt; $(PkgKinsonDigital_Raptor_Windows)\&quot;" />
   </Target>
 </Project>

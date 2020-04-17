@@ -2,6 +2,7 @@
 using Xunit;
 using KDScorpionEngine;
 using Raptor;
+using System.Numerics;
 
 namespace KDScorpionEngineTests
 {
@@ -99,12 +100,12 @@ namespace KDScorpionEngineTests
         public void RotateAround_WhenRotatingClockWise_ReturnsCorrectResult()
         {
             //Arrange
-            var vector = new Vector(0, 0);
+            var vector = new Vector2(0, 0);
 
-            var expected = new Vector(5f, -2.07106781f);
+            var expected = new Vector2(5f, -2.07106781f);
 
             //Act
-            var actual = vector.RotateAround(new Vector(5, 5), 45f, true);
+            var actual = vector.RotateAround(new Vector2(5, 5), 45f, true);
 
             //Assert
             Assert.Equal(expected, actual);
@@ -115,12 +116,12 @@ namespace KDScorpionEngineTests
         public void RotateAround_WhenRotatingCounterClockWise_ReturnsCorrectResult()
         {
             //Arrange
-            var vector = new Vector(0, 0);
+            var vector = new Vector2(0, 0);
 
-            var expected = new Vector(-2.07106781f, 5f);
+            var expected = new Vector2(-2.07106781f, 5f);
 
             //Act
-            var actual = vector.RotateAround(new Vector(5, 5), 45f, false);
+            var actual = vector.RotateAround(new Vector2(5, 5), 45f, false);
 
             //Assert
             Assert.Equal(expected, actual);

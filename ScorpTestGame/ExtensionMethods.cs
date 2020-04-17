@@ -4,6 +4,7 @@ using Raptor.Graphics;
 using System;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 
 namespace ScorpTestGame
 {
@@ -54,19 +55,19 @@ namespace ScorpTestGame
 
 
         /// <summary>
-        /// Converts the given <paramref name="vector"/> of type <see cref="Vector"/> to the type <see cref="PointF"/>.
+        /// Converts the given <paramref name="vector"/> of type <see cref="Vector2"/> to the type <see cref="PointF"/>.
         /// </summary>
         /// <param name="vector">The vector to convert.</param>
         /// <returns></returns>
-        public static PointF ToPointF(this Vector vector) => new PointF(vector.X, vector.Y);
+        public static PointF ToPointF(this Vector2 vector) => new PointF(vector.X, vector.Y);
 
 
         /// <summary>
-        /// Converts the given <paramref name="point"/> of type <see cref="PointF"/> to type <see cref="Vector"/>.
+        /// Converts the given <paramref name="point"/> of type <see cref="PointF"/> to type <see cref="Vector2"/>.
         /// </summary>
         /// <param name="point">The point to convert.</param>
         /// <returns></returns>
-        public static Vector ToVector(this PointF point) => new Vector(point.X, point.Y);
+        public static Vector2 ToVector(this PointF point) => new Vector2(point.X, point.Y);
 
 
         /// <summary>

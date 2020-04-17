@@ -7,6 +7,7 @@ using System;
 using Raptor;
 using Raptor.Graphics;
 using Raptor.Plugins;
+using System.Numerics;
 
 namespace KDScorpionEngineTests.Entities
 {
@@ -42,7 +43,7 @@ namespace KDScorpionEngineTests.Entities
 
             //Assert
             Assert.NotNull(entity.Body);
-            Assert.Equal(Vector.Zero, entity.Position);
+            Assert.Equal(Vector2.Zero, entity.Position);
             Assert.False(entity.IsStatic);
         }
         #endregion
@@ -56,7 +57,7 @@ namespace KDScorpionEngineTests.Entities
             var mockTexture = new Mock<ITexture>();
             var mockBehavior = new Mock<IBehavior>();
             var texture = new Texture(mockTexture.Object);
-            var entity = new StaticEntity(texture, new Vector(123, 456));
+            var entity = new StaticEntity(texture, new Vector2(123, 456));
             entity.Behaviors.Add(mockBehavior.Object);
 
             //Act
