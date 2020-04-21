@@ -3,6 +3,7 @@ using KDScorpionEngine.Exceptions;
 using Raptor;
 using Raptor.Graphics;
 using Raptor.Plugins;
+using System.Numerics;
 
 namespace KDScorpionEngine.Entities
 {
@@ -13,7 +14,7 @@ namespace KDScorpionEngine.Entities
     public class DynamicEntity : Entity
     {
         #region Private Fields
-        private Vector _facingDirection = new Vector(0, -1);
+        private Vector2 _facingDirection = new Vector2(0, -1);
         private LimitNumberBehavior _moveRightVelocityMaxBehavior;
         private LimitNumberBehavior _moveLeftVelocityMaxBehavior;
         private LimitNumberBehavior _moveDownVelocityMaxBehavior;
@@ -67,7 +68,7 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         /// <param name="position">The position of where to render the <see cref="DynamicEntity"/>.</param>
         /// <param name="friction">The friction of the body against other entities or surfaces.</param>
-        public DynamicEntity(Vector position, float friction = 0.2f) : base(position, friction)
+        public DynamicEntity(Vector2 position, float friction = 0.2f) : base(position, friction)
         {
             SetupMaxLinearBehaviors(DEFAULT_MAX_SPEED);
             SetupMaxRotationBehaviors(DEFAULT_MAX_SPEED);
@@ -80,7 +81,7 @@ namespace KDScorpionEngine.Entities
         /// <param name="texture">The texture of the entity to render.</param>
         /// <param name="position">The position of where to render the <see cref="DynamicEntity"/>.</param>
         /// <param name="friction">The friction of the body against other entities or surfaces.</param>
-        public DynamicEntity(Texture texture, Vector position, float friction = 0.2f) : base(texture, position, friction)
+        public DynamicEntity(Texture texture, Vector2 position, float friction = 0.2f) : base(texture, position, friction)
         {
             SetupMaxLinearBehaviors(DEFAULT_MAX_SPEED);
             SetupMaxRotationBehaviors(DEFAULT_MAX_SPEED);
@@ -93,7 +94,7 @@ namespace KDScorpionEngine.Entities
         /// <param name="vertices">The polygon vertices that make up the shape of the <see cref="DynamicEntity"/>.</param>
         /// <param name="position">The position of where to render the <see cref="DynamicEntity"/>.</param>
         /// <param name="friction">The friction of the body against other entities or surfaces.</param>
-        public DynamicEntity(Vector[] vertices, Vector position, float friction = 0.2f) : base(vertices, position, friction)
+        public DynamicEntity(Vector2[] vertices, Vector2 position, float friction = 0.2f) : base(vertices, position, friction)
         {
             SetupMaxLinearBehaviors(DEFAULT_MAX_SPEED);
             SetupMaxRotationBehaviors(DEFAULT_MAX_SPEED);
@@ -107,7 +108,7 @@ namespace KDScorpionEngine.Entities
         /// <param name="vertices">The polygon vertices that make up the shape of the <see cref="DynamicEntity"/>.</param>
         /// <param name="position">The position of where to render the <see cref="DynamicEntity"/>.</param>
         /// <param name="friction">The friction of the body against other entities or surfaces.</param>
-        public DynamicEntity(Texture texture, Vector[] polyVertices, Vector position, float friction = 0.2f) : base(texture, polyVertices, position, friction)
+        public DynamicEntity(Texture texture, Vector2[] polyVertices, Vector2 position, float friction = 0.2f) : base(texture, polyVertices, position, friction)
         {
             SetupMaxLinearBehaviors(DEFAULT_MAX_SPEED);
             SetupMaxRotationBehaviors(DEFAULT_MAX_SPEED);
@@ -119,7 +120,7 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// Gets a value indicating if the <see cref="DynamicEntity"/> is moving or sitting still.
         /// </summary>
-        public bool IsMoving => Body.LinearVelocity != Vector.Zero || Body.AngularVelocity != 0;
+        public bool IsMoving => Body.LinearVelocity != Vector2.Zero || Body.AngularVelocity != 0;
 
         /// <summary>
         /// Gets or sets a value indicating if rotation should be locked in place.
@@ -264,7 +265,7 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            _facingDirection = new Vector(0, -1).RotateAround(Vector.Zero, Body.InternalPhysicsBody.Angle);
+            _facingDirection = new Vector2(0, -1).RotateAround(Vector2.Zero, Body.InternalPhysicsBody.Angle);
 
             ProcessMovementStop();
 
@@ -505,7 +506,7 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            var directionToMove = new Vector(_facingDirection.X, _facingDirection.Y) * speed.ForcePositive();
+            var directionToMove = new Vector2(_facingDirection.X, _facingDirection.Y) * speed.ForcePositive();
 
             Body.InternalPhysicsBody.ApplyForce(directionToMove.X, directionToMove.Y, Position.X, Position.Y);
         }
@@ -688,7 +689,7 @@ namespace KDScorpionEngine.Entities
         /// Sets X value of the linear velocity
         /// </summary>
         /// <returns></returns>
-        private void SetLinearXValue(float value) => Body.LinearVelocity = new Vector(value, Body.LinearVelocity.Y);
+        private void SetLinearXValue(float value) => Body.LinearVelocity = new Vector2(value, Body.LinearVelocity.Y);
 
 
         /// <summary>
@@ -698,7 +699,7 @@ namespace KDScorpionEngine.Entities
         private void SetLinearYValue(float value)
         {
             if (Body.LinearVelocity.Y != value)
-                Body.LinearVelocity = new Vector(Body.LinearVelocity.X, value);
+                Body.LinearVelocity = new Vector2(Body.LinearVelocity.X, value);
         }
 
 

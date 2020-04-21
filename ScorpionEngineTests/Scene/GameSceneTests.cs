@@ -10,6 +10,7 @@ using Raptor.Physics;
 using Raptor.Graphics;
 using Raptor.Plugins;
 using Raptor.Content;
+using System.Numerics;
 
 namespace KDScorpionEngineTests.Scene
 {
@@ -240,7 +241,7 @@ namespace KDScorpionEngineTests.Scene
         public void Update_WhenInvoking_InvokesEntityUpdate()
         {
             //Arrange
-            var entity = new FakeEntity(new Vector[0], Vector.Zero)
+            var entity = new FakeEntity(new Vector2[0], Vector2.Zero)
             {
                 Body = new PhysicsBody(_mockPhysicsBody.Object)
             };

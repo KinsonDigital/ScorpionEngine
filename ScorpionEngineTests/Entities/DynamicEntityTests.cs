@@ -7,6 +7,7 @@ using KDScorpionEngineTests.Fakes;
 using Raptor.Plugins;
 using Raptor;
 using Raptor.Graphics;
+using System.Numerics;
 
 namespace KDScorpionEngineTests.Entities
 {
@@ -29,12 +30,12 @@ namespace KDScorpionEngineTests.Entities
             _mockPhysicsBody.SetupProperty(p => p.AngularVelocity);
             _mockPhysicsBody.SetupProperty(p => p.LinearVelocityX);
             _mockPhysicsBody.SetupProperty(p => p.LinearVelocityY);
-            _mockPhysicsBody.Setup(m => m.ApplyForce(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>()))
-                .Callback<float, float, float, float>((forceX, forceY, worldLocationX, worldLocationY) =>
-                {
-                    _mockPhysicsBody.Object.LinearVelocityX = forceX;
-                    _mockPhysicsBody.Object.LinearVelocityY = forceY;
-                });
+            //_mockPhysicsBody.Setup(m => m.ApplyForce(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>()))
+            //    .Callback<float, float, float, float>((forceX, forceY, worldLocationX, worldLocationY) =>
+            //    {
+            //        _mockPhysicsBody.Object.LinearVelocityX = forceX;
+            //        _mockPhysicsBody.Object.LinearVelocityY = forceY;
+            //    });
             _mockPhysicsBody.Setup(m => m.ApplyAngularImpulse(It.IsAny<float>())).Callback<float>((value) =>
             {
                 _mockPhysicsBody.Object.AngularVelocity = value;
@@ -96,7 +97,7 @@ namespace KDScorpionEngineTests.Entities
             int expectedTotalBehaviors = 6;
 
             //Act
-            var entity = new DynamicEntity(Vector.Zero);
+            var entity = new DynamicEntity(Vector2.Zero);
             var actualTotalBehaviors = entity.Behaviors.Count;
 
             //Assert
@@ -108,18 +109,18 @@ namespace KDScorpionEngineTests.Entities
         public void Ctor_WhenInvokingWithVerticesAndPosition_CreatesAllBehaviors()
         {
             //Arrange
-            var vertices = new Vector[]
+            var vertices = new Vector2[]
             {
-                new Vector(11, 22),
-                new Vector(33, 44),
-                new Vector(55, 66),
-                new Vector(77, 88)
+                new Vector2(11, 22),
+                new Vector2(33, 44),
+                new Vector2(55, 66),
+                new Vector2(77, 88)
             };
 
             int expectedTotalBehaviors = 6;
 
             //Act
-            var entity = new DynamicEntity(vertices, It.IsAny<Vector>());
+            var entity = new DynamicEntity(vertices, It.IsAny<Vector2>());
             var actualTotalBehaviors = entity.Behaviors.Count;
 
             //Assert
@@ -131,18 +132,18 @@ namespace KDScorpionEngineTests.Entities
         public void Ctor_WhenInvokingWithTextureAndVerticesAndPosition_CreatesAllBehaviors()
         {
             //Arrange
-            var vertices = new Vector[]
+            var vertices = new Vector2[]
             {
-                new Vector(11, 22),
-                new Vector(33, 44),
-                new Vector(55, 66),
-                new Vector(77, 88)
+                new Vector2(11, 22),
+                new Vector2(33, 44),
+                new Vector2(55, 66),
+                new Vector2(77, 88)
             };
 
             int expectedTotalBehaviors = 6;
 
             //Act
-            var entity = new DynamicEntity(CreateTexture(), vertices, It.IsAny<Vector>());
+            var entity = new DynamicEntity(CreateTexture(), vertices, It.IsAny<Vector2>());
             var actualTotalBehaviors = entity.Behaviors.Count;
 
             //Assert
@@ -157,7 +158,7 @@ namespace KDScorpionEngineTests.Entities
             int expectedTotalBehaviors = 6;
 
             //Act
-            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector>(), 1f);
+            var entity = new DynamicEntity(CreateTexture(), It.IsAny<Vector2>(), 1f);
             var actualTotalBehaviors = entity.Behaviors.Count;
 
             //Assert
@@ -193,7 +194,7 @@ namespace KDScorpionEngineTests.Entities
 
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
-            entity.Body.LinearVelocity = new Vector(11, 22);
+            entity.Body.LinearVelocity = new Vector2(11, 22);
 
             var expected = true;
 
@@ -524,42 +525,6 @@ namespace KDScorpionEngineTests.Entities
 
 
         [Fact]
-        public void MoveRight_WhenInvokingWithParam_CorrectlySetsLinearVelocity()
-        {
-            //Arrange
-            var entity = new DynamicEntity(_mockPhysicsBody.Object);
-            entity.Initialize();
-            var expected = new Vector(123.456f, 0);
-
-            //Act
-            entity.MoveRight(123.456f);
-
-            var actual = entity.Body.LinearVelocity;
-
-            //Assert
-            Assert.Equal(expected, actual);
-        }
-
-
-        [Fact]
-        public void MoveRight_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
-        {
-            //Arrange
-            var entity = new DynamicEntity(_mockPhysicsBody.Object);
-            entity.Initialize();
-            var expected = new Vector(0.25f, 0);
-
-            //Act
-            entity.MoveRight();
-
-            var actual = entity.Body.LinearVelocity;
-
-            //Assert
-            Assert.Equal(expected, actual);
-        }
-
-
-        [Fact]
         public void MoveRight_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -578,42 +543,6 @@ namespace KDScorpionEngineTests.Entities
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveRight(10));
-        }
-
-
-        [Fact]
-        public void MoveLeft_WhenInvokingWithParam_CorrectlySetsLinearVelocity()
-        {
-            //Arrange
-            var entity = new DynamicEntity(_mockPhysicsBody.Object);
-            entity.Initialize();
-            var expected = new Vector(-123.456f, 0);
-
-            //Act
-            entity.MoveLeft(123.456f);
-
-            var actual = entity.Body.LinearVelocity;
-
-            //Assert
-            Assert.Equal(expected, actual);
-        }
-
-
-        [Fact]
-        public void MoveLeft_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
-        {
-            //Arrange
-            var entity = new DynamicEntity(_mockPhysicsBody.Object);
-            entity.Initialize();
-            var expected = new Vector(-0.25f, 0);
-
-            //Act
-            entity.MoveLeft();
-
-            var actual = entity.Body.LinearVelocity;
-
-            //Assert
-            Assert.Equal(expected, actual);
         }
 
 
@@ -640,42 +569,6 @@ namespace KDScorpionEngineTests.Entities
 
 
         [Fact]
-        public void MoveUp_WhenInvokingWithParam_CorrectlySetsLinearVelocity()
-        {
-            //Arrange
-            var entity = new DynamicEntity(_mockPhysicsBody.Object);
-            entity.Initialize();
-            var expected = new Vector(0, -123.456f);
-
-            //Act
-            entity.MoveUp(123.456f);
-
-            var actual = entity.Body.LinearVelocity;
-
-            //Assert
-            Assert.Equal(expected, actual);
-        }
-
-
-        [Fact]
-        public void MoveUp_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
-        {
-            //Arrange
-            var entity = new DynamicEntity(_mockPhysicsBody.Object);
-            entity.Initialize();
-            var expected = new Vector(0, -0.25f);
-
-            //Act
-            entity.MoveUp();
-
-            var actual = entity.Body.LinearVelocity;
-
-            //Assert
-            Assert.Equal(expected, actual);
-        }
-
-
-        [Fact]
         public void MoveUp_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -694,42 +587,6 @@ namespace KDScorpionEngineTests.Entities
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveUp(10));
-        }
-
-
-        [Fact]
-        public void MoveDown_WhenInvokingWithParam_CorrectlySetsLinearVelocity()
-        {
-            //Arrange
-            var entity = new DynamicEntity(_mockPhysicsBody.Object);
-            entity.Initialize();
-            var expected = new Vector(0, 123.456f);
-
-            //Act
-            entity.MoveDown(123.456f);
-
-            var actual = entity.Body.LinearVelocity;
-
-            //Assert
-            Assert.Equal(expected, actual);
-        }
-
-
-        [Fact]
-        public void MoveDown_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
-        {
-            //Arrange
-            var entity = new DynamicEntity(_mockPhysicsBody.Object);
-            entity.Initialize();
-            var expected = new Vector(0, 0.25f);
-
-            //Act
-            entity.MoveDown();
-
-            var actual = entity.Body.LinearVelocity;
-
-            //Assert
-            Assert.Equal(expected, actual);
         }
 
 
@@ -756,30 +613,14 @@ namespace KDScorpionEngineTests.Entities
 
 
         [Fact]
-        public void MoveUpRight_WhenInvokingWithParam_CorrectlySetsLinearVelocity()
-        {
-            //Arrange
-            var entity = new DynamicEntity(_mockPhysicsBody.Object);
-            entity.Initialize();
-            var expected = new Vector(-123.456f, 123.456f);
-
-            //Act
-            entity.MoveUpRight(123.456f);
-
-            var actual = entity.Body.LinearVelocity;
-
-            //Assert
-            Assert.Equal(expected, actual);
-        }
-
-
-        [Fact]
         public void MoveUpRight_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
         {
             //Arrange
+            _mockPhysicsBody.SetupGet(p => p.X).Returns(10);
+            _mockPhysicsBody.SetupGet(p => p.Y).Returns(20);
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
-            var expected = new Vector(-0.25f, 0.25f);
+            var expected = new Vector2(0.25f, -0.25f);
 
             //Act
             entity.MoveUpRight();
@@ -787,7 +628,7 @@ namespace KDScorpionEngineTests.Entities
             var actual = entity.Body.LinearVelocity;
 
             //Assert
-            Assert.Equal(expected, actual);
+            _mockPhysicsBody.Verify(m => m.ApplyForce(0.25f, -0.25f, 10, 20), Times.Once());
         }
 
 
@@ -814,44 +655,6 @@ namespace KDScorpionEngineTests.Entities
 
 
         [Fact]
-        public void MoveUpLeft_WhenInvokingWithParam_CorrectlySetsLinearVelocity()
-        {
-            //Arrange
-            var entity = new DynamicEntity(_mockPhysicsBody.Object);
-            entity.Initialize();
-
-            var expected = new Vector(-123.456f, -123.456f);
-
-            //Act
-            entity.MoveUpLeft(123.456f);
-
-            var actual = entity.Body.LinearVelocity;
-
-            //Assert
-            Assert.Equal(expected, actual);
-        }
-
-
-        [Fact]
-        public void MoveUpLeft_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
-        {
-            //Arrange
-            var entity = new DynamicEntity(_mockPhysicsBody.Object);
-            entity.Initialize();
-
-            var expected = new Vector(-0.25f, -0.25f);
-
-            //Act
-            entity.MoveUpLeft();
-
-            var actual = entity.Body.LinearVelocity;
-
-            //Assert
-            Assert.Equal(expected, actual);
-        }
-
-
-        [Fact]
         public void MoveUpLeft_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -870,44 +673,6 @@ namespace KDScorpionEngineTests.Entities
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveUpLeft(10));
-        }
-
-
-        [Fact]
-        public void MoveDownRight_WhenInvokingWithParam_CorrectlySetsLinearVelocity()
-        {
-            //Arrange
-            var entity = new DynamicEntity(_mockPhysicsBody.Object);
-            entity.Initialize();
-
-            var expected = new Vector(123.456f, 123.456f);
-
-            //Act
-            entity.MoveDownRight(123.456f);
-
-            var actual = entity.Body.LinearVelocity;
-
-            //Assert
-            Assert.Equal(expected, actual);
-        }
-
-
-        [Fact]
-        public void MoveDownRight_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
-        {
-            //Arrange
-            var entity = new DynamicEntity(_mockPhysicsBody.Object);
-            entity.Initialize();
-
-            var expected = new Vector(0.25f, 0.25f);
-
-            //Act
-            entity.MoveDownRight();
-
-            var actual = entity.Body.LinearVelocity;
-
-            //Assert
-            Assert.Equal(expected, actual);
         }
 
 
@@ -934,44 +699,6 @@ namespace KDScorpionEngineTests.Entities
 
 
         [Fact]
-        public void MoveDownLeft_WhenInvokingWithParam_CorrectlySetsLinearVelocity()
-        {
-            //Arrange
-            var entity = new DynamicEntity(_mockPhysicsBody.Object);
-            entity.Initialize();
-
-            var expected = new Vector(-123.456f, 123.456f);
-
-            //Act
-            entity.MoveDownLeft(123.456f);
-
-            var actual = entity.Body.LinearVelocity;
-
-            //Assert
-            Assert.Equal(expected, actual);
-        }
-
-
-        [Fact]
-        public void MoveDownLeft_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
-        {
-            //Arrange
-            var entity = new DynamicEntity(_mockPhysicsBody.Object);
-            entity.Initialize();
-
-            var expected = new Vector(-0.25f, 0.25f);
-
-            //Act
-            entity.MoveDownLeft();
-
-            var actual = entity.Body.LinearVelocity;
-
-            //Assert
-            Assert.Equal(expected, actual);
-        }
-
-
-        [Fact]
         public void MoveDownLeft_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -994,29 +721,6 @@ namespace KDScorpionEngineTests.Entities
 
 
         [Fact]
-        public void MoveAtSetSpeed_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
-        {
-            //Arrange
-            var entity = new DynamicEntity(_mockPhysicsBody.Object)
-            {
-                SpeedX = 123.456f,
-                SpeedY = 456.123f
-            };
-
-            entity.Initialize();
-            var expected = new Vector(123.456f, 456.123f);
-
-            //Act
-            entity.MoveAtSetSpeed();
-
-            var actual = entity.Body.LinearVelocity;
-
-            //Assert
-            Assert.Equal(expected, actual);
-        }
-
-
-        [Fact]
         public void MoveAtSetSpeed_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
             //Arrange
@@ -1024,29 +728,6 @@ namespace KDScorpionEngineTests.Entities
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveAtSetSpeed());
-        }
-
-
-        [Fact]
-        public void MoveAtSetAngle_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
-        {
-            //Arrange
-            var entity = new DynamicEntity(_mockPhysicsBody.Object)
-            {
-                Angle = 45f
-            };
-            entity.Initialize();
-            var expected = new Vector(0, -40);
-
-            //Act
-            var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
-            entity.MoveAtSetAngle(45);
-            entity.Update(engineTime);
-
-            var actual = entity.Body.LinearVelocity;
-
-            //Assert
-            Assert.Equal(expected, actual);
         }
 
 
@@ -1191,7 +872,7 @@ namespace KDScorpionEngineTests.Entities
 
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
-            var expected = Vector.Zero;
+            var expected = Vector2.Zero;
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
 
             //Act
@@ -1236,30 +917,6 @@ namespace KDScorpionEngineTests.Entities
 
             //Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.StopRotation());
-        }
-
-
-        [Fact]
-        public void DynamicEntity_WhenMoving_MaintainsMaxMovementLimit()
-        {
-            //Arrange
-            var entity = new DynamicEntity(_mockPhysicsBody.Object)
-            {
-                MaxLinearSpeed = 20f
-            };
-
-            entity.Initialize();
-
-            var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
-            var expected = 20f;
-
-            //Act
-            entity.MoveRight(40);
-            entity.Update(engineTime);
-            var actual = entity.Body.LinearVelocity.X;
-
-            //Assert
-            Assert.Equal(expected, actual);
         }
 
 

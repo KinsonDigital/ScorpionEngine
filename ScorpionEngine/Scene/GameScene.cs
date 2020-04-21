@@ -6,6 +6,7 @@ using Raptor.Physics;
 using Raptor.Plugins;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Numerics;
 
 namespace KDScorpionEngine.Scene
 {
@@ -28,7 +29,7 @@ namespace KDScorpionEngine.Scene
         /// </summary>
         /// <param name="gravity">The gravity of the scene.</param>
         [ExcludeFromCodeCoverage]
-        public GameScene(Vector gravity) => PhysicsWorld = new PhysicsWorld(gravity);
+        public GameScene(Vector2 gravity) => PhysicsWorld = new PhysicsWorld(gravity);
         #endregion
 
 

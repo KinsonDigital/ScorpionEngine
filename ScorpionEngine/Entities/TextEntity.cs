@@ -2,6 +2,7 @@
 using Raptor.Graphics;
 using Raptor.Plugins;
 using System.Diagnostics.CodeAnalysis;
+using System.Numerics;
 
 namespace KDScorpionEngine.Entities
 {
@@ -26,7 +27,7 @@ namespace KDScorpionEngine.Entities
         /// <param name="foreColor">The color of the text.</param>
         /// <param name="backColor">The color of the background behind the text.</param>
         [ExcludeFromCodeCoverage]
-        public TextEntity(string text, GameColor foreColor, GameColor backColor, Vector position) : base(new Vector[0], position: position) =>
+        public TextEntity(string text, GameColor foreColor, GameColor backColor, Vector2 position) : base(new Vector2[0], position: position) =>
             Setup(text, foreColor, backColor);
         #endregion
 

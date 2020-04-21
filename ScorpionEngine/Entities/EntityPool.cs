@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Numerics;
 using KDScorpionEngine.Events;
 using Raptor;
 
@@ -150,7 +151,7 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         /// <param name="thatAre">The state of the entity that the speed will be applied to.</param>
         /// <param name="speed">The speed to apply.</param>
-        public void ApplySpeedTo(EntitiesThatAre thatAre, Vector speed) => throw new NotImplementedException();
+        public void ApplySpeedTo(EntitiesThatAre thatAre, Vector2 speed) => throw new NotImplementedException();
 
 
         /// <summary>
