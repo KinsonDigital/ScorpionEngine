@@ -620,7 +620,7 @@ namespace KDScorpionEngineTests.Entities
             _mockPhysicsBody.SetupGet(p => p.Y).Returns(20);
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
-            var expected = new Vector(0.25f, -0.25f);
+            var expected = new Vector2(0.25f, -0.25f);
 
             //Act
             entity.MoveUpRight();
