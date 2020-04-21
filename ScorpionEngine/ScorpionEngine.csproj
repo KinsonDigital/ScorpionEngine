@@ -49,10 +49,6 @@
 
   <ItemGroup>
     <PackageReference Include="KinsonDigital.Raptor.Windows" Version="0.5.0" GeneratePathProperty="true" />
-    <PackageReference Include="Microsoft.DotNet.Analyzers.Compatibility" Version="0.3.02-alpha">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
   </ItemGroup>
 
 
