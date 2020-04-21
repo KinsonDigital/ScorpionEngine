@@ -6,6 +6,7 @@ using KDScorpionEngine.Entities;
 using Raptor.Input;
 using Raptor.Plugins;
 using Raptor;
+using System.Numerics;
 
 namespace KDScorpionEngineTests.Behaviors
 {
@@ -146,7 +147,7 @@ namespace KDScorpionEngineTests.Behaviors
         {
             //Arrange
             SetKeyboardKey(It.IsAny<KeyCodes>());
-            var entity = new DynamicEntity(It.IsAny<Vector[]>(), It.IsAny<Vector>());
+            var entity = new DynamicEntity(It.IsAny<Vector2[]>(), It.IsAny<Vector2>());
 
             var behavior = new MovementByKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity);
             var expected = KeyCodes.S;
@@ -165,7 +166,7 @@ namespace KDScorpionEngineTests.Behaviors
         {
             //Arrange
             SetKeyboardKey(It.IsAny<KeyCodes>());
-            var entity = new DynamicEntity(It.IsAny<Vector[]>(), It.IsAny<Vector>());
+            var entity = new DynamicEntity(It.IsAny<Vector2[]>(), It.IsAny<Vector2>());
 
             var behavior = new MovementByKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity);
             var expected = KeyCodes.S;
@@ -184,7 +185,7 @@ namespace KDScorpionEngineTests.Behaviors
         {
             //Arrange
             SetKeyboardKey(It.IsAny<KeyCodes>());
-            var entity = new DynamicEntity(It.IsAny<Vector[]>(), It.IsAny<Vector>());
+            var entity = new DynamicEntity(It.IsAny<Vector2[]>(), It.IsAny<Vector2>());
 
             var behavior = new MovementByKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity);
             var expected = KeyCodes.S;

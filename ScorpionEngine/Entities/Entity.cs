@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Numerics;
 using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngine.Graphics;
@@ -46,8 +47,8 @@ namespace KDScorpionEngine.Entities
         protected bool _usesPhysics = true;
         protected EngineTime _engineTime;
         protected Texture _texture;
-        private Vector _preInitPosition;
-        private Vector[] _preInitVertices;
+        private Vector2 _preInitPosition;
+        private Vector2[] _preInitVertices;
         private float _preInitFriction;
         #endregion
 
@@ -61,7 +62,7 @@ namespace KDScorpionEngine.Entities
         internal Entity(IPhysicsBody body)
         {
             Body = body == null ? null : new PhysicsBody(body);
-            Setup(null, Vector.Zero, 0f, false);
+            Setup(null, Vector2.Zero, 0f, false);
         }
 
 
@@ -72,9 +73,9 @@ namespace KDScorpionEngine.Entities
         /// <param name="isStaticBody">True if the body is static and cannot be moved by other objects.</param>
         public Entity(float friction = 0.2f, bool isStaticBody = false)
         {
-            _preInitVertices = new [] { Vector.Zero, Vector.Zero, Vector.Zero };
+            _preInitVertices = new [] { Vector2.Zero, Vector2.Zero, Vector2.Zero };
 
-            Setup(_preInitVertices, Vector.Zero, friction, isStaticBody);
+            Setup(_preInitVertices, Vector2.Zero, friction, isStaticBody);
         }
 
 
@@ -84,9 +85,9 @@ namespace KDScorpionEngine.Entities
         /// <param name="position">The position of where to render the <see cref="Entity"/>.</param>
         /// <param name="friction">The friction of the body against other entities or surfaces.</param>
         /// <param name="isStaticBody">True if the body is static and cannot be moved by other objects.</param>
-        public Entity(Vector position, float friction = 0.2f, bool isStaticBody = false)
+        public Entity(Vector2 position, float friction = 0.2f, bool isStaticBody = false)
         {
-            _preInitVertices = new[] { Vector.Zero, Vector.Zero, Vector.Zero };
+            _preInitVertices = new[] { Vector2.Zero, Vector2.Zero, Vector2.Zero };
             Setup(_preInitVertices, position, friction, isStaticBody);
         }
 
@@ -98,19 +99,19 @@ namespace KDScorpionEngine.Entities
         /// <param name="position">The position of where to render the <see cref="Entity"/>.</param>
         /// <param name="friction">The friction of the body against other entities or surfaces.</param>
         /// <param name="isStaticBody">True if the body is static and cannot be moved by other objects.</param>
-        public Entity(Texture texture, Vector position, float friction = 0.2f, bool isStaticBody = false)
+        public Entity(Texture texture, Vector2 position, float friction = 0.2f, bool isStaticBody = false)
         {
             _texture = texture;
 
             var halfWidth = texture.Width / 2;
             var halfHeight = texture.Height / 2;
 
-            _preInitVertices = new Vector[4]
+            _preInitVertices = new Vector2[4]
             {
-                new Vector(position.X - halfWidth, position.Y - halfHeight),
-                new Vector(position.X + halfWidth, position.Y - halfHeight),
-                new Vector(position.X + halfWidth, position.Y + halfHeight),
-                new Vector(position.X - halfWidth, position.Y + halfHeight),
+                new Vector2(position.X - halfWidth, position.Y - halfHeight),
+                new Vector2(position.X + halfWidth, position.Y - halfHeight),
+                new Vector2(position.X + halfWidth, position.Y + halfHeight),
+                new Vector2(position.X - halfWidth, position.Y + halfHeight),
             };
 
             Setup(_preInitVertices, position, friction, isStaticBody);
@@ -124,7 +125,7 @@ namespace KDScorpionEngine.Entities
         /// <param name="position">The position of where to render the <see cref="Entity"/>.</param>
         /// <param name="friction">The friction of the body against other entities or surfaces.</param>
         /// <param name="isStaticBody">True if the body is static and cannot be moved by other objects.</param>
-        public Entity(Vector[] vertices, Vector position, float friction = 0.2f, bool isStaticBody = false) =>
+        public Entity(Vector2[] vertices, Vector2 position, float friction = 0.2f, bool isStaticBody = false) =>
             Setup(vertices, position, friction, isStaticBody);
 
 
@@ -136,7 +137,7 @@ namespace KDScorpionEngine.Entities
         /// <param name="position">The position of where to render the <see cref="Entity"/>.</param>
         /// <param name="friction">The friction of the body against other entities or surfaces.</param>
         /// <param name="isStaticBody">True if the body is static and cannot be moved by other objects.</param>
-        public Entity(Texture texture, Vector[] vertices, Vector position, float friction = 0.2f, bool isStaticBody = false)
+        public Entity(Texture texture, Vector2[] vertices, Vector2 position, float friction = 0.2f, bool isStaticBody = false)
         {
             _texture = texture;
             Setup(vertices, position, friction, isStaticBody);
@@ -197,10 +198,10 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// Gets the position of the <see cref="Entity"/> in the game world in pixel units.
         /// </summary>
-        public Vector Position
+        public Vector2 Position
         {
             get => IsInitialized ? 
-                new Vector(Body.InternalPhysicsBody.X, Body.InternalPhysicsBody.Y) :
+                new Vector2(Body.InternalPhysicsBody.X, Body.InternalPhysicsBody.Y) :
                 _preInitPosition;
             set
             {
@@ -222,7 +223,7 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         /// <exception cref="Exception">Thrown when the vertices are trying to be set when the 
         /// <see cref="Entity"/> has already been initialized.</exception>
-        public Vector[] Vertices
+        public Vector2[] Vertices
         {
             get => IsInitialized ? Body.Vertices : _preInitVertices;
             set
@@ -344,10 +345,10 @@ namespace KDScorpionEngine.Entities
         /// <param name="position">The position of where to render the <see cref="Entity"/>.</param>
         /// <param name="friction">The friction of the body against other entities or surfaces.</param>
         /// <param name="isStaticBody">True if the body is static and cannot be moved by other objects.</param>
-        private void Setup(Vector[] polyVertices, Vector position, float friction = 0.2f, bool isStaticBody = false)
+        private void Setup(Vector2[] polyVertices, Vector2 position, float friction = 0.2f, bool isStaticBody = false)
         {
-            _preInitVertices = polyVertices ?? (new Vector[0]);
-            _preInitPosition = position == null ? Vector.Zero : position;
+            _preInitVertices = polyVertices ?? (new Vector2[0]);
+            _preInitPosition = position == null ? Vector2.Zero : position;
             IsStatic = isStaticBody;
             _preInitFriction = friction;
         }
@@ -361,7 +362,7 @@ namespace KDScorpionEngine.Entities
         /// <param name="position">The position of where to render the <see cref="Entity"/>.</param>
         /// <param name="isStaticBody">True if the body is static and cannot be moved by other objects.</param>
         [ExcludeFromCodeCoverage]
-        private void CreateBody(Vector[] vertices, Vector position, bool isStatic)
+        private void CreateBody(Vector2[] vertices, Vector2 position, bool isStatic)
         {
             if (Body == null)
             {

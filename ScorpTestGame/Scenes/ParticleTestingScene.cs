@@ -8,6 +8,7 @@ using Raptor.Graphics;
 using Raptor.Input;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 
 namespace ScorpTestGame.Scenes
 {
@@ -17,7 +18,7 @@ namespace ScorpTestGame.Scenes
         private Mouse _mouse;
 
 
-        public ParticleTestingScene() : base(Vector.Zero)
+        public ParticleTestingScene() : base(Vector2.Zero)
         {
 
         }

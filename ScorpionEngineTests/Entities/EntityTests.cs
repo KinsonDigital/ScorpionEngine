@@ -8,6 +8,7 @@ using Raptor.Plugins;
 using Raptor;
 using Raptor.Graphics;
 using Raptor.Content;
+using System.Numerics;
 
 namespace KDScorpionEngineTests.Entities
 {
@@ -60,8 +61,8 @@ namespace KDScorpionEngineTests.Entities
         public void Ctor_WhenInvokingWithPositionParam_ProperlySetsPositionProperty()
         {
             //Arrange
-            var fakeEntity = new FakeEntity(new Vector(11, 22));
-            var expected = new Vector(11, 22);
+            var fakeEntity = new FakeEntity(new Vector2(11, 22));
+            var expected = new Vector2(11, 22);
 
             //Act
             var actual = fakeEntity.Position;
@@ -77,15 +78,15 @@ namespace KDScorpionEngineTests.Entities
             //Arrange
             var halfWidth = 50;
             var halfHeight = 25;
-            var position = new Vector(10, 20);
-            var vertices = new Vector[4]
+            var position = new Vector2(10, 20);
+            var vertices = new Vector2[4]
             {
-                new Vector(position.X - halfWidth, position.Y - halfHeight),
-                new Vector(position.X + halfWidth, position.Y - halfHeight),
-                new Vector(position.X + halfWidth, position.Y + halfHeight),
-                new Vector(position.X - halfWidth, position.Y + halfHeight),
+                new Vector2(position.X - halfWidth, position.Y - halfHeight),
+                new Vector2(position.X + halfWidth, position.Y - halfHeight),
+                new Vector2(position.X + halfWidth, position.Y + halfHeight),
+                new Vector2(position.X - halfWidth, position.Y + halfHeight),
             };
-            var expectedPosition = new Vector(10, 20);
+            var expectedPosition = new Vector2(10, 20);
 
             //Act
             var fakeEntity = new FakeEntity(vertices, position);
@@ -332,8 +333,8 @@ namespace KDScorpionEngineTests.Entities
         public void Texture_WhenSettingAndeGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            Vector[] vertices = new[] { Vector.Zero };
-            var fakeEntity = new FakeEntity(vertices, It.IsAny<Vector>())
+            var vertices = new[] { Vector2.Zero };
+            var fakeEntity = new FakeEntity(vertices, It.IsAny<Vector2>())
             {
                 Texture = CreateTexture()
             };
@@ -413,10 +414,10 @@ namespace KDScorpionEngineTests.Entities
             var fakeEntity = new FakeEntity(_mockPhysicsBody.Object);
             fakeEntity.Initialize();
 
-            var expected = new Vector(123, 456);
+            var expected = new Vector2(123, 456);
 
             //Act
-            fakeEntity.Position = new Vector(123, 456);
+            fakeEntity.Position = new Vector2(123, 456);
             var actual = fakeEntity.Position;
 
             //Assert
@@ -429,10 +430,10 @@ namespace KDScorpionEngineTests.Entities
         {
             //Arrange
             var fakeEntity = new FakeEntity(_mockPhysicsBody.Object);
-            var expected = new Vector(123, 456);
+            var expected = new Vector2(123, 456);
 
             //Act
-            fakeEntity.Position = new Vector(123, 456);
+            fakeEntity.Position = new Vector2(123, 456);
             var actual = fakeEntity.Position;
 
             //Assert
@@ -445,11 +446,11 @@ namespace KDScorpionEngineTests.Entities
         {
             //Arrange
             var entity = new FakeEntity(true);
-            var expected = new Vector[]
+            var expected = new Vector2[]
             {
-                new Vector(11, 22),
-                new Vector(33, 44),
-                new Vector(55, 66)
+                new Vector2(11, 22),
+                new Vector2(33, 44),
+                new Vector2(55, 66)
             };
 
             //Act
@@ -468,11 +469,11 @@ namespace KDScorpionEngineTests.Entities
             var entity = new FakeEntity(_mockPhysicsBody.Object);
             entity.Initialize();
 
-            var expected = new Vector[]
+            var expected = new Vector2[]
             {
-                new Vector(11, 22),
-                new Vector(33, 44),
-                new Vector(55, 66)
+                new Vector2(11, 22),
+                new Vector2(33, 44),
+                new Vector2(55, 66)
             };
 
             //Act/Assert
@@ -484,19 +485,19 @@ namespace KDScorpionEngineTests.Entities
         public void Vertices_WhenGettingValueBeforeInit_ReturnsCorrectValue()
         {
             //Arrange
-            var vertices = new Vector[]
+            var vertices = new Vector2[]
             {
-                new Vector(11, 22),
-                new Vector(33, 44),
-                new Vector(55, 66)
+                new Vector2(11, 22),
+                new Vector2(33, 44),
+                new Vector2(55, 66)
             };
 
-            var entity = new FakeEntity(vertices, It.IsAny<Vector>());
-            var expected = new Vector[]
+            var entity = new FakeEntity(vertices, It.IsAny<Vector2>());
+            var expected = new Vector2[]
             {
-                new Vector(11, 22),
-                new Vector(33, 44),
-                new Vector(55, 66)
+                new Vector2(11, 22),
+                new Vector2(33, 44),
+                new Vector2(55, 66)
             };
 
             //Act
@@ -513,12 +514,12 @@ namespace KDScorpionEngineTests.Entities
             //Arrange
             var entity = new FakeEntity(_mockPhysicsBody.Object);
 
-            var expected = new Vector[]
+            var expected = new Vector2[]
             {
-                new Vector(-50, -50),
-                new Vector(50, -50),
-                new Vector(50, 50),
-                new Vector(-50, 50)
+                new Vector2(-50, -50),
+                new Vector2(50, -50),
+                new Vector2(50, 50),
+                new Vector2(-50, 50)
             };
             entity.Initialize();
 

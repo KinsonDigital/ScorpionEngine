@@ -10,6 +10,7 @@ using Raptor.Graphics;
 using Raptor.Input;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 
 namespace ScorpTestGame
 {
@@ -21,7 +22,7 @@ namespace ScorpTestGame
         #region Private Fields
         private readonly Keyboard _keyboard = new Keyboard();
         private readonly Mouse _mouse = new Mouse();
-        private Vector _thrusterPosition;
+        private Vector2 _thrusterPosition;
         private ParticleEngine<Texture> _particleEngine;
         private readonly MoveFowardKeyboardBehavior<PlayerShip> _movementBehavior;
         private ITextureLoader<Texture> _textureLoader;
@@ -56,16 +57,16 @@ namespace ScorpTestGame
         {
             DebugDrawEnabled = false;
             AngularDeceleration = 100f;
-            Position = new Vector(300, 250);
+            Position = new Vector2(300, 250);
             Angle = 45;
             
 
             //Ship vertices
-            Vertices = new Vector[3]
+            Vertices = new Vector2[3]
             {
-                new Vector(0, -22),
-                new Vector(23, 22),
-                new Vector(-23, 22)
+                new Vector2(0, -22),
+                new Vector2(23, 22),
+                new Vector2(-23, 22)
             };
 
 
@@ -163,14 +164,14 @@ namespace ScorpTestGame
 
 
             //Update the spawn position of the thruster particels
-            _thrusterPosition = new Vector(Position.X, Position.Y + 11);
+            _thrusterPosition = new Vector2(Position.X, Position.Y + 11);
             _thrusterPosition = _thrusterPosition.RotateAround(Position, Angle);
 
 
             //TODO: Need to figure out how to create a follow angle behavior as well as a follow position behavior
             //Update the X and Y velocity of the particles
-            //var rotatedParticleMin = new Vector(0, _particleVelocityMagnitudeMin).RotateAround(Vector.Zero, Angle);
-            //var rotatedParticleMax = new Vector(0, _particleVelocityMagnitudeMax).RotateAround(Vector.Zero, Angle);
+            //var rotatedParticleMin = new Vector2(0, _particleVelocityMagnitudeMin).RotateAround(Vector2.Zero, Angle);
+            //var rotatedParticleMax = new Vector2(0, _particleVelocityMagnitudeMax).RotateAround(Vector2.Zero, Angle);
 
             //_particleEngine.VelocityXMin = rotatedParticleMin.X;
             //_particleEngine.VelocityXMax = rotatedParticleMax.X;

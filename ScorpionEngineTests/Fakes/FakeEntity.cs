@@ -3,6 +3,7 @@ using KDScorpionEngine.Graphics;
 using Raptor;
 using Raptor.Graphics;
 using Raptor.Plugins;
+using System.Numerics;
 
 namespace KDScorpionEngineTests.Fakes
 {
@@ -17,7 +18,7 @@ namespace KDScorpionEngineTests.Fakes
         }
 
 
-        public FakeEntity(Vector position) : base(position)
+        public FakeEntity(Vector2 position) : base(position)
         {
         }
 
@@ -27,12 +28,12 @@ namespace KDScorpionEngineTests.Fakes
         }
 
 
-        public FakeEntity(Vector[] polyVertices, Vector position) : base(polyVertices, position, isStaticBody: false)
+        public FakeEntity(Vector2[] polyVertices, Vector2 position) : base(polyVertices, position, isStaticBody: false)
         {
         }
 
 
-        public FakeEntity(Texture texture, Vector[] polyVertices, Vector position) : base(texture, polyVertices, position, isStaticBody: false)
+        public FakeEntity(Texture texture, Vector2[] polyVertices, Vector2 position) : base(texture, polyVertices, position, isStaticBody: false)
         {
         }
         #endregion
