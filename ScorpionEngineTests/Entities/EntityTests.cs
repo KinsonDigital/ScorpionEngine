@@ -333,7 +333,7 @@ namespace KDScorpionEngineTests.Entities
         public void Texture_WhenSettingAndeGettingValue_ReturnsCorrectValue()
         {
             //Arrange
-            Vector2[] vertices = new[] { Vector2.Zero };
+            var vertices = new[] { Vector2.Zero };
             var fakeEntity = new FakeEntity(vertices, It.IsAny<Vector2>())
             {
                 Texture = CreateTexture()
