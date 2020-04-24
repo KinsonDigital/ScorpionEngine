@@ -52,7 +52,7 @@
   </ItemGroup>
 
 
-  <Target Name="Test" AfterTargets="Build">
-    <Exec Command="echo &quot;==&gt; $(PkgKinsonDigital_Raptor_Windows)\&quot;" />
+  <Target Name="PrintNugetPackageDirectory" AfterTargets="Build">
+    <Exec Command="echo &quot;Nuget Package Directory: ==&gt; $(PkgKinsonDigital_Raptor_Windows)\&quot;" />
   </Target>
 </Project>
