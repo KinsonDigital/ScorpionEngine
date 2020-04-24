@@ -11,7 +11,7 @@ variables:
   - name: solution
     value: '**/*.sln'
   - name: buildPlatform
-    value: 'AnyCPU'
+    value: 'any cpu'
   - name: buildConfiguration
     value: 'Release-Win'
   - name: coverageReportDirName
@@ -44,7 +44,7 @@ stages:
       displayName: Build $(appName) Solution
       inputs:
         solution: '**\*.sln'
-        platform: 'any cpu'
+        platform: '$(buildPlatform)'
         configuration: '$(buildConfiguration)'
         clean: true
 
