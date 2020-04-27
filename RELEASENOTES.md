@@ -1,6 +1,15 @@
 # **Scorpion Engine Release Notes**
 
 
+## **Version 0.3.1**
+
+### **Developer Related Items**
+
+1. Cleanup/refactor **Target** in project file.
+2. Remove old unused **YAML** pipeline file.
+
+---
+
 ## **Version 0.3.0**
 
 ### **Developer Related Items**
