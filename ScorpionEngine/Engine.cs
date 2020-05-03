@@ -96,13 +96,13 @@ namespace KDScorpionEngine
         /// <summary>
         /// Starts the game engine.
         /// </summary>
-        public void Start() => _engineCore?.Start();
+        public void Start() => _engineCore?.StartEngine();
 
 
         /// <summary>
         /// Stops the game engine.
         /// </summary>
-        public void Stop() => _engineCore?.Stop();
+        public void Stop() => _engineCore?.StopEngine();
 
 
         /// <summary>
@@ -185,10 +185,11 @@ namespace KDScorpionEngine
         [ExcludeFromCodeCoverage]
         private void EngineCore_OnInitialize(object sender, EventArgs e)
         {
-            _renderer = new GameRenderer
-            {
-                InternalRenderer = _engineCore.Renderer
-            };
+            //TODO: Get this working
+            //_renderer = new GameRenderer()
+            //{
+            //    InternalRenderer = _engineCore.Renderer
+            //};
             Init();
         }
 

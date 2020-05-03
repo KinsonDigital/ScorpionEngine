@@ -1,6 +1,7 @@
 ﻿using Raptor;
 using Raptor.Plugins;
 using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 
 namespace KDScorpionEngineTests.Fakes
@@ -14,15 +15,15 @@ namespace KDScorpionEngineTests.Fakes
         #region Constructors
         public FakePhysicsBody(float[] xVertices, float[] yVertices)
         {
-            XVertices = xVertices;
-            YVertices = yVertices;
+            XVertices = new ReadOnlyCollection<float>(xVertices);
+            YVertices = new ReadOnlyCollection<float>(yVertices);
         }
 
 
         public FakePhysicsBody(float[] xVertices, float[] yVertices, float x, float y)
         {
-            XVertices = xVertices;
-            YVertices = yVertices;
+            XVertices = new ReadOnlyCollection<float>(xVertices);
+            YVertices = new ReadOnlyCollection<float>(yVertices);
             X = x;
             Y = y;
         }
@@ -30,9 +31,9 @@ namespace KDScorpionEngineTests.Fakes
 
 
         #region Props
-        public float[] XVertices { get; set; }
+        public ReadOnlyCollection<float> XVertices { get; set; }
 
-        public float[] YVertices { get; set; }
+        public ReadOnlyCollection<float> YVertices { get; set; }
 
         public float X { get; set; }
 
@@ -56,7 +57,9 @@ namespace KDScorpionEngineTests.Fakes
 
         public float AngularDeceleration { get; set; }
 
-        public DeferredActions AfterAddedToWorldActions { get; set; }
+        public DeferredActionsCollection AfterAddedToWorldActions { get; set; }
+
+        DeferredActionsCollection IPhysicsBody.AfterAddedToWorldActions { get; }
         #endregion
 
 
@@ -94,6 +97,16 @@ namespace KDScorpionEngineTests.Fakes
 
 
         public void InjectData<T>(T data) where T : class
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetXVertices(float[] xVertices)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetYVertices(float[] yVertices)
         {
             throw new NotImplementedException();
         }

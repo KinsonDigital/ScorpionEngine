@@ -199,12 +199,12 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         public float LinearDeceleration
         {
-            get => IsInitialized ? Body.InternalPhysicsBody.LinearDeceleration : _preInitLinearDeceleration;
+            get => IsInitialized ? Body.LinearDeceleration : _preInitLinearDeceleration;
             set
             {
                 if (IsInitialized)
                 {
-                    Body.InternalPhysicsBody.LinearDeceleration = value;
+                    Body.LinearDeceleration = value;
                 }
                 else
                 {
@@ -218,12 +218,12 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         public float AngularDeceleration
         {
-            get => IsInitialized ? Body.InternalPhysicsBody.AngularDeceleration : _preInitAngularDeceleration;
+            get => IsInitialized ? Body.AngularDeceleration : _preInitAngularDeceleration;
             set
             {
                 if(IsInitialized)
                 {
-                    Body.InternalPhysicsBody.AngularDeceleration = value;
+                    Body.AngularDeceleration = value;
                 }
                 else
                 {
@@ -265,7 +265,7 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            _facingDirection = new Vector2(0, -1).RotateAround(Vector2.Zero, Body.InternalPhysicsBody.Angle);
+            _facingDirection = new Vector2(0, -1).RotateAround(Vector2.Zero, Body.Angle);
 
             ProcessMovementStop();
 
@@ -282,7 +282,8 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            Body.InternalPhysicsBody.ApplyForce(SpeedX.ForcePositive(), 0, Position.X, Position.Y);
+            //TODO: Get this working
+            ////Body.ApplyForce(SpeedX.ForcePositive(), 0, Position.X, Position.Y);
         }
 
 
@@ -295,7 +296,8 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            Body.InternalPhysicsBody.ApplyForce(speed.ForcePositive(), 0, Position.X, Position.Y);
+            //TODO: Get this working
+            ////Body.ApplyForce(speed.ForcePositive(), 0, Position.X, Position.Y);
         }
 
 
@@ -308,7 +310,8 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            Body.InternalPhysicsBody.ApplyForce(SpeedX.ForceNegative(), 0, Position.X, Position.Y);
+            //TODO: Get this working
+            //Body.ApplyForce(SpeedX.ForceNegative(), 0, Position.X, Position.Y);
         }
 
 
@@ -321,7 +324,8 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            Body.InternalPhysicsBody.ApplyForce(speed.ForceNegative(), 0, Position.X, Position.Y);
+            //TODO: Get this working
+            //Body.ApplyForce(speed.ForceNegative(), 0, Position.X, Position.Y);
         }
 
 
@@ -334,7 +338,8 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            Body.InternalPhysicsBody.ApplyForce(0, SpeedY.ForceNegative(), Position.X, Position.Y);
+            //TODO: Get this working
+            //Body.ApplyForce(0, SpeedY.ForceNegative(), Position.X, Position.Y);
         }
 
 
@@ -347,7 +352,8 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            Body.InternalPhysicsBody.ApplyForce(0, speed.ForceNegative(), Position.X, Position.Y);
+            //TODO: Get this working
+            //Body.ApplyForce(0, speed.ForceNegative(), Position.X, Position.Y);
         }
 
 
@@ -360,7 +366,8 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            Body.InternalPhysicsBody.ApplyForce(0, SpeedY.ForcePositive(), Position.X, Position.Y);
+            //TODO: Get this working
+            //Body.ApplyForce(0, SpeedY.ForcePositive(), Position.X, Position.Y);
         }
 
 
@@ -373,7 +380,8 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            Body.InternalPhysicsBody.ApplyForce(0, speed, Position.X, Position.Y);
+            //TODO: Get this working
+            //Body.ApplyForce(0, speed, Position.X, Position.Y);
         }
 
 
@@ -386,7 +394,8 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            Body.InternalPhysicsBody.ApplyForce(SpeedX.ForcePositive(), SpeedY.ForceNegative(), Position.X, Position.Y);
+            //TODO: Get this working
+            //Body.ApplyForce(SpeedX.ForcePositive(), SpeedY.ForceNegative(), Position.X, Position.Y);
         }
 
 
@@ -399,7 +408,8 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            Body.InternalPhysicsBody.ApplyForce(speed, speed.ForceNegative(), Position.X, Position.Y);
+            //TODO: Get this working
+            //Body.ApplyForce(speed, speed.ForceNegative(), Position.X, Position.Y);
         }
 
 
@@ -412,7 +422,8 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            Body.InternalPhysicsBody.ApplyForce(SpeedX.ForceNegative(), SpeedY.ForceNegative(), Position.X, Position.Y);
+            //TODO: Get this working
+            //Body.ApplyForce(SpeedX.ForceNegative(), SpeedY.ForceNegative(), Position.X, Position.Y);
         }
 
 
@@ -425,8 +436,9 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
+            //TODO: Get this working
             speed = speed.ForceNegative();
-            Body.InternalPhysicsBody.ApplyForce(speed, speed, Position.X, Position.Y);
+            //Body.ApplyForce(speed, speed, Position.X, Position.Y);
         }
 
 
@@ -439,7 +451,8 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            Body.InternalPhysicsBody.ApplyForce(SpeedX.ForcePositive(), SpeedY.ForcePositive(), Position.X, Position.Y);
+            //TODO: Get this working
+            //Body.ApplyForce(SpeedX.ForcePositive(), SpeedY.ForcePositive(), Position.X, Position.Y);
         }
 
 
@@ -452,8 +465,9 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
+            //TODO: Get this working
             speed = speed.ForcePositive();
-            Body.InternalPhysicsBody.ApplyForce(speed, speed, Position.X, Position.Y);
+            //Body.ApplyForce(speed, speed, Position.X, Position.Y);
         }
 
 
@@ -466,7 +480,8 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            Body.InternalPhysicsBody.ApplyForce(SpeedX.ForceNegative(), SpeedY.ForcePositive(), Position.X, Position.Y);
+            //TODO: Get this working
+            //Body.ApplyForce(SpeedX.ForceNegative(), SpeedY.ForcePositive(), Position.X, Position.Y);
         }
 
 
@@ -479,7 +494,7 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            Body.InternalPhysicsBody.ApplyForce(speed.ForceNegative(), speed.ForcePositive(), Position.X, Position.Y);
+            //Body.ApplyForce(speed.ForceNegative(), speed.ForcePositive(), Position.X, Position.Y);
         }
 
 
@@ -493,7 +508,8 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            Body.InternalPhysicsBody.ApplyForce(SpeedX, SpeedY, Position.X, Position.Y);
+            //TODO: Get this working
+            //Body.ApplyForce(SpeedX, SpeedY, Position.X, Position.Y);
         }
 
 
@@ -508,7 +524,8 @@ namespace KDScorpionEngine.Entities
 
             var directionToMove = new Vector2(_facingDirection.X, _facingDirection.Y) * speed.ForcePositive();
 
-            Body.InternalPhysicsBody.ApplyForce(directionToMove.X, directionToMove.Y, Position.X, Position.Y);
+            //TODO: Get this working
+            //Body.ApplyForce(directionToMove.X, directionToMove.Y, Position.X, Position.Y);
         }
 
 
@@ -528,8 +545,9 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            if (RotationEnabled)
-                Body.InternalPhysicsBody.ApplyAngularImpulse(speed.ForcePositive());
+            //TODO: Get this working
+            //if (RotationEnabled)
+            //    Body.ApplyAngularImpulse(speed.ForcePositive());
         }
 
 
@@ -549,8 +567,9 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            if (RotationEnabled)
-                Body.InternalPhysicsBody.ApplyAngularImpulse(speed.ForceNegative());
+            //TODO: Get this working
+            //if (RotationEnabled)
+            //    Body.ApplyAngularImpulse(speed.ForceNegative());
         }
 
 
@@ -568,7 +587,7 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            Body.InternalPhysicsBody.AngularVelocity = 0;
+            Body.AngularVelocity = 0;
         }
 
 
@@ -580,23 +599,26 @@ namespace KDScorpionEngine.Entities
             if (IsEntityStopping)
             {
                 //If the body is still moving in the Y direction
-                if (Body.InternalPhysicsBody.LinearVelocityY != 0)
+                if (Body.LinearVelocity.Y != 0)
                 {
-                    Body.InternalPhysicsBody.ApplyForce(Body.InternalPhysicsBody.LinearVelocityX, Body.InternalPhysicsBody.LinearVelocityY * -1, Position.X, Position.Y);
+                    //TODO: Get this working
+                    ////Body.ApplyForce(Body.LinearVelocity.X, Body.LinearVelocity.Y * -1, Position.X, Position.Y);
                 }
 
                 //If the body is still moving in the X direction
-                if (Body.InternalPhysicsBody.LinearVelocityX != 0)
+                if (Body.LinearVelocity.X != 0)
                 {
-                    Body.InternalPhysicsBody.ApplyForce(Body.InternalPhysicsBody.LinearVelocityX * -1, Body.InternalPhysicsBody.LinearVelocityY, Position.X, Position.Y);
+                    //TODO: Get this working
+                    ////Body.ApplyForce(Body.LinearVelocity.X * -1, Body.LinearVelocity.Y, Position.X, Position.Y);
                 }
 
-                //If the body is still rotating
-                if (Body.InternalPhysicsBody.AngularVelocity != 0)
-                    Body.InternalPhysicsBody.ApplyAngularImpulse(Body.InternalPhysicsBody.AngularVelocity * -1);
+                //TODO: Get this working
+                ////If the body is still rotating
+                //if (Body.AngularVelocity != 0)
+                //    Body.ApplyAngularImpulse(Body.AngularVelocity * -1);
 
                 //If the body has stopped moving, set the flag back to false
-                if (Body.InternalPhysicsBody.LinearVelocityX == 0 && Body.InternalPhysicsBody.LinearVelocityY == 0 &&
+                if (Body.LinearVelocity.X == 0 && Body.LinearVelocity.Y == 0 &&
                     Body.AngularVelocity == 0)
                     IsEntityStopping = false;
             }

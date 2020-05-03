@@ -41,7 +41,7 @@ namespace KDScorpionEngine.Input
 
         #region Private Fields
         private readonly Keyboard _keyboard;
-        private Dictionary<KeyCodes, bool> _currentPressedKeys;//Holds the list of comboKeys and there down states
+        private Dictionary<KeyCode, bool> _currentPressedKeys;//Holds the list of comboKeys and there down states
         protected Counter _counter;//Keeps track of the hit count of an input
         protected bool _curState;//The current state of the set input
         protected bool _prevState;//The previous state of the set input
@@ -85,7 +85,7 @@ namespace KDScorpionEngine.Input
         /// <summary>
         /// Gets or sets the list of combo keys.
         /// </summary>
-        public List<KeyCodes> ComboKeys
+        public List<KeyCode> ComboKeys
         {
             get => _currentPressedKeys.Keys.ToList();
             set => CreateCurrentPressedKeys(value.ToArray());
@@ -94,7 +94,7 @@ namespace KDScorpionEngine.Input
         /// <summary>
         /// Gets or sets the key to watch.
         /// </summary>
-        public KeyCodes Key { get; set; } = KeyCodes.None;
+        public KeyCode Key { get; set; } = KeyCode.None;
 
         /// <summary>
         /// Gets current amount of times that the set key has been hit.
@@ -242,7 +242,7 @@ namespace KDScorpionEngine.Input
             if (_currentPressedKeys != null)
             {
                 //Holds the list of keys from the pressed keys dictionary
-                var keys = new List<KeyCodes>(_currentPressedKeys.Keys);
+                var keys = new List<KeyCode>(_currentPressedKeys.Keys);
 
                 //Set the state of all of the pressed keys
                 keys.ForEach(k => _currentPressedKeys[k] = _keyboard.IsKeyDown(k));
@@ -303,7 +303,7 @@ namespace KDScorpionEngine.Input
         private void Setup(bool enabled)
         {
             Enabled = enabled;
-            ComboKeys = new List<KeyCodes>();
+            ComboKeys = new List<KeyCode>();
 
             //Setup stop watches
             _counter = new Counter(0, 10, 1);
@@ -321,13 +321,13 @@ namespace KDScorpionEngine.Input
         /// Creates the list of pressed keys from the given list of keys
         /// </summary>
         /// <param name="keys">The list of combo keys.</param>
-        private void CreateCurrentPressedKeys(IList<KeyCodes> keys)
+        private void CreateCurrentPressedKeys(IList<KeyCode> keys)
         {
             //If the combo keys are null, skip combo key setup
             if (keys != null)
             {
                 //Create the current pressed keys dictionary
-                _currentPressedKeys = new Dictionary<KeyCodes, bool>();
+                _currentPressedKeys = new Dictionary<KeyCode, bool>();
 
                 //Add all of the keys to the combo keys list dictionary
                 keys.ToList().ForEach(k =>

@@ -143,8 +143,9 @@ namespace KDScorpionEngine.Scene
         //in the class itself.
         public void AddEntity(Entity entity, bool addToPhysics = true)
         {
-            if(addToPhysics)
-                PhysicsWorld.AddBody(entity.Body.InternalPhysicsBody);
+            //TODO: Get this working
+            //if(addToPhysics)
+            //    PhysicsWorld.AddBody(entity.Body);
 
             Entities.Add(entity);
         }

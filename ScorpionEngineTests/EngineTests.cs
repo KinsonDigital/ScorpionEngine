@@ -148,7 +148,7 @@ namespace KDScorpionEngineTests
             engine.Start();
 
             //Assert
-            _mockEngineCore.Verify(m => m.Start(), Times.Once());
+            _mockEngineCore.Verify(m => m.StartEngine(), Times.Once());
         }
 
 
@@ -175,7 +175,7 @@ namespace KDScorpionEngineTests
             engine.Stop();
 
             //Assert
-            _mockEngineCore.Verify(m => m.Stop(), Times.Once());
+            _mockEngineCore.Verify(m => m.StopEngine(), Times.Once());
         }
 
 

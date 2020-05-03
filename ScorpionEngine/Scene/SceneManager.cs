@@ -64,7 +64,7 @@ namespace KDScorpionEngine.Scene
         /// <summary>
         /// Gets or sets the key to be pressed to progress to the next frame stack when the <see cref="Mode"/> property is set to <see cref="RunMode.FrameStack"/>.
         /// </summary>
-        public KeyCodes NextFrameStackKey { get; set; } = KeyCodes.None;
+        public KeyCode NextFrameStackKey { get; set; } = KeyCode.None;
 
         /// <summary>
         /// Gets the currently enabled scene.
@@ -79,24 +79,24 @@ namespace KDScorpionEngine.Scene
         /// <summary>
         /// The keyboard key used to play the current scene.
         /// </summary>
-        public KeyCodes PlayCurrentSceneKey { get; set; } = KeyCodes.None;
+        public KeyCode PlayCurrentSceneKey { get; set; } = KeyCode.None;
 
         /// <summary>
         /// The keyboard key used to pause the current scene.
         /// </summary>
-        public KeyCodes PauseCurrentSceneKey { get; set; } = KeyCodes.None;
+        public KeyCode PauseCurrentSceneKey { get; set; } = KeyCode.None;
 
         /// <summary>
         /// Gets or sets the key to press to move to the next <see cref="IScene"/>.
-        /// If set to <see cref="KeyCodes.None"/>, then nothing will happen.
+        /// If set to <see cref="KeyCode.None"/>, then nothing will happen.
         /// </summary>
-        public KeyCodes NextSceneKey { get; set; } = KeyCodes.None;
+        public KeyCode NextSceneKey { get; set; } = KeyCode.None;
 
         /// <summary>
         /// Gets or sets the key to press to move to the previous <see cref="IScene"/>.
-        /// If set to <see cref="KeyCodes.None"/>, then nothing will happen.
+        /// If set to <see cref="KeyCode.None"/>, then nothing will happen.
         /// </summary>
-        public KeyCodes PreviousSceneKey { get; set; } = KeyCodes.None;
+        public KeyCode PreviousSceneKey { get; set; } = KeyCode.None;
 
         /// <summary>
         /// Gets or sets a value indicting if the current scene content will be unloaded when the scene changes.
@@ -674,28 +674,28 @@ namespace KDScorpionEngine.Scene
         {
             _keyboard.UpdateCurrentState();
 
-            if (PlayCurrentSceneKey != KeyCodes.None)
+            if (PlayCurrentSceneKey != KeyCode.None)
             {
                 //If the play key has been pressed
                 if (_keyboard.IsKeyPressed(PlayCurrentSceneKey))
                     PlayCurrentScene();
             }
 
-            if (PauseCurrentSceneKey != KeyCodes.None)
+            if (PauseCurrentSceneKey != KeyCode.None)
             {
                 //If the pause key has been pressed
                 if (_keyboard.IsKeyPressed(PauseCurrentSceneKey))
                     PauseCurrentScene();
             }
 
-            if (NextSceneKey != KeyCodes.None)
+            if (NextSceneKey != KeyCode.None)
             {
                 //If the next scene key has been pressed
                 if (_keyboard.IsKeyPressed(NextSceneKey))
                     NextScene();
             }
 
-            if (PreviousSceneKey != KeyCodes.None)
+            if (PreviousSceneKey != KeyCode.None)
             {
                 //If the previous scene key has been pressed
                 if (_keyboard.IsKeyPressed(PreviousSceneKey))
