@@ -23,9 +23,9 @@ namespace KDScorpionEngine
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="Engine"/>.
-        /// <paramref name="contentLoader">The mocked content loader to inject.</paramref>
-        /// <paramref name="engineCore">The mocked engine core to inject.</paramref>
-        /// <paramref name="keyboard">The mocked keyboard to inject.</paramref>
+        /// <paramref name="contentLoader">The content loader to inject.</paramref>
+        /// <paramref name="engineCore">The engine core to inject.</paramref>
+        /// <paramref name="keyboard">The keyboard to inject.</paramref>
         /// USED FOR UNIT TESTING.
         /// </summary>
         internal Engine(IContentLoader contentLoader, IEngineCore engineCore, IKeyboard keyboard)
@@ -96,13 +96,13 @@ namespace KDScorpionEngine
         /// <summary>
         /// Starts the game engine.
         /// </summary>
-        public void Start() => _engineCore?.Start();
+        public void Start() => _engineCore?.StartEngine();
 
 
         /// <summary>
         /// Stops the game engine.
         /// </summary>
-        public void Stop() => _engineCore?.Stop();
+        public void Stop() => _engineCore?.StopEngine();
 
 
         /// <summary>
@@ -185,10 +185,11 @@ namespace KDScorpionEngine
         [ExcludeFromCodeCoverage]
         private void EngineCore_OnInitialize(object sender, EventArgs e)
         {
-            _renderer = new GameRenderer
-            {
-                InternalRenderer = _engineCore.Renderer
-            };
+            //TODO: Get this working
+            //_renderer = new GameRenderer()
+            //{
+            //    InternalRenderer = _engineCore.Renderer
+            //};
             Init();
         }
 

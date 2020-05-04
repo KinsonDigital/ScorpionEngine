@@ -16,7 +16,7 @@ namespace KDScorpionEngine.Entities
         /// Creates a new instance of <see cref="TextEntity"/>.
         /// USED FOR UNIT TESTING.
         /// </summary>
-        /// <param name="body">The mocked physics body to inject.</param>
+        /// <param name="body">The physics body to inject.</param>
         internal TextEntity(IPhysicsBody body) : base(body) => Setup(string.Empty, new GameColor(255, 0, 0, 0), new GameColor(0, 0, 0, 0));
 
 

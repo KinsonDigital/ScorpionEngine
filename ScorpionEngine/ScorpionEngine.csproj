@@ -48,7 +48,7 @@
 
 
   <ItemGroup>
-    <PackageReference Include="KinsonDigital.Raptor.Windows" Version="0.5.0" GeneratePathProperty="true" />
+    <PackageReference Include="KinsonDigital.Raptor.Windows" Version="0.7.0" GeneratePathProperty="true" />
   </ItemGroup>
 
 

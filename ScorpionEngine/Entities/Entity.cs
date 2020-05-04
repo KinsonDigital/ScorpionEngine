@@ -201,14 +201,14 @@ namespace KDScorpionEngine.Entities
         public Vector2 Position
         {
             get => IsInitialized ? 
-                new Vector2(Body.InternalPhysicsBody.X, Body.InternalPhysicsBody.Y) :
+                new Vector2(Body.X, Body.Y) :
                 _preInitPosition;
             set
             {
                 if (IsInitialized)
                 {
-                    Body.InternalPhysicsBody.X = value.X;
-                    Body.InternalPhysicsBody.Y = value.Y;
+                    Body.X = value.X;
+                    Body.Y = value.Y;
                 }
                 else
                 {
@@ -225,7 +225,7 @@ namespace KDScorpionEngine.Entities
         /// <see cref="Entity"/> has already been initialized.</exception>
         public Vector2[] Vertices
         {
-            get => IsInitialized ? Body.Vertices : _preInitVertices;
+            get => IsInitialized ? Body.Vertices.ToArray() : _preInitVertices;
             set
             {
                 //The vertices of the entity cannot be set after it has been initialized
@@ -370,7 +370,8 @@ namespace KDScorpionEngine.Entities
             }
             else
             {
-                Body.Vertices = vertices;
+                //TODO: Get this working
+                //Body.Vertices = vertices;
                 Body.X = position.X;
                 Body.Y = position.Y;
             }

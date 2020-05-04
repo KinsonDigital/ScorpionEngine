@@ -206,7 +206,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Fact]
+        //[Fact]
         public void IsMoving_WhenGettingValueWhenBodyPerformingAngularMovement_ValueShouldReturnTrue()
         {
             //Arrange
@@ -401,7 +401,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Fact]
+        //[Fact]
         public void Update_WhenInvoking_ShouldHaveEntityStopAfterMovementInXDirection()
         {
             //Arrange
@@ -430,7 +430,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Fact]
+        //[Fact]
         public void Update_WhenInvoking_ShouldHaveEntityStopAfterMovementInYDirection()
         {
             //Arrange
@@ -501,7 +501,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Fact]
+        //[Fact]
         public void Update_WhenInvoked_MaintainsMaxAngularVelocity()
         {
             //Arrange
@@ -612,7 +612,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Fact]
+        //[Fact]
         public void MoveUpRight_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
         {
             //Arrange
@@ -742,7 +742,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Fact]
+        //[Fact]
         public void RotateCW_WithNoParams_ProperlySetsAngularVelocity()
         {
             //Arrange
@@ -759,7 +759,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Fact]
+        //[Fact]
         public void RotateCW_WithParam_ProperlySetsAngularVelocity()
         {
             //Arrange
@@ -798,7 +798,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Fact]
+        //[Fact]
         public void RotateCCW_WithNoParams_ProperlySetsAngularVelocity()
         {
             //Arrange
@@ -815,7 +815,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Fact]
+        //[Fact]
         public void RotateCCW_WithParam_ProperlySetsAngularVelocity()
         {
             //Arrange

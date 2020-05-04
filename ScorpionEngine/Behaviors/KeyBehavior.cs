@@ -40,11 +40,11 @@ namespace KDScorpionEngine.Behaviors
         /// Creates a new instance of <see cref="KeyBehavior"/>.
         /// USED FOR UNIT TESTING.
         /// </summary>
-        /// <param name="keyboard">The mocked keyboard to inject.</param>
+        /// <param name="keyboard">The keyboard to inject.</param>
         internal KeyBehavior(IKeyboard keyboard)
         {
             _keyboard = new Keyboard(keyboard);
-            Setup(KeyCodes.X, true);
+            Setup(KeyCode.X, true);
         }
 
 
@@ -53,7 +53,7 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         /// <param name="key">The assigned keyboard key of the behavior.</param>
         [ExcludeFromCodeCoverage]
-        public KeyBehavior(KeyCodes key, bool enabled = false) => Setup(key, enabled);
+        public KeyBehavior(KeyCode key, bool enabled = false) => Setup(key, enabled);
         #endregion
 
 
@@ -61,7 +61,7 @@ namespace KDScorpionEngine.Behaviors
         /// <summary>
         /// Gets or sets the key for the behavior.
         /// </summary>
-        public KeyCodes Key { get; set; }
+        public KeyCode Key { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating if the behavior is enabled.  If disabled, the update method will not update the behavior or fire events.
@@ -187,7 +187,7 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         /// <param name="key">The key to set to the behavior.</param>
         /// <param name="enabled">Enabled if set to true.</param>
-        private void Setup(KeyCodes key, bool enabled)
+        private void Setup(KeyCode key, bool enabled)
         {
             _keyboard = _keyboard ?? new Keyboard();
 

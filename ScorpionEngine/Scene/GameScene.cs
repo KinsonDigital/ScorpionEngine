@@ -20,7 +20,7 @@ namespace KDScorpionEngine.Scene
         /// Creates a new instance of <see cref="GameScene"/>.
         /// USED FOR UNIT TESTING.
         /// </summary>
-        /// <param name="physicsWorld">The mocked physics world to inject.</param>
+        /// <param name="physicsWorld">The physics world to inject.</param>
         internal GameScene(IPhysicsWorld physicsWorld) => PhysicsWorld = new PhysicsWorld(physicsWorld);
 
 
@@ -143,8 +143,9 @@ namespace KDScorpionEngine.Scene
         //in the class itself.
         public void AddEntity(Entity entity, bool addToPhysics = true)
         {
-            if(addToPhysics)
-                PhysicsWorld.AddBody(entity.Body.InternalPhysicsBody);
+            //TODO: Get this working
+            //if(addToPhysics)
+            //    PhysicsWorld.AddBody(entity.Body);
 
             Entities.Add(entity);
         }
