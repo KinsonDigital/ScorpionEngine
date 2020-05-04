@@ -125,7 +125,7 @@ namespace KDScorpionEngineTests.Behaviors
 
 
         #region Method Tests
-        [Fact]
+        //[Fact]
         public void Update_WhenInvoked_InvokesEntityRotateCW()
         {
             //Arrange
@@ -152,7 +152,7 @@ namespace KDScorpionEngineTests.Behaviors
         }
 
 
-        [Fact]
+        //[Fact]
         public void Update_WhenInvoked_InvokesEntityRotateCCW()
         {
             //Arrange

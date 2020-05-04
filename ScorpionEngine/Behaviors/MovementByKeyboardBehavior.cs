@@ -27,18 +27,25 @@ namespace KDScorpionEngine.Behaviors
 
 
         #region Constructors
+        //TODO: Find a way to improve this class to allow unit testing without having to have this internal constructor.
+        //It is not a good idea to have a constructor for the sole purpose of testing and this points to architecture issues.
+        //This is an issue all over the code base with various classes.  The factory pattern might be the best way to deal with
+        //this by giving internal access to various factories for producing objects such as entities and behaviors.
+        //Another option is to just simply expose and allow the constructor with all the required dependencies exposed for injection
+        //so the developer can simply choose to create the manually or with an IoC container.
+
         /// <summary>
         /// Creates a new instance of <see cref="MovementByKeyboardBehavior{T}"/>.
         /// USED FOR UNIT TESTING.
         /// </summary>
-        /// <param name="mockedKeyboard">The mocked keyboard to inject.</param>
-        /// <param name="mockedEntity">The mocked entity to inject.</param>
-        internal MovementByKeyboardBehavior(IKeyboard mockedKeyboard, T mockedEntity)
+        /// <param name="keyboard">The keyboard to inject.</param>
+        /// <param name="dyanmicEntity">The entity to inject.</param>
+        internal MovementByKeyboardBehavior(IKeyboard keyboard, T dyanmicEntity)
         {
-            CreateBehaviors(mockedKeyboard);
+            CreateBehaviors(keyboard);
             SetupBehaviors();
 
-            _gameObject = mockedEntity;
+            _gameObject = dyanmicEntity;
 
             SetUpdateAction(UpdateAction);
         }

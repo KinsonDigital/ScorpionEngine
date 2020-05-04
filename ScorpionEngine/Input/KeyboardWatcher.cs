@@ -55,7 +55,7 @@ namespace KDScorpionEngine.Input
         /// Creates a new instance of <see cref="KeyboardWatcher"/>.
         /// USED FOR UNIT TESTING.
         /// </summary>
-        /// <param name="keyboard">The mocked keyboard to inject for testing purposes.</param>
+        /// <param name="keyboard">The keyboard to inject for testing purposes.</param>
         internal KeyboardWatcher(IKeyboard keyboard)
         {
             _keyboard = new Keyboard(keyboard);

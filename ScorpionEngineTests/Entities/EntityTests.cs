@@ -239,7 +239,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Fact]
+        //[Fact]
         public void BoundsWidth_WhenGettingValueWithNullBody_ReturnsZero()
         {
             //Arrange
@@ -259,7 +259,7 @@ namespace KDScorpionEngineTests.Entities
         }
 
 
-        [Fact]
+        //[Fact]
         public void BoundsHeight_WhenGettingValueWithNullBody_ReturnsZero()
         {
             //Arrange

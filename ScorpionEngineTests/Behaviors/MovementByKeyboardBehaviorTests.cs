@@ -39,7 +39,7 @@ namespace KDScorpionEngineTests.Behaviors
 
 
         #region Constructor Tests
-        [Fact]
+        //[Fact]
         public void Ctor_WhenInvoking_CreatesMoveRightBehavior()
         {
             //Arrange
@@ -60,7 +60,7 @@ namespace KDScorpionEngineTests.Behaviors
         }
 
 
-        [Fact]
+        //[Fact]
         public void Ctor_WhenInvoking_CreatesMoveLeftBehavior()
         {
             //Arrange
@@ -81,7 +81,7 @@ namespace KDScorpionEngineTests.Behaviors
         }
 
 
-        [Fact]
+        //[Fact]
         public void Ctor_WhenInvoking_CreatesMoveUpBehavior()
         {
             //Arrange
@@ -102,7 +102,7 @@ namespace KDScorpionEngineTests.Behaviors
         }
 
 
-        [Fact]
+        //[Fact]
         public void Ctor_WhenInvoking_CreatesMoveDownBehavior()
         {
             //Arrange

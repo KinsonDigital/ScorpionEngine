@@ -23,9 +23,9 @@ namespace KDScorpionEngine
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="Engine"/>.
-        /// <paramref name="contentLoader">The mocked content loader to inject.</paramref>
-        /// <paramref name="engineCore">The mocked engine core to inject.</paramref>
-        /// <paramref name="keyboard">The mocked keyboard to inject.</paramref>
+        /// <paramref name="contentLoader">The content loader to inject.</paramref>
+        /// <paramref name="engineCore">The engine core to inject.</paramref>
+        /// <paramref name="keyboard">The keyboard to inject.</paramref>
         /// USED FOR UNIT TESTING.
         /// </summary>
         internal Engine(IContentLoader contentLoader, IEngineCore engineCore, IKeyboard keyboard)

@@ -34,7 +34,7 @@ namespace KDScorpionEngine.Entities
         /// Creates a new instance of <see cref="DynamicEntity"/>.
         /// USED FOR UNIT TESTING.
         /// </summary>
-        /// <param name="body">The mocked physics body to inject.</param>
+        /// <param name="body">The physics body to inject.</param>
         internal DynamicEntity(IPhysicsBody body) : base(body)
         {
             SetupMaxLinearBehaviors(DEFAULT_MAX_SPEED);
@@ -567,7 +567,7 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            //TODO: Get this working
+            //TODO: Get this working with unit test
             //if (RotationEnabled)
             //    Body.ApplyAngularImpulse(speed.ForceNegative());
         }

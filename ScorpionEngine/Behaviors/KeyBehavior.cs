@@ -40,7 +40,7 @@ namespace KDScorpionEngine.Behaviors
         /// Creates a new instance of <see cref="KeyBehavior"/>.
         /// USED FOR UNIT TESTING.
         /// </summary>
-        /// <param name="keyboard">The mocked keyboard to inject.</param>
+        /// <param name="keyboard">The keyboard to inject.</param>
         internal KeyBehavior(IKeyboard keyboard)
         {
             _keyboard = new Keyboard(keyboard);

@@ -38,8 +38,8 @@ namespace KDScorpionEngine.Scene
         /// Creates a new instance of <see cref="SceneManager"/>.
         /// USED FOR UNIT TESTING.
         /// </summary>
-        /// <param name="contentLoader">The mocked content loaded to inject.</param>
-        /// <param name="keyboard">The mocked keyboard to inject.</param>
+        /// <param name="contentLoader">The content loaded to inject.</param>
+        /// <param name="keyboard">The keyboard to inject.</param>
         internal SceneManager(IContentLoader contentLoader, IKeyboard keyboard)
         {
             _contentLoader = new ContentLoader(contentLoader);
