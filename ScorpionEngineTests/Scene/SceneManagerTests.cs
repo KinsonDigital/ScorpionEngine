@@ -29,9 +29,9 @@ namespace KDScorpionEngineTests.Scene
             _contentLoader = new Mock<IContentLoader>();
 
             _mockKeyboard = new Mock<IKeyboard>();
-            _mockKeyboard.Setup(m => m.IsKeyPressed(KeyCodes.Space)).Returns(true);
-            _mockKeyboard.Setup(m => m.IsKeyPressed(KeyCodes.Right)).Returns(true);
-            _mockKeyboard.Setup(m => m.IsKeyPressed(KeyCodes.Left)).Returns(true);
+            _mockKeyboard.Setup(m => m.IsKeyPressed(KeyCode.Space)).Returns(true);
+            _mockKeyboard.Setup(m => m.IsKeyPressed(KeyCode.Right)).Returns(true);
+            _mockKeyboard.Setup(m => m.IsKeyPressed(KeyCode.Left)).Returns(true);
         }
         #endregion
 
@@ -42,10 +42,10 @@ namespace KDScorpionEngineTests.Scene
         {
             //Arrang
             var manager = new SceneManager(_contentLoader.Object, _mockKeyboard.Object);
-            var expected = KeyCodes.Left;
+            var expected = KeyCode.Left;
 
             //Act
-            manager.NextFrameStackKey = KeyCodes.Left;
+            manager.NextFrameStackKey = KeyCode.Left;
             var actual = manager.NextFrameStackKey;
 
             //Assert
@@ -103,10 +103,10 @@ namespace KDScorpionEngineTests.Scene
         {
             //Arrang
             var manager = new SceneManager(_contentLoader.Object, _mockKeyboard.Object);
-            var expected = KeyCodes.Left;
+            var expected = KeyCode.Left;
 
             //Act
-            manager.PlayCurrentSceneKey = KeyCodes.Left;
+            manager.PlayCurrentSceneKey = KeyCode.Left;
             var actual = manager.PlayCurrentSceneKey;
 
             //Assert
@@ -119,10 +119,10 @@ namespace KDScorpionEngineTests.Scene
         {
             //Arrang
             var manager = new SceneManager(_contentLoader.Object, _mockKeyboard.Object);
-            var expected = KeyCodes.Left;
+            var expected = KeyCode.Left;
 
             //Act
-            manager.PlayCurrentSceneKey = KeyCodes.Left;
+            manager.PlayCurrentSceneKey = KeyCode.Left;
             var actual = manager.PlayCurrentSceneKey;
 
             //Assert
@@ -135,10 +135,10 @@ namespace KDScorpionEngineTests.Scene
         {
             //Arrang
             var manager = new SceneManager(_contentLoader.Object, _mockKeyboard.Object);
-            var expected = KeyCodes.Left;
+            var expected = KeyCode.Left;
 
             //Act
-            manager.NextSceneKey = KeyCodes.Left;
+            manager.NextSceneKey = KeyCode.Left;
             var actual = manager.NextSceneKey;
 
             //Assert
@@ -151,10 +151,10 @@ namespace KDScorpionEngineTests.Scene
         {
             //Arrang
             var manager = new SceneManager(_contentLoader.Object, _mockKeyboard.Object);
-            var expected = KeyCodes.Left;
+            var expected = KeyCode.Left;
 
             //Act
-            manager.PreviousSceneKey = KeyCodes.Left;
+            manager.PreviousSceneKey = KeyCode.Left;
             var actual = manager.PreviousSceneKey;
 
             //Assert
@@ -1683,7 +1683,7 @@ namespace KDScorpionEngineTests.Scene
             {
                 scene
             };
-            manager.PlayCurrentSceneKey = KeyCodes.Space;
+            manager.PlayCurrentSceneKey = KeyCode.Space;
             var expected = false;//Unpaused
 
             //Act
@@ -1712,7 +1712,7 @@ namespace KDScorpionEngineTests.Scene
             {
                 scene
             };
-            manager.PauseCurrentSceneKey = KeyCodes.Space;
+            manager.PauseCurrentSceneKey = KeyCode.Space;
             var expected = true;//Paused
 
             //Act
@@ -1741,7 +1741,7 @@ namespace KDScorpionEngineTests.Scene
                 sceneA,
                 sceneB
             };
-            manager.NextSceneKey = KeyCodes.Right;
+            manager.NextSceneKey = KeyCode.Right;
             manager.SetCurrentSceneID(10);
             var expected = 20;
 
@@ -1771,7 +1771,7 @@ namespace KDScorpionEngineTests.Scene
                 sceneA,
                 sceneB
             };
-            manager.PreviousSceneKey = KeyCodes.Left;
+            manager.PreviousSceneKey = KeyCode.Left;
             var expected = 10;
 
             //Act

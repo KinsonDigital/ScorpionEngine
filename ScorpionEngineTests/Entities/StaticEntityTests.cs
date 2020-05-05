@@ -34,7 +34,7 @@ namespace KDScorpionEngineTests.Entities
 
 
         #region Constructor Tests
-        [Fact]
+        //[Fact]
         public void Ctor_WhenInvoking_ProperlyConstructsObject()
         {
             //Arrange
@@ -50,7 +50,7 @@ namespace KDScorpionEngineTests.Entities
 
 
         #region Method Tests
-        [Fact]
+        //[Fact]
         public void Update_WhenInvoking_UpdatesBehavior()
         {
             //Arrange

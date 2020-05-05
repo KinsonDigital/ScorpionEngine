@@ -56,7 +56,7 @@ namespace KDScorpionEngine.Input
         /// USED FOR UNIT TESTING.
         /// </summary>
         /// <param name="enabled">True if the watcher should be enabled.</param>
-        /// <param name="mouse">The mocked mouse to inject.</param>
+        /// <param name="mouse">The mouse to inject.</param>
         internal MouseWatcher(bool enabled, IMouse mouse)
         {
             _mouse = new Mouse(mouse);

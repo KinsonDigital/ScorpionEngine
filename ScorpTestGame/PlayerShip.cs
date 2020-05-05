@@ -72,9 +72,9 @@ namespace ScorpTestGame
 
             _movementBehavior = new MoveFowardKeyboardBehavior<PlayerShip>(this, 1f, 0.12f)
             {
-                MoveFowardKey = KeyCodes.Up,
-                RotateCWKey = KeyCodes.Right,
-                RotateCCWKey = KeyCodes.Left,
+                MoveFowardKey = KeyCode.Up,
+                RotateCWKey = KeyCode.Right,
+                RotateCCWKey = KeyCode.Left,
                 Enabled = true
             };
 
@@ -152,12 +152,12 @@ namespace ScorpTestGame
             //    _particleEngine.TintColors = _purpleColors.ToNETColors();
             //}
 
-            //if (_keyboard.IsKeyPressed(KeyCodes.Enter))
+            //if (_keyboard.IsKeyPressed(KeyCode.Enter))
             //{
             //    _particleEngine.TintColors = _purpleColors.ToNETColors();
             //}
 
-            //if (_keyboard.IsKeyPressed(KeyCodes.RightShift))
+            //if (_keyboard.IsKeyPressed(KeyCode.RightShift))
             //{
             //    _particleEngine.TintColors = _blueColors.ToNETColors();
             //}
