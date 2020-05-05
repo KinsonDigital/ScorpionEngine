@@ -1,6 +1,15 @@
 # **Scorpion Engine Release Notes**
 
 
+## **Version 0.4.0**
+
+### **New**
+
+1. Updated the **Raptor** nuget package library to version **v0.7.0**.
+   * This update have various breaking changes.  Refactoring of code base to accommodate these new changes were performed as well as disabling some code and unit tests to allow for a successful build to prepare for future changes.
+
+---
+
 ## **Version 0.3.1**
 
 ### **Developer Related Items**
