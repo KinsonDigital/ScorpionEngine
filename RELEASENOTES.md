@@ -8,7 +8,7 @@
 
 ### **Misc**
 
-1. Change **MIT license** copyright from **Calvin Wilkinson** to **Kinson Digital**
+1. Changed **MIT license** copyright from **Calvin Wilkinson** to **Kinson Digital**
 
 ---
 
