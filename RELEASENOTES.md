@@ -1,5 +1,16 @@
 # **Scorpion Engine Release Notes**
 
+## **Version 0.5.0**
+
+### **Changes**
+
+1. Updated the **Raptor** library from version **v0.7.0** to **v0.8.0**.
+
+### **Misc**
+
+1. Change **MIT license** copyright from **Calvin Wilkinson** to **Kinson Digital**
+
+---
 
 ## **Version 0.4.0**
 
