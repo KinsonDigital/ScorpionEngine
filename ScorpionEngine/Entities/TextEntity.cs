@@ -15,7 +15,6 @@ namespace KDScorpionEngine.Entities
     /// </summary>
     public class TextEntity : Entity
     {
-        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="TextEntity"/>.
         /// USED FOR UNIT TESTING.
@@ -32,9 +31,7 @@ namespace KDScorpionEngine.Entities
         [ExcludeFromCodeCoverage]
         public TextEntity(string text, GameColor foreColor, GameColor backColor, Vector2 position) : base(new Vector2[0], position: position) =>
             Setup(text, foreColor, backColor);
-        #endregion
 
-        #region Props
         /// <summary>
         /// Gets or sets the text.
         /// </summary>
@@ -49,9 +46,7 @@ namespace KDScorpionEngine.Entities
         /// Gets or sets the back color of the text.
         /// </summary>
         public GameColor BackColor { get; set; } = new GameColor(0, 0, 0, 0);
-        #endregion
 
-        #region Private Methods
         /// <summary>
         /// Sets up the <see cref="TextEntity"/>.
         /// </summary>
@@ -64,6 +59,5 @@ namespace KDScorpionEngine.Entities
             ForeColor = foreColor;
             BackColor = backColor;
         }
-        #endregion
     }
 }

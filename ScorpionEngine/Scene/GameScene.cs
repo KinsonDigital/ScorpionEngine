@@ -19,7 +19,6 @@ namespace KDScorpionEngine.Scene
     /// </summary>
     public abstract class GameScene : IScene
     {
-        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="GameScene"/>.
         /// USED FOR UNIT TESTING.
@@ -33,9 +32,7 @@ namespace KDScorpionEngine.Scene
         /// <param name="gravity">The gravity of the scene.</param>
         [ExcludeFromCodeCoverage]
         public GameScene(Vector2 gravity) => PhysicsWorld = new PhysicsWorld(gravity);
-        #endregion
 
-        #region Props
         /// <summary>
         /// Gets or sets the name of the scene.
         /// </summary>
@@ -81,9 +78,7 @@ namespace KDScorpionEngine.Scene
         /// The physics world attached to this <see cref="GameScene"/> that governs the physics of the game.
         /// </summary>
         public static PhysicsWorld PhysicsWorld { get; set; }
-        #endregion
 
-        #region Public Methods
         /// <summary>
         /// Initializes the game scene.
         /// </summary>
@@ -145,6 +140,5 @@ namespace KDScorpionEngine.Scene
 
             Entities.Add(entity);
         }
-        #endregion
     }
 }

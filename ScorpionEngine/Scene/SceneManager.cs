@@ -22,20 +22,15 @@ namespace KDScorpionEngine.Scene
     /// </summary>
     public class SceneManager : IUpdatable, IDrawable, IEnumerable<IScene>, IList<IScene>
     {
-        #region Events
         /// <summary>
         /// Occurs when the currently active scene has changed.
         /// </summary>
         public event EventHandler<SceneChangedEventArgs> SceneChanged;
-        #endregion
 
-        #region Private Fields
         private readonly ContentLoader _contentLoader;
         private readonly List<IScene> _scenes = new List<IScene>();//The list of scenes
         private readonly Keyboard _keyboard;
-        #endregion
 
-        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="SceneManager"/>.
         /// USED FOR UNIT TESTING.
@@ -58,9 +53,7 @@ namespace KDScorpionEngine.Scene
             _contentLoader = contentLoader;
             _keyboard = new Keyboard();
         }
-        #endregion
 
-        #region Props
         /// <summary>
         /// Gets or sets the key to be pressed to progress to the next frame stack when the <see cref="Mode"/> property is set to <see cref="RunMode.FrameStack"/>.
         /// </summary>
@@ -175,9 +168,7 @@ namespace KDScorpionEngine.Scene
             get => _scenes[index];
             set => _scenes[index] = value;
         }
-        #endregion
 
-        #region Public Methods
         /// <summary>
         /// Returns an enumerator that iterates through the scenes.
         /// </summary>
@@ -628,9 +619,7 @@ namespace KDScorpionEngine.Scene
         /// </summary>
         /// <param name="frames">The number of frames to run.</param>
         public void RunFrames(uint frames) => _scenes[CurrentSceneId].TimeManager.RunFrames(frames);
-        #endregion
 
-        #region Private Methods
         /// <summary>
         /// Checks if any of the <see cref="SceneManager"/> keys have been pressed and processes them.
         /// </summary>
@@ -743,6 +732,5 @@ namespace KDScorpionEngine.Scene
             if (DeactivateOnSceneChange)
                 scene.Active = false;
         }
-        #endregion
     }
 }

@@ -11,7 +11,6 @@ namespace KDScorpionEngine.Exceptions
     /// </summary>
     public class IdNotFoundException : Exception
     {
-        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="IdNotFoundException"/>.
         /// </summary>
@@ -28,6 +27,5 @@ namespace KDScorpionEngine.Exceptions
         /// </summary>
         /// <param name="message">The exception message.</param>
         public IdNotFoundException(string message) : base(message) { }
-        #endregion
     }
 }

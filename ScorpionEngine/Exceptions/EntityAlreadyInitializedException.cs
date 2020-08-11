@@ -12,7 +12,6 @@ namespace KDScorpionEngine.Exceptions
     /// </summary>
     public class EntityAlreadyInitializedException : Exception
     {
-        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="EntityAlreadyInitializedException"/>.
         /// </summary>
@@ -23,6 +22,5 @@ namespace KDScorpionEngine.Exceptions
         /// </summary>
         /// <param name="message">The exception message.</param>
         public EntityAlreadyInitializedException(string message) : base(message) { }
-        #endregion
     }
 }

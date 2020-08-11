@@ -15,7 +15,6 @@ namespace KDScorpionEngine.Behaviors
     /// </summary>
     public class KeyBehavior : IBehavior
     {
-        #region Events
         /// <summary>
         /// Occurs when a key has been pressed.
         /// </summary>
@@ -30,14 +29,10 @@ namespace KDScorpionEngine.Behaviors
         /// Occurs when a key has first been fully pressed down then released.
         /// </summary>
         public event EventHandler<KeyEventArgs> KeyPressEvent;
-        #endregion
 
-        #region Private Fields
         private int _timeElapsed;//The time elapsed since last frame
         private Keyboard _keyboard;
-        #endregion
 
-        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="KeyBehavior"/>.
         /// USED FOR UNIT TESTING.
@@ -55,9 +50,7 @@ namespace KDScorpionEngine.Behaviors
         /// <param name="key">The assigned keyboard key of the behavior.</param>
         [ExcludeFromCodeCoverage]
         public KeyBehavior(KeyCode key, bool enabled = false) => Setup(key, enabled);
-        #endregion
 
-        #region Props
         /// <summary>
         /// Gets or sets the key for the behavior.
         /// </summary>
@@ -103,9 +96,7 @@ namespace KDScorpionEngine.Behaviors
         /// name will be 'KeyBehavior'.
         /// </summary>
         public string Name { get; set; } = nameof(KeyBehavior);
-        #endregion
 
-        #region Public Methods
         /// <summary>
         /// Updates the key behavior.
         /// </summary>
@@ -177,9 +168,7 @@ namespace KDScorpionEngine.Behaviors
 
             _keyboard.UpdatePreviousState();
         }
-        #endregion
 
-        #region Private Methods
         /// <summary>
         /// Sets up the <see cref="KeyBehavior"/>.
         /// </summary>
@@ -192,6 +181,5 @@ namespace KDScorpionEngine.Behaviors
             Key = key;
             Enabled = enabled;
         }
-        #endregion
     }
 }

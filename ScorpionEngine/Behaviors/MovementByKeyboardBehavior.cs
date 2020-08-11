@@ -17,7 +17,6 @@ namespace KDScorpionEngine.Behaviors
     /// </summary>
     public class MovementByKeyboardBehavior<T> : Behavior where T : DynamicEntity
     {
-        #region Private Fields
         private KeyBehavior _moveRightOnKeyDown;
         private KeyBehavior _moveLeftOnKeyDown;
         private KeyBehavior _moveUpOnKeyDown;
@@ -27,9 +26,7 @@ namespace KDScorpionEngine.Behaviors
         private KeyCode _moveDownKey = KeyCode.Down;
         private KeyCode _moveLeftKey = KeyCode.Left;
         private KeyCode _moveRightKey = KeyCode.Right;
-        #endregion
 
-        #region Constructors
         //TODO: Find a way to improve this class to allow unit testing without having to have this internal constructor.
         //It is not a good idea to have a constructor for the sole purpose of testing and this points to architecture issues.
         //This is an issue all over the code base with various classes.  The factory pattern might be the best way to deal with
@@ -70,9 +67,7 @@ namespace KDScorpionEngine.Behaviors
 
             SetUpdateAction(UpdateAction);
         }
-        #endregion
 
-        #region Props
         /// <summary>
         /// Gets or sets the keyboard key that will move the <see cref="DynamicEntity"/> up.
         /// </summary>
@@ -141,9 +136,7 @@ namespace KDScorpionEngine.Behaviors
         /// Gets or sets the linear speed of the <see cref="DynamicEntity"/>.
         /// </summary>
         public float LinearSpeed { get; set; }
-        #endregion
 
-        #region Private Methods
         /// <summary>
         /// The action that will be invoked by the behavior.  This will update the other behaviors.
         /// </summary>
@@ -206,7 +199,6 @@ namespace KDScorpionEngine.Behaviors
             _moveDownOnKeyDown.BehaviorType = KeyBehaviorType.KeyDownContinuous;
         }
 
-        #region Event Methods
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> to the right.
         /// </summary>
@@ -226,7 +218,5 @@ namespace KDScorpionEngine.Behaviors
         /// Moves the <see cref="DynamicEntity"/> down.
         /// </summary>
         private void MoveDown_KeyDown(object sender, KeyEventArgs e) => _gameObject.MoveDown(LinearSpeed);
-        #endregion
-        #endregion
     }
 }

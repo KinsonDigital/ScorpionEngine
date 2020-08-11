@@ -11,7 +11,6 @@ namespace KDScorpionEngine.Content
     /// </summary>
     public static class ExtensionMethods
     {
-        #region Public Methods
         /// <summary>
         /// Returns true if the character is a letter.
         /// </summary>
@@ -57,6 +56,5 @@ namespace KDScorpionEngine.Content
 
             return true;
         }
-        #endregion
     }
 }

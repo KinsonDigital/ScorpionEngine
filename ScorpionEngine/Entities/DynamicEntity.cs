@@ -17,7 +17,6 @@ namespace KDScorpionEngine.Entities
     /// </summary>
     public class DynamicEntity : Entity
     {
-        #region Private Fields
         private Vector2 _facingDirection = new Vector2(0, -1);
         private LimitNumberBehavior _moveRightVelocityMaxBehavior;
         private LimitNumberBehavior _moveLeftVelocityMaxBehavior;
@@ -30,9 +29,7 @@ namespace KDScorpionEngine.Entities
         private float _preInitAngularDeceleration;
         private float _maxLinearSpeed;
         private const float DEFAULT_MAX_SPEED = 40f;
-        #endregion
 
-        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="DynamicEntity"/>.
         /// USED FOR UNIT TESTING.
@@ -110,9 +107,7 @@ namespace KDScorpionEngine.Entities
             SetupMaxLinearBehaviors(DEFAULT_MAX_SPEED);
             SetupMaxRotationBehaviors(DEFAULT_MAX_SPEED);
         }
-        #endregion
 
-        #region Props
         /// <summary>
         /// Gets a value indicating if the <see cref="DynamicEntity"/> is moving or sitting still.
         /// </summary>
@@ -232,9 +227,7 @@ namespace KDScorpionEngine.Entities
         /// Gets or sets a value indicating if the <see cref="DynamicEntity"/> is in the process of stopping.
         /// </summary>
         public bool IsEntityStopping { get; set; }
-        #endregion
 
-        #region Public Method
         /// <summary>
         /// Initializes the <see cref="DynamicEntity"/>.
         /// </summary>
@@ -592,9 +585,7 @@ namespace KDScorpionEngine.Entities
                     IsEntityStopping = false;
             }
         }
-        #endregion
 
-        #region Private Methods
         /// <summary>
         /// Sets up all of the max linear behaviors.
         /// </summary>
@@ -697,6 +688,5 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         /// <param name="value">The value to set the angular velocity to.</param>
         private void SetAngularValue(float value) => Body.AngularVelocity = value;
-        #endregion
     }
 }

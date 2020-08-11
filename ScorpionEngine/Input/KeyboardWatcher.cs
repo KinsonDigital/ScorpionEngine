@@ -20,7 +20,6 @@ namespace KDScorpionEngine.Input
     /// </summary>
     public class KeyboardWatcher : IInputWatcher, IUpdatable
     {
-        #region Public Event Handlers
         /// <summary>
         /// Occurs when the combo key setup has been pressed.
         /// </summary>
@@ -40,9 +39,7 @@ namespace KDScorpionEngine.Input
         /// Occurs when the set keyboard key has been released from the down position for a set amount of time.
         /// </summary>
         public event EventHandler OnInputReleasedTimeOut;
-        #endregion
 
-        #region Private Fields
         private readonly Keyboard _keyboard;
         private Dictionary<KeyCode, bool> _currentPressedKeys;//Holds the list of comboKeys and there down states
         protected Counter _counter;//Keeps track of the hit count of an input
@@ -50,9 +47,7 @@ namespace KDScorpionEngine.Input
         protected bool _prevState;//The previous state of the set input
         protected StopWatch _keyDownTimer;//Keeps track of how long the set input has been in the down position
         protected StopWatch _keyReleasedTimer;//Keeps track of how long the set input has been in the up position since it was in the down position
-        #endregion
 
-        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="KeyboardWatcher"/>.
         /// USED FOR UNIT TESTING.
@@ -74,9 +69,7 @@ namespace KDScorpionEngine.Input
             _keyboard = new Keyboard();
             Setup(enabled);
         }
-        #endregion
 
-        #region Props
         /// <summary>
         /// Gets or sets a value indicating if the <see cref="KeyboardWatcher"/> is enabled.
         /// </summary>
@@ -175,9 +168,7 @@ namespace KDScorpionEngine.Input
         /// <see cref="ResetType.Manual"/> will only be reset if manually done so.
         /// </summary>
         public ResetType ReleasedElapsedResetMode { get; set; } = ResetType.Auto;
-        #endregion
 
-        #region Public Methods
         /// <summary>
         /// Update the watcher state.
         /// </summary>
@@ -253,9 +244,7 @@ namespace KDScorpionEngine.Input
 
             _prevState = _curState;
         }
-        #endregion
 
-        #region Private Event Methods
         /// <summary>
         /// Occurs when the key has been held down for a set amount of time.
         /// </summary>
@@ -286,9 +275,7 @@ namespace KDScorpionEngine.Input
                 OnInputDownTimeOut?.Invoke(this, new EventArgs());
             }
         }
-        #endregion
 
-        #region Private Methods
         /// <summary>
         /// Sets up the <see cref="KeyboardWatcher"/>.
         /// </summary>
@@ -330,6 +317,5 @@ namespace KDScorpionEngine.Input
                 });
             }
         }
-        #endregion
     }
 }

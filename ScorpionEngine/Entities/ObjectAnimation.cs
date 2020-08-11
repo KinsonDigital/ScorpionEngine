@@ -15,22 +15,17 @@ namespace KDScorpionEngine.Entities
     [ExcludeFromCodeCoverage]
     public class ObjectAnimation
     {
-        #region Private Fields
         private int _fps = 10;//The frames per second that the animation will run at
         private int _elapsedTime;//The amount of time elapsed since the last animation frame was changed
         private int _currentFrame;//The current frame of the animation
         private readonly List<Rect> _frames = new List<Rect>();//The bounds of all the frames of the animation
-        #endregion
 
-        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="ObjectAnimation"/>.
         /// </summary>
         /// <param name="frameBounds">The bounds data for the animation.</param>
         public ObjectAnimation(List<Rect> frameBounds) => _frames = frameBounds;
-        #endregion
 
-        #region Props
         /// <summary>
         /// Gets or sets the frames per second of the animation.
         /// </summary>
@@ -65,9 +60,7 @@ namespace KDScorpionEngine.Entities
         /// Gets or sets a value indicating if the animation loops.
         /// </summary>
         public bool Looping { get; set; } = true;
-        #endregion
 
-        #region Public Methods
         /// <summary>
         /// Plays the animation.
         /// </summary>
@@ -136,6 +129,5 @@ namespace KDScorpionEngine.Entities
                     break;
             }
         }
-        #endregion
     }
 }

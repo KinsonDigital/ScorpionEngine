@@ -11,7 +11,6 @@ namespace KDScorpionEngine.Exceptions
     /// </summary>
     public class IdAlreadyExistsException : Exception
     {
-        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="IdAlreadyExistsException"/>.
         /// </summary>
@@ -28,6 +27,5 @@ namespace KDScorpionEngine.Exceptions
         /// </summary>
         /// <param name="message">The message of the exception.</param>
         public IdAlreadyExistsException(string message) : base(message) { }
-        #endregion
     }
 }

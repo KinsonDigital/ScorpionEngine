@@ -21,26 +21,19 @@ namespace KDScorpionEngine.Entities
     [ExcludeFromCodeCoverage]
     public abstract class EntityPool : IEnumerable
     {
-        #region Delegates/Events
         /// <summary>
         /// Occurs whenever an entity in the entity pool goes out of bounds.
         /// </summary>
         public event EventHandler<OutOfBoundsTriggerEventsArgs> OnOutOfBounds;
-        #endregion
 
-        #region Private Fields
         private readonly List<DynamicEntity> _objects = new List<DynamicEntity>();//The pool of objects to manage.
         private Rect _triggerBounds;//The bounds used to trigger the out of bounds trigger
-        #endregion
 
-        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="EntityPool"/>.
         /// </summary>
         public EntityPool() { }
-        #endregion
 
-        #region Props
         /// <summary>
         /// Gets or sets the name of the entity pool.
         /// </summary>
@@ -76,17 +69,13 @@ namespace KDScorpionEngine.Entities
         /// Gets or sets the direction that the entities will move when visible.
         /// </summary>
         public Direction DirectionWhenVisible { get; set; }
-        #endregion
 
-        #region Public Methods
         /// <summary>
         /// Adds the given <paramref name="entity"/> to the entity pool.
         /// </summary>
         /// <param name="entity">The entity to add.</param>
         public void AddGameObject(DynamicEntity entity) => _objects.Add(entity);
-        #endregion
 
-        #region Game Loop Methods
         /// <summary>
         /// Shows the next available item in the pool.
         /// </summary>
@@ -153,9 +142,7 @@ namespace KDScorpionEngine.Entities
         /// <param name="thatAre">The state of the entity that the velocity will be applied to.</param>
         /// <param name="angleVelocity">The setting to apply.</param>
         public void ApplyAngleVelocityTo(EntitiesThatAre thatAre, int angleVelocity) => throw new NotImplementedException();
-        #endregion
 
-        #region Virtual Methods
         /// <summary>
         /// Updates the entity pool.
         /// </summary>
@@ -188,6 +175,5 @@ namespace KDScorpionEngine.Entities
                 }
             }
         }
-        #endregion
     }
 }

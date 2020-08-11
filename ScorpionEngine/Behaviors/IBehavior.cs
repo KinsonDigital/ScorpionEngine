@@ -9,7 +9,6 @@ namespace KDScorpionEngine.Behaviors
     /// </summary>
     public interface IBehavior : IUpdatable
     {
-        #region Props
         /// <summary>
         /// Enables or disables the <see cref="IBehavior"/>.
         /// </summary>
@@ -19,6 +18,5 @@ namespace KDScorpionEngine.Behaviors
         /// Gets or sets the name of the <see cref="IBehavior"/>.
         /// </summary>
         string Name { get; set; }
-        #endregion
     }
 }

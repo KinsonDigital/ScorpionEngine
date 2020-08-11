@@ -12,27 +12,20 @@ namespace KDScorpionEngine.Utils
     /// </summary>
     public class StopWatch : IUpdatable
     {
-        #region Events
         /// <summary>
         /// Occurs every time the stop watch reaches 0.
         /// </summary>
         public event EventHandler OnTimeElapsed;
-        #endregion
 
-        #region Private Fields
         private bool _enabled;
         private int _timeOut;
-        #endregion
 
-        #region Constructors
         /// <summary>
         /// Creates a new instance of stopwatch.
         /// </summary>
         /// <param name="timeOut">The amount of time in milliseconds before the stopWatch OnTimeElapsed event is invoked.</param>
         public StopWatch(int timeOut) => _timeOut = timeOut;
-        #endregion
 
-        #region Props
         /// <summary>
         /// Gets or sets the amount of time in milliseconds before the stopwatch will invoke the OnTimeElapsed event.
         /// NOTE: If a timeout of less then 1 is attempted, timeout will default to 1.
@@ -57,9 +50,7 @@ namespace KDScorpionEngine.Utils
         /// Gets a value indicating if the stopwatch is running.
         /// </summary>
         public bool Running { get; private set; }
-        #endregion
 
-        #region Public Methods
         /// <summary>
         /// Starts the stopwatch.
         /// </summary>
@@ -111,6 +102,5 @@ namespace KDScorpionEngine.Utils
             if (ResetMode == ResetType.Auto)
                 Reset();
         }
-        #endregion
     }
 }

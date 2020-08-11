@@ -13,7 +13,6 @@ namespace KDScorpionEngine.Input
     /// </summary>
     public interface IInputWatcher
     {
-        #region Props
         /// <summary>
         /// Gets or sets a value indicating if the <see cref="IInputWatcher"/> is enabled.
         /// </summary>
@@ -86,9 +85,7 @@ namespace KDScorpionEngine.Input
         /// <see cref="ResetType.Manual"/> will only be reset if manually done so.
         /// </summary>
         ResetType ReleasedElapsedResetMode { get; set; }
-        #endregion
 
-        #region Event Handlers
         /// <summary>
         /// Invoked when the combo input setup has been pressed.
         /// </summary>
@@ -108,6 +105,5 @@ namespace KDScorpionEngine.Input
         /// Invoked when the set input has been released from the down position for a set amount of time.
         /// </summary>
         event EventHandler OnInputReleasedTimeOut;
-        #endregion
     }
 }

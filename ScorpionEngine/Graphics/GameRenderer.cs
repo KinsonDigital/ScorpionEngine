@@ -14,7 +14,6 @@ namespace KDScorpionEngine.Graphics
     /// </summary>
     public class GameRenderer : Renderer
     {
-        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="GameRenderer"/>.
         /// USED FOR UNIT TESTING.
@@ -28,9 +27,7 @@ namespace KDScorpionEngine.Graphics
         /// </summary>
         [ExcludeFromCodeCoverage]
         public GameRenderer() { }
-        #endregion
 
-        #region Public Methods
         /// <summary>
         /// Renders the given entity.
         /// </summary>
@@ -44,6 +41,5 @@ namespace KDScorpionEngine.Graphics
             //if (entity.DebugDrawEnabled)
             //    RenderDebugDraw(entity.Body, new GameColor(255, 255, 255, 255));
         }
-        #endregion
     }
 }

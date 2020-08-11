@@ -11,7 +11,6 @@ namespace KDScorpionEngine.Exceptions
     /// </summary>
     public class SceneNotFoundException : Exception
     {
-        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="SceneNotFoundException"/>.
         /// </summary>
@@ -23,6 +22,5 @@ namespace KDScorpionEngine.Exceptions
         /// </summary>
         /// <param name="message">The message of the exception.</param>
         public SceneNotFoundException(string message) : base(message) { }
-        #endregion
     }
 }

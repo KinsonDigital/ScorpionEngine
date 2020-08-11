@@ -11,7 +11,6 @@ namespace KDScorpionEngine.Content
     [ExcludeFromCodeCoverage]
     internal class AtlasSpriteData
     {
-        #region Props
         /// <summary>
         /// Gets or sets the bounds of the sprite data.
         /// </summary>
@@ -21,6 +20,5 @@ namespace KDScorpionEngine.Content
         /// Gets or sets the name of the sprite data.
         /// </summary>
         public string Name { get; set; }
-        #endregion
     }
 }

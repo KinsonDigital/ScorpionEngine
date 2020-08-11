@@ -16,11 +16,8 @@ namespace KDScorpionEngine.Content
     [ExcludeFromCodeCoverage]
     internal class AtlasData
     {
-        #region Private Fields
         private readonly List<AtlasSpriteData> _atlasSprites;
-        #endregion
 
-        #region Constructors
         /// <summary>
         /// Loads a texture atlas with the given texture name and atlas data name.
         /// </summary>
@@ -30,9 +27,7 @@ namespace KDScorpionEngine.Content
             //TODO: check to see if this copy by reference is needed
             _atlasSprites = atlasSubTexutureData;
         }
-        #endregion
 
-        #region Props
         /// <summary>
         /// Returns the value at the specified key.
         /// </summary>
@@ -63,9 +58,7 @@ namespace KDScorpionEngine.Content
         /// Gets or sets the height of the atlas.
         /// </summary>
         public int Height { get; set; }
-        #endregion
 
-        #region Internal Methods
         /// <summary>
         /// Gets the all of the frames that have the given sub texture id.
         /// </summary>
@@ -125,6 +118,5 @@ namespace KDScorpionEngine.Content
         {
             return _atlasSprites.Find(item => item.Name == name).Bounds;
         }
-        #endregion
     }
 }

@@ -11,7 +11,6 @@ namespace KDScorpionEngine.Exceptions
     /// </summary>
     public class NameNotFoundException : Exception
     {
-        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="NameNotFoundException"/>.
         /// </summary>
@@ -22,6 +21,5 @@ namespace KDScorpionEngine.Exceptions
         /// </summary>
         /// <param name="message">The exception message.</param>
         public NameNotFoundException(string message): base(message) { }
-        #endregion
     }
 }

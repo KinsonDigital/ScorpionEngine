@@ -61,8 +61,6 @@ namespace KDScorpionEngine.Utils
     [ExcludeFromCodeCoverage]
     public class Tweener
     {
-        #region Easing Functions
-        #region Linear
         /// <summary>
         ///     Easing equation function for a simple linear tweening, with no easing.
         /// </summary>
@@ -75,9 +73,7 @@ namespace KDScorpionEngine.Utils
         {
             return c * t / d + b;
         }
-        #endregion
 
-        #region Expo
         /// <summary>
         ///     Easing equation function for an exponential (2^t) easing out:
         ///     decelerating from zero velocity.
@@ -145,9 +141,7 @@ namespace KDScorpionEngine.Utils
 
             return ExpoEaseIn(t * 2 - d, b + c / 2, c / 2, d);
         }
-        #endregion
 
-        #region Circular
         /// <summary>
         ///     Easing equation function for a circular (sqrt(1-t^2)) easing out:
         ///     decelerating from zero velocity.
@@ -209,9 +203,7 @@ namespace KDScorpionEngine.Utils
 
             return CircEaseIn(t * 2 - d, b + c / 2, c / 2, d);
         }
-        #endregion
 
-        #region Quad
         /// <summary>
         ///     Easing equation function for a quadratic (t^2) easing out:
         ///     decelerating from zero velocity.
@@ -273,9 +265,7 @@ namespace KDScorpionEngine.Utils
 
             return QuadEaseIn(t * 2 - d, b + c / 2, c / 2, d);
         }
-        #endregion
 
-        #region Sine
         /// <summary>
         ///     Easing equation function for a sinusoidal (sin(t)) easing out:
         ///     decelerating from zero velocity.
@@ -337,9 +327,7 @@ namespace KDScorpionEngine.Utils
 
             return SineEaseIn(t * 2 - d, b + c / 2, c / 2, d);
         }
-        #endregion
 
-        #region Cubic
         /// <summary>
         ///     Easing equation function for a cubic (t^3) easing out:
         ///     decelerating from zero velocity.
@@ -401,9 +389,7 @@ namespace KDScorpionEngine.Utils
 
             return CubicEaseIn(t * 2 - d, b + c / 2, c / 2, d);
         }
-        #endregion
 
-        #region Quartic
         /// <summary>
         ///     Easing equation function for a quartic (t^4) easing out:
         ///     decelerating from zero velocity.
@@ -465,9 +451,7 @@ namespace KDScorpionEngine.Utils
 
             return QuartEaseIn(t * 2 - d, b + c / 2, c / 2, d);
         }
-        #endregion
 
-        #region Quintic
         /// <summary>
         ///     Easing equation function for a quintic (t^5) easing out:
         ///     decelerating from zero velocity.
@@ -527,9 +511,7 @@ namespace KDScorpionEngine.Utils
                 return QuintEaseOut(t * 2, b, c / 2, d);
             return QuintEaseIn(t * 2 - d, b + c / 2, c / 2, d);
         }
-        #endregion
 
-        #region Elastic
         /// <summary>
         ///     Easing equation function for an elastic (exponentially decaying sine wave) easing out:
         ///     decelerating from zero velocity.
@@ -605,9 +587,7 @@ namespace KDScorpionEngine.Utils
         {
             return t < d / 2 ? ElasticEaseOut(t * 2, b, c / 2, d) : ElasticEaseIn(t * 2 - d, b + c / 2, c / 2, d);
         }
-        #endregion
 
-        #region Bounce
         /// <summary>
         ///     Easing equation function for a bounce (exponentially decaying parabolic bounce) easing out:
         ///     decelerating from zero velocity.
@@ -673,9 +653,7 @@ namespace KDScorpionEngine.Utils
                 return BounceEaseOut(t * 2, b, c / 2, d);
             return BounceEaseIn(t * 2 - d, b + c / 2, c / 2, d);
         }
-        #endregion
 
-        #region Back
         /// <summary>
         ///     Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing out:
         ///     decelerating from zero velocity.
@@ -736,7 +714,5 @@ namespace KDScorpionEngine.Utils
                 return BackEaseOut(t * 2, b, c / 2, d);
             return BackEaseIn(t * 2 - d, b + c / 2, c / 2, d);
         }
-        #endregion
-        #endregion
     }
 }

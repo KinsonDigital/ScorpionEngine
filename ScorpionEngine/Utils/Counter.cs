@@ -11,7 +11,6 @@ namespace KDScorpionEngine.Utils
     /// </summary>
     public class Counter
     {
-        #region Events
         /// <summary>
         /// Occurs when the count has reached its maximum.
         /// </summary>
@@ -21,14 +20,10 @@ namespace KDScorpionEngine.Utils
         /// Occurs when the count has reached its minimum.
         /// </summary>
         public event EventHandler MinReachedWhenDecrementing;
-        #endregion
 
-        #region Private Fields
         private int _min;
         private int _max;
-        #endregion
 
-        #region Constructors
         /// <summary>
         /// Creates a new instance of Counter. The min cannot be greater than or equal to the max.
         /// </summary>
@@ -50,9 +45,7 @@ namespace KDScorpionEngine.Utils
             //Set the count amount
             CountAmount = countAmount;
         }
-        #endregion
 
-        #region Props
         /// <summary>
         /// Gets the current value of the counter.
         /// </summary>
@@ -104,9 +97,7 @@ namespace KDScorpionEngine.Utils
         /// Gets or sets the direction to count. Directions are either counting up or down.
         /// </summary>
         public CountType CountDirection { get; set; }
-        #endregion
 
-        #region Public Methods
         /// <summary>
         /// Increment or decrement the value by the <see cref="CountAmount"/> property value in the direction
         /// of the <see cref="CountDirection"/> property value.
@@ -167,6 +158,5 @@ namespace KDScorpionEngine.Utils
                     throw new Exception($"The {nameof(CountDirection)} is set to an invalid enum value.");
             }
         }
-        #endregion
     }
 }

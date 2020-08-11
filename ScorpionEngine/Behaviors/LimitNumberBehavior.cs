@@ -12,12 +12,9 @@ namespace KDScorpionEngine.Behaviors
     /// </summary>
     public class LimitNumberBehavior : Behavior
     {
-        #region Private Fields
         private readonly Func<float> _getValue;
         private readonly Action<float> _setLimit;
-        #endregion
 
-        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="LimitNumberBehavior"/>.
         /// </summary>
@@ -33,16 +30,12 @@ namespace KDScorpionEngine.Behaviors
             Name = name;
             SetUpdateAction(UpdateAction);
         }
-        #endregion
 
-        #region Props
         /// <summary>
         /// Gets or sets the number to limit the number to.
         /// </summary>
         public float LimitValue { get; set; }
-        #endregion
 
-        #region Private Methods
         /// <summary>
         /// Then method to run that creates the number limiting behavior.  Executed when the <see cref="Behavior.Update(EngineTime)"/>
         /// is executed.
@@ -61,6 +54,5 @@ namespace KDScorpionEngine.Behaviors
                 _setLimit(LimitValue);
             }
         }
-        #endregion
     }
 }

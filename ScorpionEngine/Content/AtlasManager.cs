@@ -18,12 +18,9 @@ namespace KDScorpionEngine.Content
     [ExcludeFromCodeCoverage]
     internal static class AtlasManager
     {
-        #region Private Fields
         private static readonly Dictionary<string, AtlasData> _allAtlasData = new Dictionary<string, AtlasData>();//The atlas data
         private static readonly Dictionary<string, ITexture> _allAtlasTextures = new Dictionary<string, ITexture>();//The atlas textures
-        #endregion
 
-        #region Public Methods
         /// <summary>
         /// Adds the given atlas data to the atlas manager and assigns it the given unique textureAtlasID.
         /// </summary>
@@ -82,9 +79,7 @@ namespace KDScorpionEngine.Content
 
             return _allAtlasTextures[id];
         }
-        #endregion
 
-        #region Internal Methods
         /// <summary>
         /// Returns the reason of validity of the given sub texture id.
         /// </summary>
@@ -207,9 +202,7 @@ namespace KDScorpionEngine.Content
 
             return Convert.ToInt32(foundCharacters.ToString());
         }
-        #endregion
 
-        #region Private Methods
         /// <summary>
         /// If the given ID does not exist, throw an exception.
         /// </summary>
@@ -338,6 +331,5 @@ namespace KDScorpionEngine.Content
             }
             #endregion
         }
-        #endregion
     }
 }

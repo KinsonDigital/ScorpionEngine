@@ -11,7 +11,6 @@ namespace KDScorpionEngine.Scene
     /// </summary>
     public interface IScene : IDrawable, IUpdatable
     {
-        #region Props
         /// <summary>
         /// Gets or sets the name of the scene.
         /// </summary>
@@ -41,9 +40,7 @@ namespace KDScorpionEngine.Scene
         /// Gets or sets the ID of the scene.
         /// </summary>
         int Id { get; set; }
-        #endregion
 
-        #region Methods
         /// <summary>
         /// Initializes the scene.
         /// </summary>
@@ -60,6 +57,5 @@ namespace KDScorpionEngine.Scene
         /// </summary>
         /// <param name="contentManager">The content loader to use for loading and unloading the scene's content.</param>
         void UnloadContent(ContentLoader contentLoader);
-        #endregion
     }
 }

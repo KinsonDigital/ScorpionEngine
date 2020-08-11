@@ -23,7 +23,6 @@ namespace KDScorpionEngine.Entities
     /// </summary>
     public abstract class Entity : IUpdatable, IInitialize, IContentLoadable
     {
-        #region Events
         /// <summary>
         /// Occurs when the game object is going from hidden to shown.
         /// </summary>
@@ -43,9 +42,7 @@ namespace KDScorpionEngine.Entities
         /// Occurs when a key has been released.
         /// </summary>
         public event EventHandler<KeyEventArgs> OnKeyReleased;
-        #endregion
 
-        #region Private Fields
         private bool _visible = true;//True if the entity will be drawn
         protected bool _usesPhysics = true;
         protected EngineTime _engineTime;
@@ -53,9 +50,7 @@ namespace KDScorpionEngine.Entities
         private Vector2 _preInitPosition;
         private Vector2[] _preInitVertices;
         private float _preInitFriction;
-        #endregion
 
-        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="Entity"/>.
         /// USED FOR UNIT TESTING.
@@ -139,9 +134,7 @@ namespace KDScorpionEngine.Entities
             _texture = texture;
             Setup(vertices, position, friction, isStaticBody);
         }
-        #endregion
 
-        #region Props
         /// <summary>
         /// The physics body of the entity.
         /// </summary>
@@ -298,9 +291,7 @@ namespace KDScorpionEngine.Entities
         /// Gets or sets the color of the debug draw outlines.
         /// </summary>
         public GameColor DebugDrawColor { get; set; } = new GameColor(255, 255, 255, 255);
-        #endregion
 
-        #region Public Methods
         /// <summary>
         /// Initializes the <see cref="Entity"/>.
         /// </summary>
@@ -325,9 +316,7 @@ namespace KDScorpionEngine.Entities
 
             Behaviors.ToList().ForEach(b => b.Update(_engineTime));
         }
-        #endregion
 
-        #region Private Methods
         /// <summary>
         /// Sets up the <see cref="Entity"/> using the given parameter.
         /// </summary>
@@ -372,6 +361,5 @@ namespace KDScorpionEngine.Entities
         /// <param name="renderer">The renderer that renders the <see cref="Entity"/>.</param>
         [ExcludeFromCodeCoverage]
         public virtual void Render(GameRenderer renderer) { }
-        #endregion
     }
 }

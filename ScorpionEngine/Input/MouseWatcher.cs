@@ -20,7 +20,6 @@ namespace KDScorpionEngine.Input
     /// </summary>
     public class MouseWatcher : IInputWatcher, IUpdatable
     {
-        #region Public Event Handlers
         /// <summary>
         /// Occurs when the combo button setup has been pressed.
         /// </summary>
@@ -40,9 +39,7 @@ namespace KDScorpionEngine.Input
         /// Occurs when the set mouse button has been released from the down position for a set amount of time.
         /// </summary>
         public event EventHandler OnInputReleasedTimeOut;
-        #endregion
 
-        #region Private Fields
         private readonly Mouse _mouse;
         private Dictionary<InputButton, bool> _currentPressedButtons;//Holds the list of combo buttons and there down states
         private StopWatch _buttonDownTimer;//Keeps track of how long the set input has been in the down position
@@ -50,9 +47,7 @@ namespace KDScorpionEngine.Input
         private Counter _counter;//Keeps track of the hit count of an input
         private bool _curState;//The current state of the set input
         private bool _prevState;//The previous state of the set input
-        #endregion
 
-        #region Constructor
         /// <summary>
         /// Creates a new instance of <see cref="MouseWatcher"/>.
         /// USED FOR UNIT TESTING.
@@ -75,9 +70,7 @@ namespace KDScorpionEngine.Input
             _mouse = new Mouse();
             Setup(enabled);
         }
-        #endregion
 
-        #region Props
         /// <summary>
         /// Gets or sets a value indicating if the <see cref="MouseWatcher"/> is enabled.
         /// </summary>
@@ -176,9 +169,7 @@ namespace KDScorpionEngine.Input
         /// <see cref="ResetType.Manual"/> will only be reset if manually done so.
         /// </summary>
         public ResetType ReleasedElapsedResetMode { get; set; } = ResetType.Auto;
-        #endregion
 
-        #region Public Methods
         /// <summary>
         /// Updates the <see cref="MouseWatcher"/>.
         /// </summary>
@@ -255,9 +246,7 @@ namespace KDScorpionEngine.Input
 
             _prevState = _curState;
         }
-        #endregion
 
-        #region Private Event Methods
         /// <summary>
         /// Occurs when the button has been held down for a set amount of time.
         /// </summary>
@@ -288,9 +277,7 @@ namespace KDScorpionEngine.Input
                 OnInputReleasedTimeOut?.Invoke(this, new EventArgs());
             }
         }
-        #endregion
 
-        #region Private Methods
         /// <summary>
         /// Sets up the <see cref="MouseWatcher"/>.
         /// </summary>
@@ -332,6 +319,5 @@ namespace KDScorpionEngine.Input
                 });
             }
         }
-        #endregion
     }
 }

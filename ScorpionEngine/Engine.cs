@@ -17,13 +17,10 @@ namespace KDScorpionEngine
     /// </summary>
     public class Engine : IDisposable
     {
-        #region Private Fields
         private static IEngineCore _engineCore;
         private static int _prevElapsedTime;
         private GameRenderer _renderer;
-        #endregion
 
-        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="Engine"/>.
         /// <paramref name="contentLoader">The content loader to inject.</paramref>
@@ -50,9 +47,7 @@ namespace KDScorpionEngine
             ContentLoader = new ContentLoader();
             SceneManager = new SceneManager(ContentLoader);
         }
-        #endregion
 
-        #region Props
         /// <summary>
         /// Gets the <see cref="SceneManager"/> used to manage a game's scenes.
         /// </summary>
@@ -90,9 +85,7 @@ namespace KDScorpionEngine
             get => _engineCore.WindowHeight;
             set => _engineCore.WindowHeight = value;
         }
-        #endregion
 
-        #region Public Methods
         /// <summary>
         /// Starts the game engine.
         /// </summary>
@@ -142,9 +135,7 @@ namespace KDScorpionEngine
         /// Disposes of the engine.
         /// </summary>
         public void Dispose() => Dispose(true);
-        #endregion
 
-        #region Protected Methods
         /// <summary>
         /// Disposes of the internal engine components.
         /// </summary>
@@ -154,9 +145,7 @@ namespace KDScorpionEngine
             if (_engineCore != null)
                 _engineCore.Dispose();
         }
-        #endregion
 
-        #region Private Methods
         /// <summary>
         /// Sets up the core of the engine.
         /// </summary>
@@ -219,6 +208,5 @@ namespace KDScorpionEngine
 
             _renderer.End();
         }
-        #endregion
     }
 }

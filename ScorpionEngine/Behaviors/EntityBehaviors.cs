@@ -15,11 +15,8 @@ namespace KDScorpionEngine.Behaviors
     [ExcludeFromCodeCoverage]
     public class EntityBehaviors : IEnumerable, IList<IBehavior>
     {
-        #region Private Fields
         public List<IBehavior> _items = new List<IBehavior>();
-        #endregion
 
-        #region Props
         /// <summary>
         /// Gets an <see cref="IBehavior"/> at a specified index.
         /// </summary>
@@ -40,9 +37,7 @@ namespace KDScorpionEngine.Behaviors
         /// Gets a value indicating whether the collection of <see cref="IBehavior"/>s is readonly.
         /// </summary>
         public bool IsReadOnly { get; } = false;
-        #endregion
 
-        #region Public Methods
         /// <summary>
         /// Adds the given <paramref name="item"/> to the collection of <see cref="IBehavior"/>s.
         /// </summary>
@@ -109,6 +104,5 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         /// <returns></returns>
         IEnumerator<IBehavior> IEnumerable<IBehavior>.GetEnumerator() => _items.GetEnumerator();
-        #endregion
     }
 }

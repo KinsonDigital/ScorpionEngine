@@ -15,19 +15,15 @@ namespace KDScorpionEngine.Events
     [ExcludeFromCodeCoverage]
     public class OutOfBoundsTriggerEventsArgs : EventArgs
     {
-        #region Constructors
         /// <summary>
         /// Creates a new instance of OutOfBoundsTriggerEventsArgs.
         /// </summary>
         /// <param name="entity">The entity that caused the out of bounds trigger.</param>
         public OutOfBoundsTriggerEventsArgs(Entity entity) => TriggerSource = entity;
-        #endregion
 
-        #region Props
         /// <summary>
         /// Gets the entity that caused the trigger.
         /// </summary>
         public Entity TriggerSource { get; private set; }
-        #endregion
     }
 }

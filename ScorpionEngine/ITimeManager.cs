@@ -11,7 +11,6 @@ namespace KDScorpionEngine
     /// </summary>
     public interface ITimeManager : IUpdatable
     {
-        #region Props
         /// <summary>
         /// Gets or sets the amount of elapsed time in milliseconds that the current frame has ran.
         /// </summary>
@@ -48,9 +47,7 @@ namespace KDScorpionEngine
         /// Gets or sets the mode that the system runs in.
         /// </summary>
         RunMode Mode { get; set; }
-        #endregion
 
-        #region Methods
         /// <summary>
         /// Plays the scene.
         /// </summary>
@@ -73,6 +70,5 @@ namespace KDScorpionEngine
         /// </summary>
         /// <param name="frames">The number of frames to run.</param>
         void RunFrames(uint frames);
-        #endregion
     }
 }

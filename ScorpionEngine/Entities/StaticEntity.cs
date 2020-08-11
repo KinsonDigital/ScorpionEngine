@@ -14,7 +14,6 @@ namespace KDScorpionEngine.Entities
     /// </summary>
     public class StaticEntity : Entity
     {
-        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="StaticEntity"/>.
         /// USED FOR UNIT TESTING.
@@ -28,14 +27,11 @@ namespace KDScorpionEngine.Entities
         /// <param name="texture">The texture fo the entity to render to the screen.</param>
         /// <param name="position">The position on the surface of where to render the texture.</param>
         public StaticEntity(Texture texture, Vector2 position) : base(texture, position, isStaticBody: true) => _usesPhysics = false;
-        #endregion
 
-        #region Public Methods
         /// <summary>
         /// Updates the <see cref="StaticEntity"/>.
         /// </summary>
         /// <param name="engineTime">The game engine time.</param>
         public override void Update(EngineTime engineTime) => base.Update(engineTime);
-        #endregion
     }
 }

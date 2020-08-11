@@ -17,7 +17,6 @@ namespace KDScorpionEngine.Behaviors
     /// <typeparam name="T">The type of <see cref="DynamicEntity"/> to move.</typeparam>
     public class MoveFowardKeyboardBehavior<T> : Behavior where T : DynamicEntity
     {
-        #region Private Fields
         private KeyBehavior _moveFowardKeyBehavior;
         private KeyBehavior _rotateCWKeyBehavior;
         private KeyBehavior _rotateCCWKeyBehavior;
@@ -26,9 +25,7 @@ namespace KDScorpionEngine.Behaviors
         private KeyCode _moveFowardKey = KeyCode.Up;
         private KeyCode _rotateCWKey = KeyCode.Right;
         private KeyCode _rotateCCWKey = KeyCode.Left;
-        #endregion
 
-        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="MovementByKeyboardBehavior{T}"/>
         /// and injects the given <paramref name="keyboard"/> and <paramref name="dynamicEntity"/>
@@ -68,9 +65,7 @@ namespace KDScorpionEngine.Behaviors
 
             SetUpdateAction(UpdateAction);
         }
-        #endregion
 
-        #region Props
         /// <summary>
         /// Gets or sets the keyboard key that will move the <see cref="DynamicEntity"/> foward in the direction it is facing.
         /// </summary>
@@ -124,9 +119,7 @@ namespace KDScorpionEngine.Behaviors
         /// Gets or sets the angular speed of the <see cref="DynamicEntity"/>.
         /// </summary>
         public float AngularSpeed { get; set; }
-        #endregion
 
-        #region Private Methods
         /// <summary>
         /// The action that will be invoked by the behavior.  This will update the other internal behaviors.
         /// </summary>
@@ -207,7 +200,6 @@ namespace KDScorpionEngine.Behaviors
             _rotateCCWKeyBehavior.BehaviorType = KeyBehaviorType.KeyDownContinuous;
         }
 
-        #region Event Methods
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> forward in the direction it is facing.
         /// </summary>
@@ -226,7 +218,5 @@ namespace KDScorpionEngine.Behaviors
         /// Rotates the <see cref="DynamicEntity"/> counter clockwise.
         /// </summary>
         private void RotateCCW_KeyDown(object sender, KeyEventArgs e) => _dynamicEntity.RotateCCW(AngularSpeed);
-        #endregion
-        #endregion
     }
 }

@@ -12,11 +12,8 @@ namespace KDScorpionEngine.Behaviors
     /// </summary>
     public abstract class Behavior : IBehavior
     {
-        #region Private Fields
         private Action<EngineTime> _behaviorAction;
-        #endregion
 
-        #region Props
         /// <summary>
         /// Gets or sets the name of the <see cref="Behavior"/>.
         /// </summary>
@@ -26,9 +23,7 @@ namespace KDScorpionEngine.Behaviors
         /// Enables or disables the <see cref="Behavior"/>.  Default value is true.
         /// </summary>
         public bool Enabled { get; set; } = true;
-        #endregion
 
-        #region Public Methods
         /// <summary>
         /// Updates the behavior set by the <see cref="SetUpdateAction(Action{EngineTime})"/> method.
         /// </summary>
@@ -46,6 +41,5 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         /// <param name="action">The behavior that will be executed when the <see cref="Update(EngineTime)"/> is invoked.</param>
         protected void SetUpdateAction(Action<EngineTime> action) => _behaviorAction = action;
-        #endregion
     }
 }

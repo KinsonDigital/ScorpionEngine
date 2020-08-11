@@ -11,7 +11,6 @@ namespace KDScorpionEngine.Events
     /// </summary>
     public class SceneChangedEventArgs : EventArgs
     {
-        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="SceneChangedEventArgs"/>.
         /// </summary>
@@ -20,9 +19,7 @@ namespace KDScorpionEngine.Events
             PreviousScene = previousSceneName;
             CurrentScene = currentSceneName;
         }
-        #endregion
 
-        #region Props
         /// <summary>
         /// Gets the previous scene that was running.
         /// </summary>
@@ -32,6 +29,5 @@ namespace KDScorpionEngine.Events
         /// Gets the current scene that is running.
         /// </summary>
         public string CurrentScene { get; private set; }
-        #endregion
     }
 }

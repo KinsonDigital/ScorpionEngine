@@ -13,18 +13,13 @@ namespace KDScorpionEngine.Scene
     /// </summary>
     public class SceneTimeManager : ITimeManager
     {
-        #region Events
         /// <summary>
         /// Occurs when the stack of set frames has finished processing.
         /// </summary>
         public event EventHandler<FrameStackFinishedEventArgs> FrameStackFinished;
-        #endregion
 
-        #region Private Fields
         private Action _frameStackCallback;//Invoked after a frame stack has been run
-        #endregion
 
-        #region Props
         /// <summary>
         /// Gets or sets the amount of elapsed time in milliseconds that the current frame has ran.
         /// </summary>
@@ -61,9 +56,7 @@ namespace KDScorpionEngine.Scene
         /// Gets or sets the mode that the manager runs in.
         /// </summary>
         public RunMode Mode { get; set; } = RunMode.Continuous;
-        #endregion
 
-        #region Public Methods
         /// <summary>
         /// Updates the <see cref="SceneTimeManager"/>.
         /// </summary>
@@ -153,6 +146,5 @@ namespace KDScorpionEngine.Scene
                 _frameStackCallback = null;
             };
         }
-        #endregion
     }
 }
