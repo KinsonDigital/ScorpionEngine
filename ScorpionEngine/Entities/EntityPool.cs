@@ -28,12 +28,10 @@ namespace KDScorpionEngine.Entities
         public event EventHandler<OutOfBoundsTriggerEventsArgs> OnOutOfBounds;
         #endregion
 
-
         #region Private Fields
         private readonly List<DynamicEntity> _objects = new List<DynamicEntity>();//The pool of objects to manage.
         private Rect _triggerBounds;//The bounds used to trigger the out of bounds trigger
         #endregion
-
 
         #region Constructors
         /// <summary>
@@ -41,7 +39,6 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         public EntityPool() { }
         #endregion
-
 
         #region Props
         /// <summary>
@@ -81,7 +78,6 @@ namespace KDScorpionEngine.Entities
         public Direction DirectionWhenVisible { get; set; }
         #endregion
 
-
         #region Public Methods
         /// <summary>
         /// Adds the given <paramref name="entity"/> to the entity pool.
@@ -89,7 +85,6 @@ namespace KDScorpionEngine.Entities
         /// <param name="entity">The entity to add.</param>
         public void AddGameObject(DynamicEntity entity) => _objects.Add(entity);
         #endregion
-
 
         #region Game Loop Methods
         /// <summary>
@@ -108,13 +103,11 @@ namespace KDScorpionEngine.Entities
             }
         }
 
-        
         /// <summary>
         /// Sets bounds for the out of bounds trigger.
         /// </summary>
         /// <param name="bounds">The bounds used to invoke the out of bounds trigger for each entity.</param>
         public void SetOutOfBoundsTrigger(Rect bounds) => _triggerBounds = bounds;
-
 
         /// <summary>
         /// Returns an enumerator that iterates through the entity pool.
@@ -124,7 +117,6 @@ namespace KDScorpionEngine.Entities
         {
             return _objects.GetEnumerator();
         }
-
 
         /// <summary>
         /// Shows all of the entities.
@@ -137,7 +129,6 @@ namespace KDScorpionEngine.Entities
             }
         }
 
-
         /// <summary>
         /// Hides all of the entities.
         /// </summary>
@@ -149,14 +140,12 @@ namespace KDScorpionEngine.Entities
             }
         }
 
-
         /// <summary>
         /// Applies the given speed to an entity that match the given <paramref name="thatAre"/> parameter.
         /// </summary>
         /// <param name="thatAre">The state of the entity that the speed will be applied to.</param>
         /// <param name="speed">The speed to apply.</param>
         public void ApplySpeedTo(EntitiesThatAre thatAre, Vector2 speed) => throw new NotImplementedException();
-
 
         /// <summary>
         /// Sets the given angle velocity to entities that fit the given description.
@@ -165,7 +154,6 @@ namespace KDScorpionEngine.Entities
         /// <param name="angleVelocity">The setting to apply.</param>
         public void ApplyAngleVelocityTo(EntitiesThatAre thatAre, int angleVelocity) => throw new NotImplementedException();
         #endregion
-
 
         #region Virtual Methods
         /// <summary>

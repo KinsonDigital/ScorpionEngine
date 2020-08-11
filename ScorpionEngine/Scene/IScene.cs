@@ -43,20 +43,17 @@ namespace KDScorpionEngine.Scene
         int Id { get; set; }
         #endregion
 
-
         #region Methods
         /// <summary>
         /// Initializes the scene.
         /// </summary>
         void Initialize();
 
-
         /// <summary>
         /// Loads all content for the scene using the given <paramref name="contentLoader"/>.
         /// </summary>
         /// <param name="contentManager">The content loader to use for loading and unloading the scene's content.</param>
         void LoadContent(ContentLoader contentLoader);
-
 
         /// <summary>
         /// Unloads all content for the scene using the given <paramref name="contentLoader"/>.

@@ -32,12 +32,10 @@ namespace KDScorpionEngine.Behaviors
         public event EventHandler<KeyEventArgs> KeyPressEvent;
         #endregion
 
-
         #region Private Fields
         private int _timeElapsed;//The time elapsed since last frame
         private Keyboard _keyboard;
         #endregion
-
 
         #region Constructors
         /// <summary>
@@ -51,7 +49,6 @@ namespace KDScorpionEngine.Behaviors
             Setup(KeyCode.X, true);
         }
 
-
         /// <summary>
         /// Creates a new <see cref="KeyBehavior"/>.
         /// </summary>
@@ -59,7 +56,6 @@ namespace KDScorpionEngine.Behaviors
         [ExcludeFromCodeCoverage]
         public KeyBehavior(KeyCode key, bool enabled = false) => Setup(key, enabled);
         #endregion
-
 
         #region Props
         /// <summary>
@@ -108,7 +104,6 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         public string Name { get; set; } = nameof(KeyBehavior);
         #endregion
-
 
         #region Public Methods
         /// <summary>
@@ -183,7 +178,6 @@ namespace KDScorpionEngine.Behaviors
             _keyboard.UpdatePreviousState();
         }
         #endregion
-
 
         #region Private Methods
         /// <summary>

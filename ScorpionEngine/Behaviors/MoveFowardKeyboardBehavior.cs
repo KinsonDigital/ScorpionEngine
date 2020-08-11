@@ -28,7 +28,6 @@ namespace KDScorpionEngine.Behaviors
         private KeyCode _rotateCCWKey = KeyCode.Left;
         #endregion
 
-
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="MovementByKeyboardBehavior{T}"/>
@@ -48,7 +47,6 @@ namespace KDScorpionEngine.Behaviors
 
             SetUpdateAction(UpdateAction);
         }
-
 
         /// <summary>
         /// Creates a new instance of <see cref="MovementByKeyboardBehavior{T}"/>.
@@ -71,7 +69,6 @@ namespace KDScorpionEngine.Behaviors
             SetUpdateAction(UpdateAction);
         }
         #endregion
-
 
         #region Props
         /// <summary>
@@ -129,7 +126,6 @@ namespace KDScorpionEngine.Behaviors
         public float AngularSpeed { get; set; }
         #endregion
 
-
         #region Private Methods
         /// <summary>
         /// The action that will be invoked by the behavior.  This will update the other internal behaviors.
@@ -147,7 +143,6 @@ namespace KDScorpionEngine.Behaviors
 
             _keyboard.UpdatePreviousState();
         }
-
 
         /// <summary>
         /// Creates all of the keyboard behaviors that deal with <see cref="DynamicEntity"/> movement.
@@ -167,7 +162,6 @@ namespace KDScorpionEngine.Behaviors
             _rotateCCWKeyBehavior = new KeyBehavior(_rotateCCWKey, true);
             _rotateCCWKeyBehavior.KeyDownEvent += RotateCCW_KeyDown;
         }
-
 
         /// <summary>
         /// Creates all of the keyboard behaviors that deal with <see cref="DynamicEntity"/>.
@@ -195,7 +189,6 @@ namespace KDScorpionEngine.Behaviors
             _rotateCCWKeyBehavior.KeyDownEvent += RotateCCW_KeyDown;
         }
 
-
         /// <summary>
         /// Sets up the behaviors.
         /// </summary>
@@ -214,7 +207,6 @@ namespace KDScorpionEngine.Behaviors
             _rotateCCWKeyBehavior.BehaviorType = KeyBehaviorType.KeyDownContinuous;
         }
 
-
         #region Event Methods
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> forward in the direction it is facing.
@@ -225,12 +217,10 @@ namespace KDScorpionEngine.Behaviors
             _dynamicEntity.MoveAtSetAngle(LinearSpeed);
         }
 
-
         /// <summary>
         /// Rotates the <see cref="DynamicEntity"/> clockwise.
         /// </summary>
         private void RotateCW_KeyDown(object sender, KeyEventArgs e) => _dynamicEntity.RotateCW(AngularSpeed);
-
 
         /// <summary>
         /// Rotates the <see cref="DynamicEntity"/> counter clockwise.

@@ -17,13 +17,11 @@ namespace KDScorpionEngine.Exceptions
         /// </summary>
         public IdNotFoundException() : base("The ID has not been found.") { }
 
-
         /// <summary>
         /// Creates a new instance of <see cref="IdNotFoundException"/>.
         /// </summary>
         /// <param name="sceneId">The ID that has not been found.</param>
         public IdNotFoundException(int sceneId) : base($"An ID with the number '{sceneId}' has not been found.") { }
-
 
         /// <summary>
         /// Creates a new instance of <see cref="IdNotFoundException"/>.

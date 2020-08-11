@@ -23,7 +23,6 @@ namespace KDScorpionEngine.Entities
         /// <param name="body">The physics body to inject.</param>
         internal TextEntity(IPhysicsBody body) : base(body) => Setup(string.Empty, new GameColor(255, 0, 0, 0), new GameColor(0, 0, 0, 0));
 
-
         /// <summary>
         /// Creates a new instance of <see cref="TextEntity"/>.
         /// </summary>
@@ -34,7 +33,6 @@ namespace KDScorpionEngine.Entities
         public TextEntity(string text, GameColor foreColor, GameColor backColor, Vector2 position) : base(new Vector2[0], position: position) =>
             Setup(text, foreColor, backColor);
         #endregion
-
 
         #region Props
         /// <summary>
@@ -52,7 +50,6 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         public GameColor BackColor { get; set; } = new GameColor(0, 0, 0, 0);
         #endregion
-
 
         #region Private Methods
         /// <summary>

@@ -20,11 +20,9 @@ namespace KDScorpionEngine.Scene
         public event EventHandler<FrameStackFinishedEventArgs> FrameStackFinished;
         #endregion
 
-
         #region Private Fields
         private Action _frameStackCallback;//Invoked after a frame stack has been run
         #endregion
-
 
         #region Props
         /// <summary>
@@ -64,7 +62,6 @@ namespace KDScorpionEngine.Scene
         /// </summary>
         public RunMode Mode { get; set; } = RunMode.Continuous;
         #endregion
-
 
         #region Public Methods
         /// <summary>
@@ -109,25 +106,21 @@ namespace KDScorpionEngine.Scene
             }
         }
 
-
         /// <summary>
         /// Plays the scene.
         /// </summary>
         public void Play() => Paused = false;
-
 
         /// <summary>
         /// Pauses the scene.
         /// </summary>
         public void Pause() => Paused = true;
 
-
         /// <summary>
         /// Runs a complete stack of frames set by the <see cref="SceneTimeManager"/>.
         /// This will only work if the <see cref="Mode"/> is set to the value of <see cref="RunMode.FrameStack"/>.
         /// </summary>
         public void RunFrameStack() => Paused = Mode == RunMode.FrameStack ? false : Paused;
-
 
         /// <summary>
         /// Runs a set amount of frames given by the <paramref name="frames"/> param and pauses after.

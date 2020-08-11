@@ -22,7 +22,6 @@ namespace KDScorpionEngine.Entities
         private readonly List<Rect> _frames = new List<Rect>();//The bounds of all the frames of the animation
         #endregion
 
-
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="ObjectAnimation"/>.
@@ -30,7 +29,6 @@ namespace KDScorpionEngine.Entities
         /// <param name="frameBounds">The bounds data for the animation.</param>
         public ObjectAnimation(List<Rect> frameBounds) => _frames = frameBounds;
         #endregion
-
 
         #region Props
         /// <summary>
@@ -69,19 +67,16 @@ namespace KDScorpionEngine.Entities
         public bool Looping { get; set; } = true;
         #endregion
 
-
         #region Public Methods
         /// <summary>
         /// Plays the animation.
         /// </summary>
         public void Play() => State = AnimationState.Running;
 
-
         /// <summary>
         /// Pauses the animation.
         /// </summary>
         public void Pause() => State = AnimationState.Paused;
-
 
         /// <summary>
         /// Stops the animation.
@@ -91,7 +86,6 @@ namespace KDScorpionEngine.Entities
             State = AnimationState.Stopped;
             _currentFrame = 0;//Set the current frame back to the first frame
         }
-
 
         /// <summary>
         /// Updates the animation.

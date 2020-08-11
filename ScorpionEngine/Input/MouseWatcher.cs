@@ -42,7 +42,6 @@ namespace KDScorpionEngine.Input
         public event EventHandler OnInputReleasedTimeOut;
         #endregion
 
-
         #region Private Fields
         private readonly Mouse _mouse;
         private Dictionary<InputButton, bool> _currentPressedButtons;//Holds the list of combo buttons and there down states
@@ -52,7 +51,6 @@ namespace KDScorpionEngine.Input
         private bool _curState;//The current state of the set input
         private bool _prevState;//The previous state of the set input
         #endregion
-
 
         #region Constructor
         /// <summary>
@@ -67,7 +65,6 @@ namespace KDScorpionEngine.Input
             Setup(enabled);
         }
 
-
         /// <summary>
         /// Creates an instance of <see cref="MouseWatcher"/>.
         /// </summary>
@@ -79,7 +76,6 @@ namespace KDScorpionEngine.Input
             Setup(enabled);
         }
         #endregion
-
 
         #region Props
         /// <summary>
@@ -182,7 +178,6 @@ namespace KDScorpionEngine.Input
         public ResetType ReleasedElapsedResetMode { get; set; } = ResetType.Auto;
         #endregion
 
-
         #region Public Methods
         /// <summary>
         /// Updates the <see cref="MouseWatcher"/>.
@@ -206,7 +201,6 @@ namespace KDScorpionEngine.Input
             //Get the current state of the button
             _curState = _mouse.IsButtonDown(Button);
 
-
             #region Hit Count Code
             //If the counter is not null
             if (_mouse.IsButtonPressed(Button))
@@ -227,7 +221,6 @@ namespace KDScorpionEngine.Input
             }
             #endregion
 
-
             #region Timing Code
             //As long as the button is down, continue to keep the button release timer reset to 0
             if (_mouse.IsButtonDown(Button))
@@ -241,7 +234,6 @@ namespace KDScorpionEngine.Input
                 _buttonReleaseTimer.Start();
             }
             #endregion
-
 
             #region Button Combo Code
             //If the button combo list is not null
@@ -265,7 +257,6 @@ namespace KDScorpionEngine.Input
         }
         #endregion
 
-
         #region Private Event Methods
         /// <summary>
         /// Occurs when the button has been held down for a set amount of time.
@@ -281,7 +272,6 @@ namespace KDScorpionEngine.Input
                 OnInputDownTimeOut?.Invoke(this, new EventArgs());
             }
         }
-
 
         /// <summary>
         /// Occurs when the button has been released from the down position for a set amount of time.
@@ -299,7 +289,6 @@ namespace KDScorpionEngine.Input
             }
         }
         #endregion
-
 
         #region Private Methods
         /// <summary>
@@ -321,7 +310,6 @@ namespace KDScorpionEngine.Input
             _buttonReleaseTimer.OnTimeElapsed += ButtonReleasedTimer_OnTimeElapsed;
             _buttonReleaseTimer.Start();
         }
-
 
         /// <summary>
         /// Creates the list of pressed buttons from the given list of buttons.

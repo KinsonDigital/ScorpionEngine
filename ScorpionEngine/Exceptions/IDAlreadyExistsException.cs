@@ -17,13 +17,11 @@ namespace KDScorpionEngine.Exceptions
         /// </summary>
         public IdAlreadyExistsException() : base("That ID already exists.") { }
 
-
         /// <summary>
         /// Creates a new instance of <see cref="IdAlreadyExistsException"/>.
         /// </summary>
         /// <param name="id">The ID that already exists.</param>
         public IdAlreadyExistsException(int id) : base($"The ID '{id}' already exists.") { }
-
 
         /// <summary>
         /// Creates a new instance of <see cref="IdAlreadyExistsException"/>.

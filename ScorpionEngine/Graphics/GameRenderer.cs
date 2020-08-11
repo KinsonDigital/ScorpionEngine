@@ -23,14 +23,12 @@ namespace KDScorpionEngine.Graphics
         /// <param name="debugDraw">The debug draw to inject</param>
         internal GameRenderer(IRenderer renderer, IDebugDraw debugDraw) : base(renderer, debugDraw) { }
 
-
         /// <summary>
         /// Creates a new instance of <see cref="GameRenderer"/>.
         /// </summary>
         [ExcludeFromCodeCoverage]
         public GameRenderer() { }
         #endregion
-
 
         #region Public Methods
         /// <summary>

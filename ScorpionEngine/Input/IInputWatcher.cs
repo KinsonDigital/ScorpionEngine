@@ -88,7 +88,6 @@ namespace KDScorpionEngine.Input
         ResetType ReleasedElapsedResetMode { get; set; }
         #endregion
 
-
         #region Event Handlers
         /// <summary>
         /// Invoked when the combo input setup has been pressed.

@@ -19,12 +19,10 @@ namespace KDScorpionEngine.Utils
         public event EventHandler OnTimeElapsed;
         #endregion
 
-
         #region Private Fields
         private bool _enabled;
         private int _timeOut;
         #endregion
-
 
         #region Constructors
         /// <summary>
@@ -33,7 +31,6 @@ namespace KDScorpionEngine.Utils
         /// <param name="timeOut">The amount of time in milliseconds before the stopWatch OnTimeElapsed event is invoked.</param>
         public StopWatch(int timeOut) => _timeOut = timeOut;
         #endregion
-
 
         #region Props
         /// <summary>
@@ -62,7 +59,6 @@ namespace KDScorpionEngine.Utils
         public bool Running { get; private set; }
         #endregion
 
-
         #region Public Methods
         /// <summary>
         /// Starts the stopwatch.
@@ -73,7 +69,6 @@ namespace KDScorpionEngine.Utils
             Running = true;
         }
 
-
         /// <summary>
         /// Stops the stopwatch.
         /// </summary>
@@ -83,12 +78,10 @@ namespace KDScorpionEngine.Utils
             Running = false;
         }
 
-
         /// <summary>
         /// Gets or sets the reset mode of the stopwatch.  If set to auto reset, then the stopwatch will automatically be set to 0 and start counting again.
         /// </summary>
         public ResetType ResetMode { get; set; } = ResetType.Auto;
-
 
         /// <summary>
         /// Stops the stopwatch and resets the elapsed time back to 0.
@@ -98,7 +91,6 @@ namespace KDScorpionEngine.Utils
             Stop();
             ElapsedMS = 0;
         }
-
 
         /// <summary>
         /// Updates the internal time of the stop watch.

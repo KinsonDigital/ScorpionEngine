@@ -17,7 +17,6 @@ namespace KDScorpionEngine.Exceptions
         /// </summary>
         public NameNotFoundException() : base("A scene with that name does not exist.") { }
 
-
         /// <summary>
         /// Creates a new instance of <see cref="NameNotFoundException"/>.
         /// </summary>

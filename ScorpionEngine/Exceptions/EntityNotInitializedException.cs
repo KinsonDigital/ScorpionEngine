@@ -19,7 +19,6 @@ namespace KDScorpionEngine.Exceptions
         /// </summary>
         public EntityNotInitializedException() : base($"{nameof(Entity)} not initialized.  Must be initialized before being added to a {nameof(PhysicsWorld)} using {nameof(Entity)}.{nameof(Entity.Initialize)}() method.") { }
 
-
         /// <summary>
         /// Creates a new instance of <see cref="EntityNotInitializedException"/>.
         /// </summary>

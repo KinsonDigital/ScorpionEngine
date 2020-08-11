@@ -16,7 +16,6 @@ namespace KDScorpionEngine.Behaviors
         private Action<EngineTime> _behaviorAction;
         #endregion
 
-
         #region Props
         /// <summary>
         /// Gets or sets the name of the <see cref="Behavior"/>.
@@ -28,7 +27,6 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         public bool Enabled { get; set; } = true;
         #endregion
-
 
         #region Public Methods
         /// <summary>
@@ -42,7 +40,6 @@ namespace KDScorpionEngine.Behaviors
 
             _behaviorAction(engineTime);
         }
-
 
         /// <summary>
         /// Sets the action that sets the behavior of this object.

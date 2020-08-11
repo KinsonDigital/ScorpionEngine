@@ -18,7 +18,6 @@ namespace KDScorpionEngine.Exceptions
         /// </summary>
         public EntityAlreadyInitializedException() : base($"{nameof(Entity)} is already initialized.  Invocation must be performed before using the {nameof(Entity)}.{nameof(Entity.Initialize)}() method.") { }
 
-
         /// <summary>
         /// Creates a new instance of <see cref="EntityAlreadyInitializedException"/>.
         /// </summary>

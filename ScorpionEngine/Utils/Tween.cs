@@ -22,7 +22,6 @@
  *   caurina.transitions.Tweener (http://code.google.com/p/tweener/)
  *   [See License.txt for license info]
  */
-
 namespace KDScorpionEngine.Utils
 {
     using System;

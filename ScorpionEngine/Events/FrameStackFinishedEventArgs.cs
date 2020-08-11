@@ -17,7 +17,6 @@ namespace KDScorpionEngine.Events
         public FrameStackFinishedEventArgs(int totalFramesRan) => TotalFramesRan = totalFramesRan;
         #endregion
 
-
         #region Props
         /// <summary>
         /// Gets the total number of frames that has ran.

@@ -22,7 +22,6 @@ namespace KDScorpionEngine.Entities
         /// <param name="body">The physics body to inject.</param>
         internal StaticEntity(IPhysicsBody body) : base(body) { }
 
-
         /// <summary>
         /// Creates a new instance of <see cref="StaticEntity"/>.
         /// </summary>
@@ -30,7 +29,6 @@ namespace KDScorpionEngine.Entities
         /// <param name="position">The position on the surface of where to render the texture.</param>
         public StaticEntity(Texture texture, Vector2 position) : base(texture, position, isStaticBody: true) => _usesPhysics = false;
         #endregion
-
 
         #region Public Methods
         /// <summary>

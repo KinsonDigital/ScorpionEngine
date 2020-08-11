@@ -20,7 +20,6 @@ namespace KDScorpionEngine.Content
         private readonly List<AtlasSpriteData> _atlasSprites;
         #endregion
 
-
         #region Constructors
         /// <summary>
         /// Loads a texture atlas with the given texture name and atlas data name.
@@ -32,7 +31,6 @@ namespace KDScorpionEngine.Content
             _atlasSprites = atlasSubTexutureData;
         }
         #endregion
-
 
         #region Props
         /// <summary>
@@ -66,7 +64,6 @@ namespace KDScorpionEngine.Content
         /// </summary>
         public int Height { get; set; }
         #endregion
-
 
         #region Internal Methods
         /// <summary>
@@ -109,7 +106,6 @@ namespace KDScorpionEngine.Content
             return returnItems;
         }
 
-
         /// <summary>
         /// Returns true if a sub texture with the given name exists in the atlas.
         /// </summary>
@@ -119,7 +115,6 @@ namespace KDScorpionEngine.Content
         {
             return _atlasSprites.Find(item => item.Name == name) != null;
         }
-
 
         /// <summary>
         /// Returns the bounds of the sub texture with the given name.

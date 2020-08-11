@@ -32,7 +32,6 @@ namespace KDScorpionEngine.Entities
         private const float DEFAULT_MAX_SPEED = 40f;
         #endregion
 
-
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="DynamicEntity"/>.
@@ -45,7 +44,6 @@ namespace KDScorpionEngine.Entities
             SetupMaxRotationBehaviors(DEFAULT_MAX_SPEED);
         }
 
-
         /// <summary>
         /// Creates a new instance of <see cref="DynamicEntity"/>.
         /// </summary>
@@ -54,7 +52,6 @@ namespace KDScorpionEngine.Entities
             SetupMaxLinearBehaviors(DEFAULT_MAX_SPEED);
             SetupMaxRotationBehaviors(DEFAULT_MAX_SPEED);
         }
-
 
         /// <summary>
         /// Creates a new instance of <see cref="DynamicEntity"/>.
@@ -66,7 +63,6 @@ namespace KDScorpionEngine.Entities
             SetupMaxRotationBehaviors(DEFAULT_MAX_SPEED);
         }
 
-
         /// <summary>
         /// Creates a new instance of <see cref="DynamicEntity"/>.
         /// </summary>
@@ -77,7 +73,6 @@ namespace KDScorpionEngine.Entities
             SetupMaxLinearBehaviors(DEFAULT_MAX_SPEED);
             SetupMaxRotationBehaviors(DEFAULT_MAX_SPEED);
         }
-
 
         /// <summary>
         /// Creates a new instance of <see cref="DynamicEntity"/>.
@@ -91,7 +86,6 @@ namespace KDScorpionEngine.Entities
             SetupMaxRotationBehaviors(DEFAULT_MAX_SPEED);
         }
 
-
         /// <summary>
         /// Creates a new instance of <see cref="DynamicEntity"/>.
         /// </summary>
@@ -103,7 +97,6 @@ namespace KDScorpionEngine.Entities
             SetupMaxLinearBehaviors(DEFAULT_MAX_SPEED);
             SetupMaxRotationBehaviors(DEFAULT_MAX_SPEED);
         }
-
 
         /// <summary>
         /// Creates a new instance of <see cref="DynamicEntity"/>.
@@ -118,7 +111,6 @@ namespace KDScorpionEngine.Entities
             SetupMaxRotationBehaviors(DEFAULT_MAX_SPEED);
         }
         #endregion
-
 
         #region Props
         /// <summary>
@@ -242,7 +234,6 @@ namespace KDScorpionEngine.Entities
         public bool IsEntityStopping { get; set; }
         #endregion
 
-
         #region Public Method
         /// <summary>
         /// Initializes the <see cref="DynamicEntity"/>.
@@ -258,7 +249,6 @@ namespace KDScorpionEngine.Entities
                 AngularDeceleration = _preInitAngularDeceleration;
             }
         }
-
 
         /// <summary>
         /// Updates the <see cref="DynamicEntity"/>.
@@ -276,7 +266,6 @@ namespace KDScorpionEngine.Entities
             base.Update(engineTime);
         }
 
-
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> to the right using the <see cref="SpeedX"/> property value.
         /// NOTE: A positive or negative value will have the same effect.
@@ -289,7 +278,6 @@ namespace KDScorpionEngine.Entities
             //TODO: Get this working
             ////Body.ApplyForce(SpeedX.ForcePositive(), 0, Position.X, Position.Y);
         }
-
 
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> to the right using the given speed.
@@ -304,7 +292,6 @@ namespace KDScorpionEngine.Entities
             ////Body.ApplyForce(speed.ForcePositive(), 0, Position.X, Position.Y);
         }
 
-
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> to the left using the <see cref="SpeedX"/> property value.
         /// NOTE: A positive or negative value will have the same effect.
@@ -317,7 +304,6 @@ namespace KDScorpionEngine.Entities
             //TODO: Get this working
             //Body.ApplyForce(SpeedX.ForceNegative(), 0, Position.X, Position.Y);
         }
-
 
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> to the left using the given speed.
@@ -332,7 +318,6 @@ namespace KDScorpionEngine.Entities
             //Body.ApplyForce(speed.ForceNegative(), 0, Position.X, Position.Y);
         }
 
-
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> up using the <see cref="SpeedY"/> property value.
         /// NOTE: A positive or negative value will have the same effect.
@@ -345,7 +330,6 @@ namespace KDScorpionEngine.Entities
             //TODO: Get this working
             //Body.ApplyForce(0, SpeedY.ForceNegative(), Position.X, Position.Y);
         }
-
 
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> up using the given speed.
@@ -360,7 +344,6 @@ namespace KDScorpionEngine.Entities
             //Body.ApplyForce(0, speed.ForceNegative(), Position.X, Position.Y);
         }
 
-
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> down using the <see cref="SpeedY"/> property value.
         /// NOTE: A positive or negative value will have the same effect.
@@ -373,7 +356,6 @@ namespace KDScorpionEngine.Entities
             //TODO: Get this working
             //Body.ApplyForce(0, SpeedY.ForcePositive(), Position.X, Position.Y);
         }
-
 
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> down using the given speed.
@@ -388,7 +370,6 @@ namespace KDScorpionEngine.Entities
             //Body.ApplyForce(0, speed, Position.X, Position.Y);
         }
 
-
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> up and to the right using the <see cref="SpeedX"/> and <see cref="SpeedY"/> property values.
         /// NOTE: Positive or negative values will have the same effect.
@@ -401,7 +382,6 @@ namespace KDScorpionEngine.Entities
             //TODO: Get this working
             //Body.ApplyForce(SpeedX.ForcePositive(), SpeedY.ForceNegative(), Position.X, Position.Y);
         }
-
 
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> up and to the right using the given speed.
@@ -416,7 +396,6 @@ namespace KDScorpionEngine.Entities
             //Body.ApplyForce(speed, speed.ForceNegative(), Position.X, Position.Y);
         }
 
-
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> up and to the left using the <see cref="SpeedX"/> and <see cref="SpeedY"/> property values.
         /// NOTE: Positive or negative values will have the same effect.
@@ -429,7 +408,6 @@ namespace KDScorpionEngine.Entities
             //TODO: Get this working
             //Body.ApplyForce(SpeedX.ForceNegative(), SpeedY.ForceNegative(), Position.X, Position.Y);
         }
-
 
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> up and to the left using the given speed.
@@ -445,7 +423,6 @@ namespace KDScorpionEngine.Entities
             //Body.ApplyForce(speed, speed, Position.X, Position.Y);
         }
 
-
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> down and to the right using the <see cref="SpeedX"/> and <see cref="SpeedY"/> property values.
         /// NOTE: Positive or negative values will have the same effect.
@@ -458,7 +435,6 @@ namespace KDScorpionEngine.Entities
             //TODO: Get this working
             //Body.ApplyForce(SpeedX.ForcePositive(), SpeedY.ForcePositive(), Position.X, Position.Y);
         }
-
 
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> down and to the right using the given speed.
@@ -474,7 +450,6 @@ namespace KDScorpionEngine.Entities
             //Body.ApplyForce(speed, speed, Position.X, Position.Y);
         }
 
-
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> down and to the left using the <see cref="SpeedX"/> and <see cref="SpeedY"/> property values.
         /// NOTE: Positive or negative values will have the same effect.
@@ -488,7 +463,6 @@ namespace KDScorpionEngine.Entities
             //Body.ApplyForce(SpeedX.ForceNegative(), SpeedY.ForcePositive(), Position.X, Position.Y);
         }
 
-
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> down and to the left using the given speed.
         /// </summary>
@@ -500,7 +474,6 @@ namespace KDScorpionEngine.Entities
 
             //Body.ApplyForce(speed.ForceNegative(), speed.ForcePositive(), Position.X, Position.Y);
         }
-
 
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> based on the current <see cref="SpeedX"/>
@@ -515,7 +488,6 @@ namespace KDScorpionEngine.Entities
             //TODO: Get this working
             //Body.ApplyForce(SpeedX, SpeedY, Position.X, Position.Y);
         }
-
 
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> at the currently set angle using the given speed.
@@ -532,13 +504,11 @@ namespace KDScorpionEngine.Entities
             //Body.ApplyForce(directionToMove.X, directionToMove.Y, Position.X, Position.Y);
         }
 
-
         /// <summary>
         /// Rotates the <see cref="DynamicEntity"/> clockwise using the <see cref="RotateSpeed"/> property value.
         /// NOTE: Positive and negative values behave the same.
         /// </summary>
         public void RotateCW() => RotateCW(RotateSpeed);
-
 
         /// <summary>
         /// Rotates the <see cref="DynamicEntity"/> clockwise using the given speed.
@@ -554,13 +524,11 @@ namespace KDScorpionEngine.Entities
             //    Body.ApplyAngularImpulse(speed.ForcePositive());
         }
 
-
         /// <summary>
         /// Rotates the <see cref="DynamicEntity"/> counter clockwise using the <see cref="RotateSpeed"/> property value.
         /// NOTE: Positive and negative values behave the same.
         /// </summary>
         public void RotateCCW() => RotateCCW(RotateSpeed);
-
 
         /// <summary>
         /// Rotates the <see cref="DynamicEntity"/> counter clockwise using the given speed.
@@ -576,12 +544,10 @@ namespace KDScorpionEngine.Entities
             //    Body.ApplyAngularImpulse(speed.ForceNegative());
         }
 
-
         /// <summary>
         /// Stops the movement of the <see cref="DynamicEntity"/>.
         /// </summary>
         public void StopMovement() => IsEntityStopping = true;
-
 
         /// <summary>
         /// Stops the rotation of the <see cref="DynamicEntity"/>.
@@ -593,7 +559,6 @@ namespace KDScorpionEngine.Entities
 
             Body.AngularVelocity = 0;
         }
-
 
         /// <summary>
         /// Starts process of stopping the movement of the <see cref="DynamicEntity"/> if it has been flagged to stop.
@@ -629,7 +594,6 @@ namespace KDScorpionEngine.Entities
         }
         #endregion
 
-
         #region Private Methods
         /// <summary>
         /// Sets up all of the max linear behaviors.
@@ -663,7 +627,6 @@ namespace KDScorpionEngine.Entities
             Behaviors.Add(_moveLeftVelocityMaxBehavior);
         }
 
-
         /// <summary>
         /// Sets up all of the max rotataion behaviors.
         /// </summary>
@@ -683,7 +646,6 @@ namespace KDScorpionEngine.Entities
             Behaviors.Add(_rotateCCWVelocityMaxBehavior);
         }
 
-
         /// <summary>
         /// Sets the limits of the number limit behaviors.
         /// </summary>
@@ -696,13 +658,11 @@ namespace KDScorpionEngine.Entities
             _moveRightVelocityMaxBehavior.LimitValue = maxLinearSpeed.ForcePositive();
         }
 
-
         /// <summary>
         /// Gets the current linear velocity of the X component
         /// </summary>
         /// <returns></returns>
         private float GetLinearXValue() => Body.LinearVelocity.X;
-
 
         /// <summary>
         /// Gets the current linear velocity of the Y component
@@ -710,13 +670,11 @@ namespace KDScorpionEngine.Entities
         /// <returns></returns>
         private float GetLinearYValue() => Body.LinearVelocity.Y;
 
-
         /// <summary>
         /// Sets X value of the linear velocity
         /// </summary>
         /// <returns></returns>
         private void SetLinearXValue(float value) => Body.LinearVelocity = new Vector2(value, Body.LinearVelocity.Y);
-
 
         /// <summary>
         /// Sets Y value of the linear velocity
@@ -728,13 +686,11 @@ namespace KDScorpionEngine.Entities
                 Body.LinearVelocity = new Vector2(Body.LinearVelocity.X, value);
         }
 
-
         /// <summary>
         /// Gets the angular velocity value.
         /// </summary>
         /// <returns></returns>
         private float GetAngularVelocityValue() => Body.AngularVelocity;
-
 
         /// <summary>
         /// Sets the angular velocity to the given value.

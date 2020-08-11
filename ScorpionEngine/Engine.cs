@@ -23,7 +23,6 @@ namespace KDScorpionEngine
         private GameRenderer _renderer;
         #endregion
 
-
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="Engine"/>.
@@ -40,7 +39,6 @@ namespace KDScorpionEngine
             SetupEngineCore(engineCore);
         }
 
-
         /// <summary>
         /// Creates a new instance of <see cref="Engine"/>.
         /// </summary>
@@ -53,7 +51,6 @@ namespace KDScorpionEngine
             SceneManager = new SceneManager(ContentLoader);
         }
         #endregion
-
 
         #region Props
         /// <summary>
@@ -95,19 +92,16 @@ namespace KDScorpionEngine
         }
         #endregion
 
-
         #region Public Methods
         /// <summary>
         /// Starts the game engine.
         /// </summary>
         public void Start() => _engineCore?.StartEngine();
 
-
         /// <summary>
         /// Stops the game engine.
         /// </summary>
         public void Stop() => _engineCore?.StopEngine();
-
 
         /// <summary>
         /// Initializes the engine.
@@ -115,13 +109,11 @@ namespace KDScorpionEngine
         [ExcludeFromCodeCoverage]
         public virtual void Init() { }
 
-
         /// <summary>
         /// Loads all of the content.
         /// </summary>
         [ExcludeFromCodeCoverage]
         public virtual void LoadContent(ContentLoader contentLoader) { }
-
 
         /// <summary>
         /// Updates the game world.
@@ -140,20 +132,17 @@ namespace KDScorpionEngine
             SceneManager.Update(engineTime);
         }
 
-
         /// <summary>
         /// Draws the game world.
         /// </summary>
         [ExcludeFromCodeCoverage]
         public virtual void Render(GameRenderer renderer) => SceneManager.Render(renderer);
 
-
         /// <summary>
         /// Disposes of the engine.
         /// </summary>
         public void Dispose() => Dispose(true);
         #endregion
-
 
         #region Protected Methods
         /// <summary>
@@ -166,7 +155,6 @@ namespace KDScorpionEngine
                 _engineCore.Dispose();
         }
         #endregion
-
 
         #region Private Methods
         /// <summary>
@@ -182,7 +170,6 @@ namespace KDScorpionEngine
             _engineCore.OnRender += EngineCore_OnRender;
         }
 
-
         /// <summary>
         /// Occurs one time during game initialization. This event is fired before the <see cref="OnLoadContent"/> event is fired. Add initialization code here.
         /// </summary>
@@ -197,13 +184,11 @@ namespace KDScorpionEngine
             Init();
         }
 
-
         /// <summary>
         /// Occurs one time during game intialization after the <see cref="OnInitialize"/> event is fired.
         /// </summary>
         [ExcludeFromCodeCoverage]
         private void EngineCore_OnLoadContent(object sender, EventArgs e) => LoadContent(ContentLoader);
-
 
         /// <summary>
         /// Occurs once every frame before the OnDraw event before the <see cref="OnRender"/> event is invoked.
@@ -219,7 +204,6 @@ namespace KDScorpionEngine
 
             Update(engineTime);
         }
-
 
         /// <summary>
         /// Occurs once every frame after the <see cref="OnUpdate"/> event has been been invoked.

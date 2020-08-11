@@ -29,7 +29,6 @@ namespace KDScorpionEngine.Behaviors
         private KeyCode _moveRightKey = KeyCode.Right;
         #endregion
 
-
         #region Constructors
         //TODO: Find a way to improve this class to allow unit testing without having to have this internal constructor.
         //It is not a good idea to have a constructor for the sole purpose of testing and this points to architecture issues.
@@ -54,7 +53,6 @@ namespace KDScorpionEngine.Behaviors
             SetUpdateAction(UpdateAction);
         }
 
-
         /// <summary>
         /// Creates a new instance of <see cref="MovementByKeyboardBehavior{T}"/>.
         /// </summary>
@@ -73,7 +71,6 @@ namespace KDScorpionEngine.Behaviors
             SetUpdateAction(UpdateAction);
         }
         #endregion
-
 
         #region Props
         /// <summary>
@@ -140,13 +137,11 @@ namespace KDScorpionEngine.Behaviors
             }
         }
 
-
         /// <summary>
         /// Gets or sets the linear speed of the <see cref="DynamicEntity"/>.
         /// </summary>
         public float LinearSpeed { get; set; }
         #endregion
-
 
         #region Private Methods
         /// <summary>
@@ -161,7 +156,6 @@ namespace KDScorpionEngine.Behaviors
             _moveDownOnKeyDown.Update(engineTime);
         }
 
-
         /// <summary>
         /// Creates all of the keyboard behaviors that deal with <see cref="DynamicEntity"/> movement.
         /// </summary>
@@ -174,7 +168,6 @@ namespace KDScorpionEngine.Behaviors
             _moveDownOnKeyDown = new KeyBehavior(_moveDownKey, true);
         }
 
-
         /// <summary>
         /// Sets up all of the KeyBehaviors using the given <paramref name="keyboard"/>
         /// </summary>
@@ -186,7 +179,6 @@ namespace KDScorpionEngine.Behaviors
             _moveUpOnKeyDown = new KeyBehavior(keyboard);
             _moveDownOnKeyDown = new KeyBehavior(keyboard);
         }
-
 
         /// <summary>
         /// Sets up the behaviors.
@@ -208,13 +200,11 @@ namespace KDScorpionEngine.Behaviors
             _moveUpOnKeyDown.KeyDownEvent += MoveUp_KeyDown;
             _moveUpOnKeyDown.BehaviorType = KeyBehaviorType.KeyDownContinuous;
 
-
             //Setup the move down key behavior
             _moveDownOnKeyDown.Key = _moveDownKey;
             _moveDownOnKeyDown.KeyDownEvent += MoveDown_KeyDown;
             _moveDownOnKeyDown.BehaviorType = KeyBehaviorType.KeyDownContinuous;
         }
-
 
         #region Event Methods
         /// <summary>
@@ -222,18 +212,15 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         private void MoveRight_KeyDown(object sender, KeyEventArgs e) => _gameObject.MoveRight(LinearSpeed);
 
-
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> to the left.
         /// </summary>
         private void MoveLeft_KeyDown(object sender, KeyEventArgs e) => _gameObject.MoveLeft(LinearSpeed);
 
-
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> up.
         /// </summary>
         private void MoveUp_KeyDown(object sender, KeyEventArgs e) => _gameObject.MoveUp(LinearSpeed);
-
 
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> down.

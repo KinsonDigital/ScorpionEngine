@@ -42,7 +42,6 @@ namespace KDScorpionEngine.Input
         public event EventHandler OnInputReleasedTimeOut;
         #endregion
 
-
         #region Private Fields
         private readonly Keyboard _keyboard;
         private Dictionary<KeyCode, bool> _currentPressedKeys;//Holds the list of comboKeys and there down states
@@ -52,7 +51,6 @@ namespace KDScorpionEngine.Input
         protected StopWatch _keyDownTimer;//Keeps track of how long the set input has been in the down position
         protected StopWatch _keyReleasedTimer;//Keeps track of how long the set input has been in the up position since it was in the down position
         #endregion
-
 
         #region Constructors
         /// <summary>
@@ -66,7 +64,6 @@ namespace KDScorpionEngine.Input
             Setup(true);
         }
 
-
         /// <summary>
         /// Creates an instance of KeyboardWatcher.
         /// </summary>
@@ -78,7 +75,6 @@ namespace KDScorpionEngine.Input
             Setup(enabled);
         }
         #endregion
-
 
         #region Props
         /// <summary>
@@ -181,7 +177,6 @@ namespace KDScorpionEngine.Input
         public ResetType ReleasedElapsedResetMode { get; set; } = ResetType.Auto;
         #endregion
 
-
         #region Public Methods
         /// <summary>
         /// Update the watcher state.
@@ -205,7 +200,6 @@ namespace KDScorpionEngine.Input
             //Get the current state of the key
             _curState = _keyboard.IsKeyDown(Key);
 
-
             #region Hit Count Code
             if (_keyboard.IsKeyPressed(Key))
             {
@@ -225,7 +219,6 @@ namespace KDScorpionEngine.Input
             }
             #endregion
 
-
             #region Timing Code
             //As long as the key is down, continue to keep the key release timer reset to 0
             if (_keyboard.IsKeyDown(Key))
@@ -239,7 +232,6 @@ namespace KDScorpionEngine.Input
                 _keyReleasedTimer.Start();
             }
             #endregion
-
 
             #region Key Combo Code
             //If the key combo list is not null
@@ -263,7 +255,6 @@ namespace KDScorpionEngine.Input
         }
         #endregion
 
-
         #region Private Event Methods
         /// <summary>
         /// Occurs when the key has been held down for a set amount of time.
@@ -279,7 +270,6 @@ namespace KDScorpionEngine.Input
                 OnInputReleasedTimeOut?.Invoke(this, new EventArgs());
             }
         }
-
 
         /// <summary>
         /// Occurs when the key has been released from the down position for a set amount of time.
@@ -297,7 +287,6 @@ namespace KDScorpionEngine.Input
             }
         }
         #endregion
-
 
         #region Private Methods
         /// <summary>
@@ -319,7 +308,6 @@ namespace KDScorpionEngine.Input
             _keyReleasedTimer.OnTimeElapsed += KeyUpTimer_OnTimeElapsed;
             _keyReleasedTimer.Start();
         }
-
 
         /// <summary>
         /// Creates the list of pressed keys from the given list of keys

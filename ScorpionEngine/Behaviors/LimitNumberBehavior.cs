@@ -17,7 +17,6 @@ namespace KDScorpionEngine.Behaviors
         private readonly Action<float> _setLimit;
         #endregion
 
-
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="LimitNumberBehavior"/>.
@@ -36,14 +35,12 @@ namespace KDScorpionEngine.Behaviors
         }
         #endregion
 
-
         #region Props
         /// <summary>
         /// Gets or sets the number to limit the number to.
         /// </summary>
         public float LimitValue { get; set; }
         #endregion
-
 
         #region Private Methods
         /// <summary>

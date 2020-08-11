@@ -45,7 +45,6 @@ namespace KDScorpionEngine.Entities
         public event EventHandler<KeyEventArgs> OnKeyReleased;
         #endregion
 
-
         #region Private Fields
         private bool _visible = true;//True if the entity will be drawn
         protected bool _usesPhysics = true;
@@ -55,7 +54,6 @@ namespace KDScorpionEngine.Entities
         private Vector2[] _preInitVertices;
         private float _preInitFriction;
         #endregion
-
 
         #region Constructors
         /// <summary>
@@ -69,7 +67,6 @@ namespace KDScorpionEngine.Entities
             Setup(null, Vector2.Zero, 0f, false);
         }
 
-
         /// <summary>
         /// Creates a new instance of <see cref="Entity"/>.
         /// </summary>
@@ -82,7 +79,6 @@ namespace KDScorpionEngine.Entities
             Setup(_preInitVertices, Vector2.Zero, friction, isStaticBody);
         }
 
-
         /// <summary>
         /// Creates a new instance of <see cref="Entity"/>.
         /// </summary>
@@ -94,7 +90,6 @@ namespace KDScorpionEngine.Entities
             _preInitVertices = new[] { Vector2.Zero, Vector2.Zero, Vector2.Zero };
             Setup(_preInitVertices, position, friction, isStaticBody);
         }
-
 
         /// <summary>
         /// Creates a new instance of <see cref="Entity"/>.
@@ -121,7 +116,6 @@ namespace KDScorpionEngine.Entities
             Setup(_preInitVertices, position, friction, isStaticBody);
         }
 
-
         /// <summary>
         /// Creates a new instance of <see cref="Entity"/>.
         /// </summary>
@@ -131,7 +125,6 @@ namespace KDScorpionEngine.Entities
         /// <param name="isStaticBody">True if the body is static and cannot be moved by other objects.</param>
         public Entity(Vector2[] vertices, Vector2 position, float friction = 0.2f, bool isStaticBody = false) =>
             Setup(vertices, position, friction, isStaticBody);
-
 
         /// <summary>
         /// Creates a new instance of <see cref="Entity"/>.
@@ -147,7 +140,6 @@ namespace KDScorpionEngine.Entities
             Setup(vertices, position, friction, isStaticBody);
         }
         #endregion
-
 
         #region Props
         /// <summary>
@@ -250,7 +242,6 @@ namespace KDScorpionEngine.Entities
                 var largestX = Body.Vertices != null ? Body.Vertices.Max(v => v.X) : 0;
                 var smallestX = Body.Vertices != null ? Body.Vertices.Min(v => v.X) : 0;
 
-
                 return largestX - smallestX;
             }
         }
@@ -264,7 +255,6 @@ namespace KDScorpionEngine.Entities
             {
                 var largestY = Body.Vertices != null ? Body.Vertices.Max(v => v.Y) : 0;
                 var smallestY = Body.Vertices != null ? Body.Vertices.Min(v => v.Y) : 0;
-
 
                 return largestY - smallestY;
             }
@@ -310,7 +300,6 @@ namespace KDScorpionEngine.Entities
         public GameColor DebugDrawColor { get; set; } = new GameColor(255, 255, 255, 255);
         #endregion
 
-
         #region Public Methods
         /// <summary>
         /// Initializes the <see cref="Entity"/>.
@@ -321,13 +310,11 @@ namespace KDScorpionEngine.Entities
             IsInitialized = true;
         }
 
-
         /// <summary>
         /// Loads the entities content.
         /// </summary>
         /// <param name="contentLoader">The content loader that will be loading the content.</param>
         public virtual void LoadContent(ContentLoader contentLoader) => ContentLoaded = true;
-
 
         /// <summary>
         /// Updates the <see cref="Entity"/>.
@@ -339,7 +326,6 @@ namespace KDScorpionEngine.Entities
             Behaviors.ToList().ForEach(b => b.Update(_engineTime));
         }
         #endregion
-
 
         #region Private Methods
         /// <summary>
@@ -356,7 +342,6 @@ namespace KDScorpionEngine.Entities
             IsStatic = isStaticBody;
             _preInitFriction = friction;
         }
-
 
         /// <summary>
         /// Creates the physics body of the <see cref="Entity"/> to be able to simulate physics between
@@ -380,7 +365,6 @@ namespace KDScorpionEngine.Entities
                 Body.Y = position.Y;
             }
         }
-
 
         /// <summary>
         /// Renders the <see cref="Entity"/> to the graphics surface.

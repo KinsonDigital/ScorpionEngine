@@ -22,7 +22,6 @@ namespace KDScorpionEngine.Events
         }
         #endregion
 
-
         #region Props
         /// <summary>
         /// Gets the previous scene that was running.

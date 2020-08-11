@@ -50,13 +50,11 @@ namespace KDScorpionEngine
         RunMode Mode { get; set; }
         #endregion
 
-
         #region Methods
         /// <summary>
         /// Plays the scene.
         /// </summary>
         void Play();
-
 
         /// <summary>
         /// Pauses the scene.
@@ -68,7 +66,6 @@ namespace KDScorpionEngine
         /// This will only work if the <see cref="Mode"/> property is set to <see cref="RunMode.FrameStack"/>.
         /// </summary>
         void RunFrameStack();
-
 
         /// <summary>
         /// Runs a set amount of frames given by the <paramref name="frames"/> param and pauses after.

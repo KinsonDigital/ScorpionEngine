@@ -24,7 +24,6 @@ namespace KDScorpionEngine
             return random.Next((int)(minValue * 1000), (int)(maxValue * 1000)) / 1000f;
         }
 
-
         /// <summary>
         /// Returns a true/false value that represents the flip of a coin.
         /// </summary>

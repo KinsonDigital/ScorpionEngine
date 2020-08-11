@@ -23,12 +23,10 @@ namespace KDScorpionEngine.Utils
         public event EventHandler MinReachedWhenDecrementing;
         #endregion
 
-
         #region Private Fields
         private int _min;
         private int _max;
         #endregion
-
 
         #region Constructors
         /// <summary>
@@ -53,7 +51,6 @@ namespace KDScorpionEngine.Utils
             CountAmount = countAmount;
         }
         #endregion
-
 
         #region Props
         /// <summary>
@@ -109,7 +106,6 @@ namespace KDScorpionEngine.Utils
         public CountType CountDirection { get; set; }
         #endregion
 
-
         #region Public Methods
         /// <summary>
         /// Increment or decrement the value by the <see cref="CountAmount"/> property value in the direction
@@ -153,7 +149,6 @@ namespace KDScorpionEngine.Utils
                     throw new Exception($"The {nameof(CountDirection)} is set to an invalid enum value.");
             }
         }
-
 
         /// <summary>
         /// Resets the value back to 0.

@@ -23,7 +23,6 @@ namespace KDScorpionEngine.Events
         public OutOfBoundsTriggerEventsArgs(Entity entity) => TriggerSource = entity;
         #endregion
 
-
         #region Props
         /// <summary>
         /// Gets the entity that caused the trigger.
