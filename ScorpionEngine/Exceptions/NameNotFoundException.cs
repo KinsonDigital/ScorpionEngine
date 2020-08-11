@@ -12,17 +12,19 @@ namespace KDScorpionEngine.Exceptions
     public class NameNotFoundException : Exception
     {
         /// <summary>
-        /// Creates a new instance of <see cref="NameNotFoundException"/>.
+        /// Initializes a new instance of the <see cref="NameNotFoundException"/> class.
         /// </summary>
-        public NameNotFoundException() : base("A scene with that name does not exist.")
+        public NameNotFoundException()
+            : base("A scene with that name does not exist.")
         {
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="NameNotFoundException"/>.
+        /// Initializes a new instance of the <see cref="NameNotFoundException"/> class.
         /// </summary>
         /// <param name="message">The exception message.</param>
-        public NameNotFoundException(string message): base(message)
+        public NameNotFoundException(string message)
+            : base(message)
         {
         }
     }

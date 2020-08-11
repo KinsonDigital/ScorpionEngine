@@ -16,10 +16,39 @@ namespace KDScorpionEngine.Input
     /// <summary>
     /// Watches a keyboard key for various events and behaviors such is how many times a key is pressed,
     /// how long it is held down or how long it has been released.  Various events will be triggered when
-    /// these behaviours occur.
+    /// these behaviors occur.
     /// </summary>
     public class KeyboardWatcher : IInputWatcher, IUpdatable
     {
+        private readonly Keyboard keyboard;
+        private Dictionary<KeyCode, bool> currentPressedKeys; // Holds the list of comboKeys and there down states
+        protected Counter counter; // Keeps track of the hit count of an input
+        protected bool curState; // The current state of the set input
+        protected bool prevState; // The previous state of the set input
+        protected StopWatch keyDownTimer; // Keeps track of how long the set input has been in the down position
+        protected StopWatch keyReleasedTimer; // Keeps track of how long the set input has been in the up position since it was in the down position
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="KeyboardWatcher"/> class.
+        /// </summary>
+        /// <param name="enabled">Set to true or false to enable or disable the watcher when created.</param>
+        [ExcludeFromCodeCoverage]
+        public KeyboardWatcher(bool enabled)
+        {
+            this.keyboard = new Keyboard();
+            Setup(enabled);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="KeyboardWatcher"/> class.
+        /// </summary>
+        /// <param name="keyboard">The keyboard to inject for testing purposes.</param>
+        internal KeyboardWatcher(IKeyboard keyboard)
+        {
+            this.keyboard = new Keyboard(keyboard);
+            Setup(true);
+        }
+
         /// <summary>
         /// Occurs when the combo key setup has been pressed.
         /// </summary>
@@ -40,38 +69,8 @@ namespace KDScorpionEngine.Input
         /// </summary>
         public event EventHandler OnInputReleasedTimeOut;
 
-        private readonly Keyboard keyboard;
-        private Dictionary<KeyCode, bool> currentPressedKeys;//Holds the list of comboKeys and there down states
-        protected Counter counter;//Keeps track of the hit count of an input
-        protected bool curState;//The current state of the set input
-        protected bool prevState;//The previous state of the set input
-        protected StopWatch keyDownTimer;//Keeps track of how long the set input has been in the down position
-        protected StopWatch keyReleasedTimer;//Keeps track of how long the set input has been in the up position since it was in the down position
-
         /// <summary>
-        /// Creates a new instance of <see cref="KeyboardWatcher"/>.
-        /// USED FOR UNIT TESTING.
-        /// </summary>
-        /// <param name="keyboard">The keyboard to inject for testing purposes.</param>
-        internal KeyboardWatcher(IKeyboard keyboard)
-        {
-            this.keyboard = new Keyboard(keyboard);
-            Setup(true);
-        }
-
-        /// <summary>
-        /// Creates an instance of KeyboardWatcher.
-        /// </summary>
-        /// <param name="enabled">Set to true or false to enable or disable the watcher when created.</param>
-        [ExcludeFromCodeCoverage]
-        public KeyboardWatcher(bool enabled)
-        {
-            this.keyboard = new Keyboard();
-            Setup(enabled);
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating if the <see cref="KeyboardWatcher"/> is enabled.
+        /// Gets or sets a value indicating whether the <see cref="KeyboardWatcher"/> is enabled.
         /// </summary>
         public bool Enabled { get; set; }
 
@@ -107,7 +106,7 @@ namespace KDScorpionEngine.Input
         public ResetType DownElapsedResetMode { get; set; } = ResetType.Auto;
 
         /// <summary>
-        /// Gets or sets the maximum amount of times that the set keyboard key should be hit before 
+        /// Gets or sets the maximum amount of times that the set keyboard key should be hit before
         /// invoking the <see cref="OnInputHitCountReached"/> event is reached.
         /// </summary>
         public int HitCountMax
@@ -134,7 +133,7 @@ namespace KDScorpionEngine.Input
         public float InputDownElapsedSeconds => this.keyDownTimer.ElapsedSeconds;
 
         /// <summary>
-        /// The amount of time in milliseconds that the key should be held down before invoking the <see cref="OnInputDownTimeOut"/> event.
+        /// Gets or sets the amount of time in milliseconds that the key should be held down before invoking the <see cref="OnInputDownTimeOut"/> event.
         /// </summary>
         public int InputDownTimeOut
         {
@@ -153,7 +152,7 @@ namespace KDScorpionEngine.Input
         public float InputReleasedElapsedSeconds => this.keyReleasedTimer.ElapsedSeconds;
 
         /// <summary>
-        /// The amount of time in milliseconds that the key should be released to the up position
+        /// Gets or sets the amount of time in milliseconds that the key should be released to the up position
         /// after being released from the down position before invoking the <see cref="OnInputReleasedTimeOut"/> event.
         /// </summary>
         public int InputReleasedTimeout
@@ -175,70 +174,67 @@ namespace KDScorpionEngine.Input
         /// <param name="engineTime">The game engine time.</param>
         public void Update(EngineTime engineTime)
         {
-            //If disabled, exit
-            if (! Enabled) return;
+            // If disabled, exit
+            if (!Enabled) return;
 
-            //Update the current state of the keyboard
+            // Update the current state of the keyboard
             this.keyboard.UpdateCurrentState();
 
-            //Update the key down timer to keep track of how much time that the key has been in the down position
+            // Update the key down timer to keep track of how much time that the key has been in the down position
             this.keyDownTimer.Update(engineTime);
 
-            //Update the key release timer to keep track of how much time that the key has been in the
-            //up position since its release
+            // Update the key release timer to keep track of how much time that the key has been in the
+            // up position since its release
             this.keyReleasedTimer.Update(engineTime);
 
-            //Get the current state of the key
+            // Get the current state of the key
             this.curState = this.keyboard.IsKeyDown(Key);
 
-            #region Hit Count Code
+            // Hit Count Code
             if (this.keyboard.IsKeyPressed(Key))
             {
-                //If the max is reached, invoke the OnInputHitCountReached event and reset it back to 0
+                // If the max is reached, invoke the OnInputHitCountReached event and reset it back to 0
                 if (this.counter != null && this.counter.Value == HitCountMax)
                 {
                     OnInputHitCountReached?.Invoke(this, new EventArgs());
 
-                    //If the reset mode is set to auto, reset the hit counter
+                    // If the reset mode is set to auto, reset the hit counter
                     if (HitCountResetMode == ResetType.Auto)
                         this.counter.Reset();
                 }
                 else
                 {
-                    this.counter?.Count(); //Increment the current hit count
+                    this.counter?.Count(); // Increment the current hit count
                 }
             }
-            #endregion
 
-            #region Timing Code
-            //As long as the key is down, continue to keep the key release timer reset to 0
+            // Timing Code
+            // As long as the key is down, continue to keep the key release timer reset to 0
             if (this.keyboard.IsKeyDown(Key))
                 this.keyReleasedTimer.Reset();
 
-            //If the key is not pressed down and the key was pressed down last frame,
-            //reset the input down timer and start the key release timer.
+            // If the key is not pressed down and the key was pressed down last frame,
+            // reset the input down timer and start the key release timer.
             if (!this.curState && this.prevState)
             {
                 this.keyDownTimer.Reset();
                 this.keyReleasedTimer.Start();
             }
-            #endregion
 
-            #region Key Combo Code
-            //If the key combo list is not null
+            // Key Combo Code
+            // If the key combo list is not null
             if (this.currentPressedKeys != null)
             {
-                //Holds the list of keys from the pressed keys dictionary
+                // Holds the list of keys from the pressed keys dictionary
                 var keys = new List<KeyCode>(this.currentPressedKeys.Keys);
 
-                //Set the state of all of the pressed keys
+                // Set the state of all of the pressed keys
                 keys.ForEach(k => this.currentPressedKeys[k] = this.keyboard.IsKeyDown(k));
-                
-                //If all of the keys are pressed down
+
+                // If all of the keys are pressed down
                 if (this.currentPressedKeys.Count > 0 && this.currentPressedKeys.All(key => key.Value))
                     OnInputComboPressed?.Invoke(this, new EventArgs());
             }
-            #endregion
 
             this.keyboard.UpdatePreviousState();
 
@@ -252,7 +248,7 @@ namespace KDScorpionEngine.Input
         {
             if (this.keyboard.IsKeyUp(Key))
             {
-                //If the reset mode is set to auto, reset the time elapsed
+                // If the reset mode is set to auto, reset the time elapsed
                 if (DownElapsedResetMode == ResetType.Auto)
                     this.keyReleasedTimer.Reset();
 
@@ -267,11 +263,11 @@ namespace KDScorpionEngine.Input
         {
             if (this.keyboard.IsKeyDown(Key))
             {
-                //If the reset mode is set to auto, reset the time elapsed
+                // If the reset mode is set to auto, reset the time elapsed
                 if (ReleasedElapsedResetMode == ResetType.Auto)
                     this.keyDownTimer.Reset();
 
-                //Invoke the event
+                // Invoke the event
                 OnInputDownTimeOut?.Invoke(this, new EventArgs());
             }
         }
@@ -285,7 +281,7 @@ namespace KDScorpionEngine.Input
             Enabled = enabled;
             ComboKeys = new List<KeyCode>();
 
-            //Setup stop watches
+            // Setup stop watches
             this.counter = new Counter(0, 10, 1);
             this.keyDownTimer = new StopWatch(1000);
             this.keyDownTimer.OnTimeElapsed += KeyDownTimer_OnTimeElapsed;
@@ -297,21 +293,21 @@ namespace KDScorpionEngine.Input
         }
 
         /// <summary>
-        /// Creates the list of pressed keys from the given list of keys
+        /// Creates the list of pressed keys from the given list of keys.
         /// </summary>
         /// <param name="keys">The list of combo keys.</param>
         private void CreateCurrentPressedKeys(IList<KeyCode> keys)
         {
-            //If the combo keys are null, skip combo key setup
+            // If the combo keys are null, skip combo key setup
             if (keys != null)
             {
-                //Create the current pressed keys dictionary
+                // Create the current pressed keys dictionary
                 this.currentPressedKeys = new Dictionary<KeyCode, bool>();
 
-                //Add all of the keys to the combo keys list dictionary
+                // Add all of the keys to the combo keys list dictionary
                 keys.ToList().ForEach(k =>
                 {
-                    //If the key has not already been added
+                    // If the key has not already been added
                     if (!this.currentPressedKeys.ContainsKey(k))
                         this.currentPressedKeys.Add(k, false);
                 });

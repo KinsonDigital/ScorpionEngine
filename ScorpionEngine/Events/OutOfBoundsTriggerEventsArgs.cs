@@ -11,7 +11,7 @@ namespace KDScorpionEngine.Events
     /// <summary>
     /// Holds information about the entity that has gone out of bounds.
     /// </summary>
-    //TODO: Get this working and setup unit tests.  Wait for when you create a game for testing
+    // TODO: Get this working and setup unit tests.  Wait for when you create a game for testing
     [ExcludeFromCodeCoverage]
     public class OutOfBoundsTriggerEventsArgs : EventArgs
     {

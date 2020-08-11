@@ -20,7 +20,8 @@ namespace KDScorpionEngine.Entities
         /// USED FOR UNIT TESTING.
         /// </summary>
         /// <param name="body">The physics body to inject.</param>
-        internal TextEntity(IPhysicsBody body) : base(body) => Setup(string.Empty, new GameColor(255, 0, 0, 0), new GameColor(0, 0, 0, 0));
+        internal TextEntity(IPhysicsBody body)
+            : base(body) => Setup(string.Empty, new GameColor(255, 0, 0, 0), new GameColor(0, 0, 0, 0));
 
         /// <summary>
         /// Creates a new instance of <see cref="TextEntity"/>.
@@ -29,7 +30,8 @@ namespace KDScorpionEngine.Entities
         /// <param name="foreColor">The color of the text.</param>
         /// <param name="backColor">The color of the background behind the text.</param>
         [ExcludeFromCodeCoverage]
-        public TextEntity(string text, GameColor foreColor, GameColor backColor, Vector2 position) : base(new Vector2[0], position: position) =>
+        public TextEntity(string text, GameColor foreColor, GameColor backColor, Vector2 position)
+            : base(new Vector2[0], position: position) =>
             Setup(text, foreColor, backColor);
 
         /// <summary>

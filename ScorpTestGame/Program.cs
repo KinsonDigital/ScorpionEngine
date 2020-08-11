@@ -11,7 +11,7 @@ namespace ScorpTestGame
         {
             using (var game = new MainGame())
             {
-                game.Start();
+                KDScorpionEngine.Engine.Start();
             }
         }
     }

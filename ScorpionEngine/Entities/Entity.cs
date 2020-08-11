@@ -1,4 +1,4 @@
-// <copyright file="Entity.cs" company="KinsonDigital">
+﻿// <copyright file="Entity.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -23,27 +23,7 @@ namespace KDScorpionEngine.Entities
     /// </summary>
     public abstract class Entity : IUpdatable, IInitialize, IContentLoadable
     {
-        /// <summary>
-        /// Occurs when the game object is going from hidden to shown.
-        /// </summary>
-        public event EventHandler OnShow;
-
-        /// <summary>
-        /// Occurs when the game object is shown to hidden.
-        /// </summary>
-        public event EventHandler OnHide;
-
-        /// <summary>
-        /// Occurs when a key has been pressed.
-        /// </summary>
-        public event EventHandler<KeyEventArgs> OnKeyPressed;
-
-        /// <summary>
-        /// Occurs when a key has been released.
-        /// </summary>
-        public event EventHandler<KeyEventArgs> OnKeyReleased;
-
-        private bool visible = true;//True if the entity will be drawn
+        private bool visible = true; // True if the entity will be drawn
         protected bool usesPhysics = true;
         protected EngineTime engineTime;
         protected Texture texture;
@@ -52,18 +32,7 @@ namespace KDScorpionEngine.Entities
         private float preInitFriction;
 
         /// <summary>
-        /// Creates a new instance of <see cref="Entity"/>.
-        /// USED FOR UNIT TESTING.
-        /// </summary>
-        /// <param name="body">The physics body to inject.</param>
-        internal Entity(IPhysicsBody body)
-        {
-            Body = body == null ? null : new PhysicsBody(body);
-            Setup(null, Vector2.Zero, 0f, false);
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Entity"/>.
+        /// Initializes a new instance of the <see cref="Entity"/> class.
         /// </summary>
         /// <param name="friction">The friction of the body against other entities or surfaces.</param>
         /// <param name="isStaticBody">True if the body is static and cannot be moved by other objects.</param>
@@ -75,7 +44,7 @@ namespace KDScorpionEngine.Entities
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="Entity"/>.
+        /// Initializes a new instance of the <see cref="Entity"/> class.
         /// </summary>
         /// <param name="position">The position of where to render the <see cref="Entity"/>.</param>
         /// <param name="friction">The friction of the body against other entities or surfaces.</param>
@@ -87,7 +56,7 @@ namespace KDScorpionEngine.Entities
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="Entity"/>.
+        /// Initializes a new instance of the <see cref="Entity"/> class.
         /// </summary>
         /// <param name="texture">The texture of the entity to render.</param>
         /// <param name="position">The position of where to render the <see cref="Entity"/>.</param>
@@ -112,7 +81,7 @@ namespace KDScorpionEngine.Entities
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="Entity"/>.
+        /// Initializes a new instance of the <see cref="Entity"/> class.
         /// </summary>
         /// <param name="vertices">The polygon vertices that make up the shape of the <see cref="Entity"/>.</param>
         /// <param name="position">The position of where to render the <see cref="Entity"/>.</param>
@@ -122,7 +91,7 @@ namespace KDScorpionEngine.Entities
             Setup(vertices, position, friction, isStaticBody);
 
         /// <summary>
-        /// Creates a new instance of <see cref="Entity"/>.
+        /// Initializes a new instance of the <see cref="Entity"/> class.
         /// </summary>
         /// <param name="texture">The texture of the entity to render.</param>
         /// <param name="vertices">The polygon vertices that make up the shape of the <see cref="Entity"/>.</param>
@@ -134,6 +103,36 @@ namespace KDScorpionEngine.Entities
             this.texture = texture;
             Setup(vertices, position, friction, isStaticBody);
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Entity"/> class.
+        /// </summary>
+        /// <param name="body">The physics body to inject.</param>
+        internal Entity(IPhysicsBody body)
+        {
+            Body = body == null ? null : new PhysicsBody(body);
+            Setup(null, Vector2.Zero, 0f, false);
+        }
+
+        /// <summary>
+        /// Occurs when the game object is going from hidden to shown.
+        /// </summary>
+        public event EventHandler OnShow;
+
+        /// <summary>
+        /// Occurs when the game object is shown to hidden.
+        /// </summary>
+        public event EventHandler OnHide;
+
+        /// <summary>
+        /// Occurs when a key has been pressed.
+        /// </summary>
+        public event EventHandler<KeyEventArgs> OnKeyPressed;
+
+        /// <summary>
+        /// Occurs when a key has been released.
+        /// </summary>
+        public event EventHandler<KeyEventArgs> OnKeyReleased;
 
         /// <summary>
         /// The physics body of the entity.
@@ -149,7 +148,7 @@ namespace KDScorpionEngine.Entities
         /// Gets or sets the list of behaviors that the <see cref="Entity"/> will have.
         /// </summary>
         public EntityBehaviors Behaviors { get; set; } = new EntityBehaviors();
-        
+
         /// <summary>
         /// Gets or sets a value indicating if the entity is rendered to the graphics surface.
         /// </summary>
@@ -161,17 +160,17 @@ namespace KDScorpionEngine.Entities
             }
             set
             {
-                bool prevValue = this.visible;
+                var prevValue = this.visible;
 
                 this.visible = value;
 
-                //If the game object is going from visible to invisible, fire the OnHide event
+                // If the game object is going from visible to invisible, fire the OnHide event
                 if (prevValue && !this.visible)
                 {
                     if (OnHide != null)
                         OnHide.Invoke(this, new EventArgs());
                 }
-                else if (!prevValue && this.visible)//Going from invisible to visible
+                else if (!prevValue && this.visible)// Going from invisible to visible
                 {
                     if (OnShow != null)
                         OnShow.Invoke(this, new EventArgs());
@@ -189,7 +188,7 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         public Vector2 Position
         {
-            get => IsInitialized ? 
+            get => IsInitialized ?
                 new Vector2(Body.X, Body.Y) :
                 this.preInitPosition;
             set
@@ -210,14 +209,14 @@ namespace KDScorpionEngine.Entities
         /// Gets or sets the vertices that make up the physical shape of the <see cref="Entity"/>.
         /// Cannot change the vertices if the <see cref="Entity"/> has already been initialized.
         /// </summary>
-        /// <exception cref="Exception">Thrown when the vertices are trying to be set when the 
+        /// <exception cref="Exception">Thrown when the vertices are trying to be set when the
         /// <see cref="Entity"/> has already been initialized.</exception>
         public Vector2[] Vertices
         {
             get => IsInitialized ? Body.Vertices.ToArray() : this.preInitVertices;
             set
             {
-                //The vertices of the entity cannot be set after it has been initialized
+                // The vertices of the entity cannot be set after it has been initialized
                 if (IsInitialized)
                     throw new EntityAlreadyInitializedException();
 
@@ -348,8 +347,8 @@ namespace KDScorpionEngine.Entities
             }
             else
             {
-                //TODO: Get this working
-                //Body.Vertices = vertices;
+                // TODO: Get this working
+                // Body.Vertices = vertices;
                 Body.X = position.X;
                 Body.Y = position.Y;
             }

@@ -7,7 +7,7 @@ namespace KDScorpionEngine.Content
     using System.Diagnostics.CodeAnalysis;
     using Raptor;
 
-    //TODO: Look into using this later during the building of a test game.
+    // TODO: Look into using this later during the building of a test game.
     [ExcludeFromCodeCoverage]
     internal class AtlasSpriteData
     {
@@ -15,7 +15,7 @@ namespace KDScorpionEngine.Content
         /// Gets or sets the bounds of the sprite data.
         /// </summary>
         public Rect Bounds { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the name of the sprite data.
         /// </summary>

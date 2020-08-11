@@ -108,10 +108,10 @@ namespace KDScorpionEngine.Scene
         {
             TimeManager?.Update(engineTime);
 
-            //Update all of the entities
+            // Update all of the entities
             Entities.ForEach(e => e.Update(engineTime));
 
-            //Update the physics world
+            // Update the physics world
             PhysicsWorld.Update((float)engineTime.ElapsedEngineTime.TotalSeconds);
         }
 
@@ -130,15 +130,13 @@ namespace KDScorpionEngine.Scene
             IsRenderingScene = false;
         }
 
-        //TODO: Make this class IEnumarable so we get the benefits of generics and IList functionality
-        //in the class itself.
-        public void AddEntity(Entity entity, bool addToPhysics = true)
-        {
-            //TODO: Get this working
-            //if(addToPhysics)
+        // TODO: Make this class IEnumarable so we get the benefits of generics and IList functionality
+        // in the class itself.
+        public void AddEntity(Entity entity, bool addToPhysics = true) =>
+            // TODO: Get this working
+            // if(addToPhysics)
             //    PhysicsWorld.AddBody(entity.Body);
 
             Entities.Add(entity);
-        }
     }
 }

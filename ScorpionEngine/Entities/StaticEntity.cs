@@ -19,7 +19,8 @@ namespace KDScorpionEngine.Entities
         /// USED FOR UNIT TESTING.
         /// </summary>
         /// <param name="body">The physics body to inject.</param>
-        internal StaticEntity(IPhysicsBody body) : base(body)
+        internal StaticEntity(IPhysicsBody body)
+            : base(body)
         {
         }
 
@@ -28,7 +29,8 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         /// <param name="texture">The texture fo the entity to render to the screen.</param>
         /// <param name="position">The position on the surface of where to render the texture.</param>
-        public StaticEntity(Texture texture, Vector2 position) : base(texture, position, isStaticBody: true) => this.usesPhysics = false;
+        public StaticEntity(Texture texture, Vector2 position)
+            : base(texture, position, isStaticBody: true) => this.usesPhysics = false;
 
         /// <summary>
         /// Updates the <see cref="StaticEntity"/>.

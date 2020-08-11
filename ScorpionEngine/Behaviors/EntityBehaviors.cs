@@ -18,6 +18,16 @@ namespace KDScorpionEngine.Behaviors
         public List<IBehavior> items = new List<IBehavior>();
 
         /// <summary>
+        /// Gets the number of <see cref="IBehavior"/>s in the collection of <see cref="IBehavior"/>s.
+        /// </summary>
+        public int Count => this.items.Count;
+
+        /// <summary>
+        /// Gets a value indicating whether the collection of <see cref="IBehavior"/>s is readonly.
+        /// </summary>
+        public bool IsReadOnly { get; } = false;
+
+        /// <summary>
         /// Gets an <see cref="IBehavior"/> at a specified index.
         /// </summary>
         /// <param name="index">The index of of the item to return.</param>
@@ -27,16 +37,6 @@ namespace KDScorpionEngine.Behaviors
             get => this.items[index];
             set => this.items[index] = value;
         }
-
-        /// <summary>
-        /// Gets the number of <see cref="IBehavior"/>s in the collection of <see cref="IBehavior"/>s.
-        /// </summary>
-        public int Count => this.items.Count;
-
-        /// <summary>
-        /// Gets a value indicating whether the collection of <see cref="IBehavior"/>s is readonly.
-        /// </summary>
-        public bool IsReadOnly { get; } = false;
 
         /// <summary>
         /// Adds the given <paramref name="item"/> to the collection of <see cref="IBehavior"/>s.

@@ -15,6 +15,26 @@ namespace KDScorpionEngine.Behaviors
     /// </summary>
     public class KeyBehavior : IBehavior
     {
+        private int timeElapsed; // The time elapsed since last frame
+        private Keyboard keyboard;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="KeyBehavior"/> class.
+        /// </summary>
+        /// <param name="key">The assigned keyboard key of the behavior.</param>
+        [ExcludeFromCodeCoverage]
+        public KeyBehavior(KeyCode key, bool enabled = false) => Setup(key, enabled);
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="KeyBehavior"/> class.
+        /// </summary>
+        /// <param name="keyboard">The keyboard to inject.</param>
+        internal KeyBehavior(IKeyboard keyboard)
+        {
+            this.keyboard = new Keyboard(keyboard);
+            Setup(KeyCode.X, true);
+        }
+
         /// <summary>
         /// Occurs when a key has been pressed.
         /// </summary>
@@ -29,27 +49,6 @@ namespace KDScorpionEngine.Behaviors
         /// Occurs when a key has first been fully pressed down then released.
         /// </summary>
         public event EventHandler<KeyEventArgs> KeyPressEvent;
-
-        private int timeElapsed;//The time elapsed since last frame
-        private Keyboard keyboard;
-
-        /// <summary>
-        /// Creates a new instance of <see cref="KeyBehavior"/>.
-        /// USED FOR UNIT TESTING.
-        /// </summary>
-        /// <param name="keyboard">The keyboard to inject.</param>
-        internal KeyBehavior(IKeyboard keyboard)
-        {
-            this.keyboard = new Keyboard(keyboard);
-            Setup(KeyCode.X, true);
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="KeyBehavior"/>.
-        /// </summary>
-        /// <param name="key">The assigned keyboard key of the behavior.</param>
-        [ExcludeFromCodeCoverage]
-        public KeyBehavior(KeyCode key, bool enabled = false) => Setup(key, enabled);
 
         /// <summary>
         /// Gets or sets the key for the behavior.
@@ -110,24 +109,24 @@ namespace KDScorpionEngine.Behaviors
             this.keyboard.UpdateCurrentState();
 
             #region Button Behavior Code
-            //Invoke the KeyDown or KeyUp events depending on the setup behavior
+            // Invoke the KeyDown or KeyUp events depending on the setup behavior
             switch (BehaviorType)
             {
-                case KeyBehaviorType.KeyDownContinuous://Fire the KeyDownEvent as long as the key is being pressed
-                    //If any of the assigned key have been pressed
+                case KeyBehaviorType.KeyDownContinuous:// Fire the KeyDownEvent as long as the key is being pressed
+                    // If any of the assigned key have been pressed
                     if (this.keyboard.IsKeyDown(Key))
                         KeyDownEvent?.Invoke(this, new KeyEventArgs(new[] { Key }));
                     break;
-                case KeyBehaviorType.OnceOnDown://Fire the KeyDownEvent only once after it is pressed
-                    //Prevent the KeyDownEvent from being triggered twice if the AlwaysInvokeKeyDownEvent is enabled
-                    if (! AlwaysInvokeKeyDownEvent)
+                case KeyBehaviorType.OnceOnDown:// Fire the KeyDownEvent only once after it is pressed
+                    // Prevent the KeyDownEvent from being triggered twice if the AlwaysInvokeKeyDownEvent is enabled
+                    if (!AlwaysInvokeKeyDownEvent)
                     {
-                        if(this.keyboard.IsKeyPressed(Key))
+                        if (this.keyboard.IsKeyPressed(Key))
                             KeyDownEvent?.Invoke(this, new KeyEventArgs(new[] { Key }));
                     }
                     break;
                 case KeyBehaviorType.OnceOnRelease:
-                    //Prevent the KeyUpEvent from being triggered twice if the AlwaysInvokeKeyUpEvent is enabled
+                    // Prevent the KeyUpEvent from being triggered twice if the AlwaysInvokeKeyUpEvent is enabled
                     if (!AlwaysInvokeKeyUpEvent)
                     {
                         if (this.keyboard.IsKeyUp(Key))
@@ -135,29 +134,29 @@ namespace KDScorpionEngine.Behaviors
                     }
                     break;
                 case KeyBehaviorType.OnKeyDownTimeDelay:
-                    //If the time has passed the set delay time, fire the KeyDownEvent
+                    // If the time has passed the set delay time, fire the KeyDownEvent
                     if (this.timeElapsed >= TimeDelay)
                     {
                         if (this.keyboard.IsKeyDown(Key))
                             KeyDownEvent?.Invoke(this, new KeyEventArgs(new[] { Key }));
 
-                        //Reset the time elapsed
+                        // Reset the time elapsed
                         this.timeElapsed = 0;
                     }
                     break;
                 case KeyBehaviorType.OnKeyReleaseTimeDelay:
-                    //If the time has passed the set delay time, fire the KeyPressedEvent
+                    // If the time has passed the set delay time, fire the KeyPressedEvent
                     if (this.timeElapsed >= TimeDelay)
                     {
                         if (this.keyboard.IsKeyUp(Key))
                             KeyUpEvent?.Invoke(this, new KeyEventArgs(new[] { Key }));
 
-                        //Reset the time elapsed
+                        // Reset the time elapsed
                         this.timeElapsed = 0;
                     }
                     break;
                 case KeyBehaviorType.OnAnyKeyPress:
-                    //If any keys at all have been released
+                    // If any keys at all have been released
                     if (this.keyboard.GetCurrentPressedKeys().Length > 0)
                         KeyPressEvent?.Invoke(this, new KeyEventArgs(this.keyboard.GetCurrentPressedKeys()));
                     break;

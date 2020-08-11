@@ -15,17 +15,17 @@ namespace KDScorpionEngine.Graphics
     public class GameRenderer : Renderer
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GameRenderer"/>.
-        /// USED FOR UNIT TESTING.
+        /// Initializes a new instance of the <see cref="GameRenderer"/> class.
         /// </summary>
         /// <param name="renderer">The renderer to inject.</param>
-        /// <param name="debugDraw">The debug draw to inject</param>
-        internal GameRenderer(IRenderer renderer, IDebugDraw debugDraw) : base(renderer, debugDraw)
+        /// <param name="debugDraw">The debug draw to inject.</param>
+        internal GameRenderer(IRenderer renderer, IDebugDraw debugDraw)
+            : base(renderer, debugDraw)
         {
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="GameRenderer"/>.
+        /// Initializes a new instance of the <see cref="GameRenderer"/> class.
         /// </summary>
         [ExcludeFromCodeCoverage]
         public GameRenderer()
@@ -36,14 +36,6 @@ namespace KDScorpionEngine.Graphics
         /// Renders the given entity.
         /// </summary>
         /// <param name="entity">The entity to render.</param>
-        public void Render(Entity entity)
-        {
-            Render(entity.Texture, entity.Position.X, entity.Position.Y, entity.Body.Angle);
-
-            //TODO: Get this working
-            ////Render the physics bodies vertices to show its shape for debugging purposes
-            //if (entity.DebugDrawEnabled)
-            //    RenderDebugDraw(entity.Body, new GameColor(255, 255, 255, 255));
-        }
+        public void Render(Entity entity) => Render(entity.Texture, entity.Position.X, entity.Position.Y, entity.Body.Angle); // TODO: Get this working////Render the physics bodies vertices to show its shape for debugging purposes// if (entity.DebugDrawEnabled)//    RenderDebugDraw(entity.Body, new GameColor(255, 255, 255, 255));
     }
 }

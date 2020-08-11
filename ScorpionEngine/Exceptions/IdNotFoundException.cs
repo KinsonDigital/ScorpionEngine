@@ -12,25 +12,28 @@ namespace KDScorpionEngine.Exceptions
     public class IdNotFoundException : Exception
     {
         /// <summary>
-        /// Creates a new instance of <see cref="IdNotFoundException"/>.
+        /// Initializes a new instance of the <see cref="IdNotFoundException"/> class.
         /// </summary>
-        public IdNotFoundException() : base("The ID has not been found.")
+        public IdNotFoundException()
+            : base("The ID has not been found.")
         {
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="IdNotFoundException"/>.
+        /// Initializes a new instance of the <see cref="IdNotFoundException"/> class.
         /// </summary>
         /// <param name="sceneId">The ID that has not been found.</param>
-        public IdNotFoundException(int sceneId) : base($"An ID with the number '{sceneId}' has not been found.")
+        public IdNotFoundException(int sceneId)
+            : base($"An ID with the number '{sceneId}' has not been found.")
         {
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="IdNotFoundException"/>.
+        /// Initializes a new instance of the <see cref="IdNotFoundException"/> class.
         /// </summary>
         /// <param name="message">The exception message.</param>
-        public IdNotFoundException(string message) : base(message)
+        public IdNotFoundException(string message)
+            : base(message)
         {
         }
     }

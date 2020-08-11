@@ -26,9 +26,9 @@ namespace KDScorpionEngine
         /// </summary>
         uint FramesPerStack { get; set; }
 
-        /// <summary> 
-        /// Gets or sets the time in milliseconds that each frame should take. 
-        /// NOTE: This is restricted to the incoming game engine frame time. If this time is less then the  
+        /// <summary>
+        /// Gets or sets the time in milliseconds that each frame should take.
+        /// NOTE: This is restricted to the incoming game engine frame time. If this time is less then the
         /// engine updating this manager, then this will now work.
         /// </summary>
         int FrameTime { get; set; }

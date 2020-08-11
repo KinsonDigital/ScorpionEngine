@@ -12,19 +12,19 @@ namespace KDScorpionEngine.Utils
     /// </summary>
     public class StopWatch : IUpdatable
     {
-        /// <summary>
-        /// Occurs every time the stop watch reaches 0.
-        /// </summary>
-        public event EventHandler OnTimeElapsed;
-
         private bool enabled;
         private int timeOut;
 
         /// <summary>
-        /// Creates a new instance of stopwatch.
+        /// Initializes a new instance of the <see cref="StopWatch"/> class.
         /// </summary>
         /// <param name="timeOut">The amount of time in milliseconds before the stopWatch OnTimeElapsed event is invoked.</param>
         public StopWatch(int timeOut) => this.timeOut = timeOut;
+
+        /// <summary>
+        /// Occurs every time the stop watch reaches 0.
+        /// </summary>
+        public event EventHandler OnTimeElapsed;
 
         /// <summary>
         /// Gets or sets the amount of time in milliseconds before the stopwatch will invoke the OnTimeElapsed event.
@@ -47,9 +47,14 @@ namespace KDScorpionEngine.Utils
         public float ElapsedSeconds => ElapsedMS / 1000.0f;
 
         /// <summary>
-        /// Gets a value indicating if the stopwatch is running.
+        /// Gets a value indicating whether the stopwatch is running.
         /// </summary>
         public bool Running { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the reset mode of the stopwatch.  If set to auto reset, then the stopwatch will automatically be set to 0 and start counting again.
+        /// </summary>
+        public ResetType ResetMode { get; set; } = ResetType.Auto;
 
         /// <summary>
         /// Starts the stopwatch.
@@ -70,11 +75,6 @@ namespace KDScorpionEngine.Utils
         }
 
         /// <summary>
-        /// Gets or sets the reset mode of the stopwatch.  If set to auto reset, then the stopwatch will automatically be set to 0 and start counting again.
-        /// </summary>
-        public ResetType ResetMode { get; set; } = ResetType.Auto;
-
-        /// <summary>
         /// Stops the stopwatch and resets the elapsed time back to 0.
         /// </summary>
         public void Reset()
@@ -89,16 +89,16 @@ namespace KDScorpionEngine.Utils
         /// <param name="engineTime">The game engine time.</param>
         public void Update(EngineTime engineTime)
         {
-            //If the stopwatch is enabled, add the amount of time passed to the elapsed value
+            // If the stopwatch is enabled, add the amount of time passed to the elapsed value
             if (this.enabled)
                 ElapsedMS += (int)engineTime.ElapsedEngineTime.TotalMilliseconds;
 
-            //If the timeout has been reached
+            // If the timeout has been reached
             if (ElapsedMS < this.timeOut) return;
 
             OnTimeElapsed?.Invoke(this, new EventArgs());
 
-            //If the reset mode is set to auto, reset the elapsed time back to 0
+            // If the reset mode is set to auto, reset the elapsed time back to 0
             if (ResetMode == ResetType.Auto)
                 Reset();
         }

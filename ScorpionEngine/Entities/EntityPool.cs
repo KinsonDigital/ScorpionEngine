@@ -15,41 +15,31 @@ namespace KDScorpionEngine.Entities
     /// <summary>
     /// Represents a set amount of entities that can be used over and over.
     /// </summary>
-    //TODO: Get this working and setup unit tests.  Wait for when you create a game for testing
-    //Also take the out of bounds concept and remove it from this class and create a custom
-    //behavior called OutOfBoundsBehavior.  This behavior can then be added to this class to pull off this concept.
+    // TODO: Get this working and setup unit tests.  Wait for when you create a game for testing
+    // Also take the out of bounds concept and remove it from this class and create a custom
+    // behavior called OutOfBoundsBehavior.  This behavior can then be added to this class to pull off this concept.
     [ExcludeFromCodeCoverage]
     public abstract class EntityPool : IEnumerable
     {
-        /// <summary>
-        /// Occurs whenever an entity in the entity pool goes out of bounds.
-        /// </summary>
-        public event EventHandler<OutOfBoundsTriggerEventsArgs> OnOutOfBounds;
-
-        private readonly List<DynamicEntity> objects = new List<DynamicEntity>();//The pool of objects to manage.
-        private Rect triggerBounds;//The bounds used to trigger the out of bounds trigger
+        private readonly List<DynamicEntity> objects = new List<DynamicEntity>(); // The pool of objects to manage.
+        private Rect triggerBounds; // The bounds used to trigger the out of bounds trigger
 
         /// <summary>
-        /// Creates a new instance of <see cref="EntityPool"/>.
+        /// Initializes a new instance of the <see cref="EntityPool"/> class.
         /// </summary>
         public EntityPool()
         {
         }
 
         /// <summary>
+        /// Occurs whenever an entity in the entity pool goes out of bounds.
+        /// </summary>
+        public event EventHandler<OutOfBoundsTriggerEventsArgs> OnOutOfBounds;
+
+        /// <summary>
         /// Gets or sets the name of the entity pool.
         /// </summary>
         public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets an entity in the entity pool.
-        /// </summary>
-        /// <returns></returns>
-        public DynamicEntity this[int index]
-        {
-            get => this.objects[index];
-            set => this.objects.Insert(index, value);
-        }
 
         /// <summary>
         /// Gets total number of entities in the entity pool.
@@ -73,6 +63,16 @@ namespace KDScorpionEngine.Entities
         public Direction DirectionWhenVisible { get; set; }
 
         /// <summary>
+        /// Gets or sets an entity in the entity pool.
+        /// </summary>
+        /// <returns></returns>
+        public DynamicEntity this[int index]
+        {
+            get => this.objects[index];
+            set => this.objects.Insert(index, value);
+        }
+
+        /// <summary>
         /// Adds the given <paramref name="entity"/> to the entity pool.
         /// </summary>
         /// <param name="entity">The entity to add.</param>
@@ -83,8 +83,8 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         public void ShowNext()
         {
-            //Check for the first entity that is visible
-            for (int i = 0; i < this.objects.Count; i++)
+            // Check for the first entity that is visible
+            for (var i = 0; i < this.objects.Count; i++)
             {
                 if (!this.objects[i].Visible)
                 {
@@ -104,10 +104,7 @@ namespace KDScorpionEngine.Entities
         /// Returns an enumerator that iterates through the entity pool.
         /// </summary>
         /// <returns></returns>
-        public IEnumerator GetEnumerator()
-        {
-            return this.objects.GetEnumerator();
-        }
+        public IEnumerator GetEnumerator() => this.objects.GetEnumerator();
 
         /// <summary>
         /// Shows all of the entities.
@@ -150,13 +147,13 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         public virtual void Update(IEngineTiming engineTime)
         {
-            //Update each entity
+            // Update each entity
             for (var i = 0; i < this.objects.Count; i++)
             {
                 if (OutOfBoundsTriggerEnabled && this.objects[i].Visible)
                 {
-                    //If the position of the current entity is out of bounds,
-                    //invoke the out of bounds trigger event
+                    // If the position of the current entity is out of bounds,
+                    // invoke the out of bounds trigger event
                     if (!this.triggerBounds.Contains(this.objects[i].Position))
                     {
                         OnOutOfBounds?.Invoke(this, new OutOfBoundsTriggerEventsArgs(this.objects[i]));
@@ -165,15 +162,15 @@ namespace KDScorpionEngine.Entities
 
                 if (OnlyUpdateWhenVisible)
                 {
-                    //Checks if the current entity is visible, if so then the entity will be moved
+                    // Checks if the current entity is visible, if so then the entity will be moved
                     if (this.objects[i].Visible)
                     {
-                        //_objects[i].OnUpdate(engineTime);
+                        // _objects[i].OnUpdate(engineTime);
                     }
                 }
                 else
                 {
-                    //_objects[i].OnUpdate(engineTime);
+                    // _objects[i].OnUpdate(engineTime);
                 }
             }
         }

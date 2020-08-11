@@ -10,7 +10,7 @@ namespace KDScorpionEngine.Entities
     public enum AnimationDirection
     {
         Forward = 1,
-        Backward = 2
+        Backward = 2,
     }
 
     /// <summary>
@@ -20,6 +20,6 @@ namespace KDScorpionEngine.Entities
     {
         Running = 1,
         Stopped = 2,
-        Paused = 3
+        Paused = 3,
     }
 }

@@ -37,7 +37,7 @@ namespace KDScorpionEngine
         /// <summary>
         /// The key release event will fire after any key has been released.
         /// </summary>
-        OnAnyKeyPress = 6
+        OnAnyKeyPress = 6,
     }
 
     /// <summary>
@@ -89,7 +89,7 @@ namespace KDScorpionEngine
     /// <summary>
     /// Represents entities that are the given descriptions.
     /// </summary>
-    public enum EntitiesThatAre 
+    public enum EntitiesThatAre
     {
         /// <summary>
         /// Visible entities.
@@ -104,7 +104,7 @@ namespace KDScorpionEngine
         /// <summary>
         /// Any kind of entity.
         /// </summary>
-        Anything = 3
+        Anything = 3,
     }
 
     /// <summary>
@@ -120,7 +120,7 @@ namespace KDScorpionEngine
         /// <summary>
         /// Represents an automatic reset.
         /// </summary>
-        Auto = 2
+        Auto = 2,
     }
 
     /// <summary>
@@ -136,6 +136,6 @@ namespace KDScorpionEngine
         /// <summary>
         /// Count down towards the negative direction.
         /// </summary>
-        Decrement
+        Decrement,
     }
 }

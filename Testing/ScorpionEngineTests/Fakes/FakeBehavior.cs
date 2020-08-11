@@ -7,8 +7,6 @@ namespace KDScorpionEngineTests.Fakes
     /// </summary>
     public class FakeBehavior : Behavior
     {
-        public bool UpdateActionInvoked { get; private set; }
-
         public FakeBehavior(bool setupAction)
         {
             if (!setupAction)
@@ -19,5 +17,7 @@ namespace KDScorpionEngineTests.Fakes
                 UpdateActionInvoked = true;
             });
         }
+
+        public bool UpdateActionInvoked { get; private set; }
     }
 }

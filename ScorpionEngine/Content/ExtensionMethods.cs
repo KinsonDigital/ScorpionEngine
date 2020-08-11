@@ -14,13 +14,13 @@ namespace KDScorpionEngine.Content
         /// <summary>
         /// Returns true if the character is a letter.
         /// </summary>
-        public static bool IsLetter(this char item) => (item >= 65 && item <= 90 || item >= 97 && item <= 122);
+        public static bool IsLetter(this char item) => item >= 65 && item <= 90 || item >= 97 && item <= 122;
 
         /// <summary>
         /// Returns true if the character is a number.
         /// </summary>
         /// <returns></returns>
-        public static bool IsNumber(this char item) => (item >= 48 && item <= 57);
+        public static bool IsNumber(this char item) => item >= 48 && item <= 57;
 
         /// <summary>
         /// Gets the first occurance of any number in the string.
@@ -49,7 +49,7 @@ namespace KDScorpionEngine.Content
         {
             for (var i = 0; i < item.Length; i++)
             {
-                //If any of the characters are not a letter or number
+                // If any of the characters are not a letter or number
                 if (!item[i].IsNumber() && !item[i].IsLetter())
                     return false;
             }

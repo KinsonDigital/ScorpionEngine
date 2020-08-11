@@ -45,7 +45,7 @@ namespace KDScorpionEngine.Behaviors
         {
             var currentValue = this.getValue();
 
-            if(LimitValue > 0 && currentValue > LimitValue)
+            if (LimitValue > 0 && currentValue > LimitValue)
             {
                 this.setLimit(LimitValue);
             }

@@ -81,7 +81,7 @@ namespace KDScorpionEngineTests
             var expected = true;
 
             //Act
-            var actual = engine.Running;
+            var actual = Engine.Running;
 
             //Assert
             Assert.Equal(expected, actual);
@@ -97,7 +97,7 @@ namespace KDScorpionEngineTests
 
             //Act
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
-            engine.Start();
+            Engine.Start();
             engine.Update(engineTime);
             var actual = Engine.CurrentFPS;
 
@@ -145,7 +145,7 @@ namespace KDScorpionEngineTests
             var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
 
             //Act
-            engine.Start();
+            Engine.Start();
 
             //Assert
             _mockEngineCore.Verify(m => m.StartEngine(), Times.Once());
@@ -161,7 +161,7 @@ namespace KDScorpionEngineTests
             engine.SetFieldNull("_engineCore");
 
             //Act/Assert
-            AssertExt.DoesNotThrow<NullReferenceException>(() => engine.Start());
+            AssertExt.DoesNotThrow<NullReferenceException>(() => Engine.Start());
         }
 
 
@@ -172,7 +172,7 @@ namespace KDScorpionEngineTests
             var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
 
             //Act
-            engine.Stop();
+            Engine.Stop();
 
             //Assert
             _mockEngineCore.Verify(m => m.StopEngine(), Times.Once());
@@ -188,7 +188,7 @@ namespace KDScorpionEngineTests
             engine.SetFieldNull("_engineCore");
 
             //Act/Assert
-            AssertExt.DoesNotThrow<NullReferenceException>(() => engine.Stop());
+            AssertExt.DoesNotThrow<NullReferenceException>(() => Engine.Stop());
         }
 
 

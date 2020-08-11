@@ -13,9 +13,10 @@ namespace KDScorpionEngine.Behaviors
     /// <summary>
     /// Creates a behavior that controls the left, right, up, and down movement of a
     /// <see cref="DynamicEntity"/> using the keyboard.
-    /// <typeparamref name="T">The type of <see cref="DynamicEntity"/> to apply the movement to.</typeparamref>
+    /// <typeparamref name="T">The type of <see cref="DynamicEntity"/> to apply the movement to.</typeparamref>.
     /// </summary>
-    public class MovementByKeyboardBehavior<T> : Behavior where T : DynamicEntity
+    public class MovementByKeyboardBehavior<T> : Behavior
+        where T : DynamicEntity
     {
         private KeyBehavior moveRightOnKeyDown;
         private KeyBehavior moveLeftOnKeyDown;
@@ -27,12 +28,12 @@ namespace KDScorpionEngine.Behaviors
         private KeyCode moveLeftKey = KeyCode.Left;
         private KeyCode moveRightKey = KeyCode.Right;
 
-        //TODO: Find a way to improve this class to allow unit testing without having to have this internal constructor.
-        //It is not a good idea to have a constructor for the sole purpose of testing and this points to architecture issues.
-        //This is an issue all over the code base with various classes.  The factory pattern might be the best way to deal with
-        //this by giving internal access to various factories for producing objects such as entities and behaviors.
-        //Another option is to just simply expose and allow the constructor with all the required dependencies exposed for injection
-        //so the developer can simply choose to create the manually or with an IoC container.
+        // TODO: Find a way to improve this class to allow unit testing without having to have this internal constructor.
+        // It is not a good idea to have a constructor for the sole purpose of testing and this points to architecture issues.
+        // This is an issue all over the code base with various classes.  The factory pattern might be the best way to deal with
+        // this by giving internal access to various factories for producing objects such as entities and behaviors.
+        // Another option is to just simply expose and allow the constructor with all the required dependencies exposed for injection
+        // so the developer can simply choose to create the manually or with an IoC container.
 
         /// <summary>
         /// Creates a new instance of <see cref="MovementByKeyboardBehavior{T}"/>.
@@ -162,7 +163,7 @@ namespace KDScorpionEngine.Behaviors
         }
 
         /// <summary>
-        /// Sets up all of the KeyBehaviors using the given <paramref name="keyboard"/>
+        /// Sets up all of the KeyBehaviors using the given <paramref name="keyboard"/>.
         /// </summary>
         /// <param name="keyboard">The keyboard to inject into the behaviors for testing.</param>
         private void CreateBehaviors(IKeyboard keyboard)
@@ -178,22 +179,22 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         private void SetupBehaviors()
         {
-            //Setup the move right key behavior
+            // Setup the move right key behavior
             this.moveRightOnKeyDown.Key = this.moveRightKey;
             this.moveRightOnKeyDown.KeyDownEvent += MoveRight_KeyDown;
             this.moveRightOnKeyDown.BehaviorType = KeyBehaviorType.KeyDownContinuous;
 
-            //Setup the move left key behavior
+            // Setup the move left key behavior
             this.moveLeftOnKeyDown.Key = this.moveLeftKey;
             this.moveLeftOnKeyDown.KeyDownEvent += MoveLeft_KeyDown;
             this.moveLeftOnKeyDown.BehaviorType = KeyBehaviorType.KeyDownContinuous;
 
-            //Setup the move up key behavior
+            // Setup the move up key behavior
             this.moveUpOnKeyDown.Key = this.moveUpKey;
             this.moveUpOnKeyDown.KeyDownEvent += MoveUp_KeyDown;
             this.moveUpOnKeyDown.BehaviorType = KeyBehaviorType.KeyDownContinuous;
 
-            //Setup the move down key behavior
+            // Setup the move down key behavior
             this.moveDownOnKeyDown.Key = this.moveDownKey;
             this.moveDownOnKeyDown.KeyDownEvent += MoveDown_KeyDown;
             this.moveDownOnKeyDown.BehaviorType = KeyBehaviorType.KeyDownContinuous;

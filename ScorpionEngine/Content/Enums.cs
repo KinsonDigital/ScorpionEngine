@@ -19,6 +19,6 @@ namespace KDScorpionEngine.Content
         SubTextureIDNotAlphaNumeric = 7,
         FrameIndexNotWholeNumber = 8,
         FrameIndexNotSequential = 9,
-        ValidFormat = 10
+        ValidFormat = 10,
     }
 }
