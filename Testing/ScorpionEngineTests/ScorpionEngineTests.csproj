@@ -41,6 +41,6 @@
 
   
   <ItemGroup>
-    <ProjectReference Include="..\ScorpionEngine\ScorpionEngine.csproj" />
+    <ProjectReference Include="..\..\ScorpionEngine\ScorpionEngine.csproj" />
   </ItemGroup>
 </Project>
