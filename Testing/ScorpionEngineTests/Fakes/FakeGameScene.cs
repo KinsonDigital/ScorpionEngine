@@ -1,9 +1,9 @@
-﻿using KDScorpionEngine.Graphics;
-using KDScorpionEngine.Scene;
-using Raptor.Plugins;
-
-namespace KDScorpionEngineTests.Fakes
+﻿namespace KDScorpionEngineTests.Fakes
 {
+    using KDScorpionEngine.Graphics;
+    using KDScorpionEngine.Scene;
+    using Raptor.Plugins;
+
     /// <summary>
     /// Provides a fake implementation of the <see cref="GameScene"/> abstract class.
     /// </summary>

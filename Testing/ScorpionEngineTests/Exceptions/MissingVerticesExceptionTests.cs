@@ -1,9 +1,9 @@
-﻿using Xunit;
-using KDScorpionEngine.Entities;
-using KDScorpionEngine.Exceptions;
-
-namespace KDScorpionEngineTests.Exceptions
+﻿namespace KDScorpionEngineTests.Exceptions
 {
+    using KDScorpionEngine.Entities;
+    using KDScorpionEngine.Exceptions;
+    using Xunit;
+
     /// <summary>
     /// Unit tests to test the <see cref="MissingVerticesException"/> class.
     /// </summary>

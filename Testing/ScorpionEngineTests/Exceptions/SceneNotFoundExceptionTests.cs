@@ -1,8 +1,8 @@
-﻿using Xunit;
-using KDScorpionEngine.Exceptions;
-
-namespace KDScorpionEngineTests.Exceptions
+﻿namespace KDScorpionEngineTests.Exceptions
 {
+    using KDScorpionEngine.Exceptions;
+    using Xunit;
+
     /// <summary>
     /// Unit tests to test the <see cref="SceneNotFoundException"/> class.
     /// </summary>

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Reflection;
-
-namespace KDScorpionEngineTests
+﻿namespace KDScorpionEngineTests
 {
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+    using System.Reflection;
+
     /// <summary>
     /// Provides extensions to various things to help make better code.
     /// </summary>

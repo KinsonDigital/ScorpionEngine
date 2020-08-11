@@ -1,12 +1,12 @@
-﻿using Moq;
-using Xunit;
-using KDScorpionEngine.Entities;
-using System;
-using Raptor.Graphics;
-using Raptor.Plugins;
-
-namespace KDScorpionEngineTests.Entities
+﻿namespace KDScorpionEngineTests.Entities
 {
+    using System;
+    using KDScorpionEngine.Entities;
+    using Moq;
+    using Raptor.Graphics;
+    using Raptor.Plugins;
+    using Xunit;
+
     /// <summary>
     /// Unit tests to test the <see cref="TextEntity"/> class.
     /// </summary>

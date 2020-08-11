@@ -1,17 +1,17 @@
-﻿using System;
-using Moq;
-using Xunit;
-using KDScorpionEngine.Exceptions;
-using KDScorpionEngine.Scene;
-using KDScorpionEngine;
-using KDScorpionEngine.Graphics;
-using Raptor.Input;
-using Raptor.Plugins;
-using Raptor.Content;
-using Raptor;
-
-namespace KDScorpionEngineTests.Scene
+﻿namespace KDScorpionEngineTests.Scene
 {
+    using System;
+    using KDScorpionEngine;
+    using KDScorpionEngine.Exceptions;
+    using KDScorpionEngine.Graphics;
+    using KDScorpionEngine.Scene;
+    using Moq;
+    using Raptor;
+    using Raptor.Content;
+    using Raptor.Input;
+    using Raptor.Plugins;
+    using Xunit;
+
     /// <summary>
     /// Unit tests to test the <see cref="SceneManager"/> class.
     /// </summary>

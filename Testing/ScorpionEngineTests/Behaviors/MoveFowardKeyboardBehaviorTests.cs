@@ -1,14 +1,14 @@
-﻿using System;
-using Moq;
-using Xunit;
-using KDScorpionEngine.Behaviors;
-using KDScorpionEngine.Entities;
-using Raptor.Input;
-using Raptor.Plugins;
-using Raptor;
-
-namespace KDScorpionEngineTests.Behaviors
+﻿namespace KDScorpionEngineTests.Behaviors
 {
+    using System;
+    using KDScorpionEngine.Behaviors;
+    using KDScorpionEngine.Entities;
+    using Moq;
+    using Raptor;
+    using Raptor.Input;
+    using Raptor.Plugins;
+    using Xunit;
+
     /// <summary>
     /// Unit tests to test the <see cref="MoveFowardKeyboardBehavior{T}"/> class.
     /// </summary>

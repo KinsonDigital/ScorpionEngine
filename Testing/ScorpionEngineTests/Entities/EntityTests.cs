@@ -1,18 +1,18 @@
-﻿using System;
-using Moq;
-using Xunit;
-using KDScorpionEngine.Behaviors;
-using KDScorpionEngine.Exceptions;
-using KDScorpionEngineTests.Fakes;
-using Raptor.Plugins;
-using Raptor;
-using Raptor.Graphics;
-using Raptor.Content;
-using System.Numerics;
-using System.Collections.ObjectModel;
-
-namespace KDScorpionEngineTests.Entities
+﻿namespace KDScorpionEngineTests.Entities
 {
+    using System;
+    using System.Collections.ObjectModel;
+    using System.Numerics;
+    using KDScorpionEngine.Behaviors;
+    using KDScorpionEngine.Exceptions;
+    using KDScorpionEngineTests.Fakes;
+    using Moq;
+    using Raptor;
+    using Raptor.Content;
+    using Raptor.Graphics;
+    using Raptor.Plugins;
+    using Xunit;
+
     /// <summary>
     /// Unit tests to test the <see cref="KDScorpionEngine.Entities.Entity"/> class.
     /// </summary>

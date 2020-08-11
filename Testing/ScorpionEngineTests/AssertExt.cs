@@ -1,9 +1,9 @@
-﻿using Xunit;
-using System;
-using System.Diagnostics.CodeAnalysis;
-
-namespace KDScorpionEngineTests
+﻿namespace KDScorpionEngineTests
 {
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+    using Xunit;
+
     /// <summary>
     /// Provides extensions for the <see cref="Assert"/> class.
     /// </summary>

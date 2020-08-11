@@ -1,11 +1,11 @@
-﻿using Raptor;
-using Raptor.Plugins;
-using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
-
-namespace KDScorpionEngineTests.Fakes
+﻿namespace KDScorpionEngineTests.Fakes
 {
+    using System;
+    using System.Collections.ObjectModel;
+    using System.Diagnostics.CodeAnalysis;
+    using Raptor;
+    using Raptor.Plugins;
+
     /// <summary>
     /// Provides a fake implementation of the <see cref="IPhysicsBody"/> interface.
     /// </summary>

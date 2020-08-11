@@ -1,11 +1,11 @@
-﻿using Xunit;
-using KDScorpionEngine.Utils;
-using System;
-using KDScorpionEngine;
-using Raptor;
-
-namespace KDScorpionEngineTests.Utils
+﻿namespace KDScorpionEngineTests.Utils
 {
+    using System;
+    using KDScorpionEngine;
+    using KDScorpionEngine.Utils;
+    using Raptor;
+    using Xunit;
+
     /// <summary>
     /// Unit tests to test the <see cref="StopWatch"/> class.
     /// </summary>

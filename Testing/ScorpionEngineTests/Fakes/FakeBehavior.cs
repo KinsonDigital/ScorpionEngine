@@ -1,7 +1,7 @@
-﻿using KDScorpionEngine.Behaviors;
-
-namespace KDScorpionEngineTests.Fakes
+﻿namespace KDScorpionEngineTests.Fakes
 {
+    using KDScorpionEngine.Behaviors;
+
     /// <summary>
     /// Provides a fake implementation of the <see cref="KDScorpionEngine.Behaviors.Behavior"/> abstract class.
     /// </summary>

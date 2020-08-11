@@ -1,11 +1,11 @@
-﻿using System;
-using Xunit;
-using KDScorpionEngine;
-using Raptor;
-using System.Numerics;
-
-namespace KDScorpionEngineTests
+﻿namespace KDScorpionEngineTests
 {
+    using System;
+    using System.Numerics;
+    using KDScorpionEngine;
+    using Raptor;
+    using Xunit;
+
     /// <summary>
     /// Unit tests to test the <see cref="KDScorpionEngine.ExtensionMethods"/> class.
     /// </summary>

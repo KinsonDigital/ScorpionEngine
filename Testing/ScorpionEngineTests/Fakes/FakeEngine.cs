@@ -1,12 +1,12 @@
-﻿using KDScorpionEngine;
-using KDScorpionEngine.Graphics;
-using Moq;
-using Raptor;
-using Raptor.Content;
-using Raptor.Plugins;
-
-namespace KDScorpionEngineTests.Fakes
+﻿namespace KDScorpionEngineTests.Fakes
 {
+    using KDScorpionEngine;
+    using KDScorpionEngine.Graphics;
+    using Moq;
+    using Raptor;
+    using Raptor.Content;
+    using Raptor.Plugins;
+
     /// <summary>
     /// Provides a fake implementation of the <see cref="Engine"/> class.
     /// </summary>

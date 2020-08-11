@@ -1,10 +1,10 @@
-﻿using Xunit;
-using KDScorpionEngine.Entities;
-using KDScorpionEngine.Exceptions;
-using Raptor.Physics;
-
-namespace KDScorpionEngineTests.Exceptions
+﻿namespace KDScorpionEngineTests.Exceptions
 {
+    using KDScorpionEngine.Entities;
+    using KDScorpionEngine.Exceptions;
+    using Raptor.Physics;
+    using Xunit;
+
     /// <summary>
     /// Unit tests to test the <see cref="EntityNotInitializedException"/> class.
     /// </summary>

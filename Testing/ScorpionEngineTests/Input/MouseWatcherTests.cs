@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using Moq;
-using Xunit;
-using KDScorpionEngine.Input;
-using KDScorpionEngine;
-using Raptor.Input;
-using Raptor;
-using Raptor.Plugins;
-
-namespace KDScorpionEngineTests.Input
+﻿namespace KDScorpionEngineTests.Input
 {
+    using System;
+    using System.Collections.Generic;
+    using KDScorpionEngine;
+    using KDScorpionEngine.Input;
+    using Moq;
+    using Raptor;
+    using Raptor.Input;
+    using Raptor.Plugins;
+    using Xunit;
+
     /// <summary>
     /// Unit tests to test the <see cref="MouseWatcher"/> class.
     /// </summary>

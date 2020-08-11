@@ -1,10 +1,10 @@
-﻿using Xunit;
-using KDScorpionEngine.Scene;
-using System;
-using Raptor;
-
-namespace KDScorpionEngineTests.Scene
+﻿namespace KDScorpionEngineTests.Scene
 {
+    using System;
+    using KDScorpionEngine.Scene;
+    using Raptor;
+    using Xunit;
+
     /// <summary>
     /// Unit tests to test the <see cref="SceneTimeManager"/> class.
     /// </summary>

@@ -1,14 +1,14 @@
-﻿using System;
-using Moq;
-using Xunit;
-using KDScorpionEngine.Behaviors;
-using KDScorpionEngine;
-using Raptor.Input;
-using Raptor.Plugins;
-using Raptor;
-
-namespace KDScorpionEngineTests.Input
+﻿namespace KDScorpionEngineTests.Input
 {
+    using System;
+    using KDScorpionEngine;
+    using KDScorpionEngine.Behaviors;
+    using Moq;
+    using Raptor;
+    using Raptor.Input;
+    using Raptor.Plugins;
+    using Xunit;
+
     /// <summary>
     /// Unit tests to test the <see cref="KeyBehavior"/> class.
     /// </summary>

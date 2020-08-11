@@ -1,19 +1,19 @@
-﻿using System;
-using Moq;
-using Xunit;
-using KDScorpionEngine.Scene;
-using KDScorpionEngineTests.Fakes;
-using KDScorpionEngine;
-using KDScorpionEngine.Graphics;
-using Raptor;
-using Raptor.Physics;
-using Raptor.Graphics;
-using Raptor.Plugins;
-using Raptor.Content;
-using System.Numerics;
-
-namespace KDScorpionEngineTests.Scene
+﻿namespace KDScorpionEngineTests.Scene
 {
+    using System;
+    using System.Numerics;
+    using KDScorpionEngine;
+    using KDScorpionEngine.Graphics;
+    using KDScorpionEngine.Scene;
+    using KDScorpionEngineTests.Fakes;
+    using Moq;
+    using Raptor;
+    using Raptor.Content;
+    using Raptor.Graphics;
+    using Raptor.Physics;
+    using Raptor.Plugins;
+    using Xunit;
+
     /// <summary>
     /// Unit tests to test the <see cref="GameScene"/> class.
     /// </summary>

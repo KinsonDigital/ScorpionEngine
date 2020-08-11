@@ -1,10 +1,10 @@
-﻿using Xunit;
-using KDScorpionEngine;
-using KDScorpionEngine.Utils;
-using System;
-
-namespace KDScorpionEngineTests.Utils
+﻿namespace KDScorpionEngineTests.Utils
 {
+    using System;
+    using KDScorpionEngine;
+    using KDScorpionEngine.Utils;
+    using Xunit;
+
     /// <summary>
     /// Unit tests to test the <see cref="Counter"/> class.
     /// </summary>

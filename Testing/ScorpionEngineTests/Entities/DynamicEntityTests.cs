@@ -1,16 +1,16 @@
-﻿using System;
-using Moq;
-using Xunit;
-using KDScorpionEngine.Entities;
-using KDScorpionEngine.Exceptions;
-using KDScorpionEngineTests.Fakes;
-using Raptor.Plugins;
-using Raptor;
-using Raptor.Graphics;
-using System.Numerics;
-
-namespace KDScorpionEngineTests.Entities
+﻿namespace KDScorpionEngineTests.Entities
 {
+    using System;
+    using System.Numerics;
+    using KDScorpionEngine.Entities;
+    using KDScorpionEngine.Exceptions;
+    using KDScorpionEngineTests.Fakes;
+    using Moq;
+    using Raptor;
+    using Raptor.Graphics;
+    using Raptor.Plugins;
+    using Xunit;
+
     /// <summary>
     /// Unit tests to test the <see cref="DynamicEntity"/> class.
     /// </summary>

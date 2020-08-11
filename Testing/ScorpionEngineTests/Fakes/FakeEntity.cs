@@ -1,12 +1,12 @@
-﻿using KDScorpionEngine.Entities;
-using KDScorpionEngine.Graphics;
-using Raptor;
-using Raptor.Graphics;
-using Raptor.Plugins;
-using System.Numerics;
-
-namespace KDScorpionEngineTests.Fakes
+﻿namespace KDScorpionEngineTests.Fakes
 {
+    using System.Numerics;
+    using KDScorpionEngine.Entities;
+    using KDScorpionEngine.Graphics;
+    using Raptor;
+    using Raptor.Graphics;
+    using Raptor.Plugins;
+
     /// <summary>
     /// Provides a fake implementation of the <see cref="KDScorpionEngine.Entities.Entity"/> abstract class.
     /// </summary>

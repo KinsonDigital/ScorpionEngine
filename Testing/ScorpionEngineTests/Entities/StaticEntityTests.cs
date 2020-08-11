@@ -1,16 +1,16 @@
-﻿using Moq;
-using Xunit;
-using KDScorpionEngine.Behaviors;
-using KDScorpionEngine.Entities;
-using KDScorpionEngineTests.Fakes;
-using System;
-using Raptor;
-using Raptor.Graphics;
-using Raptor.Plugins;
-using System.Numerics;
-
-namespace KDScorpionEngineTests.Entities
+﻿namespace KDScorpionEngineTests.Entities
 {
+    using System;
+    using System.Numerics;
+    using KDScorpionEngine.Behaviors;
+    using KDScorpionEngine.Entities;
+    using KDScorpionEngineTests.Fakes;
+    using Moq;
+    using Raptor;
+    using Raptor.Graphics;
+    using Raptor.Plugins;
+    using Xunit;
+
     /// <summary>
     /// Unit tests to test the <see cref="StaticEntity"/> class.
     /// </summary>

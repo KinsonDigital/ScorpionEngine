@@ -1,13 +1,13 @@
-﻿using System;
-using Moq;
-using Xunit;
-using KDScorpionEngineTests.Fakes;
-using KDScorpionEngine;
-using Raptor.Plugins;
-using Raptor;
-
-namespace KDScorpionEngineTests
+﻿namespace KDScorpionEngineTests
 {
+    using System;
+    using KDScorpionEngine;
+    using KDScorpionEngineTests.Fakes;
+    using Moq;
+    using Raptor;
+    using Raptor.Plugins;
+    using Xunit;
+
     /// <summary>
     /// Unit tests to test the <see cref="Engine"/> class.
     /// </summary>

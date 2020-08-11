@@ -1,9 +1,9 @@
-﻿using KDScorpionEngineTests.Fakes;
-using Raptor;
-using Xunit;
-
-namespace KDScorpionEngineTests.Behaviors
+﻿namespace KDScorpionEngineTests.Behaviors
 {
+    using KDScorpionEngineTests.Fakes;
+    using Raptor;
+    using Xunit;
+
     /// <summary>
     /// Unit tests to test the <see cref="KDScorpionEngine.Behaviors.Behavior"/> class.
     /// </summary>

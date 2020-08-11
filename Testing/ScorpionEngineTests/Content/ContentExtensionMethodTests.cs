@@ -1,8 +1,8 @@
-﻿using Xunit;
-using KDScorpionEngine.Content;
-
-namespace KDScorpionEngineTests.Content
+﻿namespace KDScorpionEngineTests.Content
 {
+    using KDScorpionEngine.Content;
+    using Xunit;
+
     /// <summary>
     /// Unit tests to test the <see cref="KDScorpionEngine.Content.ExtensionMethods"/> class.
     /// </summary>

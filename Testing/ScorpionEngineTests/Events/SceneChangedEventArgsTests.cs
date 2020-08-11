@@ -1,8 +1,8 @@
-﻿using Xunit;
-using KDScorpionEngine.Events;
-
-namespace KDScorpionEngineTests.Events
+﻿namespace KDScorpionEngineTests.Events
 {
+    using KDScorpionEngine.Events;
+    using Xunit;
+
     /// <summary>
     /// Unit tests to test the <see cref="SceneChangedEventArgs"/> class.
     /// </summary>
