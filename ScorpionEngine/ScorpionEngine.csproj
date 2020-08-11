@@ -45,6 +45,12 @@
     
     <Exec Command="xcopy &quot;$(RaptorPackagePath)*.dll&quot; &quot;$(TargetDir)runtimes&quot; /Y /E" />
   </Target>
+  <ItemGroup>
+    <None Remove="stylecop.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="stylecop.json" />
+  </ItemGroup>
 
 
   <ItemGroup>

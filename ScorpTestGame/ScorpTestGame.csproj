@@ -17,6 +17,12 @@
     <RootNamespace>KDScorpTestGame</RootNamespace>
     <Configurations>Debug-Win;Release-Win</Configurations>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="stylecop.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="stylecop.json" />
+  </ItemGroup>
 
   
   <ItemGroup>
