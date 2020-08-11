@@ -1,4 +1,8 @@
-﻿namespace KDScorpionEngineTests.Entities
+﻿// <copyright file="StaticEntityTests.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+namespace KDScorpionEngineTests.Entities
 {
     using System;
     using System.Numerics;

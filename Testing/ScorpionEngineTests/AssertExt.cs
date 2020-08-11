@@ -1,4 +1,8 @@
-﻿namespace KDScorpionEngineTests
+﻿// <copyright file="AssertExt.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+namespace KDScorpionEngineTests
 {
     using System;
     using System.Diagnostics.CodeAnalysis;

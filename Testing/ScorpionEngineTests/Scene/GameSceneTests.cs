@@ -1,4 +1,8 @@
-﻿namespace KDScorpionEngineTests.Scene
+﻿// <copyright file="GameSceneTests.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+namespace KDScorpionEngineTests.Scene
 {
     using System;
     using System.Numerics;

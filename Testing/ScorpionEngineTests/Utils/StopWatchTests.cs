@@ -1,4 +1,8 @@
-﻿namespace KDScorpionEngineTests.Utils
+﻿// <copyright file="StopWatchTests.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+namespace KDScorpionEngineTests.Utils
 {
     using System;
     using KDScorpionEngine;

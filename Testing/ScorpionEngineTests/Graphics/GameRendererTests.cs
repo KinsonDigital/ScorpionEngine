@@ -1,4 +1,8 @@
-﻿namespace KDScorpionEngineTests.Graphics
+﻿// <copyright file="GameRendererTests.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+namespace KDScorpionEngineTests.Graphics
 {
     using KDScorpionEngine.Graphics;
     using KDScorpionEngineTests.Fakes;

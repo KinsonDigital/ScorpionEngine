@@ -1,4 +1,8 @@
-﻿namespace KDScorpionEngineTests.Input
+﻿// <copyright file="KeyBehaviorTests.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+namespace KDScorpionEngineTests.Input
 {
     using System;
     using KDScorpionEngine;

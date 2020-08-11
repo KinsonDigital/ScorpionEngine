@@ -1,4 +1,8 @@
-﻿namespace KDScorpionEngineTests.Exceptions
+﻿// <copyright file="EntityAlreadyInitializedExceptionTests.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+namespace KDScorpionEngineTests.Exceptions
 {
     using KDScorpionEngine.Entities;
     using KDScorpionEngine.Exceptions;

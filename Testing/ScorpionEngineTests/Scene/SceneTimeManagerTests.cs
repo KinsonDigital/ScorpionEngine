@@ -1,4 +1,8 @@
-﻿namespace KDScorpionEngineTests.Scene
+﻿// <copyright file="SceneTimeManagerTests.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+namespace KDScorpionEngineTests.Scene
 {
     using System;
     using KDScorpionEngine.Scene;

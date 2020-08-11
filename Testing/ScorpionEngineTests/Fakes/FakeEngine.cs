@@ -1,4 +1,8 @@
-﻿namespace KDScorpionEngineTests.Fakes
+﻿// <copyright file="FakeEngine.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+namespace KDScorpionEngineTests.Fakes
 {
     using KDScorpionEngine;
     using KDScorpionEngine.Graphics;

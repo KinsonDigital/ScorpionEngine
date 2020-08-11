@@ -1,4 +1,8 @@
-﻿namespace KDScorpionEngineTests.Behaviors
+﻿// <copyright file="MovementByKeyboardBehaviorTests.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+namespace KDScorpionEngineTests.Behaviors
 {
     using System;
     using System.Numerics;

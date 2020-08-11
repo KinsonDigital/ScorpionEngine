@@ -1,4 +1,8 @@
-﻿namespace KDScorpionEngineTests.Fakes
+﻿// <copyright file="FakePhysicsBody.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+namespace KDScorpionEngineTests.Fakes
 {
     using System;
     using System.Collections.ObjectModel;

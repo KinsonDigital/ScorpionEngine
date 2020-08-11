@@ -1,4 +1,8 @@
-﻿namespace KDScorpionEngineTests.Events
+﻿// <copyright file="FrameStackFinishedEventArgsTests.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+namespace KDScorpionEngineTests.Events
 {
     using KDScorpionEngine.Events;
     using Xunit;

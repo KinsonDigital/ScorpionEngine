@@ -1,4 +1,8 @@
-﻿namespace KDScorpionEngineTests.Input
+﻿// <copyright file="KeyboardWatcherTests.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+namespace KDScorpionEngineTests.Input
 {
     using System;
     using System.Collections.Generic;

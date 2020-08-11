@@ -1,4 +1,8 @@
-﻿namespace KDScorpionEngineTests.Content
+﻿// <copyright file="ContentExtensionMethodTests.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+namespace KDScorpionEngineTests.Content
 {
     using KDScorpionEngine.Content;
     using Xunit;

@@ -1,4 +1,8 @@
-﻿namespace KDScorpionEngineTests.Behaviors
+﻿// <copyright file="BehaviorTests.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+namespace KDScorpionEngineTests.Behaviors
 {
     using KDScorpionEngineTests.Fakes;
     using Raptor;

@@ -1,4 +1,8 @@
-﻿namespace KDScorpionEngineTests.Exceptions
+﻿// <copyright file="IdAlreadyExistsExceptionTests.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+namespace KDScorpionEngineTests.Exceptions
 {
     using KDScorpionEngine.Exceptions;
     using Xunit;
