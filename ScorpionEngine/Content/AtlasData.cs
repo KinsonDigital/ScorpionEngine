@@ -25,7 +25,7 @@ namespace KDScorpionEngine.Content
         public AtlasData(List<AtlasSpriteData> atlasSubTexutureData)
         {
             //TODO: check to see if this copy by reference is needed
-            _atlasSprites = atlasSubTexutureData;
+            this._atlasSprites = atlasSubTexutureData;
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace KDScorpionEngine.Content
         /// <returns></returns>
         public AtlasSpriteData this[int index]
         {
-            get { return _atlasSprites[index]; }
+            get { return this._atlasSprites[index]; }
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace KDScorpionEngine.Content
         {
             get
             {
-                return _atlasSprites.Select(item => item.Name).ToList();
+                return this._atlasSprites.Select(item => item.Name).ToList();
             }
         }
 
@@ -67,15 +67,15 @@ namespace KDScorpionEngine.Content
         internal List<Rect> GetFrames(string subTextureID)
         {
             //If the frame is a non animating frame, just return the single frame
-            if (!AtlasManager.IsAnimatingFrame(_atlasSprites.Find(item => item.Name.Contains(subTextureID)).Name))
+            if (!AtlasManager.IsAnimatingFrame(this._atlasSprites.Find(item => item.Name.Contains(subTextureID)).Name))
             {
-                return _atlasSprites.Where(item => item.Name == subTextureID).ToList().ConvertAll(item => item.Bounds);
+                return this._atlasSprites.Where(item => item.Name == subTextureID).ToList().ConvertAll(item => item.Bounds);
             }
 
             var returnItems = new List<Rect>();
 
             #region Animating Frame Sorting
-            var unsortedItems = _atlasSprites.Where(item => AtlasManager.IsAnimatingFrame(item.Name)).ToList();
+            var unsortedItems = this._atlasSprites.Where(item => AtlasManager.IsAnimatingFrame(item.Name)).ToList();
             var currentIndexNum = 0;
 
             //Sort the animating frame names in ascending order using there index number
@@ -106,7 +106,7 @@ namespace KDScorpionEngine.Content
         /// <returns></returns>
         internal bool SubTextureExists(string name)
         {
-            return _atlasSprites.Find(item => item.Name == name) != null;
+            return this._atlasSprites.Find(item => item.Name == name) != null;
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace KDScorpionEngine.Content
         /// <returns></returns>
         internal Rect SubTextureBounds(string name)
         {
-            return _atlasSprites.Find(item => item.Name == name).Bounds;
+            return this._atlasSprites.Find(item => item.Name == name).Bounds;
         }
     }
 }

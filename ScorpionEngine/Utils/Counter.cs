@@ -39,8 +39,8 @@ namespace KDScorpionEngine.Utils
             if (min > max)
                 throw new ArgumentOutOfRangeException("The min must be less than the max.");
 
-            _min = min;
-            _max = max;
+            this._min = min;
+            this._max = max;
 
             //Set the count amount
             CountAmount = countAmount;
@@ -56,14 +56,14 @@ namespace KDScorpionEngine.Utils
         /// </summary>
         public int Min
         {
-            get => _min;
+            get => this._min;
             set
             {
                 //Make sure thataxhe min is then the max
-                if (value > _max)
-                    throw new Exception($"The min value of {value} cannot be greater than max value of {_max}.");
+                if (value > this._max)
+                    throw new Exception($"The min value of {value} cannot be greater than max value of {this._max}.");
 
-                _min = value;
+                this._min = value;
             }
         }
 
@@ -72,14 +72,14 @@ namespace KDScorpionEngine.Utils
         /// </summary>
         public int Max
         {
-            get => _max;
+            get => this._max;
             set
             {
                 //Make sure that the min is then the max
-                if (value < _min)
-                    throw new Exception($"The max value of {value} cannot be less than min value of {_min}.");
+                if (value < this._min)
+                    throw new Exception($"The max value of {value} cannot be less than min value of {this._min}.");
 
-                _max = value;
+                this._max = value;
             }
         }
 

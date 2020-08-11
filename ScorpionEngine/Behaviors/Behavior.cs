@@ -30,16 +30,16 @@ namespace KDScorpionEngine.Behaviors
         /// <param name="engineTime">The game engine time.</param>
         public void Update(EngineTime engineTime)
         {
-            if (_behaviorAction == null || !Enabled)
+            if (this._behaviorAction == null || !Enabled)
                 return;
 
-            _behaviorAction(engineTime);
+            this._behaviorAction(engineTime);
         }
 
         /// <summary>
         /// Sets the action that sets the behavior of this object.
         /// </summary>
         /// <param name="action">The behavior that will be executed when the <see cref="Update(EngineTime)"/> is invoked.</param>
-        protected void SetUpdateAction(Action<EngineTime> action) => _behaviorAction = action;
+        protected void SetUpdateAction(Action<EngineTime> action) => this._behaviorAction = action;
     }
 }

@@ -200,13 +200,13 @@ namespace KDScorpionEngine
         [ExcludeFromCodeCoverage]
         private void EngineCore_OnRender(object sender, OnRenderEventArgs e)
         {
-            _renderer.Clear(255, 50, 50, 50);
+            this._renderer.Clear(255, 50, 50, 50);
 
-            _renderer.Begin();
+            this._renderer.Begin();
 
-            Render(_renderer);
+            Render(this._renderer);
 
-            _renderer.End();
+            this._renderer.End();
         }
     }
 }

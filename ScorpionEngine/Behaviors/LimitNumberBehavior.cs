@@ -24,8 +24,8 @@ namespace KDScorpionEngine.Behaviors
         /// <param name="name">The name of the behavior.</param>
         public LimitNumberBehavior(Func<float> getValue, Action<float> setLimit, float limitValue, string name = nameof(LimitNumberBehavior))
         {
-            _getValue = getValue;
-            _setLimit = setLimit;
+            this._getValue = getValue;
+            this._setLimit = setLimit;
             LimitValue = limitValue;
             Name = name;
             SetUpdateAction(UpdateAction);
@@ -43,15 +43,15 @@ namespace KDScorpionEngine.Behaviors
         /// <param name="engineTime">The game engine time.</param>
         private void UpdateAction(EngineTime engineTime)
         {
-            var currentValue = _getValue();
+            var currentValue = this._getValue();
 
             if(LimitValue > 0 && currentValue > LimitValue)
             {
-                _setLimit(LimitValue);
+                this._setLimit(LimitValue);
             }
             else if (LimitValue < 0 && currentValue < LimitValue)
             {
-                _setLimit(LimitValue);
+                this._setLimit(LimitValue);
             }
         }
     }

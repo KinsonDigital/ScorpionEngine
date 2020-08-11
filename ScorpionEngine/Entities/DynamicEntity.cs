@@ -123,7 +123,7 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         public float Angle
         {
-            get => IsInitialized ? Body.Angle : _preInitAngle;
+            get => IsInitialized ? Body.Angle : this._preInitAngle;
             set
             {
                 if (IsInitialized)
@@ -132,7 +132,7 @@ namespace KDScorpionEngine.Entities
                 }
                 else
                 {
-                    _preInitAngle = value;
+                    this._preInitAngle = value;
                 }
             }
         }
@@ -145,11 +145,11 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         public float MaxLinearSpeed
         {
-            get => _maxLinearSpeed;
+            get => this._maxLinearSpeed;
             set
             {
-                _maxLinearSpeed = value;
-                SetBehaviorLimits(_maxLinearSpeed);
+                this._maxLinearSpeed = value;
+                SetBehaviorLimits(this._maxLinearSpeed);
             }
         }
 
@@ -158,11 +158,11 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         public float MaxRotationSpeed
         {
-            get => _rotateCWVelocityMaxBehavior.LimitValue;
+            get => this._rotateCWVelocityMaxBehavior.LimitValue;
             set
             {
-                _rotateCWVelocityMaxBehavior.LimitValue = value.ForcePositive();
-                _rotateCCWVelocityMaxBehavior.LimitValue = value.ForceNegative();
+                this._rotateCWVelocityMaxBehavior.LimitValue = value.ForcePositive();
+                this._rotateCCWVelocityMaxBehavior.LimitValue = value.ForceNegative();
             }
         }
 
@@ -190,7 +190,7 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         public float LinearDeceleration
         {
-            get => IsInitialized ? Body.LinearDeceleration : _preInitLinearDeceleration;
+            get => IsInitialized ? Body.LinearDeceleration : this._preInitLinearDeceleration;
             set
             {
                 if (IsInitialized)
@@ -199,7 +199,7 @@ namespace KDScorpionEngine.Entities
                 }
                 else
                 {
-                    _preInitLinearDeceleration = value;
+                    this._preInitLinearDeceleration = value;
                 }
             }
         }
@@ -209,7 +209,7 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         public float AngularDeceleration
         {
-            get => IsInitialized ? Body.AngularDeceleration : _preInitAngularDeceleration;
+            get => IsInitialized ? Body.AngularDeceleration : this._preInitAngularDeceleration;
             set
             {
                 if(IsInitialized)
@@ -218,7 +218,7 @@ namespace KDScorpionEngine.Entities
                 }
                 else
                 {
-                    _preInitAngularDeceleration = value;
+                    this._preInitAngularDeceleration = value;
                 }
             }
         }
@@ -237,9 +237,9 @@ namespace KDScorpionEngine.Entities
             {
                 base.Initialize();
 
-                Angle = _preInitAngle;
-                LinearDeceleration = _preInitLinearDeceleration;
-                AngularDeceleration = _preInitAngularDeceleration;
+                Angle = this._preInitAngle;
+                LinearDeceleration = this._preInitLinearDeceleration;
+                AngularDeceleration = this._preInitAngularDeceleration;
             }
         }
 
@@ -252,7 +252,7 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            _facingDirection = new Vector2(0, -1).RotateAround(Vector2.Zero, Body.Angle);
+            this._facingDirection = new Vector2(0, -1).RotateAround(Vector2.Zero, Body.Angle);
 
             ProcessMovementStop();
 
@@ -491,7 +491,7 @@ namespace KDScorpionEngine.Entities
             if (Body == null)
                 throw new EntityNotInitializedException();
 
-            var directionToMove = new Vector2(_facingDirection.X, _facingDirection.Y) * speed.ForcePositive();
+            var directionToMove = new Vector2(this._facingDirection.X, this._facingDirection.Y) * speed.ForcePositive();
 
             //TODO: Get this working
             //Body.ApplyForce(directionToMove.X, directionToMove.Y, Position.X, Position.Y);
@@ -595,27 +595,27 @@ namespace KDScorpionEngine.Entities
             //Force the speed to a positive number if it is negative
             maxSpeed = maxSpeed.ForcePositive();
 
-            _moveUpVelocityMaxBehavior = new LimitNumberBehavior(GetLinearYValue, SetLinearYValue, maxSpeed * -1, nameof(_moveUpVelocityMaxBehavior))
+            this._moveUpVelocityMaxBehavior = new LimitNumberBehavior(GetLinearYValue, SetLinearYValue, maxSpeed * -1, nameof(this._moveUpVelocityMaxBehavior))
             {
-                Name = $"{nameof(DynamicEntity)}.{nameof(LimitNumberBehavior)} => {"{ "}{nameof(_moveUpVelocityMaxBehavior)}{" }"}"
+                Name = $"{nameof(DynamicEntity)}.{nameof(LimitNumberBehavior)} => {"{ "}{nameof(this._moveUpVelocityMaxBehavior)}{" }"}"
             };
-            _moveDownVelocityMaxBehavior = new LimitNumberBehavior(GetLinearYValue, SetLinearYValue, maxSpeed, nameof(_moveDownVelocityMaxBehavior))
+            this._moveDownVelocityMaxBehavior = new LimitNumberBehavior(GetLinearYValue, SetLinearYValue, maxSpeed, nameof(this._moveDownVelocityMaxBehavior))
             {
-                Name = $"{nameof(DynamicEntity)}.{nameof(LimitNumberBehavior)} => {"{ "}{nameof(_moveDownVelocityMaxBehavior)}{" }"}"
+                Name = $"{nameof(DynamicEntity)}.{nameof(LimitNumberBehavior)} => {"{ "}{nameof(this._moveDownVelocityMaxBehavior)}{" }"}"
             };
-            _moveRightVelocityMaxBehavior = new LimitNumberBehavior(GetLinearXValue, SetLinearXValue, maxSpeed, nameof(_moveRightVelocityMaxBehavior))
+            this._moveRightVelocityMaxBehavior = new LimitNumberBehavior(GetLinearXValue, SetLinearXValue, maxSpeed, nameof(this._moveRightVelocityMaxBehavior))
             {
-                Name = $"{nameof(DynamicEntity)}.{nameof(LimitNumberBehavior)} => {"{ "}{nameof(_moveRightVelocityMaxBehavior)}{" }"}"
+                Name = $"{nameof(DynamicEntity)}.{nameof(LimitNumberBehavior)} => {"{ "}{nameof(this._moveRightVelocityMaxBehavior)}{" }"}"
             };
-            _moveLeftVelocityMaxBehavior = new LimitNumberBehavior(GetLinearXValue, SetLinearXValue, maxSpeed * -1, nameof(_moveLeftVelocityMaxBehavior))
+            this._moveLeftVelocityMaxBehavior = new LimitNumberBehavior(GetLinearXValue, SetLinearXValue, maxSpeed * -1, nameof(this._moveLeftVelocityMaxBehavior))
             {
-                Name = $"{nameof(DynamicEntity)}.{nameof(LimitNumberBehavior)} => {"{ "}{nameof(_moveLeftVelocityMaxBehavior)}{" }"}"
+                Name = $"{nameof(DynamicEntity)}.{nameof(LimitNumberBehavior)} => {"{ "}{nameof(this._moveLeftVelocityMaxBehavior)}{" }"}"
             };
 
-            Behaviors.Add(_moveUpVelocityMaxBehavior);
-            Behaviors.Add(_moveDownVelocityMaxBehavior);
-            Behaviors.Add(_moveRightVelocityMaxBehavior);
-            Behaviors.Add(_moveLeftVelocityMaxBehavior);
+            Behaviors.Add(this._moveUpVelocityMaxBehavior);
+            Behaviors.Add(this._moveDownVelocityMaxBehavior);
+            Behaviors.Add(this._moveRightVelocityMaxBehavior);
+            Behaviors.Add(this._moveLeftVelocityMaxBehavior);
         }
 
         /// <summary>
@@ -623,18 +623,18 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         private void SetupMaxRotationBehaviors(float maxSpeed)
         {
-            _rotateCWVelocityMaxBehavior = new LimitNumberBehavior(GetAngularVelocityValue, SetAngularValue, maxSpeed)
+            this._rotateCWVelocityMaxBehavior = new LimitNumberBehavior(GetAngularVelocityValue, SetAngularValue, maxSpeed)
             {
-                Name = $"{nameof(DynamicEntity)}.{nameof(LimitNumberBehavior)} => {"{ "}{nameof(_rotateCWVelocityMaxBehavior)}{" }"}"
+                Name = $"{nameof(DynamicEntity)}.{nameof(LimitNumberBehavior)} => {"{ "}{nameof(this._rotateCWVelocityMaxBehavior)}{" }"}"
             };
 
-            _rotateCCWVelocityMaxBehavior = new LimitNumberBehavior(GetAngularVelocityValue, SetAngularValue, maxSpeed.ForceNegative())
+            this._rotateCCWVelocityMaxBehavior = new LimitNumberBehavior(GetAngularVelocityValue, SetAngularValue, maxSpeed.ForceNegative())
             {
-                Name = $"{nameof(DynamicEntity)}.{nameof(LimitNumberBehavior)} => {"{ "}{nameof(_rotateCCWVelocityMaxBehavior)}{" }"}"
+                Name = $"{nameof(DynamicEntity)}.{nameof(LimitNumberBehavior)} => {"{ "}{nameof(this._rotateCCWVelocityMaxBehavior)}{" }"}"
             };
 
-            Behaviors.Add(_rotateCWVelocityMaxBehavior);
-            Behaviors.Add(_rotateCCWVelocityMaxBehavior);
+            Behaviors.Add(this._rotateCWVelocityMaxBehavior);
+            Behaviors.Add(this._rotateCCWVelocityMaxBehavior);
         }
 
         /// <summary>
@@ -643,10 +643,10 @@ namespace KDScorpionEngine.Entities
         /// <param name="maxLinearSpeed">The maximum linear speed.  A positive or negative speed value will have the same effect.</param>
         private void SetBehaviorLimits(float maxLinearSpeed)
         {
-            _moveUpVelocityMaxBehavior.LimitValue = maxLinearSpeed.ForceNegative();
-            _moveDownVelocityMaxBehavior.LimitValue = maxLinearSpeed.ForcePositive();
-            _moveLeftVelocityMaxBehavior.LimitValue = maxLinearSpeed.ForceNegative();
-            _moveRightVelocityMaxBehavior.LimitValue = maxLinearSpeed.ForcePositive();
+            this._moveUpVelocityMaxBehavior.LimitValue = maxLinearSpeed.ForceNegative();
+            this._moveDownVelocityMaxBehavior.LimitValue = maxLinearSpeed.ForcePositive();
+            this._moveLeftVelocityMaxBehavior.LimitValue = maxLinearSpeed.ForceNegative();
+            this._moveRightVelocityMaxBehavior.LimitValue = maxLinearSpeed.ForcePositive();
         }
 
         /// <summary>

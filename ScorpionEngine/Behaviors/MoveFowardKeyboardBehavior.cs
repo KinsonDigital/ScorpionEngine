@@ -35,12 +35,12 @@ namespace KDScorpionEngine.Behaviors
         /// <param name="dynamicEntity">The entity to use for testing.</param>
         internal MoveFowardKeyboardBehavior(IKeyboard keyboard, T dynamicEntity)
         {
-            _keyboard = new Keyboard(keyboard);
+            this._keyboard = new Keyboard(keyboard);
 
             CreateBehaviors(keyboard);
             SetupBehaviors();
 
-            _dynamicEntity = dynamicEntity;
+            this._dynamicEntity = dynamicEntity;
 
             SetUpdateAction(UpdateAction);
         }
@@ -54,14 +54,14 @@ namespace KDScorpionEngine.Behaviors
         [ExcludeFromCodeCoverage]
         public MoveFowardKeyboardBehavior(T entity, float linearSpeed, float angularSpeed)
         {
-            _keyboard = new Keyboard();
+            this._keyboard = new Keyboard();
             LinearSpeed = linearSpeed;
             AngularSpeed = angularSpeed;
 
             CreateBehaviors();
             SetupBehaviors();
 
-            _dynamicEntity = entity;
+            this._dynamicEntity = entity;
 
             SetUpdateAction(UpdateAction);
         }
@@ -71,10 +71,10 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         public KeyCode MoveFowardKey
         {
-            get => _moveFowardKey;
+            get => this._moveFowardKey;
             set
             {
-                _moveFowardKey = value;
+                this._moveFowardKey = value;
                 SetupBehaviors();
             }
         }
@@ -84,10 +84,10 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         public KeyCode RotateCWKey
         {
-            get => _rotateCWKey;
+            get => this._rotateCWKey;
             set
             {
-                _rotateCWKey = value;
+                this._rotateCWKey = value;
                 SetupBehaviors();
             }
         }
@@ -97,10 +97,10 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         public KeyCode RotateCCWKey
         {
-            get => _rotateCCWKey;
+            get => this._rotateCCWKey;
             set
             {
-                _rotateCCWKey = value;
+                this._rotateCCWKey = value;
                 SetupBehaviors();
             }
         }
@@ -126,15 +126,15 @@ namespace KDScorpionEngine.Behaviors
         /// <param name="engineTime">The game engine time.</param>
         private void UpdateAction(EngineTime engineTime)
         {
-            _keyboard.UpdateCurrentState();
+            this._keyboard.UpdateCurrentState();
 
-            IsMovingForward = _keyboard.IsKeyDown(_moveFowardKey);
+            IsMovingForward = this._keyboard.IsKeyDown(this._moveFowardKey);
 
-            _moveFowardKeyBehavior.Update(engineTime);
-            _rotateCWKeyBehavior.Update(engineTime);
-            _rotateCCWKeyBehavior.Update(engineTime);
+            this._moveFowardKeyBehavior.Update(engineTime);
+            this._rotateCWKeyBehavior.Update(engineTime);
+            this._rotateCCWKeyBehavior.Update(engineTime);
 
-            _keyboard.UpdatePreviousState();
+            this._keyboard.UpdatePreviousState();
         }
 
         /// <summary>
@@ -144,16 +144,16 @@ namespace KDScorpionEngine.Behaviors
         private void CreateBehaviors()
         {
             //Setup the move foward key behavior
-            _moveFowardKeyBehavior = new KeyBehavior(_moveFowardKey, true);
-            _moveFowardKeyBehavior.KeyDownEvent += MoveFoward_KeyDown;
+            this._moveFowardKeyBehavior = new KeyBehavior(this._moveFowardKey, true);
+            this._moveFowardKeyBehavior.KeyDownEvent += MoveFoward_KeyDown;
 
             //Setup the rotate clockwise key behavior
-            _rotateCWKeyBehavior = new KeyBehavior(_rotateCWKey, true);
-            _rotateCWKeyBehavior.KeyDownEvent += RotateCW_KeyDown;
+            this._rotateCWKeyBehavior = new KeyBehavior(this._rotateCWKey, true);
+            this._rotateCWKeyBehavior.KeyDownEvent += RotateCW_KeyDown;
 
             //Setup the rotate counter clockwise key behavior
-            _rotateCCWKeyBehavior = new KeyBehavior(_rotateCCWKey, true);
-            _rotateCCWKeyBehavior.KeyDownEvent += RotateCCW_KeyDown;
+            this._rotateCCWKeyBehavior = new KeyBehavior(this._rotateCCWKey, true);
+            this._rotateCCWKeyBehavior.KeyDownEvent += RotateCCW_KeyDown;
         }
 
         /// <summary>
@@ -163,23 +163,23 @@ namespace KDScorpionEngine.Behaviors
         /// <param name="keyboard">The keyboard to inject into the behaviors for testing.</param>
         private void CreateBehaviors(IKeyboard keyboard)
         {
-            _moveFowardKeyBehavior = new KeyBehavior(keyboard)
+            this._moveFowardKeyBehavior = new KeyBehavior(keyboard)
             {
                 Key = _moveFowardKey
             };
-            _moveFowardKeyBehavior.KeyDownEvent += MoveFoward_KeyDown;
+            this._moveFowardKeyBehavior.KeyDownEvent += MoveFoward_KeyDown;
 
-            _rotateCWKeyBehavior = new KeyBehavior(keyboard)
+            this._rotateCWKeyBehavior = new KeyBehavior(keyboard)
             {
                 Key = _rotateCWKey
             };
-            _rotateCWKeyBehavior.KeyDownEvent += RotateCW_KeyDown;
+            this._rotateCWKeyBehavior.KeyDownEvent += RotateCW_KeyDown;
 
-            _rotateCCWKeyBehavior = new KeyBehavior(keyboard)
+            this._rotateCCWKeyBehavior = new KeyBehavior(keyboard)
             {
                 Key = _rotateCCWKey
             };
-            _rotateCCWKeyBehavior.KeyDownEvent += RotateCCW_KeyDown;
+            this._rotateCCWKeyBehavior.KeyDownEvent += RotateCCW_KeyDown;
         }
 
         /// <summary>
@@ -188,16 +188,16 @@ namespace KDScorpionEngine.Behaviors
         private void SetupBehaviors()
         {
             //Setup the move foward key behavior
-            _moveFowardKeyBehavior.Key = _moveFowardKey;
-            _moveFowardKeyBehavior.BehaviorType = KeyBehaviorType.KeyDownContinuous;
+            this._moveFowardKeyBehavior.Key = this._moveFowardKey;
+            this._moveFowardKeyBehavior.BehaviorType = KeyBehaviorType.KeyDownContinuous;
 
             //Setup the rotate clockwise key behavior
-            _rotateCWKeyBehavior.Key = _rotateCWKey;
-            _rotateCWKeyBehavior.BehaviorType = KeyBehaviorType.KeyDownContinuous;
+            this._rotateCWKeyBehavior.Key = this._rotateCWKey;
+            this._rotateCWKeyBehavior.BehaviorType = KeyBehaviorType.KeyDownContinuous;
 
             //Setup the rotate counter clockwise key behavior
-            _rotateCCWKeyBehavior.Key = _rotateCCWKey;
-            _rotateCCWKeyBehavior.BehaviorType = KeyBehaviorType.KeyDownContinuous;
+            this._rotateCCWKeyBehavior.Key = this._rotateCCWKey;
+            this._rotateCCWKeyBehavior.BehaviorType = KeyBehaviorType.KeyDownContinuous;
         }
 
         /// <summary>
@@ -206,17 +206,17 @@ namespace KDScorpionEngine.Behaviors
         private void MoveFoward_KeyDown(object sender, KeyEventArgs e)
         {
             IsMovingForward = true;
-            _dynamicEntity.MoveAtSetAngle(LinearSpeed);
+            this._dynamicEntity.MoveAtSetAngle(LinearSpeed);
         }
 
         /// <summary>
         /// Rotates the <see cref="DynamicEntity"/> clockwise.
         /// </summary>
-        private void RotateCW_KeyDown(object sender, KeyEventArgs e) => _dynamicEntity.RotateCW(AngularSpeed);
+        private void RotateCW_KeyDown(object sender, KeyEventArgs e) => this._dynamicEntity.RotateCW(AngularSpeed);
 
         /// <summary>
         /// Rotates the <see cref="DynamicEntity"/> counter clockwise.
         /// </summary>
-        private void RotateCCW_KeyDown(object sender, KeyEventArgs e) => _dynamicEntity.RotateCCW(AngularSpeed);
+        private void RotateCCW_KeyDown(object sender, KeyEventArgs e) => this._dynamicEntity.RotateCCW(AngularSpeed);
     }
 }

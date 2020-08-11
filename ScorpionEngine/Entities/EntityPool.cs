@@ -45,14 +45,14 @@ namespace KDScorpionEngine.Entities
         /// <returns></returns>
         public DynamicEntity this[int index]
         {
-            get => _objects[index];
-            set => _objects.Insert(index, value);
+            get => this._objects[index];
+            set => this._objects.Insert(index, value);
         }
 
         /// <summary>
         /// Gets total number of entities in the entity pool.
         /// </summary>
-        public int Count => _objects.Count;
+        public int Count => this._objects.Count;
 
         /// <summary>
         /// Gets or sets a value indicating if the out of bounds trigger will be processed for each entity.
@@ -74,7 +74,7 @@ namespace KDScorpionEngine.Entities
         /// Adds the given <paramref name="entity"/> to the entity pool.
         /// </summary>
         /// <param name="entity">The entity to add.</param>
-        public void AddGameObject(DynamicEntity entity) => _objects.Add(entity);
+        public void AddGameObject(DynamicEntity entity) => this._objects.Add(entity);
 
         /// <summary>
         /// Shows the next available item in the pool.
@@ -82,11 +82,11 @@ namespace KDScorpionEngine.Entities
         public void ShowNext()
         {
             //Check for the first entity that is visible
-            for (int i = 0; i < _objects.Count; i++)
+            for (int i = 0; i < this._objects.Count; i++)
             {
-                if (!_objects[i].Visible)
+                if (!this._objects[i].Visible)
                 {
-                    _objects[i].Visible = true;
+                    this._objects[i].Visible = true;
                     break;
                 }
             }
@@ -96,7 +96,7 @@ namespace KDScorpionEngine.Entities
         /// Sets bounds for the out of bounds trigger.
         /// </summary>
         /// <param name="bounds">The bounds used to invoke the out of bounds trigger for each entity.</param>
-        public void SetOutOfBoundsTrigger(Rect bounds) => _triggerBounds = bounds;
+        public void SetOutOfBoundsTrigger(Rect bounds) => this._triggerBounds = bounds;
 
         /// <summary>
         /// Returns an enumerator that iterates through the entity pool.
@@ -104,7 +104,7 @@ namespace KDScorpionEngine.Entities
         /// <returns></returns>
         public IEnumerator GetEnumerator()
         {
-            return _objects.GetEnumerator();
+            return this._objects.GetEnumerator();
         }
 
         /// <summary>
@@ -112,9 +112,9 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         public void ShowAll()
         {
-            for (var i = 0; i < _objects.Count; i++)
+            for (var i = 0; i < this._objects.Count; i++)
             {
-                _objects[i].Visible = true;
+                this._objects[i].Visible = true;
             }
         }
 
@@ -123,9 +123,9 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         public void HideAll()
         {
-            for (var i = 0; i < _objects.Count; i++)
+            for (var i = 0; i < this._objects.Count; i++)
             {
-                _objects[i].Visible = false;
+                this._objects[i].Visible = false;
             }
         }
 
@@ -149,22 +149,22 @@ namespace KDScorpionEngine.Entities
         public virtual void Update(IEngineTiming engineTime)
         {
             //Update each entity
-            for (var i = 0; i < _objects.Count; i++)
+            for (var i = 0; i < this._objects.Count; i++)
             {
-                if (OutOfBoundsTriggerEnabled && _objects[i].Visible)
+                if (OutOfBoundsTriggerEnabled && this._objects[i].Visible)
                 {
                     //If the position of the current entity is out of bounds,
                     //invoke the out of bounds trigger event
-                    if (!_triggerBounds.Contains(_objects[i].Position))
+                    if (!this._triggerBounds.Contains(this._objects[i].Position))
                     {
-                        OnOutOfBounds?.Invoke(this, new OutOfBoundsTriggerEventsArgs(_objects[i]));
+                        OnOutOfBounds?.Invoke(this, new OutOfBoundsTriggerEventsArgs(this._objects[i]));
                     }
                 }
 
                 if (OnlyUpdateWhenVisible)
                 {
                     //Checks if the current entity is visible, if so then the entity will be moved
-                    if (_objects[i].Visible)
+                    if (this._objects[i].Visible)
                     {
                         //_objects[i].OnUpdate(engineTime);
                     }

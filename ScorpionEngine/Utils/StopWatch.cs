@@ -24,7 +24,7 @@ namespace KDScorpionEngine.Utils
         /// Creates a new instance of stopwatch.
         /// </summary>
         /// <param name="timeOut">The amount of time in milliseconds before the stopWatch OnTimeElapsed event is invoked.</param>
-        public StopWatch(int timeOut) => _timeOut = timeOut;
+        public StopWatch(int timeOut) => this._timeOut = timeOut;
 
         /// <summary>
         /// Gets or sets the amount of time in milliseconds before the stopwatch will invoke the OnTimeElapsed event.
@@ -32,8 +32,8 @@ namespace KDScorpionEngine.Utils
         /// </summary>
         public int TimeOut
         {
-            get => _timeOut;
-            set => _timeOut = value < 0 ? 1 : value;
+            get => this._timeOut;
+            set => this._timeOut = value < 0 ? 1 : value;
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace KDScorpionEngine.Utils
         /// </summary>
         public void Start()
         {
-            _enabled = true;
+            this._enabled = true;
             Running = true;
         }
 
@@ -65,7 +65,7 @@ namespace KDScorpionEngine.Utils
         /// </summary>
         public void Stop()
         {
-            _enabled = false;
+            this._enabled = false;
             Running = false;
         }
 
@@ -90,11 +90,11 @@ namespace KDScorpionEngine.Utils
         public void Update(EngineTime engineTime)
         {
             //If the stopwatch is enabled, add the amount of time passed to the elapsed value
-            if (_enabled)
+            if (this._enabled)
                 ElapsedMS += (int)engineTime.ElapsedEngineTime.TotalMilliseconds;
 
             //If the timeout has been reached
-            if (ElapsedMS < _timeOut) return;
+            if (ElapsedMS < this._timeOut) return;
 
             OnTimeElapsed?.Invoke(this, new EventArgs());
 

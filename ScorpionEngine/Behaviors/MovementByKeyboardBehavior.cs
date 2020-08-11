@@ -45,7 +45,7 @@ namespace KDScorpionEngine.Behaviors
             CreateBehaviors(keyboard);
             SetupBehaviors();
 
-            _gameObject = dyanmicEntity;
+            this._gameObject = dyanmicEntity;
 
             SetUpdateAction(UpdateAction);
         }
@@ -63,7 +63,7 @@ namespace KDScorpionEngine.Behaviors
             CreateBehaviors();
             SetupBehaviors();
 
-            _gameObject = entity;
+            this._gameObject = entity;
 
             SetUpdateAction(UpdateAction);
         }
@@ -75,11 +75,11 @@ namespace KDScorpionEngine.Behaviors
         {
             get
             {
-                return _moveUpKey;
+                return this._moveUpKey;
             }
             set
             {
-                _moveUpKey = value;
+                this._moveUpKey = value;
                 SetupBehaviors();
             }
         }
@@ -91,11 +91,11 @@ namespace KDScorpionEngine.Behaviors
         {
             get
             {
-                return _moveDownKey;
+                return this._moveDownKey;
             }
             set
             {
-                _moveDownKey = value;
+                this._moveDownKey = value;
                 SetupBehaviors();
             }
         }
@@ -107,11 +107,11 @@ namespace KDScorpionEngine.Behaviors
         {
             get
             {
-                return _moveLeftKey;
+                return this._moveLeftKey;
             }
             set
             {
-                _moveLeftKey = value;
+                this._moveLeftKey = value;
                 SetupBehaviors();
             }
         }
@@ -123,11 +123,11 @@ namespace KDScorpionEngine.Behaviors
         {
             get
             {
-                return _moveRightKey;
+                return this._moveRightKey;
             }
             set
             {
-                _moveRightKey = value;
+                this._moveRightKey = value;
                 SetupBehaviors();
             }
         }
@@ -143,10 +143,10 @@ namespace KDScorpionEngine.Behaviors
         /// <param name="engineTime">The game engine time.</param>
         private void UpdateAction(EngineTime engineTime)
         {
-            _moveRightOnKeyDown.Update(engineTime);
-            _moveLeftOnKeyDown.Update(engineTime);
-            _moveUpOnKeyDown.Update(engineTime);
-            _moveDownOnKeyDown.Update(engineTime);
+            this._moveRightOnKeyDown.Update(engineTime);
+            this._moveLeftOnKeyDown.Update(engineTime);
+            this._moveUpOnKeyDown.Update(engineTime);
+            this._moveDownOnKeyDown.Update(engineTime);
         }
 
         /// <summary>
@@ -155,10 +155,10 @@ namespace KDScorpionEngine.Behaviors
         [ExcludeFromCodeCoverage]
         private void CreateBehaviors()
         {
-            _moveRightOnKeyDown = new KeyBehavior(_moveRightKey, true);
-            _moveLeftOnKeyDown = new KeyBehavior(_moveLeftKey, true);
-            _moveUpOnKeyDown = new KeyBehavior(_moveUpKey, true);
-            _moveDownOnKeyDown = new KeyBehavior(_moveDownKey, true);
+            this._moveRightOnKeyDown = new KeyBehavior(this._moveRightKey, true);
+            this._moveLeftOnKeyDown = new KeyBehavior(this._moveLeftKey, true);
+            this._moveUpOnKeyDown = new KeyBehavior(this._moveUpKey, true);
+            this._moveDownOnKeyDown = new KeyBehavior(this._moveDownKey, true);
         }
 
         /// <summary>
@@ -167,10 +167,10 @@ namespace KDScorpionEngine.Behaviors
         /// <param name="keyboard">The keyboard to inject into the behaviors for testing.</param>
         private void CreateBehaviors(IKeyboard keyboard)
         {
-            _moveRightOnKeyDown = new KeyBehavior(keyboard);
-            _moveLeftOnKeyDown = new KeyBehavior(keyboard);
-            _moveUpOnKeyDown = new KeyBehavior(keyboard);
-            _moveDownOnKeyDown = new KeyBehavior(keyboard);
+            this._moveRightOnKeyDown = new KeyBehavior(keyboard);
+            this._moveLeftOnKeyDown = new KeyBehavior(keyboard);
+            this._moveUpOnKeyDown = new KeyBehavior(keyboard);
+            this._moveDownOnKeyDown = new KeyBehavior(keyboard);
         }
 
         /// <summary>
@@ -179,44 +179,44 @@ namespace KDScorpionEngine.Behaviors
         private void SetupBehaviors()
         {
             //Setup the move right key behavior
-            _moveRightOnKeyDown.Key = _moveRightKey;
-            _moveRightOnKeyDown.KeyDownEvent += MoveRight_KeyDown;
-            _moveRightOnKeyDown.BehaviorType = KeyBehaviorType.KeyDownContinuous;
+            this._moveRightOnKeyDown.Key = this._moveRightKey;
+            this._moveRightOnKeyDown.KeyDownEvent += MoveRight_KeyDown;
+            this._moveRightOnKeyDown.BehaviorType = KeyBehaviorType.KeyDownContinuous;
 
             //Setup the move left key behavior
-            _moveLeftOnKeyDown.Key = _moveLeftKey;
-            _moveLeftOnKeyDown.KeyDownEvent += MoveLeft_KeyDown;
-            _moveLeftOnKeyDown.BehaviorType = KeyBehaviorType.KeyDownContinuous;
+            this._moveLeftOnKeyDown.Key = this._moveLeftKey;
+            this._moveLeftOnKeyDown.KeyDownEvent += MoveLeft_KeyDown;
+            this._moveLeftOnKeyDown.BehaviorType = KeyBehaviorType.KeyDownContinuous;
 
             //Setup the move up key behavior
-            _moveUpOnKeyDown.Key = _moveUpKey;
-            _moveUpOnKeyDown.KeyDownEvent += MoveUp_KeyDown;
-            _moveUpOnKeyDown.BehaviorType = KeyBehaviorType.KeyDownContinuous;
+            this._moveUpOnKeyDown.Key = this._moveUpKey;
+            this._moveUpOnKeyDown.KeyDownEvent += MoveUp_KeyDown;
+            this._moveUpOnKeyDown.BehaviorType = KeyBehaviorType.KeyDownContinuous;
 
             //Setup the move down key behavior
-            _moveDownOnKeyDown.Key = _moveDownKey;
-            _moveDownOnKeyDown.KeyDownEvent += MoveDown_KeyDown;
-            _moveDownOnKeyDown.BehaviorType = KeyBehaviorType.KeyDownContinuous;
+            this._moveDownOnKeyDown.Key = this._moveDownKey;
+            this._moveDownOnKeyDown.KeyDownEvent += MoveDown_KeyDown;
+            this._moveDownOnKeyDown.BehaviorType = KeyBehaviorType.KeyDownContinuous;
         }
 
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> to the right.
         /// </summary>
-        private void MoveRight_KeyDown(object sender, KeyEventArgs e) => _gameObject.MoveRight(LinearSpeed);
+        private void MoveRight_KeyDown(object sender, KeyEventArgs e) => this._gameObject.MoveRight(LinearSpeed);
 
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> to the left.
         /// </summary>
-        private void MoveLeft_KeyDown(object sender, KeyEventArgs e) => _gameObject.MoveLeft(LinearSpeed);
+        private void MoveLeft_KeyDown(object sender, KeyEventArgs e) => this._gameObject.MoveLeft(LinearSpeed);
 
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> up.
         /// </summary>
-        private void MoveUp_KeyDown(object sender, KeyEventArgs e) => _gameObject.MoveUp(LinearSpeed);
+        private void MoveUp_KeyDown(object sender, KeyEventArgs e) => this._gameObject.MoveUp(LinearSpeed);
 
         /// <summary>
         /// Moves the <see cref="DynamicEntity"/> down.
         /// </summary>
-        private void MoveDown_KeyDown(object sender, KeyEventArgs e) => _gameObject.MoveDown(LinearSpeed);
+        private void MoveDown_KeyDown(object sender, KeyEventArgs e) => this._gameObject.MoveDown(LinearSpeed);
     }
 }
