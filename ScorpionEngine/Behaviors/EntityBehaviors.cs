@@ -15,7 +15,7 @@ namespace KDScorpionEngine.Behaviors
     [ExcludeFromCodeCoverage]
     public class EntityBehaviors : IEnumerable, IList<IBehavior>
     {
-        public List<IBehavior> _items = new List<IBehavior>();
+        public List<IBehavior> items = new List<IBehavior>();
 
         /// <summary>
         /// Gets an <see cref="IBehavior"/> at a specified index.
@@ -24,14 +24,14 @@ namespace KDScorpionEngine.Behaviors
         /// <returns></returns>
         public IBehavior this[int index]
         {
-            get => this._items[index];
-            set => this._items[index] = value;
+            get => this.items[index];
+            set => this.items[index] = value;
         }
 
         /// <summary>
         /// Gets the number of <see cref="IBehavior"/>s in the collection of <see cref="IBehavior"/>s.
         /// </summary>
-        public int Count => this._items.Count;
+        public int Count => this.items.Count;
 
         /// <summary>
         /// Gets a value indicating whether the collection of <see cref="IBehavior"/>s is readonly.
@@ -42,12 +42,12 @@ namespace KDScorpionEngine.Behaviors
         /// Adds the given <paramref name="item"/> to the collection of <see cref="IBehavior"/>s.
         /// </summary>
         /// <param name="item">The behavior to add.</param>
-        public void Add(IBehavior item) => this._items.Add(item);
+        public void Add(IBehavior item) => this.items.Add(item);
 
         /// <summary>
         /// Removes all of the <see cref="IBehavior"/>s from the collection of <see cref="IBehavior"/>s.
         /// </summary>
-        public void Clear() => this._items.Clear();
+        public void Clear() => this.items.Clear();
 
         /// <summary>
         /// Determines whether the collection of <see cref="IBehavior"/>s contains the the specific
@@ -55,7 +55,7 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         /// <param name="item">The item check for.</param>
         /// <returns></returns>
-        public bool Contains(IBehavior item) => this._items.Contains(item);
+        public bool Contains(IBehavior item) => this.items.Contains(item);
 
         /// <summary>
         /// Copies the <see cref="IBehavior"/>s to the given collection of <paramref name="behaviors"/>
@@ -63,27 +63,27 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         /// <param name="behaviors">The list of behaviors to copy the items to.</param>
         /// <param name="index">The index of where to start copying the source items.</param>
-        public void CopyTo(IBehavior[] behaviors, int index) => this._items.CopyTo(behaviors, index);
+        public void CopyTo(IBehavior[] behaviors, int index) => this.items.CopyTo(behaviors, index);
 
         /// <summary>
         /// Returns an enumerator that iterates through the collection of <see cref="IBehavior"/>s.
         /// </summary>
         /// <returns></returns>
-        public IEnumerator GetEnumerator() => this._items.GetEnumerator();
+        public IEnumerator GetEnumerator() => this.items.GetEnumerator();
 
         /// <summary>
         /// Determines the index of the given <paramref name="item"/> in the collection of <see cref="IBehavior"/>s.
         /// </summary>
         /// <param name="item">The item to get the index of.</param>
         /// <returns></returns>
-        public int IndexOf(IBehavior item) => this._items.IndexOf(item);
+        public int IndexOf(IBehavior item) => this.items.IndexOf(item);
 
         /// <summary>
         /// Inserts the given <paramref name="item"/> to the collection of <see cref="IBehavior"/>s at the specified index.
         /// </summary>
         /// <param name="index">The zero-based index of where the item should be inserted.</param>
         /// <param name="item">The item to insert.</param>
-        public void Insert(int index, IBehavior item) => this._items.Insert(index, item);
+        public void Insert(int index, IBehavior item) => this.items.Insert(index, item);
 
         /// <summary>
         /// Removes the first occurence of the given <paramref name="item"/> from
@@ -91,18 +91,18 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         /// <param name="item">The behavior to remove.</param>
         /// <returns></returns>
-        public bool Remove(IBehavior item) => this._items.Remove(item);
+        public bool Remove(IBehavior item) => this.items.Remove(item);
 
         /// <summary>
         /// Removes the <see cref="IBehavior"/> at the given <paramref name="index"/>.
         /// </summary>
         /// <param name="index">The zero-based index of the behavior to remove.</param>
-        public void RemoveAt(int index) => this._items.RemoveAt(index);
+        public void RemoveAt(int index) => this.items.RemoveAt(index);
 
         /// <summary>
         /// Returns an enumerator that iterates through the collection of <see cref="IBehavior"/>s.
         /// </summary>
         /// <returns></returns>
-        IEnumerator<IBehavior> IEnumerable<IBehavior>.GetEnumerator() => this._items.GetEnumerator();
+        IEnumerator<IBehavior> IEnumerable<IBehavior>.GetEnumerator() => this.items.GetEnumerator();
     }
 }

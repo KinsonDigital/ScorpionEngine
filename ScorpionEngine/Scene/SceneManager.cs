@@ -27,9 +27,9 @@ namespace KDScorpionEngine.Scene
         /// </summary>
         public event EventHandler<SceneChangedEventArgs> SceneChanged;
 
-        private readonly ContentLoader _contentLoader;
-        private readonly List<IScene> _scenes = new List<IScene>();//The list of scenes
-        private readonly Keyboard _keyboard;
+        private readonly ContentLoader contentLoader;
+        private readonly List<IScene> scenes = new List<IScene>();//The list of scenes
+        private readonly Keyboard keyboard;
 
         /// <summary>
         /// Creates a new instance of <see cref="SceneManager"/>.
@@ -39,8 +39,8 @@ namespace KDScorpionEngine.Scene
         /// <param name="keyboard">The keyboard to inject.</param>
         internal SceneManager(IContentLoader contentLoader, IKeyboard keyboard)
         {
-            this._contentLoader = new ContentLoader(contentLoader);
-            this._keyboard = new Keyboard(keyboard);
+            this.contentLoader = new ContentLoader(contentLoader);
+            this.keyboard = new Keyboard(keyboard);
         }
 
         /// <summary>
@@ -50,8 +50,8 @@ namespace KDScorpionEngine.Scene
         [ExcludeFromCodeCoverage]
         public SceneManager(ContentLoader contentLoader)
         {
-            this._contentLoader = contentLoader;
-            this._keyboard = new Keyboard();
+            this.contentLoader = contentLoader;
+            this.keyboard = new Keyboard();
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace KDScorpionEngine.Scene
         /// <summary>
         /// Gets the currently enabled scene.
         /// </summary>
-        public IScene CurrentScene => this._scenes[CurrentSceneId];
+        public IScene CurrentScene => this.scenes[CurrentSceneId];
 
         /// <summary>
         /// Gets the current scene ID.
@@ -149,7 +149,7 @@ namespace KDScorpionEngine.Scene
         /// Gets the total number of scenes in the <see cref="SceneManager"/>.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        public int Count => this._scenes.Count;
+        public int Count => this.scenes.Count;
 
         /// <summary>
         /// Gets a value indicating if the list of scenes is readonly.
@@ -165,8 +165,8 @@ namespace KDScorpionEngine.Scene
         [ExcludeFromCodeCoverage]
         public IScene this[int index]
         {
-            get => this._scenes[index];
-            set => this._scenes[index] = value;
+            get => this.scenes[index];
+            set => this.scenes[index] = value;
         }
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace KDScorpionEngine.Scene
         /// </summary>
         /// <returns></returns>
         [ExcludeFromCodeCoverage]
-        public IEnumerator<IScene> GetEnumerator() => this._scenes.GetEnumerator();
+        public IEnumerator<IScene> GetEnumerator() => this.scenes.GetEnumerator();
 
         /// <summary>
         /// Returns an enumerator that iterates through the scenes.
@@ -186,7 +186,7 @@ namespace KDScorpionEngine.Scene
             var numbers = new List<int>();
 
             numbers.GetEnumerator();
-            return this._scenes.GetEnumerator();
+            return this.scenes.GetEnumerator();
         }
 
         /// <summary>
@@ -195,7 +195,7 @@ namespace KDScorpionEngine.Scene
         /// <param name="scene">The scene to get the index of.</param>
         /// <returns></returns>
         [ExcludeFromCodeCoverage]
-        public int IndexOf(IScene scene) => this._scenes.IndexOf(scene);
+        public int IndexOf(IScene scene) => this.scenes.IndexOf(scene);
 
         /// <summary>
         /// Inserts a new scene at the given index location.  Duplicate scene Id's cannot
@@ -205,14 +205,14 @@ namespace KDScorpionEngine.Scene
         /// <param name="scene">The scene to add.</param>
         /// <exception cref="IdAlreadyExistsException">Thrown if the given <see cref="IScene"/> with the <see cref="IScene.Id"/> already has been added to the <see cref="SceneManager"/>.</exception>
         [ExcludeFromCodeCoverage]
-        public void Insert(int index, IScene scene) => this._scenes.Insert(index, scene);
+        public void Insert(int index, IScene scene) => this.scenes.Insert(index, scene);
 
         /// <summary>
         /// Removes the <see cref="IScene"/> that exists at the given <paramref name="index"/>.
         /// </summary>
         /// <param name="index">The index location of the <see cref="IScene"/> to remove.</param>
         [ExcludeFromCodeCoverage]
-        public void RemoveAt(int index) => this._scenes.RemoveAt(index);
+        public void RemoveAt(int index) => this.scenes.RemoveAt(index);
 
         /// <summary>
         /// Adds the given <paramref name="scene"/> to the <see cref="SceneManager"/>.
@@ -226,7 +226,7 @@ namespace KDScorpionEngine.Scene
             //Generate a new scene ID if the current ID is a -1
             scene.Id = scene.Id == -1 ? GetNewId() : scene.Id;
 
-            this._scenes.Add(scene);
+            this.scenes.Add(scene);
 
             //If the manager is set to initalize now
             if (InitializeScenesOnAdd)
@@ -247,7 +247,7 @@ namespace KDScorpionEngine.Scene
         /// Moves all of the <see cref="IScene"/>s from the <see cref="SceneManager"/>.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        public void Clear() => this._scenes.Clear();
+        public void Clear() => this.scenes.Clear();
 
         /// <summary>
         /// Returns true if the given <paramref name="scene"/> already exists in the <see cref="SceneManager"/>.
@@ -255,7 +255,7 @@ namespace KDScorpionEngine.Scene
         /// <param name="scene">The <see cref="IScene"/> to check for.</param>
         /// <returns></returns>
         [ExcludeFromCodeCoverage]
-        public bool Contains(IScene scene) => this._scenes.Contains(scene);
+        public bool Contains(IScene scene) => this.scenes.Contains(scene);
 
         /// <summary>
         /// Copies the entire list of <see cref="IScene"/>s to a compatible one-dimensional array,
@@ -264,7 +264,7 @@ namespace KDScorpionEngine.Scene
         /// <param name="scenes">The list of scenes to copy the internal <see cref="IScene"/>s to.</param>
         /// <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
         [ExcludeFromCodeCoverage]
-        public void CopyTo(IScene[] scenes, int arrayIndex) => this._scenes.CopyTo(scenes, arrayIndex);
+        public void CopyTo(IScene[] scenes, int arrayIndex) => this.scenes.CopyTo(scenes, arrayIndex);
 
         /// <summary>
         /// Removes the given <paramref name="scene"/> from the <see cref="SceneManager"/>.
@@ -272,7 +272,7 @@ namespace KDScorpionEngine.Scene
         /// <param name="scene">The <see cref="IScene"/> to remove.</param>
         /// <returns></returns>
         [ExcludeFromCodeCoverage]
-        public bool Remove(IScene scene) => this._scenes.Remove(scene);
+        public bool Remove(IScene scene) => this.scenes.Remove(scene);
 
         /// <summary>
         /// Sets the current <see cref="IScene"/> ID to the given <paramref name="id"/>.
@@ -294,12 +294,12 @@ namespace KDScorpionEngine.Scene
         /// </summary>
         public void LoadAllSceneContent()
         {
-            this._scenes.ForEach(s =>
+            this.scenes.ForEach(s =>
             {
                 if (s.ContentLoaded)
                     return;
 
-                s.LoadContent(this._contentLoader);
+                s.LoadContent(this.contentLoader);
                 
                 s.ContentLoaded = true;
             });
@@ -319,23 +319,23 @@ namespace KDScorpionEngine.Scene
         /// </summary>
         public void LoadCurrentSceneContent()
         {
-            var foundScene = (from s in this._scenes
+            var foundScene = (from s in this.scenes
                               where s.Id == CurrentSceneId
                               select s).FirstOrDefault();
 
             if (foundScene is null)
                 throw new IdNotFoundException(CurrentSceneId);
 
-            var currentSceneIndex = this._scenes.IndexOf(foundScene);
+            var currentSceneIndex = this.scenes.IndexOf(foundScene);
 
-            this._scenes[currentSceneIndex].LoadContent(this._contentLoader);
-            this._scenes[currentSceneIndex].ContentLoaded = true;
+            this.scenes[currentSceneIndex].LoadContent(this.contentLoader);
+            this.scenes[currentSceneIndex].ContentLoaded = true;
         }
 
         /// <summary>
         /// Unloads all of the content for all of the scenes.
         /// </summary>
-        public void UnloadAllContent() => this._scenes.ForEach(s => s.UnloadContent(this._contentLoader));
+        public void UnloadAllContent() => this.scenes.ForEach(s => s.UnloadContent(this.contentLoader));
 
         /// <summary>
         /// Removes a <see cref="IScene"/> from the <see cref="SceneManager"/> that matches the given ID.
@@ -347,9 +347,9 @@ namespace KDScorpionEngine.Scene
             if (!SceneIdExists(id))
                 throw new IdNotFoundException(id);
 
-            var foundScene = (from s in this._scenes where s.Id == id select s).FirstOrDefault();
+            var foundScene = (from s in this.scenes where s.Id == id select s).FirstOrDefault();
 
-            this._scenes.Remove(foundScene);
+            this.scenes.Remove(foundScene);
         }
 
         /// <summary>
@@ -359,28 +359,28 @@ namespace KDScorpionEngine.Scene
         public void NextScene()
         {
             //Find the index of the scene with the currently set scene ID
-            var currentScene = (from s in this._scenes
+            var currentScene = (from s in this.scenes
                                 where s.Id == CurrentSceneId
                                 select s).FirstOrDefault();
 
             //Make the previous scene index the index of the current scene before
             //we move to the next scene
-            var previousSceneIndex = this._scenes.IndexOf(currentScene);
+            var previousSceneIndex = this.scenes.IndexOf(currentScene);
 
-            var nextSceneIndex = previousSceneIndex < this._scenes.Count - 1 ? previousSceneIndex + 1 : 0;
+            var nextSceneIndex = previousSceneIndex < this.scenes.Count - 1 ? previousSceneIndex + 1 : 0;
 
             //Update the current scene ID to the next scene that is being moved to
-            CurrentSceneId = this._scenes[nextSceneIndex].Id;
+            CurrentSceneId = this.scenes[nextSceneIndex].Id;
 
             //Get the ID of the previous scene
             var previousSceneId = currentScene.Id;
 
-            ProcessSettingsForPreviousScene(this._scenes[previousSceneIndex]);
+            ProcessSettingsForPreviousScene(this.scenes[previousSceneIndex]);
 
-            ProcessSettingsForCurrentScene(this._scenes[nextSceneIndex]);
+            ProcessSettingsForCurrentScene(this.scenes[nextSceneIndex]);
 
             //Invoke the scene changed event
-            SceneChanged?.Invoke(this, new SceneChangedEventArgs(this._scenes[previousSceneId].Name, this._scenes[CurrentSceneId].Name));
+            SceneChanged?.Invoke(this, new SceneChangedEventArgs(this.scenes[previousSceneId].Name, this.scenes[CurrentSceneId].Name));
         }
 
         /// <summary>
@@ -390,28 +390,28 @@ namespace KDScorpionEngine.Scene
         public void PreviousScene()
         {
             //Find the index of the scene with the currently set scene ID
-            var currentScene = (from s in this._scenes
+            var currentScene = (from s in this.scenes
                                 where s.Id == CurrentSceneId
                                 select s).FirstOrDefault();
 
             //Make the previous scene index the index of the current scene before
             //we move to the next scene
-            var previousSceneIndex = this._scenes.IndexOf(currentScene);
+            var previousSceneIndex = this.scenes.IndexOf(currentScene);
 
-            var nextSceneIndex = previousSceneIndex >= 1 ? previousSceneIndex - 1 : this._scenes.Count - 1;
+            var nextSceneIndex = previousSceneIndex >= 1 ? previousSceneIndex - 1 : this.scenes.Count - 1;
 
             //Update the current scene ID to the next scene that is being moved to
-            CurrentSceneId = this._scenes[nextSceneIndex].Id;
+            CurrentSceneId = this.scenes[nextSceneIndex].Id;
 
             //Get the ID of the previous scene
             var previousSceneId = currentScene.Id;
 
-            ProcessSettingsForPreviousScene(this._scenes[previousSceneIndex]);
+            ProcessSettingsForPreviousScene(this.scenes[previousSceneIndex]);
 
-            ProcessSettingsForCurrentScene(this._scenes[nextSceneIndex]);
+            ProcessSettingsForCurrentScene(this.scenes[nextSceneIndex]);
 
             //Invoke the scene changed event
-            SceneChanged?.Invoke(this, new SceneChangedEventArgs(this._scenes[previousSceneId].Name, this._scenes[CurrentSceneId].Name));
+            SceneChanged?.Invoke(this, new SceneChangedEventArgs(this.scenes[previousSceneId].Name, this.scenes[CurrentSceneId].Name));
         }
 
         /// <summary>
@@ -429,12 +429,12 @@ namespace KDScorpionEngine.Scene
 
             CurrentSceneId = id;
 
-            ProcessSettingsForPreviousScene(this._scenes[previousSceneId]);
+            ProcessSettingsForPreviousScene(this.scenes[previousSceneId]);
 
-            ProcessSettingsForCurrentScene(this._scenes[CurrentSceneId]);
+            ProcessSettingsForCurrentScene(this.scenes[CurrentSceneId]);
 
             //Invoke the scene changed event
-            SceneChanged?.Invoke(this, new SceneChangedEventArgs(this._scenes[previousSceneId].Name, this._scenes[CurrentSceneId].Name));
+            SceneChanged?.Invoke(this, new SceneChangedEventArgs(this.scenes[previousSceneId].Name, this.scenes[CurrentSceneId].Name));
         }
 
         /// <summary>
@@ -444,7 +444,7 @@ namespace KDScorpionEngine.Scene
         /// <param name="name">The name of the scene to set.</param>
         public void SetCurrentScene(string name)
         {
-            var foundScene = this._scenes.Where(s => s.Name == name).FirstOrDefault();
+            var foundScene = this.scenes.Where(s => s.Name == name).FirstOrDefault();
 
             //If no scene was found, throw an exception
             if (foundScene == null)
@@ -459,7 +459,7 @@ namespace KDScorpionEngine.Scene
             ProcessSettingsForCurrentScene(foundScene);
 
             //Invoke the scene changed event
-            SceneChanged?.Invoke(this, new SceneChangedEventArgs(this._scenes[previousSceneId].Name, this._scenes[CurrentSceneId].Name));
+            SceneChanged?.Invoke(this, new SceneChangedEventArgs(this.scenes[previousSceneId].Name, this.scenes[CurrentSceneId].Name));
         }
 
         /// <summary>
@@ -470,7 +470,7 @@ namespace KDScorpionEngine.Scene
         {
             if (SceneIdExists(CurrentSceneId))
             {
-                this._scenes[CurrentSceneId].Initialize();
+                this.scenes[CurrentSceneId].Initialize();
 
                 return;
             }
@@ -485,7 +485,7 @@ namespace KDScorpionEngine.Scene
         /// <exception cref="IdNotFoundException">Invoked if a scene with the given <paramref name="id"/> does not exist.</exception>
         public void InitializeScene(int id)
         {
-            var foundScene = (from s in this._scenes
+            var foundScene = (from s in this.scenes
                               where s.Id == id
                               select s).FirstOrDefault();
 
@@ -502,7 +502,7 @@ namespace KDScorpionEngine.Scene
         /// <exception cref="NameNotFoundException">Invoked if a scene with the given <paramref name="name"/> does not exist.</exception>
         public void InitializeScene(string name)
         {
-            var foundScene = (from s in this._scenes
+            var foundScene = (from s in this.scenes
                               where s.Name == name
                               select s).FirstOrDefault();
 
@@ -515,7 +515,7 @@ namespace KDScorpionEngine.Scene
         /// <summary>
         /// Initializes all scenes.
         /// </summary>
-        public void InitializeAllScenes() => this._scenes.ForEach(s => s.Initialize());
+        public void InitializeAllScenes() => this.scenes.ForEach(s => s.Initialize());
 
         /// <summary>
         /// Updates the <see cref="SceneManager"/> and all of its scenes depending on the manager's settings.
@@ -526,7 +526,7 @@ namespace KDScorpionEngine.Scene
             ProcessKeys();
 
             //Update all of the scenes.
-            this._scenes.ForEach(s =>
+            this.scenes.ForEach(s =>
             {
                 if (s.Active || UpdateInactiveScenes)
                     s.Update(engineTime);
@@ -539,10 +539,10 @@ namespace KDScorpionEngine.Scene
         /// <param name="renderer">The renderer to use for rendering.</param>
         public void Render(GameRenderer renderer)
         {
-            if (this._scenes.Count <= 0)
+            if (this.scenes.Count <= 0)
                 return;
 
-            var foundScene = (from s in this._scenes
+            var foundScene = (from s in this.scenes
                               where s.Id == CurrentSceneId
                               select s).FirstOrDefault();
 
@@ -564,7 +564,7 @@ namespace KDScorpionEngine.Scene
         /// <returns></returns>
         public T GetScene<T>(int id) where T : class, IScene
         {
-            var foundScene = (from s in this._scenes
+            var foundScene = (from s in this.scenes
                               where s.Id == id
                               select s).FirstOrDefault();
 
@@ -582,7 +582,7 @@ namespace KDScorpionEngine.Scene
         /// <returns></returns>
         public T GetScene<T>(string name) where T : class, IScene
         {
-            var foundScene = (from s in this._scenes
+            var foundScene = (from s in this.scenes
                               where s.Name == name
                               select s).FirstOrDefault();
 
@@ -595,67 +595,67 @@ namespace KDScorpionEngine.Scene
         /// <summary>
         /// Sets all of the scenes to in-active.
         /// </summary>
-        public void DeactivateAllScenes() => this._scenes.ForEach(s => s.Active = false);
+        public void DeactivateAllScenes() => this.scenes.ForEach(s => s.Active = false);
 
         /// <summary>
         /// Plays the current scene.
         /// </summary>
-        public void PlayCurrentScene() => this._scenes[CurrentSceneId].TimeManager.Paused = false;
+        public void PlayCurrentScene() => this.scenes[CurrentSceneId].TimeManager.Paused = false;
 
         /// <summary>
         /// Pauses the current scene.
         /// </summary>
-        public void PauseCurrentScene() => this._scenes[CurrentSceneId].TimeManager.Paused = true;
+        public void PauseCurrentScene() => this.scenes[CurrentSceneId].TimeManager.Paused = true;
 
         /// <summary>
         /// Runs a complete stack of frames set by the <see cref="ITimeManager"/> for the current <see cref="IScene"/>.
         /// This will only work if the <see cref="Mode"/> is set to the value of <see cref="RunMode.FrameStack"/> for the <see cref="IScene"/>.
         /// </summary>
-        public void RunFrameStack() => this._scenes[CurrentSceneId].TimeManager.RunFrameStack();
+        public void RunFrameStack() => this.scenes[CurrentSceneId].TimeManager.RunFrameStack();
 
         /// <summary>
         /// Runs a set amount of frames for the current <see cref="IScene"/>, given by the <paramref name="frames"/> param and pauses after.
         /// This will only work if the <see cref="Mode"/> is set to <see cref="RunMode.FrameStack"/> for the current <see cref="IScene"/>.
         /// </summary>
         /// <param name="frames">The number of frames to run.</param>
-        public void RunFrames(uint frames) => this._scenes[CurrentSceneId].TimeManager.RunFrames(frames);
+        public void RunFrames(uint frames) => this.scenes[CurrentSceneId].TimeManager.RunFrames(frames);
 
         /// <summary>
         /// Checks if any of the <see cref="SceneManager"/> keys have been pressed and processes them.
         /// </summary>
         private void ProcessKeys()
         {
-            this._keyboard.UpdateCurrentState();
+            this.keyboard.UpdateCurrentState();
 
             if (PlayCurrentSceneKey != KeyCode.None)
             {
                 //If the play key has been pressed
-                if (this._keyboard.IsKeyPressed(PlayCurrentSceneKey))
+                if (this.keyboard.IsKeyPressed(PlayCurrentSceneKey))
                     PlayCurrentScene();
             }
 
             if (PauseCurrentSceneKey != KeyCode.None)
             {
                 //If the pause key has been pressed
-                if (this._keyboard.IsKeyPressed(PauseCurrentSceneKey))
+                if (this.keyboard.IsKeyPressed(PauseCurrentSceneKey))
                     PauseCurrentScene();
             }
 
             if (NextSceneKey != KeyCode.None)
             {
                 //If the next scene key has been pressed
-                if (this._keyboard.IsKeyPressed(NextSceneKey))
+                if (this.keyboard.IsKeyPressed(NextSceneKey))
                     NextScene();
             }
 
             if (PreviousSceneKey != KeyCode.None)
             {
                 //If the previous scene key has been pressed
-                if (this._keyboard.IsKeyPressed(PreviousSceneKey))
+                if (this.keyboard.IsKeyPressed(PreviousSceneKey))
                     PreviousScene();
             }
 
-            this._keyboard.UpdatePreviousState();
+            this.keyboard.UpdatePreviousState();
         }
 
         /// <summary>
@@ -663,7 +663,7 @@ namespace KDScorpionEngine.Scene
         /// </summary>
         /// <param name="id">The ID of the <see cref="IScene"/> to check for.</param>
         /// <returns></returns>
-        private bool SceneIdExists(int id) => this._scenes.Any(s => s.Id == id);
+        private bool SceneIdExists(int id) => this.scenes.Any(s => s.Id == id);
 
         /// <summary>
         /// Gets a new ID number based on the current scenes ID numbers that already exist.
@@ -671,7 +671,7 @@ namespace KDScorpionEngine.Scene
         /// <returns>The new ID number that is free to use.</returns>
         private int GetNewId()
         {
-            var allIdNumbers = (from s in this._scenes select s.Id).ToArray();
+            var allIdNumbers = (from s in this.scenes select s.Id).ToArray();
 
             //Get the largest ID number
             var largestId = allIdNumbers.Length <= 0 ? 0 : allIdNumbers.Max();
@@ -692,7 +692,7 @@ namespace KDScorpionEngine.Scene
         /// <summary>
         /// Turn off rendering for all scenes.
         /// </summary>
-        private void TurnAllSceneRenderingOff() => this._scenes.ForEach(s => s.IsRenderingScene = false);
+        private void TurnAllSceneRenderingOff() => this.scenes.ForEach(s => s.IsRenderingScene = false);
 
         /// <summary>
         /// Processes all of the manager settings for the given <paramref name="scene"/>.
@@ -711,7 +711,7 @@ namespace KDScorpionEngine.Scene
             //If the manager is set to load the next scenes content
             if (LoadContentOnSceneChange)
             {
-                scene.LoadContent(this._contentLoader);
+                scene.LoadContent(this.contentLoader);
                 scene.ContentLoaded = true;
             }
 
@@ -726,7 +726,7 @@ namespace KDScorpionEngine.Scene
         {
             //Unload the previous scenes content if the UnloadContentOnSceneChange is set to true
             if (UnloadContentOnSceneChange)
-                scene.UnloadContent(this._contentLoader);
+                scene.UnloadContent(this.contentLoader);
 
             //If the manager is set to deactivate all other scenes
             if (DeactivateOnSceneChange)

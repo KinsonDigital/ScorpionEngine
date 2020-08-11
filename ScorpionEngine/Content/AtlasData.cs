@@ -16,7 +16,7 @@ namespace KDScorpionEngine.Content
     [ExcludeFromCodeCoverage]
     internal class AtlasData
     {
-        private readonly List<AtlasSpriteData> _atlasSprites;
+        private readonly List<AtlasSpriteData> atlasSprites;
 
         /// <summary>
         /// Loads a texture atlas with the given texture name and atlas data name.
@@ -25,7 +25,7 @@ namespace KDScorpionEngine.Content
         public AtlasData(List<AtlasSpriteData> atlasSubTexutureData)
         {
             //TODO: check to see if this copy by reference is needed
-            this._atlasSprites = atlasSubTexutureData;
+            this.atlasSprites = atlasSubTexutureData;
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace KDScorpionEngine.Content
         /// <returns></returns>
         public AtlasSpriteData this[int index]
         {
-            get { return this._atlasSprites[index]; }
+            get { return this.atlasSprites[index]; }
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace KDScorpionEngine.Content
         {
             get
             {
-                return this._atlasSprites.Select(item => item.Name).ToList();
+                return this.atlasSprites.Select(item => item.Name).ToList();
             }
         }
 
@@ -67,15 +67,15 @@ namespace KDScorpionEngine.Content
         internal List<Rect> GetFrames(string subTextureID)
         {
             //If the frame is a non animating frame, just return the single frame
-            if (!AtlasManager.IsAnimatingFrame(this._atlasSprites.Find(item => item.Name.Contains(subTextureID)).Name))
+            if (!AtlasManager.IsAnimatingFrame(this.atlasSprites.Find(item => item.Name.Contains(subTextureID)).Name))
             {
-                return this._atlasSprites.Where(item => item.Name == subTextureID).ToList().ConvertAll(item => item.Bounds);
+                return this.atlasSprites.Where(item => item.Name == subTextureID).ToList().ConvertAll(item => item.Bounds);
             }
 
             var returnItems = new List<Rect>();
 
             #region Animating Frame Sorting
-            var unsortedItems = this._atlasSprites.Where(item => AtlasManager.IsAnimatingFrame(item.Name)).ToList();
+            var unsortedItems = this.atlasSprites.Where(item => AtlasManager.IsAnimatingFrame(item.Name)).ToList();
             var currentIndexNum = 0;
 
             //Sort the animating frame names in ascending order using there index number
@@ -106,7 +106,7 @@ namespace KDScorpionEngine.Content
         /// <returns></returns>
         internal bool SubTextureExists(string name)
         {
-            return this._atlasSprites.Find(item => item.Name == name) != null;
+            return this.atlasSprites.Find(item => item.Name == name) != null;
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace KDScorpionEngine.Content
         /// <returns></returns>
         internal Rect SubTextureBounds(string name)
         {
-            return this._atlasSprites.Find(item => item.Name == name).Bounds;
+            return this.atlasSprites.Find(item => item.Name == name).Bounds;
         }
     }
 }

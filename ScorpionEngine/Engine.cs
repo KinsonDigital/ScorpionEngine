@@ -17,9 +17,9 @@ namespace KDScorpionEngine
     /// </summary>
     public class Engine : IDisposable
     {
-        private static IEngineCore _engineCore;
-        private static int _prevElapsedTime;
-        private GameRenderer _renderer;
+        private static IEngineCore engineCore;
+        private static int prevElapsedTime;
+        private GameRenderer renderer;
 
         /// <summary>
         /// Creates a new instance of <see cref="Engine"/>.
@@ -61,7 +61,7 @@ namespace KDScorpionEngine
         /// <summary>
         /// Gets a value indicating that the game engine is currently running.
         /// </summary>
-        public bool Running => _engineCore.IsRunning();
+        public bool Running => engineCore.IsRunning();
 
         /// <summary>
         /// Gets the FPS that the engine is currently running at.
@@ -73,8 +73,8 @@ namespace KDScorpionEngine
         /// </summary>
         public static int WindowWidth
         {
-            get => _engineCore.WindowWidth;
-            set => _engineCore.WindowWidth = value;
+            get => engineCore.WindowWidth;
+            set => engineCore.WindowWidth = value;
         }
 
         /// <summary>
@@ -82,19 +82,19 @@ namespace KDScorpionEngine
         /// </summary>
         public static int WindowHeight
         {
-            get => _engineCore.WindowHeight;
-            set => _engineCore.WindowHeight = value;
+            get => engineCore.WindowHeight;
+            set => engineCore.WindowHeight = value;
         }
 
         /// <summary>
         /// Starts the game engine.
         /// </summary>
-        public void Start() => _engineCore?.StartEngine();
+        public void Start() => engineCore?.StartEngine();
 
         /// <summary>
         /// Stops the game engine.
         /// </summary>
-        public void Stop() => _engineCore?.StopEngine();
+        public void Stop() => engineCore?.StopEngine();
 
         /// <summary>
         /// Initializes the engine.
@@ -118,9 +118,9 @@ namespace KDScorpionEngine
 
             if (!Running) return;//If the engine has not been started, exit
 
-            _prevElapsedTime = currentTime;
+            prevElapsedTime = currentTime;
 
-            CurrentFPS = 1000f / _prevElapsedTime;
+            CurrentFPS = 1000f / prevElapsedTime;
 
             SceneManager.Update(engineTime);
         }
@@ -142,8 +142,8 @@ namespace KDScorpionEngine
         /// <param name="disposing">True if the internal engine components should be disposed of.</param>
         private static void Dispose(bool _)
         {
-            if (_engineCore != null)
-                _engineCore.Dispose();
+            if (engineCore != null)
+                engineCore.Dispose();
         }
 
         /// <summary>
@@ -151,12 +151,12 @@ namespace KDScorpionEngine
         /// </summary>
         private void SetupEngineCore(IEngineCore engineCore)
         {
-            _engineCore = engineCore;
-            _engineCore.SetFPS(60);
-            _engineCore.OnInitialize += EngineCore_OnInitialize;
-            _engineCore.OnLoadContent += EngineCore_OnLoadContent;
-            _engineCore.OnUpdate += EngineCore_OnUpdate;
-            _engineCore.OnRender += EngineCore_OnRender;
+            Engine.engineCore = engineCore;
+            Engine.engineCore.SetFPS(60);
+            Engine.engineCore.OnInitialize += EngineCore_OnInitialize;
+            Engine.engineCore.OnLoadContent += EngineCore_OnLoadContent;
+            Engine.engineCore.OnUpdate += EngineCore_OnUpdate;
+            Engine.engineCore.OnRender += EngineCore_OnRender;
         }
 
         /// <summary>
@@ -200,13 +200,13 @@ namespace KDScorpionEngine
         [ExcludeFromCodeCoverage]
         private void EngineCore_OnRender(object sender, OnRenderEventArgs e)
         {
-            this._renderer.Clear(255, 50, 50, 50);
+            this.renderer.Clear(255, 50, 50, 50);
 
-            this._renderer.Begin();
+            this.renderer.Begin();
 
-            Render(this._renderer);
+            Render(this.renderer);
 
-            this._renderer.End();
+            this.renderer.End();
         }
     }
 }

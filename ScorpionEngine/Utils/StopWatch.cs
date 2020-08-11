@@ -17,14 +17,14 @@ namespace KDScorpionEngine.Utils
         /// </summary>
         public event EventHandler OnTimeElapsed;
 
-        private bool _enabled;
-        private int _timeOut;
+        private bool enabled;
+        private int timeOut;
 
         /// <summary>
         /// Creates a new instance of stopwatch.
         /// </summary>
         /// <param name="timeOut">The amount of time in milliseconds before the stopWatch OnTimeElapsed event is invoked.</param>
-        public StopWatch(int timeOut) => this._timeOut = timeOut;
+        public StopWatch(int timeOut) => this.timeOut = timeOut;
 
         /// <summary>
         /// Gets or sets the amount of time in milliseconds before the stopwatch will invoke the OnTimeElapsed event.
@@ -32,8 +32,8 @@ namespace KDScorpionEngine.Utils
         /// </summary>
         public int TimeOut
         {
-            get => this._timeOut;
-            set => this._timeOut = value < 0 ? 1 : value;
+            get => this.timeOut;
+            set => this.timeOut = value < 0 ? 1 : value;
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace KDScorpionEngine.Utils
         /// </summary>
         public void Start()
         {
-            this._enabled = true;
+            this.enabled = true;
             Running = true;
         }
 
@@ -65,7 +65,7 @@ namespace KDScorpionEngine.Utils
         /// </summary>
         public void Stop()
         {
-            this._enabled = false;
+            this.enabled = false;
             Running = false;
         }
 
@@ -90,11 +90,11 @@ namespace KDScorpionEngine.Utils
         public void Update(EngineTime engineTime)
         {
             //If the stopwatch is enabled, add the amount of time passed to the elapsed value
-            if (this._enabled)
+            if (this.enabled)
                 ElapsedMS += (int)engineTime.ElapsedEngineTime.TotalMilliseconds;
 
             //If the timeout has been reached
-            if (ElapsedMS < this._timeOut) return;
+            if (ElapsedMS < this.timeOut) return;
 
             OnTimeElapsed?.Invoke(this, new EventArgs());
 

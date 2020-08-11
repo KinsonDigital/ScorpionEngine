@@ -18,7 +18,7 @@ namespace KDScorpionEngine.Scene
         /// </summary>
         public event EventHandler<FrameStackFinishedEventArgs> FrameStackFinished;
 
-        private Action _frameStackCallback;//Invoked after a frame stack has been run
+        private Action frameStackCallback;//Invoked after a frame stack has been run
 
         /// <summary>
         /// Gets or sets the amount of elapsed time in milliseconds that the current frame has ran.
@@ -89,7 +89,7 @@ namespace KDScorpionEngine.Scene
                             Paused = true;
 
                             //Invoke the frame stack callback
-                            this._frameStackCallback?.Invoke();
+                            this.frameStackCallback?.Invoke();
 
                             //Invoke the frame stack finished event
                             FrameStackFinished?.Invoke(this, new FrameStackFinishedEventArgs((int)FramesPerStack));
@@ -124,7 +124,7 @@ namespace KDScorpionEngine.Scene
         {
             //If the mode is not in frame stack mode or if the callback is not null.
             //If the callback is not null, that means a previous call is still running.
-            if (Mode != RunMode.FrameStack || this._frameStackCallback != null)
+            if (Mode != RunMode.FrameStack || this.frameStackCallback != null)
                 return;
 
             Paused = false;
@@ -137,13 +137,13 @@ namespace KDScorpionEngine.Scene
 
             //Set the frame stack callback
             //This will be invoked once the frames are finished running
-            this._frameStackCallback = () =>
+            this.frameStackCallback = () =>
             {
                 //Set the frames per stack back to what it was before the RunFrames() method was called
                 FramesPerStack = oldFramesPerStack;
 
                 //Destroy the callback so it is not called anymore.
-                this._frameStackCallback = null;
+                this.frameStackCallback = null;
             };
         }
     }

@@ -15,29 +15,29 @@ namespace KDScorpionEngine.Entities
     [ExcludeFromCodeCoverage]
     public class ObjectAnimation
     {
-        private int _fps = 10;//The frames per second that the animation will run at
-        private int _elapsedTime;//The amount of time elapsed since the last animation frame was changed
-        private int _currentFrame;//The current frame of the animation
-        private readonly List<Rect> _frames = new List<Rect>();//The bounds of all the frames of the animation
+        private int fps = 10;//The frames per second that the animation will run at
+        private int elapsedTime;//The amount of time elapsed since the last animation frame was changed
+        private int currentFrame;//The current frame of the animation
+        private readonly List<Rect> frames = new List<Rect>();//The bounds of all the frames of the animation
 
         /// <summary>
         /// Creates a new instance of <see cref="ObjectAnimation"/>.
         /// </summary>
         /// <param name="frameBounds">The bounds data for the animation.</param>
-        public ObjectAnimation(List<Rect> frameBounds) => this._frames = frameBounds;
+        public ObjectAnimation(List<Rect> frameBounds) => this.frames = frameBounds;
 
         /// <summary>
         /// Gets or sets the frames per second of the animation.
         /// </summary>
         public int FPS
         {
-            get { return this._fps; }
+            get { return this.fps; }
             set
             {
                 //Make sure that the incoming value stays at a minimum of 1
                 value = value <= 0 ? 1 : value;
 
-                this._fps = value;
+                this.fps = value;
             }
         }
 
@@ -54,7 +54,7 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// Gets the frame bounds of the current frame.
         /// </summary>
-        public Rect CurrentFrameBounds => this._frames[this._currentFrame];
+        public Rect CurrentFrameBounds => this.frames[this.currentFrame];
 
         /// <summary>
         /// Gets or sets a value indicating if the animation loops.
@@ -77,7 +77,7 @@ namespace KDScorpionEngine.Entities
         public void Stop()
         {
             State = AnimationState.Stopped;
-            this._currentFrame = 0;//Set the current frame back to the first frame
+            this.currentFrame = 0;//Set the current frame back to the first frame
         }
 
         /// <summary>
@@ -90,36 +90,36 @@ namespace KDScorpionEngine.Entities
             {
                 case AnimationState.Running:
                     //Update the elapsed time since the last time the engine loop was called
-                    this._elapsedTime += engineTime.ElapsedEngineTime.Milliseconds;
+                    this.elapsedTime += engineTime.ElapsedEngineTime.Milliseconds;
 
                     //If the amount of time has passed for the next frame of the animation to be shown
-                    if (this._elapsedTime >= 1000 / this._fps)
+                    if (this.elapsedTime >= 1000 / this.fps)
                     {
-                        this._elapsedTime = 0;
+                        this.elapsedTime = 0;
 
                         //If the animation is running foward or backward
                         switch (Direction)
                         {
                             case AnimationDirection.Forward:
                                 //If the current frame is NOT the last frame
-                                if (this._currentFrame < this._frames.Count - 1)
+                                if (this.currentFrame < this.frames.Count - 1)
                                 {
-                                    this._currentFrame += 1;
+                                    this.currentFrame += 1;
                                 }
-                                else if(this._currentFrame >= this._frames.Count - 1 && Looping)//At the last frame, move back to the first frame
+                                else if(this.currentFrame >= this.frames.Count - 1 && Looping)//At the last frame, move back to the first frame
                                 {
-                                    this._currentFrame = 0;
+                                    this.currentFrame = 0;
                                 }
                                 break;
                             case AnimationDirection.Backward:
                                 //If the current frame is NOT the last frame
-                                if (this._currentFrame > 0)
+                                if (this.currentFrame > 0)
                                 {
-                                    this._currentFrame -= 1;
+                                    this.currentFrame -= 1;
                                 }
-                                else if (this._currentFrame <= 0 && Looping)//At the last frame, move back to the first frame
+                                else if (this.currentFrame <= 0 && Looping)//At the last frame, move back to the first frame
                                 {
-                                    this._currentFrame = this._frames.Count - 1;
+                                    this.currentFrame = this.frames.Count - 1;
                                 }
                                 break;
                         }

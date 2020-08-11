@@ -21,8 +21,8 @@ namespace KDScorpionEngine.Utils
         /// </summary>
         public event EventHandler MinReachedWhenDecrementing;
 
-        private int _min;
-        private int _max;
+        private int min;
+        private int max;
 
         /// <summary>
         /// Creates a new instance of Counter. The min cannot be greater than or equal to the max.
@@ -39,8 +39,8 @@ namespace KDScorpionEngine.Utils
             if (min > max)
                 throw new ArgumentOutOfRangeException("The min must be less than the max.");
 
-            this._min = min;
-            this._max = max;
+            this.min = min;
+            this.max = max;
 
             //Set the count amount
             CountAmount = countAmount;
@@ -56,14 +56,14 @@ namespace KDScorpionEngine.Utils
         /// </summary>
         public int Min
         {
-            get => this._min;
+            get => this.min;
             set
             {
                 //Make sure thataxhe min is then the max
-                if (value > this._max)
-                    throw new Exception($"The min value of {value} cannot be greater than max value of {this._max}.");
+                if (value > this.max)
+                    throw new Exception($"The min value of {value} cannot be greater than max value of {this.max}.");
 
-                this._min = value;
+                this.min = value;
             }
         }
 
@@ -72,14 +72,14 @@ namespace KDScorpionEngine.Utils
         /// </summary>
         public int Max
         {
-            get => this._max;
+            get => this.max;
             set
             {
                 //Make sure that the min is then the max
-                if (value < this._min)
-                    throw new Exception($"The max value of {value} cannot be less than min value of {this._min}.");
+                if (value < this.min)
+                    throw new Exception($"The max value of {value} cannot be less than min value of {this.min}.");
 
-                this._max = value;
+                this.max = value;
             }
         }
 

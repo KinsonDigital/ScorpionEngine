@@ -18,8 +18,8 @@ namespace KDScorpionEngine.Content
     [ExcludeFromCodeCoverage]
     internal static class AtlasManager
     {
-        private static readonly Dictionary<string, AtlasData> _allAtlasData = new Dictionary<string, AtlasData>();//The atlas data
-        private static readonly Dictionary<string, ITexture> _allAtlasTextures = new Dictionary<string, ITexture>();//The atlas textures
+        private static readonly Dictionary<string, AtlasData> allAtlasData = new Dictionary<string, AtlasData>();//The atlas data
+        private static readonly Dictionary<string, ITexture> allAtlasTextures = new Dictionary<string, ITexture>();//The atlas textures
 
         /// <summary>
         /// Adds the given atlas data to the atlas manager and assigns it the given unique textureAtlasID.
@@ -37,11 +37,11 @@ namespace KDScorpionEngine.Content
             CheckData(data);
 
             //As long as the atlas data has not already been added
-            if(!_allAtlasData.ContainsKey(atlasDataID))
-                _allAtlasData.Add(atlasDataID, data);//Add the atlas data
+            if(!allAtlasData.ContainsKey(atlasDataID))
+                allAtlasData.Add(atlasDataID, data);//Add the atlas data
 
-            if(!_allAtlasTextures.ContainsKey(textureAtlasID))
-                _allAtlasTextures.Add(textureAtlasID, texture);//Add the atlas texture
+            if(!allAtlasTextures.ContainsKey(textureAtlasID))
+                allAtlasTextures.Add(textureAtlasID, texture);//Add the atlas texture
         }
 
         /// <summary>
@@ -52,8 +52,8 @@ namespace KDScorpionEngine.Content
         {
             CheckID(id);//See if the atlas has already been added
 
-            _allAtlasData.Remove(id);
-            _allAtlasTextures.Remove(id);
+            allAtlasData.Remove(id);
+            allAtlasTextures.Remove(id);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace KDScorpionEngine.Content
         {
             CheckID(id);//See if the atlas has already been added
 
-            return _allAtlasData[id];
+            return allAtlasData[id];
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace KDScorpionEngine.Content
         {
             CheckID(id);//See if the atlas has already been added
 
-            return _allAtlasTextures[id];
+            return allAtlasTextures[id];
         }
 
         /// <summary>
@@ -211,7 +211,7 @@ namespace KDScorpionEngine.Content
         private static void CheckID(string id)
         {
             //First check to see if the ID is in the atlas data or atlas texture lists
-            if (_allAtlasData.Count <= 0 || _allAtlasTextures.Count <= 0) return;
+            if (allAtlasData.Count <= 0 || allAtlasTextures.Count <= 0) return;
 
             //TODO: look into uncommenting this code
             //If there are items in the lists, check for item duplication
