@@ -12,14 +12,14 @@ namespace KDScorpionEngineTests.Content
         [Fact]
         public void IsLetter_WhenInvokedWithUpperCaseLetter_ReturnsTrue()
         {
-            //Arrange
+            // Arrange
             var letter = 'Z';
             var expected = true;
 
-            //Act
+            // Act
             var actual = letter.IsLetter();
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -27,14 +27,14 @@ namespace KDScorpionEngineTests.Content
         [Fact]
         public void IsLetter_WhenInvokedWithLowerCaseLetter_ReturnsTrue()
         {
-            //Arrange
+            // Arrange
             var letter = 'z';
             var expected = true;
 
-            //Act
+            // Act
             var actual = letter.IsLetter();
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -42,14 +42,14 @@ namespace KDScorpionEngineTests.Content
         [Fact]
         public void IsLetter_WhenInvokedWithNumber_ReturnsFalse()
         {
-            //Arrange
+            // Arrange
             var digit = '3';
             var expected = false;
 
-            //Act
+            // Act
             var actual = digit.IsLetter();
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -57,14 +57,14 @@ namespace KDScorpionEngineTests.Content
         [Fact]
         public void IsNumber_WhenInvokedWithNumber_ReturnsTrue()
         {
-            //Arrange
+            // Arrange
             var digit = '4';
             var expected = true;
 
-            //Act
+            // Act
             var actual = digit.IsNumber();
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -72,14 +72,14 @@ namespace KDScorpionEngineTests.Content
         [Fact]
         public void IsNumber_WhenInvokedWithLetter_ReturnsFalse()
         {
-            //Arrange
+            // Arrange
             var letter = 'T';
             var expected = false;
 
-            //Act
+            // Act
             var actual = letter.IsNumber();
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -87,14 +87,14 @@ namespace KDScorpionEngineTests.Content
         [Fact]
         public void GetFirstOccurentOfNumber_WhenInvokedWithNumberInString_ReturnsCorrectIndex()
         {
-            //Arrange
+            // Arrange
             var data = "This number 1234 is my favorite number!";
             var expected = 1234;
 
-            //Act
+            // Act
             var actual = data.GetFirstOccurentOfNumber();
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -102,14 +102,14 @@ namespace KDScorpionEngineTests.Content
         [Fact]
         public void GetFirstOccurentOfNumber_WhenInvokedWithNoNumbersInString_ReturnsCorrectValue()
         {
-            //Arrange
+            // Arrange
             var data = "No number is my favorite number!";
             var expected = -1;
 
-            //Act
+            // Act
             var actual = data.GetFirstOccurentOfNumber();
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -117,14 +117,14 @@ namespace KDScorpionEngineTests.Content
         [Fact]
         public void HasNumbers_WhenInvokedWithNumbers_ReturnsTrue()
         {
-            //Arrange
+            // Arrange
             var data = "The number 1234 is my worst number!!";
             var expected = true;
 
-            //Act
+            // Act
             var actual = data.HasNumbers();
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -132,14 +132,14 @@ namespace KDScorpionEngineTests.Content
         [Fact]
         public void ContainsOnlyLettersAndNumbers_WhenInvokedWithNoSymbols_ReturnsTrue()
         {
-            //Arrange
+            // Arrange
             var data = "TheNumber445IsANumber";
             var expected = true;
 
-            //Act
+            // Act
             var actual = data.ContainsOnlyLettersAndNumbers();
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -147,14 +147,14 @@ namespace KDScorpionEngineTests.Content
         [Fact]
         public void ContainsOnlyLettersAndNumbers_WhenInvokedWithSymbols_ReturnsTrue()
         {
-            //Arrange
+            // Arrange
             var data = "TheNumber445IsANumber!";
             var expected = false;
 
-            //Act
+            // Act
             var actual = data.ContainsOnlyLettersAndNumbers();
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
         #endregion

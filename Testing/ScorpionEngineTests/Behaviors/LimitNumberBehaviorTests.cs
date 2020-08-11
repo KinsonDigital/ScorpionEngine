@@ -13,14 +13,14 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void Ctor_WhenInvoking_CorrectlySetsLimitProp()
         {
-            //Arrange
+            // Arrange
             var behavior = new LimitNumberBehavior(() => 123, (value) => { }, 112233f);
             var expected = 112233f;
 
-            //Act
+            // Act
             var actual = behavior.LimitValue;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -28,14 +28,14 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void Ctor_WhenInvoking_CorrectlySetsNameProp()
         {
-            //Arrange
+            // Arrange
             var behavior = new LimitNumberBehavior(() => 123, (value) => { }, 112233f);
             var expected = "LimitNumberBehavior";
 
-            //Act
+            // Act
             var actual = behavior.Name;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
         #endregion
@@ -45,17 +45,17 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void UpdateAction_WhenInvokingWithCurrentValueGreatorThanLimit_InvokesSetLimitAction()
         {
-            //Arrange
+            // Arrange
             var actual = 0f;
             void setLimit(float limitValue) { actual = limitValue; }
             float getValue() => 2;
             var behavior = new LimitNumberBehavior(getValue, setLimit, 1f);
             var expected = 1;
 
-            //Act
+            // Act
             behavior.Update(new EngineTime());
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -63,17 +63,17 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void UpdateAction_WhenInvokingWithCurrentValueLessThanLimit_InvokesSetLimitAction()
         {
-            //Arrange
+            // Arrange
             var actual = 0f;
             void setLimit(float limitValue) { actual = limitValue; }
             float getValue() => -2;
             var behavior = new LimitNumberBehavior(getValue, setLimit, -1f);
             var expected = -1;
 
-            //Act
+            // Act
             behavior.Update(new EngineTime());
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -81,17 +81,17 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void UpdateAction_WhenInvokingWithCurrentValueLessThanLimit_DoesNotInvokesSetLimitAction()
         {
-            //Arrange
+            // Arrange
             var actual = 0f;
             void setLimit(float limitValue) { actual = limitValue; }
             float getValue() => 0;
             var behavior = new LimitNumberBehavior(getValue, setLimit, 0f);
             var expected = 0;
 
-            //Act
+            // Act
             behavior.Update(new EngineTime());
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
         #endregion

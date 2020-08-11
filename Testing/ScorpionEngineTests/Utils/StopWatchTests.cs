@@ -15,15 +15,15 @@ namespace KDScorpionEngineTests.Utils
         [Fact]
         public void Start_WhenStarting_SetsRunningToTrue()
         {
-            //Arrange
+            // Arrange
             var stopWatch = new StopWatch(1000);
             var expected = true;
 
-            //Act
+            // Act
             stopWatch.Start();
             var actual = stopWatch.Running;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -31,15 +31,15 @@ namespace KDScorpionEngineTests.Utils
         [Fact]
         public void Stop_WhenStoping_SetsRunningToFalse()
         {
-            //Arrange
+            // Arrange
             var stopWatch = new StopWatch(1000);
             var expected = false;
 
-            //Act
+            // Act
             stopWatch.Stop();
             var actual = stopWatch.Running;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -47,20 +47,20 @@ namespace KDScorpionEngineTests.Utils
         [Fact]
         public void Reset_WhenReseting_SetElapsedToZeroAndRunningToFalse()
         {
-            //Arrange
+            // Arrange
             var stopWatch = new StopWatch(1000);
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 500) };
             var expectedRunning = false;
             var expectedElapsedMS = 0;
 
-            //Act
+            // Act
             stopWatch.Start();
             stopWatch.Update(engineTime);
             stopWatch.Reset();
             var actualRunning = stopWatch.Running;
             var actualElapsedMS = stopWatch.ElapsedMS;
 
-            //Assert
+            // Assert
             Assert.Equal(expectedElapsedMS, actualElapsedMS);
             Assert.Equal(expectedRunning, actualRunning);
         }
@@ -69,7 +69,7 @@ namespace KDScorpionEngineTests.Utils
         [Fact]
         public void Update_WhenInvokingWithResetTypeAsAuto_ResetStopWatch()
         {
-            //Arrange
+            // Arrange
             var stopWatch = new StopWatch(1000);
             var engineTime = new EngineTime()
             {
@@ -78,13 +78,13 @@ namespace KDScorpionEngineTests.Utils
             var expectedElapsedMS = 0;
             var expectedRunning = false;
 
-            //Act
+            // Act
             stopWatch.Start();
             stopWatch.Update(engineTime);
             var actualElapsedMS = stopWatch.ElapsedMS;
             var actualRunning = stopWatch.Running;
 
-            //Assert
+            // Assert
             Assert.Equal(expectedElapsedMS, actualElapsedMS);
             Assert.Equal(expectedRunning, actualRunning);
         }
@@ -93,7 +93,7 @@ namespace KDScorpionEngineTests.Utils
         [Fact]
         public void Update_WhenInvoking_OnTimeElapsedEventInvoked()
         {
-            //Arrange
+            // Arrange
             var expected = true;
             var actual = false;
             var stopWatch = new StopWatch(2500);
@@ -104,11 +104,11 @@ namespace KDScorpionEngineTests.Utils
             };
 
 
-            //Act
+            // Act
             stopWatch.Start();
             stopWatch.Update(engineTime);
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
         #endregion
@@ -118,15 +118,15 @@ namespace KDScorpionEngineTests.Utils
         [Fact]
         public void ResetMode_WhenSettingValue_ValueIsSetCorrectly()
         {
-            //Arrange
+            // Arrange
             var stopWatch = new StopWatch(1000);
             var expected = ResetType.Manual;
 
-            //Act
+            // Act
             stopWatch.ResetMode = ResetType.Manual;
             var actual = stopWatch.ResetMode;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -134,15 +134,15 @@ namespace KDScorpionEngineTests.Utils
         [Fact]
         public void TimeOut_WhenUsingNegativeValue_SetsValueToZero()
         {
-            //Arrange
+            // Arrange
             var stopWatch = new StopWatch(1000);
             var expected = 1;
 
-            //Act
+            // Act
             stopWatch.TimeOut = -100;
             var actual = stopWatch.TimeOut;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -150,15 +150,15 @@ namespace KDScorpionEngineTests.Utils
         [Fact]
         public void TimeOut_WhenUsingPositiveValue_SetsValueToIncomingValue()
         {
-            //Arrange
+            // Arrange
             var stopWatch = new StopWatch(1000);
             var expected = 100;
 
-            //Act
+            // Act
             stopWatch.TimeOut = 100;
             var actual = stopWatch.TimeOut;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -166,20 +166,20 @@ namespace KDScorpionEngineTests.Utils
         [Fact]
         public void ElapsedSeconds_WhenSettingValue_ConvertsSecondsToMilliseconds()
         {
-            //Arrange
+            // Arrange
             var stopWatch = new StopWatch(2500);
             var engineTime = new EngineTime()
             {
                 ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 750)
             };
-            var expected = 0.75f;//Seconds
+            var expected = 0.75f;// Seconds
 
-            //Act
+            // Act
             stopWatch.Start();
             stopWatch.Update(engineTime);
             var actual = stopWatch.ElapsedSeconds;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
         #endregion

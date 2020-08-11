@@ -136,7 +136,7 @@ namespace KDScorpionEngine.Utils
                         Reset();
                     break;
                 default:
-                    throw new Exception($"The {nameof(CountDirection)} is set to an invalid enumaration value.");
+                    throw new Exception($"The {nameof(CountDirection)} is set to an invalid enumeration value.");
             }
         }
 
@@ -154,7 +154,7 @@ namespace KDScorpionEngine.Utils
                     Value = Max;
                     break;
                 default:
-                    throw new Exception($"The {nameof(CountDirection)} is set to an invalid enum value.");
+                    throw new Exception($"The {nameof(CountDirection)} is set to an invalid enumeration value.");
             }
         }
     }

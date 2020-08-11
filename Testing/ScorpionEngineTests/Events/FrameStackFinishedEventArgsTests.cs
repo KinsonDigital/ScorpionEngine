@@ -12,14 +12,14 @@ namespace KDScorpionEngineTests.Events
         [Fact]
         public void Ctor_WhenInvoking_SetTotalFramesRanProp()
         {
-            //Arrange
+            // Arrange
             var eventArgs = new FrameStackFinishedEventArgs(123);
             var expected = 123;
 
-            //Act
+            // Act
             var actual = eventArgs.TotalFramesRan;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
         #endregion
@@ -29,15 +29,15 @@ namespace KDScorpionEngineTests.Events
         [Fact]
         public void TotalFramesRan_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
-            //Arrange
+            // Arrange
             var eventArgs = new FrameStackFinishedEventArgs(0);
             var expected = 123;
 
-            //Act
+            // Act
             eventArgs.TotalFramesRan = 123;
             var actual = eventArgs.TotalFramesRan;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
         #endregion

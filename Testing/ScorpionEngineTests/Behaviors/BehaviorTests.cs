@@ -13,15 +13,15 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void Enabled_WhenSettingToFalse_ReturnsFalse()
         {
-            //Arrange
+            // Arrange
             var behavior = new FakeBehavior(setupAction: false);
             var expected = false;
 
-            //Act
+            // Act
             behavior.Enabled = false;
             var actual = behavior.Enabled;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -29,15 +29,15 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void Name_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
-            //Arrange
+            // Arrange
             var behavior = new FakeBehavior(setupAction: false);
             var expected = "John Doe";
 
-            //Act
+            // Act
             behavior.Name = "John Doe";
             var actual = behavior.Name;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
         #endregion
@@ -47,16 +47,16 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void Update_WhenInvokedWhileDisabled_DoesNotInvokeBehaviorAction()
         {
-            //Arrange
+            // Arrange
             var behavior = new FakeBehavior(setupAction: true);
             var expected = false;
 
-            //Act
+            // Act
             behavior.Enabled = false;
             behavior.Update(new EngineTime());
             var actual = behavior.UpdateActionInvoked;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -64,15 +64,15 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void Update_WhenInvokedWithNoSetupAction_DoesNotInvokeAction()
         {
-            //Arrange
+            // Arrange
             var behavior = new FakeBehavior(setupAction: false);
             var expected = false;
 
-            //Act
+            // Act
             behavior.Update(new EngineTime());
             var actual = behavior.UpdateActionInvoked;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -80,15 +80,15 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void Update_WhenInvokedWithSetupActionAndEnabled_InvokesAction()
         {
-            //Arrange
+            // Arrange
             var behavior = new FakeBehavior(setupAction: true);
             var expected = true;
 
-            //Act
+            // Act
             behavior.Update(new EngineTime());
             var actual = behavior.UpdateActionInvoked;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
         #endregion

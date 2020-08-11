@@ -18,7 +18,7 @@ namespace KDScorpionEngineTests
                                  where f.Name == name
                                  select f).ToArray();
 
-            //If the list is not found throw not found exception
+            // If the list is not found throw not found exception
             if (privateFields == null || privateFields.Length <= 0)
                 throw new Exception($"Cannot find the field {name} on the given object of type {value.GetType()}");
 

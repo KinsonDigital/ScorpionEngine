@@ -31,10 +31,10 @@ namespace KDScorpionEngineTests.Entities
         [Fact]
         public void Ctor_WhenInvoking_CorrectlySetsUpEntity()
         {
-            //Arrange
+            // Arrange
             var entity = new TextEntity(_mockPhysicsBody.Object);
 
-            //Assert
+            // Assert
             Assert.Equal(string.Empty, entity.Text);
             Assert.Equal(new GameColor(255, 0, 0, 0), entity.ForeColor);
             Assert.Equal(new GameColor(0, 0, 0, 0), entity.BackColor);
@@ -46,15 +46,15 @@ namespace KDScorpionEngineTests.Entities
         [Fact]
         public void Text_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
-            //Arrange
+            // Arrange
             var entity = new TextEntity(_mockPhysicsBody.Object);
             var expected = "hello world";
 
-            //Act
+            // Act
             entity.Text = "hello world";
             var actual = entity.Text;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -62,15 +62,15 @@ namespace KDScorpionEngineTests.Entities
         [Fact]
         public void ForeColor_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
-            //Arrange
+            // Arrange
             var entity = new TextEntity(_mockPhysicsBody.Object);
             var expected = new GameColor(255, 11, 22, 33);
 
-            //Act
+            // Act
             entity.ForeColor = new GameColor(255, 11, 22, 33);
             var actual = entity.ForeColor;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -78,15 +78,15 @@ namespace KDScorpionEngineTests.Entities
         [Fact]
         public void BackColor_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
-            //Arrange
+            // Arrange
             var entity = new TextEntity(_mockPhysicsBody.Object);
             var expected = new GameColor(255, 11, 22, 33);
 
-            //Act
+            // Act
             entity.BackColor = new GameColor(255, 11, 22, 33);
             var actual = entity.BackColor;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
         #endregion

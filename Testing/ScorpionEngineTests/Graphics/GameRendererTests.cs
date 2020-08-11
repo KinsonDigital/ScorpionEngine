@@ -15,7 +15,7 @@ namespace KDScorpionEngineTests.Graphics
         [Fact]
         public void Renderer_WhenInvoked_InvokesInternalRenderer()
         {
-            //Arrange
+            // Arrange
             var mockRenderer = new Mock<IRenderer>();
             var renderer = new GameRenderer(mockRenderer.Object, new Mock<IDebugDraw>().Object);
             var fakeEntity = new FakeEntity(new Mock<IPhysicsBody>().Object);
@@ -23,10 +23,10 @@ namespace KDScorpionEngineTests.Graphics
 
             fakeEntity.Texture = texture;
 
-            //Act
+            // Act
             renderer.Render(fakeEntity);
 
-            //Assert
+            // Assert
             mockRenderer.Verify(m => m.Render(It.IsAny<ITexture>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>()));
         }
     }

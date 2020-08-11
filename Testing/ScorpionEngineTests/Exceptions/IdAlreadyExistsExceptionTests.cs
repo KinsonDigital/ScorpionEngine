@@ -12,14 +12,14 @@ namespace KDScorpionEngineTests.Exceptions
         [Fact]
         public void Ctor_WhenInvokedWithNoParams_ProperlySetsExceptionMessage()
         {
-            //Arrange
+            // Arrange
             var expected = "That ID already exists.";
 
-            //Act
+            // Act
             var exception = new IdAlreadyExistsException();
             var actual = exception.Message;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -27,14 +27,14 @@ namespace KDScorpionEngineTests.Exceptions
         [Fact]
         public void Ctor_WhenInvokedWithSceneId_ProperlySetsExceptionMessage()
         {
-            //Arrange
+            // Arrange
             var expected = "The ID '1234' already exists.";
 
-            //Act
+            // Act
             var exception = new IdAlreadyExistsException(1234);
             var actual = exception.Message;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -42,14 +42,14 @@ namespace KDScorpionEngineTests.Exceptions
         [Fact]
         public void Ctor_WhenInvokedMessage_ProperlySetsExceptionMessage()
         {
-            //Arrange
+            // Arrange
             var expected = "The is a custome message.";
 
-            //Act
+            // Act
             var exception = new IdAlreadyExistsException("The is a custome message.");
             var actual = exception.Message;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
         #endregion

@@ -15,7 +15,7 @@ namespace KDScorpionEngineTests.Utils
         [Fact]
         public void Ctr_WhenInvokingWithMinLessThanMax_ThrowsException()
         {
-            //Arrange, Act & Assert
+            // Arrange, Act & Assert
             Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
                 new Counter(10, 1, 1);
@@ -28,15 +28,15 @@ namespace KDScorpionEngineTests.Utils
         [Fact]
         public void Count_WhenInvoked_IncrementsValue()
         {
-            //Arrange
+            // Arrange
             var counter = new Counter(0, 4, 1);
             var expected = 1;
 
-            //Act
+            // Act
             counter.Count();
             var actual = counter.Value;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -44,7 +44,7 @@ namespace KDScorpionEngineTests.Utils
         [Fact]
         public void Count_WhenMaxReached_InvokesMaxReachedEvent()
         {
-            //Arrange
+            // Arrange
             var counter = new Counter(0, 2, 1);
             var expected = true;
             var actual = false;
@@ -54,11 +54,11 @@ namespace KDScorpionEngineTests.Utils
             };
 
 
-            //Act
+            // Act
             counter.Count();
             counter.Count();
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -66,17 +66,17 @@ namespace KDScorpionEngineTests.Utils
         [Fact]
         public void Count_WhenResetTypeSetToAutoAndMaxReached_InvokeReset()
         {
-            //Arrange
+            // Arrange
             var expected = 0;
             var counter = new Counter(0, 2, 1);
 
-            //Act
+            // Act
             counter.Count();
             counter.Count();
             counter.Count();
             var actual = counter.Value;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -84,20 +84,20 @@ namespace KDScorpionEngineTests.Utils
         [Fact]
         public void Count_WhenResetTypeSetToManualAndMaxReached_DoNotInvokeReset()
         {
-            //Arrange
+            // Arrange
             var expected = 3;
             var counter = new Counter(0, 2, 1)
             {
                 ResetMode = ResetType.Manual
             };
 
-            //Act
+            // Act
             counter.Count();
             counter.Count();
             counter.Count();
             var actual = counter.Value;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -105,7 +105,7 @@ namespace KDScorpionEngineTests.Utils
         [Fact]
         public void Count_WhenDecrementingAndGreaterThanMin_DoNotInvokedMinReachedEvent()
         {
-            //Arrange
+            // Arrange
             var expectedValue = 1;
             var expectedMinReached = false;
             var actualMinReached = false;
@@ -115,11 +115,11 @@ namespace KDScorpionEngineTests.Utils
             };
             counter.MinReachedWhenDecrementing += (sender, e) => actualMinReached = true;
 
-            //Act
+            // Act
             counter.Count();
             var actualValue = counter.Value;
 
-            //Assert
+            // Assert
             Assert.Equal(expectedValue, actualValue);
             Assert.Equal(expectedMinReached, actualMinReached);
         }
@@ -128,7 +128,7 @@ namespace KDScorpionEngineTests.Utils
         [Fact]
         public void Count_WhenInvoked_DecrementsValue()
         {
-            //Arrange
+            // Arrange
             var counter = new Counter(1, 4, 1)
             {
                 CountDirection = CountType.Decrement,
@@ -136,11 +136,11 @@ namespace KDScorpionEngineTests.Utils
             };
             var expected = -1;
 
-            //Act
+            // Act
             counter.Count();
             var actual = counter.Value;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -148,7 +148,7 @@ namespace KDScorpionEngineTests.Utils
         [Fact]
         public void Count_WhenMaxReached_InvokesMinReachedEvent()
         {
-            //Arrange
+            // Arrange
             var counter = new Counter(1, 2, 1)
             {
                 CountDirection = CountType.Decrement,
@@ -161,11 +161,11 @@ namespace KDScorpionEngineTests.Utils
                 actual = true;
             };
 
-            //Act
+            // Act
             counter.Count();
             counter.Count();
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -173,18 +173,18 @@ namespace KDScorpionEngineTests.Utils
         [Fact]
         public void Count_WhenResetTypeSetToAutoAndMinReached_InvokeReset()
         {
-            //Arrange
+            // Arrange
             var expected = 2;
             var counter = new Counter(0, 2, 1)
             {
                 CountDirection = CountType.Decrement
             };
 
-            //Act
+            // Act
             counter.Count();
             var actual = counter.Value;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -192,30 +192,30 @@ namespace KDScorpionEngineTests.Utils
         [Fact]
         public void Count_WhenSettingInvalidCountType_ThrowsException()
         {
-            //Arrange
+            // Arrange
             var counter = new Counter(0, 4, 1)
             {
                 CountDirection = (CountType)44
             };
 
-            //Act/Assert
-            var actual = Assert.Throws<Exception>(() => counter.Count() );
-            Assert.Equal($"The {nameof(counter.CountDirection)} is set to an invalid enum value.", actual.Message);
+            // Act/Assert
+            var actual = Assert.Throws<Exception>(() => counter.Count());
+            Assert.Equal($"The {nameof(counter.CountDirection)} is set to an invalid enumeration value.", actual.Message);
         }
 
 
         [Fact]
         public void Reset_WhenSettingInvalidCountType_ThrowsException()
         {
-            //Arrange
+            // Arrange
             var counter = new Counter(0, 4, 1)
             {
                 CountDirection = (CountType)44
             };
 
-            //Act/Assert
+            // Act/Assert
             var actual = Assert.Throws<Exception>(() => counter.Reset());
-            Assert.Equal($"The {nameof(counter.CountDirection)} is set to an invalid enum value.", actual.Message);
+            Assert.Equal($"The {nameof(counter.CountDirection)} is set to an invalid enumeration value.", actual.Message);
         }
         #endregion
 
@@ -224,10 +224,10 @@ namespace KDScorpionEngineTests.Utils
         [Fact]
         public void Min_WhenSettingMinMoreThanMax_ThrowsException()
         {
-            //Arrange
+            // Arrange
             var counter = new Counter(1, 4, 1);
 
-            //Act/Assert
+            // Act/Assert
             var actual = Assert.Throws<Exception>(() => counter.Min = 5);
             Assert.Equal($"The min value of 5 cannot be greater than max value of 4.", actual.Message);
         }
@@ -236,11 +236,11 @@ namespace KDScorpionEngineTests.Utils
         [Fact]
         public void Min_WhenSettingMinLessThanMax_ProperlySetsValue()
         {
-            //Arrange
+            // Arrange
             var counter = new Counter(1, 4, 1);
             var expected = 3;
 
-            //Act
+            // Act
             counter.Min = 3;
             var actual = counter.Min;
 
@@ -251,10 +251,10 @@ namespace KDScorpionEngineTests.Utils
         [Fact]
         public void Max_WhenSettingMaxLessThanMin_ThrowsException()
         {
-            //Arrange
+            // Arrange
             var counter = new Counter(1, 4, 1);
 
-            //Act/Assert
+            // Act/Assert
             var actual = Assert.Throws<Exception>(() => counter.Max = 0);
             Assert.Equal($"The max value of 0 cannot be less than min value of 1.", actual.Message);
         }
@@ -263,11 +263,11 @@ namespace KDScorpionEngineTests.Utils
         [Fact]
         public void Max_WhenSettingMaxMoreThanMin_ProperlySetsValue()
         {
-            //Arrange
+            // Arrange
             var counter = new Counter(1, 4, 1);
             var expected = 3;
 
-            //Act
+            // Act
             counter.Max = 3;
             var actual = counter.Max;
 

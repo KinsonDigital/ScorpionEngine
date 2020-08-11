@@ -38,13 +38,13 @@ namespace KDScorpionEngineTests.Scene
         [Fact]
         public void Ctor_WhenInvoking_CreatePhysicsWorld()
         {
-            //Arrange
+            // Arrange
             new FakeGameScene(_mockPhysicsWorld.Object);
 
-            //Act
+            // Act
             var actual = GameScene.PhysicsWorld;
 
-            //Assert
+            // Assert
             Assert.NotNull(actual);
         }
         #endregion
@@ -54,15 +54,15 @@ namespace KDScorpionEngineTests.Scene
         [Fact]
         public void Name_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
-            //Arrange
+            // Arrange
             var scene = new FakeGameScene(_mockPhysicsWorld.Object);
             var expected = "John Doe";
 
-            //Act
+            // Act
             scene.Name = "John Doe";
             var actual = scene.Name;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -70,15 +70,15 @@ namespace KDScorpionEngineTests.Scene
         [Fact]
         public void ContentLoaded_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
-            //Arrange
+            // Arrange
             var scene = new FakeGameScene(_mockPhysicsWorld.Object);
             var expected = true;
 
-            //Act
+            // Act
             scene.ContentLoaded = true;
             var actual = scene.ContentLoaded;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -86,13 +86,13 @@ namespace KDScorpionEngineTests.Scene
         [Fact]
         public void TimeManager_WhenGettingValue_NotNull()
         {
-            //Arrange
+            // Arrange
             var scene = new FakeGameScene(_mockPhysicsWorld.Object);
 
-            //Act
+            // Act
             var actual = scene.TimeManager;
 
-            //Assert
+            // Assert
             Assert.NotNull(actual);
         }
 
@@ -100,15 +100,15 @@ namespace KDScorpionEngineTests.Scene
         [Fact]
         public void Initialized_WhenGettingValueAfterInitialized_ReturnsTrue()
         {
-            //Arrange
+            // Arrange
             var scene = new FakeGameScene(_mockPhysicsWorld.Object);
             var expected = true;
 
-            //Act
+            // Act
             scene.Initialize();
             var actual = scene.Initialized;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -116,15 +116,15 @@ namespace KDScorpionEngineTests.Scene
         [Fact]
         public void Active_WhenGettingAndSettingValue_ReturnsTrue()
         {
-            //Arrange
+            // Arrange
             var scene = new FakeGameScene(_mockPhysicsWorld.Object);
             var expected = true;
 
-            //Act
+            // Act
             scene.Active = true;
             var actual = scene.Active;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -132,15 +132,15 @@ namespace KDScorpionEngineTests.Scene
         [Fact]
         public void IsRenderingScene_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
-            //Arrange
+            // Arrange
             var scene = new FakeGameScene(_mockPhysicsWorld.Object);
             var expected = true;
 
-            //Act
+            // Act
             scene.IsRenderingScene = true;
             var actual = scene.IsRenderingScene;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -148,15 +148,15 @@ namespace KDScorpionEngineTests.Scene
         [Fact]
         public void Id_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
-            //Arrange
+            // Arrange
             var scene = new FakeGameScene(_mockPhysicsWorld.Object);
             var expected = 10;
 
-            //Act
+            // Act
             scene.Id = 10;
             var actual = scene.Id;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
         #endregion
@@ -166,17 +166,17 @@ namespace KDScorpionEngineTests.Scene
         [Fact]
         public void LoadContent_WhenInvoked_SetsContentLoadedToTrue()
         {
-            //Arrange
+            // Arrange
             var mockCoreLoader = new Mock<IContentLoader>();
             var loader = new ContentLoader(mockCoreLoader.Object);
             var scene = new FakeGameScene(_mockPhysicsWorld.Object);
             var expected = true;
 
-            //Act
+            // Act
             scene.LoadContent(loader);
             var actual = scene.ContentLoaded;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -184,7 +184,7 @@ namespace KDScorpionEngineTests.Scene
         [Fact]
         public void UnloadContent_WhenInvoked_SetsContentLoadedToFalse()
         {
-            //Arrange
+            // Arrange
             var mockCoreLoader = new Mock<IContentLoader>();
             var loader = new ContentLoader(mockCoreLoader.Object);
             var scene = new FakeGameScene(_mockPhysicsWorld.Object)
@@ -193,11 +193,11 @@ namespace KDScorpionEngineTests.Scene
             };
             var expected = false;
 
-            //Act
+            // Act
             scene.UnloadContent(loader);
             var actual = scene.ContentLoaded;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -205,7 +205,7 @@ namespace KDScorpionEngineTests.Scene
         [Fact]
         public void Update_WhenInvoking_InvokesTimeManagerUpdate()
         {
-            //Arrange
+            // Arrange
             var mockTimeManager = new Mock<ITimeManager>();
 
             var scene = new FakeGameScene(_mockPhysicsWorld.Object)
@@ -213,10 +213,10 @@ namespace KDScorpionEngineTests.Scene
                 TimeManager = mockTimeManager.Object
             };
             
-            //Act
+            // Act
             scene.Update(new EngineTime());
 
-            //Assert
+            // Assert
             mockTimeManager.Verify(m => m.Update(It.IsAny<EngineTime>()), Times.Once());
         }
 
@@ -224,15 +224,15 @@ namespace KDScorpionEngineTests.Scene
         [Fact]
         public void Update_WhenInvoking_InvokesPhyiscsWorldUpdate()
         {
-            //Arrange
+            // Arrange
             var mockTimeManager = new Mock<ITimeManager>();
 
             var scene = new FakeGameScene(_mockPhysicsWorld.Object);
 
-            //Act
+            // Act
             scene.Update(new EngineTime());
 
-            //Assert
+            // Assert
             _mockPhysicsWorld.Verify(m => m.Update(It.IsAny<float>()), Times.Once());
         }
 
@@ -240,7 +240,7 @@ namespace KDScorpionEngineTests.Scene
         [Fact]
         public void Update_WhenInvoking_InvokesEntityUpdate()
         {
-            //Arrange
+            // Arrange
             var entity = new FakeEntity(new Vector2[0], Vector2.Zero)
             {
                 Body = new PhysicsBody(_mockPhysicsBody.Object)
@@ -251,11 +251,11 @@ namespace KDScorpionEngineTests.Scene
             scene.AddEntity(entity);
             var expected = true;
 
-            //Act
+            // Act
             scene.Update(new EngineTime());
             var actual = entity.UpdateInvoked;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -263,13 +263,13 @@ namespace KDScorpionEngineTests.Scene
         [Fact]
         public void Update_WhenInvokingWithNullTimeManager_DoesNotThrowException()
         {
-            //Arrange
+            // Arrange
             var scene = new FakeGameScene(_mockPhysicsWorld.Object)
             {
                 TimeManager = null
             };
 
-            //Act/Assert
+            // Act/Assert
             AssertExt.DoesNotThrow<NullReferenceException>(() =>
             {
                 scene.Update(new EngineTime());
@@ -280,7 +280,7 @@ namespace KDScorpionEngineTests.Scene
         [Fact]
         public void Render_WhenInvoking_InvokesAllEntityRenderMethods()
         {
-            //Arrange
+            // Arrange
             var mockTexture = new Mock<ITexture>();
             
             var entityA = new FakeEntity(false)
@@ -303,11 +303,11 @@ namespace KDScorpionEngineTests.Scene
             
             var expected = true;
 
-            //Act
+            // Act
             scene.Render(renderer);
             var actual = entityA.RenderInvoked && entityB.RenderInvoked;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
         #endregion

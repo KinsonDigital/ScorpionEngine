@@ -13,14 +13,14 @@ namespace KDScorpionEngineTests.Exceptions
         [Fact]
         public void Ctor_WhenInvokingWithNoParam_CorrectlySetsExceptionMessage()
         {
-            //Arrange
+            // Arrange
             var expected = $"{nameof(Entity)} is already initialized.  Invocation must be performed before using the {nameof(Entity)}.{nameof(Entity.Initialize)}() method.";
 
-            //Act
+            // Act
             var exception = new EntityAlreadyInitializedException();
             var actual = exception.Message;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -28,14 +28,14 @@ namespace KDScorpionEngineTests.Exceptions
         [Fact]
         public void Ctor_WhenInvokingWithMessageParam_CorrectlySetsExceptionMessage()
         {
-            //Arrange
+            // Arrange
             var expected = $"I Love Kristen!!";
 
-            //Act
+            // Act
             var exception = new EntityAlreadyInitializedException("I Love Kristen!!");
             var actual = exception.Message;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
         #endregion

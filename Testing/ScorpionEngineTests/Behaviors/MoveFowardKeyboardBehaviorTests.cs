@@ -39,17 +39,17 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void MoveFowardKey_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
-            //Arrange
+            // Arrange
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
 
             var behavior = new MoveFowardKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity);
             var expected = KeyCode.Space;
 
-            //Act
+            // Act
             behavior.MoveFowardKey = KeyCode.Space;
             var actual = behavior.MoveFowardKey;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -57,16 +57,16 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void RotateCWKey_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
-            //Arrange
+            // Arrange
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             var behavior = new MoveFowardKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity);
             var expected = KeyCode.Space;
 
-            //Act
+            // Act
             behavior.RotateCWKey = KeyCode.Space;
             var actual = behavior.RotateCWKey;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -74,16 +74,16 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void RotateCCWKey_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
-            //Arrange
+            // Arrange
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             var behavior = new MoveFowardKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity);
             var expected = KeyCode.Space;
 
-            //Act
+            // Act
             behavior.RotateCCWKey = KeyCode.Space;
             var actual = behavior.RotateCCWKey;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -91,7 +91,7 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void IsMovingFoward_WhenGettingValue_ReturnsTrue()
         {
-            //Arrange
+            // Arrange
             _mockKeyboard.Setup(m => m.IsKeyDown(KeyCode.Up)).Returns(true);
 
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
@@ -100,11 +100,11 @@ namespace KDScorpionEngineTests.Behaviors
 
             var behavior = new MoveFowardKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity);
 
-            //Act
+            // Act
             behavior.Update(new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) });
             var actual = behavior.IsMovingForward;
 
-            //Assert
+            // Assert
             Assert.True(behavior.IsMovingForward);
         }
 
@@ -112,23 +112,23 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void LinearSpeed_WhenSettingValue_ReturnsCorrectValue()
         {
-            //Act
+            // Act
             var behavior = new MoveFowardKeyboardBehavior<DynamicEntity>(It.IsAny<IKeyboard>(), It.IsAny<DynamicEntity>())
             {
                 LinearSpeed = 12
             };
 
-            //Assert
+            // Assert
             Assert.Equal(12, behavior.LinearSpeed);
         }
         #endregion
 
 
         #region Method Tests
-        //[Fact]
+        // [Fact]
         public void Update_WhenInvoked_InvokesEntityRotateCW()
         {
-            //Arrange
+            // Arrange
             _mockKeyboard.Setup(m => m.IsKeyDown(KeyCode.Right)).Returns(true);
 
             var entityXVertices = new[] { 10f, 20f, 30f };
@@ -143,19 +143,19 @@ namespace KDScorpionEngineTests.Behaviors
                 AngularSpeed = 10
             };
 
-            //Act
+            // Act
             behavior.Update(new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) });
             var actual = entity.Angle;
 
-            //Assert
+            // Assert
             Assert.Equal(10, actual);
         }
 
 
-        //[Fact]
+        // [Fact]
         public void Update_WhenInvoked_InvokesEntityRotateCCW()
         {
-            //Arrange
+            // Arrange
             _mockKeyboard.Setup(m => m.IsKeyDown(KeyCode.Left)).Returns(true);
 
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
@@ -167,11 +167,11 @@ namespace KDScorpionEngineTests.Behaviors
                 AngularSpeed = -20
             };
 
-            //Act
+            // Act
             behavior.Update(new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) });
             var actual = entity.Angle;
 
-            //Assert
+            // Assert
             Assert.Equal(-20, actual);
         }
         #endregion

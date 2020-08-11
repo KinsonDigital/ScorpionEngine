@@ -12,15 +12,15 @@ namespace KDScorpionEngineTests.Exceptions
         [Fact]
         public void Ctor_WhenInvokingWithSceneId_CorrectlySetsExceptionMessage()
         {
-            //Arrange
+            // Arrange
             var sceneId = 10;
             var expected = "The scene with the ID of '10' was not found.";
 
-            //Act
+            // Act
             var exception = new SceneNotFoundException(sceneId);
             var actual = exception.Message;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -28,14 +28,14 @@ namespace KDScorpionEngineTests.Exceptions
         [Fact]
         public void Ctor_WhenInvokingWithMessage_CorrectlySetsExceptionMessage()
         {
-            //Arrange
+            // Arrange
             var expected = "This is a message";
 
-            //Act
+            // Act
             var exception = new SceneNotFoundException("This is a message");
             var actual = exception.Message;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
         #endregion

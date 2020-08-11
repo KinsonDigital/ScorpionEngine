@@ -12,14 +12,14 @@ namespace KDScorpionEngineTests.Exceptions
         [Fact]
         public void Ctor_WhenInvokingWithNoParams_ProperlySetsExceptionMessage()
         {
-            //Arrange
+            // Arrange
             var expected = "The ID has not been found.";
 
-            //Act
+            // Act
             var exception = new IdNotFoundException();
             var actual = exception.Message;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -27,14 +27,14 @@ namespace KDScorpionEngineTests.Exceptions
         [Fact]
         public void Ctor_WhenInvokingWithSceneId_ProperlySetsExceptionMessage()
         {
-            //Arrange
+            // Arrange
             var expected = "An ID with the number '9876' has not been found.";
 
-            //Act
+            // Act
             var exception = new IdNotFoundException(9876);
             var actual = exception.Message;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -42,14 +42,14 @@ namespace KDScorpionEngineTests.Exceptions
         [Fact]
         public void Ctor_WhenInvokingWithMessage_ProperlySetsExceptionMessage()
         {
-            //Arrange
+            // Arrange
             var expected = "This is a custom message.";
 
-            //Act
+            // Act
             var exception = new IdNotFoundException("This is a custom message.");
             var actual = exception.Message;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
         #endregion

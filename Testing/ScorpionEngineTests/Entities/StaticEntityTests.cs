@@ -34,14 +34,14 @@ namespace KDScorpionEngineTests.Entities
 
 
         #region Constructor Tests
-        //[Fact]
+        // [Fact]
         public void Ctor_WhenInvoking_ProperlyConstructsObject()
         {
-            //Arrange
+            // Arrange
             var entity = new StaticEntity(_mockPhysicsBody.Object);
             entity.Initialize();
 
-            //Assert
+            // Assert
             Assert.NotNull(entity.Body);
             Assert.Equal(Vector2.Zero, entity.Position);
             Assert.False(entity.IsStatic);
@@ -50,20 +50,20 @@ namespace KDScorpionEngineTests.Entities
 
 
         #region Method Tests
-        //[Fact]
+        // [Fact]
         public void Update_WhenInvoking_UpdatesBehavior()
         {
-            //Arrange
+            // Arrange
             var mockTexture = new Mock<ITexture>();
             var mockBehavior = new Mock<IBehavior>();
             var texture = new Texture(mockTexture.Object);
             var entity = new StaticEntity(texture, new Vector2(123, 456));
             entity.Behaviors.Add(mockBehavior.Object);
 
-            //Act
+            // Act
             entity.Update(new EngineTime());
 
-            //Assert
+            // Assert
             mockBehavior.Verify(m => m.Update(It.IsAny<EngineTime>()), Times.Once());
         }
         #endregion

@@ -14,14 +14,14 @@ namespace KDScorpionEngineTests.Exceptions
         [Fact]
         public void Ctor_WhenInvokingWithNoParams_CorrectlySetsExceptionMessage()
         {
-            //Arrange
+            // Arrange
             var expected = $"{nameof(Entity)} not initialized.  Must be initialized before being added to a {nameof(PhysicsWorld)} using {nameof(Entity)}.{nameof(Entity.Initialize)}() method.";
 
-            //Act
+            // Act
             var exception = new EntityNotInitializedException();
             var actual = exception.Message;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -29,14 +29,14 @@ namespace KDScorpionEngineTests.Exceptions
         [Fact]
         public void Ctor_WhenInvokingWithMessageParam_CorrectlySetsExceptionMessage()
         {
-            //Arrange
+            // Arrange
             var expected = "This is an exception message";
 
-            //Act
+            // Act
             var exception = new EntityNotInitializedException("This is an exception message");
             var actual = exception.Message;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
         #endregion

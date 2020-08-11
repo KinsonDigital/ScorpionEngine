@@ -12,14 +12,14 @@ namespace KDScorpionEngineTests.Exceptions
         [Fact]
         public void Ctor_WhenInvokingWithNoParams_ProperlySetsExceptionMessage()
         {
-            //Arrange
+            // Arrange
             var expected = "A scene with that name does not exist.";
 
-            //Act
+            // Act
             var exception = new NameNotFoundException();
             var actual = exception.Message;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -27,14 +27,14 @@ namespace KDScorpionEngineTests.Exceptions
         [Fact]
         public void Ctor_WhenInvokingWithMessage_ProperlySetsExceptionMessage()
         {
-            //Arrange
+            // Arrange
             var expected = "This is a custom message.";
 
-            //Act
+            // Act
             var exception = new NameNotFoundException("This is a custom message.");
             var actual = exception.Message;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
         #endregion

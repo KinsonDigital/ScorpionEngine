@@ -13,18 +13,19 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void Count_WhenGettingValueWithItems_ReturnsCorrectCount()
         {
-            //Arrange
+            // Arrange
             var behaviors = new EntityBehaviors();
             var expected = 4;
 
-            //Act
-            for (int i = 0; i < 4; i++)
+            // Act
+            for (var i = 0; i < 4; i++)
             {
                 behaviors.Add(new FakeBehavior(setupAction: false));
             }
+
             var actual = behaviors.Count;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -32,14 +33,14 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void IsReadOnly_WhenGettingValue_ReturnsFalse()
         {
-            //Arrange
+            // Arrange
             var behaviors = new EntityBehaviors();
             var expected = false;
 
-            //Act
+            // Act
             var actual = behaviors.IsReadOnly;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -47,19 +48,19 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void SetIndexItem_WhenGettingValue_ReturnsFalse()
         {
-            //Arrange
+            // Arrange
             var behaviors = new EntityBehaviors();
             var behavior = new FakeBehavior(setupAction: false);
             var expectedCount = 1;
             var expectedContains = true;
 
-            //Act
+            // Act
             behaviors.Add(new FakeBehavior(setupAction: true));
             behaviors[0] = behavior;
             var actualCount = behaviors.Count;
             var actualContains = behaviors.Contains(behavior);
 
-            //Assert
+            // Assert
             Assert.Equal(expectedCount, actualCount);
             Assert.Equal(expectedContains, actualContains);
         }
@@ -68,16 +69,16 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void GetItemByIndex_WhenGettingValue_ReturnsCorrectItem()
         {
-            //Arrange
+            // Arrange
             var behaviors = new EntityBehaviors();
             var behavior = new FakeBehavior(setupAction: false);
 
-            //Act
+            // Act
             behaviors.Add(new FakeBehavior(setupAction: true));
             behaviors.Add(behavior);
             var actual = behaviors[1];
 
-            //Assert
+            // Assert
             Assert.Equal(behavior, actual);
         }
         #endregion
@@ -87,19 +88,20 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void Clear_WhenInvokingWithItems_RemovesAllItems()
         {
-            //Arrange
+            // Arrange
             var behaviors = new EntityBehaviors();
             var expected = 0;
 
-            //Act
-            for (int i = 0; i < 4; i++)
+            // Act
+            for (var i = 0; i < 4; i++)
             {
                 behaviors.Add(new FakeBehavior(setupAction: false));
             }
+
             behaviors.Clear();
             var actual = behaviors.Count;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -107,16 +109,16 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void Contains_WhenInvokingWithContainedItem_ReturnsTrue()
         {
-            //Arrange
+            // Arrange
             var behaviors = new EntityBehaviors();
             var behavior = new FakeBehavior(setupAction: false);
             var expected = true;
 
-            //Act
+            // Act
             behaviors.Add(behavior);
             var actual = behaviors.Contains(behavior);
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -124,12 +126,12 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void IndexOf_WhenInvoking_ReturnsCorrectIndex()
         {
-            //Arrange
+            // Arrange
             var behaviors = new EntityBehaviors();
             var behavior = new FakeBehavior(setupAction: false);
             var expected = 2;
 
-            //Act
+            // Act
             behaviors.Add(new FakeBehavior(setupAction: false));
             behaviors.Add(new FakeBehavior(setupAction: false));
             behaviors.Add(behavior);
@@ -137,7 +139,7 @@ namespace KDScorpionEngineTests.Behaviors
 
             var actual = behaviors.IndexOf(behavior);
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -145,12 +147,12 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void Insert_WhenInvoking_ProperlyInsertsItem()
         {
-            //Arrange
+            // Arrange
             var behaviors = new EntityBehaviors();
             var behavior = new FakeBehavior(setupAction: false);
             var expected = 1;
 
-            //Act
+            // Act
             behaviors.Add(new FakeBehavior(setupAction: false));
             behaviors.Add(new FakeBehavior(setupAction: false));
             behaviors.Add(new FakeBehavior(setupAction: false));
@@ -158,7 +160,7 @@ namespace KDScorpionEngineTests.Behaviors
 
             var actual = behaviors.IndexOf(behavior);
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -166,12 +168,12 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void Remove_WhenInvoking_RemovesCorrectItem()
         {
-            //Arrange
+            // Arrange
             var behaviors = new EntityBehaviors();
             var behavior = new FakeBehavior(setupAction: false);
             var expected = false;
 
-            //Act
+            // Act
             behaviors.Add(new FakeBehavior(setupAction: false));
             behaviors.Add(behavior);
             behaviors.Add(new FakeBehavior(setupAction: false));
@@ -180,7 +182,7 @@ namespace KDScorpionEngineTests.Behaviors
 
             var actual = behaviors.Contains(behavior);
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -188,12 +190,12 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void RemoveAt_WhenInvoking_RemovesCorrectItem()
         {
-            //Arrange
+            // Arrange
             var behaviors = new EntityBehaviors();
             var behavior = new FakeBehavior(setupAction: false);
             var expected = false;
 
-            //Act
+            // Act
             behaviors.Add(new FakeBehavior(setupAction: false));
             behaviors.Add(behavior);
             behaviors.Add(new FakeBehavior(setupAction: false));
@@ -202,7 +204,7 @@ namespace KDScorpionEngineTests.Behaviors
 
             var actual = behaviors.Contains(behavior);
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -210,7 +212,7 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void CopyTo_WhenInvoking_CorrectlyCopiesItem()
         {
-            //Arrange
+            // Arrange
             var behaviors = new EntityBehaviors();
             var behavior1 = new FakeBehavior(setupAction: false);
             var behavior2 = new FakeBehavior(setupAction: false);
@@ -220,14 +222,14 @@ namespace KDScorpionEngineTests.Behaviors
                 behavior2
             };
 
-            //Act
+            // Act
             behaviors.Add(behavior1);
             behaviors.Add(behavior2);
 
             var actual = new FakeBehavior[2];
             behaviors.CopyTo(actual, 0);
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -235,16 +237,16 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void GetEnumerator_WhenInvoking_DoesNotReturnNull()
         {
-            //Arrange
+            // Arrange
             var behaviors = new EntityBehaviors();
             var behavior = new FakeBehavior(setupAction: false);
 
-            //Act
+            // Act
             behaviors.Add(behavior);
 
             var actual = behaviors.GetEnumerator();
 
-            //Assert
+            // Assert
             Assert.NotNull(actual);
         }
         #endregion

@@ -38,13 +38,13 @@ namespace KDScorpionEngineTests
         [Fact]
         public void Ctor_WhenInvoking_SetsContentLoader()
         {
-            //Arrange
+            // Arrange
             var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
 
-            //Act
+            // Act
             var actual = engine.ContentLoader;
 
-            //Assert
+            // Assert
             Assert.NotNull(actual);
         }
         #endregion
@@ -54,10 +54,10 @@ namespace KDScorpionEngineTests
         [Fact]
         public void SceneManager_WhenGettingValue_IsNotNull()
         {
-            //Arrange
+            // Arrange
             var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
 
-            //Assert
+            // Assert
             Assert.NotNull(engine.SceneManager);
         }
 
@@ -65,10 +65,10 @@ namespace KDScorpionEngineTests
         [Fact]
         public void ContentLoader_WhenGettingValue_IsNotNull()
         {
-            //Arrange
+            // Arrange
             var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
 
-            //Assert
+            // Assert
             Assert.NotNull(engine.ContentLoader);
         }
 
@@ -76,14 +76,14 @@ namespace KDScorpionEngineTests
         [Fact]
         public void Running_WhenGettingValue_ReturnsCorrectValue()
         {
-            //Arrange
+            // Arrange
             var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
             var expected = true;
 
-            //Act
+            // Act
             var actual = Engine.Running;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -91,17 +91,17 @@ namespace KDScorpionEngineTests
         [Fact]
         public void CurrentFPS_WhenGettingValue_ReturnsCorrectValue()
         {
-            //Arrange
+            // Arrange
             var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
             var expected = 62.5f;
 
-            //Act
+            // Act
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
             Engine.Start();
             engine.Update(engineTime);
             var actual = Engine.CurrentFPS;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -109,14 +109,14 @@ namespace KDScorpionEngineTests
         [Fact]
         public void WindowWidth_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
-            //Arrange
+            // Arrange
             var expected = 123;
 
-            //Act
+            // Act
             Engine.WindowWidth = 123;
             var actual = Engine.WindowWidth;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -124,14 +124,14 @@ namespace KDScorpionEngineTests
         [Fact]
         public void WindowHeight_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
-            //Arrange
+            // Arrange
             var expected = 123;
 
-            //Act
+            // Act
             Engine.WindowHeight = 123;
             var actual = Engine.WindowHeight;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
         #endregion
@@ -141,13 +141,13 @@ namespace KDScorpionEngineTests
         [Fact]
         public void Start_WhenInvoked_InvokesEngineCoreStart()
         {
-            //Arrange
+            // Arrange
             var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
 
-            //Act
+            // Act
             Engine.Start();
 
-            //Assert
+            // Assert
             _mockEngineCore.Verify(m => m.StartEngine(), Times.Once());
         }
 
@@ -155,12 +155,12 @@ namespace KDScorpionEngineTests
         [Fact]
         public void Start_WhenInvokedWithNullEngineCore_DoesNotThrowException()
         {
-            //Arrange
+            // Arrange
             var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
 
-            engine.SetFieldNull("_engineCore");
+            engine.SetFieldNull("engineCore");
 
-            //Act/Assert
+            // Act/Assert
             AssertExt.DoesNotThrow<NullReferenceException>(() => Engine.Start());
         }
 
@@ -168,13 +168,13 @@ namespace KDScorpionEngineTests
         [Fact]
         public void Stop_WhenInvoked_InvokesEngineCoreStop()
         {
-            //Arrange
+            // Arrange
             var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
 
-            //Act
+            // Act
             Engine.Stop();
 
-            //Assert
+            // Assert
             _mockEngineCore.Verify(m => m.StopEngine(), Times.Once());
         }
 
@@ -182,12 +182,12 @@ namespace KDScorpionEngineTests
         [Fact]
         public void Stop_WhenInvokedWithNullEngineCore_DoesNotThrowException()
         {
-            //Arrange
+            // Arrange
             var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
 
-            engine.SetFieldNull("_engineCore");
+            engine.SetFieldNull("engineCore");
 
-            //Act/Assert
+            // Act/Assert
             AssertExt.DoesNotThrow<NullReferenceException>(() => Engine.Stop());
         }
 
@@ -195,16 +195,16 @@ namespace KDScorpionEngineTests
         [Fact]
         public void Update_WhenInvokingWhileRunning_SetsCurrentFPSProp()
         {
-            //Arrange
+            // Arrange
             var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
             var expected = 62.5f;
 
-            //Act
+            // Act
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
             engine.Update(engineTime);
             var actual = Engine.CurrentFPS;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -212,19 +212,19 @@ namespace KDScorpionEngineTests
         [Fact]
         public void Update_WhenInvokingWhileNotRunning_DoesNotSetCurrentFPSProp()
         {
-            //Arrange
+            // Arrange
             _mockEngineCore.Setup(m => m.IsRunning()).Returns(false);
 
             var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
             var expected = 0f;
             Engine.CurrentFPS = 0;
 
-            //Act
+            // Act
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
             engine.Update(engineTime);
             var actual = Engine.CurrentFPS;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -232,13 +232,13 @@ namespace KDScorpionEngineTests
         [Fact]
         public void Dispose_WhenInvoking_DisposesEngineCore()
         {
-            //Arrange
+            // Arrange
             var engine = new FakeEngine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
 
-            //Act
+            // Act
             engine.Dispose();
 
-            //Assert
+            // Assert
             _mockEngineCore.Verify(m => m.Dispose(), Times.Once());
         }
         #endregion

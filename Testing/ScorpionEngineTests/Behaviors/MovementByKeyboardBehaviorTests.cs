@@ -39,10 +39,10 @@ namespace KDScorpionEngineTests.Behaviors
 
 
         #region Constructor Tests
-        //[Fact]
+        // [Fact]
         public void Ctor_WhenInvoking_CreatesMoveRightBehavior()
         {
-            //Arrange
+            // Arrange
             SetKeyboardKey(KeyCode.Right);
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
@@ -52,18 +52,18 @@ namespace KDScorpionEngineTests.Behaviors
                 LinearSpeed = 1234
             };
 
-            //Act
+            // Act
             behavior.Update(new EngineTime());
 
-            //Assert
+            // Assert
             Assert.Equal(1234, entity.Position.X);
         }
 
 
-        //[Fact]
+        // [Fact]
         public void Ctor_WhenInvoking_CreatesMoveLeftBehavior()
         {
-            //Arrange
+            // Arrange
             SetKeyboardKey(KeyCode.Left);
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
@@ -73,18 +73,18 @@ namespace KDScorpionEngineTests.Behaviors
                 LinearSpeed = -5678
             };
 
-            //Act
+            // Act
             behavior.Update(new EngineTime());
 
-            //Assert
+            // Assert
             Assert.Equal(-5678, entity.Position.X);
         }
 
 
-        //[Fact]
+        // [Fact]
         public void Ctor_WhenInvoking_CreatesMoveUpBehavior()
         {
-            //Arrange
+            // Arrange
             SetKeyboardKey(KeyCode.Up);
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
@@ -94,18 +94,18 @@ namespace KDScorpionEngineTests.Behaviors
                 LinearSpeed = -1478
             };
 
-            //Act
+            // Act
             behavior.Update(new EngineTime());
 
-            //Assert
+            // Assert
             Assert.Equal(-1478, entity.Position.Y);
         }
 
 
-        //[Fact]
+        // [Fact]
         public void Ctor_WhenInvoking_CreatesMoveDownBehavior()
         {
-            //Arrange
+            // Arrange
             SetKeyboardKey(KeyCode.Down);
             var entity = new DynamicEntity(_mockPhysicsBody.Object);
             entity.Initialize();
@@ -115,10 +115,10 @@ namespace KDScorpionEngineTests.Behaviors
                 LinearSpeed = 9876
             };
 
-            //Act
+            // Act
             behavior.Update(new EngineTime());
 
-            //Assert
+            // Assert
             Assert.Equal(9876, entity.Position.Y);
         }
         #endregion
@@ -128,13 +128,13 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void MoveUpKey_WhenGettingAndSettingValue_CorrectlySetsValue()
         {
-            //Arrange
+            // Arrange
             SetKeyboardKey(It.IsAny<KeyCode>());
             var entity = new DynamicEntity();
             var behavior = new MovementByKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity);
             var expected = KeyCode.W;
 
-            //Act
+            // Act
             behavior.MoveUpKey = KeyCode.W;
             var actual = behavior.MoveUpKey;
 
@@ -145,18 +145,18 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void MoveDownKey_WhenGettingAndSettingValue_CorrectlySetsValue()
         {
-            //Arrange
+            // Arrange
             SetKeyboardKey(It.IsAny<KeyCode>());
             var entity = new DynamicEntity(It.IsAny<Vector2[]>(), It.IsAny<Vector2>());
 
             var behavior = new MovementByKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity);
             var expected = KeyCode.S;
 
-            //Act
+            // Act
             behavior.MoveDownKey = KeyCode.S;
             var actual = behavior.MoveDownKey;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -164,18 +164,18 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void MoveLeftKey_WhenGettingAndSettingValue_CorrectlySetsValue()
         {
-            //Arrange
+            // Arrange
             SetKeyboardKey(It.IsAny<KeyCode>());
             var entity = new DynamicEntity(It.IsAny<Vector2[]>(), It.IsAny<Vector2>());
 
             var behavior = new MovementByKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity);
             var expected = KeyCode.S;
 
-            //Act
+            // Act
             behavior.MoveLeftKey = KeyCode.S;
             var actual = behavior.MoveLeftKey;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -183,18 +183,18 @@ namespace KDScorpionEngineTests.Behaviors
         [Fact]
         public void MoveRightKey_WhenGettingAndSettingValue_CorrectlySetsValue()
         {
-            //Arrange
+            // Arrange
             SetKeyboardKey(It.IsAny<KeyCode>());
             var entity = new DynamicEntity(It.IsAny<Vector2[]>(), It.IsAny<Vector2>());
 
             var behavior = new MovementByKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity);
             var expected = KeyCode.S;
 
-            //Act
+            // Act
             behavior.MoveRightKey = KeyCode.S;
             var actual = behavior.MoveRightKey;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
         #endregion

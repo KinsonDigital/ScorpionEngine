@@ -12,14 +12,14 @@ namespace KDScorpionEngineTests.Events
         [Fact]
         public void Ctor_WhenInvoking_SetsPreviousSceneProp()
         {
-            //Arrange
+            // Arrange
             var eventArgs = new SceneChangedEventArgs("PreviousScene", "");
             var expected = "PreviousScene";
 
-            //Act
+            // Act
             var actual = eventArgs.PreviousScene;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
 
@@ -27,14 +27,14 @@ namespace KDScorpionEngineTests.Events
         [Fact]
         public void Ctor_WhenInvoking_SetsCurrentSceneProp()
         {
-            //Arrange
+            // Arrange
             var eventArgs = new SceneChangedEventArgs("", "CurrentScene");
             var expected = "CurrentScene";
 
-            //Act
+            // Act
             var actual = eventArgs.CurrentScene;
 
-            //Assert
+            // Assert
             Assert.Equal(expected, actual);
         }
         #endregion
