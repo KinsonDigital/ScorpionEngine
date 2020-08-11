@@ -58,7 +58,7 @@ namespace KDScorpionEngineTests.Input
             // Arrange
             var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
             {
-                Button = InputButton.LeftButton
+                Button = InputButton.LeftButton,
             };
             var expected = InputButton.LeftButton;
 
@@ -76,8 +76,9 @@ namespace KDScorpionEngineTests.Input
             var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
             {
                 Button = InputButton.LeftButton,
-                HitCountMax = 10
+                HitCountMax = 10,
             };
+
             // This value is meaningless and is only for satisfy the update param
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 0) };
 
@@ -101,7 +102,7 @@ namespace KDScorpionEngineTests.Input
             // Arrange
             var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
             {
-                DownElapsedResetMode = ResetType.Manual
+                DownElapsedResetMode = ResetType.Manual,
             };
 
             var expected = ResetType.Manual;
@@ -119,7 +120,7 @@ namespace KDScorpionEngineTests.Input
             // Arrange
             var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
             {
-                HitCountResetMode = ResetType.Manual
+                HitCountResetMode = ResetType.Manual,
             };
 
             var expected = ResetType.Manual;
@@ -140,14 +141,14 @@ namespace KDScorpionEngineTests.Input
                 ComboButtons = new List<InputButton>()
                 {
                     InputButton.LeftButton,
-                    InputButton.RightButton
-                }
+                    InputButton.RightButton,
+                },
             };
 
             var expected = new List<InputButton>()
             {
                 InputButton.LeftButton,
-                InputButton.RightButton
+                InputButton.RightButton,
             };
 
             // Act
@@ -179,7 +180,7 @@ namespace KDScorpionEngineTests.Input
             // Arrange
             var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
             {
-                InputReleasedTimeout = 2000
+                InputReleasedTimeout = 2000,
             };
 
             var expected = 1.234f;
@@ -218,13 +219,13 @@ namespace KDScorpionEngineTests.Input
             {
                 Button = InputButton.MiddleButton,
                 HitCountMax = 0,
-                InputReleasedTimeout = 5000
+                InputReleasedTimeout = 5000,
             };
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 4321) };
             var expected = 4.321;
 
             // Act/Assert
-            mouseWatcher.Update(engineTime);// Run once to get the internal states.
+            mouseWatcher.Update(engineTime); // Run once to get the internal states.
             var actual = Math.Round(mouseWatcher.InputReleasedElapsedSeconds, 3);
 
             // Assert
@@ -237,7 +238,7 @@ namespace KDScorpionEngineTests.Input
             // Arrange
             var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
             {
-                InputDownTimeOut = 123
+                InputDownTimeOut = 123,
             };
 
             var expected = 123;
@@ -255,7 +256,7 @@ namespace KDScorpionEngineTests.Input
             // Arrange
             var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
             {
-                InputReleasedTimeout = 456
+                InputReleasedTimeout = 456,
             };
 
             var expected = 456;
@@ -273,7 +274,7 @@ namespace KDScorpionEngineTests.Input
             // Arrange
             var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
             {
-                ReleasedElapsedResetMode = ResetType.Manual
+                ReleasedElapsedResetMode = ResetType.Manual,
             };
 
             var expected = ResetType.Manual;
@@ -294,7 +295,7 @@ namespace KDScorpionEngineTests.Input
             var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
             {
                 Button = InputButton.LeftButton,
-                HitCountMax = 0
+                HitCountMax = 0,
             };
 
             // Act/Assert
@@ -311,7 +312,7 @@ namespace KDScorpionEngineTests.Input
             var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
             {
                 Button = InputButton.LeftButton,
-                HitCountMax = 0
+                HitCountMax = 0,
             };
 
             mouseWatcher.SetFieldNull("counter");
@@ -332,16 +333,16 @@ namespace KDScorpionEngineTests.Input
             var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
             {
                 Button = InputButton.LeftButton,
-                HitCountMax = 0
+                HitCountMax = 0,
             };
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 10) };
             var expectedDownTimerElapsed = 0;
             var expectedUpTimerElapsed = 10;
 
             // Act/Assert
-            mouseWatcher.Update(engineTime);// Run once to get the internal states.
-            _mockMouse.Setup(m => m.IsButtonDown(InputButton.LeftButton)).Returns(false);// Return false to simulate that the button is not down
-            mouseWatcher.Update(engineTime);// Run update again to set the current and previous states different
+            mouseWatcher.Update(engineTime); // Run once to get the internal states.
+            _mockMouse.Setup(m => m.IsButtonDown(InputButton.LeftButton)).Returns(false); // Return false to simulate that the button is not down
+            mouseWatcher.Update(engineTime); // Run update again to set the current and previous states different
             mouseWatcher.Update(engineTime);
             var actualDownTimerElapsed = mouseWatcher.InputDownElapsedMS;
             var actualUpTimerElapsed = mouseWatcher.InputReleasedElapsedMS;
@@ -373,7 +374,7 @@ namespace KDScorpionEngineTests.Input
             var mouseWatcher = new MouseWatcher(false, _mockMouse.Object)
             {
                 Button = InputButton.LeftButton,
-                HitCountMax = 1
+                HitCountMax = 1,
             };
 
             // These events should never be fired.
@@ -408,7 +409,7 @@ namespace KDScorpionEngineTests.Input
             var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
             {
                 Button = InputButton.LeftButton,
-                HitCountMax = 2
+                HitCountMax = 2,
             };
             mouseWatcher.OnInputHitCountReached += (sender, e) => actual = true;
 
@@ -525,12 +526,12 @@ namespace KDScorpionEngineTests.Input
                 ComboButtons = new List<InputButton>()
                 {
                     InputButton.LeftButton,
-                    InputButton.RightButton
-                }
+                    InputButton.RightButton,
+                },
             };
             var expected = true;
             var actual = false;
-            
+
             mouseWatcher.OnInputComboPressed += new EventHandler((sender, e) => actual = true);
 
             // Act
@@ -552,8 +553,8 @@ namespace KDScorpionEngineTests.Input
                 ComboButtons = new List<InputButton>()
                 {
                     InputButton.LeftButton,
-                    InputButton.RightButton
-                }
+                    InputButton.RightButton,
+                },
             };
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
 

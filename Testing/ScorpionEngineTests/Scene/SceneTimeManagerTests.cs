@@ -129,7 +129,7 @@ namespace KDScorpionEngineTests.Scene
             var manager = new SceneTimeManager()
             {
                 Mode = RunMode.FrameStack,
-                FrameTime = 32
+                FrameTime = 32,
             };
             var expected = 16;
 
@@ -148,7 +148,7 @@ namespace KDScorpionEngineTests.Scene
             var manager = new SceneTimeManager()
             {
                 Mode = RunMode.FrameStack,
-                FrameTime = 16
+                FrameTime = 16,
             };
             var expected = 0;
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 9) };
@@ -169,7 +169,7 @@ namespace KDScorpionEngineTests.Scene
             var manager = new SceneTimeManager()
             {
                 Mode = RunMode.FrameStack,
-                FrameTime = 16
+                FrameTime = 16,
             };
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 9) };
 
@@ -189,7 +189,7 @@ namespace KDScorpionEngineTests.Scene
             var manager = new SceneTimeManager()
             {
                 Mode = RunMode.FrameStack,
-                FrameTime = 16
+                FrameTime = 16,
             };
             var expected = 1;
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 9) };
@@ -211,7 +211,7 @@ namespace KDScorpionEngineTests.Scene
             {
                 Mode = RunMode.FrameStack,
                 FrameTime = 16,
-                FramesPerStack = 10
+                FramesPerStack = 10,
             };
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 9) };
 
@@ -235,7 +235,7 @@ namespace KDScorpionEngineTests.Scene
             {
                 Mode = RunMode.FrameStack,
                 FrameTime = 16,
-                FramesPerStack = 10
+                FramesPerStack = 10,
             };
             var expected = true;
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 9) };
@@ -260,7 +260,7 @@ namespace KDScorpionEngineTests.Scene
             {
                 Mode = RunMode.FrameStack,
                 FrameTime = 16,
-                FramesPerStack = 10
+                FramesPerStack = 10,
             };
             var actualEventInvoked = false;
             var expectedEventInvoked = true;
@@ -284,7 +284,7 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var manager = new SceneTimeManager()
             {
-                Mode = RunMode.FrameStack
+                Mode = RunMode.FrameStack,
             };
             manager.Pause();
             var expected = false;
@@ -324,7 +324,7 @@ namespace KDScorpionEngineTests.Scene
             {
                 Mode = RunMode.FrameStack,
                 FrameTime = 16,
-                FramesPerStack = 10
+                FramesPerStack = 10,
             };
             manager.Pause();
             var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };

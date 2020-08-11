@@ -41,6 +41,7 @@ namespace KDScorpionEngineTests.Behaviors
         #endregion
 
         #region Constructor Tests
+
         // [Fact]
         public void Ctor_WhenInvoking_CreatesMoveRightBehavior()
         {
@@ -51,7 +52,7 @@ namespace KDScorpionEngineTests.Behaviors
 
             var behavior = new MovementByKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity)
             {
-                LinearSpeed = 1234
+                LinearSpeed = 1234,
             };
 
             // Act
@@ -71,7 +72,7 @@ namespace KDScorpionEngineTests.Behaviors
 
             var behavior = new MovementByKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity)
             {
-                LinearSpeed = -5678
+                LinearSpeed = -5678,
             };
 
             // Act
@@ -91,7 +92,7 @@ namespace KDScorpionEngineTests.Behaviors
 
             var behavior = new MovementByKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity)
             {
-                LinearSpeed = -1478
+                LinearSpeed = -1478,
             };
 
             // Act
@@ -111,7 +112,7 @@ namespace KDScorpionEngineTests.Behaviors
 
             var behavior = new MovementByKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity)
             {
-                LinearSpeed = 9876
+                LinearSpeed = 9876,
             };
 
             // Act

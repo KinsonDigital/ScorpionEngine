@@ -36,6 +36,7 @@ namespace KDScorpionEngineTests.Entities
         #endregion
 
         #region Constructor Tests
+
         // [Fact]
         public void Ctor_WhenInvoking_ProperlyConstructsObject()
         {
@@ -51,6 +52,7 @@ namespace KDScorpionEngineTests.Entities
         #endregion
 
         #region Method Tests
+
         // [Fact]
         public void Update_WhenInvoking_UpdatesBehavior()
         {

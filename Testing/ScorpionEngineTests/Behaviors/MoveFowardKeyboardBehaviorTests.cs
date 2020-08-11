@@ -113,7 +113,7 @@ namespace KDScorpionEngineTests.Behaviors
             // Act
             var behavior = new MoveFowardKeyboardBehavior<DynamicEntity>(It.IsAny<IKeyboard>(), It.IsAny<DynamicEntity>())
             {
-                LinearSpeed = 12
+                LinearSpeed = 12,
             };
 
             // Assert
@@ -122,6 +122,7 @@ namespace KDScorpionEngineTests.Behaviors
         #endregion
 
         #region Method Tests
+
         // [Fact]
         public void Update_WhenInvoked_InvokesEntityRotateCW()
         {
@@ -137,7 +138,7 @@ namespace KDScorpionEngineTests.Behaviors
 
             var behavior = new MoveFowardKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity)
             {
-                AngularSpeed = 10
+                AngularSpeed = 10,
             };
 
             // Act
@@ -160,7 +161,7 @@ namespace KDScorpionEngineTests.Behaviors
 
             var behavior = new MoveFowardKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity)
             {
-                AngularSpeed = -20
+                AngularSpeed = -20,
             };
 
             // Act

@@ -74,7 +74,7 @@ namespace KDScorpionEngineTests.Utils
             var stopWatch = new StopWatch(1000);
             var engineTime = new EngineTime()
             {
-                ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 1001)
+                ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 1001),
             };
             var expectedElapsedMS = 0;
             var expectedRunning = false;
@@ -165,9 +165,9 @@ namespace KDScorpionEngineTests.Utils
             var stopWatch = new StopWatch(2500);
             var engineTime = new EngineTime()
             {
-                ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 750)
+                ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 750),
             };
-            var expected = 0.75f;// Seconds
+            var expected = 0.75f; // Seconds
 
             // Act
             stopWatch.Start();

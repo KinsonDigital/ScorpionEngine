@@ -86,7 +86,7 @@ namespace KDScorpionEngineTests.Utils
             var expected = 3;
             var counter = new Counter(0, 2, 1)
             {
-                ResetMode = ResetType.Manual
+                ResetMode = ResetType.Manual,
             };
 
             // Act
@@ -108,7 +108,7 @@ namespace KDScorpionEngineTests.Utils
             var actualMinReached = false;
             var counter = new Counter(0, 2, 1, 2)
             {
-                CountDirection = CountType.Decrement
+                CountDirection = CountType.Decrement,
             };
             counter.MinReachedWhenDecrementing += (sender, e) => actualMinReached = true;
 
@@ -128,7 +128,7 @@ namespace KDScorpionEngineTests.Utils
             var counter = new Counter(1, 4, 1)
             {
                 CountDirection = CountType.Decrement,
-                ResetMode = ResetType.Manual
+                ResetMode = ResetType.Manual,
             };
             var expected = -1;
 
@@ -147,7 +147,7 @@ namespace KDScorpionEngineTests.Utils
             var counter = new Counter(1, 2, 1)
             {
                 CountDirection = CountType.Decrement,
-                ResetMode = ResetType.Manual
+                ResetMode = ResetType.Manual,
             };
             var expected = true;
             var actual = false;
@@ -171,7 +171,7 @@ namespace KDScorpionEngineTests.Utils
             var expected = 2;
             var counter = new Counter(0, 2, 1)
             {
-                CountDirection = CountType.Decrement
+                CountDirection = CountType.Decrement,
             };
 
             // Act
@@ -188,7 +188,7 @@ namespace KDScorpionEngineTests.Utils
             // Arrange
             var counter = new Counter(0, 4, 1)
             {
-                CountDirection = (CountType)44
+                CountDirection = (CountType)44,
             };
 
             // Act/Assert
@@ -202,7 +202,7 @@ namespace KDScorpionEngineTests.Utils
             // Arrange
             var counter = new Counter(0, 4, 1)
             {
-                CountDirection = (CountType)44
+                CountDirection = (CountType)44,
             };
 
             // Act/Assert

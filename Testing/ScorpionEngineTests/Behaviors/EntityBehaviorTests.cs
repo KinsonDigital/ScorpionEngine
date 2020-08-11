@@ -213,7 +213,7 @@ namespace KDScorpionEngineTests.Behaviors
             var expected = new FakeBehavior[]
             {
                 behavior1,
-                behavior2
+                behavior2,
             };
 
             // Act

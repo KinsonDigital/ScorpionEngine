@@ -182,7 +182,7 @@ namespace KDScorpionEngineTests.Scene
             var loader = new ContentLoader(mockCoreLoader.Object);
             var scene = new FakeGameScene(_mockPhysicsWorld.Object)
             {
-                ContentLoaded = true
+                ContentLoaded = true,
             };
             var expected = false;
 
@@ -202,9 +202,9 @@ namespace KDScorpionEngineTests.Scene
 
             var scene = new FakeGameScene(_mockPhysicsWorld.Object)
             {
-                TimeManager = mockTimeManager.Object
+                TimeManager = mockTimeManager.Object,
             };
-            
+
             // Act
             scene.Update(new EngineTime());
 
@@ -233,7 +233,7 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var entity = new FakeEntity(new Vector2[0], Vector2.Zero)
             {
-                Body = new PhysicsBody(_mockPhysicsBody.Object)
+                Body = new PhysicsBody(_mockPhysicsBody.Object),
             };
 
             var scene = new FakeGameScene(_mockPhysicsWorld.Object);
@@ -255,7 +255,7 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var scene = new FakeGameScene(_mockPhysicsWorld.Object)
             {
-                TimeManager = null
+                TimeManager = null,
             };
 
             // Act/Assert
@@ -270,17 +270,17 @@ namespace KDScorpionEngineTests.Scene
         {
             // Arrange
             var mockTexture = new Mock<ITexture>();
-            
+
             var entityA = new FakeEntity(false)
             {
                 Body = new PhysicsBody(_mockPhysicsBody.Object),
-                Texture = new Texture(mockTexture.Object)
+                Texture = new Texture(mockTexture.Object),
             };
 
             var entityB = new FakeEntity(false)
             {
                 Body = new PhysicsBody(_mockPhysicsBody.Object),
-                Texture = new Texture(mockTexture.Object)
+                Texture = new Texture(mockTexture.Object),
             };
 
             var scene = new FakeGameScene(_mockPhysicsWorld.Object);
@@ -288,7 +288,7 @@ namespace KDScorpionEngineTests.Scene
             scene.AddEntity(entityB, false);
 
             var renderer = new GameRenderer(new Mock<IRenderer>().Object, new Mock<IDebugDraw>().Object);
-            
+
             var expected = true;
 
             // Act

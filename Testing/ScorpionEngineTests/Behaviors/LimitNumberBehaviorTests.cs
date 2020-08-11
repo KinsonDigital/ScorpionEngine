@@ -49,9 +49,13 @@ namespace KDScorpionEngineTests.Behaviors
         {
             // Arrange
             var actual = 0f;
-            void setLimit(float limitValue) { actual = limitValue; }
-            float getValue() => 2;
-            var behavior = new LimitNumberBehavior(getValue, setLimit, 1f);
+            void SetLimit(float limitValue)
+            {
+                actual = limitValue;
+            }
+
+            static float GetValue() => 2;
+            var behavior = new LimitNumberBehavior(GetValue, SetLimit, 1f);
             var expected = 1;
 
             // Act
@@ -66,9 +70,13 @@ namespace KDScorpionEngineTests.Behaviors
         {
             // Arrange
             var actual = 0f;
-            void setLimit(float limitValue) { actual = limitValue; }
-            float getValue() => -2;
-            var behavior = new LimitNumberBehavior(getValue, setLimit, -1f);
+            void SetLimit(float limitValue)
+            {
+                actual = limitValue;
+            }
+
+            static float GetValue() => -2;
+            var behavior = new LimitNumberBehavior(GetValue, SetLimit, -1f);
             var expected = -1;
 
             // Act
@@ -83,9 +91,13 @@ namespace KDScorpionEngineTests.Behaviors
         {
             // Arrange
             var actual = 0f;
-            void setLimit(float limitValue) { actual = limitValue; }
-            float getValue() => 0;
-            var behavior = new LimitNumberBehavior(getValue, setLimit, 0f);
+            void SetLimit(float limitValue)
+            {
+                actual = limitValue;
+            }
+
+            static float GetValue() => 0;
+            var behavior = new LimitNumberBehavior(GetValue, SetLimit, 0f);
             var expected = 0;
 
             // Act

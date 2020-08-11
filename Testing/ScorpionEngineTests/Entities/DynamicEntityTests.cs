@@ -33,6 +33,7 @@ namespace KDScorpionEngineTests.Entities
             _mockPhysicsBody.SetupProperty(p => p.AngularVelocity);
             _mockPhysicsBody.SetupProperty(p => p.LinearVelocityX);
             _mockPhysicsBody.SetupProperty(p => p.LinearVelocityY);
+
             // _mockPhysicsBody.Setup(m => m.ApplyForce(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>()))
             //    .Callback<float, float, float, float>((forceX, forceY, worldLocationX, worldLocationY) =>
             //    {
@@ -112,7 +113,7 @@ namespace KDScorpionEngineTests.Entities
                 new Vector2(11, 22),
                 new Vector2(33, 44),
                 new Vector2(55, 66),
-                new Vector2(77, 88)
+                new Vector2(77, 88),
             };
 
             var expectedTotalBehaviors = 6;
@@ -134,7 +135,7 @@ namespace KDScorpionEngineTests.Entities
                 new Vector2(11, 22),
                 new Vector2(33, 44),
                 new Vector2(55, 66),
-                new Vector2(77, 88)
+                new Vector2(77, 88),
             };
 
             var expectedTotalBehaviors = 6;
@@ -448,7 +449,7 @@ namespace KDScorpionEngineTests.Entities
             {
                 SpeedX = 10,
                 SpeedY = 10,
-                RotateSpeed = 100
+                RotateSpeed = 100,
             };
 
             _mockPhysicsBody.Setup(m => m.ApplyForce(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>()))
@@ -898,7 +899,7 @@ namespace KDScorpionEngineTests.Entities
             // Arrange
             var entity = new DynamicEntity(_mockPhysicsBody.Object)
             {
-                MaxRotationSpeed = 10
+                MaxRotationSpeed = 10,
             };
 
             _mockPhysicsBody.Setup(m => m.ApplyAngularImpulse(It.IsAny<float>())).Callback<float>((value) =>

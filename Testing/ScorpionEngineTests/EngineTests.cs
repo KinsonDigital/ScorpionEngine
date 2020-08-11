@@ -19,8 +19,8 @@ namespace KDScorpionEngineTests
     {
         #region Private Fields
         private readonly Mock<IContentLoader> _mockContentLoader;
-        private Mock<IEngineCore> _mockEngineCore;
         private readonly Mock<IKeyboard> _mockKeyboard;
+        private Mock<IEngineCore> _mockEngineCore;
         #endregion
 
         #region Constructors
@@ -76,7 +76,7 @@ namespace KDScorpionEngineTests
         public void Running_WhenGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var engine = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
+            _ = new Engine(_mockContentLoader.Object, _mockEngineCore.Object, _mockKeyboard.Object);
             var expected = true;
 
             // Act
@@ -232,7 +232,7 @@ namespace KDScorpionEngineTests
         }
         #endregion
 
-        #region Public Methods       
+        #region Public Methods
         public void Dispose() => _mockEngineCore = null;
         #endregion
     }

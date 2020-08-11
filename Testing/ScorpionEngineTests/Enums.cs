@@ -10,6 +10,6 @@ namespace KDScorpionEngineTests
     public enum PluginLibType
     {
         Engine,
-        Physics
+        Physics,
     }
 }

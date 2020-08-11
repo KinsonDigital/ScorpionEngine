@@ -34,7 +34,7 @@ namespace KDScorpionEngineTests.Entities
             _mockPhysicsBody = new Mock<IPhysicsBody>();
             _mockPhysicsBody.SetupProperty(m => m.X);
             _mockPhysicsBody.SetupProperty(m => m.Y);
-            _mockPhysicsBody.Setup(m => m.XVertices).Returns(new ReadOnlyCollection<float>( new [] { -50f, 50f, 50f, -50f }));
+            _mockPhysicsBody.Setup(m => m.XVertices).Returns(new ReadOnlyCollection<float>(new[] { -50f, 50f, 50f, -50f }));
             _mockPhysicsBody.Setup(m => m.YVertices).Returns(new ReadOnlyCollection<float>(new float[] { -50, -50, 50, 50 }));
 
             _mockDebugDraw = new Mock<IDebugDraw>();
@@ -118,7 +118,7 @@ namespace KDScorpionEngineTests.Entities
             // Arrange
             var fakeEntity = new FakeEntity(_mockPhysicsBody.Object)
             {
-                Visible = false
+                Visible = false,
             };
             var expected = false;
 
@@ -150,7 +150,7 @@ namespace KDScorpionEngineTests.Entities
             // Arrange
             var fakeEntity = new FakeEntity(_mockPhysicsBody.Object)
             {
-                Visible = false
+                Visible = false,
             };
             var eventRaised = false;
             fakeEntity.OnShow += (sender, e) => { eventRaised = true; };
@@ -168,7 +168,7 @@ namespace KDScorpionEngineTests.Entities
             // Arrange
             var fakeEntity = new FakeEntity(_mockPhysicsBody.Object)
             {
-                Visible = false
+                Visible = false,
             };
             var eventRaised = false;
             fakeEntity.OnShow += (sender, e) => { eventRaised = true; };
@@ -186,7 +186,7 @@ namespace KDScorpionEngineTests.Entities
             // Arrange
             var fakeEntity = new FakeEntity(_mockPhysicsBody.Object)
             {
-                Visible = true
+                Visible = true,
             };
             var eventRaised = false;
             fakeEntity.OnShow += (sender, e) => { eventRaised = true; };
@@ -323,7 +323,7 @@ namespace KDScorpionEngineTests.Entities
             var vertices = new[] { Vector2.Zero };
             var fakeEntity = new FakeEntity(vertices, It.IsAny<Vector2>())
             {
-                Texture = CreateTexture()
+                Texture = CreateTexture(),
             };
 
             // Act
@@ -349,7 +349,7 @@ namespace KDScorpionEngineTests.Entities
             // Arrange
             var fakeEntity = new FakeEntity(null)
             {
-                DebugDrawEnabled = false
+                DebugDrawEnabled = false,
             };
 
             // Act & Assert
@@ -362,7 +362,7 @@ namespace KDScorpionEngineTests.Entities
             // Arrange & Act
             var fakeEntity = new FakeEntity(null)
             {
-                DebugDrawColor = new GameColor(11, 22, 33, 44)
+                DebugDrawColor = new GameColor(11, 22, 33, 44),
             };
 
             // Assert
@@ -378,7 +378,7 @@ namespace KDScorpionEngineTests.Entities
             var fakeEntity = new FakeEntity(_mockPhysicsBody.Object);
             var expected = new EntityBehaviors
             {
-                mockBehavior.Object
+                mockBehavior.Object,
             };
 
             // Act
@@ -430,7 +430,7 @@ namespace KDScorpionEngineTests.Entities
             {
                 new Vector2(11, 22),
                 new Vector2(33, 44),
-                new Vector2(55, 66)
+                new Vector2(55, 66),
             };
 
             // Act
@@ -452,7 +452,7 @@ namespace KDScorpionEngineTests.Entities
             {
                 new Vector2(11, 22),
                 new Vector2(33, 44),
-                new Vector2(55, 66)
+                new Vector2(55, 66),
             };
 
             // Act/Assert
@@ -467,7 +467,7 @@ namespace KDScorpionEngineTests.Entities
             {
                 new Vector2(11, 22),
                 new Vector2(33, 44),
-                new Vector2(55, 66)
+                new Vector2(55, 66),
             };
 
             var entity = new FakeEntity(vertices, It.IsAny<Vector2>());
@@ -475,7 +475,7 @@ namespace KDScorpionEngineTests.Entities
             {
                 new Vector2(11, 22),
                 new Vector2(33, 44),
-                new Vector2(55, 66)
+                new Vector2(55, 66),
             };
 
             // Act
@@ -496,7 +496,7 @@ namespace KDScorpionEngineTests.Entities
                 new Vector2(-50, -50),
                 new Vector2(50, -50),
                 new Vector2(50, 50),
-                new Vector2(-50, 50)
+                new Vector2(-50, 50),
             };
             entity.Initialize();
 
