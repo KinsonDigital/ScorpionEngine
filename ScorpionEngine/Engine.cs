@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="Engine.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+using System;
 using KDScorpionEngine.Scene;
 using System.Diagnostics.CodeAnalysis;
 using KDScorpionEngine.Graphics;

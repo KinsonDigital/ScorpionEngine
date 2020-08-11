@@ -1,4 +1,8 @@
-﻿using Raptor.Graphics;
+﻿// <copyright file="AtlasManager.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+using Raptor.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;

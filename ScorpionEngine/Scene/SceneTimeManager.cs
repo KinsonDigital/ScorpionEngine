@@ -1,4 +1,8 @@
-﻿using KDScorpionEngine.Events;
+﻿// <copyright file="SceneTimeManager.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+using KDScorpionEngine.Events;
 using Raptor;
 using System;
 

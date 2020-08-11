@@ -1,4 +1,8 @@
-﻿using KDScorpionEngine.Entities;
+﻿// <copyright file="MoveFowardKeyboardBehavior.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+using KDScorpionEngine.Entities;
 using Raptor;
 using Raptor.Input;
 using Raptor.Plugins;

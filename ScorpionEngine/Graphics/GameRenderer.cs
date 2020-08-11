@@ -1,4 +1,8 @@
-﻿using KDScorpionEngine.Entities;
+﻿// <copyright file="GameRenderer.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+using KDScorpionEngine.Entities;
 using Raptor.Graphics;
 using Raptor.Plugins;
 using System.Diagnostics.CodeAnalysis;

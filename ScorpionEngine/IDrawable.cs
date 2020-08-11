@@ -1,4 +1,8 @@
-﻿using KDScorpionEngine.Graphics;
+﻿// <copyright file="IDrawable.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+using KDScorpionEngine.Graphics;
 
 namespace KDScorpionEngine
 {

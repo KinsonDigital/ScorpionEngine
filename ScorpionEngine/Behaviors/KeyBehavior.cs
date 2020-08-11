@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="KeyBehavior.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+using System;
 using System.Diagnostics.CodeAnalysis;
 using Raptor;
 using Raptor.Input;

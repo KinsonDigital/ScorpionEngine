@@ -1,4 +1,7 @@
-﻿
+﻿// <copyright file="IScene.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
 using Raptor.Content;
 
 namespace KDScorpionEngine.Scene

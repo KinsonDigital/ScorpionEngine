@@ -1,4 +1,8 @@
-﻿using Raptor;
+﻿// <copyright file="AtlasSpriteData.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+using Raptor;
 using System.Diagnostics.CodeAnalysis;
 
 namespace KDScorpionEngine.Content

@@ -1,4 +1,8 @@
-﻿using KDScorpionEngine.Behaviors;
+﻿// <copyright file="DynamicEntity.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+using KDScorpionEngine.Behaviors;
 using KDScorpionEngine.Exceptions;
 using Raptor;
 using Raptor.Graphics;

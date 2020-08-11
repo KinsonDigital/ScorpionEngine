@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="IInputWatcher.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+using System;
 
 namespace KDScorpionEngine.Input
 {

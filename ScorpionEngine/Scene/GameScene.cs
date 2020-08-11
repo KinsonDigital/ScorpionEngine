@@ -1,4 +1,8 @@
-﻿using KDScorpionEngine.Entities;
+﻿// <copyright file="GameScene.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+using KDScorpionEngine.Entities;
 using KDScorpionEngine.Graphics;
 using Raptor;
 using Raptor.Content;

@@ -1,4 +1,8 @@
-﻿namespace KDScorpionEngine.Events
+﻿// <copyright file="FrameStackFinishedEventArgs.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+namespace KDScorpionEngine.Events
 {
     /// <summary>
     /// Information about when a complete stack of frames finishes.

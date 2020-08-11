@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="MissingVerticesException.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+using System;
 using KDScorpionEngine.Entities;
 
 namespace KDScorpionEngine.Exceptions

@@ -1,4 +1,7 @@
-﻿
+﻿// <copyright file="ITimeManager.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
 using Raptor;
 
 namespace KDScorpionEngine

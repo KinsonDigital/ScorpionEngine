@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿// <copyright file="EntityBehaviors.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using KDScorpionEngine.Entities;

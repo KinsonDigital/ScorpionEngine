@@ -1,4 +1,8 @@
-﻿namespace KDScorpionEngine.Behaviors
+﻿// <copyright file="IBehavior.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+namespace KDScorpionEngine.Behaviors
 {
     /// <summary>
     /// A simple behavior with an enabled state and name.

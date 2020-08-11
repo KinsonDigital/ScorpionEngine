@@ -1,4 +1,8 @@
-﻿namespace KDScorpionEngine.Content
+﻿// <copyright file="Enums.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+namespace KDScorpionEngine.Content
 {
     /// <summary>
     /// Represents reasons for an invalid animation meta data formats.

@@ -1,4 +1,8 @@
-﻿using Raptor;
+﻿// <copyright file="TextEntity.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+using Raptor;
 using Raptor.Graphics;
 using Raptor.Plugins;
 using System.Diagnostics.CodeAnalysis;

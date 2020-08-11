@@ -1,4 +1,8 @@
-﻿using KDScorpionEngine.Events;
+﻿// <copyright file="SceneManager.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+using KDScorpionEngine.Events;
 using KDScorpionEngine.Exceptions;
 using KDScorpionEngine.Graphics;
 using Raptor;

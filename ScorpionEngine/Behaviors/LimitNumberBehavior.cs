@@ -1,4 +1,8 @@
-﻿using Raptor;
+﻿// <copyright file="LimitNumberBehavior.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+using Raptor;
 using System;
 
 namespace KDScorpionEngine.Behaviors

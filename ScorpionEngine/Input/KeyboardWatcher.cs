@@ -1,4 +1,8 @@
-﻿using KDScorpionEngine.Utils;
+﻿// <copyright file="KeyboardWatcher.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+using KDScorpionEngine.Utils;
 using Raptor;
 using Raptor.Input;
 using Raptor.Plugins;

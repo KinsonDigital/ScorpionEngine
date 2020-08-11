@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="EntityNotInitializedException.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+using System;
 using KDScorpionEngine.Entities;
 using Raptor.Physics;
 

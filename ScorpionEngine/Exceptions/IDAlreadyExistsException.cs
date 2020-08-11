@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="IDAlreadyExistsException.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+using System;
 
 namespace KDScorpionEngine.Exceptions
 {

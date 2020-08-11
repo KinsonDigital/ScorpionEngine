@@ -1,4 +1,8 @@
-﻿using System.Linq;
+﻿// <copyright file="ExtensionMethods.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+using System.Linq;
 
 namespace KDScorpionEngine.Content
 {

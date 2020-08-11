@@ -1,4 +1,8 @@
-﻿namespace KDScorpionEngine.Entities
+﻿// <copyright file="Enums.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+namespace KDScorpionEngine.Entities
 {
     /// <summary>
     /// Represents the direction that an animation is running.
