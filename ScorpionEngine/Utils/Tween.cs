@@ -2,9 +2,6 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using System;
-using System.Diagnostics.CodeAnalysis;
-
 // ReSharper disable UnusedMember.Global
 /**
  * Tweener
@@ -28,6 +25,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace KDScorpionEngine.Utils
 {
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+
     /// <summary>
     ///     Animates the value of a double property between two target values using
     ///     Robert Penner's easing equations for interpolation over a specified Duration.

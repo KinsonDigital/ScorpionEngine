@@ -2,21 +2,21 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using KDScorpionEngine.Events;
-using KDScorpionEngine.Exceptions;
-using KDScorpionEngine.Graphics;
-using Raptor;
-using Raptor.Content;
-using Raptor.Input;
-using Raptor.Plugins;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-
 namespace KDScorpionEngine.Scene
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+    using KDScorpionEngine.Events;
+    using KDScorpionEngine.Exceptions;
+    using KDScorpionEngine.Graphics;
+    using Raptor;
+    using Raptor.Content;
+    using Raptor.Input;
+    using Raptor.Plugins;
+
     /// <summary>
     /// Manages multiple game scenes.
     /// </summary>

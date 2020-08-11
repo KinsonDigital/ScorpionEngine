@@ -2,14 +2,14 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using KDScorpionEngine.Entities;
-using Raptor;
-using Raptor.Input;
-using Raptor.Plugins;
-using System.Diagnostics.CodeAnalysis;
-
 namespace KDScorpionEngine.Behaviors
 {
+    using System.Diagnostics.CodeAnalysis;
+    using KDScorpionEngine.Entities;
+    using Raptor;
+    using Raptor.Input;
+    using Raptor.Plugins;
+
     /// <summary>
     /// Creates a behavior that controls the left, right, up, and down movement of a
     /// <see cref="DynamicEntity"/> using the keyboard.

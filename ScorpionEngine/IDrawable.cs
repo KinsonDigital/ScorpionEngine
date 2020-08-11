@@ -2,10 +2,10 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using KDScorpionEngine.Graphics;
-
 namespace KDScorpionEngine
 {
+    using KDScorpionEngine.Graphics;
+
     /// <summary>
     /// Provides functionality for game content to be rendered to the screen.
     /// </summary>

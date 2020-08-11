@@ -2,10 +2,10 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using Raptor;
-
 namespace KDScorpionEngine
 {
+    using Raptor;
+
     /// <summary>
     /// Provides functionality for managing time and state of a system.
     /// </summary>

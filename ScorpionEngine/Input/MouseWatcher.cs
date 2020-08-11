@@ -2,17 +2,17 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using KDScorpionEngine.Utils;
-using Raptor;
-using Raptor.Input;
-using Raptor.Plugins;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-
 namespace KDScorpionEngine.Input
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+    using KDScorpionEngine.Utils;
+    using Raptor;
+    using Raptor.Input;
+    using Raptor.Plugins;
+
     /// <summary>
     /// Watches a mouse button for various events and behaviors such is how many times a button is pressed,
     /// how long it is held down or how long it has been released.  Various events will be triggered when

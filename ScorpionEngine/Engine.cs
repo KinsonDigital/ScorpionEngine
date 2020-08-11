@@ -2,16 +2,16 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using System;
-using KDScorpionEngine.Scene;
-using System.Diagnostics.CodeAnalysis;
-using KDScorpionEngine.Graphics;
-using Raptor.Content;
-using Raptor;
-using Raptor.Plugins;
-
 namespace KDScorpionEngine
 {
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+    using KDScorpionEngine.Graphics;
+    using KDScorpionEngine.Scene;
+    using Raptor;
+    using Raptor.Content;
+    using Raptor.Plugins;
+
     /// <summary>
     /// Drives and manages the game.
     /// </summary>

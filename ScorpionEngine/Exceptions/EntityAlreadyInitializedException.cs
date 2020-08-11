@@ -2,11 +2,11 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using System;
-using KDScorpionEngine.Entities;
-
 namespace KDScorpionEngine.Exceptions
 {
+    using System;
+    using KDScorpionEngine.Entities;
+
     /// <summary>
     /// Thrown when an entity has already been initialized.
     /// </summary>

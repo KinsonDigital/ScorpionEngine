@@ -2,11 +2,11 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using Raptor;
-using System;
-
 namespace KDScorpionEngine.Behaviors
 {
+    using System;
+    using Raptor;
+
     /// <summary>
     /// Represents a custom set of behavior to execute.
     /// </summary>

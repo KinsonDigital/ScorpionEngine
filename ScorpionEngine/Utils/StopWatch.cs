@@ -2,11 +2,11 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using Raptor;
-using System;
-
 namespace KDScorpionEngine.Utils
 {
+    using System;
+    using Raptor;
+
     /// <summary>
     /// Keeps track of time passed and invokes events when that time has passed.
     /// </summary>

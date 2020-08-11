@@ -2,18 +2,18 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using KDScorpionEngine.Entities;
-using KDScorpionEngine.Graphics;
-using Raptor;
-using Raptor.Content;
-using Raptor.Physics;
-using Raptor.Plugins;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Numerics;
-
 namespace KDScorpionEngine.Scene
 {
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Numerics;
+    using KDScorpionEngine.Entities;
+    using KDScorpionEngine.Graphics;
+    using Raptor;
+    using Raptor.Content;
+    using Raptor.Physics;
+    using Raptor.Plugins;
+
     /// <summary>
     /// A game scene within a game that can hold various game entities and game related logic.
     /// </summary>

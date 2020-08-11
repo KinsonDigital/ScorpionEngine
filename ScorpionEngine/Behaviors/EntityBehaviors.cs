@@ -2,13 +2,13 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using KDScorpionEngine.Entities;
-
 namespace KDScorpionEngine.Behaviors
 {
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using KDScorpionEngine.Entities;
+
     /// <summary>
     /// Manages a list of <see cref="Entity"/> behaviors.
     /// </summary>

@@ -2,15 +2,15 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using KDScorpionEngine.Behaviors;
-using KDScorpionEngine.Exceptions;
-using Raptor;
-using Raptor.Graphics;
-using Raptor.Plugins;
-using System.Numerics;
-
 namespace KDScorpionEngine.Entities
 {
+    using System.Numerics;
+    using KDScorpionEngine.Behaviors;
+    using KDScorpionEngine.Exceptions;
+    using Raptor;
+    using Raptor.Graphics;
+    using Raptor.Plugins;
+
     /// <summary>
     /// Represents a game object that can be moved around the screen.  
     /// This is just an <see cref="Entity"/> with the capability of being moved.

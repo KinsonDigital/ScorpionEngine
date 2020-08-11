@@ -2,14 +2,14 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using System;
-using System.Diagnostics.CodeAnalysis;
-using Raptor;
-using Raptor.Input;
-using Raptor.Plugins;
-
 namespace KDScorpionEngine.Behaviors
 {
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+    using Raptor;
+    using Raptor.Input;
+    using Raptor.Plugins;
+
     /// <summary>
     /// The behavior of a single key on a keyboard.
     /// </summary>

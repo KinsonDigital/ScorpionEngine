@@ -2,10 +2,10 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using System;
-
 namespace KDScorpionEngine.Events
 {
+    using System;
+
     /// <summary>
     /// Holds information about when a scene changes.
     /// </summary>

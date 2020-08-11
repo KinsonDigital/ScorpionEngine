@@ -2,12 +2,12 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using System;
-using KDScorpionEngine.Entities;
-using Raptor.Physics;
-
 namespace KDScorpionEngine.Exceptions
 {
+    using System;
+    using KDScorpionEngine.Entities;
+    using Raptor.Physics;
+
     /// <summary>
     /// Thrown when an entity is trying to be added to a <see cref="PhysicsWorld"/> without being initialized.
     /// </summary>

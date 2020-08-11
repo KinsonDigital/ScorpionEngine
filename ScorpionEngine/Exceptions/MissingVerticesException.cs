@@ -2,11 +2,11 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using System;
-using KDScorpionEngine.Entities;
-
 namespace KDScorpionEngine.Exceptions
 {
+    using System;
+    using KDScorpionEngine.Entities;
+
     /// <summary>
     /// Thrown when an entity is being attempted to be initialized with no setup vertices.  The <see cref="Entity"/>
     /// must have at least 3 or more vertices to be a physical 2D object.

@@ -2,14 +2,14 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using KDScorpionEngine.Entities;
-using Raptor;
-using Raptor.Input;
-using Raptor.Plugins;
-using System.Diagnostics.CodeAnalysis;
-
 namespace KDScorpionEngine.Behaviors
 {
+    using System.Diagnostics.CodeAnalysis;
+    using KDScorpionEngine.Entities;
+    using Raptor;
+    using Raptor.Input;
+    using Raptor.Plugins;
+
     /// <summary>
     /// Moves a <see cref="DynamicEntity"/> forward in the direction it is facing with added rotation
     /// using the keyboard.

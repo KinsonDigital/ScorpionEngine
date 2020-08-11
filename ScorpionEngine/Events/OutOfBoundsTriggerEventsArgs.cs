@@ -2,12 +2,12 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using System;
-using System.Diagnostics.CodeAnalysis;
-using KDScorpionEngine.Entities;
-
 namespace KDScorpionEngine.Events
 {
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+    using KDScorpionEngine.Entities;
+
     /// <summary>
     /// Holds information about the entity that has gone out of bounds.
     /// </summary>

@@ -2,13 +2,13 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using KDScorpionEngine.Entities;
-using Raptor.Graphics;
-using Raptor.Plugins;
-using System.Diagnostics.CodeAnalysis;
-
 namespace KDScorpionEngine.Graphics
 {
+    using System.Diagnostics.CodeAnalysis;
+    using KDScorpionEngine.Entities;
+    using Raptor.Graphics;
+    using Raptor.Plugins;
+
     /// <summary>
     /// Renders entities to a graphics surface.
     /// </summary>

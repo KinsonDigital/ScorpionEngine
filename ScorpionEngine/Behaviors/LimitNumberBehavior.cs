@@ -2,11 +2,11 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using Raptor;
-using System;
-
 namespace KDScorpionEngine.Behaviors
 {
+    using System;
+    using Raptor;
+
     /// <summary>
     /// Limits a number to a set positive or negative value.
     /// </summary>

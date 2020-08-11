@@ -2,10 +2,10 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using System;
-
 namespace KDScorpionEngine.Exceptions
 {
+    using System;
+
     /// <summary>
     /// Thrown if an ID has not been found.
     /// </summary>

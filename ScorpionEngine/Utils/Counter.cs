@@ -2,10 +2,10 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using System;
-
 namespace KDScorpionEngine.Utils
 {
+    using System;
+
     /// <summary>
     /// Keeps counts an arbitrary number by a set amount in a set direction and triggers minimum and maximum reached events.
     /// </summary>

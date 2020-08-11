@@ -2,16 +2,16 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Numerics;
-using KDScorpionEngine.Events;
-using Raptor;
-
 namespace KDScorpionEngine.Entities
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Numerics;
+    using KDScorpionEngine.Events;
+    using Raptor;
+
     /// <summary>
     /// Represents a set amount of entities that can be used over and over.
     /// </summary>

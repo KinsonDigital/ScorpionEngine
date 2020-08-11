@@ -2,14 +2,14 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using Raptor;
-using Raptor.Graphics;
-using Raptor.Plugins;
-using System.Diagnostics.CodeAnalysis;
-using System.Numerics;
-
 namespace KDScorpionEngine.Entities
 {
+    using System.Diagnostics.CodeAnalysis;
+    using System.Numerics;
+    using Raptor;
+    using Raptor.Graphics;
+    using Raptor.Plugins;
+
     /// <summary>
     /// Text that can be drawn to the screen.
     /// </summary>

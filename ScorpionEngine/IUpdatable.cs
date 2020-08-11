@@ -2,10 +2,10 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using Raptor;
-
 namespace KDScorpionEngine
 {
+    using Raptor;
+
     /// <summary>
     /// Makes an object an updatable for the game engine.
     /// </summary>

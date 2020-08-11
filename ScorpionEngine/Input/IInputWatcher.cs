@@ -2,10 +2,10 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using System;
-
 namespace KDScorpionEngine.Input
 {
+    using System;
+
     /// <summary>
     /// Watches input for various events and behaviors such is how many times the input has been pressed,
     /// how long it has been held down or how long it has been released.  Various events will be triggered when

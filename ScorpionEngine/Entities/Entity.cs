@@ -2,22 +2,22 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Numerics;
-using KDScorpionEngine.Behaviors;
-using KDScorpionEngine.Exceptions;
-using KDScorpionEngine.Graphics;
-using Raptor;
-using Raptor.Content;
-using Raptor.Graphics;
-using Raptor.Input;
-using Raptor.Physics;
-using Raptor.Plugins;
-
 namespace KDScorpionEngine.Entities
 {
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+    using System.Numerics;
+    using KDScorpionEngine.Behaviors;
+    using KDScorpionEngine.Exceptions;
+    using KDScorpionEngine.Graphics;
+    using Raptor;
+    using Raptor.Content;
+    using Raptor.Graphics;
+    using Raptor.Input;
+    using Raptor.Physics;
+    using Raptor.Plugins;
+
     /// <summary>
     /// Represents a base entity that all entities inherit from.
     /// </summary>

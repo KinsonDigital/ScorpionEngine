@@ -2,12 +2,12 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using Raptor;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-
 namespace KDScorpionEngine.Entities
 {
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using Raptor;
+
     /// <summary>
     /// Control animation at a particular frames per second.
     /// </summary>

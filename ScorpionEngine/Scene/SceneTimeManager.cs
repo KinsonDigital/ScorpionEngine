@@ -2,12 +2,12 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using KDScorpionEngine.Events;
-using Raptor;
-using System;
-
 namespace KDScorpionEngine.Scene
 {
+    using System;
+    using KDScorpionEngine.Events;
+    using Raptor;
+
     /// <summary>
     /// Manages how a scene is updated and give the ability for the scene to be paused.
     /// </summary>

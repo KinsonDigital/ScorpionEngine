@@ -2,10 +2,10 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using System.Linq;
-
 namespace KDScorpionEngine.Content
 {
+    using System.Linq;
+
     /// <summary>
     /// Provides extensions to various things to help make better code.
     /// </summary>

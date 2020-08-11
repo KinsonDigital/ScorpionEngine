@@ -2,10 +2,10 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using Raptor.Content;
-
 namespace KDScorpionEngine.Scene
 {
+    using Raptor.Content;
+
     /// <summary>
     /// Represents a single scene.
     /// </summary>

@@ -2,11 +2,11 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using Raptor;
-using System.Diagnostics.CodeAnalysis;
-
 namespace KDScorpionEngine.Content
 {
+    using System.Diagnostics.CodeAnalysis;
+    using Raptor;
+
     //TODO: Look into using this later during the building of a test game.
     [ExcludeFromCodeCoverage]
     internal class AtlasSpriteData
