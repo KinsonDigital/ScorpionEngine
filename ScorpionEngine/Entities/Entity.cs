@@ -23,10 +23,18 @@ namespace KDScorpionEngine.Entities
     /// </summary>
     public abstract class Entity : IUpdatable, IInitialize, IContentLoadable
     {
-        private bool visible = true; // True if the entity will be drawn
         protected bool usesPhysics = true;
+
+        /// <summary>
+        /// The engine time of the entity.
+        /// </summary>
         protected EngineTime engineTime;
+
+        /// <summary>
+        /// The texture of the entity.
+        /// </summary>
         protected Texture texture;
+        private bool visible = true; // True if the entity will be drawn
         private Vector2 preInitPosition;
         private Vector2[] preInitVertices;
         private float preInitFriction;
@@ -38,7 +46,7 @@ namespace KDScorpionEngine.Entities
         /// <param name="isStaticBody">True if the body is static and cannot be moved by other objects.</param>
         public Entity(float friction = 0.2f, bool isStaticBody = false)
         {
-            this.preInitVertices = new [] { Vector2.Zero, Vector2.Zero, Vector2.Zero };
+            this.preInitVertices = new[] { Vector2.Zero, Vector2.Zero, Vector2.Zero };
 
             Setup(this.preInitVertices, Vector2.Zero, friction, isStaticBody);
         }
@@ -135,12 +143,7 @@ namespace KDScorpionEngine.Entities
         public event EventHandler<KeyEventArgs> OnKeyReleased;
 
         /// <summary>
-        /// The physics body of the entity.
-        /// </summary>
-        internal PhysicsBody Body { get; set; }
-
-        /// <summary>
-        /// Gets a value indicating if the <see cref="Entity"/> is static and cannot moved.
+        /// Gets a value indicating whether the <see cref="Entity"/> is static and cannot moved.
         /// </summary>
         public bool IsStatic { get; private set; }
 
@@ -150,14 +153,11 @@ namespace KDScorpionEngine.Entities
         public EntityBehaviors Behaviors { get; set; } = new EntityBehaviors();
 
         /// <summary>
-        /// Gets or sets a value indicating if the entity is rendered to the graphics surface.
+        /// Gets or sets a value indicating whether the entity is rendered to the graphics surface.
         /// </summary>
         public bool Visible
         {
-            get
-            {
-                return this.visible;
-            }
+            get => this.visible;
             set
             {
                 var prevValue = this.visible;
@@ -170,8 +170,9 @@ namespace KDScorpionEngine.Entities
                     if (OnHide != null)
                         OnHide.Invoke(this, new EventArgs());
                 }
-                else if (!prevValue && this.visible)// Going from invisible to visible
+                else if (!prevValue && this.visible)
                 {
+                    // Going from invisible to visible
                     if (OnShow != null)
                         OnShow.Invoke(this, new EventArgs());
                 }
@@ -184,7 +185,7 @@ namespace KDScorpionEngine.Entities
         public Rect Bounds => new Rect((int)Position.X, (int)Position.Y, (int)BoundsWidth, (int)BoundsHeight);
 
         /// <summary>
-        /// Gets the position of the <see cref="Entity"/> in the game world in pixel units.
+        /// Gets or sets the position of the <see cref="Entity"/> in the game world in pixel units.
         /// </summary>
         public Vector2 Position
         {
@@ -253,11 +254,12 @@ namespace KDScorpionEngine.Entities
         }
 
         /// <summary>
-        /// Returns the half width of the <see cref="Entity"/> bounds.
+        /// Gets the half width of the <see cref="Entity"/> bounds.
         /// </summary>
         public float BoundsHalfWidth => BoundsWidth / 2;
 
-        /// Returns the half height of the <see cref="Entity"/> bounds.
+        /// <summary>
+        /// Gets the half height of the <see cref="Entity"/> bounds.
         /// </summary>
         public float BoundsHalfHeight => BoundsHeight / 2;
 
@@ -271,18 +273,18 @@ namespace KDScorpionEngine.Entities
         }
 
         /// <summary>
-        /// Gets or sets a value indicating if the debug draw outlines should be rendered.
-        /// Set to true by default for game development purposes.
+        /// Gets or sets a value indicating whether the debug draw outlines should be rendered.
         /// </summary>
+        /// <remarks>Set to true by default for game development purposes.</remarks>
         public bool DebugDrawEnabled { get; set; } = true;
 
         /// <summary>
-        /// Gets a value indicating if the <see cref="Entity"/> has been initialized.
+        /// Gets a value indicating whether the <see cref="Entity"/> has been initialized.
         /// </summary>
         public bool IsInitialized { get; private set; }
 
         /// <summary>
-        /// Gets a value indicating if the entities content has been loaded.
+        /// Gets a value indicating whether the entities content has been loaded.
         /// </summary>
         public bool ContentLoaded { get; private set; }
 
@@ -290,6 +292,11 @@ namespace KDScorpionEngine.Entities
         /// Gets or sets the color of the debug draw outlines.
         /// </summary>
         public GameColor DebugDrawColor { get; set; } = new GameColor(255, 255, 255, 255);
+
+        /// <summary>
+        /// Gets or sets the physics body of the entity.
+        /// </summary>
+        internal PhysicsBody Body { get; set; }
 
         /// <summary>
         /// Initializes the <see cref="Entity"/>.
@@ -309,11 +316,21 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// Updates the <see cref="Entity"/>.
         /// </summary>
+        /// <param name="engineTime">The engine time since the last frame.</param>
         public virtual void Update(EngineTime engineTime)
         {
             this.engineTime = engineTime;
 
             Behaviors.ToList().ForEach(b => b.Update(this.engineTime));
+        }
+
+        /// <summary>
+        /// Renders the <see cref="Entity"/> to the graphics surface.
+        /// </summary>
+        /// <param name="renderer">The renderer that renders the <see cref="Entity"/>.</param>
+        [ExcludeFromCodeCoverage]
+        public virtual void Render(GameRenderer renderer)
+        {
         }
 
         /// <summary>
@@ -325,7 +342,7 @@ namespace KDScorpionEngine.Entities
         /// <param name="isStaticBody">True if the body is static and cannot be moved by other objects.</param>
         private void Setup(Vector2[] polyVertices, Vector2 position, float friction = 0.2f, bool isStaticBody = false)
         {
-            this.preInitVertices = polyVertices ?? (new Vector2[0]);
+            this.preInitVertices = polyVertices ?? Array.Empty<Vector2>();
             this.preInitPosition = position == null ? Vector2.Zero : position;
             IsStatic = isStaticBody;
             this.preInitFriction = friction;
@@ -337,7 +354,7 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         /// <param name="vertices">The polygon vertices that make up the shape of the <see cref="Entity"/>.</param>
         /// <param name="position">The position of where to render the <see cref="Entity"/>.</param>
-        /// <param name="isStaticBody">True if the body is static and cannot be moved by other objects.</param>
+        /// <param name="isStatic">True if the body is static and cannot be moved by other objects.</param>
         [ExcludeFromCodeCoverage]
         private void CreateBody(Vector2[] vertices, Vector2 position, bool isStatic)
         {
@@ -352,15 +369,6 @@ namespace KDScorpionEngine.Entities
                 Body.X = position.X;
                 Body.Y = position.Y;
             }
-        }
-
-        /// <summary>
-        /// Renders the <see cref="Entity"/> to the graphics surface.
-        /// </summary>
-        /// <param name="renderer">The renderer that renders the <see cref="Entity"/>.</param>
-        [ExcludeFromCodeCoverage]
-        public virtual void Render(GameRenderer renderer)
-        {
         }
     }
 }

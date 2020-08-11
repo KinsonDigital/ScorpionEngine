@@ -74,10 +74,7 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         public KeyCode MoveUpKey
         {
-            get
-            {
-                return this.moveUpKey;
-            }
+            get => this.moveUpKey;
             set
             {
                 this.moveUpKey = value;
@@ -90,10 +87,7 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         public KeyCode MoveDownKey
         {
-            get
-            {
-                return this.moveDownKey;
-            }
+            get => this.moveDownKey;
             set
             {
                 this.moveDownKey = value;
@@ -106,10 +100,7 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         public KeyCode MoveLeftKey
         {
-            get
-            {
-                return this.moveLeftKey;
-            }
+            get => this.moveLeftKey;
             set
             {
                 this.moveLeftKey = value;
@@ -122,10 +113,7 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         public KeyCode MoveRightKey
         {
-            get
-            {
-                return this.moveRightKey;
-            }
+            get => this.moveRightKey;
             set
             {
                 this.moveRightKey = value;

@@ -7,6 +7,7 @@ namespace KDScorpionEngine.Content
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
     using System.Linq;
     using System.Text;
     using Raptor.Graphics;
@@ -28,7 +29,7 @@ namespace KDScorpionEngine.Content
         /// <param name="atlasDataID">The unique atlas data ID to assign to the given texture.</param>
         /// <param name="texture">The texture to add.</param>
         /// <param name="data">The atlas data to add.</param>
-        public static void AddAtlasData(string textureAtlasID, string atlasDataID,  ITexture texture, AtlasData data)
+        public static void AddAtlasData(string textureAtlasID, string atlasDataID, ITexture texture, AtlasData data)
         {
             // TODO: possibly do not need this method, ID is checked below
             CheckID(textureAtlasID); // See if the atlas has already been added
@@ -60,7 +61,7 @@ namespace KDScorpionEngine.Content
         /// Gets the atlas data that matches the given ID.
         /// </summary>
         /// <param name="id">The textureAtlasID of the atlas data to get.</param>
-        /// <returns></returns>
+        /// <returns>The atlas data.</returns>
         public static AtlasData GetAtlasData(string id)
         {
             CheckID(id); // See if the atlas has already been added
@@ -72,7 +73,7 @@ namespace KDScorpionEngine.Content
         /// Gets the atlas texture that matches the given ID.
         /// </summary>
         /// <param name="id">The textureAtlasID of the atlas texture to get.</param>
-        /// <returns></returns>
+        /// <returns>The atlas texture.</returns>
         public static ITexture GetAtlasTexture(string id)
         {
             CheckID(id); // See if the atlas has already been added
@@ -83,8 +84,8 @@ namespace KDScorpionEngine.Content
         /// <summary>
         /// Returns the reason of validity of the given sub texture id.
         /// </summary>
-        /// <returns></returns>
         /// <param name="subTextureID">The name of the sub texture string to check.</param>
+        /// <returns>The reason for why the sub texture ID would or would not be invalid.</returns>
         internal static InValidReason GetValidationReason(string subTextureID)
         {
             var leftBracketIndex = subTextureID.IndexOf('['); // Index of the left bracket
@@ -175,7 +176,7 @@ namespace KDScorpionEngine.Content
         /// Extracts the sub texture name from a formatted animating sub texture frame name.
         /// </summary>
         /// <param name="frameName">The name of the frame.</param>
-        /// <returns></returns>
+        /// <returns>The frame number of the frame.</returns>
         internal static int ExtractFrameNumber(string frameName)
         {
             var foundCharacters = new StringBuilder();
@@ -199,14 +200,13 @@ namespace KDScorpionEngine.Content
             foundCharacters.Replace("-", string.Empty); // Remove any dashes
             foundCharacters.Replace("]", string.Empty); // Remove any right square brackets
 
-            return Convert.ToInt32(foundCharacters.ToString());
+            return Convert.ToInt32(foundCharacters.ToString(), CultureInfo.InvariantCulture);
         }
 
         /// <summary>
         /// If the given ID does not exist, throw an exception.
         /// </summary>
         /// <param name="id">The ID to check for.</param>
-        /// <returns></returns>
         private static void CheckID(string id)
         {
             // First check to see if the ID is in the atlas data or atlas texture lists
@@ -214,8 +214,8 @@ namespace KDScorpionEngine.Content
 
             // TODO: look into uncommenting this code
             // If there are items in the lists, check for item duplication
-//            if (_allAtlasData.key.Count(dataKey => dataKey == id) > 1 || _allAtlasTextures.key.Count(key => key == id) > 1)
-//                throw new Exception("The atlas data with the textureAtlasID \"" + ID + "\" has already been added to the atlas manager.");
+            //            if (_allAtlasData.key.Count(dataKey => dataKey == id) > 1 || _allAtlasTextures.key.Count(key => key == id) > 1)
+            //                throw new Exception("The atlas data with the textureAtlasID \"" + ID + "\" has already been added to the atlas manager.");
         }
 
         /// <summary>

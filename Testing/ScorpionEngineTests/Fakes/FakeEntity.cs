@@ -48,15 +48,9 @@ namespace KDScorpionEngineTests.Fakes
         #endregion
 
         #region Public Methods
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
+        public override bool Equals(object obj) => base.Equals(obj);
 
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
+        public override int GetHashCode() => base.GetHashCode();
 
         public override void Update(EngineTime engineTime)
         {
@@ -67,10 +61,7 @@ namespace KDScorpionEngineTests.Fakes
 
         public override void Render(GameRenderer renderer) => RenderInvoked = true;
 
-        public override string ToString()
-        {
-            return base.ToString();
-        }
+        public override string ToString() => base.ToString();
         #endregion
     }
 }

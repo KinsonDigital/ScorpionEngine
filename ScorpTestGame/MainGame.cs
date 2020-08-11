@@ -1,22 +1,24 @@
-using KDScorpionEngine;
-using KDScorpionEngine.Graphics;
-using KDScorpionEngine.Scene;
-using Raptor;
-using Raptor.Content;
-using ScorpTestGame.Scenes;
+// <copyright file="MainGame.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
 
 namespace ScorpTestGame
 {
+    using KDScorpionEngine;
+    using KDScorpionEngine.Graphics;
+    using KDScorpionEngine.Scene;
+    using Raptor;
+    using Raptor.Content;
+    using ScorpTestGame.Scenes;
+
     /// <summary>
     /// The main game.
     /// </summary>
     public class MainGame : Engine
     {
-        private Level1 _level1;
-        private ParticleTestingScene _particleScene;
+        private Level1 level1;
+        private ParticleTestingScene particleScene;
 
-
-        #region Constructors
         /// <summary>
         /// Creates a new space shooter game engine.
         /// </summary>
@@ -26,40 +28,33 @@ namespace ScorpTestGame
             //the graphics device has been created.  The graphics device will not be created until the
             //engine has started up.
         }
-        #endregion
 
-
-        #region Public Methods
         public override void Init()
         {
-            _level1 = new Level1();
-            _particleScene = new ParticleTestingScene();
+            this.level1 = new Level1();
+            this.particleScene = new ParticleTestingScene();
 
-            SceneManager.Add(_level1);
-            SceneManager.Add(_particleScene);
+            SceneManager.Add(this.level1);
+            SceneManager.Add(this.particleScene);
 
             SceneManager.SetCurrentScene(0);
 
             base.Init();
         }
 
-
         public override void LoadContent(ContentLoader contentLoader)
         {
             base.LoadContent(contentLoader);
         }
-
 
         public override void Update(EngineTime engineTime)
         {
             base.Update(engineTime);
         }
 
-
         public override void Render(GameRenderer renderer)
         {
             base.Render(renderer);
         }
-        #endregion
     }
 }

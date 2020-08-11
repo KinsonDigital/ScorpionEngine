@@ -27,7 +27,7 @@ namespace KDScorpionEngine.Utils
             Value = value;
 
             if (min > max)
-                throw new ArgumentOutOfRangeException("The min must be less than the max.");
+                throw new ArgumentOutOfRangeException(nameof(min), "Parameter must be less than the max.");
 
             this.min = min;
             this.max = max;
@@ -52,7 +52,7 @@ namespace KDScorpionEngine.Utils
         public int Value { get; private set; }
 
         /// <summary>
-        /// Gets the minimum amount that the counter will have to reach to invoke the <see cref="MinReachedWhenDecrementing"/> event.
+        /// Gets or sets the minimum amount that the counter will have to reach to invoke the <see cref="MinReachedWhenDecrementing"/> event.
         /// </summary>
         public int Min
         {
@@ -67,7 +67,7 @@ namespace KDScorpionEngine.Utils
         }
 
         /// <summary>
-        /// Gets the maximum amount that the counter will have to reach to invoke the <see cref="MaxReachedWhenIncrementing"/> event.
+        /// Gets or sets the maximum amount that the counter will have to reach to invoke the <see cref="MaxReachedWhenIncrementing"/> event.
         /// </summary>
         public int Max
         {

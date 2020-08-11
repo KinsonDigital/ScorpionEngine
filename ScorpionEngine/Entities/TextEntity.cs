@@ -31,7 +31,7 @@ namespace KDScorpionEngine.Entities
         /// <param name="backColor">The color of the background behind the text.</param>
         [ExcludeFromCodeCoverage]
         public TextEntity(string text, GameColor foreColor, GameColor backColor, Vector2 position)
-            : base(new Vector2[0], position: position) =>
+            : base(System.Array.Empty<Vector2>(), position: position) =>
             Setup(text, foreColor, backColor);
 
         /// <summary>

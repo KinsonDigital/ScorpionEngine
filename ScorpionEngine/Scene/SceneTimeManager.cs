@@ -70,7 +70,7 @@ namespace KDScorpionEngine.Scene
             {
                 TotalFramesRan += 1;
             }
-            else if (Mode == RunMode.FrameStack)// Step mode
+            else if (Mode == RunMode.FrameStack) // Step mode
             {
                 // If the current stack of frames are being ran
                 if (!Paused)

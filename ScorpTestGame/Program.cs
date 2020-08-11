@@ -1,7 +1,11 @@
-using System;
+// <copyright file="Program.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
 
 namespace ScorpTestGame
 {
+    using System;
+
     public static class Program
     {
         [STAThread]

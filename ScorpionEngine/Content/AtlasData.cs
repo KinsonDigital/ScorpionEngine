@@ -4,8 +4,10 @@
 
 namespace KDScorpionEngine.Content
 {
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
     using System.Linq;
     using Raptor;
 
@@ -18,26 +20,19 @@ namespace KDScorpionEngine.Content
     {
         private readonly List<AtlasSpriteData> atlasSprites;
 
+        // TODO: check to see if this copy by reference is needed
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AtlasData"/> class.
         /// </summary>
         /// <param name="atlasSubTexutureData">The sub texture data of all of the sub textures in the atlas.</param>
-        public AtlasData(List<AtlasSpriteData> atlasSubTexutureData)
-        {
-            // TODO: check to see if this copy by reference is needed
+        public AtlasData(List<AtlasSpriteData> atlasSubTexutureData) =>
             this.atlasSprites = atlasSubTexutureData;
-        }
 
         /// <summary>
-        /// Returns at list of all of the sub texture ID's.
+        /// Gets a list of all of the sub texture ID's.
         /// </summary>
-        public List<string> FrameNameList
-        {
-            get
-            {
-                return this.atlasSprites.Select(item => item.Name).ToList();
-            }
-        }
+        public List<string> FrameNameList => this.atlasSprites.Select(item => item.Name).ToList();
 
         /// <summary>
         /// Gets or sets the width of the atlas.
@@ -53,28 +48,25 @@ namespace KDScorpionEngine.Content
         /// Returns the value at the specified key.
         /// </summary>
         /// <param name="index">The index of the item to get.</param>
-        /// <returns></returns>
-        public AtlasSpriteData this[int index]
-        {
-            get { return this.atlasSprites[index]; }
-        }
+        /// <returns>The atlas sprite data.</returns>
+        public AtlasSpriteData this[int index] => this.atlasSprites[index];
 
         /// <summary>
         /// Gets the all of the frames that have the given sub texture id.
         /// </summary>
         /// <param name="subTextureID">The sub texture ID of the frames to return.</param>
-        /// <returns></returns>
+        /// <returns>The list of frame rectangles.</returns>
         internal List<Rect> GetFrames(string subTextureID)
         {
             // If the frame is a non animating frame, just return the single frame
-            if (!AtlasManager.IsAnimatingFrame(this.atlasSprites.Find(item => item.Name.Contains(subTextureID)).Name))
+            if (!AtlasManager.IsAnimatingFrame(this.atlasSprites.Find(item => item.Name.Contains(subTextureID, StringComparison.Ordinal)).Name))
             {
                 return this.atlasSprites.Where(item => item.Name == subTextureID).ToList().ConvertAll(item => item.Bounds);
             }
 
             var returnItems = new List<Rect>();
 
-            #region Animating Frame Sorting
+            // Animating Frame Sorting
             var unsortedItems = this.atlasSprites.Where(item => AtlasManager.IsAnimatingFrame(item.Name)).ToList();
             var currentIndexNum = 0;
 
@@ -94,7 +86,6 @@ namespace KDScorpionEngine.Content
                     break;
                 }
             }
-            #endregion
 
             return returnItems;
         }
@@ -103,14 +94,14 @@ namespace KDScorpionEngine.Content
         /// Returns true if a sub texture with the given name exists in the atlas.
         /// </summary>
         /// <param name="name">The name of the sub texture to check for.</param>
-        /// <returns></returns>
+        /// <returns>True if the sub texture exists.</returns>
         internal bool SubTextureExists(string name) => this.atlasSprites.Find(item => item.Name == name) != null;
 
         /// <summary>
         /// Returns the bounds of the sub texture with the given name.
         /// </summary>
         /// <param name="name">The name of the sub texture.</param>
-        /// <returns></returns>
+        /// <returns>The sub texture bounds.</returns>
         internal Rect SubTextureBounds(string name) => this.atlasSprites.Find(item => item.Name == name).Bounds;
     }
 }

@@ -31,7 +31,7 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         public int FPS
         {
-            get { return this.fps; }
+            get => this.fps;
             set
             {
                 // Make sure that the incoming value stays at a minimum of 1
@@ -106,7 +106,7 @@ namespace KDScorpionEngine.Entities
                                 {
                                     this.currentFrame += 1;
                                 }
-                                else if (this.currentFrame >= this.frames.Count - 1 && Looping)// At the last frame, move back to the first frame
+                                else if (this.currentFrame >= this.frames.Count - 1 && Looping) // At the last frame, move back to the first frame
                                 {
                                     this.currentFrame = 0;
                                 }
@@ -117,7 +117,7 @@ namespace KDScorpionEngine.Entities
                                 {
                                     this.currentFrame -= 1;
                                 }
-                                else if (this.currentFrame <= 0 && Looping)// At the last frame, move back to the first frame
+                                else if (this.currentFrame <= 0 && Looping) // At the last frame, move back to the first frame
                                 {
                                     this.currentFrame = this.frames.Count - 1;
                                 }
