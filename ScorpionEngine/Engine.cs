@@ -100,13 +100,17 @@ namespace KDScorpionEngine
         /// Initializes the engine.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        public virtual void Init() { }
+        public virtual void Init()
+        {
+        }
 
         /// <summary>
         /// Loads all of the content.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        public virtual void LoadContent(ContentLoader contentLoader) { }
+        public virtual void LoadContent(ContentLoader contentLoader)
+        {
+        }
 
         /// <summary>
         /// Updates the game world.

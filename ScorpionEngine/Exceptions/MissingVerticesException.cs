@@ -16,12 +16,16 @@ namespace KDScorpionEngine.Exceptions
         /// <summary>
         /// Creates a new instance of <see cref="MissingVerticesException"/>.
         /// </summary>
-        public MissingVerticesException() : base($"An {nameof(Entity)} must have vertices and at least a total of 3 vertices.") { }
+        public MissingVerticesException() : base($"An {nameof(Entity)} must have vertices and at least a total of 3 vertices.")
+        {
+        }
 
         /// <summary>
         /// Creates a new instance of <see cref="MissingVerticesException"/>.
         /// </summary>
         /// <param name="message">The exception message.</param>
-        public MissingVerticesException(string message) : base(message) { }
+        public MissingVerticesException(string message) : base(message)
+        {
+        }
     }
 }

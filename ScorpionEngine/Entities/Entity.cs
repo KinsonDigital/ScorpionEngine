@@ -360,6 +360,8 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         /// <param name="renderer">The renderer that renders the <see cref="Entity"/>.</param>
         [ExcludeFromCodeCoverage]
-        public virtual void Render(GameRenderer renderer) { }
+        public virtual void Render(GameRenderer renderer)
+        {
+        }
     }
 }

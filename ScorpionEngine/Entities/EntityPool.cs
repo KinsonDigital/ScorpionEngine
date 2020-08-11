@@ -32,7 +32,9 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// Creates a new instance of <see cref="EntityPool"/>.
         /// </summary>
-        public EntityPool() { }
+        public EntityPool()
+        {
+        }
 
         /// <summary>
         /// Gets or sets the name of the entity pool.

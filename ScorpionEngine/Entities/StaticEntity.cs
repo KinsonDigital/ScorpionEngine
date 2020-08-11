@@ -19,7 +19,9 @@ namespace KDScorpionEngine.Entities
         /// USED FOR UNIT TESTING.
         /// </summary>
         /// <param name="body">The physics body to inject.</param>
-        internal StaticEntity(IPhysicsBody body) : base(body) { }
+        internal StaticEntity(IPhysicsBody body) : base(body)
+        {
+        }
 
         /// <summary>
         /// Creates a new instance of <see cref="StaticEntity"/>.
