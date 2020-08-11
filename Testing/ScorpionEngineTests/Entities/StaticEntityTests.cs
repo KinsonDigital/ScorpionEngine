@@ -20,7 +20,6 @@ namespace KDScorpionEngineTests.Entities
         private Mock<IPhysicsBody> _mockPhysicsBody;
         #endregion
 
-
         #region Constructors
         public StaticEntityTests()
         {
@@ -31,7 +30,6 @@ namespace KDScorpionEngineTests.Entities
             _mockPhysicsBody.SetupProperty(p => p.YVertices);
         }
         #endregion
-
 
         #region Constructor Tests
         // [Fact]
@@ -47,7 +45,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.False(entity.IsStatic);
         }
         #endregion
-
 
         #region Method Tests
         // [Fact]
@@ -67,7 +64,6 @@ namespace KDScorpionEngineTests.Entities
             mockBehavior.Verify(m => m.Update(It.IsAny<EngineTime>()), Times.Once());
         }
         #endregion
-
 
         #region Public Methods
         public void Dispose() => _mockPhysicsBody = null;

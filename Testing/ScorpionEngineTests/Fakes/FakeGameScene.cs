@@ -13,7 +13,6 @@ namespace KDScorpionEngineTests.Fakes
         {
         }
 
-
         public override void Render(GameRenderer renderer)
         {
             IsRenderingScene = true;

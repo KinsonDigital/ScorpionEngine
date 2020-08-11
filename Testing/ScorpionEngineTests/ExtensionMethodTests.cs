@@ -25,7 +25,6 @@ namespace KDScorpionEngineTests
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void ToRadians_WhenInvoking_ReturnsCorrectValue()
         {
@@ -38,7 +37,6 @@ namespace KDScorpionEngineTests
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void ForcePositive_WhenNegative_ReturnsPositiveResult()
@@ -53,7 +51,6 @@ namespace KDScorpionEngineTests
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void ForcePositive_WhenPositive_ReturnsPositiveResult()
         {
@@ -66,7 +63,6 @@ namespace KDScorpionEngineTests
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void ForceNegative_WhenNegative_ReturnsNegativeResult()
@@ -81,7 +77,6 @@ namespace KDScorpionEngineTests
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void ForceNegative_WhenPositive_ReturnsNegativeResult()
         {
@@ -94,7 +89,6 @@ namespace KDScorpionEngineTests
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void RotateAround_WhenRotatingClockWise_ReturnsCorrectResult()
@@ -111,7 +105,6 @@ namespace KDScorpionEngineTests
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void RotateAround_WhenRotatingCounterClockWise_ReturnsCorrectResult()
         {
@@ -126,7 +119,6 @@ namespace KDScorpionEngineTests
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void Next_WhenInvoking_ReturnsValidValueWithinRange()

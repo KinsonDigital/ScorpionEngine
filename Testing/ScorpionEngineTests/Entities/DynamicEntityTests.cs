@@ -20,7 +20,6 @@ namespace KDScorpionEngineTests.Entities
         private Mock<IPhysicsBody> _mockPhysicsBody;
         #endregion
 
-
         #region Constructors
         public DynamicEntityTests()
         {
@@ -43,7 +42,6 @@ namespace KDScorpionEngineTests.Entities
         }
         #endregion
 
-
         #region Constructor Tests
         [Fact]
         public void Ctor_WhenInvokingWithTextureAndPosition_CreatesAllBehaviors()
@@ -59,7 +57,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expectedTotalBehaviors, actualTotalBehaviors);
         }
 
-
         [Fact]
         public void Ctor_WhenInvokingWithNoParams_CreatesAllBehaviors()
         {
@@ -73,7 +70,6 @@ namespace KDScorpionEngineTests.Entities
             // Assert
             Assert.Equal(expectedTotalBehaviors, actualTotalBehaviors);
         }
-
 
         [Fact]
         public void Ctor_WhenInvokingWithFrictionParam_CreatesAllBehaviors()
@@ -89,7 +85,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expectedTotalBehaviors, actualTotalBehaviors);
         }
 
-
         [Fact]
         public void Ctor_WhenInvokingWithPosition_CreatesAllBehaviors()
         {
@@ -103,7 +98,6 @@ namespace KDScorpionEngineTests.Entities
             // Assert
             Assert.Equal(expectedTotalBehaviors, actualTotalBehaviors);
         }
-
 
         [Fact]
         public void Ctor_WhenInvokingWithVerticesAndPosition_CreatesAllBehaviors()
@@ -127,7 +121,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expectedTotalBehaviors, actualTotalBehaviors);
         }
 
-
         [Fact]
         public void Ctor_WhenInvokingWithTextureAndVerticesAndPosition_CreatesAllBehaviors()
         {
@@ -150,7 +143,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expectedTotalBehaviors, actualTotalBehaviors);
         }
 
-
         [Fact]
         public void Ctor_WhenInvokingWithTextureAndPositionAndFriction_CreatesAllBehaviors()
         {
@@ -165,7 +157,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expectedTotalBehaviors, actualTotalBehaviors);
         }
         #endregion
-
 
         #region Prop Tests
         [Fact]
@@ -183,7 +174,6 @@ namespace KDScorpionEngineTests.Entities
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void IsMoving_WhenGettingValueWhenBodyPerformingLinearMovement_ValueShouldReturnTrue()
@@ -204,7 +194,6 @@ namespace KDScorpionEngineTests.Entities
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         // [Fact]
         public void IsMoving_WhenGettingValueWhenBodyPerformingAngularMovement_ValueShouldReturnTrue()
@@ -231,7 +220,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void RotationEnabled_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
@@ -246,7 +234,6 @@ namespace KDScorpionEngineTests.Entities
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void Angle_WhenGettingAndSettingValueAfterInitialize_ReturnsCorrectValue()
@@ -265,7 +252,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Angle_WhenGettingAndSettingValueBeforeInitialize_ReturnsCorrectValue()
         {
@@ -280,7 +266,6 @@ namespace KDScorpionEngineTests.Entities
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void MaxLinearSpeed_WhenGettingAndSettingValue_ReturnsCorrectValue()
@@ -297,7 +282,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void MaxRotationSpeed_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
@@ -312,7 +296,6 @@ namespace KDScorpionEngineTests.Entities
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void LinearDeceleration_WhenGettingAndSettingValueAfterInitialize_ReturnsCorrectValue()
@@ -332,7 +315,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void LinearDeceleration_WhenGettingAndSettingValueBeforeInitialize_ReturnsCorrectValue()
         {
@@ -351,7 +333,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void AngularDeceleration_WhenGettingAndSettingValueAfterInitialize_ReturnsCorrectValue()
         {
@@ -367,7 +348,6 @@ namespace KDScorpionEngineTests.Entities
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void AngularDeceleration_WhenGettingAndSettingValueBeforeInitialize_ReturnsCorrectValue()
@@ -385,7 +365,6 @@ namespace KDScorpionEngineTests.Entities
         }
         #endregion
 
-
         #region Method Tests
         [Fact]
         public void Update_WhenInvokingWithNullBody_ThrowsException()
@@ -399,7 +378,6 @@ namespace KDScorpionEngineTests.Entities
                 entity.Update(It.IsAny<EngineTime>());
             });
         }
-
 
         // [Fact]
         public void Update_WhenInvoking_ShouldHaveEntityStopAfterMovementInXDirection()
@@ -429,7 +407,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expected, actual);
         }
 
-
         // [Fact]
         public void Update_WhenInvoking_ShouldHaveEntityStopAfterMovementInYDirection()
         {
@@ -458,7 +435,6 @@ namespace KDScorpionEngineTests.Entities
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void Update_WhenInvokingWithMovingEntity_ShouldStopBodyWhenStopMovementIsInvoked()
@@ -500,7 +476,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expected, actual);
         }
 
-
         // [Fact]
         public void Update_WhenInvoked_MaintainsMaxAngularVelocity()
         {
@@ -523,7 +498,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(8, entity.Body.AngularVelocity);
         }
 
-
         [Fact]
         public void MoveRight_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
@@ -533,7 +507,6 @@ namespace KDScorpionEngineTests.Entities
             // Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveRight());
         }
-
 
         [Fact]
         public void MoveRight_WhenInvokingWithParamAndNullBody_ThrowsException()
@@ -545,7 +518,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveRight(10));
         }
 
-
         [Fact]
         public void MoveLeft_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
@@ -555,7 +527,6 @@ namespace KDScorpionEngineTests.Entities
             // Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveLeft());
         }
-
 
         [Fact]
         public void MoveLeft_WhenInvokingWithParamAndNullBody_ThrowsException()
@@ -567,7 +538,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveLeft(10));
         }
 
-
         [Fact]
         public void MoveUp_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
@@ -577,7 +547,6 @@ namespace KDScorpionEngineTests.Entities
             // Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveUp());
         }
-
 
         [Fact]
         public void MoveUp_WhenInvokingWithParamAndNullBody_ThrowsException()
@@ -589,7 +558,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveUp(10));
         }
 
-
         [Fact]
         public void MoveDown_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
@@ -600,7 +568,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveDown());
         }
 
-
         [Fact]
         public void MoveDown_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
@@ -610,7 +577,6 @@ namespace KDScorpionEngineTests.Entities
             // Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveDown(10));
         }
-
 
         // [Fact]
         public void MoveUpRight_WhenInvokingNoParamsOverload_CorrectlySetsLinearVelocity()
@@ -631,7 +597,6 @@ namespace KDScorpionEngineTests.Entities
             _mockPhysicsBody.Verify(m => m.ApplyForce(0.25f, -0.25f, 10, 20), Times.Once());
         }
 
-
         [Fact]
         public void MoveUpRight_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
@@ -641,7 +606,6 @@ namespace KDScorpionEngineTests.Entities
             // Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveUpRight());
         }
-
 
         [Fact]
         public void MoveUpRight_WhenInvokingWithParamAndNullBody_ThrowsException()
@@ -653,7 +617,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveUpRight(10));
         }
 
-
         [Fact]
         public void MoveUpLeft_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
@@ -663,7 +626,6 @@ namespace KDScorpionEngineTests.Entities
             // Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveUpLeft());
         }
-
 
         [Fact]
         public void MoveUpLeft_WhenInvokingWithParamAndNullBody_ThrowsException()
@@ -675,7 +637,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveUpLeft(10));
         }
 
-
         [Fact]
         public void MoveDownRight_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
@@ -685,7 +646,6 @@ namespace KDScorpionEngineTests.Entities
             // Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveDownRight());
         }
-
 
         [Fact]
         public void MoveDownRight_WhenInvokingWithParamAndNullBody_ThrowsException()
@@ -697,7 +657,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveDownRight(10));
         }
 
-
         [Fact]
         public void MoveDownLeft_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
@@ -707,7 +666,6 @@ namespace KDScorpionEngineTests.Entities
             // Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveDownLeft());
         }
-
 
         [Fact]
         public void MoveDownLeft_WhenInvokingWithParamAndNullBody_ThrowsException()
@@ -719,7 +677,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveDownLeft(10));
         }
 
-
         [Fact]
         public void MoveAtSetSpeed_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
@@ -730,7 +687,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveAtSetSpeed());
         }
 
-
         [Fact]
         public void MoveAtSetAngle_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
@@ -740,7 +696,6 @@ namespace KDScorpionEngineTests.Entities
             // Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.MoveAtSetAngle(10));
         }
-
 
         // [Fact]
         public void RotateCW_WithNoParams_ProperlySetsAngularVelocity()
@@ -758,7 +713,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expected, actual);
         }
 
-
         // [Fact]
         public void RotateCW_WithParam_ProperlySetsAngularVelocity()
         {
@@ -775,7 +729,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void RotateCW_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
@@ -786,7 +739,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Throws<EntityNotInitializedException>(() => entity.RotateCW());
         }
 
-
         [Fact]
         public void RotateCW_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
@@ -796,7 +748,6 @@ namespace KDScorpionEngineTests.Entities
             // Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.RotateCW(10));
         }
-
 
         // [Fact]
         public void RotateCCW_WithNoParams_ProperlySetsAngularVelocity()
@@ -814,7 +765,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expected, actual);
         }
 
-
         // [Fact]
         public void RotateCCW_WithParam_ProperlySetsAngularVelocity()
         {
@@ -831,7 +781,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void RotateCCW_WhenInvokingWithNoParamAndNullBody_ThrowsException()
         {
@@ -842,7 +791,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Throws<EntityNotInitializedException>(() => entity.RotateCCW());
         }
 
-
         [Fact]
         public void RotateCCW_WhenInvokingWithParamAndNullBody_ThrowsException()
         {
@@ -852,7 +800,6 @@ namespace KDScorpionEngineTests.Entities
             // Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.RotateCCW(10));
         }
-
 
         [Fact]
         public void StopMovement_WhenInvoked_ProperlySetsLinearVelocity()
@@ -886,7 +833,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void StopRotation_WhenInvoked_ProperlySetsAngularVelocity()
         {
@@ -907,7 +853,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void StopRotation_WhenInvokedWithNullBody_ThrowsException()
         {
@@ -918,7 +863,6 @@ namespace KDScorpionEngineTests.Entities
             // Act/Assert
             Assert.Throws<EntityNotInitializedException>(() => entity.StopRotation());
         }
-
 
         [Fact]
         public void DynamicEntity_WhenMoving_MaintainsMaxRotationSpeed()
@@ -943,7 +887,6 @@ namespace KDScorpionEngineTests.Entities
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void Initialize_WhenInvokingWhileAlreadyInitialized_MaintainsMaxAngularLimit()
@@ -974,11 +917,9 @@ namespace KDScorpionEngineTests.Entities
         }
         #endregion
 
-
         #region Public Methods
         public void Dispose() => _mockPhysicsBody = null;
         #endregion
-
 
         #region Private Methods
         private static Texture CreateTexture()
@@ -986,7 +927,6 @@ namespace KDScorpionEngineTests.Entities
             var mockTexture = new Mock<ITexture>();
             mockTexture.SetupGet(m => m.Width).Returns(100);
             mockTexture.SetupGet(m => m.Height).Returns(50);
-
 
             return new Texture(mockTexture.Object);
         }

@@ -25,7 +25,6 @@ namespace KDScorpionEngineTests.Behaviors
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Name_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
@@ -41,7 +40,6 @@ namespace KDScorpionEngineTests.Behaviors
             Assert.Equal(expected, actual);
         }
         #endregion
-
 
         #region Method Tests
         [Fact]
@@ -60,7 +58,6 @@ namespace KDScorpionEngineTests.Behaviors
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Update_WhenInvokedWithNoSetupAction_DoesNotInvokeAction()
         {
@@ -75,7 +72,6 @@ namespace KDScorpionEngineTests.Behaviors
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void Update_WhenInvokedWithSetupActionAndEnabled_InvokesAction()

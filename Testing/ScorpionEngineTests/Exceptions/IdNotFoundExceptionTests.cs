@@ -23,7 +23,6 @@ namespace KDScorpionEngineTests.Exceptions
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Ctor_WhenInvokingWithSceneId_ProperlySetsExceptionMessage()
         {
@@ -37,7 +36,6 @@ namespace KDScorpionEngineTests.Exceptions
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void Ctor_WhenInvokingWithMessage_ProperlySetsExceptionMessage()

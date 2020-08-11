@@ -19,7 +19,6 @@ namespace KDScorpionEngineTests.Fakes
             YVertices = new ReadOnlyCollection<float>(yVertices);
         }
 
-
         public FakePhysicsBody(float[] xVertices, float[] yVertices, float x, float y)
         {
             XVertices = new ReadOnlyCollection<float>(xVertices);
@@ -28,7 +27,6 @@ namespace KDScorpionEngineTests.Fakes
             Y = y;
         }
         #endregion
-
 
         #region Props
         public ReadOnlyCollection<float> XVertices { get; set; }
@@ -62,7 +60,6 @@ namespace KDScorpionEngineTests.Fakes
         DeferredActionsCollection IPhysicsBody.AfterAddedToWorldActions { get; }
         #endregion
 
-
         #region Public Methods
         public void ApplyAngularImpulse(float value)
         {
@@ -70,7 +67,6 @@ namespace KDScorpionEngineTests.Fakes
 
             Angle = value;
         }
-
 
         public void ApplyForce(float forceX, float forceY, float worldLocationX, float worldLocationY)
         {
@@ -80,7 +76,6 @@ namespace KDScorpionEngineTests.Fakes
             LinearVelocityY += forceY;
         }
 
-
         public void ApplyLinearImpulse(float x, float y)
         {
             X = x;
@@ -89,12 +84,10 @@ namespace KDScorpionEngineTests.Fakes
             LinearVelocityY += y;
         }
 
-
         public T GetData<T>(int option) where T : class
         {
             throw new NotImplementedException();
         }
-
 
         public void InjectData<T>(T data) where T : class
         {

@@ -19,7 +19,6 @@ namespace KDScorpionEngineTests.Behaviors
         private Mock<IPhysicsBody> _mockPhysicsBody;
         #endregion
 
-
         #region Constructors
         public MoveFowardKeyboardBehaviorTests()
         {
@@ -33,7 +32,6 @@ namespace KDScorpionEngineTests.Behaviors
             });
         }
         #endregion
-
 
         #region Prop Tests
         [Fact]
@@ -53,7 +51,6 @@ namespace KDScorpionEngineTests.Behaviors
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void RotateCWKey_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
@@ -70,7 +67,6 @@ namespace KDScorpionEngineTests.Behaviors
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void RotateCCWKey_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
@@ -86,7 +82,6 @@ namespace KDScorpionEngineTests.Behaviors
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void IsMovingFoward_WhenGettingValue_ReturnsTrue()
@@ -108,7 +103,6 @@ namespace KDScorpionEngineTests.Behaviors
             Assert.True(behavior.IsMovingForward);
         }
 
-
         [Fact]
         public void LinearSpeed_WhenSettingValue_ReturnsCorrectValue()
         {
@@ -122,7 +116,6 @@ namespace KDScorpionEngineTests.Behaviors
             Assert.Equal(12, behavior.LinearSpeed);
         }
         #endregion
-
 
         #region Method Tests
         // [Fact]
@@ -151,7 +144,6 @@ namespace KDScorpionEngineTests.Behaviors
             Assert.Equal(10, actual);
         }
 
-
         // [Fact]
         public void Update_WhenInvoked_InvokesEntityRotateCCW()
         {
@@ -175,7 +167,6 @@ namespace KDScorpionEngineTests.Behaviors
             Assert.Equal(-20, actual);
         }
         #endregion
-
 
         #region Public Methods
         public void Dispose()

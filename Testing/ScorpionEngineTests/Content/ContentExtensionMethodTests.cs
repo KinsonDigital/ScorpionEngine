@@ -23,7 +23,6 @@ namespace KDScorpionEngineTests.Content
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void IsLetter_WhenInvokedWithLowerCaseLetter_ReturnsTrue()
         {
@@ -37,7 +36,6 @@ namespace KDScorpionEngineTests.Content
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void IsLetter_WhenInvokedWithNumber_ReturnsFalse()
@@ -53,7 +51,6 @@ namespace KDScorpionEngineTests.Content
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void IsNumber_WhenInvokedWithNumber_ReturnsTrue()
         {
@@ -67,7 +64,6 @@ namespace KDScorpionEngineTests.Content
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void IsNumber_WhenInvokedWithLetter_ReturnsFalse()
@@ -83,7 +79,6 @@ namespace KDScorpionEngineTests.Content
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void GetFirstOccurentOfNumber_WhenInvokedWithNumberInString_ReturnsCorrectIndex()
         {
@@ -97,7 +92,6 @@ namespace KDScorpionEngineTests.Content
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void GetFirstOccurentOfNumber_WhenInvokedWithNoNumbersInString_ReturnsCorrectValue()
@@ -113,7 +107,6 @@ namespace KDScorpionEngineTests.Content
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void HasNumbers_WhenInvokedWithNumbers_ReturnsTrue()
         {
@@ -128,7 +121,6 @@ namespace KDScorpionEngineTests.Content
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void ContainsOnlyLettersAndNumbers_WhenInvokedWithNoSymbols_ReturnsTrue()
         {
@@ -142,7 +134,6 @@ namespace KDScorpionEngineTests.Content
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void ContainsOnlyLettersAndNumbers_WhenInvokedWithSymbols_ReturnsTrue()

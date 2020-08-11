@@ -18,7 +18,6 @@ namespace KDScorpionEngineTests.Input
         private Mock<IKeyboard> _mockCoreKeyboard;
         #endregion
 
-
         #region Constructors
         public KeyBehaviorTests()
         {
@@ -28,7 +27,6 @@ namespace KDScorpionEngineTests.Input
             _mockCoreKeyboard.Setup(m => m.IsKeyUp(It.IsAny<KeyCode>())).Returns(true);
         }
         #endregion
-
 
         #region Constructor Tests
         [Fact]
@@ -42,7 +40,6 @@ namespace KDScorpionEngineTests.Input
             Assert.Equal(KeyCode.X, behavior.Key);
         }
 
-
         [Fact]
         public void Ctor_TwoParamValues_SetsPropsCorrectly()
         {
@@ -54,7 +51,6 @@ namespace KDScorpionEngineTests.Input
             Assert.Equal(KeyCode.X, behavior.Key);
         }
         #endregion
-
 
         #region Prop Tests
         [Fact]
@@ -74,7 +70,6 @@ namespace KDScorpionEngineTests.Input
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Name_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
@@ -89,8 +84,6 @@ namespace KDScorpionEngineTests.Input
             // Assert
             Assert.Equal(expected, actual);
         }
-
-
 
         [Fact]
         public void TimeDelay_WhenGettingAndSettingValue_ReturnsCorrectValue()
@@ -107,7 +100,6 @@ namespace KDScorpionEngineTests.Input
             Assert.Equal(expected, actual);
         }
         #endregion
-
 
         #region Method Tests
         [Fact]
@@ -130,7 +122,6 @@ namespace KDScorpionEngineTests.Input
             Assert.Equal(expectedEventInvoked, actualEventInvoked);
         }
 
-
         [Fact]
         public void Update_WhenKeyBehaviorIsSetToKeyDownContinousWithNoEventSetup_DoesNotThrowException()
         {
@@ -148,7 +139,6 @@ namespace KDScorpionEngineTests.Input
 
             _mockCoreKeyboard.Verify(m => m.IsKeyDown(It.IsAny<KeyCode>()), Times.Once());
         }
-
 
         [Fact]
         public void Update_WhenKeyBehaviorIsSetToOnceOnDown_InvokeKeyDownEvent()
@@ -169,7 +159,6 @@ namespace KDScorpionEngineTests.Input
             Assert.True(actualEventInvoked);
         }
 
-
         [Fact]
         public void Update_WhenKeyBehaviorIsSetToOnceOnDownWithNoEventSetup_DoesNotThrowException()
         {
@@ -187,7 +176,6 @@ namespace KDScorpionEngineTests.Input
 
             _mockCoreKeyboard.Verify(m => m.IsKeyPressed(It.IsAny<KeyCode>()), Times.Once());
         }
-
 
         [Fact]
         public void Update_WhenKeyBehaviorIsSetToOnceOnRelease_InvokeKeyDownEvent()
@@ -211,7 +199,6 @@ namespace KDScorpionEngineTests.Input
             Assert.Equal(expectedEventInvoked, actualEventInvoked);
         }
 
-
         [Fact]
         public void Update_WhenKeyBehaviorIsSetToOnceOnReleaseWithNoEventSetup_DoesNotThrowException()
         {
@@ -232,7 +219,6 @@ namespace KDScorpionEngineTests.Input
             // The IsKeyDown method has to be invoked as well
             _mockCoreKeyboard.Verify(m => m.IsKeyUp(It.IsAny<KeyCode>()), Times.Once());
         }
-
 
         [Fact]
         public void Update_WhenKeyBehaviorIsSetToOnKeyDownTimeDelay_InvokeKeyDownEvent()
@@ -256,7 +242,6 @@ namespace KDScorpionEngineTests.Input
             // Assert
             Assert.Equal(expectedEventInvoked, actualEventInvoked);
         }
-
 
         [Fact]
         public void Update_WhenKeyBehaviorIsSetToOnKeyDownTimeDelayWithNoEventSetup_DoesNotThrowException()
@@ -282,7 +267,6 @@ namespace KDScorpionEngineTests.Input
             _mockCoreKeyboard.Verify(m => m.IsKeyDown(It.IsAny<KeyCode>()), Times.Once());
         }
 
-
         [Fact]
         public void Update_WhenKeyBehaviorIsSetToOnKeyReleaseTimeDelay_InvokeKeyDownEvent()
         {
@@ -303,7 +287,6 @@ namespace KDScorpionEngineTests.Input
             // Assert
             Assert.Equal(expectedEventInvoked, actualEventInvoked);
         }
-
 
         [Fact]
         public void Update_WhenKeyBehaviorIsSetToOnKeyReleaseTimeDelayWithNoEventSetup_DoesNotThrowException()
@@ -329,7 +312,6 @@ namespace KDScorpionEngineTests.Input
             _mockCoreKeyboard.Verify(m => m.IsKeyUp(It.IsAny<KeyCode>()), Times.Once());
         }
 
-
         [Fact]
         public void Update_WhenKeyBehaviorIsSetToOnAnyKeyPressTimeDelay_InvokeKeyDownEvent()
         {
@@ -351,7 +333,6 @@ namespace KDScorpionEngineTests.Input
             Assert.Equal(expectedEventInvoked, actualEventInvoked);
         }
 
-
         [Fact]
         public void Update_WhenKeyBehaviorIsSetToOnAnyKeyPressTimeDelayWithNoEventSetup_DoesNotThrowException()
         {
@@ -363,7 +344,6 @@ namespace KDScorpionEngineTests.Input
                 BehaviorType = KeyBehaviorType.OnAnyKeyPress
             };
 
-
             // Act/Assert
             AssertExt.DoesNotThrow<Exception>(() =>
             {
@@ -372,7 +352,6 @@ namespace KDScorpionEngineTests.Input
 
             _mockCoreKeyboard.Verify(m => m.GetCurrentPressedKeys(), Times.Once());
         }
-
 
         [Fact]
         public void Update_WhenDisabled_KeyboardNotUpdated()
@@ -391,7 +370,6 @@ namespace KDScorpionEngineTests.Input
             _mockCoreKeyboard.Verify(m => m.UpdatePreviousState(), Times.Never());
         }
 
-
         [Fact]
         public void Update_WhenInvokedWithIncorrectBehaviorType_ThrowsException()
         {
@@ -408,7 +386,6 @@ namespace KDScorpionEngineTests.Input
             });
         }
         #endregion
-
 
         #region Public Methods
         public void Dispose() => _mockCoreKeyboard = null;

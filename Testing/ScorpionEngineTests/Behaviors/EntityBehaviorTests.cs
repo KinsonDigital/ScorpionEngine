@@ -29,7 +29,6 @@ namespace KDScorpionEngineTests.Behaviors
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void IsReadOnly_WhenGettingValue_ReturnsFalse()
         {
@@ -43,7 +42,6 @@ namespace KDScorpionEngineTests.Behaviors
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void SetIndexItem_WhenGettingValue_ReturnsFalse()
@@ -65,7 +63,6 @@ namespace KDScorpionEngineTests.Behaviors
             Assert.Equal(expectedContains, actualContains);
         }
 
-
         [Fact]
         public void GetItemByIndex_WhenGettingValue_ReturnsCorrectItem()
         {
@@ -82,7 +79,6 @@ namespace KDScorpionEngineTests.Behaviors
             Assert.Equal(behavior, actual);
         }
         #endregion
-
 
         #region Method Tests
         [Fact]
@@ -105,7 +101,6 @@ namespace KDScorpionEngineTests.Behaviors
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Contains_WhenInvokingWithContainedItem_ReturnsTrue()
         {
@@ -121,7 +116,6 @@ namespace KDScorpionEngineTests.Behaviors
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void IndexOf_WhenInvoking_ReturnsCorrectIndex()
@@ -143,7 +137,6 @@ namespace KDScorpionEngineTests.Behaviors
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Insert_WhenInvoking_ProperlyInsertsItem()
         {
@@ -163,7 +156,6 @@ namespace KDScorpionEngineTests.Behaviors
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void Remove_WhenInvoking_RemovesCorrectItem()
@@ -186,7 +178,6 @@ namespace KDScorpionEngineTests.Behaviors
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void RemoveAt_WhenInvoking_RemovesCorrectItem()
         {
@@ -207,7 +198,6 @@ namespace KDScorpionEngineTests.Behaviors
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void CopyTo_WhenInvoking_CorrectlyCopiesItem()
@@ -232,7 +222,6 @@ namespace KDScorpionEngineTests.Behaviors
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void GetEnumerator_WhenInvoking_DoesNotReturnNull()

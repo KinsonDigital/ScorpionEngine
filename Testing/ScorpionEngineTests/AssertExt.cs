@@ -27,7 +27,6 @@ namespace KDScorpionEngineTests
             }
         }
 
-
         /// <summary>
         /// Asserts if an action does not throw a null reference exception.
         /// </summary>

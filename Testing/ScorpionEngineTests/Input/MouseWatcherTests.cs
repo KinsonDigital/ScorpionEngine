@@ -19,7 +19,6 @@ namespace KDScorpionEngineTests.Input
         private Mock<IMouse> _mockMouse;
         #endregion
 
-
         #region Constructors
         public MouseWatcherTests()
         {
@@ -27,7 +26,6 @@ namespace KDScorpionEngineTests.Input
             _mockMouse.Setup(m => m.IsButtonPressed(InputButton.LeftButton)).Returns(true);
         }
         #endregion
-
 
         #region Constructor Tests
         [Fact]
@@ -49,7 +47,6 @@ namespace KDScorpionEngineTests.Input
         }
         #endregion
 
-
         #region Prop Tests
         [Fact]
         public void Button_WhenGettingAndSettingValue_ReturnsCorrectValue()
@@ -67,7 +64,6 @@ namespace KDScorpionEngineTests.Input
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void CurrentHitCountPercentage_WhenGettingValue_ReturnsCorrectValue()
@@ -95,7 +91,6 @@ namespace KDScorpionEngineTests.Input
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void DownElapsedResetMode_WhenGettingValue_ReturnsCorrectValue()
         {
@@ -114,7 +109,6 @@ namespace KDScorpionEngineTests.Input
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void HitCountResetMode_WhenGettingValue_ReturnsCorrectValue()
         {
@@ -132,7 +126,6 @@ namespace KDScorpionEngineTests.Input
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void ComboButtons_WhenSettingValue_ReturnsCorrectValue()
@@ -160,7 +153,6 @@ namespace KDScorpionEngineTests.Input
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void InputDownElapsedMS_WhenGettingValue_ReturnsCorrectValue()
         {
@@ -176,7 +168,6 @@ namespace KDScorpionEngineTests.Input
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void InputDownElapsedSeconds_WhenGettingValue_ReturnsCorrectValue()
@@ -197,7 +188,6 @@ namespace KDScorpionEngineTests.Input
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void InputReleasedElapsedMS_WhenGettingValue_ReturnsCorrectValue()
         {
@@ -213,7 +203,6 @@ namespace KDScorpionEngineTests.Input
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void InputReleasedElapsedSeconds_WhenGettingValue_ReturnsCorrectValue()
@@ -238,7 +227,6 @@ namespace KDScorpionEngineTests.Input
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void InputDownTimeOut_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
@@ -257,7 +245,6 @@ namespace KDScorpionEngineTests.Input
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void InputReleasedTimeOut_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
@@ -275,7 +262,6 @@ namespace KDScorpionEngineTests.Input
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void ReleasedElapsedResetMode_WhenSettingAndGettingValue_ReturnsCorrectValue()
@@ -296,7 +282,6 @@ namespace KDScorpionEngineTests.Input
         }
         #endregion
 
-
         #region Method Tests
         [Fact]
         public void Update_WhenInvokingWithNullOnInputHitCountReachedEvent_RunsWithNoNullReferenceExceptions()
@@ -314,7 +299,6 @@ namespace KDScorpionEngineTests.Input
                 mouseWatcher.Update(new EngineTime());
             });
         }
-
 
         [Fact]
         public void Update_WhenInvokingWhileCountingWithNullCounter_RunsWithNoNullReferenceExceptions()
@@ -334,7 +318,6 @@ namespace KDScorpionEngineTests.Input
                 mouseWatcher.Update(new EngineTime());
             });
         }
-
 
         [Fact]
         public void Update_WhenInvokingWithProperButtonState_ResetsDownTimerAndStartsButtonUpTimer()
@@ -363,7 +346,6 @@ namespace KDScorpionEngineTests.Input
             Assert.Equal(expectedDownTimerElapsed, actualDownTimerElapsed);
             Assert.Equal(expectedUpTimerElapsed, actualUpTimerElapsed);
         }
-
 
         [Fact]
         public void Update_WhenDisabled_DoNotUpdateAnything()
@@ -411,7 +393,6 @@ namespace KDScorpionEngineTests.Input
             Assert.Equal(expectedInputComboPressedEventInvoked, actualInputComboPressedEventInvoked);
         }
 
-
         [Fact]
         public void Update_WhenUpdating_InvokesHitCountReachedEvent()
         {
@@ -438,7 +419,6 @@ namespace KDScorpionEngineTests.Input
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Update_WhenUpdating_InvokesInputDownTimeoutEvent()
         {
@@ -463,7 +443,6 @@ namespace KDScorpionEngineTests.Input
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Update_WhenUpdatingWithNullInputDownTimeoutEvent_ShouldNotThrowNullRefException()
         {
@@ -484,7 +463,6 @@ namespace KDScorpionEngineTests.Input
                 mouseWatcher.Update(engineTime);
             });
         }
-
 
         [Fact]
         public void Update_WhenUpdating_InvokesInputReleaseTimeoutEvent()
@@ -510,7 +488,6 @@ namespace KDScorpionEngineTests.Input
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Update_WhenUpdatingWithNullInputReleasedTimeoutEvent_ShouldNotThrowNullRefException()
         {
@@ -531,7 +508,6 @@ namespace KDScorpionEngineTests.Input
                 mouseWatcher.Update(engineTime);
             });
         }
-
 
         [Fact]
         public void Update_WhenInvokingWithSetComboButtons_InvokesOnInputComboPressedEvent()
@@ -560,7 +536,6 @@ namespace KDScorpionEngineTests.Input
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Update_WhenInvokingWithNullOnInputComboPressedEvent_DoesNotThrowNullException()
         {
@@ -582,7 +557,6 @@ namespace KDScorpionEngineTests.Input
             AssertExt.DoesNotThrowNullReference(() => mouseWatcher.Update(engineTime));
         }
         #endregion
-
 
         #region Public Methods
         public void Dispose() => _mockMouse = null;

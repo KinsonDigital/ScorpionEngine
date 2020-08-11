@@ -25,7 +25,6 @@ namespace KDScorpionEngineTests.Exceptions
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Ctor_WhenInvokingWithMessageParam_CorrectlySetsExceptionMessage()
         {

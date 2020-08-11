@@ -14,7 +14,6 @@ namespace KDScorpionEngineTests.Fakes
     {
         private readonly IEngineCore _fakeEngineCore;
 
-
         public FakeEngine(IContentLoader contentLoader, IEngineCore engineCore, IKeyboard keyboard) : base(contentLoader, engineCore, keyboard)
         {
             _fakeEngineCore = engineCore;
@@ -24,7 +23,6 @@ namespace KDScorpionEngineTests.Fakes
             engineCore.OnUpdate += (sender, e) => Update(new EngineTime());
             engineCore.OnRender += (sender, e) => Render(new GameRenderer(new Mock<IRenderer>().Object, new Mock<IDebugDraw>().Object));
         }
-
 
         #region Props
         public bool InitInvoked { get; set; }
@@ -36,31 +34,26 @@ namespace KDScorpionEngineTests.Fakes
         public bool RenderInvoked { get; set; }
         #endregion
 
-
         #region Public Methods
         public new void Start()
         {
             _fakeEngineCore.StartEngine();
         }
 
-
         public override void Init()
         {
             InitInvoked = true;
         }
-
 
         public override void LoadContent(ContentLoader contentLoader)
         {
             LoadContentInvoked = true;
         }
 
-
         public override void Update(EngineTime engineTime)
         {
             UpdateInvoked = true;
         }
-
 
         public override void Render(GameRenderer renderer)
         {

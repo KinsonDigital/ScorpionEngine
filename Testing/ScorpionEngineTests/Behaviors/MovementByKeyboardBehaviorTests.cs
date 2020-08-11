@@ -20,7 +20,6 @@ namespace KDScorpionEngineTests.Behaviors
         private Mock<IPhysicsBody> _mockPhysicsBody;
         #endregion
 
-
         #region Constructors
         public MovementByKeyboardBehaviorTests()
         {
@@ -36,7 +35,6 @@ namespace KDScorpionEngineTests.Behaviors
                 });
         }
         #endregion
-
 
         #region Constructor Tests
         // [Fact]
@@ -59,7 +57,6 @@ namespace KDScorpionEngineTests.Behaviors
             Assert.Equal(1234, entity.Position.X);
         }
 
-
         // [Fact]
         public void Ctor_WhenInvoking_CreatesMoveLeftBehavior()
         {
@@ -80,7 +77,6 @@ namespace KDScorpionEngineTests.Behaviors
             Assert.Equal(-5678, entity.Position.X);
         }
 
-
         // [Fact]
         public void Ctor_WhenInvoking_CreatesMoveUpBehavior()
         {
@@ -100,7 +96,6 @@ namespace KDScorpionEngineTests.Behaviors
             // Assert
             Assert.Equal(-1478, entity.Position.Y);
         }
-
 
         // [Fact]
         public void Ctor_WhenInvoking_CreatesMoveDownBehavior()
@@ -123,7 +118,6 @@ namespace KDScorpionEngineTests.Behaviors
         }
         #endregion
 
-
         #region Prop Tests
         [Fact]
         public void MoveUpKey_WhenGettingAndSettingValue_CorrectlySetsValue()
@@ -140,7 +134,6 @@ namespace KDScorpionEngineTests.Behaviors
 
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void MoveDownKey_WhenGettingAndSettingValue_CorrectlySetsValue()
@@ -160,7 +153,6 @@ namespace KDScorpionEngineTests.Behaviors
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void MoveLeftKey_WhenGettingAndSettingValue_CorrectlySetsValue()
         {
@@ -178,7 +170,6 @@ namespace KDScorpionEngineTests.Behaviors
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void MoveRightKey_WhenGettingAndSettingValue_CorrectlySetsValue()
@@ -199,7 +190,6 @@ namespace KDScorpionEngineTests.Behaviors
         }
         #endregion
 
-
         #region Public Methods
         public void Dispose()
         {
@@ -207,7 +197,6 @@ namespace KDScorpionEngineTests.Behaviors
             _mockPhysicsBody = null;
         }
         #endregion
-
 
         #region Private Methods
         private void SetKeyboardKey(KeyCode key) => _mockKeyboard.Setup(m => m.IsKeyDown(key)).Returns(true);

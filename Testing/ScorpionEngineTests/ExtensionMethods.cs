@@ -22,10 +22,8 @@ namespace KDScorpionEngineTests
             if (privateFields == null || privateFields.Length <= 0)
                 throw new Exception($"Cannot find the field {name} on the given object of type {value.GetType()}");
 
-
             return privateFields.FirstOrDefault();
         }
-
 
         /// <summary>
         /// Sets the value or reference type with the given <paramref name="name"/> to the value of 0 or null.
@@ -63,7 +61,6 @@ namespace KDScorpionEngineTests
                 foundField.SetValue(fieldContainer, null);
             }
         }
-
 
         public static bool IsFieldPrimitive(this object fieldContainer, string name)
         {

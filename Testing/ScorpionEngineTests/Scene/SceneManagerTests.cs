@@ -22,7 +22,6 @@ namespace KDScorpionEngineTests.Scene
         private Mock<IKeyboard> _mockKeyboard;
         #endregion
 
-
         #region Constructors
         public SceneManagerTests()
         {
@@ -34,7 +33,6 @@ namespace KDScorpionEngineTests.Scene
             _mockKeyboard.Setup(m => m.IsKeyPressed(KeyCode.Left)).Returns(true);
         }
         #endregion
-
 
         #region Prop Tests
         [Fact]
@@ -51,7 +49,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void CurrentScene_WhenGettingValue_ReturnsCorrectScene()
@@ -73,7 +70,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void CurrentSceneId_WhenGettingValue_ReturnsCorrectValue()
@@ -97,7 +93,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void PlayCurrentSceneKey_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
@@ -112,7 +107,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void PauseCurrentSceneKey_WhenGettingAndSettingValue_ReturnsCorrectValue()
@@ -129,7 +123,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void NextSceneKey_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
@@ -144,7 +137,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void PreviousSceneKey_WhenGettingAndSettingValue_ReturnsCorrectValue()
@@ -161,7 +153,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void UnloadContentOnSceneChange_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
@@ -177,7 +168,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-        
         [Fact]
         public void InitializeScenesOnAdd_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
@@ -192,7 +182,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void InitializeScenesOnChange_WhenGettingAndSettingValue_ReturnsCorrectValue()
@@ -209,7 +198,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void ActivateSceneOnAdd_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
@@ -224,7 +212,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void UpdateInactiveScenes_WhenGettingAndSettingValue_ReturnsCorrectValue()
@@ -241,7 +228,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void DeactivateOnSceneChange_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
@@ -256,7 +242,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void SetSceneAsRenderableOnAdd_WhenGettingAndSettingValue_ReturnsCorrectValue()
@@ -273,7 +258,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void UnloadPreviousSceneContent_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
@@ -289,7 +273,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void LoadContentOnSceneChange_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
@@ -304,7 +287,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void Count_WhenGettingAndSettingValue_ReturnsCorrectValue()
@@ -323,7 +305,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void IsReadOnly_WhenGettingValue_ReturnsCorrectValue()
         {
@@ -337,7 +318,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void SceneManagerClass_WhenGettingAndSettingItemIndex_ReturnsCorrectItem()
@@ -367,7 +347,6 @@ namespace KDScorpionEngineTests.Scene
         }
         #endregion
 
-
         #region Method Tests
         [Fact]
         public void Add_WhenInvoking_AddsNewScene()
@@ -383,7 +362,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void Add_WhenInvokingWithInitializeScenesOnAddPropSetToTrue_InvokesSceneInitialize()
@@ -401,7 +379,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             mockScene.Verify(m => m.Initialize(), Times.Once());
         }
-
 
         [Fact]
         public void Add_WhenInvokingWithActivateSceneOnAddPropSetToTrue_SetsSceneToActive()
@@ -423,7 +400,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Add_WhenInvoking_GeneratesNewSceneId()
         {
@@ -443,7 +419,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void Add_WhenInvokingWithAlreadyExistingSceneId_ThrowsException()
@@ -471,7 +446,6 @@ namespace KDScorpionEngineTests.Scene
             });
         }
 
-
         [Fact]
         public void Add_WhenAddingOnlyOneItem_ReturnsCorrectSceneId()
         {
@@ -491,7 +465,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.True(actualNotNull);
             Assert.Equal(expectedId, actualId);
         }
-
 
         [Fact]
         public void Add_WhenAddingOnlyTwoItems_ReturnsCorrectSceneId()
@@ -520,7 +493,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.True(actualNotNull);
             Assert.Equal(expectedId, actualId);
         }
-
 
         [Fact]
         public void Add_WhenAddingOnlyThreeItems_ReturnsCorrectSceneId()
@@ -562,7 +534,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expectedId, actualId);
         }
 
-        
         [Fact]
         public void Clear_WhenInvoking_RemovesAllScenes()
         {
@@ -580,7 +551,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Contains_WhenInvoking_ReturnsTrue()
         {
@@ -597,7 +567,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void CopyTo_WhenInvoking_SuccessfullyCopiesScenesToArray()
@@ -617,7 +586,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Remove_WhenInvoking_SuccessfullyRemovesScene()
         {
@@ -635,7 +603,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void SetCurrentSceneID_WhenInvoking_SuccessfullyRemovesScene()
@@ -664,7 +631,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expectedId, actual);
         }
 
-
         [Fact]
         public void SetCurrentSceneID_WhenInvokingWithAlreadyExistingId_ThrowsException()
         {
@@ -689,7 +655,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Throws<IdNotFoundException>(() => manager.SetCurrentSceneID(1000));
         }
-
 
         [Fact]
         public void LoadAllSceneContent_WhenInvoking_InvokesSceneLoadContentMethod()
@@ -720,7 +685,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             mockSceneB.Verify(m => m.LoadContent(It.IsAny<ContentLoader>()), Times.Once());
         }
-
 
         [Fact]
         public void LoadCurrentSceneContent_WhenInvoking_InvokesSceneLoadContentMethod()
@@ -759,7 +723,6 @@ namespace KDScorpionEngineTests.Scene
             mockSceneB.Verify(m => m.LoadContent(It.IsAny<ContentLoader>()), Times.Once());
         }
 
-
         [Fact]
         public void LoadCurrentSceneContent_WhenInvokingWithNonExistingId_ThrowsException()
         {
@@ -784,7 +747,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Throws<IdNotFoundException>(() => manager.LoadCurrentSceneContent());
         }
 
-
         [Fact]
         public void UnloadAllContent_WhenInvoking_InvokesSceneUnloadContent()
         {
@@ -803,7 +765,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             mockScene.Verify(m => m.UnloadContent(It.IsAny<ContentLoader>()), Times.Once());
         }
-
 
         [Fact]
         public void RemoveScene_WhenInvoking_SuccessfullyRemovesScene()
@@ -827,7 +788,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void RemoveScene_WhenInvokingWithInvalidId_ThrowsException()
         {
@@ -847,7 +807,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Throws<IdNotFoundException>(() => manager.RemoveScene(200));
         }
-
 
         [Fact]
         public void NextScene_WhenNotOnLastScene_CorrectlySetsCurrentSceneId()
@@ -872,7 +831,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void NextScene_WhenOnLastScene_CorrectlySetsCurrentSceneId()
         {
@@ -894,7 +852,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void NextScene_WhenInvoking_InvokesSceneChangedEvent()
@@ -919,7 +876,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actualEventInvoked);
         }
 
-
         [Fact]
         public void PreviousScene_WhenNotOnFirstScene_CorrectlySetsCurrentSceneId()
         {
@@ -942,7 +898,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void PreviousScene_WhenOnFirstScene_CorrectlySetsCurrentSceneId()
@@ -967,7 +922,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void PreviousScene_WhenInvoking_InvokesSceneChangedEvent()
         {
@@ -991,7 +945,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actualEventInvoked);
         }
 
-
         [Fact]
         public void SetCurrentScene_WhenInvokingWithId_CurrentlySetsCurrentSceneIdPropValue()
         {
@@ -1014,7 +967,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void SetCurrentScene_WhenInvokingWithInvalidId_ThrowsException()
         {
@@ -1031,7 +983,6 @@ namespace KDScorpionEngineTests.Scene
             // Act/Assert
             Assert.Throws<IdNotFoundException>(() => manager.SetCurrentScene(100));
         }
-
 
         [Fact]
         public void SetCurrentScene_WhenInvokingWithId_InvokesSceneChangedEvent()
@@ -1056,7 +1007,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expectedEventInvoked, actualEventInvoked);
         }
 
-
         [Fact]
         public void SetCurrentScene_WhenInvokingWithName_CurrentlySetsCurrentSceneIdPropValue()
         {
@@ -1079,7 +1029,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void SetCurrentScene_WhenInvokingWithInvalidName_ThrowsException()
         {
@@ -1096,7 +1045,6 @@ namespace KDScorpionEngineTests.Scene
             // Act/Assert
             Assert.Throws<NameNotFoundException>(() => manager.SetCurrentScene("InvalidName"));
         }
-
 
         [Fact]
         public void SetCurrentScene_WhenInvokingWithName_InvokesSceneChangedEvent()
@@ -1121,7 +1069,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expectedEventInvoked, actualEventInvoked);
         }
 
-
         [Fact]
         public void InitializeCurrentScene_WhenInvoking_InvokesSceneInitializeMethod()
         {
@@ -1138,7 +1085,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             mockScene.Verify(m => m.Initialize());
         }
-
 
         [Fact]
         public void InitializeCurrentScene_WhenInvokingWithInvalidSceneId_ThrowException()
@@ -1159,7 +1105,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Throws<IdNotFoundException>(() => manager.InitializeCurrentScene());
         }
 
-
         [Fact]
         public void InitializeScene_WhenInvokingWithId_InvokesSceneInitializeMethod()
         {
@@ -1179,7 +1124,6 @@ namespace KDScorpionEngineTests.Scene
             mockScene.Verify(m => m.Initialize(), Times.Once());
         }
 
-
         [Fact]
         public void InitializeScene_WhenInvokingWithInvalidId_ThrowsException()
         {
@@ -1195,7 +1139,6 @@ namespace KDScorpionEngineTests.Scene
             // Act/Assert
             Assert.Throws<IdNotFoundException>(() => manager.InitializeScene(20));
         }
-
 
         [Fact]
         public void InitializeScene_WhenInvokingWithName_InvokesSceneInitializeMethod()
@@ -1216,7 +1159,6 @@ namespace KDScorpionEngineTests.Scene
             mockScene.Verify(m => m.Initialize(), Times.Once());
         }
 
-
         [Fact]
         public void InitializeScene_WhenInvokingWithInvalidName_ThrowsException()
         {
@@ -1232,7 +1174,6 @@ namespace KDScorpionEngineTests.Scene
             // Act/Assert
             Assert.Throws<NameNotFoundException>(() => manager.InitializeScene("SceneB"));
         }
-
 
         [Fact]
         public void InitializeAllScenes_WhenInvokingWithInvalidName_InvokesInitializeMethodForAllScenes()
@@ -1257,7 +1198,6 @@ namespace KDScorpionEngineTests.Scene
             mockSceneA.Verify(m => m.Initialize());
             mockSceneB.Verify(m => m.Initialize());
         }
-
 
         [Fact]
         public void GetScene_WhenInvokingWithId_ReturnsCorrectScene()
@@ -1284,7 +1224,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void GetScene_WhenInvokingWithInvalidId_ThrowsException()
         {
@@ -1305,7 +1244,6 @@ namespace KDScorpionEngineTests.Scene
             // Act/Assert
             Assert.Throws<IdNotFoundException>(() => manager.GetScene<IScene>(100));
         }
-
 
         [Fact]
         public void GetScene_WhenInvokingWithName_ReturnsCorrectScene()
@@ -1334,7 +1272,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void GetScene_WhenInvokingWithInvalidName_ThrowsException()
         {
@@ -1357,7 +1294,6 @@ namespace KDScorpionEngineTests.Scene
             // Act/Assert
             Assert.Throws<NameNotFoundException>(() => manager.GetScene<IScene>("InvalidSceneName"));
         }
-
 
         [Fact]
         public void PlayCurrentScene_WhenInvoking_UnpausesScene()
@@ -1386,7 +1322,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void PauseCurrentScene_WhenInvoking_PausesScene()
         {
@@ -1414,7 +1349,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void RunFrameStack_WhenInvoking_InvokesRunFrameStackMethod()
         {
@@ -1434,7 +1368,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             mockTimeManager.Verify(m => m.RunFrameStack(), Times.Once());
         }
-
 
         [Fact]
         public void RunFrames_WhenInvoking_InvokesRunFramesMethod()
@@ -1456,7 +1389,6 @@ namespace KDScorpionEngineTests.Scene
             mockTimeManager.Verify(m => m.RunFrames(It.IsAny<uint>()), Times.Once());
         }
 
-
         [Fact]
         public void GetEnumerator_WhenInvoking_ReturnsEnumeratorObject()
         {
@@ -1474,7 +1406,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.NotNull(actual);
         }
-
 
         [Fact]
         public void IndexOf_WhenInvoking_ReturnsCorrectIndexValue()
@@ -1499,7 +1430,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void Insert_WhenInvoking_InsertsIntoCorrectSpot()
@@ -1529,7 +1459,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Insert_WhenInvokingWithInvalidIndex_ThrowsException()
         {
@@ -1552,7 +1481,6 @@ namespace KDScorpionEngineTests.Scene
             // Act/Assert
             Assert.Throws<ArgumentOutOfRangeException>(() => manager.Insert(100, mockSceneB.Object));
         }
-
 
         [Fact]
         public void RemoveAt_WhenInvoking_ThrowsException()
@@ -1579,7 +1507,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void RemoveAt_WhenInvokingWithInvalidIndex_ThrowsException()
         {
@@ -1595,7 +1522,6 @@ namespace KDScorpionEngineTests.Scene
             // Act/Assert
             Assert.Throws<ArgumentOutOfRangeException>(() => manager.RemoveAt(100));
         }
-
 
         [Fact]
         public void Render_WhenInvokingWithInvalidSceneId_ThrowsException()
@@ -1622,7 +1548,6 @@ namespace KDScorpionEngineTests.Scene
             });
         }
 
-
         [Fact]
         public void Render_WhenInvoking_InvokesSceneRenderMethod()
         {
@@ -1644,7 +1569,6 @@ namespace KDScorpionEngineTests.Scene
             mockScene.Verify(m => m.Render(It.IsAny<GameRenderer>()), Times.Once());
         }
 
-
         [Fact]
         public void Render_WhenInvokingWithNoScenes_DoesNotThrowException()
         {
@@ -1664,7 +1588,6 @@ namespace KDScorpionEngineTests.Scene
                 manager.Render(It.IsAny<GameRenderer>());
             });
         }
-
 
         [Fact]
         public void Update_WhenInvokingWithPlayCurrentSceneKeyPressed_UnpausesCurrentScene()
@@ -1694,7 +1617,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Update_WhenInvokingWithPauseCurrentSceneKeyPressed_PausesCurrentScene()
         {
@@ -1722,7 +1644,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void Update_WhenInvokingWithNextSceneKeyPressed_MovesToNextScene()
@@ -1753,7 +1674,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Update_WhenInvokingWithPreviousSceneKeyPressed_MovesToPreviousScene()
         {
@@ -1782,7 +1702,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Update_WhenInvokingWithActiveScene_InvokesSceneUpdate()
         {
@@ -1802,7 +1721,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             mockScene.Verify(m => m.Update(It.IsAny<EngineTime>()), Times.Once());
         }
-
 
         [Fact]
         public void Update_WhenInvokingWithInActiveSceneAndUpdateInactiveScenesTrue_InvokesSceneUpdate()
@@ -1826,11 +1744,9 @@ namespace KDScorpionEngineTests.Scene
         }
         #endregion
 
-
         #region Public Methods
         public void Dispose() => _mockKeyboard = null;
         #endregion
-
 
         #region Private Methods
         private static IScene CreateScene(string name = "", int sceneId = -1)
@@ -1843,7 +1759,6 @@ namespace KDScorpionEngineTests.Scene
 
             result.Id = sceneId;
             result.Name = name;
-
 
             return result;
         }

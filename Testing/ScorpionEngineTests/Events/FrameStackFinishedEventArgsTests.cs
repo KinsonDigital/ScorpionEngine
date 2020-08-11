@@ -24,7 +24,6 @@ namespace KDScorpionEngineTests.Events
         }
         #endregion
 
-
         #region Prop Tests
         [Fact]
         public void TotalFramesRan_WhenGettingAndSettingValue_ReturnsCorrectValue()

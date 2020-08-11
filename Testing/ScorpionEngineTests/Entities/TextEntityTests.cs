@@ -16,7 +16,6 @@ namespace KDScorpionEngineTests.Entities
         private Mock<IPhysicsBody> _mockPhysicsBody;
         #endregion
 
-
         #region Constructors
         public TextEntityTests()
         {
@@ -25,7 +24,6 @@ namespace KDScorpionEngineTests.Entities
             _mockPhysicsBody.SetupProperty(p => p.Y);
         }
         #endregion
-
 
         #region Constructor Tests
         [Fact]
@@ -40,7 +38,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(new GameColor(0, 0, 0, 0), entity.BackColor);
         }
         #endregion
-
 
         #region Prop Tests
         [Fact]
@@ -58,7 +55,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void ForeColor_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
@@ -73,7 +69,6 @@ namespace KDScorpionEngineTests.Entities
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void BackColor_WhenGettingAndSettingValue_ReturnsCorrectValue()
@@ -90,7 +85,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expected, actual);
         }
         #endregion
-
 
         #region Public Methods
         public void Dispose() => _mockPhysicsBody = null;

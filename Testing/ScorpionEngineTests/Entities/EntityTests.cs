@@ -24,7 +24,6 @@ namespace KDScorpionEngineTests.Entities
         private Mock<IContentLoader> _contentLoader;
         #endregion
 
-
         #region Constructors
         public EntityTests()
         {
@@ -41,7 +40,6 @@ namespace KDScorpionEngineTests.Entities
         }
         #endregion
 
-
         #region Constructor Tests
         [Fact]
         public void Ctor_WhenInvokingWithStaticBodyValue_ProperlySetsBodyAsStatic()
@@ -57,7 +55,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Ctor_WhenInvokingWithPositionParam_ProperlySetsPositionProperty()
         {
@@ -71,7 +68,6 @@ namespace KDScorpionEngineTests.Entities
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void Ctor_WhenInvokingWithVertices_ProperlySetsUpObject()
@@ -98,7 +94,6 @@ namespace KDScorpionEngineTests.Entities
         }
         #endregion
 
-
         #region Prop Tests
         [Fact]
         public void Behaviors_WhenCreatingEntity_PropertyInstantiated()
@@ -112,7 +107,6 @@ namespace KDScorpionEngineTests.Entities
             // Assert
             Assert.NotNull(actual);
         }
-
 
         [Fact]
         public void Visible_WhenGettingAndSettingValue_ValueProperlySet()
@@ -131,7 +125,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Visible_WhenSettingValue_InvokesOnHideEvent()
         {
@@ -146,7 +139,6 @@ namespace KDScorpionEngineTests.Entities
             // Assert
             Assert.True(eventRaised);
         }
-
 
         [Fact]
         public void Visible_WhenSettingValue_InvokesOnShowEvent()
@@ -166,7 +158,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.True(eventRaised);
         }
 
-
         [Fact]
         public void Visible_WhenGoingFromInvisibleToVisible_InvokesOnShowEvent()
         {
@@ -184,7 +175,6 @@ namespace KDScorpionEngineTests.Entities
             // Assert
             Assert.True(eventRaised);
         }
-
 
         [Fact]
         public void Visible_WhenGoingFromInvisibleToVisible_DoesNotInvokesOnShowEvent()
@@ -204,7 +194,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.False(eventRaised);
         }
 
-
         [Fact]
         public void Bounds_WhenGettingValue_ReturnsCorrectValue()
         {
@@ -221,7 +210,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void BoundsWidth_WhenGettingValue_ReturnsCorrectValue()
         {
@@ -237,7 +225,6 @@ namespace KDScorpionEngineTests.Entities
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         // [Fact]
         public void BoundsWidth_WhenGettingValueWithNullBody_ReturnsZero()
@@ -258,7 +245,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expected, actual);
         }
 
-
         // [Fact]
         public void BoundsHeight_WhenGettingValueWithNullBody_ReturnsZero()
         {
@@ -278,7 +264,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void BoundsHeight_WhenGettingValue_ReturnsCorrectValue()
         {
@@ -294,7 +279,6 @@ namespace KDScorpionEngineTests.Entities
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void BoundsHalfWidth_WhenGettingValue_ReturnsCorrectValue()
@@ -312,7 +296,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void BoundsHalfHeight_WhenGettingValue_ReturnsCorrectValue()
         {
@@ -328,7 +311,6 @@ namespace KDScorpionEngineTests.Entities
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void Texture_WhenSettingAndeGettingValue_ReturnsCorrectValue()
@@ -347,7 +329,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.NotNull(actual);
         }
 
-
         [Fact]
         public void DebugDrawEnabled_WhenGettingDefaultValue_ReturnsTrue()
         {
@@ -357,7 +338,6 @@ namespace KDScorpionEngineTests.Entities
             // Act & Assert
             Assert.True(fakeEntity.DebugDrawEnabled);
         }
-
 
         [Fact]
         public void DebugDrawEnabled_WhenSettingToFalse_ReturnsFalse()
@@ -372,7 +352,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.False(fakeEntity.DebugDrawEnabled);
         }
 
-
         [Fact]
         public void DebugDrawColor_WhenSettingValue_ReturnsCorrectValue()
         {
@@ -385,7 +364,6 @@ namespace KDScorpionEngineTests.Entities
             // Assert
             Assert.Equal(new GameColor(11, 22, 33, 44), fakeEntity.DebugDrawColor);
         }
-
 
         [Fact]
         public void Behaviors_WhenSettingValue_ReturnsCorrectValue()
@@ -407,7 +385,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Position_WhenSettingValueAfterInitalized_ReturnsCorrectValue()
         {
@@ -425,7 +402,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Position_WhenSettingValueBeforeInitialized_ReturnsCorrectValue()
         {
@@ -440,7 +416,6 @@ namespace KDScorpionEngineTests.Entities
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void Vertices_WhenGettingAndSettingValue_ReturnsCorrectValue()
@@ -462,7 +437,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Vertices_WhenSettingValueAfterInit_ThrowsException()
         {
@@ -480,7 +454,6 @@ namespace KDScorpionEngineTests.Entities
             // Act/Assert
             Assert.Throws<EntityAlreadyInitializedException>(() => entity.Vertices = expected);
         }
-
 
         [Fact]
         public void Vertices_WhenGettingValueBeforeInit_ReturnsCorrectValue()
@@ -508,7 +481,6 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Vertices_WhenGettingValueBeforeAfterInit_ReturnsCorrectValue()
         {
@@ -532,7 +504,6 @@ namespace KDScorpionEngineTests.Entities
         }
         #endregion
 
-
         #region Method Tests
         [Fact]
         public void OnUpdate_WhenInvoked_UpdatesBehaviors()
@@ -550,7 +521,6 @@ namespace KDScorpionEngineTests.Entities
             mockBehavior.Verify(m => m.Update(It.IsAny<EngineTime>()), Times.Once());
         }
 
-
         [Fact]
         public void LoadContent_WhenInvoked_SetsContentLoadedPropToTrue()
         {
@@ -567,7 +537,6 @@ namespace KDScorpionEngineTests.Entities
         }
         #endregion
 
-
         #region Public Methods
         public void Dispose()
         {
@@ -577,14 +546,12 @@ namespace KDScorpionEngineTests.Entities
         }
         #endregion
 
-
         #region Private Methods
         private static Texture CreateTexture()
         {
             var mockTexture = new Mock<ITexture>();
             mockTexture.SetupGet(m => m.Width).Returns(100);
             mockTexture.SetupGet(m => m.Height).Returns(50);
-
 
             return new Texture(mockTexture.Object);
         }

@@ -24,7 +24,6 @@ namespace KDScorpionEngineTests.Scene
         private readonly Mock<IPhysicsBody> _mockPhysicsBody;
         #endregion
 
-
         #region Constructors
         public GameSceneTests()
         {
@@ -32,7 +31,6 @@ namespace KDScorpionEngineTests.Scene
             _mockPhysicsBody = new Mock<IPhysicsBody>();
         }
         #endregion
-
 
         #region Constructor Tests
         [Fact]
@@ -48,7 +46,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.NotNull(actual);
         }
         #endregion
-
 
         #region Prop Tests
         [Fact]
@@ -66,7 +63,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void ContentLoaded_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
@@ -82,7 +78,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void TimeManager_WhenGettingValue_NotNull()
         {
@@ -95,7 +90,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.NotNull(actual);
         }
-
 
         [Fact]
         public void Initialized_WhenGettingValueAfterInitialized_ReturnsTrue()
@@ -112,7 +106,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Active_WhenGettingAndSettingValue_ReturnsTrue()
         {
@@ -127,7 +120,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void IsRenderingScene_WhenGettingAndSettingValue_ReturnsCorrectValue()
@@ -144,7 +136,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Id_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
@@ -160,7 +151,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
         #endregion
-
 
         #region Method Tests
         [Fact]
@@ -179,7 +169,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void UnloadContent_WhenInvoked_SetsContentLoadedToFalse()
@@ -201,7 +190,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Update_WhenInvoking_InvokesTimeManagerUpdate()
         {
@@ -220,7 +208,6 @@ namespace KDScorpionEngineTests.Scene
             mockTimeManager.Verify(m => m.Update(It.IsAny<EngineTime>()), Times.Once());
         }
 
-
         [Fact]
         public void Update_WhenInvoking_InvokesPhyiscsWorldUpdate()
         {
@@ -235,7 +222,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             _mockPhysicsWorld.Verify(m => m.Update(It.IsAny<float>()), Times.Once());
         }
-
 
         [Fact]
         public void Update_WhenInvoking_InvokesEntityUpdate()
@@ -259,7 +245,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Update_WhenInvokingWithNullTimeManager_DoesNotThrowException()
         {
@@ -275,7 +260,6 @@ namespace KDScorpionEngineTests.Scene
                 scene.Update(new EngineTime());
             });
         }
-
 
         [Fact]
         public void Render_WhenInvoking_InvokesAllEntityRenderMethods()
@@ -311,7 +295,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
         #endregion
-
 
         #region Public Methods
         public void Dispose() => _mockPhysicsWorld = null;

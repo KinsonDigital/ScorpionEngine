@@ -17,27 +17,22 @@ namespace KDScorpionEngineTests.Fakes
         {
         }
 
-
         public FakeEntity(Vector2 position) : base(position)
         {
         }
-
 
         public FakeEntity(IPhysicsBody body) : base(body)
         {
         }
 
-
         public FakeEntity(Vector2[] polyVertices, Vector2 position) : base(polyVertices, position, isStaticBody: false)
         {
         }
-
 
         public FakeEntity(Texture texture, Vector2[] polyVertices, Vector2 position) : base(texture, polyVertices, position, isStaticBody: false)
         {
         }
         #endregion
-
 
         #region Props
         public bool UpdateInvoked { get; set; }
@@ -45,19 +40,16 @@ namespace KDScorpionEngineTests.Fakes
         public bool RenderInvoked { get; set; }
         #endregion
 
-
         #region Public Methods
         public override bool Equals(object obj)
         {
             return base.Equals(obj);
         }
 
-
         public override int GetHashCode()
         {
             return base.GetHashCode();
         }
-
 
         public override void Update(EngineTime engineTime)
         {
@@ -66,9 +58,7 @@ namespace KDScorpionEngineTests.Fakes
             base.Update(engineTime);
         }
 
-
         public override void Render(GameRenderer renderer) => RenderInvoked = true;
-
 
         public override string ToString()
         {

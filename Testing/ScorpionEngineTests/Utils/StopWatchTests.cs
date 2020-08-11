@@ -27,7 +27,6 @@ namespace KDScorpionEngineTests.Utils
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Stop_WhenStoping_SetsRunningToFalse()
         {
@@ -42,7 +41,6 @@ namespace KDScorpionEngineTests.Utils
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void Reset_WhenReseting_SetElapsedToZeroAndRunningToFalse()
@@ -64,7 +62,6 @@ namespace KDScorpionEngineTests.Utils
             Assert.Equal(expectedElapsedMS, actualElapsedMS);
             Assert.Equal(expectedRunning, actualRunning);
         }
-
 
         [Fact]
         public void Update_WhenInvokingWithResetTypeAsAuto_ResetStopWatch()
@@ -89,7 +86,6 @@ namespace KDScorpionEngineTests.Utils
             Assert.Equal(expectedRunning, actualRunning);
         }
 
-
         [Fact]
         public void Update_WhenInvoking_OnTimeElapsedEventInvoked()
         {
@@ -103,7 +99,6 @@ namespace KDScorpionEngineTests.Utils
                 ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 2500),
             };
 
-
             // Act
             stopWatch.Start();
             stopWatch.Update(engineTime);
@@ -112,7 +107,6 @@ namespace KDScorpionEngineTests.Utils
             Assert.Equal(expected, actual);
         }
         #endregion
-
 
         #region Prop Tests
         [Fact]
@@ -130,7 +124,6 @@ namespace KDScorpionEngineTests.Utils
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void TimeOut_WhenUsingNegativeValue_SetsValueToZero()
         {
@@ -146,7 +139,6 @@ namespace KDScorpionEngineTests.Utils
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void TimeOut_WhenUsingPositiveValue_SetsValueToIncomingValue()
         {
@@ -161,7 +153,6 @@ namespace KDScorpionEngineTests.Utils
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void ElapsedSeconds_WhenSettingValue_ConvertsSecondsToMilliseconds()

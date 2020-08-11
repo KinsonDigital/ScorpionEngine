@@ -26,7 +26,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void ElapsedFramesForStack_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
@@ -40,7 +39,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(123u, actual);
         }
-
 
         [Fact]
         public void FrameTime_WhenGettingAndSettingValue_ReturnsCorrectValue()
@@ -57,7 +55,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Paused_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
@@ -73,7 +70,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void TotalFramesRan_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
@@ -88,7 +84,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void Mode_WhenGettingAndSettingValue_ReturnsCorrectValue()
@@ -106,7 +101,6 @@ namespace KDScorpionEngineTests.Scene
         }
         #endregion
 
-
         #region Method Tests
         [Fact]
         public void Update_WhenInvokingInContinuousMode_IncrementsTotalFramsRan()
@@ -123,7 +117,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void Update_WhenInvokingInFrameStackMode_UpdatesElapsedFrameTimeProp()
@@ -143,7 +136,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void Update_WhenInvokingInFrameStackMode_ResetsElapsedFrameTimeProp()
@@ -166,7 +158,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Update_WhenInvokingInFrameStackMode_IncrementsElapsedFramesPerStackProp()
         {
@@ -186,7 +177,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(2u, actual);
         }
-
 
         [Fact]
         public void Update_WhenInvokingInFrameStackMode_IncrementsTotalFramesRanProp()
@@ -208,7 +198,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void Update_WhenInvokingInFrameStackMode_ResetElapsedFramesForStackPropToZero()
@@ -234,7 +223,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(0u, actual);
         }
 
-
         [Fact]
         public void Update_WhenInvokingInFrameStackMode_SetPausedToTrue()
         {
@@ -259,7 +247,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void Update_WhenInvokingInFrameStackMode_InvokesFrameStackFinishedEvent()
@@ -287,7 +274,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expectedEventInvoked, actualEventInvoked);
         }
 
-
         [Fact]
         public void RunFrameStack_WhenInvokingInFrameStackMode_PauseSetToFalse()
         {
@@ -307,7 +293,6 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void RunFrames_WhenInvokingInContinuousMode_PauseStaysSetToTrue()
         {
@@ -326,7 +311,6 @@ namespace KDScorpionEngineTests.Scene
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void RunFrames_WhenInvokingWithInternalCallbackNotNull_SetsFramesPerStackToCorrectValue()

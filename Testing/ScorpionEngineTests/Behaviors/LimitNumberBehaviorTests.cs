@@ -24,7 +24,6 @@ namespace KDScorpionEngineTests.Behaviors
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Ctor_WhenInvoking_CorrectlySetsNameProp()
         {
@@ -39,7 +38,6 @@ namespace KDScorpionEngineTests.Behaviors
             Assert.Equal(expected, actual);
         }
         #endregion
-
 
         #region Method Tests
         [Fact]
@@ -59,7 +57,6 @@ namespace KDScorpionEngineTests.Behaviors
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void UpdateAction_WhenInvokingWithCurrentValueLessThanLimit_InvokesSetLimitAction()
         {
@@ -76,7 +73,6 @@ namespace KDScorpionEngineTests.Behaviors
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void UpdateAction_WhenInvokingWithCurrentValueLessThanLimit_DoesNotInvokesSetLimitAction()

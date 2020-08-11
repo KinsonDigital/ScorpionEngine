@@ -23,7 +23,6 @@ namespace KDScorpionEngineTests.Events
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Ctor_WhenInvoking_SetsCurrentSceneProp()
         {

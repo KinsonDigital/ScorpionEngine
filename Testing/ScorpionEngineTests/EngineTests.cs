@@ -19,7 +19,6 @@ namespace KDScorpionEngineTests
         private readonly Mock<IKeyboard> _mockKeyboard;
         #endregion
 
-
         #region Constructors
         public EngineTests()
         {
@@ -32,7 +31,6 @@ namespace KDScorpionEngineTests
             _mockEngineCore.SetupProperty(m => m.WindowHeight);
         }
         #endregion
-
 
         #region Constructor Tests
         [Fact]
@@ -49,7 +47,6 @@ namespace KDScorpionEngineTests
         }
         #endregion
 
-
         #region Prop Tests
         [Fact]
         public void SceneManager_WhenGettingValue_IsNotNull()
@@ -61,7 +58,6 @@ namespace KDScorpionEngineTests
             Assert.NotNull(engine.SceneManager);
         }
 
-
         [Fact]
         public void ContentLoader_WhenGettingValue_IsNotNull()
         {
@@ -71,7 +67,6 @@ namespace KDScorpionEngineTests
             // Assert
             Assert.NotNull(engine.ContentLoader);
         }
-
 
         [Fact]
         public void Running_WhenGettingValue_ReturnsCorrectValue()
@@ -86,7 +81,6 @@ namespace KDScorpionEngineTests
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void CurrentFPS_WhenGettingValue_ReturnsCorrectValue()
@@ -105,7 +99,6 @@ namespace KDScorpionEngineTests
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void WindowWidth_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
@@ -119,7 +112,6 @@ namespace KDScorpionEngineTests
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void WindowHeight_WhenGettingAndSettingValue_ReturnsCorrectValue()
@@ -136,7 +128,6 @@ namespace KDScorpionEngineTests
         }
         #endregion
 
-
         #region Method Tests
         [Fact]
         public void Start_WhenInvoked_InvokesEngineCoreStart()
@@ -151,7 +142,6 @@ namespace KDScorpionEngineTests
             _mockEngineCore.Verify(m => m.StartEngine(), Times.Once());
         }
 
-
         [Fact]
         public void Start_WhenInvokedWithNullEngineCore_DoesNotThrowException()
         {
@@ -163,7 +153,6 @@ namespace KDScorpionEngineTests
             // Act/Assert
             AssertExt.DoesNotThrow<NullReferenceException>(() => Engine.Start());
         }
-
 
         [Fact]
         public void Stop_WhenInvoked_InvokesEngineCoreStop()
@@ -178,7 +167,6 @@ namespace KDScorpionEngineTests
             _mockEngineCore.Verify(m => m.StopEngine(), Times.Once());
         }
 
-
         [Fact]
         public void Stop_WhenInvokedWithNullEngineCore_DoesNotThrowException()
         {
@@ -190,7 +178,6 @@ namespace KDScorpionEngineTests
             // Act/Assert
             AssertExt.DoesNotThrow<NullReferenceException>(() => Engine.Stop());
         }
-
 
         [Fact]
         public void Update_WhenInvokingWhileRunning_SetsCurrentFPSProp()
@@ -207,7 +194,6 @@ namespace KDScorpionEngineTests
             // Assert
             Assert.Equal(expected, actual);
         }
-
 
         [Fact]
         public void Update_WhenInvokingWhileNotRunning_DoesNotSetCurrentFPSProp()
@@ -228,7 +214,6 @@ namespace KDScorpionEngineTests
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void Dispose_WhenInvoking_DisposesEngineCore()
         {
@@ -242,7 +227,6 @@ namespace KDScorpionEngineTests
             _mockEngineCore.Verify(m => m.Dispose(), Times.Once());
         }
         #endregion
-
 
         #region Public Methods       
         public void Dispose() => _mockEngineCore = null;
