@@ -20,11 +20,11 @@ namespace KDScorpionEngineTests.Input
     public class KeyboardWatcherTests : IDisposable
     {
         #region Private Fields
-        private Mock<IKeyboard> _mockKeyboard;
+        private Mock<IKeyboard> mockKeyboard;
         #endregion
 
         #region Constructors
-        public KeyboardWatcherTests() => _mockKeyboard = new Mock<IKeyboard>();
+        public KeyboardWatcherTests() => this.mockKeyboard = new Mock<IKeyboard>();
         #endregion
 
         #region Method Tests
@@ -32,7 +32,7 @@ namespace KDScorpionEngineTests.Input
         public void Ctor_WhenUsingEnabled_CorrectlyPerformSetup()
         {
             // Arrange
-            var keyboardWatcher = new KeyboardWatcher(_mockKeyboard.Object);
+            var keyboardWatcher = new KeyboardWatcher(this.mockKeyboard.Object);
             var expectedComboButtons = new List<KeyCode>();
             var expectedEnabled = true;
 
@@ -51,7 +51,7 @@ namespace KDScorpionEngineTests.Input
         public void Button_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var keyboardWatcher = new KeyboardWatcher(_mockKeyboard.Object)
+            var keyboardWatcher = new KeyboardWatcher(this.mockKeyboard.Object)
             {
                 Key = KeyCode.Left,
             };
@@ -68,8 +68,8 @@ namespace KDScorpionEngineTests.Input
         public void CurrentHitCountPercentage_WhenGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            _mockKeyboard.Setup(m => m.IsKeyPressed(KeyCode.Left)).Returns(true);
-            var keyboardWatcher = new KeyboardWatcher(_mockKeyboard.Object)
+            this.mockKeyboard.Setup(m => m.IsKeyPressed(KeyCode.Left)).Returns(true);
+            var keyboardWatcher = new KeyboardWatcher(this.mockKeyboard.Object)
             {
                 Key = KeyCode.Left,
                 HitCountMax = 10,
@@ -96,7 +96,7 @@ namespace KDScorpionEngineTests.Input
         public void DownElapsedResetMode_WhenGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var keyboardWatcher = new KeyboardWatcher(_mockKeyboard.Object)
+            var keyboardWatcher = new KeyboardWatcher(this.mockKeyboard.Object)
             {
                 DownElapsedResetMode = ResetType.Manual,
             };
@@ -114,7 +114,7 @@ namespace KDScorpionEngineTests.Input
         public void HitCountResetMode_WhenGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var keyboardWatcher = new KeyboardWatcher(_mockKeyboard.Object)
+            var keyboardWatcher = new KeyboardWatcher(this.mockKeyboard.Object)
             {
                 HitCountResetMode = ResetType.Manual,
             };
@@ -132,7 +132,7 @@ namespace KDScorpionEngineTests.Input
         public void ComboKeys_WhenSettingWithNonNullValue_ReturnsCorrectValue()
         {
             // Arrange
-            var keyboardWatcher = new KeyboardWatcher(_mockKeyboard.Object)
+            var keyboardWatcher = new KeyboardWatcher(this.mockKeyboard.Object)
             {
                 ComboKeys = new List<KeyCode>()
                 {
@@ -158,7 +158,7 @@ namespace KDScorpionEngineTests.Input
         public void InputDownElapsedMS_WhenGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var keyboardWatcher = new KeyboardWatcher(_mockKeyboard.Object);
+            var keyboardWatcher = new KeyboardWatcher(this.mockKeyboard.Object);
             var expected = 16;
 
             // Act
@@ -173,7 +173,7 @@ namespace KDScorpionEngineTests.Input
         public void InputDownElapsedSeconds_WhenGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var keyboardWatcher = new KeyboardWatcher(_mockKeyboard.Object)
+            var keyboardWatcher = new KeyboardWatcher(this.mockKeyboard.Object)
             {
                 InputReleasedTimeout = 2000,
                 InputDownTimeOut = 3000,
@@ -193,7 +193,7 @@ namespace KDScorpionEngineTests.Input
         public void InputReleasedElapsedMS_WhenGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var keyboardWatcher = new KeyboardWatcher(_mockKeyboard.Object);
+            var keyboardWatcher = new KeyboardWatcher(this.mockKeyboard.Object);
 
             var expected = 31;
 
@@ -209,9 +209,9 @@ namespace KDScorpionEngineTests.Input
         public void InputReleasedElapsedSeconds_WhenGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            _mockKeyboard.Setup(m => m.IsKeyDown(KeyCode.W)).Returns(false);
+            this.mockKeyboard.Setup(m => m.IsKeyDown(KeyCode.W)).Returns(false);
 
-            var keyboardWatcher = new KeyboardWatcher(_mockKeyboard.Object)
+            var keyboardWatcher = new KeyboardWatcher(this.mockKeyboard.Object)
             {
                 Key = KeyCode.W,
                 HitCountMax = 0,
@@ -234,7 +234,7 @@ namespace KDScorpionEngineTests.Input
         public void InputDownTimeOut_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var keyboardWatcher = new KeyboardWatcher(_mockKeyboard.Object)
+            var keyboardWatcher = new KeyboardWatcher(this.mockKeyboard.Object)
             {
                 InputDownTimeOut = 123,
             };
@@ -252,7 +252,7 @@ namespace KDScorpionEngineTests.Input
         public void InputReleasedTimeOut_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var keyboardWatcher = new KeyboardWatcher(_mockKeyboard.Object)
+            var keyboardWatcher = new KeyboardWatcher(this.mockKeyboard.Object)
             {
                 InputReleasedTimeout = 456,
             };
@@ -270,7 +270,7 @@ namespace KDScorpionEngineTests.Input
         public void ReleasedElapsedResetMode_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var keyboardWatcher = new KeyboardWatcher(_mockKeyboard.Object)
+            var keyboardWatcher = new KeyboardWatcher(this.mockKeyboard.Object)
             {
                 ReleasedElapsedResetMode = ResetType.Manual,
             };
@@ -290,9 +290,9 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenInvokingWithNullOnInputHitCountReachedEvent_RunsWithNoNullReferenceExceptions()
         {
             // Arrange
-            _mockKeyboard.Setup(m => m.IsKeyPressed(KeyCode.Left)).Returns(true);
+            this.mockKeyboard.Setup(m => m.IsKeyPressed(KeyCode.Left)).Returns(true);
 
-            var keyboardWatcher = new KeyboardWatcher(_mockKeyboard.Object)
+            var keyboardWatcher = new KeyboardWatcher(this.mockKeyboard.Object)
             {
                 Key = KeyCode.Left,
                 HitCountMax = 0,
@@ -309,9 +309,9 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenInvokingWhileCountingWithNullCounter_RunsWithNoNullReferenceExceptions()
         {
             // Arrange
-            _mockKeyboard.Setup(m => m.IsKeyPressed(KeyCode.Left)).Returns(true);
+            this.mockKeyboard.Setup(m => m.IsKeyPressed(KeyCode.Left)).Returns(true);
 
-            var keyboardWatcher = new KeyboardWatcher(_mockKeyboard.Object)
+            var keyboardWatcher = new KeyboardWatcher(this.mockKeyboard.Object)
             {
                 Key = KeyCode.Left,
                 HitCountMax = 0,
@@ -330,9 +330,9 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenInvokingWithProperButtonState_ResetsDownTimerAndStartsButtonUpTimer()
         {
             // Arrange
-            _mockKeyboard.Setup(m => m.IsKeyDown(KeyCode.Left)).Returns(true);
+            this.mockKeyboard.Setup(m => m.IsKeyDown(KeyCode.Left)).Returns(true);
 
-            var keyboardWatcher = new KeyboardWatcher(_mockKeyboard.Object)
+            var keyboardWatcher = new KeyboardWatcher(this.mockKeyboard.Object)
             {
                 Key = KeyCode.Left,
                 HitCountMax = 0,
@@ -343,7 +343,7 @@ namespace KDScorpionEngineTests.Input
 
             // Act/Assert
             keyboardWatcher.Update(engineTime); // Run once to get the internal states.
-            _mockKeyboard.Setup(m => m.IsKeyDown(KeyCode.Left)).Returns(false);
+            this.mockKeyboard.Setup(m => m.IsKeyDown(KeyCode.Left)).Returns(false);
             keyboardWatcher.Update(engineTime); // Run update again to set the current and previous states different
             keyboardWatcher.Update(engineTime);
             var actualDownTimerElapsed = keyboardWatcher.InputDownElapsedMS;
@@ -358,9 +358,9 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenDisabled_DoNotUpdateAnything()
         {
             // Arrange
-            _mockKeyboard.Setup(m => m.IsKeyDown(KeyCode.Left)).Returns(true);
-            _mockKeyboard.Setup(m => m.IsKeyUp(KeyCode.Left)).Returns(true);
-            _mockKeyboard.Setup(m => m.IsKeyPressed(KeyCode.Left)).Returns(true);
+            this.mockKeyboard.Setup(m => m.IsKeyDown(KeyCode.Left)).Returns(true);
+            this.mockKeyboard.Setup(m => m.IsKeyUp(KeyCode.Left)).Returns(true);
+            this.mockKeyboard.Setup(m => m.IsKeyPressed(KeyCode.Left)).Returns(true);
 
             var expectedCurrentHitCount = 0;
             var expectedInputHitCountReachedEventInvoked = false;
@@ -373,7 +373,7 @@ namespace KDScorpionEngineTests.Input
             var actualInputReleasedTimeOutEventInvoked = false;
             var actualInputComboPressedEventInvoked = false;
 
-            var keyboardWatcher = new KeyboardWatcher(_mockKeyboard.Object)
+            var keyboardWatcher = new KeyboardWatcher(this.mockKeyboard.Object)
             {
                 Enabled = false,
                 Key = KeyCode.Left,
@@ -405,11 +405,11 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenUpdating_InvokesHitCountReachedEvent()
         {
             // Arrange
-            _mockKeyboard.Setup(m => m.IsKeyPressed(KeyCode.Left)).Returns(true);
+            this.mockKeyboard.Setup(m => m.IsKeyPressed(KeyCode.Left)).Returns(true);
 
             var expected = true;
             var actual = false;
-            var keyboardWatcher = new KeyboardWatcher(_mockKeyboard.Object)
+            var keyboardWatcher = new KeyboardWatcher(this.mockKeyboard.Object)
             {
                 Key = KeyCode.Left,
                 HitCountMax = 2,
@@ -431,11 +431,11 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenUpdating_InvokesInputDownTimeoutEvent()
         {
             // Arrange
-            _mockKeyboard.Setup(m => m.IsKeyDown(KeyCode.Left)).Returns(true);
+            this.mockKeyboard.Setup(m => m.IsKeyDown(KeyCode.Left)).Returns(true);
 
             var expected = true;
             var actual = false;
-            var keyboardWatcher = new KeyboardWatcher(_mockKeyboard.Object)
+            var keyboardWatcher = new KeyboardWatcher(this.mockKeyboard.Object)
             {
                 Key = KeyCode.Left,
                 InputDownTimeOut = 1000,
@@ -456,9 +456,9 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenUpdatingWithNullInputDownTimeoutEvent_ShouldNotThrowNullRefException()
         {
             // Arrange
-            _mockKeyboard.Setup(m => m.IsKeyDown(KeyCode.Left)).Returns(true);
+            this.mockKeyboard.Setup(m => m.IsKeyDown(KeyCode.Left)).Returns(true);
 
-            var keyboardWatcher = new KeyboardWatcher(_mockKeyboard.Object)
+            var keyboardWatcher = new KeyboardWatcher(this.mockKeyboard.Object)
             {
                 Key = KeyCode.Left,
             };
@@ -477,11 +477,11 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenUpdating_InvokesInputReleaseTimeoutEvent()
         {
             // Arrange
-            _mockKeyboard.Setup(m => m.IsKeyUp(KeyCode.Right)).Returns(true);
+            this.mockKeyboard.Setup(m => m.IsKeyUp(KeyCode.Right)).Returns(true);
 
             var expected = true;
             var actual = false;
-            var keyboardWatcher = new KeyboardWatcher(_mockKeyboard.Object)
+            var keyboardWatcher = new KeyboardWatcher(this.mockKeyboard.Object)
             {
                 Key = KeyCode.Right,
             };
@@ -501,9 +501,9 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenUpdatingWithNullInputReleasedTimeoutEvent_ShouldNotThrowNullRefException()
         {
             // Arrange
-            _mockKeyboard.Setup(m => m.IsKeyUp(KeyCode.Right)).Returns(true);
+            this.mockKeyboard.Setup(m => m.IsKeyUp(KeyCode.Right)).Returns(true);
 
-            var keyboardWatcher = new KeyboardWatcher(_mockKeyboard.Object)
+            var keyboardWatcher = new KeyboardWatcher(this.mockKeyboard.Object)
             {
                 Key = KeyCode.Right,
             };
@@ -522,10 +522,10 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenInvokingWithOnInputComboPressedNotNullAndSetComboKeys_InvokesOnInputComboPressedEvent()
         {
             // Arrange
-            _mockKeyboard.Setup(m => m.IsKeyDown(KeyCode.Left)).Returns(true);
-            _mockKeyboard.Setup(m => m.IsKeyDown(KeyCode.Right)).Returns(true);
+            this.mockKeyboard.Setup(m => m.IsKeyDown(KeyCode.Left)).Returns(true);
+            this.mockKeyboard.Setup(m => m.IsKeyDown(KeyCode.Right)).Returns(true);
 
-            var keyboardWatcher = new KeyboardWatcher(_mockKeyboard.Object)
+            var keyboardWatcher = new KeyboardWatcher(this.mockKeyboard.Object)
             {
                 ComboKeys = new List<KeyCode>()
                 {
@@ -549,7 +549,7 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenInvokingWithNullOnInputComboPressedEvent_DoesNotThrowNullException()
         {
             // Arrange
-            var keyboardWatcher = new KeyboardWatcher(_mockKeyboard.Object)
+            var keyboardWatcher = new KeyboardWatcher(this.mockKeyboard.Object)
             {
                 ComboKeys = new List<KeyCode>()
                 {
@@ -564,8 +564,10 @@ namespace KDScorpionEngineTests.Input
         }
         #endregion
 
-        #region Public Methods
-        public void Dispose() => _mockKeyboard = null;
-        #endregion
+        public void Dispose()
+        {
+            this.mockKeyboard = null;
+            GC.SuppressFinalize(this);
+        }
     }
 }

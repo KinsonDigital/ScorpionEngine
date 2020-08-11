@@ -19,20 +19,20 @@ namespace KDScorpionEngineTests.Behaviors
     public class MoveFowardKeyboardBehaviorTests : IDisposable
     {
         #region Private Fields
-        private Mock<IKeyboard> _mockKeyboard;
-        private Mock<IPhysicsBody> _mockPhysicsBody;
+        private Mock<IKeyboard> mockKeyboard;
+        private Mock<IPhysicsBody> mockPhysicsBody;
         #endregion
 
         #region Constructors
         public MoveFowardKeyboardBehaviorTests()
         {
-            _mockKeyboard = new Mock<IKeyboard>();
+            this.mockKeyboard = new Mock<IKeyboard>();
 
-            _mockPhysicsBody = new Mock<IPhysicsBody>();
-            _mockPhysicsBody.SetupProperty(p => p.Angle);
-            _mockPhysicsBody.Setup(m => m.ApplyAngularImpulse(It.IsAny<float>())).Callback<float>((value) =>
+            this.mockPhysicsBody = new Mock<IPhysicsBody>();
+            this.mockPhysicsBody.SetupProperty(p => p.Angle);
+            this.mockPhysicsBody.Setup(m => m.ApplyAngularImpulse(It.IsAny<float>())).Callback<float>((value) =>
             {
-                _mockPhysicsBody.Object.Angle += value;
+                this.mockPhysicsBody.Object.Angle += value;
             });
         }
         #endregion
@@ -42,9 +42,9 @@ namespace KDScorpionEngineTests.Behaviors
         public void MoveFowardKey_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var entity = new DynamicEntity(_mockPhysicsBody.Object);
+            var entity = new DynamicEntity(this.mockPhysicsBody.Object);
 
-            var behavior = new MoveFowardKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity);
+            var behavior = new MoveFowardKeyboardBehavior<DynamicEntity>(this.mockKeyboard.Object, entity);
             var expected = KeyCode.Space;
 
             // Act
@@ -59,8 +59,8 @@ namespace KDScorpionEngineTests.Behaviors
         public void RotateCWKey_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var entity = new DynamicEntity(_mockPhysicsBody.Object);
-            var behavior = new MoveFowardKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity);
+            var entity = new DynamicEntity(this.mockPhysicsBody.Object);
+            var behavior = new MoveFowardKeyboardBehavior<DynamicEntity>(this.mockKeyboard.Object, entity);
             var expected = KeyCode.Space;
 
             // Act
@@ -75,8 +75,8 @@ namespace KDScorpionEngineTests.Behaviors
         public void RotateCCWKey_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var entity = new DynamicEntity(_mockPhysicsBody.Object);
-            var behavior = new MoveFowardKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity);
+            var entity = new DynamicEntity(this.mockPhysicsBody.Object);
+            var behavior = new MoveFowardKeyboardBehavior<DynamicEntity>(this.mockKeyboard.Object, entity);
             var expected = KeyCode.Space;
 
             // Act
@@ -91,13 +91,13 @@ namespace KDScorpionEngineTests.Behaviors
         public void IsMovingFoward_WhenGettingValue_ReturnsTrue()
         {
             // Arrange
-            _mockKeyboard.Setup(m => m.IsKeyDown(KeyCode.Up)).Returns(true);
+            this.mockKeyboard.Setup(m => m.IsKeyDown(KeyCode.Up)).Returns(true);
 
-            var entity = new DynamicEntity(_mockPhysicsBody.Object);
+            var entity = new DynamicEntity(this.mockPhysicsBody.Object);
 
             entity.Initialize();
 
-            var behavior = new MoveFowardKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity);
+            var behavior = new MoveFowardKeyboardBehavior<DynamicEntity>(this.mockKeyboard.Object, entity);
 
             // Act
             behavior.Update(new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) });
@@ -127,16 +127,16 @@ namespace KDScorpionEngineTests.Behaviors
         public void Update_WhenInvoked_InvokesEntityRotateCW()
         {
             // Arrange
-            _mockKeyboard.Setup(m => m.IsKeyDown(KeyCode.Right)).Returns(true);
+            this.mockKeyboard.Setup(m => m.IsKeyDown(KeyCode.Right)).Returns(true);
 
             var entityXVertices = new[] { 10f, 20f, 30f };
             var entityYVertices = new[] { 10f, 20f, 30f };
 
-            var entity = new DynamicEntity(_mockPhysicsBody.Object);
+            var entity = new DynamicEntity(this.mockPhysicsBody.Object);
 
             entity.Initialize();
 
-            var behavior = new MoveFowardKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity)
+            var behavior = new MoveFowardKeyboardBehavior<DynamicEntity>(this.mockKeyboard.Object, entity)
             {
                 AngularSpeed = 10,
             };
@@ -153,13 +153,13 @@ namespace KDScorpionEngineTests.Behaviors
         public void Update_WhenInvoked_InvokesEntityRotateCCW()
         {
             // Arrange
-            _mockKeyboard.Setup(m => m.IsKeyDown(KeyCode.Left)).Returns(true);
+            this.mockKeyboard.Setup(m => m.IsKeyDown(KeyCode.Left)).Returns(true);
 
-            var entity = new DynamicEntity(_mockPhysicsBody.Object);
+            var entity = new DynamicEntity(this.mockPhysicsBody.Object);
 
             entity.Initialize();
 
-            var behavior = new MoveFowardKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity)
+            var behavior = new MoveFowardKeyboardBehavior<DynamicEntity>(this.mockKeyboard.Object, entity)
             {
                 AngularSpeed = -20,
             };
@@ -176,8 +176,9 @@ namespace KDScorpionEngineTests.Behaviors
         #region Public Methods
         public void Dispose()
         {
-            _mockKeyboard = null;
-            _mockPhysicsBody = null;
+            this.mockKeyboard = null;
+            this.mockPhysicsBody = null;
+            GC.SuppressFinalize(this);
         }
         #endregion
     }

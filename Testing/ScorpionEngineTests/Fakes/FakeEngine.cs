@@ -2,6 +2,7 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
+#pragma warning disable CA1062 // Validate arguments of public methods
 namespace KDScorpionEngineTests.Fakes
 {
     using KDScorpionEngine;
@@ -16,11 +17,12 @@ namespace KDScorpionEngineTests.Fakes
     /// </summary>
     public class FakeEngine : Engine
     {
-        private readonly IEngineCore _fakeEngineCore;
+        private readonly IEngineCore fakeEngineCore;
 
-        public FakeEngine(IContentLoader contentLoader, IEngineCore engineCore, IKeyboard keyboard) : base(contentLoader, engineCore, keyboard)
+        public FakeEngine(IContentLoader contentLoader, IEngineCore engineCore, IKeyboard keyboard)
+            : base(contentLoader, engineCore, keyboard)
         {
-            _fakeEngineCore = engineCore;
+            this.fakeEngineCore = engineCore;
 
             engineCore.OnInitialize += (sender, e) => Init();
             engineCore.OnLoadContent += (sender, e) => LoadContent(ContentLoader);
@@ -41,7 +43,7 @@ namespace KDScorpionEngineTests.Fakes
         #region Public Methods
         public new void Start()
         {
-            _fakeEngineCore.StartEngine();
+            this.fakeEngineCore.StartEngine();
         }
 
         public override void Init()

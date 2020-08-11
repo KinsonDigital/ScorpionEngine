@@ -19,16 +19,16 @@ namespace KDScorpionEngineTests.Input
     public class KeyBehaviorTests : IDisposable
     {
         #region Private Fields
-        private Mock<IKeyboard> _mockCoreKeyboard;
+        private Mock<IKeyboard> mockCoreKeyboard;
         #endregion
 
         #region Constructors
         public KeyBehaviorTests()
         {
-            _mockCoreKeyboard = new Mock<IKeyboard>();
-            _mockCoreKeyboard.Setup(m => m.IsKeyDown(It.IsAny<KeyCode>())).Returns(true);
-            _mockCoreKeyboard.Setup(m => m.IsKeyPressed(It.IsAny<KeyCode>())).Returns(true);
-            _mockCoreKeyboard.Setup(m => m.IsKeyUp(It.IsAny<KeyCode>())).Returns(true);
+            this.mockCoreKeyboard = new Mock<IKeyboard>();
+            this.mockCoreKeyboard.Setup(m => m.IsKeyDown(It.IsAny<KeyCode>())).Returns(true);
+            this.mockCoreKeyboard.Setup(m => m.IsKeyPressed(It.IsAny<KeyCode>())).Returns(true);
+            this.mockCoreKeyboard.Setup(m => m.IsKeyUp(It.IsAny<KeyCode>())).Returns(true);
         }
         #endregion
 
@@ -37,8 +37,8 @@ namespace KDScorpionEngineTests.Input
         public void Ctor_SingleParamValue_SetsPropsCorrectly()
         {
             // Act
-            _mockCoreKeyboard.Setup(m => m.IsKeyDown(KeyCode.X)).Returns(true);
-            var behavior = new KeyBehavior(_mockCoreKeyboard.Object);
+            this.mockCoreKeyboard.Setup(m => m.IsKeyDown(KeyCode.X)).Returns(true);
+            var behavior = new KeyBehavior(this.mockCoreKeyboard.Object);
 
             // Assert
             Assert.Equal(KeyCode.X, behavior.Key);
@@ -48,7 +48,7 @@ namespace KDScorpionEngineTests.Input
         public void Ctor_TwoParamValues_SetsPropsCorrectly()
         {
             // Act
-            var behavior = new KeyBehavior(_mockCoreKeyboard.Object);
+            var behavior = new KeyBehavior(this.mockCoreKeyboard.Object);
 
             // Assert
             Assert.True(behavior.Enabled);
@@ -61,7 +61,7 @@ namespace KDScorpionEngineTests.Input
         public void IsDown_WhenGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var behavior = new KeyBehavior(_mockCoreKeyboard.Object)
+            var behavior = new KeyBehavior(this.mockCoreKeyboard.Object)
             {
                 Key = KeyCode.Space,
             };
@@ -78,7 +78,7 @@ namespace KDScorpionEngineTests.Input
         public void Name_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var behavior = new KeyBehavior(_mockCoreKeyboard.Object);
+            var behavior = new KeyBehavior(this.mockCoreKeyboard.Object);
             var expected = "John Doe";
 
             // Act
@@ -93,7 +93,7 @@ namespace KDScorpionEngineTests.Input
         public void TimeDelay_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var behavior = new KeyBehavior(_mockCoreKeyboard.Object);
+            var behavior = new KeyBehavior(this.mockCoreKeyboard.Object);
             var expected = 1234;
 
             // Act
@@ -110,7 +110,7 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenKeyBehaviorIsSetToKeyDownContinous_InvokeKeyDownEvent()
         {
             // Arrange
-            var keyBehavior = new KeyBehavior(_mockCoreKeyboard.Object)
+            var keyBehavior = new KeyBehavior(this.mockCoreKeyboard.Object)
             {
                 BehaviorType = KeyBehaviorType.KeyDownContinuous,
             };
@@ -130,7 +130,7 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenKeyBehaviorIsSetToKeyDownContinousWithNoEventSetup_DoesNotThrowException()
         {
             // Arrange
-            var keyBehavior = new KeyBehavior(_mockCoreKeyboard.Object)
+            var keyBehavior = new KeyBehavior(this.mockCoreKeyboard.Object)
             {
                 BehaviorType = KeyBehaviorType.KeyDownContinuous,
             };
@@ -141,14 +141,14 @@ namespace KDScorpionEngineTests.Input
                 keyBehavior.Update(new EngineTime());
             });
 
-            _mockCoreKeyboard.Verify(m => m.IsKeyDown(It.IsAny<KeyCode>()), Times.Once());
+            this.mockCoreKeyboard.Verify(m => m.IsKeyDown(It.IsAny<KeyCode>()), Times.Once());
         }
 
         [Fact]
         public void Update_WhenKeyBehaviorIsSetToOnceOnDown_InvokeKeyDownEvent()
         {
             // Arrange
-            var keyBehavior = new KeyBehavior(_mockCoreKeyboard.Object)
+            var keyBehavior = new KeyBehavior(this.mockCoreKeyboard.Object)
             {
                 BehaviorType = KeyBehaviorType.OnceOnDown,
             };
@@ -167,7 +167,7 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenKeyBehaviorIsSetToOnceOnDownWithNoEventSetup_DoesNotThrowException()
         {
             // Arrange
-            var keyBehavior = new KeyBehavior(_mockCoreKeyboard.Object)
+            var keyBehavior = new KeyBehavior(this.mockCoreKeyboard.Object)
             {
                 BehaviorType = KeyBehaviorType.OnceOnDown,
             };
@@ -178,16 +178,16 @@ namespace KDScorpionEngineTests.Input
                 keyBehavior.Update(new EngineTime());
             });
 
-            _mockCoreKeyboard.Verify(m => m.IsKeyPressed(It.IsAny<KeyCode>()), Times.Once());
+            this.mockCoreKeyboard.Verify(m => m.IsKeyPressed(It.IsAny<KeyCode>()), Times.Once());
         }
 
         [Fact]
         public void Update_WhenKeyBehaviorIsSetToOnceOnRelease_InvokeKeyDownEvent()
         {
             // Arrange
-            _mockCoreKeyboard.Setup(m => m.IsKeyUp(KeyCode.Space)).Returns(true);
+            this.mockCoreKeyboard.Setup(m => m.IsKeyUp(KeyCode.Space)).Returns(true);
 
-            var keyBehavior = new KeyBehavior(_mockCoreKeyboard.Object)
+            var keyBehavior = new KeyBehavior(this.mockCoreKeyboard.Object)
             {
                 BehaviorType = KeyBehaviorType.OnceOnRelease,
             };
@@ -207,9 +207,9 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenKeyBehaviorIsSetToOnceOnReleaseWithNoEventSetup_DoesNotThrowException()
         {
             // Arrange
-            _mockCoreKeyboard.Setup(m => m.IsKeyUp(KeyCode.Space)).Returns(true);
+            this.mockCoreKeyboard.Setup(m => m.IsKeyUp(KeyCode.Space)).Returns(true);
 
-            var keyBehavior = new KeyBehavior(_mockCoreKeyboard.Object)
+            var keyBehavior = new KeyBehavior(this.mockCoreKeyboard.Object)
             {
                 BehaviorType = KeyBehaviorType.OnceOnRelease,
             };
@@ -221,16 +221,16 @@ namespace KDScorpionEngineTests.Input
             });
 
             // The IsKeyDown method has to be invoked as well
-            _mockCoreKeyboard.Verify(m => m.IsKeyUp(It.IsAny<KeyCode>()), Times.Once());
+            this.mockCoreKeyboard.Verify(m => m.IsKeyUp(It.IsAny<KeyCode>()), Times.Once());
         }
 
         [Fact]
         public void Update_WhenKeyBehaviorIsSetToOnKeyDownTimeDelay_InvokeKeyDownEvent()
         {
             // Arrange
-            _mockCoreKeyboard.Setup(m => m.IsKeyDown(KeyCode.Space)).Returns(true);
+            this.mockCoreKeyboard.Setup(m => m.IsKeyDown(KeyCode.Space)).Returns(true);
 
-            var keyBehavior = new KeyBehavior(_mockCoreKeyboard.Object)
+            var keyBehavior = new KeyBehavior(this.mockCoreKeyboard.Object)
             {
                 BehaviorType = KeyBehaviorType.OnKeyDownTimeDelay,
             };
@@ -251,9 +251,9 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenKeyBehaviorIsSetToOnKeyDownTimeDelayWithNoEventSetup_DoesNotThrowException()
         {
             // Arrange
-            _mockCoreKeyboard.Setup(m => m.IsKeyDown(KeyCode.Space)).Returns(true);
+            this.mockCoreKeyboard.Setup(m => m.IsKeyDown(KeyCode.Space)).Returns(true);
 
-            var keyBehavior = new KeyBehavior(_mockCoreKeyboard.Object)
+            var keyBehavior = new KeyBehavior(this.mockCoreKeyboard.Object)
             {
                 BehaviorType = KeyBehaviorType.OnKeyDownTimeDelay,
             };
@@ -268,14 +268,14 @@ namespace KDScorpionEngineTests.Input
             });
 
             // The IsKeyDown method has to be invoked as well
-            _mockCoreKeyboard.Verify(m => m.IsKeyDown(It.IsAny<KeyCode>()), Times.Once());
+            this.mockCoreKeyboard.Verify(m => m.IsKeyDown(It.IsAny<KeyCode>()), Times.Once());
         }
 
         [Fact]
         public void Update_WhenKeyBehaviorIsSetToOnKeyReleaseTimeDelay_InvokeKeyDownEvent()
         {
             // Arrange
-            var keyBehavior = new KeyBehavior(_mockCoreKeyboard.Object)
+            var keyBehavior = new KeyBehavior(this.mockCoreKeyboard.Object)
             {
                 BehaviorType = KeyBehaviorType.OnKeyReleaseTimeDelay,
             };
@@ -296,9 +296,9 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenKeyBehaviorIsSetToOnKeyReleaseTimeDelayWithNoEventSetup_DoesNotThrowException()
         {
             // Arrange
-            _mockCoreKeyboard.Setup(m => m.IsKeyUp(KeyCode.Space)).Returns(true);
+            this.mockCoreKeyboard.Setup(m => m.IsKeyUp(KeyCode.Space)).Returns(true);
 
-            var keyBehavior = new KeyBehavior(_mockCoreKeyboard.Object)
+            var keyBehavior = new KeyBehavior(this.mockCoreKeyboard.Object)
             {
                 BehaviorType = KeyBehaviorType.OnKeyReleaseTimeDelay,
             };
@@ -313,16 +313,16 @@ namespace KDScorpionEngineTests.Input
                 keyBehavior.Update(engineTime);
             });
 
-            _mockCoreKeyboard.Verify(m => m.IsKeyUp(It.IsAny<KeyCode>()), Times.Once());
+            this.mockCoreKeyboard.Verify(m => m.IsKeyUp(It.IsAny<KeyCode>()), Times.Once());
         }
 
         [Fact]
         public void Update_WhenKeyBehaviorIsSetToOnAnyKeyPressTimeDelay_InvokeKeyDownEvent()
         {
             // Arrange
-            _mockCoreKeyboard.Setup(m => m.GetCurrentPressedKeys()).Returns(new[] { KeyCode.Space });
+            this.mockCoreKeyboard.Setup(m => m.GetCurrentPressedKeys()).Returns(new[] { KeyCode.Space });
 
-            var keyBehavior = new KeyBehavior(_mockCoreKeyboard.Object)
+            var keyBehavior = new KeyBehavior(this.mockCoreKeyboard.Object)
             {
                 BehaviorType = KeyBehaviorType.OnAnyKeyPress,
             };
@@ -341,9 +341,9 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenKeyBehaviorIsSetToOnAnyKeyPressTimeDelayWithNoEventSetup_DoesNotThrowException()
         {
             // Arrange
-            _mockCoreKeyboard.Setup(m => m.GetCurrentPressedKeys()).Returns(new[] { KeyCode.Space });
+            this.mockCoreKeyboard.Setup(m => m.GetCurrentPressedKeys()).Returns(new[] { KeyCode.Space });
 
-            var keyBehavior = new KeyBehavior(_mockCoreKeyboard.Object)
+            var keyBehavior = new KeyBehavior(this.mockCoreKeyboard.Object)
             {
                 BehaviorType = KeyBehaviorType.OnAnyKeyPress,
             };
@@ -354,14 +354,14 @@ namespace KDScorpionEngineTests.Input
                 keyBehavior.Update(new EngineTime());
             });
 
-            _mockCoreKeyboard.Verify(m => m.GetCurrentPressedKeys(), Times.Once());
+            this.mockCoreKeyboard.Verify(m => m.GetCurrentPressedKeys(), Times.Once());
         }
 
         [Fact]
         public void Update_WhenDisabled_KeyboardNotUpdated()
         {
             // Arrange
-            var keyBehavior = new KeyBehavior(_mockCoreKeyboard.Object)
+            var keyBehavior = new KeyBehavior(this.mockCoreKeyboard.Object)
             {
                 Enabled = false,
             };
@@ -370,15 +370,15 @@ namespace KDScorpionEngineTests.Input
             keyBehavior.Update(new EngineTime());
 
             // Assert
-            _mockCoreKeyboard.Verify(m => m.UpdateCurrentState(), Times.Never());
-            _mockCoreKeyboard.Verify(m => m.UpdatePreviousState(), Times.Never());
+            this.mockCoreKeyboard.Verify(m => m.UpdateCurrentState(), Times.Never());
+            this.mockCoreKeyboard.Verify(m => m.UpdatePreviousState(), Times.Never());
         }
 
         [Fact]
         public void Update_WhenInvokedWithIncorrectBehaviorType_ThrowsException()
         {
             // Arrange & Act
-            var keyBehavior = new KeyBehavior(_mockCoreKeyboard.Object)
+            var keyBehavior = new KeyBehavior(this.mockCoreKeyboard.Object)
             {
                 BehaviorType = (KeyBehaviorType)123,
             };
@@ -391,8 +391,10 @@ namespace KDScorpionEngineTests.Input
         }
         #endregion
 
-        #region Public Methods
-        public void Dispose() => _mockCoreKeyboard = null;
-        #endregion
+        public void Dispose()
+        {
+            this.mockCoreKeyboard = null;
+            GC.SuppressFinalize(this);
+        }
     }
 }

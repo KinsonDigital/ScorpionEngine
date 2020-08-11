@@ -21,17 +21,17 @@ namespace KDScorpionEngineTests.Entities
     public class StaticEntityTests : IDisposable
     {
         #region Private Fields
-        private Mock<IPhysicsBody> _mockPhysicsBody;
+        private Mock<IPhysicsBody> mockPhysicsBody;
         #endregion
 
         #region Constructors
         public StaticEntityTests()
         {
-            _mockPhysicsBody = new Mock<IPhysicsBody>();
-            _mockPhysicsBody.SetupProperty(p => p.X);
-            _mockPhysicsBody.SetupProperty(p => p.Y);
-            _mockPhysicsBody.SetupProperty(p => p.XVertices);
-            _mockPhysicsBody.SetupProperty(p => p.YVertices);
+            this.mockPhysicsBody = new Mock<IPhysicsBody>();
+            this.mockPhysicsBody.SetupProperty(p => p.X);
+            this.mockPhysicsBody.SetupProperty(p => p.Y);
+            this.mockPhysicsBody.SetupProperty(p => p.XVertices);
+            this.mockPhysicsBody.SetupProperty(p => p.YVertices);
         }
         #endregion
 
@@ -41,7 +41,7 @@ namespace KDScorpionEngineTests.Entities
         public void Ctor_WhenInvoking_ProperlyConstructsObject()
         {
             // Arrange
-            var entity = new StaticEntity(_mockPhysicsBody.Object);
+            var entity = new StaticEntity(this.mockPhysicsBody.Object);
             entity.Initialize();
 
             // Assert
@@ -71,8 +71,10 @@ namespace KDScorpionEngineTests.Entities
         }
         #endregion
 
-        #region Public Methods
-        public void Dispose() => _mockPhysicsBody = null;
-        #endregion
+        public void Dispose()
+        {
+            this.mockPhysicsBody = null;
+            GC.SuppressFinalize(this);
+        }
     }
 }

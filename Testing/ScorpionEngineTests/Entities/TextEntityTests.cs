@@ -17,15 +17,15 @@ namespace KDScorpionEngineTests.Entities
     public class TextEntityTests : IDisposable
     {
         #region Private Fields
-        private Mock<IPhysicsBody> _mockPhysicsBody;
+        private Mock<IPhysicsBody> mockPhysicsBody;
         #endregion
 
         #region Constructors
         public TextEntityTests()
         {
-            _mockPhysicsBody = new Mock<IPhysicsBody>();
-            _mockPhysicsBody.SetupProperty(p => p.X);
-            _mockPhysicsBody.SetupProperty(p => p.Y);
+            this.mockPhysicsBody = new Mock<IPhysicsBody>();
+            this.mockPhysicsBody.SetupProperty(p => p.X);
+            this.mockPhysicsBody.SetupProperty(p => p.Y);
         }
         #endregion
 
@@ -34,7 +34,7 @@ namespace KDScorpionEngineTests.Entities
         public void Ctor_WhenInvoking_CorrectlySetsUpEntity()
         {
             // Arrange
-            var entity = new TextEntity(_mockPhysicsBody.Object);
+            var entity = new TextEntity(this.mockPhysicsBody.Object);
 
             // Assert
             Assert.Equal(string.Empty, entity.Text);
@@ -48,7 +48,7 @@ namespace KDScorpionEngineTests.Entities
         public void Text_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var entity = new TextEntity(_mockPhysicsBody.Object);
+            var entity = new TextEntity(this.mockPhysicsBody.Object);
             var expected = "hello world";
 
             // Act
@@ -63,7 +63,7 @@ namespace KDScorpionEngineTests.Entities
         public void ForeColor_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var entity = new TextEntity(_mockPhysicsBody.Object);
+            var entity = new TextEntity(this.mockPhysicsBody.Object);
             var expected = new GameColor(255, 11, 22, 33);
 
             // Act
@@ -78,7 +78,7 @@ namespace KDScorpionEngineTests.Entities
         public void BackColor_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var entity = new TextEntity(_mockPhysicsBody.Object);
+            var entity = new TextEntity(this.mockPhysicsBody.Object);
             var expected = new GameColor(255, 11, 22, 33);
 
             // Act
@@ -90,8 +90,10 @@ namespace KDScorpionEngineTests.Entities
         }
         #endregion
 
-        #region Public Methods
-        public void Dispose() => _mockPhysicsBody = null;
-        #endregion
+        public void Dispose()
+        {
+            this.mockPhysicsBody = null;
+            GC.SuppressFinalize(this);
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace KDScorpionEngineTests.Events
         public void Ctor_WhenInvoking_SetsPreviousSceneProp()
         {
             // Arrange
-            var eventArgs = new SceneChangedEventArgs("PreviousScene", "");
+            var eventArgs = new SceneChangedEventArgs("PreviousScene", string.Empty);
             var expected = "PreviousScene";
 
             // Act
@@ -31,7 +31,7 @@ namespace KDScorpionEngineTests.Events
         public void Ctor_WhenInvoking_SetsCurrentSceneProp()
         {
             // Arrange
-            var eventArgs = new SceneChangedEventArgs("", "CurrentScene");
+            var eventArgs = new SceneChangedEventArgs(string.Empty, "CurrentScene");
             var expected = "CurrentScene";
 
             // Act

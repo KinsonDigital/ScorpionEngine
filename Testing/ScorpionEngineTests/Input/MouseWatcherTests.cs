@@ -20,14 +20,14 @@ namespace KDScorpionEngineTests.Input
     public class MouseWatcherTests : IDisposable
     {
         #region Private Fields
-        private Mock<IMouse> _mockMouse;
+        private Mock<IMouse> mockMouse;
         #endregion
 
         #region Constructors
         public MouseWatcherTests()
         {
-            _mockMouse = new Mock<IMouse>();
-            _mockMouse.Setup(m => m.IsButtonPressed(InputButton.LeftButton)).Returns(true);
+            this.mockMouse = new Mock<IMouse>();
+            this.mockMouse.Setup(m => m.IsButtonPressed(InputButton.LeftButton)).Returns(true);
         }
         #endregion
 
@@ -36,7 +36,7 @@ namespace KDScorpionEngineTests.Input
         public void Ctor_WhenUsingEnabled_CorrectlyPerformSetup()
         {
             // Arrange
-            var mouseWatcher = new MouseWatcher(true, _mockMouse.Object);
+            var mouseWatcher = new MouseWatcher(true, this.mockMouse.Object);
 
             var expectedComboButtons = new List<InputButton>();
             var expectedEnabled = true;
@@ -56,7 +56,7 @@ namespace KDScorpionEngineTests.Input
         public void Button_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
+            var mouseWatcher = new MouseWatcher(true, this.mockMouse.Object)
             {
                 Button = InputButton.LeftButton,
             };
@@ -73,7 +73,7 @@ namespace KDScorpionEngineTests.Input
         public void CurrentHitCountPercentage_WhenGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
+            var mouseWatcher = new MouseWatcher(true, this.mockMouse.Object)
             {
                 Button = InputButton.LeftButton,
                 HitCountMax = 10,
@@ -100,7 +100,7 @@ namespace KDScorpionEngineTests.Input
         public void DownElapsedResetMode_WhenGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
+            var mouseWatcher = new MouseWatcher(true, this.mockMouse.Object)
             {
                 DownElapsedResetMode = ResetType.Manual,
             };
@@ -118,7 +118,7 @@ namespace KDScorpionEngineTests.Input
         public void HitCountResetMode_WhenGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
+            var mouseWatcher = new MouseWatcher(true, this.mockMouse.Object)
             {
                 HitCountResetMode = ResetType.Manual,
             };
@@ -136,7 +136,7 @@ namespace KDScorpionEngineTests.Input
         public void ComboButtons_WhenSettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
+            var mouseWatcher = new MouseWatcher(true, this.mockMouse.Object)
             {
                 ComboButtons = new List<InputButton>()
                 {
@@ -162,7 +162,7 @@ namespace KDScorpionEngineTests.Input
         public void InputDownElapsedMS_WhenGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var mouseWatcher = new MouseWatcher(true, _mockMouse.Object);
+            var mouseWatcher = new MouseWatcher(true, this.mockMouse.Object);
 
             var expected = 16;
 
@@ -178,7 +178,7 @@ namespace KDScorpionEngineTests.Input
         public void InputDownElapsedSeconds_WhenGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
+            var mouseWatcher = new MouseWatcher(true, this.mockMouse.Object)
             {
                 InputReleasedTimeout = 2000,
             };
@@ -197,7 +197,7 @@ namespace KDScorpionEngineTests.Input
         public void InputReleasedElapsedMS_WhenGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var mouseWatcher = new MouseWatcher(true, _mockMouse.Object);
+            var mouseWatcher = new MouseWatcher(true, this.mockMouse.Object);
 
             var expected = 31;
 
@@ -213,9 +213,9 @@ namespace KDScorpionEngineTests.Input
         public void InputReleasedElapsedSeconds_WhenGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            _mockMouse.Setup(m => m.IsButtonDown(InputButton.MiddleButton)).Returns(false);
+            this.mockMouse.Setup(m => m.IsButtonDown(InputButton.MiddleButton)).Returns(false);
 
-            var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
+            var mouseWatcher = new MouseWatcher(true, this.mockMouse.Object)
             {
                 Button = InputButton.MiddleButton,
                 HitCountMax = 0,
@@ -236,7 +236,7 @@ namespace KDScorpionEngineTests.Input
         public void InputDownTimeOut_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
+            var mouseWatcher = new MouseWatcher(true, this.mockMouse.Object)
             {
                 InputDownTimeOut = 123,
             };
@@ -254,7 +254,7 @@ namespace KDScorpionEngineTests.Input
         public void InputReleasedTimeOut_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
+            var mouseWatcher = new MouseWatcher(true, this.mockMouse.Object)
             {
                 InputReleasedTimeout = 456,
             };
@@ -272,7 +272,7 @@ namespace KDScorpionEngineTests.Input
         public void ReleasedElapsedResetMode_WhenSettingAndGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
+            var mouseWatcher = new MouseWatcher(true, this.mockMouse.Object)
             {
                 ReleasedElapsedResetMode = ResetType.Manual,
             };
@@ -292,7 +292,7 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenInvokingWithNullOnInputHitCountReachedEvent_RunsWithNoNullReferenceExceptions()
         {
             // Arrange
-            var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
+            var mouseWatcher = new MouseWatcher(true, this.mockMouse.Object)
             {
                 Button = InputButton.LeftButton,
                 HitCountMax = 0,
@@ -309,7 +309,7 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenInvokingWhileCountingWithNullCounter_RunsWithNoNullReferenceExceptions()
         {
             // Arrange
-            var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
+            var mouseWatcher = new MouseWatcher(true, this.mockMouse.Object)
             {
                 Button = InputButton.LeftButton,
                 HitCountMax = 0,
@@ -328,9 +328,9 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenInvokingWithProperButtonState_ResetsDownTimerAndStartsButtonUpTimer()
         {
             // Arrange
-            _mockMouse.Setup(m => m.IsButtonDown(InputButton.LeftButton)).Returns(true);
+            this.mockMouse.Setup(m => m.IsButtonDown(InputButton.LeftButton)).Returns(true);
 
-            var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
+            var mouseWatcher = new MouseWatcher(true, this.mockMouse.Object)
             {
                 Button = InputButton.LeftButton,
                 HitCountMax = 0,
@@ -341,7 +341,7 @@ namespace KDScorpionEngineTests.Input
 
             // Act/Assert
             mouseWatcher.Update(engineTime); // Run once to get the internal states.
-            _mockMouse.Setup(m => m.IsButtonDown(InputButton.LeftButton)).Returns(false); // Return false to simulate that the button is not down
+            this.mockMouse.Setup(m => m.IsButtonDown(InputButton.LeftButton)).Returns(false); // Return false to simulate that the button is not down
             mouseWatcher.Update(engineTime); // Run update again to set the current and previous states different
             mouseWatcher.Update(engineTime);
             var actualDownTimerElapsed = mouseWatcher.InputDownElapsedMS;
@@ -356,9 +356,9 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenDisabled_DoNotUpdateAnything()
         {
             // Arrange
-            _mockMouse.Setup(m => m.IsButtonDown(InputButton.LeftButton)).Returns(true);
-            _mockMouse.Setup(m => m.IsButtonUp(InputButton.LeftButton)).Returns(true);
-            _mockMouse.Setup(m => m.IsButtonPressed(InputButton.LeftButton)).Returns(true);
+            this.mockMouse.Setup(m => m.IsButtonDown(InputButton.LeftButton)).Returns(true);
+            this.mockMouse.Setup(m => m.IsButtonUp(InputButton.LeftButton)).Returns(true);
+            this.mockMouse.Setup(m => m.IsButtonPressed(InputButton.LeftButton)).Returns(true);
 
             var expectedCurrentHitCount = 0;
             var expectedInputHitCountReachedEventInvoked = false;
@@ -371,7 +371,7 @@ namespace KDScorpionEngineTests.Input
             var actualInputReleasedTimeOutEventInvoked = false;
             var actualInputComboPressedEventInvoked = false;
 
-            var mouseWatcher = new MouseWatcher(false, _mockMouse.Object)
+            var mouseWatcher = new MouseWatcher(false, this.mockMouse.Object)
             {
                 Button = InputButton.LeftButton,
                 HitCountMax = 1,
@@ -402,11 +402,11 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenUpdating_InvokesHitCountReachedEvent()
         {
             // Arrange
-            _mockMouse.Setup(m => m.IsButtonPressed(InputButton.LeftButton)).Returns(true);
+            this.mockMouse.Setup(m => m.IsButtonPressed(InputButton.LeftButton)).Returns(true);
 
             var expected = true;
             var actual = false;
-            var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
+            var mouseWatcher = new MouseWatcher(true, this.mockMouse.Object)
             {
                 Button = InputButton.LeftButton,
                 HitCountMax = 2,
@@ -428,11 +428,11 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenUpdating_InvokesInputDownTimeoutEvent()
         {
             // Arrange
-            _mockMouse.Setup(m => m.IsButtonDown(InputButton.LeftButton)).Returns(true);
+            this.mockMouse.Setup(m => m.IsButtonDown(InputButton.LeftButton)).Returns(true);
 
             var expected = true;
             var actual = false;
-            var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
+            var mouseWatcher = new MouseWatcher(true, this.mockMouse.Object)
             {
                 Button = InputButton.LeftButton,
             };
@@ -452,9 +452,9 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenUpdatingWithNullInputDownTimeoutEvent_ShouldNotThrowNullRefException()
         {
             // Arrange
-            _mockMouse.Setup(m => m.IsButtonDown(InputButton.LeftButton)).Returns(true);
+            this.mockMouse.Setup(m => m.IsButtonDown(InputButton.LeftButton)).Returns(true);
 
-            var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
+            var mouseWatcher = new MouseWatcher(true, this.mockMouse.Object)
             {
                 Button = InputButton.LeftButton,
             };
@@ -473,11 +473,11 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenUpdating_InvokesInputReleaseTimeoutEvent()
         {
             // Arrange
-            _mockMouse.Setup(m => m.IsButtonUp(InputButton.RightButton)).Returns(true);
+            this.mockMouse.Setup(m => m.IsButtonUp(InputButton.RightButton)).Returns(true);
 
             var expected = true;
             var actual = false;
-            var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
+            var mouseWatcher = new MouseWatcher(true, this.mockMouse.Object)
             {
                 Button = InputButton.RightButton,
             };
@@ -497,9 +497,9 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenUpdatingWithNullInputReleasedTimeoutEvent_ShouldNotThrowNullRefException()
         {
             // Arrange
-            _mockMouse.Setup(m => m.IsButtonUp(InputButton.RightButton)).Returns(true);
+            this.mockMouse.Setup(m => m.IsButtonUp(InputButton.RightButton)).Returns(true);
 
-            var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
+            var mouseWatcher = new MouseWatcher(true, this.mockMouse.Object)
             {
                 Button = InputButton.RightButton,
             };
@@ -518,10 +518,10 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenInvokingWithSetComboButtons_InvokesOnInputComboPressedEvent()
         {
             // Arrange
-            _mockMouse.Setup(m => m.IsButtonDown(InputButton.LeftButton)).Returns(true);
-            _mockMouse.Setup(m => m.IsButtonDown(InputButton.RightButton)).Returns(true);
+            this.mockMouse.Setup(m => m.IsButtonDown(InputButton.LeftButton)).Returns(true);
+            this.mockMouse.Setup(m => m.IsButtonDown(InputButton.RightButton)).Returns(true);
 
-            var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
+            var mouseWatcher = new MouseWatcher(true, this.mockMouse.Object)
             {
                 ComboButtons = new List<InputButton>()
                 {
@@ -545,10 +545,10 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenInvokingWithNullOnInputComboPressedEvent_DoesNotThrowNullException()
         {
             // Arrange
-            _mockMouse.Setup(m => m.IsButtonDown(InputButton.LeftButton)).Returns(true);
-            _mockMouse.Setup(m => m.IsButtonDown(InputButton.RightButton)).Returns(true);
+            this.mockMouse.Setup(m => m.IsButtonDown(InputButton.LeftButton)).Returns(true);
+            this.mockMouse.Setup(m => m.IsButtonDown(InputButton.RightButton)).Returns(true);
 
-            var mouseWatcher = new MouseWatcher(true, _mockMouse.Object)
+            var mouseWatcher = new MouseWatcher(true, this.mockMouse.Object)
             {
                 ComboButtons = new List<InputButton>()
                 {
@@ -563,8 +563,10 @@ namespace KDScorpionEngineTests.Input
         }
         #endregion
 
-        #region Public Methods
-        public void Dispose() => _mockMouse = null;
-        #endregion
+        public void Dispose()
+        {
+            this.mockMouse = null;
+            GC.SuppressFinalize(this);
+        }
     }
 }

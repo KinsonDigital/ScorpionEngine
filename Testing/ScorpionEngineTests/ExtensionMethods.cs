@@ -18,6 +18,9 @@ namespace KDScorpionEngineTests
         [ExcludeFromCodeCoverage]
         public static FieldInfo GetField(this object value, string name)
         {
+            if (value is null)
+                return null;
+
             var privateFields = (from f in value.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static)
                                  where f.Name == name
                                  select f).ToArray();

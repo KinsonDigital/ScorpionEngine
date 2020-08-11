@@ -16,27 +16,30 @@ namespace KDScorpionEngineTests.Fakes
     /// </summary>
     public class FakeEntity : Entity
     {
-        #region Constructors
-        public FakeEntity(bool isStaticBody) : base(isStaticBody: isStaticBody)
+        public FakeEntity(bool isStaticBody)
+            : base(isStaticBody: isStaticBody)
         {
         }
 
-        public FakeEntity(Vector2 position) : base(position)
+        public FakeEntity(Vector2 position)
+            : base(position)
         {
         }
 
-        public FakeEntity(IPhysicsBody body) : base(body)
+        public FakeEntity(IPhysicsBody body)
+            : base(body)
         {
         }
 
-        public FakeEntity(Vector2[] polyVertices, Vector2 position) : base(polyVertices, position, isStaticBody: false)
+        public FakeEntity(Vector2[] polyVertices, Vector2 position)
+            : base(polyVertices, position, isStaticBody: false)
         {
         }
 
-        public FakeEntity(Texture texture, Vector2[] polyVertices, Vector2 position) : base(texture, polyVertices, position, isStaticBody: false)
+        public FakeEntity(Texture texture, Vector2[] polyVertices, Vector2 position)
+            : base(texture, polyVertices, position, isStaticBody: false)
         {
         }
-        #endregion
 
         #region Props
         public bool UpdateInvoked { get; set; }

@@ -20,22 +20,22 @@ namespace KDScorpionEngineTests.Behaviors
     public class MovementByKeyboardBehaviorTests : IDisposable
     {
         #region Private Fields
-        private Mock<IKeyboard> _mockKeyboard;
-        private Mock<IPhysicsBody> _mockPhysicsBody;
+        private Mock<IKeyboard> mockKeyboard;
+        private Mock<IPhysicsBody> mockPhysicsBody;
         #endregion
 
         #region Constructors
         public MovementByKeyboardBehaviorTests()
         {
-            _mockKeyboard = new Mock<IKeyboard>();
-            _mockPhysicsBody = new Mock<IPhysicsBody>();
-            _mockPhysicsBody.SetupProperty(m => m.X);
-            _mockPhysicsBody.SetupProperty(m => m.Y);
-            _mockPhysicsBody.Setup(m => m.ApplyForce(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>())).
+            this.mockKeyboard = new Mock<IKeyboard>();
+            this.mockPhysicsBody = new Mock<IPhysicsBody>();
+            this.mockPhysicsBody.SetupProperty(m => m.X);
+            this.mockPhysicsBody.SetupProperty(m => m.Y);
+            this.mockPhysicsBody.Setup(m => m.ApplyForce(It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>(), It.IsAny<float>())).
                 Callback<float, float, float, float>((forceX, forceY, worldLocationX, worldLocationY) =>
                 {
-                    _mockPhysicsBody.Object.X += forceX;
-                    _mockPhysicsBody.Object.Y += forceY;
+                    this.mockPhysicsBody.Object.X += forceX;
+                    this.mockPhysicsBody.Object.Y += forceY;
                 });
         }
         #endregion
@@ -47,10 +47,10 @@ namespace KDScorpionEngineTests.Behaviors
         {
             // Arrange
             SetKeyboardKey(KeyCode.Right);
-            var entity = new DynamicEntity(_mockPhysicsBody.Object);
+            var entity = new DynamicEntity(this.mockPhysicsBody.Object);
             entity.Initialize();
 
-            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity)
+            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(this.mockKeyboard.Object, entity)
             {
                 LinearSpeed = 1234,
             };
@@ -67,10 +67,10 @@ namespace KDScorpionEngineTests.Behaviors
         {
             // Arrange
             SetKeyboardKey(KeyCode.Left);
-            var entity = new DynamicEntity(_mockPhysicsBody.Object);
+            var entity = new DynamicEntity(this.mockPhysicsBody.Object);
             entity.Initialize();
 
-            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity)
+            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(this.mockKeyboard.Object, entity)
             {
                 LinearSpeed = -5678,
             };
@@ -87,10 +87,10 @@ namespace KDScorpionEngineTests.Behaviors
         {
             // Arrange
             SetKeyboardKey(KeyCode.Up);
-            var entity = new DynamicEntity(_mockPhysicsBody.Object);
+            var entity = new DynamicEntity(this.mockPhysicsBody.Object);
             entity.Initialize();
 
-            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity)
+            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(this.mockKeyboard.Object, entity)
             {
                 LinearSpeed = -1478,
             };
@@ -107,10 +107,10 @@ namespace KDScorpionEngineTests.Behaviors
         {
             // Arrange
             SetKeyboardKey(KeyCode.Down);
-            var entity = new DynamicEntity(_mockPhysicsBody.Object);
+            var entity = new DynamicEntity(this.mockPhysicsBody.Object);
             entity.Initialize();
 
-            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity)
+            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(this.mockKeyboard.Object, entity)
             {
                 LinearSpeed = 9876,
             };
@@ -130,7 +130,7 @@ namespace KDScorpionEngineTests.Behaviors
             // Arrange
             SetKeyboardKey(It.IsAny<KeyCode>());
             var entity = new DynamicEntity();
-            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity);
+            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(this.mockKeyboard.Object, entity);
             var expected = KeyCode.W;
 
             // Act
@@ -147,7 +147,7 @@ namespace KDScorpionEngineTests.Behaviors
             SetKeyboardKey(It.IsAny<KeyCode>());
             var entity = new DynamicEntity(It.IsAny<Vector2[]>(), It.IsAny<Vector2>());
 
-            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity);
+            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(this.mockKeyboard.Object, entity);
             var expected = KeyCode.S;
 
             // Act
@@ -165,7 +165,7 @@ namespace KDScorpionEngineTests.Behaviors
             SetKeyboardKey(It.IsAny<KeyCode>());
             var entity = new DynamicEntity(It.IsAny<Vector2[]>(), It.IsAny<Vector2>());
 
-            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity);
+            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(this.mockKeyboard.Object, entity);
             var expected = KeyCode.S;
 
             // Act
@@ -183,7 +183,7 @@ namespace KDScorpionEngineTests.Behaviors
             SetKeyboardKey(It.IsAny<KeyCode>());
             var entity = new DynamicEntity(It.IsAny<Vector2[]>(), It.IsAny<Vector2>());
 
-            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(_mockKeyboard.Object, entity);
+            var behavior = new MovementByKeyboardBehavior<DynamicEntity>(this.mockKeyboard.Object, entity);
             var expected = KeyCode.S;
 
             // Act
@@ -195,16 +195,15 @@ namespace KDScorpionEngineTests.Behaviors
         }
         #endregion
 
-        #region Public Methods
         public void Dispose()
         {
-            _mockKeyboard = null;
-            _mockPhysicsBody = null;
+            this.mockKeyboard = null;
+            this.mockPhysicsBody = null;
+            GC.SuppressFinalize(this);
         }
-        #endregion
 
         #region Private Methods
-        private void SetKeyboardKey(KeyCode key) => _mockKeyboard.Setup(m => m.IsKeyDown(key)).Returns(true);
+        private void SetKeyboardKey(KeyCode key) => this.mockKeyboard.Setup(m => m.IsKeyDown(key)).Returns(true);
         #endregion
     }
 }

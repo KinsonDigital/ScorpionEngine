@@ -62,7 +62,7 @@ namespace KDScorpionEngineTests
             var expected = 10f;
 
             // Act
-            var actual = (10f).ForcePositive();
+            var actual = 10f.ForcePositive();
 
             // Assert
             Assert.Equal(expected, actual);
@@ -88,7 +88,7 @@ namespace KDScorpionEngineTests
             var expected = -10f;
 
             // Act
-            var actual = (10f).ForceNegative();
+            var actual = 10f.ForceNegative();
 
             // Assert
             Assert.Equal(expected, actual);

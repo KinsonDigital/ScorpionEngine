@@ -2,6 +2,7 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
+#pragma warning disable CA1031 // Do not catch general exception types
 namespace KDScorpionEngineTests
 {
     using System;
@@ -19,10 +20,14 @@ namespace KDScorpionEngineTests
         /// </summary>
         /// <typeparam name="T">The type of <see cref="Exception"/>.</typeparam>
         /// <param name="action">The action to catch the exception against.</param>
-        public static void DoesNotThrow<T>(Action action) where T : Exception
+        public static void DoesNotThrow<T>(Action action)
+            where T : Exception
         {
             try
             {
+                if (action is null)
+                    return;
+
                 action();
             }
             catch (T)
@@ -39,6 +44,9 @@ namespace KDScorpionEngineTests
         {
             try
             {
+                if (action is null)
+                    return;
+
                 action();
             }
             catch (Exception ex)
@@ -55,4 +63,3 @@ namespace KDScorpionEngineTests
         }
     }
 }
-

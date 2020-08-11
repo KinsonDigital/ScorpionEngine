@@ -88,12 +88,14 @@ namespace KDScorpionEngineTests.Fakes
             LinearVelocityY += y;
         }
 
-        public T GetData<T>(int option) where T : class
+        public T GetData<T>(int option)
+            where T : class
         {
             throw new NotImplementedException();
         }
 
-        public void InjectData<T>(T data) where T : class
+        public void InjectData<T>(T data)
+            where T : class
         {
             throw new NotImplementedException();
         }
