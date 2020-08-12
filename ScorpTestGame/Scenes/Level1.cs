@@ -1,52 +1,69 @@
-using KDScorpionEngine.Scene;
-using System;
-using KDScorpionEngine.Graphics;
-using Raptor.Content;
-using Raptor.Graphics;
-using Raptor;
-using Raptor.Input;
-using Raptor.UI;
-using System.Numerics;
+﻿// <copyright file="Level1.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
 
 namespace ScorpTestGame.Scenes
 {
+    using System;
+    using System.Numerics;
+    using KDScorpionEngine.Graphics;
+    using KDScorpionEngine.Scene;
+    using Raptor;
+    using Raptor.Content;
+    using Raptor.Graphics;
+    using Raptor.Input;
+    using Raptor.UI;
+
+    /// <summary>
+    /// Level 1 scene.
+    /// </summary>
     public class Level1 : GameScene
     {
-        private PlayerShip _ship;
-        private Keyboard _keyboard;
-        private readonly Mouse _mouse = new Mouse();
-        private UIText _shipPosition;
-        private UIText _mousePosition;
+        private readonly Mouse mouse = new Mouse();
+        private PlayerShip ship;
+        private Keyboard keyboard;
+        private UIText shipPosition;
+        private UIText mousePosition;
 
-
-        public Level1() : base(new Vector2(0f, 0f))
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Level1"/> class.
+        /// </summary>
+        public Level1()
+            : base(new Vector2(0f, 0f))
         {
-            
         }
 
-
+        /// <summary>
+        /// Initializes the scene.
+        /// </summary>
         public override void Initialize()
         {
-            _keyboard = new Keyboard();
+            this.keyboard = new Keyboard();
 
-            _ship = new PlayerShip();
+            this.ship = new PlayerShip();
 
-            _ship.Initialize();
-            _shipPosition = new UIText();
-            _mousePosition = new UIText()
+            this.ship.Initialize();
+            this.shipPosition = new UIText();
+            this.mousePosition = new UIText()
             {
-                Position = new Vector2(0, 20)
+                Position = new Vector2(0, 20),
             };
 
-            AddEntity(_ship);
+            AddEntity(this.ship);
 
             base.Initialize();
         }
 
-
+        /// <summary>
+        /// Loads content.
+        /// </summary>
+        /// <param name="contentLoader">Loads the content items.</param>
         public override void LoadContent(ContentLoader contentLoader)
         {
-            _ship.LoadContent(contentLoader);
+            if (contentLoader is null)
+                throw new ArgumentNullException(nameof(contentLoader), "The parameter must not be null.");
+
+            this.ship.LoadContent(contentLoader);
 
             var shipPositionLabelText = contentLoader.LoadText("MyGameText");
             shipPositionLabelText.Text = "Ship Pos";
@@ -56,9 +73,8 @@ namespace ScorpTestGame.Scenes
             shipPositionValueText.Text = "NA";
             shipPositionValueText.Color = new GameColor(255, 255, 255, 255);
 
-            _shipPosition.LabelText = shipPositionLabelText;
-            _shipPosition.ValueText = shipPositionValueText;
-
+            this.shipPosition.LabelText = shipPositionLabelText;
+            this.shipPosition.ValueText = shipPositionValueText;
 
             var mousePositionLabelText = contentLoader.LoadText("MyGameText");
             mousePositionLabelText.Text = "Mouse Pos";
@@ -68,45 +84,51 @@ namespace ScorpTestGame.Scenes
             mousePositionValueText.Text = "NA";
             mousePositionValueText.Color = new GameColor(255, 255, 255, 255);
 
-            _mousePosition.LabelText = mousePositionLabelText;
-            _mousePosition.ValueText = mousePositionValueText;
+            this.mousePosition.LabelText = mousePositionLabelText;
+            this.mousePosition.ValueText = mousePositionValueText;
 
             base.LoadContent(contentLoader);
         }
 
-
+        /// <summary>
+        /// Updates the scene.
+        /// </summary>
+        /// <param name="engineTime">Updates the scene objects.</param>
         public override void Update(EngineTime engineTime)
         {
             ProcessKeys();
-            _mouse.UpdateCurrentState();
+            this.mouse.UpdateCurrentState();
 
-            _shipPosition.SetValueText($"X: {Math.Round(_ship.Position.X, 2)} - Y: {Math.Round(_ship.Position.Y, 2)}");
-            _mousePosition.SetValueText($"X: {_mouse.X} - Y: {_mouse.Y}");
+            this.shipPosition.SetValueText($"X: {Math.Round(this.ship.Position.X, 2)} - Y: {Math.Round(this.ship.Position.Y, 2)}");
+            this.mousePosition.SetValueText($"X: {this.mouse.X} - Y: {this.mouse.Y}");
 
-            _mouse.UpdatePreviousState();
+            this.mouse.UpdatePreviousState();
             base.Update(engineTime);
         }
 
-
+        /// <summary>
+        /// Renders the scene.
+        /// </summary>
+        /// <param name="renderer">Renders the graphics in the scene.</param>
         public override void Render(GameRenderer renderer)
         {
-            _shipPosition.Render(renderer);
-            _mousePosition.Render(renderer);
+            this.shipPosition.Render(renderer);
+            this.mousePosition.Render(renderer);
 
             base.Render(renderer);
         }
 
-
+        /// <summary>
+        /// Unloads the content from the scene.
+        /// </summary>
+        /// <param name="contentLoader">Used to unload content.</param>
         public override void UnloadContent(ContentLoader contentLoader) => throw new NotImplementedException();
 
-
-        #region Private Methods
         private void ProcessKeys()
         {
-            _keyboard.UpdateCurrentState();
+            this.keyboard.UpdateCurrentState();
 
-            _keyboard.UpdatePreviousState();
+            this.keyboard.UpdatePreviousState();
         }
-        #endregion
     }
 }

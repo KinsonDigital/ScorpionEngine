@@ -9,10 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScorpionEngine", "ScorpionE
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{C12F7941-E834-4C6A-B3F6-E4DD58FF0CC8}"
 	ProjectSection(SolutionItems) = preProject
-		ScorpionEngine.runsettings = ScorpionEngine.runsettings
+		Testing\.editorconfig = Testing\.editorconfig
+		Testing\ScorpionEngine.runsettings = Testing\ScorpionEngine.runsettings
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScorpionEngineTests", "ScorpionEngineTests\ScorpionEngineTests.csproj", "{9400C56B-2543-455F-B349-F878B0EEC4FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScorpionEngineTests", "Testing\ScorpionEngineTests\ScorpionEngineTests.csproj", "{9400C56B-2543-455F-B349-F878B0EEC4FC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzureDevOps", "AzureDevOps", "{39784F7E-7E67-44A9-9052-0FF0A47DCD6D}"
 	ProjectSection(SolutionItems) = preProject
@@ -22,8 +23,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzureDevOps", "AzureDevOps"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{3E70C554-DFDF-4258-BE0F-B23A9B56DC19}"
 	ProjectSection(SolutionItems) = preProject
-		LICENSE.md = LICENSE.md
+		.editorconfig = .editorconfig
 		CONTRIBUTING.md = CONTRIBUTING.md
+		LICENSE.md = LICENSE.md
 		README.md = README.md
 		RELEASENOTES.md = RELEASENOTES.md
 	EndProjectSection

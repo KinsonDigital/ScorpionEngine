@@ -1,7 +1,11 @@
-﻿using System;
+﻿// <copyright file="IInputWatcher.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
 
 namespace KDScorpionEngine.Input
 {
+    using System;
+
     /// <summary>
     /// Watches input for various events and behaviors such is how many times the input has been pressed,
     /// how long it has been held down or how long it has been released.  Various events will be triggered when
@@ -9,9 +13,28 @@ namespace KDScorpionEngine.Input
     /// </summary>
     public interface IInputWatcher
     {
-        #region Props
         /// <summary>
-        /// Gets or sets a value indicating if the <see cref="IInputWatcher"/> is enabled.
+        /// Invoked when the combo input setup has been pressed.
+        /// </summary>
+        event EventHandler OnInputComboPressed;
+
+        /// <summary>
+        /// Invoked when the set input has been held in the down position for a set amount of time.
+        /// </summary>
+        event EventHandler OnInputDownTimeOut;
+
+        /// <summary>
+        /// Invoked when the set input has been hit a set amount of times.
+        /// </summary>
+        event EventHandler OnInputHitCountReached;
+
+        /// <summary>
+        /// Invoked when the set input has been released from the down position for a set amount of time.
+        /// </summary>
+        event EventHandler OnInputReleasedTimeOut;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the <see cref="IInputWatcher"/> is enabled.
         /// </summary>
         bool Enabled { get; set; }
 
@@ -33,7 +56,7 @@ namespace KDScorpionEngine.Input
         ResetType DownElapsedResetMode { get; set; }
 
         /// <summary>
-        /// Gets or sets the maximum amount of times that the set input should be hit before 
+        /// Gets or sets the maximum amount of times that the set input should be hit before
         /// invoking the <see cref="OnInputHitCountReached"/> event is reached.
         /// </summary>
         int HitCountMax { get; set; }
@@ -82,29 +105,5 @@ namespace KDScorpionEngine.Input
         /// <see cref="ResetType.Manual"/> will only be reset if manually done so.
         /// </summary>
         ResetType ReleasedElapsedResetMode { get; set; }
-        #endregion
-
-
-        #region Event Handlers
-        /// <summary>
-        /// Invoked when the combo input setup has been pressed.
-        /// </summary>
-        event EventHandler OnInputComboPressed;
-
-        /// <summary>
-        /// Invoked when the set input has been held in the down position for a set amount of time.
-        /// </summary>
-        event EventHandler OnInputDownTimeOut;
-
-        /// <summary>
-        /// Invoked when the set input has been hit a set amount of times.
-        /// </summary>
-        event EventHandler OnInputHitCountReached;
-
-        /// <summary>
-        /// Invoked when the set input has been released from the down position for a set amount of time.
-        /// </summary>
-        event EventHandler OnInputReleasedTimeOut;
-        #endregion
     }
 }

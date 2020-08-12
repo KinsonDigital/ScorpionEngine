@@ -1,21 +1,24 @@
-﻿using KDScorpionEngine.Entities;
-using KDScorpionEngine.Graphics;
-using Raptor;
-using Raptor.Content;
-using Raptor.Physics;
-using Raptor.Plugins;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Numerics;
+﻿// <copyright file="GameScene.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
 
 namespace KDScorpionEngine.Scene
 {
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Numerics;
+    using KDScorpionEngine.Entities;
+    using KDScorpionEngine.Graphics;
+    using Raptor;
+    using Raptor.Content;
+    using Raptor.Physics;
+    using Raptor.Plugins;
+
     /// <summary>
     /// A game scene within a game that can hold various game entities and game related logic.
     /// </summary>
     public abstract class GameScene : IScene
     {
-        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="GameScene"/>.
         /// USED FOR UNIT TESTING.
@@ -23,17 +26,13 @@ namespace KDScorpionEngine.Scene
         /// <param name="physicsWorld">The physics world to inject.</param>
         internal GameScene(IPhysicsWorld physicsWorld) => PhysicsWorld = new PhysicsWorld(physicsWorld);
 
-
         /// <summary>
         /// Creates a enw instance of <see cref="GameScene"/>.
         /// </summary>
         /// <param name="gravity">The gravity of the scene.</param>
         [ExcludeFromCodeCoverage]
         public GameScene(Vector2 gravity) => PhysicsWorld = new PhysicsWorld(gravity);
-        #endregion
 
-
-        #region Props
         /// <summary>
         /// Gets or sets the name of the scene.
         /// </summary>
@@ -79,10 +78,7 @@ namespace KDScorpionEngine.Scene
         /// The physics world attached to this <see cref="GameScene"/> that governs the physics of the game.
         /// </summary>
         public static PhysicsWorld PhysicsWorld { get; set; }
-        #endregion
 
-
-        #region Public Methods
         /// <summary>
         /// Initializes the game scene.
         /// </summary>
@@ -93,20 +89,17 @@ namespace KDScorpionEngine.Scene
             Initialized = true;
         }
 
-
         /// <summary>
         /// Loads all content using the given <paramref name="contentLoader"/>.
         /// </summary>
         /// <param name="contentManager">The content loader to use for loading and unloading the scene's content.</param>
         public virtual void LoadContent(ContentLoader contentLoader) => ContentLoaded = true;
 
-
         /// <summary>
         /// Unloads all content using the given <paramref name="contentLoader"/>.
         /// </summary>
         /// <param name="contentManager">The content loader to use for loading and unloading the scene's content.</param>
         public virtual void UnloadContent(ContentLoader contentLoader) => ContentLoaded = false;
-
 
         /// <summary>
         /// Updates the <see cref="GameScene"/>.
@@ -115,13 +108,12 @@ namespace KDScorpionEngine.Scene
         {
             TimeManager?.Update(engineTime);
 
-            //Update all of the entities
+            // Update all of the entities
             Entities.ForEach(e => e.Update(engineTime));
 
-            //Update the physics world
+            // Update the physics world
             PhysicsWorld.Update((float)engineTime.ElapsedEngineTime.TotalSeconds);
         }
-
 
         /// <summary>
         /// Renders the <see cref="GameScene"/>.
@@ -138,17 +130,13 @@ namespace KDScorpionEngine.Scene
             IsRenderingScene = false;
         }
 
-
-        //TODO: Make this class IEnumarable so we get the benefits of generics and IList functionality
-        //in the class itself.
-        public void AddEntity(Entity entity, bool addToPhysics = true)
-        {
-            //TODO: Get this working
-            //if(addToPhysics)
+        // TODO: Make this class IEnumarable so we get the benefits of generics and IList functionality
+        // in the class itself.
+        public void AddEntity(Entity entity, bool addToPhysics = true) =>
+            // TODO: Get this working
+            // if(addToPhysics)
             //    PhysicsWorld.AddBody(entity.Body);
 
             Entities.Add(entity);
-        }
-        #endregion
     }
 }
