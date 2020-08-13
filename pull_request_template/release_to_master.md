@@ -29,5 +29,3 @@ This <span style="color:ghostwhite;font-weight:bold">PR</span> merges everything
 10. [ ] Create a tag with proper naming convention described below
 	* <span style="color:gold;font-weight:bold">NOTE:</span> Create the tag <span style="color:ghostwhite;font-weight:bold">on</span> the <span style="color:ghostwhite;font-weight:bold">master</span> branch where the <span style="color:ghostwhite;font-weight:bold">release</span> branch has been merged into <span style="color:ghostwhite;font-weight:bold">master</span>. The name of the tag must have follow the naming convention below of v<span style="color:darkorange;font-weight:bold">[version]</span>
   	* <span style="color:gold;font-weight:bold">Example:</span>  v1.2.3
-
-
