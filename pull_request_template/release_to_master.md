@@ -1,4 +1,4 @@
-This PR merges everything related to release v<span style="color:darkorange;font-weight:bold">[version]</span> into the master branch.
+This <span style="color:ghostwhite;font-weight:bold">PR</span> merges everything related to release v<span style="color:darkorange;font-weight:bold">[version]</span> into the master branch.
 
 ---
 
@@ -18,17 +18,14 @@ This PR merges everything related to release v<span style="color:darkorange;font
 6. [ ] Update the version number on release branch for the software
 7. [ ] Set the <span style="color:ghostwhite;font-weight:bold">PR</span> Title:
    * <span style="color:gold;font-weight:bold">Example:</span> Release v1.2.3 - Merge Into Master
-8. [ ] Set the <span style="color:ghostwhite;font-weight:bold">PR</span> description
-9. [ ]  Verify the following:
+8. [ ]  Verify the following:
    * [ ] Build for the <span style="color:ghostwhite;font-weight:bold">PR</span> build policy has succeeded
    * [ ] Resolve merge conflicts if any exist
    * [ ] <span style="color:ghostwhite;font-weight:bold">PR</span> has been approved
-10. [ ] Verify the following after <span style="color:ghostwhite;font-weight:bold">PR</span> completion:
+9.  [ ] Verify the following after <span style="color:ghostwhite;font-weight:bold">PR</span> completion:
     * [ ] Verify that the build has succeeded
     * [ ] Verify that the release has succeeded
       * This means the nuget package or application has been published
-11. [ ] Create a tag with proper naming convention described below
+10. [ ] Create a tag with proper naming convention described below
 	* <span style="color:gold;font-weight:bold">NOTE:</span> Create the tag <span style="color:ghostwhite;font-weight:bold">on</span> the <span style="color:ghostwhite;font-weight:bold">master</span> branch where the <span style="color:ghostwhite;font-weight:bold">release</span> branch has been merged into <span style="color:ghostwhite;font-weight:bold">master</span>. The name of the tag must have follow the naming convention below of v<span style="color:darkorange;font-weight:bold">[version]</span>
   	* <span style="color:gold;font-weight:bold">Example:</span>  v1.2.3
-
-
