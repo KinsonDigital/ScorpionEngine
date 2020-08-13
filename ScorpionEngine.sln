@@ -19,6 +19,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzureDevOps", "AzureDevOps"
 	ProjectSection(SolutionItems) = preProject
 		azure-pipelines-develop.yml = azure-pipelines-develop.yml
 		azure-pipelines-master.yml = azure-pipelines-master.yml
+		pull_request_template\feature_to_develop.md = pull_request_template\feature_to_develop.md
+		pull_request_template\release_to_develop.md = pull_request_template\release_to_develop.md
+		pull_request_template\release_to_master.md = pull_request_template\release_to_master.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{3E70C554-DFDF-4258-BE0F-B23A9B56DC19}"
@@ -26,7 +29,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		.editorconfig = .editorconfig
 		CONTRIBUTING.md = CONTRIBUTING.md
 		LICENSE.md = LICENSE.md
-		pull_request_template.md = pull_request_template.md
 		README.md = README.md
 		RELEASENOTES.md = RELEASENOTES.md
 	EndProjectSection
