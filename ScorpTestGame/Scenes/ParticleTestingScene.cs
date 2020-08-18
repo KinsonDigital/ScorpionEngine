@@ -1,38 +1,41 @@
-﻿using KDParticleEngine;
-using KDParticleEngine.Services;
-using KDScorpionEngine.Graphics;
-using KDScorpionEngine.Scene;
-using Raptor;
-using Raptor.Content;
-using Raptor.Graphics;
-using Raptor.Input;
-using System.Drawing;
-using System.Linq;
-using System.Numerics;
+﻿// <copyright file="ParticleTestingScene.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
 
 namespace ScorpTestGame.Scenes
 {
+    using System.Drawing;
+    using System.Linq;
+    using System.Numerics;
+    using KDParticleEngine;
+    using KDParticleEngine.Services;
+    using KDScorpionEngine.Graphics;
+    using KDScorpionEngine.Scene;
+    using Raptor;
+    using Raptor.Content;
+    using Raptor.Graphics;
+    using Raptor.Input;
+
     public class ParticleTestingScene : GameScene
     {
-        private ParticleEngine<Texture> _particleEngine;
-        private Mouse _mouse;
+        private ParticleEngine<Texture> particleEngine;
+        private Mouse mouse;
 
-
-        public ParticleTestingScene() : base(Vector2.Zero)
+        public ParticleTestingScene()
+            : base(Vector2.Zero)
         {
 
         }
 
-
         public override void Initialize()
         {
-            _mouse = new Mouse();
+            this.mouse = new Mouse();
 
             var colors = new GameColor[]
             {
                 new GameColor(255, 255, 216, 0),
                 new GameColor(255, 255, 0, 0),
-                new GameColor(255, 255, 106, 0)
+                new GameColor(255, 255, 106, 0),
             };
 
             //TODO: Figure out how to accomplish the code below with new particle engine changes.
@@ -61,12 +64,11 @@ namespace ScorpTestGame.Scenes
             base.Initialize();
         }
 
-
         public override void LoadContent(ContentLoader contentLoader)
         {
             var textures = new Texture[]
             {
-                contentLoader.LoadTexture(@"Particles\ShipThruster")
+                contentLoader.LoadTexture(@"Particles\ShipThruster"),
             };
 
             //TODO: Figure out how to accomplish the code below with new particle engine changes.
@@ -75,21 +77,19 @@ namespace ScorpTestGame.Scenes
             base.LoadContent(contentLoader);
         }
 
-
         public override void Update(EngineTime engineTime)
         {
-            _mouse.UpdateCurrentState();
+            this.mouse.UpdateCurrentState();
 
-            _particleEngine.Update(engineTime.ToTimeSpan());
+            this.particleEngine.Update(engineTime.ToTimeSpan());
 
             //TODO: Figure out how to accomplish the code below with new particle engine changes.
             //_particleEngine.SpawnLocation = new PointF(_mouse.X, _mouse.Y);
 
-            _mouse.UpdatePreviousState();
+            this.mouse.UpdatePreviousState();
 
             base.Update(engineTime);
         }
-
 
         public override void Render(GameRenderer renderer)
         {

@@ -1,4 +1,8 @@
-﻿namespace KDScorpionEngine.Entities
+﻿// <copyright file="Enums.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+namespace KDScorpionEngine.Entities
 {
     /// <summary>
     /// Represents the direction that an animation is running.
@@ -6,7 +10,7 @@
     public enum AnimationDirection
     {
         Forward = 1,
-        Backward = 2
+        Backward = 2,
     }
 
     /// <summary>
@@ -16,6 +20,6 @@
     {
         Running = 1,
         Stopped = 2,
-        Paused = 3
+        Paused = 3,
     }
 }

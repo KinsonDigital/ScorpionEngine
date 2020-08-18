@@ -1,13 +1,16 @@
-﻿using System;
+﻿// <copyright file="SceneChangedEventArgs.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
 
 namespace KDScorpionEngine.Events
 {
+    using System;
+
     /// <summary>
     /// Holds information about when a scene changes.
     /// </summary>
     public class SceneChangedEventArgs : EventArgs
     {
-        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="SceneChangedEventArgs"/>.
         /// </summary>
@@ -16,10 +19,7 @@ namespace KDScorpionEngine.Events
             PreviousScene = previousSceneName;
             CurrentScene = currentSceneName;
         }
-        #endregion
 
-
-        #region Props
         /// <summary>
         /// Gets the previous scene that was running.
         /// </summary>
@@ -29,6 +29,5 @@ namespace KDScorpionEngine.Events
         /// Gets the current scene that is running.
         /// </summary>
         public string CurrentScene { get; private set; }
-        #endregion
     }
 }

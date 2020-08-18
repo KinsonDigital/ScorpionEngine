@@ -1,33 +1,44 @@
-﻿using System;
-using KDScorpionEngine.Scene;
-using System.Diagnostics.CodeAnalysis;
-using KDScorpionEngine.Graphics;
-using Raptor.Content;
-using Raptor;
-using Raptor.Plugins;
+﻿// <copyright file="Engine.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
 
 namespace KDScorpionEngine
 {
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+    using KDScorpionEngine.Graphics;
+    using KDScorpionEngine.Scene;
+    using Raptor;
+    using Raptor.Content;
+    using Raptor.Plugins;
+
     /// <summary>
     /// Drives and manages the game.
     /// </summary>
     public class Engine : IDisposable
     {
-        #region Private Fields
-        private static IEngineCore _engineCore;
-        private static int _prevElapsedTime;
-        private GameRenderer _renderer;
-        #endregion
+        private readonly GameRenderer renderer;
+        private static IEngineCore engineCore;
+        private static int prevElapsedTime;
 
-
-        #region Constructors
         /// <summary>
-        /// Creates a new instance of <see cref="Engine"/>.
-        /// <paramref name="contentLoader">The content loader to inject.</paramref>
-        /// <paramref name="engineCore">The engine core to inject.</paramref>
-        /// <paramref name="keyboard">The keyboard to inject.</paramref>
-        /// USED FOR UNIT TESTING.
+        /// Initializes a new instance of the <see cref="Engine"/> class.
         /// </summary>
+        [ExcludeFromCodeCoverage]
+        public Engine()
+        {
+            // TODO: This needs to be dealt with because Core does not exist anymore
+            // SetupEngineCore(Core.Start());
+            ContentLoader = new ContentLoader();
+            SceneManager = new SceneManager(ContentLoader);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Engine"/> class.
+        /// </summary>
+        /// <param name="contentLoader">The content loader to inject.</param>
+        /// <param name="engineCore">The engine core to inject.</param>
+        /// <param name="keyboard">The keyboard to inject.</param>.
         internal Engine(IContentLoader contentLoader, IEngineCore engineCore, IKeyboard keyboard)
         {
             ContentLoader = new ContentLoader(contentLoader);
@@ -36,36 +47,10 @@ namespace KDScorpionEngine
             SetupEngineCore(engineCore);
         }
 
-
         /// <summary>
-        /// Creates a new instance of <see cref="Engine"/>.
+        /// Gets a value indicating whether the game engine is currently running.
         /// </summary>
-        [ExcludeFromCodeCoverage]
-        public Engine()
-        {
-            //TODO: This needs to be dealt with because Core does not exist anymore
-            //SetupEngineCore(Core.Start());
-            ContentLoader = new ContentLoader();
-            SceneManager = new SceneManager(ContentLoader);
-        }
-        #endregion
-
-
-        #region Props
-        /// <summary>
-        /// Gets the <see cref="SceneManager"/> used to manage a game's scenes.
-        /// </summary>
-        public SceneManager SceneManager { get; private set; }
-
-        /// <summary>
-        /// Gets the <see cref="ContentLoader"/> used to load and unload the games content.
-        /// </summary>
-        public ContentLoader ContentLoader { get; private set; }
-
-        /// <summary>
-        /// Gets a value indicating that the game engine is currently running.
-        /// </summary>
-        public bool Running => _engineCore.IsRunning();
+        public static bool Running => engineCore.IsRunning();
 
         /// <summary>
         /// Gets the FPS that the engine is currently running at.
@@ -77,8 +62,8 @@ namespace KDScorpionEngine
         /// </summary>
         public static int WindowWidth
         {
-            get => _engineCore.WindowWidth;
-            set => _engineCore.WindowWidth = value;
+            get => engineCore.WindowWidth;
+            set => engineCore.WindowWidth = value;
         }
 
         /// <summary>
@@ -86,38 +71,46 @@ namespace KDScorpionEngine
         /// </summary>
         public static int WindowHeight
         {
-            get => _engineCore.WindowHeight;
-            set => _engineCore.WindowHeight = value;
+            get => engineCore.WindowHeight;
+            set => engineCore.WindowHeight = value;
         }
-        #endregion
 
+        /// <summary>
+        /// Gets the <see cref="SceneManager"/> used to manage a game's scenes.
+        /// </summary>
+        public SceneManager SceneManager { get; private set; }
 
-        #region Public Methods
+        /// <summary>
+        /// Gets the <see cref="ContentLoader"/> used to load and unload the games content.
+        /// </summary>
+        public ContentLoader ContentLoader { get; private set; }
+
         /// <summary>
         /// Starts the game engine.
         /// </summary>
-        public void Start() => _engineCore?.StartEngine();
-
+        public static void Start() => engineCore?.StartEngine();
 
         /// <summary>
         /// Stops the game engine.
         /// </summary>
-        public void Stop() => _engineCore?.StopEngine();
-
+        public static void Stop() => engineCore?.StopEngine();
 
         /// <summary>
         /// Initializes the engine.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        public virtual void Init() { }
-
+        public virtual void Init()
+        {
+        }
 
         /// <summary>
         /// Loads all of the content.
         /// </summary>
+        /// <param name="contentLoader">Loads content.</param>
         [ExcludeFromCodeCoverage]
-        public virtual void LoadContent(ContentLoader contentLoader) { }
-
+        public virtual void LoadContent(ContentLoader contentLoader)
+        {
+        }
 
         /// <summary>
         /// Updates the game world.
@@ -127,79 +120,69 @@ namespace KDScorpionEngine
         {
             var currentTime = engineTime.ElapsedEngineTime.Milliseconds;
 
-            if (!Running) return;//If the engine has not been started, exit
+            if (!Running) return; // If the engine has not been started, exit
 
-            _prevElapsedTime = currentTime;
+            prevElapsedTime = currentTime;
 
-            CurrentFPS = 1000f / _prevElapsedTime;
+            CurrentFPS = 1000f / prevElapsedTime;
 
             SceneManager.Update(engineTime);
         }
 
-
         /// <summary>
         /// Draws the game world.
         /// </summary>
+        /// <param name="renderer">The renderer used to render the graphics.</param>
         [ExcludeFromCodeCoverage]
         public virtual void Render(GameRenderer renderer) => SceneManager.Render(renderer);
 
-
-        /// <summary>
-        /// Disposes of the engine.
-        /// </summary>
-        public void Dispose() => Dispose(true);
-        #endregion
-
-
-        #region Protected Methods
-        /// <summary>
-        /// Disposes of the internal engine components.
-        /// </summary>
-        /// <param name="disposing">True if the internal engine components should be disposed of.</param>
-        private static void Dispose(bool _)
+        /// <inheritdoc/>
+        public void Dispose()
         {
-            if (_engineCore != null)
-                _engineCore.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
-        #endregion
 
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <param name="disposing">True dispose of managed resources.</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (engineCore != null)
+                engineCore.Dispose();
+        }
 
-        #region Private Methods
         /// <summary>
         /// Sets up the core of the engine.
         /// </summary>
         private void SetupEngineCore(IEngineCore engineCore)
         {
-            _engineCore = engineCore;
-            _engineCore.SetFPS(60);
-            _engineCore.OnInitialize += EngineCore_OnInitialize;
-            _engineCore.OnLoadContent += EngineCore_OnLoadContent;
-            _engineCore.OnUpdate += EngineCore_OnUpdate;
-            _engineCore.OnRender += EngineCore_OnRender;
+            Engine.engineCore = engineCore;
+            Engine.engineCore.SetFPS(60);
+            Engine.engineCore.OnInitialize += EngineCore_OnInitialize;
+            Engine.engineCore.OnLoadContent += EngineCore_OnLoadContent;
+            Engine.engineCore.OnUpdate += EngineCore_OnUpdate;
+            Engine.engineCore.OnRender += EngineCore_OnRender;
         }
-
 
         /// <summary>
         /// Occurs one time during game initialization. This event is fired before the <see cref="OnLoadContent"/> event is fired. Add initialization code here.
         /// </summary>
         [ExcludeFromCodeCoverage]
-        private void EngineCore_OnInitialize(object sender, EventArgs e)
-        {
-            //TODO: Get this working
-            //_renderer = new GameRenderer()
-            //{
+        private void EngineCore_OnInitialize(object sender, EventArgs e) =>
+            // TODO: Get this working
+            // _renderer = new GameRenderer()
+            // {
             //    InternalRenderer = _engineCore.Renderer
-            //};
+            // };
             Init();
-        }
-
 
         /// <summary>
-        /// Occurs one time during game intialization after the <see cref="OnInitialize"/> event is fired.
+        /// Occurs one time during game initialization after the <see cref="OnInitialize"/> event is fired.
         /// </summary>
         [ExcludeFromCodeCoverage]
         private void EngineCore_OnLoadContent(object sender, EventArgs e) => LoadContent(ContentLoader);
-
 
         /// <summary>
         /// Occurs once every frame before the OnDraw event before the <see cref="OnRender"/> event is invoked.
@@ -210,27 +193,25 @@ namespace KDScorpionEngine
             var engineTime = new EngineTime()
             {
                 ElapsedEngineTime = e.EngineTime.ElapsedEngineTime,
-                TotalEngineTime = e.EngineTime.TotalEngineTime
+                TotalEngineTime = e.EngineTime.TotalEngineTime,
             };
 
             Update(engineTime);
         }
 
-
         /// <summary>
-        /// Occurs once every frame after the <see cref="OnUpdate"/> event has been been invoked.
+        /// Occurs once every frame after the <see cref="OnUpdate"/> event has been invoked.
         /// </summary>
         [ExcludeFromCodeCoverage]
         private void EngineCore_OnRender(object sender, OnRenderEventArgs e)
         {
-            _renderer.Clear(255, 50, 50, 50);
+            this.renderer.Clear(255, 50, 50, 50);
 
-            _renderer.Begin();
+            this.renderer.Begin();
 
-            Render(_renderer);
+            Render(this.renderer);
 
-            _renderer.End();
+            this.renderer.End();
         }
-        #endregion
     }
 }

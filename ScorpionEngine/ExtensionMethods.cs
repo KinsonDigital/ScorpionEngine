@@ -1,8 +1,12 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿// <copyright file="ExtensionMethods.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
 
 namespace KDScorpionEngine
 {
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+
     /// <summary>
     /// Provides extensions to various things to help make better code.
     /// </summary>
@@ -15,11 +19,7 @@ namespace KDScorpionEngine
         /// <param name="minValue">The minimum value that the result will be.</param>
         /// <param name="maxValue">The maximum value that the result will be.</param>
         /// <returns></returns>
-        public static float Next(this Random random, float minValue, float maxValue)
-        {
-            return random.Next((int)(minValue * 1000), (int)(maxValue * 1000)) / 1000f;
-        }
-
+        public static float Next(this Random random, float minValue, float maxValue) => random.Next((int)(minValue * 1000), (int)(maxValue * 1000)) / 1000f;
 
         /// <summary>
         /// Returns a true/false value that represents the flip of a coin.
@@ -27,9 +27,6 @@ namespace KDScorpionEngine
         /// <param name="random">The random instance to use.</param>
         /// <returns></returns>
         [ExcludeFromCodeCoverage]
-        public static bool FlipCoin(this Random random)
-        {
-            return random.NextDouble() <= 0.5f;
-        }
+        public static bool FlipCoin(this Random random) => random.NextDouble() <= 0.5f;
     }
 }

@@ -1,20 +1,20 @@
-﻿using Raptor;
-using System;
+﻿// <copyright file="LimitNumberBehavior.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
 
 namespace KDScorpionEngine.Behaviors
 {
+    using System;
+    using Raptor;
+
     /// <summary>
     /// Limits a number to a set positive or negative value.
     /// </summary>
     public class LimitNumberBehavior : Behavior
     {
-        #region Private Fields
-        private readonly Func<float> _getValue;
-        private readonly Action<float> _setLimit;
-        #endregion
+        private readonly Func<float> getValue;
+        private readonly Action<float> setLimit;
 
-
-        #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="LimitNumberBehavior"/>.
         /// </summary>
@@ -24,24 +24,18 @@ namespace KDScorpionEngine.Behaviors
         /// <param name="name">The name of the behavior.</param>
         public LimitNumberBehavior(Func<float> getValue, Action<float> setLimit, float limitValue, string name = nameof(LimitNumberBehavior))
         {
-            _getValue = getValue;
-            _setLimit = setLimit;
+            this.getValue = getValue;
+            this.setLimit = setLimit;
             LimitValue = limitValue;
             Name = name;
             SetUpdateAction(UpdateAction);
         }
-        #endregion
 
-
-        #region Props
         /// <summary>
         /// Gets or sets the number to limit the number to.
         /// </summary>
         public float LimitValue { get; set; }
-        #endregion
 
-
-        #region Private Methods
         /// <summary>
         /// Then method to run that creates the number limiting behavior.  Executed when the <see cref="Behavior.Update(EngineTime)"/>
         /// is executed.
@@ -49,17 +43,16 @@ namespace KDScorpionEngine.Behaviors
         /// <param name="engineTime">The game engine time.</param>
         private void UpdateAction(EngineTime engineTime)
         {
-            var currentValue = _getValue();
+            var currentValue = this.getValue();
 
-            if(LimitValue > 0 && currentValue > LimitValue)
+            if (LimitValue > 0 && currentValue > LimitValue)
             {
-                _setLimit(LimitValue);
+                this.setLimit(LimitValue);
             }
             else if (LimitValue < 0 && currentValue < LimitValue)
             {
-                _setLimit(LimitValue);
+                this.setLimit(LimitValue);
             }
         }
-        #endregion
     }
 }
