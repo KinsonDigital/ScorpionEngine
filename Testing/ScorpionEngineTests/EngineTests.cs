@@ -232,10 +232,6 @@ namespace KDScorpionEngineTests
         }
         #endregion
 
-        public void Dispose()
-        {
-            this.mockEngineCore = null;
-            GC.SuppressFinalize(this);
-        }
+        public void Dispose() => this.mockEngineCore = null;
     }
 }

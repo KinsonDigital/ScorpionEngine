@@ -199,7 +199,6 @@ namespace KDScorpionEngineTests.Behaviors
         {
             this.mockKeyboard = null;
             this.mockPhysicsBody = null;
-            GC.SuppressFinalize(this);
         }
 
         #region Private Methods

@@ -922,15 +922,8 @@ namespace KDScorpionEngineTests.Entities
         }
         #endregion
 
-        #region Public Methods
-        public void Dispose()
-        {
-            this.mockPhysicsBody = null;
-            GC.SuppressFinalize(this);
-        }
-        #endregion
+        public void Dispose() => this.mockPhysicsBody = null;
 
-        #region Private Methods
         private static Texture CreateTexture()
         {
             var mockTexture = new Mock<ITexture>();
@@ -939,6 +932,5 @@ namespace KDScorpionEngineTests.Entities
 
             return new Texture(mockTexture.Object);
         }
-        #endregion
     }
 }

@@ -178,7 +178,6 @@ namespace KDScorpionEngineTests.Behaviors
         {
             this.mockKeyboard = null;
             this.mockPhysicsBody = null;
-            GC.SuppressFinalize(this);
         }
         #endregion
     }
