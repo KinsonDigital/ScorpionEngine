@@ -300,10 +300,6 @@ namespace KDScorpionEngineTests.Scene
         }
         #endregion
 
-        public void Dispose()
-        {
-            this.mockPhysicsWorld = null;
-            GC.SuppressFinalize(this);
-        }
+        public void Dispose() => this.mockPhysicsWorld = null;
     }
 }

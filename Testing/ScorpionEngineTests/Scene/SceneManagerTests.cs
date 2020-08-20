@@ -1749,13 +1749,8 @@ namespace KDScorpionEngineTests.Scene
         }
         #endregion
 
-        public void Dispose()
-        {
-            this.mockKeyboard = null;
-            GC.SuppressFinalize(this);
-        }
+        public void Dispose() => this.mockKeyboard = null;
 
-        #region Private Methods
         private static IScene CreateScene(string name = "", int sceneId = -1)
         {
             var mockScene = new Mock<IScene>();
@@ -1769,6 +1764,5 @@ namespace KDScorpionEngineTests.Scene
 
             return result;
         }
-        #endregion
     }
 }

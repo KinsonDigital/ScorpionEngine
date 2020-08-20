@@ -391,10 +391,6 @@ namespace KDScorpionEngineTests.Input
         }
         #endregion
 
-        public void Dispose()
-        {
-            this.mockCoreKeyboard = null;
-            GC.SuppressFinalize(this);
-        }
+        public void Dispose() => this.mockCoreKeyboard = null;
     }
 }

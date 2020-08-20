@@ -90,10 +90,6 @@ namespace KDScorpionEngineTests.Entities
         }
         #endregion
 
-        public void Dispose()
-        {
-            this.mockPhysicsBody = null;
-            GC.SuppressFinalize(this);
-        }
+        public void Dispose() => this.mockPhysicsBody = null;
     }
 }
