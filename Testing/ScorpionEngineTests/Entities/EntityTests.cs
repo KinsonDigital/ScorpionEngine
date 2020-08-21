@@ -22,13 +22,10 @@ namespace KDScorpionEngineTests.Entities
     /// </summary>
     public class EntityTests : IDisposable
     {
-        #region Private Fields
         private Mock<IPhysicsBody> mockPhysicsBody;
         private Mock<IDebugDraw> mockDebugDraw;
         private Mock<IContentLoader> contentLoader;
-        #endregion
 
-        #region Constructors
         public EntityTests()
         {
             this.mockPhysicsBody = new Mock<IPhysicsBody>();
@@ -42,7 +39,6 @@ namespace KDScorpionEngineTests.Entities
 
             this.contentLoader = new Mock<IContentLoader>();
         }
-        #endregion
 
         #region Constructor Tests
         [Fact]
@@ -541,6 +537,7 @@ namespace KDScorpionEngineTests.Entities
         }
         #endregion
 
+        /// <inheritdoc/>
         public void Dispose()
         {
             this.mockPhysicsBody = null;

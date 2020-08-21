@@ -30,7 +30,6 @@ namespace KDScorpionEngineTests.Fakes
             engineCore.OnRender += (sender, e) => Render(new GameRenderer(new Mock<IRenderer>().Object, new Mock<IDebugDraw>().Object));
         }
 
-        #region Props
         public bool InitInvoked { get; set; }
 
         public bool LoadContentInvoked { get; set; }
@@ -38,9 +37,7 @@ namespace KDScorpionEngineTests.Fakes
         public bool UpdateInvoked { get; set; }
 
         public bool RenderInvoked { get; set; }
-        #endregion
 
-        #region Public Methods
         public new void Start()
         {
             this.fakeEngineCore.StartEngine();
@@ -65,6 +62,5 @@ namespace KDScorpionEngineTests.Fakes
         {
             RenderInvoked = true;
         }
-        #endregion
     }
 }

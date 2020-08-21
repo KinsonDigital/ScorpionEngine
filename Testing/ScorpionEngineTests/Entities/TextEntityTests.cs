@@ -16,18 +16,14 @@ namespace KDScorpionEngineTests.Entities
     /// </summary>
     public class TextEntityTests : IDisposable
     {
-        #region Private Fields
         private Mock<IPhysicsBody> mockPhysicsBody;
-        #endregion
 
-        #region Constructors
         public TextEntityTests()
         {
             this.mockPhysicsBody = new Mock<IPhysicsBody>();
             this.mockPhysicsBody.SetupProperty(p => p.X);
             this.mockPhysicsBody.SetupProperty(p => p.Y);
         }
-        #endregion
 
         #region Constructor Tests
         [Fact]
@@ -90,6 +86,7 @@ namespace KDScorpionEngineTests.Entities
         }
         #endregion
 
+        /// <inheritdoc/>
         public void Dispose() => this.mockPhysicsBody = null;
     }
 }

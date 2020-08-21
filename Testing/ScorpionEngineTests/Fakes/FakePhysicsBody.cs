@@ -16,7 +16,6 @@ namespace KDScorpionEngineTests.Fakes
     [ExcludeFromCodeCoverage]
     public class FakePhysicsBody : IPhysicsBody
     {
-        #region Constructors
         public FakePhysicsBody(float[] xVertices, float[] yVertices)
         {
             XVertices = new ReadOnlyCollection<float>(xVertices);
@@ -30,9 +29,7 @@ namespace KDScorpionEngineTests.Fakes
             X = x;
             Y = y;
         }
-        #endregion
 
-        #region Props
         public ReadOnlyCollection<float> XVertices { get; set; }
 
         public ReadOnlyCollection<float> YVertices { get; set; }
@@ -62,9 +59,7 @@ namespace KDScorpionEngineTests.Fakes
         public DeferredActionsCollection AfterAddedToWorldActions { get; set; }
 
         DeferredActionsCollection IPhysicsBody.AfterAddedToWorldActions { get; }
-        #endregion
 
-        #region Public Methods
         public void ApplyAngularImpulse(float value)
         {
             AngularVelocity += value;
@@ -109,6 +104,5 @@ namespace KDScorpionEngineTests.Fakes
         {
             throw new NotImplementedException();
         }
-        #endregion
     }
 }

@@ -26,7 +26,9 @@ namespace KDScorpionEngineTests
             try
             {
                 if (action is null)
+                {
                     return;
+                }
 
                 action();
             }
@@ -45,7 +47,9 @@ namespace KDScorpionEngineTests
             try
             {
                 if (action is null)
+                {
                     return;
+                }
 
                 action();
             }

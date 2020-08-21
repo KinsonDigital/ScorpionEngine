@@ -4,9 +4,6 @@
 
 namespace ScorpTestGame
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
     using KDParticleEngine;
     using Raptor.Content;
     using Raptor.Graphics;

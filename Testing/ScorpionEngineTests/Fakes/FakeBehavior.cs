@@ -14,7 +14,9 @@ namespace KDScorpionEngineTests.Fakes
         public FakeBehavior(bool setupAction)
         {
             if (!setupAction)
+            {
                 return;
+            }
 
             SetUpdateAction((engineTime) =>
             {

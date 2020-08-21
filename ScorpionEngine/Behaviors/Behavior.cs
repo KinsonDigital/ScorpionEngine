@@ -31,7 +31,9 @@ namespace KDScorpionEngine.Behaviors
         public void Update(EngineTime engineTime)
         {
             if (this.behaviorAction == null || !Enabled)
+            {
                 return;
+            }
 
             this.behaviorAction(engineTime);
         }

@@ -19,17 +19,13 @@ namespace KDScorpionEngineTests.Input
     /// </summary>
     public class MouseWatcherTests : IDisposable
     {
-        #region Private Fields
         private Mock<IMouse> mockMouse;
-        #endregion
 
-        #region Constructors
         public MouseWatcherTests()
         {
             this.mockMouse = new Mock<IMouse>();
             this.mockMouse.Setup(m => m.IsButtonPressed(InputButton.LeftButton)).Returns(true);
         }
-        #endregion
 
         #region Constructor Tests
         [Fact]
@@ -563,6 +559,7 @@ namespace KDScorpionEngineTests.Input
         }
         #endregion
 
+        /// <inheritdoc/>
         public void Dispose() => this.mockMouse = null;
     }
 }

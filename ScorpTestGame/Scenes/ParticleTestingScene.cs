@@ -4,11 +4,8 @@
 
 namespace ScorpTestGame.Scenes
 {
-    using System.Drawing;
-    using System.Linq;
     using System.Numerics;
     using KDParticleEngine;
-    using KDParticleEngine.Services;
     using KDScorpionEngine.Graphics;
     using KDScorpionEngine.Scene;
     using Raptor;
