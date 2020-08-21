@@ -139,7 +139,9 @@ namespace KDScorpionEngineTests
                 var randomResult = random.Next(1f, 10f);
 
                 if (randomResult >= 1 || randomResult <= 10)
+                {
                     actual = true;
+                }
             }
 
             // Assert

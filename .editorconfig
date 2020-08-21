@@ -173,3 +173,6 @@ dotnet_diagnostic.SA0001.severity = none
 
 # IDE0057: Use range operator
 csharp_style_prefer_range_operator = true:warning
+
+# SA1503: Braces should not be omitted
+dotnet_diagnostic.SA1503.severity = warning

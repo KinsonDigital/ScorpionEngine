@@ -256,7 +256,9 @@ namespace KDScorpionEngine.Entities
         public override void Update(EngineTime engineTime)
         {
             if (Body == null)
+            {
                 throw new EntityNotInitializedException();
+            }
 
             this.facingDirection = new Vector2(0, -1).RotateAround(Vector2.Zero, Body.Angle);
 
@@ -272,7 +274,9 @@ namespace KDScorpionEngine.Entities
         public void MoveRight()
         {
             if (Body == null)
+            {
                 throw new EntityNotInitializedException();
+            }
 
             // TODO: Get this working
             ////Body.ApplyForce(SpeedX.ForcePositive(), 0, Position.X, Position.Y);
@@ -285,7 +289,9 @@ namespace KDScorpionEngine.Entities
         public void MoveRight(float speed)
         {
             if (Body == null)
+            {
                 throw new EntityNotInitializedException();
+            }
 
             // TODO: Get this working
             ////Body.ApplyForce(speed.ForcePositive(), 0, Position.X, Position.Y);
@@ -298,7 +304,9 @@ namespace KDScorpionEngine.Entities
         public void MoveLeft()
         {
             if (Body == null)
+            {
                 throw new EntityNotInitializedException();
+            }
 
             // TODO: Get this working
             // Body.ApplyForce(SpeedX.ForceNegative(), 0, Position.X, Position.Y);
@@ -311,7 +319,9 @@ namespace KDScorpionEngine.Entities
         public void MoveLeft(float speed)
         {
             if (Body == null)
+            {
                 throw new EntityNotInitializedException();
+            }
 
             // TODO: Get this working
             // Body.ApplyForce(speed.ForceNegative(), 0, Position.X, Position.Y);
@@ -324,7 +334,9 @@ namespace KDScorpionEngine.Entities
         public void MoveUp()
         {
             if (Body == null)
+            {
                 throw new EntityNotInitializedException();
+            }
 
             // TODO: Get this working
             // Body.ApplyForce(0, SpeedY.ForceNegative(), Position.X, Position.Y);
@@ -337,7 +349,9 @@ namespace KDScorpionEngine.Entities
         public void MoveUp(float speed)
         {
             if (Body == null)
+            {
                 throw new EntityNotInitializedException();
+            }
 
             // TODO: Get this working
             // Body.ApplyForce(0, speed.ForceNegative(), Position.X, Position.Y);
@@ -350,7 +364,9 @@ namespace KDScorpionEngine.Entities
         public void MoveDown()
         {
             if (Body == null)
+            {
                 throw new EntityNotInitializedException();
+            }
 
             // TODO: Get this working
             // Body.ApplyForce(0, SpeedY.ForcePositive(), Position.X, Position.Y);
@@ -363,7 +379,9 @@ namespace KDScorpionEngine.Entities
         public void MoveDown(float speed)
         {
             if (Body == null)
+            {
                 throw new EntityNotInitializedException();
+            }
 
             // TODO: Get this working
             // Body.ApplyForce(0, speed, Position.X, Position.Y);
@@ -376,7 +394,9 @@ namespace KDScorpionEngine.Entities
         public void MoveUpRight()
         {
             if (Body == null)
+            {
                 throw new EntityNotInitializedException();
+            }
 
             // TODO: Get this working
             // Body.ApplyForce(SpeedX.ForcePositive(), SpeedY.ForceNegative(), Position.X, Position.Y);
@@ -389,7 +409,9 @@ namespace KDScorpionEngine.Entities
         public void MoveUpRight(float speed)
         {
             if (Body == null)
+            {
                 throw new EntityNotInitializedException();
+            }
 
             // TODO: Get this working
             // Body.ApplyForce(speed, speed.ForceNegative(), Position.X, Position.Y);
@@ -402,7 +424,9 @@ namespace KDScorpionEngine.Entities
         public void MoveUpLeft()
         {
             if (Body == null)
+            {
                 throw new EntityNotInitializedException();
+            }
 
             // TODO: Get this working
             // Body.ApplyForce(SpeedX.ForceNegative(), SpeedY.ForceNegative(), Position.X, Position.Y);
@@ -415,7 +439,9 @@ namespace KDScorpionEngine.Entities
         public void MoveUpLeft(float speed)
         {
             if (Body == null)
+            {
                 throw new EntityNotInitializedException();
+            }
 
             // TODO: Get this working
             speed = speed.ForceNegative();
@@ -429,7 +455,9 @@ namespace KDScorpionEngine.Entities
         public void MoveDownRight()
         {
             if (Body == null)
+            {
                 throw new EntityNotInitializedException();
+            }
 
             // TODO: Get this working
             // Body.ApplyForce(SpeedX.ForcePositive(), SpeedY.ForcePositive(), Position.X, Position.Y);
@@ -442,7 +470,9 @@ namespace KDScorpionEngine.Entities
         public void MoveDownRight(float speed)
         {
             if (Body == null)
+            {
                 throw new EntityNotInitializedException();
+            }
 
             // TODO: Get this working
             speed = speed.ForcePositive();
@@ -456,7 +486,9 @@ namespace KDScorpionEngine.Entities
         public void MoveDownLeft()
         {
             if (Body == null)
+            {
                 throw new EntityNotInitializedException();
+            }
 
             // TODO: Get this working
             // Body.ApplyForce(SpeedX.ForceNegative(), SpeedY.ForcePositive(), Position.X, Position.Y);
@@ -469,7 +501,9 @@ namespace KDScorpionEngine.Entities
         public void MoveDownLeft(float speed)
         {
             if (Body == null)
+            {
                 throw new EntityNotInitializedException();
+            }
 
             // Body.ApplyForce(speed.ForceNegative(), speed.ForcePositive(), Position.X, Position.Y);
         }
@@ -482,7 +516,9 @@ namespace KDScorpionEngine.Entities
         public void MoveAtSetSpeed()
         {
             if (Body == null)
+            {
                 throw new EntityNotInitializedException();
+            }
 
             // TODO: Get this working
             // Body.ApplyForce(SpeedX, SpeedY, Position.X, Position.Y);
@@ -495,7 +531,9 @@ namespace KDScorpionEngine.Entities
         public void MoveAtSetAngle(float speed)
         {
             if (Body == null)
+            {
                 throw new EntityNotInitializedException();
+            }
 
             var directionToMove = new Vector2(this.facingDirection.X, this.facingDirection.Y) * speed.ForcePositive();
 
@@ -516,7 +554,9 @@ namespace KDScorpionEngine.Entities
         public void RotateCW(float speed)
         {
             if (Body == null)
+            {
                 throw new EntityNotInitializedException();
+            }
 
             // TODO: Get this working
             // if (RotationEnabled)
@@ -536,7 +576,9 @@ namespace KDScorpionEngine.Entities
         public void RotateCCW(float speed)
         {
             if (Body == null)
+            {
                 throw new EntityNotInitializedException();
+            }
 
             // TODO: Get this working with unit test
             // if (RotationEnabled)
@@ -554,7 +596,9 @@ namespace KDScorpionEngine.Entities
         public void StopRotation()
         {
             if (Body == null)
+            {
                 throw new EntityNotInitializedException();
+            }
 
             Body.AngularVelocity = 0;
         }
@@ -588,7 +632,9 @@ namespace KDScorpionEngine.Entities
                 // If the body has stopped moving, set the flag back to false
                 if (Body.LinearVelocity.X == 0 && Body.LinearVelocity.Y == 0 &&
                     Body.AngularVelocity == 0)
+                {
                     IsEntityStopping = false;
+                }
             }
         }
 
@@ -680,7 +726,9 @@ namespace KDScorpionEngine.Entities
         private void SetLinearYValue(float value)
         {
             if (Body.LinearVelocity.Y != value)
+            {
                 Body.LinearVelocity = new Vector2(Body.LinearVelocity.X, value);
+            }
         }
 
         /// <summary>

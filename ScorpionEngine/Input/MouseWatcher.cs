@@ -176,7 +176,10 @@ namespace KDScorpionEngine.Input
         public void Update(EngineTime engineTime)
         {
             // If disabled, exit
-            if (!Enabled) return;
+            if (!Enabled)
+            {
+                return;
+            }
 
             // Update the current state of the mouse
             this.mouse.UpdateCurrentState();
@@ -202,7 +205,9 @@ namespace KDScorpionEngine.Input
 
                     // If the reset mode is set to auto, reset the hit counter
                     if (HitCountResetMode == ResetType.Auto)
+                    {
                         this.counter.Reset();
+                    }
                 }
                 else
                 {
@@ -213,7 +218,9 @@ namespace KDScorpionEngine.Input
             // Timing Code
             // As long as the button is down, continue to keep the button release timer reset to 0
             if (this.mouse.IsButtonDown(Button))
+            {
                 this.buttonReleaseTimer.Reset();
+            }
 
             // If the button is not pressed down and the button was pressed down last frame,
             // reset the input down timer and start the button release timer.
@@ -235,7 +242,9 @@ namespace KDScorpionEngine.Input
 
                 // If all of the buttons are pressed down
                 if (this.currentPressedButtons.Count > 0 && this.currentPressedButtons.All(button => button.Value))
+                {
                     OnInputComboPressed?.Invoke(this, new EventArgs());
+                }
             }
 
             this.mouse.UpdatePreviousState();
@@ -252,7 +261,9 @@ namespace KDScorpionEngine.Input
             {
                 // If the reset mode is set to auto, reset the time elapsed
                 if (DownElapsedResetMode == ResetType.Auto)
+                {
                     this.buttonDownTimer.Reset();
+                }
 
                 OnInputDownTimeOut?.Invoke(this, new EventArgs());
             }
@@ -267,7 +278,9 @@ namespace KDScorpionEngine.Input
             {
                 // If the reset mode is set to auto, reset the time elapsed
                 if (ReleasedElapsedResetMode == ResetType.Auto)
+                {
                     this.buttonReleaseTimer.Reset();
+                }
 
                 // Invoke the event
                 OnInputReleasedTimeOut?.Invoke(this, new EventArgs());
@@ -311,7 +324,9 @@ namespace KDScorpionEngine.Input
                 {
                     // If the button has not alredy been added
                     if (!this.currentPressedButtons.ContainsKey(b))
+                    {
                         this.currentPressedButtons.Add(b, false);
+                    }
                 });
             }
         }

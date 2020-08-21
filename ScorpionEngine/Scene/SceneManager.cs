@@ -194,7 +194,9 @@ namespace KDScorpionEngine.Scene
         public void Add(IScene scene)
         {
             if (SceneIdExists(scene.Id))
+            {
                 throw new IdAlreadyExistsException(scene.Id);
+            }
 
             // Generate a new scene ID if the current ID is a -1
             scene.Id = scene.Id == -1 ? GetNewId() : scene.Id;
@@ -203,7 +205,9 @@ namespace KDScorpionEngine.Scene
 
             // If the manager is set to initialize now
             if (InitializeScenesOnAdd)
+            {
                 scene.Initialize();
+            }
 
             // If the manager is set to active the scene on add
             if (ActivateSceneOnAdd)
@@ -241,7 +245,9 @@ namespace KDScorpionEngine.Scene
         {
             // If the scene ID does not exist, throw an exception
             if (!SceneIdExists(id))
+            {
                 throw new IdNotFoundException(id);
+            }
 
             CurrentSceneId = id;
         }
@@ -253,7 +259,9 @@ namespace KDScorpionEngine.Scene
         public void LoadAllSceneContent() => this.scenes.ForEach(s =>
                                            {
                                                if (s.ContentLoaded)
+                                               {
                                                    return;
+                                               }
 
                                                s.LoadContent(this.contentLoader);
 
@@ -270,7 +278,9 @@ namespace KDScorpionEngine.Scene
                               select s).FirstOrDefault();
 
             if (foundScene is null)
+            {
                 throw new IdNotFoundException(CurrentSceneId);
+            }
 
             var currentSceneIndex = this.scenes.IndexOf(foundScene);
 
@@ -291,7 +301,9 @@ namespace KDScorpionEngine.Scene
         {
             // If the scene ID does not exist, throw an exception
             if (!SceneIdExists(id))
+            {
                 throw new IdNotFoundException(id);
+            }
 
             var foundScene = (from s in this.scenes where s.Id == id select s).FirstOrDefault();
 
@@ -369,7 +381,9 @@ namespace KDScorpionEngine.Scene
         {
             // If the scene ID does not exist, throw an exception
             if (!SceneIdExists(id))
+            {
                 throw new IdNotFoundException(id);
+            }
 
             var previousSceneId = CurrentSceneId;
 
@@ -394,7 +408,9 @@ namespace KDScorpionEngine.Scene
 
             // If no scene was found, throw an exception
             if (foundScene == null)
+            {
                 throw new NameNotFoundException(name);
+            }
 
             var previousSceneId = CurrentSceneId;
 
@@ -436,7 +452,9 @@ namespace KDScorpionEngine.Scene
                               select s).FirstOrDefault();
 
             if (foundScene is null)
+            {
                 throw new IdNotFoundException(id);
+            }
 
             foundScene.Initialize();
         }
@@ -453,7 +471,9 @@ namespace KDScorpionEngine.Scene
                               select s).FirstOrDefault();
 
             if (foundScene is null)
+            {
                 throw new NameNotFoundException(name);
+            }
 
             foundScene.Initialize();
         }
@@ -475,7 +495,9 @@ namespace KDScorpionEngine.Scene
             this.scenes.ForEach(s =>
             {
                 if (s.Active || UpdateInactiveScenes)
+                {
                     s.Update(engineTime);
+                }
             });
         }
 
@@ -486,14 +508,18 @@ namespace KDScorpionEngine.Scene
         public void Render(GameRenderer renderer)
         {
             if (this.scenes.Count <= 0)
+            {
                 return;
+            }
 
             var foundScene = (from s in this.scenes
                               where s.Id == CurrentSceneId
                               select s).FirstOrDefault();
 
             if (foundScene == null)
+            {
                 throw new SceneNotFoundException(CurrentSceneId);
+            }
 
             if (!foundScene.IsRenderingScene)
             {
@@ -516,7 +542,9 @@ namespace KDScorpionEngine.Scene
                               select s).FirstOrDefault();
 
             if (foundScene is null)
+            {
                 throw new IdNotFoundException(id);
+            }
 
             return foundScene as T;
         }
@@ -535,7 +563,9 @@ namespace KDScorpionEngine.Scene
                               select s).FirstOrDefault();
 
             if (foundScene is null)
+            {
                 throw new NameNotFoundException(name);
+            }
 
             return foundScene as T;
         }
@@ -579,28 +609,36 @@ namespace KDScorpionEngine.Scene
             {
                 // If the play key has been pressed
                 if (this.keyboard.IsKeyPressed(PlayCurrentSceneKey))
+                {
                     PlayCurrentScene();
+                }
             }
 
             if (PauseCurrentSceneKey != KeyCode.None)
             {
                 // If the pause key has been pressed
                 if (this.keyboard.IsKeyPressed(PauseCurrentSceneKey))
+                {
                     PauseCurrentScene();
+                }
             }
 
             if (NextSceneKey != KeyCode.None)
             {
                 // If the next scene key has been pressed
                 if (this.keyboard.IsKeyPressed(NextSceneKey))
+                {
                     NextScene();
+                }
             }
 
             if (PreviousSceneKey != KeyCode.None)
             {
                 // If the previous scene key has been pressed
                 if (this.keyboard.IsKeyPressed(PreviousSceneKey))
+                {
                     PreviousScene();
+                }
             }
 
             this.keyboard.UpdatePreviousState();
@@ -629,7 +667,9 @@ namespace KDScorpionEngine.Scene
             {
                 // If the current possible ID does not exist, use it. If it exists, move on.
                 if (!allIdNumbers.Contains(i))
+                {
                     return i;
+                }
             }
 
             // If this point is reached, then all numbers from 1 to the largestId are being used
@@ -650,11 +690,15 @@ namespace KDScorpionEngine.Scene
         {
             // If the manager is set to set the current scene to active
             if (ActivateSceneOnAdd)
+            {
                 scene.Active = true;
+            }
 
             // If the manager is set to initialize a scene
             if (InitializeScenesOnChange)
+            {
                 scene.Initialize();
+            }
 
             // If the manager is set to load the next scenes content
             if (LoadContentOnSceneChange)
@@ -674,11 +718,15 @@ namespace KDScorpionEngine.Scene
         {
             // Unload the previous scenes content if the UnloadContentOnSceneChange is set to true
             if (UnloadContentOnSceneChange)
+            {
                 scene.UnloadContent(this.contentLoader);
+            }
 
             // If the manager is set to deactivate all other scenes
             if (DeactivateOnSceneChange)
+            {
                 scene.Active = false;
+            }
         }
     }
 }

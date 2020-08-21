@@ -39,10 +39,14 @@ namespace KDScorpionEngine.Content
 
             // As long as the atlas data has not already been added
             if (!AllAtlasData.ContainsKey(atlasDataID))
+            {
                 AllAtlasData.Add(atlasDataID, data); // Add the atlas data
+            }
 
             if (!AllAtlasTextures.ContainsKey(textureAtlasID))
+            {
                 AllAtlasTextures.Add(textureAtlasID, texture); // Add the atlas texture
+            }
         }
 
         /// <summary>
@@ -97,27 +101,39 @@ namespace KDScorpionEngine.Content
 
             // If the index of the left bracket is not 0
             if (leftBracketIndex != 0)
+            {
                 return InValidReason.LeftBracketNotFirstChar;
+            }
 
             // If the index of the right bracket is not the last chart
             if (rightBracketIndex != subTextureID.Length - 1)
+            {
                 return InValidReason.RightBracketNotLastChar;
+            }
 
             // If the order of brackets is not correct
             if (leftBracketIndex > rightBracketIndex)
+            {
                 return InValidReason.BracketOrderIncorrect;
+            }
 
             // If the dash index is not in between the left bracket and right bracket
             if (dashIndex < leftBracketIndex || dashIndex > rightBracketIndex)
+            {
                 return InValidReason.DashLocationIncorrect;
+            }
 
             // If the left bracket count is over 1
             if (leftBracketCount > 1)
+            {
                 return InValidReason.TooManyLeftBrackets;
+            }
 
             // If the right bracket count is over 1
             if (rightBracketCount > 1)
+            {
                 return InValidReason.TooManyRightBrackets;
+            }
 
             // If the number of dashes is over 1
             return dashCount > 1 ? InValidReason.TooManyDashes : InValidReason.ValidFormat;
@@ -140,7 +156,10 @@ namespace KDScorpionEngine.Content
         {
             var returnValue = new StringBuilder();
 
-            if (!IsAnimatingFrame(frameName)) return frameName;
+            if (!IsAnimatingFrame(frameName))
+            {
+                return frameName;
+            }
 
             var startFound = false;
 
@@ -163,7 +182,10 @@ namespace KDScorpionEngine.Content
                 else
                 {
                     // If the character is a left bracket
-                    if (c != '[') continue;
+                    if (c != '[')
+                    {
+                        continue;
+                    }
 
                     startFound = true;
                 }
@@ -210,7 +232,10 @@ namespace KDScorpionEngine.Content
         private static void CheckID(string id)
         {
             // First check to see if the ID is in the atlas data or atlas texture lists
-            if (AllAtlasData.Count <= 0 || AllAtlasTextures.Count <= 0) return;
+            if (AllAtlasData.Count <= 0 || AllAtlasTextures.Count <= 0)
+            {
+                return;
+            }
 
             // TODO: look into uncommenting this code
             // If there are items in the lists, check for item duplication
@@ -278,7 +303,9 @@ namespace KDScorpionEngine.Content
                     {
                         // Check if the sub texture ID is valid
                         if (!ExtractSubTextureID(id).ContainsOnlyLettersAndNumbers())
+                        {
                             throw new Exception("Animation Sub Texture Name Invalid");
+                        }
                     }
                     else
                     {
@@ -312,11 +339,15 @@ namespace KDScorpionEngine.Content
             {
                 // If the name has a number in it
                 if (!animatingFrameNames[i].HasNumbers())
+                {
                     throw new Exception("Animating frame sub texture name has no frame index number");
+                }
 
                 // If the numbers in the current name is in any of the animating frame names, throw an exception
                 if (animatingFrameNames.Count(item => item.GetFirstOccurentOfNumber() == animatingFrameNames[i].GetFirstOccurentOfNumber()) > 1)
+                {
                     throw new Exception("Duplicate frame index number within the animating frame group " + animatingFrameNames[i]);
+                }
 
                 // If this point is reached, then no errors were found, remove the item from the list to remove duplicate checks
                 animatingFrameNames.RemoveAt(i);
