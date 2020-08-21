@@ -127,7 +127,9 @@ namespace KDScorpionEngine.Scene
             // If the mode is not in frame stack mode or if the callback is not null.
             // If the callback is not null, that means a previous call is still running.
             if (Mode != RunMode.FrameStack || this.frameStackCallback != null)
+            {
                 return;
+            }
 
             Paused = false;
 

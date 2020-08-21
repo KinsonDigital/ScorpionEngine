@@ -19,7 +19,9 @@ namespace KDScorpionEngineTests
         public static FieldInfo GetField(this object value, string name)
         {
             if (value is null)
+            {
                 return null;
+            }
 
             var privateFields = (from f in value.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static)
                                  where f.Name == name
@@ -27,7 +29,9 @@ namespace KDScorpionEngineTests
 
             // If the list is not found throw not found exception
             if (privateFields == null || privateFields.Length <= 0)
+            {
                 throw new Exception($"Cannot find the field {name} on the given object of type {value.GetType()}");
+            }
 
             return privateFields.FirstOrDefault();
         }

@@ -61,7 +61,9 @@ namespace ScorpTestGame.Scenes
         public override void LoadContent(ContentLoader contentLoader)
         {
             if (contentLoader is null)
+            {
                 throw new ArgumentNullException(nameof(contentLoader), "The parameter must not be null.");
+            }
 
             this.ship.LoadContent(contentLoader);
 

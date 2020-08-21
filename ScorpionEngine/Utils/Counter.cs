@@ -27,7 +27,9 @@ namespace KDScorpionEngine.Utils
             Value = value;
 
             if (min > max)
+            {
                 throw new ArgumentOutOfRangeException(nameof(min), "Parameter must be less than the max.");
+            }
 
             this.min = min;
             this.max = max;
@@ -60,7 +62,9 @@ namespace KDScorpionEngine.Utils
             set
             {
                 if (value > this.max)
+                {
                     throw new Exception($"The min value of {value} cannot be greater than max value of {this.max}.");
+                }
 
                 this.min = value;
             }
@@ -76,7 +80,9 @@ namespace KDScorpionEngine.Utils
             {
                 // Make sure that the min is then the max
                 if (value < this.min)
+                {
                     throw new Exception($"The max value of {value} cannot be less than min value of {this.min}.");
+                }
 
                 this.max = value;
             }
@@ -111,14 +117,20 @@ namespace KDScorpionEngine.Utils
                     Value += CountAmount;
 
                     // If the value is greater than or equal the max, invoke the MaxReachedWhenIncrementing event and set the value back to 0
-                    if (Value < Max) return;
+                    if (Value < Max)
+                    {
+                        return;
+                    }
 
                     // Invoke the MaxReachedWhenIncrementing event
                     MaxReachedWhenIncrementing?.Invoke(this, new EventArgs());
 
                     // If the reset mode is set to auto, reset the value
                     if (ResetMode == ResetType.Auto && Value > Max)
+                    {
                         Reset();
+                    }
+
                     break;
                 case CountType.Decrement:
                     // Count the value
@@ -126,14 +138,20 @@ namespace KDScorpionEngine.Utils
 
                     // If the value is less than or equal the max,
                     // invoke the MinReachedWhenDecrementing event and set the value back to 0
-                    if (Value > Min) return;
+                    if (Value > Min)
+                    {
+                        return;
+                    }
 
                     // Invoke the MinReachedWhenDecrementing event
                     MinReachedWhenDecrementing?.Invoke(this, new EventArgs());
 
                     // If the reset mode is set to auto, reset the value
                     if (ResetMode == ResetType.Auto && Value < Min)
+                    {
                         Reset();
+                    }
+
                     break;
                 default:
                     throw new Exception($"The {nameof(CountDirection)} is set to an invalid enumeration value.");

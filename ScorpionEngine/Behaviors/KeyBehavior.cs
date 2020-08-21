@@ -102,7 +102,10 @@ namespace KDScorpionEngine.Behaviors
         /// <param name="engineTime">The game engine time.</param>
         public void Update(EngineTime engineTime)
         {
-            if (!Enabled) return;
+            if (!Enabled)
+            {
+                return;
+            }
 
             this.timeElapsed += engineTime.ElapsedEngineTime.Milliseconds;
 
@@ -115,14 +118,19 @@ namespace KDScorpionEngine.Behaviors
                 case KeyBehaviorType.KeyDownContinuous:// Fire the KeyDownEvent as long as the key is being pressed
                     // If any of the assigned key have been pressed
                     if (this.keyboard.IsKeyDown(Key))
+                    {
                         KeyDownEvent?.Invoke(this, new KeyEventArgs(new[] { Key }));
+                    }
+
                     break;
                 case KeyBehaviorType.OnceOnDown:// Fire the KeyDownEvent only once after it is pressed
                     // Prevent the KeyDownEvent from being triggered twice if the AlwaysInvokeKeyDownEvent is enabled
                     if (!AlwaysInvokeKeyDownEvent)
                     {
                         if (this.keyboard.IsKeyPressed(Key))
+                        {
                             KeyDownEvent?.Invoke(this, new KeyEventArgs(new[] { Key }));
+                        }
                     }
                     break;
                 case KeyBehaviorType.OnceOnRelease:
@@ -130,7 +138,9 @@ namespace KDScorpionEngine.Behaviors
                     if (!AlwaysInvokeKeyUpEvent)
                     {
                         if (this.keyboard.IsKeyUp(Key))
+                        {
                             KeyUpEvent?.Invoke(this, new KeyEventArgs(new[] { Key }));
+                        }
                     }
                     break;
                 case KeyBehaviorType.OnKeyDownTimeDelay:
@@ -138,7 +148,9 @@ namespace KDScorpionEngine.Behaviors
                     if (this.timeElapsed >= TimeDelay)
                     {
                         if (this.keyboard.IsKeyDown(Key))
+                        {
                             KeyDownEvent?.Invoke(this, new KeyEventArgs(new[] { Key }));
+                        }
 
                         // Reset the time elapsed
                         this.timeElapsed = 0;
@@ -149,7 +161,9 @@ namespace KDScorpionEngine.Behaviors
                     if (this.timeElapsed >= TimeDelay)
                     {
                         if (this.keyboard.IsKeyUp(Key))
+                        {
                             KeyUpEvent?.Invoke(this, new KeyEventArgs(new[] { Key }));
+                        }
 
                         // Reset the time elapsed
                         this.timeElapsed = 0;
@@ -158,7 +172,10 @@ namespace KDScorpionEngine.Behaviors
                 case KeyBehaviorType.OnAnyKeyPress:
                     // If any keys at all have been released
                     if (this.keyboard.GetCurrentPressedKeys().Length > 0)
+                    {
                         KeyPressEvent?.Invoke(this, new KeyEventArgs(this.keyboard.GetCurrentPressedKeys()));
+                    }
+
                     break;
                 default:
                     throw new Exception($"Invalid '{nameof(KeyBehaviorType)}' of value '{(int)BehaviorType}'");

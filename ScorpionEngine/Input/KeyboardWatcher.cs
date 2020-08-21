@@ -175,7 +175,10 @@ namespace KDScorpionEngine.Input
         public void Update(EngineTime engineTime)
         {
             // If disabled, exit
-            if (!Enabled) return;
+            if (!Enabled)
+            {
+                return;
+            }
 
             // Update the current state of the keyboard
             this.keyboard.UpdateCurrentState();
@@ -200,7 +203,9 @@ namespace KDScorpionEngine.Input
 
                     // If the reset mode is set to auto, reset the hit counter
                     if (HitCountResetMode == ResetType.Auto)
+                    {
                         this.counter.Reset();
+                    }
                 }
                 else
                 {
@@ -211,7 +216,9 @@ namespace KDScorpionEngine.Input
             // Timing Code
             // As long as the key is down, continue to keep the key release timer reset to 0
             if (this.keyboard.IsKeyDown(Key))
+            {
                 this.keyReleasedTimer.Reset();
+            }
 
             // If the key is not pressed down and the key was pressed down last frame,
             // reset the input down timer and start the key release timer.
@@ -233,7 +240,9 @@ namespace KDScorpionEngine.Input
 
                 // If all of the keys are pressed down
                 if (this.currentPressedKeys.Count > 0 && this.currentPressedKeys.All(key => key.Value))
+                {
                     OnInputComboPressed?.Invoke(this, new EventArgs());
+                }
             }
 
             this.keyboard.UpdatePreviousState();
@@ -250,7 +259,9 @@ namespace KDScorpionEngine.Input
             {
                 // If the reset mode is set to auto, reset the time elapsed
                 if (DownElapsedResetMode == ResetType.Auto)
+                {
                     this.keyReleasedTimer.Reset();
+                }
 
                 OnInputReleasedTimeOut?.Invoke(this, new EventArgs());
             }
@@ -265,7 +276,9 @@ namespace KDScorpionEngine.Input
             {
                 // If the reset mode is set to auto, reset the time elapsed
                 if (ReleasedElapsedResetMode == ResetType.Auto)
+                {
                     this.keyDownTimer.Reset();
+                }
 
                 // Invoke the event
                 OnInputDownTimeOut?.Invoke(this, new EventArgs());
@@ -309,7 +322,9 @@ namespace KDScorpionEngine.Input
                 {
                     // If the key has not already been added
                     if (!this.currentPressedKeys.ContainsKey(k))
+                    {
                         this.currentPressedKeys.Add(k, false);
+                    }
                 });
             }
         }
