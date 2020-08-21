@@ -564,6 +564,7 @@ namespace KDScorpionEngineTests.Input
         }
         #endregion
 
+        /// <inheritdoc/>
         public void Dispose() => this.mockKeyboard = null;
     }
 }

@@ -90,6 +90,7 @@ namespace KDScorpionEngineTests.Entities
         }
         #endregion
 
+        /// <inheritdoc/>
         public void Dispose() => this.mockPhysicsBody = null;
     }
 }

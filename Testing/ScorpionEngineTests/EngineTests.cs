@@ -232,6 +232,7 @@ namespace KDScorpionEngineTests
         }
         #endregion
 
+        /// <inheritdoc/>
         public void Dispose() => this.mockEngineCore = null;
     }
 }

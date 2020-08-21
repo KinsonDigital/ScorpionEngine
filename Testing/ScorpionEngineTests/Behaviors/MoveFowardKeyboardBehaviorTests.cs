@@ -173,7 +173,7 @@ namespace KDScorpionEngineTests.Behaviors
         }
         #endregion
 
-        #region Public Methods
+        /// <inheritdoc/>
         public void Dispose()
         {
             this.mockKeyboard = null;
