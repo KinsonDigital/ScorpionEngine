@@ -6,7 +6,6 @@ namespace KDScorpionEngine.Entities
 {
     using System.Diagnostics.CodeAnalysis;
     using System.Numerics;
-    using Raptor;
     using Raptor.Graphics;
     using Raptor.Plugins;
 

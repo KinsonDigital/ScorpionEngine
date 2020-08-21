@@ -8,7 +8,6 @@ namespace KDScorpionEngineTests.Entities
     using System.Numerics;
     using KDScorpionEngine.Entities;
     using KDScorpionEngine.Exceptions;
-    using KDScorpionEngineTests.Fakes;
     using Moq;
     using Raptor;
     using Raptor.Graphics;
