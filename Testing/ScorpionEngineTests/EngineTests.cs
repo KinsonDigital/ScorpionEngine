@@ -23,7 +23,6 @@ namespace KDScorpionEngineTests
         private Mock<IEngineCore> mockEngineCore;
         #endregion
 
-        #region Constructors
         public EngineTests()
         {
             this.mockKeyboard = new Mock<IKeyboard>();
@@ -34,7 +33,6 @@ namespace KDScorpionEngineTests
             this.mockEngineCore.SetupProperty(m => m.WindowWidth);
             this.mockEngineCore.SetupProperty(m => m.WindowHeight);
         }
-        #endregion
 
         #region Constructor Tests
         [Fact]

@@ -19,11 +19,8 @@ namespace KDScorpionEngineTests.Entities
     /// </summary>
     public class StaticEntityTests : IDisposable
     {
-        #region Private Fields
         private Mock<IPhysicsBody> mockPhysicsBody;
-        #endregion
 
-        #region Constructors
         public StaticEntityTests()
         {
             this.mockPhysicsBody = new Mock<IPhysicsBody>();
@@ -32,7 +29,6 @@ namespace KDScorpionEngineTests.Entities
             this.mockPhysicsBody.SetupProperty(p => p.XVertices);
             this.mockPhysicsBody.SetupProperty(p => p.YVertices);
         }
-        #endregion
 
         #region Constructor Tests
 

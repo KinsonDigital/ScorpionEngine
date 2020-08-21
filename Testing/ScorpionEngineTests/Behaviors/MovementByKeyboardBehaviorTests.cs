@@ -19,12 +19,9 @@ namespace KDScorpionEngineTests.Behaviors
     /// </summary>
     public class MovementByKeyboardBehaviorTests : IDisposable
     {
-        #region Private Fields
         private Mock<IKeyboard> mockKeyboard;
         private Mock<IPhysicsBody> mockPhysicsBody;
-        #endregion
 
-        #region Constructors
         public MovementByKeyboardBehaviorTests()
         {
             this.mockKeyboard = new Mock<IKeyboard>();
@@ -38,7 +35,6 @@ namespace KDScorpionEngineTests.Behaviors
                     this.mockPhysicsBody.Object.Y += forceY;
                 });
         }
-        #endregion
 
         #region Constructor Tests
 
@@ -202,8 +198,6 @@ namespace KDScorpionEngineTests.Behaviors
             this.mockPhysicsBody = null;
         }
 
-        #region Private Methods
         private void SetKeyboardKey(KeyCode key) => this.mockKeyboard.Setup(m => m.IsKeyDown(key)).Returns(true);
-        #endregion
     }
 }

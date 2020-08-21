@@ -19,13 +19,9 @@ namespace KDScorpionEngineTests.Input
     /// </summary>
     public class KeyboardWatcherTests : IDisposable
     {
-        #region Private Fields
         private Mock<IKeyboard> mockKeyboard;
-        #endregion
 
-        #region Constructors
         public KeyboardWatcherTests() => this.mockKeyboard = new Mock<IKeyboard>();
-        #endregion
 
         #region Method Tests
         [Fact]

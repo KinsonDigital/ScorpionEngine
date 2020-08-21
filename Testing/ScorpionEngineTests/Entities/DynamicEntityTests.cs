@@ -19,11 +19,8 @@ namespace KDScorpionEngineTests.Entities
     /// </summary>
     public class DynamicEntityTests : IDisposable
     {
-        #region Private Fields
         private Mock<IPhysicsBody> mockPhysicsBody;
-        #endregion
 
-        #region Constructors
         public DynamicEntityTests()
         {
             this.mockPhysicsBody = new Mock<IPhysicsBody>();
@@ -44,7 +41,6 @@ namespace KDScorpionEngineTests.Entities
                 this.mockPhysicsBody.Object.AngularVelocity = value;
             });
         }
-        #endregion
 
         #region Constructor Tests
         [Fact]

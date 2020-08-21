@@ -18,12 +18,9 @@ namespace KDScorpionEngineTests.Behaviors
     /// </summary>
     public class MoveFowardKeyboardBehaviorTests : IDisposable
     {
-        #region Private Fields
         private Mock<IKeyboard> mockKeyboard;
         private Mock<IPhysicsBody> mockPhysicsBody;
-        #endregion
 
-        #region Constructors
         public MoveFowardKeyboardBehaviorTests()
         {
             this.mockKeyboard = new Mock<IKeyboard>();
@@ -35,7 +32,6 @@ namespace KDScorpionEngineTests.Behaviors
                 this.mockPhysicsBody.Object.Angle += value;
             });
         }
-        #endregion
 
         #region Prop Tests
         [Fact]
@@ -179,6 +175,5 @@ namespace KDScorpionEngineTests.Behaviors
             this.mockKeyboard = null;
             this.mockPhysicsBody = null;
         }
-        #endregion
     }
 }
