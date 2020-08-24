@@ -30,7 +30,10 @@ namespace KDScorpionEngine.Content
         {
             var number = new string(item.Where(IsNumber).ToArray());
 
-            if (string.IsNullOrEmpty(number)) return -1;
+            if (string.IsNullOrEmpty(number))
+            {
+                return -1;
+            }
 
             return int.Parse(number);
         }
@@ -51,7 +54,9 @@ namespace KDScorpionEngine.Content
             {
                 // If any of the characters are not a letter or number
                 if (!item[i].IsNumber() && !item[i].IsLetter())
+                {
                     return false;
+                }
             }
 
             return true;

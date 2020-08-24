@@ -1,5 +1,14 @@
 # **Scorpion Engine Release Notes**
 
+## **Version 0.7.0**
+
+### **Misc**
+
+1. Refactored code to fix **Disposable** pattern issues
+2. Added rules to **editorconfig** files in solution to improve coding standards
+
+---
+
 ## **Version 0.6.0**
 
 ### **Additions**

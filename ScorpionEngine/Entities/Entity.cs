@@ -168,13 +168,17 @@ namespace KDScorpionEngine.Entities
                 if (prevValue && !this.visible)
                 {
                     if (OnHide != null)
+                    {
                         OnHide.Invoke(this, new EventArgs());
+                    }
                 }
                 else if (!prevValue && this.visible)
                 {
                     // Going from invisible to visible
                     if (OnShow != null)
+                    {
                         OnShow.Invoke(this, new EventArgs());
+                    }
                 }
             }
         }
@@ -219,7 +223,9 @@ namespace KDScorpionEngine.Entities
             {
                 // The vertices of the entity cannot be set after it has been initialized
                 if (IsInitialized)
+                {
                     throw new EntityAlreadyInitializedException();
+                }
 
                 this.preInitVertices = value;
             }

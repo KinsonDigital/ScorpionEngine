@@ -41,13 +41,10 @@ namespace KDScorpionEngineTests.Fakes
         {
         }
 
-        #region Props
         public bool UpdateInvoked { get; set; }
 
         public bool RenderInvoked { get; set; }
-        #endregion
 
-        #region Public Methods
         public override bool Equals(object obj) => base.Equals(obj);
 
         public override int GetHashCode() => base.GetHashCode();
@@ -62,6 +59,5 @@ namespace KDScorpionEngineTests.Fakes
         public override void Render(GameRenderer renderer) => RenderInvoked = true;
 
         public override string ToString() => base.ToString();
-        #endregion
     }
 }

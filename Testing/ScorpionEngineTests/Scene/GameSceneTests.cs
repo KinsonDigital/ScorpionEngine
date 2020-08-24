@@ -23,18 +23,14 @@ namespace KDScorpionEngineTests.Scene
     /// </summary>
     public class GameSceneTests : IDisposable
     {
-        #region Private Fields
         private readonly Mock<IPhysicsBody> mockPhysicsBody;
         private Mock<IPhysicsWorld> mockPhysicsWorld;
-        #endregion
 
-        #region Constructors
         public GameSceneTests()
         {
             this.mockPhysicsWorld = new Mock<IPhysicsWorld>();
             this.mockPhysicsBody = new Mock<IPhysicsBody>();
         }
-        #endregion
 
         #region Constructor Tests
         [Fact]
@@ -300,10 +296,7 @@ namespace KDScorpionEngineTests.Scene
         }
         #endregion
 
-        public void Dispose()
-        {
-            this.mockPhysicsWorld = null;
-            GC.SuppressFinalize(this);
-        }
+        /// <inheritdoc/>
+        public void Dispose() => this.mockPhysicsWorld = null;
     }
 }

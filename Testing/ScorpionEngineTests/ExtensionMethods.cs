@@ -15,11 +15,20 @@ namespace KDScorpionEngineTests
     [ExcludeFromCodeCoverage]
     public static class ExtensionMethods
     {
+        /// <summary>
+        /// Returns <see cref="FieldInfo"/> of a field that matches the field given <paramref name="name"/>
+        /// inside of the given object <paramref name="value"/> instance.
+        /// </summary>
+        /// <param name="value">The object that does or does not contain the field.</param>
+        /// <param name="name">The name of the field.</param>
+        /// <returns></returns>
         [ExcludeFromCodeCoverage]
         public static FieldInfo GetField(this object value, string name)
         {
             if (value is null)
+            {
                 return null;
+            }
 
             var privateFields = (from f in value.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static)
                                  where f.Name == name
@@ -27,7 +36,9 @@ namespace KDScorpionEngineTests
 
             // If the list is not found throw not found exception
             if (privateFields == null || privateFields.Length <= 0)
+            {
                 throw new Exception($"Cannot find the field {name} on the given object of type {value.GetType()}");
+            }
 
             return privateFields.FirstOrDefault();
         }
@@ -69,6 +80,13 @@ namespace KDScorpionEngineTests
             }
         }
 
+        /// <summary>
+        /// Returns a value indicating if the this object with the given field <paramref name="name"/>
+        /// is a primitive in the object instance.
+        /// </summary>
+        /// <param name="fieldContainer">The object that contains the field.</param>
+        /// <param name="name">The name of the field.</param>
+        /// <returns>True if the field is a primitive.</returns>
         public static bool IsFieldPrimitive(this object fieldContainer, string name)
         {
             var foundField = fieldContainer.GetField(name);

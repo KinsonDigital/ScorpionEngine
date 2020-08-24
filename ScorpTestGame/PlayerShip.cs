@@ -4,8 +4,6 @@
 
 namespace ScorpTestGame
 {
-    using System.Drawing;
-    using System.Linq;
     using System.Numerics;
     using KDParticleEngine;
     using KDParticleEngine.Behaviors;

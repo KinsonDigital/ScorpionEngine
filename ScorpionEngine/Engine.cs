@@ -120,7 +120,10 @@ namespace KDScorpionEngine
         {
             var currentTime = engineTime.ElapsedEngineTime.Milliseconds;
 
-            if (!Running) return; // If the engine has not been started, exit
+            if (!Running)
+            {
+                return; // If the engine has not been started, exit
+            }
 
             prevElapsedTime = currentTime;
 
@@ -146,11 +149,13 @@ namespace KDScorpionEngine
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        /// <param name="disposing">True dispose of managed resources.</param>
+        /// <param name="disposing">True to dispose of managed resources.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (engineCore != null)
+            {
                 engineCore.Dispose();
+            }
         }
 
         /// <summary>

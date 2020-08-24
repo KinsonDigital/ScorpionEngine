@@ -91,16 +91,23 @@ namespace KDScorpionEngine.Utils
         {
             // If the stopwatch is enabled, add the amount of time passed to the elapsed value
             if (this.enabled)
+            {
                 ElapsedMS += (int)engineTime.ElapsedEngineTime.TotalMilliseconds;
+            }
 
             // If the timeout has been reached
-            if (ElapsedMS < this.timeOut) return;
+            if (ElapsedMS < this.timeOut)
+            {
+                return;
+            }
 
             OnTimeElapsed?.Invoke(this, new EventArgs());
 
             // If the reset mode is set to auto, reset the elapsed time back to 0
             if (ResetMode == ResetType.Auto)
+            {
                 Reset();
+            }
         }
     }
 }

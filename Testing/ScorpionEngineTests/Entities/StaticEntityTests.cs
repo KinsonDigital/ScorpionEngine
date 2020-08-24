@@ -8,7 +8,6 @@ namespace KDScorpionEngineTests.Entities
     using System.Numerics;
     using KDScorpionEngine.Behaviors;
     using KDScorpionEngine.Entities;
-    using KDScorpionEngineTests.Fakes;
     using Moq;
     using Raptor;
     using Raptor.Graphics;
@@ -20,11 +19,8 @@ namespace KDScorpionEngineTests.Entities
     /// </summary>
     public class StaticEntityTests : IDisposable
     {
-        #region Private Fields
         private Mock<IPhysicsBody> mockPhysicsBody;
-        #endregion
 
-        #region Constructors
         public StaticEntityTests()
         {
             this.mockPhysicsBody = new Mock<IPhysicsBody>();
@@ -33,7 +29,6 @@ namespace KDScorpionEngineTests.Entities
             this.mockPhysicsBody.SetupProperty(p => p.XVertices);
             this.mockPhysicsBody.SetupProperty(p => p.YVertices);
         }
-        #endregion
 
         #region Constructor Tests
 
@@ -71,10 +66,7 @@ namespace KDScorpionEngineTests.Entities
         }
         #endregion
 
-        public void Dispose()
-        {
-            this.mockPhysicsBody = null;
-            GC.SuppressFinalize(this);
-        }
+        /// <inheritdoc/>
+        public void Dispose() => this.mockPhysicsBody = null;
     }
 }

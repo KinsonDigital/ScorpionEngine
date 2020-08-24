@@ -18,11 +18,8 @@ namespace KDScorpionEngineTests.Input
     /// </summary>
     public class KeyBehaviorTests : IDisposable
     {
-        #region Private Fields
         private Mock<IKeyboard> mockCoreKeyboard;
-        #endregion
 
-        #region Constructors
         public KeyBehaviorTests()
         {
             this.mockCoreKeyboard = new Mock<IKeyboard>();
@@ -30,7 +27,6 @@ namespace KDScorpionEngineTests.Input
             this.mockCoreKeyboard.Setup(m => m.IsKeyPressed(It.IsAny<KeyCode>())).Returns(true);
             this.mockCoreKeyboard.Setup(m => m.IsKeyUp(It.IsAny<KeyCode>())).Returns(true);
         }
-        #endregion
 
         #region Constructor Tests
         [Fact]
@@ -391,10 +387,7 @@ namespace KDScorpionEngineTests.Input
         }
         #endregion
 
-        public void Dispose()
-        {
-            this.mockCoreKeyboard = null;
-            GC.SuppressFinalize(this);
-        }
+        /// <inheritdoc/>
+        public void Dispose() => this.mockCoreKeyboard = null;
     }
 }

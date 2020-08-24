@@ -21,12 +21,9 @@ namespace KDScorpionEngineTests.Scene
     /// </summary>
     public class SceneManagerTests : IDisposable
     {
-        #region Private Fields
         private readonly Mock<IContentLoader> contentLoader;
         private Mock<IKeyboard> mockKeyboard;
-        #endregion
 
-        #region Constructors
         public SceneManagerTests()
         {
             this.contentLoader = new Mock<IContentLoader>();
@@ -36,7 +33,6 @@ namespace KDScorpionEngineTests.Scene
             this.mockKeyboard.Setup(m => m.IsKeyPressed(KeyCode.Right)).Returns(true);
             this.mockKeyboard.Setup(m => m.IsKeyPressed(KeyCode.Left)).Returns(true);
         }
-        #endregion
 
         #region Prop Tests
         [Fact]
@@ -1749,13 +1745,9 @@ namespace KDScorpionEngineTests.Scene
         }
         #endregion
 
-        public void Dispose()
-        {
-            this.mockKeyboard = null;
-            GC.SuppressFinalize(this);
-        }
+        /// <inheritdoc/>
+        public void Dispose() => this.mockKeyboard = null;
 
-        #region Private Methods
         private static IScene CreateScene(string name = "", int sceneId = -1)
         {
             var mockScene = new Mock<IScene>();
@@ -1769,6 +1761,5 @@ namespace KDScorpionEngineTests.Scene
 
             return result;
         }
-        #endregion
     }
 }
