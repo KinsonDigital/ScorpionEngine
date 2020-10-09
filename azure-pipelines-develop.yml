@@ -19,7 +19,7 @@ variables:
   - name: appName
     value: 'ScorpionEngine'
   - name: pool
-    value: 'KinsonDigital'
+    value: 'KinsonServer'
 
 
 stages:
