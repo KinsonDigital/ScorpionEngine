@@ -7,6 +7,7 @@
     <AssemblyName>ScorpionEngine</AssemblyName>
     <LangVersion>8.0</LangVersion>
     <Configurations>Debug-Win;Release-Win</Configurations>
+    <PackageId>KinsonDigital.ScorpionEngine.Windows</PackageId>
     <Product>Kinson Digital - Scorpion Engine</Product>
     <Copyright>Copyright © 2018</Copyright>
     <Company>Kinson Digital</Company>
@@ -16,35 +17,6 @@
   </PropertyGroup>
 
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Win|AnyCPU'">
-    <Optimize>false</Optimize>
-    <OSPlatform>Windows</OSPlatform>
-  </PropertyGroup>
-
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Win|AnyCPU'">
-    <Optimize>true</Optimize>
-    <OSPlatform>Windows</OSPlatform>
-  </PropertyGroup>
-
-
-  <PropertyGroup>
-    <PackageId>KinsonDigital.ScorpionEngine.$(OSPlatform)</PackageId>
-    
-    <!-- Links that explain the Pkg<Package_Name> MSBuild property works
-     1. https://duanenewman.net/blog/post/a-better-way-to-override-references-with-packagereference/
-     2. https://www.patriksvensson.se/2019/09/how-to-find-a-nuget-package-path-from-msbuild -->
-    <RaptorPackagePath>$(PkgKinsonDigital_Raptor_Windows)\runtimes\</RaptorPackagePath>
-  </PropertyGroup>
-
-
-  <!--COPY NATIVE SDL LIBRARIES FROM LOCAL NUGET CACHE TO OUTPUT FOLDER-->
-  <Target Name="CopyNugetPackageNativeLibsToOutput" Condition="'$(ConfigurationName)|AnyCPU' == 'Debug-Win|AnyCPU' Or '$(ConfigurationName)|AnyCPU' == 'Release-Win|AnyCPU'" AfterTargets="Build">
-    <!--If the runtimes directory does not exist, create one-->
-    <MakeDir Directories="$(TargetDir)\runtimes" Condition="!Exists('$(TargetDir)runtimes')" />
-    
-    <Exec Command="xcopy &quot;$(RaptorPackagePath)*.dll&quot; &quot;$(TargetDir)runtimes&quot; /Y /E" />
-  </Target>
   <ItemGroup>
     <None Remove="stylecop.json" />
   </ItemGroup>
@@ -64,9 +36,4 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-
-
-  <Target Name="PrintNugetPackageDirectory" AfterTargets="Build">
-    <Exec Command="echo &quot;Nuget Package Directory: ==&gt; $(PkgKinsonDigital_Raptor_Windows)\&quot;" />
-  </Target>
 </Project>
