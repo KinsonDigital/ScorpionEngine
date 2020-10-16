@@ -37,6 +37,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PullRequestTemplates", "Pul
 		pull_request_template\release_to_master.md = pull_request_template\release_to_master.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pipelines", "Pipelines", "{16EB796E-F89D-4FEF-B77D-191B60120E8B}"
+	ProjectSection(SolutionItems) = preProject
+		AzureDevOps\pipelines\scorpion-engine-pipeline.yml = AzureDevOps\pipelines\scorpion-engine-pipeline.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{E18E16B7-16F1-4658-9886-888DBB56A8AF}"
+	ProjectSection(SolutionItems) = preProject
+		AzureDevOps\pipelines\templates\build-tasks-template.yml = AzureDevOps\pipelines\templates\build-tasks-template.yml
+		AzureDevOps\pipelines\templates\publish-tasks-template.yml = AzureDevOps\pipelines\templates\publish-tasks-template.yml
+		AzureDevOps\pipelines\templates\setup-nuget-tasks-template.yml = AzureDevOps\pipelines\templates\setup-nuget-tasks-template.yml
+		AzureDevOps\pipelines\templates\test-tasks-template.yml = AzureDevOps\pipelines\templates\test-tasks-template.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug-Win|Any CPU = Debug-Win|Any CPU
@@ -62,6 +75,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{9400C56B-2543-455F-B349-F878B0EEC4FC} = {C12F7941-E834-4C6A-B3F6-E4DD58FF0CC8}
 		{0F491F57-9C6F-4049-A241-21F8C93BDF26} = {39784F7E-7E67-44A9-9052-0FF0A47DCD6D}
+		{16EB796E-F89D-4FEF-B77D-191B60120E8B} = {39784F7E-7E67-44A9-9052-0FF0A47DCD6D}
+		{E18E16B7-16F1-4658-9886-888DBB56A8AF} = {16EB796E-F89D-4FEF-B77D-191B60120E8B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5EA680D2-B81C-4C51-8F00-1D3B38E53609}
