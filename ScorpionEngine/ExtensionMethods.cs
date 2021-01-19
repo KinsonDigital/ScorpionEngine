@@ -6,6 +6,8 @@ namespace KDScorpionEngine
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.Drawing;
+    using System.Numerics;
 
     /// <summary>
     /// Provides extensions to various things to help make better code.
@@ -28,5 +30,61 @@ namespace KDScorpionEngine
         /// <returns></returns>
         [ExcludeFromCodeCoverage]
         public static bool FlipCoin(this Random random) => random.NextDouble() <= 0.5f;
+
+        public static bool Contains(this Rectangle rect, Vector2 vector)
+        {
+            var point = new Point((int)vector.X, (int)vector.Y);
+
+            return rect.Contains(point);
+        }
+
+        public static float ToNegative(this float value) => value < 0 ? value : value * -1f;
+        public static float ToPositive(this float value) => value >= 0 ? value : value * -1f;
+
+        /// <summary>
+        /// Rotates the <paramref name="vector"/> around the <paramref name="rotateOrigin"/> at the given <paramref name="angle"/>.
+        /// </summary>
+        /// <param name="vector">The vector to rotate.</param>
+        /// <param name="origin">The vector to rotate the <paramref name="vector"/> around.</param>
+        /// <param name="angle">The angle in radians to rotate <paramref name="vector"/>.  Value must be positive.</param>
+        /// <returns></returns>
+        public static Vector2 RotateAround(this Vector2 vector, Vector2 origin, float angle, bool clockWise = true)
+        {
+            angle = clockWise ? angle : angle * -1;
+
+            var cos = (float)Math.Cos(angle);
+            var sin = (float)Math.Sin(angle);
+
+            var dx = vector.X - origin.X; // The delta x
+            var dy = vector.Y - origin.Y; // The delta y
+
+            var tempX = (dx * cos) - (dy * sin);
+            var tempY = (dx * sin) + (dy * cos);
+
+            var x = tempX + origin.X;
+            var y = tempY + origin.Y;
+
+            return new Vector2(x, y);
+        }
+
+        /// <summary>
+        /// Converts the given radians value into degrees.
+        /// </summary>
+        /// <param name="radians">The value to convert.</param>
+        /// <returns></returns>
+        public static float ToDegrees(this float radians)
+        {
+            return radians * 180.0f / (float)Math.PI;
+        }
+
+        /// <summary>
+        /// Converts the given degrees value into radians.
+        /// </summary>
+        /// <param name="degrees">The value to convert.</param>
+        /// <returns></returns>
+        public static float ToRadians(this float degrees)
+        {
+            return degrees * (float)Math.PI / 180f;
+        }
     }
 }

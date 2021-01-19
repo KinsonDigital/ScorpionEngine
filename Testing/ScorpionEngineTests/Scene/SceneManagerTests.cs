@@ -10,28 +10,20 @@ namespace KDScorpionEngineTests.Scene
     using KDScorpionEngine.Graphics;
     using KDScorpionEngine.Scene;
     using Moq;
-    using Raptor;
     using Raptor.Content;
     using Raptor.Input;
-    using Raptor.Plugins;
     using Xunit;
 
     /// <summary>
     /// Unit tests to test the <see cref="SceneManager"/> class.
     /// </summary>
-    public class SceneManagerTests : IDisposable
+    public class SceneManagerTests
     {
         private readonly Mock<IContentLoader> contentLoader;
-        private Mock<IKeyboard> mockKeyboard;
 
         public SceneManagerTests()
         {
             this.contentLoader = new Mock<IContentLoader>();
-
-            this.mockKeyboard = new Mock<IKeyboard>();
-            this.mockKeyboard.Setup(m => m.IsKeyPressed(KeyCode.Space)).Returns(true);
-            this.mockKeyboard.Setup(m => m.IsKeyPressed(KeyCode.Right)).Returns(true);
-            this.mockKeyboard.Setup(m => m.IsKeyPressed(KeyCode.Left)).Returns(true);
         }
 
         #region Prop Tests
@@ -39,7 +31,7 @@ namespace KDScorpionEngineTests.Scene
         public void NextFrameStackKey_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrang
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var expected = KeyCode.Left;
 
             // Act
@@ -58,10 +50,7 @@ namespace KDScorpionEngineTests.Scene
             mockScene.SetupProperty(m => m.Id);
             var scene = mockScene.Object;
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                scene,
-            };
+            var manager = CreateSceneManager(mockScene.Object);
             var expected = true;
 
             // Act
@@ -80,10 +69,7 @@ namespace KDScorpionEngineTests.Scene
             var scene = mockScene.Object;
             scene.Id = 100;
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                scene,
-            };
+var manager = CreateSceneManager(mockScene.Object);
             var expected = 100;
 
             // Act
@@ -97,7 +83,7 @@ namespace KDScorpionEngineTests.Scene
         public void PlayCurrentSceneKey_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrang
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var expected = KeyCode.Left;
 
             // Act
@@ -112,7 +98,7 @@ namespace KDScorpionEngineTests.Scene
         public void PauseCurrentSceneKey_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrang
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var expected = KeyCode.Left;
 
             // Act
@@ -127,7 +113,7 @@ namespace KDScorpionEngineTests.Scene
         public void NextSceneKey_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrang
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var expected = KeyCode.Left;
 
             // Act
@@ -142,7 +128,7 @@ namespace KDScorpionEngineTests.Scene
         public void PreviousSceneKey_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrang
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var expected = KeyCode.Left;
 
             // Act
@@ -157,7 +143,7 @@ namespace KDScorpionEngineTests.Scene
         public void UnloadContentOnSceneChange_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrang
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var expected = false;
 
             // Act
@@ -172,7 +158,7 @@ namespace KDScorpionEngineTests.Scene
         public void InitializeScenesOnAdd_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrang
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var expected = true;
 
             // Act
@@ -187,7 +173,7 @@ namespace KDScorpionEngineTests.Scene
         public void InitializeScenesOnChange_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrang
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var expected = true;
 
             // Act
@@ -202,7 +188,7 @@ namespace KDScorpionEngineTests.Scene
         public void ActivateSceneOnAdd_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrang
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var expected = true;
 
             // Act
@@ -217,7 +203,7 @@ namespace KDScorpionEngineTests.Scene
         public void UpdateInactiveScenes_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrang
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var expected = true;
 
             // Act
@@ -232,7 +218,7 @@ namespace KDScorpionEngineTests.Scene
         public void DeactivateOnSceneChange_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrang
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var expected = true;
 
             // Act
@@ -247,7 +233,7 @@ namespace KDScorpionEngineTests.Scene
         public void SetSceneAsRenderableOnAdd_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrang
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var expected = true;
 
             // Act
@@ -262,7 +248,7 @@ namespace KDScorpionEngineTests.Scene
         public void UnloadPreviousSceneContent_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrang
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var expected = true;
 
             // Act
@@ -277,7 +263,7 @@ namespace KDScorpionEngineTests.Scene
         public void LoadContentOnSceneChange_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrang
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var expected = true;
 
             // Act
@@ -292,7 +278,7 @@ namespace KDScorpionEngineTests.Scene
         public void Count_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrang
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
+            var manager = new SceneManager(this.contentLoader.Object)
             {
                 new Mock<IScene>().Object,
             };
@@ -309,7 +295,7 @@ namespace KDScorpionEngineTests.Scene
         public void IsReadOnly_WhenGettingValue_ReturnsCorrectValue()
         {
             // Arrang
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var expected = false;
 
             // Act
@@ -330,11 +316,7 @@ namespace KDScorpionEngineTests.Scene
             var mockSceneC = new Mock<IScene>();
             mockSceneC.SetupGet(m => m.Id).Returns(30);
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                mockSceneA.Object,
-                mockSceneB.Object,
-            };
+            var manager = CreateSceneManager(mockSceneA.Object, mockSceneB.Object);
 
             manager[1] = mockSceneC.Object;
             var expected = mockSceneC.Object;
@@ -352,7 +334,7 @@ namespace KDScorpionEngineTests.Scene
         public void Add_WhenInvoking_AddsNewScene()
         {
             // Arrange
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var expected = 1;
 
             // Act
@@ -368,7 +350,7 @@ namespace KDScorpionEngineTests.Scene
         {
             // Arrange
             var mockScene = new Mock<IScene>();
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
+            var manager = new SceneManager(this.contentLoader.Object)
             {
                 InitializeScenesOnAdd = true,
             };
@@ -389,7 +371,7 @@ namespace KDScorpionEngineTests.Scene
 
             var scene = mockScene.Object;
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var expected = true;
 
             // Act
@@ -409,7 +391,7 @@ namespace KDScorpionEngineTests.Scene
             var scene = mockScene.Object;
             scene.Id = -1;
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var expected = 0;
 
             // Act
@@ -434,10 +416,7 @@ namespace KDScorpionEngineTests.Scene
             var sceneB = mockSceneB.Object;
 
             // Act
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                sceneA,
-            };
+            var manager = CreateSceneManager(sceneA);
 
             // Assert
             Assert.Throws<IdAlreadyExistsException>(() =>
@@ -453,7 +432,7 @@ namespace KDScorpionEngineTests.Scene
             var mockScene = new Mock<IScene>();
             var scene = mockScene.Object;
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var expectedId = 0;
 
             // Act
@@ -480,7 +459,7 @@ namespace KDScorpionEngineTests.Scene
             var sceneB = mockSceneB.Object;
             sceneB.Id = -1;
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var expectedId = 1;
 
             // Act
@@ -520,7 +499,7 @@ namespace KDScorpionEngineTests.Scene
             var sceneC = mockSceneC.Object;
             sceneC.Id = 2;
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var expectedId = 1;
 
             // Act
@@ -539,7 +518,7 @@ namespace KDScorpionEngineTests.Scene
         public void Clear_WhenInvoking_RemovesAllScenes()
         {
             // Arrange
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var mockScene = new Mock<IScene>();
             manager.Add(mockScene.Object);
             var expected = 0;
@@ -556,7 +535,7 @@ namespace KDScorpionEngineTests.Scene
         public void Contains_WhenInvoking_ReturnsTrue()
         {
             // Arrange
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var mockScene = new Mock<IScene>();
             var scene = mockScene.Object;
             manager.Add(scene);
@@ -573,7 +552,7 @@ namespace KDScorpionEngineTests.Scene
         public void CopyTo_WhenInvoking_SuccessfullyCopiesScenesToArray()
         {
             // Arrange
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var mockScene = new Mock<IScene>();
             var scene = mockScene.Object;
             manager.Add(scene);
@@ -591,7 +570,7 @@ namespace KDScorpionEngineTests.Scene
         public void Remove_WhenInvoking_SuccessfullyRemovesScene()
         {
             // Arrange
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var mockScene = new Mock<IScene>();
             var scene = mockScene.Object;
             manager.Add(scene);
@@ -619,7 +598,7 @@ namespace KDScorpionEngineTests.Scene
             var sceneB = mockSceneB.Object;
             sceneB.Id = 200;
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var expectedId = 100;
 
             // Act
@@ -647,11 +626,7 @@ namespace KDScorpionEngineTests.Scene
             sceneB.Id = 200;
 
             // Act
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                sceneA,
-                sceneB,
-            };
+            var manager = CreateSceneManager(sceneA, sceneB);
 
             // Assert
             Assert.Throws<IdNotFoundException>(() => manager.SetCurrentSceneID(1000));
@@ -672,13 +647,9 @@ namespace KDScorpionEngineTests.Scene
             var sceneB = mockSceneB.Object;
             sceneB.Id = 200;
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                sceneA,
-                sceneB,
-            };
+            var manager = CreateSceneManager(sceneA, sceneB);
 
-            sceneA.LoadContent(new ContentLoader(this.contentLoader.Object));
+            sceneA.LoadContent(this.contentLoader.Object);
 
             // Act
             manager.LoadAllSceneContent();
@@ -703,13 +674,11 @@ namespace KDScorpionEngineTests.Scene
             var sceneB = mockSceneB.Object;
             sceneB.Id = 20;
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object);
+            var manager = CreateSceneManager();
             var expectedSceneAContentLoaded = false;
             var expectedSceneBContentLoaded = true;
             manager.Add(sceneA);
             manager.Add(sceneB);
-
-            var contentLoader = new ContentLoader(this.contentLoader.Object);
 
             // Act
             manager.LoadCurrentSceneContent();
@@ -737,11 +706,7 @@ namespace KDScorpionEngineTests.Scene
             mockSceneB.Object.Id = -1;
 
             // Act
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                mockSceneA.Object,
-                mockSceneB.Object,
-            };
+            var manager = CreateSceneManager(mockSceneA.Object, mockSceneB.Object);
             mockSceneB.Object.Id = 22;
 
             // Assert
@@ -755,10 +720,7 @@ namespace KDScorpionEngineTests.Scene
             var mockScene = new Mock<IScene>();
             var scene = mockScene.Object;
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                scene,
-            };
+            var manager = CreateSceneManager(mockScene.Object);
 
             // Act
             manager.UnloadAllContent();
@@ -775,10 +737,7 @@ namespace KDScorpionEngineTests.Scene
             mockScene.SetupGet(m => m.Id).Returns(100);
             var scene = mockScene.Object;
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                scene,
-            };
+var manager = CreateSceneManager(mockScene.Object);
             var expected = 0;
 
             // Act
@@ -797,10 +756,7 @@ namespace KDScorpionEngineTests.Scene
             mockScene.SetupGet(m => m.Id).Returns(100);
             var scene = mockScene.Object;
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                scene,
-            };
+var manager = CreateSceneManager(mockScene.Object);
 
             // Act
             var actual = manager.Count;
@@ -816,11 +772,7 @@ namespace KDScorpionEngineTests.Scene
             var sceneA = CreateScene();
             var sceneB = CreateScene();
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                sceneA,
-                sceneB,
-            };
+            var manager = CreateSceneManager(sceneA, sceneB);
             var expected = 1;
             manager.SetCurrentSceneID(0);
 
@@ -839,11 +791,7 @@ namespace KDScorpionEngineTests.Scene
             var sceneA = CreateScene();
             var sceneB = CreateScene();
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                sceneA,
-                sceneB,
-            };
+            var manager = CreateSceneManager(sceneA, sceneB);
             var expected = 0;
 
             // Act
@@ -861,11 +809,7 @@ namespace KDScorpionEngineTests.Scene
             var sceneA = CreateScene();
             var sceneB = CreateScene();
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                sceneA,
-                sceneB,
-            };
+            var manager = CreateSceneManager(sceneA, sceneB);
             var expected = true;
             var actualEventInvoked = false;
             manager.SceneChanged += (sender, e) => actualEventInvoked = true;
@@ -884,11 +828,7 @@ namespace KDScorpionEngineTests.Scene
             var sceneA = CreateScene();
             var sceneB = CreateScene();
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                sceneA,
-                sceneB,
-            };
+            var manager = CreateSceneManager(sceneA, sceneB);
             var expected = 0;
             manager.SetCurrentSceneID(1);
 
@@ -907,11 +847,7 @@ namespace KDScorpionEngineTests.Scene
             var sceneA = CreateScene();
             var sceneB = CreateScene();
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                sceneA,
-                sceneB,
-            };
+            var manager = CreateSceneManager(sceneA, sceneB);
             var expected = 1;
             manager.SetCurrentSceneID(0);
 
@@ -930,11 +866,7 @@ namespace KDScorpionEngineTests.Scene
             var sceneA = CreateScene();
             var sceneB = CreateScene();
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                sceneA,
-                sceneB,
-            };
+            var manager = CreateSceneManager(sceneA, sceneB);
             var expected = true;
             var actualEventInvoked = false;
             manager.SceneChanged += (sender, e) => actualEventInvoked = true;
@@ -953,11 +885,7 @@ namespace KDScorpionEngineTests.Scene
             var sceneA = CreateScene();
             var sceneB = CreateScene();
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                sceneA,
-                sceneB,
-            };
+            var manager = CreateSceneManager(sceneA, sceneB);
             var expected = 0;
 
             // Act
@@ -975,13 +903,9 @@ namespace KDScorpionEngineTests.Scene
             var sceneA = CreateScene();
             var sceneB = CreateScene();
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                sceneA,
-                sceneB,
-            };
+            var manager = CreateSceneManager(sceneA, sceneB);
 
-            // Act/Assert
+            // Act & Assert
             Assert.Throws<IdNotFoundException>(() => manager.SetCurrentScene(100));
         }
 
@@ -992,11 +916,7 @@ namespace KDScorpionEngineTests.Scene
             var sceneA = CreateScene();
             var sceneB = CreateScene();
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                sceneA,
-                sceneB,
-            };
+            var manager = CreateSceneManager(sceneA, sceneB);
             var expectedEventInvoked = true;
             var actualEventInvoked = false;
             manager.SceneChanged += (sender, e) => actualEventInvoked = true;
@@ -1015,11 +935,7 @@ namespace KDScorpionEngineTests.Scene
             var sceneA = CreateScene("sceneA");
             var sceneB = CreateScene("sceneB");
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                sceneA,
-                sceneB,
-            };
+            var manager = CreateSceneManager(sceneA, sceneB);
             var expected = 0;
 
             // Act
@@ -1037,13 +953,9 @@ namespace KDScorpionEngineTests.Scene
             var sceneA = CreateScene("sceneA");
             var sceneB = CreateScene("sceneB");
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                sceneA,
-                sceneB,
-            };
+            var manager = CreateSceneManager(sceneA, sceneB);
 
-            // Act/Assert
+            // Act & Assert
             Assert.Throws<NameNotFoundException>(() => manager.SetCurrentScene("InvalidName"));
         }
 
@@ -1054,11 +966,7 @@ namespace KDScorpionEngineTests.Scene
             var sceneA = CreateScene("sceneA");
             var sceneB = CreateScene("sceneB");
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                sceneA,
-                sceneB,
-            };
+            var manager = CreateSceneManager(sceneA, sceneB);
             var expectedEventInvoked = true;
             var actualEventInvoked = false;
             manager.SceneChanged += (sender, e) => actualEventInvoked = true;
@@ -1075,10 +983,7 @@ namespace KDScorpionEngineTests.Scene
         {
             // Arrange
             var mockScene = new Mock<IScene>();
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                mockScene.Object,
-            };
+            var manager = CreateSceneManager(mockScene.Object);
 
             // Act
             manager.InitializeCurrentScene();
@@ -1095,14 +1000,11 @@ namespace KDScorpionEngineTests.Scene
             mockScene.SetupProperty(m => m.Id);
             var scene = mockScene.Object;
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                scene,
-            };
+            var manager = CreateSceneManager(mockScene.Object);
 
             scene.Id = 100;
 
-            // Act/Assert
+            // Act & Assert
             Assert.Throws<IdNotFoundException>(() => manager.InitializeCurrentScene());
         }
 
@@ -1113,10 +1015,7 @@ namespace KDScorpionEngineTests.Scene
             var mockScene = new Mock<IScene>();
             mockScene.SetupGet(m => m.Id).Returns(10);
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                mockScene.Object,
-            };
+            var manager = CreateSceneManager(mockScene.Object);
 
             // Act
             manager.InitializeScene(10);
@@ -1132,12 +1031,9 @@ namespace KDScorpionEngineTests.Scene
             var mockScene = new Mock<IScene>();
             mockScene.SetupGet(m => m.Id).Returns(10);
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                mockScene.Object,
-            };
+            var manager = CreateSceneManager(mockScene.Object);
 
-            // Act/Assert
+            // Act & Assert
             Assert.Throws<IdNotFoundException>(() => manager.InitializeScene(20));
         }
 
@@ -1148,10 +1044,7 @@ namespace KDScorpionEngineTests.Scene
             var mockScene = new Mock<IScene>();
             mockScene.SetupGet(m => m.Name).Returns("SceneA");
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                mockScene.Object,
-            };
+            var manager = CreateSceneManager(mockScene.Object);
 
             // Act
             manager.InitializeScene("SceneA");
@@ -1167,12 +1060,9 @@ namespace KDScorpionEngineTests.Scene
             var mockScene = new Mock<IScene>();
             mockScene.SetupGet(m => m.Name).Returns("SceneA");
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                mockScene.Object,
-            };
+            var manager = CreateSceneManager(mockScene.Object);
 
-            // Act/Assert
+            // Act & Assert
             Assert.Throws<NameNotFoundException>(() => manager.InitializeScene("SceneB"));
         }
 
@@ -1186,11 +1076,7 @@ namespace KDScorpionEngineTests.Scene
             var mockSceneB = new Mock<IScene>();
             mockSceneB.SetupGet(m => m.Id).Returns(20);
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                mockSceneA.Object,
-                mockSceneB.Object,
-            };
+            var manager = CreateSceneManager(mockSceneA.Object, mockSceneB.Object);
 
             // Act
             manager.InitializeAllScenes();
@@ -1206,16 +1092,11 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var mockSceneA = new Mock<IScene>();
             mockSceneA.SetupGet(m => m.Id).Returns(10);
-            var sceneA = mockSceneA.Object;
 
             var mockSceneB = new Mock<IScene>();
             mockSceneB.SetupGet(m => m.Id).Returns(20);
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                sceneA,
-                mockSceneB.Object,
-            };
+            var manager = CreateSceneManager(mockSceneA.Object, mockSceneB.Object);
             var expected = 10;
 
             // Act
@@ -1231,18 +1112,13 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var mockSceneA = new Mock<IScene>();
             mockSceneA.SetupGet(m => m.Id).Returns(10);
-            var sceneA = mockSceneA.Object;
 
             var mockSceneB = new Mock<IScene>();
             mockSceneB.SetupGet(m => m.Id).Returns(20);
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                sceneA,
-                mockSceneB.Object,
-            };
+            var manager = CreateSceneManager(mockSceneA.Object, mockSceneB.Object);
 
-            // Act/Assert
+            // Act & Assert
             Assert.Throws<IdNotFoundException>(() => manager.GetScene<IScene>(100));
         }
 
@@ -1253,17 +1129,12 @@ namespace KDScorpionEngineTests.Scene
             var mockSceneA = new Mock<IScene>();
             mockSceneA.SetupGet(m => m.Id).Returns(10);
             mockSceneA.SetupGet(m => m.Name).Returns("SceneA");
-            var sceneA = mockSceneA.Object;
 
             var mockSceneB = new Mock<IScene>();
-            mockSceneA.SetupGet(m => m.Id).Returns(20);
+            mockSceneB.SetupGet(m => m.Id).Returns(20);
             mockSceneB.SetupGet(m => m.Name).Returns("SceneB");
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                sceneA,
-                mockSceneB.Object,
-            };
+            var manager = CreateSceneManager(mockSceneA.Object, mockSceneB.Object);
             var expected = "SceneA";
 
             // Act
@@ -1280,19 +1151,14 @@ namespace KDScorpionEngineTests.Scene
             var mockSceneA = new Mock<IScene>();
             mockSceneA.SetupGet(m => m.Id).Returns(10);
             mockSceneA.SetupGet(m => m.Name).Returns("SceneA");
-            var sceneA = mockSceneA.Object;
 
             var mockSceneB = new Mock<IScene>();
-            mockSceneA.SetupGet(m => m.Id).Returns(20);
+            mockSceneB.SetupGet(m => m.Id).Returns(20);
             mockSceneB.SetupGet(m => m.Name).Returns("SceneB");
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                sceneA,
-                mockSceneB.Object,
-            };
+            var manager = CreateSceneManager(mockSceneA.Object, mockSceneB.Object);
 
-            // Act/Assert
+            // Act & Assert
             Assert.Throws<NameNotFoundException>(() => manager.GetScene<IScene>("InvalidSceneName"));
         }
 
@@ -1309,10 +1175,7 @@ namespace KDScorpionEngineTests.Scene
             mockScene.SetupGet(m => m.TimeManager).Returns(mockTimeManager.Object);
             var scene = mockScene.Object;
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                scene,
-            };
+            var manager = CreateSceneManager(mockScene.Object);
             var expected = false;
 
             // Act
@@ -1336,10 +1199,7 @@ namespace KDScorpionEngineTests.Scene
             mockScene.SetupGet(m => m.TimeManager).Returns(mockTimeManager.Object);
             var scene = mockScene.Object;
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                scene,
-            };
+            var manager = CreateSceneManager(mockScene.Object);
             var expected = true;
 
             // Act
@@ -1358,10 +1218,7 @@ namespace KDScorpionEngineTests.Scene
             var mockScene = new Mock<IScene>();
             mockScene.SetupGet(m => m.TimeManager).Returns(mockTimeManager.Object);
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                mockScene.Object,
-            };
+            var manager = CreateSceneManager(mockScene.Object);
 
             // Act
             manager.RunFrameStack();
@@ -1378,10 +1235,7 @@ namespace KDScorpionEngineTests.Scene
             var mockScene = new Mock<IScene>();
             mockScene.SetupGet(m => m.TimeManager).Returns(mockTimeManager.Object);
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                mockScene.Object,
-            };
+            var manager = CreateSceneManager(mockScene.Object);
 
             // Act
             manager.RunFrames(It.IsAny<uint>());
@@ -1396,10 +1250,7 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var mockScene = new Mock<IScene>();
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                mockScene.Object,
-            };
+            var manager = CreateSceneManager(mockScene.Object);
 
             // Act
             var actual = manager.GetEnumerator();
@@ -1418,11 +1269,7 @@ namespace KDScorpionEngineTests.Scene
             var mockSceneB = new Mock<IScene>();
             mockSceneB.SetupGet(m => m.Id).Returns(20);
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                mockSceneA.Object,
-                mockSceneB.Object,
-            };
+            var manager = CreateSceneManager(mockSceneA.Object, mockSceneB.Object);
             var expected = 0;
 
             // Act
@@ -1445,11 +1292,7 @@ namespace KDScorpionEngineTests.Scene
             var mockSceneC = new Mock<IScene>();
             mockSceneC.SetupGet(m => m.Id).Returns(30);
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                mockSceneA.Object,
-                mockSceneC.Object,
-            };
+            var manager = CreateSceneManager(mockSceneA.Object, mockSceneC.Object);
             var expected = mockSceneB.Object;
 
             // Act
@@ -1473,13 +1316,9 @@ namespace KDScorpionEngineTests.Scene
             var mockSceneC = new Mock<IScene>();
             mockSceneC.SetupGet(m => m.Id).Returns(30);
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                mockSceneA.Object,
-                mockSceneC.Object,
-            };
+            var manager = CreateSceneManager(mockSceneA.Object, mockSceneC.Object);
 
-            // Act/Assert
+            // Act & Assert
             Assert.Throws<ArgumentOutOfRangeException>(() => manager.Insert(100, mockSceneB.Object));
         }
 
@@ -1493,11 +1332,7 @@ namespace KDScorpionEngineTests.Scene
             var mockSceneB = new Mock<IScene>();
             mockSceneB.SetupGet(m => m.Id).Returns(20);
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                mockSceneA.Object,
-                mockSceneB.Object,
-            };
+            var manager = CreateSceneManager(mockSceneA.Object, mockSceneB.Object);
             var expected = 1;
 
             // Act
@@ -1515,12 +1350,9 @@ namespace KDScorpionEngineTests.Scene
             var mockScene = new Mock<IScene>();
             mockScene.SetupGet(m => m.Id).Returns(10);
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                mockScene.Object,
-            };
+            var manager = CreateSceneManager(mockScene.Object);
 
-            // Act/Assert
+            // Act & Assert
             Assert.Throws<ArgumentOutOfRangeException>(() => manager.RemoveAt(100));
         }
 
@@ -1535,17 +1367,14 @@ namespace KDScorpionEngineTests.Scene
             scene.Id = 10;
 
             // Act
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                scene,
-            };
+            var manager = CreateSceneManager(mockScene.Object);
 
             // Assert
             scene.Id = 20;
 
             Assert.Throws<SceneNotFoundException>(() =>
             {
-                manager.Render(It.IsAny<GameRenderer>());
+                manager.Render(It.IsAny<Renderer>());
             });
         }
 
@@ -1558,35 +1387,25 @@ namespace KDScorpionEngineTests.Scene
             mockScene.SetupProperty(m => m.IsRenderingScene);
 
             var scene = mockScene.Object;
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                scene,
-            };
+            var manager = CreateSceneManager(mockScene.Object);
 
             // Act
-            manager.Render(It.IsAny<GameRenderer>());
+            manager.Render(It.IsAny<Renderer>());
 
             // Assert
-            mockScene.Verify(m => m.Render(It.IsAny<GameRenderer>()), Times.Once());
+            mockScene.Verify(m => m.Render(It.IsAny<Renderer>()), Times.Once());
         }
 
         [Fact]
         public void Render_WhenInvokingWithNoScenes_DoesNotThrowException()
         {
             // Arrange
-            var mockScene = new Mock<IScene>();
-            mockScene.SetupGet(m => m.Id).Returns(10);
-            mockScene.SetupProperty(m => m.IsRenderingScene);
+            var manager = CreateSceneManager();
 
-            var scene = mockScene.Object;
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-            };
-
-            // Act/Assert
+            // Act & Assert
             AssertExt.DoesNotThrow<SceneNotFoundException>(() =>
             {
-                manager.Render(It.IsAny<GameRenderer>());
+                manager.Render(It.IsAny<Renderer>());
             });
         }
 
@@ -1603,15 +1422,12 @@ namespace KDScorpionEngineTests.Scene
             mockScene.SetupGet(m => m.TimeManager).Returns(timeManager);
 
             var scene = mockScene.Object;
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                scene,
-            };
+            var manager = CreateSceneManager(mockScene.Object);
             manager.PlayCurrentSceneKey = KeyCode.Space;
             var expected = false; // Unpaused
 
             // Act
-            manager.Update(new EngineTime());
+            manager.Update(new GameTime());
             var actual = scene.TimeManager.Paused;
 
             // Assert
@@ -1631,15 +1447,12 @@ namespace KDScorpionEngineTests.Scene
             mockScene.SetupGet(m => m.TimeManager).Returns(timeManager);
 
             var scene = mockScene.Object;
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                scene,
-            };
+            var manager = CreateSceneManager(mockScene.Object);
             manager.PauseCurrentSceneKey = KeyCode.Space;
             var expected = true; // Paused
 
             // Act
-            manager.Update(new EngineTime());
+            manager.Update(new GameTime());
             var actual = scene.TimeManager.Paused;
 
             // Assert
@@ -1658,17 +1471,13 @@ namespace KDScorpionEngineTests.Scene
             mockSceneB.SetupGet(m => m.Id).Returns(20);
             var sceneB = mockSceneB.Object;
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                sceneA,
-                sceneB,
-            };
+            var manager = CreateSceneManager(sceneA, sceneB);
             manager.NextSceneKey = KeyCode.Right;
             manager.SetCurrentSceneID(10);
             var expected = 20;
 
             // Act
-            manager.Update(new EngineTime());
+            manager.Update(new GameTime());
             var actual = manager.CurrentSceneId;
 
             // Assert
@@ -1687,7 +1496,7 @@ namespace KDScorpionEngineTests.Scene
             mockSceneB.SetupGet(m => m.Id).Returns(20);
             var sceneB = mockSceneB.Object;
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
+            var manager = new SceneManager(this.contentLoader.Object)
             {
                 sceneA,
                 sceneB,
@@ -1696,7 +1505,7 @@ namespace KDScorpionEngineTests.Scene
             var expected = 10;
 
             // Act
-            manager.Update(new EngineTime());
+            manager.Update(new GameTime());
             var actual = manager.CurrentSceneId;
 
             // Assert
@@ -1711,16 +1520,13 @@ namespace KDScorpionEngineTests.Scene
             mockScene.SetupGet(m => m.Active).Returns(true);
             var scene = mockScene.Object;
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                scene,
-            };
+            var manager = CreateSceneManager(mockScene.Object);
 
             // Act
-            manager.Update(new EngineTime());
+            manager.Update(new GameTime());
 
             // Assert
-            mockScene.Verify(m => m.Update(It.IsAny<EngineTime>()), Times.Once());
+            mockScene.Verify(m => m.Update(It.IsAny<GameTime>()), Times.Once());
         }
 
         [Fact]
@@ -1731,22 +1537,33 @@ namespace KDScorpionEngineTests.Scene
             mockScene.SetupGet(m => m.Active).Returns(false);
             var scene = mockScene.Object;
 
-            var manager = new SceneManager(this.contentLoader.Object, this.mockKeyboard.Object)
-            {
-                scene,
-            };
+            var manager = CreateSceneManager(mockScene.Object);
             manager.UpdateInactiveScenes = true;
 
             // Act
-            manager.Update(new EngineTime());
+            manager.Update(new GameTime());
 
             // Assert
-            mockScene.Verify(m => m.Update(It.IsAny<EngineTime>()), Times.Once());
+            mockScene.Verify(m => m.Update(It.IsAny<GameTime>()), Times.Once());
         }
         #endregion
 
-        /// <inheritdoc/>
-        public void Dispose() => this.mockKeyboard = null;
+        /// <summary>
+        /// Creates an instance of <see cref="SceneManager"/> for the purpose of testing.
+        /// </summary>
+        /// <param name="scenes">The scenes to add to the manager.</param>
+        /// <returns>The instance to use for testing.</returns>
+        private SceneManager CreateSceneManager(params IScene[] scenes)
+        {
+            var manager = new SceneManager(this.contentLoader.Object);
+
+            foreach (var scene in scenes)
+            {
+                manager.Add(scene);
+            }
+
+            return manager;
+        }
 
         private static IScene CreateScene(string name = "", int sceneId = -1)
         {

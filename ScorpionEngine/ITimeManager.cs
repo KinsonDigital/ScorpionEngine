@@ -4,12 +4,10 @@
 
 namespace KDScorpionEngine
 {
-    using Raptor;
-
     /// <summary>
     /// Provides functionality for managing time and state of a system.
     /// </summary>
-    public interface ITimeManager : IUpdatable
+    public interface ITimeManager : IUpdatableObject
     {
         /// <summary>
         /// Gets or sets the amount of elapsed time in milliseconds that the current frame has ran.

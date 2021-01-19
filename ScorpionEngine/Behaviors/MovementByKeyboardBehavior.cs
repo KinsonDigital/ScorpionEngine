@@ -6,9 +6,7 @@ namespace KDScorpionEngine.Behaviors
 {
     using System.Diagnostics.CodeAnalysis;
     using KDScorpionEngine.Entities;
-    using Raptor;
     using Raptor.Input;
-    using Raptor.Plugins;
 
     /// <summary>
     /// Creates a behavior that controls the left, right, up, and down movement of a
@@ -39,11 +37,10 @@ namespace KDScorpionEngine.Behaviors
         /// Creates a new instance of <see cref="MovementByKeyboardBehavior{T}"/>.
         /// USED FOR UNIT TESTING.
         /// </summary>
-        /// <param name="keyboard">The keyboard to inject.</param>
         /// <param name="dyanmicEntity">The entity to inject.</param>
-        internal MovementByKeyboardBehavior(IKeyboard keyboard, T dyanmicEntity)
+        internal MovementByKeyboardBehavior(T dyanmicEntity)
         {
-            CreateBehaviors(keyboard);
+            CreateBehaviors();
             SetupBehaviors();
 
             this.gameObject = dyanmicEntity;
@@ -129,13 +126,13 @@ namespace KDScorpionEngine.Behaviors
         /// <summary>
         /// The action that will be invoked by the behavior.  This will update the other behaviors.
         /// </summary>
-        /// <param name="engineTime">The game engine time.</param>
-        private void UpdateAction(EngineTime engineTime)
+        /// <param name="gameTime">The game engine time.</param>
+        private void UpdateAction(GameTime gameTime)
         {
-            this.moveRightOnKeyDown.Update(engineTime);
-            this.moveLeftOnKeyDown.Update(engineTime);
-            this.moveUpOnKeyDown.Update(engineTime);
-            this.moveDownOnKeyDown.Update(engineTime);
+            this.moveRightOnKeyDown.Update(gameTime);
+            this.moveLeftOnKeyDown.Update(gameTime);
+            this.moveUpOnKeyDown.Update(gameTime);
+            this.moveDownOnKeyDown.Update(gameTime);
         }
 
         /// <summary>
@@ -148,18 +145,6 @@ namespace KDScorpionEngine.Behaviors
             this.moveLeftOnKeyDown = new KeyBehavior(this.moveLeftKey, true);
             this.moveUpOnKeyDown = new KeyBehavior(this.moveUpKey, true);
             this.moveDownOnKeyDown = new KeyBehavior(this.moveDownKey, true);
-        }
-
-        /// <summary>
-        /// Sets up all of the KeyBehaviors using the given <paramref name="keyboard"/>.
-        /// </summary>
-        /// <param name="keyboard">The keyboard to inject into the behaviors for testing.</param>
-        private void CreateBehaviors(IKeyboard keyboard)
-        {
-            this.moveRightOnKeyDown = new KeyBehavior(keyboard);
-            this.moveLeftOnKeyDown = new KeyBehavior(keyboard);
-            this.moveUpOnKeyDown = new KeyBehavior(keyboard);
-            this.moveDownOnKeyDown = new KeyBehavior(keyboard);
         }
 
         /// <summary>

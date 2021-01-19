@@ -5,25 +5,13 @@
 namespace KDScorpionEngine.Entities
 {
     using System.Numerics;
-    using Raptor;
     using Raptor.Graphics;
-    using Raptor.Plugins;
 
     /// <summary>
     /// A static entity that can be rendered to the screen.
     /// </summary>
     public class StaticEntity : Entity
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="StaticEntity"/>.
-        /// USED FOR UNIT TESTING.
-        /// </summary>
-        /// <param name="body">The physics body to inject.</param>
-        internal StaticEntity(IPhysicsBody body)
-            : base(body)
-        {
-        }
-
         /// <summary>
         /// Creates a new instance of <see cref="StaticEntity"/>.
         /// </summary>
@@ -35,7 +23,7 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// Updates the <see cref="StaticEntity"/>.
         /// </summary>
-        /// <param name="engineTime">The game engine time.</param>
-        public override void Update(EngineTime engineTime) => base.Update(engineTime);
+        /// <param name="gameTime">The game engine time.</param>
+        public override void Update(GameTime gameTime) => base.Update(gameTime);
     }
 }

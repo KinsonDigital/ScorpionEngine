@@ -9,24 +9,23 @@ namespace KDScorpionEngine.Input
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using KDScorpionEngine.Utils;
-    using Raptor;
     using Raptor.Input;
-    using Raptor.Plugins;
 
     /// <summary>
     /// Watches a mouse button for various events and behaviors such is how many times a button is pressed,
     /// how long it is held down or how long it has been released.  Various events will be triggered when
     /// these behaviours occur.
     /// </summary>
-    public class MouseWatcher : IInputWatcher, IUpdatable
+    public class MouseWatcher : IInputWatcher, IUpdatableObject
     {
-        private readonly Mouse mouse;
-        private Dictionary<InputButton, bool> currentPressedButtons; // Holds the list of combo buttons and there down states
+        private Dictionary<MouseButton, bool> currentPressedButtons; // Holds the list of combo buttons and there down states
         private StopWatch buttonDownTimer; // Keeps track of how long the set input has been in the down position
         private StopWatch buttonReleaseTimer; // Keeps track of how long the set input has been in the up position
         private Counter counter; // Keeps track of the hit count of an input
         private bool curState; // The current state of the set input
+        private MouseState previousMouseState;
         private bool prevState; // The previous state of the set input
+        private MouseState currentMouseState;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MouseWatcher"/> class.
@@ -35,18 +34,6 @@ namespace KDScorpionEngine.Input
         [ExcludeFromCodeCoverage]
         public MouseWatcher(bool enabled)
         {
-            this.mouse = new Mouse();
-            Setup(enabled);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MouseWatcher"/> class.
-        /// </summary>
-        /// <param name="enabled">True if the watcher should be enabled.</param>
-        /// <param name="mouse">The mouse to inject.</param>
-        internal MouseWatcher(bool enabled, IMouse mouse)
-        {
-            this.mouse = new Mouse(mouse);
             Setup(enabled);
         }
 
@@ -78,7 +65,7 @@ namespace KDScorpionEngine.Input
         /// <summary>
         /// Gets or sets the list of combo buttons.
         /// </summary>
-        public List<InputButton> ComboButtons
+        public List<MouseButton> ComboButtons
         {
             get => this.currentPressedButtons.Keys.ToList();
             set => CreateCurrentPressedButtons(value);
@@ -87,7 +74,7 @@ namespace KDScorpionEngine.Input
         /// <summary>
         /// Gets or sets the button to watch.
         /// </summary>
-        public InputButton Button { get; set; } = InputButton.None;
+        public MouseButton Button { get; set; } = MouseButton.None;
 
         /// <summary>
         /// Gets current amount of times that the set button has been hit.
@@ -172,8 +159,8 @@ namespace KDScorpionEngine.Input
         /// <summary>
         /// Updates the <see cref="MouseWatcher"/>.
         /// </summary>
-        /// <param name="engineTime">The game engine time.</param>
-        public void Update(EngineTime engineTime)
+        /// <param name="gameTime">The game engine time.</param>
+        public void Update(GameTime gameTime)
         {
             // If disabled, exit
             if (!Enabled)
@@ -182,21 +169,21 @@ namespace KDScorpionEngine.Input
             }
 
             // Update the current state of the mouse
-            this.mouse.UpdateCurrentState();
+            this.currentMouseState = Mouse.GetMouseState();
 
             // Update the mouse button down timer to keep track of how much time that the button has been in the down position
-            this.buttonDownTimer.Update(engineTime);
+            this.buttonDownTimer.Update(gameTime);
 
             // Update the mouse button release timer to keep track of how much time that the button has been in the
             // up position since its release
-            this.buttonReleaseTimer.Update(engineTime);
+            this.buttonReleaseTimer.Update(gameTime);
 
             // Get the current state of the button
-            this.curState = this.mouse.IsButtonDown(Button);
+            this.curState = this.currentMouseState.GetButtonState(Button);
 
             // Hit Count Code
             // If the counter is not null
-            if (this.mouse.IsButtonPressed(Button))
+            if (this.currentMouseState.GetButtonState(Button) && this.previousMouseState.GetButtonState(Button) is false)
             {
                 // If the max is reached, invoke the OnInputHitCountReached event and reset it back to 0
                 if (this.counter != null && this.counter.Value == HitCountMax)
@@ -217,7 +204,7 @@ namespace KDScorpionEngine.Input
 
             // Timing Code
             // As long as the button is down, continue to keep the button release timer reset to 0
-            if (this.mouse.IsButtonDown(Button))
+            if (this.currentMouseState.GetButtonState(Button))
             {
                 this.buttonReleaseTimer.Reset();
             }
@@ -234,20 +221,22 @@ namespace KDScorpionEngine.Input
             // If the button combo list is not null
             if (this.currentPressedButtons != null)
             {
-                // Holds the list of keys from the pressed buttons dictionary
-                var buttons = new List<InputButton>(this.currentPressedButtons.Keys);
+                //TODO: This needs to be figured out
 
-                // Set the state of all of the pressed buttons
-                buttons.ForEach(b => this.currentPressedButtons[b] = this.mouse.IsButtonDown(b));
+                //// Holds the list of keys from the pressed buttons dictionary
+                //var buttons = new List<MouseButton>(this.currentPressedButtons.Keys);
 
-                // If all of the buttons are pressed down
-                if (this.currentPressedButtons.Count > 0 && this.currentPressedButtons.All(button => button.Value))
-                {
-                    OnInputComboPressed?.Invoke(this, new EventArgs());
-                }
+                //// Set the state of all of the pressed buttons
+                //buttons.ForEach(b => this.currentPressedButtons[b] = this.currentMouseState.SetButtonState(b));
+
+                //// If all of the buttons are pressed down
+                //if (this.currentPressedButtons.Count > 0 && this.currentPressedButtons.All(button => button.Value))
+                //{
+                //    OnInputComboPressed?.Invoke(this, new EventArgs());
+                //}
             }
 
-            this.mouse.UpdatePreviousState();
+            this.previousMouseState = this.currentMouseState;
 
             this.prevState = this.curState;
         }
@@ -257,7 +246,7 @@ namespace KDScorpionEngine.Input
         /// </summary>
         private void ButtonDownTimer_OnTimeElapsed(object sender, EventArgs e)
         {
-            if (this.mouse.IsButtonDown(Button))
+            if (this.currentMouseState.GetButtonState(Button))
             {
                 // If the reset mode is set to auto, reset the time elapsed
                 if (DownElapsedResetMode == ResetType.Auto)
@@ -274,7 +263,7 @@ namespace KDScorpionEngine.Input
         /// </summary>
         private void ButtonReleasedTimer_OnTimeElapsed(object sender, EventArgs e)
         {
-            if (this.mouse.IsButtonUp(Button))
+            if (this.currentMouseState.GetButtonState(Button) is false)
             {
                 // If the reset mode is set to auto, reset the time elapsed
                 if (ReleasedElapsedResetMode == ResetType.Auto)
@@ -294,7 +283,7 @@ namespace KDScorpionEngine.Input
         private void Setup(bool enabled)
         {
             Enabled = enabled;
-            ComboButtons = new List<InputButton>();
+            ComboButtons = new List<MouseButton>();
 
             // Setup stop watches
             this.counter = new Counter(0, 10, 1);
@@ -311,13 +300,13 @@ namespace KDScorpionEngine.Input
         /// Creates the list of pressed buttons from the given list of buttons.
         /// </summary>
         /// <param name="buttons">The list of combo buttons.</param>
-        private void CreateCurrentPressedButtons(IList<InputButton> buttons)
+        private void CreateCurrentPressedButtons(IList<MouseButton> buttons)
         {
             // If the combo buttons are null, skip combo button setup
             if (buttons != null)
             {
                 // Create the current pressed buttons dictionary
-                this.currentPressedButtons = new Dictionary<InputButton, bool>();
+                this.currentPressedButtons = new Dictionary<MouseButton, bool>();
 
                 // Add all of the buttons to the combo buttons list dictionary
                 buttons.ToList().ForEach(b =>

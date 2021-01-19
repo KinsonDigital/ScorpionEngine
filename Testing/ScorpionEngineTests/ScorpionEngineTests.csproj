@@ -49,4 +49,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\ScorpionEngine\ScorpionEngine.csproj" />
   </ItemGroup>
+
+  
+  <ItemGroup>
+    <Folder Include="Graphics\" />
+  </ItemGroup>
 </Project>

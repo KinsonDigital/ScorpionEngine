@@ -4,10 +4,8 @@
 
 namespace KDScorpionEngineTests.Utils
 {
-    using System;
     using KDScorpionEngine;
     using KDScorpionEngine.Utils;
-    using Raptor;
     using Xunit;
 
     /// <summary>
@@ -51,13 +49,14 @@ namespace KDScorpionEngineTests.Utils
         {
             // Arrange
             var stopWatch = new StopWatch(1000);
-            var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 500) };
+            var gameTime = new GameTime();
+            gameTime.UpdateTotalGameTime(500);
             var expectedRunning = false;
             var expectedElapsedMS = 0;
 
             // Act
             stopWatch.Start();
-            stopWatch.Update(engineTime);
+            stopWatch.Update(gameTime);
             stopWatch.Reset();
             var actualRunning = stopWatch.Running;
             var actualElapsedMS = stopWatch.ElapsedMS;
@@ -72,16 +71,14 @@ namespace KDScorpionEngineTests.Utils
         {
             // Arrange
             var stopWatch = new StopWatch(1000);
-            var engineTime = new EngineTime()
-            {
-                ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 1001),
-            };
+            var gameTime = new GameTime();
+            gameTime.UpdateTotalGameTime(1001);
             var expectedElapsedMS = 0;
             var expectedRunning = false;
 
             // Act
             stopWatch.Start();
-            stopWatch.Update(engineTime);
+            stopWatch.Update(gameTime);
             var actualElapsedMS = stopWatch.ElapsedMS;
             var actualRunning = stopWatch.Running;
 
@@ -98,14 +95,12 @@ namespace KDScorpionEngineTests.Utils
             var actual = false;
             var stopWatch = new StopWatch(2500);
             stopWatch.OnTimeElapsed += (sender, e) => actual = true;
-            var engineTime = new EngineTime()
-            {
-                ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 2500),
-            };
+            var gameTime = new GameTime();
+            gameTime.UpdateTotalGameTime(2500);
 
             // Act
             stopWatch.Start();
-            stopWatch.Update(engineTime);
+            stopWatch.Update(gameTime);
 
             // Assert
             Assert.Equal(expected, actual);
@@ -163,15 +158,13 @@ namespace KDScorpionEngineTests.Utils
         {
             // Arrange
             var stopWatch = new StopWatch(2500);
-            var engineTime = new EngineTime()
-            {
-                ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 750),
-            };
+            var gameTime = new GameTime();
+            gameTime.UpdateTotalGameTime(750);
             var expected = 0.75f; // Seconds
 
             // Act
             stopWatch.Start();
-            stopWatch.Update(engineTime);
+            stopWatch.Update(gameTime);
             var actual = stopWatch.ElapsedSeconds;
 
             // Assert

@@ -18,7 +18,7 @@ namespace KDScorpionEngineTests.Fakes
                 return;
             }
 
-            SetUpdateAction((engineTime) =>
+            SetUpdateAction((gameTime) =>
             {
                 UpdateActionInvoked = true;
             });

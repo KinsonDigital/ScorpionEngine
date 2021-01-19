@@ -9,7 +9,7 @@ namespace KDScorpionEngine.Scene
     /// <summary>
     /// Represents a single scene.
     /// </summary>
-    public interface IScene : IDrawable, IUpdatable
+    public interface IScene : IUpdatableObject, IDrawableObject
     {
         /// <summary>
         /// Gets or sets the name of the scene.
@@ -50,12 +50,12 @@ namespace KDScorpionEngine.Scene
         /// Loads all content for the scene using the given <paramref name="contentLoader"/>.
         /// </summary>
         /// <param name="contentManager">The content loader to use for loading and unloading the scene's content.</param>
-        void LoadContent(ContentLoader contentLoader);
+        void LoadContent(IContentLoader contentLoader);
 
         /// <summary>
         /// Unloads all content for the scene using the given <paramref name="contentLoader"/>.
         /// </summary>
         /// <param name="contentManager">The content loader to use for loading and unloading the scene's content.</param>
-        void UnloadContent(ContentLoader contentLoader);
+        void UnloadContent(IContentLoader contentLoader);
     }
 }

@@ -6,7 +6,6 @@ namespace KDScorpionEngine.Scene
 {
     using System;
     using KDScorpionEngine.Events;
-    using Raptor;
 
     /// <summary>
     /// Manages how a scene is updated and give the ability for the scene to be paused.
@@ -62,8 +61,8 @@ namespace KDScorpionEngine.Scene
         /// <summary>
         /// Updates the <see cref="SceneTimeManager"/>.
         /// </summary>
-        /// <param name="gameTime">The engine time.</param>
-        public void Update(EngineTime gameTime)
+        /// <param name="gameTime">The game time.</param>
+        public void Update(GameTime gameTime)
         {
             // Continous mode
             if (Mode == RunMode.Continuous)
@@ -75,7 +74,7 @@ namespace KDScorpionEngine.Scene
                 // If the current stack of frames are being ran
                 if (!Paused)
                 {
-                    ElapsedFrameTime += gameTime.ElapsedEngineTime.Milliseconds;
+                    ElapsedFrameTime += gameTime.CurrentFrameElapsed;
 
                     // If the elapsed time frame has passed
                     if (ElapsedFrameTime >= FrameTime)

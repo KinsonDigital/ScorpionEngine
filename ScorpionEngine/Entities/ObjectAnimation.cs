@@ -6,7 +6,7 @@ namespace KDScorpionEngine.Entities
 {
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using Raptor;
+    using System.Drawing;
 
     /// <summary>
     /// Control animation at a particular frames per second.
@@ -18,13 +18,13 @@ namespace KDScorpionEngine.Entities
         private int fps = 10; // The frames per second that the animation will run at
         private int elapsedTime; // The amount of time elapsed since the last animation frame was changed
         private int currentFrame; // The current frame of the animation
-        private readonly List<Rect> frames = new List<Rect>(); // The bounds of all the frames of the animation
+        private readonly List<Rectangle> frames = new List<Rectangle>(); // The bounds of all the frames of the animation
 
         /// <summary>
         /// Creates a new instance of <see cref="ObjectAnimation"/>.
         /// </summary>
         /// <param name="frameBounds">The bounds data for the animation.</param>
-        public ObjectAnimation(List<Rect> frameBounds) => this.frames = frameBounds;
+        public ObjectAnimation(List<Rectangle> frameBounds) => this.frames = frameBounds;
 
         /// <summary>
         /// Gets or sets the frames per second of the animation.
@@ -54,7 +54,7 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// Gets the frame bounds of the current frame.
         /// </summary>
-        public Rect CurrentFrameBounds => this.frames[this.currentFrame];
+        public Rectangle CurrentFrameBounds => this.frames[this.currentFrame];
 
         /// <summary>
         /// Gets or sets a value indicating if the animation loops.
@@ -83,14 +83,14 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// Updates the animation.
         /// </summary>
-        /// <param name="engineTime">The game engine time.</param>
-        public void Update(IEngineTiming engineTime)
+        /// <param name="gameTime">The game engine time.</param>
+        public void Update(GameTime gameTime)
         {
             switch (State)
             {
                 case AnimationState.Running:
                     // Update the elapsed time since the last time the engine loop was called
-                    this.elapsedTime += engineTime.ElapsedEngineTime.Milliseconds;
+                    this.elapsedTime += gameTime.CurrentFrameElapsed;
 
                     // If the amount of time has passed for the next frame of the animation to be shown
                     if (this.elapsedTime >= 1000 / this.fps)

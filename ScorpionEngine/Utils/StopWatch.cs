@@ -5,12 +5,11 @@
 namespace KDScorpionEngine.Utils
 {
     using System;
-    using Raptor;
 
     /// <summary>
     /// Keeps track of time passed and invokes events when that time has passed.
     /// </summary>
-    public class StopWatch : IUpdatable
+    public class StopWatch : IUpdatableObject
     {
         private bool enabled;
         private int timeOut;
@@ -86,13 +85,13 @@ namespace KDScorpionEngine.Utils
         /// <summary>
         /// Updates the internal time of the stop watch.
         /// </summary>
-        /// <param name="engineTime">The game engine time.</param>
-        public void Update(EngineTime engineTime)
+        /// <param name="frameTime">The game engine time.</param>
+        public void Update(GameTime frameTime)
         {
             // If the stopwatch is enabled, add the amount of time passed to the elapsed value
             if (this.enabled)
             {
-                ElapsedMS += (int)engineTime.ElapsedEngineTime.TotalMilliseconds;
+                ElapsedMS += frameTime.CurrentFrameElapsed;
             }
 
             // If the timeout has been reached

@@ -5,7 +5,6 @@
 namespace KDScorpionEngine.Behaviors
 {
     using System;
-    using Raptor;
 
     /// <summary>
     /// Limits a number to a set positive or negative value.
@@ -37,11 +36,11 @@ namespace KDScorpionEngine.Behaviors
         public float LimitValue { get; set; }
 
         /// <summary>
-        /// Then method to run that creates the number limiting behavior.  Executed when the <see cref="Behavior.Update(EngineTime)"/>
+        /// Then method to run that creates the number limiting behavior.  Executed when the <see cref="Behavior.Update(GameTime)"/>
         /// is executed.
         /// </summary>
-        /// <param name="engineTime">The game engine time.</param>
-        private void UpdateAction(EngineTime engineTime)
+        /// <param name="gameTime">The game engine time.</param>
+        private void UpdateAction(GameTime gameTime)
         {
             var currentValue = this.getValue();
 

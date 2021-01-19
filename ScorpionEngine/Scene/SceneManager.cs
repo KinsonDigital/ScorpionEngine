@@ -12,40 +12,26 @@ namespace KDScorpionEngine.Scene
     using KDScorpionEngine.Events;
     using KDScorpionEngine.Exceptions;
     using KDScorpionEngine.Graphics;
-    using Raptor;
     using Raptor.Content;
     using Raptor.Input;
-    using Raptor.Plugins;
 
     /// <summary>
     /// Manages multiple game scenes.
     /// </summary>
-    public class SceneManager : IUpdatable, IDrawable, IEnumerable<IScene>, IList<IScene>
+    public class SceneManager : IUpdatableObject, IDrawableObject, IEnumerable<IScene>, IList<IScene>
     {
-        private readonly ContentLoader contentLoader;
+        private readonly IContentLoader contentLoader;
         private readonly List<IScene> scenes = new List<IScene>(); // The list of scenes
-        private readonly Keyboard keyboard;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SceneManager"/> class.
-        /// <paramref name="contentLoader">The content loader user to load and unload content.</paramref>.
-        /// </summary>
-        [ExcludeFromCodeCoverage]
-        public SceneManager(ContentLoader contentLoader)
-        {
-            this.contentLoader = contentLoader;
-            this.keyboard = new Keyboard();
-        }
+        private KeyboardState currentKeyboardState;
+        private KeyboardState previousKeyboardState;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SceneManager"/> class.
         /// </summary>
         /// <param name="contentLoader">The content loaded to inject.</param>
-        /// <param name="keyboard">The keyboard to inject.</param>
-        internal SceneManager(IContentLoader contentLoader, IKeyboard keyboard)
+        internal SceneManager(IContentLoader contentLoader)
         {
-            this.contentLoader = new ContentLoader(contentLoader);
-            this.keyboard = new Keyboard(keyboard);
+            this.contentLoader = contentLoader;
         }
 
         /// <summary>
@@ -56,7 +42,7 @@ namespace KDScorpionEngine.Scene
         /// <summary>
         /// Gets or sets the key to be pressed to progress to the next frame stack when the <see cref="Mode"/> property is set to <see cref="RunMode.FrameStack"/>.
         /// </summary>
-        public KeyCode NextFrameStackKey { get; set; } = KeyCode.None;
+        public KeyCode NextFrameStackKey { get; set; } = KeyCode.Unknown;
 
         /// <summary>
         /// Gets the currently enabled scene.
@@ -71,24 +57,24 @@ namespace KDScorpionEngine.Scene
         /// <summary>
         /// The keyboard key used to play the current scene.
         /// </summary>
-        public KeyCode PlayCurrentSceneKey { get; set; } = KeyCode.None;
+        public KeyCode PlayCurrentSceneKey { get; set; } = KeyCode.Unknown;
 
         /// <summary>
         /// The keyboard key used to pause the current scene.
         /// </summary>
-        public KeyCode PauseCurrentSceneKey { get; set; } = KeyCode.None;
+        public KeyCode PauseCurrentSceneKey { get; set; } = KeyCode.Unknown;
 
         /// <summary>
         /// Gets or sets the key to press to move to the next <see cref="IScene"/>.
         /// If set to <see cref="KeyCode.None"/>, then nothing will happen.
         /// </summary>
-        public KeyCode NextSceneKey { get; set; } = KeyCode.None;
+        public KeyCode NextSceneKey { get; set; } = KeyCode.Unknown;
 
         /// <summary>
         /// Gets or sets the key to press to move to the previous <see cref="IScene"/>.
         /// If set to <see cref="KeyCode.None"/>, then nothing will happen.
         /// </summary>
-        public KeyCode PreviousSceneKey { get; set; } = KeyCode.None;
+        public KeyCode PreviousSceneKey { get; set; } = KeyCode.Unknown;
 
         /// <summary>
         /// Gets or sets a value indicting if the current scene content will be unloaded when the scene changes.
@@ -486,8 +472,8 @@ namespace KDScorpionEngine.Scene
         /// <summary>
         /// Updates the <see cref="SceneManager"/> and all of its scenes depending on the manager's settings.
         /// </summary>
-        /// <param name="engineTime">The game engine time.</param>
-        public void Update(EngineTime engineTime)
+        /// <param name="gameTime">The game engine time.</param>
+        public void Update(GameTime gameTime)
         {
             ProcessKeys();
 
@@ -496,7 +482,7 @@ namespace KDScorpionEngine.Scene
             {
                 if (s.Active || UpdateInactiveScenes)
                 {
-                    s.Update(engineTime);
+                    s.Update(gameTime);
                 }
             });
         }
@@ -505,8 +491,9 @@ namespace KDScorpionEngine.Scene
         /// Calls the currently enabled <see cref="IScene"/> render method.
         /// </summary>
         /// <param name="renderer">The renderer to use for rendering.</param>
-        public void Render(GameRenderer renderer)
+        public void Render(Renderer renderer)
         {
+            // TODO: Look into why this is not implemented the same way as the Update() method above
             if (this.scenes.Count <= 0)
             {
                 return;
@@ -603,45 +590,45 @@ namespace KDScorpionEngine.Scene
         /// </summary>
         private void ProcessKeys()
         {
-            this.keyboard.UpdateCurrentState();
+            this.currentKeyboardState = Keyboard.GetState();
 
-            if (PlayCurrentSceneKey != KeyCode.None)
+            if (PlayCurrentSceneKey != KeyCode.Unknown)
             {
                 // If the play key has been pressed
-                if (this.keyboard.IsKeyPressed(PlayCurrentSceneKey))
+                if (this.currentKeyboardState.IsKeyUp(PlayCurrentSceneKey) && this.previousKeyboardState.IsKeyDown(PlayCurrentSceneKey))
                 {
                     PlayCurrentScene();
                 }
             }
 
-            if (PauseCurrentSceneKey != KeyCode.None)
+            if (PauseCurrentSceneKey != KeyCode.Unknown)
             {
                 // If the pause key has been pressed
-                if (this.keyboard.IsKeyPressed(PauseCurrentSceneKey))
+                if (this.currentKeyboardState.IsKeyUp(PauseCurrentSceneKey) && this.previousKeyboardState.IsKeyDown(PauseCurrentSceneKey))
                 {
                     PauseCurrentScene();
                 }
             }
 
-            if (NextSceneKey != KeyCode.None)
+            if (NextSceneKey != KeyCode.Unknown)
             {
                 // If the next scene key has been pressed
-                if (this.keyboard.IsKeyPressed(NextSceneKey))
+                if (this.currentKeyboardState.IsKeyUp(NextSceneKey) && this.previousKeyboardState.IsKeyDown(NextSceneKey))
                 {
                     NextScene();
                 }
             }
 
-            if (PreviousSceneKey != KeyCode.None)
+            if (PreviousSceneKey != KeyCode.Unknown)
             {
                 // If the previous scene key has been pressed
-                if (this.keyboard.IsKeyPressed(PreviousSceneKey))
+                if (this.currentKeyboardState.IsKeyUp(PreviousSceneKey) && this.previousKeyboardState.IsKeyDown(PreviousSceneKey))
                 {
                     PreviousScene();
                 }
             }
 
-            this.keyboard.UpdatePreviousState();
+            this.previousKeyboardState = this.currentKeyboardState;
         }
 
         /// <summary>

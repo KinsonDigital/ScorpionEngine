@@ -1,4 +1,4 @@
-// <copyright file="Program.cs" company="KinsonDigital">
+﻿// <copyright file="Program.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -13,10 +13,9 @@ namespace ScorpTestGame
         private static void Main(string[] args)
 #pragma warning restore IDE0060 // Remove unused parameter
         {
-            using (var game = new MainGame())
-            {
-                KDScorpionEngine.Engine.Start();
-            }
+            using var game = new MainGame();
+
+            game.Run();
         }
     }
 }

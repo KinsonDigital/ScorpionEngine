@@ -11,48 +11,21 @@ namespace KDScorpionEngineTests.Scene
     using KDScorpionEngine.Scene;
     using KDScorpionEngineTests.Fakes;
     using Moq;
-    using Raptor;
     using Raptor.Content;
     using Raptor.Graphics;
-    using Raptor.Physics;
-    using Raptor.Plugins;
     using Xunit;
 
     /// <summary>
     /// Unit tests to test the <see cref="GameScene"/> class.
     /// </summary>
-    public class GameSceneTests : IDisposable
+    public class GameSceneTests
     {
-        private readonly Mock<IPhysicsBody> mockPhysicsBody;
-        private Mock<IPhysicsWorld> mockPhysicsWorld;
-
-        public GameSceneTests()
-        {
-            this.mockPhysicsWorld = new Mock<IPhysicsWorld>();
-            this.mockPhysicsBody = new Mock<IPhysicsBody>();
-        }
-
-        #region Constructor Tests
-        [Fact]
-        public void Ctor_WhenInvoking_CreatePhysicsWorld()
-        {
-            // Arrange
-            _ = new FakeGameScene(this.mockPhysicsWorld.Object);
-
-            // Act
-            var actual = GameScene.PhysicsWorld;
-
-            // Assert
-            Assert.NotNull(actual);
-        }
-        #endregion
-
         #region Prop Tests
         [Fact]
         public void Name_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var scene = new FakeGameScene(this.mockPhysicsWorld.Object);
+            var scene = new FakeGameScene();
             var expected = "John Doe";
 
             // Act
@@ -67,7 +40,7 @@ namespace KDScorpionEngineTests.Scene
         public void ContentLoaded_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var scene = new FakeGameScene(this.mockPhysicsWorld.Object);
+            var scene = new FakeGameScene();
             var expected = true;
 
             // Act
@@ -82,7 +55,7 @@ namespace KDScorpionEngineTests.Scene
         public void TimeManager_WhenGettingValue_NotNull()
         {
             // Arrange
-            var scene = new FakeGameScene(this.mockPhysicsWorld.Object);
+            var scene = new FakeGameScene();
 
             // Act
             var actual = scene.TimeManager;
@@ -95,7 +68,7 @@ namespace KDScorpionEngineTests.Scene
         public void Initialized_WhenGettingValueAfterInitialized_ReturnsTrue()
         {
             // Arrange
-            var scene = new FakeGameScene(this.mockPhysicsWorld.Object);
+            var scene = new FakeGameScene();
             var expected = true;
 
             // Act
@@ -110,7 +83,7 @@ namespace KDScorpionEngineTests.Scene
         public void Active_WhenGettingAndSettingValue_ReturnsTrue()
         {
             // Arrange
-            var scene = new FakeGameScene(this.mockPhysicsWorld.Object);
+            var scene = new FakeGameScene();
             var expected = true;
 
             // Act
@@ -125,7 +98,7 @@ namespace KDScorpionEngineTests.Scene
         public void IsRenderingScene_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var scene = new FakeGameScene(this.mockPhysicsWorld.Object);
+            var scene = new FakeGameScene();
             var expected = true;
 
             // Act
@@ -140,7 +113,7 @@ namespace KDScorpionEngineTests.Scene
         public void Id_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var scene = new FakeGameScene(this.mockPhysicsWorld.Object);
+            var scene = new FakeGameScene();
             var expected = 10;
 
             // Act
@@ -157,13 +130,12 @@ namespace KDScorpionEngineTests.Scene
         public void LoadContent_WhenInvoked_SetsContentLoadedToTrue()
         {
             // Arrange
-            var mockCoreLoader = new Mock<IContentLoader>();
-            var loader = new ContentLoader(mockCoreLoader.Object);
-            var scene = new FakeGameScene(this.mockPhysicsWorld.Object);
+            var mockContentLoader = new Mock<IContentLoader>();
+            var scene = new FakeGameScene();
             var expected = true;
 
             // Act
-            scene.LoadContent(loader);
+            scene.LoadContent(mockContentLoader.Object);
             var actual = scene.ContentLoaded;
 
             // Assert
@@ -174,16 +146,15 @@ namespace KDScorpionEngineTests.Scene
         public void UnloadContent_WhenInvoked_SetsContentLoadedToFalse()
         {
             // Arrange
-            var mockCoreLoader = new Mock<IContentLoader>();
-            var loader = new ContentLoader(mockCoreLoader.Object);
-            var scene = new FakeGameScene(this.mockPhysicsWorld.Object)
+            var mockContentLoader = new Mock<IContentLoader>();
+            var scene = new FakeGameScene()
             {
                 ContentLoaded = true,
             };
             var expected = false;
 
             // Act
-            scene.UnloadContent(loader);
+            scene.UnloadContent(mockContentLoader.Object);
             var actual = scene.ContentLoaded;
 
             // Assert
@@ -196,49 +167,31 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var mockTimeManager = new Mock<ITimeManager>();
 
-            var scene = new FakeGameScene(this.mockPhysicsWorld.Object)
+            var scene = new FakeGameScene()
             {
                 TimeManager = mockTimeManager.Object,
             };
 
             // Act
-            scene.Update(new EngineTime());
+            scene.Update(new GameTime());
 
             // Assert
-            mockTimeManager.Verify(m => m.Update(It.IsAny<EngineTime>()), Times.Once());
-        }
-
-        [Fact]
-        public void Update_WhenInvoking_InvokesPhyiscsWorldUpdate()
-        {
-            // Arrange
-            var mockTimeManager = new Mock<ITimeManager>();
-
-            var scene = new FakeGameScene(this.mockPhysicsWorld.Object);
-
-            // Act
-            scene.Update(new EngineTime());
-
-            // Assert
-            this.mockPhysicsWorld.Verify(m => m.Update(It.IsAny<float>()), Times.Once());
+            mockTimeManager.Verify(m => m.Update(It.IsAny<GameTime>()), Times.Once());
         }
 
         [Fact]
         public void Update_WhenInvoking_InvokesEntityUpdate()
         {
             // Arrange
-            var entity = new FakeEntity(Array.Empty<Vector2>(), Vector2.Zero)
-            {
-                Body = new PhysicsBody(this.mockPhysicsBody.Object),
-            };
+            var entity = new FakeEntity(Array.Empty<Vector2>(), Vector2.Zero);
 
-            var scene = new FakeGameScene(this.mockPhysicsWorld.Object);
+            var scene = new FakeGameScene();
             entity.Initialize();
             scene.AddEntity(entity);
             var expected = true;
 
             // Act
-            scene.Update(new EngineTime());
+            scene.Update(new GameTime());
             var actual = entity.UpdateInvoked;
 
             // Assert
@@ -249,7 +202,7 @@ namespace KDScorpionEngineTests.Scene
         public void Update_WhenInvokingWithNullTimeManager_DoesNotThrowException()
         {
             // Arrange
-            var scene = new FakeGameScene(this.mockPhysicsWorld.Object)
+            var scene = new FakeGameScene()
             {
                 TimeManager = null,
             };
@@ -257,7 +210,7 @@ namespace KDScorpionEngineTests.Scene
             // Act/Assert
             AssertExt.DoesNotThrow<NullReferenceException>(() =>
             {
-                scene.Update(new EngineTime());
+                scene.Update(new GameTime());
             });
         }
 
@@ -269,21 +222,19 @@ namespace KDScorpionEngineTests.Scene
 
             var entityA = new FakeEntity(false)
             {
-                Body = new PhysicsBody(this.mockPhysicsBody.Object),
-                Texture = new Texture(mockTexture.Object),
+                Texture = mockTexture.Object,
             };
 
             var entityB = new FakeEntity(false)
             {
-                Body = new PhysicsBody(this.mockPhysicsBody.Object),
-                Texture = new Texture(mockTexture.Object),
+                Texture = mockTexture.Object,
             };
 
-            var scene = new FakeGameScene(this.mockPhysicsWorld.Object);
+            var scene = new FakeGameScene();
             scene.AddEntity(entityA, false);
             scene.AddEntity(entityB, false);
 
-            var renderer = new GameRenderer(new Mock<IRenderer>().Object, new Mock<IDebugDraw>().Object);
+            var renderer = new Renderer(10, 20);
 
             var expected = true;
 
@@ -295,8 +246,5 @@ namespace KDScorpionEngineTests.Scene
             Assert.Equal(expected, actual);
         }
         #endregion
-
-        /// <inheritdoc/>
-        public void Dispose() => this.mockPhysicsWorld = null;
     }
 }

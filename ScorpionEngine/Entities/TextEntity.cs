@@ -5,9 +5,8 @@
 namespace KDScorpionEngine.Entities
 {
     using System.Diagnostics.CodeAnalysis;
+    using System.Drawing;
     using System.Numerics;
-    using Raptor.Graphics;
-    using Raptor.Plugins;
 
     /// <summary>
     /// Text that can be drawn to the screen.
@@ -16,20 +15,12 @@ namespace KDScorpionEngine.Entities
     {
         /// <summary>
         /// Creates a new instance of <see cref="TextEntity"/>.
-        /// USED FOR UNIT TESTING.
-        /// </summary>
-        /// <param name="body">The physics body to inject.</param>
-        internal TextEntity(IPhysicsBody body)
-            : base(body) => Setup(string.Empty, new GameColor(255, 0, 0, 0), new GameColor(0, 0, 0, 0));
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TextEntity"/>.
         /// </summary>
         /// <param name="text">The text of entity.</param>
         /// <param name="foreColor">The color of the text.</param>
         /// <param name="backColor">The color of the background behind the text.</param>
         [ExcludeFromCodeCoverage]
-        public TextEntity(string text, GameColor foreColor, GameColor backColor, Vector2 position)
+        public TextEntity(string text, Color foreColor, Color backColor, Vector2 position)
             : base(System.Array.Empty<Vector2>(), position: position) =>
             Setup(text, foreColor, backColor);
 
@@ -41,12 +32,12 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// Gets or sets the color of the text.
         /// </summary>
-        public GameColor ForeColor { get; set; } = new GameColor(255, 0, 0, 0);
+        public Color ForeColor { get; set; } = Color.FromArgb(255, 0, 0, 0);
 
         /// <summary>
         /// Gets or sets the back color of the text.
         /// </summary>
-        public GameColor BackColor { get; set; } = new GameColor(0, 0, 0, 0);
+        public Color BackColor { get; set; } = Color.FromArgb(0, 0, 0, 0);
 
         /// <summary>
         /// Sets up the <see cref="TextEntity"/>.
@@ -54,7 +45,7 @@ namespace KDScorpionEngine.Entities
         /// <param name="text">The text of the font texture.</param>
         /// <param name="foreColor">The color of the text.</param>
         /// <param name="backColor">The color of the background behind the text.</param>
-        private void Setup(string text, GameColor foreColor, GameColor backColor)
+        private void Setup(string text, Color foreColor, Color backColor)
         {
             Text = text;
             ForeColor = foreColor;

@@ -6,34 +6,32 @@ namespace KDScorpionEngine.Entities
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.Drawing;
     using System.Linq;
     using System.Numerics;
     using KDScorpionEngine.Behaviors;
-    using KDScorpionEngine.Exceptions;
     using KDScorpionEngine.Graphics;
     using Raptor;
     using Raptor.Content;
     using Raptor.Graphics;
     using Raptor.Input;
-    using Raptor.Physics;
-    using Raptor.Plugins;
 
     /// <summary>
     /// Represents a base entity that all entities inherit from.
     /// </summary>
-    public abstract class Entity : IUpdatable, IInitialize, IContentLoadable
+    public abstract class Entity : IUpdatableObject, IContentLoadable
     {
         protected bool usesPhysics = true;
 
         /// <summary>
         /// The engine time of the entity.
         /// </summary>
-        protected EngineTime engineTime;
+        protected int frameTime;
 
         /// <summary>
         /// The texture of the entity.
         /// </summary>
-        protected Texture texture;
+        protected ITexture texture;
         private bool visible = true; // True if the entity will be drawn
         private Vector2 preInitPosition;
         private Vector2[] preInitVertices;
@@ -116,11 +114,11 @@ namespace KDScorpionEngine.Entities
         /// Initializes a new instance of the <see cref="Entity"/> class.
         /// </summary>
         /// <param name="body">The physics body to inject.</param>
-        internal Entity(IPhysicsBody body)
-        {
-            Body = body == null ? null : new PhysicsBody(body);
-            Setup(null, Vector2.Zero, 0f, false);
-        }
+        //internal Entity(IPhysicsBody body)
+        //{
+        //    Body = body == null ? null : new PhysicsBody(body);
+        //    Setup(null, Vector2.Zero, 0f, false);
+        //}
 
         /// <summary>
         /// Occurs when the game object is going from hidden to shown.
@@ -186,29 +184,12 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// Gets the rectangular bounds of the <see cref="Entity"/>.
         /// </summary>
-        public Rect Bounds => new Rect((int)Position.X, (int)Position.Y, (int)BoundsWidth, (int)BoundsHeight);
+        public Rectangle Bounds => new Rectangle((int)Position.X, (int)Position.Y, (int)BoundsWidth, (int)BoundsHeight);
 
         /// <summary>
         /// Gets or sets the position of the <see cref="Entity"/> in the game world in pixel units.
         /// </summary>
-        public Vector2 Position
-        {
-            get => IsInitialized ?
-                new Vector2(Body.X, Body.Y) :
-                this.preInitPosition;
-            set
-            {
-                if (IsInitialized)
-                {
-                    Body.X = value.X;
-                    Body.Y = value.Y;
-                }
-                else
-                {
-                    this.preInitPosition = value;
-                }
-            }
-        }
+        public Vector2 Position { get; set; }
 
         /// <summary>
         /// Gets or sets the vertices that make up the physical shape of the <see cref="Entity"/>.
@@ -216,48 +197,17 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         /// <exception cref="Exception">Thrown when the vertices are trying to be set when the
         /// <see cref="Entity"/> has already been initialized.</exception>
-        public Vector2[] Vertices
-        {
-            get => IsInitialized ? Body.Vertices.ToArray() : this.preInitVertices;
-            set
-            {
-                // The vertices of the entity cannot be set after it has been initialized
-                if (IsInitialized)
-                {
-                    throw new EntityAlreadyInitializedException();
-                }
-
-                this.preInitVertices = value;
-            }
-        }
+        public Vector2[] Vertices { get; set; }
 
         /// <summary>
         /// Gets the width of the entity bounds.
         /// </summary>
-        public float BoundsWidth
-        {
-            get
-            {
-                var largestX = Body.Vertices != null ? Body.Vertices.Max(v => v.X) : 0;
-                var smallestX = Body.Vertices != null ? Body.Vertices.Min(v => v.X) : 0;
-
-                return largestX - smallestX;
-            }
-        }
+        public float BoundsWidth => Texture.Width;
 
         /// <summary>
         /// Gets the height of the entity bounds.
         /// </summary>
-        public float BoundsHeight
-        {
-            get
-            {
-                var largestY = Body.Vertices != null ? Body.Vertices.Max(v => v.Y) : 0;
-                var smallestY = Body.Vertices != null ? Body.Vertices.Min(v => v.Y) : 0;
-
-                return largestY - smallestY;
-            }
-        }
+        public float BoundsHeight => Texture.Height;
 
         /// <summary>
         /// Gets the half width of the <see cref="Entity"/> bounds.
@@ -272,7 +222,7 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// Gets or sets the texture of the <see cref="Entity"/>.
         /// </summary>
-        public Texture Texture
+        public ITexture Texture
         {
             get => this.texture;
             set => this.texture = value;
@@ -285,11 +235,6 @@ namespace KDScorpionEngine.Entities
         public bool DebugDrawEnabled { get; set; } = true;
 
         /// <summary>
-        /// Gets a value indicating whether the <see cref="Entity"/> has been initialized.
-        /// </summary>
-        public bool IsInitialized { get; private set; }
-
-        /// <summary>
         /// Gets a value indicating whether the entities content has been loaded.
         /// </summary>
         public bool ContentLoaded { get; private set; }
@@ -297,21 +242,7 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// Gets or sets the color of the debug draw outlines.
         /// </summary>
-        public GameColor DebugDrawColor { get; set; } = new GameColor(255, 255, 255, 255);
-
-        /// <summary>
-        /// Gets or sets the physics body of the entity.
-        /// </summary>
-        internal PhysicsBody Body { get; set; }
-
-        /// <summary>
-        /// Initializes the <see cref="Entity"/>.
-        /// </summary>
-        public virtual void Initialize()
-        {
-            CreateBody(this.preInitVertices, this.preInitPosition, IsStatic);
-            IsInitialized = true;
-        }
+        public Color DebugDrawColor { get; set; } = Color.White;
 
         /// <summary>
         /// Loads the entities content.
@@ -322,12 +253,10 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// Updates the <see cref="Entity"/>.
         /// </summary>
-        /// <param name="engineTime">The engine time since the last frame.</param>
-        public virtual void Update(EngineTime engineTime)
+        /// <param name="gameTime">The engine time since the last frame.</param>
+        public virtual void Update(GameTime gameTime)
         {
-            this.engineTime = engineTime;
-
-            Behaviors.ToList().ForEach(b => b.Update(this.engineTime));
+            Behaviors.ToList().ForEach(b => b.Update(gameTime));
         }
 
         /// <summary>
@@ -335,7 +264,7 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         /// <param name="renderer">The renderer that renders the <see cref="Entity"/>.</param>
         [ExcludeFromCodeCoverage]
-        public virtual void Render(GameRenderer renderer)
+        public virtual void Render(Renderer renderer)
         {
         }
 
@@ -352,29 +281,6 @@ namespace KDScorpionEngine.Entities
             this.preInitPosition = position == null ? Vector2.Zero : position;
             IsStatic = isStaticBody;
             this.preInitFriction = friction;
-        }
-
-        /// <summary>
-        /// Creates the physics body of the <see cref="Entity"/> to be able to simulate physics between
-        /// this <see cref="Entity"/> and other entities in the physics world.
-        /// </summary>
-        /// <param name="vertices">The polygon vertices that make up the shape of the <see cref="Entity"/>.</param>
-        /// <param name="position">The position of where to render the <see cref="Entity"/>.</param>
-        /// <param name="isStatic">True if the body is static and cannot be moved by other objects.</param>
-        [ExcludeFromCodeCoverage]
-        private void CreateBody(Vector2[] vertices, Vector2 position, bool isStatic)
-        {
-            if (Body == null)
-            {
-                Body = new PhysicsBody(vertices, position, isStatic: isStatic, friction: this.preInitFriction);
-            }
-            else
-            {
-                // TODO: Get this working
-                // Body.Vertices = vertices;
-                Body.X = position.X;
-                Body.Y = position.Y;
-            }
         }
     }
 }

@@ -7,27 +7,16 @@ namespace KDScorpionEngineTests.Fakes
 {
     using KDScorpionEngine;
     using KDScorpionEngine.Graphics;
-    using Moq;
-    using Raptor;
     using Raptor.Content;
-    using Raptor.Plugins;
 
     /// <summary>
     /// Provides a fake implementation of the <see cref="Engine"/> class.
     /// </summary>
     public class FakeEngine : Engine
     {
-        private readonly IEngineCore fakeEngineCore;
-
-        public FakeEngine(IContentLoader contentLoader, IEngineCore engineCore, IKeyboard keyboard)
-            : base(contentLoader, engineCore, keyboard)
+        public FakeEngine(IContentLoader contentLoader)
+            : base(10, 20)
         {
-            this.fakeEngineCore = engineCore;
-
-            engineCore.OnInitialize += (sender, e) => Init();
-            engineCore.OnLoadContent += (sender, e) => LoadContent(ContentLoader);
-            engineCore.OnUpdate += (sender, e) => Update(new EngineTime());
-            engineCore.OnRender += (sender, e) => Render(new GameRenderer(new Mock<IRenderer>().Object, new Mock<IDebugDraw>().Object));
         }
 
         public bool InitInvoked { get; set; }
@@ -40,7 +29,6 @@ namespace KDScorpionEngineTests.Fakes
 
         public new void Start()
         {
-            this.fakeEngineCore.StartEngine();
         }
 
         public override void Init()
@@ -48,17 +36,17 @@ namespace KDScorpionEngineTests.Fakes
             InitInvoked = true;
         }
 
-        public override void LoadContent(ContentLoader contentLoader)
+        public override void LoadContent(IContentLoader contentLoader)
         {
             LoadContentInvoked = true;
         }
 
-        public override void Update(EngineTime engineTime)
+        public override void Update(GameTime gameTime)
         {
             UpdateInvoked = true;
         }
 
-        public override void Render(GameRenderer renderer)
+        public override void Render(Renderer renderer)
         {
             RenderInvoked = true;
         }

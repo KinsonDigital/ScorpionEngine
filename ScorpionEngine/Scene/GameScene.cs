@@ -9,10 +9,7 @@ namespace KDScorpionEngine.Scene
     using System.Numerics;
     using KDScorpionEngine.Entities;
     using KDScorpionEngine.Graphics;
-    using Raptor;
     using Raptor.Content;
-    using Raptor.Physics;
-    using Raptor.Plugins;
 
     /// <summary>
     /// A game scene within a game that can hold various game entities and game related logic.
@@ -20,18 +17,14 @@ namespace KDScorpionEngine.Scene
     public abstract class GameScene : IScene
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GameScene"/>.
-        /// USED FOR UNIT TESTING.
-        /// </summary>
-        /// <param name="physicsWorld">The physics world to inject.</param>
-        internal GameScene(IPhysicsWorld physicsWorld) => PhysicsWorld = new PhysicsWorld(physicsWorld);
-
-        /// <summary>
         /// Creates a enw instance of <see cref="GameScene"/>.
         /// </summary>
         /// <param name="gravity">The gravity of the scene.</param>
         [ExcludeFromCodeCoverage]
-        public GameScene(Vector2 gravity) => PhysicsWorld = new PhysicsWorld(gravity);
+        public GameScene(Vector2 gravity)
+        {
+
+        }
 
         /// <summary>
         /// Gets or sets the name of the scene.
@@ -75,17 +68,10 @@ namespace KDScorpionEngine.Scene
         public List<Entity> Entities { get; } = new List<Entity>();
 
         /// <summary>
-        /// The physics world attached to this <see cref="GameScene"/> that governs the physics of the game.
-        /// </summary>
-        public static PhysicsWorld PhysicsWorld { get; set; }
-
-        /// <summary>
         /// Initializes the game scene.
         /// </summary>
         public virtual void Initialize()
         {
-            PhysicsWorld.Update(0);
-
             Initialized = true;
         }
 
@@ -93,33 +79,30 @@ namespace KDScorpionEngine.Scene
         /// Loads all content using the given <paramref name="contentLoader"/>.
         /// </summary>
         /// <param name="contentManager">The content loader to use for loading and unloading the scene's content.</param>
-        public virtual void LoadContent(ContentLoader contentLoader) => ContentLoaded = true;
+        public virtual void LoadContent(IContentLoader contentLoader) => ContentLoaded = true;
 
         /// <summary>
         /// Unloads all content using the given <paramref name="contentLoader"/>.
         /// </summary>
         /// <param name="contentManager">The content loader to use for loading and unloading the scene's content.</param>
-        public virtual void UnloadContent(ContentLoader contentLoader) => ContentLoaded = false;
+        public virtual void UnloadContent(IContentLoader contentLoader) => ContentLoaded = false;
 
         /// <summary>
         /// Updates the <see cref="GameScene"/>.
         /// </summary>
-        public virtual void Update(EngineTime engineTime)
+        public virtual void Update(GameTime gameTime)
         {
-            TimeManager?.Update(engineTime);
+            TimeManager?.Update(gameTime);
 
             // Update all of the entities
-            Entities.ForEach(e => e.Update(engineTime));
-
-            // Update the physics world
-            PhysicsWorld.Update((float)engineTime.ElapsedEngineTime.TotalSeconds);
+            Entities.ForEach(e => e.Update(gameTime));
         }
 
         /// <summary>
         /// Renders the <see cref="GameScene"/>.
         /// </summary>
         /// <param name="renderer">The renderer to use to render the scene.</param>
-        public virtual void Render(GameRenderer renderer)
+        public virtual void Render(Renderer renderer)
         {
             Entities.ForEach(e =>
             {

@@ -5,14 +5,13 @@
 namespace KDScorpionEngine.Behaviors
 {
     using System;
-    using Raptor;
 
     /// <summary>
     /// Represents a custom set of behavior to execute.
     /// </summary>
     public abstract class Behavior : IBehavior
     {
-        private Action<EngineTime> behaviorAction;
+        private Action<GameTime> behaviorAction;
 
         /// <summary>
         /// Gets or sets the name of the <see cref="Behavior"/>.
@@ -25,23 +24,23 @@ namespace KDScorpionEngine.Behaviors
         public bool Enabled { get; set; } = true;
 
         /// <summary>
-        /// Updates the behavior set by the <see cref="SetUpdateAction(Action{EngineTime})"/> method.
+        /// Updates the behavior set by the <see cref="SetUpdateAction(Action{GameTime})"/> method.
         /// </summary>
-        /// <param name="engineTime">The game engine time.</param>
-        public void Update(EngineTime engineTime)
+        /// <param name="gameTime">The game engine time.</param>
+        public void Update(GameTime gameTime)
         {
             if (this.behaviorAction == null || !Enabled)
             {
                 return;
             }
 
-            this.behaviorAction(engineTime);
+            this.behaviorAction(gameTime);
         }
 
         /// <summary>
         /// Sets the action that sets the behavior of this object.
         /// </summary>
-        /// <param name="action">The behavior that will be executed when the <see cref="Update(EngineTime)"/> is invoked.</param>
-        protected void SetUpdateAction(Action<EngineTime> action) => this.behaviorAction = action;
+        /// <param name="action">The behavior that will be executed when the <see cref="Update(GameTime)"/> is invoked.</param>
+        protected void SetUpdateAction(Action<GameTime> action) => this.behaviorAction = action;
     }
 }

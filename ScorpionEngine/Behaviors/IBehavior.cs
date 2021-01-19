@@ -7,7 +7,7 @@ namespace KDScorpionEngine.Behaviors
     /// <summary>
     /// A simple behavior with an enabled state and name.
     /// </summary>
-    public interface IBehavior : IUpdatable
+    public interface IBehavior : IUpdatableObject
     {
         /// <summary>
         /// Enables or disables the <see cref="IBehavior"/>.

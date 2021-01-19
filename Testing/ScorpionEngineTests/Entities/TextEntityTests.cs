@@ -4,38 +4,27 @@
 
 namespace KDScorpionEngineTests.Entities
 {
-    using System;
+    using System.Drawing;
+    using System.Numerics;
     using KDScorpionEngine.Entities;
-    using Moq;
-    using Raptor.Graphics;
-    using Raptor.Plugins;
     using Xunit;
 
     /// <summary>
     /// Unit tests to test the <see cref="TextEntity"/> class.
     /// </summary>
-    public class TextEntityTests : IDisposable
+    public class TextEntityTests
     {
-        private Mock<IPhysicsBody> mockPhysicsBody;
-
-        public TextEntityTests()
-        {
-            this.mockPhysicsBody = new Mock<IPhysicsBody>();
-            this.mockPhysicsBody.SetupProperty(p => p.X);
-            this.mockPhysicsBody.SetupProperty(p => p.Y);
-        }
-
         #region Constructor Tests
         [Fact]
         public void Ctor_WhenInvoking_CorrectlySetsUpEntity()
         {
             // Arrange
-            var entity = new TextEntity(this.mockPhysicsBody.Object);
+            var entity = CreateTextEntity();
 
             // Assert
             Assert.Equal(string.Empty, entity.Text);
-            Assert.Equal(new GameColor(255, 0, 0, 0), entity.ForeColor);
-            Assert.Equal(new GameColor(0, 0, 0, 0), entity.BackColor);
+            Assert.Equal(Color.FromArgb(255, 0, 0, 0), entity.ForeColor);
+            Assert.Equal(Color.FromArgb(0, 0, 0, 0), entity.BackColor);
         }
         #endregion
 
@@ -44,7 +33,7 @@ namespace KDScorpionEngineTests.Entities
         public void Text_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var entity = new TextEntity(this.mockPhysicsBody.Object);
+            var entity = CreateTextEntity();
             var expected = "hello world";
 
             // Act
@@ -59,11 +48,11 @@ namespace KDScorpionEngineTests.Entities
         public void ForeColor_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var entity = new TextEntity(this.mockPhysicsBody.Object);
-            var expected = new GameColor(255, 11, 22, 33);
+            var entity = CreateTextEntity();
+            var expected = Color.FromArgb(255, 11, 22, 33);
 
             // Act
-            entity.ForeColor = new GameColor(255, 11, 22, 33);
+            entity.ForeColor = Color.FromArgb(255, 11, 22, 33);
             var actual = entity.ForeColor;
 
             // Assert
@@ -74,11 +63,11 @@ namespace KDScorpionEngineTests.Entities
         public void BackColor_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var entity = new TextEntity(this.mockPhysicsBody.Object);
-            var expected = new GameColor(255, 11, 22, 33);
+            var entity = CreateTextEntity();
+            var expected = Color.FromArgb(255, 11, 22, 33);
 
             // Act
-            entity.BackColor = new GameColor(255, 11, 22, 33);
+            entity.BackColor = Color.FromArgb(255, 11, 22, 33);
             var actual = entity.BackColor;
 
             // Assert
@@ -86,7 +75,10 @@ namespace KDScorpionEngineTests.Entities
         }
         #endregion
 
-        /// <inheritdoc/>
-        public void Dispose() => this.mockPhysicsBody = null;
+        /// <summary>
+        /// Creats a new instance of <see cref="TextEntity"/> for the purpose of testing.
+        /// </summary>
+        /// <returns>An instance for testing.</returns>
+        private TextEntity CreateTextEntity() => new TextEntity("test-entity", Color.Black, Color.White, Vector2.Zero);
     }
 }

@@ -9,24 +9,23 @@ namespace KDScorpionEngine.Input
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using KDScorpionEngine.Utils;
-    using Raptor;
     using Raptor.Input;
-    using Raptor.Plugins;
 
     /// <summary>
     /// Watches a keyboard key for various events and behaviors such is how many times a key is pressed,
     /// how long it is held down or how long it has been released.  Various events will be triggered when
     /// these behaviors occur.
     /// </summary>
-    public class KeyboardWatcher : IInputWatcher, IUpdatable
+    public class KeyboardWatcher : IInputWatcher, IUpdatableObject
     {
-        private readonly Keyboard keyboard;
         private Dictionary<KeyCode, bool> currentPressedKeys; // Holds the list of comboKeys and there down states
         protected Counter counter; // Keeps track of the hit count of an input
         protected bool curState; // The current state of the set input
+        private KeyboardState previousKeyboardState;
         protected bool prevState; // The previous state of the set input
         protected StopWatch keyDownTimer; // Keeps track of how long the set input has been in the down position
         protected StopWatch keyReleasedTimer; // Keeps track of how long the set input has been in the up position since it was in the down position
+        private KeyboardState currentKeyboardState;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="KeyboardWatcher"/> class.
@@ -35,18 +34,7 @@ namespace KDScorpionEngine.Input
         [ExcludeFromCodeCoverage]
         public KeyboardWatcher(bool enabled)
         {
-            this.keyboard = new Keyboard();
             Setup(enabled);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="KeyboardWatcher"/> class.
-        /// </summary>
-        /// <param name="keyboard">The keyboard to inject for testing purposes.</param>
-        internal KeyboardWatcher(IKeyboard keyboard)
-        {
-            this.keyboard = new Keyboard(keyboard);
-            Setup(true);
         }
 
         /// <summary>
@@ -86,7 +74,7 @@ namespace KDScorpionEngine.Input
         /// <summary>
         /// Gets or sets the key to watch.
         /// </summary>
-        public KeyCode Key { get; set; } = KeyCode.None;
+        public KeyCode Key { get; set; } = KeyCode.Unknown;
 
         /// <summary>
         /// Gets current amount of times that the set key has been hit.
@@ -171,8 +159,8 @@ namespace KDScorpionEngine.Input
         /// <summary>
         /// Update the watcher state.
         /// </summary>
-        /// <param name="engineTime">The game engine time.</param>
-        public void Update(EngineTime engineTime)
+        /// <param name="gameTime">The game engine time.</param>
+        public void Update(GameTime gameTime)
         {
             // If disabled, exit
             if (!Enabled)
@@ -181,20 +169,20 @@ namespace KDScorpionEngine.Input
             }
 
             // Update the current state of the keyboard
-            this.keyboard.UpdateCurrentState();
+            this.currentKeyboardState = Keyboard.GetState();
 
             // Update the key down timer to keep track of how much time that the key has been in the down position
-            this.keyDownTimer.Update(engineTime);
+            this.keyDownTimer.Update(gameTime);
 
             // Update the key release timer to keep track of how much time that the key has been in the
             // up position since its release
-            this.keyReleasedTimer.Update(engineTime);
+            this.keyReleasedTimer.Update(gameTime);
 
             // Get the current state of the key
-            this.curState = this.keyboard.IsKeyDown(Key);
+            this.curState = this.currentKeyboardState.IsKeyDown(Key);
 
             // Hit Count Code
-            if (this.keyboard.IsKeyPressed(Key))
+            if (this.currentKeyboardState.IsKeyUp(Key) && this.previousKeyboardState.IsKeyDown(Key))
             {
                 // If the max is reached, invoke the OnInputHitCountReached event and reset it back to 0
                 if (this.counter != null && this.counter.Value == HitCountMax)
@@ -215,7 +203,7 @@ namespace KDScorpionEngine.Input
 
             // Timing Code
             // As long as the key is down, continue to keep the key release timer reset to 0
-            if (this.keyboard.IsKeyDown(Key))
+            if (this.currentKeyboardState.IsKeyDown(Key))
             {
                 this.keyReleasedTimer.Reset();
             }
@@ -236,7 +224,7 @@ namespace KDScorpionEngine.Input
                 var keys = new List<KeyCode>(this.currentPressedKeys.Keys);
 
                 // Set the state of all of the pressed keys
-                keys.ForEach(k => this.currentPressedKeys[k] = this.keyboard.IsKeyDown(k));
+                keys.ForEach(k => this.currentPressedKeys[k] = this.currentKeyboardState.IsKeyDown(k));
 
                 // If all of the keys are pressed down
                 if (this.currentPressedKeys.Count > 0 && this.currentPressedKeys.All(key => key.Value))
@@ -245,7 +233,7 @@ namespace KDScorpionEngine.Input
                 }
             }
 
-            this.keyboard.UpdatePreviousState();
+            this.previousKeyboardState = currentKeyboardState;
 
             this.prevState = this.curState;
         }
@@ -255,7 +243,7 @@ namespace KDScorpionEngine.Input
         /// </summary>
         private void KeyUpTimer_OnTimeElapsed(object sender, EventArgs e)
         {
-            if (this.keyboard.IsKeyUp(Key))
+            if (this.currentKeyboardState.IsKeyUp(Key))
             {
                 // If the reset mode is set to auto, reset the time elapsed
                 if (DownElapsedResetMode == ResetType.Auto)
@@ -272,7 +260,7 @@ namespace KDScorpionEngine.Input
         /// </summary>
         private void KeyDownTimer_OnTimeElapsed(object sender, EventArgs e)
         {
-            if (this.keyboard.IsKeyDown(Key))
+            if (this.currentKeyboardState.IsKeyDown(Key))
             {
                 // If the reset mode is set to auto, reset the time elapsed
                 if (ReleasedElapsedResetMode == ResetType.Auto)

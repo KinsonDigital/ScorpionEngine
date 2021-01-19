@@ -4,8 +4,8 @@
 
 namespace KDScorpionEngineTests.Behaviors
 {
+    using KDScorpionEngine;
     using KDScorpionEngineTests.Fakes;
-    using Raptor;
     using Xunit;
 
     /// <summary>
@@ -55,7 +55,7 @@ namespace KDScorpionEngineTests.Behaviors
 
             // Act
             behavior.Enabled = false;
-            behavior.Update(new EngineTime());
+            behavior.Update(new GameTime());
             var actual = behavior.UpdateActionInvoked;
 
             // Assert
@@ -70,7 +70,7 @@ namespace KDScorpionEngineTests.Behaviors
             var expected = false;
 
             // Act
-            behavior.Update(new EngineTime());
+            behavior.Update(new GameTime());
             var actual = behavior.UpdateActionInvoked;
 
             // Assert
@@ -85,7 +85,7 @@ namespace KDScorpionEngineTests.Behaviors
             var expected = true;
 
             // Act
-            behavior.Update(new EngineTime());
+            behavior.Update(new GameTime());
             var actual = behavior.UpdateActionInvoked;
 
             // Assert

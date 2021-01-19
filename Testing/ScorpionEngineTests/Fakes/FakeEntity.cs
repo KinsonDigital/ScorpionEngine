@@ -5,11 +5,10 @@
 namespace KDScorpionEngineTests.Fakes
 {
     using System.Numerics;
+    using KDScorpionEngine;
     using KDScorpionEngine.Entities;
     using KDScorpionEngine.Graphics;
-    using Raptor;
     using Raptor.Graphics;
-    using Raptor.Plugins;
 
     /// <summary>
     /// Provides a fake implementation of the <see cref="KDScorpionEngine.Entities.Entity"/> abstract class.
@@ -23,11 +22,6 @@ namespace KDScorpionEngineTests.Fakes
 
         public FakeEntity(Vector2 position)
             : base(position)
-        {
-        }
-
-        public FakeEntity(IPhysicsBody body)
-            : base(body)
         {
         }
 
@@ -49,14 +43,14 @@ namespace KDScorpionEngineTests.Fakes
 
         public override int GetHashCode() => base.GetHashCode();
 
-        public override void Update(EngineTime engineTime)
+        public override void Update(GameTime gameTime)
         {
             UpdateInvoked = true;
 
-            base.Update(engineTime);
+            base.Update(gameTime);
         }
 
-        public override void Render(GameRenderer renderer) => RenderInvoked = true;
+        public override void Render(Renderer renderer) => RenderInvoked = true;
 
         public override string ToString() => base.ToString();
     }

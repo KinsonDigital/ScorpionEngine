@@ -7,8 +7,8 @@ namespace KDScorpionEngine.Content
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Drawing;
     using System.Linq;
-    using Raptor;
 
     /// <summary>
     /// Holds texture atlas data.
@@ -55,7 +55,7 @@ namespace KDScorpionEngine.Content
         /// </summary>
         /// <param name="subTextureID">The sub texture ID of the frames to return.</param>
         /// <returns>The list of frame rectangles.</returns>
-        internal List<Rect> GetFrames(string subTextureID)
+        internal List<Rectangle> GetFrames(string subTextureID)
         {
             // If the frame is a non animating frame, just return the single frame
             if (!AtlasManager.IsAnimatingFrame(this.atlasSprites.Find(item => item.Name.Contains(subTextureID, StringComparison.Ordinal)).Name))
@@ -63,7 +63,7 @@ namespace KDScorpionEngine.Content
                 return this.atlasSprites.Where(item => item.Name == subTextureID).ToList().ConvertAll(item => item.Bounds);
             }
 
-            var returnItems = new List<Rect>();
+            var returnItems = new List<Rectangle>();
 
             // Animating Frame Sorting
             var unsortedItems = this.atlasSprites.Where(item => AtlasManager.IsAnimatingFrame(item.Name)).ToList();
@@ -101,6 +101,6 @@ namespace KDScorpionEngine.Content
         /// </summary>
         /// <param name="name">The name of the sub texture.</param>
         /// <returns>The sub texture bounds.</returns>
-        internal Rect SubTextureBounds(string name) => this.atlasSprites.Find(item => item.Name == name).Bounds;
+        internal Rectangle SubTextureBounds(string name) => this.atlasSprites.Find(item => item.Name == name).Bounds;
     }
 }

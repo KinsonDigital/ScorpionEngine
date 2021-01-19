@@ -1,4 +1,4 @@
-// <copyright file="MainGame.cs" company="KinsonDigital">
+﻿// <copyright file="MainGame.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -7,7 +7,6 @@ namespace ScorpTestGame
     using KDScorpionEngine;
     using KDScorpionEngine.Graphics;
     using KDScorpionEngine.Scene;
-    using Raptor;
     using Raptor.Content;
     using ScorpTestGame.Scenes;
 
@@ -17,12 +16,12 @@ namespace ScorpTestGame
     public class MainGame : Engine
     {
         private Level1 level1;
-        private ParticleTestingScene particleScene;
 
         /// <summary>
         /// Creates a new space shooter game engine.
         /// </summary>
         public MainGame()
+            : base(800, 600)
         {
             //Do not set the world in here.  The world has to be set in the OnInit() method so that way
             //the graphics device has been created.  The graphics device will not be created until the
@@ -32,27 +31,24 @@ namespace ScorpTestGame
         public override void Init()
         {
             this.level1 = new Level1();
-            this.particleScene = new ParticleTestingScene();
 
             SceneManager.Add(this.level1);
-            SceneManager.Add(this.particleScene);
-
             SceneManager.SetCurrentScene(0);
 
             base.Init();
         }
 
-        public override void LoadContent(ContentLoader contentLoader)
+        public override void LoadContent(IContentLoader contentLoader)
         {
             base.LoadContent(contentLoader);
         }
 
-        public override void Update(EngineTime engineTime)
+        public override void Update(GameTime gameTime)
         {
-            base.Update(engineTime);
+            base.Update(gameTime);
         }
 
-        public override void Render(GameRenderer renderer)
+        public override void Render(Renderer renderer)
         {
             base.Render(renderer);
         }

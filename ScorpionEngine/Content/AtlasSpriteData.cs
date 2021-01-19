@@ -5,7 +5,7 @@
 namespace KDScorpionEngine.Content
 {
     using System.Diagnostics.CodeAnalysis;
-    using Raptor;
+    using System.Drawing;
 
     // TODO: Look into using this later during the building of a test game.
     [ExcludeFromCodeCoverage]
@@ -14,7 +14,7 @@ namespace KDScorpionEngine.Content
         /// <summary>
         /// Gets or sets the bounds of the sprite data.
         /// </summary>
-        public Rect Bounds { get; set; }
+        public Rectangle Bounds { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the sprite data.

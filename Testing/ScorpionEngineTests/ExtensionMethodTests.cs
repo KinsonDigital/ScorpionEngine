@@ -7,7 +7,6 @@ namespace KDScorpionEngineTests
     using System;
     using System.Numerics;
     using KDScorpionEngine;
-    using Raptor;
     using Xunit;
 
     /// <summary>
@@ -49,7 +48,7 @@ namespace KDScorpionEngineTests
             var expected = 10f;
 
             // Act
-            var actual = (-10f).ForcePositive();
+            var actual = (-10f).ToPositive();
 
             // Assert
             Assert.Equal(expected, actual);
@@ -62,7 +61,7 @@ namespace KDScorpionEngineTests
             var expected = 10f;
 
             // Act
-            var actual = 10f.ForcePositive();
+            var actual = 10f.ToPositive();
 
             // Assert
             Assert.Equal(expected, actual);
@@ -75,7 +74,7 @@ namespace KDScorpionEngineTests
             var expected = -10f;
 
             // Act
-            var actual = (-10f).ForceNegative();
+            var actual = (-10f).ToNegative();
 
             // Assert
             Assert.Equal(expected, actual);
@@ -88,7 +87,7 @@ namespace KDScorpionEngineTests
             var expected = -10f;
 
             // Act
-            var actual = 10f.ForceNegative();
+            var actual = 10f.ToNegative();
 
             // Assert
             Assert.Equal(expected, actual);

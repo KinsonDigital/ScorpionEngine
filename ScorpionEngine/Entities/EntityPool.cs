@@ -8,9 +8,9 @@ namespace KDScorpionEngine.Entities
     using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Drawing;
     using System.Numerics;
     using KDScorpionEngine.Events;
-    using Raptor;
 
     /// <summary>
     /// Represents a set amount of entities that can be used over and over.
@@ -22,7 +22,7 @@ namespace KDScorpionEngine.Entities
     public abstract class EntityPool : IEnumerable
     {
         private readonly List<DynamicEntity> objects = new List<DynamicEntity>(); // The pool of objects to manage.
-        private Rect triggerBounds; // The bounds used to trigger the out of bounds trigger
+        private Rectangle triggerBounds; // The bounds used to trigger the out of bounds trigger
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityPool"/> class.
@@ -98,7 +98,7 @@ namespace KDScorpionEngine.Entities
         /// Sets bounds for the out of bounds trigger.
         /// </summary>
         /// <param name="bounds">The bounds used to invoke the out of bounds trigger for each entity.</param>
-        public void SetOutOfBoundsTrigger(Rect bounds) => this.triggerBounds = bounds;
+        public void SetOutOfBoundsTrigger(Rectangle bounds) => this.triggerBounds = bounds;
 
         /// <summary>
         /// Returns an enumerator that iterates through the entity pool.
@@ -145,7 +145,7 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// Updates the entity pool.
         /// </summary>
-        public virtual void Update(IEngineTiming engineTime)
+        public virtual void Update(GameTime gameTime)
         {
             // Update each entity
             for (var i = 0; i < this.objects.Count; i++)
@@ -165,12 +165,12 @@ namespace KDScorpionEngine.Entities
                     // Checks if the current entity is visible, if so then the entity will be moved
                     if (this.objects[i].Visible)
                     {
-                        // _objects[i].OnUpdate(engineTime);
+                        // _objects[i].OnUpdate(gameTime);
                     }
                 }
                 else
                 {
-                    // _objects[i].OnUpdate(engineTime);
+                    // _objects[i].OnUpdate(gameTime);
                 }
             }
         }

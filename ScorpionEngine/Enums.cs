@@ -33,11 +33,6 @@ namespace KDScorpionEngine
         /// The key release event will fire after a set time delay.
         /// </summary>
         OnKeyReleaseTimeDelay = 5,
-
-        /// <summary>
-        /// The key release event will fire after any key has been released.
-        /// </summary>
-        OnAnyKeyPress = 6,
     }
 
     /// <summary>
@@ -137,5 +132,11 @@ namespace KDScorpionEngine
         /// Count down towards the negative direction.
         /// </summary>
         Decrement,
+    }
+
+    public enum RunMode
+    {
+        Continuous = 1,
+        FrameStack,
     }
 }

@@ -6,67 +6,49 @@ namespace KDScorpionEngineTests.Entities
 {
     using System;
     using System.Numerics;
+    using KDScorpionEngine;
     using KDScorpionEngine.Behaviors;
     using KDScorpionEngine.Entities;
     using Moq;
-    using Raptor;
     using Raptor.Graphics;
-    using Raptor.Plugins;
     using Xunit;
 
     /// <summary>
     /// Unit tests to test the <see cref="StaticEntity"/> class.
     /// </summary>
-    public class StaticEntityTests : IDisposable
+    public class StaticEntityTests
     {
-        private Mock<IPhysicsBody> mockPhysicsBody;
-
-        public StaticEntityTests()
-        {
-            this.mockPhysicsBody = new Mock<IPhysicsBody>();
-            this.mockPhysicsBody.SetupProperty(p => p.X);
-            this.mockPhysicsBody.SetupProperty(p => p.Y);
-            this.mockPhysicsBody.SetupProperty(p => p.XVertices);
-            this.mockPhysicsBody.SetupProperty(p => p.YVertices);
-        }
-
         #region Constructor Tests
-
-        // [Fact]
+        [Fact]
         public void Ctor_WhenInvoking_ProperlyConstructsObject()
         {
             // Arrange
-            var entity = new StaticEntity(this.mockPhysicsBody.Object);
-            entity.Initialize();
+            var texture = new Texture("test-texture", Array.Empty<byte>(), 10, 20);
+            var entity = new StaticEntity(texture, new Vector2(123, 456));
 
             // Assert
-            Assert.NotNull(entity.Body);
             Assert.Equal(Vector2.Zero, entity.Position);
             Assert.False(entity.IsStatic);
         }
         #endregion
 
         #region Method Tests
-
-        // [Fact]
+        [Fact]
         public void Update_WhenInvoking_UpdatesBehavior()
         {
             // Arrange
             var mockTexture = new Mock<ITexture>();
             var mockBehavior = new Mock<IBehavior>();
-            var texture = new Texture(mockTexture.Object);
+            var texture = new Texture("test-texture", Array.Empty<byte>(), 10, 20);
             var entity = new StaticEntity(texture, new Vector2(123, 456));
             entity.Behaviors.Add(mockBehavior.Object);
 
             // Act
-            entity.Update(new EngineTime());
+            entity.Update(new GameTime());
 
             // Assert
-            mockBehavior.Verify(m => m.Update(It.IsAny<EngineTime>()), Times.Once());
+            mockBehavior.Verify(m => m.Update(It.IsAny<GameTime>()), Times.Once());
         }
         #endregion
-
-        /// <inheritdoc/>
-        public void Dispose() => this.mockPhysicsBody = null;
     }
 }

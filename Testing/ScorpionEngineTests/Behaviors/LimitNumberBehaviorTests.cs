@@ -4,8 +4,8 @@
 
 namespace KDScorpionEngineTests.Behaviors
 {
+    using KDScorpionEngine;
     using KDScorpionEngine.Behaviors;
-    using Raptor;
     using Xunit;
 
     /// <summary>
@@ -59,7 +59,7 @@ namespace KDScorpionEngineTests.Behaviors
             var expected = 1;
 
             // Act
-            behavior.Update(new EngineTime());
+            behavior.Update(new GameTime());
 
             // Assert
             Assert.Equal(expected, actual);
@@ -80,7 +80,7 @@ namespace KDScorpionEngineTests.Behaviors
             var expected = -1;
 
             // Act
-            behavior.Update(new EngineTime());
+            behavior.Update(new GameTime());
 
             // Assert
             Assert.Equal(expected, actual);
@@ -101,7 +101,7 @@ namespace KDScorpionEngineTests.Behaviors
             var expected = 0;
 
             // Act
-            behavior.Update(new EngineTime());
+            behavior.Update(new GameTime());
 
             // Assert
             Assert.Equal(expected, actual);
