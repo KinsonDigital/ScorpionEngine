@@ -27,30 +27,16 @@ namespace KDScorpionEngine.Behaviors
         private KeyboardState previousKeyboardState;
 
         /// <summary>
-        /// Creates a new instance of <see cref="MovementByKeyboardBehavior{T}"/>
-        /// and injects the given <paramref name="keyboard"/> and <paramref name="dynamicEntity"/>
-        /// for the purpose of unit testing.
-        /// </summary>
-        /// <param name="dynamicEntity">The entity to use for testing.</param>
-        internal MoveFowardKeyboardBehavior(T dynamicEntity)
-        {
-            CreateBehaviors();
-            SetupBehaviors();
-
-            this.dynamicEntity = dynamicEntity;
-
-            SetUpdateAction(UpdateAction);
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="MovementByKeyboardBehavior{T}"/>.
         /// </summary>
+        /// <param name="keyboard">Manages keyboard input.</param>
         /// <param name="entity">The <see cref="DynamicEntity"/> to perform keyboard movement behavior upon.</param>
         /// <param name="linearSpeed">The speed that the <see cref="DynamicEntity"/> will move at.</param>
         /// <param name="angularSpeed">The speed that the <see cref="DynamicEntity"/> will rotate at.</param>
         [ExcludeFromCodeCoverage]
-        public MoveFowardKeyboardBehavior(T entity, float linearSpeed, float angularSpeed)
+        public MoveFowardKeyboardBehavior(IKeyboard keyboard, T entity, float linearSpeed, float angularSpeed)
         {
+            this.keyboard = keyboard;
             LinearSpeed = linearSpeed;
             AngularSpeed = angularSpeed;
 
@@ -106,6 +92,8 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         public bool IsMovingForward { get; private set; }
 
+        private readonly IKeyboard keyboard;
+
         /// <summary>
         /// Gets or sets the linear speed of the <see cref="DynamicEntity"/>.
         /// </summary>
@@ -122,7 +110,7 @@ namespace KDScorpionEngine.Behaviors
         /// <param name="gameTime">The game engine time.</param>
         private void UpdateAction(GameTime gameTime)
         {
-            this.currentKeyboardState = Keyboard.GetState();
+            this.currentKeyboardState = this.keyboard.GetState();
 
             IsMovingForward = this.currentKeyboardState.IsKeyDown(this.moveFowardKey);
 
@@ -140,15 +128,15 @@ namespace KDScorpionEngine.Behaviors
         private void CreateBehaviors()
         {
             // Setup the move foward key behavior
-            this.moveFowardKeyBehavior = new KeyBehavior(this.moveFowardKey, true);
+            this.moveFowardKeyBehavior = new KeyBehavior(this.moveFowardKey, this.keyboard, true);
             this.moveFowardKeyBehavior.KeyDownEvent += MoveFoward_KeyDown;
 
             // Setup the rotate clockwise key behavior
-            this.rotateCWKeyBehavior = new KeyBehavior(this.rotateCWKey, true);
+            this.rotateCWKeyBehavior = new KeyBehavior(this.rotateCWKey, this.keyboard, true);
             this.rotateCWKeyBehavior.KeyDownEvent += RotateCW_KeyDown;
 
             // Setup the rotate counter clockwise key behavior
-            this.rotateCCWKeyBehavior = new KeyBehavior(this.rotateCCWKey, true);
+            this.rotateCCWKeyBehavior = new KeyBehavior(this.rotateCCWKey, this.keyboard, true);
             this.rotateCCWKeyBehavior.KeyDownEvent += RotateCCW_KeyDown;
         }
 

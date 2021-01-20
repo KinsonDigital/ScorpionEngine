@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Platforms>AnyCPU;AnyCPU</Platforms>
@@ -53,5 +53,12 @@
   
   <ItemGroup>
     <Folder Include="Content\Fonts\" />
+  </ItemGroup>
+
+  
+  <ItemGroup>
+    <None Update="Content\Graphics\Sub-Still.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

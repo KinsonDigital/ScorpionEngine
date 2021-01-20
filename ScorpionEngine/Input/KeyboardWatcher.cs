@@ -26,15 +26,18 @@ namespace KDScorpionEngine.Input
         protected StopWatch keyDownTimer; // Keeps track of how long the set input has been in the down position
         protected StopWatch keyReleasedTimer; // Keeps track of how long the set input has been in the up position since it was in the down position
         private KeyboardState currentKeyboardState;
+        private readonly IKeyboard keyboard;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="KeyboardWatcher"/> class.
         /// </summary>
         /// <param name="enabled">Set to true or false to enable or disable the watcher when created.</param>
+        /// <param name="keyboard">Manages the keyboard.</param>
         [ExcludeFromCodeCoverage]
-        public KeyboardWatcher(bool enabled)
+        public KeyboardWatcher(bool enabled, IKeyboard keyboard)
         {
             Setup(enabled);
+            this.keyboard = keyboard;
         }
 
         /// <summary>
@@ -169,7 +172,7 @@ namespace KDScorpionEngine.Input
             }
 
             // Update the current state of the keyboard
-            this.currentKeyboardState = Keyboard.GetState();
+            this.currentKeyboardState = this.keyboard.GetState();
 
             // Update the key down timer to keep track of how much time that the key has been in the down position
             this.keyDownTimer.Update(gameTime);

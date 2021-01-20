@@ -26,15 +26,18 @@ namespace KDScorpionEngine.Input
         private MouseState previousMouseState;
         private bool prevState; // The previous state of the set input
         private MouseState currentMouseState;
+        private readonly IMouse mouse;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MouseWatcher"/> class.
         /// </summary>
         /// <param name="enabled">Set to true to enable the watcher.</param>
+        /// <param name="mouse">Manages mouse input.</param>
         [ExcludeFromCodeCoverage]
-        public MouseWatcher(bool enabled)
+        public MouseWatcher(bool enabled, IMouse mouse)
         {
             Setup(enabled);
+            this.mouse = mouse;
         }
 
         /// <summary>
@@ -169,7 +172,7 @@ namespace KDScorpionEngine.Input
             }
 
             // Update the current state of the mouse
-            this.currentMouseState = Mouse.GetMouseState();
+            this.currentMouseState = this.mouse.GetMouseState();
 
             // Update the mouse button down timer to keep track of how much time that the button has been in the down position
             this.buttonDownTimer.Update(gameTime);

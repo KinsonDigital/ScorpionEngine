@@ -248,7 +248,7 @@ namespace KDScorpionEngine.Entities
         /// Loads the entities content.
         /// </summary>
         /// <param name="contentLoader">The content loader that will be loading the content.</param>
-        public virtual void LoadContent(ContentLoader contentLoader) => ContentLoaded = true;
+        public virtual void LoadContent(IContentLoader contentLoader) => ContentLoaded = true;
 
         /// <summary>
         /// Updates the <see cref="Entity"/>.

@@ -1,4 +1,4 @@
-﻿// <copyright file="MovementByKeyboardBehavior.cs" company="KinsonDigital">
+// <copyright file="MovementByKeyboardBehavior.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -21,6 +21,7 @@ namespace KDScorpionEngine.Behaviors
         private KeyBehavior moveUpOnKeyDown;
         private KeyBehavior moveDownOnKeyDown;
         private readonly T gameObject;
+        private readonly IKeyboard keyboard;
         private KeyCode moveUpKey = KeyCode.Up;
         private KeyCode moveDownKey = KeyCode.Down;
         private KeyCode moveLeftKey = KeyCode.Left;
@@ -35,28 +36,14 @@ namespace KDScorpionEngine.Behaviors
 
         /// <summary>
         /// Creates a new instance of <see cref="MovementByKeyboardBehavior{T}"/>.
-        /// USED FOR UNIT TESTING.
-        /// </summary>
-        /// <param name="dyanmicEntity">The entity to inject.</param>
-        internal MovementByKeyboardBehavior(T dyanmicEntity)
-        {
-            CreateBehaviors();
-            SetupBehaviors();
-
-            this.gameObject = dyanmicEntity;
-
-            SetUpdateAction(UpdateAction);
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="MovementByKeyboardBehavior{T}"/>.
         /// </summary>
         /// <param name="entity">The <see cref="DynamicEntity"/> to perform keyboard movement behavior upon.</param>
         /// <param name="movementSpeed">The movement speed that the <see cref="DynamicEntity"/> will move at.</param>
         [ExcludeFromCodeCoverage]
-        public MovementByKeyboardBehavior(T entity, float movementSpeed)
+        public MovementByKeyboardBehavior(IKeyboard keyboard, T entity, float movementSpeed)
         {
-            LinearSpeed = movementSpeed;
+            this.keyboard = keyboard;
+            throw new System.Exception("Need to implement the movementSpeed param");
 
             CreateBehaviors();
             SetupBehaviors();
@@ -118,6 +105,8 @@ namespace KDScorpionEngine.Behaviors
             }
         }
 
+        // TODO: Rename this to something else.  This was name this before due to farseer physics engine before
+        // Looking into making a physics engine abstraction that can be used to add physics to stuff
         /// <summary>
         /// Gets or sets the linear speed of the <see cref="DynamicEntity"/>.
         /// </summary>
@@ -141,10 +130,10 @@ namespace KDScorpionEngine.Behaviors
         [ExcludeFromCodeCoverage]
         private void CreateBehaviors()
         {
-            this.moveRightOnKeyDown = new KeyBehavior(this.moveRightKey, true);
-            this.moveLeftOnKeyDown = new KeyBehavior(this.moveLeftKey, true);
-            this.moveUpOnKeyDown = new KeyBehavior(this.moveUpKey, true);
-            this.moveDownOnKeyDown = new KeyBehavior(this.moveDownKey, true);
+            this.moveRightOnKeyDown = new KeyBehavior(this.moveRightKey, this.keyboard, true);
+            this.moveLeftOnKeyDown = new KeyBehavior(this.moveLeftKey, this.keyboard, true);
+            this.moveUpOnKeyDown = new KeyBehavior(this.moveUpKey, this.keyboard, true);
+            this.moveDownOnKeyDown = new KeyBehavior(this.moveDownKey, this.keyboard, true);
         }
 
         /// <summary>

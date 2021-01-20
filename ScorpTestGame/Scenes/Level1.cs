@@ -11,6 +11,7 @@ namespace ScorpTestGame.Scenes
     using KDScorpionEngine.Graphics;
     using KDScorpionEngine.Scene;
     using Raptor.Content;
+    using Raptor.Graphics;
 
     /// <summary>
     /// Level 1 scene.
@@ -18,6 +19,7 @@ namespace ScorpTestGame.Scenes
     public class Level1 : GameScene
     {
         private DynamicEntity sub;
+        private ITexture texture;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Level1"/> class.
@@ -33,7 +35,11 @@ namespace ScorpTestGame.Scenes
         /// </summary>
         public override void Initialize()
         {
-            sub = new DynamicEntity();
+            sub = new DynamicEntity()
+            {
+                Position = new Vector2(200, 200),
+            };
+
             base.Initialize();
         }
 
@@ -43,6 +49,8 @@ namespace ScorpTestGame.Scenes
         /// <param name="contentLoader">Loads the content items.</param>
         public override void LoadContent(IContentLoader contentLoader)
         {
+            this.texture = contentLoader.Load<ITexture>("Sub-Still");
+            this.sub.Texture = this.texture;
         }
 
         /// <summary>
@@ -60,6 +68,8 @@ namespace ScorpTestGame.Scenes
         /// <param name="renderer">Renders the graphics in the scene.</param>
         public override void Render(Renderer renderer)
         {
+            renderer.Render(sub);
+
             base.Render(renderer);
         }
 

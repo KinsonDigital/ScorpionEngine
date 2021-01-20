@@ -15,7 +15,7 @@ namespace ScorpTestGame
         {
             using var game = new MainGame();
 
-            game.Run();
+            game.RunAsync().Wait();
         }
     }
 }

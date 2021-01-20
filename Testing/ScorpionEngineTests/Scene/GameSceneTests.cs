@@ -186,7 +186,6 @@ namespace KDScorpionEngineTests.Scene
             var entity = new FakeEntity(Array.Empty<Vector2>(), Vector2.Zero);
 
             var scene = new FakeGameScene();
-            entity.Initialize();
             scene.AddEntity(entity);
             var expected = true;
 

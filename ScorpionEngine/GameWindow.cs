@@ -27,6 +27,7 @@ namespace KDScorpionEngine
 
         public override void OnLoad()
         {
+            InitAction?.Invoke();
             LoadAction?.Invoke();
             base.OnLoad();
         }

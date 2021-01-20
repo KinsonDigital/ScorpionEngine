@@ -4,6 +4,7 @@
 
 namespace KDScorpionEngine.Graphics
 {
+    using System.Drawing;
     using KDScorpionEngine.Entities;
     using Raptor.Factories;
     using Raptor.Graphics;
@@ -41,7 +42,12 @@ namespace KDScorpionEngine.Graphics
         /// <param name="entity">The entity to render.</param>
         public void Render(Entity entity)
         {
+            this.spriteBatch.Render(entity.Texture, (int)entity.Position.X, (int)entity.Position.Y, Color.White);
+        }
 
+        public void Render(ITexture texture)
+        {
+            this.spriteBatch.Render(texture, 200, 200);
         }
     }
 }

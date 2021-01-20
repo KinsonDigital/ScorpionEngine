@@ -19,11 +19,16 @@ namespace KDScorpionEngineTests.Scene
     /// </summary>
     public class SceneManagerTests
     {
-        private readonly Mock<IContentLoader> contentLoader;
+        private readonly Mock<IContentLoader> mockContentLoader;
+        private readonly Mock<IKeyboard> mockKeyboard;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SceneManagerTests"/> class.
+        /// </summary>
         public SceneManagerTests()
         {
-            this.contentLoader = new Mock<IContentLoader>();
+            this.mockContentLoader = new Mock<IContentLoader>();
+            this.mockKeyboard = new Mock<IKeyboard>();
         }
 
         #region Prop Tests
@@ -278,10 +283,7 @@ var manager = CreateSceneManager(mockScene.Object);
         public void Count_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrang
-            var manager = new SceneManager(this.contentLoader.Object)
-            {
-                new Mock<IScene>().Object,
-            };
+            var manager = CreateSceneManager(new Mock<IScene>().Object);
             var expected = 1;
 
             // Act
@@ -350,10 +352,8 @@ var manager = CreateSceneManager(mockScene.Object);
         {
             // Arrange
             var mockScene = new Mock<IScene>();
-            var manager = new SceneManager(this.contentLoader.Object)
-            {
-                InitializeScenesOnAdd = true,
-            };
+            var manager = CreateSceneManager();
+            manager.InitializeScenesOnAdd = true;
 
             // Act
             manager.Add(mockScene.Object);
@@ -649,7 +649,7 @@ var manager = CreateSceneManager(mockScene.Object);
 
             var manager = CreateSceneManager(sceneA, sceneB);
 
-            sceneA.LoadContent(this.contentLoader.Object);
+            sceneA.LoadContent(this.mockContentLoader.Object);
 
             // Act
             manager.LoadAllSceneContent();
@@ -1496,11 +1496,8 @@ var manager = CreateSceneManager(mockScene.Object);
             mockSceneB.SetupGet(m => m.Id).Returns(20);
             var sceneB = mockSceneB.Object;
 
-            var manager = new SceneManager(this.contentLoader.Object)
-            {
-                sceneA,
-                sceneB,
-            };
+            var manager = CreateSceneManager(sceneA, sceneB);
+
             manager.PreviousSceneKey = KeyCode.Left;
             var expected = 10;
 
@@ -1555,7 +1552,7 @@ var manager = CreateSceneManager(mockScene.Object);
         /// <returns>The instance to use for testing.</returns>
         private SceneManager CreateSceneManager(params IScene[] scenes)
         {
-            var manager = new SceneManager(this.contentLoader.Object);
+            var manager = new SceneManager(this.mockContentLoader.Object, this.mockKeyboard.Object);
 
             foreach (var scene in scenes)
             {

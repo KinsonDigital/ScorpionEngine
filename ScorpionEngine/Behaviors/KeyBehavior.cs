@@ -16,13 +16,19 @@ namespace KDScorpionEngine.Behaviors
         private int timeElapsed; // The time elapsed since last frame
         private KeyboardState currentState;
         private KeyboardState previousKeyboardState;
+        private readonly IKeyboard keyboard;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="KeyBehavior"/> class.
         /// </summary>
         /// <param name="key">The assigned keyboard key of the behavior.</param>
+        /// <param name="keyboard">Manages keyboard input.</param>
         [ExcludeFromCodeCoverage]
-        public KeyBehavior(KeyCode key, bool enabled = false) => Setup(key, enabled);
+        public KeyBehavior(KeyCode key, IKeyboard keyboard, bool enabled = false)
+        {
+            this.keyboard = keyboard;
+            Setup(key, enabled);
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="KeyBehavior"/> class.
@@ -107,7 +113,7 @@ namespace KDScorpionEngine.Behaviors
 
             this.timeElapsed += gameTime.CurrentFrameElapsed;
 
-            this.currentState = Keyboard.GetState();
+            this.currentState = this.keyboard.GetState();
 
             #region Button Behavior Code
             // Invoke the KeyDown or KeyUp events depending on the setup behavior

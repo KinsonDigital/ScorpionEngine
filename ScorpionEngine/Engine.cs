@@ -6,11 +6,13 @@ namespace KDScorpionEngine
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.Threading.Tasks;
     using KDScorpionEngine.Graphics;
     using KDScorpionEngine.Scene;
     using Raptor.Content;
     using Raptor.Factories;
     using Raptor.Graphics;
+    using Raptor.Input;
 
     /// <summary>
     /// Drives and manages the game.
@@ -28,7 +30,7 @@ namespace KDScorpionEngine
         public Engine(int windowWidth, int windowHeight)
         {
             ContentLoader = ContentLoaderFactory.CreateContentLoader();
-            SceneManager = new SceneManager(ContentLoader);
+            SceneManager = new SceneManager(ContentLoader, new Keyboard());
 
             SetupWindow(windowWidth, windowHeight);
         }
@@ -66,14 +68,12 @@ namespace KDScorpionEngine
         /// </summary>
         public IContentLoader ContentLoader { get; private set; }
 
-        public void Run()
+        public Task RunAsync()
         {
-            Init();
-
-            this.gameWindow.ShowAsync(() =>
+            return this.gameWindow.ShowAsync(() =>
             {
                 this.gameWindow.Dispose();
-            }).Wait();
+            });
         }
 
         /// <summary>
