@@ -21,7 +21,7 @@ namespace KDScorpionEngine.Entities
     [ExcludeFromCodeCoverage]
     public abstract class EntityPool : IEnumerable
     {
-        private readonly List<DynamicEntity> objects = new List<DynamicEntity>(); // The pool of objects to manage.
+        private readonly List<Entity> objects = new List<Entity>(); // The pool of objects to manage.
         private Rectangle triggerBounds; // The bounds used to trigger the out of bounds trigger
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace KDScorpionEngine.Entities
         /// Gets or sets an entity in the entity pool.
         /// </summary>
         /// <returns></returns>
-        public DynamicEntity this[int index]
+        public Entity this[int index]
         {
             get => this.objects[index];
             set => this.objects.Insert(index, value);
@@ -76,7 +76,7 @@ namespace KDScorpionEngine.Entities
         /// Adds the given <paramref name="entity"/> to the entity pool.
         /// </summary>
         /// <param name="entity">The entity to add.</param>
-        public void AddGameObject(DynamicEntity entity) => this.objects.Add(entity);
+        public void AddGameObject(Entity entity) => this.objects.Add(entity);
 
         /// <summary>
         /// Shows the next available item in the pool.

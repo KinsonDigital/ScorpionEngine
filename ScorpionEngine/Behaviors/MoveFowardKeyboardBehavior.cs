@@ -9,17 +9,17 @@ namespace KDScorpionEngine.Behaviors
     using Raptor.Input;
 
     /// <summary>
-    /// Moves a <see cref="DynamicEntity"/> forward in the direction it is facing with added rotation
+    /// Moves a <see cref="Entity"/> forward in the direction it is facing with added rotation
     /// using the keyboard.
     /// </summary>
-    /// <typeparam name="T">The type of <see cref="DynamicEntity"/> to move.</typeparam>
+    /// <typeparam name="T">The type of <see cref="Entity"/> to move.</typeparam>
     public class MoveFowardKeyboardBehavior<T> : Behavior
-        where T : DynamicEntity
+        where T : Entity
     {
         private KeyBehavior moveFowardKeyBehavior;
         private KeyBehavior rotateCWKeyBehavior;
         private KeyBehavior rotateCCWKeyBehavior;
-        private readonly T dynamicEntity;
+        private readonly T Entity;
         private KeyCode moveFowardKey = KeyCode.Up;
         private KeyCode rotateCWKey = KeyCode.Right;
         private KeyCode rotateCCWKey = KeyCode.Left;
@@ -30,9 +30,9 @@ namespace KDScorpionEngine.Behaviors
         /// Creates a new instance of <see cref="MovementByKeyboardBehavior{T}"/>.
         /// </summary>
         /// <param name="keyboard">Manages keyboard input.</param>
-        /// <param name="entity">The <see cref="DynamicEntity"/> to perform keyboard movement behavior upon.</param>
-        /// <param name="linearSpeed">The speed that the <see cref="DynamicEntity"/> will move at.</param>
-        /// <param name="angularSpeed">The speed that the <see cref="DynamicEntity"/> will rotate at.</param>
+        /// <param name="entity">The <see cref="Entity"/> to perform keyboard movement behavior upon.</param>
+        /// <param name="linearSpeed">The speed that the <see cref="Entity"/> will move at.</param>
+        /// <param name="angularSpeed">The speed that the <see cref="Entity"/> will rotate at.</param>
         [ExcludeFromCodeCoverage]
         public MoveFowardKeyboardBehavior(IKeyboard keyboard, T entity, float linearSpeed, float angularSpeed)
         {
@@ -43,13 +43,13 @@ namespace KDScorpionEngine.Behaviors
             CreateBehaviors();
             SetupBehaviors();
 
-            this.dynamicEntity = entity;
+            this.Entity = entity;
 
             SetUpdateAction(UpdateAction);
         }
 
         /// <summary>
-        /// Gets or sets the keyboard key that will move the <see cref="DynamicEntity"/> foward in the direction it is facing.
+        /// Gets or sets the keyboard key that will move the <see cref="Entity"/> foward in the direction it is facing.
         /// </summary>
         public KeyCode MoveFowardKey
         {
@@ -62,7 +62,7 @@ namespace KDScorpionEngine.Behaviors
         }
 
         /// <summary>
-        /// Gets or sets the keyboard key that will rotate the <see cref="DynamicEntity"/> clockwise.
+        /// Gets or sets the keyboard key that will rotate the <see cref="Entity"/> clockwise.
         /// </summary>
         public KeyCode RotateCWKey
         {
@@ -75,7 +75,7 @@ namespace KDScorpionEngine.Behaviors
         }
 
         /// <summary>
-        /// Gets or sets the keyboard key that will rotate the <see cref="DynamicEntity"/> counter clockwise.
+        /// Gets or sets the keyboard key that will rotate the <see cref="Entity"/> counter clockwise.
         /// </summary>
         public KeyCode RotateCCWKey
         {
@@ -88,19 +88,19 @@ namespace KDScorpionEngine.Behaviors
         }
 
         /// <summary>
-        /// Gets a value indicating if the <see cref="DynamicEntity"/> is moving forward in the direction it is facing.
+        /// Gets a value indicating if the <see cref="Entity"/> is moving forward in the direction it is facing.
         /// </summary>
         public bool IsMovingForward { get; private set; }
 
         private readonly IKeyboard keyboard;
 
         /// <summary>
-        /// Gets or sets the linear speed of the <see cref="DynamicEntity"/>.
+        /// Gets or sets the linear speed of the <see cref="Entity"/>.
         /// </summary>
         public float LinearSpeed { get; set; }
 
         /// <summary>
-        /// Gets or sets the angular speed of the <see cref="DynamicEntity"/>.
+        /// Gets or sets the angular speed of the <see cref="Entity"/>.
         /// </summary>
         public float AngularSpeed { get; set; }
 
@@ -122,7 +122,7 @@ namespace KDScorpionEngine.Behaviors
         }
 
         /// <summary>
-        /// Creates all of the keyboard behaviors that deal with <see cref="DynamicEntity"/> movement.
+        /// Creates all of the keyboard behaviors that deal with <see cref="Entity"/> movement.
         /// </summary>
         [ExcludeFromCodeCoverage]
         private void CreateBehaviors()
@@ -159,22 +159,21 @@ namespace KDScorpionEngine.Behaviors
         }
 
         /// <summary>
-        /// Moves the <see cref="DynamicEntity"/> forward in the direction it is facing.
+        /// Moves the <see cref="Entity"/> forward in the direction it is facing.
         /// </summary>
         private void MoveFoward_KeyDown(object sender, KeyEventArgs e)
         {
             IsMovingForward = true;
-            this.dynamicEntity.MoveAtSetAngle(LinearSpeed);
         }
 
         /// <summary>
-        /// Rotates the <see cref="DynamicEntity"/> clockwise.
+        /// Rotates the <see cref="Entity"/> clockwise.
         /// </summary>
-        private void RotateCW_KeyDown(object sender, KeyEventArgs e) => this.dynamicEntity.RotateCW(AngularSpeed);
+        private void RotateCW_KeyDown(object sender, KeyEventArgs e) { }
 
         /// <summary>
-        /// Rotates the <see cref="DynamicEntity"/> counter clockwise.
+        /// Rotates the <see cref="Entity"/> counter clockwise.
         /// </summary>
-        private void RotateCCW_KeyDown(object sender, KeyEventArgs e) => this.dynamicEntity.RotateCCW(AngularSpeed);
+        private void RotateCCW_KeyDown(object sender, KeyEventArgs e) { }
     }
 }

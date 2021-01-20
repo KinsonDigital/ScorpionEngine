@@ -9,7 +9,6 @@ namespace KDScorpionEngineTests.Entities
     using System.Numerics;
     using KDScorpionEngine;
     using KDScorpionEngine.Behaviors;
-    using KDScorpionEngine.Exceptions;
     using KDScorpionEngineTests.Fakes;
     using Moq;
     using Raptor.Content;
@@ -28,69 +27,15 @@ namespace KDScorpionEngineTests.Entities
             this.contentLoader = new Mock<IContentLoader>();
         }
 
-        #region Constructor Tests
-        [Fact]
-        public void Ctor_WhenInvokingWithStaticBodyValue_ProperlySetsBodyAsStatic()
-        {
-            // Arrange
-            var fakeEntity = new FakeEntity(true);
-            var expected = true;
-
-            // Act
-            var actual = fakeEntity.IsStatic;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void Ctor_WhenInvokingWithPositionParam_ProperlySetsPositionProperty()
-        {
-            // Arrange
-            var fakeEntity = new FakeEntity(new Vector2(11, 22));
-            var expected = new Vector2(11, 22);
-
-            // Act
-            var actual = fakeEntity.Position;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void Ctor_WhenInvokingWithVertices_ProperlySetsUpObject()
-        {
-            // Arrange
-            var halfWidth = 50;
-            var halfHeight = 25;
-            var position = new Vector2(10, 20);
-            var vertices = new Vector2[4]
-            {
-                new Vector2(position.X - halfWidth, position.Y - halfHeight),
-                new Vector2(position.X + halfWidth, position.Y - halfHeight),
-                new Vector2(position.X + halfWidth, position.Y + halfHeight),
-                new Vector2(position.X - halfWidth, position.Y + halfHeight),
-            };
-            var expectedPosition = new Vector2(10, 20);
-
-            // Act
-            var fakeEntity = new FakeEntity(vertices, position);
-            var actualPosition = fakeEntity.Position;
-
-            // Assert
-            Assert.Equal(expectedPosition, actualPosition);
-        }
-        #endregion
-
         #region Prop Tests
         [Fact]
         public void Behaviors_WhenCreatingEntity_PropertyInstantiated()
         {
             // Arrange
-            var fakeEntity = new FakeEntity(true);
+            var entity = CreateEntity();;
 
             // Act
-            var actual = fakeEntity.Behaviors;
+            var actual = entity.Behaviors;
 
             // Assert
             Assert.NotNull(actual);
@@ -100,14 +45,13 @@ namespace KDScorpionEngineTests.Entities
         public void Visible_WhenGettingAndSettingValue_ValueProperlySet()
         {
             // Arrange
-            var fakeEntity = new FakeEntity(true)
-            {
-                Visible = false,
-            };
+            var entity = CreateEntity();
+            entity.Visible = false;
+
             var expected = false;
 
             // Act
-            var actual = fakeEntity.Visible;
+            var actual = entity.Visible;
 
             // Assert
             Assert.Equal(expected, actual);
@@ -117,12 +61,12 @@ namespace KDScorpionEngineTests.Entities
         public void Visible_WhenSettingValue_InvokesOnHideEvent()
         {
             // Arrange
-            var fakeEntity = new FakeEntity(true);
+            var entity = CreateEntity();;
             var eventRaised = false;
-            fakeEntity.OnHide += (sender, e) => { eventRaised = true; };
+            entity.OnHide += (sender, e) => { eventRaised = true; };
 
             // Act
-            fakeEntity.Visible = false;
+            entity.Visible = false;
 
             // Assert
             Assert.True(eventRaised);
@@ -132,15 +76,14 @@ namespace KDScorpionEngineTests.Entities
         public void Visible_WhenSettingValue_InvokesOnShowEvent()
         {
             // Arrange
-            var fakeEntity = new FakeEntity(true)
-            {
-                Visible = false,
-            };
+            var entity = CreateEntity();
+            entity.Visible = false;
+
             var eventRaised = false;
-            fakeEntity.OnShow += (sender, e) => { eventRaised = true; };
+            entity.OnShow += (sender, e) => { eventRaised = true; };
 
             // Act
-            fakeEntity.Visible = true;
+            entity.Visible = true;
 
             // Assert
             Assert.True(eventRaised);
@@ -150,15 +93,14 @@ namespace KDScorpionEngineTests.Entities
         public void Visible_WhenGoingFromInvisibleToVisible_InvokesOnShowEvent()
         {
             // Arrange
-            var fakeEntity = new FakeEntity(true)
-            {
-                Visible = false,
-            };
+            var entity = CreateEntity();
+            entity.Visible = false;
+
             var eventRaised = false;
-            fakeEntity.OnShow += (sender, e) => { eventRaised = true; };
+            entity.OnShow += (sender, e) => { eventRaised = true; };
 
             // Act
-            fakeEntity.Visible = true;
+            entity.Visible = true;
 
             // Assert
             Assert.True(eventRaised);
@@ -168,15 +110,14 @@ namespace KDScorpionEngineTests.Entities
         public void Visible_WhenGoingFromInvisibleToVisible_DoesNotInvokesOnShowEvent()
         {
             // Arrange
-            var fakeEntity = new FakeEntity(true)
-            {
-                Visible = true,
-            };
+            var entity = CreateEntity();
+            entity.Visible = true;
+
             var eventRaised = false;
-            fakeEntity.OnShow += (sender, e) => { eventRaised = true; };
+            entity.OnShow += (sender, e) => { eventRaised = true; };
 
             // Act
-            fakeEntity.Visible = false;
+            entity.Visible = false;
 
             // Assert
             Assert.False(eventRaised);
@@ -186,12 +127,12 @@ namespace KDScorpionEngineTests.Entities
         public void Bounds_WhenGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var fakeEntity = new FakeEntity(true);
+            var entity = CreateEntity();;
 
             var expected = new Rectangle(0, 0, 100, 100);
 
             // Act
-            var actual = fakeEntity.Bounds;
+            var actual = entity.Bounds;
 
             // Assert
             Assert.Equal(expected, actual);
@@ -201,12 +142,12 @@ namespace KDScorpionEngineTests.Entities
         public void BoundsWidth_WhenGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var fakeEntity = new FakeEntity(true);
+            var entity = CreateEntity();;
 
             var expected = 100;
 
             // Act
-            var actual = fakeEntity.BoundsWidth;
+            var actual = entity.BoundsWidth;
 
             // Assert
             Assert.Equal(expected, actual);
@@ -216,12 +157,12 @@ namespace KDScorpionEngineTests.Entities
         public void BoundsWidth_WhenGettingValueWithNullBody_ReturnsZero()
         {
             // Arrange
-            var fakeEntity = new FakeEntity(true);
+            var entity = CreateEntity();;
 
             var expected = 0;
 
             // Act
-            var actual = fakeEntity.BoundsWidth;
+            var actual = entity.BoundsWidth;
 
             // Assert
             Assert.Equal(expected, actual);
@@ -231,12 +172,12 @@ namespace KDScorpionEngineTests.Entities
         public void BoundsHeight_WhenGettingValueWithNullBody_ReturnsZero()
         {
             // Arrange
-            var fakeEntity = new FakeEntity(true);
+            var entity = CreateEntity();;
 
             var expected = 0;
 
             // Act
-            var actual = fakeEntity.BoundsHeight;
+            var actual = entity.BoundsHeight;
 
             // Assert
             Assert.Equal(expected, actual);
@@ -246,12 +187,12 @@ namespace KDScorpionEngineTests.Entities
         public void BoundsHeight_WhenGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var fakeEntity = new FakeEntity(true);
+            var entity = CreateEntity();;
 
             var expected = 100;
 
             // Act
-            var actual = fakeEntity.BoundsHeight;
+            var actual = entity.BoundsHeight;
 
             // Assert
             Assert.Equal(expected, actual);
@@ -261,12 +202,12 @@ namespace KDScorpionEngineTests.Entities
         public void BoundsHalfWidth_WhenGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var fakeEntity = new FakeEntity(true);
+            var entity = CreateEntity();;
 
             var expected = 50;
 
             // Act
-            var actual = fakeEntity.BoundsHalfWidth;
+            var actual = entity.BoundsHalfWidth;
 
             // Assert
             Assert.Equal(expected, actual);
@@ -276,12 +217,12 @@ namespace KDScorpionEngineTests.Entities
         public void BoundsHalfHeight_WhenGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var fakeEntity = new FakeEntity(true);
+            var entity = CreateEntity();;
 
             var expected = 50f;
 
             // Act
-            var actual = fakeEntity.BoundsHalfHeight;
+            var actual = entity.BoundsHalfHeight;
 
             // Assert
             Assert.Equal(expected, actual);
@@ -292,13 +233,11 @@ namespace KDScorpionEngineTests.Entities
         {
             // Arrange
             var vertices = new[] { Vector2.Zero };
-            var fakeEntity = new FakeEntity(vertices, It.IsAny<Vector2>())
-            {
-                Texture = CreateTexture(),
-            };
+            var entity = CreateEntity();
+            entity.Texture = CreateTexture();
 
             // Act
-            var actual = fakeEntity.Texture;
+            var actual = entity.Texture;
 
             // Assert
             Assert.NotNull(actual);
@@ -308,36 +247,33 @@ namespace KDScorpionEngineTests.Entities
         public void DebugDrawEnabled_WhenGettingDefaultValue_ReturnsTrue()
         {
             // Arrange
-            var fakeEntity = new FakeEntity(true);
+            var entity = CreateEntity();;
 
             // Act & Assert
-            Assert.True(fakeEntity.DebugDrawEnabled);
+            Assert.True(entity.DebugDrawEnabled);
         }
 
         [Fact]
         public void DebugDrawEnabled_WhenSettingToFalse_ReturnsFalse()
         {
             // Arrange
-            var fakeEntity = new FakeEntity(true)
-            {
-                DebugDrawEnabled = false,
-            };
+            var entity = CreateEntity();
+
+            entity.DebugDrawEnabled = false;
 
             // Act & Assert
-            Assert.False(fakeEntity.DebugDrawEnabled);
+            Assert.False(entity.DebugDrawEnabled);
         }
 
         [Fact]
         public void DebugDrawColor_WhenSettingValue_ReturnsCorrectValue()
         {
             // Arrange & Act
-            var fakeEntity = new FakeEntity(true)
-            {
-                DebugDrawColor = Color.FromArgb(11, 22, 33, 44),
-            };
+            var entity = CreateEntity();
+            entity.DebugDrawColor = Color.FromArgb(11, 22, 33, 44);
 
             // Assert
-            Assert.Equal(Color.FromArgb(11, 22, 33, 44), fakeEntity.DebugDrawColor);
+            Assert.Equal(Color.FromArgb(11, 22, 33, 44), entity.DebugDrawColor);
         }
 
         [Fact]
@@ -346,15 +282,15 @@ namespace KDScorpionEngineTests.Entities
             // Arrange
             var mockBehavior = new Mock<IBehavior>();
 
-            var fakeEntity = new FakeEntity(true);
+            var entity = CreateEntity();;
             var expected = new EntityBehaviors
             {
                 mockBehavior.Object,
             };
 
             // Act
-            fakeEntity.Behaviors = new EntityBehaviors() { mockBehavior.Object };
-            var actual = fakeEntity.Behaviors;
+            entity.Behaviors = new EntityBehaviors() { mockBehavior.Object };
+            var actual = entity.Behaviors;
 
             // Assert
             Assert.Equal(expected, actual);
@@ -364,13 +300,13 @@ namespace KDScorpionEngineTests.Entities
         public void Position_WhenSettingValueAfterInitalized_ReturnsCorrectValue()
         {
             // Arrange
-            var fakeEntity = new FakeEntity(true);
+            var entity = CreateEntity();;
 
             var expected = new Vector2(123, 456);
 
             // Act
-            fakeEntity.Position = new Vector2(123, 456);
-            var actual = fakeEntity.Position;
+            entity.Position = new Vector2(123, 456);
+            var actual = entity.Position;
 
             // Assert
             Assert.Equal(expected, actual);
@@ -380,12 +316,12 @@ namespace KDScorpionEngineTests.Entities
         public void Position_WhenSettingValueBeforeInitialized_ReturnsCorrectValue()
         {
             // Arrange
-            var fakeEntity = new FakeEntity(true);
+            var entity = CreateEntity();;
             var expected = new Vector2(123, 456);
 
             // Act
-            fakeEntity.Position = new Vector2(123, 456);
-            var actual = fakeEntity.Position;
+            entity.Position = new Vector2(123, 456);
+            var actual = entity.Position;
 
             // Assert
             Assert.Equal(expected, actual);
@@ -395,7 +331,7 @@ namespace KDScorpionEngineTests.Entities
         public void Vertices_WhenGettingAndSettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var entity = new FakeEntity(true);
+            var entity = CreateEntity();
             var expected = new Vector2[]
             {
                 new Vector2(11, 22),
@@ -422,7 +358,7 @@ namespace KDScorpionEngineTests.Entities
                 new Vector2(55, 66),
             };
 
-            var entity = new FakeEntity(vertices, It.IsAny<Vector2>());
+            var entity = CreateEntity();
             var expected = new Vector2[]
             {
                 new Vector2(11, 22),
@@ -441,7 +377,7 @@ namespace KDScorpionEngineTests.Entities
         public void Vertices_WhenGettingValueBeforeAfterInit_ReturnsCorrectValue()
         {
             // Arrange
-            var entity = new FakeEntity(true);
+            var entity = CreateEntity();
 
             var expected = new Vector2[]
             {
@@ -465,13 +401,13 @@ namespace KDScorpionEngineTests.Entities
         {
             // Arrange
             var mockBehavior = new Mock<IBehavior>();
-            var fakeEntity = new FakeEntity(true);
-            fakeEntity.Behaviors.Add(mockBehavior.Object);
+            var entity = CreateEntity();
+            entity.Behaviors.Add(mockBehavior.Object);
             var gameTime = new GameTime();
             gameTime.UpdateTotalGameTime(16);
 
             // Act
-            fakeEntity.Update(gameTime);
+            entity.Update(gameTime);
 
             // Assert
             mockBehavior.Verify(m => m.Update(It.IsAny<GameTime>()), Times.Once());
@@ -481,7 +417,7 @@ namespace KDScorpionEngineTests.Entities
         public void LoadContent_WhenInvoked_SetsContentLoadedPropToTrue()
         {
             // Arange
-            var entity = new FakeEntity(true);
+            var entity = CreateEntity();
             var expected = true;
 
             // Act
@@ -498,6 +434,8 @@ namespace KDScorpionEngineTests.Entities
         {
             this.contentLoader = null;
         }
+
+        private FakeEntity CreateEntity() => new FakeEntity();
 
         private static Texture CreateTexture()
         {

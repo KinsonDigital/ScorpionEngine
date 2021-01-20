@@ -28,10 +28,10 @@ namespace KDScorpionEngineTests.Behaviors
         //{
         //    // Arrange
         //    SetKeyboardKey(KeyCode.Right);
-        //    var entity = new DynamicEntity(this.mockPhysicsBody.Object);
+        //    var entity = new Entity(this.mockPhysicsBody.Object);
         //    entity.Initialize();
 
-        //    var behavior = new MovementByKeyboardBehavior<DynamicEntity>(this.mockKeyboard.Object, entity)
+        //    var behavior = new MovementByKeyboardBehavior<Entity>(this.mockKeyboard.Object, entity)
         //    {
         //        LinearSpeed = 1234,
         //    };
@@ -48,10 +48,10 @@ namespace KDScorpionEngineTests.Behaviors
         //{
         //    // Arrange
         //    SetKeyboardKey(KeyCode.Left);
-        //    var entity = new DynamicEntity(this.mockPhysicsBody.Object);
+        //    var entity = new Entity(this.mockPhysicsBody.Object);
         //    entity.Initialize();
 
-        //    var behavior = new MovementByKeyboardBehavior<DynamicEntity>(this.mockKeyboard.Object, entity)
+        //    var behavior = new MovementByKeyboardBehavior<Entity>(this.mockKeyboard.Object, entity)
         //    {
         //        LinearSpeed = -5678,
         //    };
@@ -68,10 +68,10 @@ namespace KDScorpionEngineTests.Behaviors
         //{
         //    // Arrange
         //    SetKeyboardKey(KeyCode.Up);
-        //    var entity = new DynamicEntity(this.mockPhysicsBody.Object);
+        //    var entity = new Entity(this.mockPhysicsBody.Object);
         //    entity.Initialize();
 
-        //    var behavior = new MovementByKeyboardBehavior<DynamicEntity>(this.mockKeyboard.Object, entity)
+        //    var behavior = new MovementByKeyboardBehavior<Entity>(this.mockKeyboard.Object, entity)
         //    {
         //        LinearSpeed = -1478,
         //    };
@@ -88,10 +88,10 @@ namespace KDScorpionEngineTests.Behaviors
         //{
         //    // Arrange
         //    SetKeyboardKey(KeyCode.Down);
-        //    var entity = new DynamicEntity(this.mockPhysicsBody.Object);
+        //    var entity = new Entity(this.mockPhysicsBody.Object);
         //    entity.Initialize();
 
-        //    var behavior = new MovementByKeyboardBehavior<DynamicEntity>(this.mockKeyboard.Object, entity)
+        //    var behavior = new MovementByKeyboardBehavior<Entity>(this.mockKeyboard.Object, entity)
         //    {
         //        LinearSpeed = 9876,
         //    };
@@ -110,8 +110,8 @@ namespace KDScorpionEngineTests.Behaviors
         //{
         //    // Arrange
         //    SetKeyboardKey(It.IsAny<KeyCode>());
-        //    var entity = new DynamicEntity();
-        //    var behavior = new MovementByKeyboardBehavior<DynamicEntity>(this.mockKeyboard.Object, entity);
+        //    var entity = new Entity();
+        //    var behavior = new MovementByKeyboardBehavior<Entity>(this.mockKeyboard.Object, entity);
         //    var expected = KeyCode.W;
 
         //    // Act
@@ -126,9 +126,9 @@ namespace KDScorpionEngineTests.Behaviors
         //{
         //    // Arrange
         //    SetKeyboardKey(It.IsAny<KeyCode>());
-        //    var entity = new DynamicEntity(It.IsAny<Vector2[]>(), It.IsAny<Vector2>());
+        //    var entity = new Entity(It.IsAny<Vector2[]>(), It.IsAny<Vector2>());
 
-        //    var behavior = new MovementByKeyboardBehavior<DynamicEntity>(this.mockKeyboard.Object, entity);
+        //    var behavior = new MovementByKeyboardBehavior<Entity>(this.mockKeyboard.Object, entity);
         //    var expected = KeyCode.S;
 
         //    // Act
@@ -144,9 +144,9 @@ namespace KDScorpionEngineTests.Behaviors
         //{
         //    // Arrange
         //    SetKeyboardKey(It.IsAny<KeyCode>());
-        //    var entity = new DynamicEntity(It.IsAny<Vector2[]>(), It.IsAny<Vector2>());
+        //    var entity = new Entity(It.IsAny<Vector2[]>(), It.IsAny<Vector2>());
 
-        //    var behavior = new MovementByKeyboardBehavior<DynamicEntity>(this.mockKeyboard.Object, entity);
+        //    var behavior = new MovementByKeyboardBehavior<Entity>(this.mockKeyboard.Object, entity);
         //    var expected = KeyCode.S;
 
         //    // Act
@@ -162,9 +162,9 @@ namespace KDScorpionEngineTests.Behaviors
         //{
         //    // Arrange
         //    SetKeyboardKey(It.IsAny<KeyCode>());
-        //    var entity = new DynamicEntity(It.IsAny<Vector2[]>(), It.IsAny<Vector2>());
+        //    var entity = new Entity(It.IsAny<Vector2[]>(), It.IsAny<Vector2>());
 
-        //    var behavior = new MovementByKeyboardBehavior<DynamicEntity>(this.mockKeyboard.Object, entity);
+        //    var behavior = new MovementByKeyboardBehavior<Entity>(this.mockKeyboard.Object, entity);
         //    var expected = KeyCode.S;
 
         //    // Act

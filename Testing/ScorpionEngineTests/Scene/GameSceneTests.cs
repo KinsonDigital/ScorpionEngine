@@ -5,7 +5,6 @@
 namespace KDScorpionEngineTests.Scene
 {
     using System;
-    using System.Numerics;
     using KDScorpionEngine;
     using KDScorpionEngine.Graphics;
     using KDScorpionEngine.Scene;
@@ -183,7 +182,7 @@ namespace KDScorpionEngineTests.Scene
         public void Update_WhenInvoking_InvokesEntityUpdate()
         {
             // Arrange
-            var entity = new FakeEntity(Array.Empty<Vector2>(), Vector2.Zero);
+            var entity = new FakeEntity();
 
             var scene = new FakeGameScene();
             scene.AddEntity(entity);
@@ -219,12 +218,12 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var mockTexture = new Mock<ITexture>();
 
-            var entityA = new FakeEntity(false)
+            var entityA = new FakeEntity()
             {
                 Texture = mockTexture.Object,
             };
 
-            var entityB = new FakeEntity(false)
+            var entityB = new FakeEntity()
             {
                 Texture = mockTexture.Object,
             };

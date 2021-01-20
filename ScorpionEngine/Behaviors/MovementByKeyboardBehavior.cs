@@ -1,4 +1,4 @@
-// <copyright file="MovementByKeyboardBehavior.cs" company="KinsonDigital">
+﻿// <copyright file="MovementByKeyboardBehavior.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -10,11 +10,11 @@ namespace KDScorpionEngine.Behaviors
 
     /// <summary>
     /// Creates a behavior that controls the left, right, up, and down movement of a
-    /// <see cref="DynamicEntity"/> using the keyboard.
-    /// <typeparamref name="T">The type of <see cref="DynamicEntity"/> to apply the movement to.</typeparamref>.
+    /// <see cref="Entity"/> using the keyboard.
+    /// <typeparamref name="T">The type of <see cref="Entity"/> to apply the movement to.</typeparamref>.
     /// </summary>
     public class MovementByKeyboardBehavior<T> : Behavior
-        where T : DynamicEntity
+        where T : Entity
     {
         private KeyBehavior moveRightOnKeyDown;
         private KeyBehavior moveLeftOnKeyDown;
@@ -37,8 +37,8 @@ namespace KDScorpionEngine.Behaviors
         /// <summary>
         /// Creates a new instance of <see cref="MovementByKeyboardBehavior{T}"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="DynamicEntity"/> to perform keyboard movement behavior upon.</param>
-        /// <param name="movementSpeed">The movement speed that the <see cref="DynamicEntity"/> will move at.</param>
+        /// <param name="entity">The <see cref="Entity"/> to perform keyboard movement behavior upon.</param>
+        /// <param name="movementSpeed">The movement speed that the <see cref="Entity"/> will move at.</param>
         [ExcludeFromCodeCoverage]
         public MovementByKeyboardBehavior(IKeyboard keyboard, T entity, float movementSpeed)
         {
@@ -54,7 +54,7 @@ namespace KDScorpionEngine.Behaviors
         }
 
         /// <summary>
-        /// Gets or sets the keyboard key that will move the <see cref="DynamicEntity"/> up.
+        /// Gets or sets the keyboard key that will move the <see cref="Entity"/> up.
         /// </summary>
         public KeyCode MoveUpKey
         {
@@ -67,7 +67,7 @@ namespace KDScorpionEngine.Behaviors
         }
 
         /// <summary>
-        /// Gets or sets the keyboard key that will move the <see cref="DynamicEntity"/> down.
+        /// Gets or sets the keyboard key that will move the <see cref="Entity"/> down.
         /// </summary>
         public KeyCode MoveDownKey
         {
@@ -80,7 +80,7 @@ namespace KDScorpionEngine.Behaviors
         }
 
         /// <summary>
-        /// Gets or sets the keyboard key that will move the <see cref="DynamicEntity"/> left.
+        /// Gets or sets the keyboard key that will move the <see cref="Entity"/> left.
         /// </summary>
         public KeyCode MoveLeftKey
         {
@@ -93,7 +93,7 @@ namespace KDScorpionEngine.Behaviors
         }
 
         /// <summary>
-        /// Gets or sets the keyboard key that will move the <see cref="DynamicEntity"/> right.
+        /// Gets or sets the keyboard key that will move the <see cref="Entity"/> right.
         /// </summary>
         public KeyCode MoveRightKey
         {
@@ -108,7 +108,7 @@ namespace KDScorpionEngine.Behaviors
         // TODO: Rename this to something else.  This was name this before due to farseer physics engine before
         // Looking into making a physics engine abstraction that can be used to add physics to stuff
         /// <summary>
-        /// Gets or sets the linear speed of the <see cref="DynamicEntity"/>.
+        /// Gets or sets the linear speed of the <see cref="Entity"/>.
         /// </summary>
         public float LinearSpeed { get; set; }
 
@@ -125,7 +125,7 @@ namespace KDScorpionEngine.Behaviors
         }
 
         /// <summary>
-        /// Creates all of the keyboard behaviors that deal with <see cref="DynamicEntity"/> movement.
+        /// Creates all of the keyboard behaviors that deal with <see cref="Entity"/> movement.
         /// </summary>
         [ExcludeFromCodeCoverage]
         private void CreateBehaviors()
@@ -163,23 +163,23 @@ namespace KDScorpionEngine.Behaviors
         }
 
         /// <summary>
-        /// Moves the <see cref="DynamicEntity"/> to the right.
+        /// Moves the <see cref="Entity"/> to the right.
         /// </summary>
-        private void MoveRight_KeyDown(object sender, KeyEventArgs e) => this.gameObject.MoveRight(LinearSpeed);
+        private void MoveRight_KeyDown(object sender, KeyEventArgs e) { }
 
         /// <summary>
-        /// Moves the <see cref="DynamicEntity"/> to the left.
+        /// Moves the <see cref="Entity"/> to the left.
         /// </summary>
-        private void MoveLeft_KeyDown(object sender, KeyEventArgs e) => this.gameObject.MoveLeft(LinearSpeed);
+        private void MoveLeft_KeyDown(object sender, KeyEventArgs e) { }
 
         /// <summary>
-        /// Moves the <see cref="DynamicEntity"/> up.
+        /// Moves the <see cref="Entity"/> up.
         /// </summary>
-        private void MoveUp_KeyDown(object sender, KeyEventArgs e) => this.gameObject.MoveUp(LinearSpeed);
+        private void MoveUp_KeyDown(object sender, KeyEventArgs e) { }
 
         /// <summary>
-        /// Moves the <see cref="DynamicEntity"/> down.
+        /// Moves the <see cref="Entity"/> down.
         /// </summary>
-        private void MoveDown_KeyDown(object sender, KeyEventArgs e) => this.gameObject.MoveDown(LinearSpeed);
+        private void MoveDown_KeyDown(object sender, KeyEventArgs e) { }
     }
 }

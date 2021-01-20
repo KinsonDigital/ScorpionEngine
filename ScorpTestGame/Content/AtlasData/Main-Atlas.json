@@ -1,16 +1,23 @@
-[{
+[
+  {
+    "Name": "sub",
     "X": 0,
     "Y": 0,
     "Width": 75,
     "Height": 50
-}, {
+  },
+  {
+    "Name": "sub",
     "X": 75,
     "Y": 0,
     "Width": 75,
     "Height": 50
-}, {
+  },
+  {
+    "Name":  "sub",
     "X": 150,
     "Y": 0,
     "Width": 75,
     "Height": 50
-}]
+  }
+]
