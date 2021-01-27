@@ -29,6 +29,8 @@ namespace KDScorpionEngine
         [ExcludeFromCodeCoverage]
         public Engine(int windowWidth, int windowHeight)
         {
+            IoC.Init();
+
             ContentLoader = ContentLoaderFactory.CreateContentLoader();
             SceneManager = new SceneManager(ContentLoader, new Keyboard());
 

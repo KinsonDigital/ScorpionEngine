@@ -20,11 +20,13 @@ namespace KDScorpionEngineTests.Entities
     /// </summary>
     public class EntityTests : IDisposable
     {
-        private Mock<IContentLoader> contentLoader;
+        private Mock<IContentLoader> mockContentLoader;
+        private Mock<ITexture> mockTexture;
 
         public EntityTests()
         {
-            this.contentLoader = new Mock<IContentLoader>();
+            this.mockContentLoader = new Mock<IContentLoader>();
+            this.mockTexture = new Mock<ITexture>();
         }
 
         #region Prop Tests
@@ -229,21 +231,6 @@ namespace KDScorpionEngineTests.Entities
         }
 
         [Fact]
-        public void Texture_WhenSettingAndeGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            var vertices = new[] { Vector2.Zero };
-            var entity = CreateEntity();
-            entity.Texture = CreateTexture();
-
-            // Act
-            var actual = entity.Texture;
-
-            // Assert
-            Assert.NotNull(actual);
-        }
-
-        [Fact]
         public void DebugDrawEnabled_WhenGettingDefaultValue_ReturnsTrue()
         {
             // Arrange
@@ -432,10 +419,10 @@ namespace KDScorpionEngineTests.Entities
         /// <inheritdoc/>
         public void Dispose()
         {
-            this.contentLoader = null;
+            this.mockContentLoader = null;
         }
 
-        private FakeEntity CreateEntity() => new FakeEntity();
+        private FakeEntity CreateEntity() => new FakeEntity(this.mockTexture.Object);
 
         private static Texture CreateTexture()
         {

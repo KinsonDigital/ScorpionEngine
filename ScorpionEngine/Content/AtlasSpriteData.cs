@@ -9,7 +9,7 @@ namespace KDScorpionEngine.Content
 
     // TODO: Look into using this later during the building of a test game.
     [ExcludeFromCodeCoverage]
-    internal class AtlasSpriteData
+    public class AtlasSpriteData
     {
         /// <summary>
         /// Gets or sets the bounds of the sprite data.

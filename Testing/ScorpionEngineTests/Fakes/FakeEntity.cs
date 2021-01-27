@@ -7,13 +7,15 @@ namespace KDScorpionEngineTests.Fakes
     using KDScorpionEngine;
     using KDScorpionEngine.Entities;
     using KDScorpionEngine.Graphics;
+    using Raptor.Graphics;
 
     /// <summary>
     /// Provides a fake implementation of the <see cref="KDScorpionEngine.Entities.Entity"/> abstract class.
     /// </summary>
     public class FakeEntity : Entity
     {
-        public FakeEntity()
+        public FakeEntity(ITexture texture)
+            : base(texture, string.Empty)
         {
         }
 

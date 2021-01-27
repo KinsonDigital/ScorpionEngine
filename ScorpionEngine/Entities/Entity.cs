@@ -10,6 +10,7 @@ namespace KDScorpionEngine.Entities
     using System.Linq;
     using System.Numerics;
     using KDScorpionEngine.Behaviors;
+    using KDScorpionEngine.Content;
     using KDScorpionEngine.Graphics;
     using Raptor;
     using Raptor.Content;
@@ -21,7 +22,8 @@ namespace KDScorpionEngine.Entities
     /// </summary>
     public class Entity : IUpdatableObject, IContentLoadable
     {
-        protected bool usesPhysics = true;
+        private readonly ILoader<AtlasData>? atlasLoader;
+        private AtlasRepository atlasRepo = AtlasRepository.Instance;
 
         /// <summary>
         /// The engine time of the entity.
@@ -31,7 +33,7 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// The texture of the entity.
         /// </summary>
-        protected ITexture texture;
+        protected ITexture? texture;
         private bool visible = true; // True if the entity will be drawn
 
         /// <summary>
@@ -40,8 +42,25 @@ namespace KDScorpionEngine.Entities
         /// <param name="position">The position of where to render the <see cref="Entity"/>.</param>
         /// <param name="friction">The friction of the body against other entities or surfaces.</param>
         /// <param name="isStaticBody">True if the body is static and cannot be moved by other objects.</param>
-        public Entity()
+        public Entity(ILoader<AtlasData> atlasLoader, string atlasTextureName)
         {
+            this.atlasLoader = atlasLoader;
+            Name = atlasTextureName;
+            TypeOfTexture = TextureType.Atlas;
+        }
+
+        public Entity(ILoader<ITexture> textureLoader, string textureName)
+        {
+            this.texture = textureLoader.Load(textureName);
+            Name = textureName;
+            TypeOfTexture = TextureType.Single;
+        }
+
+        public Entity(ITexture texture, string textureName)
+        {
+            this.texture = texture;
+            Name = textureName;
+            TypeOfTexture = TextureType.Single;
         }
 
         /// <summary>
@@ -63,6 +82,8 @@ namespace KDScorpionEngine.Entities
         /// Occurs when a key has been released.
         /// </summary>
         public event EventHandler<KeyEventArgs> OnKeyReleased;
+
+        public string Name { get; }
 
         /// <summary>
         /// Gets or sets the list of behaviors that the <see cref="Entity"/> will have.
@@ -148,8 +169,18 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         public ITexture Texture
         {
-            get => this.texture;
-            set => this.texture = value;
+            get
+            {
+                switch (TypeOfTexture)
+                {
+                    case TextureType.Single:
+                        return this.texture;
+                    case TextureType.Atlas:
+                        return this.atlasRepo.GetAtlasTexture(Name);
+                    default:
+                        throw new Exception($"Uknown texture type of '{TypeOfTexture}'.");
+                }
+            }
         }
 
         public AtlasRegionRectangle[] AtlasRegions { get; set; }
@@ -174,7 +205,11 @@ namespace KDScorpionEngine.Entities
         /// Loads the entities content.
         /// </summary>
         /// <param name="contentLoader">The content loader that will be loading the content.</param>
-        public virtual void LoadContent(IContentLoader contentLoader) => ContentLoaded = true;
+        public virtual void LoadContent(IContentLoader contentLoader)
+        {
+            atlasLoader.Load(Name);
+            ContentLoaded = true;
+        }
 
         /// <summary>
         /// Updates the <see cref="Entity"/>.

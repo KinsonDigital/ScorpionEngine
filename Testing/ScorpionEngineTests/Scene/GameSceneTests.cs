@@ -19,6 +19,13 @@ namespace KDScorpionEngineTests.Scene
     /// </summary>
     public class GameSceneTests
     {
+        private readonly Mock<ITexture> mockTexture;
+
+        public GameSceneTests()
+        {
+            this.mockTexture = new Mock<ITexture>();
+        }
+
         #region Prop Tests
         [Fact]
         public void Name_WhenGettingAndSettingValue_ReturnsCorrectValue()
@@ -182,7 +189,7 @@ namespace KDScorpionEngineTests.Scene
         public void Update_WhenInvoking_InvokesEntityUpdate()
         {
             // Arrange
-            var entity = new FakeEntity();
+            var entity = new FakeEntity(this.mockTexture.Object);
 
             var scene = new FakeGameScene();
             scene.AddEntity(entity);
@@ -218,14 +225,12 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var mockTexture = new Mock<ITexture>();
 
-            var entityA = new FakeEntity()
+            var entityA = new FakeEntity(this.mockTexture.Object)
             {
-                Texture = mockTexture.Object,
             };
 
-            var entityB = new FakeEntity()
+            var entityB = new FakeEntity(this.mockTexture.Object)
             {
-                Texture = mockTexture.Object,
             };
 
             var scene = new FakeGameScene();

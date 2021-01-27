@@ -10,55 +10,79 @@ namespace KDScorpionEngine.Content
     using System.Globalization;
     using System.Linq;
     using System.Text;
+    using Raptor.Content;
     using Raptor.Graphics;
 
     /// <summary>
     /// Manages all of the atlases loaded into the game.
     /// </summary>
     // TODO: Look into using this later during the building of a test game.
-    [ExcludeFromCodeCoverage]
-    internal static class AtlasManager
+    internal sealed class AtlasRepository
     {
-        private static readonly Dictionary<string, AtlasData> AllAtlasData = new Dictionary<string, AtlasData>(); // The atlas data
-        private static readonly Dictionary<string, ITexture> AllAtlasTextures = new Dictionary<string, ITexture>(); // The atlas textures
+        private readonly Dictionary<string, AtlasData> AtlasData = new Dictionary<string, AtlasData>(); // The atlas data
+
+        static AtlasRepository()
+        {
+            // DO NOT DELETE THIS CONSTRUCTOR!!
+            // This explicit static constructor tells the c# compiler not to mark type as 'beforefieldinit'
+
+            // This singleton pattern came from : https://csharpindepth.com/articles/singleton
+        }
+
+        private AtlasRepository()
+        {
+            // DO NOT DELETE THIS CONSTRUCTOR!!
+        }
+
+        public static AtlasRepository Instance { get; } = new AtlasRepository();
+
+        public int TotalItems => this.AtlasData.Count;
 
         /// <summary>
         /// Adds the given atlas data to the atlas manager and assigns it the given unique textureAtlasID.
         /// </summary>
         /// <param name="textureAtlasID">The unique atlas ID to assign to the given texture.</param>
-        /// <param name="atlasDataID">The unique atlas data ID to assign to the given texture.</param>
-        /// <param name="texture">The texture to add.</param>
         /// <param name="data">The atlas data to add.</param>
-        public static void AddAtlasData(string textureAtlasID, string atlasDataID, ITexture texture, AtlasData data)
+        public void AddAtlasData(string textureAtlasID, AtlasData data)
         {
-            // TODO: possibly do not need this method, ID is checked below
-            CheckID(textureAtlasID); // See if the atlas has already been added
-
-            // Check the atlas data to see if it has a valid format and structure
-            CheckData(data);
+            if (this.AtlasData.ContainsKey(textureAtlasID))
+            {
+                throw new Exception($"Texture atlas data with the ID of '{textureAtlasID}' already exists.");
+            }
 
             // As long as the atlas data has not already been added
-            if (!AllAtlasData.ContainsKey(atlasDataID))
+            if (!this.AtlasData.ContainsKey(textureAtlasID))
             {
-                AllAtlasData.Add(atlasDataID, data); // Add the atlas data
+                this.AtlasData.Add(textureAtlasID, data); // Add the atlas data
+            }
+        }
+
+        public bool AtlasLoaded(string id) => AtlasData.ContainsKey(id);
+
+        public void EmptyRepository()
+        {
+            this.AtlasData.Clear();
+
+            foreach (var atlasItem in this.AtlasData.Values)
+            {
+                atlasItem.Texture.Dispose();
             }
 
-            if (!AllAtlasTextures.ContainsKey(textureAtlasID))
-            {
-                AllAtlasTextures.Add(textureAtlasID, texture); // Add the atlas texture
-            }
+            this.AtlasData.Clear();
         }
 
         /// <summary>
         /// Removes the atlas data and texture that matches the given ID.
         /// </summary>
-        /// <param name="id">The textureAtlasID of the atlas data and texture to remove.</param>
-        public static void RemoveAtlasData(string id)
+        /// <param name="textureAtlasID">The textureAtlasID of the atlas data and texture to remove.</param>
+        public void RemoveAtlasData(string textureAtlasID)
         {
-            CheckID(id); // See if the atlas has already been added
+            if (!this.AtlasData.ContainsKey(textureAtlasID))
+            {
+                throw new Exception($"Texture atlas data with the ID of '{textureAtlasID}' already exists.");
+            }
 
-            AllAtlasData.Remove(id);
-            AllAtlasTextures.Remove(id);
+            this.AtlasData.Remove(textureAtlasID);
         }
 
         /// <summary>
@@ -66,11 +90,11 @@ namespace KDScorpionEngine.Content
         /// </summary>
         /// <param name="id">The textureAtlasID of the atlas data to get.</param>
         /// <returns>The atlas data.</returns>
-        public static AtlasData GetAtlasData(string id)
+        public AtlasData GetAtlasData(string id)
         {
             CheckID(id); // See if the atlas has already been added
 
-            return AllAtlasData[id];
+            return this.AtlasData[id];
         }
 
         /// <summary>
@@ -78,11 +102,11 @@ namespace KDScorpionEngine.Content
         /// </summary>
         /// <param name="id">The textureAtlasID of the atlas texture to get.</param>
         /// <returns>The atlas texture.</returns>
-        public static ITexture GetAtlasTexture(string id)
+        public ITexture GetAtlasTexture(string id)
         {
             CheckID(id); // See if the atlas has already been added
 
-            return AllAtlasTextures[id];
+            return this.AtlasData[id].Texture;
         }
 
         /// <summary>
@@ -90,7 +114,7 @@ namespace KDScorpionEngine.Content
         /// </summary>
         /// <param name="subTextureID">The name of the sub texture string to check.</param>
         /// <returns>The reason for why the sub texture ID would or would not be invalid.</returns>
-        internal static InValidReason GetValidationReason(string subTextureID)
+        internal InValidReason GetValidationReason(string subTextureID)
         {
             var leftBracketIndex = subTextureID.IndexOf('['); // Index of the left bracket
             var rightBracketIndex = subTextureID.IndexOf(']'); // Index of the right bracket
@@ -229,10 +253,10 @@ namespace KDScorpionEngine.Content
         /// If the given ID does not exist, throw an exception.
         /// </summary>
         /// <param name="id">The ID to check for.</param>
-        private static void CheckID(string id)
+        private void CheckID(string id)
         {
             // First check to see if the ID is in the atlas data or atlas texture lists
-            if (AllAtlasData.Count <= 0 || AllAtlasTextures.Count <= 0)
+            if (this.AtlasData.Count <= 0)
             {
                 return;
             }
@@ -247,7 +271,7 @@ namespace KDScorpionEngine.Content
         /// Checks all of the atlas data to see if it is valid.  If not then exceptions will be thrown.
         /// </summary>
         /// <param name="data">The data to check.</param>
-        private static void CheckData(AtlasData data)
+        private void CheckData(AtlasData data)
         {
             /* DESCRIPTION
              * This method will check the individual sub texture names to see if they are valid.  Some rules must be followed for proper animation and sub texture bounds

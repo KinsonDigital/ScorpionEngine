@@ -7,6 +7,7 @@ namespace ScorpTestGame.Scenes
     using System.Numerics;
     using KDScorpionEngine;
     using KDScorpionEngine.Entities;
+    using KDScorpionEngine.Factories;
     using KDScorpionEngine.Graphics;
     using KDScorpionEngine.Scene;
     using Raptor.Content;
@@ -32,10 +33,14 @@ namespace ScorpTestGame.Scenes
         /// </summary>
         public override void Initialize()
         {
-            sub = new Entity()
-            {
-                Position = new Vector2(200, 200),
-            };
+            var factory = EntityFactory.CreateFactory();
+
+            this.sub = factory.CreateNonAnimated("Sub-Still");
+
+            //sub = new Entity()
+            //{
+            //    Position = new Vector2(200, 200),
+            //};
 
             base.Initialize();
         }
@@ -46,7 +51,7 @@ namespace ScorpTestGame.Scenes
         /// <param name="contentLoader">Loads the content items.</param>
         public override void LoadContent(IContentLoader contentLoader)
         {
-            sub.Texture = contentLoader.Load<ITexture>("Sub-Still");
+            //sub.Texture = contentLoader.Load<ITexture>("Sub-Still");
         }
 
         /// <summary>
