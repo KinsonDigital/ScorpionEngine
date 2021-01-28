@@ -23,7 +23,6 @@ namespace KDScorpionEngine.Scene
         [ExcludeFromCodeCoverage]
         public GameScene(Vector2 gravity)
         {
-
         }
 
         /// <summary>
@@ -72,6 +71,11 @@ namespace KDScorpionEngine.Scene
         /// </summary>
         public virtual void Initialize()
         {
+            Entities.ForEach(e =>
+            {
+                e.Init();
+            });
+
             Initialized = true;
         }
 
@@ -79,13 +83,29 @@ namespace KDScorpionEngine.Scene
         /// Loads all content using the given <paramref name="contentLoader"/>.
         /// </summary>
         /// <param name="contentManager">The content loader to use for loading and unloading the scene's content.</param>
-        public virtual void LoadContent(IContentLoader contentLoader) => ContentLoaded = true;
+        public virtual void LoadContent(IContentLoader contentLoader)
+        {
+            Entities.ForEach(e =>
+            {
+                e.LoadContent(contentLoader);
+            });
+
+            ContentLoaded = true;
+        }
 
         /// <summary>
         /// Unloads all content using the given <paramref name="contentLoader"/>.
         /// </summary>
         /// <param name="contentManager">The content loader to use for loading and unloading the scene's content.</param>
-        public virtual void UnloadContent(IContentLoader contentLoader) => ContentLoaded = false;
+        public virtual void UnloadContent(IContentLoader contentLoader)
+        {
+            Entities.ForEach(e =>
+            {
+                e.UnloadContent();
+            });
+
+            ContentLoaded = false;
+        }
 
         /// <summary>
         /// Updates the <see cref="GameScene"/>.
