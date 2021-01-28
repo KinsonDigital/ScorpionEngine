@@ -245,17 +245,20 @@ namespace KDScorpionEngine.Scene
         /// Loads the content for all of the scenes.  If the scene's content has
         /// already been loaded, loading content for that scene will be skipped.
         /// </summary>
-        public void LoadAllSceneContent() => this.scenes.ForEach(s =>
-                                           {
-                                               if (s.ContentLoaded)
-                                               {
-                                                   return;
-                                               }
+        public void LoadAllSceneContent()
+        {
+            foreach (var scene in this.scenes)
+            {
+                if (scene.ContentLoaded)
+                {
+                    continue;
+                }
 
-                                               s.LoadContent(this.contentLoader);
+                scene.LoadContent(this.contentLoader);
 
-                                               s.ContentLoaded = true;
-                                           });
+                scene.ContentLoaded = true;
+            }
+        }
 
         /// <summary>
         /// Loads the current scenes content that matches the <see cref="CurrentSceneId"/> value.
@@ -324,7 +327,7 @@ namespace KDScorpionEngine.Scene
 
             ProcessSettingsForPreviousScene(this.scenes[previousSceneIndex]);
 
-            ProcessSettingsForCurrentScene(this.scenes[nextSceneIndex]);
+            ProcessSettingsForNextScene(this.scenes[nextSceneIndex]);
 
             // Invoke the scene changed event
             SceneChanged?.Invoke(this, new SceneChangedEventArgs(this.scenes[previousSceneId].Name, this.scenes[CurrentSceneId].Name));
@@ -355,7 +358,7 @@ namespace KDScorpionEngine.Scene
 
             ProcessSettingsForPreviousScene(this.scenes[previousSceneIndex]);
 
-            ProcessSettingsForCurrentScene(this.scenes[nextSceneIndex]);
+            ProcessSettingsForNextScene(this.scenes[nextSceneIndex]);
 
             // Invoke the scene changed event
             SceneChanged?.Invoke(this, new SceneChangedEventArgs(this.scenes[previousSceneId].Name, this.scenes[CurrentSceneId].Name));
@@ -374,13 +377,18 @@ namespace KDScorpionEngine.Scene
                 throw new IdNotFoundException(id);
             }
 
+            if (CurrentSceneId == id)
+            {
+                return;
+            }
+
             var previousSceneId = CurrentSceneId;
 
             CurrentSceneId = id;
 
             ProcessSettingsForPreviousScene(this.scenes[previousSceneId]);
 
-            ProcessSettingsForCurrentScene(this.scenes[CurrentSceneId]);
+            ProcessSettingsForNextScene(this.scenes[CurrentSceneId]);
 
             // Invoke the scene changed event
             SceneChanged?.Invoke(this, new SceneChangedEventArgs(this.scenes[previousSceneId].Name, this.scenes[CurrentSceneId].Name));
@@ -401,13 +409,18 @@ namespace KDScorpionEngine.Scene
                 throw new NameNotFoundException(name);
             }
 
+            if (CurrentSceneId == foundScene.Id)
+            {
+                return;
+            }
+
             var previousSceneId = CurrentSceneId;
 
             CurrentSceneId = foundScene.Id;
 
-            ProcessSettingsForPreviousScene(foundScene);
+            ProcessSettingsForPreviousScene(this.scenes[previousSceneId]);
 
-            ProcessSettingsForCurrentScene(foundScene);
+            ProcessSettingsForNextScene(foundScene);
 
             // Invoke the scene changed event
             SceneChanged?.Invoke(this, new SceneChangedEventArgs(this.scenes[previousSceneId].Name, this.scenes[CurrentSceneId].Name));
@@ -676,7 +689,7 @@ namespace KDScorpionEngine.Scene
         /// Processes all of the manager settings for the given <paramref name="scene"/>.
         /// </summary>
         /// <param name="scene">The current scene to apply the manager settings to.</param>
-        private void ProcessSettingsForCurrentScene(IScene scene)
+        private void ProcessSettingsForNextScene(IScene scene)
         {
             // If the manager is set to set the current scene to active
             if (ActivateSceneOnAdd)
@@ -697,6 +710,8 @@ namespace KDScorpionEngine.Scene
                 scene.ContentLoaded = true;
             }
 
+            // TODO: Look into this.  This is only used here.  Find out what this is for
+            // and why we would turn off rrendering for all scenes here.
             TurnAllSceneRenderingOff();
         }
 

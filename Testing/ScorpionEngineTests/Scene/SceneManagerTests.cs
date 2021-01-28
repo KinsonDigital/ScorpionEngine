@@ -637,25 +637,30 @@ var manager = CreateSceneManager(mockScene.Object);
         {
             // Arrange
             var mockSceneA = new Mock<IScene>();
+            mockSceneA.Name = nameof(mockSceneA);
+
             mockSceneA.SetupProperty(m => m.Id);
             mockSceneA.SetupGet(m => m.ContentLoaded).Returns(true);
-            var sceneA = mockSceneA.Object;
-            sceneA.Id = 100;
+            mockSceneA.SetupProperty(m => m.Name);
+            mockSceneA.Object.Id = 100;
+            mockSceneA.Object.Name = "sceneA";
 
             var mockSceneB = new Mock<IScene>();
+            mockSceneB.Name = nameof(mockSceneB);
             mockSceneB.SetupProperty(m => m.Id);
-            var sceneB = mockSceneB.Object;
-            sceneB.Id = 200;
+            mockSceneB.SetupProperty(m => m.ContentLoaded);
+            mockSceneB.SetupProperty(m => m.Name);
+            mockSceneB.Object.Id = 200;
+            mockSceneB.Object.Name = "sceneB";
 
-            var manager = CreateSceneManager(sceneA, sceneB);
-
-            sceneA.LoadContent(this.mockContentLoader.Object);
+            var manager = CreateSceneManager(mockSceneA.Object, mockSceneB.Object);
 
             // Act
             manager.LoadAllSceneContent();
 
             // Assert
-            mockSceneB.Verify(m => m.LoadContent(It.IsAny<ContentLoader>()), Times.Once());
+            mockSceneA.Verify(m => m.LoadContent(It.IsAny<IContentLoader>()), Times.Never());
+            mockSceneB.Verify(m => m.LoadContent(It.IsAny<IContentLoader>()), Times.Once());
         }
 
         [Fact]
@@ -689,8 +694,8 @@ var manager = CreateSceneManager(mockScene.Object);
             Assert.Equal(expectedSceneAContentLoaded, actualSceneAContentLoaded);
             Assert.Equal(expectedSceneBContentLoaded, actualSceneBContentLoaded);
 
-            mockSceneA.Verify(m => m.LoadContent(It.IsAny<ContentLoader>()), Times.Never());
-            mockSceneB.Verify(m => m.LoadContent(It.IsAny<ContentLoader>()), Times.Once());
+            mockSceneA.Verify(m => m.LoadContent(It.IsAny<IContentLoader>()), Times.Never());
+            mockSceneB.Verify(m => m.LoadContent(It.IsAny<IContentLoader>()), Times.Once());
         }
 
         [Fact]
@@ -726,7 +731,7 @@ var manager = CreateSceneManager(mockScene.Object);
             manager.UnloadAllContent();
 
             // Assert
-            mockScene.Verify(m => m.UnloadContent(It.IsAny<ContentLoader>()), Times.Once());
+            mockScene.Verify(m => m.UnloadContent(It.IsAny<IContentLoader>()), Times.Once());
         }
 
         [Fact]
@@ -913,8 +918,8 @@ var manager = CreateSceneManager(mockScene.Object);
         public void SetCurrentScene_WhenInvokingWithId_InvokesSceneChangedEvent()
         {
             // Arrange
-            var sceneA = CreateScene();
-            var sceneB = CreateScene();
+            var sceneA = CreateScene("sceneA", 0);
+            var sceneB = CreateScene("sceneB", 1);
 
             var manager = CreateSceneManager(sceneA, sceneB);
             var expectedEventInvoked = true;
@@ -1415,20 +1420,23 @@ var manager = CreateSceneManager(mockScene.Object);
             // Arrange
             var mockTimeManager = new Mock<ITimeManager>();
             mockTimeManager.SetupProperty(m => m.Paused);
-            var timeManager = mockTimeManager.Object;
-            timeManager.Paused = true;
+            mockTimeManager.Object.Paused = true;
 
             var mockScene = new Mock<IScene>();
-            mockScene.SetupGet(m => m.TimeManager).Returns(timeManager);
+            mockScene.SetupGet(m => m.TimeManager).Returns(mockTimeManager.Object);
 
-            var scene = mockScene.Object;
+            SetupKeyboardKeyPress(KeyCode.Space);
+
             var manager = CreateSceneManager(mockScene.Object);
             manager.PlayCurrentSceneKey = KeyCode.Space;
+
             var expected = false; // Unpaused
 
             // Act
             manager.Update(new GameTime());
-            var actual = scene.TimeManager.Paused;
+            manager.Update(new GameTime());
+
+            var actual = mockScene.Object.TimeManager.Paused;
 
             // Assert
             Assert.Equal(expected, actual);
@@ -1440,20 +1448,23 @@ var manager = CreateSceneManager(mockScene.Object);
             // Arrange
             var mockTimeManager = new Mock<ITimeManager>();
             mockTimeManager.SetupProperty(m => m.Paused);
-            var timeManager = mockTimeManager.Object;
-            timeManager.Paused = false;
+            mockTimeManager.Object.Paused = false;
 
             var mockScene = new Mock<IScene>();
-            mockScene.SetupGet(m => m.TimeManager).Returns(timeManager);
+            mockScene.SetupGet(m => m.TimeManager).Returns(mockTimeManager.Object);
 
-            var scene = mockScene.Object;
+            SetupKeyboardKeyPress(KeyCode.Space);
+
             var manager = CreateSceneManager(mockScene.Object);
             manager.PauseCurrentSceneKey = KeyCode.Space;
+
             var expected = true; // Paused
 
             // Act
             manager.Update(new GameTime());
-            var actual = scene.TimeManager.Paused;
+            manager.Update(new GameTime());
+
+            var actual = mockScene.Object.TimeManager.Paused;
 
             // Assert
             Assert.Equal(expected, actual);
@@ -1465,18 +1476,20 @@ var manager = CreateSceneManager(mockScene.Object);
             // Arrange
             var mockSceneA = new Mock<IScene>();
             mockSceneA.SetupGet(m => m.Id).Returns(10);
-            var sceneA = mockSceneA.Object;
 
             var mockSceneB = new Mock<IScene>();
             mockSceneB.SetupGet(m => m.Id).Returns(20);
-            var sceneB = mockSceneB.Object;
 
-            var manager = CreateSceneManager(sceneA, sceneB);
+            SetupKeyboardKeyPress(KeyCode.Right);
+
+            var manager = CreateSceneManager(mockSceneA.Object, mockSceneB.Object);
+
             manager.NextSceneKey = KeyCode.Right;
             manager.SetCurrentSceneID(10);
             var expected = 20;
 
             // Act
+            manager.Update(new GameTime());
             manager.Update(new GameTime());
             var actual = manager.CurrentSceneId;
 
@@ -1490,19 +1503,22 @@ var manager = CreateSceneManager(mockScene.Object);
             // Arrange
             var mockSceneA = new Mock<IScene>();
             mockSceneA.SetupGet(m => m.Id).Returns(10);
-            var sceneA = mockSceneA.Object;
 
             var mockSceneB = new Mock<IScene>();
             mockSceneB.SetupGet(m => m.Id).Returns(20);
-            var sceneB = mockSceneB.Object;
 
-            var manager = CreateSceneManager(sceneA, sceneB);
+            SetupKeyboardKeyPress(KeyCode.Left);
+
+            var manager = CreateSceneManager(mockSceneA.Object, mockSceneB.Object);
 
             manager.PreviousSceneKey = KeyCode.Left;
+
             var expected = 10;
 
             // Act
             manager.Update(new GameTime());
+            manager.Update(new GameTime());
+
             var actual = manager.CurrentSceneId;
 
             // Assert
@@ -1544,6 +1560,33 @@ var manager = CreateSceneManager(mockScene.Object);
             mockScene.Verify(m => m.Update(It.IsAny<GameTime>()), Times.Once());
         }
         #endregion
+
+        /// <summary>
+        /// Setups up and mocks the keyboard for a key press for the given <paramref name="key"/>.
+        /// </summary>
+        /// <param name="key">The key to setup as a full key press.</param>
+        private void SetupKeyboardKeyPress(KeyCode key)
+        {
+            var totalUpdates = 0;
+            this.mockKeyboard.Setup(m => m.GetState())
+                .Returns(() =>
+                {
+                    totalUpdates += 1;
+                    var state = new KeyboardState();
+
+                    if (totalUpdates == 1)
+                    {
+                        state.SetKeyState(key, true);
+                    }
+                    else if (totalUpdates == 2)
+                    {
+                        state.SetKeyState(key, false);
+                        return state;
+                    }
+
+                    return state;
+                });
+        }
 
         /// <summary>
         /// Creates an instance of <see cref="SceneManager"/> for the purpose of testing.
