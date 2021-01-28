@@ -20,8 +20,8 @@ namespace KDScorpionEngine
     public class Engine : IDisposable
     {
         private GameWindow gameWindow;
-        private ISpriteBatch spriteBatch;
-        private static int prevElapsedTime;
+        private readonly ISpriteBatch spriteBatch;
+        private static readonly int prevElapsedTime;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Engine"/> class.

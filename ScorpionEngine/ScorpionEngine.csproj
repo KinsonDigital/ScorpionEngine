@@ -6,6 +6,7 @@
     <AssemblyTitle>ScorpionEngine</AssemblyTitle>
     <AssemblyName>ScorpionEngine</AssemblyName>
     <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
     <Configurations>Debug-Win;Release-Win</Configurations>
     <PackageId>KinsonDigital.ScorpionEngine.Windows</PackageId>
     <Product>Kinson Digital - Scorpion Engine</Product>

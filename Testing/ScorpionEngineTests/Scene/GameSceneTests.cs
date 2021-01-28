@@ -6,6 +6,7 @@ namespace KDScorpionEngineTests.Scene
 {
     using System;
     using KDScorpionEngine;
+    using KDScorpionEngine.Entities;
     using KDScorpionEngine.Graphics;
     using KDScorpionEngine.Scene;
     using KDScorpionEngineTests.Fakes;
@@ -19,11 +20,18 @@ namespace KDScorpionEngineTests.Scene
     /// </summary>
     public class GameSceneTests
     {
+        private const string TextureName = "test-texture";
         private readonly Mock<ITexture> mockTexture;
+        private readonly Mock<ILoader<ITexture>> mockTextureLoader;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GameSceneTests"/> class.
+        /// </summary>
         public GameSceneTests()
         {
             this.mockTexture = new Mock<ITexture>();
+            this.mockTextureLoader = new Mock<ILoader<ITexture>>();
+            this.mockTextureLoader.Setup(m => m.Load(It.IsAny<string>())).Returns(this.mockTexture.Object);
         }
 
         #region Prop Tests
@@ -186,24 +194,6 @@ namespace KDScorpionEngineTests.Scene
         }
 
         [Fact]
-        public void Update_WhenInvoking_InvokesEntityUpdate()
-        {
-            // Arrange
-            var entity = new FakeEntity(this.mockTexture.Object);
-
-            var scene = new FakeGameScene();
-            scene.AddEntity(entity);
-            var expected = true;
-
-            // Act
-            scene.Update(new GameTime());
-            var actual = entity.UpdateInvoked;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
         public void Update_WhenInvokingWithNullTimeManager_DoesNotThrowException()
         {
             // Arrange
@@ -217,36 +207,6 @@ namespace KDScorpionEngineTests.Scene
             {
                 scene.Update(new GameTime());
             });
-        }
-
-        [Fact]
-        public void Render_WhenInvoking_InvokesAllEntityRenderMethods()
-        {
-            // Arrange
-            var mockTexture = new Mock<ITexture>();
-
-            var entityA = new FakeEntity(this.mockTexture.Object)
-            {
-            };
-
-            var entityB = new FakeEntity(this.mockTexture.Object)
-            {
-            };
-
-            var scene = new FakeGameScene();
-            scene.AddEntity(entityA, false);
-            scene.AddEntity(entityB, false);
-
-            var renderer = new Renderer(10, 20);
-
-            var expected = true;
-
-            // Act
-            scene.Render(renderer);
-            var actual = entityA.RenderInvoked && entityB.RenderInvoked;
-
-            // Assert
-            Assert.Equal(expected, actual);
         }
         #endregion
     }

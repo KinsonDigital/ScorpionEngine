@@ -10,8 +10,10 @@ namespace ScorpTestGame.Scenes
     using KDScorpionEngine.Factories;
     using KDScorpionEngine.Graphics;
     using KDScorpionEngine.Scene;
+    using KDScorpTestGame;
     using Raptor.Content;
     using Raptor.Graphics;
+    using Raptor.Input;
 
     /// <summary>
     /// Level 1 scene.
@@ -19,6 +21,10 @@ namespace ScorpTestGame.Scenes
     public class Level1 : GameScene
     {
         private Entity sub;
+        private Entity fish;
+        private IKeyboard keyboard;
+        private KeyboardState currentKeyboardState;
+        private KeyboardState previousKeyboardState;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Level1"/> class.
@@ -33,14 +39,12 @@ namespace ScorpTestGame.Scenes
         /// </summary>
         public override void Initialize()
         {
-            var factory = EntityFactory.CreateFactory();
+            this.sub = new Sub();
+            this.sub.Init();
 
-            this.sub = factory.CreateNonAnimated("Sub-Still");
-
-            //sub = new Entity()
-            //{
-            //    Position = new Vector2(200, 200),
-            //};
+            this.fish = EntityFactory.CreateNonAnimatedFromTextureAtlas("Main-Atlas", "fish");
+            this.fish.Position = new Vector2(200, 550);
+            this.fish.Init();
 
             base.Initialize();
         }
@@ -51,7 +55,8 @@ namespace ScorpTestGame.Scenes
         /// <param name="contentLoader">Loads the content items.</param>
         public override void LoadContent(IContentLoader contentLoader)
         {
-            //sub.Texture = contentLoader.Load<ITexture>("Sub-Still");
+            this.sub.LoadContent(contentLoader);
+            this.fish.LoadContent(contentLoader);
         }
 
         /// <summary>
@@ -60,7 +65,8 @@ namespace ScorpTestGame.Scenes
         /// <param name="gameTime">Updates the scene objects.</param>
         public override void Update(GameTime gameTime)
         {
-            sub.Update(gameTime);
+            this.sub.Update(gameTime);
+            this.fish.Update(gameTime);
         }
 
         /// <summary>
@@ -69,7 +75,8 @@ namespace ScorpTestGame.Scenes
         /// <param name="renderer">Renders the graphics in the scene.</param>
         public override void Render(Renderer renderer)
         {
-            renderer.Render(sub);
+            //renderer.Render(this.sub);
+            renderer.Render(this.fish);
 
             base.Render(renderer);
         }

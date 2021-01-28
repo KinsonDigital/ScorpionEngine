@@ -3,41 +3,33 @@ using System.Collections.Generic;
 using System.Text;
 using KDScorpionEngine.Content;
 using KDScorpionEngine.Entities;
+using KDScorpionEngine.Graphics;
 using Raptor.Content;
+using Raptor.Factories;
 using Raptor.Graphics;
 
 namespace KDScorpionEngine.Factories
 {
-    public class EntityFactory
+    public static class EntityFactory
     {
-        private static EntityFactory Instance = new EntityFactory();
-        private readonly ILoader<AtlasData> atlasDataLoader;
-        private readonly ILoader<ITexture> textureLoader;
+        private static IContentLoader contentLoader;
 
         static EntityFactory()
         {
-            // DO NOT DELETE THIS CONSTRUCTOR!!
-            // This explicit static constructor tells the c# compiler not to mark type as 'beforefieldinit'
-
-            // This singleton pattern came from : https://csharpindepth.com/articles/singleton
+            contentLoader = ContentLoaderFactory.CreateContentLoader();
         }
 
-        private EntityFactory()
+        public static Entity CreateNonAnimatedFromTextureAtlas(string atlasName, string subTextureName)
         {
-            this.atlasDataLoader = IoC.Container.GetInstance<ILoader<AtlasData>>();
-            this.textureLoader = IoC.Container.GetInstance<ILoader<ITexture>>();
+            return new Entity(atlasName, subTextureName);
         }
 
-        public static EntityFactory CreateFactory() => Instance;
-
-        public Entity CreateNonAnimated(string textureName)
+        public static Entity CreateNonAnimatedFromTexture(string name)
         {
-            return new Entity(this.textureLoader, textureName);
+            return new Entity(name, contentLoader.Load<ITexture>(name));
         }
 
-        public Entity CreateAnimated(string textureName)
-        {
-            return new Entity(this.atlasDataLoader, textureName);
-        }
+        public static Entity CreateAnimated(string atlasName, string subTextureName)
+            => new Entity(atlasName, subTextureName, new Animator());
     }
 }

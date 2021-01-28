@@ -22,10 +22,6 @@ namespace KDScorpionEngine
 
             Container.Register(() => FileSystem.File, Lifestyle.Singleton);
             Container.Register(() => FileSystem.Directory, Lifestyle.Singleton);
-            Container.Register<ILoader<AtlasData>, KDScorpionEngine.Content.AtlasDataLoader>(Lifestyle.Singleton);
-            Container.Register<ILoader<ITexture>, TextureLoader>(Lifestyle.Singleton);
-            Container.Register<IContentSource, AtlasContentSource>(Lifestyle.Singleton);
-            Container.Register<IContentSource, AtlasContentSource>(Lifestyle.Singleton);
 
             // TODO: This should have a factory in the Raptor lib called ServicesFactory for getting service instances
             Container.Register<IImageFileService, ImageFileService>(Lifestyle.Singleton);

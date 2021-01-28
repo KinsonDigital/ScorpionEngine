@@ -9,7 +9,7 @@ namespace KDScorpionEngineTests.Entities
     using System.Numerics;
     using KDScorpionEngine;
     using KDScorpionEngine.Behaviors;
-    using KDScorpionEngineTests.Fakes;
+    using KDScorpionEngine.Entities;
     using Moq;
     using Raptor.Content;
     using Raptor.Graphics;
@@ -18,15 +18,17 @@ namespace KDScorpionEngineTests.Entities
     /// <summary>
     /// Unit tests to test the <see cref="KDScorpionEngine.Entities.Entity"/> class.
     /// </summary>
-    public class EntityTests : IDisposable
+    public class EntityTests
     {
-        private Mock<IContentLoader> mockContentLoader;
-        private Mock<ITexture> mockTexture;
+        private const string TextureName = "test-texture";
+        private readonly Mock<ITexture> mockTexture;
+        private readonly Mock<ILoader<ITexture>> mockTextureLoader;
 
         public EntityTests()
         {
-            this.mockContentLoader = new Mock<IContentLoader>();
             this.mockTexture = new Mock<ITexture>();
+            this.mockTextureLoader = new Mock<ILoader<ITexture>>();
+            this.mockTextureLoader.Setup(m => m.Load(It.IsAny<string>())).Returns(this.mockTexture.Object);
         }
 
         #region Prop Tests
@@ -149,7 +151,7 @@ namespace KDScorpionEngineTests.Entities
             var expected = 100;
 
             // Act
-            var actual = entity.BoundsWidth;
+            var actual = entity.TextureBoundsWidth;
 
             // Assert
             Assert.Equal(expected, actual);
@@ -164,7 +166,7 @@ namespace KDScorpionEngineTests.Entities
             var expected = 0;
 
             // Act
-            var actual = entity.BoundsWidth;
+            var actual = entity.TextureBoundsWidth;
 
             // Assert
             Assert.Equal(expected, actual);
@@ -179,7 +181,7 @@ namespace KDScorpionEngineTests.Entities
             var expected = 0;
 
             // Act
-            var actual = entity.BoundsHeight;
+            var actual = entity.TextureBoundsHeight;
 
             // Assert
             Assert.Equal(expected, actual);
@@ -194,7 +196,7 @@ namespace KDScorpionEngineTests.Entities
             var expected = 100;
 
             // Act
-            var actual = entity.BoundsHeight;
+            var actual = entity.TextureBoundsHeight;
 
             // Assert
             Assert.Equal(expected, actual);
@@ -209,7 +211,7 @@ namespace KDScorpionEngineTests.Entities
             var expected = 50;
 
             // Act
-            var actual = entity.BoundsHalfWidth;
+            var actual = entity.TextureBoundsHalfWidth;
 
             // Assert
             Assert.Equal(expected, actual);
@@ -224,7 +226,7 @@ namespace KDScorpionEngineTests.Entities
             var expected = 50f;
 
             // Act
-            var actual = entity.BoundsHalfHeight;
+            var actual = entity.TextureBoundsHalfHeight;
 
             // Assert
             Assert.Equal(expected, actual);
@@ -416,13 +418,7 @@ namespace KDScorpionEngineTests.Entities
         }
         #endregion
 
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            this.mockContentLoader = null;
-        }
-
-        private FakeEntity CreateEntity() => new FakeEntity(this.mockTexture.Object);
+        private Entity CreateEntity() => new Entity("");
 
         private static Texture CreateTexture()
         {

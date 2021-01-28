@@ -9,4 +9,17 @@ namespace KDScorpionEngine.Graphics
         Single,
         Atlas,
     }
+
+    public enum AnimateDirection
+    {
+        Forward,
+        Reverse,
+        None,
+    }
+
+    public enum AnimateState
+    {
+        Playing,
+        Paused,
+    }
 }

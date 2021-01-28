@@ -236,7 +236,7 @@ namespace KDScorpionEngine.Input
                 }
             }
 
-            this.previousKeyboardState = currentKeyboardState;
+            this.previousKeyboardState = this.currentKeyboardState;
 
             this.prevState = this.curState;
         }

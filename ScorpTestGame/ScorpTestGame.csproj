@@ -58,6 +58,12 @@
 
   
   <ItemGroup>
+    <None Update="Content\Atlas\Main-Atlas.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Atlas\Main-Atlas.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Content\Graphics\Sub-Still.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

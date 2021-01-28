@@ -4,8 +4,11 @@ namespace KDScorpionEngine
 {
     public class GameTime
     {
-        private TimeSpan totalGameTime;
+        private readonly TimeSpan totalGameTime;
 
+        /// <summary>
+        /// Gets the amount of time that has passed for the current frame in milliseconds.
+        /// </summary>
         public int CurrentFrameElapsed { get; private set; }
 
         public double TotalGameHours => this.totalGameTime.TotalHours;
@@ -14,6 +17,10 @@ namespace KDScorpionEngine
 
         public double TotalGameMilliseconds => this.totalGameTime.TotalMilliseconds;
 
-        internal void UpdateTotalGameTime(int milliseconds) => totalGameTime.Add(new TimeSpan(0, 0, 0, 0, milliseconds));
+        internal void UpdateTotalGameTime(int milliseconds)
+        {
+            CurrentFrameElapsed = milliseconds;
+            this.totalGameTime.Add(new TimeSpan(0, 0, 0, 0, milliseconds));
+        }
     }
 }

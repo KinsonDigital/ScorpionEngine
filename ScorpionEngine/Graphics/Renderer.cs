@@ -42,7 +42,20 @@ namespace KDScorpionEngine.Graphics
         /// <param name="entity">The entity to render.</param>
         public void Render(Entity entity)
         {
-            this.spriteBatch.Render(entity.Texture, (int)entity.Position.X, (int)entity.Position.Y, Color.White);
+            switch (entity.TypeOfTexture)
+            {
+                case TextureType.Single:
+                    this.spriteBatch.Render(entity.Texture, (int)entity.Position.X, (int)entity.Position.Y, Color.White);
+                    break;
+                case TextureType.Atlas:
+                    var srcRect = new Rectangle((int)entity.TexturePosition.X, (int)entity.TexturePosition.Y, entity.TextureBoundsWidth, entity.TextureBoundsHeight);
+                    var destRect = new Rectangle((int)entity.Position.X, (int)entity.Position.Y, entity.Texture.Width, entity.Texture.Height);
+
+                    this.spriteBatch.Render(entity.Texture, srcRect, destRect, 1, 0, Color.White);
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void Render(ITexture texture)
