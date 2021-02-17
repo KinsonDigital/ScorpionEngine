@@ -6,9 +6,11 @@ namespace KDScorpionEngineTests
 {
     using System;
     using KDScorpionEngine;
+    using KDScorpionEngine.Scene;
     using Moq;
     using Raptor.Content;
     using Raptor.Desktop;
+    using Raptor.Input;
     using Xunit;
 
     /// <summary>
@@ -19,15 +21,23 @@ namespace KDScorpionEngineTests
         private readonly Engine engine;
         private readonly Mock<IContentLoader> mockContentLoader;
         private readonly Mock<IWindow> mockGameWindow;
+        private readonly Mock<IKeyboard> mockKeyBoard;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EngineTests"/> class.
         /// </summary>
         public EngineTests()
         {
-            this.engine = new Engine(10, 20);
             this.mockContentLoader = new Mock<IContentLoader>();
+
             this.mockGameWindow = new Mock<IWindow>();
+            this.mockGameWindow.SetupGet(p => p.ContentLoader).Returns(this.mockContentLoader.Object);
+
+            this.mockKeyBoard = new Mock<IKeyboard>();
+
+            var manager = new SceneManager(this.mockContentLoader.Object, this.mockKeyBoard.Object);
+
+            this.engine = new Engine(this.mockGameWindow.Object, manager);
         }
 
         #region Constructor Tests

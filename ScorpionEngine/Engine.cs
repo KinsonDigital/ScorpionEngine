@@ -24,12 +24,10 @@ namespace KDScorpionEngine
         private readonly ISpriteBatch spriteBatch;
         private static readonly int prevElapsedTime;
 
-        public Engine(IWindow gameWindow, IContentLoader contentLoader, SceneManager sceneManager)
+        public Engine(IWindow gameWindow, SceneManager sceneManager)
         {
-            ContentLoader = contentLoader;
-            SceneManager = sceneManager;
-
             SetupWindow(gameWindow);
+            SceneManager = sceneManager;
         }
 
         /// <summary>
