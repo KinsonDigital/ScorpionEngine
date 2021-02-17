@@ -1,10 +1,14 @@
-﻿using System;
-using KDScorpionEngine.Graphics;
-using Raptor;
-using Raptor.Desktop;
+﻿// <copyright file="GameWindow.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
 
 namespace KDScorpionEngine
 {
+    using System;
+    using KDScorpionEngine.Graphics;
+    using Raptor;
+    using Raptor.Desktop;
+
     public class GameWindow : Window
     {
         private readonly Renderer renderer;

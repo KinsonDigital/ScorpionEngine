@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO.Abstractions;
-using System.Text;
-using KDScorpionEngine.Content;
-using KDScorpionEngine.Entities;
-using Raptor.Content;
-using Raptor.Graphics;
-using Raptor.Services;
-using SimpleInjector;
+﻿// <copyright file="IoC.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
 
 namespace KDScorpionEngine
 {
+    using System;
+    using System.IO.Abstractions;
+    using Raptor.Services;
+    using SimpleInjector;
+
     internal static class IoC
     {
         private static readonly FileSystem FileSystem = new FileSystem();

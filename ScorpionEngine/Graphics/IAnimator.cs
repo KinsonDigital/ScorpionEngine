@@ -4,10 +4,7 @@
 
 namespace KDScorpionEngine.Graphics
 {
-    using System;
-    using System.Collections.Generic;
     using System.Drawing;
-    using System.Text;
 
     public interface IAnimator : IUpdatableObject
     {

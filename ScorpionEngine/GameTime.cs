@@ -1,7 +1,11 @@
-﻿using System;
+﻿// <copyright file="GameTime.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
 
 namespace KDScorpionEngine
 {
+    using System;
+
     public class GameTime
     {
         private readonly TimeSpan totalGameTime;

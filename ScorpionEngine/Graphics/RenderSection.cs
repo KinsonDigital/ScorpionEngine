@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using Raptor.Content;
-using Raptor.Graphics;
+﻿// <copyright file="RenderSection.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
 
 namespace KDScorpionEngine.Graphics
 {
+    using System.Drawing;
+    using System.Numerics;
+    using Raptor.Content;
+
     public class RenderSection
     {
         public string TextureName { get; set; } = string.Empty;

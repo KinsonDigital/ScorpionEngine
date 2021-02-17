@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
-using Raptor.Graphics;
+﻿// <copyright file="Animator.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
 
 namespace KDScorpionEngine.Graphics
 {
+    using System;
+    using System.Drawing;
+
     public class Animator : IAnimator
     {
         private int frameIndex;

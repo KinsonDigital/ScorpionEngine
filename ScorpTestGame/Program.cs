@@ -6,10 +6,6 @@
 namespace ScorpTestGame
 {
     using System;
-    using System.Drawing;
-    using System.IO;
-    using KDScorpionEngine.Content;
-    using Newtonsoft.Json;
 
     public static class Program
     {

@@ -1,17 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using KDScorpionEngine;
-using KDScorpionEngine.Entities;
-using KDScorpionEngine.Graphics;
-using Raptor.Content;
-using Raptor.Graphics;
-using Raptor.Input;
+﻿// <copyright file="Sub.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
 
 namespace KDScorpTestGame
 {
+    using System.Linq;
+    using System.Numerics;
+    using KDScorpionEngine;
+    using KDScorpionEngine.Entities;
+    using KDScorpionEngine.Graphics;
+    using Raptor.Content;
+    using Raptor.Graphics;
+    using Raptor.Input;
+
     public class Sub : Entity
     {
         public IKeyboard keyboard;

@@ -2,10 +2,10 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using System;
-
 namespace KDScorpionEngine.Behaviors
 {
+    using System;
+
     /// <summary>
     /// A simple behavior with an enabled state and name.
     /// </summary>

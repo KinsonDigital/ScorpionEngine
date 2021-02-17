@@ -1,4 +1,4 @@
-﻿// <copyright file="Level1.cs" company="KinsonDigital">
+// <copyright file="Level1.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -12,7 +12,6 @@ namespace ScorpTestGame.Scenes
     using KDScorpionEngine.Scene;
     using KDScorpTestGame;
     using Raptor.Content;
-    using Raptor.Graphics;
     using Raptor.Input;
 
     /// <summary>

@@ -4,7 +4,6 @@
 
 namespace KDScorpionEngine.Graphics
 {
-    using System;
     using System.Drawing;
     using KDScorpionEngine.Entities;
     using Raptor.Factories;

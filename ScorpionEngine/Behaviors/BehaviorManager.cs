@@ -1,10 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Text;
+﻿// <copyright file="BehaviorManager.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
 
 namespace KDScorpionEngine.Behaviors
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     internal static class BehaviorManager
     {
         private static Dictionary<Guid, IBehavior> behaviors = new Dictionary<Guid, IBehavior>();

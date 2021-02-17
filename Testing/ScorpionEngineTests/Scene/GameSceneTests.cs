@@ -6,8 +6,6 @@ namespace KDScorpionEngineTests.Scene
 {
     using System;
     using KDScorpionEngine;
-    using KDScorpionEngine.Entities;
-    using KDScorpionEngine.Graphics;
     using KDScorpionEngine.Scene;
     using KDScorpionEngineTests.Fakes;
     using Moq;
@@ -203,7 +201,7 @@ namespace KDScorpionEngineTests.Scene
             };
 
             // Act/Assert
-            AssertExt.DoesNotThrow<NullReferenceException>(() =>
+            AssertHelpers.DoesNotThrow<NullReferenceException>(() =>
             {
                 scene.Update(new GameTime());
             });
