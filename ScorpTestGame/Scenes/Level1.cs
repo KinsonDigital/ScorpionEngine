@@ -1,4 +1,4 @@
-// <copyright file="Level1.cs" company="KinsonDigital">
+﻿// <copyright file="Level1.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -22,6 +22,7 @@ namespace ScorpTestGame.Scenes
         private IEntity sub;
         private IEntity fish;
         private EntityPool<Bubble> bubblePool;
+        private IEntity enemySub;
         private int bubbleSpawnElapsed;
         private KeyboardState currentKeyboardState;
         private KeyboardState previousKeyboardState;
@@ -41,14 +42,18 @@ namespace ScorpTestGame.Scenes
         {
             this.bubblePool = new EntityPool<Bubble>();
 
-            //this.sub = EntityFactory.CreateAnimated("Main-Atlas", "sub");
-            //this.sub.Position = new Vector2(400, 400);
+            this.sub = EntityFactory.CreateAnimated<Sub>("Main-Atlas", "sub");
+            this.sub.Position = new Vector2(400, 400);
 
-            //this.fish = EntityFactory.CreateNonAnimatedFromTextureAtlas("Main-Atlas", "fish");
-            //this.fish.Position = new Vector2(200, 550);
+            this.fish = EntityFactory.CreateNonAnimatedFromTextureAtlas<Entity>("Main-Atlas", "fish");
+            this.fish.Position = new Vector2(200, 550);
 
-            //Entities.Add(this.sub);
-            //Entities.Add(this.fish);
+            this.enemySub = EntityFactory.CreateNonAnimatedFromTexture<Entity>("Sub-Still");
+            this.enemySub.Position = new Vector2(500, 400);
+
+            Entities.Add(this.sub);
+            Entities.Add(this.fish);
+            Entities.Add(this.enemySub);
 
             base.Initialize();
         }
@@ -74,7 +79,7 @@ namespace ScorpTestGame.Scenes
 
             if (this.bubbleSpawnElapsed >= 1000)
             {
-                this.bubblePool.GenerateNonAnimatedFromTextureAtlas<Bubble>("Main-Atlas", "bubble");
+                this.bubblePool.GenerateNonAnimatedFromTextureAtlas("Main-Atlas", "bubble");
                 this.bubbleSpawnElapsed = 0;
             }
 

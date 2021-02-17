@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Text;
-using KDScorpionEngine;
-using KDScorpionEngine.Entities;
-using KDScorpionEngine.Graphics;
-using Raptor.Content;
-using Raptor.Factories;
-using Raptor.Graphics;
-using ScorpTestGame;
+﻿// <copyright file="Bubble.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
 
 namespace KDScorpTestGame
 {
+    using System;
+    using System.Numerics;
+    using KDScorpionEngine;
+    using KDScorpionEngine.Entities;
+    using KDScorpionEngine.Graphics;
+    using Raptor.Content;
+    using ScorpTestGame;
+
     public class Bubble : Entity
     {
         public Bubble() : base("Main-Atlas", nameof(Bubble).ToLower())
@@ -22,7 +22,9 @@ namespace KDScorpTestGame
         {
             var random = new Random();
 
-            Position = new Vector2(random.Next(0, MainGame.WindowWidth), MainGame.WindowHeight);
+            Position = new Vector2(
+                random.Next(RenderSection.GetTextureHalfWidth(), MainGame.WindowWidth - RenderSection.GetTextureHalfWidth()),
+                MainGame.WindowHeight);
 
             base.Init();
         }
