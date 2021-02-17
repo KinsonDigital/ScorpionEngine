@@ -4,7 +4,6 @@
 
 namespace KDScorpionEngineTests.Fakes
 {
-
     /// <summary>
     /// Provides a fake implementation of the <see cref="IPhysicsBody"/> interface.
     /// </summary>

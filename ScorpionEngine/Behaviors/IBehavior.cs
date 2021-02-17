@@ -2,6 +2,8 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
+using System;
+
 namespace KDScorpionEngine.Behaviors
 {
     /// <summary>
@@ -18,5 +20,7 @@ namespace KDScorpionEngine.Behaviors
         /// Gets or sets the name of the <see cref="IBehavior"/>.
         /// </summary>
         string Name { get; set; }
+
+        Guid ID { get; set; }
     }
 }

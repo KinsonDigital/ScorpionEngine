@@ -5,7 +5,7 @@ using Raptor.Desktop;
 
 namespace KDScorpionEngine
 {
-    internal class GameWindow : Window
+    public class GameWindow : Window
     {
         private readonly Renderer renderer;
         private readonly GameTime gameTime;

@@ -26,7 +26,14 @@ namespace ScorpTestGame
             //Do not set the world in here.  The world has to be set in the OnInit() method so that way
             //the graphics device has been created.  The graphics device will not be created until the
             //engine has started up.
+
+            WindowWidth = base.WindowWidth;
+            WindowHeight = base.WindowHeight;
         }
+
+        public static int WindowWidth { get; private set; }
+
+        public static int WindowHeight { get; private set; }
 
         public override void Init()
         {

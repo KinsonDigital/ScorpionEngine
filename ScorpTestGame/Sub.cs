@@ -25,7 +25,6 @@ namespace KDScorpTestGame
 
         public override void Init()
         {
-            TypeOfTexture = TextureType.Atlas;
             Animator = new Animator();
             Position = new Vector2(400, 400);
             this.keyboard = new Keyboard();

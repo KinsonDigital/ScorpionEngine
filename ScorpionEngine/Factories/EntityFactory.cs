@@ -19,7 +19,7 @@ namespace KDScorpionEngine.Factories
             contentLoader = ContentLoaderFactory.CreateContentLoader();
         }
 
-        public static Entity CreateNonAnimatedFromTextureAtlas(string atlasName, string subTextureName)
+        public static IEntity CreateNonAnimatedFromTextureAtlas(string atlasName, string subTextureName)
         {
             return new Entity(atlasName, subTextureName);
         }

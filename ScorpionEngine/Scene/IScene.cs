@@ -4,6 +4,8 @@
 
 namespace KDScorpionEngine.Scene
 {
+    using System.Collections.Generic;
+    using KDScorpionEngine.Entities;
     using Raptor.Content;
 
     /// <summary>
@@ -40,6 +42,11 @@ namespace KDScorpionEngine.Scene
         /// Gets or sets the ID of the scene.
         /// </summary>
         int Id { get; set; }
+
+        /// <summary>
+        /// The list of entities that are added to the scene.
+        /// </summary>
+        List<IEntity> Entities { get; }
 
         /// <summary>
         /// Initializes the scene.

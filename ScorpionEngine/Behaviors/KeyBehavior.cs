@@ -99,6 +99,7 @@ namespace KDScorpionEngine.Behaviors
         /// name will be 'KeyBehavior'.
         /// </summary>
         public string Name { get; set; } = nameof(KeyBehavior);
+        public Guid ID { get; set; }
 
         /// <summary>
         /// Updates the key behavior.

@@ -4,12 +4,6 @@ using System.Text;
 
 namespace KDScorpionEngine.Graphics
 {
-    public enum TextureType
-    {
-        Single,
-        Atlas,
-    }
-
     public enum AnimateDirection
     {
         Forward,

@@ -10,6 +10,7 @@ namespace KDScorpionEngine
     using KDScorpionEngine.Graphics;
     using KDScorpionEngine.Scene;
     using Raptor.Content;
+    using Raptor.Desktop;
     using Raptor.Factories;
     using Raptor.Graphics;
     using Raptor.Input;
@@ -23,6 +24,14 @@ namespace KDScorpionEngine
         private readonly ISpriteBatch spriteBatch;
         private static readonly int prevElapsedTime;
 
+        public Engine(IWindow gameWindow, IContentLoader contentLoader, SceneManager sceneManager)
+        {
+            ContentLoader = contentLoader;
+            SceneManager = sceneManager;
+
+            SetupWindow(gameWindow);
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Engine"/> class.
         /// </summary>
@@ -31,16 +40,20 @@ namespace KDScorpionEngine
         {
             IoC.Init();
 
-            ContentLoader = ContentLoaderFactory.CreateContentLoader();
-            SceneManager = new SceneManager(ContentLoader, new Keyboard());
+            SceneManager = new SceneManager(ContentLoaderFactory.CreateContentLoader(), new Keyboard());
 
-            SetupWindow(windowWidth, windowHeight);
+            SetupWindow(WindowFactory.CreateWindow(windowWidth, windowHeight));
         }
 
         /// <summary>
         /// Gets the FPS that the engine is currently running at.
         /// </summary>
         public static float CurrentFPS { get; internal set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating if the engine is running or paused.
+        /// </summary>
+        public bool IsRunning { get; private set; } = false;
 
         /// <summary>
         /// Gets or sets the width of the game window.
@@ -68,14 +81,29 @@ namespace KDScorpionEngine
         /// <summary>
         /// Gets the <see cref="ContentLoader"/> used to load and unload the games content.
         /// </summary>
-        public IContentLoader ContentLoader { get; private set; }
+        public IContentLoader ContentLoader
+        {
+            get => this.gameWindow.ContentLoader;
+            private set => this.gameWindow.ContentLoader = value;
+        }
 
         public Task RunAsync()
         {
+            IsRunning = true;
             return this.gameWindow.ShowAsync(() =>
             {
                 this.gameWindow.Dispose();
             });
+        }
+
+        public void Play()
+        {
+            IsRunning = true;
+        }
+
+        public void Pause()
+        {
+            IsRunning = false;
         }
 
         /// <summary>
@@ -102,6 +130,11 @@ namespace KDScorpionEngine
                 if (scene.Active)
                 {
                     scene.LoadContent(contentLoader);
+
+                    foreach (var entity in scene.Entities)
+                    {
+                        entity.LoadContent(contentLoader);
+                    }
                 }
             }
         }
@@ -110,7 +143,16 @@ namespace KDScorpionEngine
         /// Updates the game world.
         /// </summary>
         /// <param name="gameTime">The game engine time.</param>
-        public virtual void Update(GameTime gameTime) => SceneManager.Update(gameTime);
+        public virtual void Update(GameTime gameTime)
+        {
+            if (!IsRunning)
+            {
+                return;
+            }
+
+            CurrentFPS = 1000f / gameTime.CurrentFrameElapsed;
+            SceneManager.Update(gameTime);
+        }
 
         /// <summary>
         /// Draws the game world.
@@ -135,8 +177,9 @@ namespace KDScorpionEngine
         /// <summary>
         /// Sets up the window.
         /// </summary>
-        private void SetupWindow(int windowWidth, int windowHeight)
-            => this.gameWindow = new GameWindow(WindowFactory.CreateWindow(windowWidth, windowHeight))
+        /// <param name="raptorWindow">The Raptor window object.</param>
+        private void SetupWindow(IWindow raptorWindow)
+            => this.gameWindow = new GameWindow(raptorWindow)
             {
                 InitAction = InitAction,
                 LoadAction = LoadAction,

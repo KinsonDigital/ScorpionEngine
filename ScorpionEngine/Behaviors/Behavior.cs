@@ -22,6 +22,7 @@ namespace KDScorpionEngine.Behaviors
         /// Enables or disables the <see cref="Behavior"/>.  Default value is true.
         /// </summary>
         public bool Enabled { get; set; } = true;
+        public Guid ID { get; set; }
 
         /// <summary>
         /// Updates the behavior set by the <see cref="SetUpdateAction(Action{GameTime})"/> method.

@@ -40,5 +40,11 @@
     "Bounds": "0, 51, 64, 31",
     "FrameIndex": -1,
     "Name": "fish"
+  },
+  {
+    "$type": "Raptor.Graphics.AtlasSpriteData, Raptor",
+    "Bounds": "65, 51, 27, 27",
+    "FrameIndex": -1,
+    "Name": "bubble"
   }
 ]

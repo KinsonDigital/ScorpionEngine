@@ -4,15 +4,14 @@
 
 namespace KDScorpionEngine.Entities
 {
+    // TODO: Move comment code to the IEntity interface
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Drawing;
     using System.Linq;
     using System.Numerics;
     using KDScorpionEngine.Behaviors;
-    using KDScorpionEngine.Content;
+    using KDScorpionEngine.Exceptions;
     using KDScorpionEngine.Graphics;
-    using Raptor;
     using Raptor.Content;
     using Raptor.Graphics;
     using Raptor.Input;
@@ -20,45 +19,27 @@ namespace KDScorpionEngine.Entities
     /// <summary>
     /// Represents a base entity that all entities inherit from.
     /// </summary>
-    public class Entity : IUpdatableObject, IContentLoadable, ICanInitialize
+    public class Entity : IEntity
     {
-        private readonly string? atlasName;
         private ITexture? singleTexture;
         private bool visible = true;
+        private bool isRecycled;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Entity"/> class.
-        /// </summary>
-        /// <param name="atlasName">The name of the texture atlas that contains the sub texture.</param>
-        /// <param name="subTextureName">The sub texture in a texture atlas.</param>
-        /// <remarks>This will create a non animating entity.</remarks>
-        internal Entity(string atlasName, string subTextureName)
+        public Entity()
         {
-            this.atlasName = atlasName;
-            Name = subTextureName;
-            TypeOfTexture = TextureType.Atlas;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Entity"/> class.
-        /// </summary>
-        /// <param name="atlasName"></param>
-        /// <param name="subTextureName"></param>
-        /// <param name="animator"></param>
-        /// /// <remarks>Creates an animating type entity.</remarks>
-        internal Entity(string atlasName, string subTextureName, IAnimator animator)
-        {
-            this.atlasName = atlasName;
-            Name = subTextureName;
-            Animator = animator;
-            TypeOfTexture = TextureType.Atlas;
+            ID = Guid.NewGuid();
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Entity"/> class.
         /// </summary>
         /// <param name="name">The name of the entity.</param>
-        public Entity(string name) => Name = name;
+        public Entity(string name)
+        {
+            ID = Guid.NewGuid();
+            RenderSection.TextureName = name;
+            RenderSection.TypeOfTexture = TextureType.WholeTexture;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Entity"/> class.
@@ -70,26 +51,30 @@ namespace KDScorpionEngine.Entities
         /// <remarks>Creates an animated type entity.</remarks>
         public Entity(string atlasName, string subTextureName, IAtlasData atlasData, IAnimator animator)
         {
-            this.atlasName = atlasName;
-            Name = subTextureName;
+            ID = Guid.NewGuid();
             AtlasData = atlasData;
             Animator = animator;
-            TypeOfTexture = TextureType.Atlas;
-            ContentLoaded = true;
+            RenderSection.TextureName = atlasName;
+            RenderSection.SubTextureName = subTextureName;
+            RenderSection.IsAnimated = true;
+            RenderSection.TypeOfTexture = TextureType.SubTexture;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Entity"/> class.
         /// </summary>
-        /// <param name="atlasData">The texture atlas data.</param>
         /// <param name="atlasName">The name of the texture atlas that contains the sub texture.</param>
+        /// <param name="subTextureName">The name of the sub texture contained in the atlas texture.</param>
+        /// <param name="atlasData">The texture atlas data.</param>
         /// <remarks>Creates a non-animating <see cref="Entity"/>.</remarks>
-        public Entity(IAtlasData atlasData, string atlasName)
+        public Entity(string atlasName, string subTextureName, IAtlasData atlasData)
         {
+            ID = Guid.NewGuid();
             AtlasData = atlasData;
-            Name = atlasName;
-            TypeOfTexture = TextureType.Atlas;
-            ContentLoaded = true;
+            RenderSection.TextureName = atlasName;
+            RenderSection.SubTextureName = subTextureName;
+            RenderSection.IsAnimated = false;
+            RenderSection.TypeOfTexture = TextureType.SubTexture;
         }
 
         /// <summary>
@@ -101,9 +86,48 @@ namespace KDScorpionEngine.Entities
         public Entity(string textureName, ITexture texture)
         {
             this.singleTexture = texture;
-            Name = textureName;
-            TypeOfTexture = TextureType.Single;
-            ContentLoaded = true;
+
+            ID = Guid.NewGuid();
+            RenderSection.TextureName = textureName;
+            RenderSection.IsAnimated = false;
+            RenderSection.TypeOfTexture = TextureType.WholeTexture;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Entity"/> class.
+        /// </summary>
+        /// <param name="atlasName">The name of the texture atlas that contains the sub texture.</param>
+        /// <param name="subTextureName">The sub texture in a texture atlas.</param>
+        /// <remarks>
+        ///     This will create a non animating entity and is used by the factories.
+        /// </remarks>
+        public Entity(string atlasName, string subTextureName)
+        {
+            ID = Guid.NewGuid();
+
+            RenderSection.TextureName = atlasName;
+            RenderSection.SubTextureName = subTextureName;
+            RenderSection.IsAnimated = false;
+            RenderSection.TypeOfTexture = TextureType.SubTexture;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Entity"/> class.
+        /// </summary>
+        /// <param name="atlasName">The name of the texture atlas that contains the sub texture.</param>
+        /// <param name="subTextureName">The sub texture in a texture atlas.</param>
+        /// <param name="animator">Manages the animation.</param>
+        /// <remarks>
+        ///     Creates an animating type entity and is used by the factories.
+        /// </remarks>
+        public Entity(string atlasName, string subTextureName, IAnimator animator)
+        {
+            ID = Guid.NewGuid();
+            RenderSection.TextureName = atlasName;
+            RenderSection.SubTextureName = subTextureName;
+            Animator = animator;
+            RenderSection.IsAnimated = true;
+            RenderSection.TypeOfTexture = TextureType.SubTexture;
         }
 
         /// <summary>
@@ -129,7 +153,9 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// Gets the name of the entity.
         /// </summary>
-        public string Name { get; }
+        public string Name => RenderSection.IsAnimated ? RenderSection.SubTextureName : RenderSection.TextureName;
+
+        public Guid ID { get; }
 
         /// <summary>
         /// Gets or sets the animator.
@@ -166,123 +192,31 @@ namespace KDScorpionEngine.Entities
         }
 
         /// <summary>
-        /// Gets the rectangular bounds of the <see cref="Entity"/>.
-        /// </summary>
-        public Rectangle Bounds => new Rectangle((int)Position.X, (int)Position.Y, (int)TextureBoundsWidth, (int)TextureBoundsHeight);
-
-        /// <summary>
         /// Gets or sets the position of the <see cref="Entity"/> in the game world in pixel units.
         /// </summary>
         public Vector2 Position { get; set; }
 
         /// <summary>
-        /// Gets or sets the vertices that make up the physical shape of the <see cref="Entity"/>.
-        /// Cannot change the vertices if the <see cref="Entity"/> has already been initialized.
+        /// Gets or sets the angle of the entity.
         /// </summary>
-        /// <exception cref="Exception">Thrown when the vertices are trying to be set when the
-        /// <see cref="Entity"/> has already been initialized.</exception>
-        public Vector2[] Vertices { get; set; }
+        public float Angle { get; set; }
 
         /// <summary>
-        /// Gets or sets the type texture.
+        /// Gets or sets the section of the texture to render.
         /// </summary>
-        public TextureType TypeOfTexture { get; set; } = TextureType.Single;
-
-        /// <summary>
-        /// Gets the position of the texture to render.
-        /// </summary>
-        public Vector2 TexturePosition
-        {
-            get
-            {
-                // TODO: This is proof of concept.  This needs to be improved for use and pref
-                // It is not ideal to do a LINQ query every single frame for an atlas for non animated texture
-
-                if (IsAnimated())
-                {
-                    return new Vector2(Animator.CurrentFrameBounds.X, Animator.CurrentFrameBounds.Y);
-                }
-                else
-                {
-                    if (NotAnimatedWithAtlasTexture())
-                    {
-                        if (AtlasData is null)
-                        {
-                            throw new Exception("The AtlasData cannot be null");
-                        }
-
-                        var singleFrame = AtlasData.GetFrames(Name).Select(f => f.Bounds).SingleOrDefault();
-
-                        // TODO: create extension helper method that converts a rectangle to a Vector2
-                        return new Vector2(singleFrame.X, singleFrame.Y);
-                    }
-                    else if (NotAnimatedWithSingleTexture())
-                    {
-                        return Vector2.Zero;
-                    }
-                }
-
-                return Vector2.Zero;
-            }
-        }
-
-        /// <summary>
-        /// Gets the width of the entity bounds.
-        /// </summary>
-        public int TextureBoundsWidth
-        {
-            get
-            {
-                if (IsAnimated())
-                {
-                    return Animator is null ? 0 : Animator.CurrentFrameBounds.Width;
-                }
-                else if (NotAnimatedWithAtlasTexture())
-                {
-                    var singleFrame = AtlasData.GetFrames(Name).Select(f => f.Bounds).SingleOrDefault();
-
-                    return singleFrame.Width;
-                }
-                else
-                {
-                    return Texture.Width;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets the height of the entity bounds.
-        /// </summary>
-        public int TextureBoundsHeight
-        {
-            get
-            {
-                if (IsAnimated())
-                {
-                    return Animator is null ? 0 : Animator.CurrentFrameBounds.Height;
-                }
-                else if (NotAnimatedWithAtlasTexture())
-                {
-                    var singleFrame = AtlasData.GetFrames(Name).Select(f => f.Bounds).SingleOrDefault();
-
-                    return singleFrame.Height;
-                }
-                else
-                {
-                    return Texture.Height;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets the half width of the <see cref="Entity"/> bounds.
-        /// </summary>
-        public int TextureBoundsHalfWidth => TextureBoundsWidth / 2;
-
-        /// <summary>
-        /// Gets the half height of the <see cref="Entity"/> bounds.
-        /// </summary>
-        public int TextureBoundsHalfHeight => TextureBoundsHeight / 2;
+        /// <remarks>
+        /// <para>
+        ///     If the <see cref="RenderSection.TypeOfTexture"/> is set to <see cref="TextureType.WholeTexture"/>,
+        ///     then the entire texture will be rendered.
+        /// </para>
+        ///
+        /// <param>
+        ///     If the <see cref="RenderSection.TypeOfTexture"/> is set to <see cref="TextureType.SubTexture"/>,
+        ///     then only a defined area of the texture will be rendered.  This is common for texture atlases
+        ///     and could be a particular section for an animation or just a static section for a noon-animating entity.
+        /// </param>
+        /// </remarks>
+        public RenderSection RenderSection { get; set; } = new RenderSection();
 
         /// <summary>
         /// Gets or sets the texture of the <see cref="Entity"/>.
@@ -291,44 +225,52 @@ namespace KDScorpionEngine.Entities
         {
             get
             {
-                switch (TypeOfTexture)
+                switch (RenderSection.TypeOfTexture)
                 {
-                    case TextureType.Single:
+                    case TextureType.WholeTexture:
                         return this.singleTexture;
-                    case TextureType.Atlas:
+                    case TextureType.SubTexture:
                         return AtlasData?.Texture;
                     default:
-                        throw new Exception($"Uknown '{nameof(TextureType)}' value of '{TypeOfTexture}'");
+                        throw new TextureTypeException($"Unknown '{nameof(TextureType)}' value of '{RenderSection.TypeOfTexture}'.");
                 }
             }
             set
             {
-                switch (TypeOfTexture)
+                switch (RenderSection.TypeOfTexture)
                 {
-                    case TextureType.Single:
+                    case TextureType.WholeTexture:
                         this.singleTexture = value;
                         break;
-                    case TextureType.Atlas:
+                    case TextureType.SubTexture:
                         if (AtlasData is null)
                         {
-                            throw new Exception("The atlas data must not be null setting the texture for an atlas texture type.");
+                            throw new InvalidOperationException("The atlas data must not be null when setting the texture for sub texture type.");
                         }
 
-                        throw new Exception("Cannot set AtlasData.Texture property until Raptor library is updated. (v0.23.0)");
+                        if (value is null)
+                        {
+                            throw new InvalidOperationException("The texture atlas must not be null.");
+                        }
+
+                        AtlasData.Texture = value;
                         break;
                     default:
-                        break;
+                        throw new TextureTypeException($"Unknown '{nameof(TextureType)}' value of '{RenderSection.TypeOfTexture}'.");
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the texture atlas.
+        /// </summary>
         public IAtlasData? AtlasData { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the debug draw outlines should be rendered.
         /// </summary>
         /// <remarks>Set to true by default for game development purposes.</remarks>
-        public bool DebugDrawEnabled { get; set; } = true;
+        public bool DebugDrawEnabled { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether the entities content has been loaded.
@@ -340,33 +282,62 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         public Color DebugDrawColor { get; set; } = Color.White;
 
-        public virtual void Init()
+        public bool IsRecycled
         {
+            get => this.isRecycled;
+            set
+            {
+                this.isRecycled = value;
 
+                if (this.isRecycled)
+                {
+                    Recycle();
+                }
+            }
         }
 
-        /// <summary>
-        /// Loads the entities content.
-        /// </summary>
-        /// <param name="contentLoader">The content loader that will be loading the content.</param>
+        /// <inheritdoc/>
+        public virtual void Init()
+        {
+        }
+
+        /// <inheritdoc/>
         public virtual void LoadContent(IContentLoader contentLoader)
         {
+            if (contentLoader is null)
+            {
+                throw new ArgumentNullException(nameof(contentLoader), "The parameter must not be null.");
+            }
+
             if (ContentLoaded)
             {
                 return;
             }
 
-            switch (TypeOfTexture)
+            switch (RenderSection.TypeOfTexture)
             {
-                case TextureType.Single:
-                    this.singleTexture = contentLoader.Load<ITexture>(Name);
-                    break;
-                case TextureType.Atlas:
-                    AtlasData = contentLoader.Load<IAtlasData>(this.atlasName);
+                case TextureType.WholeTexture:
+                    if (this.singleTexture is null)
+                    {
+                        this.singleTexture = contentLoader.Load<ITexture>(RenderSection.TextureName);
+                    }
 
-                    if (!(Animator is null) && !(AtlasData is null))
+                    RenderSection.RenderBounds = new Rectangle(0, 0, this.singleTexture.Width, this.singleTexture.Height);
+                    break;
+                case TextureType.SubTexture:
+                    if (AtlasData is null)
+                    {
+                        AtlasData = contentLoader.Load<IAtlasData>(RenderSection.TextureName);
+                    }
+
+                    if (RenderSection.IsAnimated && !(Animator is null))
                     {
                         Animator.Frames = AtlasData.GetFrames(Name).Select(f => f.Bounds).ToArray();
+                    }
+                    else
+                    {
+                        // Single non animated section of the atlas
+                        RenderSection.RenderBounds = AtlasData.GetFrames(RenderSection.SubTextureName).Select(f => f.Bounds).SingleOrDefault();
                     }
 
                     break;
@@ -377,6 +348,13 @@ namespace KDScorpionEngine.Entities
             ContentLoaded = true;
         }
 
+        /// <inheritdoc/>
+        public virtual void UnloadContent(IContentLoader contentLoader)
+        {
+            AtlasData = null;
+            this.singleTexture = null;
+        }
+
         /// <summary>
         /// Updates the <see cref="Entity"/>.
         /// </summary>
@@ -385,23 +363,16 @@ namespace KDScorpionEngine.Entities
         {
             Behaviors.ToList().ForEach(b => b.Update(gameTime));
             Animator?.Update(gameTime);
+
+            if (RenderSection.TypeOfTexture == TextureType.SubTexture && RenderSection.IsAnimated && !(Animator is null))
+            {
+                RenderSection.RenderBounds = Animator.CurrentFrameBounds;
+            }
         }
 
-        /// <summary>
-        /// Renders the <see cref="Entity"/> to the graphics surface.
-        /// </summary>
-        /// <param name="renderer">The renderer that renders the <see cref="Entity"/>.</param>
-        [ExcludeFromCodeCoverage]
-        public virtual void Render(Renderer renderer)
+        public virtual void Recycle()
         {
+            IsRecycled = true;
         }
-
-        private bool IsAnimated() => !(Animator is null) && TypeOfTexture == TextureType.Atlas;
-
-        private bool NotAnimatedWithSingleTexture()
-            => TypeOfTexture == TextureType.Atlas && Animator is null && !(this.singleTexture is null) && AtlasData is null;
-
-        private bool NotAnimatedWithAtlasTexture()
-            => TypeOfTexture == TextureType.Atlas && Animator is null && this.singleTexture is null && !(AtlasData is null);
     }
 }

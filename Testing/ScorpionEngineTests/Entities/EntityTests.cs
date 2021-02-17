@@ -10,6 +10,7 @@ namespace KDScorpionEngineTests.Entities
     using KDScorpionEngine;
     using KDScorpionEngine.Behaviors;
     using KDScorpionEngine.Entities;
+    using KDScorpionEngine.Exceptions;
     using Moq;
     using Raptor.Content;
     using Raptor.Graphics;
@@ -21,28 +22,61 @@ namespace KDScorpionEngineTests.Entities
     public class EntityTests
     {
         private const string TextureName = "test-texture";
-        private readonly Mock<ITexture> mockTexture;
+        private const string TextureAtlasName = "test-atlas-texture";
+        private const string TextureAtlasPath = @"C:\temp\test-atlas-texture";
+        private readonly Mock<ITexture> mockWholeTexture;
+        private readonly Mock<ITexture> mockTextureAtlas;
+        private readonly Mock<IContentLoader> mockContentLoader;
         private readonly Mock<ILoader<ITexture>> mockTextureLoader;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EntityTests"/> class.
+        /// </summary>
         public EntityTests()
         {
-            this.mockTexture = new Mock<ITexture>();
+            this.mockWholeTexture = new Mock<ITexture>();
+            this.mockTextureAtlas = new Mock<ITexture>();
+
+            this.mockContentLoader = new Mock<IContentLoader>();
+            this.mockContentLoader.Setup(m => m.Load<ITexture>(TextureName)).Returns(this.mockWholeTexture.Object);
+            this.mockContentLoader.Setup(m => m.Load<ITexture>(TextureAtlasName)).Returns(this.mockTextureAtlas.Object);
+
             this.mockTextureLoader = new Mock<ILoader<ITexture>>();
-            this.mockTextureLoader.Setup(m => m.Load(It.IsAny<string>())).Returns(this.mockTexture.Object);
+            this.mockTextureLoader.Setup(m => m.Load(It.IsAny<string>())).Returns(this.mockWholeTexture.Object);
         }
+
+        #region Ctor Tests
+        [Fact]
+        public void Ctor_WhenCreatomg_RenderSectionIsNotNull()
+        {
+            // Arrang & Act
+            var entity = CreateEntity();
+
+            // Assert
+            Assert.NotNull(entity.RenderSection);
+        }
+
+        [Fact]
+        public void Ctor_WhenOnlyUsingName_ProperlySetsUpObjectState()
+        {
+            // Arrang & Act
+            var entity = new Entity("test-entity");
+
+            // Assert
+            Assert.Equal("test-entity", entity.RenderSection.TextureName);
+            Assert.Equal(TextureType.WholeTexture, entity.RenderSection.TypeOfTexture);
+        }
+        #endregion
 
         #region Prop Tests
         [Fact]
         public void Behaviors_WhenCreatingEntity_PropertyInstantiated()
         {
             // Arrange
-            var entity = CreateEntity();;
+            var entity = CreateEntity();
 
-            // Act
-            var actual = entity.Behaviors;
-
-            // Assert
-            Assert.NotNull(actual);
+            // Act & Assert
+            Assert.NotNull(entity.Behaviors);
         }
 
         [Fact]
@@ -65,7 +99,7 @@ namespace KDScorpionEngineTests.Entities
         public void Visible_WhenSettingValue_InvokesOnHideEvent()
         {
             // Arrange
-            var entity = CreateEntity();;
+            var entity = CreateEntity();
             var eventRaised = false;
             entity.OnHide += (sender, e) => { eventRaised = true; };
 
@@ -128,118 +162,13 @@ namespace KDScorpionEngineTests.Entities
         }
 
         [Fact]
-        public void Bounds_WhenGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            var entity = CreateEntity();;
-
-            var expected = new Rectangle(0, 0, 100, 100);
-
-            // Act
-            var actual = entity.Bounds;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void BoundsWidth_WhenGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            var entity = CreateEntity();;
-
-            var expected = 100;
-
-            // Act
-            var actual = entity.TextureBoundsWidth;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        // [Fact]
-        public void BoundsWidth_WhenGettingValueWithNullBody_ReturnsZero()
-        {
-            // Arrange
-            var entity = CreateEntity();;
-
-            var expected = 0;
-
-            // Act
-            var actual = entity.TextureBoundsWidth;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        // [Fact]
-        public void BoundsHeight_WhenGettingValueWithNullBody_ReturnsZero()
-        {
-            // Arrange
-            var entity = CreateEntity();;
-
-            var expected = 0;
-
-            // Act
-            var actual = entity.TextureBoundsHeight;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void BoundsHeight_WhenGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            var entity = CreateEntity();;
-
-            var expected = 100;
-
-            // Act
-            var actual = entity.TextureBoundsHeight;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void BoundsHalfWidth_WhenGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            var entity = CreateEntity();;
-
-            var expected = 50;
-
-            // Act
-            var actual = entity.TextureBoundsHalfWidth;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void BoundsHalfHeight_WhenGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            var entity = CreateEntity();;
-
-            var expected = 50f;
-
-            // Act
-            var actual = entity.TextureBoundsHalfHeight;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
         public void DebugDrawEnabled_WhenGettingDefaultValue_ReturnsTrue()
         {
             // Arrange
-            var entity = CreateEntity();;
+            var entity = CreateEntity();
 
             // Act & Assert
-            Assert.True(entity.DebugDrawEnabled);
+            Assert.False(entity.DebugDrawEnabled);
         }
 
         [Fact]
@@ -271,7 +200,7 @@ namespace KDScorpionEngineTests.Entities
             // Arrange
             var mockBehavior = new Mock<IBehavior>();
 
-            var entity = CreateEntity();;
+            var entity = CreateEntity();
             var expected = new EntityBehaviors
             {
                 mockBehavior.Object,
@@ -289,7 +218,7 @@ namespace KDScorpionEngineTests.Entities
         public void Position_WhenSettingValueAfterInitalized_ReturnsCorrectValue()
         {
             // Arrange
-            var entity = CreateEntity();;
+            var entity = CreateEntity();
 
             var expected = new Vector2(123, 456);
 
@@ -305,7 +234,7 @@ namespace KDScorpionEngineTests.Entities
         public void Position_WhenSettingValueBeforeInitialized_ReturnsCorrectValue()
         {
             // Arrange
-            var entity = CreateEntity();;
+            var entity = CreateEntity();
             var expected = new Vector2(123, 456);
 
             // Act
@@ -317,70 +246,179 @@ namespace KDScorpionEngineTests.Entities
         }
 
         [Fact]
-        public void Vertices_WhenGettingAndSettingValue_ReturnsCorrectValue()
+        public void Angle_WhenSettingValue_ReturnsCorrectValue()
         {
             // Arrange
             var entity = CreateEntity();
-            var expected = new Vector2[]
-            {
-                new Vector2(11, 22),
-                new Vector2(33, 44),
-                new Vector2(55, 66),
-            };
 
             // Act
-            entity.Vertices = expected;
-            var actual = entity.Vertices;
+            entity.Angle = 45f;
 
             // Assert
-            Assert.Equal(expected, actual);
+            Assert.Equal(45f, entity.Angle);
         }
 
         [Fact]
-        public void Vertices_WhenGettingValueBeforeInit_ReturnsCorrectValue()
+        public void Texture_WhenUsingWholeTexture_ReturnsCorrectTexture()
         {
-            // Arrange
-            var vertices = new Vector2[]
-            {
-                new Vector2(11, 22),
-                new Vector2(33, 44),
-                new Vector2(55, 66),
-            };
-
+            // Arange
             var entity = CreateEntity();
-            var expected = new Vector2[]
-            {
-                new Vector2(11, 22),
-                new Vector2(33, 44),
-                new Vector2(55, 66),
-            };
+            entity.RenderSection.TextureName = TextureName;
 
             // Act
-            var actual = entity.Vertices;
+            entity.LoadContent(this.mockContentLoader.Object);
 
             // Assert
-            Assert.Equal(expected, actual);
+            Assert.Same(entity.Texture, this.mockWholeTexture.Object);
         }
 
         [Fact]
-        public void Vertices_WhenGettingValueBeforeAfterInit_ReturnsCorrectValue()
+        public void Texture_WhenUsingSubTexture_ReturnsCorrectTexture()
+        {
+            // Arange
+            var entity = CreateEntity();
+            entity.RenderSection.TextureName = TextureAtlasName;
+            entity.RenderSection.TypeOfTexture = TextureType.SubTexture;
+
+            var subTextureData = new[]
+            {
+                new AtlasSubTextureData()
+                {
+                    Name = "sub-texture",
+                    Bounds = new Rectangle(10, 20, 30, 40),
+                    FrameIndex = -1,
+                }
+            };
+
+            entity.AtlasData = new AtlasData(subTextureData, this.mockTextureAtlas.Object, TextureAtlasName, TextureAtlasPath);
+
+            // Act
+            entity.LoadContent(this.mockContentLoader.Object);
+
+            // Assert
+            Assert.Same(entity.Texture, this.mockTextureAtlas.Object);
+        }
+
+        [Fact]
+        public void Texture_WhenSettingValueAsWholeTextureType_ReturnsCorrectTexture()
         {
             // Arrange
             var entity = CreateEntity();
+            entity.RenderSection.TypeOfTexture = TextureType.WholeTexture;
 
-            var expected = new Vector2[]
+            var subTextureData = new[]
             {
-                new Vector2(-50, -50),
-                new Vector2(50, -50),
-                new Vector2(50, 50),
-                new Vector2(-50, 50),
+                new AtlasSubTextureData()
+                {
+                    Name = "sub-texture",
+                    Bounds = new Rectangle(10, 20, 30, 40),
+                    FrameIndex = -1,
+                }
             };
 
+            entity.AtlasData = new AtlasData(subTextureData, this.mockTextureAtlas.Object, TextureAtlasName, TextureAtlasPath);
+
             // Act
-            var actual = entity.Vertices;
+            entity.Texture = this.mockWholeTexture.Object;
 
             // Assert
-            Assert.Equal(expected, actual);
+            Assert.Same(entity.Texture, this.mockWholeTexture.Object);
+            Assert.NotSame(entity.AtlasData.Texture, this.mockWholeTexture.Object);
+        }
+
+        [Fact]
+        public void Texture_WhenTextureTypeIsUnknown_ThrowsExcetion()
+        {
+            // Arrange
+            var entity = CreateEntity();
+            entity.RenderSection.TypeOfTexture = (TextureType)44;
+
+            // Act & Assert
+            AssertHelpers.ThrowsWithMessage<TextureTypeException>(() =>
+            {
+                _ = entity.Texture;
+            }, $"Unknown '{nameof(TextureType)}' value of '44'.");
+        }
+
+        [Fact]
+        public void Texture_WhenAtlasDataIsNotSetup_ThrowsException()
+        {
+            // Arrange
+            var entity = CreateEntity();
+            entity.RenderSection.TypeOfTexture = TextureType.SubTexture;
+
+            // Act & Assert
+            AssertHelpers.ThrowsWithMessage<InvalidOperationException>(() =>
+            {
+                entity.Texture = new Mock<ITexture>().Object;
+            }, "The atlas data must not be null when setting the texture for sub texture type.");
+        }
+
+        [Fact]
+        public void Texture_WhenAtlasTextureIsNull_ThrowsException()
+        {
+            // Arrange
+            var entity = CreateEntity();
+            entity.RenderSection.TypeOfTexture = TextureType.SubTexture;
+            var subTextureData = new[]
+{
+                new AtlasSubTextureData()
+                {
+                    Name = "sub-texture",
+                    Bounds = new Rectangle(10, 20, 30, 40),
+                    FrameIndex = -1,
+                }
+            };
+
+            entity.AtlasData = new AtlasData(subTextureData, this.mockTextureAtlas.Object, TextureAtlasName, TextureAtlasPath);
+
+            // Act & Assert
+            AssertHelpers.ThrowsWithMessage<InvalidOperationException>(() =>
+            {
+                entity.Texture = null;
+            }, "The texture atlas must not be null.");
+        }
+
+        [Fact]
+        public void Texture_WhenSettingValueAsSubTextureType_ReturnsCorrectValue()
+        {
+            // Arrange
+            var entity = CreateEntity();
+            entity.RenderSection.TypeOfTexture = TextureType.SubTexture;
+
+            var otherAtlasTexture = new Mock<ITexture>();
+
+            var subTextureData = new[]
+            {
+                new AtlasSubTextureData()
+                {
+                    Name = "sub-texture",
+                    Bounds = new Rectangle(10, 20, 30, 40),
+                    FrameIndex = -1,
+                }
+            };
+
+            entity.AtlasData = new AtlasData(subTextureData, this.mockTextureAtlas.Object, TextureAtlasName, TextureAtlasPath);
+
+            // Act
+            entity.Texture = otherAtlasTexture.Object;
+
+            // Assert
+            Assert.Same(entity.AtlasData.Texture, otherAtlasTexture.Object);
+        }
+
+        [Fact]
+        public void Texture_WithInvalidTextureType_ThrowsException()
+        {
+            // Arrange
+            var entity = CreateEntity();
+            entity.RenderSection.TypeOfTexture = (TextureType)33;
+
+            // Act & Assert
+            AssertHelpers.ThrowsWithMessage<TextureTypeException>(() =>
+            {
+                entity.Texture = new Mock<ITexture>().Object;
+            }, $"Unknown '{nameof(TextureType)}' value of '33'.");
         }
         #endregion
 
@@ -403,22 +441,38 @@ namespace KDScorpionEngineTests.Entities
         }
 
         [Fact]
+        public void LoadContent_WithNullContentLoader_ThrowsException()
+        {
+            // Arrange
+            var entity = CreateEntity();
+
+            // Act & Assert
+            AssertHelpers.ThrowsWithMessage<ArgumentNullException>(() =>
+            {
+                entity.LoadContent(null);
+            }, "The parameter must not be null. (Parameter 'contentLoader')");
+        }
+
+        [Fact]
         public void LoadContent_WhenInvoked_SetsContentLoadedPropToTrue()
         {
             // Arange
             var entity = CreateEntity();
-            var expected = true;
+            entity.RenderSection.TextureName = TextureName;
 
             // Act
-            entity.LoadContent(null);
-            var actual = entity.ContentLoaded;
+            entity.LoadContent(this.mockContentLoader.Object);
 
             // Assert
-            Assert.Equal(expected, actual);
+            Assert.True(entity.ContentLoaded);
         }
         #endregion
 
-        private Entity CreateEntity() => new Entity("");
+        /// <summary>
+        /// Creates a new instance of <see cref="Entity"/> for the purpose of testing.
+        /// </summary>
+        /// <returns>An entity instance to test.</returns>
+        private Entity CreateEntity() => new Entity(string.Empty);
 
         private static Texture CreateTexture()
         {
@@ -427,7 +481,7 @@ namespace KDScorpionEngineTests.Entities
             mockTexture.SetupGet(m => m.Height).Returns(50);
 
             // TODO: The arguments going into this will not work
-            return new Texture("", new byte[0], 0, 0);
+            return new Texture("", "", Array.Empty<byte>(), 0, 0);
         }
     }
 }

@@ -4,8 +4,14 @@
 
 namespace KDScorpionEngine
 {
+    /// <summary>
+    /// Provides initialization.
+    /// </summary>
     public interface ICanInitialize
     {
+        /// <summary>
+        /// Initizliaes the object.
+        /// </summary>
         void Init();
     }
 }

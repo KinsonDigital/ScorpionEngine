@@ -4,34 +4,38 @@
 
 namespace KDScorpionEngineTests
 {
+    using System;
     using KDScorpionEngine;
     using Moq;
     using Raptor.Content;
+    using Raptor.Desktop;
     using Xunit;
 
     /// <summary>
     /// Unit tests to test the <see cref="Engine"/> class.
     /// </summary>
-    public class EngineTests
+    public class EngineTests : IDisposable
     {
-        #region Private Fields
+        private readonly Engine engine;
         private readonly Mock<IContentLoader> mockContentLoader;
-        #endregion
+        private readonly Mock<IWindow> mockGameWindow;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EngineTests"/> class.
+        /// </summary>
         public EngineTests()
         {
+            this.engine = new Engine(10, 20);
             this.mockContentLoader = new Mock<IContentLoader>();
+            this.mockGameWindow = new Mock<IWindow>();
         }
 
         #region Constructor Tests
         [Fact]
         public void Ctor_WhenInvoking_SetsContentLoader()
         {
-            // Arrange
-            var engine = new Engine(10, 20);
-
             // Act
-            var actual = engine.ContentLoader;
+            var actual = this.engine.ContentLoader;
 
             // Assert
             Assert.NotNull(actual);
@@ -42,38 +46,15 @@ namespace KDScorpionEngineTests
         [Fact]
         public void SceneManager_WhenGettingValue_IsNotNull()
         {
-            // Arrange
-            var engine = new Engine(10, 20);
-
             // Assert
-            Assert.NotNull(engine.SceneManager);
+            Assert.NotNull(this.engine.SceneManager);
         }
 
         [Fact]
         public void ContentLoader_WhenGettingValue_IsNotNull()
         {
-            // Arrange
-            var engine = new Engine(10, 20);
-
             // Assert
-            Assert.NotNull(engine.ContentLoader);
-        }
-
-        [Fact]
-        public void CurrentFPS_WhenGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            var engine = new Engine(10, 20);
-            var expected = 62.5f;
-
-            // Act
-            var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(16);
-            engine.Update(gameTime);
-            var actual = Engine.CurrentFPS;
-
-            // Assert
-            Assert.Equal(expected, actual);
+            Assert.NotNull(this.engine.ContentLoader);
         }
         #endregion
 
@@ -82,13 +63,15 @@ namespace KDScorpionEngineTests
         public void Update_WhenInvokingWhileRunning_SetsCurrentFPSProp()
         {
             // Arrange
-            var engine = new Engine(10, 20);
             var expected = 62.5f;
 
-            // Act
+            this.engine.RunAsync();
+
             var gameTime = new GameTime();
             gameTime.UpdateTotalGameTime(16);
-            engine.Update(gameTime);
+
+            // Act
+            this.engine.Update(gameTime);
             var actual = Engine.CurrentFPS;
 
             // Assert
@@ -99,19 +82,26 @@ namespace KDScorpionEngineTests
         public void Update_WhenInvokingWhileNotRunning_DoesNotSetCurrentFPSProp()
         {
             // Arrange
-            var engine = new Engine(10, 20);
             var expected = 0f;
-            Engine.CurrentFPS = 0;
 
-            // Act
+            //engine.RunAsync();
+
             var gameTime = new GameTime();
             gameTime.UpdateTotalGameTime(16);
-            engine.Update(gameTime);
+
+            // Act
+            this.engine.Update(gameTime);
             var actual = Engine.CurrentFPS;
 
             // Assert
             Assert.Equal(expected, actual);
         }
         #endregion
+
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            Engine.CurrentFPS = 0;
+        }
     }
 }

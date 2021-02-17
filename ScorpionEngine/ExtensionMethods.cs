@@ -47,7 +47,8 @@ namespace KDScorpionEngine
         /// <param name="vector">The vector to rotate.</param>
         /// <param name="origin">The vector to rotate the <paramref name="vector"/> around.</param>
         /// <param name="angle">The angle in radians to rotate <paramref name="vector"/>.  Value must be positive.</param>
-        /// <returns></returns>
+        /// <param name="clockWise">True to rotate the point clockwise and false for counter clockwise.</param>
+        /// <returns>A vector rotated around a point.</returns>
         public static Vector2 RotateAround(this Vector2 vector, Vector2 origin, float angle, bool clockWise = true)
         {
             angle = clockWise ? angle : angle * -1;

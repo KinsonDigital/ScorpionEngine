@@ -20,9 +20,10 @@ namespace ScorpTestGame.Scenes
     /// </summary>
     public class Level1 : GameScene
     {
-        private Entity sub;
-        private Entity fish;
-        private IKeyboard keyboard;
+        private IEntity sub;
+        private IEntity fish;
+        private EntityPool<Bubble> bubblePool;
+        private int bubbleSpawnElapsed;
         private KeyboardState currentKeyboardState;
         private KeyboardState previousKeyboardState;
 
@@ -39,12 +40,16 @@ namespace ScorpTestGame.Scenes
         /// </summary>
         public override void Initialize()
         {
-            this.sub = new Sub();
-            this.sub.Init();
+            this.bubblePool = new EntityPool<Bubble>();
 
-            this.fish = EntityFactory.CreateNonAnimatedFromTextureAtlas("Main-Atlas", "fish");
-            this.fish.Position = new Vector2(200, 550);
-            this.fish.Init();
+            //this.sub = EntityFactory.CreateAnimated("Main-Atlas", "sub");
+            //this.sub.Position = new Vector2(400, 400);
+
+            //this.fish = EntityFactory.CreateNonAnimatedFromTextureAtlas("Main-Atlas", "fish");
+            //this.fish.Position = new Vector2(200, 550);
+
+            //Entities.Add(this.sub);
+            //Entities.Add(this.fish);
 
             base.Initialize();
         }
@@ -55,8 +60,7 @@ namespace ScorpTestGame.Scenes
         /// <param name="contentLoader">Loads the content items.</param>
         public override void LoadContent(IContentLoader contentLoader)
         {
-            this.sub.LoadContent(contentLoader);
-            this.fish.LoadContent(contentLoader);
+            base.LoadContent(contentLoader);
         }
 
         /// <summary>
@@ -65,8 +69,17 @@ namespace ScorpTestGame.Scenes
         /// <param name="gameTime">Updates the scene objects.</param>
         public override void Update(GameTime gameTime)
         {
-            this.sub.Update(gameTime);
-            this.fish.Update(gameTime);
+            this.bubblePool.Update(gameTime);
+
+            this.bubbleSpawnElapsed += gameTime.CurrentFrameElapsed;
+
+            if (this.bubbleSpawnElapsed >= 1000)
+            {
+                this.bubblePool.GenerateNonAnimatedFromTextureAtlas<Bubble>("Main-Atlas", "bubble");
+                this.bubbleSpawnElapsed = 0;
+            }
+
+            base.Update(gameTime);
         }
 
         /// <summary>
@@ -75,8 +88,7 @@ namespace ScorpTestGame.Scenes
         /// <param name="renderer">Renders the graphics in the scene.</param>
         public override void Render(Renderer renderer)
         {
-            //renderer.Render(this.sub);
-            renderer.Render(this.fish);
+            this.bubblePool.Render(renderer);
 
             base.Render(renderer);
         }
@@ -87,7 +99,7 @@ namespace ScorpTestGame.Scenes
         /// <param name="contentLoader">Used to unload content.</param>
         public override void UnloadContent(IContentLoader contentLoader)
         {
-            // TODO: NEed to add unloading of content here
+            // TODO: Need to add unloading of content here
         }
     }
 }

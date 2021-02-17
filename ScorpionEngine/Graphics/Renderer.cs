@@ -4,6 +4,7 @@
 
 namespace KDScorpionEngine.Graphics
 {
+    using System;
     using System.Drawing;
     using KDScorpionEngine.Entities;
     using Raptor.Factories;
@@ -40,22 +41,17 @@ namespace KDScorpionEngine.Graphics
         /// Renders the given entity.
         /// </summary>
         /// <param name="entity">The entity to render.</param>
-        public void Render(Entity entity)
+        public void Render(IEntity entity)
         {
-            switch (entity.TypeOfTexture)
-            {
-                case TextureType.Single:
-                    this.spriteBatch.Render(entity.Texture, (int)entity.Position.X, (int)entity.Position.Y, Color.White);
-                    break;
-                case TextureType.Atlas:
-                    var srcRect = new Rectangle((int)entity.TexturePosition.X, (int)entity.TexturePosition.Y, entity.TextureBoundsWidth, entity.TextureBoundsHeight);
-                    var destRect = new Rectangle((int)entity.Position.X, (int)entity.Position.Y, entity.Texture.Width, entity.Texture.Height);
+            var srcRect = new Rectangle(
+                (int)entity.RenderSection.GetTexturePosition().X,
+                (int)entity.RenderSection.GetTexturePosition().Y,
+                entity.RenderSection.GetTextureWidth(),
+                entity.RenderSection.GetTextureHeight());
 
-                    this.spriteBatch.Render(entity.Texture, srcRect, destRect, 1, 0, Color.White);
-                    break;
-                default:
-                    break;
-            }
+            var destRect = new Rectangle((int)entity.Position.X, (int)entity.Position.Y, entity.Texture.Width, entity.Texture.Height);
+
+            this.spriteBatch.Render(entity.Texture, srcRect, destRect, 1, 0, Color.White);
         }
 
         public void Render(ITexture texture)

@@ -31,7 +31,7 @@ namespace KDScorpionEngine.Scene
         /// </summary>
         /// <param name="contentLoader">The content loaded to inject.</param>
         /// <param name="keyboard">Manages keyboard input.</param>
-        internal SceneManager(IContentLoader contentLoader, IKeyboard keyboard)
+        public SceneManager(IContentLoader contentLoader, IKeyboard keyboard)
         {
             this.contentLoader = contentLoader;
             this.keyboard = keyboard;

@@ -64,7 +64,7 @@ namespace KDScorpionEngine.Scene
         /// <summary>
         /// Gets the list of entities added to this <see cref="GameScene"/>.
         /// </summary>
-        public List<Entity> Entities { get; } = new List<Entity>();
+        public List<IEntity> Entities { get; } = new List<IEntity>();
 
         /// <summary>
         /// Initializes the game scene.
@@ -101,7 +101,7 @@ namespace KDScorpionEngine.Scene
         {
             Entities.ForEach(e =>
             {
-                e.UnloadContent();
+                e.UnloadContent(contentLoader);
             });
 
             ContentLoaded = false;
@@ -127,7 +127,6 @@ namespace KDScorpionEngine.Scene
             Entities.ForEach(e =>
             {
                 renderer.Render(e);
-                e.Render(renderer);
             });
 
             IsRenderingScene = false;
