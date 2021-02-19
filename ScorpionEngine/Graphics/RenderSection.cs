@@ -17,6 +17,10 @@ namespace KDScorpionEngine.Graphics
         // TODO: Continually update this in Entity
         public Rectangle RenderBounds { get; set; }
 
+        public int HalfWidth => RenderBounds.Width / 2;
+
+        public int HalfHeight => RenderBounds.Height / 2;
+
         public TextureType TypeOfTexture { get; set; }
 
         public bool IsAnimated { get; set; }
@@ -52,24 +56,31 @@ namespace KDScorpionEngine.Graphics
             return Vector2.Zero;
         }
 
-        public int GetTextureWidth()
-        {
-            return RenderBounds.Width;
-        }
+        public static RenderSection CreateNonAnimatedWholeTexture(string wholeTextureName)
+            => new RenderSection()
+            {
+                TextureName = wholeTextureName,
+                SubTextureName = string.Empty,
+                IsAnimated = false,
+                TypeOfTexture = TextureType.WholeTexture,
+            };
 
-        public int GetTextureHeight()
-        {
-            return RenderBounds.Height;
-        }
+        public static RenderSection CreateNonAnimatedSubTexture(string atlasTextureName, string subTextureName)
+            => new RenderSection()
+            {
+                TextureName = atlasTextureName,
+                SubTextureName = subTextureName,
+                IsAnimated = false,
+                TypeOfTexture = TextureType.SubTexture,
+            };
 
-        public int GetTextureHalfWidth()
-        {
-            return GetTextureWidth() / 2;
-        }
-
-        public int GetTextureHalfHeight()
-        {
-            return GetTextureHeight() / 2;
-        }
+        public static RenderSection CreateAnimatedSubTexture(string atlasTextureName, string subTextureName)
+            => new RenderSection()
+            {
+                TextureName = atlasTextureName,
+                SubTextureName = subTextureName,
+                IsAnimated = true,
+                TypeOfTexture = TextureType.SubTexture
+            };
     }
 }

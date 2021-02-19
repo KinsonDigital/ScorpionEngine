@@ -1408,7 +1408,7 @@ var manager = CreateSceneManager(mockScene.Object);
             var manager = CreateSceneManager();
 
             // Act & Assert
-            AssertExt.DoesNotThrow<SceneNotFoundException>(() =>
+            AssertHelpers.DoesNotThrow<SceneNotFoundException>(() =>
             {
                 manager.Render(It.IsAny<Renderer>());
             });

@@ -1,4 +1,4 @@
-﻿// <copyright file="Entity.cs" company="KinsonDigital">
+﻿// <copyright file="IEntity.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -43,7 +43,7 @@ namespace KDScorpionEngine.Entities
 
         bool Visible { get; set; }
 
-        bool IsRecycled { get; set; }
+        bool Enabled { get; set; }
 
         event EventHandler<EventArgs>? OnHide;
 
@@ -58,7 +58,5 @@ namespace KDScorpionEngine.Entities
         void LoadContent(IContentLoader contentLoader);
 
         void Update(GameTime gameTime);
-
-        void Recycle();
     }
 }

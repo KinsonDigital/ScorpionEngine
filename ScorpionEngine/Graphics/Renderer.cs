@@ -16,6 +16,13 @@ namespace KDScorpionEngine.Graphics
     {
         private readonly ISpriteBatch spriteBatch;
 
+        public Renderer(ISpriteBatch spriteBatch, int renderSurfaceWidth, int renderSurfaceHeight)
+        {
+            this.spriteBatch = spriteBatch;
+            this.spriteBatch.RenderSurfaceWidth = renderSurfaceWidth;
+            this.spriteBatch.RenderSurfaceHeight = renderSurfaceHeight;
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Renderer"/> class.
         /// </summary>
@@ -42,11 +49,16 @@ namespace KDScorpionEngine.Graphics
         /// <param name="entity">The entity to render.</param>
         public void Render(IEntity entity)
         {
+            if (!entity.Visible || entity.Texture is null)
+            {
+                return;
+            }
+
             var srcRect = new Rectangle(
                 (int)entity.RenderSection.GetTexturePosition().X,
                 (int)entity.RenderSection.GetTexturePosition().Y,
-                entity.RenderSection.GetTextureWidth(),
-                entity.RenderSection.GetTextureHeight());
+                entity.RenderSection.RenderBounds.Width,
+                entity.RenderSection.RenderBounds.Height);
 
             var destRect = new Rectangle((int)entity.Position.X, (int)entity.Position.Y, entity.Texture.Width, entity.Texture.Height);
 

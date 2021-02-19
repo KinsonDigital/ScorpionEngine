@@ -22,7 +22,7 @@ namespace KDScorpionEngine.Factories
         /// <param name="subTextureName">The name of the sub texture in the atlas.</param>
         /// <returns>A new entity of the type <typeparamref name="TEntity"/>.</returns>
         public static IEntity CreateNonAnimatedFromTextureAtlas<TEntity>(string atlasName, string subTextureName)
-            where TEntity : Entity, new()
+            where TEntity : IEntity, new()
         {
             var newEntity = new TEntity();
 
@@ -41,7 +41,7 @@ namespace KDScorpionEngine.Factories
         /// <param name="name">The name fo the texture used for the entity.</param>
         /// <returns>A new entity of the type <typeparamref name="TEntity"/>.</returns>
         public static IEntity CreateNonAnimatedFromTexture<TEntity>(string name)
-            where TEntity : Entity, new()
+            where TEntity : IEntity, new()
         {
             var newEntity = new TEntity();
 
@@ -62,7 +62,7 @@ namespace KDScorpionEngine.Factories
         /// <param name="subTextureName">The name of the sub texture in the atlas.</param>
         /// <returns>A new entity of the type <typeparamref name="TEntity"/>.</returns>
         public static IEntity CreateAnimated<TEntity>(string atlasName, string subTextureName)
-            where TEntity : Entity, new()
+            where TEntity : IEntity, new()
         {
             var newEntity = new TEntity
             {
@@ -88,7 +88,7 @@ namespace KDScorpionEngine.Factories
         /// <param name="animator">The animator used to control the animation.</param>
         /// <returns>A new entity of the type <typeparamref name="TEntity"/>.</returns>
         public static IEntity CreateAnimated<TEntity>(string atlasName, string subTextureName, IAnimator animator)
-            where TEntity : Entity, new()
+            where TEntity : IEntity, new()
         {
             var newEntity = new TEntity
             {

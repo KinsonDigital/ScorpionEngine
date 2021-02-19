@@ -14,6 +14,8 @@ namespace KDScorpTestGame
 
     public class Bubble : Entity
     {
+        private static int halfHeight;
+
         public Bubble() : base("Main-Atlas", nameof(Bubble).ToLower())
         {
         }
@@ -23,8 +25,8 @@ namespace KDScorpTestGame
             var random = new Random();
 
             Position = new Vector2(
-                random.Next(RenderSection.GetTextureHalfWidth(), MainGame.WindowWidth - RenderSection.GetTextureHalfWidth()),
-                MainGame.WindowHeight);
+                random.Next(RenderSection.HalfWidth, MainGame.WindowWidth - RenderSection.HalfWidth),
+                MainGame.WindowHeight + halfHeight);
 
             base.Init();
         }
@@ -32,11 +34,23 @@ namespace KDScorpTestGame
         public override void LoadContent(IContentLoader contentLoader)
         {
             base.LoadContent(contentLoader);
+
+            if (halfHeight <= 0)
+            {
+                halfHeight = RenderSection.HalfHeight;
+            }
         }
 
         public override void Update(GameTime gameTime)
         {
             Position = new Vector2(Position.X, Position.Y - (30 * (gameTime.CurrentFrameElapsed / 1000f)));
+
+            if (Position.Y <= RenderSection.HalfHeight * -1)
+            {
+                Visible = false;
+                Enabled = false;
+            }
+
             base.Update(gameTime);
         }
     }

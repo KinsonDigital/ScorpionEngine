@@ -40,7 +40,10 @@ namespace ScorpTestGame.Scenes
         /// </summary>
         public override void Initialize()
         {
-            this.bubblePool = new EntityPool<Bubble>();
+            this.bubblePool = new EntityPool<Bubble>
+            {
+                MaxPoolSize = 1000,
+            };
 
             this.sub = EntityFactory.CreateAnimated<Sub>("Main-Atlas", "sub");
             this.sub.Position = new Vector2(400, 400);
@@ -77,9 +80,10 @@ namespace ScorpTestGame.Scenes
 
             this.bubbleSpawnElapsed += gameTime.CurrentFrameElapsed;
 
-            if (this.bubbleSpawnElapsed >= 1000)
+            if (this.bubbleSpawnElapsed >= 125)
             {
                 this.bubblePool.GenerateNonAnimatedFromTextureAtlas("Main-Atlas", "bubble");
+
                 this.bubbleSpawnElapsed = 0;
             }
 

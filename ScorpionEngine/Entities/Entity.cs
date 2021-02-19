@@ -23,7 +23,6 @@ namespace KDScorpionEngine.Entities
     {
         private ITexture? singleTexture;
         private bool visible = true;
-        private bool isRecycled;
 
         public Entity()
         {
@@ -282,23 +281,12 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         public Color DebugDrawColor { get; set; } = Color.White;
 
-        public bool IsRecycled
-        {
-            get => this.isRecycled;
-            set
-            {
-                this.isRecycled = value;
-
-                if (this.isRecycled)
-                {
-                    Recycle();
-                }
-            }
-        }
+        public bool Enabled { get; set; } = true;
 
         /// <inheritdoc/>
         public virtual void Init()
         {
+            ContentLoaded = false;
         }
 
         /// <inheritdoc/>
@@ -361,6 +349,11 @@ namespace KDScorpionEngine.Entities
         /// <param name="gameTime">The engine time since the last frame.</param>
         public virtual void Update(GameTime gameTime)
         {
+            if (!Enabled)
+            {
+                return;
+            }
+
             Behaviors.ToList().ForEach(b => b.Update(gameTime));
             Animator?.Update(gameTime);
 
@@ -368,11 +361,6 @@ namespace KDScorpionEngine.Entities
             {
                 RenderSection.RenderBounds = Animator.CurrentFrameBounds;
             }
-        }
-
-        public virtual void Recycle()
-        {
-            IsRecycled = true;
         }
     }
 }
