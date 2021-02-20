@@ -11,6 +11,7 @@ namespace KDScorpionEngineTests.Entities
     using KDScorpionEngine.Behaviors;
     using KDScorpionEngine.Entities;
     using KDScorpionEngine.Exceptions;
+    using KDScorpionEngine.Graphics;
     using Moq;
     using Raptor.Content;
     using Raptor.Graphics;
@@ -419,6 +420,52 @@ namespace KDScorpionEngineTests.Entities
             {
                 entity.Texture = new Mock<ITexture>().Object;
             }, $"Unknown '{nameof(TextureType)}' value of '33'.");
+        }
+
+        [Fact]
+        public void ID_WhenGettingValue_ReturnsCorrectValue()
+        {
+            // Arrange
+            var entity = new Entity();
+
+            // Act
+            var actual = entity.ID;
+
+            // Assert
+            Assert.NotEqual(Guid.Empty, actual);
+        }
+
+        [Fact]
+        public void Name_WhenEntityIsNonAnimated_ReturnsCorrectValue()
+        {
+            // Arrange
+            var entity = CreateEntity();
+            entity.RenderSection.Animator = null;
+            entity.RenderSection.TextureName = "texture";
+
+            // Act
+            var actual = entity.Name;
+
+            // Assert
+            Assert.Equal("texture", actual);
+        }
+
+        [Theory]
+        [InlineData("sub-texture", "sub-texture")]
+        [InlineData("", "")]
+        [InlineData(null, "")]
+        public void Name_WhenEntityIsAnimated_ReturnsCorrectValue(string subTextureName, string expected)
+        {
+            // Arrange
+            var entity = CreateEntity();
+            entity.RenderSection.Animator = new Animator();
+            entity.RenderSection.SubTextureName = subTextureName;
+
+            // Act
+            var actual = entity.Name;
+
+            // Assert
+            Assert.Equal(expected, actual);
         }
         #endregion
 

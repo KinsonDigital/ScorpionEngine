@@ -145,7 +145,7 @@ namespace KDScorpionEngine.Entities
                     return RenderSection.TextureName;
                 }
 
-                return RenderSection.SubTextureName is null ? string.Empty : RenderSection.SubTextureName;
+                return string.IsNullOrEmpty(RenderSection.SubTextureName) ? string.Empty : RenderSection.SubTextureName;
             }
         }
 
