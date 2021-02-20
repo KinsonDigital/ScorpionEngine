@@ -26,7 +26,7 @@ namespace KDScorpTestGame
 
         public override void Init()
         {
-            Animator = new Animator();
+            RenderSection.Animator = new Animator();
             Position = new Vector2(400, 400);
             this.keyboard = new Keyboard();
         }
@@ -34,7 +34,7 @@ namespace KDScorpTestGame
         public override void LoadContent(IContentLoader contentLoader)
         {
             AtlasData = contentLoader.Load<IAtlasData>("Main-Atlas");
-            Animator.Frames = AtlasData.GetFrames("sub").Select(f => f.Bounds).ToArray();
+            RenderSection.Animator.Frames = AtlasData.GetFrames("sub").Select(f => f.Bounds).ToArray();
         }
 
         public override void Update(GameTime gameTime)
@@ -43,13 +43,13 @@ namespace KDScorpTestGame
 
             if (this.currentKeyState.IsKeyUp(KeyCode.Space) && this.previousKeyState.IsKeyDown(KeyCode.Space))
             {
-                switch (Animator.CurrentState)
+                switch (RenderSection.Animator.CurrentState)
                 {
                     case AnimateState.Playing:
-                        Animator.CurrentState = AnimateState.Paused;
+                        RenderSection.Animator.CurrentState = AnimateState.Paused;
                         break;
                     case AnimateState.Paused:
-                        Animator.CurrentState = AnimateState.Playing;
+                        RenderSection.Animator.CurrentState = AnimateState.Playing;
                         break;
                 }
             }

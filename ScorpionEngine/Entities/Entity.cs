@@ -52,10 +52,9 @@ namespace KDScorpionEngine.Entities
         {
             ID = Guid.NewGuid();
             AtlasData = atlasData;
-            Animator = animator;
+            RenderSection.Animator = animator;
             RenderSection.TextureName = atlasName;
             RenderSection.SubTextureName = subTextureName;
-            RenderSection.IsAnimated = true;
             RenderSection.TypeOfTexture = TextureType.SubTexture;
         }
 
@@ -72,7 +71,6 @@ namespace KDScorpionEngine.Entities
             AtlasData = atlasData;
             RenderSection.TextureName = atlasName;
             RenderSection.SubTextureName = subTextureName;
-            RenderSection.IsAnimated = false;
             RenderSection.TypeOfTexture = TextureType.SubTexture;
         }
 
@@ -88,7 +86,6 @@ namespace KDScorpionEngine.Entities
 
             ID = Guid.NewGuid();
             RenderSection.TextureName = textureName;
-            RenderSection.IsAnimated = false;
             RenderSection.TypeOfTexture = TextureType.WholeTexture;
         }
 
@@ -106,7 +103,6 @@ namespace KDScorpionEngine.Entities
 
             RenderSection.TextureName = atlasName;
             RenderSection.SubTextureName = subTextureName;
-            RenderSection.IsAnimated = false;
             RenderSection.TypeOfTexture = TextureType.SubTexture;
         }
 
@@ -124,8 +120,7 @@ namespace KDScorpionEngine.Entities
             ID = Guid.NewGuid();
             RenderSection.TextureName = atlasName;
             RenderSection.SubTextureName = subTextureName;
-            Animator = animator;
-            RenderSection.IsAnimated = true;
+            RenderSection.Animator = animator;
             RenderSection.TypeOfTexture = TextureType.SubTexture;
         }
 
@@ -152,14 +147,9 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// Gets the name of the entity.
         /// </summary>
-        public string Name => RenderSection.IsAnimated ? RenderSection.SubTextureName : RenderSection.TextureName;
+        public string Name => RenderSection.Animator is null ? RenderSection.TextureName : RenderSection.SubTextureName;
 
         public Guid ID { get; }
-
-        /// <summary>
-        /// Gets or sets the animator.
-        /// </summary>
-        public IAnimator? Animator { get; set; }
 
         /// <summary>
         /// Gets or sets the list of behaviors that the <see cref="Entity"/> will have.
@@ -318,14 +308,14 @@ namespace KDScorpionEngine.Entities
                         AtlasData = contentLoader.Load<IAtlasData>(RenderSection.TextureName);
                     }
 
-                    if (RenderSection.IsAnimated && !(Animator is null))
-                    {
-                        Animator.Frames = AtlasData.GetFrames(Name).Select(f => f.Bounds).ToArray();
-                    }
-                    else
+                    if (RenderSection.Animator is null)
                     {
                         // Single non animated section of the atlas
                         RenderSection.RenderBounds = AtlasData.GetFrames(RenderSection.SubTextureName).Select(f => f.Bounds).SingleOrDefault();
+                    }
+                    else
+                    {
+                        RenderSection.Animator.Frames = AtlasData.GetFrames(RenderSection.SubTextureName).Select(f => f.Bounds).ToArray();
                     }
 
                     break;
@@ -355,11 +345,11 @@ namespace KDScorpionEngine.Entities
             }
 
             Behaviors.ToList().ForEach(b => b.Update(gameTime));
-            Animator?.Update(gameTime);
+            RenderSection.Animator?.Update(gameTime);
 
-            if (RenderSection.TypeOfTexture == TextureType.SubTexture && RenderSection.IsAnimated && !(Animator is null))
+            if (RenderSection.TypeOfTexture == TextureType.SubTexture && !(RenderSection.Animator is null))
             {
-                RenderSection.RenderBounds = Animator.CurrentFrameBounds;
+                RenderSection.RenderBounds = RenderSection.Animator.CurrentFrameBounds;
             }
         }
     }

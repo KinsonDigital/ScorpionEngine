@@ -17,8 +17,6 @@ namespace KDScorpionEngine.Entities
 
     public interface IEntity : IUpdatableObject, IContentLoadable, IContentUnloadable, ICanInitialize
     {
-        IAnimator? Animator { get; set; }
-
         IAtlasData? AtlasData { get; set; }
 
         EntityBehaviors Behaviors { get; set; }

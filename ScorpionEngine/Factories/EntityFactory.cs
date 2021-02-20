@@ -28,7 +28,7 @@ namespace KDScorpionEngine.Factories
 
             newEntity.RenderSection.TextureName = atlasName;
             newEntity.RenderSection.SubTextureName = subTextureName;
-            newEntity.RenderSection.IsAnimated = false;
+            newEntity.RenderSection.Animator = null;
             newEntity.RenderSection.TypeOfTexture = TextureType.SubTexture;
 
             return newEntity;
@@ -47,7 +47,7 @@ namespace KDScorpionEngine.Factories
 
             newEntity.RenderSection.TextureName = name;
             newEntity.RenderSection.SubTextureName = string.Empty;
-            newEntity.RenderSection.IsAnimated = false;
+            newEntity.RenderSection.Animator = null;
             newEntity.RenderSection.TypeOfTexture = TextureType.WholeTexture;
 
             return newEntity;
@@ -64,14 +64,11 @@ namespace KDScorpionEngine.Factories
         public static IEntity CreateAnimated<TEntity>(string atlasName, string subTextureName)
             where TEntity : IEntity, new()
         {
-            var newEntity = new TEntity
-            {
-                Animator = new Animator()
-            };
+            var newEntity = new TEntity();
 
             newEntity.RenderSection.TextureName = atlasName;
             newEntity.RenderSection.SubTextureName = subTextureName;
-            newEntity.RenderSection.IsAnimated = true;
+            newEntity.RenderSection.Animator = new Animator();
             newEntity.RenderSection.TypeOfTexture = TextureType.SubTexture;
 
             return newEntity;
@@ -90,14 +87,11 @@ namespace KDScorpionEngine.Factories
         public static IEntity CreateAnimated<TEntity>(string atlasName, string subTextureName, IAnimator animator)
             where TEntity : IEntity, new()
         {
-            var newEntity = new TEntity
-            {
-                Animator = animator,
-            };
+            var newEntity = new TEntity();
 
             newEntity.RenderSection.TextureName = atlasName;
             newEntity.RenderSection.SubTextureName = subTextureName;
-            newEntity.RenderSection.IsAnimated = true;
+            newEntity.RenderSection.Animator = animator;
             newEntity.RenderSection.TypeOfTexture = TextureType.SubTexture;
 
             return newEntity;
