@@ -4,7 +4,6 @@
 
 namespace KDScorpionEngine.Entities
 {
-    // TODO: Move comment code to the IEntity interface
     using System;
     using System.Drawing;
     using System.Linq;
@@ -17,17 +16,17 @@ namespace KDScorpionEngine.Entities
     using Raptor.Input;
 
     /// <summary>
-    /// Represents a base entity that all entities inherit from.
+    /// Represents an entity that can be updated and rendered in the game.
     /// </summary>
     public class Entity : IEntity
     {
         private ITexture? singleTexture;
         private bool visible = true;
 
-        public Entity()
-        {
-            ID = Guid.NewGuid();
-        }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Entity"/> class.
+        /// </summary>
+        public Entity() => ID = Guid.NewGuid();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Entity"/> class.
@@ -124,41 +123,45 @@ namespace KDScorpionEngine.Entities
             RenderSection.TypeOfTexture = TextureType.SubTexture;
         }
 
-        /// <summary>
-        /// Occurs when the game object is going from hidden to shown.
-        /// </summary>
+        /// <inheritdoc/>
         public event EventHandler<EventArgs>? OnShow;
 
-        /// <summary>
-        /// Occurs when the game object is shown to hidden.
-        /// </summary>
+        /// <inheritdoc/>
         public event EventHandler<EventArgs>? OnHide;
 
-        /// <summary>
-        /// Occurs when a key has been pressed.
-        /// </summary>
+        /// <inheritdoc/>
         public event EventHandler<KeyEventArgs>? OnKeyPressed;
 
-        /// <summary>
-        /// Occurs when a key has been released.
-        /// </summary>
+        /// <inheritdoc/>
         public event EventHandler<KeyEventArgs>? OnKeyReleased;
 
-        /// <summary>
-        /// Gets the name of the entity.
-        /// </summary>
-        public string Name => RenderSection.Animator is null ? RenderSection.TextureName : RenderSection.SubTextureName;
+        /// <inheritdoc/>
+        public string Name
+        {
+            get
+            {
+                if (RenderSection.Animator is null)
+                {
+                    return RenderSection.TextureName;
+                }
 
+                return RenderSection.SubTextureName is null ? string.Empty : RenderSection.SubTextureName;
+            }
+        }
+
+        /// <inheritdoc/>
         public Guid ID { get; }
 
-        /// <summary>
-        /// Gets or sets the list of behaviors that the <see cref="Entity"/> will have.
-        /// </summary>
-        public EntityBehaviors Behaviors { get; set; } = new EntityBehaviors();
+        /// <inheritdoc/>
+        public Vector2 Position { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether the entity is rendered to the graphics surface.
-        /// </summary>
+        /// <inheritdoc/>
+        public float Angle { get; set; }
+
+        /// <inheritdoc/>
+        public bool Enabled { get; set; } = true;
+
+        /// <inheritdoc/>
         public bool Visible
         {
             get => this.visible;
@@ -180,36 +183,10 @@ namespace KDScorpionEngine.Entities
             }
         }
 
-        /// <summary>
-        /// Gets or sets the position of the <see cref="Entity"/> in the game world in pixel units.
-        /// </summary>
-        public Vector2 Position { get; set; }
+        /// <inheritdoc/>
+        public bool ContentLoaded { get; private set; }
 
-        /// <summary>
-        /// Gets or sets the angle of the entity.
-        /// </summary>
-        public float Angle { get; set; }
-
-        /// <summary>
-        /// Gets or sets the section of the texture to render.
-        /// </summary>
-        /// <remarks>
-        /// <para>
-        ///     If the <see cref="RenderSection.TypeOfTexture"/> is set to <see cref="TextureType.WholeTexture"/>,
-        ///     then the entire texture will be rendered.
-        /// </para>
-        ///
-        /// <param>
-        ///     If the <see cref="RenderSection.TypeOfTexture"/> is set to <see cref="TextureType.SubTexture"/>,
-        ///     then only a defined area of the texture will be rendered.  This is common for texture atlases
-        ///     and could be a particular section for an animation or just a static section for a noon-animating entity.
-        /// </param>
-        /// </remarks>
-        public RenderSection RenderSection { get; set; } = new RenderSection();
-
-        /// <summary>
-        /// Gets or sets the texture of the <see cref="Entity"/>.
-        /// </summary>
+        /// <inheritdoc/>
         public ITexture? Texture
         {
             get
@@ -250,28 +227,20 @@ namespace KDScorpionEngine.Entities
             }
         }
 
-        /// <summary>
-        /// Gets or sets the texture atlas.
-        /// </summary>
+        /// <inheritdoc/>
         public IAtlasData? AtlasData { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether the debug draw outlines should be rendered.
-        /// </summary>
-        /// <remarks>Set to true by default for game development purposes.</remarks>
+        /// <inheritdoc/>
+        public RenderSection RenderSection { get; set; } = new RenderSection();
+
+        /// <inheritdoc/>
+        public EntityBehaviors Behaviors { get; set; } = new EntityBehaviors();
+
+        /// <inheritdoc/>
         public bool DebugDrawEnabled { get; set; }
 
-        /// <summary>
-        /// Gets a value indicating whether the entities content has been loaded.
-        /// </summary>
-        public bool ContentLoaded { get; private set; }
-
-        /// <summary>
-        /// Gets or sets the color of the debug draw outlines.
-        /// </summary>
+        /// <inheritdoc/>
         public Color DebugDrawColor { get; set; } = Color.White;
-
-        public bool Enabled { get; set; } = true;
 
         /// <inheritdoc/>
         public virtual void Init()
