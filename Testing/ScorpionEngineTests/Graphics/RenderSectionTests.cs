@@ -213,6 +213,20 @@ namespace KDScorpionEngineTests.Graphics
             Assert.Equal("sub-texture", section.SubTextureName);
             Assert.Equal(TextureType.SubTexture, section.TypeOfTexture);
         }
+
+        [Fact]
+        public void CreateAnimatedSubTexture_WithAnimator_ReturnsCorrectSection()
+        {
+            // Act
+            var mockAnimator = new Mock<IAnimator>();
+            var section = RenderSection.CreateAnimatedSubTexture("texture-atlas", "sub-texture", mockAnimator.Object);
+
+            // Assert
+            Assert.Equal("texture-atlas", section.TextureName);
+            Assert.Equal("sub-texture", section.SubTextureName);
+            Assert.Same(mockAnimator.Object, section.Animator);
+            Assert.Equal(TextureType.SubTexture, section.TypeOfTexture);
+        }
         #endregion
     }
 }

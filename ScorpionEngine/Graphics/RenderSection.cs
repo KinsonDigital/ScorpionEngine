@@ -166,5 +166,23 @@ namespace KDScorpionEngine.Graphics
                 Animator = new Animator(),
                 TypeOfTexture = TextureType.SubTexture
             };
+
+        /// <summary>
+        /// Creates an animating section of a texture atlas that matches the <paramref name="subTextureName"/>.
+        /// </summary>
+        /// <param name="atlasTextureName">The name of the texture atlas.</param>
+        /// <param name="subTextureName">The name of the sub texture inside of the atlas.</param>
+        /// <param name="animator">The animator to use in the animation.</param>
+        /// <returns>
+        ///     An animating section that results in rendering multiple frames in an atlas texture.
+        /// </returns>
+        public static RenderSection CreateAnimatedSubTexture(string atlasTextureName, string subTextureName, IAnimator animator)
+            => new RenderSection()
+            {
+                TextureName = atlasTextureName,
+                SubTextureName = subTextureName,
+                Animator = animator,
+                TypeOfTexture = TextureType.SubTexture
+            };
     }
 }

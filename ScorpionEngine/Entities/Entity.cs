@@ -42,35 +42,30 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// Initializes a new instance of the <see cref="Entity"/> class.
         /// </summary>
-        /// <param name="atlasName">The name of the texture atlas that contains the sub texture.</param>
+        /// <param name="atlasTextureName">The name of the texture atlas that contains the sub texture.</param>
         /// <param name="subTextureName">The sub texture in a texture atlas.</param>
         /// <param name="atlasData">The texture atlas data.</param>
         /// <param name="animator">Manages the animation.</param>
         /// <remarks>Creates an animated type entity.</remarks>
-        public Entity(string atlasName, string subTextureName, IAtlasData atlasData, IAnimator animator)
+        public Entity(string atlasTextureName, string subTextureName, IAtlasData atlasData, IAnimator animator)
         {
             ID = Guid.NewGuid();
             AtlasData = atlasData;
-            RenderSection.Animator = animator;
-            RenderSection.TextureName = atlasName;
-            RenderSection.SubTextureName = subTextureName;
-            RenderSection.TypeOfTexture = TextureType.SubTexture;
+            RenderSection = RenderSection.CreateAnimatedSubTexture(atlasTextureName, subTextureName, animator);
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Entity"/> class.
         /// </summary>
-        /// <param name="atlasName">The name of the texture atlas that contains the sub texture.</param>
+        /// <param name="atlasTextureName">The name of the texture atlas that contains the sub texture.</param>
         /// <param name="subTextureName">The name of the sub texture contained in the atlas texture.</param>
         /// <param name="atlasData">The texture atlas data.</param>
         /// <remarks>Creates a non-animating <see cref="Entity"/>.</remarks>
-        public Entity(string atlasName, string subTextureName, IAtlasData atlasData)
+        public Entity(string atlasTextureName, string subTextureName, IAtlasData atlasData)
         {
             ID = Guid.NewGuid();
             AtlasData = atlasData;
-            RenderSection.TextureName = atlasName;
-            RenderSection.SubTextureName = subTextureName;
-            RenderSection.TypeOfTexture = TextureType.SubTexture;
+            RenderSection = RenderSection.CreateNonAnimatedSubTexture(atlasTextureName, subTextureName);
         }
 
         /// <summary>
@@ -84,43 +79,37 @@ namespace KDScorpionEngine.Entities
             this.singleTexture = texture;
 
             ID = Guid.NewGuid();
-            RenderSection.TextureName = textureName;
-            RenderSection.TypeOfTexture = TextureType.WholeTexture;
+            RenderSection = RenderSection.CreateNonAnimatedWholeTexture(textureName);
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Entity"/> class.
         /// </summary>
-        /// <param name="atlasName">The name of the texture atlas that contains the sub texture.</param>
+        /// <param name="atlasTextureName">The name of the texture atlas that contains the sub texture.</param>
         /// <param name="subTextureName">The sub texture in a texture atlas.</param>
         /// <remarks>
         ///     This will create a non animating entity and is used by the factories.
         /// </remarks>
-        public Entity(string atlasName, string subTextureName)
+        public Entity(string atlasTextureName, string subTextureName)
         {
             ID = Guid.NewGuid();
 
-            RenderSection.TextureName = atlasName;
-            RenderSection.SubTextureName = subTextureName;
-            RenderSection.TypeOfTexture = TextureType.SubTexture;
+            RenderSection = RenderSection.CreateNonAnimatedSubTexture(atlasTextureName, subTextureName);
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Entity"/> class.
         /// </summary>
-        /// <param name="atlasName">The name of the texture atlas that contains the sub texture.</param>
+        /// <param name="atlasTextureName">The name of the texture atlas that contains the sub texture.</param>
         /// <param name="subTextureName">The sub texture in a texture atlas.</param>
         /// <param name="animator">Manages the animation.</param>
         /// <remarks>
         ///     Creates an animating type entity and is used by the factories.
         /// </remarks>
-        public Entity(string atlasName, string subTextureName, IAnimator animator)
+        public Entity(string atlasTextureName, string subTextureName, IAnimator animator)
         {
             ID = Guid.NewGuid();
-            RenderSection.TextureName = atlasName;
-            RenderSection.SubTextureName = subTextureName;
-            RenderSection.Animator = animator;
-            RenderSection.TypeOfTexture = TextureType.SubTexture;
+            RenderSection = RenderSection.CreateAnimatedSubTexture(atlasTextureName, subTextureName, animator);
         }
 
         /// <inheritdoc/>
