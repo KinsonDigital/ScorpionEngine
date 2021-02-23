@@ -7,7 +7,7 @@ namespace KDScorpionEngine.Utils
     using System;
 
     /// <summary>
-    /// Keeps counts an arbitrary number by a set amount in a set direction and triggers minimum and maximum reached events.
+    /// Counts an arbitrary number by a set amount in a set direction and triggers minimum and maximum reached events.
     /// </summary>
     public class Counter
     {
@@ -41,12 +41,12 @@ namespace KDScorpionEngine.Utils
         /// <summary>
         /// Occurs when the count has reached its maximum.
         /// </summary>
-        public event EventHandler MaxReachedWhenIncrementing;
+        public event EventHandler<EventArgs>? MaxReachedWhenIncrementing;
 
         /// <summary>
         /// Occurs when the count has reached its minimum.
         /// </summary>
-        public event EventHandler MinReachedWhenDecrementing;
+        public event EventHandler<EventArgs>? MinReachedWhenDecrementing;
 
         /// <summary>
         /// Gets the current value of the counter.

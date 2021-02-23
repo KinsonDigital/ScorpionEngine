@@ -9,6 +9,7 @@ namespace ScorpTestGame.Scenes
     using KDScorpionEngine.Entities;
     using KDScorpionEngine.Factories;
     using KDScorpionEngine.Graphics;
+    using KDScorpionEngine.Input;
     using KDScorpionEngine.Scene;
     using KDScorpTestGame;
     using Raptor.Content;
@@ -26,6 +27,7 @@ namespace ScorpTestGame.Scenes
         private int bubbleSpawnElapsed;
         private KeyboardState currentKeyboardState;
         private KeyboardState previousKeyboardState;
+        private KeyboardWatcher keyboardWatcher;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Level1"/> class.
@@ -40,6 +42,13 @@ namespace ScorpTestGame.Scenes
         /// </summary>
         public override void Initialize()
         {
+            this.keyboardWatcher = new KeyboardWatcher(true, new Keyboard());
+            this.keyboardWatcher.HitCountMax = 2;
+            this.keyboardWatcher.Key = KeyCode.F;
+            this.keyboardWatcher.InputDownTimeOut = 5000;
+            this.keyboardWatcher.OnInputDownTimeOut += KeyboardWatcher_OnInputDownTimeOut;
+            this.keyboardWatcher.OnInputHitCountReached += KeyboardWatcher_OnInputHitCountReached;
+
             this.bubblePool = new EntityPool<Bubble>
             {
                 MaxPoolSize = 1000,
@@ -61,6 +70,16 @@ namespace ScorpTestGame.Scenes
             base.Initialize();
         }
 
+        private void KeyboardWatcher_OnInputDownTimeOut(object sender, System.EventArgs e)
+        {
+            this.sub.Position = new Vector2(this.sub.Position.X, this.sub.Position.Y - 20);
+        }
+
+        private void KeyboardWatcher_OnInputHitCountReached(object sender, System.EventArgs e)
+        {
+            this.sub.Position = new Vector2(this.sub.Position.X + 10, this.sub.Position.Y);
+        }
+
         /// <summary>
         /// Loads content.
         /// </summary>
@@ -76,6 +95,7 @@ namespace ScorpTestGame.Scenes
         /// <param name="gameTime">Updates the scene objects.</param>
         public override void Update(GameTime gameTime)
         {
+            this.keyboardWatcher.Update(gameTime);
             this.bubblePool.Update(gameTime);
 
             this.bubbleSpawnElapsed += gameTime.CurrentFrameElapsed;

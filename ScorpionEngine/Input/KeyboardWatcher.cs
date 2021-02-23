@@ -16,17 +16,18 @@ namespace KDScorpionEngine.Input
     /// how long it is held down or how long it has been released.  Various events will be triggered when
     /// these behaviors occur.
     /// </summary>
-    public class KeyboardWatcher : IInputWatcher, IUpdatableObject
+    public class KeyboardWatcher : IInputWatcher, IUpdatableObject, IDisposable
     {
-        private Dictionary<KeyCode, bool> currentPressedKeys; // Holds the list of comboKeys and there down states
-        protected Counter counter; // Keeps track of the hit count of an input
-        protected bool curState; // The current state of the set input
-        private KeyboardState previousKeyboardState;
-        protected bool prevState; // The previous state of the set input
-        protected StopWatch keyDownTimer; // Keeps track of how long the set input has been in the down position
-        protected StopWatch keyReleasedTimer; // Keeps track of how long the set input has been in the up position since it was in the down position
-        private KeyboardState currentKeyboardState;
         private readonly IKeyboard keyboard;
+        private Dictionary<KeyCode, bool> currentPressedKeys; // Holds the list of comboKeys and there down states
+        private Counter counter; // Keeps track of the hit count of an input
+        private bool curState; // The current state of the set input
+        private KeyboardState previousKeyboardState;
+        private bool prevState; // The previous state of the set input
+        private StopWatch keyDownTimer; // Keeps track of how long the set input has been in the down position
+        private StopWatch keyReleasedTimer; // Keeps track of how long the set input has been in the up position since it was in the down position
+        private KeyboardState currentKeyboardState;
+        private bool isDisposed;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="KeyboardWatcher"/> class.
@@ -43,22 +44,22 @@ namespace KDScorpionEngine.Input
         /// <summary>
         /// Occurs when the combo key setup has been pressed.
         /// </summary>
-        public event EventHandler OnInputComboPressed;
+        public event EventHandler<EventArgs>? OnInputComboPressed;
 
         /// <summary>
         /// Occurs when the set keyboard key has been held in the down position for a set amount of time.
         /// </summary>
-        public event EventHandler OnInputDownTimeOut;
+        public event EventHandler<EventArgs>? OnInputDownTimeOut;
 
         /// <summary>
         /// Occurs when the set keyboard key has been hit a set amount of times.
         /// </summary>
-        public event EventHandler OnInputHitCountReached;
+        public event EventHandler<EventArgs>? OnInputHitCountReached;
 
         /// <summary>
         /// Occurs when the set keyboard key has been released from the down position for a set amount of time.
         /// </summary>
-        public event EventHandler OnInputReleasedTimeOut;
+        public event EventHandler<EventArgs>? OnInputReleasedTimeOut;
 
         /// <summary>
         /// Gets or sets a value indicating whether the <see cref="KeyboardWatcher"/> is enabled.
@@ -94,12 +95,14 @@ namespace KDScorpionEngine.Input
         /// <see cref="ResetType.Auto"/> will automatically reset the watcher for watching the amount of time the key is in the down position.
         /// <see cref="ResetType.Manual"/> will only be reset if manually done so.
         /// </summary>
+        /// <remarks>The default setting is <see cref="ResetType.Auto"/>.</remarks>
         public ResetType DownElapsedResetMode { get; set; } = ResetType.Auto;
 
         /// <summary>
         /// Gets or sets the maximum amount of times that the set keyboard key should be hit before
         /// invoking the <see cref="OnInputHitCountReached"/> event is reached.
         /// </summary>
+        /// <remarks>Default value is 10.</remarks>
         public int HitCountMax
         {
             get => this.counter.Max;
@@ -184,24 +187,10 @@ namespace KDScorpionEngine.Input
             // Get the current state of the key
             this.curState = this.currentKeyboardState.IsKeyDown(Key);
 
-            // Hit Count Code
+            // Hit Count
             if (this.currentKeyboardState.IsKeyUp(Key) && this.previousKeyboardState.IsKeyDown(Key))
             {
-                // If the max is reached, invoke the OnInputHitCountReached event and reset it back to 0
-                if (this.counter != null && this.counter.Value == HitCountMax)
-                {
-                    OnInputHitCountReached?.Invoke(this, new EventArgs());
-
-                    // If the reset mode is set to auto, reset the hit counter
-                    if (HitCountResetMode == ResetType.Auto)
-                    {
-                        this.counter.Reset();
-                    }
-                }
-                else
-                {
-                    this.counter?.Count(); // Increment the current hit count
-                }
+                this.counter.Count(); // Increment the current hit count
             }
 
             // Timing Code
@@ -241,10 +230,52 @@ namespace KDScorpionEngine.Input
             this.prevState = this.curState;
         }
 
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <param name="disposing">True to dispose of managed resources.</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.isDisposed)
+            {
+                if (disposing)
+                {
+                    this.counter.MaxReachedWhenIncrementing -= Counter_MaxReachedWhenIncrementing;
+                    this.keyDownTimer.OnTimeElapsed -= KeyDownTimer_OnTimeElapsed;
+                    this.keyReleasedTimer.OnTimeElapsed -= KeyUpTimer_OnTimeElapsed;
+                }
+
+                this.isDisposed = true;
+            }
+        }
+
+        /// <summary>
+        /// Occurs when the total number of times the <see cref="Key"/> has been pressed
+        /// the same amount of times of <see cref="HitCountMax"/>.
+        /// </summary>
+        private void Counter_MaxReachedWhenIncrementing(object? sender, EventArgs e)
+        {
+            OnInputHitCountReached?.Invoke(this, new EventArgs());
+
+            // If the reset mode is set to auto, reset the hit counter
+            if (HitCountResetMode == ResetType.Auto)
+            {
+                this.counter.Reset();
+            }
+        }
+
         /// <summary>
         /// Occurs when the key has been held down for a set amount of time.
         /// </summary>
-        private void KeyUpTimer_OnTimeElapsed(object sender, EventArgs e)
+        private void KeyUpTimer_OnTimeElapsed(object? sender, EventArgs e)
         {
             if (this.currentKeyboardState.IsKeyUp(Key))
             {
@@ -261,7 +292,7 @@ namespace KDScorpionEngine.Input
         /// <summary>
         /// Occurs when the key has been released from the down position for a set amount of time.
         /// </summary>
-        private void KeyDownTimer_OnTimeElapsed(object sender, EventArgs e)
+        private void KeyDownTimer_OnTimeElapsed(object? sender, EventArgs e)
         {
             if (this.currentKeyboardState.IsKeyDown(Key))
             {
@@ -287,6 +318,8 @@ namespace KDScorpionEngine.Input
 
             // Setup stop watches
             this.counter = new Counter(0, 10, 1);
+            this.counter.MaxReachedWhenIncrementing += Counter_MaxReachedWhenIncrementing;
+
             this.keyDownTimer = new StopWatch(1000);
             this.keyDownTimer.OnTimeElapsed += KeyDownTimer_OnTimeElapsed;
             this.keyDownTimer.Start();

@@ -336,11 +336,15 @@ var manager = CreateSceneManager(mockScene.Object);
         public void Add_WhenInvoking_AddsNewScene()
         {
             // Arrange
+            var mockSceneA = new Mock<IScene>();
+            mockSceneA.SetupProperty(p => p.Id);
+            mockSceneA.Object.Id = 1;
+
             var manager = CreateSceneManager();
             var expected = 1;
 
             // Act
-            manager.Add(new Mock<IScene>().Object);
+            manager.Add(mockSceneA.Object);
             var actual = manager.Count;
 
             // Assert

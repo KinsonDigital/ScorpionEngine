@@ -16,22 +16,22 @@ namespace KDScorpionEngine.Input
         /// <summary>
         /// Invoked when the combo input setup has been pressed.
         /// </summary>
-        event EventHandler OnInputComboPressed;
+        event EventHandler<EventArgs>? OnInputComboPressed;
 
         /// <summary>
         /// Invoked when the set input has been held in the down position for a set amount of time.
         /// </summary>
-        event EventHandler OnInputDownTimeOut;
+        event EventHandler<EventArgs>? OnInputDownTimeOut;
 
         /// <summary>
         /// Invoked when the set input has been hit a set amount of times.
         /// </summary>
-        event EventHandler OnInputHitCountReached;
+        event EventHandler<EventArgs>? OnInputHitCountReached;
 
         /// <summary>
         /// Invoked when the set input has been released from the down position for a set amount of time.
         /// </summary>
-        event EventHandler OnInputReleasedTimeOut;
+        event EventHandler<EventArgs>? OnInputReleasedTimeOut;
 
         /// <summary>
         /// Gets or sets a value indicating whether the <see cref="IInputWatcher"/> is enabled.

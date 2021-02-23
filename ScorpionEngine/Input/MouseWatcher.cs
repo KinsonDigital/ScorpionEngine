@@ -43,22 +43,22 @@ namespace KDScorpionEngine.Input
         /// <summary>
         /// Occurs when the combo button setup has been pressed.
         /// </summary>
-        public event EventHandler OnInputComboPressed;
+        public event EventHandler<EventArgs>? OnInputComboPressed;
 
         /// <summary>
         /// Occurs when the set mouse button has been held in the down position for a set amount of time.
         /// </summary>
-        public event EventHandler OnInputDownTimeOut;
+        public event EventHandler<EventArgs>? OnInputDownTimeOut;
 
         /// <summary>
         /// Occurs when the set mouse button has been hit a set amount of times.
         /// </summary>
-        public event EventHandler OnInputHitCountReached;
+        public event EventHandler<EventArgs>? OnInputHitCountReached;
 
         /// <summary>
         /// Occurs when the set mouse button has been released from the down position for a set amount of time.
         /// </summary>
-        public event EventHandler OnInputReleasedTimeOut;
+        public event EventHandler<EventArgs>? OnInputReleasedTimeOut;
 
         /// <summary>
         /// Gets or sets a value indicating if the <see cref="MouseWatcher"/> is enabled.
