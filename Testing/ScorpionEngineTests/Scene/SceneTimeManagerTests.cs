@@ -93,10 +93,10 @@ namespace KDScorpionEngineTests.Scene
         {
             // Arrange
             var manager = new SceneTimeManager();
-            var expected = RunMode.FrameStack;
+            var expected = SceneRunMode.FrameStack;
 
             // Act
-            manager.Mode = RunMode.FrameStack;
+            manager.Mode = SceneRunMode.FrameStack;
             var actual = manager.Mode;
 
             // Assert
@@ -127,7 +127,7 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var manager = new SceneTimeManager()
             {
-                Mode = RunMode.FrameStack,
+                Mode = SceneRunMode.FrameStack,
                 FrameTime = 32,
             };
             var expected = 16;
@@ -150,7 +150,7 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var manager = new SceneTimeManager()
             {
-                Mode = RunMode.FrameStack,
+                Mode = SceneRunMode.FrameStack,
                 FrameTime = 16,
             };
             var expected = 0;
@@ -172,7 +172,7 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var manager = new SceneTimeManager()
             {
-                Mode = RunMode.FrameStack,
+                Mode = SceneRunMode.FrameStack,
                 FrameTime = 16,
             };
             var gameTime = new GameTime();
@@ -193,7 +193,7 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var manager = new SceneTimeManager()
             {
-                Mode = RunMode.FrameStack,
+                Mode = SceneRunMode.FrameStack,
                 FrameTime = 16,
             };
             var expected = 1;
@@ -215,7 +215,7 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var manager = new SceneTimeManager()
             {
-                Mode = RunMode.FrameStack,
+                Mode = SceneRunMode.FrameStack,
                 FrameTime = 16,
                 FramesPerStack = 10,
             };
@@ -240,7 +240,7 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var manager = new SceneTimeManager()
             {
-                Mode = RunMode.FrameStack,
+                Mode = SceneRunMode.FrameStack,
                 FrameTime = 16,
                 FramesPerStack = 10,
             };
@@ -266,7 +266,7 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var manager = new SceneTimeManager()
             {
-                Mode = RunMode.FrameStack,
+                Mode = SceneRunMode.FrameStack,
                 FrameTime = 16,
                 FramesPerStack = 10,
             };
@@ -288,12 +288,25 @@ namespace KDScorpionEngineTests.Scene
         }
 
         [Fact]
+        public void Play_WhenInvoked_SetsPausedState()
+        {
+            // Arrange
+            var manager = new SceneTimeManager();
+
+            // Act
+            manager.Play();
+
+            // Assert
+            Assert.False(manager.Paused);
+        }
+
+        [Fact]
         public void RunFrameStack_WhenInvokingInFrameStackMode_PauseSetToFalse()
         {
             // Arrange
             var manager = new SceneTimeManager()
             {
-                Mode = RunMode.FrameStack,
+                Mode = SceneRunMode.FrameStack,
             };
             manager.Pause();
             var expected = false;
@@ -307,12 +320,29 @@ namespace KDScorpionEngineTests.Scene
         }
 
         [Fact]
+        public void RunFrameStack_WhenInvokingInContinuousMode_PauseValuesDoesNotChange()
+        {
+            // Arrange
+            var manager = new SceneTimeManager()
+            {
+                Mode = SceneRunMode.Continuous,
+            };
+            manager.Pause();
+
+            // Act
+            manager.RunFrameStack();
+
+            // Assert
+            Assert.True(manager.Paused);
+        }
+
+        [Fact]
         public void RunFrames_WhenInvokingInContinuousMode_PauseStaysSetToTrue()
         {
             // Arrange
             var manager = new SceneTimeManager()
             {
-                Mode = RunMode.Continuous,
+                Mode = SceneRunMode.Continuous,
             };
             manager.Pause();
             var expected = true;
@@ -331,7 +361,7 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var manager = new SceneTimeManager()
             {
-                Mode = RunMode.FrameStack,
+                Mode = SceneRunMode.FrameStack,
                 FrameTime = 16,
                 FramesPerStack = 10,
             };

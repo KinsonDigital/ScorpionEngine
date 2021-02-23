@@ -134,9 +134,22 @@ namespace KDScorpionEngine
         Decrement,
     }
 
-    public enum RunMode
+    /// <summary>
+    /// The kind of running that a scene will run in.
+    /// </summary>
+    public enum SceneRunMode
     {
-        Continuous = 1,
+        /// <summary>
+        /// Updates a scene every single frame.
+        /// </summary>
+        Continuous,
+
+        /// <summary>
+        /// Updates a scene only when a set amount of updates have executed.
+        /// </summary>
+        /// <remarks>
+        /// Example: If the frames per stack are set to 5, then a scene will only update once every 5 frames.
+        /// </remarks>
         FrameStack,
     }
 }

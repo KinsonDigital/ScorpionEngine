@@ -43,7 +43,7 @@ namespace KDScorpionEngine.Scene
         public event EventHandler<SceneChangedEventArgs> SceneChanged;
 
         /// <summary>
-        /// Gets or sets the key to be pressed to progress to the next frame stack when the <see cref="Mode"/> property is set to <see cref="RunMode.FrameStack"/>.
+        /// Gets or sets the key to be pressed to progress to the next frame stack when the <see cref="Mode"/> property is set to <see cref="SceneRunMode.FrameStack"/>.
         /// </summary>
         public KeyCode NextFrameStackKey { get; set; } = KeyCode.Unknown;
 
@@ -581,22 +581,22 @@ namespace KDScorpionEngine.Scene
         /// <summary>
         /// Plays the current scene.
         /// </summary>
-        public void PlayCurrentScene() => this.scenes[CurrentSceneId].TimeManager.Paused = false;
+        public void PlayCurrentScene() => this.scenes[CurrentSceneId].TimeManager.Play();
 
         /// <summary>
         /// Pauses the current scene.
         /// </summary>
-        public void PauseCurrentScene() => this.scenes[CurrentSceneId].TimeManager.Paused = true;
+        public void PauseCurrentScene() => this.scenes[CurrentSceneId].TimeManager.Pause();
 
         /// <summary>
         /// Runs a complete stack of frames set by the <see cref="ITimeManager"/> for the current <see cref="IScene"/>.
-        /// This will only work if the <see cref="Mode"/> is set to the value of <see cref="RunMode.FrameStack"/> for the <see cref="IScene"/>.
+        /// This will only work if the <see cref="Mode"/> is set to the value of <see cref="SceneRunMode.FrameStack"/> for the <see cref="IScene"/>.
         /// </summary>
         public void RunFrameStack() => this.scenes[CurrentSceneId].TimeManager.RunFrameStack();
 
         /// <summary>
         /// Runs a set amount of frames for the current <see cref="IScene"/>, given by the <paramref name="frames"/> parameter and pauses after.
-        /// This will only work if the <see cref="Mode"/> is set to <see cref="RunMode.FrameStack"/> for the current <see cref="IScene"/>.
+        /// This will only work if the <see cref="Mode"/> is set to <see cref="SceneRunMode.FrameStack"/> for the current <see cref="IScene"/>.
         /// </summary>
         /// <param name="frames">The number of frames to run.</param>
         public void RunFrames(uint frames) => this.scenes[CurrentSceneId].TimeManager.RunFrames(frames);

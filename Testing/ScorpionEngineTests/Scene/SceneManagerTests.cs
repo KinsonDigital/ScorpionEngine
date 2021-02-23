@@ -1224,23 +1224,18 @@ var manager = CreateSceneManager(mockScene.Object);
         {
             // Arrange
             var mockTimeManager = new Mock<ITimeManager>();
-            mockTimeManager.SetupProperty(m => m.Paused);
-            var timeManager = mockTimeManager.Object;
-            timeManager.Paused = true;
 
             var mockScene = new Mock<IScene>();
             mockScene.SetupGet(m => m.TimeManager).Returns(mockTimeManager.Object);
             var scene = mockScene.Object;
 
             var manager = CreateSceneManager(mockScene.Object);
-            var expected = false;
 
             // Act
             manager.PlayCurrentScene();
-            var actual = scene.TimeManager.Paused;
 
             // Assert
-            Assert.Equal(expected, actual);
+            mockTimeManager.Verify(m => m.Play(), Times.Once());
         }
 
         [Fact]
@@ -1248,23 +1243,20 @@ var manager = CreateSceneManager(mockScene.Object);
         {
             // Arrange
             var mockTimeManager = new Mock<ITimeManager>();
-            mockTimeManager.SetupProperty(m => m.Paused);
             var timeManager = mockTimeManager.Object;
-            timeManager.Paused = false;
+            timeManager.Play();
 
             var mockScene = new Mock<IScene>();
             mockScene.SetupGet(m => m.TimeManager).Returns(mockTimeManager.Object);
             var scene = mockScene.Object;
 
             var manager = CreateSceneManager(mockScene.Object);
-            var expected = true;
 
             // Act
             manager.PauseCurrentScene();
-            var actual = scene.TimeManager.Paused;
 
             // Assert
-            Assert.Equal(expected, actual);
+            mockTimeManager.Verify(m => m.Pause(), Times.Once());
         }
 
         [Fact]
@@ -1471,8 +1463,7 @@ var manager = CreateSceneManager(mockScene.Object);
         {
             // Arrange
             var mockTimeManager = new Mock<ITimeManager>();
-            mockTimeManager.SetupProperty(m => m.Paused);
-            mockTimeManager.Object.Paused = true;
+            mockTimeManager.Object.Pause();
 
             var mockScene = new Mock<IScene>();
             mockScene.SetupGet(m => m.TimeManager).Returns(mockTimeManager.Object);
@@ -1482,8 +1473,6 @@ var manager = CreateSceneManager(mockScene.Object);
             var manager = CreateSceneManager(mockScene.Object);
             manager.PlayCurrentSceneKey = KeyCode.Space;
 
-            var expected = false; // Unpaused
-
             // Act
             manager.Update(new GameTime());
             manager.Update(new GameTime());
@@ -1491,7 +1480,7 @@ var manager = CreateSceneManager(mockScene.Object);
             var actual = mockScene.Object.TimeManager.Paused;
 
             // Assert
-            Assert.Equal(expected, actual);
+            mockTimeManager.Verify(m => m.Play(), Times.Once());
         }
 
         [Fact]
@@ -1499,8 +1488,7 @@ var manager = CreateSceneManager(mockScene.Object);
         {
             // Arrange
             var mockTimeManager = new Mock<ITimeManager>();
-            mockTimeManager.SetupProperty(m => m.Paused);
-            mockTimeManager.Object.Paused = false;
+            mockTimeManager.Object.Play();
 
             var mockScene = new Mock<IScene>();
             mockScene.SetupGet(m => m.TimeManager).Returns(mockTimeManager.Object);
@@ -1510,8 +1498,6 @@ var manager = CreateSceneManager(mockScene.Object);
             var manager = CreateSceneManager(mockScene.Object);
             manager.PauseCurrentSceneKey = KeyCode.Space;
 
-            var expected = true; // Paused
-
             // Act
             manager.Update(new GameTime());
             manager.Update(new GameTime());
@@ -1519,7 +1505,7 @@ var manager = CreateSceneManager(mockScene.Object);
             var actual = mockScene.Object.TimeManager.Paused;
 
             // Assert
-            Assert.Equal(expected, actual);
+            mockTimeManager.Verify(m => m.Pause(), Times.Once());
         }
 
         [Fact]

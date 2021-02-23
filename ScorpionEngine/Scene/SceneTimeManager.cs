@@ -12,51 +12,31 @@ namespace KDScorpionEngine.Scene
     /// </summary>
     public class SceneTimeManager : ITimeManager
     {
-        private Action frameStackCallback; // Invoked after a frame stack has been run
+        private Action? frameStackCallback;
 
-        /// <summary>
-        /// Occurs when the stack of set frames has finished processing.
-        /// </summary>
-        public event EventHandler<FrameStackFinishedEventArgs> FrameStackFinished;
+        /// <inheritdoc/>
+        public event EventHandler<FrameStackFinishedEventArgs>? FrameStackFinished;
 
-        /// <summary>
-        /// Gets or sets the amount of elapsed time in milliseconds that the current frame has ran.
-        /// </summary>
+        /// <inheritdoc/>
         public int ElapsedFrameTime { get; set; }
 
-        /// <summary>
-        /// Gets or sets the total frames that have elapsed for the current frame stack.
-        /// </summary>
+        /// <inheritdoc/>
         public uint ElapsedFramesForStack { get; set; } = 1;
 
-        /// <summary>
-        /// Gets or sets the amount of frames to run per frame stack.
-        /// </summary>
+        /// <inheritdoc/>
         public uint FramesPerStack { get; set; } = 50;
 
-        /// <summary>
-        /// Gets or sets the time in milliseconds that each frame should take.
-        /// </summary>
-        /// <remarks>
-        ///     This is restricted to the incoming game engine frame time. If this time
-        ///     is less then the engine updating this manager, then this will now work.
-        /// </remarks>
+        /// <inheritdoc/>
         public int FrameTime { get; set; } = 16;
 
-        /// <summary>
-        /// Gets or sets a value indicating whether the system is paused.
-        /// </summary>
-        public bool Paused { get; set; }
+        /// <inheritdoc/>
+        public bool Paused { get; private set; }
 
-        /// <summary>
-        /// Gets or sets the total number of frames ran.
-        /// </summary>
+        /// <inheritdoc/>
         public int TotalFramesRan { get; set; }
 
-        /// <summary>
-        /// Gets or sets the mode that the manager runs in.
-        /// </summary>
-        public RunMode Mode { get; set; } = RunMode.Continuous;
+        /// <inheritdoc/>
+        public SceneRunMode Mode { get; set; } = SceneRunMode.Continuous;
 
         /// <summary>
         /// Updates the <see cref="SceneTimeManager"/>.
@@ -65,11 +45,11 @@ namespace KDScorpionEngine.Scene
         public void Update(GameTime gameTime)
         {
             // Continous mode
-            if (Mode == RunMode.Continuous)
+            if (Mode == SceneRunMode.Continuous)
             {
                 TotalFramesRan += 1;
             }
-            else if (Mode == RunMode.FrameStack) // Step mode
+            else if (Mode == SceneRunMode.FrameStack) // Step mode
             {
                 // If the current stack of frames are being ran
                 if (!Paused)
@@ -100,32 +80,21 @@ namespace KDScorpionEngine.Scene
             }
         }
 
-        /// <summary>
-        /// Plays the scene.
-        /// </summary>
+        /// <inheritdoc/>
         public void Play() => Paused = false;
 
-        /// <summary>
-        /// Pauses the scene.
-        /// </summary>
+        /// <inheritdoc/>
         public void Pause() => Paused = true;
 
-        /// <summary>
-        /// Runs a complete stack of frames set by the <see cref="SceneTimeManager"/>.
-        /// This will only work if the <see cref="Mode"/> is set to the value of <see cref="RunMode.FrameStack"/>.
-        /// </summary>
-        public void RunFrameStack() => Paused = Mode == RunMode.FrameStack ? false : Paused;
+        /// <inheritdoc/>
+        public void RunFrameStack() => Paused = Mode == SceneRunMode.FrameStack ? false : Paused;
 
-        /// <summary>
-        /// Runs a set amount of frames given by the <paramref name="frames"/> param and pauses after.
-        /// This will only work if the <see cref="Mode"/> is set to <see cref="RunMode.FrameStack"/>.
-        /// </summary>
-        /// <param name="frames">The number of frames to run.</param>
+        /// <inheritdoc/>
         public void RunFrames(uint frames)
         {
             // If the mode is not in frame stack mode or if the callback is not null.
             // If the callback is not null, that means a previous call is still running.
-            if (Mode != RunMode.FrameStack || this.frameStackCallback != null)
+            if (Mode != SceneRunMode.FrameStack || this.frameStackCallback != null)
             {
                 return;
             }
