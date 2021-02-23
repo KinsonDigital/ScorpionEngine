@@ -188,7 +188,7 @@ namespace KDScorpionEngine.Scene
             }
 
             // Generate a new scene ID if the current ID is a -1
-            scene.Id = scene.Id == -1 ? GetNewId() : scene.Id;
+            scene.Id = scene.Id < 0 ? GetNewId() : scene.Id;
 
             this.scenes.Add(scene);
 
@@ -205,7 +205,7 @@ namespace KDScorpionEngine.Scene
                 scene.Active = true;
             }
 
-            // If there is only one scene in the manager...set that scene to current scene
+            // Set that scene to current scene
             CurrentSceneId = scene.Id;
         }
 
@@ -666,7 +666,7 @@ namespace KDScorpionEngine.Scene
             var largestId = allIdNumbers.Length <= 0 ? 0 : allIdNumbers.Max();
 
             // Check each ID number to see if it is sequential, if not, assign the first ID number available from smallest to largest.
-            for (var i = 1; i < largestId; i++)
+            for (var i = 0; i < largestId; i++)
             {
                 // If the current possible ID does not exist, use it. If it exists, move on.
                 if (!allIdNumbers.Contains(i))
@@ -679,11 +679,6 @@ namespace KDScorpionEngine.Scene
             // If this is the case, just return the next one after the largest number
             return allIdNumbers.Length > 0 ? largestId + 1 : largestId;
         }
-
-        /// <summary>
-        /// Turn off rendering for all scenes.
-        /// </summary>
-        private void TurnAllSceneRenderingOff() => this.scenes.ForEach(s => s.IsRenderingScene = false);
 
         /// <summary>
         /// Processes all of the manager settings for the given <paramref name="scene"/>.
@@ -714,6 +709,11 @@ namespace KDScorpionEngine.Scene
             // and why we would turn off rrendering for all scenes here.
             TurnAllSceneRenderingOff();
         }
+
+        /// <summary>
+        /// Turn off rendering for all scenes.
+        /// </summary>
+        private void TurnAllSceneRenderingOff() => this.scenes.ForEach(s => s.IsRenderingScene = false);
 
         /// <summary>
         /// Processes all of the manager settings for the given previous <paramref name="scene"/>.

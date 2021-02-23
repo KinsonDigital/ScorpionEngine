@@ -336,15 +336,13 @@ var manager = CreateSceneManager(mockScene.Object);
         public void Add_WhenInvoking_AddsNewScene()
         {
             // Arrange
-            var mockSceneA = new Mock<IScene>();
-            mockSceneA.SetupProperty(p => p.Id);
-            mockSceneA.Object.Id = 1;
+            var mockScene = CreateScene("scene", 1);
 
             var manager = CreateSceneManager();
             var expected = 1;
 
             // Act
-            manager.Add(mockSceneA.Object);
+            manager.Add(mockScene);
             var actual = manager.Count;
 
             // Assert
@@ -969,6 +967,56 @@ var manager = CreateSceneManager(mockScene.Object);
         }
 
         [Fact]
+        public void SetCurrentScene_WithSceneNameAndWhenFoundSceneIsAlreadySet_DoesNotChangeScenes()
+        {
+            // Arrange
+            var sceneA = CreateScene("sceneA", 0);
+
+            var mockSceneB = new Mock<IScene>();
+            mockSceneB.Setup(p => p.Name).Returns("sceneB");
+            mockSceneB.Setup(p => p.Id).Returns(1);
+
+            var manager = CreateSceneManager(sceneA, mockSceneB.Object);
+            manager.InitializeScenesOnChange = true;
+            manager.LoadContentOnSceneChange = true;
+
+            manager.SetCurrentScene("sceneB");
+
+            // Act
+            manager.SetCurrentScene("sceneB");
+
+            // Assert
+            mockSceneB.Verify(m => m.LoadContent(It.IsAny<IContentLoader>()), Times.Never);
+            mockSceneB.Verify(m => m.UnloadContent(It.IsAny<IContentLoader>()), Times.Never);
+            mockSceneB.Verify(m => m.Initialize(), Times.Never);
+        }
+
+        [Fact]
+        public void SetCurrentScene_WithSceneIDAndWhenFoundSceneIsAlreadySet_DoesNotChangeScenes()
+        {
+            // Arrange
+            var sceneA = CreateScene("sceneA", 0);
+
+            var mockSceneB = new Mock<IScene>();
+            mockSceneB.Setup(p => p.Name).Returns("sceneB");
+            mockSceneB.Setup(p => p.Id).Returns(1);
+
+            var manager = CreateSceneManager(sceneA, mockSceneB.Object);
+            manager.InitializeScenesOnChange = true;
+            manager.LoadContentOnSceneChange = true;
+
+            manager.SetCurrentScene(1);
+
+            // Act
+            manager.SetCurrentScene(1);
+
+            // Assert
+            mockSceneB.Verify(m => m.LoadContent(It.IsAny<IContentLoader>()), Times.Never);
+            mockSceneB.Verify(m => m.UnloadContent(It.IsAny<IContentLoader>()), Times.Never);
+            mockSceneB.Verify(m => m.Initialize(), Times.Never);
+        }
+
+        [Fact]
         public void SetCurrentScene_WhenInvokingWithName_InvokesSceneChangedEvent()
         {
             // Arrange
@@ -1566,6 +1614,27 @@ var manager = CreateSceneManager(mockScene.Object);
         #endregion
 
         /// <summary>
+        /// Creates a scene with the given <paramref name="name"/> and <paramref name="sceneId"/>
+        /// for the purpose of testing.
+        /// </summary>
+        /// <param name="name">The name of the scene.</param>
+        /// <param name="sceneId">The ID of the scene.</param>
+        /// <returns>An instance of <see cref="IScene"/> for testing.</returns>
+        private static IScene CreateScene(string name = "", int sceneId = -1)
+        {
+            var mockScene = new Mock<IScene>();
+            mockScene.SetupProperty(m => m.Id);
+            mockScene.SetupProperty(m => m.Name);
+
+            var result = mockScene.Object;
+
+            result.Id = sceneId;
+            result.Name = name;
+
+            return result;
+        }
+
+        /// <summary>
         /// Setups up and mocks the keyboard for a key press for the given <paramref name="key"/>.
         /// </summary>
         /// <param name="key">The key to setup as a full key press.</param>
@@ -1607,20 +1676,6 @@ var manager = CreateSceneManager(mockScene.Object);
             }
 
             return manager;
-        }
-
-        private static IScene CreateScene(string name = "", int sceneId = -1)
-        {
-            var mockScene = new Mock<IScene>();
-            mockScene.SetupProperty(m => m.Id);
-            mockScene.SetupProperty(m => m.Name);
-
-            var result = mockScene.Object;
-
-            result.Id = sceneId;
-            result.Name = name;
-
-            return result;
         }
     }
 }
