@@ -15,7 +15,7 @@ namespace KDScorpionEngine
     /// </summary>
     public class GameWindow : Window
     {
-        private readonly Renderer renderer;
+        private readonly IRenderer renderer;
         private readonly GameTime gameTime;
         private bool isDisposed;
 
@@ -23,11 +23,11 @@ namespace KDScorpionEngine
         /// Initializes a new instance of the <see cref="GameWindow"/> class.
         /// </summary>
         /// <param name="window">The internal window implementation.</param>
-        /// <param name="spriteBatch">Used to render sprites.</param>
-        public GameWindow(IWindow window, ISpriteBatch spriteBatch)
+        /// <param name="renderer">Used to render sprites.</param>
+        public GameWindow(IWindow window, IRenderer renderer)
             : base(window)
         {
-            this.renderer = new Renderer(spriteBatch, window.Width, window.Height);
+            this.renderer = renderer;
             this.gameTime = new GameTime();
         }
 
@@ -50,7 +50,7 @@ namespace KDScorpionEngine
         /// Gets or sets the delegate that will be invoked on an intervale to render to the window.
         /// </summary>
         /// <remarks>This always occurs after the <see cref="UpdateAction"/>.</remarks>
-        public Action<Renderer>? RenderAction { get; set; }
+        public Action<IRenderer>? RenderAction { get; set; }
 
         /// <inheritdoc/>
         public override void OnLoad()

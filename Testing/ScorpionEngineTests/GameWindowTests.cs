@@ -6,11 +6,11 @@ namespace KDScorpionEngineTests
 {
     using System;
     using KDScorpionEngine;
+    using KDScorpionEngine.Graphics;
     using Moq;
     using Raptor;
     using Raptor.Content;
     using Raptor.Desktop;
-    using Raptor.Graphics;
     using Xunit;
 
     /// <summary>
@@ -20,7 +20,7 @@ namespace KDScorpionEngineTests
     {
         private readonly Mock<IContentLoader> mockContentLoader;
         private readonly Mock<IWindow> mockWindow;
-        private readonly Mock<ISpriteBatch> mockSpriteBatch;
+        private readonly Mock<IRenderer> mockRenderer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameWindowTests"/> class.
@@ -32,7 +32,7 @@ namespace KDScorpionEngineTests
             this.mockWindow = new Mock<IWindow>();
             this.mockWindow.SetupGet(p => p.ContentLoader).Returns(this.mockContentLoader.Object);
 
-            this.mockSpriteBatch = new Mock<ISpriteBatch>();
+            this.mockRenderer = new Mock<IRenderer>();
         }
 
         #region Method tests
@@ -149,6 +149,6 @@ namespace KDScorpionEngineTests
         /// Creats a new instance of <see cref="GameWindow"/> for the purpose of testing.
         /// </summary>
         /// <returns>The instance to test.</returns>
-        private GameWindow CreateWindow() => new GameWindow(this.mockWindow.Object, this.mockSpriteBatch.Object);
+        private GameWindow CreateWindow() => new GameWindow(this.mockWindow.Object, this.mockRenderer.Object);
     }
 }

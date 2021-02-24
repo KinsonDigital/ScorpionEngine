@@ -1,4 +1,4 @@
-﻿// <copyright file="SceneManager.cs" company="KinsonDigital">
+// <copyright file="SceneManager.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -507,7 +507,7 @@ namespace KDScorpionEngine.Scene
         /// Calls the currently enabled <see cref="IScene"/> render method.
         /// </summary>
         /// <param name="renderer">The renderer to use for rendering.</param>
-        public void Render(Renderer renderer)
+        public void Render(IRenderer renderer)
         {
             // TODO: Look into why this is not implemented the same way as the Update() method above
             if (this.scenes.Count <= 0)

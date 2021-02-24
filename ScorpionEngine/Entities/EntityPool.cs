@@ -178,7 +178,7 @@ namespace KDScorpionEngine.Entities
         /// Renders all of the entitites in the pool.
         /// </summary>
         /// <param name="renderer">Used to render the entities.</param>
-        public void Render(Renderer renderer)
+        public void Render(IRenderer renderer)
         {
             foreach (var entity in this.entitites.Values)
             {

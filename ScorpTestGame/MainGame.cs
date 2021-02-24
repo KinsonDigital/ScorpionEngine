@@ -55,7 +55,7 @@ namespace ScorpTestGame
             base.Update(gameTime);
         }
 
-        public override void Render(Renderer renderer)
+        public override void Render(IRenderer renderer)
         {
             base.Render(renderer);
         }

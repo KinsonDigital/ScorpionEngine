@@ -122,7 +122,7 @@ namespace KDScorpionEngine.Scene
         /// Renders the <see cref="GameScene"/>.
         /// </summary>
         /// <param name="renderer">The renderer to use to render the scene.</param>
-        public virtual void Render(Renderer renderer)
+        public virtual void Render(IRenderer renderer)
         {
             Entities.ForEach(e =>
             {

@@ -46,7 +46,7 @@ namespace KDScorpionEngineTests.Fakes
             UpdateInvoked = true;
         }
 
-        public override void Render(Renderer renderer)
+        public override void Render(IRenderer renderer)
         {
             RenderInvoked = true;
         }

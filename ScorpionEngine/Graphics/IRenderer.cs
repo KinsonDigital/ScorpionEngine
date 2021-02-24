@@ -27,5 +27,29 @@ namespace KDScorpionEngine.Graphics
         /// <param name="y">The X coordinate of where to render the texture.</param>
         /// <param name="x">The Y coordinate of where to render the texture.</param>
         void Render(ITexture texture, int y, int x);
+
+        /// <summary>
+        /// Clears the screen.
+        /// </summary>
+        void Clear();
+
+        /// <summary>
+        /// Begins the process for rendering a batch.
+        /// </summary>
+        /// <remarks>You must invoke this before invoking the <see cref="End"/>() method.</remarks>
+        void Begin();
+
+        /// <summary>
+        /// Ends the process of rendering a batch.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        ///     Invoking this will actually perform the rendering on the GPU.
+        /// </para>
+        /// <para>
+        ///     The <see cref="Begin"/>() method must be invoked before this is invoked.
+        /// </para>
+        /// </remarks>
+        void End();
     }
 }

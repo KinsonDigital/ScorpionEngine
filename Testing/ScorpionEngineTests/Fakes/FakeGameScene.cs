@@ -18,7 +18,7 @@ namespace KDScorpionEngineTests.Fakes
         {
         }
 
-        public override void Render(Renderer renderer)
+        public override void Render(IRenderer renderer)
         {
             IsRenderingScene = true;
 

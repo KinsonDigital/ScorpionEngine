@@ -93,13 +93,13 @@ namespace KDScorpionEngine.Graphics
         /// <summary>
         /// Clears the screen.
         /// </summary>
-        internal void Clear() => this.spriteBatch.Clear();
+        public void Clear() => this.spriteBatch.Clear();
 
         /// <summary>
         /// Begins the process for rendering a batch.
         /// </summary>
         /// <remarks>You must invoke this before invoking the <see cref="End"/>() method.</remarks>
-        internal void Begin() => this.spriteBatch.BeginBatch();
+        public void Begin() => this.spriteBatch.BeginBatch();
 
         /// <summary>
         /// Ends the process of rendering a batch.
@@ -112,7 +112,7 @@ namespace KDScorpionEngine.Graphics
         ///     The <see cref="Begin"/>() method must be invoked before this is invoked.
         /// </para>
         /// </remarks>
-        internal void End() => this.spriteBatch.EndBatch();
+        public void End() => this.spriteBatch.EndBatch();
 
         /// <summary>
         /// <inheritdoc/>

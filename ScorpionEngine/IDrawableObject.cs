@@ -15,6 +15,6 @@ namespace KDScorpionEngine
         /// Renders things to the graphics surface using the given <paramref name="renderer"/>.
         /// </summary>
         /// <param name="renderer">The rederer to use for rendering.</param>
-        void Render(Renderer renderer);
+        void Render(IRenderer renderer);
     }
 }

@@ -114,7 +114,7 @@ namespace ScorpTestGame.Scenes
         /// Renders the scene.
         /// </summary>
         /// <param name="renderer">Renders the graphics in the scene.</param>
-        public override void Render(Renderer renderer)
+        public override void Render(IRenderer renderer)
         {
             this.bubblePool.Render(renderer);
 
