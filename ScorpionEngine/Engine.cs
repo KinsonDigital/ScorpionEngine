@@ -20,19 +20,31 @@ namespace KDScorpionEngine
     /// </summary>
     public class Engine : IDisposable
     {
-        private GameWindow gameWindow;
-        private readonly ISpriteBatch spriteBatch;
-        private static readonly int prevElapsedTime;
+        private readonly GameWindow gameWindow;
+        private bool isDisposed;
 
-        public Engine(IWindow gameWindow, SceneManager sceneManager)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Engine"/> class.
+        /// </summary>
+        /// <param name="gameWindow">The game window that provides user interativity and rendering of the game.</param>
+        /// <param name="sceneManager">The scene manager.</param>
+        public Engine(GameWindow gameWindow, SceneManager sceneManager)
         {
-            SetupWindow(gameWindow);
+            this.gameWindow = gameWindow;
+
+            gameWindow.InitAction = InitAction;
+            gameWindow.LoadAction = LoadAction;
+            gameWindow.UpdateAction = UpdateAction;
+            gameWindow.RenderAction = RenderAction;
+
             SceneManager = sceneManager;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Engine"/> class.
         /// </summary>
+        /// <param name="windowWidth">The width of the game window.</param>
+        /// <param name="windowHeight">The height of the game window.</param>
         [ExcludeFromCodeCoverage]
         public Engine(int windowWidth, int windowHeight)
         {
@@ -40,7 +52,9 @@ namespace KDScorpionEngine
 
             SceneManager = new SceneManager(ContentLoaderFactory.CreateContentLoader(), new Keyboard());
 
-            SetupWindow(WindowFactory.CreateWindow(windowWidth, windowHeight));
+            this.gameWindow = SetupWindow(
+                WindowFactory.CreateWindow(windowWidth, windowHeight),
+                new Renderer(windowWidth, windowHeight));
         }
 
         /// <summary>
@@ -49,7 +63,7 @@ namespace KDScorpionEngine
         public static float CurrentFPS { get; internal set; }
 
         /// <summary>
-        /// Gets or sets a value indicating if the engine is running or paused.
+        /// Gets a value indicating whether the engine is running or paused.
         /// </summary>
         public bool IsRunning { get; private set; } = false;
 
@@ -79,12 +93,12 @@ namespace KDScorpionEngine
         /// <summary>
         /// Gets the <see cref="ContentLoader"/> used to load and unload the games content.
         /// </summary>
-        public IContentLoader ContentLoader
-        {
-            get => this.gameWindow.ContentLoader;
-            private set => this.gameWindow.ContentLoader = value;
-        }
+        public IContentLoader ContentLoader => this.gameWindow.ContentLoader;
 
+        /// <summary>
+        /// Runs the engine on another thread.
+        /// </summary>
+        /// <returns>The task/thread that the engine is running on.</returns>
         public Task RunAsync()
         {
             IsRunning = true;
@@ -94,20 +108,19 @@ namespace KDScorpionEngine
             });
         }
 
-        public void Play()
-        {
-            IsRunning = true;
-        }
+        /// <summary>
+        /// Plays the engine.
+        /// </summary>
+        public void Play() => IsRunning = true;
 
-        public void Pause()
-        {
-            IsRunning = false;
-        }
+        /// <summary>
+        /// Pauses the engine.
+        /// </summary>
+        public void Pause() => IsRunning = false;
 
         /// <summary>
         /// Initializes the engine.
         /// </summary>
-        [ExcludeFromCodeCoverage]
         public virtual void Init()
         {
             foreach (var scene in SceneManager)
@@ -120,7 +133,6 @@ namespace KDScorpionEngine
         /// Loads all of the content.
         /// </summary>
         /// <param name="contentLoader">Loads content.</param>
-        [ExcludeFromCodeCoverage]
         public virtual void LoadContent(IContentLoader contentLoader)
         {
             foreach (var scene in SceneManager)
@@ -156,8 +168,7 @@ namespace KDScorpionEngine
         /// Draws the game world.
         /// </summary>
         /// <param name="renderer">The renderer used to render the graphics.</param>
-        [ExcludeFromCodeCoverage]
-        public virtual void Render(Renderer renderer) => SceneManager.Render(renderer);
+        public virtual void Render(IRenderer renderer) => SceneManager.Render(renderer);
 
         /// <inheritdoc/>
         public void Dispose()
@@ -170,14 +181,28 @@ namespace KDScorpionEngine
         /// <inheritdoc/>
         /// </summary>
         /// <param name="disposing">True to dispose of managed resources.</param>
-        protected virtual void Dispose(bool disposing) => this.gameWindow.Dispose();
+        protected virtual void Dispose(bool disposing)
+        {
+            if (this.isDisposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                this.gameWindow.Dispose();
+            }
+
+            this.isDisposed = true;
+        }
 
         /// <summary>
         /// Sets up the window.
         /// </summary>
         /// <param name="raptorWindow">The Raptor window object.</param>
-        private void SetupWindow(IWindow raptorWindow)
-            => this.gameWindow = new GameWindow(raptorWindow)
+        [ExcludeFromCodeCoverage]
+        private GameWindow SetupWindow(IWindow raptorWindow, IRenderer renderer)
+            => new GameWindow(raptorWindow, renderer)
             {
                 InitAction = InitAction,
                 LoadAction = LoadAction,
@@ -188,34 +213,22 @@ namespace KDScorpionEngine
         /// <summary>
         /// Occurs one time during game initialization. This event is fired before the <see cref="OnLoadContent"/> event is fired. Add initialization code here.
         /// </summary>
-        [ExcludeFromCodeCoverage]
         private void InitAction() => Init();
-            // TODO: Get this working
-            // _renderer = new GameRenderer()
-            // {
-            //    InternalRenderer = _engineCore.Renderer
-            // };
 
         /// <summary>
         /// Occurs one time during game initialization after the <see cref="OnInitialize"/> event is fired.
         /// </summary>
-        [ExcludeFromCodeCoverage]
         private void LoadAction() => LoadContent(ContentLoader);
 
         /// <summary>
         /// Occurs once every frame before the OnDraw event before the <see cref="OnRender"/> event is invoked.
         /// </summary>
-        [ExcludeFromCodeCoverage]
-        private void UpdateAction(GameTime gameTime)
-        {
-            Update(gameTime);
-        }
+        private void UpdateAction(GameTime gameTime) => Update(gameTime);
 
         /// <summary>
         /// Occurs once every frame after the <see cref="OnUpdate"/> event has been invoked.
         /// </summary>
-        [ExcludeFromCodeCoverage]
-        private void RenderAction(Renderer renderer)
+        private void RenderAction(IRenderer renderer)
         {
             renderer.Clear();
 
