@@ -17,7 +17,7 @@ namespace KDScorpionEngineTests.Exceptions
             var expected = "The texture type is invalid.";
 
             // Act
-            var exception = new TextureTypeException();
+            var exception = new InvalidTextureTypeException();
             var actual = exception.Message;
 
             // Assert
@@ -31,7 +31,7 @@ namespace KDScorpionEngineTests.Exceptions
             var expected = "This is a custom message.";
 
             // Act
-            var exception = new TextureTypeException("This is a custom message.");
+            var exception = new InvalidTextureTypeException("This is a custom message.");
             var actual = exception.Message;
 
             // Assert

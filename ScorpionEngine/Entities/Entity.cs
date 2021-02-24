@@ -187,7 +187,7 @@ namespace KDScorpionEngine.Entities
                     case TextureType.SubTexture:
                         return AtlasData?.Texture;
                     default:
-                        throw new TextureTypeException($"Unknown '{nameof(TextureType)}' value of '{RenderSection.TypeOfTexture}'.");
+                        throw new InvalidTextureTypeException($"Unknown '{nameof(TextureType)}' value of '{RenderSection.TypeOfTexture}'.");
                 }
             }
             set
@@ -211,7 +211,7 @@ namespace KDScorpionEngine.Entities
                         AtlasData.Texture = value;
                         break;
                     default:
-                        throw new TextureTypeException($"Unknown '{nameof(TextureType)}' value of '{RenderSection.TypeOfTexture}'.");
+                        throw new InvalidTextureTypeException($"Unknown '{nameof(TextureType)}' value of '{RenderSection.TypeOfTexture}'.");
                 }
             }
         }
@@ -278,7 +278,7 @@ namespace KDScorpionEngine.Entities
 
                     break;
                 default:
-                    break;
+                    throw new InvalidTextureTypeException();
             }
 
             ContentLoaded = true;

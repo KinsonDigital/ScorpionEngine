@@ -43,6 +43,24 @@ namespace KDScorpionEngineTests.Entities
             this.mockContentLoader.Setup(m => m.Load<ITexture>(WholeTextureName)).Returns(this.mockWholeTexture.Object);
             this.mockContentLoader.Setup(m => m.Load<ITexture>(TextureAtlasName)).Returns(this.mockTextureAtlas.Object);
 
+            this.mockContentLoader.Setup(m => m.Load<IAtlasData>(TextureAtlasName))
+                .Returns(() =>
+                {
+                    var subTextureData = new AtlasSubTextureData[]
+                    {
+                        new AtlasSubTextureData()
+                        {
+                            Name = SubTextureName,
+                            FrameIndex = -1,
+                            Bounds = new Rectangle(11, 22, 33, 44),
+                        },
+                    };
+
+                    var atlasData = new AtlasData(subTextureData, this.mockTextureAtlas.Object, TextureAtlasName, TextureAtlasPath);
+
+                    return atlasData;
+                });
+
             this.mockTextureLoader = new Mock<ILoader<ITexture>>();
             this.mockTextureLoader.Setup(m => m.Load(It.IsAny<string>())).Returns(this.mockWholeTexture.Object);
         }
@@ -204,6 +222,20 @@ namespace KDScorpionEngineTests.Entities
                 e => entity.OnShow += e,
                 e => entity.OnShow -= e,
                 () => entity.Visible = true);
+        }
+
+        [Fact]
+        public void Visible_WhenGoingFromHiddenToVisibleWithNoRegisteredEvent_DoesNotThrowException()
+        {
+            // Arrange
+            var entity = CreateEntity();
+            entity.Visible = false;
+
+            // Act & Assert
+            AssertHelpers.DoesNotThrow<NullReferenceException>(() =>
+            {
+                entity.Visible = true;
+            });
         }
 
         [Fact]
@@ -379,7 +411,7 @@ namespace KDScorpionEngineTests.Entities
             entity.RenderSection.TypeOfTexture = (TextureType)44;
 
             // Act & Assert
-            AssertHelpers.ThrowsWithMessage<TextureTypeException>(() =>
+            AssertHelpers.ThrowsWithMessage<InvalidTextureTypeException>(() =>
             {
                 _ = entity.Texture;
             }, $"Unknown '{nameof(TextureType)}' value of '44'.");
@@ -460,7 +492,7 @@ namespace KDScorpionEngineTests.Entities
             entity.RenderSection.TypeOfTexture = (TextureType)33;
 
             // Act & Assert
-            AssertHelpers.ThrowsWithMessage<TextureTypeException>(() =>
+            AssertHelpers.ThrowsWithMessage<InvalidTextureTypeException>(() =>
             {
                 entity.Texture = new Mock<ITexture>().Object;
             }, $"Unknown '{nameof(TextureType)}' value of '33'.");
@@ -545,6 +577,25 @@ namespace KDScorpionEngineTests.Entities
         }
 
         [Fact]
+        public void LoadContent_WhenContentIsLoaded_SkipsLoadingOfContent()
+        {
+            // Arrange
+            var entity = CreateEntity();
+            entity.RenderSection.TextureName = WholeTextureName;
+            entity.RenderSection.TypeOfTexture = TextureType.WholeTexture;
+
+            // Act
+            entity.LoadContent(this.mockContentLoader.Object);
+
+            // Set the texture to null to see if the content loader is used a second time
+            entity.Texture = null;
+            entity.LoadContent(this.mockContentLoader.Object);
+
+            // Assert
+            this.mockContentLoader.Verify(m => m.Load<ITexture>(It.IsAny<string>()), Times.Once());
+        }
+
+        [Fact]
         public void LoadContent_WhenInvoked_SetsContentLoadedPropToTrue()
         {
             // Arange
@@ -556,6 +607,58 @@ namespace KDScorpionEngineTests.Entities
 
             // Assert
             Assert.True(entity.ContentLoaded);
+        }
+
+        [Fact]
+        public void LoadContent_WhenInvoked_LoadsAtlasData()
+        {
+            // Arrange
+            var entity = CreateEntity();
+            entity.RenderSection.TextureName = TextureAtlasName;
+            entity.RenderSection.TypeOfTexture = TextureType.SubTexture;
+
+            // Act
+            entity.LoadContent(this.mockContentLoader.Object);
+
+            // Assert
+            this.mockContentLoader.Verify(m => m.Load<IAtlasData>(TextureAtlasName), Times.Once());
+        }
+
+        [Fact]
+        public void LoadContent_WithSetAnimator_SetsAnimatorFrames()
+        {
+            // Arrange
+            var mockAnimator = new Mock<IAnimator>();
+            mockAnimator.SetupProperty(p => p.Frames);
+
+            var entity = CreateEntity();
+            entity.RenderSection.TextureName = TextureAtlasName;
+            entity.RenderSection.SubTextureName = SubTextureName;
+            entity.RenderSection.TypeOfTexture = TextureType.SubTexture;
+            entity.RenderSection.Animator = mockAnimator.Object;
+
+            // Act
+            entity.LoadContent(this.mockContentLoader.Object);
+
+            // Assert
+            mockAnimator.VerifySet(p => p.Frames = new[] { new Rectangle(11, 22, 33, 44) }, Times.Once());
+        }
+
+        [Fact]
+        public void LoadContent_WithInvalidTextureType_ThrowsException()
+        {
+            // Arrange
+            var mockAnimator = new Mock<IAnimator>();
+            mockAnimator.SetupProperty(p => p.Frames);
+
+            var entity = CreateEntity();
+            entity.RenderSection.TypeOfTexture = (TextureType)44;
+
+            // Act & Assert
+            AssertHelpers.ThrowsWithMessage<InvalidTextureTypeException>(() =>
+            {
+                entity.LoadContent(this.mockContentLoader.Object);
+            }, "The texture type is invalid.");
         }
 
         [Fact]
