@@ -291,7 +291,6 @@ namespace KDScorpionEngineTests
 
             // Act
             this.mockGameWindow.Object.Draw(new FrameTime() { ElapsedTime = new TimeSpan(0, 0, 0, 0, 16) });
-            //engine.Render(renderer);
 
             // Assert
             this.mockRenderer.Verify(m => m.Clear(), Times.Once());

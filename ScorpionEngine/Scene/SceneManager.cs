@@ -1,4 +1,4 @@
-// <copyright file="SceneManager.cs" company="KinsonDigital">
+﻿// <copyright file="SceneManager.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -40,7 +40,7 @@ namespace KDScorpionEngine.Scene
         /// <summary>
         /// Occurs when the currently active scene has changed.
         /// </summary>
-        public event EventHandler<SceneChangedEventArgs> SceneChanged;
+        public event EventHandler<SceneChangedEventArgs>? SceneChanged;
 
         /// <summary>
         /// Gets or sets the key to be pressed to progress to the next frame stack when the <see cref="Mode"/> property is set to <see cref="SceneRunMode.FrameStack"/>.
@@ -58,12 +58,12 @@ namespace KDScorpionEngine.Scene
         public int CurrentSceneId { get; private set; } = -1;
 
         /// <summary>
-        /// The keyboard key used to play the current scene.
+        /// Gets or sets the keyboard key used to play the current scene.
         /// </summary>
         public KeyCode PlayCurrentSceneKey { get; set; } = KeyCode.Unknown;
 
         /// <summary>
-        /// The keyboard key used to pause the current scene.
+        /// Gets or sets the keyboard key used to pause the current scene.
         /// </summary>
         public KeyCode PauseCurrentSceneKey { get; set; } = KeyCode.Unknown;
 
@@ -80,17 +80,21 @@ namespace KDScorpionEngine.Scene
         public KeyCode PreviousSceneKey { get; set; } = KeyCode.Unknown;
 
         /// <summary>
-        /// Gets or sets a value indicting if the current scene content will be unloaded when the scene changes.
-        /// WARNING: If false, this means that no content will not unloaded and will take up memory even though it
-        /// is not being used.  Only set to false if this is part of your game design and to prevent loading times
-        /// the next time the scene is loaded.
+        /// Gets or sets a value indicating whether the current scene content will be unloaded when the scene changes.
         /// </summary>
+        /// <remarks>
+        ///     If false, this means that no content will not unloaded and will take up memory even though it
+        ///     is not being used.  Only set to false if this is part of your game design and to prevent loading times
+        ///     the next time the scene is loaded.
+        /// </remarks>
         public bool UnloadContentOnSceneChange { get; set; } = true;
 
         /// <summary>
-        /// Gets or sets a value indicating if scenes will be initialized when they are added to the manager.
-        /// WARNING: If set to false, the scene will have to be manually initialized.
+        /// Gets or sets a value indicating whether the scenes will be initialized when they are added to the manager.
         /// </summary>
+        /// <remarks>
+        ///     If set to false, the scene will have to be manually initialized.
+        /// </remarks>
         public bool InitializeScenesOnAdd { get; set; }
 
         /// <summary>
