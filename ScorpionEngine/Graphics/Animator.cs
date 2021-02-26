@@ -5,21 +5,28 @@
 namespace KDScorpionEngine.Graphics
 {
     using System;
+    using System.Collections.ObjectModel;
     using System.Drawing;
+    using System.Linq;
 
     public class Animator : IAnimator
     {
-        private int frameIndex;
+        private uint frameIndex;
         private float elapsedFrameTime;
         private float fps = 30f;
         private float fpsMilliseconds = 32f;
+        private Rectangle[] frames = Array.Empty<Rectangle>();
 
-        public AnimateState CurrentState { get; set; }
+        /// <inheritdoc/>
+        public AnimateState CurrentState { get; set; } = AnimateState.Playing;
 
-        public AnimateDirection Direction { get; set; }
+        /// <inheritdoc/>
+        public AnimateDirection Direction { get; set; } = AnimateDirection.Forward;
 
+        /// <inheritdoc/>
         public bool IsLooping { get; set; } = true;
 
+        /// <inheritdoc/>
         public float FPS
         {
             get => this.fps;
@@ -30,18 +37,17 @@ namespace KDScorpionEngine.Graphics
             }
         }
 
-        public Rectangle[] Frames { get; set; }
-
-        public Rectangle CurrentFrameBounds
+        /// <inheritdoc/>
+        public ReadOnlyCollection<Rectangle> Frames
         {
-            get
-            {
-                var frame = Frames[this.frameIndex];
-
-                return frame;
-            }
+            get => new ReadOnlyCollection<Rectangle>(this.frames);
+            set => this.frames = value.ToArray();
         }
 
+        /// <inheritdoc/>
+        public Rectangle CurrentFrameBounds => this.frames[this.frameIndex];
+
+        /// <inheritdoc/>
         public void NextFrame()
         {
             if (CurrentState == AnimateState.Paused)
@@ -49,21 +55,14 @@ namespace KDScorpionEngine.Graphics
                 return;
             }
 
-            switch (Direction)
-            {
-                case AnimateDirection.Forward:
-                    this.frameIndex += 1;
-                    break;
-                case AnimateDirection.Reverse:
-                    this.frameIndex -= 1;
-                    break;
-                default:
-                    throw new Exception($"Unknown '{nameof(AnimateDirection)}' value of '{Direction}'");
-            }
+            CheckFrames();
+
+            this.frameIndex += 1;
 
             ProcessIndexRange();
         }
 
+        /// <inheritdoc/>
         public void PreviousFrame()
         {
             if (CurrentState == AnimateState.Paused)
@@ -71,34 +70,31 @@ namespace KDScorpionEngine.Graphics
                 return;
             }
 
-            switch (Direction)
-            {
-                case AnimateDirection.Forward:
-                    this.frameIndex -= 1;
-                    break;
-                case AnimateDirection.Reverse:
-                    this.frameIndex += 1;
-                    break;
-                default:
-                    throw new Exception($"Unknown '{nameof(AnimateDirection)}' value of '{Direction}'");
-            }
+            CheckFrames();
+
+            // NOTE: Since this is an unsigned integer, if the value attempts to go
+            // negative, it will automatically be set to the max value of a uint
+            this.frameIndex -= 1;
 
             ProcessIndexRange();
         }
 
-        // Ignores direction entirlely. Add this note to the remarks of the code docs
-        public void SetFrame(int frameIndex)
+        /// <inheritdoc/>
+        public void SetFrame(uint frameIndex)
         {
             ProcessIndexRange();
             this.frameIndex = frameIndex;
         }
 
+        /// <inheritdoc/>
         public void Update(GameTime gameTime)
         {
             if (CurrentState == AnimateState.Paused)
             {
                 return;
             }
+
+            CheckFrames();
 
             this.elapsedFrameTime += gameTime.CurrentFrameElapsed;
 
@@ -115,33 +111,40 @@ namespace KDScorpionEngine.Graphics
                         this.frameIndex -= 1;
                         break;
                     default:
-                        throw new Exception($"Unknown '{nameof(AnimateDirection)}' value of '{Direction}'");
+                        throw new Exception($"Unknown '{nameof(AnimateDirection)}' value of '{(int)Direction}'.");
                 }
 
                 ProcessIndexRange();
             }
         }
 
+        /// <summary>
+        /// Processes the current frame index by keeping it withing a valid range
+        /// as well as performing looping of the animation.
+        /// </summary>
         private void ProcessIndexRange()
         {
-            switch (Direction)
+            if (this.frameIndex >= uint.MaxValue)
             {
-                case AnimateDirection.Forward:
-                    if (this.frameIndex > Frames.Length - 1)
-                    {
-                        this.frameIndex = IsLooping ? 0 : this.frameIndex;
-                    }
+                this.frameIndex = IsLooping ? (uint)this.frames.Length - 1u : 0u;
+            }
 
-                    break;
-                case AnimateDirection.Reverse:
-                    if (this.frameIndex < 0)
-                    {
-                        this.frameIndex = IsLooping ? Frames.Length - 1 : this.frameIndex;
-                    }
+            if (this.frameIndex > Frames.Count - 1u)
+            {
+                this.frameIndex = IsLooping ? 0u : (uint)this.frames.Length - 1u;
+            }
+        }
 
-                    break;
-                default:
-                    throw new Exception($"Unknown '{nameof(AnimateDirection)}' value of '{Direction}'");
+        /// <summary>
+        /// Checks the frames and if no frames exist, throws an exception.
+        /// </summary>
+        /// <exception cref="Exception">Thrown when no exception exists.</exception>
+        private void CheckFrames()
+        {
+            if (Frames is null || this.frames.Length <= 0)
+            {
+                // TODO: Create custom no frames exception
+                throw new Exception("No frames exist in the animation.");
             }
         }
     }

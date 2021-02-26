@@ -4,16 +4,35 @@
 
 namespace KDScorpionEngine.Graphics
 {
+    /// <summary>
+    /// The direction that an animation can run.
+    /// </summary>
     public enum AnimateDirection
     {
+        /// <summary>
+        /// Runs an animation in the forward direction.
+        /// </summary>
         Forward,
+
+        /// <summary>
+        /// Runs an animation in the reverse direction.
+        /// </summary>
         Reverse,
-        None,
     }
 
+    /// <summary>
+    /// The state of an animation.
+    /// </summary>
     public enum AnimateState
     {
+        /// <summary>
+        /// The animation is currently playing.
+        /// </summary>
         Playing,
+
+        /// <summary>
+        /// The animation is currently paused.
+        /// </summary>
         Paused,
     }
 }

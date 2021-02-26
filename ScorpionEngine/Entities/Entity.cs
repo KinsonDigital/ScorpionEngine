@@ -273,7 +273,9 @@ namespace KDScorpionEngine.Entities
                     }
                     else
                     {
-                        RenderSection.Animator.Frames = AtlasData.GetFrames(RenderSection.SubTextureName).Select(f => f.Bounds).ToArray();
+                        RenderSection.Animator.Frames =
+                            AtlasData.GetFrames(RenderSection.SubTextureName)
+                                .Select(f => f.Bounds).ToArray().ToReadOnlyCollection();
                     }
 
                     break;

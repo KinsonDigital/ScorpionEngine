@@ -5,6 +5,7 @@
 namespace KDScorpionEngineTests
 {
     using System;
+    using System.Collections.ObjectModel;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Reflection;
@@ -21,8 +22,7 @@ namespace KDScorpionEngineTests
         /// </summary>
         /// <param name="value">The object that does or does not contain the field.</param>
         /// <param name="name">The name of the field.</param>
-        /// <returns></returns>
-        [ExcludeFromCodeCoverage]
+        /// <returns>Information about the field.</returns>
         public static FieldInfo GetField(this object value, string name)
         {
             if (value is null)
@@ -93,5 +93,15 @@ namespace KDScorpionEngineTests
 
             return foundField.FieldType.IsPrimitive;
         }
+
+        /// <summary>
+        /// Converts the given list of items of type <typeparamref name="T"/>
+        /// to a <see cref="ReadOnlyCollection{T}"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of item in the current array of items and resulting collection.</typeparam>
+        /// <param name="items">The list of items to convert.</param>
+        /// <returns>The original list of items converted to a read only collection.</returns>
+        public static ReadOnlyCollection<T> ToReadOnlyCollection<T>(this T[] items)
+            => new ReadOnlyCollection<T>(items);
     }
 }

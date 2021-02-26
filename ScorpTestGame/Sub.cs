@@ -34,7 +34,8 @@ namespace KDScorpTestGame
         public override void LoadContent(IContentLoader contentLoader)
         {
             AtlasData = contentLoader.Load<IAtlasData>("Main-Atlas");
-            RenderSection.Animator.Frames = AtlasData.GetFrames("sub").Select(f => f.Bounds).ToArray();
+            RenderSection.Animator.Frames = AtlasData.GetFrames("sub")
+                .Select(f => f.Bounds).ToArray().ToReadOnlyCollection();
         }
 
         public override void Update(GameTime gameTime)

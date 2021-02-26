@@ -1,4 +1,4 @@
-﻿// <copyright file="EntityTests.cs" company="KinsonDigital">
+// <copyright file="EntityTests.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -641,7 +641,11 @@ namespace KDScorpionEngineTests.Entities
             entity.LoadContent(this.mockContentLoader.Object);
 
             // Assert
-            mockAnimator.VerifySet(p => p.Frames = new[] { new Rectangle(11, 22, 33, 44) }, Times.Once());
+            mockAnimator.VerifySet(p =>
+            {
+                p.Frames = new[] { new Rectangle(11, 22, 33, 44) }.ToReadOnlyCollection();
+            },
+            Times.Once());
         }
 
         [Fact]

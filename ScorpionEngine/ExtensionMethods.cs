@@ -5,6 +5,7 @@
 namespace KDScorpionEngine
 {
     using System;
+    using System.Collections.ObjectModel;
     using System.Diagnostics.CodeAnalysis;
     using System.Drawing;
     using System.Numerics;
@@ -103,5 +104,15 @@ namespace KDScorpionEngine
         /// <param name="degrees">The value to convert.</param>
         /// <returns>The radians result.</returns>
         public static float ToRadians(this float degrees) => degrees * (float)Math.PI / 180f;
+
+        /// <summary>
+        /// Converts the given list of items of type <typeparamref name="T"/>
+        /// to a <see cref="ReadOnlyCollection{T}"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of item in the current array of items and resulting collection.</typeparam>
+        /// <param name="items">The list of items to convert.</param>
+        /// <returns>The original list of items converted to a read only collection.</returns>
+        public static ReadOnlyCollection<T> ToReadOnlyCollection<T>(this T[] items)
+            => new ReadOnlyCollection<T>(items);
     }
 }
