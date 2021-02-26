@@ -12,7 +12,7 @@ namespace KDScorpionEngine.Behaviors
     public interface IBehavior : IUpdatableObject
     {
         /// <summary>
-        /// Enables or disables the <see cref="IBehavior"/>.
+        /// Gets or sets a value indicating whether the <see cref="IBehavior"/> is enabled.
         /// </summary>
         bool Enabled { get; set; }
 
@@ -21,6 +21,9 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         string Name { get; set; }
 
-        Guid ID { get; set; }
+        /// <summary>
+        /// Gets or sets the ID of the behavior.
+        /// </summary>
+        Guid ID { get; }
     }
 }
