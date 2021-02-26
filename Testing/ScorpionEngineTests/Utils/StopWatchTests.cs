@@ -50,7 +50,7 @@ namespace KDScorpionEngineTests.Utils
             // Arrange
             var stopWatch = new StopWatch(1000);
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(500);
+            gameTime.AddTime(500);
             var expectedRunning = false;
             var expectedElapsedMS = 0;
 
@@ -72,7 +72,7 @@ namespace KDScorpionEngineTests.Utils
             // Arrange
             var stopWatch = new StopWatch(1000);
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(1001);
+            gameTime.AddTime(1001);
             var expectedElapsedMS = 0;
             var expectedRunning = false;
 
@@ -96,7 +96,7 @@ namespace KDScorpionEngineTests.Utils
             var stopWatch = new StopWatch(2500);
             stopWatch.OnTimeElapsed += (sender, e) => actual = true;
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(2500);
+            gameTime.AddTime(2500);
 
             // Act
             stopWatch.Start();
@@ -159,7 +159,7 @@ namespace KDScorpionEngineTests.Utils
             // Arrange
             var stopWatch = new StopWatch(2500);
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(750);
+            gameTime.AddTime(750);
             var expected = 0.75f; // Seconds
 
             // Act

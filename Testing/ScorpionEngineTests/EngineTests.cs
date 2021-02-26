@@ -1,4 +1,4 @@
-﻿// <copyright file="EngineTests.cs" company="KinsonDigital">
+// <copyright file="EngineTests.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -124,7 +124,7 @@ namespace KDScorpionEngineTests
                 .Returns((frameTime) =>
                 {
                     var gameTime = new GameTime();
-                    gameTime.UpdateTotalGameTime(frameTime.ElapsedTime.Milliseconds);
+                    gameTime.AddTime(frameTime.ElapsedTime.Milliseconds);
                     this.gameWindow.UpdateAction(gameTime);
                 });
 
@@ -150,7 +150,7 @@ namespace KDScorpionEngineTests
                 .Returns((frameTime) =>
                 {
                     var gameTime = new GameTime();
-                    gameTime.UpdateTotalGameTime(frameTime.ElapsedTime.Milliseconds);
+                    gameTime.AddTime(frameTime.ElapsedTime.Milliseconds);
                     this.gameWindow.UpdateAction(gameTime);
                 });
 

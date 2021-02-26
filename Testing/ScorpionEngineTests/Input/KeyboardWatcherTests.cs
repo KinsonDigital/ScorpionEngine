@@ -149,10 +149,10 @@ namespace KDScorpionEngineTests.Input
         public void InputDownElapsedMS_WhenGettingValue_ReturnsCorrectValue()
         {
             // Arrange
-            var watcher = CreateWatcher(); ;
+            var watcher = CreateWatcher();
             var expected = 16;
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(16);
+            gameTime.AddTime(16);
 
             // Act
             watcher.Update(gameTime);
@@ -173,7 +173,7 @@ namespace KDScorpionEngineTests.Input
             var expected = 1.234f;
 
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(1234);
+            gameTime.AddTime(1234);
 
             // Act
             watcher.Update(gameTime);
@@ -190,7 +190,7 @@ namespace KDScorpionEngineTests.Input
             var watcher = CreateWatcher();
             var expected = 31;
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(31);
+            gameTime.AddTime(31);
 
             // Act
             watcher.Update(gameTime);
@@ -212,7 +212,7 @@ namespace KDScorpionEngineTests.Input
             watcher.InputReleasedTimeout = 5000;
 
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(4321);
+            gameTime.AddTime(4321);
 
             var expected = 4.321;
 
@@ -323,7 +323,7 @@ namespace KDScorpionEngineTests.Input
             watcher.HitCountMax = 0;
 
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(10);
+            gameTime.AddTime(10);
 
             var expectedDownTimerElapsed = 0;
             var expectedUpTimerElapsed = 10;
@@ -352,7 +352,7 @@ namespace KDScorpionEngineTests.Input
             watcher.HitCountMax = 1;
 
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(2000);
+            gameTime.AddTime(2000);
 
             // Act
             watcher.Update(gameTime);
@@ -404,7 +404,7 @@ namespace KDScorpionEngineTests.Input
             watcher.HitCountMax = 2;
 
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(501);
+            gameTime.AddTime(501);
 
             // Act & Assert
             Assert.Raises<EventArgs>(
@@ -430,7 +430,7 @@ namespace KDScorpionEngineTests.Input
             watcher.InputDownTimeOut = 1000;
 
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(501);
+            gameTime.AddTime(501);
 
             // Ace & Assert
             Assert.Raises<EventArgs>(
@@ -453,7 +453,7 @@ namespace KDScorpionEngineTests.Input
             watcher.Key = KeyCode.Left;
 
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(501);
+            gameTime.AddTime(501);
 
             // Act/Assert
             AssertHelpers.DoesNotThrow<NullReferenceException>(() =>
@@ -471,7 +471,7 @@ namespace KDScorpionEngineTests.Input
             watcher.Key = KeyCode.Right;
 
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(501);
+            gameTime.AddTime(501);
 
             // Act & Assert
             Assert.Raises<EventArgs>(
@@ -494,7 +494,7 @@ namespace KDScorpionEngineTests.Input
             watcher.Key = KeyCode.Right;
 
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(501);
+            gameTime.AddTime(501);
 
             // Act/Assert
             AssertHelpers.DoesNotThrow<NullReferenceException>(() =>
@@ -540,7 +540,7 @@ namespace KDScorpionEngineTests.Input
                 KeyCode.Right,
             };
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(16);
+            gameTime.AddTime(16);
 
             // Act & Assert
             AssertHelpers.DoesNotThrowNullReference(() => watcher.Update(gameTime));
@@ -558,7 +558,7 @@ namespace KDScorpionEngineTests.Input
             watcher.OnInputHitCountReached += (sender, e) => expectedOnInputHitCountReachedInvoked = true;
 
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(501);
+            gameTime.AddTime(501);
 
             // Act
             watcher.Dispose();
@@ -582,7 +582,7 @@ namespace KDScorpionEngineTests.Input
             watcher.OnInputDownTimeOut += (sender, e) => expectedOnInputDownTimeOutInvoked = true;
 
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(501);
+            gameTime.AddTime(501);
 
             // Act
             watcher.Dispose();
@@ -605,7 +605,7 @@ namespace KDScorpionEngineTests.Input
             watcher.OnInputReleasedTimeOut += (sender, e) => expectedOnInputReleasedTimeOutInvoked = true;
 
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(501);
+            gameTime.AddTime(501);
 
             // Act
             watcher.Dispose();

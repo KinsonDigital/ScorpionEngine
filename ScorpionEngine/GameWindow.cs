@@ -1,4 +1,4 @@
-﻿// <copyright file="GameWindow.cs" company="KinsonDigital">
+// <copyright file="GameWindow.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -63,7 +63,7 @@ namespace KDScorpionEngine
         /// <inheritdoc/>
         public override void OnUpdate(FrameTime frameTime)
         {
-            this.gameTime.UpdateTotalGameTime(frameTime.ElapsedTime.Milliseconds);
+            this.gameTime.AddTime(frameTime.ElapsedTime.Milliseconds);
 
             UpdateAction?.Invoke(this.gameTime);
             base.OnUpdate(frameTime);

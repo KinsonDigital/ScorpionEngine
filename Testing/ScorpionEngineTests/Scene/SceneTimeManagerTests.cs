@@ -132,7 +132,7 @@ namespace KDScorpionEngineTests.Scene
             };
             var expected = 16;
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(16);
+            gameTime.AddTime(16);
 
             // Act
             manager.Update(gameTime);
@@ -155,7 +155,7 @@ namespace KDScorpionEngineTests.Scene
             };
             var expected = 0;
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(16);
+            gameTime.AddTime(16);
 
             // Act
             manager.Update(gameTime);
@@ -176,7 +176,7 @@ namespace KDScorpionEngineTests.Scene
                 FrameTime = 16,
             };
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(9);
+            gameTime.AddTime(9);
 
             // Act
             manager.Update(gameTime);
@@ -198,7 +198,7 @@ namespace KDScorpionEngineTests.Scene
             };
             var expected = 1;
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(9);
+            gameTime.AddTime(9);
 
             // Act
             manager.Update(gameTime);
@@ -220,7 +220,7 @@ namespace KDScorpionEngineTests.Scene
                 FramesPerStack = 10,
             };
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(9);
+            gameTime.AddTime(9);
 
             // Act
             for (var i = 0; i < 20; i++)
@@ -246,7 +246,7 @@ namespace KDScorpionEngineTests.Scene
             };
             var expected = true;
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(9);
+            gameTime.AddTime(9);
 
             // Act
             for (var i = 0; i < 20; i++)
@@ -275,7 +275,7 @@ namespace KDScorpionEngineTests.Scene
 
             manager.FrameStackFinished += (sender, e) => actualEventInvoked = true;
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(9);
+            gameTime.AddTime(9);
 
             // Act
             for (var i = 0; i < 20; i++)
@@ -367,7 +367,7 @@ namespace KDScorpionEngineTests.Scene
             };
             manager.Pause();
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(16);
+            gameTime.AddTime(16);
 
             // Act
             manager.RunFrames(1);

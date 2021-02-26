@@ -554,7 +554,7 @@ namespace KDScorpionEngineTests.Entities
             var entity = CreateEntity();
             entity.Behaviors.Add(mockBehavior.Object);
             var gameTime = new GameTime();
-            gameTime.UpdateTotalGameTime(16);
+            gameTime.AddTime(16);
 
             // Act
             entity.Update(gameTime);
