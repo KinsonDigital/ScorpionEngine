@@ -9,73 +9,48 @@ namespace KDScorpionEngine.Utils
     /// <summary>
     /// Keeps track of time passed and invokes events when that time has passed.
     /// </summary>
-    public class StopWatch : IUpdatableObject
+    public class StopWatch : IStopWatch
     {
         private bool enabled;
         private int timeOut;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="StopWatch"/> class.
-        /// </summary>
-        /// <param name="timeOut">The amount of time in milliseconds before the stopWatch OnTimeElapsed event is invoked.</param>
-        public StopWatch(int timeOut) => this.timeOut = timeOut;
+        /// <inheritdoc/>
+        public event EventHandler<EventArgs>? OnTimeElapsed;
 
-        /// <summary>
-        /// Occurs every time the stop watch reaches 0.
-        /// </summary>
-        public event EventHandler OnTimeElapsed;
-
-        /// <summary>
-        /// Gets or sets the amount of time in milliseconds before the stopwatch will invoke the OnTimeElapsed event.
-        /// NOTE: If a timeout of less then 1 is attempted, timeout will default to 1.
-        /// </summary>
+        /// <inheritdoc/>
         public int TimeOut
         {
             get => this.timeOut;
             set => this.timeOut = value < 0 ? 1 : value;
         }
 
-        /// <summary>
-        /// Gets the amount of time passed in milliseconds.
-        /// </summary>
+        /// <inheritdoc/>
         public int ElapsedMS { get; private set; }
 
-        /// <summary>
-        /// Gets the amount of time passed in seconds.
-        /// </summary>
+        /// <inheritdoc/>
         public float ElapsedSeconds => ElapsedMS / 1000.0f;
 
-        /// <summary>
-        /// Gets a value indicating whether the stopwatch is running.
-        /// </summary>
+        /// <inheritdoc/>
         public bool Running { get; private set; }
 
-        /// <summary>
-        /// Gets or sets the reset mode of the stopwatch.  If set to auto reset, then the stopwatch will automatically be set to 0 and start counting again.
-        /// </summary>
+        /// <inheritdoc/>
         public ResetType ResetMode { get; set; } = ResetType.Auto;
 
-        /// <summary>
-        /// Starts the stopwatch.
-        /// </summary>
+        /// <inheritdoc/>
         public void Start()
         {
             this.enabled = true;
             Running = true;
         }
 
-        /// <summary>
-        /// Stops the stopwatch.
-        /// </summary>
+        /// <inheritdoc/>
         public void Stop()
         {
             this.enabled = false;
             Running = false;
         }
 
-        /// <summary>
-        /// Stops the stopwatch and resets the elapsed time back to 0.
-        /// </summary>
+        /// <inheritdoc/>
         public void Reset()
         {
             Stop();
