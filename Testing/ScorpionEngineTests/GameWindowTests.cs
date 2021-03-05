@@ -10,7 +10,7 @@ namespace KDScorpionEngineTests
     using Moq;
     using Raptor;
     using Raptor.Content;
-    using Raptor.Desktop;
+    using Raptor.UI;
     using Xunit;
 
     /// <summary>

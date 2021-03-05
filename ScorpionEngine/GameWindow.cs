@@ -1,4 +1,4 @@
-// <copyright file="GameWindow.cs" company="KinsonDigital">
+﻿// <copyright file="GameWindow.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -7,8 +7,7 @@ namespace KDScorpionEngine
     using System;
     using KDScorpionEngine.Graphics;
     using Raptor;
-    using Raptor.Desktop;
-    using Raptor.Graphics;
+    using Raptor.UI;
 
     /// <summary>
     /// A game window where the game interaction and rendering occurs.

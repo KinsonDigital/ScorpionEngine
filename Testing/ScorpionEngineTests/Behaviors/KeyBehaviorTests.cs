@@ -16,12 +16,12 @@ namespace KDScorpionEngineTests.Behaviors
     /// </summary>
     public class KeyBehaviorTests
     {
-        private readonly Mock<IKeyboard> mockKeyboard;
+        private readonly Mock<IGameInput<KeyCode, KeyboardState>> mockKeyboard;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="KeyBehaviorTests"/> class.
         /// </summary>
-        public KeyBehaviorTests() => this.mockKeyboard = new Mock<IKeyboard>();
+        public KeyBehaviorTests() => this.mockKeyboard = new Mock<IGameInput<KeyCode, KeyboardState>>();
 
         #region Constructor Tests
         [Fact]

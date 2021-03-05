@@ -10,10 +10,9 @@ namespace KDScorpionEngine
     using KDScorpionEngine.Graphics;
     using KDScorpionEngine.Scene;
     using Raptor.Content;
-    using Raptor.Desktop;
     using Raptor.Factories;
-    using Raptor.Graphics;
     using Raptor.Input;
+    using Raptor.UI;
 
     /// <summary>
     /// Drives and manages the game.

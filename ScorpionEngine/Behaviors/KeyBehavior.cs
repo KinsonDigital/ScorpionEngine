@@ -12,7 +12,7 @@ namespace KDScorpionEngine.Behaviors
     /// </summary>
     public class KeyBehavior : IBehavior
     {
-        private readonly IKeyboard keyboard;
+        private readonly IGameInput<KeyCode, KeyboardState> keyboard;
         private int timeElapsed; // The time elapsed since last frame
         private KeyboardState currentState;
         private KeyboardState previousKeyboardState;
@@ -23,7 +23,7 @@ namespace KDScorpionEngine.Behaviors
         /// <param name="key">The assigned keyboard key of the behavior.</param>
         /// <param name="keyboard">Manages keyboard input.</param>
         /// <param name="enabled">True to enable the behavior.</param>
-        public KeyBehavior(KeyCode key, IKeyboard keyboard, bool enabled = true)
+        public KeyBehavior(KeyCode key, IGameInput<KeyCode, KeyboardState> keyboard, bool enabled = true)
         {
             this.keyboard = keyboard;
             Key = key;

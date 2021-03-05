@@ -1,4 +1,4 @@
-// <copyright file="EngineTests.cs" company="KinsonDigital">
+﻿// <copyright file="EngineTests.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -13,9 +13,8 @@ namespace KDScorpionEngineTests
     using Moq;
     using Raptor;
     using Raptor.Content;
-    using Raptor.Desktop;
-    using Raptor.Graphics;
     using Raptor.Input;
+    using Raptor.UI;
     using Xunit;
 
     /// <summary>
@@ -25,7 +24,7 @@ namespace KDScorpionEngineTests
     {
         private readonly Mock<IContentLoader> mockContentLoader;
         private readonly Mock<IWindow> mockGameWindow;
-        private readonly Mock<IKeyboard> mockKeyboard;
+        private readonly Mock<IGameInput<KeyCode, KeyboardState>> mockKeyboard;
         private readonly Mock<IRenderer> mockRenderer;
         private readonly SceneManager manager;
         private readonly GameWindow gameWindow;
@@ -37,7 +36,7 @@ namespace KDScorpionEngineTests
         {
             this.mockContentLoader = new Mock<IContentLoader>();
 
-            this.mockKeyboard = new Mock<IKeyboard>();
+            this.mockKeyboard = new Mock<IGameInput<KeyCode, KeyboardState>>();
             this.manager = new SceneManager(this.mockContentLoader.Object, this.mockKeyboard.Object);
 
             this.mockGameWindow = new Mock<IWindow>();

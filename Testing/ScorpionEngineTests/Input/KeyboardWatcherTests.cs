@@ -1,4 +1,4 @@
-﻿// <copyright file="KeyboardWatcherTests.cs" company="KinsonDigital">
+// <copyright file="KeyboardWatcherTests.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -22,9 +22,10 @@ namespace KDScorpionEngineTests.Input
     /// </summary>
     public class KeyboardWatcherTests // : IDisposable
     {
-        private Mock<IKeyboard> mockKeyboard;
+        private readonly Mock<IGameInput<KeyCode, KeyboardState>> mockKeyboard;
 
         public KeyboardWatcherTests() => this.mockKeyboard = new Mock<IKeyboard>();
+            this.mockKeyboard = new Mock<IGameInput<KeyCode, KeyboardState>>();
 
         #region Method Tests
         [Fact]

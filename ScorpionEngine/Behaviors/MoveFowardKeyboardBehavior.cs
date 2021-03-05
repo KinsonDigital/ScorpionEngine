@@ -34,7 +34,7 @@ namespace KDScorpionEngine.Behaviors
         /// <param name="linearSpeed">The speed that the <see cref="Entity"/> will move at.</param>
         /// <param name="angularSpeed">The speed that the <see cref="Entity"/> will rotate at.</param>
         [ExcludeFromCodeCoverage]
-        public MoveFowardKeyboardBehavior(IKeyboard keyboard, T entity, float linearSpeed, float angularSpeed)
+        public MoveFowardKeyboardBehavior(IGameInput<KeyCode, KeyboardState> keyboard, T entity, float linearSpeed, float angularSpeed)
         {
             this.keyboard = keyboard;
             LinearSpeed = linearSpeed;
@@ -92,7 +92,7 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         public bool IsMovingForward { get; private set; }
 
-        private readonly IKeyboard keyboard;
+        private readonly IGameInput<KeyCode, KeyboardState> keyboard;
 
         /// <summary>
         /// Gets or sets the linear speed of the <see cref="Entity"/>.

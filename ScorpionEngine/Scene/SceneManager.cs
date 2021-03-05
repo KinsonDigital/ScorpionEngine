@@ -21,7 +21,7 @@ namespace KDScorpionEngine.Scene
     public class SceneManager : IUpdatableObject, IDrawableObject, IEnumerable<IScene>, IList<IScene>
     {
         private readonly IContentLoader contentLoader;
-        private readonly IKeyboard keyboard;
+        private readonly IGameInput<KeyCode, KeyboardState> keyboard;
         private readonly List<IScene> scenes = new List<IScene>(); // The list of scenes
         private KeyboardState currentKeyboardState;
         private KeyboardState previousKeyboardState;
@@ -31,7 +31,7 @@ namespace KDScorpionEngine.Scene
         /// </summary>
         /// <param name="contentLoader">The content loaded to inject.</param>
         /// <param name="keyboard">Manages keyboard input.</param>
-        public SceneManager(IContentLoader contentLoader, IKeyboard keyboard)
+        public SceneManager(IContentLoader contentLoader, IGameInput<KeyCode, KeyboardState> keyboard)
         {
             this.contentLoader = contentLoader;
             this.keyboard = keyboard;

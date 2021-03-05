@@ -1,4 +1,4 @@
-﻿// <copyright file="MouseWatcher.cs" company="KinsonDigital">
+// <copyright file="MouseWatcher.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -20,13 +20,12 @@ namespace KDScorpionEngine.Input
     {
         private Dictionary<MouseButton, bool> currentPressedButtons; // Holds the list of combo buttons and there down states
         private StopWatch buttonDownTimer; // Keeps track of how long the set input has been in the down position
-        private StopWatch buttonReleaseTimer; // Keeps track of how long the set input has been in the up position
+        private readonly IGameInput<MouseButton, MouseState> mouse;
         private Counter counter; // Keeps track of the hit count of an input
         private bool curState; // The current state of the set input
         private MouseState previousMouseState;
         private bool prevState; // The previous state of the set input
         private MouseState currentMouseState;
-        private readonly IMouse mouse;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MouseWatcher"/> class.
@@ -34,7 +33,7 @@ namespace KDScorpionEngine.Input
         /// <param name="enabled">Set to true to enable the watcher.</param>
         /// <param name="mouse">Manages mouse input.</param>
         [ExcludeFromCodeCoverage]
-        public MouseWatcher(bool enabled, IMouse mouse)
+        public MouseWatcher(bool enabled, IGameInput<MouseButton, MouseState> mouse, IStopWatch buttonDownTimer, IStopWatch buttonReleaseTimer)
         {
             Setup(enabled);
             this.mouse = mouse;
@@ -172,7 +171,7 @@ namespace KDScorpionEngine.Input
             }
 
             // Update the current state of the mouse
-            this.currentMouseState = this.mouse.GetMouseState();
+            this.currentMouseState = this.mouse.GetState();
 
             // Update the mouse button down timer to keep track of how much time that the button has been in the down position
             this.buttonDownTimer.Update(gameTime);

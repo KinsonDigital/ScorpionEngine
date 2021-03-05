@@ -1,4 +1,4 @@
-﻿// <copyright file="MouseWatcherTests.cs" company="KinsonDigital">
+// <copyright file="MouseWatcherTests.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -17,13 +17,14 @@ namespace KDScorpionEngineTests.Input
     /// </summary>
     public class MouseWatcherTests //: IDisposable
     {
-        //private Mock<IMouse> mockMouse;
+        private readonly Mock<IGameInput<MouseButton, MouseState>> mockMouse;
 
         //public MouseWatcherTests()
         //{
         //    this.mockMouse = new Mock<IMouse>();
         //    this.mockMouse.Setup(m => m.IsButtonPressed(InputButton.LeftButton)).Returns(true);
         //}
+            this.mockMouse = new Mock<IGameInput<MouseButton, MouseState>>();
 
         //#region Constructor Tests
         //[Fact]

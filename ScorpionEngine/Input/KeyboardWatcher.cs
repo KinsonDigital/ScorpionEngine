@@ -1,4 +1,4 @@
-﻿// <copyright file="KeyboardWatcher.cs" company="KinsonDigital">
+// <copyright file="KeyboardWatcher.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -18,7 +18,7 @@ namespace KDScorpionEngine.Input
     /// </summary>
     public class KeyboardWatcher : IInputWatcher, IUpdatableObject, IDisposable
     {
-        private readonly IKeyboard keyboard;
+        private readonly IGameInput<KeyCode, KeyboardState> keyboard;
         private Dictionary<KeyCode, bool> currentPressedKeys; // Holds the list of comboKeys and there down states
         private Counter counter; // Keeps track of the hit count of an input
         private bool curState; // The current state of the set input

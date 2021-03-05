@@ -20,7 +20,7 @@ namespace KDScorpionEngineTests.Scene
     public class SceneManagerTests
     {
         private readonly Mock<IContentLoader> mockContentLoader;
-        private readonly Mock<IKeyboard> mockKeyboard;
+        private readonly Mock<IGameInput<KeyCode, KeyboardState>> mockKeyboard;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SceneManagerTests"/> class.
@@ -28,7 +28,7 @@ namespace KDScorpionEngineTests.Scene
         public SceneManagerTests()
         {
             this.mockContentLoader = new Mock<IContentLoader>();
-            this.mockKeyboard = new Mock<IKeyboard>();
+            this.mockKeyboard = new Mock<IGameInput<KeyCode, KeyboardState>>();
         }
 
         #region Prop Tests

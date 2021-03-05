@@ -21,7 +21,7 @@ namespace KDScorpionEngine.Behaviors
         private KeyBehavior moveUpOnKeyDown;
         private KeyBehavior moveDownOnKeyDown;
         private readonly T gameObject;
-        private readonly IKeyboard keyboard;
+        private readonly IGameInput<KeyCode, KeyboardState> keyboard;
         private KeyCode moveUpKey = KeyCode.Up;
         private KeyCode moveDownKey = KeyCode.Down;
         private KeyCode moveLeftKey = KeyCode.Left;
@@ -40,7 +40,7 @@ namespace KDScorpionEngine.Behaviors
         /// <param name="entity">The <see cref="Entity"/> to perform keyboard movement behavior upon.</param>
         /// <param name="movementSpeed">The movement speed that the <see cref="Entity"/> will move at.</param>
         [ExcludeFromCodeCoverage]
-        public MovementByKeyboardBehavior(IKeyboard keyboard, T entity, float movementSpeed)
+        public MovementByKeyboardBehavior(IGameInput<KeyCode, KeyboardState> keyboard, T entity, float movementSpeed)
         {
             this.keyboard = keyboard;
             throw new System.Exception("Need to implement the movementSpeed param");
