@@ -16,22 +16,22 @@ namespace KDScorpionEngine.Input
         /// <summary>
         /// Invoked when the combo input setup has been pressed.
         /// </summary>
-        event EventHandler<EventArgs>? OnInputComboPressed;
+        event EventHandler<EventArgs>? InputComboPressed;
 
         /// <summary>
         /// Invoked when the set input has been held in the down position for a set amount of time.
         /// </summary>
-        event EventHandler<EventArgs>? OnInputDownTimeOut;
+        event EventHandler<EventArgs>? InputDownTimedOut;
 
         /// <summary>
         /// Invoked when the set input has been hit a set amount of times.
         /// </summary>
-        event EventHandler<EventArgs>? OnInputHitCountReached;
+        event EventHandler<EventArgs>? InputHitCountReached;
 
         /// <summary>
         /// Invoked when the set input has been released from the down position for a set amount of time.
         /// </summary>
-        event EventHandler<EventArgs>? OnInputReleasedTimeOut;
+        event EventHandler<EventArgs>? InputReleaseTimedOut;
 
         /// <summary>
         /// Gets or sets a value indicating whether the <see cref="IInputWatcher"/> is enabled.
@@ -57,7 +57,7 @@ namespace KDScorpionEngine.Input
 
         /// <summary>
         /// Gets or sets the maximum amount of times that the set input should be hit before
-        /// invoking the <see cref="OnInputHitCountReached"/> event is reached.
+        /// invoking the <see cref="InputHitCountReached"/> event is reached.
         /// </summary>
         int HitCountMax { get; set; }
 
@@ -79,9 +79,9 @@ namespace KDScorpionEngine.Input
         float InputDownElapsedSeconds { get; }
 
         /// <summary>
-        /// The amount of time in milliseconds that the input should be held down before invoking the <see cref="OnInputDownTimeOut"/> event.
+        /// The amount of time in milliseconds that the input should be held down before invoking the <see cref="DownTimeOut"/> event.
         /// </summary>
-        int InputDownTimeOut { get; set; }
+        int DownTimeOut { get; set; }
 
         /// <summary>
         /// Gets the amount of time in milliseconds that has elapsed that the input has been released and is in the up position.
@@ -95,9 +95,9 @@ namespace KDScorpionEngine.Input
 
         /// <summary>
         /// The amount of time in milliseconds that the input should be released to the up position
-        /// after being released from the down position before invoking the <see cref="OnInputReleasedTimeOut"/> event.
+        /// after being released from the down position before invoking the <see cref="InputReleaseTimedOut"/> event.
         /// </summary>
-        int InputReleasedTimeout { get; set; }
+        int ReleaseTimeOut { get; set; }
 
         /// <summary>
         /// Gets or sets the reset mode that the watcher's input released functionality will operate in.
