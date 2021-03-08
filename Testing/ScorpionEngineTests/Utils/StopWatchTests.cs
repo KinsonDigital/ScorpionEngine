@@ -163,7 +163,7 @@ namespace KDScorpionEngineTests.Utils
             var stopWatch = new StopWatch();
             stopWatch.TimeOut = 2500;
 
-            stopWatch.OnTimeElapsed += (sender, e) => actual = true;
+            stopWatch.TimeElapsed += (sender, e) => actual = true;
             var gameTime = new GameTime();
             gameTime.AddTime(2500);
 

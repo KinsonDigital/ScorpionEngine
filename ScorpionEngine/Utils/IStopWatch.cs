@@ -14,7 +14,7 @@ namespace KDScorpionEngine.Utils
         /// <summary>
         /// Occurs every time the stop watch reaches 0.
         /// </summary>
-        event EventHandler<EventArgs>? OnTimeElapsed;
+        event EventHandler<EventArgs>? TimeElapsed;
 
         /// <summary>
         /// Gets the amount of time passed in milliseconds.

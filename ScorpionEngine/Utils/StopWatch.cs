@@ -15,7 +15,7 @@ namespace KDScorpionEngine.Utils
         private int timeOut;
 
         /// <inheritdoc/>
-        public event EventHandler<EventArgs>? OnTimeElapsed;
+        public event EventHandler<EventArgs>? TimeElapsed;
 
         /// <inheritdoc/>
         public int TimeOut
@@ -75,7 +75,7 @@ namespace KDScorpionEngine.Utils
                 return;
             }
 
-            OnTimeElapsed?.Invoke(this, new EventArgs());
+            TimeElapsed?.Invoke(this, EventArgs.Empty);
 
             // If the reset mode is set to auto, reset the elapsed time back to 0
             if (ResetMode == ResetType.Auto)
