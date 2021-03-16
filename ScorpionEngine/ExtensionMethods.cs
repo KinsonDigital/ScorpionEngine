@@ -9,6 +9,8 @@ namespace KDScorpionEngine
     using System.Diagnostics.CodeAnalysis;
     using System.Drawing;
     using System.Numerics;
+    using SimpleInjector;
+    using SimpleInjector.Diagnostics;
 
     /// <summary>
     /// Provides extensions to various things to help make better code.
@@ -114,5 +116,35 @@ namespace KDScorpionEngine
         /// <returns>The original list of items converted to a read only collection.</returns>
         public static ReadOnlyCollection<T> ToReadOnlyCollection<T>(this T[] items)
             => new ReadOnlyCollection<T>(items);
+
+        /// <summary>
+        /// Registers that a new instance of <typeparamref name="TConcrete"/> will be returned every time it is requested (transient).
+        /// <para>
+        ///     This method uses the container's <see cref="ContainerOptions.LifestyleSelectionBehavior"/> to select the exact
+        ///     lifestyle for the specified type.  By defautl this will be <see cref="Lifestyle.Transient"/>.
+        /// </para>
+        /// <para>
+        ///     Ignores any warnings when a component is registered as transient, while implementing <see cref="IDisposable"/>.
+        /// </para>
+        /// </summary>
+        /// <typeparam name="TConcrete">The concrete type that will be registered.</typeparam>
+        /// <param name="container">
+        ///     The container to use to create an instance of type <typeparamref name="TConcrete"/>
+        ///     for registration of dependencies.
+        /// </param>
+        [ExcludeFromCodeCoverage]
+        public static void RegisterAndIgnoreDisposableWarnings<TConcrete>(this Container container)
+            where TConcrete : class
+        {
+            container.Register<TConcrete>();
+            var registration = container.GetRegistration<TConcrete>()?.Registration;
+
+            if (registration is null)
+            {
+                throw new Exception($"No registraction found for type '{typeof(TConcrete)}'.");
+            }
+
+            registration.SuppressDiagnosticWarning(DiagnosticType.DisposableTransientComponent, "Disposed by application code.");
+        }
     }
 }

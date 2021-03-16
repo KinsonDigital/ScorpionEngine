@@ -180,7 +180,7 @@ namespace KDScorpionEngine.Entities
         {
             get
             {
-                switch (RenderSection.TypeOfTexture)
+                switch (SectionToRender.TypeOfTexture)
                 {
                     case TextureType.WholeTexture:
                         return this.singleTexture;
