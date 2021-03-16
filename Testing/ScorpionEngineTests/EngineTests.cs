@@ -1,4 +1,4 @@
-﻿// <copyright file="EngineTests.cs" company="KinsonDigital">
+// <copyright file="EngineTests.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -135,10 +135,9 @@ namespace KDScorpionEngineTests
             // Act
             // This simulates that the underlying system calls update.
             this.mockGameWindow.Object.Update(new FrameTime() { ElapsedTime = new TimeSpan(0, 0, 0, 0, 16) });
-            var actual = Engine.CurrentFPS;
 
             // Assert
-            Assert.Equal(expected, actual);
+            Assert.Equal(expected, Engine.CurrentFPS);
         }
 
         [Fact]
@@ -162,10 +161,9 @@ namespace KDScorpionEngineTests
 
             // Act
             this.mockGameWindow.Object.Update(new FrameTime() { ElapsedTime = new TimeSpan(0, 0, 0, 0, 16) });
-            var actual = Engine.CurrentFPS;
 
             // Assert
-            Assert.Equal(expected, actual);
+            Assert.Equal(expected, Engine.CurrentFPS);
         }
 
         [Fact]
@@ -230,9 +228,6 @@ namespace KDScorpionEngineTests
         public void Init_WhenInvoked_InitializesScenes()
         {
             // Arrange
-            this.mockGameWindow.SetupGet(p => p.Initialize)
-                .Returns(() => this.gameWindow.InitAction());
-
             var engine = CreateEngine();
 
             var mockScene = new Mock<IScene>();
@@ -240,7 +235,7 @@ namespace KDScorpionEngineTests
 
             // Act
             // This simulates that the underlying system calls initialize.
-            this.mockGameWindow.Object.Initialize();
+            engine.Init();
 
             // Assert
             mockScene.Verify(m => m.Initialize(), Times.Once());
@@ -250,15 +245,9 @@ namespace KDScorpionEngineTests
         public void LoadContent_WhenInvoked_LoadsContent()
         {
             // Arrange
-            this.mockGameWindow.SetupGet(p => p.Initialize)
-                .Returns(() => this.gameWindow.LoadAction);
-
             var engine = CreateEngine();
 
-            var mockEntity = new Mock<IEntity>();
-
             var mockScene = new Mock<IScene>();
-            mockScene.SetupGet(p => p.Entities).Returns(new List<IEntity>() { mockEntity.Object });
             mockScene.SetupGet(p => p.Active).Returns(true);
 
             this.manager.Add(mockScene.Object);
@@ -266,11 +255,10 @@ namespace KDScorpionEngineTests
             // Act
             // NOTE: The internal IWindow implementation is what actually calls the LoadAction
             // after the IniAction has been called.
-            this.mockGameWindow.Object.Initialize();
+            engine.LoadContent(this.mockContentLoader.Object);
 
             // Assert
             mockScene.Verify(m => m.LoadContent(this.mockContentLoader.Object), Times.Once());
-            mockEntity.Verify(m => m.LoadContent(this.mockContentLoader.Object), Times.Once());
         }
 
         [Fact]

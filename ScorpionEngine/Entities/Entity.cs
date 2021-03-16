@@ -273,15 +273,21 @@ namespace KDScorpionEngine.Entities
                         AtlasData = contentLoader.Load<IAtlasData>(SectionToRender.TextureName);
                     }
 
+                    var subTextureName = string.IsNullOrEmpty(SectionToRender.SubTextureName)
+                        ? string.Empty
+                        : SectionToRender.SubTextureName;
+
                     if (SectionToRender.Animator is null)
                     {
                         // Single non animated section of the atlas
-                        SectionToRender.RenderBounds = AtlasData.GetFrames(SectionToRender.SubTextureName).Select(f => f.Bounds).SingleOrDefault();
+                        SectionToRender.RenderBounds =
+                            AtlasData.GetFrames(subTextureName)
+                            .Select(f => f.Bounds).SingleOrDefault();
                     }
                     else
                     {
                         SectionToRender.Animator.Frames =
-                            AtlasData.GetFrames(SectionToRender.SubTextureName)
+                            AtlasData.GetFrames(subTextureName)
                                 .Select(f => f.Bounds).ToArray().ToReadOnlyCollection();
                     }
 

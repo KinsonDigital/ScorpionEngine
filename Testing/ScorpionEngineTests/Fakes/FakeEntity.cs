@@ -68,6 +68,10 @@ namespace KDScorpionEngineTests.Fakes
 
         public List<IEntity> Entities { get; }
 
+        public bool FlippedHorizontally { get; set; }
+
+        public bool FlippedVertically { get; set; }
+
         public void Init()
         {
             InitInvoked = true;
