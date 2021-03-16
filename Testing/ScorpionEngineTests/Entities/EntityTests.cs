@@ -485,6 +485,26 @@ namespace KDScorpionEngineTests.Entities
         }
 
         [Fact]
+        public void Texture_WhenGettingValueAsSubTextureTypeWithNullAtlasData_DoesNotThrowException()
+        {
+            // Arrange
+            var entity = CreateEntity();
+            entity.SectionToRender.TypeOfTexture = TextureType.SubTexture;
+
+            var otherAtlasTexture = new Mock<ITexture>();
+
+            ITexture actual = null;
+
+            // Act & Assert
+            AssertHelpers.DoesNotThrow<NullReferenceException>(() =>
+            {
+                actual = entity.Texture;
+            });
+
+            Assert.Null(actual);
+        }
+
+        [Fact]
         public void Texture_WithInvalidTextureType_ThrowsException()
         {
             // Arrange
