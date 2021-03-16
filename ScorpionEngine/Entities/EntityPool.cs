@@ -147,6 +147,40 @@ namespace KDScorpionEngine.Entities
         }
 
         /// <summary>
+        /// Generates an entity that does not animate from a texture that matches the given
+        /// <paramref name="atlasName"/> that uses a single sub texture in the texture atlas.
+        ///
+        /// <para>
+        /// Once the entity has been created, gives te ability to apply changes to the entity via
+        /// the execution of the <paramref name="onGenerate"/> action delegate.
+        /// </para>
+        /// </summary>
+        /// <param name="atlasName">The name of the texture atlas that contains the graphical content.</param>
+        /// <param name="subTextureName">The name of the sub textures in the atlas to use.</param>
+        /// <param name="onGenerate">Used to perform manipulation on the new entity after creation.</param>
+        public void GenerateNonAnimatedFromTextureAtlas(string atlasName, string subTextureName, Action<TEntity> onGenerate)
+        {
+            if (this.entitites.Count >= MaxPoolSize)
+            {
+                return;
+            }
+
+            GenerateEntity(
+                () => RenderSection.CreateNonAnimatedSubTexture(atlasName, subTextureName),
+                () =>
+                {
+                    if (!(EntityFactory.CreateNonAnimatedFromTextureAtlas<TEntity>(atlasName, subTextureName) is TEntity entity))
+                    {
+                        throw new NullReferenceException($"The entity with subtexture '{subTextureName}' from texture atlas '{atlasName}' cannot be cast to entity type '{typeof(TEntity)}'.");
+                    }
+
+                    onGenerate(entity);
+
+                    return entity;
+                });
+        }
+
+        /// <summary>
         /// Generates an entity that does not animate from an entire texture.
         /// </summary>
         /// <param name="textureName">The name of the texture.</param>
