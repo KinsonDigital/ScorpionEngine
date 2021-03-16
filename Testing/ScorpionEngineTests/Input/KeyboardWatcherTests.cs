@@ -53,213 +53,11 @@ namespace KDScorpionEngineTests.Input
 
             // Act
             var actualEnabled = watcher.Enabled;
-            var actualComboButtons = watcher.ComboKeys;
+            var actualComboButtons = watcher.ComboInputs;
 
             // Assert
             Assert.Equal(expectedEnabled, actualEnabled);
             Assert.Equal(expectedComboButtons, actualComboButtons);
-        }
-        #endregion
-
-        #region Prop Tests
-        [Fact]
-        public void Button_WhenGettingAndSettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            var watcher = CreateWatcher();
-            watcher.Key = KeyCode.Left;
-            var expected = KeyCode.Left;
-
-            // Act
-            var actual = watcher.Key;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void CurrentHitCountPercentage_WhenGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            this.mockCounter.SetupGet(p => p.Value).Returns(6);
-            this.mockCounter.SetupGet(p => p.Max).Returns(10);
-
-            var watcher = CreateWatcher();
-
-            // Act
-            watcher.Update(It.IsAny<GameTime>());
-            var actual = watcher.CurrentHitCountPercentage;
-
-            // Assert
-            Assert.Equal(60, actual);
-        }
-
-        [Fact]
-        public void DownElapsedResetMode_WhenGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            var watcher = CreateWatcher();
-            watcher.DownElapsedResetMode = ResetType.Manual;
-
-            var expected = ResetType.Manual;
-
-            // Act
-            var actual = watcher.DownElapsedResetMode;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void HitCountResetMode_WhenGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            var watcher = CreateWatcher();
-            watcher.HitCountResetMode = ResetType.Manual;
-
-            var expected = ResetType.Manual;
-
-            // Act
-            var actual = watcher.HitCountResetMode;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void ComboKeys_WhenSettingWithNonNullValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            var watcher = CreateWatcher();
-            watcher.ComboKeys = new List<KeyCode>()
-            {
-                KeyCode.Left,
-                KeyCode.Right,
-            };
-
-            var expected = new List<KeyCode>()
-            {
-                KeyCode.Left,
-                KeyCode.Right,
-            };
-
-            // Act
-            var actual = watcher.ComboKeys;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void InputDownElapsedMS_WhenGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            this.mockKeyDownTimer.SetupGet(p => p.ElapsedMS).Returns(1234);
-            var expected = 1234;
-            var watcher = CreateWatcher();
-
-            // Act
-            var actual = watcher.InputDownElapsedMS;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void InputDownElapsedSeconds_WhenGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            this.mockKeyDownTimer.SetupGet(p => p.ElapsedSeconds).Returns(1234);
-
-            var watcher = CreateWatcher();
-            var expected = 1234f;
-
-            // Act
-            var actual = watcher.InputDownElapsedSeconds;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void InputReleasedElapsedMS_WhenGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            this.mockKeyReleaseTimer.SetupGet(p => p.ElapsedMS).Returns(1234);
-            var watcher = CreateWatcher();
-            var expected = 1234;
-
-            // Act
-            var actual = watcher.InputReleasedElapsedMS;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void InputReleasedElapsedSeconds_WhenGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            this.mockKeyReleaseTimer.SetupGet(p => p.ElapsedSeconds).Returns(1234);
-            var watcher = CreateWatcher();
-
-            var expected = 1234;
-
-            // Act
-            var actual = watcher.InputReleasedElapsedSeconds;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void InputDownTimeOut_WhenSettingAndGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            this.mockKeyDownTimer.SetupProperty(p => p.TimeOut);
-
-            var expected = 1234;
-            var watcher = CreateWatcher();
-
-            // Act
-            watcher.DownTimeOut = 1234;
-            var actual = watcher.DownTimeOut;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void ReleasedTimeOut_WhenSettingAndGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            this.mockKeyReleaseTimer.SetupProperty(p => p.TimeOut);
-
-            var expected = 1234;
-            var watcher = CreateWatcher();
-
-            // Act
-            watcher.ReleaseTimeOut = 1234;
-            var actual = watcher.ReleaseTimeOut;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void ReleasedElapsedResetMode_WhenSettingAndGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            var watcher = CreateWatcher();
-            watcher.ReleasedElapsedResetMode = ResetType.Manual;
-
-            var expected = ResetType.Manual;
-
-            // Act
-            var actual = watcher.ReleasedElapsedResetMode;
-
-            // Assert
-            Assert.Equal(expected, actual);
         }
         #endregion
 
@@ -269,7 +67,7 @@ namespace KDScorpionEngineTests.Input
         {
             // Arrange
             var watcher = CreateWatcher();
-            watcher.Key = KeyCode.Left;
+            watcher.Input = KeyCode.Left;
 
             // Act & Assert
             MockKey(KeyCode.Left, true);
@@ -289,15 +87,13 @@ namespace KDScorpionEngineTests.Input
             this.mockKeyReleaseTimer.Verify(m => m.Start(), Times.Exactly(2));
         }
 
-        // TODO: Needs to be improved once Counter is turned into interface and mocked out
-        // Need to check if the counter.Count() was invoked
         [Fact]
         public void Update_WhenDisabled_DoNotUpdateAnything()
         {
             // Arrange
             var watcher = CreateWatcher();
             watcher.Enabled = false;
-            watcher.Key = KeyCode.Left;
+            watcher.Input = KeyCode.Left;
             watcher.HitCountMax = 1;
 
             var beforeStates = new List<KeyValuePair<KeyCode, bool>>
@@ -310,7 +106,7 @@ namespace KDScorpionEngineTests.Input
             MockKeys(beforeStates.ToArray());
 
             //MockKeys(new[] { KeyCode.Left, KeyCode.LeftControl, KeyCode.Space }, true);
-            watcher.ComboKeys = new List<KeyCode>(new[] { KeyCode.LeftControl, KeyCode.Space });
+            watcher.ComboInputs = new List<KeyCode>(new[] { KeyCode.LeftControl, KeyCode.Space });
 
             // Act
             watcher.Update(It.IsAny<GameTime>());
@@ -350,7 +146,7 @@ namespace KDScorpionEngineTests.Input
             this.mockCounter.Setup(m => m.Count())
                 .Callback(() => this.mockCounter.Raise(m => m.MaxReachedWhenIncrementing += null, EventArgs.Empty));
             var watcher = CreateWatcher();
-            watcher.Key = KeyCode.Left;
+            watcher.Input = KeyCode.Left;
 
             // Act & Assert
             Assert.Raises<EventArgs>(
@@ -374,7 +170,7 @@ namespace KDScorpionEngineTests.Input
             this.mockCounter.Setup(m => m.Count())
                 .Callback(() => this.mockCounter.Raise(m => m.MaxReachedWhenIncrementing += null, EventArgs.Empty));
             var watcher = CreateWatcher();
-            watcher.Key = KeyCode.Left;
+            watcher.Input = KeyCode.Left;
 
             // Act & Assert
             AssertHelpers.DoesNotThrowNullReference(() =>
@@ -393,7 +189,7 @@ namespace KDScorpionEngineTests.Input
             // Arrange
             MockKey(KeyCode.Space, true);
             var watcher = CreateWatcher();
-            watcher.Key = KeyCode.Space;
+            watcher.Input = KeyCode.Space;
 
             this.mockKeyDownTimer.Setup(m => m.Update(It.IsAny<GameTime>()))
                 .Callback<GameTime>((gameTime) =>
@@ -404,7 +200,7 @@ namespace KDScorpionEngineTests.Input
             var gameTime = new GameTime();
             gameTime.AddTime(500);
 
-            // Ace & Assert
+            // Act & Assert
             watcher.Update(gameTime);
 
             this.mockKeyDownTimer.Verify(m => m.Reset(), Times.Once());
@@ -416,7 +212,7 @@ namespace KDScorpionEngineTests.Input
             // Arrange
             MockKey(KeyCode.Space, true);
             var watcher = CreateWatcher();
-            watcher.Key = KeyCode.Space;
+            watcher.Input = KeyCode.Space;
 
             this.mockKeyDownTimer.Setup(m => m.Update(It.IsAny<GameTime>()))
                 .Callback<GameTime>((gameTime) =>
@@ -427,10 +223,55 @@ namespace KDScorpionEngineTests.Input
             var gameTime = new GameTime();
             gameTime.AddTime(500);
 
-            // Ace & Assert
+            // Act & Assert
             watcher.Update(gameTime);
 
             this.mockKeyDownTimer.Verify(m => m.Reset(), Times.Once());
+        }
+
+        [Fact]
+        public void Update_WhenKeyIsDownPosition_InputDownEventInvoked()
+        {
+            // Arrange
+            MockKey(KeyCode.Space, true);
+            var watcher = CreateWatcher();
+            watcher.Input = KeyCode.Space;
+
+            var gameTime = new GameTime();
+            gameTime.AddTime(500);
+
+            // Act & Assert
+            Assert.Raises<EventArgs>(
+                e => watcher.InputDown += e,
+                e => watcher.InputDown -= e,
+                () =>
+                {
+                    watcher.Update(gameTime);
+                });
+        }
+
+        [Fact]
+        public void Update_WhenKeyIsReleased_InputPressedEventInvoked()
+        {
+            // Arrange
+            var watcher = CreateWatcher();
+            watcher.Input = KeyCode.Space;
+
+            var gameTime = new GameTime();
+            gameTime.AddTime(500);
+
+            // Act & Assert
+            Assert.Raises<EventArgs>(
+                e => watcher.InputReleased += e,
+                e => watcher.InputReleased -= e,
+                () =>
+                {
+                    MockKey(KeyCode.Space, true);
+                    watcher.Update(gameTime);
+
+                    MockKey(KeyCode.Space, false);
+                    watcher.Update(gameTime);
+                });
         }
 
         [Fact]
@@ -445,7 +286,7 @@ namespace KDScorpionEngineTests.Input
                 });
 
             var watcher = CreateWatcher();
-            watcher.Key = KeyCode.Left;
+            watcher.Input = KeyCode.Left;
 
             // Act & Assert
             Assert.Raises<EventArgs>(
@@ -469,7 +310,7 @@ namespace KDScorpionEngineTests.Input
                 });
 
             var watcher = CreateWatcher();
-            watcher.Key = KeyCode.Left;
+            watcher.Input = KeyCode.Left;
 
             var gameTime = new GameTime();
             gameTime.AddTime(501);
@@ -562,7 +403,7 @@ namespace KDScorpionEngineTests.Input
             MockKeys(new[] { KeyCode.LeftControl, KeyCode.Right }, true);
 
             var watcher = CreateWatcher();
-            watcher.ComboKeys = new List<KeyCode>()
+            watcher.ComboInputs = new List<KeyCode>()
             {
                 KeyCode.LeftControl,
                 KeyCode.Right,
@@ -585,7 +426,7 @@ namespace KDScorpionEngineTests.Input
             MockKeys(new[] { KeyCode.Left, KeyCode.Right }, true);
 
             var watcher = CreateWatcher();
-            watcher.ComboKeys = new List<KeyCode>()
+            watcher.ComboInputs = new List<KeyCode>()
             {
                 KeyCode.Left,
                 KeyCode.Right,
@@ -595,8 +436,6 @@ namespace KDScorpionEngineTests.Input
             AssertHelpers.DoesNotThrowNullReference(() => watcher.Update(It.IsAny<GameTime>()));
         }
 
-        // TODO: Once the counter object is abstracted and mocked,
-        // check for invocation of counter events
         [Fact]
         public void Dispose_WhenInvoked_UnsubscribesInputHitCountReachedEvent()
         {
@@ -607,7 +446,7 @@ namespace KDScorpionEngineTests.Input
             MockKey(KeyCode.Left, true);
 
             var watcher = CreateWatcher();
-            watcher.Key = KeyCode.Left;
+            watcher.Input = KeyCode.Left;
             watcher.HitCountMax = 1;
 
             // Act & Assert
@@ -635,7 +474,7 @@ namespace KDScorpionEngineTests.Input
                 });
 
             var watcher = CreateWatcher();
-            watcher.Key = KeyCode.Left;
+            watcher.Input = KeyCode.Left;
 
             watcher.InputDownTimedOut += (sender, e)
                 => Assert.True(false, $"The '{nameof(KeyboardWatcher.InputDownTimedOut)}' was not unsubscribed and was invoked.");
@@ -656,7 +495,7 @@ namespace KDScorpionEngineTests.Input
                 });
 
             var watcher = CreateWatcher();
-            watcher.Key = KeyCode.Left;
+            watcher.Input = KeyCode.Left;
 
             watcher.InputReleaseTimedOut += (sender, e)
                 => Assert.True(false, $"The '{nameof(KeyboardWatcher.InputReleaseTimedOut)}' was not unsubscribed and was invoked.");
@@ -735,11 +574,9 @@ namespace KDScorpionEngineTests.Input
         /// </summary>
         /// <returns>The instance to test.</returns>
         private KeyboardWatcher CreateWatcher()
-            => new KeyboardWatcher(
-                true,
-                this.mockKeyboard.Object,
-                this.mockKeyDownTimer.Object,
-                this.mockKeyReleaseTimer.Object,
-                this.mockCounter.Object);
+            => new KeyboardWatcher(this.mockKeyboard.Object,
+                                   this.mockKeyDownTimer.Object,
+                                   this.mockKeyReleaseTimer.Object,
+                                   this.mockCounter.Object);
     }
 }

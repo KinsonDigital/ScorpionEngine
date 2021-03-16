@@ -47,216 +47,11 @@ namespace KDScorpionEngineTests.Input
 
             // Act
             var actualEnabled = watcher.Enabled;
-            var actualComboButtons = watcher.ComboButtons;
+            var actualComboButtons = watcher.ComboInputs;
 
             // Assert
             Assert.Equal(expectedEnabled, actualEnabled);
             Assert.Equal(expectedComboButtons, actualComboButtons);
-        }
-        #endregion
-
-        #region Prop Tests
-        [Fact]
-        public void Button_WhenGettingAndSettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            var watcher = CreateWatcher();
-            watcher.Button = MouseButton.LeftButton;
-
-            var expected = MouseButton.LeftButton;
-
-            // Act
-            var actual = watcher.Button;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void CurrentHitCountPercentage_WhenGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            this.mockCounter.SetupGet(p => p.Value).Returns(6);
-            this.mockCounter.SetupGet(p => p.Max).Returns(10);
-            var watcher = CreateWatcher();
-
-            // Act
-            watcher.Update(It.IsAny<GameTime>());
-
-            // Assert
-            Assert.Equal(60, watcher.CurrentHitCountPercentage);
-        }
-
-        [Fact]
-        public void DownElapsedResetMode_WhenGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            var watcher = CreateWatcher();
-            watcher.DownElapsedResetMode = ResetType.Manual;
-
-            var expected = ResetType.Manual;
-
-            // Act
-            var actual = watcher.DownElapsedResetMode;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void HitCountResetMode_WhenGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            var watcher = CreateWatcher();
-            watcher.HitCountResetMode = ResetType.Manual;
-
-            var expected = ResetType.Manual;
-
-            // Act
-            var actual = watcher.HitCountResetMode;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void ComboButtons_WhenSettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            var watcher = CreateWatcher();
-            watcher.ComboButtons = new List<MouseButton>()
-            {
-                MouseButton.LeftButton,
-                MouseButton.RightButton,
-            };
-
-            var expected = new List<MouseButton>()
-            {
-                MouseButton.LeftButton,
-                MouseButton.RightButton,
-            };
-
-            // Act
-            var actual = watcher.ComboButtons;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void InputDownElapsedMS_WhenGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            this.mockButtonDownTimer.SetupGet(p => p.ElapsedMS).Returns(1234);
-
-            var expected = 1234;
-            var watcher = CreateWatcher();
-
-            // Act
-            var actual = watcher.InputDownElapsedMS;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void InputDownElapsedSeconds_WhenGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            var expected = 1234f;
-            this.mockButtonDownTimer.SetupGet(p => p.ElapsedSeconds).Returns(1234);
-
-            var watcher = CreateWatcher();
-
-            // Act
-            var actual = watcher.InputDownElapsedSeconds;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void InputReleasedElapsedMS_WhenGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            this.mockButtonReleaseTimer.SetupGet(p => p.ElapsedMS).Returns(1234);
-
-            var expected = 1234;
-
-            var watcher = CreateWatcher();
-
-            // Act
-            var actual = watcher.InputReleasedElapsedMS;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void InputReleasedElapsedSeconds_WhenGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            this.mockButtonReleaseTimer.SetupGet(p => p.ElapsedSeconds).Returns(1234);
-
-            var expected = 1234;
-            var watcher = CreateWatcher();
-
-            // Act & Assert
-            watcher.Update(new GameTime());
-            var actual = watcher.InputReleasedElapsedSeconds;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void InputDownTimeOut_WhenSettingAndGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            this.mockButtonDownTimer.SetupProperty(p => p.TimeOut);
-
-            var expected = 1234;
-            var watcher = CreateWatcher();
-
-            // Act
-            watcher.DownTimeOut = 1234;
-            var actual = watcher.DownTimeOut;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void InputReleasedTimeOut_WhenSettingAndGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            this.mockButtonReleaseTimer.SetupProperty(p => p.TimeOut);
-
-            var expected = 1234;
-            var watcher = CreateWatcher();
-
-            // Act
-            watcher.ReleaseTimeOut = 1234;
-            var actual = watcher.ReleaseTimeOut;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void ReleasedElapsedResetMode_WhenSettingAndGettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            var watcher = CreateWatcher();
-            watcher.ReleasedElapsedResetMode = ResetType.Manual;
-
-            var expected = ResetType.Manual;
-
-            // Act
-            var actual = watcher.ReleasedElapsedResetMode;
-
-            // Assert
-            Assert.Equal(expected, actual);
         }
         #endregion
 
@@ -271,7 +66,7 @@ namespace KDScorpionEngineTests.Input
             MockButton(MouseButton.LeftButton, true);
 
             var watcher = CreateWatcher();
-            watcher.Button = MouseButton.LeftButton;
+            watcher.Input = MouseButton.LeftButton;
 
             // Act & Assert
             AssertHelpers.DoesNotThrowNullReference(() =>
@@ -286,7 +81,7 @@ namespace KDScorpionEngineTests.Input
             // Arrange
             MockButton(MouseButton.LeftButton, true);
             var watcher = CreateWatcher();
-            watcher.Button = MouseButton.LeftButton;
+            watcher.Input = MouseButton.LeftButton;
 
             // Act & Assert
             watcher.Update(new GameTime()); // Run once to get the internal states.
@@ -385,7 +180,6 @@ namespace KDScorpionEngineTests.Input
                 });
         }
 
-        // TODO: Need to make counter interface and inject
         [Fact]
         public void Update_WhenDisabled_DoesNotResetCounter()
         {
@@ -453,7 +247,7 @@ namespace KDScorpionEngineTests.Input
                 .Callback(() => this.mockCounter.Raise(m => m.MaxReachedWhenIncrementing += null, EventArgs.Empty));
 
             var watcher = CreateWatcher();
-            watcher.Button = MouseButton.LeftButton;
+            watcher.Input = MouseButton.LeftButton;
 
             // Act & Assert
             Assert.Raises<EventArgs>(
@@ -498,7 +292,7 @@ namespace KDScorpionEngineTests.Input
             MockButton(MouseButton.LeftButton, true);
 
             var watcher = CreateWatcher();
-            watcher.Button = MouseButton.LeftButton;
+            watcher.Input = MouseButton.LeftButton;
 
             // Act & Assert
             Assert.Raises<EventArgs>(
@@ -513,13 +307,12 @@ namespace KDScorpionEngineTests.Input
             // Arrange
             MockButton(MouseButton.LeftButton, true);
             var watcher = new MouseWatcher(
-                true,
                 this.mockMouse.Object,
                 new FakeStopWatch(),
                 this.mockButtonReleaseTimer.Object,
                 this.mockCounter.Object);
 
-            watcher.Button = MouseButton.LeftButton;
+            watcher.Input = MouseButton.LeftButton;
 
             var gameTime = new GameTime();
             gameTime.AddTime(501);
@@ -537,13 +330,12 @@ namespace KDScorpionEngineTests.Input
         {
             // Arrange
             var watcher = new MouseWatcher(
-                true,
                 this.mockMouse.Object,
                 this.mockButtonReleaseTimer.Object,
                 new FakeStopWatch(),
                 this.mockCounter.Object);
 
-            watcher.Button = MouseButton.RightButton;
+            watcher.Input = MouseButton.RightButton;
 
             var gameTime = new GameTime();
             gameTime.AddTime(501);
@@ -566,13 +358,12 @@ namespace KDScorpionEngineTests.Input
         public void Update_WithNullInputReleasedTimeoutEvent_ShouldNotThrowNullRefException()
         {
             // Arrange
-            var watcher = new MouseWatcher(true,
-                this.mockMouse.Object,
-                this.mockButtonReleaseTimer.Object,
-                new FakeStopWatch(),
-                this.mockCounter.Object);
+            var watcher = new MouseWatcher(this.mockMouse.Object,
+                                           this.mockButtonReleaseTimer.Object,
+                                           new FakeStopWatch(),
+                                           this.mockCounter.Object);
 
-            watcher.Button = MouseButton.RightButton;
+            watcher.Input = MouseButton.RightButton;
 
             var gameTime = new GameTime();
             gameTime.AddTime(501);
@@ -595,7 +386,7 @@ namespace KDScorpionEngineTests.Input
             MockButtons(new[] { MouseButton.LeftButton, MouseButton.RightButton }, true);
 
             var watcher = CreateWatcher();
-            watcher.ComboButtons = new List<MouseButton>()
+            watcher.ComboInputs = new List<MouseButton>()
             {
                 MouseButton.LeftButton,
                 MouseButton.RightButton,
@@ -618,7 +409,7 @@ namespace KDScorpionEngineTests.Input
             MockButtons(new[] { MouseButton.LeftButton, MouseButton.RightButton }, true);
 
             var watcher = CreateWatcher();
-            watcher.ComboButtons = new List<MouseButton>()
+            watcher.ComboInputs = new List<MouseButton>()
             {
                 MouseButton.LeftButton,
                 MouseButton.RightButton,
@@ -629,6 +420,80 @@ namespace KDScorpionEngineTests.Input
             {
                 watcher.Update(new GameTime());
             });
+        }
+
+        [Fact]
+        public void Dispose_WhenInvoked_UnsubscribesInputHitCountReachedEvent()
+        {
+            // Arrange
+            this.mockCounter.Setup(m => m.Count())
+                .Callback(() => this.mockCounter.Raise(m => m.MaxReachedWhenIncrementing += null, EventArgs.Empty));
+
+            MockButton(MouseButton.LeftButton, true);
+
+            var watcher = CreateWatcher();
+            watcher.Input = MouseButton.LeftButton;
+            watcher.HitCountMax = 1;
+
+            // Act & Assert
+            AssertHelpers.DoesNotRaise<EventArgs>(
+                e => watcher.InputHitCountReached += e,
+                e => watcher.InputHitCountReached -= e,
+                () =>
+                {
+                    watcher.Dispose();
+                    watcher.Update(It.IsAny<GameTime>());
+                    MockButton(MouseButton.LeftButton, false);
+                    watcher.Update(It.IsAny<GameTime>());
+                });
+        }
+
+        [Fact]
+        public void Dispose_WhenInvoked_UnsubscribesInputDownTimeOutEvent()
+        {
+            // Arrange
+            MockButton(MouseButton.LeftButton, true);
+            this.mockButtonDownTimer.Setup(m => m.Update(It.IsAny<GameTime>()))
+                .Callback<GameTime>((gameTime) =>
+                {
+                    this.mockButtonDownTimer.Raise(m => m.TimeElapsed += null, EventArgs.Empty);
+                });
+
+            var watcher = CreateWatcher();
+            watcher.Input = MouseButton.LeftButton;
+
+            watcher.InputDownTimedOut += (sender, e)
+                => Assert.True(false, $"The '{nameof(KeyboardWatcher.InputDownTimedOut)}' was not unsubscribed and was invoked.");
+
+            // Act
+            watcher.Dispose();
+            watcher.Update(It.IsAny<GameTime>());
+        }
+
+        [Fact]
+        public void Dispose_WhenInvoked_UnsubscribesInputReleaseTimeOutEvent()
+        {
+            // Arrange
+            this.mockButtonReleaseTimer.Setup(m => m.Update(It.IsAny<GameTime>()))
+                .Callback<GameTime>((gameTime) =>
+                {
+                    this.mockButtonReleaseTimer.Raise(m => m.TimeElapsed += null, EventArgs.Empty);
+                });
+
+            var watcher = CreateWatcher();
+            watcher.Input = MouseButton.LeftButton;
+
+            watcher.InputReleaseTimedOut += (sender, e)
+                => Assert.True(false, $"The '{nameof(KeyboardWatcher.InputReleaseTimedOut)}' was not unsubscribed and was invoked.");
+
+            // Act
+            watcher.Dispose();
+
+            MockButton(MouseButton.LeftButton, true);
+            watcher.Update(It.IsAny<GameTime>());
+
+            MockButton(MouseButton.LeftButton, false);
+            watcher.Update(It.IsAny<GameTime>());
         }
         #endregion
 
@@ -674,11 +539,9 @@ namespace KDScorpionEngineTests.Input
         /// </summary>
         /// <returns>An instance to test.</returns>
         private MouseWatcher CreateWatcher()
-            => new MouseWatcher(
-                true,
-                this.mockMouse.Object,
-                this.mockButtonDownTimer.Object,
-                this.mockButtonReleaseTimer.Object,
-                this.mockCounter.Object);
+            => new MouseWatcher(this.mockMouse.Object,
+                                this.mockButtonDownTimer.Object,
+                                this.mockButtonReleaseTimer.Object,
+                                this.mockCounter.Object);
     }
 }
