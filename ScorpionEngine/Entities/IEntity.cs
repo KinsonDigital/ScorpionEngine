@@ -5,6 +5,7 @@
 namespace KDScorpionEngine.Entities
 {
     using System;
+    using System.Collections.Generic;
     using System.Drawing;
     using System.Numerics;
     using KDScorpionEngine.Behaviors;
@@ -16,7 +17,7 @@ namespace KDScorpionEngine.Entities
     /// <summary>
     /// Represents an entity that can be updated and rendered in the game.
     /// </summary>
-    public interface IEntity : IUpdatableObject, IContentLoadable, IContentUnloadable, ICanInitialize
+    public interface IEntity : IUpdatableObject, IDrawableObject, IContentLoadable, IContentUnloadable, ICanInitialize
     {
         /// <summary>
         /// Occurs when the game object is going from hidden to visible.
@@ -115,5 +116,10 @@ namespace KDScorpionEngine.Entities
         /// Gets or sets the color of the debug draw outlines.
         /// </summary>
         Color DebugDrawColor { get; set; }
+
+        /// <summary>
+        /// Gets the list of entities contained by this entity.
+        /// </summary>
+        List<IEntity> Entities { get; }
     }
 }

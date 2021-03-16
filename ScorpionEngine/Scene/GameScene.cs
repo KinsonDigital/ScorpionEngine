@@ -1,4 +1,4 @@
-﻿// <copyright file="GameScene.cs" company="KinsonDigital">
+// <copyright file="GameScene.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -127,6 +127,10 @@ namespace KDScorpionEngine.Scene
             Entities.ForEach(e =>
             {
                 renderer.Render(e);
+
+                // Call the render on the entity itself
+                // The entity might contain its own entities
+                e.Render(renderer);
             });
 
             IsRenderingScene = false;

@@ -5,6 +5,7 @@
 namespace KDScorpionEngine.Entities
 {
     using System;
+    using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
     using System.Numerics;
@@ -232,7 +233,7 @@ namespace KDScorpionEngine.Entities
         public Color DebugDrawColor { get; set; } = Color.White;
 
         /// <inheritdoc/>
-        public virtual void Init()
+        public List<IEntity> Entities { get; set; } = new List<IEntity>();
         {
             ContentLoaded = false;
         }
@@ -312,5 +313,12 @@ namespace KDScorpionEngine.Entities
                 SectionToRender.RenderBounds = SectionToRender.Animator.CurrentFrameBounds;
             }
         }
+
+        /// <inheritdoc/>
+        public virtual void Render(IRenderer renderer)
+            => Entities.ForEach(e =>
+            {
+                renderer.Render(e);
+            });
     }
 }

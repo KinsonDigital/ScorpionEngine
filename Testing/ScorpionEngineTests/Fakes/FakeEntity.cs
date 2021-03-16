@@ -1,4 +1,4 @@
-// <copyright file="FakeEntity.cs" company="KinsonDigital">
+﻿// <copyright file="FakeEntity.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -7,6 +7,7 @@
 namespace KDScorpionEngineTests.Fakes
 {
     using System;
+    using System.Collections.Generic;
     using System.Drawing;
     using System.Numerics;
     using KDScorpionEngine;
@@ -65,6 +66,8 @@ namespace KDScorpionEngineTests.Fakes
 
         public bool UpdateInvoked { get; set; }
 
+        public List<IEntity> Entities { get; }
+
         public void Init()
         {
             InitInvoked = true;
@@ -84,5 +87,7 @@ namespace KDScorpionEngineTests.Fakes
         {
             UpdateInvoked = true;
         }
+
+        public void Render(IRenderer renderer) => throw new NotImplementedException();
     }
 }
