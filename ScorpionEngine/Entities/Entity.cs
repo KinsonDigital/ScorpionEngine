@@ -1,4 +1,4 @@
-// <copyright file="Entity.cs" company="KinsonDigital">
+﻿// <copyright file="Entity.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -240,9 +240,9 @@ namespace KDScorpionEngine.Entities
 
         /// <inheritdoc/>
         public List<IEntity> Entities { get; set; } = new List<IEntity>();
-        {
-            ContentLoaded = false;
-        }
+
+        /// <inheritdoc/>
+        public virtual void Init() => ContentLoaded = false;
 
         /// <inheritdoc/>
         public virtual void LoadContent(IContentLoader contentLoader)

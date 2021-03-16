@@ -1,4 +1,4 @@
-// <copyright file="GameScene.cs" company="KinsonDigital">
+﻿// <copyright file="GameScene.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -61,9 +61,7 @@ namespace KDScorpionEngine.Scene
         /// </summary>
         public bool IsRenderingScene { get; set; }
 
-        /// <summary>
-        /// Gets the list of entities added to this <see cref="GameScene"/>.
-        /// </summary>
+        /// <inheritdoc/>
         public List<IEntity> Entities { get; } = new List<IEntity>();
 
         /// <summary>

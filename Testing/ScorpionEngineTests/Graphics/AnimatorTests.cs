@@ -5,10 +5,7 @@
 namespace KDScorpionEngineTests.Graphics
 {
     using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Drawing;
-    using System.Text;
     using KDScorpionEngine;
     using KDScorpionEngine.Graphics;
     using Xunit;
@@ -280,7 +277,7 @@ namespace KDScorpionEngineTests.Graphics
         }
 
         [Fact]
-        public void Update_WithNoFrames_ThrowsException()
+        public void Update_WithNullFrames_ThrowsException()
         {
             // Arrange
             var animator = new Animator();

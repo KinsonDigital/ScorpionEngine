@@ -91,6 +91,8 @@ namespace KDScorpionEngineTests
             try
             {
                 Assert.Raises(attach, detach, testCode);
+
+                Assert.Equal("No event was raised", "An event was raised.");
             }
             catch (Exception ex)
             {

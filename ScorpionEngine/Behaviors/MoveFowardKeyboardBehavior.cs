@@ -161,10 +161,7 @@ namespace KDScorpionEngine.Behaviors
         /// <summary>
         /// Moves the <see cref="Entity"/> forward in the direction it is facing.
         /// </summary>
-        private void MoveFoward_KeyDown(object sender, KeyEventArgs e)
-        {
-            IsMovingForward = true;
-        }
+        private void MoveFoward_KeyDown(object sender, KeyEventArgs e) => IsMovingForward = true;
 
         /// <summary>
         /// Rotates the <see cref="Entity"/> clockwise.

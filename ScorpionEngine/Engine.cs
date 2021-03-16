@@ -139,11 +139,6 @@ namespace KDScorpionEngine
                 if (scene.Active)
                 {
                     scene.LoadContent(contentLoader);
-
-                    foreach (var entity in scene.Entities)
-                    {
-                        entity.LoadContent(contentLoader);
-                    }
                 }
             }
         }

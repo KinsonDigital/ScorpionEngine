@@ -1,4 +1,4 @@
-// <copyright file="EntityTests.cs" company="KinsonDigital">
+﻿// <copyright file="EntityTests.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -221,7 +221,10 @@ namespace KDScorpionEngineTests.Entities
             Assert.Raises<EventArgs>(
                 e => entity.OnShow += e,
                 e => entity.OnShow -= e,
-                () => entity.Visible = true);
+                () =>
+                {
+                    entity.Visible = true;
+                });
         }
 
         [Fact]

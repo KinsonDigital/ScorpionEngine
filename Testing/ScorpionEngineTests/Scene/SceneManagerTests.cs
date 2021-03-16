@@ -74,7 +74,7 @@ namespace KDScorpionEngineTests.Scene
             var scene = mockScene.Object;
             scene.Id = 100;
 
-var manager = CreateSceneManager(mockScene.Object);
+            var manager = CreateSceneManager(mockScene.Object);
             var expected = 100;
 
             // Act
@@ -744,7 +744,7 @@ var manager = CreateSceneManager(mockScene.Object);
             mockScene.SetupGet(m => m.Id).Returns(100);
             var scene = mockScene.Object;
 
-var manager = CreateSceneManager(mockScene.Object);
+            var manager = CreateSceneManager(mockScene.Object);
             var expected = 0;
 
             // Act
@@ -763,7 +763,7 @@ var manager = CreateSceneManager(mockScene.Object);
             mockScene.SetupGet(m => m.Id).Returns(100);
             var scene = mockScene.Object;
 
-var manager = CreateSceneManager(mockScene.Object);
+            var manager = CreateSceneManager(mockScene.Object);
 
             // Act
             var actual = manager.Count;

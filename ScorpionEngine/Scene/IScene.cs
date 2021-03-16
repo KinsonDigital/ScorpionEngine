@@ -19,7 +19,7 @@ namespace KDScorpionEngine.Scene
         string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating that the scene's content has been loaded.
+        /// Gets or sets a value indicating whether the scene's content has been loaded.
         /// </summary>
         bool ContentLoaded { get; set; }
 
@@ -29,12 +29,12 @@ namespace KDScorpionEngine.Scene
         ITimeManager TimeManager { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating if the scene is active.
+        /// Gets or sets a value indicating whether the scene is active.
         /// </summary>
         bool Active { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating if the scene is currently in the rendering state.
+        /// Gets or sets a value indicating whether the scene is currently in the rendering state.
         /// </summary>
         bool IsRenderingScene { get; set; }
 
@@ -44,7 +44,7 @@ namespace KDScorpionEngine.Scene
         int Id { get; set; }
 
         /// <summary>
-        /// The list of entities that are added to the scene.
+        /// Gets the list of entities that are added to the scene.
         /// </summary>
         List<IEntity> Entities { get; }
 
@@ -56,13 +56,13 @@ namespace KDScorpionEngine.Scene
         /// <summary>
         /// Loads all content for the scene using the given <paramref name="contentLoader"/>.
         /// </summary>
-        /// <param name="contentManager">The content loader to use for loading and unloading the scene's content.</param>
+        /// <param name="contentLoader">The content loader to use for loading the scene's content.</param>
         void LoadContent(IContentLoader contentLoader);
 
         /// <summary>
         /// Unloads all content for the scene using the given <paramref name="contentLoader"/>.
         /// </summary>
-        /// <param name="contentManager">The content loader to use for loading and unloading the scene's content.</param>
+        /// <param name="contentLoader">The content loader to use for unloading the scene's content.</param>
         void UnloadContent(IContentLoader contentLoader);
     }
 }

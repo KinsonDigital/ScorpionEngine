@@ -141,7 +141,7 @@ namespace KDScorpionEngine.Graphics
         /// <exception cref="Exception">Thrown when no exception exists.</exception>
         private void CheckFrames()
         {
-            if (Frames is null || this.frames.Length <= 0)
+            if (this.frames.Length <= 0)
             {
                 // TODO: Create custom no frames exception
                 throw new Exception("No frames exist in the animation.");

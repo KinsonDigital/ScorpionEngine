@@ -1,4 +1,4 @@
-// <copyright file="EntityPool.cs" company="KinsonDigital">
+﻿// <copyright file="EntityPool.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -37,6 +37,9 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityPool{TEntity}"/> class.
         /// </summary>
+        /// <remarks>
+        ///     A content loaders is automatically provided.
+        /// </remarks>
         [ExcludeFromCodeCoverage]
         public EntityPool() => this.contentLoader = ContentLoaderFactory.CreateContentLoader();
 
@@ -130,7 +133,7 @@ namespace KDScorpionEngine.Entities
 
         /// <summary>
         /// Generates an entity that does not animate from a texture that matches the given
-        /// <paramref name="atlasName"/> that uses the single sub texture in the texture atlas.
+        /// <paramref name="atlasName"/> that uses a single sub texture in the texture atlas.
         /// </summary>
         /// <param name="atlasName">The name of the texture atlas that contains the graphical content.</param>
         /// <param name="subTextureName">The name of the sub textures in the atlas to use.</param>

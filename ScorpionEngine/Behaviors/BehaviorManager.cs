@@ -12,10 +12,7 @@ namespace KDScorpionEngine.Behaviors
     {
         private static Dictionary<Guid, IBehavior> behaviors = new Dictionary<Guid, IBehavior>();
 
-        public static void Add(Guid entityId, IBehavior behavior)
-        {
-            behaviors.Add(entityId, behavior);
-        }
+        public static void Add(Guid entityId, IBehavior behavior) => behaviors.Add(entityId, behavior);
 
         public static void Remove(Guid entityid, Guid behaviorId)
         {

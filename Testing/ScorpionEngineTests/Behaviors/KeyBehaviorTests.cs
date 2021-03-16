@@ -289,7 +289,7 @@ namespace KDScorpionEngineTests.Behaviors
             // Act & Assert
             Assert.Raises<KeyEventArgs>(
                 e => behavior.KeyUpEvent += e,
-                e => behavior.KeyUpEvent  -= e,
+                e => behavior.KeyUpEvent -= e,
                 () =>
                 {
                     behavior.Update(gameTime);
@@ -318,80 +318,6 @@ namespace KDScorpionEngineTests.Behaviors
                 behavior.Update(gameTime);
             });
         }
-
-        //[Fact]
-        //public void Update_WhenKeyBehaviorIsSetToOnAnyKeyPressTimeDelay_InvokeKeyDownEvent()
-        //{
-        //    // Arrange
-        //    this.mockCoreKeyboard.Setup(m => m.GetCurrentPressedKeys()).Returns(new[] { KeyCode.Space });
-
-        //    var behavior = CreateBehavior(this.mockCoreKeyboard.Object)
-        //    {
-        //        BehaviorType = KeyBehaviorType.OnAnyKeyPress,
-        //    };
-        //    var expectedEventInvoked = true;
-        //    var actualEventInvoked = false;
-
-        //    // Act
-        //    behavior.KeyPressEvent += (sender, e) => actualEventInvoked = true;
-        //    behavior.Update(new GameTime());
-
-        //    // Assert
-        //    Assert.Equal(expectedEventInvoked, actualEventInvoked);
-        //}
-
-        //[Fact]
-        //public void Update_WhenKeyBehaviorIsSetToOnAnyKeyPressTimeDelayWithNoEventSetup_DoesNotThrowException()
-        //{
-        //    // Arrange
-        //    this.mockCoreKeyboard.Setup(m => m.GetCurrentPressedKeys()).Returns(new[] { KeyCode.Space });
-
-        //    var behavior = CreateBehavior(this.mockCoreKeyboard.Object)
-        //    {
-        //        BehaviorType = KeyBehaviorType.OnAnyKeyPress,
-        //    };
-
-        //    // Act/Assert
-        //    AssertHelpers.DoesNotThrow<Exception>(() =>
-        //    {
-        //        behavior.Update(new GameTime());
-        //    });
-
-        //    this.mockCoreKeyboard.Verify(m => m.GetCurrentPressedKeys(), Times.Once());
-        //}
-
-        //[Fact]
-        //public void Update_WhenDisabled_KeyboardNotUpdated()
-        //{
-        //    // Arrange
-        //    var behavior = CreateBehavior(this.mockCoreKeyboard.Object)
-        //    {
-        //        Enabled = false,
-        //    };
-
-        //    // Act
-        //    behavior.Update(new GameTime());
-
-        //    // Assert
-        //    this.mockCoreKeyboard.Verify(m => m.UpdateCurrentState(), Times.Never());
-        //    this.mockCoreKeyboard.Verify(m => m.UpdatePreviousState(), Times.Never());
-        //}
-
-        //[Fact]
-        //public void Update_WhenInvokedWithIncorrectBehaviorType_ThrowsException()
-        //{
-        //    // Arrange & Act
-        //    var behavior = CreateBehavior(this.mockCoreKeyboard.Object)
-        //    {
-        //        BehaviorType = (KeyBehaviorType)123,
-        //    };
-
-        //    // Assert
-        //    Assert.Throws<Exception>(() =>
-        //    {
-        //        behavior.Update(new GameTime());
-        //    });
-        //}
         #endregion
 
         /// <summary>

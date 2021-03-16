@@ -1,4 +1,4 @@
-// <copyright file="InputFactory.cs" company="KinsonDigital">
+﻿// <copyright file="InputFactory.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -6,8 +6,6 @@ namespace KDScorpionEngine.Factories
 {
     using System.Diagnostics.CodeAnalysis;
     using KDScorpionEngine.Input;
-    using KDScorpionEngine.Utils;
-    using Raptor.Input;
 
     /// <summary>
     /// Creates input related objects for managing keyboard and mouse input.
