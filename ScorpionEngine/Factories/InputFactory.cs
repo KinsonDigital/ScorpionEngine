@@ -1,9 +1,10 @@
-﻿// <copyright file="InputFactory.cs" company="KinsonDigital">
+// <copyright file="InputFactory.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
 namespace KDScorpionEngine.Factories
 {
+    using System.Diagnostics.CodeAnalysis;
     using KDScorpionEngine.Input;
     using KDScorpionEngine.Utils;
     using Raptor.Input;
@@ -11,6 +12,7 @@ namespace KDScorpionEngine.Factories
     /// <summary>
     /// Creates input related objects for managing keyboard and mouse input.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public static class InputFactory
     {
         /// <summary>
@@ -19,11 +21,12 @@ namespace KDScorpionEngine.Factories
         /// <param name="enabled">True to enable the watcher by default.</param>
         /// <returns>The keyboard watcher.</returns>
         public static KeyboardWatcher CreateKeyboardWatcher(bool enabled = true)
-            => new KeyboardWatcher(
-                enabled,
-                new Keyboard(),
-                new StopWatch(),
-                new StopWatch());
+        {
+            var instance = IoC.Container.GetInstance<KeyboardWatcher>();
+            instance.Enabled = enabled;
+
+            return instance;
+        }
 
         /// <summary>
         /// Creates a new instance of <see cref="MouseWatcher"/>.
@@ -31,10 +34,11 @@ namespace KDScorpionEngine.Factories
         /// <param name="enabled">True to enable the watcher by default.</param>
         /// <returns>The keyboard watcher.</returns>
         public static MouseWatcher CreateMouseWatcher(bool enabled = true)
-            => new MouseWatcher(
-                enabled,
-                new Mouse(),
-                new StopWatch(),
-                new StopWatch());
+        {
+            var instance = IoC.Container.GetInstance<MouseWatcher>();
+            instance.Enabled = enabled;
+
+            return instance;
+        }
     }
 }
