@@ -251,7 +251,8 @@ namespace KDScorpionEngineTests.Entities
                                                       It.IsAny<Rectangle>(),
                                                       It.IsAny<float>(),
                                                       It.IsAny<float>(),
-                                                      It.IsAny<Color>()));
+                                                      It.IsAny<Color>(),
+                                                      It.IsAny<RenderEffects>()));
         }
         #endregion
 

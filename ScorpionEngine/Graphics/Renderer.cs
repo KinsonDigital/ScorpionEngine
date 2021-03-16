@@ -1,4 +1,4 @@
-// <copyright file="Renderer.cs" company="KinsonDigital">
+﻿// <copyright file="Renderer.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -77,7 +77,18 @@ namespace KDScorpionEngine.Graphics
 
             var destRect = new Rectangle((int)entity.Position.X, (int)entity.Position.Y, entity.Texture.Width, entity.Texture.Height);
 
-            this.spriteBatch.Render(entity.Texture, srcRect, destRect, 1, 0, Color.White);
+            var renderEffects = RenderEffects.None;
+
+            if (entity.FlippedHorizontally && entity.FlippedVertically is false)
+            {
+                renderEffects = RenderEffects.FlipHorizontally;
+            }
+            else if (entity.FlippedHorizontally is false && entity.FlippedVertically)
+            {
+                renderEffects = RenderEffects.FlipVertically;
+            }
+
+            this.spriteBatch.Render(entity.Texture, srcRect, destRect, 1, 0, Color.White, renderEffects);
         }
 
         /// <inheritdoc/>

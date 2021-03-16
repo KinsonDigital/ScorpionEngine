@@ -1,4 +1,4 @@
-// <copyright file="IEntity.cs" company="KinsonDigital">
+﻿// <copyright file="IEntity.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -73,6 +73,16 @@ namespace KDScorpionEngine.Entities
         /// Gets a value indicating whether the entities content has been loaded.
         /// </summary>
         bool ContentLoaded { get; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the entity is flipped horizontally.
+        /// </summary>
+        bool FlippedHorizontally { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the entity is flipped vertically.
+        /// </summary>
+        bool FlippedVertically { get; set; }
 
         /// <summary>
         /// Gets or sets the texture of the <see cref="Entity"/>.

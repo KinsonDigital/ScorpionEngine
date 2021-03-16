@@ -1,4 +1,4 @@
-// <copyright file="RendererTests.cs" company="KinsonDigital">
+﻿// <copyright file="RendererTests.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -93,7 +93,8 @@ namespace KDScorpionEngineTests.Graphics
                 It.IsAny<Rectangle>(),
                 It.IsAny<float>(),
                 It.IsAny<float>(),
-                It.IsAny<Color>()), Times.Never());
+                It.IsAny<Color>(),
+                It.IsAny<RenderEffects>()), Times.Never());
         }
 
         [Fact]
@@ -116,18 +117,23 @@ namespace KDScorpionEngineTests.Graphics
                 It.IsAny<Rectangle>(),
                 It.IsAny<float>(),
                 It.IsAny<float>(),
-                It.IsAny<Color>()), Times.Never());
+                It.IsAny<Color>(),
+                It.IsAny<RenderEffects>()), Times.Never());
         }
 
-        [Fact]
-        public void Render_WhenRenderingEntity_RendersEntity()
+        [Theory]
+        [InlineData(false, false, RenderEffects.None)]
+        [InlineData(true, false, RenderEffects.FlipHorizontally)]
+        [InlineData(false, true, RenderEffects.FlipVertically)]
+        public void Render_WhenRenderingEntity_RendersEntity(bool flippedHorizontally, bool flippedVertically, RenderEffects expected)
         {
             // Arrange
             var mockEntity = new Mock<IEntity>();
             mockEntity.SetupGet(p => p.Visible).Returns(true);
             mockEntity.SetupGet(p => p.Texture).Returns(this.mockTexture.Object);
             mockEntity.SetupGet(p => p.Position).Returns(new Vector2(100, 200));
-            mockEntity.SetupGet(p => p.RenderSection).Returns(() =>
+            mockEntity.SetupGet(p => p.FlippedHorizontally).Returns(flippedHorizontally);
+            mockEntity.SetupGet(p => p.FlippedVertically).Returns(flippedVertically);
             mockEntity.SetupGet(p => p.SectionToRender).Returns(() =>
             {
                 return new RenderSection()
@@ -151,7 +157,8 @@ namespace KDScorpionEngineTests.Graphics
                 destRect,
                 1,
                 0,
-                Color.White), Times.Once());
+                Color.White,
+                expected), Times.Once());
         }
 
         [Fact]

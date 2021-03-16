@@ -177,6 +177,12 @@ namespace KDScorpionEngine.Entities
         public bool ContentLoaded { get; private set; }
 
         /// <inheritdoc/>
+        public bool FlippedHorizontally { get; set; }
+
+        /// <inheritdoc/>
+        public bool FlippedVertically { get; set; }
+
+        /// <inheritdoc/>
         public ITexture? Texture
         {
             get
