@@ -41,5 +41,8 @@ namespace ScorpTestGame
         /// <param name="point">The point to convert.</param>
         /// <returns></returns>
         public static Vector2 ToVector(this PointF point) => new Vector2(point.X, point.Y);
+
+        public static Vector2 AddX(this Vector2 vector, float amount)
+            => new Vector2(vector.X + amount, vector.Y);
     }
 }

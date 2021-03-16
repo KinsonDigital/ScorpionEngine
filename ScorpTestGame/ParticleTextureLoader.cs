@@ -17,9 +17,6 @@ namespace ScorpTestGame
             this.contentLoader = contentLoader;
         }
 
-        public ITexture LoadTexture(string textureName)
-        {
-            return this.contentLoader.Load<ITexture>(textureName);
-        }
+        public ITexture LoadTexture(string textureName) => this.contentLoader.Load<ITexture>(textureName);
     }
 }

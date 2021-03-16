@@ -12,6 +12,7 @@ namespace ScorpTestGame.Scenes
     using KDScorpionEngine.Input;
     using KDScorpionEngine.Scene;
     using KDScorpTestGame;
+    using Raptor.Audio;
     using Raptor.Content;
     using Raptor.Input;
 
@@ -28,6 +29,7 @@ namespace ScorpTestGame.Scenes
         private KeyboardState currentKeyboardState;
         private KeyboardState previousKeyboardState;
         private KeyboardWatcher keyboardWatcher;
+        private ISound gameMusic;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Level1"/> class.
@@ -42,12 +44,12 @@ namespace ScorpTestGame.Scenes
         /// </summary>
         public override void Initialize()
         {
-            this.keyboardWatcher = new KeyboardWatcher(true, new Keyboard());
+            this.keyboardWatcher = InputFactory.CreateKeyboardWatcher();
             this.keyboardWatcher.HitCountMax = 2;
-            this.keyboardWatcher.Key = KeyCode.F;
-            this.keyboardWatcher.InputDownTimeOut = 5000;
-            this.keyboardWatcher.OnInputDownTimeOut += KeyboardWatcher_OnInputDownTimeOut;
-            this.keyboardWatcher.OnInputHitCountReached += KeyboardWatcher_OnInputHitCountReached;
+            this.keyboardWatcher.Input = KeyCode.F;
+            this.keyboardWatcher.DownTimeOut = 5000;
+            this.keyboardWatcher.InputDownTimedOut += KeyboardWatcher_InputDownTimedOut;
+            this.keyboardWatcher.InputHitCountReached += KeyboardWatcher_InputHitCountReached;
 
             this.bubblePool = new EntityPool<Bubble>
             {
@@ -70,15 +72,9 @@ namespace ScorpTestGame.Scenes
             base.Initialize();
         }
 
-        private void KeyboardWatcher_OnInputDownTimeOut(object sender, System.EventArgs e)
-        {
-            this.sub.Position = new Vector2(this.sub.Position.X, this.sub.Position.Y - 20);
-        }
+        private void KeyboardWatcher_InputDownTimedOut(object sender, System.EventArgs e) => this.sub.Position = new Vector2(this.sub.Position.X, this.sub.Position.Y - 20);
 
-        private void KeyboardWatcher_OnInputHitCountReached(object sender, System.EventArgs e)
-        {
-            this.sub.Position = new Vector2(this.sub.Position.X + 10, this.sub.Position.Y);
-        }
+        private void KeyboardWatcher_InputHitCountReached(object sender, System.EventArgs e) => this.sub.Position = new Vector2(this.sub.Position.X + 10, this.sub.Position.Y);
 
         /// <summary>
         /// Loads content.
@@ -86,6 +82,9 @@ namespace ScorpTestGame.Scenes
         /// <param name="contentLoader">Loads the content items.</param>
         public override void LoadContent(IContentLoader contentLoader)
         {
+            this.gameMusic = contentLoader.Load<ISound>(@"Music\SubDiver");
+
+            this.gameMusic.PlaySound();
             base.LoadContent(contentLoader);
         }
 

@@ -45,19 +45,10 @@ namespace ScorpTestGame
             base.Init();
         }
 
-        public override void LoadContent(IContentLoader contentLoader)
-        {
-            base.LoadContent(contentLoader);
-        }
+        public override void LoadContent(IContentLoader contentLoader) => base.LoadContent(contentLoader);
 
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-        }
+        public override void Update(GameTime gameTime) => base.Update(gameTime);
 
-        public override void Render(IRenderer renderer)
-        {
-            base.Render(renderer);
-        }
+        public override void Render(IRenderer renderer) => base.Render(renderer);
     }
 }
