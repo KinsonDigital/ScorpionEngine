@@ -60,6 +60,40 @@ namespace KDScorpionEngineTests
             // Assert
             Assert.NotNull(actual);
         }
+
+        [Fact]
+        public void Ctor_WhenInvoking_SetsGameWindowInitDelegate()
+        {
+            // Arrange
+            var mockScene = new Mock<IScene>();
+            this.manager.Add(mockScene.Object);
+
+            var engine = CreateEngine();
+
+            // Act
+            this.gameWindow.InitAction();
+
+            // Assert
+            mockScene.Verify(m => m.Initialize(), Times.Once());
+        }
+
+        [Fact]
+        public void Ctor_WhenInvoking_SetsGameWindowLoadContentDelegate()
+        {
+            // Arrange
+            var mockScene = new Mock<IScene>();
+            mockScene.SetupGet(p => p.Active).Returns(true);
+
+            this.manager.Add(mockScene.Object);
+
+            var engine = CreateEngine();
+
+            // Act
+            this.gameWindow.LoadAction();
+
+            // Assert
+            mockScene.Verify(m => m.LoadContent(this.mockContentLoader.Object), Times.Once());
+        }
         #endregion
 
         #region Prop Tests
