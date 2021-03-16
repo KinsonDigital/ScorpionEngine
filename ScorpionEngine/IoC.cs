@@ -12,7 +12,6 @@ namespace KDScorpionEngine
     using Raptor.Input;
     using Raptor.Services;
     using SimpleInjector;
-    using SimpleInjector.Diagnostics;
 
     /// <summary>
     /// An IoC (Inversion Of Control) container that provides for the use of DI (dependency injection).

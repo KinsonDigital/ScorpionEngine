@@ -8,10 +8,8 @@ namespace KDScorpTestGame
     using KDScorpionEngine;
     using KDScorpionEngine.Entities;
     using KDScorpionEngine.Factories;
-    using KDScorpionEngine.Graphics;
     using KDScorpionEngine.Input;
     using Raptor.Content;
-    using Raptor.Graphics;
     using Raptor.Input;
     using ScorpTestGame;
 

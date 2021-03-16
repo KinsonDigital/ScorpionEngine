@@ -9,7 +9,6 @@ namespace KDScorpionEngineTests.Input
     using KDScorpionEngine;
     using KDScorpionEngine.Input;
     using KDScorpionEngine.Utils;
-    using KDScorpionEngineTests.Fakes;
     using Moq;
     using Raptor.Input;
     using Xunit;

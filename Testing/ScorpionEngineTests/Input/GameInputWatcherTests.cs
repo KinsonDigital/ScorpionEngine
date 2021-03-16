@@ -4,9 +4,7 @@
 
 namespace KDScorpionEngineTests.Input
 {
-    using System;
     using System.Collections.Generic;
-    using System.Text;
     using KDScorpionEngine;
     using KDScorpionEngine.Utils;
     using KDScorpionEngineTests.Fakes;

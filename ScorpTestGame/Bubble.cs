@@ -8,7 +8,6 @@ namespace KDScorpTestGame
     using System.Numerics;
     using KDScorpionEngine;
     using KDScorpionEngine.Entities;
-    using KDScorpionEngine.Graphics;
     using Raptor.Content;
     using ScorpTestGame;
 

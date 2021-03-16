@@ -8,7 +8,6 @@ namespace KDScorpionEngine.Input
     using System.Collections.Generic;
     using System.Linq;
     using KDScorpionEngine.Utils;
-    using Raptor.Input;
 
     public abstract class GameInputWatcher<TInputs> : IInputWatcher<TInputs>, IUpdatableObject
         where TInputs : struct, Enum

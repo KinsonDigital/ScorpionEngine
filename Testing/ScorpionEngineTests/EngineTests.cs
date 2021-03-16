@@ -1,13 +1,11 @@
-// <copyright file="EngineTests.cs" company="KinsonDigital">
+﻿// <copyright file="EngineTests.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
 namespace KDScorpionEngineTests
 {
     using System;
-    using System.Collections.Generic;
     using KDScorpionEngine;
-    using KDScorpionEngine.Entities;
     using KDScorpionEngine.Graphics;
     using KDScorpionEngine.Scene;
     using Moq;
