@@ -1,4 +1,4 @@
-﻿// <copyright file="Entity.cs" company="KinsonDigital">
+// <copyright file="Entity.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -35,8 +35,8 @@ namespace KDScorpionEngine.Entities
         public Entity(string name)
         {
             ID = Guid.NewGuid();
-            RenderSection.TextureName = name;
-            RenderSection.TypeOfTexture = TextureType.WholeTexture;
+            SectionToRender.TextureName = name;
+            SectionToRender.TypeOfTexture = TextureType.WholeTexture;
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace KDScorpionEngine.Entities
         {
             ID = Guid.NewGuid();
             AtlasData = atlasData;
-            RenderSection = RenderSection.CreateAnimatedSubTexture(atlasTextureName, subTextureName, animator);
+            SectionToRender = RenderSection.CreateAnimatedSubTexture(atlasTextureName, subTextureName, animator);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace KDScorpionEngine.Entities
         {
             ID = Guid.NewGuid();
             AtlasData = atlasData;
-            RenderSection = RenderSection.CreateNonAnimatedSubTexture(atlasTextureName, subTextureName);
+            SectionToRender = RenderSection.CreateNonAnimatedSubTexture(atlasTextureName, subTextureName);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace KDScorpionEngine.Entities
             this.singleTexture = texture;
 
             ID = Guid.NewGuid();
-            RenderSection = RenderSection.CreateNonAnimatedWholeTexture(textureName);
+            SectionToRender = RenderSection.CreateNonAnimatedWholeTexture(textureName);
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace KDScorpionEngine.Entities
         {
             ID = Guid.NewGuid();
 
-            RenderSection = RenderSection.CreateNonAnimatedSubTexture(atlasTextureName, subTextureName);
+            SectionToRender = RenderSection.CreateNonAnimatedSubTexture(atlasTextureName, subTextureName);
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace KDScorpionEngine.Entities
         public Entity(string atlasTextureName, string subTextureName, IAnimator animator)
         {
             ID = Guid.NewGuid();
-            RenderSection = RenderSection.CreateAnimatedSubTexture(atlasTextureName, subTextureName, animator);
+            SectionToRender = RenderSection.CreateAnimatedSubTexture(atlasTextureName, subTextureName, animator);
         }
 
         /// <inheritdoc/>
@@ -129,12 +129,12 @@ namespace KDScorpionEngine.Entities
         {
             get
             {
-                if (RenderSection.Animator is null)
+                if (SectionToRender.Animator is null)
                 {
-                    return RenderSection.TextureName;
+                    return SectionToRender.TextureName;
                 }
 
-                return string.IsNullOrEmpty(RenderSection.SubTextureName) ? string.Empty : RenderSection.SubTextureName;
+                return string.IsNullOrEmpty(SectionToRender.SubTextureName) ? string.Empty : SectionToRender.SubTextureName;
             }
         }
 
@@ -187,12 +187,12 @@ namespace KDScorpionEngine.Entities
                     case TextureType.SubTexture:
                         return AtlasData?.Texture;
                     default:
-                        throw new InvalidTextureTypeException($"Unknown '{nameof(TextureType)}' value of '{RenderSection.TypeOfTexture}'.");
+                        throw new InvalidTextureTypeException($"Unknown '{nameof(TextureType)}' value of '{SectionToRender.TypeOfTexture}'.");
                 }
             }
             set
             {
-                switch (RenderSection.TypeOfTexture)
+                switch (SectionToRender.TypeOfTexture)
                 {
                     case TextureType.WholeTexture:
                         this.singleTexture = value;
@@ -211,7 +211,7 @@ namespace KDScorpionEngine.Entities
                         AtlasData.Texture = value;
                         break;
                     default:
-                        throw new InvalidTextureTypeException($"Unknown '{nameof(TextureType)}' value of '{RenderSection.TypeOfTexture}'.");
+                        throw new InvalidTextureTypeException($"Unknown '{nameof(TextureType)}' value of '{SectionToRender.TypeOfTexture}'.");
                 }
             }
         }
@@ -220,7 +220,7 @@ namespace KDScorpionEngine.Entities
         public IAtlasData? AtlasData { get; set; }
 
         /// <inheritdoc/>
-        public RenderSection RenderSection { get; set; } = new RenderSection();
+        public RenderSection SectionToRender { get; set; } = new RenderSection();
 
         /// <inheritdoc/>
         public EntityBehaviors Behaviors { get; set; } = new EntityBehaviors();
@@ -250,31 +250,31 @@ namespace KDScorpionEngine.Entities
                 return;
             }
 
-            switch (RenderSection.TypeOfTexture)
+            switch (SectionToRender.TypeOfTexture)
             {
                 case TextureType.WholeTexture:
                     if (this.singleTexture is null)
                     {
-                        this.singleTexture = contentLoader.Load<ITexture>(RenderSection.TextureName);
+                        this.singleTexture = contentLoader.Load<ITexture>(SectionToRender.TextureName);
                     }
 
-                    RenderSection.RenderBounds = new Rectangle(0, 0, this.singleTexture.Width, this.singleTexture.Height);
+                    SectionToRender.RenderBounds = new Rectangle(0, 0, this.singleTexture.Width, this.singleTexture.Height);
                     break;
                 case TextureType.SubTexture:
                     if (AtlasData is null)
                     {
-                        AtlasData = contentLoader.Load<IAtlasData>(RenderSection.TextureName);
+                        AtlasData = contentLoader.Load<IAtlasData>(SectionToRender.TextureName);
                     }
 
-                    if (RenderSection.Animator is null)
+                    if (SectionToRender.Animator is null)
                     {
                         // Single non animated section of the atlas
-                        RenderSection.RenderBounds = AtlasData.GetFrames(RenderSection.SubTextureName).Select(f => f.Bounds).SingleOrDefault();
+                        SectionToRender.RenderBounds = AtlasData.GetFrames(SectionToRender.SubTextureName).Select(f => f.Bounds).SingleOrDefault();
                     }
                     else
                     {
-                        RenderSection.Animator.Frames =
-                            AtlasData.GetFrames(RenderSection.SubTextureName)
+                        SectionToRender.Animator.Frames =
+                            AtlasData.GetFrames(SectionToRender.SubTextureName)
                                 .Select(f => f.Bounds).ToArray().ToReadOnlyCollection();
                     }
 
@@ -305,11 +305,11 @@ namespace KDScorpionEngine.Entities
             }
 
             Behaviors.ToList().ForEach(b => b.Update(gameTime));
-            RenderSection.Animator?.Update(gameTime);
+            SectionToRender.Animator?.Update(gameTime);
 
-            if (RenderSection.TypeOfTexture == TextureType.SubTexture && !(RenderSection.Animator is null))
+            if (SectionToRender.TypeOfTexture == TextureType.SubTexture && !(SectionToRender.Animator is null))
             {
-                RenderSection.RenderBounds = RenderSection.Animator.CurrentFrameBounds;
+                SectionToRender.RenderBounds = SectionToRender.Animator.CurrentFrameBounds;
             }
         }
     }

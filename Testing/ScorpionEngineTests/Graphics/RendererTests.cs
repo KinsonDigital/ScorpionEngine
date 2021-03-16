@@ -1,4 +1,4 @@
-﻿// <copyright file="RendererTests.cs" company="KinsonDigital">
+// <copyright file="RendererTests.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -79,7 +79,7 @@ namespace KDScorpionEngineTests.Graphics
             var mockEntity = new Mock<IEntity>();
             mockEntity.SetupGet(p => p.Visible).Returns(false);
             mockEntity.SetupGet(p => p.Texture).Returns(this.mockTexture.Object);
-            mockEntity.SetupGet(p => p.RenderSection).Returns(new RenderSection());
+            mockEntity.SetupGet(p => p.SectionToRender).Returns(new RenderSection());
 
             var renderer = CreateRenderer();
 
@@ -102,7 +102,7 @@ namespace KDScorpionEngineTests.Graphics
             // Arrange
             var mockEntity = new Mock<IEntity>();
             mockEntity.SetupGet(p => p.Visible).Returns(true);
-            mockEntity.SetupGet(p => p.RenderSection).Returns(new RenderSection());
+            mockEntity.SetupGet(p => p.SectionToRender).Returns(new RenderSection());
 
             var renderer = CreateRenderer();
 
@@ -128,6 +128,7 @@ namespace KDScorpionEngineTests.Graphics
             mockEntity.SetupGet(p => p.Texture).Returns(this.mockTexture.Object);
             mockEntity.SetupGet(p => p.Position).Returns(new Vector2(100, 200));
             mockEntity.SetupGet(p => p.RenderSection).Returns(() =>
+            mockEntity.SetupGet(p => p.SectionToRender).Returns(() =>
             {
                 return new RenderSection()
                 {

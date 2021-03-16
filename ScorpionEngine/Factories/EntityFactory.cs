@@ -26,10 +26,10 @@ namespace KDScorpionEngine.Factories
         {
             var newEntity = new TEntity();
 
-            newEntity.RenderSection.TextureName = atlasName;
-            newEntity.RenderSection.SubTextureName = subTextureName;
-            newEntity.RenderSection.Animator = null;
-            newEntity.RenderSection.TypeOfTexture = TextureType.SubTexture;
+            newEntity.SectionToRender.TextureName = atlasName;
+            newEntity.SectionToRender.SubTextureName = subTextureName;
+            newEntity.SectionToRender.Animator = null;
+            newEntity.SectionToRender.TypeOfTexture = TextureType.SubTexture;
 
             return newEntity;
         }
@@ -45,10 +45,10 @@ namespace KDScorpionEngine.Factories
         {
             var newEntity = new TEntity();
 
-            newEntity.RenderSection.TextureName = name;
-            newEntity.RenderSection.SubTextureName = string.Empty;
-            newEntity.RenderSection.Animator = null;
-            newEntity.RenderSection.TypeOfTexture = TextureType.WholeTexture;
+            newEntity.SectionToRender.TextureName = name;
+            newEntity.SectionToRender.SubTextureName = string.Empty;
+            newEntity.SectionToRender.Animator = null;
+            newEntity.SectionToRender.TypeOfTexture = TextureType.WholeTexture;
 
             return newEntity;
         }
@@ -66,10 +66,10 @@ namespace KDScorpionEngine.Factories
         {
             var newEntity = new TEntity();
 
-            newEntity.RenderSection.TextureName = atlasName;
-            newEntity.RenderSection.SubTextureName = subTextureName;
-            newEntity.RenderSection.Animator = new Animator();
-            newEntity.RenderSection.TypeOfTexture = TextureType.SubTexture;
+            newEntity.SectionToRender.TextureName = atlasName;
+            newEntity.SectionToRender.SubTextureName = subTextureName;
+            newEntity.SectionToRender.Animator = new Animator();
+            newEntity.SectionToRender.TypeOfTexture = TextureType.SubTexture;
 
             return newEntity;
         }
@@ -89,10 +89,10 @@ namespace KDScorpionEngine.Factories
         {
             var newEntity = new TEntity();
 
-            newEntity.RenderSection.TextureName = atlasName;
-            newEntity.RenderSection.SubTextureName = subTextureName;
-            newEntity.RenderSection.Animator = animator;
-            newEntity.RenderSection.TypeOfTexture = TextureType.SubTexture;
+            newEntity.SectionToRender.TextureName = atlasName;
+            newEntity.SectionToRender.SubTextureName = subTextureName;
+            newEntity.SectionToRender.Animator = animator;
+            newEntity.SectionToRender.TypeOfTexture = TextureType.SubTexture;
 
             return newEntity;
         }

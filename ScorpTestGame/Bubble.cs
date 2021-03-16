@@ -25,7 +25,7 @@ namespace KDScorpTestGame
             var random = new Random();
 
             Position = new Vector2(
-                random.Next(RenderSection.HalfWidth, MainGame.WindowWidth - RenderSection.HalfWidth),
+                random.Next(SectionToRender.HalfWidth, MainGame.WindowWidth - SectionToRender.HalfWidth),
                 MainGame.WindowHeight + halfHeight);
 
             base.Init();
@@ -37,7 +37,7 @@ namespace KDScorpTestGame
 
             if (halfHeight <= 0)
             {
-                halfHeight = RenderSection.HalfHeight;
+                halfHeight = SectionToRender.HalfHeight;
             }
         }
 
@@ -45,7 +45,7 @@ namespace KDScorpTestGame
         {
             Position = new Vector2(Position.X, Position.Y - (30 * (gameTime.CurrentFrameElapsed / 1000f)));
 
-            if (Position.Y <= RenderSection.HalfHeight * -1)
+            if (Position.Y <= SectionToRender.HalfHeight * -1)
             {
                 Visible = false;
                 Enabled = false;

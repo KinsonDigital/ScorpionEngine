@@ -1,4 +1,4 @@
-﻿// <copyright file="IEntity.cs" company="KinsonDigital">
+// <copyright file="IEntity.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -98,7 +98,7 @@ namespace KDScorpionEngine.Entities
         ///     and could be a particular section for an animation or just a static section for a noon-animating entity.
         /// </param>
         /// </remarks>
-        RenderSection RenderSection { get; set; }
+        RenderSection SectionToRender { get; set; }
 
         /// <summary>
         /// Gets or sets the list of behaviors that the <see cref="Entity"/> will have.

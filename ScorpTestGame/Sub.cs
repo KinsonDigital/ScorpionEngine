@@ -1,4 +1,4 @@
-﻿// <copyright file="Sub.cs" company="KinsonDigital">
+// <copyright file="Sub.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -27,7 +27,7 @@ namespace KDScorpTestGame
 
         public override void Init()
         {
-            RenderSection.Animator = new Animator();
+            SectionToRender.Animator = new Animator();
             Position = new Vector2(400, 400);
             this.keyboard = new Keyboard();
         }
@@ -35,7 +35,7 @@ namespace KDScorpTestGame
         public override void LoadContent(IContentLoader contentLoader)
         {
             AtlasData = contentLoader.Load<IAtlasData>("Main-Atlas");
-            RenderSection.Animator.Frames = AtlasData.GetFrames("sub")
+            SectionToRender.Animator.Frames = AtlasData.GetFrames("sub")
                 .Select(f => f.Bounds).ToArray().ToReadOnlyCollection();
         }
 

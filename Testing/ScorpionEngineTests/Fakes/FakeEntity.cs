@@ -1,4 +1,4 @@
-﻿// <copyright file="FakeEntity.cs" company="KinsonDigital">
+// <copyright file="FakeEntity.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -51,7 +51,7 @@ namespace KDScorpionEngineTests.Fakes
 
         public float Angle { get; set; }
 
-        public RenderSection RenderSection { get; set; } = new RenderSection();
+        public RenderSection SectionToRender { get; set; } = new RenderSection();
 
         public ITexture Texture { get; set; }
 
@@ -73,7 +73,7 @@ namespace KDScorpionEngineTests.Fakes
         public void LoadContent(IContentLoader contentLoader)
         {
             LoadContentInvoked = true;
-            Texture = contentLoader.Load<ITexture>(RenderSection.TextureName);
+            Texture = contentLoader.Load<ITexture>(SectionToRender.TextureName);
         }
 
         public void UnloadContent(IContentLoader contentLoader)

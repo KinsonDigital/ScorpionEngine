@@ -28,11 +28,11 @@ namespace KDScorpionEngineTests.Factories
             var entity = EntityFactory.CreateNonAnimatedFromTextureAtlas<Entity>(TextureAtlasName, SubTextureName);
 
             // Assert
-            Assert.Equal(TextureAtlasName, entity.RenderSection.TextureName);
-            Assert.Equal("test-sub-texture", entity.RenderSection.SubTextureName);
-            Assert.Null(entity.RenderSection.Animator);
+            Assert.Equal(TextureAtlasName, entity.SectionToRender.TextureName);
+            Assert.Equal("test-sub-texture", entity.SectionToRender.SubTextureName);
+            Assert.Null(entity.SectionToRender.Animator);
             Assert.Null(entity.AtlasData);
-            Assert.Equal(TextureType.SubTexture, entity.RenderSection.TypeOfTexture);
+            Assert.Equal(TextureType.SubTexture, entity.SectionToRender.TypeOfTexture);
         }
 
         [Fact]
@@ -42,11 +42,11 @@ namespace KDScorpionEngineTests.Factories
             var entity = EntityFactory.CreateNonAnimatedFromTexture<Entity>(WholeTextureName);
 
             // Assert
-            Assert.Equal(WholeTextureName, entity.RenderSection.TextureName);
-            Assert.Equal(string.Empty, entity.RenderSection.SubTextureName);
+            Assert.Equal(WholeTextureName, entity.SectionToRender.TextureName);
+            Assert.Equal(string.Empty, entity.SectionToRender.SubTextureName);
             Assert.Null(entity.AtlasData);
-            Assert.Null(entity.RenderSection.Animator);
-            Assert.Equal(TextureType.WholeTexture, entity.RenderSection.TypeOfTexture);
+            Assert.Null(entity.SectionToRender.Animator);
+            Assert.Equal(TextureType.WholeTexture, entity.SectionToRender.TypeOfTexture);
         }
 
         [Fact]
@@ -56,11 +56,11 @@ namespace KDScorpionEngineTests.Factories
             var entity = EntityFactory.CreateAnimated<Entity>(TextureAtlasName, SubTextureName);
 
             // Assert
-            Assert.Equal(TextureAtlasName, entity.RenderSection.TextureName);
-            Assert.Equal(SubTextureName, entity.RenderSection.SubTextureName);
+            Assert.Equal(TextureAtlasName, entity.SectionToRender.TextureName);
+            Assert.Equal(SubTextureName, entity.SectionToRender.SubTextureName);
             Assert.Null(entity.AtlasData);
-            Assert.NotNull(entity.RenderSection.Animator);
-            Assert.Equal(TextureType.SubTexture, entity.RenderSection.TypeOfTexture);
+            Assert.NotNull(entity.SectionToRender.Animator);
+            Assert.Equal(TextureType.SubTexture, entity.SectionToRender.TypeOfTexture);
         }
 
         [Fact]
@@ -72,12 +72,12 @@ namespace KDScorpionEngineTests.Factories
             var entity = EntityFactory.CreateAnimated<Entity>(TextureAtlasName, SubTextureName, mockAnimator.Object);
 
             // Assert
-            Assert.Equal(TextureAtlasName, entity.RenderSection.TextureName);
-            Assert.Equal(SubTextureName, entity.RenderSection.SubTextureName);
+            Assert.Equal(TextureAtlasName, entity.SectionToRender.TextureName);
+            Assert.Equal(SubTextureName, entity.SectionToRender.SubTextureName);
             Assert.Null(entity.AtlasData);
-            Assert.NotNull(entity.RenderSection.Animator);
-            Assert.Same(entity.RenderSection.Animator, mockAnimator.Object);
-            Assert.Equal(TextureType.SubTexture, entity.RenderSection.TypeOfTexture);
+            Assert.NotNull(entity.SectionToRender.Animator);
+            Assert.Same(entity.SectionToRender.Animator, mockAnimator.Object);
+            Assert.Equal(TextureType.SubTexture, entity.SectionToRender.TypeOfTexture);
         }
         #endregion
     }

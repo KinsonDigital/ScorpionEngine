@@ -1,4 +1,4 @@
-﻿// <copyright file="Renderer.cs" company="KinsonDigital">
+// <copyright file="Renderer.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -70,10 +70,10 @@ namespace KDScorpionEngine.Graphics
             }
 
             var srcRect = new Rectangle(
-                (int)entity.RenderSection.GetTexturePosition().X,
-                (int)entity.RenderSection.GetTexturePosition().Y,
-                entity.RenderSection.RenderBounds.Width,
-                entity.RenderSection.RenderBounds.Height);
+                (int)entity.SectionToRender.GetTexturePosition().X,
+                (int)entity.SectionToRender.GetTexturePosition().Y,
+                entity.SectionToRender.RenderBounds.Width,
+                entity.SectionToRender.RenderBounds.Height);
 
             var destRect = new Rectangle((int)entity.Position.X, (int)entity.Position.Y, entity.Texture.Width, entity.Texture.Height);
 

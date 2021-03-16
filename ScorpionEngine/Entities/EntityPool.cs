@@ -1,4 +1,4 @@
-﻿// <copyright file="EntityPool.cs" company="KinsonDigital">
+// <copyright file="EntityPool.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -198,8 +198,8 @@ namespace KDScorpionEngine.Entities
 
             if (success && !(newEntity is null))
             {
-                newEntity.RenderSection.Reset();
-                newEntity.RenderSection = generateSection();
+                newEntity.SectionToRender.Reset();
+                newEntity.SectionToRender = generateSection();
             }
             else
             {

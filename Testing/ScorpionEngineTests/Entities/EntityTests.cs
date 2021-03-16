@@ -73,7 +73,7 @@ namespace KDScorpionEngineTests.Entities
             var entity = CreateEntity();
 
             // Assert
-            Assert.NotNull(entity.RenderSection);
+            Assert.NotNull(entity.SectionToRender);
         }
 
         [Fact]
@@ -83,8 +83,8 @@ namespace KDScorpionEngineTests.Entities
             var entity = new Entity("test-entity");
 
             // Assert
-            Assert.Equal("test-entity", entity.RenderSection.TextureName);
-            Assert.Equal(TextureType.WholeTexture, entity.RenderSection.TypeOfTexture);
+            Assert.Equal("test-entity", entity.SectionToRender.TextureName);
+            Assert.Equal(TextureType.WholeTexture, entity.SectionToRender.TypeOfTexture);
         }
 
         [Fact]
@@ -100,10 +100,10 @@ namespace KDScorpionEngineTests.Entities
             // Assert
             Assert.NotEqual(Guid.Empty, entity.ID);
             Assert.Same(mockAtlasData.Object, entity.AtlasData);
-            Assert.Same(mockAnimator.Object, entity.RenderSection.Animator);
-            Assert.Equal(TextureAtlasName, entity.RenderSection.TextureName);
-            Assert.Equal(SubTextureName, entity.RenderSection.SubTextureName);
-            Assert.Equal(TextureType.SubTexture, entity.RenderSection.TypeOfTexture);
+            Assert.Same(mockAnimator.Object, entity.SectionToRender.Animator);
+            Assert.Equal(TextureAtlasName, entity.SectionToRender.TextureName);
+            Assert.Equal(SubTextureName, entity.SectionToRender.SubTextureName);
+            Assert.Equal(TextureType.SubTexture, entity.SectionToRender.TypeOfTexture);
         }
 
         [Fact]
@@ -118,9 +118,9 @@ namespace KDScorpionEngineTests.Entities
             // Assert
             Assert.NotEqual(Guid.Empty, entity.ID);
             Assert.Same(mockAtlasData.Object, entity.AtlasData);
-            Assert.Equal(TextureAtlasName, entity.RenderSection.TextureName);
-            Assert.Equal(SubTextureName, entity.RenderSection.SubTextureName);
-            Assert.Equal(TextureType.SubTexture, entity.RenderSection.TypeOfTexture);
+            Assert.Equal(TextureAtlasName, entity.SectionToRender.TextureName);
+            Assert.Equal(SubTextureName, entity.SectionToRender.SubTextureName);
+            Assert.Equal(TextureType.SubTexture, entity.SectionToRender.TypeOfTexture);
         }
 
         [Fact]
@@ -132,9 +132,9 @@ namespace KDScorpionEngineTests.Entities
             // Assert
             Assert.NotEqual(Guid.Empty, entity.ID);
             Assert.Same(this.mockWholeTexture.Object, entity.Texture);
-            Assert.Equal(WholeTextureName, entity.RenderSection.TextureName);
-            Assert.Equal(string.Empty, entity.RenderSection.SubTextureName);
-            Assert.Equal(TextureType.WholeTexture, entity.RenderSection.TypeOfTexture);
+            Assert.Equal(WholeTextureName, entity.SectionToRender.TextureName);
+            Assert.Equal(string.Empty, entity.SectionToRender.SubTextureName);
+            Assert.Equal(TextureType.WholeTexture, entity.SectionToRender.TypeOfTexture);
         }
 
         [Fact]
@@ -147,9 +147,9 @@ namespace KDScorpionEngineTests.Entities
 
             // Assert
             Assert.NotEqual(Guid.Empty, entity.ID);
-            Assert.Equal(TextureAtlasName, entity.RenderSection.TextureName);
-            Assert.Equal(SubTextureName, entity.RenderSection.SubTextureName);
-            Assert.Equal(TextureType.SubTexture, entity.RenderSection.TypeOfTexture);
+            Assert.Equal(TextureAtlasName, entity.SectionToRender.TextureName);
+            Assert.Equal(SubTextureName, entity.SectionToRender.SubTextureName);
+            Assert.Equal(TextureType.SubTexture, entity.SectionToRender.TypeOfTexture);
         }
 
         [Fact]
@@ -163,10 +163,10 @@ namespace KDScorpionEngineTests.Entities
 
             // Assert
             Assert.NotEqual(Guid.Empty, entity.ID);
-            Assert.Same(mockAnimator.Object, entity.RenderSection.Animator);
-            Assert.Equal(TextureAtlasName, entity.RenderSection.TextureName);
-            Assert.Equal(SubTextureName, entity.RenderSection.SubTextureName);
-            Assert.Equal(TextureType.SubTexture, entity.RenderSection.TypeOfTexture);
+            Assert.Same(mockAnimator.Object, entity.SectionToRender.Animator);
+            Assert.Equal(TextureAtlasName, entity.SectionToRender.TextureName);
+            Assert.Equal(SubTextureName, entity.SectionToRender.SubTextureName);
+            Assert.Equal(TextureType.SubTexture, entity.SectionToRender.TypeOfTexture);
         }
         #endregion
 
@@ -340,7 +340,7 @@ namespace KDScorpionEngineTests.Entities
         {
             // Arange
             var entity = CreateEntity();
-            entity.RenderSection.TextureName = WholeTextureName;
+            entity.SectionToRender.TextureName = WholeTextureName;
 
             // Act
             entity.LoadContent(this.mockContentLoader.Object);
@@ -354,8 +354,8 @@ namespace KDScorpionEngineTests.Entities
         {
             // Arange
             var entity = CreateEntity();
-            entity.RenderSection.TextureName = TextureAtlasName;
-            entity.RenderSection.TypeOfTexture = TextureType.SubTexture;
+            entity.SectionToRender.TextureName = TextureAtlasName;
+            entity.SectionToRender.TypeOfTexture = TextureType.SubTexture;
 
             var subTextureData = new[]
             {
@@ -381,7 +381,7 @@ namespace KDScorpionEngineTests.Entities
         {
             // Arrange
             var entity = CreateEntity();
-            entity.RenderSection.TypeOfTexture = TextureType.WholeTexture;
+            entity.SectionToRender.TypeOfTexture = TextureType.WholeTexture;
 
             var subTextureData = new[]
             {
@@ -408,7 +408,7 @@ namespace KDScorpionEngineTests.Entities
         {
             // Arrange
             var entity = CreateEntity();
-            entity.RenderSection.TypeOfTexture = (TextureType)44;
+            entity.SectionToRender.TypeOfTexture = (TextureType)44;
 
             // Act & Assert
             AssertHelpers.ThrowsWithMessage<InvalidTextureTypeException>(() =>
@@ -422,7 +422,7 @@ namespace KDScorpionEngineTests.Entities
         {
             // Arrange
             var entity = CreateEntity();
-            entity.RenderSection.TypeOfTexture = TextureType.SubTexture;
+            entity.SectionToRender.TypeOfTexture = TextureType.SubTexture;
 
             // Act & Assert
             AssertHelpers.ThrowsWithMessage<InvalidOperationException>(() =>
@@ -436,7 +436,7 @@ namespace KDScorpionEngineTests.Entities
         {
             // Arrange
             var entity = CreateEntity();
-            entity.RenderSection.TypeOfTexture = TextureType.SubTexture;
+            entity.SectionToRender.TypeOfTexture = TextureType.SubTexture;
             var subTextureData = new[]
 {
                 new AtlasSubTextureData()
@@ -461,7 +461,7 @@ namespace KDScorpionEngineTests.Entities
         {
             // Arrange
             var entity = CreateEntity();
-            entity.RenderSection.TypeOfTexture = TextureType.SubTexture;
+            entity.SectionToRender.TypeOfTexture = TextureType.SubTexture;
 
             var otherAtlasTexture = new Mock<ITexture>();
 
@@ -489,7 +489,7 @@ namespace KDScorpionEngineTests.Entities
         {
             // Arrange
             var entity = CreateEntity();
-            entity.RenderSection.TypeOfTexture = (TextureType)33;
+            entity.SectionToRender.TypeOfTexture = (TextureType)33;
 
             // Act & Assert
             AssertHelpers.ThrowsWithMessage<InvalidTextureTypeException>(() =>
@@ -516,8 +516,8 @@ namespace KDScorpionEngineTests.Entities
         {
             // Arrange
             var entity = CreateEntity();
-            entity.RenderSection.Animator = null;
-            entity.RenderSection.TextureName = "texture";
+            entity.SectionToRender.Animator = null;
+            entity.SectionToRender.TextureName = "texture";
 
             // Act
             var actual = entity.Name;
@@ -534,8 +534,8 @@ namespace KDScorpionEngineTests.Entities
         {
             // Arrange
             var entity = CreateEntity();
-            entity.RenderSection.Animator = new Animator();
-            entity.RenderSection.SubTextureName = subTextureName;
+            entity.SectionToRender.Animator = new Animator();
+            entity.SectionToRender.SubTextureName = subTextureName;
 
             // Act
             var actual = entity.Name;
@@ -581,8 +581,8 @@ namespace KDScorpionEngineTests.Entities
         {
             // Arrange
             var entity = CreateEntity();
-            entity.RenderSection.TextureName = WholeTextureName;
-            entity.RenderSection.TypeOfTexture = TextureType.WholeTexture;
+            entity.SectionToRender.TextureName = WholeTextureName;
+            entity.SectionToRender.TypeOfTexture = TextureType.WholeTexture;
 
             // Act
             entity.LoadContent(this.mockContentLoader.Object);
@@ -600,7 +600,7 @@ namespace KDScorpionEngineTests.Entities
         {
             // Arange
             var entity = CreateEntity();
-            entity.RenderSection.TextureName = WholeTextureName;
+            entity.SectionToRender.TextureName = WholeTextureName;
 
             // Act
             entity.LoadContent(this.mockContentLoader.Object);
@@ -614,8 +614,8 @@ namespace KDScorpionEngineTests.Entities
         {
             // Arrange
             var entity = CreateEntity();
-            entity.RenderSection.TextureName = TextureAtlasName;
-            entity.RenderSection.TypeOfTexture = TextureType.SubTexture;
+            entity.SectionToRender.TextureName = TextureAtlasName;
+            entity.SectionToRender.TypeOfTexture = TextureType.SubTexture;
 
             // Act
             entity.LoadContent(this.mockContentLoader.Object);
@@ -632,10 +632,10 @@ namespace KDScorpionEngineTests.Entities
             mockAnimator.SetupProperty(p => p.Frames);
 
             var entity = CreateEntity();
-            entity.RenderSection.TextureName = TextureAtlasName;
-            entity.RenderSection.SubTextureName = SubTextureName;
-            entity.RenderSection.TypeOfTexture = TextureType.SubTexture;
-            entity.RenderSection.Animator = mockAnimator.Object;
+            entity.SectionToRender.TextureName = TextureAtlasName;
+            entity.SectionToRender.SubTextureName = SubTextureName;
+            entity.SectionToRender.TypeOfTexture = TextureType.SubTexture;
+            entity.SectionToRender.Animator = mockAnimator.Object;
 
             // Act
             entity.LoadContent(this.mockContentLoader.Object);
@@ -656,7 +656,7 @@ namespace KDScorpionEngineTests.Entities
             mockAnimator.SetupProperty(p => p.Frames);
 
             var entity = CreateEntity();
-            entity.RenderSection.TypeOfTexture = (TextureType)44;
+            entity.SectionToRender.TypeOfTexture = (TextureType)44;
 
             // Act & Assert
             AssertHelpers.ThrowsWithMessage<InvalidTextureTypeException>(() =>
@@ -670,7 +670,7 @@ namespace KDScorpionEngineTests.Entities
         {
             // Arrange
             var entity = CreateEntity();
-            entity.RenderSection.TextureName = WholeTextureName;
+            entity.SectionToRender.TextureName = WholeTextureName;
             entity.LoadContent(this.mockContentLoader.Object);
 
             // Act
@@ -690,7 +690,7 @@ namespace KDScorpionEngineTests.Entities
             var entity = CreateEntity();
             entity.Enabled = false;
             entity.Behaviors.Add(mockBehavior.Object);
-            entity.RenderSection.Animator = mockAnimator.Object;
+            entity.SectionToRender.Animator = mockAnimator.Object;
 
             // Act
             entity.Update(new GameTime());
@@ -723,7 +723,7 @@ namespace KDScorpionEngineTests.Entities
             var mockAnimator = new Mock<IAnimator>();
 
             var entity = CreateEntity();
-            entity.RenderSection.Animator = mockAnimator.Object;
+            entity.SectionToRender.Animator = mockAnimator.Object;
 
             // Act
             entity.Update(new GameTime());
@@ -741,14 +741,14 @@ namespace KDScorpionEngineTests.Entities
             mockAnimator.Setup(p => p.CurrentFrameBounds).Returns(new Rectangle(11, 22, 33, 44));
 
             var entity = CreateEntity();
-            entity.RenderSection.TypeOfTexture = TextureType.SubTexture;
-            entity.RenderSection.Animator = mockAnimator.Object;
+            entity.SectionToRender.TypeOfTexture = TextureType.SubTexture;
+            entity.SectionToRender.Animator = mockAnimator.Object;
 
             // Act
             entity.Update(new GameTime());
 
             // Assert
-            Assert.Equal(expected, entity.RenderSection.RenderBounds);
+            Assert.Equal(expected, entity.SectionToRender.RenderBounds);
         }
 
         [Fact]
