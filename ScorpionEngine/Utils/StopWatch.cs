@@ -11,11 +11,22 @@ namespace KDScorpionEngine.Utils
     /// </summary>
     public class StopWatch : IStopWatch
     {
-        private bool enabled;
         private int timeOut;
 
         /// <inheritdoc/>
         public event EventHandler<EventArgs>? TimeElapsed;
+
+        /// <inheritdoc/>
+        public int ElapsedMS { get; private set; }
+
+        /// <inheritdoc/>
+        public float ElapsedSeconds => ElapsedMS / 1000.0f;
+
+        /// <inheritdoc/>
+        public ResetType ResetMode { get; set; } = ResetType.Auto;
+
+        /// <inheritdoc/>
+        public bool Running { get; private set; }
 
         /// <inheritdoc/>
         public int TimeOut
@@ -25,36 +36,31 @@ namespace KDScorpionEngine.Utils
         }
 
         /// <inheritdoc/>
-        public int ElapsedMS { get; private set; }
-
-        /// <inheritdoc/>
-        public float ElapsedSeconds => ElapsedMS / 1000.0f;
-
-        /// <inheritdoc/>
-        public bool Running { get; private set; }
-
-        /// <inheritdoc/>
-        public ResetType ResetMode { get; set; } = ResetType.Auto;
-
-        /// <inheritdoc/>
-        public void Start()
-        {
-            this.enabled = true;
-            Running = true;
-        }
-
-        /// <inheritdoc/>
-        public void Stop()
-        {
-            this.enabled = false;
-            Running = false;
-        }
+        public bool StopOnReset { get; set; }
 
         /// <inheritdoc/>
         public void Reset()
         {
-            Stop();
+            if (StopOnReset)
+            {
+                Stop();
+            }
+
             ElapsedMS = 0;
+        }
+
+        /// <inheritdoc/>
+        public void Start() => Running = true;
+
+        /// <inheritdoc/>
+        public void Stop() => Running = false;
+
+        /// <inheritdoc/>
+        public void Restart()
+        {
+            Stop();
+            Reset();
+            Start();
         }
 
         /// <summary>
@@ -63,8 +69,8 @@ namespace KDScorpionEngine.Utils
         /// <param name="frameTime">The game engine time.</param>
         public void Update(GameTime frameTime)
         {
-            // If the stopwatch is enabled, add the amount of time passed to the elapsed value
-            if (this.enabled)
+            // If the stopwatch is running, add the amount of time passed to the elapsed value
+            if (Running)
             {
                 ElapsedMS += frameTime.CurrentFrameElapsed;
             }

@@ -78,6 +78,19 @@ namespace KDScorpionEngineTests.Utils
             // Assert
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void StopOnReset_WhenSettingValue_ReturnsCorrectValue()
+        {
+            // Arrange
+            var stopwatch = new StopWatch();
+
+            // Act
+            stopwatch.StopOnReset = true;
+
+            // Assert
+            Assert.True(stopwatch.StopOnReset);
+        }
         #endregion
 
         #region Method Tests
@@ -112,25 +125,62 @@ namespace KDScorpionEngineTests.Utils
         }
 
         [Fact]
-        public void Reset_WhenReseting_SetElapsedToZeroAndRunningToFalse()
+        public void Reset_WithStopOnResetTrue_StopsAndResetsStopWatch()
         {
             // Arrange
             var stopWatch = new StopWatch();
+            stopWatch.StopOnReset = true;
+            stopWatch.Start();
+
             var gameTime = new GameTime();
             gameTime.AddTime(500);
-            var expectedRunning = false;
-            var expectedElapsedMS = 0;
+            stopWatch.Update(gameTime);
 
             // Act
-            stopWatch.Start();
-            stopWatch.Update(gameTime);
             stopWatch.Reset();
-            var actualRunning = stopWatch.Running;
-            var actualElapsedMS = stopWatch.ElapsedMS;
 
             // Assert
-            Assert.Equal(expectedElapsedMS, actualElapsedMS);
-            Assert.Equal(expectedRunning, actualRunning);
+            Assert.Equal(0, stopWatch.ElapsedMS);
+            Assert.False(stopWatch.Running);
+        }
+
+        [Fact]
+        public void Reset_WithStopOnResetFalse_ResetsStopWatch()
+        {
+            // Arrange
+            var stopWatch = new StopWatch();
+            stopWatch.StopOnReset = false;
+            stopWatch.Start();
+
+            var gameTime = new GameTime();
+            gameTime.AddTime(500);
+            stopWatch.Update(gameTime);
+
+            // Act
+            stopWatch.Reset();
+
+            // Assert
+            Assert.Equal(0, stopWatch.ElapsedMS);
+            Assert.True(stopWatch.Running);
+        }
+
+        [Fact]
+        public void Restart_WhenInvoked_ResetsStopWatch()
+        {
+            // Arrange
+            var stopWatch = new StopWatch();
+
+            var gameTime = new GameTime();
+            gameTime.AddTime(500);
+            stopWatch.Update(gameTime);
+
+            // Act
+            stopWatch.Restart();
+
+            // Assert
+            Assert.True(stopWatch.Running);
+            Assert.Equal(0, stopWatch.ElapsedMS);
+            Assert.Equal(0, stopWatch.ElapsedSeconds);
         }
 
         [Fact]
@@ -140,18 +190,14 @@ namespace KDScorpionEngineTests.Utils
             var stopWatch = new StopWatch();
             var gameTime = new GameTime();
             gameTime.AddTime(1001);
-            var expectedElapsedMS = 0;
-            var expectedRunning = false;
 
             // Act
             stopWatch.Start();
             stopWatch.Update(gameTime);
-            var actualElapsedMS = stopWatch.ElapsedMS;
-            var actualRunning = stopWatch.Running;
 
             // Assert
-            Assert.Equal(expectedElapsedMS, actualElapsedMS);
-            Assert.Equal(expectedRunning, actualRunning);
+            Assert.Equal(0, stopWatch.ElapsedMS);
+            Assert.True(stopWatch.Running);
         }
 
         [Fact]

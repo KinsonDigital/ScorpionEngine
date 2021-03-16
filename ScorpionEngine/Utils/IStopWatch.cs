@@ -9,7 +9,7 @@ namespace KDScorpionEngine.Utils
     /// <summary>
     /// Keeps track of time passed and invokes events when that time has passed.
     /// </summary>
-    public interface IStopWatch: IUpdatableObject
+    public interface IStopWatch : IUpdatableObject
     {
         /// <summary>
         /// Occurs every time the stop watch reaches 0.
@@ -43,6 +43,11 @@ namespace KDScorpionEngine.Utils
         int TimeOut { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the <see cref="IStopWatch"/> when <see cref="Reset"/> is invoked.
+        /// </summary>
+        bool StopOnReset { get; set; }
+
+        /// <summary>
         /// Stops the stopwatch and resets the elapsed time back to 0.
         /// </summary>
         void Reset();
@@ -56,5 +61,11 @@ namespace KDScorpionEngine.Utils
         /// Stops the stopwatch.
         /// </summary>
         void Stop();
+
+        /// <summary>
+        /// Will stop the <see cref="IStopWatch"/>, reset the elapsed time,
+        /// then start the <see cref="IStopWatch"/> again.
+        /// </summary>
+        void Restart();
     }
 }

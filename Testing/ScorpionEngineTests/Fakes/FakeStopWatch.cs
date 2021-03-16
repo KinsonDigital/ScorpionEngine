@@ -1,11 +1,20 @@
-﻿using System;
-using KDScorpionEngine;
-using KDScorpionEngine.Utils;
+﻿// <copyright file="FakeStopWatch.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
 
 namespace KDScorpionEngineTests.Fakes
 {
+    using System;
+    using KDScorpionEngine;
+    using KDScorpionEngine.Utils;
+
+    /// <summary>
+    /// Used to test the <see cref="StopWatch"/> class.
+    /// </summary>
     public class FakeStopWatch : IStopWatch
     {
+        public event EventHandler<EventArgs>? TimeElapsed;
+
         public int ElapsedMS { get; }
 
         public float ElapsedSeconds { get; }
@@ -16,7 +25,7 @@ namespace KDScorpionEngineTests.Fakes
 
         public int TimeOut { get; set; }
 
-        public event EventHandler<EventArgs> TimeElapsed;
+        public bool StopOnReset { get; set; }
 
         public void Reset() { }
 
@@ -25,8 +34,10 @@ namespace KDScorpionEngineTests.Fakes
         public void Stop() => throw new NotImplementedException();
 
         public void Update(GameTime gameTime)
-        {
-            TimeElapsed?.Invoke(null, EventArgs.Empty);
-        }
+             => TimeElapsed?.Invoke(null, EventArgs.Empty);
+
+        public void OnTimeElapsed() => throw new NotImplementedException();
+
+        public void Restart() => throw new NotImplementedException();
     }
 }
