@@ -82,6 +82,22 @@ namespace KDScorpionEngine
     }
 
     /// <summary>
+    /// Represents horizontal direction on the X axis only.
+    /// </summary>
+    public enum HorizontalDirection
+    {
+        /// <summary>
+        /// Left movement
+        /// </summary>
+        Left = 1,
+
+        /// <summary>
+        /// Right movement
+        /// </summary>
+        Right = 2
+    }
+
+    /// <summary>
     /// Represents entities that are the given descriptions.
     /// </summary>
     public enum EntitiesThatAre
