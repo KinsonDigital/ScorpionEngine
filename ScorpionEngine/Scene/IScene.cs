@@ -1,4 +1,4 @@
-﻿// <copyright file="IScene.cs" company="KinsonDigital">
+// <copyright file="IScene.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -27,6 +27,18 @@ namespace KDScorpionEngine.Scene
         /// Gets or sets the time manager used for this scene.
         /// </summary>
         ITimeManager TimeManager { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the scene has already been initialized.
+        /// </summary>
+        /// <remarks>
+        ///     The base method <see cref="GameScene.Initialize()"/> must be called for
+        ///     this functionality to work.
+        /// <para>
+        ///     Example: Use base.Initialize() in child class Initalize() method.
+        /// </para>
+        /// </remarks>
+        bool Initialized { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the scene is active.
