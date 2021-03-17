@@ -73,6 +73,71 @@ namespace KDScorpionEngineTests.Graphics
         }
 
         [Fact]
+        public void Render_WithOnlyEntityParam_RendersEntity()
+        {
+            // Arrange
+            var sectionToRender = new RenderSection()
+            {
+                RenderBounds = new Rectangle(11, 22, 33, 44),
+                Animator = null,
+                TypeOfTexture = TextureType.SubTexture,
+            };
+
+            var mockEntity = new Mock<IEntity>();
+            mockEntity.SetupGet(p => p.Visible).Returns(true);
+            mockEntity.SetupGet(p => p.Texture).Returns(this.mockTexture.Object);
+            mockEntity.SetupGet(p => p.SectionToRender).Returns(sectionToRender);
+            mockEntity.SetupGet(p => p.Position).Returns(new Vector2(55, 66));
+
+            var renderer = CreateRenderer();
+
+            // Act
+            renderer.Render(mockEntity.Object);
+
+            // Assert
+            this.mockSpriteBatch.Verify(m => m.Render(
+                this.mockTexture.Object,
+                new Rectangle(11, 22, 33, 44),
+                new Rectangle(55, 66, 300, 400),
+                1,
+                0,
+                Color.White,
+                RenderEffects.None), Times.Once());
+        }
+
+        [Fact]
+        public void Render_WithEntityAndXAndYParams_RendersEntity()
+        {
+            // Arrange
+            var sectionToRender = new RenderSection()
+            {
+                RenderBounds = new Rectangle(11, 22, 33, 44),
+                Animator = null,
+                TypeOfTexture = TextureType.SubTexture,
+            };
+
+            var mockEntity = new Mock<IEntity>();
+            mockEntity.SetupGet(p => p.Visible).Returns(true);
+            mockEntity.SetupGet(p => p.Texture).Returns(this.mockTexture.Object);
+            mockEntity.SetupGet(p => p.SectionToRender).Returns(sectionToRender);
+
+            var renderer = CreateRenderer();
+
+            // Act
+            renderer.Render(mockEntity.Object, 55, 66);
+
+            // Assert
+            this.mockSpriteBatch.Verify(m => m.Render(
+                this.mockTexture.Object,
+                new Rectangle(11, 22, 33, 44),
+                new Rectangle(55, 66, 300, 400),
+                1,
+                0,
+                Color.White,
+                RenderEffects.None), Times.Once());
+        }
+
+        [Fact]
         public void Render_WithHiddenEntity_DoesNotRenderEntity()
         {
             // Arrange
@@ -131,7 +196,6 @@ namespace KDScorpionEngineTests.Graphics
             var mockEntity = new Mock<IEntity>();
             mockEntity.SetupGet(p => p.Visible).Returns(true);
             mockEntity.SetupGet(p => p.Texture).Returns(this.mockTexture.Object);
-            mockEntity.SetupGet(p => p.Position).Returns(new Vector2(100, 200));
             mockEntity.SetupGet(p => p.FlippedHorizontally).Returns(flippedHorizontally);
             mockEntity.SetupGet(p => p.FlippedVertically).Returns(flippedVertically);
             mockEntity.SetupGet(p => p.SectionToRender).Returns(() =>
@@ -144,8 +208,6 @@ namespace KDScorpionEngineTests.Graphics
             });
 
             var renderer = CreateRenderer();
-            var srcRect = new Rectangle(11, 22, 33, 44);
-            var destRect = new Rectangle(100, 200, 300, 400);
 
             // Act
             renderer.Render(mockEntity.Object);
@@ -153,11 +215,11 @@ namespace KDScorpionEngineTests.Graphics
             // Assert
             this.mockSpriteBatch.Verify(m => m.Render(
                 this.mockTexture.Object,
-                srcRect,
-                destRect,
-                1,
-                0,
-                Color.White,
+                It.IsAny<Rectangle>(),
+                It.IsAny<Rectangle>(),
+                It.IsAny<float>(),
+                It.IsAny<float>(),
+                It.IsAny<Color>(),
                 expected), Times.Once());
         }
 

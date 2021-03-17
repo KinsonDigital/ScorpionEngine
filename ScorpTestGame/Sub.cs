@@ -101,7 +101,16 @@ namespace KDScorpTestGame
 
         public override void Render(IRenderer renderer)
         {
-            this.missiles.Render(renderer);
+            foreach (var missile in this.missiles.Entitities)
+            {
+                renderer.Render(
+                    missile,
+                    missile.Position.X,
+                    missile.Position.Y,
+                    flippedHorizontally: FlippedHorizontally,
+                    flippedVertically: FlippedVertically);
+            }
+
             base.Render(renderer);
         }
 
@@ -132,7 +141,12 @@ namespace KDScorpTestGame
             {
                 var launchPosition = new Vector2(Position.X + (SectionToRender.RenderBounds.Width / 2),
                     Position.Y + (SectionToRender.RenderBounds.Height / 4));
-                entity.Launch(launchPosition, HorizontalDirection.Left);
+
+                entity.TravelDirection = FlippedHorizontally
+                    ? HorizontalDirection.Left
+                    : HorizontalDirection.Right;
+
+                entity.Launch(launchPosition);
             });
     }
 }

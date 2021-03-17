@@ -1,4 +1,4 @@
-// <copyright file="Renderer.cs" company="KinsonDigital">
+﻿// <copyright file="Renderer.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -62,7 +62,13 @@ namespace KDScorpionEngine.Graphics
             => this.spriteBatch = SpriteBatchFactory.CreateSpriteBatch(renderSurfaceWidth, renderSurfaceHeight);
 
         /// <inheritdoc/>
-        public void Render(IEntity entity)
+        public void Render(IEntity entity) => Render(entity, (int)entity.Position.X, (int)entity.Position.Y);
+
+        /// <inheritdoc/>
+        public void Render(IEntity entity, float x, float y) => Render(entity, x, y, entity.FlippedHorizontally, entity.FlippedVertically);
+
+        /// <inheritdoc/>
+        public void Render(IEntity entity, float x, float y, bool flippedHorizontally = false, bool flippedVertically = false)
         {
             if (!entity.Visible || entity.Texture is null)
             {
@@ -75,15 +81,15 @@ namespace KDScorpionEngine.Graphics
                 entity.SectionToRender.RenderBounds.Width,
                 entity.SectionToRender.RenderBounds.Height);
 
-            var destRect = new Rectangle((int)entity.Position.X, (int)entity.Position.Y, entity.Texture.Width, entity.Texture.Height);
+            var destRect = new Rectangle((int)x, (int)y, entity.Texture.Width, entity.Texture.Height);
 
             var renderEffects = RenderEffects.None;
 
-            if (entity.FlippedHorizontally && entity.FlippedVertically is false)
+            if (flippedHorizontally && flippedVertically is false)
             {
                 renderEffects = RenderEffects.FlipHorizontally;
             }
-            else if (entity.FlippedHorizontally is false && entity.FlippedVertically)
+            else if (flippedHorizontally is false && flippedVertically)
             {
                 renderEffects = RenderEffects.FlipVertically;
             }
