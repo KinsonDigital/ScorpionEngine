@@ -1,4 +1,4 @@
-﻿// <copyright file="IRenderer.cs" company="KinsonDigital">
+// <copyright file="IRenderer.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -26,7 +26,7 @@ namespace KDScorpionEngine.Graphics
         /// <param name="texture">The texture to render.</param>
         /// <param name="y">The X coordinate of where to render the texture.</param>
         /// <param name="x">The Y coordinate of where to render the texture.</param>
-        void Render(ITexture texture, int y, int x);
+        void Render(ITexture texture, float y, float x);
 
         /// <summary>
         /// Clears the screen.

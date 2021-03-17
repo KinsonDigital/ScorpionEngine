@@ -1,4 +1,4 @@
-﻿// <copyright file="Renderer.cs" company="KinsonDigital">
+// <copyright file="Renderer.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -92,7 +92,7 @@ namespace KDScorpionEngine.Graphics
         }
 
         /// <inheritdoc/>
-        public void Render(ITexture texture, int x, int y) => this.spriteBatch.Render(texture, x, y);
+        public void Render(ITexture texture, float x, float y) => this.spriteBatch.Render(texture, (int)x, (int)y);
 
         /// <inheritdoc/>
         public void Dispose()
