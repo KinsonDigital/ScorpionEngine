@@ -5,6 +5,7 @@
 namespace KDScorpionEngine
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Diagnostics.CodeAnalysis;
     using System.Drawing;
@@ -146,5 +147,14 @@ namespace KDScorpionEngine
 
             registration.SuppressDiagnosticWarning(DiagnosticType.DisposableTransientComponent, "Disposed by application code.");
         }
+
+        /// <summary>
+        /// Returns the <paramref name="items"/> as a <see cref="ReadOnlyCollection{T}"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of items in the collection.</typeparam>
+        /// <param name="items">The items to convert.</param>
+        /// <returns>The original items as a read only colleciton.</returns>
+        internal static ReadOnlyCollection<T> ToReadOnlyCollection<T>(this List<T> items)
+            => new ReadOnlyCollection<T>(items.ToArray());
     }
 }

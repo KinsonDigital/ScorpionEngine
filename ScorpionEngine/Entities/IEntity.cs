@@ -1,4 +1,4 @@
-﻿// <copyright file="IEntity.cs" company="KinsonDigital">
+// <copyright file="IEntity.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -6,6 +6,7 @@ namespace KDScorpionEngine.Entities
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Drawing;
     using System.Numerics;
     using KDScorpionEngine.Behaviors;
@@ -130,6 +131,6 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// Gets the list of entities contained by this entity.
         /// </summary>
-        List<IEntity> Entities { get; }
+        ReadOnlyCollection<IEntity> Entities { get; }
     }
 }

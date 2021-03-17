@@ -1,4 +1,4 @@
-﻿// <copyright file="FakeEntity.cs" company="KinsonDigital">
+// <copyright file="FakeEntity.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -8,6 +8,8 @@ namespace KDScorpionEngineTests.Fakes
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Diagnostics.CodeAnalysis;
     using System.Drawing;
     using System.Numerics;
     using KDScorpionEngine;
@@ -71,6 +73,8 @@ namespace KDScorpionEngineTests.Fakes
         public bool FlippedHorizontally { get; set; }
 
         public bool FlippedVertically { get; set; }
+
+        ReadOnlyCollection<IEntity> IEntity.Entities { get; }
 
         public void Init()
         {

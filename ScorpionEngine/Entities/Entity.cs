@@ -1,4 +1,4 @@
-﻿// <copyright file="Entity.cs" company="KinsonDigital">
+// <copyright file="Entity.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -6,6 +6,7 @@ namespace KDScorpionEngine.Entities
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Drawing;
     using System.Linq;
     using System.Numerics;
@@ -21,6 +22,7 @@ namespace KDScorpionEngine.Entities
     /// </summary>
     public class Entity : IEntity
     {
+        private readonly List<IEntity> entities = new List<IEntity>();
         private ITexture? singleTexture;
         private bool visible = true;
 
@@ -239,7 +241,7 @@ namespace KDScorpionEngine.Entities
         public Color DebugDrawColor { get; set; } = Color.White;
 
         /// <inheritdoc/>
-        public List<IEntity> Entities { get; set; } = new List<IEntity>();
+        public ReadOnlyCollection<IEntity> Entities => this.entities.ToReadOnlyCollection();
 
         /// <inheritdoc/>
         public virtual void Init() => ContentLoaded = false;
@@ -329,8 +331,10 @@ namespace KDScorpionEngine.Entities
         /// <inheritdoc/>
         public virtual void Render(IRenderer renderer)
             => Entities.ForEach(e =>
+        {
+            for (var i = 0; i < Entities.Count; i++)
             {
-                renderer.Render(e);
-            });
-    }
+                renderer.Render(Entities[i]);
+            }
+        }
 }
