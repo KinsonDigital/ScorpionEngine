@@ -1,4 +1,4 @@
-// <copyright file="Entity.cs" company="KinsonDigital">
+﻿// <copyright file="Entity.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -330,11 +330,14 @@ namespace KDScorpionEngine.Entities
 
         /// <inheritdoc/>
         public virtual void Render(IRenderer renderer)
-            => Entities.ForEach(e =>
         {
             for (var i = 0; i < Entities.Count; i++)
             {
                 renderer.Render(Entities[i]);
             }
         }
+
+        /// <inheritdoc/>
+        public void AddChildEntity(IEntity childEntity) => this.entities.Add(childEntity);
+    }
 }

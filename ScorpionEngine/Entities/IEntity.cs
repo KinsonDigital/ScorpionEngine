@@ -1,4 +1,4 @@
-// <copyright file="IEntity.cs" company="KinsonDigital">
+﻿// <copyright file="IEntity.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -132,5 +132,11 @@ namespace KDScorpionEngine.Entities
         /// Gets the list of entities contained by this entity.
         /// </summary>
         ReadOnlyCollection<IEntity> Entities { get; }
+
+        /// <summary>
+        /// Adds a child entity to this entity.
+        /// </summary>
+        /// <param name="childEntity">The child entity to add.</param>
+        void AddChildEntity(IEntity childEntity);
     }
 }

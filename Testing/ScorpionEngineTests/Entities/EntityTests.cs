@@ -1,4 +1,4 @@
-﻿// <copyright file="EntityTests.cs" company="KinsonDigital">
+// <copyright file="EntityTests.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -788,6 +788,21 @@ namespace KDScorpionEngineTests.Entities
             // Assert
             Assert.Null(entity.AtlasData);
             Assert.Null(entity.Texture);
+        }
+
+        [Fact]
+        public void AddChildEntity_WhenInvoked_AddsEntityToParentEntity()
+        {
+            // Arrange
+            var childEntity = new Mock<IEntity>();
+            var entity = CreateEntity();
+
+            // Act
+            entity.AddChildEntity(childEntity.Object);
+
+            // Assert
+            Assert.Single(entity.Entities);
+            Assert.Same(childEntity.Object, entity.Entities[0]);
         }
         #endregion
 

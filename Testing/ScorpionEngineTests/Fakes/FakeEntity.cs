@@ -97,5 +97,7 @@ namespace KDScorpionEngineTests.Fakes
         }
 
         public void Render(IRenderer renderer) => throw new NotImplementedException();
+
+        public void AddChildEntity(IEntity childEntity) => throw new NotImplementedException();
     }
 }
