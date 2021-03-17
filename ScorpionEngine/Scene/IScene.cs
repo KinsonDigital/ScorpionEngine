@@ -5,6 +5,7 @@
 namespace KDScorpionEngine.Scene
 {
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using KDScorpionEngine.Entities;
     using Raptor.Content;
 
@@ -58,7 +59,7 @@ namespace KDScorpionEngine.Scene
         /// <summary>
         /// Gets the list of entities that are added to the scene.
         /// </summary>
-        List<IEntity> Entities { get; }
+        ReadOnlyCollection<IEntity> Entities { get; }
 
         /// <summary>
         /// Initializes the scene.

@@ -1,10 +1,11 @@
-﻿// <copyright file="GameScene.cs" company="KinsonDigital">
+// <copyright file="GameScene.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
 namespace KDScorpionEngine.Scene
 {
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Diagnostics.CodeAnalysis;
     using System.Numerics;
     using KDScorpionEngine.Entities;
@@ -16,6 +17,8 @@ namespace KDScorpionEngine.Scene
     /// </summary>
     public abstract class GameScene : IScene
     {
+        private readonly List<IEntity> entities = new List<IEntity>();
+
         /// <summary>
         /// Creates a enw instance of <see cref="GameScene"/>.
         /// </summary>
@@ -62,17 +65,17 @@ namespace KDScorpionEngine.Scene
         public bool IsRenderingScene { get; set; }
 
         /// <inheritdoc/>
-        public List<IEntity> Entities { get; } = new List<IEntity>();
+        public ReadOnlyCollection<IEntity> Entities => this.entities.ToReadOnlyCollection();
 
         /// <summary>
         /// Initializes the game scene.
         /// </summary>
         public virtual void Initialize()
         {
-            Entities.ForEach(e =>
+            for (var i = 0; i < Entities.Count; i++)
             {
-                e.Init();
-            });
+                Entities[i].Init();
+            }
 
             Initialized = true;
         }
@@ -83,10 +86,10 @@ namespace KDScorpionEngine.Scene
         /// <param name="contentManager">The content loader to use for loading and unloading the scene's content.</param>
         public virtual void LoadContent(IContentLoader contentLoader)
         {
-            Entities.ForEach(e =>
+            for (var i = 0; i < Entities.Count; i++)
             {
-                e.LoadContent(contentLoader);
-            });
+                Entities[i].LoadContent(contentLoader);
+            }
 
             ContentLoaded = true;
         }
@@ -97,10 +100,10 @@ namespace KDScorpionEngine.Scene
         /// <param name="contentManager">The content loader to use for loading and unloading the scene's content.</param>
         public virtual void UnloadContent(IContentLoader contentLoader)
         {
-            Entities.ForEach(e =>
+            for (var i = 0; i < Entities.Count; i++)
             {
-                e.UnloadContent(contentLoader);
-            });
+                Entities[i].UnloadContent(contentLoader);
+            }
 
             ContentLoaded = false;
         }
@@ -113,7 +116,10 @@ namespace KDScorpionEngine.Scene
             TimeManager?.Update(gameTime);
 
             // Update all of the entities
-            Entities.ForEach(e => e.Update(gameTime));
+            for (var i = 0; i < Entities.Count; i++)
+            {
+                Entities[i].Update(gameTime);
+            }
         }
 
         /// <summary>
@@ -122,25 +128,20 @@ namespace KDScorpionEngine.Scene
         /// <param name="renderer">The renderer to use to render the scene.</param>
         public virtual void Render(IRenderer renderer)
         {
-            Entities.ForEach(e =>
+            for (var i = 0; i < Entities.Count; i++)
             {
-                renderer.Render(e);
+                renderer.Render(Entities[i]);
 
                 // Call the render on the entity itself
                 // The entity might contain its own entities
-                e.Render(renderer);
-            });
+                Entities[i].Render(renderer);
+            }
 
             IsRenderingScene = false;
         }
 
         // TODO: Make this class IEnumarable so we get the benefits of generics and IList functionality
         // in the class itself.
-        public void AddEntity(Entity entity, bool addToPhysics = true) =>
-            // TODO: Get this working
-            // if(addToPhysics)
-            //    PhysicsWorld.AddBody(entity.Body);
-
-            Entities.Add(entity);
+        public void AddEntity(IEntity entity, bool addToPhysics = true) => this.entities.Add(entity);
     }
 }

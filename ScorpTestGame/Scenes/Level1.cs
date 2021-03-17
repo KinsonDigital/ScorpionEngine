@@ -65,9 +65,9 @@ namespace ScorpTestGame.Scenes
             this.enemySub = EntityFactory.CreateNonAnimatedFromTexture<Entity>("Sub-Still");
             this.enemySub.Position = new Vector2(500, 400);
 
-            Entities.Add(this.sub);
-            Entities.Add(this.fish);
-            Entities.Add(this.enemySub);
+            AddEntity(this.sub);
+            AddEntity(this.fish);
+            AddEntity(this.enemySub);
 
             base.Initialize();
         }
