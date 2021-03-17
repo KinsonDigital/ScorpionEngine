@@ -1,4 +1,4 @@
-// <copyright file="FakeEntity.cs" company="KinsonDigital">
+﻿// <copyright file="FakeEntity.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -24,6 +24,7 @@ namespace KDScorpionEngineTests.Fakes
     /// <summary>
     /// Used for testing in the <see cref="EntityPoolTests"/> class.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class FakeEntity : IEntity
     {
         public event EventHandler<EventArgs>? OnHide;

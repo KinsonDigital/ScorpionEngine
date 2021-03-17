@@ -1,4 +1,4 @@
-// <copyright file="IScene.cs" company="KinsonDigital">
+﻿// <copyright file="IScene.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -25,7 +25,7 @@ namespace KDScorpionEngine.Scene
         bool ContentLoaded { get; set; }
 
         /// <summary>
-        /// Gets or sets the time manager used for this scene.
+        /// Gets or sets the time manager that manages the scene's frame timing and run mode.
         /// </summary>
         ITimeManager TimeManager { get; set; }
 
@@ -47,7 +47,7 @@ namespace KDScorpionEngine.Scene
         bool Active { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the scene is currently in the rendering state.
+        /// Gets or sets a value indicating whether the scene is currently being rendered.
         /// </summary>
         bool IsRenderingScene { get; set; }
 

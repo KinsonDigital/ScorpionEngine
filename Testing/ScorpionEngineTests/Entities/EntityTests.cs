@@ -811,15 +811,5 @@ namespace KDScorpionEngineTests.Entities
         /// </summary>
         /// <returns>An entity instance to test.</returns>
         private Entity CreateEntity() => new Entity(string.Empty);
-
-        private static Texture CreateTexture()
-        {
-            var mockTexture = new Mock<ITexture>();
-            mockTexture.SetupGet(m => m.Width).Returns(100);
-            mockTexture.SetupGet(m => m.Height).Returns(50);
-
-            // TODO: The arguments going into this will not work
-            return new Texture("", "", Array.Empty<byte>(), 0, 0);
-        }
     }
 }

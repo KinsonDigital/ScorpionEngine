@@ -4,6 +4,7 @@
 
 namespace KDScorpionEngine
 {
+    using KDScorpionEngine.Entities;
     using KDScorpionEngine.Graphics;
 
     /// <summary>
@@ -12,9 +13,9 @@ namespace KDScorpionEngine
     public interface IDrawableObject
     {
         /// <summary>
-        /// Renders things to the graphics surface using the given <paramref name="renderer"/>.
+        /// Renders <see cref="IEntity"/> objects to the graphics surface using the given <paramref name="renderer"/>.
         /// </summary>
-        /// <param name="renderer">The rederer to use for rendering.</param>
+        /// <param name="renderer">Renders entities.</param>
         void Render(IRenderer renderer);
     }
 }

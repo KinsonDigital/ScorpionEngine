@@ -1,4 +1,4 @@
-// <copyright file="GameScene.cs" company="KinsonDigital">
+﻿// <copyright file="GameScene.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -13,14 +13,14 @@ namespace KDScorpionEngine.Scene
     using Raptor.Content;
 
     /// <summary>
-    /// A game scene within a game that can hold various game entities and game related logic.
+    /// A game scene that can hold various game entities and game related logic.
     /// </summary>
     public abstract class GameScene : IScene
     {
         private readonly List<IEntity> entities = new List<IEntity>();
 
         /// <summary>
-        /// Creates a enw instance of <see cref="GameScene"/>.
+        /// Initializes a new instance of the <see cref="GameScene"/> class.
         /// </summary>
         /// <param name="gravity">The gravity of the scene.</param>
         [ExcludeFromCodeCoverage]
@@ -28,48 +28,33 @@ namespace KDScorpionEngine.Scene
         {
         }
 
-        /// <summary>
-        /// Gets or sets the name of the scene.
-        /// </summary>
+        /// <inheritdoc/>
         public string Name { get; set; }
 
-        /// <summary>
-        /// Gets or sets the ID of this <see cref="GameScene"/>.
-        /// </summary>
+        /// <inheritdoc/>
         public int Id { get; set; } = -1;
 
         /// <summary>
-        /// Gets or sets a value indicating that the scene's content has been loaded.
+        /// Gets or sets a value indicating whether the scene's content has been loaded.
         /// </summary>
         public bool ContentLoaded { get; set; }
 
-        /// <summary>
-        /// Gets or sets the time manager that manages the scene's frame timing and run mode.
-        /// </summary>
+        /// <inheritdoc/>
         public ITimeManager TimeManager { get; set; } = new SceneTimeManager();
 
-        /// <summary>
-        /// Gets a value indicating if the scene has already been initialized.  Base method <see cref="GameScene.Initialize()"/>
-        /// must be called for this functionality to work. Example: Use base.Initialize() in child class Initalize() method.
-        /// </summary>
+        /// <inheritdoc/>
         public bool Initialized { get; private set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating if the scene is active.
-        /// </summary>
+        /// <inheritdoc/>
         public bool Active { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating if the scene is currently rendering.
-        /// </summary>
+        /// <inheritdoc/>
         public bool IsRenderingScene { get; set; }
 
         /// <inheritdoc/>
         public ReadOnlyCollection<IEntity> Entities => this.entities.ToReadOnlyCollection();
 
-        /// <summary>
-        /// Initializes the game scene.
-        /// </summary>
+        /// <inheritdoc/>
         public virtual void Initialize()
         {
             for (var i = 0; i < Entities.Count; i++)
@@ -83,7 +68,7 @@ namespace KDScorpionEngine.Scene
         /// <summary>
         /// Loads all content using the given <paramref name="contentLoader"/>.
         /// </summary>
-        /// <param name="contentManager">The content loader to use for loading and unloading the scene's content.</param>
+        /// <param name="contentLoader">Loads the scene's content.</param>
         public virtual void LoadContent(IContentLoader contentLoader)
         {
             for (var i = 0; i < Entities.Count; i++)
@@ -97,7 +82,7 @@ namespace KDScorpionEngine.Scene
         /// <summary>
         /// Unloads all content using the given <paramref name="contentLoader"/>.
         /// </summary>
-        /// <param name="contentManager">The content loader to use for loading and unloading the scene's content.</param>
+        /// <param name="contentLoader">Unloads the scene's content.</param>
         public virtual void UnloadContent(IContentLoader contentLoader)
         {
             for (var i = 0; i < Entities.Count; i++)
@@ -109,8 +94,9 @@ namespace KDScorpionEngine.Scene
         }
 
         /// <summary>
-        /// Updates the <see cref="GameScene"/>.
+        /// Updates the scene.
         /// </summary>
+        /// <param name="gameTime">The time that has passed in the game.</param>
         public virtual void Update(GameTime gameTime)
         {
             TimeManager?.Update(gameTime);
@@ -123,9 +109,9 @@ namespace KDScorpionEngine.Scene
         }
 
         /// <summary>
-        /// Renders the <see cref="GameScene"/>.
+        /// Renders the scenes <see cref="Entities"/>.
         /// </summary>
-        /// <param name="renderer">The renderer to use to render the scene.</param>
+        /// <param name="renderer">Renders entities.</param>
         public virtual void Render(IRenderer renderer)
         {
             for (var i = 0; i < Entities.Count; i++)
