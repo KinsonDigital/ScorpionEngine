@@ -17,7 +17,7 @@ namespace KDScorpionEngine.Entities
     /// <summary>
     /// Represents an entity that can be updated and rendered in the game.
     /// </summary>
-    public interface IEntity : IUpdatableObject, IDrawableObject, IContentLoadable, IContentUnloadable, ICanInitialize
+    public interface IEntity : IUpdatableObject, IDrawableObject, IContentLoadable, IContentUnloadable, IInitializable
     {
         /// <summary>
         /// Occurs when the game object is going from hidden to visible.

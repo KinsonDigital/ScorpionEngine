@@ -1,4 +1,4 @@
-﻿// <copyright file="ICanInitialize.cs" company="KinsonDigital">
+﻿// <copyright file="IInitializable.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -7,7 +7,7 @@ namespace KDScorpionEngine
     /// <summary>
     /// Provides initialization.
     /// </summary>
-    public interface ICanInitialize
+    public interface IInitializable
     {
         /// <summary>
         /// Initizliaes the object.
