@@ -41,7 +41,7 @@ namespace KDScorpionEngineTests.Fakes
 
         public EntityBehaviors Behaviors { get; set; }
 
-        public bool ContentLoaded { get; }
+        public bool ContentLoaded { get; private set; }
 
         public Color DebugDrawColor { get; set; }
 
@@ -63,8 +63,6 @@ namespace KDScorpionEngineTests.Fakes
 
         public bool Enabled { get; set; } = true;
 
-        public bool InitInvoked { get; set; }
-
         public bool LoadContentInvoked { get; set; }
 
         public bool UpdateInvoked { get; set; }
@@ -77,14 +75,13 @@ namespace KDScorpionEngineTests.Fakes
 
         ReadOnlyCollection<IEntity> IEntity.Entities { get; }
 
-        public void Init()
-        {
-            InitInvoked = true;
-        }
+        public bool IsInitialized { get; private set; }
+
+        public void Init() => IsInitialized = true;
 
         public void LoadContent(IContentLoader contentLoader)
         {
-            LoadContentInvoked = true;
+            ContentLoaded = true;
             Texture = contentLoader.Load<ITexture>(SectionToRender.TextureName);
         }
 

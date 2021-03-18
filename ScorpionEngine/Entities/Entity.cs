@@ -23,7 +23,7 @@ namespace KDScorpionEngine.Entities
     public class Entity : IEntity
     {
         private readonly List<IEntity> entities = new List<IEntity>();
-        private ITexture? singleTexture;
+        private ITexture? texture;
         private bool visible = true;
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace KDScorpionEngine.Entities
         /// <remarks>Creates a non-animating <see cref="Entity"/>.</remarks>
         public Entity(string textureName, ITexture texture)
         {
-            this.singleTexture = texture;
+            this.texture = texture;
 
             ID = Guid.NewGuid();
             SectionToRender = RenderSection.CreateNonAnimatedWholeTexture(textureName);
@@ -176,6 +176,9 @@ namespace KDScorpionEngine.Entities
         }
 
         /// <inheritdoc/>
+        public bool IsInitialized { get; private set; }
+
+        /// <inheritdoc/>
         public bool ContentLoaded { get; private set; }
 
         /// <inheritdoc/>
@@ -192,7 +195,7 @@ namespace KDScorpionEngine.Entities
                 switch (SectionToRender.TypeOfTexture)
                 {
                     case TextureType.WholeTexture:
-                        return this.singleTexture;
+                        return this.texture;
                     case TextureType.SubTexture:
                         return AtlasData?.Texture;
                     default:
@@ -204,7 +207,7 @@ namespace KDScorpionEngine.Entities
                 switch (SectionToRender.TypeOfTexture)
                 {
                     case TextureType.WholeTexture:
-                        this.singleTexture = value;
+                        this.texture = value;
                         break;
                     case TextureType.SubTexture:
                         if (AtlasData is null)
@@ -262,12 +265,12 @@ namespace KDScorpionEngine.Entities
             switch (SectionToRender.TypeOfTexture)
             {
                 case TextureType.WholeTexture:
-                    if (this.singleTexture is null)
+                    if (this.texture is null)
                     {
-                        this.singleTexture = contentLoader.Load<ITexture>(SectionToRender.TextureName);
+                        this.texture = contentLoader.Load<ITexture>(SectionToRender.TextureName);
                     }
 
-                    SectionToRender.RenderBounds = new Rectangle(0, 0, this.singleTexture.Width, this.singleTexture.Height);
+                    SectionToRender.RenderBounds = new Rectangle(0, 0, this.texture.Width, this.texture.Height);
                     break;
                 case TextureType.SubTexture:
                     if (AtlasData is null)
@@ -305,7 +308,7 @@ namespace KDScorpionEngine.Entities
         public virtual void UnloadContent(IContentLoader contentLoader)
         {
             AtlasData = null;
-            this.singleTexture = null;
+            this.texture = null;
         }
 
         /// <summary>

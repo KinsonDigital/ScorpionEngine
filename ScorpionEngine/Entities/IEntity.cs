@@ -71,6 +71,11 @@ namespace KDScorpionEngine.Entities
         bool Visible { get; set; }
 
         /// <summary>
+        /// Gets a value indicating whether the <see cref="IEntity"/> has been initialized.
+        /// </summary>
+        bool IsInitialized { get; }
+
+        /// <summary>
         /// Gets a value indicating whether the entities content has been loaded.
         /// </summary>
         bool ContentLoaded { get; }
