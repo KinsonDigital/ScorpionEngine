@@ -27,12 +27,18 @@ namespace KDScorpionEngine.Entities
     {
         private readonly Dictionary<Guid, TEntity> entitites = new Dictionary<Guid, TEntity>();
         private readonly IContentLoader contentLoader;
+        private readonly IEntityFactory entityFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityPool{TEntity}"/> class.
         /// </summary>
         /// <param name="contentLoader">Loads content for newly created entities.</param>
-        public EntityPool(IContentLoader contentLoader) => this.contentLoader = contentLoader;
+        /// <param name="entityFactory">Generates entity instances.</param>
+        public EntityPool(IContentLoader contentLoader, IEntityFactory entityFactory)
+        {
+            this.contentLoader = contentLoader;
+            this.entityFactory = entityFactory;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityPool{TEntity}"/> class.
@@ -41,7 +47,11 @@ namespace KDScorpionEngine.Entities
         ///     A content loaders is automatically provided.
         /// </remarks>
         [ExcludeFromCodeCoverage]
-        public EntityPool() => this.contentLoader = ContentLoaderFactory.CreateContentLoader();
+        public EntityPool()
+        {
+            this.contentLoader = ContentLoaderFactory.CreateContentLoader();
+            this.entityFactory = IoC.Container.GetInstance<IEntityFactory>();
+        }
 
         /// <summary>
         /// Gets or sets the total amount of items that the pool can contain.
@@ -128,7 +138,7 @@ namespace KDScorpionEngine.Entities
 
             GenerateEntity(
                 () => RenderSection.CreateAnimatedSubTexture(atlasName, subTextureName),
-                () => EntityFactory.CreateAnimated<TEntity>(atlasName, subTextureName));
+                () => this.entityFactory.CreateAnimated<TEntity>(atlasName, subTextureName));
         }
 
         /// <summary>
@@ -144,9 +154,7 @@ namespace KDScorpionEngine.Entities
                 return;
             }
 
-            GenerateEntity(
-                () => RenderSection.CreateNonAnimatedSubTexture(atlasName, subTextureName),
-                () => EntityFactory.CreateNonAnimatedFromTextureAtlas<TEntity>(atlasName, subTextureName));
+            GenerateNonAnimatedFromTextureAtlas(atlasName, subTextureName, (_) => { });
         }
 
         /// <summary>
@@ -172,9 +180,11 @@ namespace KDScorpionEngine.Entities
                 () => RenderSection.CreateNonAnimatedSubTexture(atlasName, subTextureName),
                 () =>
                 {
-                    if (!(EntityFactory.CreateNonAnimatedFromTextureAtlas<TEntity>(atlasName, subTextureName) is TEntity entity))
+                    var entity = (TEntity)this.entityFactory.CreateNonAnimatedFromTextureAtlas<TEntity>(atlasName, subTextureName);
+
+                    if (entity is null)
                     {
-                        throw new NullReferenceException($"The entity with subtexture '{subTextureName}' from texture atlas '{atlasName}' cannot be cast to entity type '{typeof(TEntity)}'.");
+                        throw new NullReferenceException($"The generated entity from '{atlasName}' with sub texture '{subTextureName}' cannot be null.");
                     }
 
                     onGenerate(entity);
@@ -196,7 +206,7 @@ namespace KDScorpionEngine.Entities
 
             GenerateEntity(
                 () => RenderSection.CreateNonAnimatedWholeTexture(textureName),
-                () => EntityFactory.CreateNonAnimatedFromTexture<TEntity>(textureName));
+                () => this.entityFactory.CreateNonAnimatedFromTexture<TEntity>(textureName));
         }
 
         /// <summary>
@@ -235,6 +245,8 @@ namespace KDScorpionEngine.Entities
 
             if (success && !(newEntity is null))
             {
+                // TODO: This might not be necessary if it is reassinged on line below.
+                // Look into removing this
                 newEntity.SectionToRender.Reset();
                 newEntity.SectionToRender = generateSection();
             }
