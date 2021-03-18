@@ -7,6 +7,7 @@ namespace KDScorpionEngine
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.IO.Abstractions;
+    using KDScorpionEngine.Factories;
     using KDScorpionEngine.Input;
     using KDScorpionEngine.Utils;
     using Raptor.Input;
@@ -63,6 +64,7 @@ namespace KDScorpionEngine
             Container.Register<IGameInput<MouseButton, MouseState>, Mouse>();
             Container.Register<IStopWatch, StopWatch>();
             Container.Register<ICounter, Counter>();
+            Container.Register<IEntityFactory, EntityFactory>(Lifestyle.Singleton);
 
             isDisposed = false;
         }
