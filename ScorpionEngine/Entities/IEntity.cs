@@ -5,7 +5,6 @@
 namespace KDScorpionEngine.Entities
 {
     using System;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Drawing;
     using System.Numerics;
@@ -120,7 +119,7 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// Gets or sets the list of behaviors that the <see cref="Entity"/> will have.
         /// </summary>
-        EntityBehaviors Behaviors { get; set; }
+        EntityBehaviors Behaviors { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the debug draw outlines should be rendered.

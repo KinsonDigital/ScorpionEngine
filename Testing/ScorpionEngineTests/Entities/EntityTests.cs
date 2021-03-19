@@ -168,6 +168,16 @@ namespace KDScorpionEngineTests.Entities
             Assert.Equal(SubTextureName, entity.SectionToRender.SubTextureName);
             Assert.Equal(TextureType.SubTexture, entity.SectionToRender.TypeOfTexture);
         }
+
+        [Fact]
+        public void Ctor_WhenInvoked_BehaviorsIsNotNull()
+        {
+            // Act
+            var entity = CreateEntity();
+
+            // Assert
+            Assert.NotNull(entity.Behaviors);
+        }
         #endregion
 
         #region Prop Tests
@@ -275,26 +285,6 @@ namespace KDScorpionEngineTests.Entities
         }
 
         [Fact]
-        public void Behaviors_WhenSettingValue_ReturnsCorrectValue()
-        {
-            // Arrange
-            var mockBehavior = new Mock<IBehavior>();
-
-            var entity = CreateEntity();
-            var expected = new EntityBehaviors
-            {
-                mockBehavior.Object,
-            };
-
-            // Act
-            entity.Behaviors = new EntityBehaviors() { mockBehavior.Object };
-            var actual = entity.Behaviors;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
         public void Position_WhenSettingValueAfterInitalized_ReturnsCorrectValue()
         {
             // Arrange
@@ -336,6 +326,32 @@ namespace KDScorpionEngineTests.Entities
 
             // Assert
             Assert.Equal(45f, entity.Angle);
+        }
+
+        [Fact]
+        public void FlippedHorizontal_WhenGettingValue_ReturnsCorrectValue()
+        {
+            // Arrange
+            var entity = CreateEntity();
+
+            // Act
+            entity.FlippedHorizontally = true;
+
+            // Assert
+            Assert.True(entity.FlippedHorizontally);
+        }
+
+        [Fact]
+        public void FlippedVertically_WhenGettingValue_ReturnsCorrectValue()
+        {
+            // Arrange
+            var entity = CreateEntity();
+
+            // Act
+            entity.FlippedVertically = true;
+
+            // Assert
+            Assert.True(entity.FlippedVertically);
         }
 
         [Fact]
@@ -573,7 +589,7 @@ namespace KDScorpionEngineTests.Entities
         public void OnUpdate_WhenInvoked_UpdatesBehaviors()
         {
             // Arrange
-            var mockBehavior = new Mock<IBehavior>();
+            var mockBehavior = new Mock<IEntityBehavior>();
             var entity = CreateEntity();
             entity.Behaviors.Add(mockBehavior.Object);
             var gameTime = new GameTime();
@@ -701,13 +717,14 @@ namespace KDScorpionEngineTests.Entities
 
             // Assert
             Assert.False(entity.ContentLoaded);
+            Assert.True(entity.IsInitialized);
         }
 
         [Fact]
         public void Update_WhenDisabled_DoesNotUpdateBehaviorsAndAnimator()
         {
             // Arrange
-            var mockBehavior = new Mock<IBehavior>();
+            var mockBehavior = new Mock<IEntityBehavior>();
             var mockAnimator = new Mock<IAnimator>();
 
             var entity = CreateEntity();
@@ -727,7 +744,7 @@ namespace KDScorpionEngineTests.Entities
         public void Update_WhenEnabled_UpdatesBehaviors()
         {
             // Arrange
-            var mockBehavior = new Mock<IBehavior>();
+            var mockBehavior = new Mock<IEntityBehavior>();
 
             var entity = CreateEntity();
             entity.Behaviors.Add(mockBehavior.Object);

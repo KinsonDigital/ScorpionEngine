@@ -235,7 +235,7 @@ namespace KDScorpionEngine.Entities
         public RenderSection SectionToRender { get; set; } = new RenderSection();
 
         /// <inheritdoc/>
-        public EntityBehaviors Behaviors { get; set; } = new EntityBehaviors();
+        public EntityBehaviors Behaviors { get; private set; } = new EntityBehaviors();
 
         /// <inheritdoc/>
         public bool DebugDrawEnabled { get; set; }
@@ -247,7 +247,11 @@ namespace KDScorpionEngine.Entities
         public ReadOnlyCollection<IEntity> Entities => this.entities.ToReadOnlyCollection();
 
         /// <inheritdoc/>
-        public virtual void Init() => ContentLoaded = false;
+        public virtual void Init()
+        {
+            IsInitialized = true;
+            ContentLoaded = false;
+        }
 
         /// <inheritdoc/>
         public virtual void LoadContent(IContentLoader contentLoader)
