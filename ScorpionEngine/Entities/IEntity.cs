@@ -30,16 +30,6 @@ namespace KDScorpionEngine.Entities
         event EventHandler<EventArgs>? OnHide;
 
         /// <summary>
-        /// Occurs when a key has been pressed.
-        /// </summary>
-        event EventHandler<KeyEventArgs>? OnKeyPressed;
-
-        /// <summary>
-        /// Occurs when a key has been released.
-        /// </summary>
-        event EventHandler<KeyEventArgs>? OnKeyReleased;
-
-        /// <summary>
         /// Gets the name of the entity.
         /// </summary>
         string Name { get; }
@@ -117,7 +107,7 @@ namespace KDScorpionEngine.Entities
         RenderSection SectionToRender { get; set; }
 
         /// <summary>
-        /// Gets or sets the list of behaviors that the <see cref="Entity"/> will have.
+        /// Gets the list of behaviors that the <see cref="Entity"/> will have.
         /// </summary>
         EntityBehaviors Behaviors { get; }
 

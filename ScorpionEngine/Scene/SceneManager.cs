@@ -541,7 +541,7 @@ namespace KDScorpionEngine.Scene
         /// <typeparam name="T">The type to return the scene as.</typeparam>
         /// <param name="id">The ID of the scene to get.</param>
         /// <returns>A scene.</returns>
-        public T GetScene<T>(int id)
+        public T? GetScene<T>(int id)
             where T : class, IScene
         {
             var foundScene = (from s in this.scenes
@@ -562,7 +562,7 @@ namespace KDScorpionEngine.Scene
         /// <typeparam name="T">The type to return the scene as.</typeparam>
         /// <param name="name">The name of the scene to get.</param>
         /// <returns>A scene.</returns>
-        public T GetScene<T>(string name)
+        public T? GetScene<T>(string name)
             where T : class, IScene
         {
             var foundScene = (from s in this.scenes
@@ -655,7 +655,9 @@ namespace KDScorpionEngine.Scene
         /// Returns a value indicating if a <see cref="IScene"/> exists that matches the given <paramref name="id"/>.
         /// </summary>
         /// <param name="id">The ID of the <see cref="IScene"/> to check for.</param>
-        /// <returns>True if the scene exists.</returns>
+        /// <returns>
+        ///     <see langword="true"/> if the scene exists.
+        /// </returns>
         private bool SceneIdExists(int id) => this.scenes.Any(s => s.Id == id);
 
         /// <summary>

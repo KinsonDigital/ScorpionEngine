@@ -13,9 +13,11 @@ namespace KDScorpionEngine.Input
 
     /// <summary>
     /// Watches a keyboard key for various events and behaviors such is how many times a key is pressed,
-    /// how long it is held down or how long it has been released.  Various events will be triggered when
-    /// these behaviors occur.
+    /// how long it is held down or how long it has been released.
     /// </summary>
+    /// <remarks>
+    ///     Various events will be triggered when these behaviors occur.
+    /// </remarks>
     public class KeyboardWatcher : GameInputWatcher<KeyCode>, IDisposable
     {
         private readonly IGameInput<KeyCode, KeyboardState> keyboard;
@@ -137,7 +139,9 @@ namespace KDScorpionEngine.Input
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        /// <param name="disposing">True to dispose of managed resources.</param>
+        /// <param name="disposing">
+        ///     <see langword="true"/> to dispose of managed resources.
+        /// </param>
         protected virtual void Dispose(bool disposing)
         {
             if (!this.isDisposed)

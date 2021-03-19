@@ -35,7 +35,9 @@ namespace KDScorpionEngine
         /// Returns a true/false value that represents the flip of a coin.
         /// </summary>
         /// <param name="random">The random instance to use.</param>
-        /// <returns>True or false results.</returns>
+        /// <returns>
+        ///     <see langword="true"/> or false results.
+        /// </returns>
         [ExcludeFromCodeCoverage]
         public static bool FlipCoin(this Random random) => random.NextDouble() <= 0.5f;
 
@@ -45,7 +47,9 @@ namespace KDScorpionEngine
         /// </summary>
         /// <param name="rect">The rectangle that might contain the <paramref name="vector"/>.</param>
         /// <param name="vector">The vector that might be contained by the <paramref name="rect"/>.</param>
-        /// <returns>True if the <paramref name="vector"/> is contained by the rectangle.</returns>
+        /// <returns>
+        ///     <see langword="true"/> if the <paramref name="vector"/> is contained by the rectangle.
+        /// </returns>
         public static bool Contains(this Rectangle rect, Vector2 vector)
         {
             var point = new Point((int)vector.X, (int)vector.Y);
@@ -73,7 +77,9 @@ namespace KDScorpionEngine
         /// <param name="vector">The vector to rotate.</param>
         /// <param name="origin">The vector to rotate the <paramref name="vector"/> around.</param>
         /// <param name="angle">The angle in radians to rotate <paramref name="vector"/>.  Value must be positive.</param>
-        /// <param name="clockWise">True to rotate the point clockwise and false for counter clockwise.</param>
+        /// <param name="clockWise">
+        ///     <see langword="true"/> to rotate the point clockwise and false for counter clockwise.
+        /// </param>
         /// <returns>A vector rotated around a point.</returns>
         public static Vector2 RotateAround(this Vector2 vector, Vector2 origin, float angle, bool clockWise = true)
         {

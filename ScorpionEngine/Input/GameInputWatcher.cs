@@ -9,13 +9,20 @@ namespace KDScorpionEngine.Input
     using System.Linq;
     using KDScorpionEngine.Utils;
 
+    /// <summary>
+    /// Watches game input for various events and behaviors such is how many times a button is pressed,
+    /// how long it is held down, or how long it has been released.
+    /// </summary>
+    /// <typeparam name="TInputs">The type of input.</typeparam>
+    /// <remarks>
+    ///     Various events will be triggered when these behaviours occur.
+    /// </remarks>
     public abstract class GameInputWatcher<TInputs> : IInputWatcher<TInputs>, IUpdatableObject
         where TInputs : struct, Enum
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GameInputWatcher{TInputs}"/> class.
         /// </summary>
-        /// <param name="enabled">True if the watcher is to be enabled.</param>
         /// <param name="inputDownTimer">Keeps track of how long an input is in the down state.</param>
         /// <param name="inputReleaseTimer">Keeps track of how long the input is in the released state.</param>
         /// <param name="counter">Keeps track of the how many times the <see cref="Input"/> has been pressed.</param>

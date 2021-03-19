@@ -1,4 +1,4 @@
-// <copyright file="GameSceneTests.cs" company="KinsonDigital">
+﻿// <copyright file="GameSceneTests.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -20,7 +20,6 @@ namespace KDScorpionEngineTests.Scene
     /// </summary>
     public class GameSceneTests
     {
-        private const string TextureName = "test-texture";
         private readonly Mock<ITexture> mockTexture;
         private readonly Mock<ILoader<ITexture>> mockTextureLoader;
 

@@ -7,6 +7,9 @@ namespace KDScorpionEngine.Graphics
     using System.Collections.ObjectModel;
     using System.Drawing;
 
+    /// <summary>
+    /// Manages the animation of an entity.
+    /// </summary>
     public interface IAnimator : IUpdatableObject
     {
         /// <summary>

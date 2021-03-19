@@ -18,18 +18,17 @@ namespace KDScorpTestGame
 
     public class Sub : Entity
     {
+        private readonly Keyboard keyboard;
         private KeyboardWatcher launchMissleKeyWatcher;
-        private KeyboardWatcher moveLeftKeyWatcher;
-        private KeyboardWatcher moveRightKeyWatcher;
-        private int speed = 100;
         private EntityPool<Missile> missiles;
-        private float secondsElapsed;
-        private KeyboardWatcher moveUpKeyWatcher;
-        private KeyboardWatcher moveDownKeyWatcher;
+        private readonly int speed = 100;
+        private readonly float secondsElapsed;
+        private KeyboardState keyboardState;
 
         public Sub()
             : base("sub")
         {
+            this.keyboard = new Keyboard();
         }
 
         public override void Init()
@@ -37,33 +36,15 @@ namespace KDScorpTestGame
             SectionToRender.Animator = new Animator();
             Position = new Vector2(200, 400);
 
-            SetupInput();
-
-            this.missiles = new EntityPool<Missile>();
-        }
-
-        private void SetupInput()
-        {
+            // Setup the missle launch key
             this.launchMissleKeyWatcher = InputFactory.CreateKeyboardWatcher();
             this.launchMissleKeyWatcher.Input = KeyCode.Space;
             this.launchMissleKeyWatcher.DownTimeOut = 1000;
             this.launchMissleKeyWatcher.InputDownTimedOut += KeyWatcher_InputDownTimedOut;
 
-            this.moveLeftKeyWatcher = InputFactory.CreateKeyboardWatcher();
-            this.moveLeftKeyWatcher.Input = KeyCode.Left;
-            this.moveLeftKeyWatcher.InputDown += MoveLeftKeyWatcher_InputDown;
+            SetupMovementBehaviors();
 
-            this.moveRightKeyWatcher = InputFactory.CreateKeyboardWatcher();
-            this.moveRightKeyWatcher.Input = KeyCode.Right;
-            this.moveRightKeyWatcher.InputDown += MoveRightKeyWatcher_InputDown;
-
-            this.moveUpKeyWatcher = InputFactory.CreateKeyboardWatcher();
-            this.moveUpKeyWatcher.Input = KeyCode.Up;
-            this.moveUpKeyWatcher.InputDown += MoveUpKeyWatcher_InputDown;
-
-            this.moveDownKeyWatcher = InputFactory.CreateKeyboardWatcher();
-            this.moveDownKeyWatcher.Input = KeyCode.Down;
-            this.moveDownKeyWatcher.InputDown += MoveDownKeyWatcher_InputDown;
+            this.missiles = new EntityPool<Missile>();
         }
 
         public override void LoadContent(IContentLoader contentLoader)
@@ -76,10 +57,6 @@ namespace KDScorpTestGame
         public override void UnloadContent(IContentLoader contentLoader)
         {
             this.launchMissleKeyWatcher.InputDownTimedOut -= KeyWatcher_InputDownTimedOut;
-            this.moveLeftKeyWatcher.InputDown -= MoveLeftKeyWatcher_InputDown;
-            this.moveRightKeyWatcher.InputDown -= MoveRightKeyWatcher_InputDown;
-            this.moveUpKeyWatcher.InputDown -= MoveUpKeyWatcher_InputDown;
-            this.moveDownKeyWatcher.InputDown -= MoveDownKeyWatcher_InputDown;
 
             base.UnloadContent(contentLoader);
         }
@@ -89,12 +66,17 @@ namespace KDScorpTestGame
             this.launchMissleKeyWatcher.Update(gameTime);
             this.missiles.Update(gameTime);
 
-            this.secondsElapsed = gameTime.CurrentFrameElapsed / 1000f;
+            this.keyboardState = this.keyboard.GetState();
 
-            this.moveLeftKeyWatcher.Update(gameTime);
-            this.moveRightKeyWatcher.Update(gameTime);
-            this.moveUpKeyWatcher.Update(gameTime);
-            this.moveDownKeyWatcher.Update(gameTime);
+            if (this.keyboardState.IsKeyDown(KeyCode.Left))
+            {
+                FlippedHorizontally = true;
+            }
+
+            if (this.keyboardState.IsKeyDown(KeyCode.Right))
+            {
+                FlippedHorizontally = false;
+            }
 
             base.Update(gameTime);
         }
@@ -114,39 +96,61 @@ namespace KDScorpTestGame
             base.Render(renderer);
         }
 
-        private void MoveLeftKeyWatcher_InputDown(object sender, EventArgs e)
+        private void SetupMovementBehaviors()
         {
-            Position = new Vector2(Position.X - (this.speed * this.secondsElapsed), Position.Y);
-            FlippedHorizontally = true;
-        }
+            Behaviors.Add(BehaviorFactory.CreateKeyboardMovement(
+                this,
+                KeyCode.Left,
+                (gameTime, currentPosition) =>
+                {
+                    var seconds = gameTime.CurrentFrameElapsed / 1000f;
 
-        private void MoveRightKeyWatcher_InputDown(object sender, EventArgs e)
-        {
-            Position = new Vector2(Position.X + (this.speed * this.secondsElapsed), Position.Y);
-            FlippedHorizontally = false;
-        }
+                    return new Vector2(currentPosition.X - (100 * seconds), currentPosition.Y);
+                }));
 
-        private void MoveUpKeyWatcher_InputDown(object sender, EventArgs e)
-        {
-            Position = new Vector2(Position.X, Position.Y - (this.speed * this.secondsElapsed));
-        }
+            Behaviors.Add(BehaviorFactory.CreateKeyboardMovement(
+                this,
+                KeyCode.Right,
+                (gameTime, currentPosition) =>
+                {
+                    var seconds = gameTime.CurrentFrameElapsed / 1000f;
 
-        private void MoveDownKeyWatcher_InputDown(object sender, EventArgs e)
-        {
-            Position = new Vector2(Position.X, Position.Y + (this.speed * this.secondsElapsed));
+                    return new Vector2(currentPosition.X + (100 * seconds), currentPosition.Y);
+                }));
+
+            Behaviors.Add(BehaviorFactory.CreateKeyboardMovement(
+                this,
+                KeyCode.Up,
+                (gameTime, currentPosition) =>
+                {
+                    var seconds = gameTime.CurrentFrameElapsed / 1000f;
+
+                    return new Vector2(currentPosition.X, currentPosition.Y - (100 * seconds));
+                }));
+
+            Behaviors.Add(BehaviorFactory.CreateKeyboardMovement(
+                this,
+                KeyCode.Down,
+                (gameTime, currentPosition) =>
+                {
+                    var seconds = gameTime.CurrentFrameElapsed / 1000f;
+
+                    return new Vector2(currentPosition.X, currentPosition.Y + (100 * seconds));
+                }));
         }
 
         private void KeyWatcher_InputDownTimedOut(object sender, EventArgs e)
-            => this.missiles.GenerateNonAnimatedFromTextureAtlas("Main-Atlas", "missile", (entity) =>
+            => this.missiles.GenerateNonAnimatedFromTextureAtlas("Main-Atlas", "missile", (missile) =>
             {
-                var launchPosition = new Vector2(Position.X + (SectionToRender.RenderBounds.Width / 2),
+                var launchPosition = new Vector2(
+                    Position.X + (SectionToRender.RenderBounds.Width / 2),
                     Position.Y + (SectionToRender.RenderBounds.Height / 4));
 
-                entity.TravelDirection = FlippedHorizontally
+                missile.TravelDirection = FlippedHorizontally
                     ? HorizontalDirection.Left
                     : HorizontalDirection.Right;
 
-                entity.Launch(launchPosition);
+                missile.Launch(launchPosition);
             });
     }
 }

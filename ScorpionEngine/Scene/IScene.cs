@@ -4,7 +4,6 @@
 
 namespace KDScorpionEngine.Scene
 {
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using KDScorpionEngine.Entities;
     using Raptor.Content;
@@ -77,5 +76,11 @@ namespace KDScorpionEngine.Scene
         /// </summary>
         /// <param name="contentLoader">The content loader to use for unloading the scene's content.</param>
         void UnloadContent(IContentLoader contentLoader);
+
+        /// <summary>
+        /// Adds the given <paramref name="entity"/> to the scene.
+        /// </summary>
+        /// <param name="entity">The entity to add.</param>
+        void AddEntity(IEntity entity);
     }
 }

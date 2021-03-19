@@ -87,41 +87,6 @@ namespace KDScorpionEngine.Graphics
         public IAnimator? Animator { get; set; }
 
         /// <summary>
-        /// Resets the state of the <see cref="RenderSection"/>.
-        /// </summary>
-        public void Reset()
-        {
-            TextureName = string.Empty;
-            SubTextureName = string.Empty;
-            RenderBounds = Rectangle.Empty;
-            TypeOfTexture = TextureType.WholeTexture;
-        }
-
-        /// <summary>
-        /// Gets the position within the texture based on the type of texture and if it is animated.
-        /// </summary>
-        /// <returns>The position of the area of the texture to render.</returns>
-        public Vector2 GetTexturePosition()
-        {
-            if (!(Animator is null))
-            {
-                return new Vector2(RenderBounds.X, RenderBounds.Y);
-            }
-            else
-            {
-                switch (TypeOfTexture)
-                {
-                    case TextureType.WholeTexture:
-                        return Vector2.Zero;
-                    case TextureType.SubTexture:
-                        return new Vector2(RenderBounds.X, RenderBounds.Y);
-                    default:
-                        return Vector2.Zero;
-                }
-            }
-        }
-
-        /// <summary>
         /// Creates a non-animating section that renders the entire texture.
         /// </summary>
         /// <param name="wholeTextureName">The name of the entire texture to render.</param>
@@ -184,5 +149,40 @@ namespace KDScorpionEngine.Graphics
                 Animator = animator,
                 TypeOfTexture = TextureType.SubTexture
             };
+
+        /// <summary>
+        /// Resets the state of the <see cref="RenderSection"/>.
+        /// </summary>
+        public void Reset()
+        {
+            TextureName = string.Empty;
+            SubTextureName = string.Empty;
+            RenderBounds = Rectangle.Empty;
+            TypeOfTexture = TextureType.WholeTexture;
+        }
+
+        /// <summary>
+        /// Gets the position within the texture based on the type of texture and if it is animated.
+        /// </summary>
+        /// <returns>The position of the area of the texture to render.</returns>
+        public Vector2 GetTexturePosition()
+        {
+            if (!(Animator is null))
+            {
+                return new Vector2(RenderBounds.X, RenderBounds.Y);
+            }
+            else
+            {
+                switch (TypeOfTexture)
+                {
+                    case TextureType.WholeTexture:
+                        return Vector2.Zero;
+                    case TextureType.SubTexture:
+                        return new Vector2(RenderBounds.X, RenderBounds.Y);
+                    default:
+                        return Vector2.Zero;
+                }
+            }
+        }
     }
 }

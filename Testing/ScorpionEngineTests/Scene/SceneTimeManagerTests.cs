@@ -137,7 +137,6 @@ namespace KDScorpionEngineTests.Scene
             // Act
             manager.Update(gameTime);
 
-
             var actual = manager.ElapsedFrameTime;
 
             // Assert

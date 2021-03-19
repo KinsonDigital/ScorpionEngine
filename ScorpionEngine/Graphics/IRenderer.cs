@@ -36,8 +36,12 @@ namespace KDScorpionEngine.Graphics
         /// <param name="entity">The entity to render.</param>
         /// <param name="x">The X coordinate of where to render the texture.</param>
         /// <param name="y">The Y coordinate of where to render the texture.</param>
-        /// <param name="flippedHorizontally">True to flip the entity horizontally.</param>
-        /// <param name="flippedVertically">True to flip the entity vertically.</param>
+        /// <param name="flippedHorizontally">
+        ///     <see langword="true"/> to flip the entity horizontally.
+        /// </param>
+        /// <param name="flippedVertically">
+        ///     <see langword="true"/> to flip the entity vertically.
+        /// </param>
         void Render(IEntity entity, float x, float y, bool flippedHorizontally = false, bool flippedVertically = false);
 
         /// <summary>

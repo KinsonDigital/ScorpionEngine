@@ -16,7 +16,9 @@ namespace KDScorpionEngine.Factories
         /// <summary>
         /// Creates a new instance of <see cref="KeyboardWatcher"/>.
         /// </summary>
-        /// <param name="enabled">True to enable the watcher by default.</param>
+        /// <param name="enabled">
+        ///     <see langword="true"/> to enable the watcher by default.
+        /// </param>
         /// <returns>The keyboard watcher.</returns>
         public static KeyboardWatcher CreateKeyboardWatcher(bool enabled = true)
         {
@@ -29,7 +31,9 @@ namespace KDScorpionEngine.Factories
         /// <summary>
         /// Creates a new instance of <see cref="MouseWatcher"/>.
         /// </summary>
-        /// <param name="enabled">True to enable the watcher by default.</param>
+        /// <param name="enabled">
+        ///     <see langword="true"/> to enable the watcher by default.
+        /// </param>
         /// <returns>The keyboard watcher.</returns>
         public static MouseWatcher CreateMouseWatcher(bool enabled = true)
         {

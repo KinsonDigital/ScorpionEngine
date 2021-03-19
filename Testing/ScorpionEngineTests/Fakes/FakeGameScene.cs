@@ -14,7 +14,6 @@ namespace KDScorpionEngineTests.Fakes
     public class FakeGameScene : GameScene
     {
         public FakeGameScene()
-            : base(Vector2.Zero)
         {
         }
 

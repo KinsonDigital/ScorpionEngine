@@ -7,21 +7,18 @@ namespace KDScorpTestGame
     using System.Numerics;
     using KDScorpionEngine;
     using KDScorpionEngine.Entities;
-    using KDScorpionEngine.Factories;
-    using KDScorpionEngine.Input;
     using Raptor.Content;
-    using Raptor.Input;
     using ScorpTestGame;
 
     public class Missile : Entity
     {
         private int speed = 0;
-        private int speedIncreaseInterval = 125;
+        private readonly int speedIncreaseInterval = 125;
         private int speedIncreaseElapsed;
-        private HorizontalDirection travelDirection;
-        private KeyboardWatcher leftKeyWatcher;
-        private KeyboardWatcher rightKeyWatcher;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Missile"/> class.
+        /// </summary>
         public Missile()
             : base("Main-Atlas", "missile")
         {
@@ -29,16 +26,10 @@ namespace KDScorpTestGame
 
         public bool Alive { get; set; }
 
+        public HorizontalDirection TravelDirection { get; set; } = HorizontalDirection.Right;
+
         public override void Init()
         {
-            this.leftKeyWatcher = InputFactory.CreateKeyboardWatcher();
-            this.leftKeyWatcher.Input = KeyCode.Left;
-            this.leftKeyWatcher.InputDown += LeftKeyWatcher_InputDown;
-
-            this.rightKeyWatcher = InputFactory.CreateKeyboardWatcher();
-            this.rightKeyWatcher.Input = KeyCode.Right;
-            this.rightKeyWatcher.InputDown += RightKeyWatcher_InputDown;
-
             base.Init();
         }
 
@@ -47,10 +38,9 @@ namespace KDScorpTestGame
             base.LoadContent(contentLoader);
         }
 
-        public void Launch(Vector2 launchPosition, HorizontalDirection direction)
+        public void Launch(Vector2 launchPosition)
         {
             Position = launchPosition;
-            travelDirection = direction;
 
             Alive = true;
         }
@@ -75,7 +65,7 @@ namespace KDScorpTestGame
 
                 var moveAmount = 0f;
 
-                switch (this.travelDirection)
+                switch (TravelDirection)
                 {
                     case HorizontalDirection.Left:
                         moveAmount = this.speed * secondsElapsed * -1;
@@ -101,16 +91,6 @@ namespace KDScorpTestGame
             }
 
             base.Update(gameTime);
-        }
-
-        private void LeftKeyWatcher_InputDown(object sender, System.EventArgs e)
-        {
-            travelDirection = HorizontalDirection.Left;
-        }
-
-        private void RightKeyWatcher_InputDown(object sender, System.EventArgs e)
-        {
-            travelDirection = HorizontalDirection.Right;
         }
     }
 }

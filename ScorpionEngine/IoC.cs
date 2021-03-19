@@ -77,7 +77,9 @@ namespace KDScorpionEngine
         /// <summary>
         /// Diposes of the container.
         /// </summary>
-        /// <param name="disposing">True to dispose of managed resources.</param>
+        /// <param name="disposing">
+        ///     <see langword="true"/> to dispose of managed resources.
+        /// </param>
         private static void Dispose(bool disposing)
         {
             if (!isDisposed)

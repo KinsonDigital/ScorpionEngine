@@ -271,7 +271,9 @@ namespace KDScorpionEngine.Entities
         /// If an available entity is not found, returns a null entity and false.
         /// </summary>
         /// <param name="entity">The recycled entity from the pool.</param>
-        /// <returns>True if an available entity was found.</returns>
+        /// <returns>
+        ///     <see langword="true"/> if an available entity was found.
+        /// </returns>
         private bool TryTake(out TEntity? entity)
         {
             foreach (var currentEntity in this.entitites.Values)

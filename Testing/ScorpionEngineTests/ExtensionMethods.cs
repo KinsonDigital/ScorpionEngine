@@ -86,7 +86,9 @@ namespace KDScorpionEngineTests
         /// </summary>
         /// <param name="fieldContainer">The object that contains the field.</param>
         /// <param name="name">The name of the field.</param>
-        /// <returns>True if the field is a primitive.</returns>
+        /// <returns>
+        ///     <see langword="true"/> if the field is a primitive.
+        /// </returns>
         public static bool IsFieldPrimitive(this object fieldContainer, string name)
         {
             var foundField = fieldContainer.GetField(name);

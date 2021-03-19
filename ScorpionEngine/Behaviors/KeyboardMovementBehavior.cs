@@ -5,7 +5,6 @@
 namespace KDScorpionEngine.Behaviors
 {
     using System;
-    using System.Collections.Generic;
     using System.Numerics;
     using KDScorpionEngine.Entities;
     using Raptor.Input;
@@ -92,7 +91,9 @@ namespace KDScorpionEngine.Behaviors
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        /// <param name="disposing">True to dispose of managed resources.</param>
+        /// <param name="disposing">
+        ///     <see langword="true"/> to dispose of managed resources.
+        /// </param>
         protected virtual void Dispose(bool disposing)
         {
             if (this.isDisposed)

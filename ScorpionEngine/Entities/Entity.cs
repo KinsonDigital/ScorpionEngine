@@ -122,12 +122,6 @@ namespace KDScorpionEngine.Entities
         public event EventHandler<EventArgs>? OnHide;
 
         /// <inheritdoc/>
-        public event EventHandler<KeyEventArgs>? OnKeyPressed;
-
-        /// <inheritdoc/>
-        public event EventHandler<KeyEventArgs>? OnKeyReleased;
-
-        /// <inheritdoc/>
         public string Name
         {
             get

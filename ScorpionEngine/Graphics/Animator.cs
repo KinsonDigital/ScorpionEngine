@@ -9,6 +9,9 @@ namespace KDScorpionEngine.Graphics
     using System.Drawing;
     using System.Linq;
 
+    /// <summary>
+    /// Manages the animation of an entity.
+    /// </summary>
     public class Animator : IAnimator
     {
         private uint frameIndex;

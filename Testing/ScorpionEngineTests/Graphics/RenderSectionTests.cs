@@ -1,12 +1,16 @@
-﻿using System.Drawing;
-using System.Numerics;
-using KDScorpionEngine.Graphics;
-using Moq;
-using Raptor.Content;
-using Xunit;
+﻿// <copyright file="RenderSectionTests.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
 
 namespace KDScorpionEngineTests.Graphics
 {
+    using System.Drawing;
+    using System.Numerics;
+    using KDScorpionEngine.Graphics;
+    using Moq;
+    using Raptor.Content;
+    using Xunit;
+
     /// <summary>
     /// Tests the <see cref="RenderSection"/> class.
     /// </summary>

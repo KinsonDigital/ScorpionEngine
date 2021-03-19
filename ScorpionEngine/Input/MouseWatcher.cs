@@ -13,9 +13,11 @@ namespace KDScorpionEngine.Input
 
     /// <summary>
     /// Watches a mouse button for various events and behaviors such is how many times a button is pressed,
-    /// how long it is held down or how long it has been released.  Various events will be triggered when
-    /// these behaviours occur.
+    /// how long it is held down or how long it has been released.
     /// </summary>
+    /// <remarks>
+    ///     Various events will be triggered when these behaviours occur.
+    /// </remarks>
     public class MouseWatcher : GameInputWatcher<MouseButton>, IDisposable
     {
         private readonly IGameInput<MouseButton, MouseState> gameInput;
@@ -41,7 +43,6 @@ namespace KDScorpionEngine.Input
                       inputDownTimer,
                       inputReleaseTimer,
                       counter)
-
         {
             this.gameInput = gameInput;
 
@@ -70,9 +71,6 @@ namespace KDScorpionEngine.Input
             {
                 return;
             }
-
-            //TODO: Move some of this update logic to the base class.
-            // Don't do this until the code is refactored and tests are put into place first
 
             // Update the current state of the mouse
             this.currentMouseState = this.gameInput.GetState();
@@ -129,6 +127,8 @@ namespace KDScorpionEngine.Input
             this.previousMouseState = this.currentMouseState;
 
             PreviousState = CurrentState;
+
+            base.Update(gameTime);
         }
 
         /// <inheritdoc/>
@@ -141,7 +141,9 @@ namespace KDScorpionEngine.Input
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        /// <param name="disposing">True to dispose of managed resources.</param>
+        /// <param name="disposing">
+        ///     <see langword="true"/> to dispose of managed resources.
+        /// </param>
         protected virtual void Dispose(bool disposing)
         {
             if (!this.disposedValue)

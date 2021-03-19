@@ -287,7 +287,7 @@ namespace KDScorpionEngineTests.Input
         {
             // Arrange
             this.mockButtonDownTimer.Setup(m => m.Update(It.IsAny<GameTime>()))
-                .Callback<GameTime>((gameTime) => this.mockButtonDownTimer.Raise(m => m.TimeElapsed += null, EventArgs.Empty));
+                .Callback<GameTime>((_) => this.mockButtonDownTimer.Raise(m => m.TimeElapsed += null, EventArgs.Empty));
 
             MockButton(MouseButton.LeftButton, true);
 
@@ -305,10 +305,13 @@ namespace KDScorpionEngineTests.Input
         public void Update_WithNullInputDownTimeoutEvent_ShouldNotThrowNullRefException()
         {
             // Arrange
+            this.mockButtonDownTimer.Setup(m => m.Update(It.IsAny<GameTime>()))
+                .Callback<GameTime>((_) => this.mockButtonDownTimer.Raise(m => m.TimeElapsed += null, EventArgs.Empty));
+
             MockButton(MouseButton.LeftButton, true);
             var watcher = new MouseWatcher(
                 this.mockMouse.Object,
-                new FakeStopWatch(),
+                this.mockButtonDownTimer.Object,
                 this.mockButtonReleaseTimer.Object,
                 this.mockCounter.Object);
 
@@ -329,10 +332,13 @@ namespace KDScorpionEngineTests.Input
         public void Update_WhenUpdating_InvokesInputReleaseTimeoutEvent()
         {
             // Arrange
+            this.mockButtonReleaseTimer.Setup(m => m.Update(It.IsAny<GameTime>()))
+                .Callback<GameTime>((_) => this.mockButtonReleaseTimer.Raise(m => m.TimeElapsed += null, EventArgs.Empty));
+
             var watcher = new MouseWatcher(
                 this.mockMouse.Object,
+                this.mockButtonDownTimer.Object,
                 this.mockButtonReleaseTimer.Object,
-                new FakeStopWatch(),
                 this.mockCounter.Object);
 
             watcher.Input = MouseButton.RightButton;
@@ -360,7 +366,7 @@ namespace KDScorpionEngineTests.Input
             // Arrange
             var watcher = new MouseWatcher(this.mockMouse.Object,
                                            this.mockButtonReleaseTimer.Object,
-                                           new FakeStopWatch(),
+                                           new Mock<IStopWatch>().Object,
                                            this.mockCounter.Object);
 
             watcher.Input = MouseButton.RightButton;

@@ -2,7 +2,6 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-
 namespace KDScorpionEngine.Factories
 {
     using KDScorpionEngine.Entities;

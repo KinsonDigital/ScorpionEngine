@@ -1,4 +1,4 @@
-﻿// <copyright file="AssertExt.cs" company="KinsonDigital">
+﻿// <copyright file="AssertHelpers.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -83,7 +83,7 @@ namespace KDScorpionEngineTests
         /// <summary>
         /// Verifies that an event with the exact event args is not raised.
         /// </summary>
-        /// <typeparam name="T">The type of the event arguments to expect</typeparam>
+        /// <typeparam name="T">The type of the event arguments to expect.</typeparam>
         /// <param name="attach">Code to attach the event handler.</param>
         /// <param name="detach">Code to detatch the event handler.</param>
         /// <param name="testCode">A delegate to the code to be tested.</param>

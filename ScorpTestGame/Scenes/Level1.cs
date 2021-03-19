@@ -28,6 +28,7 @@ namespace ScorpTestGame.Scenes
         private int bubbleSpawnElapsed;
         private KeyboardState currentKeyboardState;
         private KeyboardState previousKeyboardState;
+        private EntityFactory entityFactory;
         private KeyboardWatcher keyboardWatcher;
         private ISound gameMusic;
 
@@ -35,7 +36,6 @@ namespace ScorpTestGame.Scenes
         /// Initializes a new instance of the <see cref="Level1"/> class.
         /// </summary>
         public Level1()
-            : base(new Vector2(0f, 0f))
         {
         }
 
@@ -44,6 +44,7 @@ namespace ScorpTestGame.Scenes
         /// </summary>
         public override void Initialize()
         {
+            this.entityFactory = new EntityFactory();
             this.keyboardWatcher = InputFactory.CreateKeyboardWatcher();
             this.keyboardWatcher.HitCountMax = 2;
             this.keyboardWatcher.Input = KeyCode.F;
@@ -56,13 +57,13 @@ namespace ScorpTestGame.Scenes
                 MaxPoolSize = 1000,
             };
 
-            this.sub = EntityFactory.CreateAnimated<Sub>("Main-Atlas", "sub");
+            this.sub = this.entityFactory.CreateAnimated<Sub>("Main-Atlas", "sub");
             this.sub.Position = new Vector2(400, 400);
 
-            this.fish = EntityFactory.CreateNonAnimatedFromTextureAtlas<Entity>("Main-Atlas", "fish");
+            this.fish = this.entityFactory.CreateNonAnimatedFromTextureAtlas<Entity>("Main-Atlas", "fish");
             this.fish.Position = new Vector2(200, 550);
 
-            this.enemySub = EntityFactory.CreateNonAnimatedFromTexture<Entity>("Sub-Still");
+            this.enemySub = this.entityFactory.CreateNonAnimatedFromTexture<Entity>("Sub-Still");
             this.enemySub.Position = new Vector2(500, 400);
 
             AddEntity(this.sub);

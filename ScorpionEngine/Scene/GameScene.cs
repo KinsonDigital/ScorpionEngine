@@ -7,7 +7,6 @@ namespace KDScorpionEngine.Scene
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Diagnostics.CodeAnalysis;
-    using System.Numerics;
     using KDScorpionEngine.Entities;
     using KDScorpionEngine.Graphics;
     using Raptor.Content;
@@ -22,14 +21,13 @@ namespace KDScorpionEngine.Scene
         /// <summary>
         /// Initializes a new instance of the <see cref="GameScene"/> class.
         /// </summary>
-        /// <param name="gravity">The gravity of the scene.</param>
         [ExcludeFromCodeCoverage]
-        public GameScene(Vector2 gravity)
+        public GameScene()
         {
         }
 
         /// <inheritdoc/>
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         /// <inheritdoc/>
         public int Id { get; set; } = -1;
@@ -126,8 +124,7 @@ namespace KDScorpionEngine.Scene
             IsRenderingScene = false;
         }
 
-        // TODO: Make this class IEnumarable so we get the benefits of generics and IList functionality
-        // in the class itself.
-        public void AddEntity(IEntity entity, bool addToPhysics = true) => this.entities.Add(entity);
+        /// <inheritdoc/>
+        public void AddEntity(IEntity entity) => this.entities.Add(entity);
     }
 }
