@@ -6,6 +6,8 @@ namespace KDScorpionEngineTests
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+    using System.Reflection;
     using Xunit;
 
     /// <summary>
@@ -98,6 +100,30 @@ namespace KDScorpionEngineTests
             {
                 Assert.Equal("(No event was raised)\r\nEventArgs\r\n(No event was raised)", ex.Message);
             }
+        }
+
+        /// <summary>
+        /// Verifies that a private <see cref="bool"/> field that matches the given <paramref name="fieldName"/>
+        /// in the given <paramref name="obj"/> returns <see langword="true"/>.
+        /// </summary>
+        /// <param name="obj">The <see cref="object"/> that contains the private field.</param>
+        /// <param name="fieldName">The name of the <see cref="bool"/> field.</param>
+        public static void PrivateFieldTrue(object obj, string fieldName)
+        {
+            var fields = obj.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
+            var foundField = fields.Where(f => f.Name == fieldName).FirstOrDefault();
+
+            if (foundField.FieldType != typeof(bool))
+            {
+                Assert.True(false, $"The type for field '{fieldName}' must be of type '{typeof(bool)}'.");
+            }
+
+            if (foundField is null)
+            {
+                Assert.True(false, $"No field with the name '{fieldName}' exists in the object '{obj.GetType()}'");
+            }
+
+            Assert.True((bool)foundField.GetValue(obj), $"The field with the name '{fieldName}' is false.");
         }
     }
 }

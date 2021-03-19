@@ -1,4 +1,4 @@
-﻿// <copyright file="EntityBehaviors.cs" company="KinsonDigital">
+// <copyright file="EntityBehaviors.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -15,7 +15,7 @@ namespace KDScorpionEngine.Behaviors
     [ExcludeFromCodeCoverage]
     public class EntityBehaviors : IEnumerable, IList<IBehavior>
     {
-        public List<IBehavior> items = new List<IBehavior>();
+        private readonly List<IEntityBehavior> items = new List<IEntityBehavior>();
 
         /// <summary>
         /// Gets the number of <see cref="IBehavior"/>s in the collection of <see cref="IBehavior"/>s.
@@ -32,7 +32,7 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         /// <param name="index">The index of of the item to return.</param>
         /// <returns></returns>
-        public IBehavior this[int index]
+        public IEntityBehavior this[int index]
         {
             get => this.items[index];
             set => this.items[index] = value;
@@ -42,7 +42,7 @@ namespace KDScorpionEngine.Behaviors
         /// Adds the given <paramref name="item"/> to the collection of <see cref="IBehavior"/>s.
         /// </summary>
         /// <param name="item">The behavior to add.</param>
-        public void Add(IBehavior item) => this.items.Add(item);
+        public void Add(IEntityBehavior item) => this.items.Add(item);
 
         /// <summary>
         /// Removes all of the <see cref="IBehavior"/>s from the collection of <see cref="IBehavior"/>s.
@@ -55,7 +55,7 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         /// <param name="item">The item check for.</param>
         /// <returns></returns>
-        public bool Contains(IBehavior item) => this.items.Contains(item);
+        public bool Contains(IEntityBehavior item) => this.items.Contains(item);
 
         /// <summary>
         /// Copies the <see cref="IBehavior"/>s to the given collection of <paramref name="behaviors"/>
@@ -63,7 +63,7 @@ namespace KDScorpionEngine.Behaviors
         /// </summary>
         /// <param name="behaviors">The list of behaviors to copy the items to.</param>
         /// <param name="index">The index of where to start copying the source items.</param>
-        public void CopyTo(IBehavior[] behaviors, int index) => this.items.CopyTo(behaviors, index);
+        public void CopyTo(IEntityBehavior[] behaviors, int index) => this.items.CopyTo(behaviors, index);
 
         /// <summary>
         /// Returns an enumerator that iterates through the collection of <see cref="IBehavior"/>s.
@@ -77,13 +77,14 @@ namespace KDScorpionEngine.Behaviors
         /// <param name="item">The item to get the index of.</param>
         /// <returns></returns>
         public int IndexOf(IBehavior item) => this.items.IndexOf(item);
+        public int IndexOf(IEntityBehavior item) => this.items.IndexOf(item);
 
         /// <summary>
         /// Inserts the given <paramref name="item"/> to the collection of <see cref="IBehavior"/>s at the specified index.
         /// </summary>
         /// <param name="index">The zero-based index of where the item should be inserted.</param>
         /// <param name="item">The item to insert.</param>
-        public void Insert(int index, IBehavior item) => this.items.Insert(index, item);
+        public void Insert(int index, IEntityBehavior item) => this.items.Insert(index, item);
 
         /// <summary>
         /// Removes the first occurence of the given <paramref name="item"/> from
@@ -92,6 +93,7 @@ namespace KDScorpionEngine.Behaviors
         /// <param name="item">The behavior to remove.</param>
         /// <returns></returns>
         public bool Remove(IBehavior item) => this.items.Remove(item);
+        public bool Remove(IEntityBehavior item) => this.items.Remove(item);
 
         /// <summary>
         /// Removes the <see cref="IBehavior"/> at the given <paramref name="index"/>.
@@ -103,6 +105,6 @@ namespace KDScorpionEngine.Behaviors
         /// Returns an enumerator that iterates through the collection of <see cref="IBehavior"/>s.
         /// </summary>
         /// <returns></returns>
-        IEnumerator<IBehavior> IEnumerable<IBehavior>.GetEnumerator() => this.items.GetEnumerator();
+        IEnumerator<IEntityBehavior> IEnumerable<IEntityBehavior>.GetEnumerator() => this.items.GetEnumerator();
     }
 }
