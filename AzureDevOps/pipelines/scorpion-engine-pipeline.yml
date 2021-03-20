@@ -28,11 +28,11 @@ variables:
 
 
 stages:
-- stage: 'Main_Stage' #🟢
+- stage: 'Main_Stage'
   displayName: 'Main Stage'
   pool: '$(pool)'
   jobs:
-  - job: 'Build_ScorpionEngine_Job' #🟠
+  - job: 'Build_ScorpionEngine_Job'
     displayName: 'Build Scorpion Engine'
     steps:
     - template: templates/build-tasks-template.yml
@@ -43,7 +43,7 @@ stages:
         vstsFeed: '$(kinsonDigitalNugetFeed)'
 
 
-  - job: 'Run_ScorpionEngine_Tests_Job' #🟠
+  - job: 'Run_ScorpionEngine_Tests_Job'
     displayName: 'Run Scorpion Engine Tests'
     steps:
     - template: templates/test-tasks-template.yml
@@ -54,7 +54,7 @@ stages:
         vstsFeed: '$(kinsonDigitalNugetFeed)'
 
 
-  - job: 'Publish_ScorpionEngine_Artifacts_Job' #🟠
+  - job: 'Publish_ScorpionEngine_Artifacts_Job'
     displayName: 'Publish Scorpion Engine Artifacts'
     steps:
     - template: templates/publish-tasks-template.yml
