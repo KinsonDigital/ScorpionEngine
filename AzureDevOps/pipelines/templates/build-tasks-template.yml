@@ -10,12 +10,6 @@ parameters:
 
 
 steps:
-- template: setup-nuget-tasks-template.yml
-  parameters:
-    projectName: ${{parameters.projectName}}
-    vstsFeed: ${{parameters.vstsFeed}}
-
-
 - task: UseDotNet@2
   displayName: 'Install Dotnet Core SDK 3.x'
   inputs:
@@ -23,9 +17,15 @@ steps:
     version: '3.x'
 
 
+- template: setup-nuget-tasks-template.yml
+  parameters:
+    projectName: ${{parameters.projectName}}
+    vstsFeed: ${{parameters.vstsFeed}}
+
+
 - task: DotNetCoreCLI@2
   displayName: 'Build ${{parameters.projectName}}'
   inputs:
     command: 'build'
     projects: '$(System.DefaultWorkingDirectory)/**/${{parameters.projectName}}.csproj'
-    arguments: '-c ${{parameters.buildConfiguration}} /p:Platform=${{parameters.buildPlatform}}'
+    arguments: '-c ${{parameters.buildConfiguration}} /p:Platform=${{parameters.buildPlatform}} -v d'
