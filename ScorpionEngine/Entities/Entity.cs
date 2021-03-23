@@ -76,7 +76,9 @@ namespace KDScorpionEngine.Entities
         /// </summary>
         /// <param name="textureName">The name of the texture to load.</param>
         /// <param name="texture">The texture to be rendered.</param>
-        /// <remarks>Creates a non-animating <see cref="Entity"/>.</remarks>
+        /// <remarks>
+        ///     Creates a non-animating <see cref="Entity"/>.
+        /// </remarks>
         public Entity(string textureName, ITexture texture)
         {
             this.texture = texture;

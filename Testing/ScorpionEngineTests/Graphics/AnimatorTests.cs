@@ -10,6 +10,9 @@ namespace KDScorpionEngineTests.Graphics
     using KDScorpionEngine.Graphics;
     using Xunit;
 
+    /// <summary>
+    /// Tests the <see cref="Animator"/> class.
+    /// </summary>
     public class AnimatorTests
     {
         #region Prop Tests

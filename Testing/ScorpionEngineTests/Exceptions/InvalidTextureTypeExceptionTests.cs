@@ -1,4 +1,4 @@
-﻿// <copyright file="TextureTypeExceptionTests.cs" company="KinsonDigital">
+﻿// <copyright file="InvalidTextureTypeExceptionTests.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -7,7 +7,10 @@ namespace KDScorpionEngineTests.Exceptions
     using KDScorpionEngine.Exceptions;
     using Xunit;
 
-    public class TextureTypeExceptionTests
+    /// <summary>
+    /// Tests the <see cref="InvalidTextureTypeException"/> class.
+    /// </summary>
+    public class InvalidTextureTypeExceptionTests
     {
         #region Constructor Tests
         [Fact]
