@@ -5,156 +5,151 @@
 namespace KDScorpionEngine.Entities
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Drawing;
     using System.Linq;
     using System.Numerics;
     using KDScorpionEngine.Behaviors;
     using KDScorpionEngine.Exceptions;
     using KDScorpionEngine.Graphics;
-    using Raptor;
     using Raptor.Content;
     using Raptor.Graphics;
     using Raptor.Input;
-    using Raptor.Physics;
-    using Raptor.Plugins;
 
     /// <summary>
-    /// Represents a base entity that all entities inherit from.
+    /// Represents an entity that can be updated and rendered in the game.
     /// </summary>
-    public abstract class Entity : IUpdatable, IInitialize, IContentLoadable
+    public class Entity : IEntity
     {
-        protected bool usesPhysics = true;
-
-        /// <summary>
-        /// The engine time of the entity.
-        /// </summary>
-        protected EngineTime engineTime;
-
-        /// <summary>
-        /// The texture of the entity.
-        /// </summary>
-        protected Texture texture;
-        private bool visible = true; // True if the entity will be drawn
-        private Vector2 preInitPosition;
-        private Vector2[] preInitVertices;
-        private float preInitFriction;
+        private readonly List<IEntity> entities = new List<IEntity>();
+        private ITexture? texture;
+        private bool visible = true;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Entity"/> class.
         /// </summary>
-        /// <param name="friction">The friction of the body against other entities or surfaces.</param>
-        /// <param name="isStaticBody">True if the body is static and cannot be moved by other objects.</param>
-        public Entity(float friction = 0.2f, bool isStaticBody = false)
-        {
-            this.preInitVertices = new[] { Vector2.Zero, Vector2.Zero, Vector2.Zero };
+        public Entity() => ID = Guid.NewGuid();
 
-            Setup(this.preInitVertices, Vector2.Zero, friction, isStaticBody);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Entity"/> class.
+        /// </summary>
+        /// <param name="name">The name of the entity.</param>
+        public Entity(string name)
+        {
+            ID = Guid.NewGuid();
+            SectionToRender.TextureName = name;
+            SectionToRender.TypeOfTexture = TextureType.WholeTexture;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Entity"/> class.
         /// </summary>
-        /// <param name="position">The position of where to render the <see cref="Entity"/>.</param>
-        /// <param name="friction">The friction of the body against other entities or surfaces.</param>
-        /// <param name="isStaticBody">True if the body is static and cannot be moved by other objects.</param>
-        public Entity(Vector2 position, float friction = 0.2f, bool isStaticBody = false)
+        /// <param name="atlasTextureName">The name of the texture atlas that contains the sub texture.</param>
+        /// <param name="subTextureName">The sub texture in a texture atlas.</param>
+        /// <param name="atlasData">The texture atlas data.</param>
+        /// <param name="animator">Manages the animation.</param>
+        /// <remarks>Creates an animated type entity.</remarks>
+        public Entity(string atlasTextureName, string subTextureName, IAtlasData atlasData, IAnimator animator)
         {
-            this.preInitVertices = new[] { Vector2.Zero, Vector2.Zero, Vector2.Zero };
-            Setup(this.preInitVertices, position, friction, isStaticBody);
+            ID = Guid.NewGuid();
+            AtlasData = atlasData;
+            SectionToRender = RenderSection.CreateAnimatedSubTexture(atlasTextureName, subTextureName, animator);
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Entity"/> class.
         /// </summary>
-        /// <param name="texture">The texture of the entity to render.</param>
-        /// <param name="position">The position of where to render the <see cref="Entity"/>.</param>
-        /// <param name="friction">The friction of the body against other entities or surfaces.</param>
-        /// <param name="isStaticBody">True if the body is static and cannot be moved by other objects.</param>
-        public Entity(Texture texture, Vector2 position, float friction = 0.2f, bool isStaticBody = false)
+        /// <param name="atlasTextureName">The name of the texture atlas that contains the sub texture.</param>
+        /// <param name="subTextureName">The name of the sub texture contained in the atlas texture.</param>
+        /// <param name="atlasData">The texture atlas data.</param>
+        /// <remarks>Creates a non-animating <see cref="Entity"/>.</remarks>
+        public Entity(string atlasTextureName, string subTextureName, IAtlasData atlasData)
+        {
+            ID = Guid.NewGuid();
+            AtlasData = atlasData;
+            SectionToRender = RenderSection.CreateNonAnimatedSubTexture(atlasTextureName, subTextureName);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Entity"/> class.
+        /// </summary>
+        /// <param name="textureName">The name of the texture to load.</param>
+        /// <param name="texture">The texture to be rendered.</param>
+        /// <remarks>
+        ///     Creates a non-animating <see cref="Entity"/>.
+        /// </remarks>
+        public Entity(string textureName, ITexture texture)
         {
             this.texture = texture;
 
-            var halfWidth = texture.Width / 2;
-            var halfHeight = texture.Height / 2;
+            ID = Guid.NewGuid();
+            SectionToRender = RenderSection.CreateNonAnimatedWholeTexture(textureName);
+        }
 
-            this.preInitVertices = new Vector2[4]
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Entity"/> class.
+        /// </summary>
+        /// <param name="atlasTextureName">The name of the texture atlas that contains the sub texture.</param>
+        /// <param name="subTextureName">The sub texture in a texture atlas.</param>
+        /// <remarks>
+        ///     This will create a non-animating entity and is used by the factories.
+        /// </remarks>
+        public Entity(string atlasTextureName, string subTextureName)
+        {
+            ID = Guid.NewGuid();
+
+            SectionToRender = RenderSection.CreateNonAnimatedSubTexture(atlasTextureName, subTextureName);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Entity"/> class.
+        /// </summary>
+        /// <param name="atlasTextureName">The name of the texture atlas that contains the sub texture.</param>
+        /// <param name="subTextureName">The sub texture in a texture atlas.</param>
+        /// <param name="animator">Manages the animation.</param>
+        /// <remarks>
+        ///     Creates an animating type entity and is used by the factories.
+        /// </remarks>
+        public Entity(string atlasTextureName, string subTextureName, IAnimator animator)
+        {
+            ID = Guid.NewGuid();
+            SectionToRender = RenderSection.CreateAnimatedSubTexture(atlasTextureName, subTextureName, animator);
+        }
+
+        /// <inheritdoc/>
+        public event EventHandler<EventArgs>? OnShow;
+
+        /// <inheritdoc/>
+        public event EventHandler<EventArgs>? OnHide;
+
+        /// <inheritdoc/>
+        public string Name
+        {
+            get
             {
-                new Vector2(position.X - halfWidth, position.Y - halfHeight),
-                new Vector2(position.X + halfWidth, position.Y - halfHeight),
-                new Vector2(position.X + halfWidth, position.Y + halfHeight),
-                new Vector2(position.X - halfWidth, position.Y + halfHeight),
-            };
+                if (SectionToRender.Animator is null)
+                {
+                    return SectionToRender.TextureName;
+                }
 
-            Setup(this.preInitVertices, position, friction, isStaticBody);
+                return string.IsNullOrEmpty(SectionToRender.SubTextureName) ? string.Empty : SectionToRender.SubTextureName;
+            }
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Entity"/> class.
-        /// </summary>
-        /// <param name="vertices">The polygon vertices that make up the shape of the <see cref="Entity"/>.</param>
-        /// <param name="position">The position of where to render the <see cref="Entity"/>.</param>
-        /// <param name="friction">The friction of the body against other entities or surfaces.</param>
-        /// <param name="isStaticBody">True if the body is static and cannot be moved by other objects.</param>
-        public Entity(Vector2[] vertices, Vector2 position, float friction = 0.2f, bool isStaticBody = false) =>
-            Setup(vertices, position, friction, isStaticBody);
+        /// <inheritdoc/>
+        public Guid ID { get; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Entity"/> class.
-        /// </summary>
-        /// <param name="texture">The texture of the entity to render.</param>
-        /// <param name="vertices">The polygon vertices that make up the shape of the <see cref="Entity"/>.</param>
-        /// <param name="position">The position of where to render the <see cref="Entity"/>.</param>
-        /// <param name="friction">The friction of the body against other entities or surfaces.</param>
-        /// <param name="isStaticBody">True if the body is static and cannot be moved by other objects.</param>
-        public Entity(Texture texture, Vector2[] vertices, Vector2 position, float friction = 0.2f, bool isStaticBody = false)
-        {
-            this.texture = texture;
-            Setup(vertices, position, friction, isStaticBody);
-        }
+        /// <inheritdoc/>
+        public Vector2 Position { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Entity"/> class.
-        /// </summary>
-        /// <param name="body">The physics body to inject.</param>
-        internal Entity(IPhysicsBody body)
-        {
-            Body = body == null ? null : new PhysicsBody(body);
-            Setup(null, Vector2.Zero, 0f, false);
-        }
+        /// <inheritdoc/>
+        public float Angle { get; set; }
 
-        /// <summary>
-        /// Occurs when the game object is going from hidden to shown.
-        /// </summary>
-        public event EventHandler OnShow;
+        /// <inheritdoc/>
+        public bool Enabled { get; set; } = true;
 
-        /// <summary>
-        /// Occurs when the game object is shown to hidden.
-        /// </summary>
-        public event EventHandler OnHide;
-
-        /// <summary>
-        /// Occurs when a key has been pressed.
-        /// </summary>
-        public event EventHandler<KeyEventArgs> OnKeyPressed;
-
-        /// <summary>
-        /// Occurs when a key has been released.
-        /// </summary>
-        public event EventHandler<KeyEventArgs> OnKeyReleased;
-
-        /// <summary>
-        /// Gets a value indicating whether the <see cref="Entity"/> is static and cannot moved.
-        /// </summary>
-        public bool IsStatic { get; private set; }
-
-        /// <summary>
-        /// Gets or sets the list of behaviors that the <see cref="Entity"/> will have.
-        /// </summary>
-        public EntityBehaviors Behaviors { get; set; } = new EntityBehaviors();
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the entity is rendered to the graphics surface.
-        /// </summary>
+        /// <inheritdoc/>
         public bool Visible
         {
             get => this.visible;
@@ -167,214 +162,185 @@ namespace KDScorpionEngine.Entities
                 // If the game object is going from visible to invisible, fire the OnHide event
                 if (prevValue && !this.visible)
                 {
-                    if (OnHide != null)
-                    {
-                        OnHide.Invoke(this, new EventArgs());
-                    }
+                    this.OnHide?.Invoke(this, EventArgs.Empty);
                 }
                 else if (!prevValue && this.visible)
                 {
-                    // Going from invisible to visible
-                    if (OnShow != null)
-                    {
-                        OnShow.Invoke(this, new EventArgs());
-                    }
+                    this.OnShow?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
 
-        /// <summary>
-        /// Gets the rectangular bounds of the <see cref="Entity"/>.
-        /// </summary>
-        public Rect Bounds => new Rect((int)Position.X, (int)Position.Y, (int)BoundsWidth, (int)BoundsHeight);
-
-        /// <summary>
-        /// Gets or sets the position of the <see cref="Entity"/> in the game world in pixel units.
-        /// </summary>
-        public Vector2 Position
-        {
-            get => IsInitialized ?
-                new Vector2(Body.X, Body.Y) :
-                this.preInitPosition;
-            set
-            {
-                if (IsInitialized)
-                {
-                    Body.X = value.X;
-                    Body.Y = value.Y;
-                }
-                else
-                {
-                    this.preInitPosition = value;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the vertices that make up the physical shape of the <see cref="Entity"/>.
-        /// Cannot change the vertices if the <see cref="Entity"/> has already been initialized.
-        /// </summary>
-        /// <exception cref="Exception">Thrown when the vertices are trying to be set when the
-        /// <see cref="Entity"/> has already been initialized.</exception>
-        public Vector2[] Vertices
-        {
-            get => IsInitialized ? Body.Vertices.ToArray() : this.preInitVertices;
-            set
-            {
-                // The vertices of the entity cannot be set after it has been initialized
-                if (IsInitialized)
-                {
-                    throw new EntityAlreadyInitializedException();
-                }
-
-                this.preInitVertices = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets the width of the entity bounds.
-        /// </summary>
-        public float BoundsWidth
-        {
-            get
-            {
-                var largestX = Body.Vertices != null ? Body.Vertices.Max(v => v.X) : 0;
-                var smallestX = Body.Vertices != null ? Body.Vertices.Min(v => v.X) : 0;
-
-                return largestX - smallestX;
-            }
-        }
-
-        /// <summary>
-        /// Gets the height of the entity bounds.
-        /// </summary>
-        public float BoundsHeight
-        {
-            get
-            {
-                var largestY = Body.Vertices != null ? Body.Vertices.Max(v => v.Y) : 0;
-                var smallestY = Body.Vertices != null ? Body.Vertices.Min(v => v.Y) : 0;
-
-                return largestY - smallestY;
-            }
-        }
-
-        /// <summary>
-        /// Gets the half width of the <see cref="Entity"/> bounds.
-        /// </summary>
-        public float BoundsHalfWidth => BoundsWidth / 2;
-
-        /// <summary>
-        /// Gets the half height of the <see cref="Entity"/> bounds.
-        /// </summary>
-        public float BoundsHalfHeight => BoundsHeight / 2;
-
-        /// <summary>
-        /// Gets or sets the texture of the <see cref="Entity"/>.
-        /// </summary>
-        public Texture Texture
-        {
-            get => this.texture;
-            set => this.texture = value;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the debug draw outlines should be rendered.
-        /// </summary>
-        /// <remarks>Set to true by default for game development purposes.</remarks>
-        public bool DebugDrawEnabled { get; set; } = true;
-
-        /// <summary>
-        /// Gets a value indicating whether the <see cref="Entity"/> has been initialized.
-        /// </summary>
+        /// <inheritdoc/>
         public bool IsInitialized { get; private set; }
 
-        /// <summary>
-        /// Gets a value indicating whether the entities content has been loaded.
-        /// </summary>
+        /// <inheritdoc/>
         public bool ContentLoaded { get; private set; }
 
-        /// <summary>
-        /// Gets or sets the color of the debug draw outlines.
-        /// </summary>
-        public GameColor DebugDrawColor { get; set; } = new GameColor(255, 255, 255, 255);
+        /// <inheritdoc/>
+        public bool FlippedHorizontally { get; set; }
 
-        /// <summary>
-        /// Gets or sets the physics body of the entity.
-        /// </summary>
-        internal PhysicsBody Body { get; set; }
+        /// <inheritdoc/>
+        public bool FlippedVertically { get; set; }
 
-        /// <summary>
-        /// Initializes the <see cref="Entity"/>.
-        /// </summary>
-        public virtual void Initialize()
+        /// <inheritdoc/>
+        public ITexture? Texture
         {
-            CreateBody(this.preInitVertices, this.preInitPosition, IsStatic);
-            IsInitialized = true;
+            get
+            {
+                switch (SectionToRender.TypeOfTexture)
+                {
+                    case TextureType.WholeTexture:
+                        return this.texture;
+                    case TextureType.SubTexture:
+                        return AtlasData?.Texture;
+                    default:
+                        throw new InvalidTextureTypeException($"Unknown '{nameof(TextureType)}' value of '{SectionToRender.TypeOfTexture}'.");
+                }
+            }
+            set
+            {
+                switch (SectionToRender.TypeOfTexture)
+                {
+                    case TextureType.WholeTexture:
+                        this.texture = value;
+                        break;
+                    case TextureType.SubTexture:
+                        if (AtlasData is null)
+                        {
+                            throw new InvalidOperationException("The atlas data must not be null when setting the texture for sub texture type.");
+                        }
+
+                        if (value is null)
+                        {
+                            throw new InvalidOperationException("The texture atlas must not be null.");
+                        }
+
+                        AtlasData.Texture = value;
+                        break;
+                    default:
+                        throw new InvalidTextureTypeException($"Unknown '{nameof(TextureType)}' value of '{SectionToRender.TypeOfTexture}'.");
+                }
+            }
         }
 
-        /// <summary>
-        /// Loads the entities content.
-        /// </summary>
-        /// <param name="contentLoader">The content loader that will be loading the content.</param>
-        public virtual void LoadContent(ContentLoader contentLoader) => ContentLoaded = true;
+        /// <inheritdoc/>
+        public IAtlasData? AtlasData { get; set; }
+
+        /// <inheritdoc/>
+        public RenderSection SectionToRender { get; set; } = new RenderSection();
+
+        /// <inheritdoc/>
+        public EntityBehaviors Behaviors { get; private set; } = new EntityBehaviors();
+
+        /// <inheritdoc/>
+        public bool DebugDrawEnabled { get; set; }
+
+        /// <inheritdoc/>
+        public Color DebugDrawColor { get; set; } = Color.White;
+
+        /// <inheritdoc/>
+        public ReadOnlyCollection<IEntity> Entities => this.entities.ToReadOnlyCollection();
+
+        /// <inheritdoc/>
+        public virtual void Init()
+        {
+            IsInitialized = true;
+            ContentLoaded = false;
+        }
+
+        /// <inheritdoc/>
+        public virtual void LoadContent(IContentLoader contentLoader)
+        {
+            if (contentLoader is null)
+            {
+                throw new ArgumentNullException(nameof(contentLoader), "The parameter must not be null.");
+            }
+
+            if (ContentLoaded)
+            {
+                return;
+            }
+
+            switch (SectionToRender.TypeOfTexture)
+            {
+                case TextureType.WholeTexture:
+                    if (this.texture is null)
+                    {
+                        this.texture = contentLoader.Load<ITexture>(SectionToRender.TextureName);
+                    }
+
+                    SectionToRender.RenderBounds = new Rectangle(0, 0, this.texture.Width, this.texture.Height);
+                    break;
+                case TextureType.SubTexture:
+                    if (AtlasData is null)
+                    {
+                        AtlasData = contentLoader.Load<IAtlasData>(SectionToRender.TextureName);
+                    }
+
+                    var subTextureName = string.IsNullOrEmpty(SectionToRender.SubTextureName)
+                        ? string.Empty
+                        : SectionToRender.SubTextureName;
+
+                    if (SectionToRender.Animator is null)
+                    {
+                        // Single non animated section of the atlas
+                        SectionToRender.RenderBounds =
+                            AtlasData.GetFrames(subTextureName)
+                            .Select(f => f.Bounds).SingleOrDefault();
+                    }
+                    else
+                    {
+                        SectionToRender.Animator.Frames =
+                            AtlasData.GetFrames(subTextureName)
+                                .Select(f => f.Bounds).ToArray().ToReadOnlyCollection();
+                    }
+
+                    break;
+                default:
+                    throw new InvalidTextureTypeException();
+            }
+
+            ContentLoaded = true;
+        }
+
+        /// <inheritdoc/>
+        public virtual void UnloadContent(IContentLoader contentLoader)
+        {
+            AtlasData = null;
+            this.texture = null;
+        }
 
         /// <summary>
         /// Updates the <see cref="Entity"/>.
         /// </summary>
-        /// <param name="engineTime">The engine time since the last frame.</param>
-        public virtual void Update(EngineTime engineTime)
+        /// <param name="gameTime">The engine time since the last frame.</param>
+        public virtual void Update(GameTime gameTime)
         {
-            this.engineTime = engineTime;
-
-            Behaviors.ToList().ForEach(b => b.Update(this.engineTime));
-        }
-
-        /// <summary>
-        /// Renders the <see cref="Entity"/> to the graphics surface.
-        /// </summary>
-        /// <param name="renderer">The renderer that renders the <see cref="Entity"/>.</param>
-        [ExcludeFromCodeCoverage]
-        public virtual void Render(GameRenderer renderer)
-        {
-        }
-
-        /// <summary>
-        /// Sets up the <see cref="Entity"/> using the given parameter.
-        /// </summary>
-        /// <param name="polyVertices">The polygon vertices that make up the shape of the <see cref="Entity"/>.</param>
-        /// <param name="position">The position of where to render the <see cref="Entity"/>.</param>
-        /// <param name="friction">The friction of the body against other entities or surfaces.</param>
-        /// <param name="isStaticBody">True if the body is static and cannot be moved by other objects.</param>
-        private void Setup(Vector2[] polyVertices, Vector2 position, float friction = 0.2f, bool isStaticBody = false)
-        {
-            this.preInitVertices = polyVertices ?? Array.Empty<Vector2>();
-            this.preInitPosition = position == null ? Vector2.Zero : position;
-            IsStatic = isStaticBody;
-            this.preInitFriction = friction;
-        }
-
-        /// <summary>
-        /// Creates the physics body of the <see cref="Entity"/> to be able to simulate physics between
-        /// this <see cref="Entity"/> and other entities in the physics world.
-        /// </summary>
-        /// <param name="vertices">The polygon vertices that make up the shape of the <see cref="Entity"/>.</param>
-        /// <param name="position">The position of where to render the <see cref="Entity"/>.</param>
-        /// <param name="isStatic">True if the body is static and cannot be moved by other objects.</param>
-        [ExcludeFromCodeCoverage]
-        private void CreateBody(Vector2[] vertices, Vector2 position, bool isStatic)
-        {
-            if (Body == null)
+            if (!Enabled)
             {
-                Body = new PhysicsBody(vertices, position, isStatic: isStatic, friction: this.preInitFriction);
+                return;
             }
-            else
+
+            Behaviors.ToList().ForEach(b => b.Update(gameTime));
+            SectionToRender.Animator?.Update(gameTime);
+
+            if (SectionToRender.TypeOfTexture == TextureType.SubTexture && !(SectionToRender.Animator is null))
             {
-                // TODO: Get this working
-                // Body.Vertices = vertices;
-                Body.X = position.X;
-                Body.Y = position.Y;
+                SectionToRender.RenderBounds = SectionToRender.Animator.CurrentFrameBounds;
             }
         }
+
+        /// <inheritdoc/>
+        public virtual void Render(IRenderer renderer)
+        {
+            for (var i = 0; i < Entities.Count; i++)
+            {
+                renderer.Render(Entities[i]);
+            }
+        }
+
+        /// <inheritdoc/>
+        public void AddChildEntity(IEntity childEntity) => this.entities.Add(childEntity);
     }
 }

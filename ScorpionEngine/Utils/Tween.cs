@@ -8,8 +8,8 @@
  * Animates the value of a double property between two target values using
  * Robert Penner's easing equations for interpolation over a specified Duration.
  *
- * @author		Darren David darren-code@lookorfeel.com
- * @version		1.0
+ * @author      Darren David darren-code@lookorfeel.com
+ * @version     1.0
  *
  * Credit/Thanks:
  * Robert Penner - The easing equations we all know and love
@@ -58,8 +58,7 @@ namespace KDScorpionEngine.Utils
     ///         </Control.Triggers>
     /// </code>
     /// </example>
-    [ExcludeFromCodeCoverage]
-    public class Tweener
+    public class Tween
     {
         /// <summary>
         ///     Easing equation function for a simple linear tweening, with no easing.
@@ -69,6 +68,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double Linear(double t, double b, double c, double d) => (c * t / d) + b;
 
         /// <summary>
@@ -80,6 +80,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double ExpoEaseOut(double t, double b, double c, double d) => Math.Abs(t - d) < 0.0 ? b + c : (c * (-Math.Pow(2, -10 * t / d) + 1)) + b;
 
         /// <summary>
@@ -91,6 +92,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double ExpoEaseIn(double t, double b, double c, double d) => Math.Abs(t) < 0.0 ? b : (c * Math.Pow(2, 10 * ((t / d) - 1))) + b;
 
         /// <summary>
@@ -102,6 +104,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double ExpoEaseInOut(double t, double b, double c, double d)
         {
             if (t == 0)
@@ -131,6 +134,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double ExpoEaseOutIn(double t, double b, double c, double d)
         {
             if (t < d / 2)
@@ -150,6 +154,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double CircEaseOut(double t, double b, double c, double d) => (c * Math.Sqrt(1 - ((t = (t / d) - 1) * t))) + b;
 
         /// <summary>
@@ -161,6 +166,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double CircEaseIn(double t, double b, double c, double d) => (-c * (Math.Sqrt(1 - ((t /= d) * t)) - 1)) + b;
 
         /// <summary>
@@ -172,6 +178,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double CircEaseInOut(double t, double b, double c, double d)
         {
             if ((t /= d / 2) < 1)
@@ -191,6 +198,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double CircEaseOutIn(double t, double b, double c, double d)
         {
             if (t < d / 2)
@@ -210,6 +218,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double QuadEaseOut(double t, double b, double c, double d) => (-c * (t /= d) * (t - 2)) + b;
 
         /// <summary>
@@ -221,6 +230,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double QuadEaseIn(double t, double b, double c, double d) => (c * (t /= d) * t) + b;
 
         /// <summary>
@@ -232,6 +242,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double QuadEaseInOut(double t, double b, double c, double d)
         {
             if ((t /= d / 2) < 1)
@@ -251,6 +262,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double QuadEaseOutIn(double t, double b, double c, double d)
         {
             if (t < d / 2)
@@ -270,6 +282,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double SineEaseOut(double t, double b, double c, double d) => (c * Math.Sin(t / d * (Math.PI / 2))) + b;
 
         /// <summary>
@@ -281,6 +294,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double SineEaseIn(double t, double b, double c, double d) => (-c * Math.Cos(t / d * (Math.PI / 2))) + c + b;
 
         /// <summary>
@@ -292,6 +306,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double SineEaseInOut(double t, double b, double c, double d)
         {
             if ((t /= d / 2) < 1)
@@ -311,6 +326,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double SineEaseOutIn(double t, double b, double c, double d)
         {
             if (t < d / 2)
@@ -330,6 +346,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double CubicEaseOut(double t, double b, double c, double d) => (c * (((t = (t / d) - 1) * t * t) + 1)) + b;
 
         /// <summary>
@@ -341,6 +358,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double CubicEaseIn(double t, double b, double c, double d) => (c * (t /= d) * t * t) + b;
 
         /// <summary>
@@ -352,6 +370,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double CubicEaseInOut(double t, double b, double c, double d)
         {
             if ((t /= d / 2) < 1)
@@ -371,6 +390,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double CubicEaseOutIn(double t, double b, double c, double d)
         {
             if (t < d / 2)
@@ -390,6 +410,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double QuartEaseOut(double t, double b, double c, double d) => (-c * (((t = (t / d) - 1) * t * t * t) - 1)) + b;
 
         /// <summary>
@@ -401,6 +422,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double QuartEaseIn(double t, double b, double c, double d) => (c * (t /= d) * t * t * t) + b;
 
         /// <summary>
@@ -412,6 +434,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double QuartEaseInOut(double t, double b, double c, double d)
         {
             if ((t /= d / 2) < 1)
@@ -431,6 +454,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double QuartEaseOutIn(double t, double b, double c, double d)
         {
             if (t < d / 2)
@@ -450,6 +474,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double QuintEaseOut(double t, double b, double c, double d) => (c * (((t = (t / d) - 1) * t * t * t * t) + 1)) + b;
 
         /// <summary>
@@ -461,6 +486,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double QuintEaseIn(double t, double b, double c, double d) => (c * (t /= d) * t * t * t * t) + b;
 
         /// <summary>
@@ -472,6 +498,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double QuintEaseInOut(double t, double b, double c, double d)
         {
             if ((t /= d / 2) < 1)
@@ -491,6 +518,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double QuintEaseOutIn(double t, double b, double c, double d)
         {
             if (t < d / 2)
@@ -510,6 +538,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double ElasticEaseOut(double t, double b, double c, double d)
         {
             if (Math.Abs((t /= d) - 1) < 0.0)
@@ -532,6 +561,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double ElasticEaseIn(double t, double b, double c, double d)
         {
             if (Math.Abs((t /= d) - 1) < 0.0)
@@ -554,6 +584,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double ElasticEaseInOut(double t, double b, double c, double d)
         {
             if (Math.Abs((t /= d / 2) - 2) < 0.0)
@@ -581,6 +612,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double ElasticEaseOutIn(double t, double b, double c, double d) => t < d / 2 ? ElasticEaseOut(t * 2, b, c / 2, d) : ElasticEaseIn((t * 2) - d, b + (c / 2), c / 2, d);
 
         /// <summary>
@@ -592,6 +624,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double BounceEaseOut(double t, double b, double c, double d)
         {
             if ((t /= d) < 1 / 2.75)
@@ -621,6 +654,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double BounceEaseIn(double t, double b, double c, double d) => c - BounceEaseOut(d - t, 0, c, d) + b;
 
         /// <summary>
@@ -632,6 +666,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double BounceEaseInOut(double t, double b, double c, double d)
         {
             if (t < d / 2)
@@ -651,6 +686,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double BounceEaseOutIn(double t, double b, double c, double d)
         {
             if (t < d / 2)
@@ -670,6 +706,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double BackEaseOut(double t, double b, double c, double d) => (c * (((t = (t / d) - 1) * t * (((1.70158 + 1) * t) + 1.70158)) + 1)) + b;
 
         /// <summary>
@@ -681,6 +718,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double BackEaseIn(double t, double b, double c, double d) => (c * (t /= d) * t * (((1.70158 + 1) * t) - 1.70158)) + b;
 
         /// <summary>
@@ -692,6 +730,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double BackEaseInOut(double t, double b, double c, double d)
         {
             var s = 1.70158;
@@ -712,6 +751,7 @@ namespace KDScorpionEngine.Utils
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
+        [ExcludeFromCodeCoverage]
         public static double BackEaseOutIn(double t, double b, double c, double d)
         {
             if (t < d / 2)

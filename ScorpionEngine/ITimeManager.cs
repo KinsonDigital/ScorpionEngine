@@ -4,13 +4,19 @@
 
 namespace KDScorpionEngine
 {
-    using Raptor;
+    using System;
+    using KDScorpionEngine.Events;
 
     /// <summary>
     /// Provides functionality for managing time and state of a system.
     /// </summary>
-    public interface ITimeManager : IUpdatable
+    public interface ITimeManager : IUpdatableObject
     {
+        /// <summary>
+        /// Occurs when the stack of set frames has finished processing.
+        /// </summary>
+        event EventHandler<FrameStackFinishedEventArgs>? FrameStackFinished;
+
         /// <summary>
         /// Gets or sets the amount of elapsed time in milliseconds that the current frame has ran.
         /// </summary>
@@ -34,9 +40,9 @@ namespace KDScorpionEngine
         int FrameTime { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating if the system is paused.
+        /// Gets a value indicating whether the system is paused.
         /// </summary>
-        bool Paused { get; set; }
+        bool Paused { get; }
 
         /// <summary>
         /// Gets or sets the total number of frames ran.
@@ -46,7 +52,7 @@ namespace KDScorpionEngine
         /// <summary>
         /// Gets or sets the mode that the system runs in.
         /// </summary>
-        RunMode Mode { get; set; }
+        SceneRunMode Mode { get; set; }
 
         /// <summary>
         /// Plays the scene.
@@ -60,13 +66,13 @@ namespace KDScorpionEngine
 
         /// <summary>
         /// Runs a complete stack of frames set by the <see cref="ITimeManager"/>.
-        /// This will only work if the <see cref="Mode"/> property is set to <see cref="RunMode.FrameStack"/>.
+        /// This will only work if the <see cref="Mode"/> property is set to <see cref="SceneRunMode.FrameStack"/>.
         /// </summary>
         void RunFrameStack();
 
         /// <summary>
         /// Runs a set amount of frames given by the <paramref name="frames"/> param and pauses after.
-        /// This will only work if the <see cref="Mode"/> property is set to <see cref="RunMode.FrameStack"/>.
+        /// This will only work if the <see cref="Mode"/> property is set to <see cref="SceneRunMode.FrameStack"/>.
         /// </summary>
         /// <param name="frames">The number of frames to run.</param>
         void RunFrames(uint frames);

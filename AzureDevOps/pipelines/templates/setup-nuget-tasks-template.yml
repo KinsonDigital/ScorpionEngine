@@ -6,15 +6,15 @@ parameters:
 
 
 steps:
-  - task: NuGetToolInstaller@1 #🟣
-    displayName: 'Set Up Nuget Installer Tool'  
+- task: NuGetToolInstaller@1
+  displayName: 'Set Up Nuget Installer Tool'  
 
 
-  - task: NuGetCommand@2 #🟣
-    displayName: 'Restore ${{parameters.projectName}} Nuget Packages'
-    inputs:
-      command: 'restore'
-      restoreSolution: '$(System.DefaultWorkingDirectory)/**/${{parameters.projectName}}.csproj'
-      feedsToUse: 'select'
-      vstsFeed: '${{parameters.vstsFeed}}'
-      includeNuGetOrg: true
+- task: NuGetCommand@2
+  displayName: 'Restore ${{parameters.projectName}} Nuget Packages'
+  inputs:
+    command: 'restore'
+    restoreSolution: '$(System.DefaultWorkingDirectory)/**/${{parameters.projectName}}.csproj'
+    feedsToUse: 'select'
+    vstsFeed: '${{parameters.vstsFeed}}'
+    includeNuGetOrg: true

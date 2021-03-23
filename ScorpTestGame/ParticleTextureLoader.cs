@@ -8,18 +8,15 @@ namespace ScorpTestGame
     using Raptor.Content;
     using Raptor.Graphics;
 
-    public class ParticleTextureLoader : ITextureLoader<Texture>
+    public class ParticleTextureLoader : ITextureLoader<ITexture>
     {
-        private readonly ContentLoader contentLoader;
+        private readonly IContentLoader contentLoader;
 
-        public ParticleTextureLoader(ContentLoader contentLoader)
+        public ParticleTextureLoader(IContentLoader contentLoader)
         {
             this.contentLoader = contentLoader;
         }
 
-        public Texture LoadTexture(string textureName)
-        {
-            return this.contentLoader.LoadTexture(textureName);
-        }
+        public ITexture LoadTexture(string textureName) => this.contentLoader.Load<ITexture>(textureName);
     }
 }
