@@ -23,18 +23,11 @@ namespace KDScorpionEngine.Graphics
         /// Initializes a new instance of the <see cref="Renderer"/> class.
         /// </summary>
         /// <param name="spriteBatch">Performs the rendering to the screen.</param>
-        /// <param name="renderSurfaceWidth">
-        ///     The width of the rendering surface.
-        /// <para>
-        ///     NOTE: This is usually the entire width of the window.
-        /// </para>
-        /// </param>
-        /// <param name="renderSurfaceHeight">
-        ///     The height of the rendering surface.
-        /// <para>
-        ///     NOTE: This is usually the entire height of the window.
-        /// </para>
-        /// </param>
+        /// <param name="renderSurfaceWidth">The width of the rendering surface.</param>
+        /// <param name="renderSurfaceHeight">The height of the rendering surface.</param>
+        /// <remarks>
+        ///     The <param name="renderSurfaceWidth"> and <param name="renderSurfaceHeight"/> are usually the entire width and height of the window.
+        /// </remarks>
         public Renderer(ISpriteBatch spriteBatch, int renderSurfaceWidth, int renderSurfaceHeight)
         {
             this.spriteBatch = spriteBatch;
@@ -45,18 +38,11 @@ namespace KDScorpionEngine.Graphics
         /// <summary>
         /// Initializes a new instance of the <see cref="Renderer"/> class.
         /// </summary>
-        /// <param name="renderSurfaceWidth">
-        ///     The width of the rendering surface.
-        /// <para>
-        ///     NOTE: This is usually the entire width of the window.
-        /// </para>
-        /// </param>
-        /// <param name="renderSurfaceHeight">
-        ///     The height of the rendering surface.
-        /// <para>
-        ///     NOTE: This is usually the entire height of the window.
-        /// </para>
-        /// </param>
+        /// <param name="renderSurfaceWidth">The width of the rendering surface.</param>
+        /// <param name="renderSurfaceHeight">The height of the rendering surface.</param>
+        /// <remarks>
+        ///     The <param name="renderSurfaceWidth"> and <param name="renderSurfaceHeight"/> are usually the entire width and height of the window.
+        /// </remarks>
         [ExcludeFromCodeCoverage]
         public Renderer(int renderSurfaceWidth, int renderSurfaceHeight)
             => this.spriteBatch = SpriteBatchFactory.CreateSpriteBatch(renderSurfaceWidth, renderSurfaceHeight);

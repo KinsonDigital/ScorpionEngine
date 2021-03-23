@@ -8,7 +8,7 @@ namespace KDScorpionEngine.Factories
     using KDScorpionEngine.Graphics;
 
     /// <summary>
-    /// Creates new instances of entities.
+    /// Creates new entities.
     /// </summary>
     public interface IEntityFactory
     {

@@ -91,7 +91,7 @@ namespace KDScorpionEngine.Entities
         /// <param name="atlasTextureName">The name of the texture atlas that contains the sub texture.</param>
         /// <param name="subTextureName">The sub texture in a texture atlas.</param>
         /// <remarks>
-        ///     This will create a non animating entity and is used by the factories.
+        ///     This will create a non-animating entity and is used by the factories.
         /// </remarks>
         public Entity(string atlasTextureName, string subTextureName)
         {

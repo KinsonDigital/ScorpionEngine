@@ -20,7 +20,7 @@ namespace KDScorpionEngine.Graphics
     /// <para>
     ///     If the <see cref="TypeOfTexture"/> is set to <see cref="TextureType.SubTexture"/>,
     ///     then only a section of the entire texture is rendered.  This could be a single frame
-    ///     non-animated entity or a single frame out of multiple frames of an animation for
+    ///     non-animating entity or a single frame out of multiple frames of an animation for
     ///     and animated entity.
     /// </para>
     /// </remarks>
@@ -43,7 +43,7 @@ namespace KDScorpionEngine.Graphics
         /// Gets or sets the rectangular bounds of the texture to render.
         /// </summary>
         /// <remarks>
-        /// This could be the entire texture of just a section of the texture.
+        ///     This could be the entire texture of just a section of the texture.
         /// </remarks>
         public Rectangle RenderBounds { get; set; }
 
@@ -51,7 +51,7 @@ namespace KDScorpionEngine.Graphics
         /// Gets half of the width of the render section to be rendered.
         /// </summary>
         /// <remarks>
-        /// This is half of the width of the <see cref="Rectangle.Width"/> of the <see cref="RenderBounds"/>.
+        ///     This is half of the width of the <see cref="Rectangle.Width"/> of the <see cref="RenderBounds"/>.
         /// </remarks>
         public int HalfWidth => RenderBounds.Width / 2;
 
@@ -59,7 +59,7 @@ namespace KDScorpionEngine.Graphics
         /// Gets half of the height of the render section to be rendered.
         /// </summary>
         /// <remarks>
-        /// This is half of the height of the <see cref="Rectangle.Height"/> of the <see cref="RenderBounds"/>.
+        ///     This is half of the height of the <see cref="Rectangle.Height"/> of the <see cref="RenderBounds"/>.
         /// </remarks>
         public int HalfHeight => RenderBounds.Height / 2;
 
@@ -90,7 +90,9 @@ namespace KDScorpionEngine.Graphics
         /// Creates a non-animating section that renders the entire texture.
         /// </summary>
         /// <param name="wholeTextureName">The name of the entire texture to render.</param>
-        /// <returns>Non-animating section that results in rendering tne entire texture.</returns>
+        /// <returns>
+        ///     Non-animating section that results in rendering the entire texture.
+        /// </returns>
         public static RenderSection CreateNonAnimatedWholeTexture(string wholeTextureName)
             => new RenderSection()
             {

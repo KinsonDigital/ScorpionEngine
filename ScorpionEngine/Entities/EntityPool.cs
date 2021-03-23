@@ -44,7 +44,7 @@ namespace KDScorpionEngine.Entities
         /// Initializes a new instance of the <see cref="EntityPool{TEntity}"/> class.
         /// </summary>
         /// <remarks>
-        ///     A content loaders is automatically provided.
+        ///     A content loader is automatically provided.
         /// </remarks>
         [ExcludeFromCodeCoverage]
         public EntityPool()
@@ -60,7 +60,7 @@ namespace KDScorpionEngine.Entities
         ///     The ideal number is just enough items to satisfy the purpose of the pool.
         /// <para>
         ///     Example: If the bullets from a player ship move fast enough across the entire
-        ///     window where it is only possibly to visibly see 100 bullets at one time, then
+        ///     window where it is only possible to see 100 bullets at one time, then
         ///     the ideal <see cref="MaxPoolSize"/> would be 100-110.
         /// </para>
         /// </remarks>
@@ -96,7 +96,7 @@ namespace KDScorpionEngine.Entities
         /// Gets the totla number of inactive entities.
         /// </summary>
         /// <remarks>
-        ///     An entity is considered inactive it is both hidden and disabled.
+        ///     An entity is considered inactive when it is both hidden and disabled.
         /// </remarks>
         public int TotalInactive
         {
@@ -159,8 +159,8 @@ namespace KDScorpionEngine.Entities
 
         /// <summary>
         /// Generates an entity that does not animate from a texture that matches the given
-        /// <paramref name="atlasName"/> that uses a single sub texture in the texture atlas.
-        ///
+        /// <paramref name="atlasName"/> that uses a single sub texture in the texture atlas
+        /// that matches the given <param name="subTextureName"/>.
         /// <para>
         /// Once the entity has been created, gives te ability to apply changes to the entity via
         /// the execution of the <paramref name="onGenerate"/> action delegate.
@@ -236,8 +236,8 @@ namespace KDScorpionEngine.Entities
         /// <summary>
         /// Generates an entity using content that matches the given texture name.
         /// </summary>
-        /// <param name="generateSection">Generates a <see cref="RenderSection"/>.</param>
-        /// <param name="generateEntity">Generates an entity.</param>
+        /// <param name="generateSection">Delegate that generates a <see cref="RenderSection"/>.</param>
+        /// <param name="generateEntity">Delegate that generates an entity.</param>
         /// <returns>A new entity or one from the pool.</returns>
         private TEntity GenerateEntity(Func<RenderSection> generateSection, Func<IEntity> generateEntity)
         {

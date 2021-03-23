@@ -17,7 +17,7 @@ namespace KDScorpionEngineTests
     public static class AssertHelpers
     {
         /// <summary>
-        /// Asserts if an <see cref="Exception"/> was not thrown.
+        /// Asserts if the <see cref="Exception"/> of type <typeparamref name="T"> was not thrown.
         /// </summary>
         /// <typeparam name="T">The type of <see cref="Exception"/>.</typeparam>
         /// <param name="action">The action to catch the exception against.</param>

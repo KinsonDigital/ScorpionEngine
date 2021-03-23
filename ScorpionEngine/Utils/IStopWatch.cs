@@ -27,8 +27,11 @@ namespace KDScorpionEngine.Utils
         float ElapsedSeconds { get; }
 
         /// <summary>
-        /// Gets or sets the reset mode of the stopwatch.  If set to auto reset, then the stopwatch will automatically be set to 0 and start counting again.
+        /// Gets or sets the reset mode of the stopwatch.
         /// </summary>
+        /// <remarks>
+        ///  If set to auto-reset, then the stopwatch will automatically be set to 0 and start counting again.
+        /// </remarks>
         ResetType ResetMode { get; set; }
 
         /// <summary>
@@ -38,12 +41,14 @@ namespace KDScorpionEngine.Utils
 
         /// <summary>
         /// Gets or sets the amount of time in milliseconds before the stopwatch will invoke the OnTimeElapsed event.
-        /// NOTE: If a timeout of less then 1 is attempted, timeout will default to 1.
         /// </summary>
+        /// <remarks>
+        ///     If a timeout of less then 1 is attempted, timeout will default to 1.
+        /// </remarks>
         int TimeOut { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the <see cref="IStopWatch"/> when <see cref="Reset"/> is invoked.
+        /// Gets or sets a value indicating whether the <see cref="IStopWatch"/> will be stopped when <see cref="Reset"/> is invoked.
         /// </summary>
         bool StopOnReset { get; set; }
 

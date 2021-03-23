@@ -122,7 +122,7 @@ namespace KDScorpionEngine.Graphics
         }
 
         /// <summary>
-        /// Processes the current frame index by keeping it withing a valid range
+        /// Processes the current frame index by keeping it within a valid range
         /// as well as performing looping of the animation.
         /// </summary>
         private void ProcessIndexRange()

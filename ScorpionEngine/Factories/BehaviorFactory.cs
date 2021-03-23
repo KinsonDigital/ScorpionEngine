@@ -19,7 +19,7 @@ namespace KDScorpionEngine.Factories
         /// Creates a new entity behavior of the implementation type <see cref="KeyboardMovementBehavior"/>.
         /// </summary>
         /// <typeparam name="TEntity">The type of entity to attach the behavior to.</typeparam>
-        /// <param name="entity">The <see cref="IEntity"/> to attache the behavior to.</param>
+        /// <param name="entity">The <see cref="IEntity"/> to attach the behavior to.</param>
         /// <param name="moveKey">The keyboard key to move the entity.</param>
         /// <param name="calcPosition">
         ///     The delegate used to calculate the movement of the entity when the

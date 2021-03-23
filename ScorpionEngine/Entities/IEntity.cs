@@ -85,7 +85,7 @@ namespace KDScorpionEngine.Entities
         ITexture? Texture { get; set; }
 
         /// <summary>
-        /// Gets or sets the texture atlas.
+        /// Gets or sets the texture atlas data.
         /// </summary>
         IAtlasData? AtlasData { get; set; }
 
@@ -101,7 +101,7 @@ namespace KDScorpionEngine.Entities
         /// <param>
         ///     If the <see cref="RenderSection.TypeOfTexture"/> is set to <see cref="TextureType.SubTexture"/>,
         ///     then only a defined area of the texture will be rendered.  This is common for texture atlases
-        ///     and could be a particular section for an animation or just a static section for a noon-animating entity.
+        ///     and could be a particular section for an animation or just a static section for a non-animating entity.
         /// </param>
         /// </remarks>
         RenderSection SectionToRender { get; set; }

@@ -18,7 +18,7 @@ namespace KDScorpionEngineTests.Entities
     using Xunit;
 
     /// <summary>
-    /// Unit tests to test the <see cref="KDScorpionEngine.Entities.Entity"/> class.
+    /// Tests to the <see cref="KDScorpionEngine.Entities.Entity"/> class.
     /// </summary>
     public class EntityTests
     {
@@ -842,7 +842,7 @@ namespace KDScorpionEngineTests.Entities
         /// <summary>
         /// Creates a new instance of <see cref="Entity"/> for the purpose of testing.
         /// </summary>
-        /// <returns>An entity instance to test.</returns>
+        /// <returns>The entity instance to test.</returns>
         private Entity CreateEntity() => new Entity(string.Empty);
     }
 }

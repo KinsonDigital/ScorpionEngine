@@ -9,7 +9,7 @@ namespace KDScorpionEngine.Factories
     using Raptor.Content;
 
     /// <summary>
-    /// Creates new instances of entities.
+    /// Creates new entities.
     /// </summary>
     public class EntityFactory : IEntityFactory
     {

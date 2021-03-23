@@ -58,29 +58,32 @@ namespace KDScorpionEngine
         }
 
         /// <summary>
-        /// Converts the negative of positive number to be positived.
+        /// Converts the given <param name="value"> to a negative number.
         /// </summary>
         /// <param name="value">The value to change.</param>
         /// <returns>The negative result of value.</returns>
         public static float ToNegative(this float value) => value < 0 ? value : value * -1f;
 
         /// <summary>
-        /// Converts the positive number to be negative.
+        /// Converts the given <param name="value"/> to a positive number.
         /// </summary>
         /// <param name="value">The value to change.</param>
         /// <returns>The absolute result of the value.</returns>
         public static float ToPositive(this float value) => value >= 0 ? value : value * -1f;
 
         /// <summary>
-        /// Rotates the <paramref name="vector"/> around the <paramref name="rotateOrigin"/> at the given <paramref name="angle"/>.
+        /// Rotates the <paramref name="vector"/> around the <paramref name="origin"/> at the given <paramref name="angle"/>.
         /// </summary>
         /// <param name="vector">The vector to rotate.</param>
-        /// <param name="origin">The vector to rotate the <paramref name="vector"/> around.</param>
-        /// <param name="angle">The angle in radians to rotate <paramref name="vector"/>.  Value must be positive.</param>
+        /// <param name="origin">The point to rotate the <paramref name="vector"/> around.</param>
+        /// <param name="angle">The angle in radians to rotate <paramref name="vector"/>.
         /// <param name="clockWise">
         ///     <see langword="true"/> to rotate the point clockwise and false for counter clockwise.
         /// </param>
         /// <returns>A vector rotated around a point.</returns>
+        /// <remarks>
+        ///     The <param name="angle"/> must be a positive number.
+        /// </remarks>
         public static Vector2 RotateAround(this Vector2 vector, Vector2 origin, float angle, bool clockWise = true)
         {
             angle = clockWise ? angle : angle * -1;
@@ -101,14 +104,14 @@ namespace KDScorpionEngine
         }
 
         /// <summary>
-        /// Converts the given radians value into degrees.
+        /// Converts the given <param name="radians"/> value into degrees.
         /// </summary>
         /// <param name="radians">The value to convert.</param>
         /// <returns>The degrees result.</returns>
         public static float ToDegrees(this float radians) => radians * 180.0f / (float)Math.PI;
 
         /// <summary>
-        /// Converts the given degrees value into radians.
+        /// Converts the given <param name="degrees"/> value into radians.
         /// </summary>
         /// <param name="degrees">The value to convert.</param>
         /// <returns>The radians result.</returns>
