@@ -30,7 +30,7 @@ namespace KDScorpionEngine.Utils
         /// Gets or sets the reset mode of the stopwatch.
         /// </summary>
         /// <remarks>
-        ///  If set to auto-reset, then the stopwatch will automatically be set to 0 and start counting again.
+        ///     If set to auto-reset, then the stopwatch will automatically be set to 0 and start counting again.
         /// </remarks>
         ResetType ResetMode { get; set; }
 
