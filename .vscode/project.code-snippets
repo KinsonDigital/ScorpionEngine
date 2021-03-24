@@ -99,7 +99,7 @@
 	},
     "Nuget/Lib Updates": {
 		"scope": "",
-		"prefix": "nuget-updates",
+		"prefix": "nuget-lib-updates",
 		"body": [
 			"### **Nuget/Library Updates** 📦\n\n1. "
 		],
