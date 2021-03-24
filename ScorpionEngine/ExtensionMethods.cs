@@ -58,7 +58,7 @@ namespace KDScorpionEngine
         }
 
         /// <summary>
-        /// Converts the given <param name="value"> to a negative number.
+        /// Converts the given <param name="value"/> to a negative number.
         /// </summary>
         /// <param name="value">The value to change.</param>
         /// <returns>The negative result of value.</returns>
@@ -76,10 +76,8 @@ namespace KDScorpionEngine
         /// </summary>
         /// <param name="vector">The vector to rotate.</param>
         /// <param name="origin">The point to rotate the <paramref name="vector"/> around.</param>
-        /// <param name="angle">The angle in radians to rotate <paramref name="vector"/>.
-        /// <param name="clockWise">
-        ///     <see langword="true"/> to rotate the point clockwise and false for counter clockwise.
-        /// </param>
+        /// <param name="angle">The angle in radians to rotate <paramref name="vector"/>.</param>
+        /// <param name="clockWise">True to rotate the point clockwise and false for counter clockwise.</param>
         /// <returns>A vector rotated around a point.</returns>
         /// <remarks>
         ///     The <param name="angle"/> must be a positive number.
