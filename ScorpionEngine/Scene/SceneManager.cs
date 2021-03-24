@@ -12,51 +12,40 @@ namespace KDScorpionEngine.Scene
     using KDScorpionEngine.Events;
     using KDScorpionEngine.Exceptions;
     using KDScorpionEngine.Graphics;
-    using Raptor;
     using Raptor.Content;
     using Raptor.Input;
-    using Raptor.Plugins;
 
     /// <summary>
     /// Manages multiple game scenes.
     /// </summary>
-    public class SceneManager : IUpdatable, IDrawable, IEnumerable<IScene>, IList<IScene>
+    public class SceneManager : IUpdatableObject, IDrawableObject, IEnumerable<IScene>, IList<IScene>
     {
-        private readonly ContentLoader contentLoader;
+        private readonly IContentLoader contentLoader;
+        private readonly IGameInput<KeyCode, KeyboardState> keyboard;
         private readonly List<IScene> scenes = new List<IScene>(); // The list of scenes
-        private readonly Keyboard keyboard;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SceneManager"/> class.
-        /// <paramref name="contentLoader">The content loader user to load and unload content.</paramref>.
-        /// </summary>
-        [ExcludeFromCodeCoverage]
-        public SceneManager(ContentLoader contentLoader)
-        {
-            this.contentLoader = contentLoader;
-            this.keyboard = new Keyboard();
-        }
+        private KeyboardState currentKeyboardState;
+        private KeyboardState previousKeyboardState;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SceneManager"/> class.
         /// </summary>
         /// <param name="contentLoader">The content loaded to inject.</param>
-        /// <param name="keyboard">The keyboard to inject.</param>
-        internal SceneManager(IContentLoader contentLoader, IKeyboard keyboard)
+        /// <param name="keyboard">Manages keyboard input.</param>
+        public SceneManager(IContentLoader contentLoader, IGameInput<KeyCode, KeyboardState> keyboard)
         {
-            this.contentLoader = new ContentLoader(contentLoader);
-            this.keyboard = new Keyboard(keyboard);
+            this.contentLoader = contentLoader;
+            this.keyboard = keyboard;
         }
 
         /// <summary>
         /// Occurs when the currently active scene has changed.
         /// </summary>
-        public event EventHandler<SceneChangedEventArgs> SceneChanged;
+        public event EventHandler<SceneChangedEventArgs>? SceneChanged;
 
         /// <summary>
-        /// Gets or sets the key to be pressed to progress to the next frame stack when the <see cref="Mode"/> property is set to <see cref="RunMode.FrameStack"/>.
+        /// Gets or sets the key to be pressed to progress to the next frame stack when the <see cref="Mode"/> property is set to <see cref="SceneRunMode.FrameStack"/>.
         /// </summary>
-        public KeyCode NextFrameStackKey { get; set; } = KeyCode.None;
+        public KeyCode NextFrameStackKey { get; set; } = KeyCode.Unknown;
 
         /// <summary>
         /// Gets the currently enabled scene.
@@ -69,39 +58,43 @@ namespace KDScorpionEngine.Scene
         public int CurrentSceneId { get; private set; } = -1;
 
         /// <summary>
-        /// The keyboard key used to play the current scene.
+        /// Gets or sets the keyboard key used to play the current scene.
         /// </summary>
-        public KeyCode PlayCurrentSceneKey { get; set; } = KeyCode.None;
+        public KeyCode PlayCurrentSceneKey { get; set; } = KeyCode.Unknown;
 
         /// <summary>
-        /// The keyboard key used to pause the current scene.
+        /// Gets or sets the keyboard key used to pause the current scene.
         /// </summary>
-        public KeyCode PauseCurrentSceneKey { get; set; } = KeyCode.None;
+        public KeyCode PauseCurrentSceneKey { get; set; } = KeyCode.Unknown;
 
         /// <summary>
         /// Gets or sets the key to press to move to the next <see cref="IScene"/>.
         /// If set to <see cref="KeyCode.None"/>, then nothing will happen.
         /// </summary>
-        public KeyCode NextSceneKey { get; set; } = KeyCode.None;
+        public KeyCode NextSceneKey { get; set; } = KeyCode.Unknown;
 
         /// <summary>
         /// Gets or sets the key to press to move to the previous <see cref="IScene"/>.
         /// If set to <see cref="KeyCode.None"/>, then nothing will happen.
         /// </summary>
-        public KeyCode PreviousSceneKey { get; set; } = KeyCode.None;
+        public KeyCode PreviousSceneKey { get; set; } = KeyCode.Unknown;
 
         /// <summary>
-        /// Gets or sets a value indicting if the current scene content will be unloaded when the scene changes.
-        /// WARNING: If false, this means that no content will not unloaded and will take up memory even though it
-        /// is not being used.  Only set to false if this is part of your game design and to prevent loading times
-        /// the next time the scene is loaded.
+        /// Gets or sets a value indicating whether the current scene content will be unloaded when the scene changes.
         /// </summary>
+        /// <remarks>
+        ///     If false, this means that no content will not unloaded and will take up memory even though it
+        ///     is not being used.  Only set to false if this is part of your game design and to prevent loading times
+        ///     the next time the scene is loaded.
+        /// </remarks>
         public bool UnloadContentOnSceneChange { get; set; } = true;
 
         /// <summary>
-        /// Gets or sets a value indicating if scenes will be initialized when they are added to the manager.
-        /// WARNING: If set to false, the scene will have to be manually initialized.
+        /// Gets or sets a value indicating whether the scenes will be initialized when they are added to the manager.
         /// </summary>
+        /// <remarks>
+        ///     If set to false, the scene will have to be manually initialized.
+        /// </remarks>
         public bool InitializeScenesOnAdd { get; set; }
 
         /// <summary>
@@ -199,7 +192,7 @@ namespace KDScorpionEngine.Scene
             }
 
             // Generate a new scene ID if the current ID is a -1
-            scene.Id = scene.Id == -1 ? GetNewId() : scene.Id;
+            scene.Id = scene.Id < 0 ? GetNewId() : scene.Id;
 
             this.scenes.Add(scene);
 
@@ -216,7 +209,7 @@ namespace KDScorpionEngine.Scene
                 scene.Active = true;
             }
 
-            // If there is only one scene in the manager...set that scene to current scene
+            // Set that scene to current scene
             CurrentSceneId = scene.Id;
         }
 
@@ -256,17 +249,20 @@ namespace KDScorpionEngine.Scene
         /// Loads the content for all of the scenes.  If the scene's content has
         /// already been loaded, loading content for that scene will be skipped.
         /// </summary>
-        public void LoadAllSceneContent() => this.scenes.ForEach(s =>
-                                           {
-                                               if (s.ContentLoaded)
-                                               {
-                                                   return;
-                                               }
+        public void LoadAllSceneContent()
+        {
+            foreach (var scene in this.scenes)
+            {
+                if (scene.ContentLoaded)
+                {
+                    continue;
+                }
 
-                                               s.LoadContent(this.contentLoader);
+                scene.LoadContent(this.contentLoader);
 
-                                               s.ContentLoaded = true;
-                                           });
+                scene.ContentLoaded = true;
+            }
+        }
 
         /// <summary>
         /// Loads the current scenes content that matches the <see cref="CurrentSceneId"/> value.
@@ -335,7 +331,7 @@ namespace KDScorpionEngine.Scene
 
             ProcessSettingsForPreviousScene(this.scenes[previousSceneIndex]);
 
-            ProcessSettingsForCurrentScene(this.scenes[nextSceneIndex]);
+            ProcessSettingsForNextScene(this.scenes[nextSceneIndex]);
 
             // Invoke the scene changed event
             SceneChanged?.Invoke(this, new SceneChangedEventArgs(this.scenes[previousSceneId].Name, this.scenes[CurrentSceneId].Name));
@@ -366,7 +362,7 @@ namespace KDScorpionEngine.Scene
 
             ProcessSettingsForPreviousScene(this.scenes[previousSceneIndex]);
 
-            ProcessSettingsForCurrentScene(this.scenes[nextSceneIndex]);
+            ProcessSettingsForNextScene(this.scenes[nextSceneIndex]);
 
             // Invoke the scene changed event
             SceneChanged?.Invoke(this, new SceneChangedEventArgs(this.scenes[previousSceneId].Name, this.scenes[CurrentSceneId].Name));
@@ -385,13 +381,18 @@ namespace KDScorpionEngine.Scene
                 throw new IdNotFoundException(id);
             }
 
+            if (CurrentSceneId == id)
+            {
+                return;
+            }
+
             var previousSceneId = CurrentSceneId;
 
             CurrentSceneId = id;
 
             ProcessSettingsForPreviousScene(this.scenes[previousSceneId]);
 
-            ProcessSettingsForCurrentScene(this.scenes[CurrentSceneId]);
+            ProcessSettingsForNextScene(this.scenes[CurrentSceneId]);
 
             // Invoke the scene changed event
             SceneChanged?.Invoke(this, new SceneChangedEventArgs(this.scenes[previousSceneId].Name, this.scenes[CurrentSceneId].Name));
@@ -412,13 +413,18 @@ namespace KDScorpionEngine.Scene
                 throw new NameNotFoundException(name);
             }
 
+            if (CurrentSceneId == foundScene.Id)
+            {
+                return;
+            }
+
             var previousSceneId = CurrentSceneId;
 
             CurrentSceneId = foundScene.Id;
 
-            ProcessSettingsForPreviousScene(foundScene);
+            ProcessSettingsForPreviousScene(this.scenes[previousSceneId]);
 
-            ProcessSettingsForCurrentScene(foundScene);
+            ProcessSettingsForNextScene(foundScene);
 
             // Invoke the scene changed event
             SceneChanged?.Invoke(this, new SceneChangedEventArgs(this.scenes[previousSceneId].Name, this.scenes[CurrentSceneId].Name));
@@ -486,8 +492,8 @@ namespace KDScorpionEngine.Scene
         /// <summary>
         /// Updates the <see cref="SceneManager"/> and all of its scenes depending on the manager's settings.
         /// </summary>
-        /// <param name="engineTime">The game engine time.</param>
-        public void Update(EngineTime engineTime)
+        /// <param name="gameTime">The game engine time.</param>
+        public void Update(GameTime gameTime)
         {
             ProcessKeys();
 
@@ -496,7 +502,7 @@ namespace KDScorpionEngine.Scene
             {
                 if (s.Active || UpdateInactiveScenes)
                 {
-                    s.Update(engineTime);
+                    s.Update(gameTime);
                 }
             });
         }
@@ -505,8 +511,9 @@ namespace KDScorpionEngine.Scene
         /// Calls the currently enabled <see cref="IScene"/> render method.
         /// </summary>
         /// <param name="renderer">The renderer to use for rendering.</param>
-        public void Render(GameRenderer renderer)
+        public void Render(IRenderer renderer)
         {
+            // TODO: Look into why this is not implemented the same way as the Update() method above
             if (this.scenes.Count <= 0)
             {
                 return;
@@ -534,7 +541,7 @@ namespace KDScorpionEngine.Scene
         /// <typeparam name="T">The type to return the scene as.</typeparam>
         /// <param name="id">The ID of the scene to get.</param>
         /// <returns>A scene.</returns>
-        public T GetScene<T>(int id)
+        public T? GetScene<T>(int id)
             where T : class, IScene
         {
             var foundScene = (from s in this.scenes
@@ -555,7 +562,7 @@ namespace KDScorpionEngine.Scene
         /// <typeparam name="T">The type to return the scene as.</typeparam>
         /// <param name="name">The name of the scene to get.</param>
         /// <returns>A scene.</returns>
-        public T GetScene<T>(string name)
+        public T? GetScene<T>(string name)
             where T : class, IScene
         {
             var foundScene = (from s in this.scenes
@@ -578,22 +585,22 @@ namespace KDScorpionEngine.Scene
         /// <summary>
         /// Plays the current scene.
         /// </summary>
-        public void PlayCurrentScene() => this.scenes[CurrentSceneId].TimeManager.Paused = false;
+        public void PlayCurrentScene() => this.scenes[CurrentSceneId].TimeManager.Play();
 
         /// <summary>
         /// Pauses the current scene.
         /// </summary>
-        public void PauseCurrentScene() => this.scenes[CurrentSceneId].TimeManager.Paused = true;
+        public void PauseCurrentScene() => this.scenes[CurrentSceneId].TimeManager.Pause();
 
         /// <summary>
         /// Runs a complete stack of frames set by the <see cref="ITimeManager"/> for the current <see cref="IScene"/>.
-        /// This will only work if the <see cref="Mode"/> is set to the value of <see cref="RunMode.FrameStack"/> for the <see cref="IScene"/>.
+        /// This will only work if the <see cref="Mode"/> is set to the value of <see cref="SceneRunMode.FrameStack"/> for the <see cref="IScene"/>.
         /// </summary>
         public void RunFrameStack() => this.scenes[CurrentSceneId].TimeManager.RunFrameStack();
 
         /// <summary>
         /// Runs a set amount of frames for the current <see cref="IScene"/>, given by the <paramref name="frames"/> parameter and pauses after.
-        /// This will only work if the <see cref="Mode"/> is set to <see cref="RunMode.FrameStack"/> for the current <see cref="IScene"/>.
+        /// This will only work if the <see cref="Mode"/> is set to <see cref="SceneRunMode.FrameStack"/> for the current <see cref="IScene"/>.
         /// </summary>
         /// <param name="frames">The number of frames to run.</param>
         public void RunFrames(uint frames) => this.scenes[CurrentSceneId].TimeManager.RunFrames(frames);
@@ -603,52 +610,54 @@ namespace KDScorpionEngine.Scene
         /// </summary>
         private void ProcessKeys()
         {
-            this.keyboard.UpdateCurrentState();
+            this.currentKeyboardState = this.keyboard.GetState();
 
-            if (PlayCurrentSceneKey != KeyCode.None)
+            if (PlayCurrentSceneKey != KeyCode.Unknown)
             {
                 // If the play key has been pressed
-                if (this.keyboard.IsKeyPressed(PlayCurrentSceneKey))
+                if (this.currentKeyboardState.IsKeyUp(PlayCurrentSceneKey) && this.previousKeyboardState.IsKeyDown(PlayCurrentSceneKey))
                 {
                     PlayCurrentScene();
                 }
             }
 
-            if (PauseCurrentSceneKey != KeyCode.None)
+            if (PauseCurrentSceneKey != KeyCode.Unknown)
             {
                 // If the pause key has been pressed
-                if (this.keyboard.IsKeyPressed(PauseCurrentSceneKey))
+                if (this.currentKeyboardState.IsKeyUp(PauseCurrentSceneKey) && this.previousKeyboardState.IsKeyDown(PauseCurrentSceneKey))
                 {
                     PauseCurrentScene();
                 }
             }
 
-            if (NextSceneKey != KeyCode.None)
+            if (NextSceneKey != KeyCode.Unknown)
             {
                 // If the next scene key has been pressed
-                if (this.keyboard.IsKeyPressed(NextSceneKey))
+                if (this.currentKeyboardState.IsKeyUp(NextSceneKey) && this.previousKeyboardState.IsKeyDown(NextSceneKey))
                 {
                     NextScene();
                 }
             }
 
-            if (PreviousSceneKey != KeyCode.None)
+            if (PreviousSceneKey != KeyCode.Unknown)
             {
                 // If the previous scene key has been pressed
-                if (this.keyboard.IsKeyPressed(PreviousSceneKey))
+                if (this.currentKeyboardState.IsKeyUp(PreviousSceneKey) && this.previousKeyboardState.IsKeyDown(PreviousSceneKey))
                 {
                     PreviousScene();
                 }
             }
 
-            this.keyboard.UpdatePreviousState();
+            this.previousKeyboardState = this.currentKeyboardState;
         }
 
         /// <summary>
         /// Returns a value indicating if a <see cref="IScene"/> exists that matches the given <paramref name="id"/>.
         /// </summary>
         /// <param name="id">The ID of the <see cref="IScene"/> to check for.</param>
-        /// <returns>True if the scene exists.</returns>
+        /// <returns>
+        ///     <see langword="true"/> if the scene exists.
+        /// </returns>
         private bool SceneIdExists(int id) => this.scenes.Any(s => s.Id == id);
 
         /// <summary>
@@ -663,7 +672,7 @@ namespace KDScorpionEngine.Scene
             var largestId = allIdNumbers.Length <= 0 ? 0 : allIdNumbers.Max();
 
             // Check each ID number to see if it is sequential, if not, assign the first ID number available from smallest to largest.
-            for (var i = 1; i < largestId; i++)
+            for (var i = 0; i < largestId; i++)
             {
                 // If the current possible ID does not exist, use it. If it exists, move on.
                 if (!allIdNumbers.Contains(i))
@@ -678,15 +687,10 @@ namespace KDScorpionEngine.Scene
         }
 
         /// <summary>
-        /// Turn off rendering for all scenes.
-        /// </summary>
-        private void TurnAllSceneRenderingOff() => this.scenes.ForEach(s => s.IsRenderingScene = false);
-
-        /// <summary>
         /// Processes all of the manager settings for the given <paramref name="scene"/>.
         /// </summary>
         /// <param name="scene">The current scene to apply the manager settings to.</param>
-        private void ProcessSettingsForCurrentScene(IScene scene)
+        private void ProcessSettingsForNextScene(IScene scene)
         {
             // If the manager is set to set the current scene to active
             if (ActivateSceneOnAdd)
@@ -707,8 +711,15 @@ namespace KDScorpionEngine.Scene
                 scene.ContentLoaded = true;
             }
 
+            // TODO: Look into this.  This is only used here.  Find out what this is for
+            // and why we would turn off rrendering for all scenes here.
             TurnAllSceneRenderingOff();
         }
+
+        /// <summary>
+        /// Turn off rendering for all scenes.
+        /// </summary>
+        private void TurnAllSceneRenderingOff() => this.scenes.ForEach(s => s.IsRenderingScene = false);
 
         /// <summary>
         /// Processes all of the manager settings for the given previous <paramref name="scene"/>.

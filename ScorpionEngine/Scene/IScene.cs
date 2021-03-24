@@ -4,12 +4,14 @@
 
 namespace KDScorpionEngine.Scene
 {
+    using System.Collections.ObjectModel;
+    using KDScorpionEngine.Entities;
     using Raptor.Content;
 
     /// <summary>
     /// Represents a single scene.
     /// </summary>
-    public interface IScene : IDrawable, IUpdatable
+    public interface IScene : IUpdatableObject, IDrawableObject
     {
         /// <summary>
         /// Gets or sets the name of the scene.
@@ -17,22 +19,34 @@ namespace KDScorpionEngine.Scene
         string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating that the scene's content has been loaded.
+        /// Gets or sets a value indicating whether the scene's content has been loaded.
         /// </summary>
         bool ContentLoaded { get; set; }
 
         /// <summary>
-        /// Gets or sets the time manager used for this scene.
+        /// Gets or sets the time manager that manages the scene's frame timing and run mode.
         /// </summary>
         ITimeManager TimeManager { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating if the scene is active.
+        /// Gets a value indicating whether the scene has already been initialized.
+        /// </summary>
+        /// <remarks>
+        ///     The base method <see cref="GameScene.Initialize()"/> must be called for
+        ///     this functionality to work.
+        /// <para>
+        ///     Example: Use base.Initialize() in child class Initalize() method.
+        /// </para>
+        /// </remarks>
+        bool Initialized { get; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the scene is active.
         /// </summary>
         bool Active { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating if the scene is currently in the rendering state.
+        /// Gets or sets a value indicating whether the scene is currently being rendered.
         /// </summary>
         bool IsRenderingScene { get; set; }
 
@@ -42,6 +56,11 @@ namespace KDScorpionEngine.Scene
         int Id { get; set; }
 
         /// <summary>
+        /// Gets the list of entities that are added to the scene.
+        /// </summary>
+        ReadOnlyCollection<IEntity> Entities { get; }
+
+        /// <summary>
         /// Initializes the scene.
         /// </summary>
         void Initialize();
@@ -49,13 +68,19 @@ namespace KDScorpionEngine.Scene
         /// <summary>
         /// Loads all content for the scene using the given <paramref name="contentLoader"/>.
         /// </summary>
-        /// <param name="contentManager">The content loader to use for loading and unloading the scene's content.</param>
-        void LoadContent(ContentLoader contentLoader);
+        /// <param name="contentLoader">The content loader to use for loading the scene's content.</param>
+        void LoadContent(IContentLoader contentLoader);
 
         /// <summary>
         /// Unloads all content for the scene using the given <paramref name="contentLoader"/>.
         /// </summary>
-        /// <param name="contentManager">The content loader to use for loading and unloading the scene's content.</param>
-        void UnloadContent(ContentLoader contentLoader);
+        /// <param name="contentLoader">The content loader to use for unloading the scene's content.</param>
+        void UnloadContent(IContentLoader contentLoader);
+
+        /// <summary>
+        /// Adds the given <paramref name="entity"/> to the scene.
+        /// </summary>
+        /// <param name="entity">The entity to add.</param>
+        void AddEntity(IEntity entity);
     }
 }

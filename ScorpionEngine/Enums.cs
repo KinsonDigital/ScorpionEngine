@@ -33,11 +33,6 @@ namespace KDScorpionEngine
         /// The key release event will fire after a set time delay.
         /// </summary>
         OnKeyReleaseTimeDelay = 5,
-
-        /// <summary>
-        /// The key release event will fire after any key has been released.
-        /// </summary>
-        OnAnyKeyPress = 6,
     }
 
     /// <summary>
@@ -84,6 +79,22 @@ namespace KDScorpionEngine
         /// Down right movement.
         /// </summary>
         DownRight = 8,
+    }
+
+    /// <summary>
+    /// Represents horizontal direction on the X axis only.
+    /// </summary>
+    public enum HorizontalDirection
+    {
+        /// <summary>
+        /// Left movement
+        /// </summary>
+        Left = 1,
+
+        /// <summary>
+        /// Right movement
+        /// </summary>
+        Right = 2
     }
 
     /// <summary>
@@ -137,5 +148,24 @@ namespace KDScorpionEngine
         /// Count down towards the negative direction.
         /// </summary>
         Decrement,
+    }
+
+    /// <summary>
+    /// The kind of running that a scene will run in.
+    /// </summary>
+    public enum SceneRunMode
+    {
+        /// <summary>
+        /// Updates a scene every single frame.
+        /// </summary>
+        Continuous,
+
+        /// <summary>
+        /// Updates a scene only when a set amount of updates have executed.
+        /// </summary>
+        /// <remarks>
+        /// Example: If the frames per stack are set to 5, then a scene will only update once every 5 frames.
+        /// </remarks>
+        FrameStack,
     }
 }

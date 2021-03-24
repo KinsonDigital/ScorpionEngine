@@ -4,9 +4,8 @@
 
 namespace KDScorpionEngineTests.Scene
 {
-    using System;
+    using KDScorpionEngine;
     using KDScorpionEngine.Scene;
-    using Raptor;
     using Xunit;
 
     /// <summary>
@@ -94,10 +93,10 @@ namespace KDScorpionEngineTests.Scene
         {
             // Arrange
             var manager = new SceneTimeManager();
-            var expected = RunMode.FrameStack;
+            var expected = SceneRunMode.FrameStack;
 
             // Act
-            manager.Mode = RunMode.FrameStack;
+            manager.Mode = SceneRunMode.FrameStack;
             var actual = manager.Mode;
 
             // Assert
@@ -114,8 +113,8 @@ namespace KDScorpionEngineTests.Scene
             var expected = 2;
 
             // Act
-            manager.Update(new EngineTime());
-            manager.Update(new EngineTime());
+            manager.Update(new GameTime());
+            manager.Update(new GameTime());
             var actual = manager.TotalFramesRan;
 
             // Assert
@@ -128,13 +127,16 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var manager = new SceneTimeManager()
             {
-                Mode = RunMode.FrameStack,
+                Mode = SceneRunMode.FrameStack,
                 FrameTime = 32,
             };
             var expected = 16;
+            var gameTime = new GameTime();
+            gameTime.AddTime(16);
 
             // Act
-            manager.Update(new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) });
+            manager.Update(gameTime);
+
             var actual = manager.ElapsedFrameTime;
 
             // Assert
@@ -147,15 +149,16 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var manager = new SceneTimeManager()
             {
-                Mode = RunMode.FrameStack,
+                Mode = SceneRunMode.FrameStack,
                 FrameTime = 16,
             };
             var expected = 0;
-            var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 9) };
+            var gameTime = new GameTime();
+            gameTime.AddTime(16);
 
             // Act
-            manager.Update(engineTime);
-            manager.Update(engineTime);
+            manager.Update(gameTime);
+            manager.Update(gameTime);
             var actual = manager.ElapsedFrameTime;
 
             // Assert
@@ -168,14 +171,15 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var manager = new SceneTimeManager()
             {
-                Mode = RunMode.FrameStack,
+                Mode = SceneRunMode.FrameStack,
                 FrameTime = 16,
             };
-            var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 9) };
+            var gameTime = new GameTime();
+            gameTime.AddTime(9);
 
             // Act
-            manager.Update(engineTime);
-            manager.Update(engineTime);
+            manager.Update(gameTime);
+            manager.Update(gameTime);
             var actual = manager.ElapsedFramesForStack;
 
             // Assert
@@ -188,15 +192,16 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var manager = new SceneTimeManager()
             {
-                Mode = RunMode.FrameStack,
+                Mode = SceneRunMode.FrameStack,
                 FrameTime = 16,
             };
             var expected = 1;
-            var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 9) };
+            var gameTime = new GameTime();
+            gameTime.AddTime(9);
 
             // Act
-            manager.Update(engineTime);
-            manager.Update(engineTime);
+            manager.Update(gameTime);
+            manager.Update(gameTime);
             var actual = manager.TotalFramesRan;
 
             // Assert
@@ -209,16 +214,17 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var manager = new SceneTimeManager()
             {
-                Mode = RunMode.FrameStack,
+                Mode = SceneRunMode.FrameStack,
                 FrameTime = 16,
                 FramesPerStack = 10,
             };
-            var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 9) };
+            var gameTime = new GameTime();
+            gameTime.AddTime(9);
 
             // Act
             for (var i = 0; i < 20; i++)
             {
-                manager.Update(engineTime);
+                manager.Update(gameTime);
             }
 
             var actual = manager.ElapsedFramesForStack;
@@ -233,17 +239,18 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var manager = new SceneTimeManager()
             {
-                Mode = RunMode.FrameStack,
+                Mode = SceneRunMode.FrameStack,
                 FrameTime = 16,
                 FramesPerStack = 10,
             };
             var expected = true;
-            var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 9) };
+            var gameTime = new GameTime();
+            gameTime.AddTime(9);
 
             // Act
             for (var i = 0; i < 20; i++)
             {
-                manager.Update(engineTime);
+                manager.Update(gameTime);
             }
 
             var actual = manager.Paused;
@@ -258,7 +265,7 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var manager = new SceneTimeManager()
             {
-                Mode = RunMode.FrameStack,
+                Mode = SceneRunMode.FrameStack,
                 FrameTime = 16,
                 FramesPerStack = 10,
             };
@@ -266,16 +273,30 @@ namespace KDScorpionEngineTests.Scene
             var expectedEventInvoked = true;
 
             manager.FrameStackFinished += (sender, e) => actualEventInvoked = true;
-            var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 9) };
+            var gameTime = new GameTime();
+            gameTime.AddTime(9);
 
             // Act
             for (var i = 0; i < 20; i++)
             {
-                manager.Update(engineTime);
+                manager.Update(gameTime);
             }
 
             // Assert
             Assert.Equal(expectedEventInvoked, actualEventInvoked);
+        }
+
+        [Fact]
+        public void Play_WhenInvoked_SetsPausedState()
+        {
+            // Arrange
+            var manager = new SceneTimeManager();
+
+            // Act
+            manager.Play();
+
+            // Assert
+            Assert.False(manager.Paused);
         }
 
         [Fact]
@@ -284,7 +305,7 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var manager = new SceneTimeManager()
             {
-                Mode = RunMode.FrameStack,
+                Mode = SceneRunMode.FrameStack,
             };
             manager.Pause();
             var expected = false;
@@ -298,12 +319,29 @@ namespace KDScorpionEngineTests.Scene
         }
 
         [Fact]
+        public void RunFrameStack_WhenInvokingInContinuousMode_PauseValuesDoesNotChange()
+        {
+            // Arrange
+            var manager = new SceneTimeManager()
+            {
+                Mode = SceneRunMode.Continuous,
+            };
+            manager.Pause();
+
+            // Act
+            manager.RunFrameStack();
+
+            // Assert
+            Assert.True(manager.Paused);
+        }
+
+        [Fact]
         public void RunFrames_WhenInvokingInContinuousMode_PauseStaysSetToTrue()
         {
             // Arrange
             var manager = new SceneTimeManager()
             {
-                Mode = RunMode.Continuous,
+                Mode = SceneRunMode.Continuous,
             };
             manager.Pause();
             var expected = true;
@@ -322,16 +360,17 @@ namespace KDScorpionEngineTests.Scene
             // Arrange
             var manager = new SceneTimeManager()
             {
-                Mode = RunMode.FrameStack,
+                Mode = SceneRunMode.FrameStack,
                 FrameTime = 16,
                 FramesPerStack = 10,
             };
             manager.Pause();
-            var engineTime = new EngineTime() { ElapsedEngineTime = new TimeSpan(0, 0, 0, 0, 16) };
+            var gameTime = new GameTime();
+            gameTime.AddTime(16);
 
             // Act
             manager.RunFrames(1);
-            manager.Update(engineTime);
+            manager.Update(gameTime);
             var actual = manager.FramesPerStack;
 
             // Assert

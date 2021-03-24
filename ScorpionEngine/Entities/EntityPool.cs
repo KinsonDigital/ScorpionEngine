@@ -5,174 +5,292 @@
 namespace KDScorpionEngine.Entities
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Diagnostics.CodeAnalysis;
-    using System.Numerics;
-    using KDScorpionEngine.Events;
-    using Raptor;
+    using System.Linq;
+    using KDScorpionEngine.Factories;
+    using KDScorpionEngine.Graphics;
+    using Raptor.Content;
+    using Raptor.Factories;
 
     /// <summary>
-    /// Represents a set amount of entities that can be used over and over.
+    /// Creates a pool of entities of type <typeparamref name="TEntity"/>.
     /// </summary>
-    // TODO: Get this working and setup unit tests.  Wait for when you create a game for testing
-    // Also take the out of bounds concept and remove it from this class and create a custom
-    // behavior called OutOfBoundsBehavior.  This behavior can then be added to this class to pull off this concept.
-    [ExcludeFromCodeCoverage]
-    public abstract class EntityPool : IEnumerable
+    /// <typeparam name="TEntity">The type of entity that the pool will contain.</typeparam>
+    /// <remarks>
+    ///     This is used for performance when large quantities of entities are needed,
+    ///     such as bullets or waves of enemies.
+    /// </remarks>
+    public class EntityPool<TEntity>
+        where TEntity : class, IEntity, new()
     {
-        private readonly List<DynamicEntity> objects = new List<DynamicEntity>(); // The pool of objects to manage.
-        private Rect triggerBounds; // The bounds used to trigger the out of bounds trigger
+        private readonly Dictionary<Guid, TEntity> entitites = new Dictionary<Guid, TEntity>();
+        private readonly IContentLoader contentLoader;
+        private readonly IEntityFactory entityFactory;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EntityPool"/> class.
+        /// Initializes a new instance of the <see cref="EntityPool{TEntity}"/> class.
         /// </summary>
+        /// <param name="contentLoader">Loads content for newly created entities.</param>
+        /// <param name="entityFactory">Generates entity instances.</param>
+        public EntityPool(IContentLoader contentLoader, IEntityFactory entityFactory)
+        {
+            this.contentLoader = contentLoader;
+            this.entityFactory = entityFactory;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EntityPool{TEntity}"/> class.
+        /// </summary>
+        /// <remarks>
+        ///     A content loader is automatically provided.
+        /// </remarks>
+        [ExcludeFromCodeCoverage]
         public EntityPool()
         {
+            this.contentLoader = ContentLoaderFactory.CreateContentLoader();
+            this.entityFactory = IoC.Container.GetInstance<IEntityFactory>();
         }
 
         /// <summary>
-        /// Occurs whenever an entity in the entity pool goes out of bounds.
+        /// Gets or sets the total amount of items that the pool can contain.
         /// </summary>
-        public event EventHandler<OutOfBoundsTriggerEventsArgs> OnOutOfBounds;
+        /// <remarks>
+        ///     The ideal number is just enough items to satisfy the purpose of the pool.
+        /// <para>
+        ///     Example: If the bullets from a player ship move fast enough across the entire
+        ///     window where it is only possible to see 100 bullets at one time, then
+        ///     the ideal <see cref="MaxPoolSize"/> would be 100-110.
+        /// </para>
+        /// </remarks>
+        public int MaxPoolSize { get; set; } = 10;
 
         /// <summary>
-        /// Gets or sets the name of the entity pool.
+        /// Gets the total number of active entities.
         /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets total number of entities in the entity pool.
-        /// </summary>
-        public int Count => this.objects.Count;
-
-        /// <summary>
-        /// Gets or sets a value indicating if the out of bounds trigger will be processed for each entity.
-        /// </summary>
-        public bool OutOfBoundsTriggerEnabled { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating if the entities in the pool will have there OnUpdate method called when visible only.
-        /// </summary>
-        /// <returns></returns>
-        public bool OnlyUpdateWhenVisible { get; set; }
-
-        /// <summary>
-        /// Gets or sets the direction that the entities will move when visible.
-        /// </summary>
-        public Direction DirectionWhenVisible { get; set; }
-
-        /// <summary>
-        /// Gets or sets an entity in the entity pool.
-        /// </summary>
-        /// <returns></returns>
-        public DynamicEntity this[int index]
+        /// <remarks>
+        ///     An entity is considered active when it is visible or enabled.
+        /// </remarks>
+        public int TotalActive
         {
-            get => this.objects[index];
-            set => this.objects.Insert(index, value);
-        }
-
-        /// <summary>
-        /// Adds the given <paramref name="entity"/> to the entity pool.
-        /// </summary>
-        /// <param name="entity">The entity to add.</param>
-        public void AddGameObject(DynamicEntity entity) => this.objects.Add(entity);
-
-        /// <summary>
-        /// Shows the next available item in the pool.
-        /// </summary>
-        public void ShowNext()
-        {
-            // Check for the first entity that is visible
-            for (var i = 0; i < this.objects.Count; i++)
+            get
             {
-                if (!this.objects[i].Visible)
+                var result = 0;
+
+                var keys = this.entitites.Keys.ToArray();
+
+                for (var i = 0; i < keys.Length; i++)
                 {
-                    this.objects[i].Visible = true;
-                    break;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Sets bounds for the out of bounds trigger.
-        /// </summary>
-        /// <param name="bounds">The bounds used to invoke the out of bounds trigger for each entity.</param>
-        public void SetOutOfBoundsTrigger(Rect bounds) => this.triggerBounds = bounds;
-
-        /// <summary>
-        /// Returns an enumerator that iterates through the entity pool.
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerator GetEnumerator() => this.objects.GetEnumerator();
-
-        /// <summary>
-        /// Shows all of the entities.
-        /// </summary>
-        public void ShowAll()
-        {
-            for (var i = 0; i < this.objects.Count; i++)
-            {
-                this.objects[i].Visible = true;
-            }
-        }
-
-        /// <summary>
-        /// Hides all of the entities.
-        /// </summary>
-        public void HideAll()
-        {
-            for (var i = 0; i < this.objects.Count; i++)
-            {
-                this.objects[i].Visible = false;
-            }
-        }
-
-        /// <summary>
-        /// Applies the given speed to an entity that match the given <paramref name="thatAre"/> parameter.
-        /// </summary>
-        /// <param name="thatAre">The state of the entity that the speed will be applied to.</param>
-        /// <param name="speed">The speed to apply.</param>
-        public void ApplySpeedTo(EntitiesThatAre thatAre, Vector2 speed) => throw new NotImplementedException();
-
-        /// <summary>
-        /// Sets the given angle velocity to entities that fit the given description.
-        /// </summary>
-        /// <param name="thatAre">The state of the entity that the velocity will be applied to.</param>
-        /// <param name="angleVelocity">The setting to apply.</param>
-        public void ApplyAngleVelocityTo(EntitiesThatAre thatAre, int angleVelocity) => throw new NotImplementedException();
-
-        /// <summary>
-        /// Updates the entity pool.
-        /// </summary>
-        public virtual void Update(IEngineTiming engineTime)
-        {
-            // Update each entity
-            for (var i = 0; i < this.objects.Count; i++)
-            {
-                if (OutOfBoundsTriggerEnabled && this.objects[i].Visible)
-                {
-                    // If the position of the current entity is out of bounds,
-                    // invoke the out of bounds trigger event
-                    if (!this.triggerBounds.Contains(this.objects[i].Position))
+                    if (this.entitites[keys[i]].Visible && this.entitites[keys[i]].Enabled)
                     {
-                        OnOutOfBounds?.Invoke(this, new OutOfBoundsTriggerEventsArgs(this.objects[i]));
+                        result += 1;
                     }
                 }
 
-                if (OnlyUpdateWhenVisible)
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Gets the totla number of inactive entities.
+        /// </summary>
+        /// <remarks>
+        ///     An entity is considered inactive when it is both hidden and disabled.
+        /// </remarks>
+        public int TotalInactive
+        {
+            get
+            {
+                var result = 0;
+
+                var keys = this.entitites.Keys.ToArray();
+
+                for (var i = 0; i < keys.Length; i++)
                 {
-                    // Checks if the current entity is visible, if so then the entity will be moved
-                    if (this.objects[i].Visible)
+                    if (!this.entitites[keys[i]].Visible && !this.entitites[keys[i]].Enabled)
                     {
-                        // _objects[i].OnUpdate(engineTime);
+                        result += 1;
                     }
                 }
-                else
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Gets the list of entities in the pool.
+        /// </summary>
+        public ReadOnlyCollection<TEntity> Entitities => new ReadOnlyCollection<TEntity>(this.entitites.Values.ToArray());
+
+        /// <summary>
+        /// Generates an entity that can animate from a texture that matches the given
+        /// <paramref name="atlasName"/> that uses the sub textures in the texture atlas for animation frames.
+        /// </summary>
+        /// <param name="atlasName">The name of the texture atlas that contains the graphical content.</param>
+        /// <param name="subTextureName">The name of the sub textures in the atlas to use.</param>
+        public void GenerateAnimated(string atlasName, string subTextureName)
+        {
+            if (this.entitites.Count >= MaxPoolSize)
+            {
+                return;
+            }
+
+            GenerateEntity(
+                () => RenderSection.CreateAnimatedSubTexture(atlasName, subTextureName),
+                () => this.entityFactory.CreateAnimated<TEntity>(atlasName, subTextureName));
+        }
+
+        /// <summary>
+        /// Generates an entity that does not animate from a texture that matches the given
+        /// <paramref name="atlasName"/> that uses a single sub texture in the texture atlas.
+        /// </summary>
+        /// <param name="atlasName">The name of the texture atlas that contains the graphical content.</param>
+        /// <param name="subTextureName">The name of the sub textures in the atlas to use.</param>
+        public void GenerateNonAnimatedFromTextureAtlas(string atlasName, string subTextureName)
+        {
+            if (this.entitites.Count >= MaxPoolSize)
+            {
+                return;
+            }
+
+            GenerateNonAnimatedFromTextureAtlas(atlasName, subTextureName, (_) => { });
+        }
+
+        /// <summary>
+        /// Generates an entity that does not animate from a texture that matches the given
+        /// <paramref name="atlasName"/> that uses a single sub texture in the texture atlas
+        /// that matches the given <param name="subTextureName"/>.
+        /// <para>
+        /// Once the entity has been created, gives te ability to apply changes to the entity via
+        /// the execution of the <paramref name="onGenerate"/> action delegate.
+        /// </para>
+        /// </summary>
+        /// <param name="atlasName">The name of the texture atlas that contains the graphical content.</param>
+        /// <param name="subTextureName">The name of the sub textures in the atlas to use.</param>
+        /// <param name="onGenerate">Used to perform manipulation on the new entity after creation.</param>
+        public void GenerateNonAnimatedFromTextureAtlas(string atlasName, string subTextureName, Action<TEntity> onGenerate)
+        {
+            if (this.entitites.Count >= MaxPoolSize)
+            {
+                return;
+            }
+
+            GenerateEntity(
+                () => RenderSection.CreateNonAnimatedSubTexture(atlasName, subTextureName),
+                () =>
                 {
-                    // _objects[i].OnUpdate(engineTime);
+                    var entity = (TEntity)this.entityFactory.CreateNonAnimatedFromTextureAtlas<TEntity>(atlasName, subTextureName);
+
+                    if (entity is null)
+                    {
+                        throw new NullReferenceException($"The generated entity from '{atlasName}' with sub texture '{subTextureName}' cannot be null.");
+                    }
+
+                    onGenerate(entity);
+
+                    return entity;
+                });
+        }
+
+        /// <summary>
+        /// Generates an entity that does not animate from an entire texture.
+        /// </summary>
+        /// <param name="textureName">The name of the texture.</param>
+        public void GenerateNonAnimatedFromTexture(string textureName)
+        {
+            if (this.entitites.Count >= MaxPoolSize)
+            {
+                return;
+            }
+
+            GenerateEntity(
+                () => RenderSection.CreateNonAnimatedWholeTexture(textureName),
+                () => this.entityFactory.CreateNonAnimatedFromTexture<TEntity>(textureName));
+        }
+
+        /// <summary>
+        /// Updates all of the entities in the pool.
+        /// </summary>
+        /// <param name="gameTime">The amount of time passed this current frame and the game.</param>
+        public void Update(GameTime gameTime)
+        {
+            foreach (var entity in this.entitites.Values)
+            {
+                entity.Update(gameTime);
+            }
+        }
+
+        /// <summary>
+        /// Renders all of the entitites in the pool.
+        /// </summary>
+        /// <param name="renderer">Used to render the entities.</param>
+        public void Render(IRenderer renderer)
+        {
+            foreach (var entity in this.entitites.Values)
+            {
+                renderer.Render(entity);
+            }
+        }
+
+        /// <summary>
+        /// Generates an entity using content that matches the given texture name.
+        /// </summary>
+        /// <param name="generateSection">Delegate that generates a <see cref="RenderSection"/>.</param>
+        /// <param name="generateEntity">Delegate that generates an entity.</param>
+        /// <returns>A new entity or one from the pool.</returns>
+        private TEntity GenerateEntity(Func<RenderSection> generateSection, Func<IEntity> generateEntity)
+        {
+            var success = TryTake(out TEntity? newEntity);
+
+            if (success && !(newEntity is null))
+            {
+                // TODO: This might not be necessary if it is reassinged on line below.
+                // Look into removing this
+                newEntity.SectionToRender.Reset();
+                newEntity.SectionToRender = generateSection();
+            }
+            else
+            {
+                newEntity = (TEntity)generateEntity();
+            }
+
+            newEntity.Init();
+            newEntity.LoadContent(this.contentLoader);
+
+            if (!this.entitites.ContainsKey(newEntity.ID))
+            {
+                this.entitites.Add(newEntity.ID, newEntity);
+            }
+
+            return newEntity;
+        }
+
+        /// <summary>
+        /// Attemptes to take an available/recycled entity from the pool.
+        /// If an available entity is not found, returns a null entity and false.
+        /// </summary>
+        /// <param name="entity">The recycled entity from the pool.</param>
+        /// <returns>
+        ///     <see langword="true"/> if an available entity was found.
+        /// </returns>
+        private bool TryTake(out TEntity? entity)
+        {
+            foreach (var currentEntity in this.entitites.Values)
+            {
+                if (!currentEntity.Visible && !currentEntity.Enabled)
+                {
+                    currentEntity.Visible = true;
+                    currentEntity.Enabled = true;
+                    entity = currentEntity;
+
+                    return true;
                 }
             }
+
+            entity = null;
+
+            return false;
         }
     }
 }
