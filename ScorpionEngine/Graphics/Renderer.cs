@@ -26,7 +26,7 @@ namespace KDScorpionEngine.Graphics
         /// <param name="renderSurfaceWidth">The width of the rendering surface.</param>
         /// <param name="renderSurfaceHeight">The height of the rendering surface.</param>
         /// <remarks>
-        ///     The <param name="renderSurfaceWidth"> and <param name="renderSurfaceHeight"/> are usually the entire width and height of the window.
+        ///     The <param name="renderSurfaceWidth"/> and <param name="renderSurfaceHeight"/> are usually the entire width and height of the window.
         /// </remarks>
         public Renderer(ISpriteBatch spriteBatch, int renderSurfaceWidth, int renderSurfaceHeight)
         {
@@ -41,7 +41,7 @@ namespace KDScorpionEngine.Graphics
         /// <param name="renderSurfaceWidth">The width of the rendering surface.</param>
         /// <param name="renderSurfaceHeight">The height of the rendering surface.</param>
         /// <remarks>
-        ///     The <param name="renderSurfaceWidth"> and <param name="renderSurfaceHeight"/> are usually the entire width and height of the window.
+        ///     The <param name="renderSurfaceWidth"/> and <param name="renderSurfaceHeight"/> are usually the entire width and height of the window.
         /// </remarks>
         [ExcludeFromCodeCoverage]
         public Renderer(int renderSurfaceWidth, int renderSurfaceHeight)
